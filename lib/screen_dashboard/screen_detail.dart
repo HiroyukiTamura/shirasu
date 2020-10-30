@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/screen_dashboard/billing_btn.dart';
+import 'package:shirasu/screen_dashboard/content_cell.dart';
 import 'package:shirasu/screen_dashboard/row_channel.dart';
+import 'package:shirasu/screen_dashboard/row_fabs.dart';
 import 'package:shirasu/screen_dashboard/row_video_desc.dart';
 import 'package:shirasu/screen_dashboard/row_video_time.dart';
 import 'package:shirasu/screen_dashboard/row_video_tags.dart';
@@ -20,6 +22,8 @@ class ScreenDetail extends StatelessWidget {
   ];
   static const _BILLING_PROMO_ONE_TIME = '880円でこの番組を購入';
   static const _BILLING_PROMO_CHANNEL = '月額6600円でこのチャンネルを購読';
+  static const _BILLING_PROMO_ONE_TIME_M = '880円で\n番組を購入';
+  static const _BILLING_PROMO_CHANNEL_M = '月額6600円で\nチャンネルを購読';
   static const _IMG_URL =
       'https://shirasu-storage-product.s3.amazonaws.com/public/programs/genron-genron-20201027/thumbnail';
   static const _CHANNEL_IMG_URL =
@@ -57,91 +61,7 @@ https://youtu.be/n3rm4aaH0m8
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
           child: Container(
-            child: ListView.builder(
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  switch (index) {
-                    case 0:
-                      return AspectRatio(
-                        aspectRatio: ScreenDetail._IMG_RATIO,
-                        child: CachedNetworkImage(imageUrl: _IMG_URL),
-                      );
-                    case 1:
-                      return SizedBox(height: 16);
-                    case 2:
-                      return RowChannel(
-                        title: _CHANNEL_TITLE,
-                        imageUrl: _CHANNEL_IMG_URL,
-                      );
-                    case 3:
-                      return SizedBox(height: 12);
-                    // case 2:
-                    //   return Padding(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    //     child: Row(
-                    //       children: [
-                    //         Container(
-                    //           padding: EdgeInsets.symmetric(
-                    //               horizontal: 8, vertical: 2),
-                    //           decoration: BoxDecoration(
-                    //               color: Theme.of(context).primaryColor,
-                    //               borderRadius: BorderRadius.circular(20)),
-                    //           child: Text(
-                    //             '放送中',
-                    //             style: TextStyle(
-                    //               color: Colors.white,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         SizedBox(
-                    //           width: 8,
-                    //         ),
-                    //         Container(
-                    //           padding: EdgeInsets.symmetric(
-                    //               horizontal: 8, vertical: 2),
-                    //           decoration: BoxDecoration(
-                    //               color: Theme.of(context).primaryColor,
-                    //               borderRadius: BorderRadius.circular(20)),
-                    //           child: Text(
-                    //             '購入済',
-                    //             style: TextStyle(
-                    //               color: Colors.white,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   );
-                    // case 3:
-                    //   return SizedBox(
-                    //     height: 8,
-                    //   );
-                    case 4:
-                      return RowVideoTitle(text: _VIDEO_TITLE);
-                    case 5:
-                      return SizedBox(height: 4);
-                    case 6:
-                      return RowVideoTime(text: _VIDEO_TIME);
-                    case 7:
-                      return SizedBox(height: 16);
-                    case 8:
-                      return RowVideoTags(textList: _TAG_LIST);
-                    case 11:
-                      return SizedBox(height: 36);
-                    case 12:
-                      return BillingBtn(text: _BILLING_PROMO_ONE_TIME);
-                    case 13:
-                      return SizedBox(height: 16);
-                    case 14:
-                      return BillingBtn(text: _BILLING_PROMO_CHANNEL);
-                    case 15:
-                      return SizedBox(height: 36);
-                    case 16:
-                      return RowVideoDesc(text: _VIDEO_DESC);
-                    default:
-                      return const SizedBox(height: 0);
-                  }
-                }),
+            child: contentWidgetBilledOneTime(),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -169,4 +89,143 @@ https://youtu.be/n3rm4aaH0m8
           ],
         ),
       );
+
+  static Widget contentWidget() => ListView.builder(
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return AspectRatio(
+              aspectRatio: ScreenDetail._IMG_RATIO,
+              child: CachedNetworkImage(imageUrl: _IMG_URL),
+            );
+          case 1:
+            return SizedBox(height: 16);
+          case 2:
+            return RowChannel(
+              title: _CHANNEL_TITLE,
+              imageUrl: _CHANNEL_IMG_URL,
+            );
+          case 3:
+            return SizedBox(height: 12);
+          // case 2:
+          //   return Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 8),
+          //     child: Row(
+          //       children: [
+          //         Container(
+          //           padding: EdgeInsets.symmetric(
+          //               horizontal: 8, vertical: 2),
+          //           decoration: BoxDecoration(
+          //               color: Theme.of(context).primaryColor,
+          //               borderRadius: BorderRadius.circular(20)),
+          //           child: Text(
+          //             '放送中',
+          //             style: TextStyle(
+          //               color: Colors.white,
+          //             ),
+          //           ),
+          //         ),
+          //         SizedBox(
+          //           width: 8,
+          //         ),
+          //         Container(
+          //           padding: EdgeInsets.symmetric(
+          //               horizontal: 8, vertical: 2),
+          //           decoration: BoxDecoration(
+          //               color: Theme.of(context).primaryColor,
+          //               borderRadius: BorderRadius.circular(20)),
+          //           child: Text(
+          //             '購入済',
+          //             style: TextStyle(
+          //               color: Colors.white,
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   );
+          // case 3:
+          //   return SizedBox(
+          //     height: 8,
+          //   );
+          case 4:
+            return RowVideoTitle(text: _VIDEO_TITLE);
+          case 5:
+            return SizedBox(height: 4);
+          case 6:
+            return RowVideoTime(text: _VIDEO_TIME);
+          case 7:
+            return SizedBox(height: 16);
+          case 8:
+            return RowVideoTags(textList: _TAG_LIST);
+          case 9:
+            return SizedBox(height: 36);
+          case 10:
+            return BillingBtn(text: _BILLING_PROMO_ONE_TIME);
+          case 11:
+            return SizedBox(height: 16);
+          case 12:
+            return BillingBtn(text: _BILLING_PROMO_CHANNEL);
+          case 13:
+            return SizedBox(height: 36);
+          case 14:
+            return RowVideoDesc(text: _VIDEO_DESC);
+          default:
+            throw Exception('unexpected index $index');
+        }
+      });
+
+  static Widget contentWidgetBilledOneTime() => ListView.builder(
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return AspectRatio(
+              aspectRatio: ScreenDetail._IMG_RATIO,
+              child: CachedNetworkImage(imageUrl: _IMG_URL),
+            );
+          case 1:
+            return SizedBox(height: 16);
+          case 2:
+            return RowChannel(
+              title: _CHANNEL_TITLE,
+              imageUrl: _CHANNEL_IMG_URL,
+            );
+          case 3:
+            return SizedBox(height: 12);
+          case 4:
+            return RowVideoTitle(text: _VIDEO_TITLE);
+          case 5:
+            return SizedBox(height: 4);
+          case 6:
+            return RowVideoTime(text: _VIDEO_TIME);
+          case 7:
+            return SizedBox(height: 16);
+          case 8:
+            return RowVideoTags(textList: _TAG_LIST);
+          case 9:
+            return SizedBox(height: 36);
+          case 10:
+            return ContentCell(
+              child: Row(
+                children: [
+                  BillingBtnThin(text: _BILLING_PROMO_ONE_TIME_M),
+                  SizedBox(width: 16),
+                  BillingBtnThin(text: _BILLING_PROMO_CHANNEL_M),
+                ],
+              ),
+            );
+          case 11:
+            return SizedBox(height: 36);
+          case 12:
+            return RowFabs();
+          case 13:
+            return SizedBox(height: 36);
+          case 14:
+            return RowVideoDesc(text: _VIDEO_DESC);
+          default:
+            return SizedBox();
+        }
+      });
 }

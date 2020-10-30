@@ -12,46 +12,38 @@ class RowVideoTags extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ContentCell(
-    child: Wrap(
-      spacing: _SPACE,
-      runSpacing: _SPACE,
-      children: this
-          .textList
-          .map((text) => _VideoTagChip(
-                text: text,
-              ))
-          .toList(growable: false),
-    ),
-  );
+        child: Wrap(
+          spacing: _SPACE,
+          runSpacing: _SPACE,
+          children: textList
+              .map((text) => _VideoTagChip(text: text))
+              .toList(growable: false),
+        ),
+      );
 }
 
 class _VideoTagChip extends StatelessWidget {
   final String text;
 
-  const _VideoTagChip({this.text}) : super();
+  const _VideoTagChip({@required this.text}) : super();
 
   @override
-  Widget build(BuildContext context) => Container(
-        child: RichText(
-          text: TextSpan(
-              style: TextStyle(
-                color: Styles.colorTextSub,
-                fontSize: 13,
-              ),
-              children: [
-                WidgetSpan(
-                  child: Icon(
-                    FontAwesomeIcons.tag,
-                    size: 13,
-                    color: Colors.white.withOpacity(.5),
-                  ),
-                ),
-                WidgetSpan(
-                    child: SizedBox(
-                  width: 4,
-                )),
-                TextSpan(text: text)
-              ]),
+  Widget build(BuildContext context) => RichText(
+    text: TextSpan(
+        style: TextStyle(
+          color: Styles.colorTextSub,
+          fontSize: 13,
         ),
-      );
+        children: [
+          WidgetSpan(
+            child: Icon(
+              FontAwesomeIcons.tag,
+              size: 13,
+              color: Colors.white.withOpacity(.5),
+            ),
+          ),
+          WidgetSpan(child: SizedBox(width: 4)),
+          TextSpan(text: text)
+        ]),
+  );
 }

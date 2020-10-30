@@ -2,9 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/resource/styles.dart';
+import 'package:shirasu/screen_dashboard/billng_btn.dart';
 import 'package:shirasu/screen_dashboard/video_tag_chip.dart';
 
 class ScreenDashboard extends StatelessWidget {
+  static const _BILLING_PROMO_ONE_TIME = '880円でこの番組を購入';
+  static const _BILLING_PROMO_CHANNEL = '月額6600円でこのチャンネルを購読';
   static const _IMG_URL =
       'https://shirasu-storage-product.s3.amazonaws.com/public/programs/genron-genron-20201027/thumbnail';
   static const _CHANNEL_IMG_URL =
@@ -44,7 +47,7 @@ https://youtu.be/n3rm4aaH0m8
       body: SafeArea(
         child: Container(
           child: ListView.builder(
-              itemCount: 13,
+              itemCount: 20,
               itemBuilder: (context, index) {
                 switch (index) {
                   case 0:
@@ -162,7 +165,8 @@ https://youtu.be/n3rm4aaH0m8
                             padding: EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
                               _CHANNEL_TITLE,
-                              style: TextStyle(color: Colors.white, fontSize: 16),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
                             ),
                           )
                         ],
@@ -171,6 +175,14 @@ https://youtu.be/n3rm4aaH0m8
                   case 11:
                     return SizedBox(height: 36);
                   case 12:
+                    return BillingBtn(text: _BILLING_PROMO_ONE_TIME);
+                  case 13:
+                    return SizedBox(height: 16);
+                  case 14:
+                    return BillingBtn(text: _BILLING_PROMO_CHANNEL);
+                  case 15:
+                    return SizedBox(height: 36);
+                  case 16:
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(

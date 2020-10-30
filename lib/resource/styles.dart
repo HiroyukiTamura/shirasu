@@ -4,6 +4,8 @@ class Styles {
 
   static const TEXT_HEIGHT = 1.3;
 
+  static final colorTextSub = Colors.white.withOpacity(.7);
+
   static final theme = ThemeData(
     // This makes the visual density adapt to the platform that you run
     // the app on. For desktop platforms, the controls will be smaller and

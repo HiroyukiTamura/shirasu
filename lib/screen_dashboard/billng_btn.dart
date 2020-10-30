@@ -13,7 +13,7 @@ class BillingBtn extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
+          border: Border.all(color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.circular(100),
         ),
         child: Row(

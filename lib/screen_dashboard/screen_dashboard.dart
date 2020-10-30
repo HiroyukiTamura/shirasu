@@ -60,46 +60,70 @@ https://youtu.be/n3rm4aaH0m8
                       height: 16,
                     );
                   case 2:
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      height: 24,
                       child: Row(
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(20)),
+                          CachedNetworkImage(
+                            imageUrl: _CHANNEL_IMG_URL,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
-                              '放送中',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                              _CHANNEL_TITLE,
+                              style:
+                              TextStyle(color: Colors.white, fontSize: 14),
                             ),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Text(
-                              '購入済',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                          )
                         ],
                       ),
                     );
                   case 3:
                     return SizedBox(
-                      height: 8,
+                      height: 12,
                     );
+                  // case 2:
+                  //   return Padding(
+                  //     padding: const EdgeInsets.symmetric(horizontal: 8),
+                  //     child: Row(
+                  //       children: [
+                  //         Container(
+                  //           padding: EdgeInsets.symmetric(
+                  //               horizontal: 8, vertical: 2),
+                  //           decoration: BoxDecoration(
+                  //               color: Theme.of(context).primaryColor,
+                  //               borderRadius: BorderRadius.circular(20)),
+                  //           child: Text(
+                  //             '放送中',
+                  //             style: TextStyle(
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 8,
+                  //         ),
+                  //         Container(
+                  //           padding: EdgeInsets.symmetric(
+                  //               horizontal: 8, vertical: 2),
+                  //           decoration: BoxDecoration(
+                  //               color: Theme.of(context).primaryColor,
+                  //               borderRadius: BorderRadius.circular(20)),
+                  //           child: Text(
+                  //             '購入済',
+                  //             style: TextStyle(
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   );
+                  // case 3:
+                  //   return SizedBox(
+                  //     height: 8,
+                  //   );
                   case 4:
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -123,7 +147,8 @@ https://youtu.be/n3rm4aaH0m8
                       child: Text(
                         _VIDEO_TIME,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(.7),
+                          color: Styles.colorTextSub,
+                          fontSize: 13,
                         ),
                       ),
                     );
@@ -145,30 +170,6 @@ https://youtu.be/n3rm4aaH0m8
                           VideoTagChip(text: '情報唯物論的等価交換'),
                           VideoTagChip(text: 'シラス'),
                           VideoTagChip(text: 'ゲンロン'),
-                        ],
-                      ),
-                    );
-                  case 9:
-                    return SizedBox(
-                      height: 36,
-                    );
-                  case 10:
-                    return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      height: 32,
-                      child: Row(
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: _CHANNEL_IMG_URL,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              _CHANNEL_TITLE,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            ),
-                          )
                         ],
                       ),
                     );
@@ -195,7 +196,7 @@ https://youtu.be/n3rm4aaH0m8
                       ),
                     );
                   default:
-                    return const SizedBox(height: 50);
+                    return const SizedBox(height: 0);
                 }
               }),
         ),

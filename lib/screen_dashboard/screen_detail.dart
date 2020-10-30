@@ -61,7 +61,7 @@ https://youtu.be/n3rm4aaH0m8
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
           child: Container(
-            child: contentWidgetBilledOneTime(),
+            child: contentWidget(),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -91,7 +91,7 @@ https://youtu.be/n3rm4aaH0m8
       );
 
   static Widget contentWidget() => ListView.builder(
-      itemCount: 15,
+      itemCount: 17,
       itemBuilder: (context, index) {
         switch (index) {
           case 0:
@@ -169,10 +169,15 @@ https://youtu.be/n3rm4aaH0m8
             return BillingBtn(text: _BILLING_PROMO_CHANNEL);
           case 13:
             return SizedBox(height: 36);
-          case 14:
+          // case 14:
+          //   return RowFabs();
+          // case 15:
+          //   return SizedBox(height: 36);
+          case 16:
             return RowVideoDesc(text: _VIDEO_DESC);
           default:
-            throw Exception('unexpected index $index');
+            return SizedBox();
+            // throw Exception('unexpected index $index');
         }
       });
 

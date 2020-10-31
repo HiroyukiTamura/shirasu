@@ -116,8 +116,6 @@ class _ScreenChannelState extends State<ScreenChannel>
                   ),
                 );
               case 8:
-                return SizedBox(height: 24);
-              case 9:
                 return PageMovieList();
               default:
                 return const SizedBox();

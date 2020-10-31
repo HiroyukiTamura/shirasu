@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/screen_detail/content_cell.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
@@ -21,9 +22,9 @@ class ScreenDetail extends StatelessWidget {
     'ゲンロン'
   ];
   static const _BILLING_PROMO_ONE_TIME = '880円でこの番組を購入';
-  static const _BILLING_PROMO_CHANNEL = '月額6600円でこのチャンネルを購読';
+  static const BILLING_PROMO_CHANNEL = '月額6600円でこのチャンネルを購読';
   static const _BILLING_PROMO_ONE_TIME_M = '880円で\n番組を購入';
-  static const _BILLING_PROMO_CHANNEL_M = '月額6600円で\nチャンネルを購読';
+  static const BILLING_PROMO_CHANNEL_M = '月額6600円で\nチャンネルを購読';
   static const _IMG_URL =
       'https://shirasu-storage-product.s3.amazonaws.com/public/programs/genron-genron-20201027/thumbnail';
   static const _CHANNEL_IMG_URL =
@@ -61,7 +62,7 @@ https://youtu.be/n3rm4aaH0m8
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
           child: Container(
-            child: contentWidget(),
+            child: ScreenChannel(),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -166,7 +167,7 @@ https://youtu.be/n3rm4aaH0m8
           case 11:
             return SizedBox(height: 16);
           case 12:
-            return BillingBtn(text: _BILLING_PROMO_CHANNEL);
+            return BillingBtn(text: BILLING_PROMO_CHANNEL);
           case 13:
             return SizedBox(height: 36);
           case 14:
@@ -217,7 +218,7 @@ https://youtu.be/n3rm4aaH0m8
                 children: [
                   BillingBtnThin(text: _BILLING_PROMO_ONE_TIME_M),
                   SizedBox(width: 16),
-                  BillingBtnThin(text: _BILLING_PROMO_CHANNEL_M),
+                  BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
                 ],
               ),
             );

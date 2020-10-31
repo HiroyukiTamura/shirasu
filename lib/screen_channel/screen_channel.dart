@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_channel/content_cell.dart';
-import 'package:shirasu/screen_channel/page_channel_detail.dart';
-import 'package:shirasu/screen_channel/page_movie_list.dart';
+import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
-import 'package:shirasu/screen_detail/screen_detail.dart';
 
 class ScreenChannel extends StatefulWidget {
   static const double _HEADER_ASPECT = 6;
@@ -43,84 +41,70 @@ class _ScreenChannelState extends State<ScreenChannel>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-          itemCount: 14,
-          itemBuilder: (context, index) {
-            switch (index) {
-              case 0:
-                return AspectRatio(
-                  aspectRatio: ScreenChannel._HEADER_ASPECT,
-                  child: CachedNetworkImage(
-                      imageUrl: ScreenChannel._HEADER_IMG_URL),
-                );
-              case 1:
-                return SizedBox(height: 24);
-              case 2:
-                return ContentCell(
-                  child: Row(
-                    children: [
-                      CachedNetworkImage(
-                        height: ScreenChannel._CHANNEL_LOGO_SIZE,
-                        width: ScreenChannel._CHANNEL_LOGO_SIZE,
-                        imageUrl: ScreenChannel._CHANNEL_LOGO_URL,
-                      ),
-                      SizedBox(width: 24),
-                      Text(
-                        ScreenChannel._CHANNEL_TITLE,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              case 3:
-                return SizedBox(height: 28);
-              case 4:
-                return ContentCell(
-                  child: Row(
-                    children: [
-                      BillingBtnMedium(
-                        text: _BILLING_PROMO_CHANNEL,
-                      ),
-                      Expanded(
-                        child: const SizedBox(),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.add_alert, color: Styles.colorTextSub,),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                );
-              case 5:
-                return SizedBox(height: 16);
-              case 6:
-                return ContentCell(
-                  child: TabBar(
-                      controller: _tabController,
-                      isScrollable: true,
-                      tabs: [
-                        Tab(text: '概要'),
-                        Tab(text: '動画'),
-                        Tab(text: 'お知らせ')
-                      ]),
-                );
-              case 7:
-                return SizedBox(
-                  height: .5,
-                  child: ColoredBox(
-                    color: Colors.white.withOpacity(.7),
-                  ),
-                );
-              case 8:
-                return PageMovieList();
-              default:
-                return const SizedBox();
-            }
-          }),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AspectRatio(
+          aspectRatio: ScreenChannel._HEADER_ASPECT,
+          child: CachedNetworkImage(imageUrl: ScreenChannel._HEADER_IMG_URL),
+        ),
+        SizedBox(height: 24),
+        ContentCell(
+          child: Row(
+            children: [
+              CachedNetworkImage(
+                height: ScreenChannel._CHANNEL_LOGO_SIZE,
+                width: ScreenChannel._CHANNEL_LOGO_SIZE,
+                imageUrl: ScreenChannel._CHANNEL_LOGO_URL,
+              ),
+              SizedBox(width: 24),
+              Text(
+                ScreenChannel._CHANNEL_TITLE,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        ContentCell(
+          child: Row(
+            children: [
+              BillingBtnMedium(
+                text: _BILLING_PROMO_CHANNEL,
+              ),
+              Expanded(
+                child: const SizedBox(),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.add_alert,
+                  color: Styles.colorTextSub,
+                ),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        ContentCell(
+          child: TabBar(
+              controller: _tabController,
+              isScrollable: true,
+              tabs: [Tab(text: '概要'), Tab(text: '動画'), Tab(text: 'お知らせ')]),
+        ),
+        SizedBox(
+          height: .5,
+          child: ColoredBox(
+            color: Colors.white.withOpacity(.7),
+          ),
+        ),
+        Expanded(
+          child: PageNotification(),
+        ),
+      ],
     );
   }
 }

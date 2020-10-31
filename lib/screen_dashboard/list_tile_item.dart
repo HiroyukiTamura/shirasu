@@ -32,7 +32,7 @@ class ListTileItem extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: SizedBox(
-                      height: 4,
+                      height: 2,
                       child: LinearProgressIndicator(value: .3,),
                     ),
                   ),

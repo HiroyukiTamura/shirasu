@@ -169,10 +169,10 @@ https://youtu.be/n3rm4aaH0m8
             return BillingBtn(text: _BILLING_PROMO_CHANNEL);
           case 13:
             return SizedBox(height: 36);
-          // case 14:
-          //   return RowFabs();
-          // case 15:
-          //   return SizedBox(height: 36);
+          case 14:
+            return RowFabs();
+          case 15:
+            return SizedBox(height: 36);
           case 16:
             return RowVideoDesc(text: _VIDEO_DESC);
           default:

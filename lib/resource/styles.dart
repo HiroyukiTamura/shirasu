@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Styles {
 
   static const TEXT_HEIGHT = 1.3;
+  static const TEXT_H_SML = 1.2;
 
   static final colorTextSub = Colors.white.withOpacity(.7);
 

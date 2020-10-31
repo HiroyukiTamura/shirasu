@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_channel/content_cell.dart';
 import 'package:shirasu/screen_channel/page_channel_detail.dart';
+import 'package:shirasu/screen_channel/page_movie_list.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 
@@ -117,7 +118,7 @@ class _ScreenChannelState extends State<ScreenChannel>
               case 8:
                 return SizedBox(height: 24);
               case 9:
-                return PageChannelDetail(text: ScreenChannel._CHANNEL_DETAIL);
+                return PageMovieList();
               default:
                 return const SizedBox();
             }

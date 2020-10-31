@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/screen_dashboard/screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shirasu/screen_dashboard/billing_btn.dart';
-import 'package:shirasu/screen_dashboard/content_cell.dart';
-import 'package:shirasu/screen_dashboard/row_channel.dart';
-import 'package:shirasu/screen_dashboard/row_fabs.dart';
-import 'package:shirasu/screen_dashboard/row_video_desc.dart';
-import 'package:shirasu/screen_dashboard/row_video_time.dart';
-import 'package:shirasu/screen_dashboard/row_video_tags.dart';
-import 'package:shirasu/screen_dashboard/row_video_title.dart';
+import 'package:shirasu/screen_detail/billing_btn.dart';
+import 'package:shirasu/screen_detail/content_cell.dart';
+import 'package:shirasu/screen_detail/row_channel.dart';
+import 'package:shirasu/screen_detail/row_fabs.dart';
+import 'package:shirasu/screen_detail/row_video_desc.dart';
+import 'package:shirasu/screen_detail/row_video_time.dart';
+import 'package:shirasu/screen_detail/row_video_tags.dart';
+import 'package:shirasu/screen_detail/row_video_title.dart';
 
 class ScreenDetail extends StatelessWidget {
   static const _TAG_LIST = [

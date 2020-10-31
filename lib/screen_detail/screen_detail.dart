@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
+import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/screen_detail/content_cell.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
@@ -30,7 +31,7 @@ class ScreenDetail extends StatelessWidget {
   static const _CHANNEL_IMG_URL =
       'https://shirasu-storage-product.s3.amazonaws.com/public/channels/genron/icon';
   static const _CHANNEL_TITLE = 'ゲンロン完全中継チャンネル';
-  static const _IMG_RATIO = 1920 / 1080;
+  static const IMG_RATIO = 1920 / 1080;
   static const _VIDEO_TITLE =
       '青山周平×市川紘司×上田洋子「中国における都市・建築・暮らし」【コロナ禍の世界から #4】 @ichikawakoji @yuvmsk #ゲンロン201030';
   static const _VIDEO_TIME = '2020/10/30 19:00 開始 22:00 終了予定';
@@ -62,7 +63,7 @@ https://youtu.be/n3rm4aaH0m8
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
           child: Container(
-            child: ScreenChannel(),
+            child: ScreenDashboard(),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -97,7 +98,7 @@ https://youtu.be/n3rm4aaH0m8
         switch (index) {
           case 0:
             return AspectRatio(
-              aspectRatio: ScreenDetail._IMG_RATIO,
+              aspectRatio: ScreenDetail.IMG_RATIO,
               child: CachedNetworkImage(imageUrl: _IMG_URL),
             );
           case 1:
@@ -188,7 +189,7 @@ https://youtu.be/n3rm4aaH0m8
         switch (index) {
           case 0:
             return AspectRatio(
-              aspectRatio: ScreenDetail._IMG_RATIO,
+              aspectRatio: ScreenDetail.IMG_RATIO,
               child: CachedNetworkImage(imageUrl: _IMG_URL),
             );
           case 1:

@@ -50,6 +50,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/undraw_my_app_grf2.svg
+    - assets/undraw_Notify_re_65on.svg
+    - assets/logo_official.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

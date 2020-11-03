@@ -30,9 +30,9 @@ class Styles {
         fontWeight: FontWeight.bold,
       );
 
-  static TextStyle introTitleStyle2(BuildContext context) => TextStyle(
-        color: Theme.of(context).primaryColor,
-        fontSize: 36,
+  static TextStyle introTitleStyle2(Color color) => TextStyle(
+        color: color,
+        fontSize: 24,
         fontWeight: FontWeight.bold,
       );
 

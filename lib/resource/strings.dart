@@ -3,10 +3,13 @@ class Strings {
   static const String INTRO_DESC_1ST = 'このアプリは、動画配信プラットフォーム「シラス」の非公式アプリです。';
   static const String INTRO_DESC_1ST_2 = 'バックグラウンド再生はもちろん、配信開始の通知や動画の購入・検索することができます。';
 
-  static const String INTRO_TITLE_2ND = 'お知らせ';
+  static const String INTRO_TITLE_2ND = 'このアプリは非公式です';
   static const String INTRO_DESC_2ND = 'このアプリは、シラスと無関係の個人が開発・運営しています。';
   static const String INTRO_DESC_2ND_2 = '公式の対応によっては予告なくサービスを停止することがありますので、あらかじめご了承ください。';
 
-  static const String INTRO_CONT_ROW1 = '広告無し・完全無料';
-  static const String INTRO_CONT_ROW2 = 'バックグラウンド再生できる';
+  static const String INTRO_TITLE_3RD = 'セキュアで透明性の高いアプリ';
+  static const String INTRO_DESC_3RD = 'すべてのソースコードをGithub上で公開しており、誰でも開発に参加することができます。';
+static const String INTRO_DESC_3RD_2 = '決済は認証は公式Webページを通じて行い、アプリはパスワードや個人情報を一切保持しません。';
+
+  static const String INTRO_DONE = '始める';
 }

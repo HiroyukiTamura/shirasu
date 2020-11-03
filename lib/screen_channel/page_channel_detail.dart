@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shirasu/resource/styles.dart';
+import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_channel/content_cell.dart';
 
 class PageChannelDetail extends StatelessWidget {
@@ -16,7 +16,7 @@ class PageChannelDetail extends StatelessWidget {
         style: TextStyle(
           fontSize: 13,
           color: Colors.white,
-          height: Styles.TEXT_HEIGHT,
+          height: TextStyles.TEXT_HEIGHT,
         ),
       ),
     );

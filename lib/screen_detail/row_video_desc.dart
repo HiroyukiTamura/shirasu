@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shirasu/resource/styles.dart';
+import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/content_cell.dart';
 
 class RowVideoDesc extends StatelessWidget {
@@ -16,7 +16,7 @@ class RowVideoDesc extends StatelessWidget {
       style: TextStyle(
         color: Colors.white,
         fontSize: 13,
-        height: Styles.TEXT_HEIGHT,
+        height: TextStyles.TEXT_HEIGHT,
       ),
     ),
   );

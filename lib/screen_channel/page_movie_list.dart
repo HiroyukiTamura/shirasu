@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/resource/styles.dart';
+import 'package:shirasu/resource/text_styles.dart';
 
 class PageMovieList extends StatelessWidget {
   static const _THUMBNAIL_URL =
@@ -42,7 +43,7 @@ class PageMovieList extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             style: TextStyle(
-                              height: Styles.TEXT_HEIGHT,
+                              height: TextStyles.TEXT_HEIGHT,
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
                             ),

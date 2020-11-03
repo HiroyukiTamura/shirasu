@@ -53,6 +53,7 @@ flutter:
     - assets/undraw_Notify_re_65on.svg
     - assets/undraw_security_o890.svg
     - assets/logo_official.svg
+    - assets/logo_official_shadow.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

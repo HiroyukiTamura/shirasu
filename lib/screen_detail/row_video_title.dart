@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/resource/styles.dart';
+import 'package:shirasu/resource/text_styles.dart';
 
 class RowVideoTitle extends StatelessWidget {
 
@@ -17,7 +18,7 @@ class RowVideoTitle extends StatelessWidget {
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            height: Styles.TEXT_HEIGHT,
+            height: TextStyles.TEXT_HEIGHT,
           ),
         ),
       );

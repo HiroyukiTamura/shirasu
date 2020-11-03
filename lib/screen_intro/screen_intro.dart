@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/resource/textstyles.dart';
+import 'package:shirasu/resource/text_styles.dart';
 
 class ScreenIntro extends StatelessWidget {
   @override
@@ -18,7 +18,8 @@ class ScreenIntro extends StatelessWidget {
         // When done button is press
       },
       next: const Icon(Icons.navigate_next),
-      done: const Text(Strings.INTRO_DONE, style: TextStyle(fontWeight: FontWeight.w600)),
+      done: const Text(Strings.INTRO_DONE,
+          style: TextStyle(fontWeight: FontWeight.w600)),
       dotsDecorator: DotsDecorator(
         size: const Size.square(10),
         activeSize: const Size(20, 10),
@@ -42,16 +43,14 @@ class ScreenIntro extends StatelessWidget {
                   end: Alignment.bottomLeft,
                   colors: [Colors.red, Styles.BACK_COLOR, Colors.black]),
             ),
-            imageFlex: 1,
-            bodyFlex: 1,
             imagePadding:
-                const EdgeInsets.only(top: 72, right: 96, bottom: 0, left: 96),
-            titlePadding: EdgeInsets.only(top: 24),
+                const EdgeInsets.only(right: 96, top: 72, left: 96),
+            titlePadding: EdgeInsets.zero,
             descriptionPadding: const EdgeInsets.only(top: 32),
           ),
           titleWidget: Text(
             Strings.INTRO_TITLE_1ST,
-            style: Styles.introTitleStyle(context),
+            style: TextStyles.introTitleStyle(context),
           ),
           bodyWidget: Column(
             children: [
@@ -74,11 +73,12 @@ class ScreenIntro extends StatelessWidget {
         ),
         PageViewModel(
           decoration: PageDecoration(
-            imageFlex: 4,
-            bodyFlex: 3,
-            imagePadding: const EdgeInsets.only(top: 24, right: 66, left: 66),
-            descriptionPadding: const EdgeInsets.only(top: 16),
-            titleTextStyle: Styles.introTitleStyle2(Theme.of(context).accentColor),
+            imageFlex: 3,
+            bodyFlex: 4,
+            imagePadding: const EdgeInsets.only(top: 48, right: 66, left: 66),
+            descriptionPadding: const EdgeInsets.only(top: 36),
+            titleTextStyle:
+                TextStyles.introTitleStyle2(Theme.of(context).accentColor),
             boxDecoration: BoxDecoration(
               gradient: LinearGradient(
                   stops: [0, .6, 1],
@@ -110,39 +110,39 @@ class ScreenIntro extends StatelessWidget {
               width: 128,
               child: SvgPicture.asset('assets/undraw_Notify_re_65on.svg')),
         ),
-    PageViewModel(
-      decoration: PageDecoration(
-        imageFlex: 4,
-        bodyFlex: 3,
-        imagePadding: const EdgeInsets.only(top: 24, right: 66, left: 66),
-        descriptionPadding: const EdgeInsets.only(top: 16),
-        titleTextStyle: Styles.introTitleStyle2(Colors.deepOrange),
-        boxDecoration: BoxDecoration(
-          gradient: LinearGradient(
-              stops: [0, .6, 1],
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.red, Styles.BACK_COLOR, Colors.black]),
+        PageViewModel(
+          decoration: PageDecoration(
+            imageFlex: 3,
+            bodyFlex: 4,
+            imagePadding: const EdgeInsets.only(top: 48, right: 66, left: 66),
+            descriptionPadding: const EdgeInsets.only(top: 36),
+            titleTextStyle: TextStyles.introTitleStyle2(Colors.deepOrange),
+            boxDecoration: BoxDecoration(
+              gradient: LinearGradient(
+                  stops: [0, .6, 1],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [Colors.red, Styles.BACK_COLOR, Colors.black]),
+            ),
+          ),
+          title: Strings.INTRO_TITLE_3RD,
+          bodyWidget: Column(
+            children: [
+              Text(
+                Strings.INTRO_DESC_3RD,
+                style: TextStyles.introDesc,
+              ),
+              SizedBox(height: 6),
+              Text(
+                Strings.INTRO_DESC_3RD_2,
+                style: TextStyles.introDesc,
+              ),
+            ],
+          ),
+          image: SizedBox(
+              height: 128,
+              width: 128,
+              child: SvgPicture.asset('assets/undraw_security_o890.svg')),
         ),
-      ),
-      title: Strings.INTRO_TITLE_3RD,
-      bodyWidget: Column(
-        children: [
-          Text(
-            Strings.INTRO_DESC_3RD,
-            style: TextStyles.introDesc,
-          ),
-          SizedBox(height: 6),
-          Text(
-            Strings.INTRO_DESC_3RD_2,
-            style: TextStyles.introDesc,
-          ),
-        ],
-      ),
-      image: SizedBox(
-          height: 128,
-          width: 128,
-          child: SvgPicture.asset('assets/undraw_security_o890.svg')),
-    ),
       ];
 }

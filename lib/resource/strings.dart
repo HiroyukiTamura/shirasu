@@ -12,4 +12,7 @@ class Strings {
 static const String INTRO_DESC_3RD_2 = '決済は認証は公式Webページを通じて行い、アプリはパスワードや個人情報を一切保持しません。';
 
   static const String INTRO_DONE = '始める';
+
+  static const String CD_INTRO_IMG_1ST = 'アプリロゴ';
+  static const String CD_INTRO_IMG = 'イメージイラスト';
 }

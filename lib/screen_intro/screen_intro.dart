@@ -13,28 +13,35 @@ class ScreenIntro extends StatelessWidget {
   static const double _IMG_SIZE = 128;
 
   @override
-  Widget build(BuildContext context) {
-    return IntroductionScreen(
-      globalBackgroundColor: Colors.transparent,
-      pages: _listPagesViewModel(context),
-      onDone: () {
-        // When done button is press
-      },
-      next: const Icon(Icons.navigate_next),
-      done: const Text(Strings.INTRO_DONE,
-          style: TextStyle(fontWeight: FontWeight.w600)),
-      dotsDecorator: DotsDecorator(
-        size: const Size.square(10),
-        activeSize: const Size(20, 10),
-        activeColor: Theme.of(context).accentColor,
-        color: Styles.introDot,
-        spacing: const EdgeInsets.symmetric(horizontal: 3),
-        activeShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
+  Widget build(BuildContext context) => WillPopScope(
+    onWillPop: () async {
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+        return true;
+      } else
+        return false;
+    },
+    child: IntroductionScreen(
+          globalBackgroundColor: Colors.transparent,
+          pages: _listPagesViewModel(context),
+          onDone: () => Navigator.pop(context),
+          next: const Icon(Icons.navigate_next),
+          done: const Text(
+            Strings.INTRO_DONE,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          dotsDecorator: DotsDecorator(
+            size: const Size.square(10),
+            activeSize: const Size(20, 10),
+            activeColor: Theme.of(context).accentColor,
+            color: Styles.introDot,
+            spacing: const EdgeInsets.symmetric(horizontal: 3),
+            activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+          ),
         ),
-      ),
-    );
-  }
+  );
 
   static List<PageViewModel> _listPagesViewModel(BuildContext context) => [
         PageViewModel(
@@ -55,6 +62,7 @@ class ScreenIntro extends StatelessWidget {
             'assets/logo_official.svg',
             width: _IMG_SIZE,
             height: _IMG_SIZE,
+            semanticsLabel: Strings.CD_INTRO_IMG,
           ),
         ),
         PageViewModel(
@@ -75,6 +83,7 @@ class ScreenIntro extends StatelessWidget {
             'assets/undraw_Notify_re_65on.svg',
             width: _IMG_SIZE,
             height: _IMG_SIZE,
+            semanticsLabel: Strings.CD_INTRO_IMG,
           ),
         ),
         PageViewModel(
@@ -94,6 +103,7 @@ class ScreenIntro extends StatelessWidget {
             'assets/undraw_security_o890.svg',
             width: _IMG_SIZE,
             height: _IMG_SIZE,
+            semanticsLabel: Strings.CD_INTRO_IMG,
           ),
         ),
       ];

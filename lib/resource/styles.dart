@@ -10,6 +10,7 @@ class Styles {
 
   static const COLOR = Color(0xff0057ff);
   static const COLOR_2 = Color(0xffffa800);
+  static final introDot = Colors.white.withOpacity(.8);
 
   static final theme = ThemeData(
     // This makes the visual density adapt to the platform that you run

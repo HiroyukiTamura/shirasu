@@ -7,8 +7,11 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/screen_intro/body_widget.dart';
 
 class ScreenIntro extends StatelessWidget {
+  static const double _IMG_SIZE = 128;
+
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
@@ -24,7 +27,7 @@ class ScreenIntro extends StatelessWidget {
         size: const Size.square(10),
         activeSize: const Size(20, 10),
         activeColor: Theme.of(context).accentColor,
-        color: Colors.white.withOpacity(.8),
+        color: Styles.introDot,
         spacing: const EdgeInsets.symmetric(horizontal: 3),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
@@ -36,79 +39,43 @@ class ScreenIntro extends StatelessWidget {
   static List<PageViewModel> _listPagesViewModel(BuildContext context) => [
         PageViewModel(
           decoration: PageDecoration(
-            boxDecoration: BoxDecoration(
-              gradient: LinearGradient(
-                  stops: [0, .6, 1],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [Colors.red, Styles.BACK_COLOR, Colors.black]),
-            ),
-            imagePadding:
-                const EdgeInsets.only(right: 96, top: 72, left: 96),
+            boxDecoration: _pageBoxDecoration(color: Colors.red),
+            imagePadding: const EdgeInsets.only(right: 96, top: 72, left: 96),
             titlePadding: EdgeInsets.zero,
-            descriptionPadding: const EdgeInsets.only(top: 32),
+            descriptionPadding: const EdgeInsets.only(top: 56),
           ),
           titleWidget: Text(
             Strings.INTRO_TITLE_1ST,
             style: TextStyles.introTitleStyle(context),
           ),
-          bodyWidget: Column(
-            children: [
-              Text(
-                Strings.INTRO_DESC_1ST,
-                style: TextStyles.introDesc,
-              ),
-              SizedBox(height: 6),
-              Text(
-                Strings.INTRO_DESC_1ST_2,
-                style: TextStyles.introDesc,
-              ),
-            ],
+          bodyWidget: BodyWidget(
+            stringList: [Strings.INTRO_DESC_1ST, Strings.INTRO_DESC_1ST_2],
           ),
-          image: SizedBox(
-            height: 128,
-            width: 128,
-            child: SvgPicture.asset('assets/logo_official.svg'),
+          image: SvgPicture.asset(
+            'assets/logo_official.svg',
+            width: _IMG_SIZE,
+            height: _IMG_SIZE,
           ),
         ),
         PageViewModel(
           decoration: PageDecoration(
             imageFlex: 3,
             bodyFlex: 4,
-            imagePadding: const EdgeInsets.only(top: 48, right: 66, left: 66),
+            imagePadding: const EdgeInsets.only(top: 48, right: 72, left: 72),
             descriptionPadding: const EdgeInsets.only(top: 36),
             titleTextStyle:
                 TextStyles.introTitleStyle2(Theme.of(context).accentColor),
-            boxDecoration: BoxDecoration(
-              gradient: LinearGradient(
-                  stops: [0, .6, 1],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Styles.PRIMARY_COLOR_DARK,
-                    Styles.BACK_COLOR,
-                    Colors.black
-                  ]),
-            ),
+            boxDecoration: _pageBoxDecoration(color: Styles.PRIMARY_COLOR_DARK),
           ),
           title: Strings.INTRO_TITLE_2ND,
-          bodyWidget: Column(
-            children: [
-              Text(
-                Strings.INTRO_DESC_2ND,
-                style: TextStyles.introDesc,
-              ),
-              SizedBox(height: 6),
-              Text(
-                Strings.INTRO_DESC_2ND_2,
-                style: TextStyles.introDesc,
-              ),
-            ],
+          bodyWidget: BodyWidget(
+            stringList: [Strings.INTRO_DESC_2ND, Strings.INTRO_DESC_2ND_2],
           ),
-          image: SizedBox(
-              height: 128,
-              width: 128,
-              child: SvgPicture.asset('assets/undraw_Notify_re_65on.svg')),
+          image: SvgPicture.asset(
+            'assets/undraw_Notify_re_65on.svg',
+            width: _IMG_SIZE,
+            height: _IMG_SIZE,
+          ),
         ),
         PageViewModel(
           decoration: PageDecoration(
@@ -117,32 +84,25 @@ class ScreenIntro extends StatelessWidget {
             imagePadding: const EdgeInsets.only(top: 48, right: 66, left: 66),
             descriptionPadding: const EdgeInsets.only(top: 36),
             titleTextStyle: TextStyles.introTitleStyle2(Colors.deepOrange),
-            boxDecoration: BoxDecoration(
-              gradient: LinearGradient(
-                  stops: [0, .6, 1],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [Colors.red, Styles.BACK_COLOR, Colors.black]),
-            ),
+            boxDecoration: _pageBoxDecoration(color: Colors.red),
           ),
           title: Strings.INTRO_TITLE_3RD,
-          bodyWidget: Column(
-            children: [
-              Text(
-                Strings.INTRO_DESC_3RD,
-                style: TextStyles.introDesc,
-              ),
-              SizedBox(height: 6),
-              Text(
-                Strings.INTRO_DESC_3RD_2,
-                style: TextStyles.introDesc,
-              ),
-            ],
+          bodyWidget: BodyWidget(
+            stringList: [Strings.INTRO_DESC_3RD, Strings.INTRO_DESC_3RD_2],
           ),
-          image: SizedBox(
-              height: 128,
-              width: 128,
-              child: SvgPicture.asset('assets/undraw_security_o890.svg')),
+          image: SvgPicture.asset(
+            'assets/undraw_security_o890.svg',
+            width: _IMG_SIZE,
+            height: _IMG_SIZE,
+          ),
         ),
       ];
+
+  static BoxDecoration _pageBoxDecoration({color: Color}) => BoxDecoration(
+        gradient: LinearGradient(
+            stops: [0, .6, 1],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [color, Styles.BACK_COLOR, Colors.black]),
+      );
 }

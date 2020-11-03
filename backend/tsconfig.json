@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "./public/dist",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "compilerOptions": {
+      "lib": ["es2015"]
+    }
+  },
+  "compileOnSave": true,
+  "include": [
+    "src/**/*",
+    "**/*.spec.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

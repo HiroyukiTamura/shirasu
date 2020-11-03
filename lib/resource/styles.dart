@@ -31,8 +31,13 @@ class Styles {
       );
 
   static TextStyle introTitleStyle2(BuildContext context) => TextStyle(
-    color: Theme.of(context).primaryColor,
-    fontSize: 36,
-    fontWeight: FontWeight.bold,
+        color: Theme.of(context).primaryColor,
+        fontSize: 36,
+        fontWeight: FontWeight.bold,
+      );
+
+  static const INTRO_ROW_TEXT_STYLE = TextStyle(
+    fontSize: 18,
+    height: 1.4,
   );
 }

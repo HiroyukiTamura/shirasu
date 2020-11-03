@@ -6,4 +6,7 @@ class Strings {
   static const String INTRO_TITLE_2ND = 'お知らせ';
   static const String INTRO_DESC_2ND = 'このアプリは、シラスと無関係の個人が開発・運営しています。';
   static const String INTRO_DESC_2ND_2 = '公式の対応によっては予告なくサービスを停止することがありますので、あらかじめご了承ください。';
+
+  static const String INTRO_CONT_ROW1 = '広告無し・完全無料';
+  static const String INTRO_CONT_ROW2 = 'バックグラウンド再生できる';
 }

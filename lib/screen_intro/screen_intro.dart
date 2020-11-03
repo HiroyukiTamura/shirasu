@@ -62,12 +62,47 @@ class ScreenIntro extends StatelessWidget {
               ),
               SizedBox(height: 72),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     height: 120,
-                    margin: EdgeInsets.only(left: 40),
                     color: Colors.deepOrange,
                     width: 1,
+                  ),
+                  SizedBox(width: 24),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Icon(
+                            Icons.keyboard_arrow_right,
+                            color: Colors.deepOrange,
+                            size: 28,
+                          ),
+                          Text(
+                            Strings.INTRO_CONT_ROW1,
+                            style: Styles.INTRO_ROW_TEXT_STYLE,
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Icon(
+                            Icons.keyboard_arrow_right,
+                            color: Colors.deepOrange,
+                            size: 28,
+                          ),
+                          Text(
+                            Strings.INTRO_CONT_ROW2,
+                            style: Styles.INTRO_ROW_TEXT_STYLE,
+                          )
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               )
@@ -76,9 +111,7 @@ class ScreenIntro extends StatelessWidget {
           image: SizedBox(
             height: 128,
             width: 128,
-            child: SvgPicture.asset(
-              'assets/logo_official.svg'
-            ),
+            child: SvgPicture.asset('assets/logo_official.svg'),
           ),
         ),
         PageViewModel(

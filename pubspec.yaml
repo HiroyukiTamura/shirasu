@@ -25,8 +25,11 @@ dependencies:
     sdk: flutter
   cached_network_image: ^2.3.3
   font_awesome_flutter: ^8.10.0
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
   introduction_screen: ^1.0.9
   flutter_svg: ^0.19.1
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -35,6 +38,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^0.8.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

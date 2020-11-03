@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
 class BodyWidget extends StatelessWidget {

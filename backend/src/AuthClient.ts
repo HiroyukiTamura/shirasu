@@ -18,4 +18,12 @@ export default class AuthClient {
             redirect_uri: Statics.AUTH0_CALLBACK,
         })
     }
+
+    getLocalStorage(): string|undefined {
+        const string = window.localStorage.getItem(Statics.LOCALSTORAGE_KEY)
+        if (!string)
+            return undefined
+
+        return JSON.parse(string)['body']['id_token'];
+    }
 }

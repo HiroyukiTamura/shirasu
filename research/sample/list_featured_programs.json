@@ -1,0 +1,35 @@
+{
+  "data": {
+    "nowBroadcastings": {
+      "items": [],
+      "__typename": "SearchableProgramConnection"
+    },
+    "comingBroadcastings": {
+      "items": [
+        {
+          "broadcastAt": "2020-11-09T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201109",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-09T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w #ゲンロン201109",
+          "totalPlayTime": 10800,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        }
+      ],
+      "__typename": "SearchableProgramConnection"
+    },
+    "viewerUser": {
+      "id": "google-oauth2|109431228853603579684",
+      "subscribedPrograms": [],
+      "__typename": "User"
+    }
+  }
+}

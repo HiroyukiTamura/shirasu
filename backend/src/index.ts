@@ -3,7 +3,7 @@ import AuthClient from "./AuthClient";
 (async () => {
     const authClient = new AuthClient()
     await authClient.initClient()
-    await authClient.request2AuthPage()
+    await authClient.loginWithRedirect()
 
 })().catch(e => {
     console.error(e);

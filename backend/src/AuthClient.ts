@@ -8,12 +8,14 @@ export default class AuthClient {
     async initClient() {
         this.auth0Client = await createAuth0Client({
             domain: Statics.AUTH0_DOMAIN,
-            client_id: Statics.AUTH0_CLIENT_ID
+            client_id: Statics.AUTH0_CLIENT_ID,
+            cacheLocation: 'localstorage',
         });
     }
 
-    async request2AuthPage(): Promise<void> {
-        const url = await this.auth0Client!.buildAuthorizeUrl()
-        console.log(url);
+    loginWithRedirect(): Promise<void> {
+        return this.auth0Client!.loginWithRedirect({
+            redirect_uri: Statics.AUTH0_CALLBACK,
+        })
     }
 }

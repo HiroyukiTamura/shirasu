@@ -4,18 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "run script": "ts-node ./src/index.ts",
-    "build": "tsc"
+    "tsc": "tsc",
+    "run browserify(please run on terminal after run tsc)": "browserify dist -p esmify > bundle.js"
   },
   "author": "",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.13.1"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-browserify": "^0.5.1",
-    "gulp-typescript": "^6.0.0-alpha.1",
+    "browserify": "^17.0.0",
+    "esmify": "^2.1.1",
     "tsify": "^5.0.2",
     "typescript": "^4.0.5"
   }

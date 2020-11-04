@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
+part 'featured_programs_data.freezed.dart';
+
 @freezed
 abstract class Person with _$Person {
   factory Person({ String name, int age }) = _Person;
@@ -49,7 +51,7 @@ abstract class Item with _$Item {
 
 @freezed
 abstract class Channel with _$Channel {
-  Channel({
+  factory Channel({
     @required String id,
     @required String name,
     @required String typename,
@@ -58,7 +60,7 @@ abstract class Channel with _$Channel {
 
 @freezed
 abstract class ViewerUser with _$ViewerUser {
-  ViewerUser({
+  factory ViewerUser({
     @required String id,
     @required List<dynamic> subscribedPrograms,//todo これ
     @required String typename,

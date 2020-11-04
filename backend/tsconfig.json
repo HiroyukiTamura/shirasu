@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
+    "module": "es6",
+    "moduleResolution": "node",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "outDir": "./public/dist",
+    "outDir": "./dist",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
+    "target": "es6",
     "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "compilerOptions": {
-      "lib": ["es2015"]
-    }
+    "lib": ["ES2015", "dom"]
   },
   "compileOnSave": true,
   "include": [

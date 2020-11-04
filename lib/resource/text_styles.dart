@@ -5,14 +5,14 @@ class TextStyles {
   static const TEXT_HEIGHT = 1.3;
   static const TEXT_H_SML = 1.2;
 
-  static TextStyle introDesc = TextStyle(
+  static TextStyle introDesc = const TextStyle(
     fontSize: 20,
     color: Colors.white,
     fontWeight: FontWeight.bold,
     height: TEXT_HEIGHT
   );
 
-  static TextStyle introTitleStyle(BuildContext context) => TextStyle(
+  static TextStyle introTitleStyle(BuildContext context) => const TextStyle(
     color: Colors.deepOrange,
     fontSize: 40,
     fontWeight: FontWeight.bold,

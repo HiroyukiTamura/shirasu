@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shirasu/model/featured_programs_data.dart';
 
 class ApiClient {
   static const _URL_PROGRAMS =
@@ -59,13 +60,14 @@ class ApiClient {
     return result;
   }
 
-  dynamic queryFeaturedProgramsList() async {
+
+  Future<FeatureProgramData> queryFeaturedProgramsList() async {
     final dateTime = DateTime.now();
-    final dateTimeNext = dateTime.add(Duration(days: 7));
+    final dateTimeNext = dateTime.add(const Duration(days: 7));
     final result = await _query(_QUERY_PROGRAMS, variables: {
       'now': dateTime.toIso8601String(),
       'nowPlus7D': dateTimeNext.toIso8601String(),
     });
-    return result.data;
+    return FeatureProgramData.fromJson(result.data as Map<String, dynamic>);
   }
 }

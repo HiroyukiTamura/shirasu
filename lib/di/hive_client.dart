@@ -14,7 +14,7 @@ class _HivePrefClient {
 
   static const _KEY_INITIAL_LAUNCH_APP = 'INITIAL_LAUNCH_APP';
 
-  static bool _isInitialLaunchApp() => Hive.box(_NAME).get(_KEY_INITIAL_LAUNCH_APP, defaultValue: true);
+  static bool _isInitialLaunchApp() => Hive.box(_NAME).get(_KEY_INITIAL_LAUNCH_APP, defaultValue: true) as bool;
 
   static void _setInitialLaunchApp() => Hive.box(_NAME).put(_KEY_INITIAL_LAUNCH_APP, false);
 

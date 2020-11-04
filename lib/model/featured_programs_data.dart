@@ -2,16 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
 part 'featured_programs_data.freezed.dart';
+part 'featured_programs_data.g.dart';
 
 @freezed
-abstract class Person with _$Person {
-  factory Person({ String name, int age }) = _Person;
-}
+abstract class FeatureProgramData with _$FeatureProgramData {
 
-@freezed
-abstract class AuthData with _$AuthData {
-
-  factory AuthData({@required Data data}) = _AuthData;
+  factory FeatureProgramData({@required Data data}) = _FeatureProgramData;
+  factory FeatureProgramData.fromJson(Map<String, dynamic> json) => _$FeatureProgramDataFromJson(json);
 }
 
 @freezed
@@ -22,6 +19,8 @@ abstract class Data with _$Data {
     @required Broadcastings comingBroadcastings,
     @required ViewerUser viewerUser,
   }) = _Data;
+
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @freezed
@@ -30,6 +29,8 @@ abstract class Broadcastings with _$Broadcastings {
     @required List<Item> items,
     @required String typename,
   }) = _Broadcastings;
+
+  factory Broadcastings.fromJson(Map<String, dynamic> json) => _$BroadcastingsFromJson(json);
 }
 
 @freezed
@@ -47,6 +48,8 @@ abstract class Item with _$Item {
     @required Channel channel,
     @required String typename,
   }) = _Item;
+
+  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 }
 
 @freezed
@@ -56,6 +59,8 @@ abstract class Channel with _$Channel {
     @required String name,
     @required String typename,
   }) = _Channel;
+
+  factory Channel.fromJson(Map<String, dynamic> json) => _$ChannelFromJson(json);
 }
 
 @freezed
@@ -65,4 +70,6 @@ abstract class ViewerUser with _$ViewerUser {
     @required List<dynamic> subscribedPrograms,//todo これ
     @required String typename,
   }) = _ViewerUser;
+
+  factory ViewerUser.fromJson(Map<String, dynamic> json) => _$ViewerUserFromJson(json);
 }

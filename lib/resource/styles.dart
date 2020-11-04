@@ -18,8 +18,8 @@ class Styles {
     // closer together (more dense) than on mobile platforms.
     visualDensity: VisualDensity.adaptivePlatformDensity,
     brightness: Brightness.dark,
-    primaryColor: Color(0xff50e6ff),
-    accentColor: Color(0xff50e6ff),
+    primaryColor: const Color(0xff50e6ff),
+    accentColor: const Color(0xff50e6ff),
     scaffoldBackgroundColor: Colors.black,
   );
 }

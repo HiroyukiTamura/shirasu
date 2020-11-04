@@ -6,7 +6,9 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 
-void main() async {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Hive.initFlutter();
   await HiveClient.init();
 

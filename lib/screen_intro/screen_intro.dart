@@ -55,7 +55,7 @@ class ScreenIntro extends StatelessWidget {
             Strings.INTRO_TITLE_1ST,
             style: TextStyles.introTitleStyle(context),
           ),
-          bodyWidget: BodyWidget(
+          bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_1ST, Strings.INTRO_DESC_1ST_2],
           ),
           image: SvgPicture.asset(
@@ -76,7 +76,7 @@ class ScreenIntro extends StatelessWidget {
             boxDecoration: _pageBoxDecoration(color: Styles.PRIMARY_COLOR_DARK),
           ),
           title: Strings.INTRO_TITLE_2ND,
-          bodyWidget: BodyWidget(
+          bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_2ND, Strings.INTRO_DESC_2ND_2],
           ),
           image: SvgPicture.asset(
@@ -96,7 +96,7 @@ class ScreenIntro extends StatelessWidget {
             boxDecoration: _pageBoxDecoration(color: Colors.red),
           ),
           title: Strings.INTRO_TITLE_3RD,
-          bodyWidget: BodyWidget(
+          bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_3RD, Strings.INTRO_DESC_3RD_2],
           ),
           image: SvgPicture.asset(
@@ -108,9 +108,9 @@ class ScreenIntro extends StatelessWidget {
         ),
       ];
 
-  static BoxDecoration _pageBoxDecoration({color: Color}) => BoxDecoration(
+  static BoxDecoration _pageBoxDecoration({Color color}) => BoxDecoration(
         gradient: LinearGradient(
-            stops: [0, .6, 1],
+            stops: const [0, .6, 1],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [color, Styles.BACK_COLOR, Colors.black]),

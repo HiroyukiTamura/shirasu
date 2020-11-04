@@ -19,7 +19,7 @@ export default class AuthClient {
         })
     }
 
-    getLocalStorage(): string|undefined {
+    static getLocalStorage(): string|undefined {
         const string = window.localStorage.getItem(Statics.LOCALSTORAGE_KEY)
         if (!string)
             return undefined

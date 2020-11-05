@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.12.2
   cached_network_image: ^2.3.3
   font_awesome_flutter: ^8.10.0
   hive: ^1.4.4+1

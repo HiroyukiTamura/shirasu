@@ -1,14 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 
 void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('test for GraphQl API client', () async {
+  setUpAll(() {
+    HttpOverrides.global = null;
+  });
 
-    final result = await ApiClient().queryFeaturedProgramsList();
-
-    expect(result, 1);
+  testWidgets('test for GraphQl API client', (WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final result = await ApiClient(Client()).queryFeaturedProgramsList();
+      expect(result, 1);
+    });
   });
 }

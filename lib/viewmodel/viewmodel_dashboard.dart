@@ -1,17 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/model/featured_programs_data.dart';
+import 'package:shirasu/model/dashboard_model.dart';
 
-class ViewModelDashBoard extends ValueNotifier<FeatureProgramData> {
-
+class ViewModelDashBoard extends ValueNotifier<DashboardModel> {
   ViewModelDashBoard() : super(null);
 
   final _apiClient = ApiClient(Client());
-  FeatureProgramData featureProgramData;
 
   Future<void> requestPrograms() async {
-    featureProgramData = await _apiClient.queryFeaturedProgramsList();
-    value = featureProgramData;
+    final featureProgramData = await _apiClient.queryFeaturedProgramsList();
+    final newProgramsData = await _apiClient.queryNewProgramsList();
+
+    value = DashboardModel(
+      featureProgramData: featureProgramData,
+      newProgramsData: newProgramsData,
+    );
   }
 }

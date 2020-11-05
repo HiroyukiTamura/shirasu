@@ -38,7 +38,6 @@ analyzer:
     # see https://github.com/dart-lang/sdk/issues/28463
     - "**/*.g.dart"
     - "**/*.freezed.dart"
-    - "model/featured_programs_data.dart"
 
 linter:
   rules:

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shirasu/resource/styles.dart';
 
 class TextStyles {
   static const TEXT_HEIGHT = 1.3;
@@ -50,5 +51,20 @@ class TextStyles {
     fontWeight: FontWeight.bold,
     color: Colors.white,
     decoration: TextDecoration.none,
+  );
+
+  static const DASHBOARD_GRID_TITLE = TextStyle(
+    fontWeight: FontWeight.bold,
+    height: 1.35,
+    fontSize: 14,
+    color: Colors.white,
+    decoration: TextDecoration.none,
+  );
+
+  static final plain = TextStyle(
+    color: Styles.colorTextSub,
+    fontWeight: FontWeight.normal,
+    decoration: TextDecoration.none,
+    fontSize: 14,
   );
 }

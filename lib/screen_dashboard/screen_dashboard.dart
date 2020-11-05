@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:loadmore/loadmore.dart';
-import 'package:shirasu/model/featured_programs_data.dart';
-import 'package:shirasu/model/new_programs_data.dart';
+import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_dashboard/billboard_expaned.dart';
 import 'package:shirasu/screen_dashboard/grid_card_item.dart';
 import 'package:shirasu/screen_dashboard/heading.dart';
-import 'package:shirasu/screen_dashboard/load_more_widget.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _dashBoardProvider =
@@ -22,12 +20,15 @@ class ScreenDashboard extends StatefulWidget {
 class _ScreenDashboardState extends State<ScreenDashboard> {
   static const _COLUMN_COUNT = 2;
 
+  static const _CIRCULAR_HEIGHT = 36;
+
   ScrollController _controller;
+  bool _isLoadingMoreCommanded = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = ScrollController(keepScrollOffset: true);
+    _controller = ScrollController();
     WidgetsBinding.instance.addPostFrameCallback(
         (_) => context.read(_dashBoardProvider).requestPrograms());
   }
@@ -35,6 +36,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
   @override
   void dispose() {
     super.dispose();
+    _isLoadingMoreCommanded = false;
     _controller.dispose();
   }
 
@@ -64,35 +66,25 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
 
           return LayoutBuilder(
             builder: (_, constraints) {
-              final isFinish =
-                  model.newProgramsDataList?.last?.newPrograms?.nextToken ==
-                      null;
-
-              final listView = _contentListView(
+              return _contentListView(
+                context: context,
+                model: model,
                 itemCount: itemCount,
                 nowBroadcastingsLast: nowBroadcastingsLast,
                 comingBroadcastingsLast: comingBroadcastingsLast,
-                featurePrgData: featurePrgData,
-                newPrgData: newPrgData,
                 constraints: constraints,
               );
-
-              return isFinish
-                  ? listView
-                  : LoadMore(
-                      delegate: const LoadMoreWidget(),
-                      onLoadMore: () async => _onLoadMore(context),
-                      child: listView,
-                    );
             },
           );
         },
       );
 
-
-  Future<bool> _onLoadMore(BuildContext context) async {
+  Future<void> _loadMore(BuildContext context) async {
+    if (_isLoadingMoreCommanded) return _isLoadingMoreCommanded = true;
     final result = await context.read(_dashBoardProvider).loadMoreNewPrg();
-    switch(result) {
+    _isLoadingMoreCommanded = false;
+
+    switch (result) {
       case ApiClientResult.NO_MORE:
         const snackBar = SnackBar(content: Text(Strings.SNACK_NO_MORE_ITEM));
         Scaffold.of(context).showSnackBar(snackBar);
@@ -102,22 +94,38 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
         Scaffold.of(context).showSnackBar(snackBar);
         break;
     }
-
-    return result == ApiClientResult.SUCCESS;
   }
 
-  ListView _contentListView({
+  Widget _contentListView({
+    @required BuildContext context,
+    @required DashboardModel model,
     @required int itemCount,
     @required int nowBroadcastingsLast,
     @required int comingBroadcastingsLast,
-    @required FeatureProgramData featurePrgData,
-    @required List<NewProgramItem> newPrgData,
     @required BoxConstraints constraints,
-  }) =>
-      ListView.builder(
-        controller: _controller,
+  }) {
+    final isFinish = model.newProgramsDataList?.isNotEmpty == true &&
+        model.newProgramsDataList?.last?.newPrograms?.nextToken == null;
+    final featurePrgData = model?.featureProgramData;
+    final newPrgData = model?.allNewPrograms;
+
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (!isFinish &&
+            notification is UserScrollNotification &&
+            notification.direction == ScrollDirection.idle &&
+            _controller.position.maxScrollExtent - _CIRCULAR_HEIGHT <
+                _controller.offset) {
+          _loadMore(context);
+          return true;
+        }
+
+        return false;
+      },
+      child: ListView.builder(
+          controller: _controller,
           padding: const EdgeInsets.symmetric(vertical: 16),
-          itemCount: itemCount,
+          itemCount: isFinish ? itemCount : itemCount + 1,
           itemBuilder: (context, index) {
             if (index < nowBroadcastingsLast) {
               return const SizedBox();
@@ -136,7 +144,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                     item: featurePrgData.comingBroadcastings.items[i - 1],
                   ),
                 );
-            } else {
+            } else if (index < itemCount || isFinish) {
               final i = index - comingBroadcastingsLast;
 
               if (i == 0)
@@ -167,6 +175,11 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   children: children,
                 ),
               );
-            }
-          });
+            } else
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+          }),
+    );
+  }
 }

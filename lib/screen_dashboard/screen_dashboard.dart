@@ -7,6 +7,8 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_dashboard/billboard_expaned.dart';
 import 'package:shirasu/screen_dashboard/grid_card_item.dart';
 import 'package:shirasu/screen_dashboard/heading.dart';
+import 'package:shirasu/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_meta/screen_meta.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _dashBoardProvider =
@@ -137,13 +139,18 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   padding: EdgeInsets.only(bottom: 16),
                   child: Heading(text: Strings.HEADING_UPCOMING),
                 );
-              else
+              else {
+                final item = featurePrgData.comingBroadcastings.items[i - 1];
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 48),
                   child: BillboardExpanded(
-                    item: featurePrgData.comingBroadcastings.items[i - 1],
+                    item: item,
+                    onTap: () => context.read(routeProvider).push(MaterialPage(
+                          child: ScreenDetail(id: item.id),
+                        )),
                   ),
                 );
+              }
             } else if (index < itemCount || isFinish) {
               final i = index - comingBroadcastingsLast;
 

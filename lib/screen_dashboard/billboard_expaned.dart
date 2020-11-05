@@ -8,8 +8,11 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
 class BillboardExpanded extends StatelessWidget {
-  BillboardExpanded({Key key, @required this.item})
-      : _thumbnailUrl = ApiClient.getThumbnailUrl(item.id),
+  BillboardExpanded({
+    Key key,
+    @required this.item,
+    @required this.onTap,
+  })  : _thumbnailUrl = ApiClient.getThumbnailUrl(item.id),
         _channelLogoUrl = ApiClient.getChannelLogoUrl(item.channelId),
         super(key: key);
 
@@ -19,74 +22,78 @@ class BillboardExpanded extends StatelessWidget {
   final Item item;
   final String _thumbnailUrl;
   final String _channelLogoUrl;
+  final GestureTapCallback onTap;
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          AspectRatio(
-            aspectRatio: Dimens.IMG_RATIO,
-            child: CachedNetworkImage(imageUrl: _thumbnailUrl),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                right: _OUTER_MARGIN, left: _OUTER_MARGIN, top: 16),
-            child: Text(
-              item.title,
-              style: TextStyles.DASHBOARD_BILLBOARD_TITLE,
+  Widget build(BuildContext context) => InkWell(
+        onTap: onTap,
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: Dimens.IMG_RATIO,
+              child: CachedNetworkImage(imageUrl: _thumbnailUrl),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                right: _OUTER_MARGIN, left: _OUTER_MARGIN, top: 8),
-            child: Row(
-              children: [
-                CachedNetworkImage(
-                  imageUrl: _channelLogoUrl,
-                  height: _CHANNEL_LOGO_SIZE,
-                  width: _CHANNEL_LOGO_SIZE,
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  item.channel.name,
-                  style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(
+                  right: _OUTER_MARGIN, left: _OUTER_MARGIN, top: 16),
+              child: Text(
+                item.title,
+                style: TextStyles.DASHBOARD_BILLBOARD_TITLE,
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(
-              right: _OUTER_MARGIN,
-              left: _OUTER_MARGIN,
-              top: 24,
+            Padding(
+              padding: const EdgeInsets.only(
+                  right: _OUTER_MARGIN, left: _OUTER_MARGIN, top: 8),
+              child: Row(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: _channelLogoUrl,
+                    height: _CHANNEL_LOGO_SIZE,
+                    width: _CHANNEL_LOGO_SIZE,
+                  ),
+                  const SizedBox(width: 16),
+                  Text(
+                    item.channel.name,
+                    style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+                  ),
+                ],
+              ),
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: Container(
-                      height: 1,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: <Color>[
-                            Colors.deepOrange,
-                            Theme.of(context).accentColor
-                          ],
-                          stops: const <double>[0, 1],
+            Container(
+              padding: const EdgeInsets.only(
+                right: _OUTER_MARGIN,
+                left: _OUTER_MARGIN,
+                top: 24,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Container(
+                        height: 1,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Colors.deepOrange,
+                              Theme.of(context).accentColor
+                            ],
+                            stops: const <double>[0, 1],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
-                  style: TextStyles.DASHBOARD_BILLBOARD_DATETIME,
-                ),
-              ],
-            ),
-          )
-        ],
+                  const SizedBox(width: 16),
+                  Text(
+                    DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
+                    style: TextStyles.DASHBOARD_BILLBOARD_DATETIME,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       );
 }

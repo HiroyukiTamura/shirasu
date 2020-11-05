@@ -1,5 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart';
+import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/new_programs_data.dart';
 
@@ -13,19 +14,20 @@ class ApiClient {
   static const _QUERY_NEW_PROGRAMS =
       'query ListNewPrograms(\$nextToken: String) {  newPrograms: searchPrograms(filter: {release: {eq: true}}, sort: {field: createdAt, direction: desc}, limit: 12, nextToken: \$nextToken) {    items {      ...DashboardProgram      __typename    }    nextToken    __typename  }}fragment DashboardProgram on Program {  broadcastAt  channelId  id  mainTime  releasedAt  releasedAt  tenantId  title  totalPlayTime  viewerPlanType  channel {    ...DashboardChannel    __typename  }  __typename}fragment DashboardChannel on Channel {  id  name  __typename}';
 
+  static const _QUERY_DETAIL_PROGRAMS =
+      'query GetProgram(\$id: ID!) {  viewer {    name    icon    __typename  }  program: getProgram(id: \$id) {    ...UserPageProgramData    extensions {      ...UserPageLiveExtensionData      __typename    }    channel {      ...UserPageChannelData      __typename    }    handouts(sortDirection: DESC) {      items {        ...UserPageHandoutData        __typename      }      nextToken      __typename    }    videos {      items {        ...UserPageVideoData        __typename      }      nextToken      __typename    }    onetimePlans {      ...UserPageOneTimePlanData      __typename    }    __typename  }}fragment UserPageProgramData on Program {  id  channelId  tenantId  adminComment  adminCommentDisappearAt  broadcastAt  detail  mainTime  previewTime  release  tags  title  totalPlayTime  viewerPlanType  isExtensionChargedToSubscribers  archivedAt  releaseState  shouldArchive  extensions {    ...UserPageLiveExtensionData    __typename  }  __typename}fragment UserPageLiveExtensionData on LiveExtension {  id  extensionTime  oneTimePlanId  oneTimePlan {    ...UserPageOneTimePlanData    __typename  }  __typename}fragment UserPageOneTimePlanData on OneTimePlan {  id  parentPlanType  parentPlanId  productType  productId  name  amount  currency  isPurchasable  viewerPurchasedPlan {    isActive    __typename  }  __typename}fragment UserPageChannelData on Channel {  id  tenantId  name  icon  textOnPurchaseScreen  __typename}fragment UserPageHandoutData on Handout {  id  programId  extensionId  name  createdAt  __typename}fragment UserPageVideoData on Video {  id  videoType  mediaStatus  liveUrl  archiveUrl  __typename}';
+
   static const _DUMMY_AUTH =
       'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFUWkJNMEZDUkRZek1UVTJOME13UWpBMlJFVXdSa0V5TVRJeU1VSkdOelUxTXpnNU1ETTFRUSJ9.eyJodHRwczovL3NoaXJhc3UuaW8vcm9sZXMiOlsidXNlciJdLCJodHRwczovL3NoaXJhc3UuaW8vdXNlckF0dHJpYnV0ZSI6eyJiaXJ0aERhdGUiOiIxOTkzLTExLTE1VDAwOjAwOjAwLjAwMFoiLCJqb2IiOiJJbmZvcm1hdGlvblRlY2hub2xvZ3kiLCJjb3VudHJ5IjoiSlAiLCJwcmVmZWN0dXJlIjoiMTMiLCJmYW1pbHlOYW1lIjoi55Sw5p2RIiwiZ2l2ZW5OYW1lIjoi5rWp5bm4IiwiZmFtaWx5TmFtZVJlYWRpbmciOiIiLCJnaXZlbk5hbWVSZWFkaW5nIjoiIn0sImh0dHBzOi8vc2hpcmFzdS5pby9jdXN0b21lcklkIjoiY3VzX0lFS0RoM0J0UjlOeG5TIiwiaHR0cHM6Ly9zaGlyYXN1LmlvL2Rpc3RyaWJ1dGVkcyI6W10sImh0dHBzOi8vc2hpcmFzdS5pby90ZW5hbnRzIjpbXSwiZ2l2ZW5fbmFtZSI6Ikhpcm95dWtpIiwiZmFtaWx5X25hbWUiOiJUIiwibmlja25hbWUiOiJoaXJvdGFtdTMiLCJuYW1lIjoiSGlyb3l1a2kgVCIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLXhBUlEwZm9KZENBL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2s2ZTZjUkluNzVSWTV6dVNrb0FJRGRWY1FjSEEvczk2LWMvcGhvdG8uanBnIiwibG9jYWxlIjoiamEiLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMS0wNVQxMTowNzo0Ny44NjBaIiwiZW1haWwiOiJoaXJvdGFtdTNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vc2hpcmFzdS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDk0MzEyMjg4NTM2MDM1Nzk2ODQiLCJhdWQiOiJreWpUSjVsUTdSVTdtQXllU21YOG5MWWN4VlJ0QTNuQiIsImlhdCI6MTYwNDU3NDQ2OSwiZXhwIjoxNjA0NjEwNDY5LCJub25jZSI6IlVtTkJXbkZyUkdZeU9EQkRNRWxaT1ZGYU5VMUdVbDlIVFd0UGIyWk5WVkpYVkRoSWIxSm1ibEZaWXc9PSJ9.qikC9rClKigtxUep3iLAzKmst_OhLPiBIavRUs1VbU7SPOzEINPxhvLPYu60TI61sVm6afbceFTvrgeHRCrcvoBJ0_KGf1-Urrrx8FZ4wUanUWHlVhSXyv8u2DjzyQB2ehMaIrQXksm1KXN0WIE9nt7irBvKcvsBPZQLu488A9br7VQpQB8Q0gZ81aXp8cG1XuuaTDB7EGVqU0zFg3LfPFl0QlLw-bI8DTaqKBl4EjbGAz_2EVvu8e4QIi-u5lKMpNX0Y7TMtKtb6K2GlhnYMbdrmsc_XymJay7T3CKyyH2aDg_xTYRIQqR-Z7T1T97Yecaf0lXLnglSxl4fS752nw';
 
   final GraphQLClient _graphQlClient;
 
   static GraphQLClient _createClient(Client client) {
-    final HttpLink httpLink = HttpLink(
-      uri: _URL_PROGRAMS,
-      headers: {
-        'x-amz-user-agent': 'aws-amplify/2.0.2-apollothree',
-      }
-      // httpClient: LoggerHttpClient(client)
-    );
+    final HttpLink httpLink = HttpLink(uri: _URL_PROGRAMS, headers: {
+      'x-amz-user-agent': 'aws-amplify/2.0.2-apollothree',
+    }
+        // httpClient: LoggerHttpClient(client)
+        );
 
     final AuthLink authLink = AuthLink(
       getToken: () async => _DUMMY_AUTH,
@@ -81,6 +83,13 @@ class ApiClient {
     final variables = nextToken == null ? null : {'nextToken': nextToken};
     final result = await _query(_QUERY_NEW_PROGRAMS, variables: variables);
     return NewProgramsData.fromJson(result.data as Map<String, dynamic>);
+  }
+
+  Future<ProgramDetailData> queryProgramDetail(String itemId) async {
+    final result = await _query(_QUERY_DETAIL_PROGRAMS, variables: {
+      'id': itemId,
+    });
+    return ProgramDetailData.fromJson(result.data as Map<String, dynamic>);
   }
 
   static String getThumbnailUrl(String itemId) {

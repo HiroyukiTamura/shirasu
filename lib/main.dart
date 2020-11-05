@@ -28,13 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: Styles.theme,
-      home: Navigator(pages: [
-        MaterialPage(child: ScreenMeta()),
-        if (isInitialLaunch)
-          MaterialPage(child: ScreenIntro())
-      ], onPopPage: (route, result) {
-        return route.didPop(result);
-      },),
+      home: ScreenMeta(),
     );
   }
 }

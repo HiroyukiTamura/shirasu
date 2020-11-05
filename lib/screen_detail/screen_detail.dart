@@ -14,6 +14,11 @@ import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';
 
 class ScreenDetail extends StatelessWidget {
+
+  const ScreenDetail({Key key, @required this.id}) : super(key: key);
+
+  final String id;
+
   static const _TAG_LIST = [
     'ゲンロンカフェ（特別配信）',
     'さやわか',

@@ -22,11 +22,20 @@ class ScreenDashboard extends StatefulWidget {
 class _ScreenDashboardState extends State<ScreenDashboard> {
   static const _COLUMN_COUNT = 2;
 
+  ScrollController _controller;
+
   @override
   void initState() {
     super.initState();
+    _controller = ScrollController(keepScrollOffset: true);
     WidgetsBinding.instance.addPostFrameCallback(
         (_) => context.read(_dashBoardProvider).requestPrograms());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -45,9 +54,11 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
           if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
             itemCount = featurePrgData.nowBroadcastings.items.length + 1;
           final nowBroadcastingsLast = itemCount;
+
           if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
             itemCount += featurePrgData.comingBroadcastings.items.length + 1;
           final comingBroadcastingsLast = itemCount;
+
           if (newPrgData?.isNotEmpty == true)
             itemCount += (newPrgData.length / 2).ceil() + 1;
 
@@ -78,12 +89,24 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
         },
       );
 
+
   Future<bool> _onLoadMore(BuildContext context) async {
     final result = await context.read(_dashBoardProvider).loadMoreNewPrg();
+    switch(result) {
+      case ApiClientResult.NO_MORE:
+        const snackBar = SnackBar(content: Text(Strings.SNACK_NO_MORE_ITEM));
+        Scaffold.of(context).showSnackBar(snackBar);
+        break;
+      case ApiClientResult.FAILURE:
+        const snackBar = SnackBar(content: Text(Strings.SNACK_ERR));
+        Scaffold.of(context).showSnackBar(snackBar);
+        break;
+    }
+
     return result == ApiClientResult.SUCCESS;
   }
 
-  static ListView _contentListView({
+  ListView _contentListView({
     @required int itemCount,
     @required int nowBroadcastingsLast,
     @required int comingBroadcastingsLast,
@@ -92,6 +115,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
     @required BoxConstraints constraints,
   }) =>
       ListView.builder(
+        controller: _controller,
           padding: const EdgeInsets.symmetric(vertical: 16),
           itemCount: itemCount,
           itemBuilder: (context, index) {

@@ -20,13 +20,30 @@ class Strings {
 
   //endregion
 
-  //region Dashboard
+  //region ScreenDashboard
   static const HEADING_UPCOMING = 'まもなく放送';
   static const HEADING_NEW_PRG = '新着番組';
+
   //endregion
 
   //region contents description
   static const String CD_INTRO_IMG_1ST = 'アプリロゴ';
   static const String CD_INTRO_IMG = 'イメージイラスト';
+
 //endregion
+
+  //region SnackBar
+  static const String SNACK_NO_MORE_ITEM = '新着番組は他にありません';
+  static const String SNACK_ERR = '処理に失敗しました';
+
+  //endregion
+
+  //region ScreenMeta
+  static const String NAV_ITEM_HOME = 'ホーム';
+  static const String NAV_ITEM_SUBSCRIBE = '購読中';
+  static const String NAV_ITEM_SEARCH = '検索';
+  static const String NAV_ITEM_CONFIG = '設定';
+
+//endregion
+
 }

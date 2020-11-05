@@ -6,6 +6,7 @@ import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
+import 'package:shirasu/screen_meta/screen_meta.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: Styles.theme,
       home: Navigator(pages: [
-        MaterialPage(child: ScreenDashboard()),
+        MaterialPage(child: ScreenMeta()),
         if (isInitialLaunch)
           MaterialPage(child: ScreenIntro())
       ], onPopPage: (route, result) {

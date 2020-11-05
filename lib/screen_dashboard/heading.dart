@@ -3,13 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:shirasu/resource/styles.dart';
 
 class Heading extends StatelessWidget {
-  final String text;
-
   const Heading({Key key, @required this.text}) : super(key: key);
+
+  final String text;
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: _HeadingText(
           text: text,
         ),
@@ -17,16 +17,16 @@ class Heading extends StatelessWidget {
 }
 
 class HeadingTrail extends StatelessWidget {
-  final String text;
-  final String btnText;
-  final VoidCallback onPressed;
-
   const HeadingTrail({
     Key key,
     @required this.text,
     @required this.btnText,
     @required this.onPressed,
   }) : super(key: key);
+
+  final String text;
+  final String btnText;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -50,9 +50,9 @@ class HeadingTrail extends StatelessWidget {
 }
 
 class _HeadingText extends StatelessWidget {
-  final String text;
-
   const _HeadingText({Key key, @required this.text}) : super(key: key);
+
+  final String text;
 
   @override
   Widget build(BuildContext context) => Text(
@@ -60,6 +60,8 @@ class _HeadingText extends StatelessWidget {
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
+          decoration: TextDecoration.none,
+          color: Theme.of(context).accentColor,
         ),
       );
 }

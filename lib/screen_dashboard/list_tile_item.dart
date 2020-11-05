@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
@@ -13,7 +14,7 @@ class ListTileItem extends StatelessWidget {
   static const _TIME = '2020/11/12 19:00';
 
   static const double _TILE_HEIGHT = 96;
-  static const _THUMBNAIL_WIDTH = _TILE_HEIGHT * ScreenDetail.IMG_RATIO;
+  static const _THUMBNAIL_WIDTH = _TILE_HEIGHT * Dimens.IMG_RATIO;
 
   @override
   Widget build(BuildContext context) {

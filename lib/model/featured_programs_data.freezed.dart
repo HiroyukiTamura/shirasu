@@ -17,9 +17,14 @@ class _$FeatureProgramDataTearOff {
   const _$FeatureProgramDataTearOff();
 
 // ignore: unused_element
-  _FeatureProgramData call({@required Data data}) {
+  _FeatureProgramData call(
+      {@required Broadcastings nowBroadcastings,
+      @required Broadcastings comingBroadcastings,
+      @required ViewerUser viewerUser}) {
     return _FeatureProgramData(
-      data: data,
+      nowBroadcastings: nowBroadcastings,
+      comingBroadcastings: comingBroadcastings,
+      viewerUser: viewerUser,
     );
   }
 
@@ -35,7 +40,9 @@ const $FeatureProgramData = _$FeatureProgramDataTearOff();
 
 /// @nodoc
 mixin _$FeatureProgramData {
-  Data get data;
+  Broadcastings get nowBroadcastings;
+  Broadcastings get comingBroadcastings;
+  ViewerUser get viewerUser;
 
   Map<String, dynamic> toJson();
   $FeatureProgramDataCopyWith<FeatureProgramData> get copyWith;
@@ -46,179 +53,6 @@ abstract class $FeatureProgramDataCopyWith<$Res> {
   factory $FeatureProgramDataCopyWith(
           FeatureProgramData value, $Res Function(FeatureProgramData) then) =
       _$FeatureProgramDataCopyWithImpl<$Res>;
-  $Res call({Data data});
-
-  $DataCopyWith<$Res> get data;
-}
-
-/// @nodoc
-class _$FeatureProgramDataCopyWithImpl<$Res>
-    implements $FeatureProgramDataCopyWith<$Res> {
-  _$FeatureProgramDataCopyWithImpl(this._value, this._then);
-
-  final FeatureProgramData _value;
-  // ignore: unused_field
-  final $Res Function(FeatureProgramData) _then;
-
-  @override
-  $Res call({
-    Object data = freezed,
-  }) {
-    return _then(_value.copyWith(
-      data: data == freezed ? _value.data : data as Data,
-    ));
-  }
-
-  @override
-  $DataCopyWith<$Res> get data {
-    if (_value.data == null) {
-      return null;
-    }
-    return $DataCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value));
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$FeatureProgramDataCopyWith<$Res>
-    implements $FeatureProgramDataCopyWith<$Res> {
-  factory _$FeatureProgramDataCopyWith(
-          _FeatureProgramData value, $Res Function(_FeatureProgramData) then) =
-      __$FeatureProgramDataCopyWithImpl<$Res>;
-  @override
-  $Res call({Data data});
-
-  @override
-  $DataCopyWith<$Res> get data;
-}
-
-/// @nodoc
-class __$FeatureProgramDataCopyWithImpl<$Res>
-    extends _$FeatureProgramDataCopyWithImpl<$Res>
-    implements _$FeatureProgramDataCopyWith<$Res> {
-  __$FeatureProgramDataCopyWithImpl(
-      _FeatureProgramData _value, $Res Function(_FeatureProgramData) _then)
-      : super(_value, (v) => _then(v as _FeatureProgramData));
-
-  @override
-  _FeatureProgramData get _value => super._value as _FeatureProgramData;
-
-  @override
-  $Res call({
-    Object data = freezed,
-  }) {
-    return _then(_FeatureProgramData(
-      data: data == freezed ? _value.data : data as Data,
-    ));
-  }
-}
-
-@JsonSerializable()
-
-/// @nodoc
-class _$_FeatureProgramData
-    with DiagnosticableTreeMixin
-    implements _FeatureProgramData {
-  _$_FeatureProgramData({@required this.data}) : assert(data != null);
-
-  factory _$_FeatureProgramData.fromJson(Map<String, dynamic> json) =>
-      _$_$_FeatureProgramDataFromJson(json);
-
-  @override
-  final Data data;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FeatureProgramData(data: $data)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'FeatureProgramData'))
-      ..add(DiagnosticsProperty('data', data));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _FeatureProgramData &&
-            (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
-
-  @override
-  _$FeatureProgramDataCopyWith<_FeatureProgramData> get copyWith =>
-      __$FeatureProgramDataCopyWithImpl<_FeatureProgramData>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_FeatureProgramDataToJson(this);
-  }
-}
-
-abstract class _FeatureProgramData implements FeatureProgramData {
-  factory _FeatureProgramData({@required Data data}) = _$_FeatureProgramData;
-
-  factory _FeatureProgramData.fromJson(Map<String, dynamic> json) =
-      _$_FeatureProgramData.fromJson;
-
-  @override
-  Data get data;
-  @override
-  _$FeatureProgramDataCopyWith<_FeatureProgramData> get copyWith;
-}
-
-Data _$DataFromJson(Map<String, dynamic> json) {
-  return _Data.fromJson(json);
-}
-
-/// @nodoc
-class _$DataTearOff {
-  const _$DataTearOff();
-
-// ignore: unused_element
-  _Data call(
-      {@required Broadcastings nowBroadcastings,
-      @required Broadcastings comingBroadcastings,
-      @required ViewerUser viewerUser}) {
-    return _Data(
-      nowBroadcastings: nowBroadcastings,
-      comingBroadcastings: comingBroadcastings,
-      viewerUser: viewerUser,
-    );
-  }
-
-// ignore: unused_element
-  Data fromJson(Map<String, Object> json) {
-    return Data.fromJson(json);
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $Data = _$DataTearOff();
-
-/// @nodoc
-mixin _$Data {
-  Broadcastings get nowBroadcastings;
-  Broadcastings get comingBroadcastings;
-  ViewerUser get viewerUser;
-
-  Map<String, dynamic> toJson();
-  $DataCopyWith<Data> get copyWith;
-}
-
-/// @nodoc
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res>;
   $Res call(
       {Broadcastings nowBroadcastings,
       Broadcastings comingBroadcastings,
@@ -230,12 +64,13 @@ abstract class $DataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DataCopyWithImpl<$Res> implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(this._value, this._then);
+class _$FeatureProgramDataCopyWithImpl<$Res>
+    implements $FeatureProgramDataCopyWith<$Res> {
+  _$FeatureProgramDataCopyWithImpl(this._value, this._then);
 
-  final Data _value;
+  final FeatureProgramData _value;
   // ignore: unused_field
-  final $Res Function(Data) _then;
+  final $Res Function(FeatureProgramData) _then;
 
   @override
   $Res call({
@@ -287,9 +122,11 @@ class _$DataCopyWithImpl<$Res> implements $DataCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$DataCopyWith<$Res> implements $DataCopyWith<$Res> {
-  factory _$DataCopyWith(_Data value, $Res Function(_Data) then) =
-      __$DataCopyWithImpl<$Res>;
+abstract class _$FeatureProgramDataCopyWith<$Res>
+    implements $FeatureProgramDataCopyWith<$Res> {
+  factory _$FeatureProgramDataCopyWith(
+          _FeatureProgramData value, $Res Function(_FeatureProgramData) then) =
+      __$FeatureProgramDataCopyWithImpl<$Res>;
   @override
   $Res call(
       {Broadcastings nowBroadcastings,
@@ -305,13 +142,15 @@ abstract class _$DataCopyWith<$Res> implements $DataCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res>
-    implements _$DataCopyWith<$Res> {
-  __$DataCopyWithImpl(_Data _value, $Res Function(_Data) _then)
-      : super(_value, (v) => _then(v as _Data));
+class __$FeatureProgramDataCopyWithImpl<$Res>
+    extends _$FeatureProgramDataCopyWithImpl<$Res>
+    implements _$FeatureProgramDataCopyWith<$Res> {
+  __$FeatureProgramDataCopyWithImpl(
+      _FeatureProgramData _value, $Res Function(_FeatureProgramData) _then)
+      : super(_value, (v) => _then(v as _FeatureProgramData));
 
   @override
-  _Data get _value => super._value as _Data;
+  _FeatureProgramData get _value => super._value as _FeatureProgramData;
 
   @override
   $Res call({
@@ -319,7 +158,7 @@ class __$DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res>
     Object comingBroadcastings = freezed,
     Object viewerUser = freezed,
   }) {
-    return _then(_Data(
+    return _then(_FeatureProgramData(
       nowBroadcastings: nowBroadcastings == freezed
           ? _value.nowBroadcastings
           : nowBroadcastings as Broadcastings,
@@ -335,17 +174,19 @@ class __$DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Data with DiagnosticableTreeMixin implements _Data {
-  _$_Data(
+class _$_FeatureProgramData extends _FeatureProgramData
+    with DiagnosticableTreeMixin {
+  _$_FeatureProgramData(
       {@required this.nowBroadcastings,
       @required this.comingBroadcastings,
       @required this.viewerUser})
       : assert(nowBroadcastings != null),
         assert(comingBroadcastings != null),
-        assert(viewerUser != null);
+        assert(viewerUser != null),
+        super._();
 
-  factory _$_Data.fromJson(Map<String, dynamic> json) =>
-      _$_$_DataFromJson(json);
+  factory _$_FeatureProgramData.fromJson(Map<String, dynamic> json) =>
+      _$_$_FeatureProgramDataFromJson(json);
 
   @override
   final Broadcastings nowBroadcastings;
@@ -356,14 +197,14 @@ class _$_Data with DiagnosticableTreeMixin implements _Data {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Data(nowBroadcastings: $nowBroadcastings, comingBroadcastings: $comingBroadcastings, viewerUser: $viewerUser)';
+    return 'FeatureProgramData(nowBroadcastings: $nowBroadcastings, comingBroadcastings: $comingBroadcastings, viewerUser: $viewerUser)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Data'))
+      ..add(DiagnosticsProperty('type', 'FeatureProgramData'))
       ..add(DiagnosticsProperty('nowBroadcastings', nowBroadcastings))
       ..add(DiagnosticsProperty('comingBroadcastings', comingBroadcastings))
       ..add(DiagnosticsProperty('viewerUser', viewerUser));
@@ -372,7 +213,7 @@ class _$_Data with DiagnosticableTreeMixin implements _Data {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Data &&
+        (other is _FeatureProgramData &&
             (identical(other.nowBroadcastings, nowBroadcastings) ||
                 const DeepCollectionEquality()
                     .equals(other.nowBroadcastings, nowBroadcastings)) &&
@@ -392,22 +233,24 @@ class _$_Data with DiagnosticableTreeMixin implements _Data {
       const DeepCollectionEquality().hash(viewerUser);
 
   @override
-  _$DataCopyWith<_Data> get copyWith =>
-      __$DataCopyWithImpl<_Data>(this, _$identity);
+  _$FeatureProgramDataCopyWith<_FeatureProgramData> get copyWith =>
+      __$FeatureProgramDataCopyWithImpl<_FeatureProgramData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_DataToJson(this);
+    return _$_$_FeatureProgramDataToJson(this);
   }
 }
 
-abstract class _Data implements Data {
-  factory _Data(
+abstract class _FeatureProgramData extends FeatureProgramData {
+  _FeatureProgramData._() : super._();
+  factory _FeatureProgramData(
       {@required Broadcastings nowBroadcastings,
       @required Broadcastings comingBroadcastings,
-      @required ViewerUser viewerUser}) = _$_Data;
+      @required ViewerUser viewerUser}) = _$_FeatureProgramData;
 
-  factory _Data.fromJson(Map<String, dynamic> json) = _$_Data.fromJson;
+  factory _FeatureProgramData.fromJson(Map<String, dynamic> json) =
+      _$_FeatureProgramData.fromJson;
 
   @override
   Broadcastings get nowBroadcastings;
@@ -416,7 +259,7 @@ abstract class _Data implements Data {
   @override
   ViewerUser get viewerUser;
   @override
-  _$DataCopyWith<_Data> get copyWith;
+  _$FeatureProgramDataCopyWith<_FeatureProgramData> get copyWith;
 }
 
 Broadcastings _$BroadcastingsFromJson(Map<String, dynamic> json) {
@@ -428,7 +271,9 @@ class _$BroadcastingsTearOff {
   const _$BroadcastingsTearOff();
 
 // ignore: unused_element
-  _Broadcastings call({@required List<Item> items, @required String typename}) {
+  _Broadcastings call(
+      {@required List<Item> items,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Broadcastings(
       items: items,
       typename: typename,
@@ -448,6 +293,7 @@ const $Broadcastings = _$BroadcastingsTearOff();
 /// @nodoc
 mixin _$Broadcastings {
   List<Item> get items;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -459,7 +305,7 @@ abstract class $BroadcastingsCopyWith<$Res> {
   factory $BroadcastingsCopyWith(
           Broadcastings value, $Res Function(Broadcastings) then) =
       _$BroadcastingsCopyWithImpl<$Res>;
-  $Res call({List<Item> items, String typename});
+  $Res call({List<Item> items, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -490,7 +336,7 @@ abstract class _$BroadcastingsCopyWith<$Res>
           _Broadcastings value, $Res Function(_Broadcastings) then) =
       __$BroadcastingsCopyWithImpl<$Res>;
   @override
-  $Res call({List<Item> items, String typename});
+  $Res call({List<Item> items, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -520,7 +366,9 @@ class __$BroadcastingsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
-  _$_Broadcastings({@required this.items, @required this.typename})
+  _$_Broadcastings(
+      {@required this.items,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(items != null),
         assert(typename != null);
 
@@ -530,6 +378,7 @@ class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
   @override
   final List<Item> items;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -575,8 +424,9 @@ class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
 
 abstract class _Broadcastings implements Broadcastings {
   factory _Broadcastings(
-      {@required List<Item> items,
-      @required String typename}) = _$_Broadcastings;
+          {@required List<Item> items,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_Broadcastings;
 
   factory _Broadcastings.fromJson(Map<String, dynamic> json) =
       _$_Broadcastings.fromJson;
@@ -584,6 +434,7 @@ abstract class _Broadcastings implements Broadcastings {
   @override
   List<Item> get items;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$BroadcastingsCopyWith<_Broadcastings> get copyWith;
@@ -607,9 +458,9 @@ class _$ItemTearOff {
       @required String tenantId,
       @required String title,
       @required int totalPlayTime,
-      @required dynamic viewerPlanType,
+      dynamic viewerPlanType,
       @required Channel channel,
-      @required String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Item(
       broadcastAt: broadcastAt,
       channelId: channelId,
@@ -647,6 +498,7 @@ mixin _$Item {
   int get totalPlayTime;
   dynamic get viewerPlanType;
   Channel get channel;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -668,7 +520,7 @@ abstract class $ItemCopyWith<$Res> {
       int totalPlayTime,
       dynamic viewerPlanType,
       Channel channel,
-      String typename});
+      @JsonKey(name: '__typename') String typename});
 
   $ChannelCopyWith<$Res> get channel;
 }
@@ -743,7 +595,7 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       int totalPlayTime,
       dynamic viewerPlanType,
       Channel channel,
-      String typename});
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $ChannelCopyWith<$Res> get channel;
@@ -807,9 +659,9 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       @required this.tenantId,
       @required this.title,
       @required this.totalPlayTime,
-      @required this.viewerPlanType,
+      this.viewerPlanType,
       @required this.channel,
-      @required this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(broadcastAt != null),
         assert(channelId != null),
         assert(id != null),
@@ -818,7 +670,6 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
         assert(tenantId != null),
         assert(title != null),
         assert(totalPlayTime != null),
-        assert(viewerPlanType != null),
         assert(channel != null),
         assert(typename != null);
 
@@ -846,6 +697,7 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   @override
   final Channel channel;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -943,9 +795,9 @@ abstract class _Item implements Item {
       @required String tenantId,
       @required String title,
       @required int totalPlayTime,
-      @required dynamic viewerPlanType,
+      dynamic viewerPlanType,
       @required Channel channel,
-      @required String typename}) = _$_Item;
+      @required @JsonKey(name: '__typename') String typename}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
@@ -970,6 +822,7 @@ abstract class _Item implements Item {
   @override
   Channel get channel;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$ItemCopyWith<_Item> get copyWith;
@@ -985,7 +838,9 @@ class _$ChannelTearOff {
 
 // ignore: unused_element
   _Channel call(
-      {@required String id, @required String name, @required String typename}) {
+      {@required String id,
+      @required String name,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Channel(
       id: id,
       name: name,
@@ -1007,6 +862,7 @@ const $Channel = _$ChannelTearOff();
 mixin _$Channel {
   String get id;
   String get name;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1017,7 +873,8 @@ mixin _$Channel {
 abstract class $ChannelCopyWith<$Res> {
   factory $ChannelCopyWith(Channel value, $Res Function(Channel) then) =
       _$ChannelCopyWithImpl<$Res>;
-  $Res call({String id, String name, String typename});
+  $Res call(
+      {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1047,7 +904,8 @@ abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
   factory _$ChannelCopyWith(_Channel value, $Res Function(_Channel) then) =
       __$ChannelCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, String typename});
+  $Res call(
+      {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1077,7 +935,10 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Channel with DiagnosticableTreeMixin implements _Channel {
-  _$_Channel({@required this.id, @required this.name, @required this.typename})
+  _$_Channel(
+      {@required this.id,
+      @required this.name,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(name != null),
         assert(typename != null);
@@ -1090,6 +951,7 @@ class _$_Channel with DiagnosticableTreeMixin implements _Channel {
   @override
   final String name;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -1141,7 +1003,7 @@ abstract class _Channel implements Channel {
   factory _Channel(
       {@required String id,
       @required String name,
-      @required String typename}) = _$_Channel;
+      @required @JsonKey(name: '__typename') String typename}) = _$_Channel;
 
   factory _Channel.fromJson(Map<String, dynamic> json) = _$_Channel.fromJson;
 
@@ -1150,6 +1012,7 @@ abstract class _Channel implements Channel {
   @override
   String get name;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$ChannelCopyWith<_Channel> get copyWith;
@@ -1167,7 +1030,7 @@ class _$ViewerUserTearOff {
   _ViewerUser call(
       {@required String id,
       @required List<dynamic> subscribedPrograms,
-      @required String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _ViewerUser(
       id: id,
       subscribedPrograms: subscribedPrograms,
@@ -1189,6 +1052,7 @@ const $ViewerUser = _$ViewerUserTearOff();
 mixin _$ViewerUser {
   String get id;
   List<dynamic> get subscribedPrograms; //todo これ
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1200,7 +1064,10 @@ abstract class $ViewerUserCopyWith<$Res> {
   factory $ViewerUserCopyWith(
           ViewerUser value, $Res Function(ViewerUser) then) =
       _$ViewerUserCopyWithImpl<$Res>;
-  $Res call({String id, List<dynamic> subscribedPrograms, String typename});
+  $Res call(
+      {String id,
+      List<dynamic> subscribedPrograms,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1233,7 +1100,10 @@ abstract class _$ViewerUserCopyWith<$Res> implements $ViewerUserCopyWith<$Res> {
           _ViewerUser value, $Res Function(_ViewerUser) then) =
       __$ViewerUserCopyWithImpl<$Res>;
   @override
-  $Res call({String id, List<dynamic> subscribedPrograms, String typename});
+  $Res call(
+      {String id,
+      List<dynamic> subscribedPrograms,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1269,7 +1139,7 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
   _$_ViewerUser(
       {@required this.id,
       @required this.subscribedPrograms,
-      @required this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(subscribedPrograms != null),
         assert(typename != null);
@@ -1282,6 +1152,7 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
   @override
   final List<dynamic> subscribedPrograms;
   @override //todo これ
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -1334,7 +1205,7 @@ abstract class _ViewerUser implements ViewerUser {
   factory _ViewerUser(
       {@required String id,
       @required List<dynamic> subscribedPrograms,
-      @required String typename}) = _$_ViewerUser;
+      @required @JsonKey(name: '__typename') String typename}) = _$_ViewerUser;
 
   factory _ViewerUser.fromJson(Map<String, dynamic> json) =
       _$_ViewerUser.fromJson;
@@ -1344,6 +1215,7 @@ abstract class _ViewerUser implements ViewerUser {
   @override
   List<dynamic> get subscribedPrograms;
   @override //todo これ
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$ViewerUserCopyWith<_ViewerUser> get copyWith;

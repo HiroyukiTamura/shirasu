@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 
 class GirdCardItem extends StatelessWidget {
@@ -24,7 +25,7 @@ class GirdCardItem extends StatelessWidget {
       child: Column(
         children: [
           AspectRatio(
-            aspectRatio: ScreenDetail.IMG_RATIO,
+            aspectRatio: Dimens.IMG_RATIO,
             child: CachedNetworkImage(
               imageUrl: _THUMBNAIL_URL,
             ),

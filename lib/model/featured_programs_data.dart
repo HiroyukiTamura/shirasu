@@ -5,29 +5,26 @@ part 'featured_programs_data.freezed.dart';
 part 'featured_programs_data.g.dart';
 
 @freezed
-abstract class FeatureProgramData with _$FeatureProgramData {
+abstract class FeatureProgramData implements _$FeatureProgramData {
 
-  factory FeatureProgramData({@required Data data}) = _FeatureProgramData;
-  factory FeatureProgramData.fromJson(Map<String, dynamic> json) => _$FeatureProgramDataFromJson(json);
-}
+  const FeatureProgramData._();
 
-@freezed
-abstract class Data with _$Data {
-
-  factory Data({
+  factory FeatureProgramData({
     @required Broadcastings nowBroadcastings,
     @required Broadcastings comingBroadcastings,
     @required ViewerUser viewerUser,
-  }) = _Data;
+  }) = _FeatureProgramData;
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory FeatureProgramData.fromJson(Map<String, dynamic> json) => _$FeatureProgramDataFromJson(json);
+
+  int get broadcastCount => nowBroadcastings.items.length + comingBroadcastings.items.length;
 }
 
 @freezed
 abstract class Broadcastings with _$Broadcastings {
   factory Broadcastings({
     @required List<Item> items,
-    @required String typename,
+    @JsonKey(name: '__typename') @required String typename,
   }) = _Broadcastings;
 
   factory Broadcastings.fromJson(Map<String, dynamic> json) => _$BroadcastingsFromJson(json);
@@ -44,9 +41,9 @@ abstract class Item with _$Item {
     @required String tenantId,
     @required String title,
     @required int totalPlayTime,
-    @required dynamic viewerPlanType,
+    dynamic viewerPlanType,
     @required Channel channel,
-    @required String typename,
+    @JsonKey(name: '__typename') @required String typename,
   }) = _Item;
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
@@ -57,7 +54,7 @@ abstract class Channel with _$Channel {
   factory Channel({
     @required String id,
     @required String name,
-    @required String typename,
+    @JsonKey(name: '__typename') @required String typename,
   }) = _Channel;
 
   factory Channel.fromJson(Map<String, dynamic> json) => _$ChannelFromJson(json);
@@ -68,7 +65,7 @@ abstract class ViewerUser with _$ViewerUser {
   factory ViewerUser({
     @required String id,
     @required List<dynamic> subscribedPrograms,//todo これ
-    @required String typename,
+    @JsonKey(name: '__typename') @required String typename,
   }) = _ViewerUser;
 
   factory ViewerUser.fromJson(Map<String, dynamic> json) => _$ViewerUserFromJson(json);

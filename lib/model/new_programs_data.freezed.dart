@@ -184,8 +184,8 @@ class _$NewProgramsTearOff {
 
 // ignore: unused_element
   _NewPrograms call(
-      {@required List<Item> items,
-      @required String nextToken,
+      {@required List<NewProgramItem> items,
+      String nextToken,
       @required @JsonKey(name: '__typename') String typename}) {
     return _NewPrograms(
       items: items,
@@ -206,7 +206,7 @@ const $NewPrograms = _$NewProgramsTearOff();
 
 /// @nodoc
 mixin _$NewPrograms {
-  List<Item> get items;
+  List<NewProgramItem> get items;
   String get nextToken;
   @JsonKey(name: '__typename')
   String get typename;
@@ -221,7 +221,7 @@ abstract class $NewProgramsCopyWith<$Res> {
           NewPrograms value, $Res Function(NewPrograms) then) =
       _$NewProgramsCopyWithImpl<$Res>;
   $Res call(
-      {List<Item> items,
+      {List<NewProgramItem> items,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -241,7 +241,7 @@ class _$NewProgramsCopyWithImpl<$Res> implements $NewProgramsCopyWith<$Res> {
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<Item>,
+      items: items == freezed ? _value.items : items as List<NewProgramItem>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -256,7 +256,7 @@ abstract class _$NewProgramsCopyWith<$Res>
       __$NewProgramsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<Item> items,
+      {List<NewProgramItem> items,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -278,7 +278,7 @@ class __$NewProgramsCopyWithImpl<$Res> extends _$NewProgramsCopyWithImpl<$Res>
     Object typename = freezed,
   }) {
     return _then(_NewPrograms(
-      items: items == freezed ? _value.items : items as List<Item>,
+      items: items == freezed ? _value.items : items as List<NewProgramItem>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -291,17 +291,16 @@ class __$NewProgramsCopyWithImpl<$Res> extends _$NewProgramsCopyWithImpl<$Res>
 class _$_NewPrograms implements _NewPrograms {
   _$_NewPrograms(
       {@required this.items,
-      @required this.nextToken,
+      this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(items != null),
-        assert(nextToken != null),
         assert(typename != null);
 
   factory _$_NewPrograms.fromJson(Map<String, dynamic> json) =>
       _$_$_NewProgramsFromJson(json);
 
   @override
-  final List<Item> items;
+  final List<NewProgramItem> items;
   @override
   final String nextToken;
   @override
@@ -346,15 +345,15 @@ class _$_NewPrograms implements _NewPrograms {
 
 abstract class _NewPrograms implements NewPrograms {
   factory _NewPrograms(
-      {@required List<Item> items,
-      @required String nextToken,
+      {@required List<NewProgramItem> items,
+      String nextToken,
       @required @JsonKey(name: '__typename') String typename}) = _$_NewPrograms;
 
   factory _NewPrograms.fromJson(Map<String, dynamic> json) =
       _$_NewPrograms.fromJson;
 
   @override
-  List<Item> get items;
+  List<NewProgramItem> get items;
   @override
   String get nextToken;
   @override
@@ -364,16 +363,16 @@ abstract class _NewPrograms implements NewPrograms {
   _$NewProgramsCopyWith<_NewPrograms> get copyWith;
 }
 
-Item _$ItemFromJson(Map<String, dynamic> json) {
-  return _Item.fromJson(json);
+NewProgramItem _$NewProgramItemFromJson(Map<String, dynamic> json) {
+  return _NewProgramItem.fromJson(json);
 }
 
 /// @nodoc
-class _$ItemTearOff {
-  const _$ItemTearOff();
+class _$NewProgramItemTearOff {
+  const _$NewProgramItemTearOff();
 
 // ignore: unused_element
-  _Item call(
+  _NewProgramItem call(
       {@required DateTime broadcastAt,
       @required String channelId,
       @required String id,
@@ -383,9 +382,9 @@ class _$ItemTearOff {
       @required String title,
       @required int totalPlayTime,
       String viewerPlanType,
-      @required Channel channel,
+      @required NewProgramChannel channel,
       @required @JsonKey(name: '__typename') String typename}) {
-    return _Item(
+    return _NewProgramItem(
       broadcastAt: broadcastAt,
       channelId: channelId,
       id: id,
@@ -401,17 +400,17 @@ class _$ItemTearOff {
   }
 
 // ignore: unused_element
-  Item fromJson(Map<String, Object> json) {
-    return Item.fromJson(json);
+  NewProgramItem fromJson(Map<String, Object> json) {
+    return NewProgramItem.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $Item = _$ItemTearOff();
+const $NewProgramItem = _$NewProgramItemTearOff();
 
 /// @nodoc
-mixin _$Item {
+mixin _$NewProgramItem {
   DateTime get broadcastAt;
   String get channelId;
   String get id;
@@ -421,18 +420,19 @@ mixin _$Item {
   String get title;
   int get totalPlayTime;
   String get viewerPlanType;
-  Channel get channel;
+  NewProgramChannel get channel;
   @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
-  $ItemCopyWith<Item> get copyWith;
+  $NewProgramItemCopyWith<NewProgramItem> get copyWith;
 }
 
 /// @nodoc
-abstract class $ItemCopyWith<$Res> {
-  factory $ItemCopyWith(Item value, $Res Function(Item) then) =
-      _$ItemCopyWithImpl<$Res>;
+abstract class $NewProgramItemCopyWith<$Res> {
+  factory $NewProgramItemCopyWith(
+          NewProgramItem value, $Res Function(NewProgramItem) then) =
+      _$NewProgramItemCopyWithImpl<$Res>;
   $Res call(
       {DateTime broadcastAt,
       String channelId,
@@ -443,19 +443,20 @@ abstract class $ItemCopyWith<$Res> {
       String title,
       int totalPlayTime,
       String viewerPlanType,
-      Channel channel,
+      NewProgramChannel channel,
       @JsonKey(name: '__typename') String typename});
 
-  $ChannelCopyWith<$Res> get channel;
+  $NewProgramChannelCopyWith<$Res> get channel;
 }
 
 /// @nodoc
-class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
-  _$ItemCopyWithImpl(this._value, this._then);
+class _$NewProgramItemCopyWithImpl<$Res>
+    implements $NewProgramItemCopyWith<$Res> {
+  _$NewProgramItemCopyWithImpl(this._value, this._then);
 
-  final Item _value;
+  final NewProgramItem _value;
   // ignore: unused_field
-  final $Res Function(Item) _then;
+  final $Res Function(NewProgramItem) _then;
 
   @override
   $Res call({
@@ -487,26 +488,29 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
       viewerPlanType: viewerPlanType == freezed
           ? _value.viewerPlanType
           : viewerPlanType as String,
-      channel: channel == freezed ? _value.channel : channel as Channel,
+      channel:
+          channel == freezed ? _value.channel : channel as NewProgramChannel,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
 
   @override
-  $ChannelCopyWith<$Res> get channel {
+  $NewProgramChannelCopyWith<$Res> get channel {
     if (_value.channel == null) {
       return null;
     }
-    return $ChannelCopyWith<$Res>(_value.channel, (value) {
+    return $NewProgramChannelCopyWith<$Res>(_value.channel, (value) {
       return _then(_value.copyWith(channel: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
-  factory _$ItemCopyWith(_Item value, $Res Function(_Item) then) =
-      __$ItemCopyWithImpl<$Res>;
+abstract class _$NewProgramItemCopyWith<$Res>
+    implements $NewProgramItemCopyWith<$Res> {
+  factory _$NewProgramItemCopyWith(
+          _NewProgramItem value, $Res Function(_NewProgramItem) then) =
+      __$NewProgramItemCopyWithImpl<$Res>;
   @override
   $Res call(
       {DateTime broadcastAt,
@@ -518,21 +522,23 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String title,
       int totalPlayTime,
       String viewerPlanType,
-      Channel channel,
+      NewProgramChannel channel,
       @JsonKey(name: '__typename') String typename});
 
   @override
-  $ChannelCopyWith<$Res> get channel;
+  $NewProgramChannelCopyWith<$Res> get channel;
 }
 
 /// @nodoc
-class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
-    implements _$ItemCopyWith<$Res> {
-  __$ItemCopyWithImpl(_Item _value, $Res Function(_Item) _then)
-      : super(_value, (v) => _then(v as _Item));
+class __$NewProgramItemCopyWithImpl<$Res>
+    extends _$NewProgramItemCopyWithImpl<$Res>
+    implements _$NewProgramItemCopyWith<$Res> {
+  __$NewProgramItemCopyWithImpl(
+      _NewProgramItem _value, $Res Function(_NewProgramItem) _then)
+      : super(_value, (v) => _then(v as _NewProgramItem));
 
   @override
-  _Item get _value => super._value as _Item;
+  _NewProgramItem get _value => super._value as _NewProgramItem;
 
   @override
   $Res call({
@@ -548,7 +554,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object channel = freezed,
     Object typename = freezed,
   }) {
-    return _then(_Item(
+    return _then(_NewProgramItem(
       broadcastAt:
           broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
       channelId: channelId == freezed ? _value.channelId : channelId as String,
@@ -564,7 +570,8 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
       viewerPlanType: viewerPlanType == freezed
           ? _value.viewerPlanType
           : viewerPlanType as String,
-      channel: channel == freezed ? _value.channel : channel as Channel,
+      channel:
+          channel == freezed ? _value.channel : channel as NewProgramChannel,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -573,8 +580,8 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Item implements _Item {
-  _$_Item(
+class _$_NewProgramItem implements _NewProgramItem {
+  _$_NewProgramItem(
       {@required this.broadcastAt,
       @required this.channelId,
       @required this.id,
@@ -597,8 +604,8 @@ class _$_Item implements _Item {
         assert(channel != null),
         assert(typename != null);
 
-  factory _$_Item.fromJson(Map<String, dynamic> json) =>
-      _$_$_ItemFromJson(json);
+  factory _$_NewProgramItem.fromJson(Map<String, dynamic> json) =>
+      _$_$_NewProgramItemFromJson(json);
 
   @override
   final DateTime broadcastAt;
@@ -619,20 +626,20 @@ class _$_Item implements _Item {
   @override
   final String viewerPlanType;
   @override
-  final Channel channel;
+  final NewProgramChannel channel;
   @override
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'Item(broadcastAt: $broadcastAt, channelId: $channelId, id: $id, mainTime: $mainTime, releasedAt: $releasedAt, tenantId: $tenantId, title: $title, totalPlayTime: $totalPlayTime, viewerPlanType: $viewerPlanType, channel: $channel, typename: $typename)';
+    return 'NewProgramItem(broadcastAt: $broadcastAt, channelId: $channelId, id: $id, mainTime: $mainTime, releasedAt: $releasedAt, tenantId: $tenantId, title: $title, totalPlayTime: $totalPlayTime, viewerPlanType: $viewerPlanType, channel: $channel, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Item &&
+        (other is _NewProgramItem &&
             (identical(other.broadcastAt, broadcastAt) ||
                 const DeepCollectionEquality()
                     .equals(other.broadcastAt, broadcastAt)) &&
@@ -682,30 +689,32 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(typename);
 
   @override
-  _$ItemCopyWith<_Item> get copyWith =>
-      __$ItemCopyWithImpl<_Item>(this, _$identity);
+  _$NewProgramItemCopyWith<_NewProgramItem> get copyWith =>
+      __$NewProgramItemCopyWithImpl<_NewProgramItem>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ItemToJson(this);
+    return _$_$_NewProgramItemToJson(this);
   }
 }
 
-abstract class _Item implements Item {
-  factory _Item(
-      {@required DateTime broadcastAt,
-      @required String channelId,
-      @required String id,
-      @required int mainTime,
-      @required DateTime releasedAt,
-      @required String tenantId,
-      @required String title,
-      @required int totalPlayTime,
-      String viewerPlanType,
-      @required Channel channel,
-      @required @JsonKey(name: '__typename') String typename}) = _$_Item;
+abstract class _NewProgramItem implements NewProgramItem {
+  factory _NewProgramItem(
+          {@required DateTime broadcastAt,
+          @required String channelId,
+          @required String id,
+          @required int mainTime,
+          @required DateTime releasedAt,
+          @required String tenantId,
+          @required String title,
+          @required int totalPlayTime,
+          String viewerPlanType,
+          @required NewProgramChannel channel,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_NewProgramItem;
 
-  factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
+  factory _NewProgramItem.fromJson(Map<String, dynamic> json) =
+      _$_NewProgramItem.fromJson;
 
   @override
   DateTime get broadcastAt;
@@ -726,28 +735,28 @@ abstract class _Item implements Item {
   @override
   String get viewerPlanType;
   @override
-  Channel get channel;
+  NewProgramChannel get channel;
   @override
   @JsonKey(name: '__typename')
   String get typename;
   @override
-  _$ItemCopyWith<_Item> get copyWith;
+  _$NewProgramItemCopyWith<_NewProgramItem> get copyWith;
 }
 
-Channel _$ChannelFromJson(Map<String, dynamic> json) {
-  return _Channel.fromJson(json);
+NewProgramChannel _$NewProgramChannelFromJson(Map<String, dynamic> json) {
+  return _NewProgramChannel.fromJson(json);
 }
 
 /// @nodoc
-class _$ChannelTearOff {
-  const _$ChannelTearOff();
+class _$NewProgramChannelTearOff {
+  const _$NewProgramChannelTearOff();
 
 // ignore: unused_element
-  _Channel call(
+  _NewProgramChannel call(
       {@required String id,
       @required String name,
       @required @JsonKey(name: '__typename') String typename}) {
-    return _Channel(
+    return _NewProgramChannel(
       id: id,
       name: name,
       typename: typename,
@@ -755,41 +764,43 @@ class _$ChannelTearOff {
   }
 
 // ignore: unused_element
-  Channel fromJson(Map<String, Object> json) {
-    return Channel.fromJson(json);
+  NewProgramChannel fromJson(Map<String, Object> json) {
+    return NewProgramChannel.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $Channel = _$ChannelTearOff();
+const $NewProgramChannel = _$NewProgramChannelTearOff();
 
 /// @nodoc
-mixin _$Channel {
+mixin _$NewProgramChannel {
   String get id;
   String get name;
   @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
-  $ChannelCopyWith<Channel> get copyWith;
+  $NewProgramChannelCopyWith<NewProgramChannel> get copyWith;
 }
 
 /// @nodoc
-abstract class $ChannelCopyWith<$Res> {
-  factory $ChannelCopyWith(Channel value, $Res Function(Channel) then) =
-      _$ChannelCopyWithImpl<$Res>;
+abstract class $NewProgramChannelCopyWith<$Res> {
+  factory $NewProgramChannelCopyWith(
+          NewProgramChannel value, $Res Function(NewProgramChannel) then) =
+      _$NewProgramChannelCopyWithImpl<$Res>;
   $Res call(
       {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
-class _$ChannelCopyWithImpl<$Res> implements $ChannelCopyWith<$Res> {
-  _$ChannelCopyWithImpl(this._value, this._then);
+class _$NewProgramChannelCopyWithImpl<$Res>
+    implements $NewProgramChannelCopyWith<$Res> {
+  _$NewProgramChannelCopyWithImpl(this._value, this._then);
 
-  final Channel _value;
+  final NewProgramChannel _value;
   // ignore: unused_field
-  final $Res Function(Channel) _then;
+  final $Res Function(NewProgramChannel) _then;
 
   @override
   $Res call({
@@ -806,22 +817,26 @@ class _$ChannelCopyWithImpl<$Res> implements $ChannelCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
-  factory _$ChannelCopyWith(_Channel value, $Res Function(_Channel) then) =
-      __$ChannelCopyWithImpl<$Res>;
+abstract class _$NewProgramChannelCopyWith<$Res>
+    implements $NewProgramChannelCopyWith<$Res> {
+  factory _$NewProgramChannelCopyWith(
+          _NewProgramChannel value, $Res Function(_NewProgramChannel) then) =
+      __$NewProgramChannelCopyWithImpl<$Res>;
   @override
   $Res call(
       {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
-class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
-    implements _$ChannelCopyWith<$Res> {
-  __$ChannelCopyWithImpl(_Channel _value, $Res Function(_Channel) _then)
-      : super(_value, (v) => _then(v as _Channel));
+class __$NewProgramChannelCopyWithImpl<$Res>
+    extends _$NewProgramChannelCopyWithImpl<$Res>
+    implements _$NewProgramChannelCopyWith<$Res> {
+  __$NewProgramChannelCopyWithImpl(
+      _NewProgramChannel _value, $Res Function(_NewProgramChannel) _then)
+      : super(_value, (v) => _then(v as _NewProgramChannel));
 
   @override
-  _Channel get _value => super._value as _Channel;
+  _NewProgramChannel get _value => super._value as _NewProgramChannel;
 
   @override
   $Res call({
@@ -829,7 +844,7 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
     Object name = freezed,
     Object typename = freezed,
   }) {
-    return _then(_Channel(
+    return _then(_NewProgramChannel(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
       typename: typename == freezed ? _value.typename : typename as String,
@@ -840,8 +855,8 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Channel implements _Channel {
-  _$_Channel(
+class _$_NewProgramChannel implements _NewProgramChannel {
+  _$_NewProgramChannel(
       {@required this.id,
       @required this.name,
       @required @JsonKey(name: '__typename') this.typename})
@@ -849,8 +864,8 @@ class _$_Channel implements _Channel {
         assert(name != null),
         assert(typename != null);
 
-  factory _$_Channel.fromJson(Map<String, dynamic> json) =>
-      _$_$_ChannelFromJson(json);
+  factory _$_NewProgramChannel.fromJson(Map<String, dynamic> json) =>
+      _$_$_NewProgramChannelFromJson(json);
 
   @override
   final String id;
@@ -862,13 +877,13 @@ class _$_Channel implements _Channel {
 
   @override
   String toString() {
-    return 'Channel(id: $id, name: $name, typename: $typename)';
+    return 'NewProgramChannel(id: $id, name: $name, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Channel &&
+        (other is _NewProgramChannel &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
@@ -886,22 +901,24 @@ class _$_Channel implements _Channel {
       const DeepCollectionEquality().hash(typename);
 
   @override
-  _$ChannelCopyWith<_Channel> get copyWith =>
-      __$ChannelCopyWithImpl<_Channel>(this, _$identity);
+  _$NewProgramChannelCopyWith<_NewProgramChannel> get copyWith =>
+      __$NewProgramChannelCopyWithImpl<_NewProgramChannel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ChannelToJson(this);
+    return _$_$_NewProgramChannelToJson(this);
   }
 }
 
-abstract class _Channel implements Channel {
-  factory _Channel(
-      {@required String id,
-      @required String name,
-      @required @JsonKey(name: '__typename') String typename}) = _$_Channel;
+abstract class _NewProgramChannel implements NewProgramChannel {
+  factory _NewProgramChannel(
+          {@required String id,
+          @required String name,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_NewProgramChannel;
 
-  factory _Channel.fromJson(Map<String, dynamic> json) = _$_Channel.fromJson;
+  factory _NewProgramChannel.fromJson(Map<String, dynamic> json) =
+      _$_NewProgramChannel.fromJson;
 
   @override
   String get id;
@@ -911,5 +928,5 @@ abstract class _Channel implements Channel {
   @JsonKey(name: '__typename')
   String get typename;
   @override
-  _$ChannelCopyWith<_Channel> get copyWith;
+  _$NewProgramChannelCopyWith<_NewProgramChannel> get copyWith;
 }

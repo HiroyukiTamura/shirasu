@@ -22,8 +22,9 @@ Map<String, dynamic> _$_$_NewProgramsDataToJson(_$_NewProgramsData instance) =>
 _$_NewPrograms _$_$_NewProgramsFromJson(Map<String, dynamic> json) {
   return _$_NewPrograms(
     items: (json['items'] as List)
-        ?.map(
-            (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null
+            ? null
+            : NewProgramItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     nextToken: json['nextToken'] as String,
     typename: json['__typename'] as String,
@@ -37,8 +38,8 @@ Map<String, dynamic> _$_$_NewProgramsToJson(_$_NewPrograms instance) =>
       '__typename': instance.typename,
     };
 
-_$_Item _$_$_ItemFromJson(Map<String, dynamic> json) {
-  return _$_Item(
+_$_NewProgramItem _$_$_NewProgramItemFromJson(Map<String, dynamic> json) {
+  return _$_NewProgramItem(
     broadcastAt: json['broadcastAt'] == null
         ? null
         : DateTime.parse(json['broadcastAt'] as String),
@@ -54,12 +55,13 @@ _$_Item _$_$_ItemFromJson(Map<String, dynamic> json) {
     viewerPlanType: json['viewerPlanType'] as String,
     channel: json['channel'] == null
         ? null
-        : Channel.fromJson(json['channel'] as Map<String, dynamic>),
+        : NewProgramChannel.fromJson(json['channel'] as Map<String, dynamic>),
     typename: json['__typename'] as String,
   );
 }
 
-Map<String, dynamic> _$_$_ItemToJson(_$_Item instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_NewProgramItemToJson(_$_NewProgramItem instance) =>
+    <String, dynamic>{
       'broadcastAt': instance.broadcastAt?.toIso8601String(),
       'channelId': instance.channelId,
       'id': instance.id,
@@ -73,15 +75,16 @@ Map<String, dynamic> _$_$_ItemToJson(_$_Item instance) => <String, dynamic>{
       '__typename': instance.typename,
     };
 
-_$_Channel _$_$_ChannelFromJson(Map<String, dynamic> json) {
-  return _$_Channel(
+_$_NewProgramChannel _$_$_NewProgramChannelFromJson(Map<String, dynamic> json) {
+  return _$_NewProgramChannel(
     id: json['id'] as String,
     name: json['name'] as String,
     typename: json['__typename'] as String,
   );
 }
 
-Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
+Map<String, dynamic> _$_$_NewProgramChannelToJson(
+        _$_NewProgramChannel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

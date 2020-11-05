@@ -18,8 +18,8 @@ abstract class NewProgramsData implements _$NewProgramsData {
 @freezed
 abstract class NewPrograms with _$NewPrograms {
   factory NewPrograms({
-    @required List<Item> items,
-    @required String nextToken,
+    @required List<NewProgramItem> items,
+    String nextToken,
     @JsonKey(name: '__typename') @required String typename,
   }) = _NewPrograms;
 
@@ -27,8 +27,8 @@ abstract class NewPrograms with _$NewPrograms {
 }
 
 @freezed
-abstract class Item with _$Item {
-  factory Item({
+abstract class NewProgramItem with _$NewProgramItem {
+  factory NewProgramItem({
     @required DateTime broadcastAt,
     @required String channelId,
     @required String id,
@@ -38,20 +38,20 @@ abstract class Item with _$Item {
     @required String title,
     @required int totalPlayTime,
     String viewerPlanType,
-    @required Channel channel,
+    @required NewProgramChannel channel,
     @JsonKey(name: '__typename') @required String typename,
-  }) = _Item;
+  }) = _NewProgramItem;
 
-  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+  factory NewProgramItem.fromJson(Map<String, dynamic> json) => _$NewProgramItemFromJson(json);
 }
 
 @freezed
-abstract class Channel with _$Channel {
-  factory Channel({
+abstract class NewProgramChannel with _$NewProgramChannel {
+  factory NewProgramChannel({
     @required String id,
     @required String name,
     @JsonKey(name: '__typename') @required String typename,
-  }) = _Channel;
+  }) = _NewProgramChannel;
 
-  factory Channel.fromJson(Map<String, dynamic> json) => _$ChannelFromJson(json);
+  factory NewProgramChannel.fromJson(Map<String, dynamic> json) => _$NewProgramChannelFromJson(json);
 }

@@ -4,7 +4,6 @@ import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/new_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/screen_detail/screen_detail.dart';
 
 class GirdCardItem extends StatelessWidget {
   GirdCardItem({
@@ -19,7 +18,7 @@ class GirdCardItem extends StatelessWidget {
 
   final double width;
   final double height;
-  final Item item;
+  final NewProgramItem item;
 
   static const double HORIZONTAL_MARGIN = 4;
 

@@ -64,7 +64,7 @@ abstract class Channel with _$Channel {
 abstract class ViewerUser with _$ViewerUser {
   factory ViewerUser({
     @required String id,
-    @required List<SubscribingItem> subscribedPrograms,
+    @required List<Item> subscribedPrograms,
     @JsonKey(name: '__typename') @required String typename,
   }) = _ViewerUser;
 

@@ -43,7 +43,7 @@ _$_PaymentMethod _$_$_PaymentMethodFromJson(Map<String, dynamic> json) {
     brand: json['brand'] as String,
     last4: json['last4'] as String,
     expirationDate: json['expirationDate'] as String,
-    typename: json['typename'] as String,
+    typename: json['__typename'] as String,
   );
 }
 
@@ -53,5 +53,5 @@ Map<String, dynamic> _$_$_PaymentMethodToJson(_$_PaymentMethod instance) =>
       'brand': instance.brand,
       'last4': instance.last4,
       'expirationDate': instance.expirationDate,
-      'typename': instance.typename,
+      '__typename': instance.typename,
     };

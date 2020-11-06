@@ -28,7 +28,9 @@ abstract class PaymentMethod with _$PaymentMethod {
   factory PaymentMethod({
     @required String id,
     @required String brand,
-    @required String last4, @required String expirationDate, @required String typename,
+    @required String last4,
+    @required String expirationDate,
+    @JsonKey(name: '__typename') @required String typename,
   }) = _PaymentMethod;
 
   factory PaymentMethod.fromJson(Map<String, dynamic> json) => _$PaymentMethodFromJson(json);

@@ -350,7 +350,7 @@ class _$PaymentMethodTearOff {
       @required String brand,
       @required String last4,
       @required String expirationDate,
-      @required String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _PaymentMethod(
       id: id,
       brand: brand,
@@ -376,6 +376,7 @@ mixin _$PaymentMethod {
   String get brand;
   String get last4;
   String get expirationDate;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -392,7 +393,7 @@ abstract class $PaymentMethodCopyWith<$Res> {
       String brand,
       String last4,
       String expirationDate,
-      String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -436,7 +437,7 @@ abstract class _$PaymentMethodCopyWith<$Res>
       String brand,
       String last4,
       String expirationDate,
-      String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -479,7 +480,7 @@ class _$_PaymentMethod implements _PaymentMethod {
       @required this.brand,
       @required this.last4,
       @required this.expirationDate,
-      @required this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(brand != null),
         assert(last4 != null),
@@ -498,6 +499,7 @@ class _$_PaymentMethod implements _PaymentMethod {
   @override
   final String expirationDate;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -544,11 +546,12 @@ class _$_PaymentMethod implements _PaymentMethod {
 
 abstract class _PaymentMethod implements PaymentMethod {
   factory _PaymentMethod(
-      {@required String id,
-      @required String brand,
-      @required String last4,
-      @required String expirationDate,
-      @required String typename}) = _$_PaymentMethod;
+          {@required String id,
+          @required String brand,
+          @required String last4,
+          @required String expirationDate,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_PaymentMethod;
 
   factory _PaymentMethod.fromJson(Map<String, dynamic> json) =
       _$_PaymentMethod.fromJson;
@@ -562,6 +565,7 @@ abstract class _PaymentMethod implements PaymentMethod {
   @override
   String get expirationDate;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$PaymentMethodCopyWith<_PaymentMethod> get copyWith;

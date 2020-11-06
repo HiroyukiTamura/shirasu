@@ -1,5 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'channel_data.freezed.dart';
+part 'channel_data.g.dart';
+
+
 @freezed
 abstract class ChannelData implements _$ChannelData {
   const ChannelData._();
@@ -23,7 +27,7 @@ abstract class Channel with _$Channel {
     @required String detail,
     @required @JsonKey(name: '__typename') typename,
     @required SubscriptionPlan subscriptionPlan,
-    @required Programs programs,
+    @required ChannelPrograms programs,
     @required Announcements announcements,
   }) = _Channel;
 
@@ -32,7 +36,7 @@ abstract class Channel with _$Channel {
 
 @freezed
 abstract class Announcements with _$Announcements {
-  Announcements({
+  factory Announcements({
     @required List<AnnouncementsItem> items,
     String nextToken,
     @required @JsonKey(name: '__typename') String typename,
@@ -43,7 +47,7 @@ abstract class Announcements with _$Announcements {
 
 @freezed
 abstract class AnnouncementsItem with _$AnnouncementsItem {
-  AnnouncementsItem({
+  factory AnnouncementsItem({
     @required String id,
     @required bool isOpen,
     @required bool isSubscriberOnly,
@@ -66,12 +70,12 @@ abstract class ChannelPrograms with _$ChannelPrograms {
     @required @JsonKey(name: '__typename') String typename,
   }) = _ChannelPrograms;
 
-  factory ChannelPrograms.fromJson(Map<String, dynamic> json) => _$ChannelProgramsItemFromJson(json);
+  factory ChannelPrograms.fromJson(Map<String, dynamic> json) => _$ChannelProgramsFromJson(json);
 }
 
 @freezed
 abstract class ProgramsItem with _$ProgramsItem {
-  ProgramsItem({
+  factory ProgramsItem({
     @required String id,
     @required String tenantId,
     @required String channelId,
@@ -87,7 +91,7 @@ abstract class ProgramsItem with _$ProgramsItem {
 
 @freezed
 abstract class SubscriptionPlan with _$SubscriptionPlan {
-  SubscriptionPlan({
+  factory SubscriptionPlan({
     @required String id,
     @required int amount,
     @required String currency,

@@ -1,0 +1,16 @@
+{
+  "data": {
+    "viewer": {
+      "paymentMethods": [
+        {
+          "id": "pm_1Hf3JmG1x5cV2jHOP7Az7dfK",
+          "brand": "visa",
+          "last4": "4939",
+          "expirationDate": "02/25",
+          "__typename": "PaymentMethod"
+        }
+      ],
+      "__typename": "Viewer"
+    }
+  }
+}

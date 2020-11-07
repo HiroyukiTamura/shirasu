@@ -7,6 +7,7 @@ class Styles {
   static const PRIMARY_COLOR = Color(0xff50e6ff);
   static const PRIMARY_COLOR_DARK = Color(0xff0078D4);
   static const ACCENT_COLOR_DARK = Color(0xffd45c00);
+  static final cardBackground = Colors.white.withOpacity(.1);
 
   static const COLOR = Color(0xff0057ff);
   static const COLOR_2 = Color(0xffffa800);

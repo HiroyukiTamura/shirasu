@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/new_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
 class GirdCardItem extends StatelessWidget {
@@ -26,7 +27,9 @@ class GirdCardItem extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         width: width,
         height: height,
-        padding: const EdgeInsets.symmetric(horizontal: HORIZONTAL_MARGIN),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
+        ),
         child: Column(
           children: [
             AspectRatio(

@@ -1029,7 +1029,7 @@ class _$ViewerUserTearOff {
 // ignore: unused_element
   _ViewerUser call(
       {@required String id,
-      @required List<dynamic> subscribedPrograms,
+      @required List<Item> subscribedPrograms,
       @required @JsonKey(name: '__typename') String typename}) {
     return _ViewerUser(
       id: id,
@@ -1051,7 +1051,7 @@ const $ViewerUser = _$ViewerUserTearOff();
 /// @nodoc
 mixin _$ViewerUser {
   String get id;
-  List<dynamic> get subscribedPrograms; //todo これ
+  List<Item> get subscribedPrograms;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -1066,7 +1066,7 @@ abstract class $ViewerUserCopyWith<$Res> {
       _$ViewerUserCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      List<dynamic> subscribedPrograms,
+      List<Item> subscribedPrograms,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1088,7 +1088,7 @@ class _$ViewerUserCopyWithImpl<$Res> implements $ViewerUserCopyWith<$Res> {
       id: id == freezed ? _value.id : id as String,
       subscribedPrograms: subscribedPrograms == freezed
           ? _value.subscribedPrograms
-          : subscribedPrograms as List<dynamic>,
+          : subscribedPrograms as List<Item>,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1102,7 +1102,7 @@ abstract class _$ViewerUserCopyWith<$Res> implements $ViewerUserCopyWith<$Res> {
   @override
   $Res call(
       {String id,
-      List<dynamic> subscribedPrograms,
+      List<Item> subscribedPrograms,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1126,7 +1126,7 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
       id: id == freezed ? _value.id : id as String,
       subscribedPrograms: subscribedPrograms == freezed
           ? _value.subscribedPrograms
-          : subscribedPrograms as List<dynamic>,
+          : subscribedPrograms as List<Item>,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1150,8 +1150,8 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
   @override
   final String id;
   @override
-  final List<dynamic> subscribedPrograms;
-  @override //todo これ
+  final List<Item> subscribedPrograms;
+  @override
   @JsonKey(name: '__typename')
   final String typename;
 
@@ -1204,7 +1204,7 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
 abstract class _ViewerUser implements ViewerUser {
   factory _ViewerUser(
       {@required String id,
-      @required List<dynamic> subscribedPrograms,
+      @required List<Item> subscribedPrograms,
       @required @JsonKey(name: '__typename') String typename}) = _$_ViewerUser;
 
   factory _ViewerUser.fromJson(Map<String, dynamic> json) =
@@ -1213,8 +1213,8 @@ abstract class _ViewerUser implements ViewerUser {
   @override
   String get id;
   @override
-  List<dynamic> get subscribedPrograms;
-  @override //todo これ
+  List<Item> get subscribedPrograms;
+  @override
   @JsonKey(name: '__typename')
   String get typename;
   @override

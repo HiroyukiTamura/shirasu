@@ -17,7 +17,6 @@ class BillboardExpanded extends StatelessWidget {
         super(key: key);
 
   static const double _CHANNEL_LOGO_SIZE = 24;
-  static const double _OUTER_MARGIN = 8;
 
   final Item item;
   final String _thumbnailUrl;
@@ -35,7 +34,9 @@ class BillboardExpanded extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  right: _OUTER_MARGIN, left: _OUTER_MARGIN, top: 16),
+                  right: Dimens.MARGIN_OUTLINE,
+                  left: Dimens.DASHBOARD_OUTER_MARGIN,
+                  top: 16),
               child: Text(
                 item.title,
                 style: TextStyles.DASHBOARD_BILLBOARD_TITLE,
@@ -43,7 +44,9 @@ class BillboardExpanded extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  right: _OUTER_MARGIN, left: _OUTER_MARGIN, top: 8),
+                  right: Dimens.DASHBOARD_OUTER_MARGIN,
+                  left: Dimens.DASHBOARD_OUTER_MARGIN,
+                  top: 8),
               child: Row(
                 children: [
                   CachedNetworkImage(
@@ -61,8 +64,8 @@ class BillboardExpanded extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.only(
-                right: _OUTER_MARGIN,
-                left: _OUTER_MARGIN,
+                right: Dimens.DASHBOARD_OUTER_MARGIN,
+                left: Dimens.DASHBOARD_OUTER_MARGIN,
                 top: 24,
               ),
               child: Row(

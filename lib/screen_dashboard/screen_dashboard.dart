@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:shirasu/model/dashboard_model.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_dashboard/billboard_expaned.dart';
 import 'package:shirasu/screen_dashboard/grid_card_item.dart';
 import 'package:shirasu/screen_dashboard/heading.dart';
+import 'package:shirasu/screen_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_meta/screen_meta.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
@@ -63,6 +65,11 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
             itemCount += featurePrgData.comingBroadcastings.items.length + 1;
           final comingBroadcastingsLast = itemCount;
 
+          if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty ==
+              true) itemCount += 2;
+
+          final subscribingLast = itemCount;
+
           if (newPrgData?.isNotEmpty == true)
             itemCount += (newPrgData.length / 2).ceil() + 1;
 
@@ -74,6 +81,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                 itemCount: itemCount,
                 nowBroadcastingsLast: nowBroadcastingsLast,
                 comingBroadcastingsLast: comingBroadcastingsLast,
+                subscribingLast: subscribingLast,
                 constraints: constraints,
               );
             },
@@ -104,6 +112,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
     @required int itemCount,
     @required int nowBroadcastingsLast,
     @required int comingBroadcastingsLast,
+    @required int subscribingLast,
     @required BoxConstraints constraints,
   }) {
     final isFinish = model.newProgramsDataList?.isNotEmpty == true &&
@@ -129,20 +138,21 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
           padding: const EdgeInsets.symmetric(vertical: 16),
           itemCount: isFinish ? itemCount : itemCount + 1,
           itemBuilder: (context, index) {
-            if (index < nowBroadcastingsLast) {
+            if (index < nowBroadcastingsLast && nowBroadcastingsLast != 0) {
               return const SizedBox();
-            } else if (index < comingBroadcastingsLast) {
+            } else if (index < comingBroadcastingsLast &&
+                nowBroadcastingsLast != comingBroadcastingsLast) {
               final i = index - nowBroadcastingsLast;
 
               if (i == 0)
-                return const Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: Heading(text: Strings.HEADING_UPCOMING),
-                );
+                return const Heading(text: Strings.HEADING_UPCOMING);
               else {
                 final item = featurePrgData.comingBroadcastings.items[i - 1];
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 48),
+                  padding: const EdgeInsets.only(
+                    bottom: 48,
+                    top: 16,
+                  ),
                   child: BillboardExpanded(
                     item: item,
                     onTap: () => context.read(routeProvider).push(MaterialPage(
@@ -151,8 +161,22 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   ),
                 );
               }
-            } else if (index < itemCount || isFinish) {
+            } else if (index < subscribingLast &&
+                comingBroadcastingsLast != subscribingLast) {
               final i = index - comingBroadcastingsLast;
+
+              return i == 0
+                  ? const Heading(text: Strings.HEADING_SUBSCRIBING)
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: HorizontalCarousels(
+                        list: featurePrgData.viewerUser.subscribedPrograms,
+                        columnCount: _COLUMN_COUNT,
+                        maxWidth: constraints.maxWidth,
+                      ),
+                    );
+            } else if (index < itemCount || isFinish) {
+              final i = index - subscribingLast;
 
               if (i == 0)
                 return const Padding(
@@ -165,9 +189,10 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
               final end = start + _COLUMN_COUNT;
               final children =
                   newPrgData.getRange(start, end).toList().map<Widget>((item) {
-                final width = constraints.maxWidth / 2 -
+                final width = constraints.maxWidth / _COLUMN_COUNT -
+                    GirdCardItem.HORIZONTAL_MARGIN * (_COLUMN_COUNT + 1);
+                final height = width * Dimens.DASHBOARD_GRID_RATIO -
                     GirdCardItem.HORIZONTAL_MARGIN * 2;
-                final height = width * 4 / 3;
                 return GirdCardItem(
                   width: width,
                   height: height,
@@ -176,9 +201,13 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
               }).toList(growable: false);
 
               return Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: GirdCardItem.HORIZONTAL_MARGIN),
+                padding: const EdgeInsets.only(
+                  right: GirdCardItem.HORIZONTAL_MARGIN,
+                  left: GirdCardItem.HORIZONTAL_MARGIN,
+                  top: GirdCardItem.HORIZONTAL_MARGIN * 2,
+                ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: children,
                 ),
               );

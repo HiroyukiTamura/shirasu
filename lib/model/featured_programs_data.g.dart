@@ -101,7 +101,10 @@ Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
 _$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
   return _$_ViewerUser(
     id: json['id'] as String,
-    subscribedPrograms: json['subscribedPrograms'] as List,
+    subscribedPrograms: (json['subscribedPrograms'] as List)
+        ?.map(
+            (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     typename: json['__typename'] as String,
   );
 }

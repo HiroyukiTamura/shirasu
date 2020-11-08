@@ -7,7 +7,6 @@ import 'package:shirasu/screen_meta/screen_meta.dart';
 
 class AppRouterDelegate extends RouterDelegate<AppRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutePath> {
-
   AppRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>();
 
   @override
@@ -27,19 +26,19 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
           } else if (pathData is AppRoutePathChannel) {
             return ScreenChannel();
           } else if (pathData is AppRoutePathDetail) {
-            return ScreenDetail(id: pathData.id);
+            return ScreenChannel();
           } else
             throw UnimplementedError('error screen');
         })
-        .map((screen) => MaterialPage(child: screen))
+        .map((screen) => MaterialPage(
+            key: ValueKey(screen.runtimeType.toString()), child: screen))
         .toList();
 
     return Navigator(
       key: navigatorKey,
       pages: pageList,
       onPopPage: (route, result) {
-        if (!route.didPop(result))
-          return false;
+        if (!route.didPop(result)) return false;
 
         //todo handle error
         notifyListeners();
@@ -49,19 +48,36 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
     );
   }
 
-  //todo more business logic
+  //todo more business logic and refactoring
   @override
   Future<void> setNewRoutePath(AppRoutePath configuration) async {
     if (_pathDataList.isNotEmpty && _pathDataList.last is AppRoutePathError)
       _pathDataList.removeLast();
+
+    if (_pathDataList.any((it) => it is AppRoutePathDashBoard || it is AppRoutePathUnknown) &&
+        (configuration.data is AppRoutePathDashBoard || configuration.data is AppRoutePathUnknown)) {
+      while (true) {
+        if (_pathDataList.last is AppRoutePathDashBoard || _pathDataList.last is AppRoutePathUnknown)
+          break;
+        _pathDataList.removeLast();
+      }
+      return;
+    }
 
     _pathDataList.add(configuration.data);
   }
 
   @override
   AppRoutePath get currentConfiguration {
-    final pathData = _pathDataList.isEmpty ? AppRoutePath.dashBoard().data : _pathDataList.last;
+    final pathData = _pathDataList.isEmpty
+        ? AppRoutePath.dashBoard().data
+        : _pathDataList.last;
     return AppRoutePath._(pathData);
+  }
+
+  Future<void> pushPage(AppRoutePath path) async {
+    setNewRoutePath(path);
+    notifyListeners();
   }
 }
 

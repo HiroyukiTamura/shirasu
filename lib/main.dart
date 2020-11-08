@@ -16,15 +16,15 @@ Future<void> main() async {
   runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+final routerDelegate = AppRouterDelegate();
 
+class MyApp extends StatefulWidget {
   @override
   MyAppState createState() => MyAppState();
 }
 
 class MyAppState extends State<MyApp> {
 
-  final routerDelegate = AppRouterDelegate();
   final informationParser = AppRouteInformationParser();
 
   @override

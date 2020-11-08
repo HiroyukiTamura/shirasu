@@ -157,9 +157,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   ),
                   child: BillboardExpanded(
                     item: item,
-                    onTap: () {
-                      // return MyAppState .setNewRoutePath(AppRoutePath.detailByProgramId(item.id));
-                    },
+                    onTap: () async => routerDelegate.pushPage(AppRoutePath.detailByProgramId(item.id)),
                   ),
                 );
               }

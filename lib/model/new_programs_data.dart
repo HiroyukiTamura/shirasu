@@ -6,13 +6,13 @@ part 'new_programs_data.g.dart';
 @freezed
 abstract class NewProgramsData implements _$NewProgramsData {
 
-  NewProgramsData._();
-
   factory NewProgramsData({
     @required NewPrograms newPrograms,
   }) = _NewProgramsData;
 
   factory NewProgramsData.fromJson(Map<String, dynamic> json) => _$NewProgramsDataFromJson(json);
+
+  NewProgramsData._();
 }
 
 @freezed

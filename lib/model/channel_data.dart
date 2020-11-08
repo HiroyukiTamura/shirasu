@@ -6,13 +6,13 @@ part 'channel_data.g.dart';
 
 @freezed
 abstract class ChannelData implements _$ChannelData {
-  const ChannelData._();
-
   factory ChannelData({
     @required Channel channel,
   }) = _ChannelData;
 
   factory ChannelData.fromJson(Map<String, dynamic> json) => _$ChannelDataFromJson(json);
+
+  const ChannelData._();
 }
 
 @freezed
@@ -97,8 +97,18 @@ abstract class SubscriptionPlan with _$SubscriptionPlan {
     @required String currency,
     @required bool isPurchasable,
     @required @JsonKey(name: '__typename') String typename,
-    dynamic viewerPurchasedPlan,
+    PurchasedPlan viewerPurchasedPlan, // null => not purchased
   }) = _SubscriptionPlan;
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) => _$SubscriptionPlanFromJson(json);
+}
+
+@freezed
+abstract class PurchasedPlan with _$PurchasedPlan {
+  factory PurchasedPlan({
+      @required bool isActive,
+      @required @JsonKey(name: '__typename') String typename,
+  }) = _PurchasedPlan;
+
+  factory PurchasedPlan.fromJson(Map<String, dynamic> json) => _$PurchasedPlanFromJson(json);
 }

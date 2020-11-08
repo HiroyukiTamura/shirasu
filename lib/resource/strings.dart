@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+
+@immutable
 class Strings {
   //region Intro
   static const String INTRO_TITLE_1ST = 'SHIRASU';
@@ -51,6 +54,19 @@ class Strings {
   static const String CHANNEL_TAB_DESC = '概要';
   static const String CHANNEL_TAB_MOVIE = '動画';
   static const String CHANNEL_TAB_NOTIFICATION = 'お知らせ';
+
 //endregion
 
+  //region about purchase
+  static String currency2Str(String currency) {
+    switch (currency.toUpperCase()) {
+      case 'JPY':
+        return '円';
+      default:
+        throw Exception('unexpected currency :: $currency');
+    }
+  }
+
+  static const String MONTHLY = '月額';
+  static const String SUBSCRIBED = 'チャンネル購読済み';
 }

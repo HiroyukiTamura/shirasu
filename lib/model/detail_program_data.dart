@@ -6,14 +6,14 @@ part 'detail_program_data.g.dart';
 @freezed
 abstract class ProgramDetailData implements _$ProgramDetailData {
 
-  const ProgramDetailData._();
-
   factory ProgramDetailData({
     @required Viewer viewer,
     @required ProgramDetail program,
   }) = _ProgramDetailData;
 
   factory ProgramDetailData.fromJson(Map<String, dynamic> json) => _$ProgramDetailDataFromJson(json);
+
+  const ProgramDetailData._();
 }
 
 @freezed

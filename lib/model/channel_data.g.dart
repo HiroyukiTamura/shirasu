@@ -162,7 +162,10 @@ _$_SubscriptionPlan _$_$_SubscriptionPlanFromJson(Map<String, dynamic> json) {
     currency: json['currency'] as String,
     isPurchasable: json['isPurchasable'] as bool,
     typename: json['__typename'] as String,
-    viewerPurchasedPlan: json['viewerPurchasedPlan'],
+    viewerPurchasedPlan: json['viewerPurchasedPlan'] == null
+        ? null
+        : PurchasedPlan.fromJson(
+            json['viewerPurchasedPlan'] as Map<String, dynamic>),
   );
 }
 
@@ -175,4 +178,17 @@ Map<String, dynamic> _$_$_SubscriptionPlanToJson(
       'isPurchasable': instance.isPurchasable,
       '__typename': instance.typename,
       'viewerPurchasedPlan': instance.viewerPurchasedPlan,
+    };
+
+_$_PurchasedPlan _$_$_PurchasedPlanFromJson(Map<String, dynamic> json) {
+  return _$_PurchasedPlan(
+    isActive: json['isActive'] as bool,
+    typename: json['__typename'] as String,
+  );
+}
+
+Map<String, dynamic> _$_$_PurchasedPlanToJson(_$_PurchasedPlan instance) =>
+    <String, dynamic>{
+      'isActive': instance.isActive,
+      '__typename': instance.typename,
     };

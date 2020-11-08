@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+@immutable
 class Styles {
 
   static final colorTextSub = Colors.white.withOpacity(.7);

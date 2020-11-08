@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+
+@immutable
 class Dimens {
   static const double CHANNEL_PAGE_VERTICAL_MARGIN = 24;
   static const double MARGIN_OUTLINE = 16;
@@ -5,4 +8,5 @@ class Dimens {
   static const IMG_RATIO = 1920 / 1080;
   static const DASHBOARD_GRID_RATIO = 4/3;
   static const double DASHBOARD_ITEM_RADIUS = 4;
+  static const double HEADER_ASPECT = 6;
 }

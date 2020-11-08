@@ -7,8 +7,6 @@ part 'featured_programs_data.g.dart';
 @freezed
 abstract class FeatureProgramData implements _$FeatureProgramData {
 
-  const FeatureProgramData._();
-
   factory FeatureProgramData({
     @required Broadcastings nowBroadcastings,
     @required Broadcastings comingBroadcastings,
@@ -16,6 +14,8 @@ abstract class FeatureProgramData implements _$FeatureProgramData {
   }) = _FeatureProgramData;
 
   factory FeatureProgramData.fromJson(Map<String, dynamic> json) => _$FeatureProgramDataFromJson(json);
+
+  const FeatureProgramData._();
 
   int get broadcastCount => nowBroadcastings.items.length + comingBroadcastings.items.length;
 }

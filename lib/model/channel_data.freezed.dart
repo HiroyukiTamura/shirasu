@@ -1582,7 +1582,7 @@ class _$SubscriptionPlanTearOff {
       @required String currency,
       @required bool isPurchasable,
       @required @JsonKey(name: '__typename') String typename,
-      dynamic viewerPurchasedPlan}) {
+      PurchasedPlan viewerPurchasedPlan}) {
     return _SubscriptionPlan(
       id: id,
       amount: amount,
@@ -1611,7 +1611,7 @@ mixin _$SubscriptionPlan {
   bool get isPurchasable;
   @JsonKey(name: '__typename')
   String get typename;
-  dynamic get viewerPurchasedPlan;
+  PurchasedPlan get viewerPurchasedPlan;
 
   Map<String, dynamic> toJson();
   $SubscriptionPlanCopyWith<SubscriptionPlan> get copyWith;
@@ -1628,7 +1628,9 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       String currency,
       bool isPurchasable,
       @JsonKey(name: '__typename') String typename,
-      dynamic viewerPurchasedPlan});
+      PurchasedPlan viewerPurchasedPlan});
+
+  $PurchasedPlanCopyWith<$Res> get viewerPurchasedPlan;
 }
 
 /// @nodoc
@@ -1659,8 +1661,18 @@ class _$SubscriptionPlanCopyWithImpl<$Res>
       typename: typename == freezed ? _value.typename : typename as String,
       viewerPurchasedPlan: viewerPurchasedPlan == freezed
           ? _value.viewerPurchasedPlan
-          : viewerPurchasedPlan as dynamic,
+          : viewerPurchasedPlan as PurchasedPlan,
     ));
+  }
+
+  @override
+  $PurchasedPlanCopyWith<$Res> get viewerPurchasedPlan {
+    if (_value.viewerPurchasedPlan == null) {
+      return null;
+    }
+    return $PurchasedPlanCopyWith<$Res>(_value.viewerPurchasedPlan, (value) {
+      return _then(_value.copyWith(viewerPurchasedPlan: value));
+    });
   }
 }
 
@@ -1677,7 +1689,10 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
       String currency,
       bool isPurchasable,
       @JsonKey(name: '__typename') String typename,
-      dynamic viewerPurchasedPlan});
+      PurchasedPlan viewerPurchasedPlan});
+
+  @override
+  $PurchasedPlanCopyWith<$Res> get viewerPurchasedPlan;
 }
 
 /// @nodoc
@@ -1710,7 +1725,7 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
       typename: typename == freezed ? _value.typename : typename as String,
       viewerPurchasedPlan: viewerPurchasedPlan == freezed
           ? _value.viewerPurchasedPlan
-          : viewerPurchasedPlan as dynamic,
+          : viewerPurchasedPlan as PurchasedPlan,
     ));
   }
 }
@@ -1747,7 +1762,7 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   @JsonKey(name: '__typename')
   final String typename;
   @override
-  final dynamic viewerPurchasedPlan;
+  final PurchasedPlan viewerPurchasedPlan;
 
   @override
   String toString() {
@@ -1803,7 +1818,7 @@ abstract class _SubscriptionPlan implements SubscriptionPlan {
       @required String currency,
       @required bool isPurchasable,
       @required @JsonKey(name: '__typename') String typename,
-      dynamic viewerPurchasedPlan}) = _$_SubscriptionPlan;
+      PurchasedPlan viewerPurchasedPlan}) = _$_SubscriptionPlan;
 
   factory _SubscriptionPlan.fromJson(Map<String, dynamic> json) =
       _$_SubscriptionPlan.fromJson;
@@ -1820,7 +1835,177 @@ abstract class _SubscriptionPlan implements SubscriptionPlan {
   @JsonKey(name: '__typename')
   String get typename;
   @override
-  dynamic get viewerPurchasedPlan;
+  PurchasedPlan get viewerPurchasedPlan;
   @override
   _$SubscriptionPlanCopyWith<_SubscriptionPlan> get copyWith;
+}
+
+PurchasedPlan _$PurchasedPlanFromJson(Map<String, dynamic> json) {
+  return _PurchasedPlan.fromJson(json);
+}
+
+/// @nodoc
+class _$PurchasedPlanTearOff {
+  const _$PurchasedPlanTearOff();
+
+// ignore: unused_element
+  _PurchasedPlan call(
+      {@required bool isActive,
+      @required @JsonKey(name: '__typename') String typename}) {
+    return _PurchasedPlan(
+      isActive: isActive,
+      typename: typename,
+    );
+  }
+
+// ignore: unused_element
+  PurchasedPlan fromJson(Map<String, Object> json) {
+    return PurchasedPlan.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $PurchasedPlan = _$PurchasedPlanTearOff();
+
+/// @nodoc
+mixin _$PurchasedPlan {
+  bool get isActive;
+  @JsonKey(name: '__typename')
+  String get typename;
+
+  Map<String, dynamic> toJson();
+  $PurchasedPlanCopyWith<PurchasedPlan> get copyWith;
+}
+
+/// @nodoc
+abstract class $PurchasedPlanCopyWith<$Res> {
+  factory $PurchasedPlanCopyWith(
+          PurchasedPlan value, $Res Function(PurchasedPlan) then) =
+      _$PurchasedPlanCopyWithImpl<$Res>;
+  $Res call({bool isActive, @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class _$PurchasedPlanCopyWithImpl<$Res>
+    implements $PurchasedPlanCopyWith<$Res> {
+  _$PurchasedPlanCopyWithImpl(this._value, this._then);
+
+  final PurchasedPlan _value;
+  // ignore: unused_field
+  final $Res Function(PurchasedPlan) _then;
+
+  @override
+  $Res call({
+    Object isActive = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_value.copyWith(
+      isActive: isActive == freezed ? _value.isActive : isActive as bool,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PurchasedPlanCopyWith<$Res>
+    implements $PurchasedPlanCopyWith<$Res> {
+  factory _$PurchasedPlanCopyWith(
+          _PurchasedPlan value, $Res Function(_PurchasedPlan) then) =
+      __$PurchasedPlanCopyWithImpl<$Res>;
+  @override
+  $Res call({bool isActive, @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class __$PurchasedPlanCopyWithImpl<$Res>
+    extends _$PurchasedPlanCopyWithImpl<$Res>
+    implements _$PurchasedPlanCopyWith<$Res> {
+  __$PurchasedPlanCopyWithImpl(
+      _PurchasedPlan _value, $Res Function(_PurchasedPlan) _then)
+      : super(_value, (v) => _then(v as _PurchasedPlan));
+
+  @override
+  _PurchasedPlan get _value => super._value as _PurchasedPlan;
+
+  @override
+  $Res call({
+    Object isActive = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_PurchasedPlan(
+      isActive: isActive == freezed ? _value.isActive : isActive as bool,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_PurchasedPlan implements _PurchasedPlan {
+  _$_PurchasedPlan(
+      {@required this.isActive,
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(isActive != null),
+        assert(typename != null);
+
+  factory _$_PurchasedPlan.fromJson(Map<String, dynamic> json) =>
+      _$_$_PurchasedPlanFromJson(json);
+
+  @override
+  final bool isActive;
+  @override
+  @JsonKey(name: '__typename')
+  final String typename;
+
+  @override
+  String toString() {
+    return 'PurchasedPlan(isActive: $isActive, typename: $typename)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PurchasedPlan &&
+            (identical(other.isActive, isActive) ||
+                const DeepCollectionEquality()
+                    .equals(other.isActive, isActive)) &&
+            (identical(other.typename, typename) ||
+                const DeepCollectionEquality()
+                    .equals(other.typename, typename)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isActive) ^
+      const DeepCollectionEquality().hash(typename);
+
+  @override
+  _$PurchasedPlanCopyWith<_PurchasedPlan> get copyWith =>
+      __$PurchasedPlanCopyWithImpl<_PurchasedPlan>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_PurchasedPlanToJson(this);
+  }
+}
+
+abstract class _PurchasedPlan implements PurchasedPlan {
+  factory _PurchasedPlan(
+          {@required bool isActive,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_PurchasedPlan;
+
+  factory _PurchasedPlan.fromJson(Map<String, dynamic> json) =
+      _$_PurchasedPlan.fromJson;
+
+  @override
+  bool get isActive;
+  @override
+  @JsonKey(name: '__typename')
+  String get typename;
+  @override
+  _$PurchasedPlanCopyWith<_PurchasedPlan> get copyWith;
 }

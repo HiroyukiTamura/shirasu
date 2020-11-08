@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/resource/styles.dart';
 
+@immutable
 class TextStyles {
   static const TEXT_HEIGHT = 1.3;
   static const TEXT_H_SML = 1.2;
@@ -81,4 +82,19 @@ class TextStyles {
   );
 
   static const CHANNEL_BOLD = TextStyle(height: TextStyles.TEXT_HEIGHT);
+
+  static const CHANNEL_NAME = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const PURCHASE_BTN = TextStyle(
+    fontSize: 12,
+    color: Colors.white,
+  );
+
+  static const PURCHASED_BANNER = TextStyle(
+    fontSize: 14,
+    color: Colors.white,
+  );
 }

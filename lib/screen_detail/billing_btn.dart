@@ -109,7 +109,7 @@ class BillingBtnMedium extends StatelessWidget {
   );
 }
 
-
+/// todo add price
 class PurchasedBannerMedium extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(

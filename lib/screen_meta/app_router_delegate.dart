@@ -13,7 +13,7 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
-  final List<_AppRoutePathData> _pathDataList = [];
+  final List<_AppRoutePathData> _pathDataList = [const AppRoutePathDashBoard()];
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,7 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
     );
   }
 
+  //todo more business logic
   @override
   Future<void> setNewRoutePath(AppRoutePath configuration) async {
     if (_pathDataList.isNotEmpty && _pathDataList.last is AppRoutePathError)

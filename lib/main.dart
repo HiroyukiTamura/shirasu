@@ -29,9 +29,9 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final isInitialLaunch = HiveClient.isInitialLaunchApp();
-    if (isInitialLaunch)
-      HiveClient.setInitialLaunchApp();
+    // final isInitialLaunch = HiveClient.isInitialLaunchApp();
+    // if (isInitialLaunch)
+    //   HiveClient.setInitialLaunchApp();
 
     return MaterialApp.router(
       title: 'Flutter Demo',

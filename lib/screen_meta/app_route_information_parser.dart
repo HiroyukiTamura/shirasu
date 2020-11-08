@@ -5,6 +5,8 @@ class AppRouteInformationParser extends RouteInformationParser<AppRoutePath> {
 
   @override
   Future<AppRoutePath> parseRouteInformation(RouteInformation routeInformation) async {
+    return AppRoutePath.dashBoard();
+
     if (routeInformation?.location == null)
       return AppRoutePath.dashBoard();
 
@@ -36,6 +38,8 @@ class AppRouteInformationParser extends RouteInformationParser<AppRoutePath> {
   @override
   RouteInformation restoreRouteInformation(AppRoutePath configuration) {
     final data = configuration.data;
+
+    return const RouteInformation(location: '/');
 
     if (data is AppRoutePathChannel)
       return RouteInformation(location: '/c/${data.channelId}');

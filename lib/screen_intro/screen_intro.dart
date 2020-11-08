@@ -15,16 +15,16 @@ class ScreenIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WillPopScope(
     onWillPop: () async {
-      if (Navigator.canPop(context)) {
-        Navigator.pop(context);
-        return true;
-      } else
-        return false;
+      // if (Navigator.canPop(context)) {
+      //   Navigator.pop(context);
+      //   return true;
+      // } else
+      //   return false;
     },
     child: IntroductionScreen(
           globalBackgroundColor: Colors.transparent,
           pages: _listPagesViewModel(context),
-          onDone: () => Navigator.pop(context),
+          // onDone: () => Navigator.pop(context),
           next: const Icon(Icons.navigate_next),
           done: const Text(
             Strings.INTRO_DONE,

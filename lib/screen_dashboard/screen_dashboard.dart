@@ -10,7 +10,9 @@ import 'package:shirasu/screen_dashboard/grid_card_item.dart';
 import 'package:shirasu/screen_dashboard/heading.dart';
 import 'package:shirasu/screen_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_meta/app_router_delegate.dart';
 import 'package:shirasu/screen_meta/screen_meta.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _dashBoardProvider =
@@ -155,9 +157,9 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   ),
                   child: BillboardExpanded(
                     item: item,
-                    onTap: () => context.read(routeProvider).push(MaterialPage(
-                          child: ScreenDetail(id: item.id),
-                        )),
+                    onTap: () {
+                      // return MyAppState .setNewRoutePath(AppRoutePath.detailByProgramId(item.id));
+                    },
                   ),
                 );
               }
@@ -168,7 +170,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
               return i == 0
                   ? const Heading(text: Strings.HEADING_SUBSCRIBING)
                   : Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      padding: const EdgeInsets.only(top: 16, bottom: 32),
                       child: HorizontalCarousels(
                         list: featurePrgData.viewerUser.subscribedPrograms,
                         columnCount: _COLUMN_COUNT,

@@ -1,38 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
-
-final routeProvider = ChangeNotifierProvider<_RouteState>((ref) {
-  return _RouteState();
-});
-
-
-class _RouteState extends ChangeNotifier {
-
-  _RouteState(): super();
-
-  final List<MaterialPage> pageList = [MaterialPage(child: ScreenDashboard())];
-
-  void push(MaterialPage materialPage) {
-    pageList.add(materialPage);
-    notifyListeners();
-  }
-}
+import 'package:shirasu/screen_meta/app_route_information_parser.dart';
+import 'package:shirasu/screen_meta/app_router_delegate.dart';
 
 class ScreenMeta extends ConsumerWidget {
-
   @override
   Widget build(BuildContext context, T Function<T>(ProviderBase<Object, T> provider) watch) {
-    final pageList = watch(routeProvider).pageList;
     return Scaffold(
         body: SafeArea(
-          child: Navigator(
-            pages: pageList,
-            onPopPage: (route, result) => route.didPop(result),
-          ),
+          child: ScreenDashboard(),
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.white,

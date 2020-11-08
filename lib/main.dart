@@ -4,9 +4,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
-import 'package:shirasu/screen_intro/screen_intro.dart';
-import 'package:shirasu/screen_meta/screen_meta.dart';
+import 'package:shirasu/screen_meta/app_route_information_parser.dart';
+import 'package:shirasu/screen_meta/app_router_delegate.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +16,16 @@ Future<void> main() async {
   runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+  @override
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+
+  final routerDelegate = AppRouterDelegate();
+  final informationParser = AppRouteInformationParser();
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +33,11 @@ class MyApp extends StatelessWidget {
     if (isInitialLaunch)
       HiveClient.setInitialLaunchApp();
 
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: Styles.theme,
-      home: ScreenMeta(),
+      routerDelegate: routerDelegate,
+      routeInformationParser: informationParser,
     );
   }
 }

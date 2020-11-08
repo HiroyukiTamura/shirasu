@@ -35,7 +35,9 @@ class _HorizontalCarouselItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CachedNetworkImage(imageUrl: _thumbnailUrl),
+            AspectRatio(
+                aspectRatio: Dimens.IMG_RATIO,
+                child: CachedNetworkImage(imageUrl: _thumbnailUrl)),
             Expanded(
               child: Center(
                 child: Padding(

@@ -16,7 +16,7 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _dashBoardProvider =
-    ChangeNotifierProvider<ViewModelDashBoard>((ref) => ViewModelDashBoard());
+    ChangeNotifierProvider.autoDispose<ViewModelDashBoard>((ref) => ViewModelDashBoard());
 
 class ScreenDashboard extends StatefulWidget {
   @override
@@ -43,7 +43,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
   void dispose() {
     super.dispose();
     _isLoadingMoreCommanded = false;
-    _controller.dispose();
+    _controller?.dispose();
   }
 
   @override

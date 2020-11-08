@@ -18,16 +18,16 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
   Widget build(BuildContext context) {
     final pageList = _pathDataList
         .map<Widget>((pathData) {
-          if (pathData is AppRoutePathIntro) {
+          if (pathData is AppRoutePathIntro)
             throw UnimplementedError('intro screen');
-          } else if (pathData is AppRoutePathDashBoard ||
-              pathData is AppRoutePathUnknown) {
+          else if (pathData is AppRoutePathDashBoard ||
+              pathData is AppRoutePathUnknown)
             return ScreenMeta();
-          } else if (pathData is AppRoutePathChannel) {
-            return ScreenChannel();
-          } else if (pathData is AppRoutePathDetail) {
-            return ScreenChannel();
-          } else
+          else if (pathData is AppRoutePathChannel)
+            return ScreenChannel(channelId: pathData.channelId);
+          else if (pathData is AppRoutePathDetail)
+            return ScreenChannel(channelId: pathData.channelId);
+          else
             throw UnimplementedError('error screen');
         })
         .map((screen) => MaterialPage(
@@ -54,11 +54,13 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
     if (_pathDataList.isNotEmpty && _pathDataList.last is AppRoutePathError)
       _pathDataList.removeLast();
 
-    if (_pathDataList.any((it) => it is AppRoutePathDashBoard || it is AppRoutePathUnknown) &&
-        (configuration.data is AppRoutePathDashBoard || configuration.data is AppRoutePathUnknown)) {
+    if (_pathDataList.any(
+            (it) => it is AppRoutePathDashBoard || it is AppRoutePathUnknown) &&
+        (configuration.data is AppRoutePathDashBoard ||
+            configuration.data is AppRoutePathUnknown)) {
       while (true) {
-        if (_pathDataList.last is AppRoutePathDashBoard || _pathDataList.last is AppRoutePathUnknown)
-          break;
+        if (_pathDataList.last is AppRoutePathDashBoard ||
+            _pathDataList.last is AppRoutePathUnknown) break;
         _pathDataList.removeLast();
       }
       return;

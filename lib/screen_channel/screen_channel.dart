@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_channel/content_cell.dart';
+import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
@@ -121,10 +123,10 @@ class _ScreenChannelState extends State<ScreenChannel>
                   labelColor: Colors.white,
                     controller: _tabController,
                     isScrollable: true,
-                    tabs: [
-                      Tab(text: '概要'),
-                      Tab(text: '動画'),
-                      Tab(text: 'お知らせ')
+                    tabs: const [
+                      Tab(text: Strings.CHANNEL_TAB_DESC),
+                      Tab(text: Strings.CHANNEL_TAB_MOVIE),
+                      Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
                     ]),
               ),
               SizedBox(
@@ -134,8 +136,16 @@ class _ScreenChannelState extends State<ScreenChannel>
                 ),
               ),
               Expanded(
-                child: PageNotification(),
-              ),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    PageChannelDetail(text: value.channelData.channel.detail),
+                    Container(),
+                    if (value.channelData.channel.announcements.items.isNotEmpty)
+                      PageNotification(announcements: value.channelData.channel.announcements),
+                  ],
+                ),
+              )
             ],
           );
         else

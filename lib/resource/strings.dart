@@ -47,4 +47,10 @@ class Strings {
 
 //endregion
 
+//region ScreenChannel
+  static const String CHANNEL_TAB_DESC = '概要';
+  static const String CHANNEL_TAB_MOVIE = '動画';
+  static const String CHANNEL_TAB_NOTIFICATION = 'お知らせ';
+//endregion
+
 }

@@ -67,4 +67,18 @@ class TextStyles {
     decoration: TextDecoration.none,
     fontSize: 14,
   );
+
+  static const CHANNEL_PLAIN = TextStyle(
+    fontSize: 13,
+    color: Colors.white,
+    height: TextStyles.TEXT_HEIGHT,
+  );
+
+  static const CHANNEL_HEADING = TextStyle(
+    fontWeight: FontWeight.bold,
+    height: TextStyles.TEXT_HEIGHT,
+    fontSize: 16,
+  );
+
+  static const CHANNEL_BOLD = TextStyle(height: TextStyles.TEXT_HEIGHT);
 }

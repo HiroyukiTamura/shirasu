@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_channel/content_cell.dart';
 
 class PageChannelDetail extends StatelessWidget {
+  const PageChannelDetail({Key key, @required this.text}) : super(key: key);
 
   final String text;
 
-  const PageChannelDetail({Key key, @required this.text}) : super(key: key);
-
   @override
   Widget build(BuildContext context) => ContentCell(
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 13,
-          color: Colors.white,
-          height: TextStyles.TEXT_HEIGHT,
+        verticalPadding: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN,
+        child: Text(
+          text,
+          style: TextStyles.CHANNEL_PLAIN,
         ),
-      ),
-    );
+      );
 }

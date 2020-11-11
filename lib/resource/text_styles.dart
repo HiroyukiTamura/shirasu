@@ -97,4 +97,10 @@ class TextStyles {
     fontSize: 14,
     color: Colors.white,
   );
+
+  static const LIST_MOVIE_TITLE = TextStyle(
+    height: TextStyles.TEXT_HEIGHT,
+    fontSize: 13,
+    fontWeight: FontWeight.bold,
+  );
 }

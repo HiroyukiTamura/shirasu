@@ -11,6 +11,7 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_channel/content_cell.dart';
 import 'package:shirasu/screen_channel/page_channel_detail.dart';
+import 'package:shirasu/screen_channel/page_movie_list.dart';
 import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
@@ -144,7 +145,7 @@ class _ScreenChannelState extends State<ScreenChannel>
                   controller: _tabController,
                   children: [
                     PageChannelDetail(text: value.channelData.channel.detail),
-                    Container(),
+                    PageMovieList(channelPrograms: value.channelData.channel.programs),
                     if (!isAnnouncementEmpty)
                       PageNotification(
                           announcements:

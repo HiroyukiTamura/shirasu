@@ -1,71 +1,65 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/model/channel_data.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
 class PageMovieList extends StatelessWidget {
-  static const _THUMBNAIL_URL =
-      'https://shirasu-storage-product.s3.amazonaws.com/public/programs/genron-genron-20201023/thumbnail';
-  static const _TITLE =
-      '安藤礼二×中島隆博「井筒俊彦をこえて――『あたらしい東洋哲学』はどこにあるのか」【『ゲンロン11』刊行記念】 #ゲンロン201023';
-  static const _TIME = '2020/11/12 19:00';
 
-  static const _THUMBNAIL_RATIO = 1920 / 1080;
+  const PageMovieList({Key key, @required this.channelPrograms}) : super(key: key);
+
   static const double _TILE_HEIGHT = 72;
-  static const _THUMBNAIL_WIDTH = _TILE_HEIGHT * _THUMBNAIL_RATIO;
+  static const _THUMBNAIL_WIDTH = _TILE_HEIGHT * Dimens.IMG_RATIO;
+
+  final ChannelPrograms channelPrograms;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 72 * 10.0,
-      child: ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: 24),
-          itemCount: 10,
-          itemBuilder: (context, i) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-              child: Container(
-                height: _TILE_HEIGHT,
-                child: Row(
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: _THUMBNAIL_URL,
-                      width: _THUMBNAIL_WIDTH,
+  Widget build(BuildContext context) => ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN),
+        itemCount: channelPrograms.items.length,
+        itemBuilder: (context, i) {
+          final program = channelPrograms.items[i];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+            child: Container(
+              height: _TILE_HEIGHT,
+              child: Row(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: ApiClient.getThumbnailUrl(program.id),
+                    width: _THUMBNAIL_WIDTH,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          program.title,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: TextStyles.LIST_MOVIE_TITLE,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          DateFormat('yyyy/MM/dd HH:mm').format(program.broadcastAt),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Styles.colorTextSub,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _TITLE,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: TextStyle(
-                              height: TextStyles.TEXT_HEIGHT,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            _TIME,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Styles.colorTextSub,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
-            );
-          }),
-    );
-  }
+            ),
+          );
+        });
 }

@@ -95,6 +95,17 @@ abstract class DetailPrgItem with _$DetailPrgItem, VideoTypeGetter, MediaStatusG
 
   @override
   MediaStatus get mediaStatusStrict => MediaStatusGetter.parse(mediaStatus);
+
+  String get urlAvailable {
+    switch(videoTypeStrict) {
+      case VideoType.LIVE:
+        return liveUrl;
+      case VideoType.ARCHIVED:
+        return archiveUrl;
+      default:
+        throw UnimplementedError('unknown VideoType: $videoTypeStrict');
+    }
+  }
 }
 
 @freezed

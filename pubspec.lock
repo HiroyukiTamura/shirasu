@@ -258,6 +258,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  flutter_hooks:
+    dependency: "direct main"
+    description:
+      name: flutter_hooks
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.1"
   flutter_linkify:
     dependency: "direct main"
     description:
@@ -265,8 +272,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.2"
-  flutter_riverpod:
+  flutter_playout:
     dependency: "direct main"
+    description:
+      name: flutter_playout
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.42"
+  flutter_riverpod:
+    dependency: transitive
     description:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
@@ -366,6 +380,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.2"
+  hooks_riverpod:
+    dependency: "direct main"
+    description:
+      name: hooks_riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.12.1"
   http:
     dependency: "direct main"
     description:

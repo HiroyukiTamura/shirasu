@@ -1,15 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:intl/intl.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/screen_channel/screen_channel.dart';
-import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
-import 'package:shirasu/screen_detail/billing_btn.dart';
-import 'package:shirasu/screen_detail/content_cell.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/row_video_desc.dart';
@@ -18,8 +13,9 @@ import 'package:shirasu/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-final _detailProvider = ChangeNotifierProvider.autoDispose
+final detailProvider = ChangeNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id));
 
 class ScreenDetail extends StatefulWidget {
@@ -32,39 +28,24 @@ class ScreenDetail extends StatefulWidget {
 }
 
 class _ScreenDetailState extends State<ScreenDetail> {
-  _ScreenDetailState(this.id);
+  _ScreenDetailState(this._id);
 
-  final String id;
+  final String _id;
 
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback(
-        (_) async => context.read(_detailProvider(id)).setUpData());
+        (_) async => context.read(detailProvider(_id)).setUpData());
   }
 
   @override
   Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-          body: Consumer(
-            builder: (context, watch, child) {
-              final viewModel = watch(_detailProvider(id));
-              final result = viewModel.value;
-              if (result == null)
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              else if (result is PrgDetailResultError)
-                return Container(); //todo show error widget
-              else if (result is PrgDetailResultSuccess) {
-                return _ContentWidget(data: result.programDetailData);
-              } else
-                throw Exception('unexpected type ${result.runtimeType}');
-            },
-          ),
-        ),
-      );
+      child: Scaffold(
+        body: _PrgResultHookedWidget(id: _id),
+      ),
+    );
 //
 // static Widget contentWidget() => ListView.builder(
 //     itemCount: 17,
@@ -211,6 +192,28 @@ class _ScreenDetailState extends State<ScreenDetail> {
 //     });
 }
 
+class _PrgResultHookedWidget extends HookWidget {
+  const _PrgResultHookedWidget({@required this.id});
+
+  final String id;
+
+  @override
+  Widget build(BuildContext context) {
+    final result =
+        useProvider(detailProvider(id).select((value) => value.prgDataResult));
+    if (result == null)
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    else if (result is PrgDetailResultError)
+      return Container(); //todo show error widget
+    else if (result is PrgDetailResultSuccess) {
+      return _ContentWidget(data: result.programDetailData);
+    } else
+      throw Exception('unexpected type ${result.runtimeType}');
+  }
+}
+
 class _ContentWidget extends StatelessWidget {
   const _ContentWidget({Key key, this.data}) : super(key: key);
 
@@ -227,9 +230,10 @@ class _ContentWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         switch (index) {
           case 0:
-            return RowVideoThumbnail(
+            return RowHeader(
               programId: data.program.id,
-              onTap: () {},
+              onTap: () =>
+                  context.read(detailProvider(data.program.id)).playVideo(),
             );
           case 1:
             return const SizedBox(height: 16);

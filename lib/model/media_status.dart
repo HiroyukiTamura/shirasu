@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 
 enum MediaStatus {
-  ENDED,
+  ENDED, WAITING,
 }
 
 @immutable
@@ -13,6 +13,8 @@ abstract class MediaStatusGetter {
     switch (value) {
       case 'ENDED':
         return MediaStatus.ENDED;
+      case 'WAITING':
+        return MediaStatus.WAITING;
       default:
         throw Exception('unexpected value: $value');
     }

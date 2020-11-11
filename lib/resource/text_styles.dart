@@ -128,5 +128,10 @@ class TextStyles {
     fontSize: 13,
     height: TextStyles.TEXT_HEIGHT,
   );
+
+  static const DETAIL_HEADER_MSG = TextStyle(
+    color: Colors.white,
+    fontSize: 16,
+  );
   //endregion
 }

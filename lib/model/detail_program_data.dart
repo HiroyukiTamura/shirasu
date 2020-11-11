@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/model/media_status.dart';
+import 'package:shirasu/model/video_type.dart';
 
 part 'detail_program_data.freezed.dart';
 part 'detail_program_data.g.dart';
@@ -34,7 +36,7 @@ abstract class ProgramDetail with _$ProgramDetail {
     @required int totalPlayTime,
     String viewerPlanType,
     bool isExtensionChargedToSubscribers,
-    int archivedAt,
+    DateTime archivedAt,
     @required String releaseState,
     @required bool shouldArchive,
     @required List<dynamic> extensions,
@@ -74,7 +76,7 @@ abstract class Handouts with _$Handouts {
 }
 
 @freezed
-abstract class DetailPrgItem with _$DetailPrgItem {
+abstract class DetailPrgItem with _$DetailPrgItem, VideoTypeGetter, MediaStatusGetter {
   factory DetailPrgItem({
     @required String id,
     @required String videoType,
@@ -85,6 +87,14 @@ abstract class DetailPrgItem with _$DetailPrgItem {
   }) = _DetailPrgItem;
 
   factory DetailPrgItem.fromJson(Map<String, dynamic> json) => _$DetailPrgItemFromJson(json);
+
+  const DetailPrgItem._();
+
+  @override
+  VideoType get videoTypeStrict => VideoTypeGetter.parse(videoType);
+
+  @override
+  MediaStatus get mediaStatusStrict => MediaStatusGetter.parse(mediaStatus);
 }
 
 @freezed

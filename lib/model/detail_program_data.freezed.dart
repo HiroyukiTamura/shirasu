@@ -224,7 +224,7 @@ class _$ProgramDetailTearOff {
       @required int totalPlayTime,
       String viewerPlanType,
       bool isExtensionChargedToSubscribers,
-      int archivedAt,
+      DateTime archivedAt,
       @required String releaseState,
       @required bool shouldArchive,
       @required List<dynamic> extensions,
@@ -288,7 +288,7 @@ mixin _$ProgramDetail {
   int get totalPlayTime;
   String get viewerPlanType;
   bool get isExtensionChargedToSubscribers;
-  int get archivedAt;
+  DateTime get archivedAt;
   String get releaseState;
   bool get shouldArchive;
   List<dynamic> get extensions;
@@ -324,7 +324,7 @@ abstract class $ProgramDetailCopyWith<$Res> {
       int totalPlayTime,
       String viewerPlanType,
       bool isExtensionChargedToSubscribers,
-      int archivedAt,
+      DateTime archivedAt,
       String releaseState,
       bool shouldArchive,
       List<dynamic> extensions,
@@ -404,7 +404,8 @@ class _$ProgramDetailCopyWithImpl<$Res>
           isExtensionChargedToSubscribers == freezed
               ? _value.isExtensionChargedToSubscribers
               : isExtensionChargedToSubscribers as bool,
-      archivedAt: archivedAt == freezed ? _value.archivedAt : archivedAt as int,
+      archivedAt:
+          archivedAt == freezed ? _value.archivedAt : archivedAt as DateTime,
       releaseState: releaseState == freezed
           ? _value.releaseState
           : releaseState as String,
@@ -479,7 +480,7 @@ abstract class _$ProgramDetailCopyWith<$Res>
       int totalPlayTime,
       String viewerPlanType,
       bool isExtensionChargedToSubscribers,
-      int archivedAt,
+      DateTime archivedAt,
       String releaseState,
       bool shouldArchive,
       List<dynamic> extensions,
@@ -564,7 +565,8 @@ class __$ProgramDetailCopyWithImpl<$Res>
           isExtensionChargedToSubscribers == freezed
               ? _value.isExtensionChargedToSubscribers
               : isExtensionChargedToSubscribers as bool,
-      archivedAt: archivedAt == freezed ? _value.archivedAt : archivedAt as int,
+      archivedAt:
+          archivedAt == freezed ? _value.archivedAt : archivedAt as DateTime,
       releaseState: releaseState == freezed
           ? _value.releaseState
           : releaseState as String,
@@ -669,7 +671,7 @@ class _$_ProgramDetail implements _ProgramDetail {
   @override
   final bool isExtensionChargedToSubscribers;
   @override
-  final int archivedAt;
+  final DateTime archivedAt;
   @override
   final String releaseState;
   @override
@@ -810,7 +812,7 @@ abstract class _ProgramDetail implements ProgramDetail {
       @required int totalPlayTime,
       String viewerPlanType,
       bool isExtensionChargedToSubscribers,
-      int archivedAt,
+      DateTime archivedAt,
       @required String releaseState,
       @required bool shouldArchive,
       @required List<dynamic> extensions,
@@ -854,7 +856,7 @@ abstract class _ProgramDetail implements ProgramDetail {
   @override
   bool get isExtensionChargedToSubscribers;
   @override
-  int get archivedAt;
+  DateTime get archivedAt;
   @override
   String get releaseState;
   @override
@@ -1141,7 +1143,7 @@ class _$HandoutsTearOff {
 // ignore: unused_element
   _Handouts call(
       {@required List<DetailPrgItem> items,
-      dynamic nextToken,
+      String nextToken,
       @required @JsonKey(name: '__typename') String typename}) {
     return _Handouts(
       items: items,
@@ -1163,7 +1165,7 @@ const $Handouts = _$HandoutsTearOff();
 /// @nodoc
 mixin _$Handouts {
   List<DetailPrgItem> get items;
-  dynamic get nextToken;
+  String get nextToken;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -1177,7 +1179,7 @@ abstract class $HandoutsCopyWith<$Res> {
       _$HandoutsCopyWithImpl<$Res>;
   $Res call(
       {List<DetailPrgItem> items,
-      dynamic nextToken,
+      String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1197,7 +1199,7 @@ class _$HandoutsCopyWithImpl<$Res> implements $HandoutsCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       items: items == freezed ? _value.items : items as List<DetailPrgItem>,
-      nextToken: nextToken == freezed ? _value.nextToken : nextToken as dynamic,
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1210,7 +1212,7 @@ abstract class _$HandoutsCopyWith<$Res> implements $HandoutsCopyWith<$Res> {
   @override
   $Res call(
       {List<DetailPrgItem> items,
-      dynamic nextToken,
+      String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1231,7 +1233,7 @@ class __$HandoutsCopyWithImpl<$Res> extends _$HandoutsCopyWithImpl<$Res>
   }) {
     return _then(_Handouts(
       items: items == freezed ? _value.items : items as List<DetailPrgItem>,
-      nextToken: nextToken == freezed ? _value.nextToken : nextToken as dynamic,
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1254,7 +1256,7 @@ class _$_Handouts implements _Handouts {
   @override
   final List<DetailPrgItem> items;
   @override
-  final dynamic nextToken;
+  final String nextToken;
   @override
   @JsonKey(name: '__typename')
   final String typename;
@@ -1298,7 +1300,7 @@ class _$_Handouts implements _Handouts {
 abstract class _Handouts implements Handouts {
   factory _Handouts(
       {@required List<DetailPrgItem> items,
-      dynamic nextToken,
+      String nextToken,
       @required @JsonKey(name: '__typename') String typename}) = _$_Handouts;
 
   factory _Handouts.fromJson(Map<String, dynamic> json) = _$_Handouts.fromJson;
@@ -1306,7 +1308,7 @@ abstract class _Handouts implements Handouts {
   @override
   List<DetailPrgItem> get items;
   @override
-  dynamic get nextToken;
+  String get nextToken;
   @override
   @JsonKey(name: '__typename')
   String get typename;
@@ -1461,7 +1463,7 @@ class __$DetailPrgItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_DetailPrgItem implements _DetailPrgItem {
+class _$_DetailPrgItem extends _DetailPrgItem {
   _$_DetailPrgItem(
       {@required this.id,
       @required this.videoType,
@@ -1472,7 +1474,8 @@ class _$_DetailPrgItem implements _DetailPrgItem {
       : assert(id != null),
         assert(videoType != null),
         assert(mediaStatus != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_DetailPrgItem.fromJson(Map<String, dynamic> json) =>
       _$_$_DetailPrgItemFromJson(json);
@@ -1539,7 +1542,8 @@ class _$_DetailPrgItem implements _DetailPrgItem {
   }
 }
 
-abstract class _DetailPrgItem implements DetailPrgItem {
+abstract class _DetailPrgItem extends DetailPrgItem {
+  _DetailPrgItem._() : super._();
   factory _DetailPrgItem(
           {@required String id,
           @required String videoType,

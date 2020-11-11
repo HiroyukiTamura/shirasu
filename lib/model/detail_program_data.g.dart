@@ -44,7 +44,9 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
     viewerPlanType: json['viewerPlanType'] as String,
     isExtensionChargedToSubscribers:
         json['isExtensionChargedToSubscribers'] as bool,
-    archivedAt: json['archivedAt'] as int,
+    archivedAt: json['archivedAt'] == null
+        ? null
+        : DateTime.parse(json['archivedAt'] as String),
     releaseState: json['releaseState'] as String,
     shouldArchive: json['shouldArchive'] as bool,
     extensions: json['extensions'] as List,
@@ -83,7 +85,7 @@ Map<String, dynamic> _$_$_ProgramDetailToJson(_$_ProgramDetail instance) =>
       'viewerPlanType': instance.viewerPlanType,
       'isExtensionChargedToSubscribers':
           instance.isExtensionChargedToSubscribers,
-      'archivedAt': instance.archivedAt,
+      'archivedAt': instance.archivedAt?.toIso8601String(),
       'releaseState': instance.releaseState,
       'shouldArchive': instance.shouldArchive,
       'extensions': instance.extensions,
@@ -123,7 +125,7 @@ _$_Handouts _$_$_HandoutsFromJson(Map<String, dynamic> json) {
             ? null
             : DetailPrgItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    nextToken: json['nextToken'],
+    nextToken: json['nextToken'] as String,
     typename: json['__typename'] as String,
   );
 }

@@ -29,8 +29,8 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     channelId: json['channelId'] as String,
     tenantId: json['tenantId'] as String,
-    adminComment: json['adminComment'],
-    adminCommentDisappearAt: json['adminCommentDisappearAt'],
+    adminComment: json['adminComment'] as String,
+    adminCommentDisappearAt: json['adminCommentDisappearAt'] as int,
     broadcastAt: json['broadcastAt'] == null
         ? null
         : DateTime.parse(json['broadcastAt'] as String),
@@ -41,13 +41,14 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
     tags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
     title: json['title'] as String,
     totalPlayTime: json['totalPlayTime'] as int,
-    viewerPlanType: json['viewerPlanType'],
-    isExtensionChargedToSubscribers: json['isExtensionChargedToSubscribers'],
-    archivedAt: json['archivedAt'],
+    viewerPlanType: json['viewerPlanType'] as String,
+    isExtensionChargedToSubscribers:
+        json['isExtensionChargedToSubscribers'] as bool,
+    archivedAt: json['archivedAt'] as int,
     releaseState: json['releaseState'] as String,
     shouldArchive: json['shouldArchive'] as bool,
     extensions: json['extensions'] as List,
-    typename: json['typename'] as String,
+    typename: json['__typename'] as String,
     channel: json['channel'] == null
         ? null
         : DetailPrgChannel.fromJson(json['channel'] as Map<String, dynamic>),
@@ -86,7 +87,7 @@ Map<String, dynamic> _$_$_ProgramDetailToJson(_$_ProgramDetail instance) =>
       'releaseState': instance.releaseState,
       'shouldArchive': instance.shouldArchive,
       'extensions': instance.extensions,
-      'typename': instance.typename,
+      '__typename': instance.typename,
       'channel': instance.channel,
       'handouts': instance.handouts,
       'videos': instance.videos,
@@ -100,7 +101,7 @@ _$_DetailPrgChannel _$_$_DetailPrgChannelFromJson(Map<String, dynamic> json) {
     name: json['name'] as String,
     icon: json['icon'],
     textOnPurchaseScreen: json['textOnPurchaseScreen'] as String,
-    typename: json['typename'] as String,
+    typename: json['__typename'] as String,
   );
 }
 
@@ -112,7 +113,7 @@ Map<String, dynamic> _$_$_DetailPrgChannelToJson(
       'name': instance.name,
       'icon': instance.icon,
       'textOnPurchaseScreen': instance.textOnPurchaseScreen,
-      'typename': instance.typename,
+      '__typename': instance.typename,
     };
 
 _$_Handouts _$_$_HandoutsFromJson(Map<String, dynamic> json) {
@@ -123,7 +124,7 @@ _$_Handouts _$_$_HandoutsFromJson(Map<String, dynamic> json) {
             : DetailPrgItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     nextToken: json['nextToken'],
-    typename: json['typename'] as String,
+    typename: json['__typename'] as String,
   );
 }
 
@@ -131,7 +132,7 @@ Map<String, dynamic> _$_$_HandoutsToJson(_$_Handouts instance) =>
     <String, dynamic>{
       'items': instance.items,
       'nextToken': instance.nextToken,
-      'typename': instance.typename,
+      '__typename': instance.typename,
     };
 
 _$_DetailPrgItem _$_$_DetailPrgItemFromJson(Map<String, dynamic> json) {
@@ -139,9 +140,9 @@ _$_DetailPrgItem _$_$_DetailPrgItemFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     videoType: json['videoType'] as String,
     mediaStatus: json['mediaStatus'] as String,
-    liveUrl: json['liveUrl'],
-    archiveUrl: json['archiveUrl'],
-    typename: json['typename'] as String,
+    liveUrl: json['liveUrl'] as String,
+    archiveUrl: json['archiveUrl'] as String,
+    typename: json['__typename'] as String,
   );
 }
 
@@ -152,7 +153,7 @@ Map<String, dynamic> _$_$_DetailPrgItemToJson(_$_DetailPrgItem instance) =>
       'mediaStatus': instance.mediaStatus,
       'liveUrl': instance.liveUrl,
       'archiveUrl': instance.archiveUrl,
-      'typename': instance.typename,
+      '__typename': instance.typename,
     };
 
 _$_OnetimePlan _$_$_OnetimePlanFromJson(Map<String, dynamic> json) {
@@ -167,7 +168,7 @@ _$_OnetimePlan _$_$_OnetimePlanFromJson(Map<String, dynamic> json) {
     currency: json['currency'] as String,
     isPurchasable: json['isPurchasable'] as bool,
     viewerPurchasedPlan: json['viewerPurchasedPlan'],
-    typename: json['typename'] as String,
+    typename: json['__typename'] as String,
   );
 }
 
@@ -183,19 +184,19 @@ Map<String, dynamic> _$_$_OnetimePlanToJson(_$_OnetimePlan instance) =>
       'currency': instance.currency,
       'isPurchasable': instance.isPurchasable,
       'viewerPurchasedPlan': instance.viewerPurchasedPlan,
-      'typename': instance.typename,
+      '__typename': instance.typename,
     };
 
 _$_Viewer _$_$_ViewerFromJson(Map<String, dynamic> json) {
   return _$_Viewer(
     name: json['name'] as String,
     icon: json['icon'] as String,
-    typename: json['typename'] as String,
+    typename: json['__typename'] as String,
   );
 }
 
 Map<String, dynamic> _$_$_ViewerToJson(_$_Viewer instance) => <String, dynamic>{
       'name': instance.name,
       'icon': instance.icon,
-      'typename': instance.typename,
+      '__typename': instance.typename,
     };

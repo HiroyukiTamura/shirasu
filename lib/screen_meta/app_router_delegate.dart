@@ -26,7 +26,7 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
           else if (pathData is AppRoutePathChannel)
             return ScreenChannel(channelId: pathData.channelId);
           else if (pathData is AppRoutePathDetail)
-            return ScreenChannel(channelId: pathData.channelId);
+            return ScreenDetail(id: pathData.id);
           else
             throw UnimplementedError('error screen');
         })

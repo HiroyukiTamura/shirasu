@@ -22,8 +22,8 @@ abstract class ProgramDetail with _$ProgramDetail {
     @required String id,
     @required String channelId,
     @required String tenantId,
-    @required dynamic adminComment,
-    @required dynamic adminCommentDisappearAt,
+    String adminComment,
+    int adminCommentDisappearAt,
     @required DateTime broadcastAt,
     @required String detail,
     @required int mainTime,
@@ -32,13 +32,13 @@ abstract class ProgramDetail with _$ProgramDetail {
     @required List<String> tags,
     @required String title,
     @required int totalPlayTime,
-    @required dynamic viewerPlanType,
-    @required dynamic isExtensionChargedToSubscribers,
-    @required dynamic archivedAt,
+    String viewerPlanType,
+    bool isExtensionChargedToSubscribers,
+    int archivedAt,
     @required String releaseState,
     @required bool shouldArchive,
     @required List<dynamic> extensions,
-    @required String typename,
+    @required @JsonKey(name: '__typename') String typename,
     @required DetailPrgChannel channel,
     @required Handouts handouts,
     @required Handouts videos,
@@ -56,7 +56,7 @@ abstract class DetailPrgChannel with _$DetailPrgChannel {
     @required String name,
     dynamic icon,
     @required String textOnPurchaseScreen,
-    @required String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _DetailPrgChannel;
 
   factory DetailPrgChannel.fromJson(Map<String, dynamic> json) => _$DetailPrgChannelFromJson(json);
@@ -67,7 +67,7 @@ abstract class Handouts with _$Handouts {
   factory Handouts({
     @required List<DetailPrgItem> items,
     dynamic nextToken,
-    @required String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _Handouts;
 
   factory Handouts.fromJson(Map<String, dynamic> json) => _$HandoutsFromJson(json);
@@ -79,9 +79,9 @@ abstract class DetailPrgItem with _$DetailPrgItem {
     @required String id,
     @required String videoType,
     @required String mediaStatus,
-    @required dynamic liveUrl,
-    dynamic archiveUrl,
-    @required String typename,
+    String liveUrl,
+    String archiveUrl,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _DetailPrgItem;
 
   factory DetailPrgItem.fromJson(Map<String, dynamic> json) => _$DetailPrgItemFromJson(json);
@@ -100,7 +100,7 @@ abstract class OnetimePlan with _$OnetimePlan {
     @required String currency,
     @required bool isPurchasable,
     dynamic viewerPurchasedPlan,
-    @required String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _OnetimePlan;
 
   factory OnetimePlan.fromJson(Map<String, dynamic> json) => _$OnetimePlanFromJson(json);
@@ -111,7 +111,7 @@ abstract class Viewer with _$Viewer {
   factory Viewer({
     @required String name,
     @required String icon,
-    @required String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _Viewer;
 
   factory Viewer.fromJson(Map<String, dynamic> json) => _$ViewerFromJson(json);

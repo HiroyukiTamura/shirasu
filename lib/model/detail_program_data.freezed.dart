@@ -212,8 +212,8 @@ class _$ProgramDetailTearOff {
       {@required String id,
       @required String channelId,
       @required String tenantId,
-      @required dynamic adminComment,
-      @required dynamic adminCommentDisappearAt,
+      String adminComment,
+      int adminCommentDisappearAt,
       @required DateTime broadcastAt,
       @required String detail,
       @required int mainTime,
@@ -222,13 +222,13 @@ class _$ProgramDetailTearOff {
       @required List<String> tags,
       @required String title,
       @required int totalPlayTime,
-      @required dynamic viewerPlanType,
-      @required dynamic isExtensionChargedToSubscribers,
-      @required dynamic archivedAt,
+      String viewerPlanType,
+      bool isExtensionChargedToSubscribers,
+      int archivedAt,
       @required String releaseState,
       @required bool shouldArchive,
       @required List<dynamic> extensions,
-      @required String typename,
+      @required @JsonKey(name: '__typename') String typename,
       @required DetailPrgChannel channel,
       @required Handouts handouts,
       @required Handouts videos,
@@ -276,8 +276,8 @@ mixin _$ProgramDetail {
   String get id;
   String get channelId;
   String get tenantId;
-  dynamic get adminComment;
-  dynamic get adminCommentDisappearAt;
+  String get adminComment;
+  int get adminCommentDisappearAt;
   DateTime get broadcastAt;
   String get detail;
   int get mainTime;
@@ -286,12 +286,13 @@ mixin _$ProgramDetail {
   List<String> get tags;
   String get title;
   int get totalPlayTime;
-  dynamic get viewerPlanType;
-  dynamic get isExtensionChargedToSubscribers;
-  dynamic get archivedAt;
+  String get viewerPlanType;
+  bool get isExtensionChargedToSubscribers;
+  int get archivedAt;
   String get releaseState;
   bool get shouldArchive;
   List<dynamic> get extensions;
+  @JsonKey(name: '__typename')
   String get typename;
   DetailPrgChannel get channel;
   Handouts get handouts;
@@ -311,8 +312,8 @@ abstract class $ProgramDetailCopyWith<$Res> {
       {String id,
       String channelId,
       String tenantId,
-      dynamic adminComment,
-      dynamic adminCommentDisappearAt,
+      String adminComment,
+      int adminCommentDisappearAt,
       DateTime broadcastAt,
       String detail,
       int mainTime,
@@ -321,13 +322,13 @@ abstract class $ProgramDetailCopyWith<$Res> {
       List<String> tags,
       String title,
       int totalPlayTime,
-      dynamic viewerPlanType,
-      dynamic isExtensionChargedToSubscribers,
-      dynamic archivedAt,
+      String viewerPlanType,
+      bool isExtensionChargedToSubscribers,
+      int archivedAt,
       String releaseState,
       bool shouldArchive,
       List<dynamic> extensions,
-      String typename,
+      @JsonKey(name: '__typename') String typename,
       DetailPrgChannel channel,
       Handouts handouts,
       Handouts videos,
@@ -380,10 +381,10 @@ class _$ProgramDetailCopyWithImpl<$Res>
       tenantId: tenantId == freezed ? _value.tenantId : tenantId as String,
       adminComment: adminComment == freezed
           ? _value.adminComment
-          : adminComment as dynamic,
+          : adminComment as String,
       adminCommentDisappearAt: adminCommentDisappearAt == freezed
           ? _value.adminCommentDisappearAt
-          : adminCommentDisappearAt as dynamic,
+          : adminCommentDisappearAt as int,
       broadcastAt:
           broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
       detail: detail == freezed ? _value.detail : detail as String,
@@ -398,13 +399,12 @@ class _$ProgramDetailCopyWithImpl<$Res>
           : totalPlayTime as int,
       viewerPlanType: viewerPlanType == freezed
           ? _value.viewerPlanType
-          : viewerPlanType as dynamic,
+          : viewerPlanType as String,
       isExtensionChargedToSubscribers:
           isExtensionChargedToSubscribers == freezed
               ? _value.isExtensionChargedToSubscribers
-              : isExtensionChargedToSubscribers as dynamic,
-      archivedAt:
-          archivedAt == freezed ? _value.archivedAt : archivedAt as dynamic,
+              : isExtensionChargedToSubscribers as bool,
+      archivedAt: archivedAt == freezed ? _value.archivedAt : archivedAt as int,
       releaseState: releaseState == freezed
           ? _value.releaseState
           : releaseState as String,
@@ -467,8 +467,8 @@ abstract class _$ProgramDetailCopyWith<$Res>
       {String id,
       String channelId,
       String tenantId,
-      dynamic adminComment,
-      dynamic adminCommentDisappearAt,
+      String adminComment,
+      int adminCommentDisappearAt,
       DateTime broadcastAt,
       String detail,
       int mainTime,
@@ -477,13 +477,13 @@ abstract class _$ProgramDetailCopyWith<$Res>
       List<String> tags,
       String title,
       int totalPlayTime,
-      dynamic viewerPlanType,
-      dynamic isExtensionChargedToSubscribers,
-      dynamic archivedAt,
+      String viewerPlanType,
+      bool isExtensionChargedToSubscribers,
+      int archivedAt,
       String releaseState,
       bool shouldArchive,
       List<dynamic> extensions,
-      String typename,
+      @JsonKey(name: '__typename') String typename,
       DetailPrgChannel channel,
       Handouts handouts,
       Handouts videos,
@@ -541,10 +541,10 @@ class __$ProgramDetailCopyWithImpl<$Res>
       tenantId: tenantId == freezed ? _value.tenantId : tenantId as String,
       adminComment: adminComment == freezed
           ? _value.adminComment
-          : adminComment as dynamic,
+          : adminComment as String,
       adminCommentDisappearAt: adminCommentDisappearAt == freezed
           ? _value.adminCommentDisappearAt
-          : adminCommentDisappearAt as dynamic,
+          : adminCommentDisappearAt as int,
       broadcastAt:
           broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
       detail: detail == freezed ? _value.detail : detail as String,
@@ -559,13 +559,12 @@ class __$ProgramDetailCopyWithImpl<$Res>
           : totalPlayTime as int,
       viewerPlanType: viewerPlanType == freezed
           ? _value.viewerPlanType
-          : viewerPlanType as dynamic,
+          : viewerPlanType as String,
       isExtensionChargedToSubscribers:
           isExtensionChargedToSubscribers == freezed
               ? _value.isExtensionChargedToSubscribers
-              : isExtensionChargedToSubscribers as dynamic,
-      archivedAt:
-          archivedAt == freezed ? _value.archivedAt : archivedAt as dynamic,
+              : isExtensionChargedToSubscribers as bool,
+      archivedAt: archivedAt == freezed ? _value.archivedAt : archivedAt as int,
       releaseState: releaseState == freezed
           ? _value.releaseState
           : releaseState as String,
@@ -595,8 +594,8 @@ class _$_ProgramDetail implements _ProgramDetail {
       {@required this.id,
       @required this.channelId,
       @required this.tenantId,
-      @required this.adminComment,
-      @required this.adminCommentDisappearAt,
+      this.adminComment,
+      this.adminCommentDisappearAt,
       @required this.broadcastAt,
       @required this.detail,
       @required this.mainTime,
@@ -605,13 +604,13 @@ class _$_ProgramDetail implements _ProgramDetail {
       @required this.tags,
       @required this.title,
       @required this.totalPlayTime,
-      @required this.viewerPlanType,
-      @required this.isExtensionChargedToSubscribers,
-      @required this.archivedAt,
+      this.viewerPlanType,
+      this.isExtensionChargedToSubscribers,
+      this.archivedAt,
       @required this.releaseState,
       @required this.shouldArchive,
       @required this.extensions,
-      @required this.typename,
+      @required @JsonKey(name: '__typename') this.typename,
       @required this.channel,
       @required this.handouts,
       @required this.videos,
@@ -619,8 +618,6 @@ class _$_ProgramDetail implements _ProgramDetail {
       : assert(id != null),
         assert(channelId != null),
         assert(tenantId != null),
-        assert(adminComment != null),
-        assert(adminCommentDisappearAt != null),
         assert(broadcastAt != null),
         assert(detail != null),
         assert(mainTime != null),
@@ -629,9 +626,6 @@ class _$_ProgramDetail implements _ProgramDetail {
         assert(tags != null),
         assert(title != null),
         assert(totalPlayTime != null),
-        assert(viewerPlanType != null),
-        assert(isExtensionChargedToSubscribers != null),
-        assert(archivedAt != null),
         assert(releaseState != null),
         assert(shouldArchive != null),
         assert(extensions != null),
@@ -651,9 +645,9 @@ class _$_ProgramDetail implements _ProgramDetail {
   @override
   final String tenantId;
   @override
-  final dynamic adminComment;
+  final String adminComment;
   @override
-  final dynamic adminCommentDisappearAt;
+  final int adminCommentDisappearAt;
   @override
   final DateTime broadcastAt;
   @override
@@ -671,11 +665,11 @@ class _$_ProgramDetail implements _ProgramDetail {
   @override
   final int totalPlayTime;
   @override
-  final dynamic viewerPlanType;
+  final String viewerPlanType;
   @override
-  final dynamic isExtensionChargedToSubscribers;
+  final bool isExtensionChargedToSubscribers;
   @override
-  final dynamic archivedAt;
+  final int archivedAt;
   @override
   final String releaseState;
   @override
@@ -683,6 +677,7 @@ class _$_ProgramDetail implements _ProgramDetail {
   @override
   final List<dynamic> extensions;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
   @override
   final DetailPrgChannel channel;
@@ -803,8 +798,8 @@ abstract class _ProgramDetail implements ProgramDetail {
       {@required String id,
       @required String channelId,
       @required String tenantId,
-      @required dynamic adminComment,
-      @required dynamic adminCommentDisappearAt,
+      String adminComment,
+      int adminCommentDisappearAt,
       @required DateTime broadcastAt,
       @required String detail,
       @required int mainTime,
@@ -813,13 +808,13 @@ abstract class _ProgramDetail implements ProgramDetail {
       @required List<String> tags,
       @required String title,
       @required int totalPlayTime,
-      @required dynamic viewerPlanType,
-      @required dynamic isExtensionChargedToSubscribers,
-      @required dynamic archivedAt,
+      String viewerPlanType,
+      bool isExtensionChargedToSubscribers,
+      int archivedAt,
       @required String releaseState,
       @required bool shouldArchive,
       @required List<dynamic> extensions,
-      @required String typename,
+      @required @JsonKey(name: '__typename') String typename,
       @required DetailPrgChannel channel,
       @required Handouts handouts,
       @required Handouts videos,
@@ -835,9 +830,9 @@ abstract class _ProgramDetail implements ProgramDetail {
   @override
   String get tenantId;
   @override
-  dynamic get adminComment;
+  String get adminComment;
   @override
-  dynamic get adminCommentDisappearAt;
+  int get adminCommentDisappearAt;
   @override
   DateTime get broadcastAt;
   @override
@@ -855,11 +850,11 @@ abstract class _ProgramDetail implements ProgramDetail {
   @override
   int get totalPlayTime;
   @override
-  dynamic get viewerPlanType;
+  String get viewerPlanType;
   @override
-  dynamic get isExtensionChargedToSubscribers;
+  bool get isExtensionChargedToSubscribers;
   @override
-  dynamic get archivedAt;
+  int get archivedAt;
   @override
   String get releaseState;
   @override
@@ -867,6 +862,7 @@ abstract class _ProgramDetail implements ProgramDetail {
   @override
   List<dynamic> get extensions;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   DetailPrgChannel get channel;
@@ -895,7 +891,7 @@ class _$DetailPrgChannelTearOff {
       @required String name,
       dynamic icon,
       @required String textOnPurchaseScreen,
-      @required String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _DetailPrgChannel(
       id: id,
       tenantId: tenantId,
@@ -923,6 +919,7 @@ mixin _$DetailPrgChannel {
   String get name;
   dynamic get icon;
   String get textOnPurchaseScreen;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -940,7 +937,7 @@ abstract class $DetailPrgChannelCopyWith<$Res> {
       String name,
       dynamic icon,
       String textOnPurchaseScreen,
-      String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -987,7 +984,7 @@ abstract class _$DetailPrgChannelCopyWith<$Res>
       String name,
       dynamic icon,
       String textOnPurchaseScreen,
-      String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1033,7 +1030,7 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
       @required this.name,
       this.icon,
       @required this.textOnPurchaseScreen,
-      @required this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(tenantId != null),
         assert(name != null),
@@ -1054,6 +1051,7 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
   @override
   final String textOnPurchaseScreen;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -1104,12 +1102,13 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
 
 abstract class _DetailPrgChannel implements DetailPrgChannel {
   factory _DetailPrgChannel(
-      {@required String id,
-      @required String tenantId,
-      @required String name,
-      dynamic icon,
-      @required String textOnPurchaseScreen,
-      @required String typename}) = _$_DetailPrgChannel;
+          {@required String id,
+          @required String tenantId,
+          @required String name,
+          dynamic icon,
+          @required String textOnPurchaseScreen,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_DetailPrgChannel;
 
   factory _DetailPrgChannel.fromJson(Map<String, dynamic> json) =
       _$_DetailPrgChannel.fromJson;
@@ -1125,6 +1124,7 @@ abstract class _DetailPrgChannel implements DetailPrgChannel {
   @override
   String get textOnPurchaseScreen;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$DetailPrgChannelCopyWith<_DetailPrgChannel> get copyWith;
@@ -1142,7 +1142,7 @@ class _$HandoutsTearOff {
   _Handouts call(
       {@required List<DetailPrgItem> items,
       dynamic nextToken,
-      @required String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Handouts(
       items: items,
       nextToken: nextToken,
@@ -1164,6 +1164,7 @@ const $Handouts = _$HandoutsTearOff();
 mixin _$Handouts {
   List<DetailPrgItem> get items;
   dynamic get nextToken;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1174,7 +1175,10 @@ mixin _$Handouts {
 abstract class $HandoutsCopyWith<$Res> {
   factory $HandoutsCopyWith(Handouts value, $Res Function(Handouts) then) =
       _$HandoutsCopyWithImpl<$Res>;
-  $Res call({List<DetailPrgItem> items, dynamic nextToken, String typename});
+  $Res call(
+      {List<DetailPrgItem> items,
+      dynamic nextToken,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1204,7 +1208,10 @@ abstract class _$HandoutsCopyWith<$Res> implements $HandoutsCopyWith<$Res> {
   factory _$HandoutsCopyWith(_Handouts value, $Res Function(_Handouts) then) =
       __$HandoutsCopyWithImpl<$Res>;
   @override
-  $Res call({List<DetailPrgItem> items, dynamic nextToken, String typename});
+  $Res call(
+      {List<DetailPrgItem> items,
+      dynamic nextToken,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1234,7 +1241,10 @@ class __$HandoutsCopyWithImpl<$Res> extends _$HandoutsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Handouts implements _Handouts {
-  _$_Handouts({@required this.items, this.nextToken, @required this.typename})
+  _$_Handouts(
+      {@required this.items,
+      this.nextToken,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(items != null),
         assert(typename != null);
 
@@ -1246,6 +1256,7 @@ class _$_Handouts implements _Handouts {
   @override
   final dynamic nextToken;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -1288,7 +1299,7 @@ abstract class _Handouts implements Handouts {
   factory _Handouts(
       {@required List<DetailPrgItem> items,
       dynamic nextToken,
-      @required String typename}) = _$_Handouts;
+      @required @JsonKey(name: '__typename') String typename}) = _$_Handouts;
 
   factory _Handouts.fromJson(Map<String, dynamic> json) = _$_Handouts.fromJson;
 
@@ -1297,6 +1308,7 @@ abstract class _Handouts implements Handouts {
   @override
   dynamic get nextToken;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$HandoutsCopyWith<_Handouts> get copyWith;
@@ -1315,9 +1327,9 @@ class _$DetailPrgItemTearOff {
       {@required String id,
       @required String videoType,
       @required String mediaStatus,
-      @required dynamic liveUrl,
-      dynamic archiveUrl,
-      @required String typename}) {
+      String liveUrl,
+      String archiveUrl,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _DetailPrgItem(
       id: id,
       videoType: videoType,
@@ -1343,8 +1355,9 @@ mixin _$DetailPrgItem {
   String get id;
   String get videoType;
   String get mediaStatus;
-  dynamic get liveUrl;
-  dynamic get archiveUrl;
+  String get liveUrl;
+  String get archiveUrl;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1360,9 +1373,9 @@ abstract class $DetailPrgItemCopyWith<$Res> {
       {String id,
       String videoType,
       String mediaStatus,
-      dynamic liveUrl,
-      dynamic archiveUrl,
-      String typename});
+      String liveUrl,
+      String archiveUrl,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1388,9 +1401,9 @@ class _$DetailPrgItemCopyWithImpl<$Res>
       videoType: videoType == freezed ? _value.videoType : videoType as String,
       mediaStatus:
           mediaStatus == freezed ? _value.mediaStatus : mediaStatus as String,
-      liveUrl: liveUrl == freezed ? _value.liveUrl : liveUrl as dynamic,
+      liveUrl: liveUrl == freezed ? _value.liveUrl : liveUrl as String,
       archiveUrl:
-          archiveUrl == freezed ? _value.archiveUrl : archiveUrl as dynamic,
+          archiveUrl == freezed ? _value.archiveUrl : archiveUrl as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1407,9 +1420,9 @@ abstract class _$DetailPrgItemCopyWith<$Res>
       {String id,
       String videoType,
       String mediaStatus,
-      dynamic liveUrl,
-      dynamic archiveUrl,
-      String typename});
+      String liveUrl,
+      String archiveUrl,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1437,9 +1450,9 @@ class __$DetailPrgItemCopyWithImpl<$Res>
       videoType: videoType == freezed ? _value.videoType : videoType as String,
       mediaStatus:
           mediaStatus == freezed ? _value.mediaStatus : mediaStatus as String,
-      liveUrl: liveUrl == freezed ? _value.liveUrl : liveUrl as dynamic,
+      liveUrl: liveUrl == freezed ? _value.liveUrl : liveUrl as String,
       archiveUrl:
-          archiveUrl == freezed ? _value.archiveUrl : archiveUrl as dynamic,
+          archiveUrl == freezed ? _value.archiveUrl : archiveUrl as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1453,13 +1466,12 @@ class _$_DetailPrgItem implements _DetailPrgItem {
       {@required this.id,
       @required this.videoType,
       @required this.mediaStatus,
-      @required this.liveUrl,
+      this.liveUrl,
       this.archiveUrl,
-      @required this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(videoType != null),
         assert(mediaStatus != null),
-        assert(liveUrl != null),
         assert(typename != null);
 
   factory _$_DetailPrgItem.fromJson(Map<String, dynamic> json) =>
@@ -1472,10 +1484,11 @@ class _$_DetailPrgItem implements _DetailPrgItem {
   @override
   final String mediaStatus;
   @override
-  final dynamic liveUrl;
+  final String liveUrl;
   @override
-  final dynamic archiveUrl;
+  final String archiveUrl;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -1528,12 +1541,13 @@ class _$_DetailPrgItem implements _DetailPrgItem {
 
 abstract class _DetailPrgItem implements DetailPrgItem {
   factory _DetailPrgItem(
-      {@required String id,
-      @required String videoType,
-      @required String mediaStatus,
-      @required dynamic liveUrl,
-      dynamic archiveUrl,
-      @required String typename}) = _$_DetailPrgItem;
+          {@required String id,
+          @required String videoType,
+          @required String mediaStatus,
+          String liveUrl,
+          String archiveUrl,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_DetailPrgItem;
 
   factory _DetailPrgItem.fromJson(Map<String, dynamic> json) =
       _$_DetailPrgItem.fromJson;
@@ -1545,10 +1559,11 @@ abstract class _DetailPrgItem implements DetailPrgItem {
   @override
   String get mediaStatus;
   @override
-  dynamic get liveUrl;
+  String get liveUrl;
   @override
-  dynamic get archiveUrl;
+  String get archiveUrl;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$DetailPrgItemCopyWith<_DetailPrgItem> get copyWith;
@@ -1574,7 +1589,7 @@ class _$OnetimePlanTearOff {
       @required String currency,
       @required bool isPurchasable,
       dynamic viewerPurchasedPlan,
-      @required String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _OnetimePlan(
       id: id,
       parentPlanType: parentPlanType,
@@ -1612,6 +1627,7 @@ mixin _$OnetimePlan {
   String get currency;
   bool get isPurchasable;
   dynamic get viewerPurchasedPlan;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1634,7 +1650,7 @@ abstract class $OnetimePlanCopyWith<$Res> {
       String currency,
       bool isPurchasable,
       dynamic viewerPurchasedPlan,
-      String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1702,7 +1718,7 @@ abstract class _$OnetimePlanCopyWith<$Res>
       String currency,
       bool isPurchasable,
       dynamic viewerPurchasedPlan,
-      String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1769,7 +1785,7 @@ class _$_OnetimePlan implements _OnetimePlan {
       @required this.currency,
       @required this.isPurchasable,
       this.viewerPurchasedPlan,
-      @required this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(parentPlanType != null),
         assert(parentPlanId != null),
@@ -1805,6 +1821,7 @@ class _$_OnetimePlan implements _OnetimePlan {
   @override
   final dynamic viewerPurchasedPlan;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -1885,7 +1902,7 @@ abstract class _OnetimePlan implements OnetimePlan {
       @required String currency,
       @required bool isPurchasable,
       dynamic viewerPurchasedPlan,
-      @required String typename}) = _$_OnetimePlan;
+      @required @JsonKey(name: '__typename') String typename}) = _$_OnetimePlan;
 
   factory _OnetimePlan.fromJson(Map<String, dynamic> json) =
       _$_OnetimePlan.fromJson;
@@ -1911,6 +1928,7 @@ abstract class _OnetimePlan implements OnetimePlan {
   @override
   dynamic get viewerPurchasedPlan;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$OnetimePlanCopyWith<_OnetimePlan> get copyWith;
@@ -1928,7 +1946,7 @@ class _$ViewerTearOff {
   _Viewer call(
       {@required String name,
       @required String icon,
-      @required String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Viewer(
       name: name,
       icon: icon,
@@ -1950,6 +1968,7 @@ const $Viewer = _$ViewerTearOff();
 mixin _$Viewer {
   String get name;
   String get icon;
+  @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1960,7 +1979,8 @@ mixin _$Viewer {
 abstract class $ViewerCopyWith<$Res> {
   factory $ViewerCopyWith(Viewer value, $Res Function(Viewer) then) =
       _$ViewerCopyWithImpl<$Res>;
-  $Res call({String name, String icon, String typename});
+  $Res call(
+      {String name, String icon, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1990,7 +2010,8 @@ abstract class _$ViewerCopyWith<$Res> implements $ViewerCopyWith<$Res> {
   factory _$ViewerCopyWith(_Viewer value, $Res Function(_Viewer) then) =
       __$ViewerCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String icon, String typename});
+  $Res call(
+      {String name, String icon, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -2020,7 +2041,10 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Viewer implements _Viewer {
-  _$_Viewer({@required this.name, @required this.icon, @required this.typename})
+  _$_Viewer(
+      {@required this.name,
+      @required this.icon,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(name != null),
         assert(icon != null),
         assert(typename != null);
@@ -2033,6 +2057,7 @@ class _$_Viewer implements _Viewer {
   @override
   final String icon;
   @override
+  @JsonKey(name: '__typename')
   final String typename;
 
   @override
@@ -2074,7 +2099,7 @@ abstract class _Viewer implements Viewer {
   factory _Viewer(
       {@required String name,
       @required String icon,
-      @required String typename}) = _$_Viewer;
+      @required @JsonKey(name: '__typename') String typename}) = _$_Viewer;
 
   factory _Viewer.fromJson(Map<String, dynamic> json) = _$_Viewer.fromJson;
 
@@ -2083,6 +2108,7 @@ abstract class _Viewer implements Viewer {
   @override
   String get icon;
   @override
+  @JsonKey(name: '__typename')
   String get typename;
   @override
   _$ViewerCopyWith<_Viewer> get copyWith;

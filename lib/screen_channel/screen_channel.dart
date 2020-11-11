@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -108,7 +106,7 @@ class _ScreenChannelState extends State<ScreenChannel>
                       PurchasedBannerMedium()
                     else if (value
                         .channelData.channel.subscriptionPlan?.isPurchasable)
-                      const BillingBtnMedium(text: _BILLING_PROMO_CHANNEL)
+                      const BillingBtnMedium(text: _BILLING_PROMO_CHANNEL)//todo fix
                     else
                       const SizedBox.shrink(),
                     IconButton(

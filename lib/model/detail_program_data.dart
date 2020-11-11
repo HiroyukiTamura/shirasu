@@ -66,7 +66,7 @@ abstract class DetailPrgChannel with _$DetailPrgChannel {
 abstract class Handouts with _$Handouts {
   factory Handouts({
     @required List<DetailPrgItem> items,
-    dynamic nextToken,
+    String nextToken,
     @required @JsonKey(name: '__typename') String typename,
   }) = _Handouts;
 

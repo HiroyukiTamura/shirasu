@@ -13,6 +13,7 @@ import 'package:shirasu/screen_detail/content_cell.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/row_video_desc.dart';
+import 'package:shirasu/screen_detail/row_video_thumbnail.dart';
 import 'package:shirasu/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';
@@ -226,10 +227,9 @@ class _ContentWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         switch (index) {
           case 0:
-            return AspectRatio(
-              aspectRatio: Dimens.IMG_RATIO,
-              child: CachedNetworkImage(
-                  imageUrl: ApiClient.getThumbnailUrl(data.program.id)),
+            return RowVideoThumbnail(
+              programId: data.program.id,
+              onTap: () {},
             );
           case 1:
             return const SizedBox(height: 16);

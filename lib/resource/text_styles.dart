@@ -122,5 +122,11 @@ class TextStyles {
     fontSize: 13,
     height: TextStyles.TEXT_HEIGHT,
   );
+
+  static const DETAIL_VIDEO_DESC_LINK = TextStyle(
+    color: Colors.deepOrange,
+    fontSize: 13,
+    height: TextStyles.TEXT_HEIGHT,
+  );
   //endregion
 }

@@ -13,15 +13,13 @@ class RowVideoTime extends StatelessWidget {
   final String _text;
 
   @override
-  Widget build(BuildContext context) => ContentCell(
-        child: Text(
-          _text,
-          style: TextStyle(
-            color: Styles.colorTextSub,
-            fontSize: 13,
-          ),
-        ),
-      );
+  Widget build(BuildContext context) => Text(
+    _text,
+    style: TextStyle(
+      color: Styles.colorTextSub,
+      fontSize: 13,
+    ),
+  );
 
   /// todo need logic for the video has ended or not
   static String _genText(DateTime broadcastAt, int mainTime) {

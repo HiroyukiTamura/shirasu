@@ -103,4 +103,24 @@ class TextStyles {
     fontSize: 13,
     fontWeight: FontWeight.bold,
   );
+
+  //region screen_detail
+  static const DETAIL_CHANNEL_NAME = TextStyle(
+    color: Colors.white,
+    fontSize: 14,
+  );
+
+  static const DETAIL_VIDEO_TITLE = TextStyle(
+    color: Colors.white,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    height: TextStyles.TEXT_HEIGHT,
+  );
+
+  static const DETAIL_VIDEO_DESC = TextStyle(
+    color: Colors.white,
+    fontSize: 13,
+    height: TextStyles.TEXT_HEIGHT,
+  );
+  //endregion
 }

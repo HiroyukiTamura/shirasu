@@ -64,150 +64,150 @@ class _ScreenDetailState extends State<ScreenDetail> {
           ),
         ),
       );
-  //
-  // static Widget contentWidget() => ListView.builder(
-  //     itemCount: 17,
-  //     itemBuilder: (context, index) {
-  //       switch (index) {
-  //         case 0:
-  //           return AspectRatio(
-  //             aspectRatio: Dimens.IMG_RATIO,
-  //             child: CachedNetworkImage(imageUrl: _IMG_URL),
-  //           );
-  //         case 1:
-  //           return SizedBox(height: 16);
-  //         case 2:
-  //           return RowChannel(
-  //             title: _CHANNEL_TITLE,
-  //             imageUrl: _CHANNEL_IMG_URL,
-  //           );
-  //         case 3:
-  //           return SizedBox(height: 12);
-  //         // case 2:
-  //         //   return Padding(
-  //         //     padding: const EdgeInsets.symmetric(horizontal: 8),
-  //         //     child: Row(
-  //         //       children: [
-  //         //         Container(
-  //         //           padding: EdgeInsets.symmetric(
-  //         //               horizontal: 8, vertical: 2),
-  //         //           decoration: BoxDecoration(
-  //         //               color: Theme.of(context).primaryColor,
-  //         //               borderRadius: BorderRadius.circular(20)),
-  //         //           child: Text(
-  //         //             '放送中',
-  //         //             style: TextStyle(
-  //         //               color: Colors.white,
-  //         //             ),
-  //         //           ),
-  //         //         ),
-  //         //         SizedBox(
-  //         //           width: 8,
-  //         //         ),
-  //         //         Container(
-  //         //           padding: EdgeInsets.symmetric(
-  //         //               horizontal: 8, vertical: 2),
-  //         //           decoration: BoxDecoration(
-  //         //               color: Theme.of(context).primaryColor,
-  //         //               borderRadius: BorderRadius.circular(20)),
-  //         //           child: Text(
-  //         //             '購入済',
-  //         //             style: TextStyle(
-  //         //               color: Colors.white,
-  //         //             ),
-  //         //           ),
-  //         //         ),
-  //         //       ],
-  //         //     ),
-  //         //   );
-  //         // case 3:
-  //         //   return SizedBox(
-  //         //     height: 8,
-  //         //   );
-  //         case 4:
-  //           return RowVideoTitle(text: _VIDEO_TITLE);
-  //         case 5:
-  //           return SizedBox(height: 4);
-  //         case 6:
-  //           return RowVideoTime(text: _VIDEO_TIME);
-  //         case 7:
-  //           return SizedBox(height: 16);
-  //         case 8:
-  //           return RowVideoTags(textList: _TAG_LIST);
-  //         case 9:
-  //           return SizedBox(height: 36);
-  //         case 10:
-  //           return BillingBtn(text: _BILLING_PROMO_ONE_TIME);
-  //         case 11:
-  //           return SizedBox(height: 16);
-  //         case 12:
-  //           return BillingBtn(text: BILLING_PROMO_CHANNEL);
-  //         case 13:
-  //           return SizedBox(height: 36);
-  //         case 14:
-  //           return RowFabs();
-  //         case 15:
-  //           return SizedBox(height: 36);
-  //         case 16:
-  //           return RowVideoDesc(text: _VIDEO_DESC);
-  //         default:
-  //           return SizedBox();
-  //         // throw Exception('unexpected index $index');
-  //       }
-  //     });
-  //
-  // static Widget contentWidgetBilledOneTime() => ListView.builder(
-  //     itemCount: 15,
-  //     itemBuilder: (context, index) {
-  //       switch (index) {
-  //         case 0:
-  //           return AspectRatio(
-  //             aspectRatio: Dimens.IMG_RATIO,
-  //             child: CachedNetworkImage(imageUrl: _IMG_URL),
-  //           );
-  //         case 1:
-  //           return SizedBox(height: 16);
-  //         case 2:
-  //           return RowChannel(
-  //             title: _CHANNEL_TITLE,
-  //             imageUrl: _CHANNEL_IMG_URL,
-  //           );
-  //         case 3:
-  //           return SizedBox(height: 12);
-  //         case 4:
-  //           return RowVideoTitle(text: _VIDEO_TITLE);
-  //         case 5:
-  //           return SizedBox(height: 4);
-  //         case 6:
-  //           return RowVideoTime(text: _VIDEO_TIME);
-  //         case 7:
-  //           return SizedBox(height: 16);
-  //         case 8:
-  //           return RowVideoTags(textList: _TAG_LIST);
-  //         case 9:
-  //           return SizedBox(height: 36);
-  //         case 10:
-  //           return ContentCell(
-  //             child: Row(
-  //               children: [
-  //                 BillingBtnThin(text: _BILLING_PROMO_ONE_TIME_M),
-  //                 SizedBox(width: 16),
-  //                 BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
-  //               ],
-  //             ),
-  //           );
-  //         case 11:
-  //           return SizedBox(height: 36);
-  //         case 12:
-  //           return RowFabs();
-  //         case 13:
-  //           return SizedBox(height: 36);
-  //         case 14:
-  //           return RowVideoDesc(text: _VIDEO_DESC);
-  //         default:
-  //           return SizedBox();
-  //       }
-  //     });
+//
+// static Widget contentWidget() => ListView.builder(
+//     itemCount: 17,
+//     itemBuilder: (context, index) {
+//       switch (index) {
+//         case 0:
+//           return AspectRatio(
+//             aspectRatio: Dimens.IMG_RATIO,
+//             child: CachedNetworkImage(imageUrl: _IMG_URL),
+//           );
+//         case 1:
+//           return SizedBox(height: 16);
+//         case 2:
+//           return RowChannel(
+//             title: _CHANNEL_TITLE,
+//             imageUrl: _CHANNEL_IMG_URL,
+//           );
+//         case 3:
+//           return SizedBox(height: 12);
+//         // case 2:
+//         //   return Padding(
+//         //     padding: const EdgeInsets.symmetric(horizontal: 8),
+//         //     child: Row(
+//         //       children: [
+//         //         Container(
+//         //           padding: EdgeInsets.symmetric(
+//         //               horizontal: 8, vertical: 2),
+//         //           decoration: BoxDecoration(
+//         //               color: Theme.of(context).primaryColor,
+//         //               borderRadius: BorderRadius.circular(20)),
+//         //           child: Text(
+//         //             '放送中',
+//         //             style: TextStyle(
+//         //               color: Colors.white,
+//         //             ),
+//         //           ),
+//         //         ),
+//         //         SizedBox(
+//         //           width: 8,
+//         //         ),
+//         //         Container(
+//         //           padding: EdgeInsets.symmetric(
+//         //               horizontal: 8, vertical: 2),
+//         //           decoration: BoxDecoration(
+//         //               color: Theme.of(context).primaryColor,
+//         //               borderRadius: BorderRadius.circular(20)),
+//         //           child: Text(
+//         //             '購入済',
+//         //             style: TextStyle(
+//         //               color: Colors.white,
+//         //             ),
+//         //           ),
+//         //         ),
+//         //       ],
+//         //     ),
+//         //   );
+//         // case 3:
+//         //   return SizedBox(
+//         //     height: 8,
+//         //   );
+//         case 4:
+//           return RowVideoTitle(text: _VIDEO_TITLE);
+//         case 5:
+//           return SizedBox(height: 4);
+//         case 6:
+//           return RowVideoTime(text: _VIDEO_TIME);
+//         case 7:
+//           return SizedBox(height: 16);
+//         case 8:
+//           return RowVideoTags(textList: _TAG_LIST);
+//         case 9:
+//           return SizedBox(height: 36);
+//         case 10:
+//           return BillingBtn(text: _BILLING_PROMO_ONE_TIME);
+//         case 11:
+//           return SizedBox(height: 16);
+//         case 12:
+//           return BillingBtn(text: BILLING_PROMO_CHANNEL);
+//         case 13:
+//           return SizedBox(height: 36);
+//         case 14:
+//           return RowFabs();
+//         case 15:
+//           return SizedBox(height: 36);
+//         case 16:
+//           return RowVideoDesc(text: _VIDEO_DESC);
+//         default:
+//           return SizedBox();
+//         // throw Exception('unexpected index $index');
+//       }
+//     });
+//
+// static Widget contentWidgetBilledOneTime() => ListView.builder(
+//     itemCount: 15,
+//     itemBuilder: (context, index) {
+//       switch (index) {
+//         case 0:
+//           return AspectRatio(
+//             aspectRatio: Dimens.IMG_RATIO,
+//             child: CachedNetworkImage(imageUrl: _IMG_URL),
+//           );
+//         case 1:
+//           return SizedBox(height: 16);
+//         case 2:
+//           return RowChannel(
+//             title: _CHANNEL_TITLE,
+//             imageUrl: _CHANNEL_IMG_URL,
+//           );
+//         case 3:
+//           return SizedBox(height: 12);
+//         case 4:
+//           return RowVideoTitle(text: _VIDEO_TITLE);
+//         case 5:
+//           return SizedBox(height: 4);
+//         case 6:
+//           return RowVideoTime(text: _VIDEO_TIME);
+//         case 7:
+//           return SizedBox(height: 16);
+//         case 8:
+//           return RowVideoTags(textList: _TAG_LIST);
+//         case 9:
+//           return SizedBox(height: 36);
+//         case 10:
+//           return ContentCell(
+//             child: Row(
+//               children: [
+//                 BillingBtnThin(text: _BILLING_PROMO_ONE_TIME_M),
+//                 SizedBox(width: 16),
+//                 BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
+//               ],
+//             ),
+//           );
+//         case 11:
+//           return SizedBox(height: 36);
+//         case 12:
+//           return RowFabs();
+//         case 13:
+//           return SizedBox(height: 36);
+//         case 14:
+//           return RowVideoDesc(text: _VIDEO_DESC);
+//         default:
+//           return SizedBox();
+//       }
+//     });
 }
 
 class _ContentWidget extends StatelessWidget {
@@ -217,61 +217,65 @@ class _ContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.builder(
-        itemCount: 15,
-        padding: const EdgeInsets.only(bottom: 24),
-        itemBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return AspectRatio(
-                aspectRatio: Dimens.IMG_RATIO,
-                child: CachedNetworkImage(
-                    imageUrl: ApiClient.getThumbnailUrl(data.program.id)),
-              );
-            case 1:
-              return const SizedBox(height: 16);
-            case 2:
-              return RowChannel(
-                title: data.program.channel.id,
-                imageUrl: ApiClient.getChannelLogoUrl(data.program.channelId),
-              );
-            case 3:
-              return const SizedBox(height: 12);
-            case 4:
-              return RowVideoTitle(text: data.program.title);
-            case 5:
-              return const SizedBox(height: 4);
-            case 6:
-              return RowVideoTime(
-                broadcastAt: data.program.broadcastAt,
-                totalPlayTime: data.program.totalPlayTime,
-              );
-            case 7:
-              return const SizedBox(height: 16);
-            case 8:
-              return RowVideoTags(textList: data.program.tags);
-            case 9:
-              return const SizedBox(height: 36);
-            // case 10:
-            //   return ContentCell(
-            //     child: Row(
-            //       children: [
-            //         if (data.program.onetimePlans.any((element) => false))
-            //         BillingBtnThin(text: data.program.totalPlayTime),
-            //         SizedBox(width: 16),
-            //         BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
-            //       ],
-            //     ),
-            //   );
-            // case 11:
-            //   return SizedBox(height: 36);
-            case 10:
-              return RowFabs();
-            case 11:
-              return const SizedBox(height: 36);
-            case 12:
-              return RowVideoDesc(text: data.program.detail);
-            default:
-              return const SizedBox();
-          }
-        });
+      itemCount: 15,
+      padding: const EdgeInsets.only(
+        bottom: 24,
+        right: Dimens.MARGIN_OUTLINE,
+        left: Dimens.MARGIN_OUTLINE,
+      ),
+      itemBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return AspectRatio(
+              aspectRatio: Dimens.IMG_RATIO,
+              child: CachedNetworkImage(
+                  imageUrl: ApiClient.getThumbnailUrl(data.program.id)),
+            );
+          case 1:
+            return const SizedBox(height: 16);
+          case 2:
+            return RowChannel(
+              title: data.program.channel.name,
+              imageUrl: ApiClient.getChannelLogoUrl(data.program.channelId),
+            );
+          case 3:
+            return const SizedBox(height: 12);
+          case 4:
+            return RowVideoTitle(text: data.program.title);
+          case 5:
+            return const SizedBox(height: 4);
+          case 6:
+            return RowVideoTime(
+              broadcastAt: data.program.broadcastAt,
+              totalPlayTime: data.program.totalPlayTime,
+            );
+          case 7:
+            return const SizedBox(height: 16);
+          case 8:
+            return RowVideoTags(textList: data.program.tags);
+          case 9:
+            return const SizedBox(height: 36);
+          // case 10:
+          //   return ContentCell(
+          //     child: Row(
+          //       children: [
+          //         if (data.program.onetimePlans.any((element) => false))
+          //         BillingBtnThin(text: data.program.totalPlayTime),
+          //         SizedBox(width: 16),
+          //         BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
+          //       ],
+          //     ),
+          //   );
+          // case 11:
+          //   return SizedBox(height: 36);
+          case 10:
+            return RowFabs();
+          case 11:
+            return const SizedBox(height: 36);
+          case 12:
+            return RowVideoDesc(text: data.program.detail);
+          default:
+            return const SizedBox();
+        }
+      });
 }

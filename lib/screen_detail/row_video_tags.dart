@@ -5,27 +5,27 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/content_cell.dart';
 
 class RowVideoTags extends StatelessWidget {
-  final List<String> textList;
-  static const double _SPACE = 8;
 
   const RowVideoTags({Key key, @required this.textList}) : super(key: key);
 
+  final List<String> textList;
+  static const double _SPACE = 8;
+
   @override
-  Widget build(BuildContext context) => ContentCell(
-        child: Wrap(
-          spacing: _SPACE,
-          runSpacing: _SPACE,
-          children: textList
-              .map((text) => _VideoTagChip(text: text))
-              .toList(growable: false),
-        ),
-      );
+  Widget build(BuildContext context) => Wrap(
+    spacing: _SPACE,
+    runSpacing: _SPACE,
+    children: textList
+        .map((text) => _VideoTagChip(text: text))
+        .toList(growable: false),
+  );
 }
 
 class _VideoTagChip extends StatelessWidget {
-  final String text;
 
   const _VideoTagChip({@required this.text}) : super();
+
+  final String text;
 
   @override
   Widget build(BuildContext context) => RichText(
@@ -42,7 +42,7 @@ class _VideoTagChip extends StatelessWidget {
               color: Colors.white.withOpacity(.5),
             ),
           ),
-          WidgetSpan(child: SizedBox(width: 4)),
+          const WidgetSpan(child: SizedBox(width: 4)),
           TextSpan(text: text)
         ]),
   );

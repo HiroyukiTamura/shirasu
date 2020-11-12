@@ -57,13 +57,22 @@ class ViewModelDetail extends ChangeNotifier {
     final prg = _findAvailableVideoData();
     if (prg == null) return; // todo handle error
 
-    playOutState = PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict);
+    playOutState = PlayOutState.initialize(prg.urlAvailable, prg.videoTypeStrict);
+    notifyListeners();
+
+    String cookie;
     try {
-      final cookieResult = await _dioClient.getSignedCookie(prg.id, prg.videoTypeStrict, ApiClient.DUMMY_AUTH);
-      debugPrint(cookieResult);
+      cookie = await _dioClient.getSignedCookie(
+          prg.id, prg.videoTypeStrict, ApiClient.DUMMY_AUTH);
+      debugPrint(cookie);
     } catch (e) {
       print(e);
     }
+
+    if (cookie == null)
+      return;
+
+    playOutState = PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict, cookie);
 
     notifyListeners();
   }
@@ -84,20 +93,41 @@ class PrgDetailResultError extends PrgDetailResultBase {
 }
 
 class PlayOutState {
-  const PlayOutState(
-      this.commandedState, this.playerState, this.hlsMediaUrl, this.videoType);
+  const PlayOutState._({
+    @required this.commandedState,
+    @required this.playerState,
+    this.hlsMediaUrl,
+    this.videoType,
+    this.cookie,
+  });
 
-  factory PlayOutState.initial() => const PlayOutState(
-      PlayerCommandedState.PRE_PLAY, PlayerState.PLAYING, null, null);
+  factory PlayOutState.initial() => const PlayOutState._(
+        commandedState: PlayerCommandedState.PRE_PLAY,
+        playerState: PlayerState.PLAYING,
+      );
 
-  factory PlayOutState.play(String hlsMediaUrl, VideoType videoType) =>
-      PlayOutState(PlayerCommandedState.INITIALIZING, PlayerState.PLAYING,
-          hlsMediaUrl, videoType);
+  factory PlayOutState.initialize(String hlsMediaUrl, VideoType videoType) =>
+      PlayOutState._(
+        commandedState: PlayerCommandedState.INITIALIZING,
+        playerState: PlayerState.PLAYING,
+        hlsMediaUrl: hlsMediaUrl,
+        videoType: videoType,
+      );
+
+  factory PlayOutState.play(
+      String hlsMediaUrl, VideoType videoType, String cookie) => PlayOutState._(
+      commandedState: PlayerCommandedState.POST_PLAY,
+      playerState: PlayerState.PLAYING,
+      hlsMediaUrl: hlsMediaUrl,
+      videoType: videoType,
+      cookie: cookie,
+    );
 
   final PlayerCommandedState commandedState;
   final PlayerState playerState;
   final String hlsMediaUrl;
   final VideoType videoType;
+  final String cookie;
 }
 
 enum PlayerCommandedState {

@@ -282,9 +282,11 @@ packages:
   flutter_playout:
     dependency: "direct main"
     description:
-      name: flutter_playout
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "4563d7114841398bb937232478c2a6ebf1788533"
+      url: "https://github.com/HiroyukTamura/flutter_playout.git"
+    source: git
     version: "1.0.42"
   flutter_riverpod:
     dependency: transitive

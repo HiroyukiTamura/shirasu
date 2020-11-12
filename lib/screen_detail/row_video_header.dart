@@ -31,12 +31,25 @@ class RowHeader extends HookWidget {
         as PrgDetailResultSuccess;
 
     final program = result.programDetailData.program;
-    final child = playOutState.commandedState == PlayerCommandedState.PRE_PLAY
-        ? _VideoThumbnail(
-            program: program,
-            onTap: onTap,
-          )
-        : _PlayerView(playOutState: playOutState);
+    Widget child;
+    switch (playOutState.commandedState) {
+      case PlayerCommandedState.PRE_PLAY:
+        child = _VideoThumbnail(
+          program: program,
+          onTap: onTap,
+          isLoading: false,
+        );
+        break;
+      case PlayerCommandedState.INITIALIZING:
+        child = _VideoThumbnail(
+          program: program,
+          isLoading: true,
+        );
+        break;
+      case PlayerCommandedState.POST_PLAY:
+        child = _PlayerView(playOutState: playOutState);
+        break;
+    }
     return AspectRatio(
       aspectRatio: Dimens.IMG_RATIO,
       child: child,
@@ -48,11 +61,13 @@ class _VideoThumbnail extends StatelessWidget {
   const _VideoThumbnail({
     Key key,
     @required this.program,
-    @required this.onTap,
+    @required this.isLoading,
+    this.onTap,
   }) : super(key: key);
 
   final ProgramDetail program;
   final VoidCallback onTap;
+  final bool isLoading;
   static const double _ICON_SIZE = 80;
 
   @override
@@ -72,6 +87,8 @@ class _VideoThumbnail extends StatelessWidget {
   }
 
   Widget _hoverWidget() {
+    if (isLoading) return _loadingCircle();
+
     final isWaiting = DateTime.now().isBefore(program.broadcastAt);
     final isPurchasable = program.onetimePlans.any((it) => it.isPurchasable);
     final isPurchased = program.viewerPlanType != null; //todo need more logic
@@ -112,13 +129,17 @@ class _VideoThumbnail extends StatelessWidget {
         ),
       );
 
+  Widget _loadingCircle() => const Center(
+        child: CircularProgressIndicator(),
+      );
+
   Widget _waitingText() => const _HoverBackDrop(
-    opacity: .7,
-    child: Text(
-      Strings.WAIT_FOR_START,
-      style: TextStyles.DETAIL_HEADER_MSG,
-    ),
-  );
+        opacity: .7,
+        child: Text(
+          Strings.WAIT_FOR_START,
+          style: TextStyles.DETAIL_HEADER_MSG,
+        ),
+      );
 
   //todo implement action, update ui
   Widget _purchaseBtn() => RaisedButton(
@@ -145,15 +166,18 @@ class _HoverBackDrop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox.expand(
-      child: Container(
-        color: Colors.black.withOpacity(.7),
-        child: child,
-      ),
-    );
+        child: Container(
+          color: Colors.black.withOpacity(.7),
+          child: child,
+        ),
+      );
 }
 
 class _PlayerView extends StatelessWidget {
-  const _PlayerView({Key key, @required this.playOutState}) : super(key: key);
+  const _PlayerView({
+    Key key,
+    @required this.playOutState,
+  }) : super(key: key);
 
   final PlayOutState playOutState;
 
@@ -161,6 +185,8 @@ class _PlayerView extends StatelessWidget {
   Widget build(BuildContext context) => Video(
         isLiveStream: playOutState.videoType == VideoType.LIVE,
         url: playOutState.hlsMediaUrl,
+        cookie: playOutState.cookie,
+        autoPlay: true,
       );
 }
 

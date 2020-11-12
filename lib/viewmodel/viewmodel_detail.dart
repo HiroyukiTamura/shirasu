@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_playout/player_state.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/dio_client.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
@@ -10,6 +11,7 @@ class ViewModelDetail extends ChangeNotifier {
   ViewModelDetail(this.id);
 
   final _apiClient = ApiClient(Client());
+  final _dioClient = DioClient();
   final String id;
 
   PrgDetailResultBase prgDataResult;
@@ -28,7 +30,6 @@ class ViewModelDetail extends ChangeNotifier {
     notifyListeners();
   }
 
-
   DetailPrgItem _findAvailableVideoData() {
     final v = prgDataResult;
     if (v is PrgDetailResultSuccess) {
@@ -36,25 +37,34 @@ class ViewModelDetail extends ChangeNotifier {
 
       //todo shouldn't written in DetailProgramData?
       DetailPrgItem detailPrgItem;
-      if (archivedAt?.isAfter(DateTime.now()) == true)
+      if (archivedAt?.isBefore(DateTime.now()) == true)
         detailPrgItem = v.programDetailData.program.videos.items.firstWhere(
             (it) => it.videoTypeStrict == VideoType.ARCHIVED,
             orElse: () => null);
 
       detailPrgItem ??= v.programDetailData.program.videos.items.firstWhere(
-          (it) => it.videoTypeStrict == VideoType.LIVE && it.mediaStatusStrict != MediaStatus.ENDED);
+          (it) =>
+              it.videoTypeStrict == VideoType.LIVE &&
+              it.mediaStatusStrict != MediaStatus.ENDED,
+          orElse: () => null);
 
       return detailPrgItem;
     } else
       return null;
   }
 
-  void playVideo() {
+  Future<void> playVideo() async {
     final prg = _findAvailableVideoData();
-    if (prg == null)
-      return; // todo handle error
+    if (prg == null) return; // todo handle error
 
     playOutState = PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict);
+    try {
+      final cookieResult = await _dioClient.getSignedCookie(prg.id, prg.videoTypeStrict, ApiClient.DUMMY_AUTH);
+      debugPrint(cookieResult);
+    } catch (e) {
+      print(e);
+    }
+
     notifyListeners();
   }
 }
@@ -74,12 +84,15 @@ class PrgDetailResultError extends PrgDetailResultBase {
 }
 
 class PlayOutState {
+  const PlayOutState(
+      this.commandedState, this.playerState, this.hlsMediaUrl, this.videoType);
 
-  const PlayOutState(this.commandedState, this.playerState, this.hlsMediaUrl, this.videoType);
+  factory PlayOutState.initial() => const PlayOutState(
+      PlayerCommandedState.PRE_PLAY, PlayerState.PLAYING, null, null);
 
-  factory PlayOutState.initial() => const PlayOutState(PlayerCommandedState.PRE_PLAY, PlayerState.PLAYING, null, null);
-
-  factory PlayOutState.play(String hlsMediaUrl, VideoType videoType) => PlayOutState(PlayerCommandedState.POST_PLAY, PlayerState.PLAYING, hlsMediaUrl, videoType);
+  factory PlayOutState.play(String hlsMediaUrl, VideoType videoType) =>
+      PlayOutState(PlayerCommandedState.INITIALIZING, PlayerState.PLAYING,
+          hlsMediaUrl, videoType);
 
   final PlayerCommandedState commandedState;
   final PlayerState playerState;
@@ -88,5 +101,9 @@ class PlayOutState {
 }
 
 enum PlayerCommandedState {
-  PLAY_ERROR, PRE_PLAY, POST_PLAY,
+  PLAY_ERROR,
+  PRE_PLAY,
+  POST_PLAY,
+  INITIALIZING,
+  ERROR,
 }

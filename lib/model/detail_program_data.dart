@@ -25,7 +25,7 @@ abstract class ProgramDetail with _$ProgramDetail {
     @required String channelId,
     @required String tenantId,
     String adminComment,
-    int adminCommentDisappearAt,
+    DateTime adminCommentDisappearAt,
     @required DateTime broadcastAt,
     @required String detail,
     @required int mainTime,
@@ -80,7 +80,7 @@ abstract class DetailPrgItem with _$DetailPrgItem, VideoTypeGetter, MediaStatusG
   factory DetailPrgItem({
     @required String id,
     @required String videoType,
-    @required String mediaStatus,
+    String mediaStatus,
     String liveUrl,
     String archiveUrl,
     @required @JsonKey(name: '__typename') String typename,

@@ -16,7 +16,8 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _dashBoardProvider =
-    ChangeNotifierProvider.autoDispose<ViewModelDashBoard>((ref) => ViewModelDashBoard());
+    ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
+        (ref) => ViewModelDashBoard());
 
 class ScreenDashboard extends StatefulWidget {
   @override
@@ -157,7 +158,8 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   ),
                   child: BillboardExpanded(
                     item: item,
-                    onTap: () async => routerDelegate.pushPage(AppRoutePath.detailByProgramId(item.id)),
+                    onTap: () async => routerDelegate
+                        .pushPage(AppRoutePath.detailByProgramId(item.id)),
                   ),
                 );
               }
@@ -197,6 +199,8 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   width: width,
                   height: height,
                   item: item,
+                  onTap: () async => routerDelegate
+                      .pushPage(AppRoutePath.detailByProgramId(item.id)),
                 );
               }).toList(growable: false);
 

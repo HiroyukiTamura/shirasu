@@ -213,7 +213,7 @@ class _$ProgramDetailTearOff {
       @required String channelId,
       @required String tenantId,
       String adminComment,
-      int adminCommentDisappearAt,
+      DateTime adminCommentDisappearAt,
       @required DateTime broadcastAt,
       @required String detail,
       @required int mainTime,
@@ -277,7 +277,7 @@ mixin _$ProgramDetail {
   String get channelId;
   String get tenantId;
   String get adminComment;
-  int get adminCommentDisappearAt;
+  DateTime get adminCommentDisappearAt;
   DateTime get broadcastAt;
   String get detail;
   int get mainTime;
@@ -313,7 +313,7 @@ abstract class $ProgramDetailCopyWith<$Res> {
       String channelId,
       String tenantId,
       String adminComment,
-      int adminCommentDisappearAt,
+      DateTime adminCommentDisappearAt,
       DateTime broadcastAt,
       String detail,
       int mainTime,
@@ -384,7 +384,7 @@ class _$ProgramDetailCopyWithImpl<$Res>
           : adminComment as String,
       adminCommentDisappearAt: adminCommentDisappearAt == freezed
           ? _value.adminCommentDisappearAt
-          : adminCommentDisappearAt as int,
+          : adminCommentDisappearAt as DateTime,
       broadcastAt:
           broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
       detail: detail == freezed ? _value.detail : detail as String,
@@ -469,7 +469,7 @@ abstract class _$ProgramDetailCopyWith<$Res>
       String channelId,
       String tenantId,
       String adminComment,
-      int adminCommentDisappearAt,
+      DateTime adminCommentDisappearAt,
       DateTime broadcastAt,
       String detail,
       int mainTime,
@@ -545,7 +545,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
           : adminComment as String,
       adminCommentDisappearAt: adminCommentDisappearAt == freezed
           ? _value.adminCommentDisappearAt
-          : adminCommentDisappearAt as int,
+          : adminCommentDisappearAt as DateTime,
       broadcastAt:
           broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
       detail: detail == freezed ? _value.detail : detail as String,
@@ -649,7 +649,7 @@ class _$_ProgramDetail implements _ProgramDetail {
   @override
   final String adminComment;
   @override
-  final int adminCommentDisappearAt;
+  final DateTime adminCommentDisappearAt;
   @override
   final DateTime broadcastAt;
   @override
@@ -801,7 +801,7 @@ abstract class _ProgramDetail implements ProgramDetail {
       @required String channelId,
       @required String tenantId,
       String adminComment,
-      int adminCommentDisappearAt,
+      DateTime adminCommentDisappearAt,
       @required DateTime broadcastAt,
       @required String detail,
       @required int mainTime,
@@ -834,7 +834,7 @@ abstract class _ProgramDetail implements ProgramDetail {
   @override
   String get adminComment;
   @override
-  int get adminCommentDisappearAt;
+  DateTime get adminCommentDisappearAt;
   @override
   DateTime get broadcastAt;
   @override
@@ -1328,7 +1328,7 @@ class _$DetailPrgItemTearOff {
   _DetailPrgItem call(
       {@required String id,
       @required String videoType,
-      @required String mediaStatus,
+      String mediaStatus,
       String liveUrl,
       String archiveUrl,
       @required @JsonKey(name: '__typename') String typename}) {
@@ -1467,13 +1467,12 @@ class _$_DetailPrgItem extends _DetailPrgItem {
   _$_DetailPrgItem(
       {@required this.id,
       @required this.videoType,
-      @required this.mediaStatus,
+      this.mediaStatus,
       this.liveUrl,
       this.archiveUrl,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(videoType != null),
-        assert(mediaStatus != null),
         assert(typename != null),
         super._();
 
@@ -1547,7 +1546,7 @@ abstract class _DetailPrgItem extends DetailPrgItem {
   factory _DetailPrgItem(
           {@required String id,
           @required String videoType,
-          @required String mediaStatus,
+          String mediaStatus,
           String liveUrl,
           String archiveUrl,
           @required @JsonKey(name: '__typename') String typename}) =

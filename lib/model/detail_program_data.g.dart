@@ -30,7 +30,9 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
     channelId: json['channelId'] as String,
     tenantId: json['tenantId'] as String,
     adminComment: json['adminComment'] as String,
-    adminCommentDisappearAt: json['adminCommentDisappearAt'] as int,
+    adminCommentDisappearAt: json['adminCommentDisappearAt'] == null
+        ? null
+        : DateTime.parse(json['adminCommentDisappearAt'] as String),
     broadcastAt: json['broadcastAt'] == null
         ? null
         : DateTime.parse(json['broadcastAt'] as String),
@@ -73,7 +75,8 @@ Map<String, dynamic> _$_$_ProgramDetailToJson(_$_ProgramDetail instance) =>
       'channelId': instance.channelId,
       'tenantId': instance.tenantId,
       'adminComment': instance.adminComment,
-      'adminCommentDisappearAt': instance.adminCommentDisappearAt,
+      'adminCommentDisappearAt':
+          instance.adminCommentDisappearAt?.toIso8601String(),
       'broadcastAt': instance.broadcastAt?.toIso8601String(),
       'detail': instance.detail,
       'mainTime': instance.mainTime,

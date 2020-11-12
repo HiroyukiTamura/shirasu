@@ -8,7 +8,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/row_video_desc.dart';
-import 'package:shirasu/screen_detail/row_video_thumbnail.dart';
+import 'package:shirasu/screen_detail/row_video_header.dart';
 import 'package:shirasu/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';

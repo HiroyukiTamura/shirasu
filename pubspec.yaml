@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.16.1
   flutter_linkify: ^4.0.2
   flutter_playout: ^1.0.4
+  dio: ^3.0.10
 
 dev_dependencies:
   flutter_test:

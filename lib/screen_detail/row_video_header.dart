@@ -66,11 +66,6 @@ class _VideoThumbnail extends StatelessWidget {
             return Container();
           },
         ),
-        SizedBox.expand(
-          child: ColoredBox(
-            color: Colors.black.withOpacity(.7),
-          ),
-        ),
         _hoverWidget(),
       ],
     );
@@ -84,7 +79,8 @@ class _VideoThumbnail extends StatelessWidget {
 
     if (isPurchased) return isWaiting ? _waitingText() : _playBtn();
 
-    return Center(
+    return _HoverBackDrop(
+      opacity: .7,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,26 +112,43 @@ class _VideoThumbnail extends StatelessWidget {
         ),
       );
 
-  Widget _waitingText() => const Center(
-        child: Text(
-          Strings.WAIT_FOR_START,
-          style: TextStyles.DETAIL_HEADER_MSG,
-        ),
-      );
+  Widget _waitingText() => const _HoverBackDrop(
+    opacity: .7,
+    child: Text(
+      Strings.WAIT_FOR_START,
+      style: TextStyles.DETAIL_HEADER_MSG,
+    ),
+  );
 
   //todo implement action, update ui
   Widget _purchaseBtn() => RaisedButton(
-        onPressed: () {
-
-        },
+        onPressed: () {},
         child: const Text(Strings.PURCHASE_BTN_TEXT),
       );
 
   //todo implement action, update ui
   Widget _previewBtn() => RaisedButton(
-      onPressed: () {
-      },
-      child: const Text(Strings.PREVIEW_BTN_TEXT),
+        onPressed: () {},
+        child: const Text(Strings.PREVIEW_BTN_TEXT),
+      );
+}
+
+class _HoverBackDrop extends StatelessWidget {
+  const _HoverBackDrop({
+    Key key,
+    @required this.child,
+    @required this.opacity,
+  }) : super(key: key);
+
+  final Widget child;
+  final double opacity;
+
+  @override
+  Widget build(BuildContext context) => SizedBox.expand(
+      child: Container(
+        color: Colors.black.withOpacity(.7),
+        child: child,
+      ),
     );
 }
 

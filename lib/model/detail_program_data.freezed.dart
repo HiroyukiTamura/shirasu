@@ -2030,7 +2030,7 @@ class _$OnetimePlanTearOff {
       @required int amount,
       @required String currency,
       @required bool isPurchasable,
-      dynamic viewerPurchasedPlan,
+      String viewerPurchasedPlan,
       @required @JsonKey(name: '__typename') String typename}) {
     return _OnetimePlan(
       id: id,
@@ -2068,7 +2068,7 @@ mixin _$OnetimePlan {
   int get amount;
   String get currency;
   bool get isPurchasable;
-  dynamic get viewerPurchasedPlan;
+  String get viewerPurchasedPlan;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -2091,7 +2091,7 @@ abstract class $OnetimePlanCopyWith<$Res> {
       int amount,
       String currency,
       bool isPurchasable,
-      dynamic viewerPurchasedPlan,
+      String viewerPurchasedPlan,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -2136,7 +2136,7 @@ class _$OnetimePlanCopyWithImpl<$Res> implements $OnetimePlanCopyWith<$Res> {
           : isPurchasable as bool,
       viewerPurchasedPlan: viewerPurchasedPlan == freezed
           ? _value.viewerPurchasedPlan
-          : viewerPurchasedPlan as dynamic,
+          : viewerPurchasedPlan as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -2159,7 +2159,7 @@ abstract class _$OnetimePlanCopyWith<$Res>
       int amount,
       String currency,
       bool isPurchasable,
-      dynamic viewerPurchasedPlan,
+      String viewerPurchasedPlan,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -2206,7 +2206,7 @@ class __$OnetimePlanCopyWithImpl<$Res> extends _$OnetimePlanCopyWithImpl<$Res>
           : isPurchasable as bool,
       viewerPurchasedPlan: viewerPurchasedPlan == freezed
           ? _value.viewerPurchasedPlan
-          : viewerPurchasedPlan as dynamic,
+          : viewerPurchasedPlan as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -2261,7 +2261,7 @@ class _$_OnetimePlan implements _OnetimePlan {
   @override
   final bool isPurchasable;
   @override
-  final dynamic viewerPurchasedPlan;
+  final String viewerPurchasedPlan;
   @override
   @JsonKey(name: '__typename')
   final String typename;
@@ -2343,7 +2343,7 @@ abstract class _OnetimePlan implements OnetimePlan {
       @required int amount,
       @required String currency,
       @required bool isPurchasable,
-      dynamic viewerPurchasedPlan,
+      String viewerPurchasedPlan,
       @required @JsonKey(name: '__typename') String typename}) = _$_OnetimePlan;
 
   factory _OnetimePlan.fromJson(Map<String, dynamic> json) =
@@ -2368,12 +2368,266 @@ abstract class _OnetimePlan implements OnetimePlan {
   @override
   bool get isPurchasable;
   @override
-  dynamic get viewerPurchasedPlan;
+  String get viewerPurchasedPlan;
   @override
   @JsonKey(name: '__typename')
   String get typename;
   @override
   _$OnetimePlanCopyWith<_OnetimePlan> get copyWith;
+}
+
+Extension _$ExtensionFromJson(Map<String, dynamic> json) {
+  return _Extension.fromJson(json);
+}
+
+/// @nodoc
+class _$ExtensionTearOff {
+  const _$ExtensionTearOff();
+
+// ignore: unused_element
+  _Extension call(
+      {@required String id,
+      @required int extensionTime,
+      @required String oneTimePlanId,
+      @required OnetimePlan oneTimePlan,
+      @required @JsonKey(name: '__typename') String typename}) {
+    return _Extension(
+      id: id,
+      extensionTime: extensionTime,
+      oneTimePlanId: oneTimePlanId,
+      oneTimePlan: oneTimePlan,
+      typename: typename,
+    );
+  }
+
+// ignore: unused_element
+  Extension fromJson(Map<String, Object> json) {
+    return Extension.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $Extension = _$ExtensionTearOff();
+
+/// @nodoc
+mixin _$Extension {
+  String get id;
+  int get extensionTime;
+  String get oneTimePlanId;
+  OnetimePlan get oneTimePlan;
+  @JsonKey(name: '__typename')
+  String get typename;
+
+  Map<String, dynamic> toJson();
+  $ExtensionCopyWith<Extension> get copyWith;
+}
+
+/// @nodoc
+abstract class $ExtensionCopyWith<$Res> {
+  factory $ExtensionCopyWith(Extension value, $Res Function(Extension) then) =
+      _$ExtensionCopyWithImpl<$Res>;
+  $Res call(
+      {String id,
+      int extensionTime,
+      String oneTimePlanId,
+      OnetimePlan oneTimePlan,
+      @JsonKey(name: '__typename') String typename});
+
+  $OnetimePlanCopyWith<$Res> get oneTimePlan;
+}
+
+/// @nodoc
+class _$ExtensionCopyWithImpl<$Res> implements $ExtensionCopyWith<$Res> {
+  _$ExtensionCopyWithImpl(this._value, this._then);
+
+  final Extension _value;
+  // ignore: unused_field
+  final $Res Function(Extension) _then;
+
+  @override
+  $Res call({
+    Object id = freezed,
+    Object extensionTime = freezed,
+    Object oneTimePlanId = freezed,
+    Object oneTimePlan = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed ? _value.id : id as String,
+      extensionTime: extensionTime == freezed
+          ? _value.extensionTime
+          : extensionTime as int,
+      oneTimePlanId: oneTimePlanId == freezed
+          ? _value.oneTimePlanId
+          : oneTimePlanId as String,
+      oneTimePlan: oneTimePlan == freezed
+          ? _value.oneTimePlan
+          : oneTimePlan as OnetimePlan,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+
+  @override
+  $OnetimePlanCopyWith<$Res> get oneTimePlan {
+    if (_value.oneTimePlan == null) {
+      return null;
+    }
+    return $OnetimePlanCopyWith<$Res>(_value.oneTimePlan, (value) {
+      return _then(_value.copyWith(oneTimePlan: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$ExtensionCopyWith<$Res> implements $ExtensionCopyWith<$Res> {
+  factory _$ExtensionCopyWith(
+          _Extension value, $Res Function(_Extension) then) =
+      __$ExtensionCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String id,
+      int extensionTime,
+      String oneTimePlanId,
+      OnetimePlan oneTimePlan,
+      @JsonKey(name: '__typename') String typename});
+
+  @override
+  $OnetimePlanCopyWith<$Res> get oneTimePlan;
+}
+
+/// @nodoc
+class __$ExtensionCopyWithImpl<$Res> extends _$ExtensionCopyWithImpl<$Res>
+    implements _$ExtensionCopyWith<$Res> {
+  __$ExtensionCopyWithImpl(_Extension _value, $Res Function(_Extension) _then)
+      : super(_value, (v) => _then(v as _Extension));
+
+  @override
+  _Extension get _value => super._value as _Extension;
+
+  @override
+  $Res call({
+    Object id = freezed,
+    Object extensionTime = freezed,
+    Object oneTimePlanId = freezed,
+    Object oneTimePlan = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_Extension(
+      id: id == freezed ? _value.id : id as String,
+      extensionTime: extensionTime == freezed
+          ? _value.extensionTime
+          : extensionTime as int,
+      oneTimePlanId: oneTimePlanId == freezed
+          ? _value.oneTimePlanId
+          : oneTimePlanId as String,
+      oneTimePlan: oneTimePlan == freezed
+          ? _value.oneTimePlan
+          : oneTimePlan as OnetimePlan,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_Extension implements _Extension {
+  _$_Extension(
+      {@required this.id,
+      @required this.extensionTime,
+      @required this.oneTimePlanId,
+      @required this.oneTimePlan,
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(id != null),
+        assert(extensionTime != null),
+        assert(oneTimePlanId != null),
+        assert(oneTimePlan != null),
+        assert(typename != null);
+
+  factory _$_Extension.fromJson(Map<String, dynamic> json) =>
+      _$_$_ExtensionFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final int extensionTime;
+  @override
+  final String oneTimePlanId;
+  @override
+  final OnetimePlan oneTimePlan;
+  @override
+  @JsonKey(name: '__typename')
+  final String typename;
+
+  @override
+  String toString() {
+    return 'Extension(id: $id, extensionTime: $extensionTime, oneTimePlanId: $oneTimePlanId, oneTimePlan: $oneTimePlan, typename: $typename)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Extension &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.extensionTime, extensionTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.extensionTime, extensionTime)) &&
+            (identical(other.oneTimePlanId, oneTimePlanId) ||
+                const DeepCollectionEquality()
+                    .equals(other.oneTimePlanId, oneTimePlanId)) &&
+            (identical(other.oneTimePlan, oneTimePlan) ||
+                const DeepCollectionEquality()
+                    .equals(other.oneTimePlan, oneTimePlan)) &&
+            (identical(other.typename, typename) ||
+                const DeepCollectionEquality()
+                    .equals(other.typename, typename)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(extensionTime) ^
+      const DeepCollectionEquality().hash(oneTimePlanId) ^
+      const DeepCollectionEquality().hash(oneTimePlan) ^
+      const DeepCollectionEquality().hash(typename);
+
+  @override
+  _$ExtensionCopyWith<_Extension> get copyWith =>
+      __$ExtensionCopyWithImpl<_Extension>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ExtensionToJson(this);
+  }
+}
+
+abstract class _Extension implements Extension {
+  factory _Extension(
+      {@required String id,
+      @required int extensionTime,
+      @required String oneTimePlanId,
+      @required OnetimePlan oneTimePlan,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Extension;
+
+  factory _Extension.fromJson(Map<String, dynamic> json) =
+      _$_Extension.fromJson;
+
+  @override
+  String get id;
+  @override
+  int get extensionTime;
+  @override
+  String get oneTimePlanId;
+  @override
+  OnetimePlan get oneTimePlan;
+  @override
+  @JsonKey(name: '__typename')
+  String get typename;
+  @override
+  _$ExtensionCopyWith<_Extension> get copyWith;
 }
 
 Viewer _$ViewerFromJson(Map<String, dynamic> json) {

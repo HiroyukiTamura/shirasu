@@ -153,13 +153,27 @@ abstract class OnetimePlan with _$OnetimePlan {
     @required int amount,
     @required String currency,
     @required bool isPurchasable,
-    dynamic viewerPurchasedPlan,
+    String viewerPurchasedPlan,
     @required @JsonKey(name: '__typename') String typename,
   }) = _OnetimePlan;
 
   factory OnetimePlan.fromJson(Map<String, dynamic> json) =>
       _$OnetimePlanFromJson(json);
 }
+
+@freezed
+abstract class Extension with _$Extension {
+  factory Extension({
+    @required String id,
+    @required int extensionTime,
+    @required String oneTimePlanId,
+    @required OnetimePlan oneTimePlan,
+    @required @JsonKey(name: '__typename') String typename,
+  }) = _Extension;
+
+  factory Extension.fromJson(Map<String, dynamic> json) =>
+      _$ExtensionFromJson(json);
+} 
 
 @freezed
 abstract class Viewer with _$Viewer {

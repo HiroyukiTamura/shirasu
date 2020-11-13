@@ -214,7 +214,7 @@ _$_OnetimePlan _$_$_OnetimePlanFromJson(Map<String, dynamic> json) {
     amount: json['amount'] as int,
     currency: json['currency'] as String,
     isPurchasable: json['isPurchasable'] as bool,
-    viewerPurchasedPlan: json['viewerPurchasedPlan'],
+    viewerPurchasedPlan: json['viewerPurchasedPlan'] as String,
     typename: json['__typename'] as String,
   );
 }
@@ -231,6 +231,27 @@ Map<String, dynamic> _$_$_OnetimePlanToJson(_$_OnetimePlan instance) =>
       'currency': instance.currency,
       'isPurchasable': instance.isPurchasable,
       'viewerPurchasedPlan': instance.viewerPurchasedPlan,
+      '__typename': instance.typename,
+    };
+
+_$_Extension _$_$_ExtensionFromJson(Map<String, dynamic> json) {
+  return _$_Extension(
+    id: json['id'] as String,
+    extensionTime: json['extensionTime'] as int,
+    oneTimePlanId: json['oneTimePlanId'] as String,
+    oneTimePlan: json['oneTimePlan'] == null
+        ? null
+        : OnetimePlan.fromJson(json['oneTimePlan'] as Map<String, dynamic>),
+    typename: json['__typename'] as String,
+  );
+}
+
+Map<String, dynamic> _$_$_ExtensionToJson(_$_Extension instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'extensionTime': instance.extensionTime,
+      'oneTimePlanId': instance.oneTimePlanId,
+      'oneTimePlan': instance.oneTimePlan,
       '__typename': instance.typename,
     };
 

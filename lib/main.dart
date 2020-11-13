@@ -4,8 +4,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/screen_main/app_route_information_parser.dart';
-import 'package:shirasu/screen_main/app_router_delegate.dart';
+import 'package:shirasu/router/app/app_route_information_parser.dart';
+import 'package:shirasu/router/app/app_router_delegate.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

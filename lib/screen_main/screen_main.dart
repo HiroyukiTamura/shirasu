@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/router/screen_main/screen_main_route_path.dart';
-import 'package:shirasu/router/screen_main/screen_main_router_delegate.dart';
-import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
-import 'package:shirasu/router/app/app_route_information_parser.dart';
-import 'package:shirasu/router/app/app_router_delegate.dart';
-import 'package:shirasu/main.dart';
+import 'package:shirasu/router/global_app_state.dart';
+import 'package:shirasu/router/screen_main_router_delegate.dart';
 
 class ScreenMain extends StatefulWidget {
 

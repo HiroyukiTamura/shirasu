@@ -5,14 +5,11 @@ import 'package:flutter_riverpod/all.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/router/screen_main/screen_main_route_path.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_dashboard/billboard_expaned.dart';
 import 'package:shirasu/screen_dashboard/grid_card_item.dart';
 import 'package:shirasu/screen_dashboard/heading.dart';
 import 'package:shirasu/screen_dashboard/horizontal_carousels.dart';
-import 'package:shirasu/screen_detail/screen_detail.dart';
-import 'package:shirasu/router/app/app_router_delegate.dart';
-import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 

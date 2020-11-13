@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/router/screen_main/screen_main_route_path.dart';
-import 'package:shirasu/screen_channel/screen_channel.dart';
+import 'package:shirasu/router/global_app_state.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
-import 'package:shirasu/screen_detail/screen_detail.dart';
-import 'package:shirasu/screen_main/screen_main.dart';
 
 class ScreenMainRouterDelegate extends RouterDelegate<GlobalRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<GlobalRoutePath> {

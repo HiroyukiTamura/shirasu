@@ -3,17 +3,18 @@ import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
 
 part 'detail_program_data.freezed.dart';
+
 part 'detail_program_data.g.dart';
 
 @freezed
 abstract class ProgramDetailData implements _$ProgramDetailData {
-
   factory ProgramDetailData({
     @required Viewer viewer,
     @required ProgramDetail program,
   }) = _ProgramDetailData;
 
-  factory ProgramDetailData.fromJson(Map<String, dynamic> json) => _$ProgramDetailDataFromJson(json);
+  factory ProgramDetailData.fromJson(Map<String, dynamic> json) =>
+      _$ProgramDetailDataFromJson(json);
 
   const ProgramDetailData._();
 }
@@ -43,11 +44,12 @@ abstract class ProgramDetail with _$ProgramDetail {
     @required @JsonKey(name: '__typename') String typename,
     @required DetailPrgChannel channel,
     @required Handouts handouts,
-    @required Handouts videos,
+    @required VideoHandouts videos,
     @required List<OnetimePlan> onetimePlans,
   }) = _ProgramDetail;
 
-  factory ProgramDetail.fromJson(Map<String, dynamic> json) => _$ProgramDetailFromJson(json);
+  factory ProgramDetail.fromJson(Map<String, dynamic> json) =>
+      _$ProgramDetailFromJson(json);
 }
 
 @freezed
@@ -61,7 +63,20 @@ abstract class DetailPrgChannel with _$DetailPrgChannel {
     @required @JsonKey(name: '__typename') String typename,
   }) = _DetailPrgChannel;
 
-  factory DetailPrgChannel.fromJson(Map<String, dynamic> json) => _$DetailPrgChannelFromJson(json);
+  factory DetailPrgChannel.fromJson(Map<String, dynamic> json) =>
+      _$DetailPrgChannelFromJson(json);
+}
+
+@freezed
+abstract class VideoHandouts with _$VideoHandouts {
+  factory VideoHandouts({
+    @required List<DetailPrgItem> items,
+    String nextToken,
+    @required @JsonKey(name: '__typename') String typename,
+  }) = _VideoHandouts;
+
+  factory VideoHandouts.fromJson(Map<String, dynamic> json) =>
+      _$VideoHandoutsFromJson(json);
 }
 
 @freezed
@@ -72,11 +87,28 @@ abstract class Handouts with _$Handouts {
     @required @JsonKey(name: '__typename') String typename,
   }) = _Handouts;
 
-  factory Handouts.fromJson(Map<String, dynamic> json) => _$HandoutsFromJson(json);
+  factory Handouts.fromJson(Map<String, dynamic> json) =>
+      _$HandoutsFromJson(json);
 }
 
 @freezed
-abstract class DetailPrgItem with _$DetailPrgItem, VideoTypeGetter, MediaStatusGetter {
+abstract class Handout with _$Handout {
+  factory Handout({
+    @required String id,
+    @required String programId,
+    String extensionId,
+    @required String name,
+    @required DateTime createdAt,
+    @required @JsonKey(name: '__typename') String typename,
+  }) = _Handout;
+
+  factory Handout.fromJson(Map<String, dynamic> json) =>
+      _$HandoutFromJson(json);
+}
+
+@freezed
+abstract class DetailPrgItem
+    with _$DetailPrgItem, VideoTypeGetter, MediaStatusGetter {
   factory DetailPrgItem({
     @required String id,
     @required String videoType,
@@ -86,7 +118,8 @@ abstract class DetailPrgItem with _$DetailPrgItem, VideoTypeGetter, MediaStatusG
     @required @JsonKey(name: '__typename') String typename,
   }) = _DetailPrgItem;
 
-  factory DetailPrgItem.fromJson(Map<String, dynamic> json) => _$DetailPrgItemFromJson(json);
+  factory DetailPrgItem.fromJson(Map<String, dynamic> json) =>
+      _$DetailPrgItemFromJson(json);
 
   const DetailPrgItem._();
 
@@ -97,7 +130,7 @@ abstract class DetailPrgItem with _$DetailPrgItem, VideoTypeGetter, MediaStatusG
   MediaStatus get mediaStatusStrict => MediaStatusGetter.parse(mediaStatus);
 
   String get urlAvailable {
-    switch(videoTypeStrict) {
+    switch (videoTypeStrict) {
       case VideoType.LIVE:
         return liveUrl;
       case VideoType.ARCHIVED:
@@ -124,7 +157,8 @@ abstract class OnetimePlan with _$OnetimePlan {
     @required @JsonKey(name: '__typename') String typename,
   }) = _OnetimePlan;
 
-  factory OnetimePlan.fromJson(Map<String, dynamic> json) => _$OnetimePlanFromJson(json);
+  factory OnetimePlan.fromJson(Map<String, dynamic> json) =>
+      _$OnetimePlanFromJson(json);
 }
 
 @freezed

@@ -61,7 +61,7 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
         : Handouts.fromJson(json['handouts'] as Map<String, dynamic>),
     videos: json['videos'] == null
         ? null
-        : Handouts.fromJson(json['videos'] as Map<String, dynamic>),
+        : VideoHandouts.fromJson(json['videos'] as Map<String, dynamic>),
     onetimePlans: (json['onetimePlans'] as List)
         ?.map((e) =>
             e == null ? null : OnetimePlan.fromJson(e as Map<String, dynamic>))
@@ -121,6 +121,25 @@ Map<String, dynamic> _$_$_DetailPrgChannelToJson(
       '__typename': instance.typename,
     };
 
+_$_VideoHandouts _$_$_VideoHandoutsFromJson(Map<String, dynamic> json) {
+  return _$_VideoHandouts(
+    items: (json['items'] as List)
+        ?.map((e) => e == null
+            ? null
+            : DetailPrgItem.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    nextToken: json['nextToken'] as String,
+    typename: json['__typename'] as String,
+  );
+}
+
+Map<String, dynamic> _$_$_VideoHandoutsToJson(_$_VideoHandouts instance) =>
+    <String, dynamic>{
+      'items': instance.items,
+      'nextToken': instance.nextToken,
+      '__typename': instance.typename,
+    };
+
 _$_Handouts _$_$_HandoutsFromJson(Map<String, dynamic> json) {
   return _$_Handouts(
     items: (json['items'] as List)
@@ -137,6 +156,29 @@ Map<String, dynamic> _$_$_HandoutsToJson(_$_Handouts instance) =>
     <String, dynamic>{
       'items': instance.items,
       'nextToken': instance.nextToken,
+      '__typename': instance.typename,
+    };
+
+_$_Handout _$_$_HandoutFromJson(Map<String, dynamic> json) {
+  return _$_Handout(
+    id: json['id'] as String,
+    programId: json['programId'] as String,
+    extensionId: json['extensionId'] as String,
+    name: json['name'] as String,
+    createdAt: json['createdAt'] == null
+        ? null
+        : DateTime.parse(json['createdAt'] as String),
+    typename: json['__typename'] as String,
+  );
+}
+
+Map<String, dynamic> _$_$_HandoutToJson(_$_Handout instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'programId': instance.programId,
+      'extensionId': instance.extensionId,
+      'name': instance.name,
+      'createdAt': instance.createdAt?.toIso8601String(),
       '__typename': instance.typename,
     };
 

@@ -231,7 +231,7 @@ class _$ProgramDetailTearOff {
       @required @JsonKey(name: '__typename') String typename,
       @required DetailPrgChannel channel,
       @required Handouts handouts,
-      @required Handouts videos,
+      @required VideoHandouts videos,
       @required List<OnetimePlan> onetimePlans}) {
     return _ProgramDetail(
       id: id,
@@ -296,7 +296,7 @@ mixin _$ProgramDetail {
   String get typename;
   DetailPrgChannel get channel;
   Handouts get handouts;
-  Handouts get videos;
+  VideoHandouts get videos;
   List<OnetimePlan> get onetimePlans;
 
   Map<String, dynamic> toJson();
@@ -331,12 +331,12 @@ abstract class $ProgramDetailCopyWith<$Res> {
       @JsonKey(name: '__typename') String typename,
       DetailPrgChannel channel,
       Handouts handouts,
-      Handouts videos,
+      VideoHandouts videos,
       List<OnetimePlan> onetimePlans});
 
   $DetailPrgChannelCopyWith<$Res> get channel;
   $HandoutsCopyWith<$Res> get handouts;
-  $HandoutsCopyWith<$Res> get videos;
+  $VideoHandoutsCopyWith<$Res> get videos;
 }
 
 /// @nodoc
@@ -419,7 +419,7 @@ class _$ProgramDetailCopyWithImpl<$Res>
       channel:
           channel == freezed ? _value.channel : channel as DetailPrgChannel,
       handouts: handouts == freezed ? _value.handouts : handouts as Handouts,
-      videos: videos == freezed ? _value.videos : videos as Handouts,
+      videos: videos == freezed ? _value.videos : videos as VideoHandouts,
       onetimePlans: onetimePlans == freezed
           ? _value.onetimePlans
           : onetimePlans as List<OnetimePlan>,
@@ -447,11 +447,11 @@ class _$ProgramDetailCopyWithImpl<$Res>
   }
 
   @override
-  $HandoutsCopyWith<$Res> get videos {
+  $VideoHandoutsCopyWith<$Res> get videos {
     if (_value.videos == null) {
       return null;
     }
-    return $HandoutsCopyWith<$Res>(_value.videos, (value) {
+    return $VideoHandoutsCopyWith<$Res>(_value.videos, (value) {
       return _then(_value.copyWith(videos: value));
     });
   }
@@ -487,7 +487,7 @@ abstract class _$ProgramDetailCopyWith<$Res>
       @JsonKey(name: '__typename') String typename,
       DetailPrgChannel channel,
       Handouts handouts,
-      Handouts videos,
+      VideoHandouts videos,
       List<OnetimePlan> onetimePlans});
 
   @override
@@ -495,7 +495,7 @@ abstract class _$ProgramDetailCopyWith<$Res>
   @override
   $HandoutsCopyWith<$Res> get handouts;
   @override
-  $HandoutsCopyWith<$Res> get videos;
+  $VideoHandoutsCopyWith<$Res> get videos;
 }
 
 /// @nodoc
@@ -580,7 +580,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
       channel:
           channel == freezed ? _value.channel : channel as DetailPrgChannel,
       handouts: handouts == freezed ? _value.handouts : handouts as Handouts,
-      videos: videos == freezed ? _value.videos : videos as Handouts,
+      videos: videos == freezed ? _value.videos : videos as VideoHandouts,
       onetimePlans: onetimePlans == freezed
           ? _value.onetimePlans
           : onetimePlans as List<OnetimePlan>,
@@ -686,7 +686,7 @@ class _$_ProgramDetail implements _ProgramDetail {
   @override
   final Handouts handouts;
   @override
-  final Handouts videos;
+  final VideoHandouts videos;
   @override
   final List<OnetimePlan> onetimePlans;
 
@@ -819,7 +819,7 @@ abstract class _ProgramDetail implements ProgramDetail {
       @required @JsonKey(name: '__typename') String typename,
       @required DetailPrgChannel channel,
       @required Handouts handouts,
-      @required Handouts videos,
+      @required VideoHandouts videos,
       @required List<OnetimePlan> onetimePlans}) = _$_ProgramDetail;
 
   factory _ProgramDetail.fromJson(Map<String, dynamic> json) =
@@ -871,7 +871,7 @@ abstract class _ProgramDetail implements ProgramDetail {
   @override
   Handouts get handouts;
   @override
-  Handouts get videos;
+  VideoHandouts get videos;
   @override
   List<OnetimePlan> get onetimePlans;
   @override
@@ -1132,6 +1132,198 @@ abstract class _DetailPrgChannel implements DetailPrgChannel {
   _$DetailPrgChannelCopyWith<_DetailPrgChannel> get copyWith;
 }
 
+VideoHandouts _$VideoHandoutsFromJson(Map<String, dynamic> json) {
+  return _VideoHandouts.fromJson(json);
+}
+
+/// @nodoc
+class _$VideoHandoutsTearOff {
+  const _$VideoHandoutsTearOff();
+
+// ignore: unused_element
+  _VideoHandouts call(
+      {@required List<DetailPrgItem> items,
+      String nextToken,
+      @required @JsonKey(name: '__typename') String typename}) {
+    return _VideoHandouts(
+      items: items,
+      nextToken: nextToken,
+      typename: typename,
+    );
+  }
+
+// ignore: unused_element
+  VideoHandouts fromJson(Map<String, Object> json) {
+    return VideoHandouts.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $VideoHandouts = _$VideoHandoutsTearOff();
+
+/// @nodoc
+mixin _$VideoHandouts {
+  List<DetailPrgItem> get items;
+  String get nextToken;
+  @JsonKey(name: '__typename')
+  String get typename;
+
+  Map<String, dynamic> toJson();
+  $VideoHandoutsCopyWith<VideoHandouts> get copyWith;
+}
+
+/// @nodoc
+abstract class $VideoHandoutsCopyWith<$Res> {
+  factory $VideoHandoutsCopyWith(
+          VideoHandouts value, $Res Function(VideoHandouts) then) =
+      _$VideoHandoutsCopyWithImpl<$Res>;
+  $Res call(
+      {List<DetailPrgItem> items,
+      String nextToken,
+      @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class _$VideoHandoutsCopyWithImpl<$Res>
+    implements $VideoHandoutsCopyWith<$Res> {
+  _$VideoHandoutsCopyWithImpl(this._value, this._then);
+
+  final VideoHandouts _value;
+  // ignore: unused_field
+  final $Res Function(VideoHandouts) _then;
+
+  @override
+  $Res call({
+    Object items = freezed,
+    Object nextToken = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_value.copyWith(
+      items: items == freezed ? _value.items : items as List<DetailPrgItem>,
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$VideoHandoutsCopyWith<$Res>
+    implements $VideoHandoutsCopyWith<$Res> {
+  factory _$VideoHandoutsCopyWith(
+          _VideoHandouts value, $Res Function(_VideoHandouts) then) =
+      __$VideoHandoutsCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {List<DetailPrgItem> items,
+      String nextToken,
+      @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class __$VideoHandoutsCopyWithImpl<$Res>
+    extends _$VideoHandoutsCopyWithImpl<$Res>
+    implements _$VideoHandoutsCopyWith<$Res> {
+  __$VideoHandoutsCopyWithImpl(
+      _VideoHandouts _value, $Res Function(_VideoHandouts) _then)
+      : super(_value, (v) => _then(v as _VideoHandouts));
+
+  @override
+  _VideoHandouts get _value => super._value as _VideoHandouts;
+
+  @override
+  $Res call({
+    Object items = freezed,
+    Object nextToken = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_VideoHandouts(
+      items: items == freezed ? _value.items : items as List<DetailPrgItem>,
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_VideoHandouts implements _VideoHandouts {
+  _$_VideoHandouts(
+      {@required this.items,
+      this.nextToken,
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(items != null),
+        assert(typename != null);
+
+  factory _$_VideoHandouts.fromJson(Map<String, dynamic> json) =>
+      _$_$_VideoHandoutsFromJson(json);
+
+  @override
+  final List<DetailPrgItem> items;
+  @override
+  final String nextToken;
+  @override
+  @JsonKey(name: '__typename')
+  final String typename;
+
+  @override
+  String toString() {
+    return 'VideoHandouts(items: $items, nextToken: $nextToken, typename: $typename)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _VideoHandouts &&
+            (identical(other.items, items) ||
+                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.nextToken, nextToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.nextToken, nextToken)) &&
+            (identical(other.typename, typename) ||
+                const DeepCollectionEquality()
+                    .equals(other.typename, typename)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(nextToken) ^
+      const DeepCollectionEquality().hash(typename);
+
+  @override
+  _$VideoHandoutsCopyWith<_VideoHandouts> get copyWith =>
+      __$VideoHandoutsCopyWithImpl<_VideoHandouts>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_VideoHandoutsToJson(this);
+  }
+}
+
+abstract class _VideoHandouts implements VideoHandouts {
+  factory _VideoHandouts(
+          {@required List<DetailPrgItem> items,
+          String nextToken,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_VideoHandouts;
+
+  factory _VideoHandouts.fromJson(Map<String, dynamic> json) =
+      _$_VideoHandouts.fromJson;
+
+  @override
+  List<DetailPrgItem> get items;
+  @override
+  String get nextToken;
+  @override
+  @JsonKey(name: '__typename')
+  String get typename;
+  @override
+  _$VideoHandoutsCopyWith<_VideoHandouts> get copyWith;
+}
+
 Handouts _$HandoutsFromJson(Map<String, dynamic> json) {
   return _Handouts.fromJson(json);
 }
@@ -1314,6 +1506,253 @@ abstract class _Handouts implements Handouts {
   String get typename;
   @override
   _$HandoutsCopyWith<_Handouts> get copyWith;
+}
+
+Handout _$HandoutFromJson(Map<String, dynamic> json) {
+  return _Handout.fromJson(json);
+}
+
+/// @nodoc
+class _$HandoutTearOff {
+  const _$HandoutTearOff();
+
+// ignore: unused_element
+  _Handout call(
+      {@required String id,
+      @required String programId,
+      String extensionId,
+      @required String name,
+      @required DateTime createdAt,
+      @required @JsonKey(name: '__typename') String typename}) {
+    return _Handout(
+      id: id,
+      programId: programId,
+      extensionId: extensionId,
+      name: name,
+      createdAt: createdAt,
+      typename: typename,
+    );
+  }
+
+// ignore: unused_element
+  Handout fromJson(Map<String, Object> json) {
+    return Handout.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $Handout = _$HandoutTearOff();
+
+/// @nodoc
+mixin _$Handout {
+  String get id;
+  String get programId;
+  String get extensionId;
+  String get name;
+  DateTime get createdAt;
+  @JsonKey(name: '__typename')
+  String get typename;
+
+  Map<String, dynamic> toJson();
+  $HandoutCopyWith<Handout> get copyWith;
+}
+
+/// @nodoc
+abstract class $HandoutCopyWith<$Res> {
+  factory $HandoutCopyWith(Handout value, $Res Function(Handout) then) =
+      _$HandoutCopyWithImpl<$Res>;
+  $Res call(
+      {String id,
+      String programId,
+      String extensionId,
+      String name,
+      DateTime createdAt,
+      @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class _$HandoutCopyWithImpl<$Res> implements $HandoutCopyWith<$Res> {
+  _$HandoutCopyWithImpl(this._value, this._then);
+
+  final Handout _value;
+  // ignore: unused_field
+  final $Res Function(Handout) _then;
+
+  @override
+  $Res call({
+    Object id = freezed,
+    Object programId = freezed,
+    Object extensionId = freezed,
+    Object name = freezed,
+    Object createdAt = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed ? _value.id : id as String,
+      programId: programId == freezed ? _value.programId : programId as String,
+      extensionId:
+          extensionId == freezed ? _value.extensionId : extensionId as String,
+      name: name == freezed ? _value.name : name as String,
+      createdAt:
+          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$HandoutCopyWith<$Res> implements $HandoutCopyWith<$Res> {
+  factory _$HandoutCopyWith(_Handout value, $Res Function(_Handout) then) =
+      __$HandoutCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String id,
+      String programId,
+      String extensionId,
+      String name,
+      DateTime createdAt,
+      @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class __$HandoutCopyWithImpl<$Res> extends _$HandoutCopyWithImpl<$Res>
+    implements _$HandoutCopyWith<$Res> {
+  __$HandoutCopyWithImpl(_Handout _value, $Res Function(_Handout) _then)
+      : super(_value, (v) => _then(v as _Handout));
+
+  @override
+  _Handout get _value => super._value as _Handout;
+
+  @override
+  $Res call({
+    Object id = freezed,
+    Object programId = freezed,
+    Object extensionId = freezed,
+    Object name = freezed,
+    Object createdAt = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_Handout(
+      id: id == freezed ? _value.id : id as String,
+      programId: programId == freezed ? _value.programId : programId as String,
+      extensionId:
+          extensionId == freezed ? _value.extensionId : extensionId as String,
+      name: name == freezed ? _value.name : name as String,
+      createdAt:
+          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_Handout implements _Handout {
+  _$_Handout(
+      {@required this.id,
+      @required this.programId,
+      this.extensionId,
+      @required this.name,
+      @required this.createdAt,
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(id != null),
+        assert(programId != null),
+        assert(name != null),
+        assert(createdAt != null),
+        assert(typename != null);
+
+  factory _$_Handout.fromJson(Map<String, dynamic> json) =>
+      _$_$_HandoutFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final String programId;
+  @override
+  final String extensionId;
+  @override
+  final String name;
+  @override
+  final DateTime createdAt;
+  @override
+  @JsonKey(name: '__typename')
+  final String typename;
+
+  @override
+  String toString() {
+    return 'Handout(id: $id, programId: $programId, extensionId: $extensionId, name: $name, createdAt: $createdAt, typename: $typename)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Handout &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.programId, programId) ||
+                const DeepCollectionEquality()
+                    .equals(other.programId, programId)) &&
+            (identical(other.extensionId, extensionId) ||
+                const DeepCollectionEquality()
+                    .equals(other.extensionId, extensionId)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.typename, typename) ||
+                const DeepCollectionEquality()
+                    .equals(other.typename, typename)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(programId) ^
+      const DeepCollectionEquality().hash(extensionId) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(typename);
+
+  @override
+  _$HandoutCopyWith<_Handout> get copyWith =>
+      __$HandoutCopyWithImpl<_Handout>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_HandoutToJson(this);
+  }
+}
+
+abstract class _Handout implements Handout {
+  factory _Handout(
+      {@required String id,
+      @required String programId,
+      String extensionId,
+      @required String name,
+      @required DateTime createdAt,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Handout;
+
+  factory _Handout.fromJson(Map<String, dynamic> json) = _$_Handout.fromJson;
+
+  @override
+  String get id;
+  @override
+  String get programId;
+  @override
+  String get extensionId;
+  @override
+  String get name;
+  @override
+  DateTime get createdAt;
+  @override
+  @JsonKey(name: '__typename')
+  String get typename;
+  @override
+  _$HandoutCopyWith<_Handout> get copyWith;
 }
 
 DetailPrgItem _$DetailPrgItemFromJson(Map<String, dynamic> json) {

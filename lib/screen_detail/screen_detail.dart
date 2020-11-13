@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_playout/video.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/di/api_client.dart';
@@ -8,15 +9,18 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/row_video_desc.dart';
-import 'package:shirasu/screen_detail/row_video_header.dart';
+import 'package:shirasu/screen_detail/video_header.dart';
 import 'package:shirasu/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';
+import 'package:shirasu/screen_detail/video_holder.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 final detailProvider = ChangeNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id));
+
+final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
 class ScreenDetail extends StatefulWidget {
   const ScreenDetail({Key key, @required this.id}) : super(key: key);
@@ -42,10 +46,10 @@ class _ScreenDetailState extends State<ScreenDetail> {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-      child: Scaffold(
-        body: _PrgResultHookedWidget(id: _id),
-      ),
-    );
+        child: Scaffold(
+          body: _PrgResultHookedWidget(id: _id),
+        ),
+      );
 //
 // static Widget contentWidget() => ListView.builder(
 //     itemCount: 17,
@@ -220,66 +224,80 @@ class _ContentWidget extends StatelessWidget {
   final ProgramDetailData data;
 
   @override
-  Widget build(BuildContext context) => ListView.builder(
-      itemCount: 15,
-      padding: const EdgeInsets.only(
-        bottom: 24,
-        right: Dimens.MARGIN_OUTLINE,
-        left: Dimens.MARGIN_OUTLINE,
-      ),
-      itemBuilder: (context, index) {
-        switch (index) {
-          case 0:
-            return RowHeader(
+  Widget build(BuildContext _) => LayoutBuilder(
+      builder: (context, constrains) {
+        final headerH = constrains.maxWidth / Dimens.IMG_RATIO;
+        final listViewH = constrains.maxHeight - headerH;
+        return Column(
+          children: [
+            VideoHeader(
+              height: headerH,
               programId: data.program.id,
               onTap: () =>
                   context.read(detailProvider(data.program.id)).playVideo(),
-            );
-          case 1:
-            return const SizedBox(height: 16);
-          case 2:
-            return RowChannel(
-              title: data.program.channel.name,
-              imageUrl: ApiClient.getChannelLogoUrl(data.program.channelId),
-            );
-          case 3:
-            return const SizedBox(height: 12);
-          case 4:
-            return RowVideoTitle(text: data.program.title);
-          case 5:
-            return const SizedBox(height: 4);
-          case 6:
-            return RowVideoTime(
-              broadcastAt: data.program.broadcastAt,
-              totalPlayTime: data.program.totalPlayTime,
-            );
-          case 7:
-            return const SizedBox(height: 16);
-          case 8:
-            return RowVideoTags(textList: data.program.tags);
-          case 9:
-            return const SizedBox(height: 36);
-          // case 10:
-          //   return ContentCell(
-          //     child: Row(
-          //       children: [
-          //         if (data.program.onetimePlans.any((element) => false))
-          //         BillingBtnThin(text: data.program.totalPlayTime),
-          //         SizedBox(width: 16),
-          //         BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
-          //       ],
-          //     ),
-          //   );
-          // case 11:
-          //   return SizedBox(height: 36);
-          case 10:
-            return RowFabs();
-          case 11:
-            return const SizedBox(height: 36);
-          case 12:
-            return RowVideoDesc(text: data.program.detail);
-          default:
-            return const SizedBox();
-        }
-      });
+            ),
+            SizedBox(
+              height: listViewH,
+              child: ListView.builder(
+                  itemCount: 14,
+                  padding: const EdgeInsets.only(
+                    bottom: 24,
+                    right: Dimens.MARGIN_OUTLINE,
+                    left: Dimens.MARGIN_OUTLINE,
+                  ),
+                  itemBuilder: (context, index) {
+                    switch (index) {
+                      case 1:
+                        return const SizedBox(height: 16);
+                      case 2:
+                        return RowChannel(
+                          title: data.program.channel.name,
+                          imageUrl: ApiClient.getChannelLogoUrl(
+                              data.program.channelId),
+                        );
+                      case 3:
+                        return const SizedBox(height: 12);
+                      case 4:
+                        return RowVideoTitle(text: data.program.title);
+                      case 5:
+                        return const SizedBox(height: 4);
+                      case 6:
+                        return RowVideoTime(
+                          broadcastAt: data.program.broadcastAt,
+                          totalPlayTime: data.program.totalPlayTime,
+                        );
+                      case 7:
+                        return const SizedBox(height: 16);
+                      case 8:
+                        return RowVideoTags(textList: data.program.tags);
+                      case 9:
+                        return const SizedBox(height: 36);
+                      // case 10:
+                      //   return ContentCell(
+                      //     child: Row(
+                      //       children: [
+                      //         if (data.program.onetimePlans.any((element) => false))
+                      //         BillingBtnThin(text: data.program.totalPlayTime),
+                      //         SizedBox(width: 16),
+                      //         BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
+                      //       ],
+                      //     ),
+                      //   );
+                      // case 11:
+                      //   return SizedBox(height: 36);
+                      case 10:
+                        return RowFabs();
+                      case 11:
+                        return const SizedBox(height: 36);
+                      case 12:
+                        return RowVideoDesc(text: data.program.detail);
+                      default:
+                        return const SizedBox();
+                    }
+                  }),
+            ),
+          ],
+        );
+      },
+    );
 }

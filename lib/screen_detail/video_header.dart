@@ -13,22 +13,24 @@ import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:flutter_playout/video.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 
-class RowHeader extends HookWidget {
-  const RowHeader({
+class VideoHeader extends HookWidget {
+  const VideoHeader({
     Key key,
     @required this.programId,
+    @required this.height,
     @required this.onTap,
   }) : super(key: key);
 
   final String programId;
   final VoidCallback onTap;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     final playOutState =
         useProvider(detailProvider(programId).select((it) => it.playOutState));
     final result = context.read(detailProvider(programId)).prgDataResult
-        as PrgDetailResultSuccess;
+        as PrgDetailResultSuccess;//todo should not call context.read in build method
 
     final program = result.programDetailData.program;
     Widget child;
@@ -50,8 +52,8 @@ class RowHeader extends HookWidget {
         child = _PlayerView(playOutState: playOutState);
         break;
     }
-    return AspectRatio(
-      aspectRatio: Dimens.IMG_RATIO,
+    return SizedBox(
+      height: height,
       child: child,
     );
   }
@@ -167,13 +169,14 @@ class _HoverBackDrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SizedBox.expand(
         child: Container(
+          alignment: Alignment.center,
           color: Colors.black.withOpacity(.7),
           child: child,
         ),
       );
 }
 
-class _PlayerView extends StatelessWidget {
+class _PlayerView extends HookWidget {
   const _PlayerView({
     Key key,
     @required this.playOutState,
@@ -182,12 +185,19 @@ class _PlayerView extends StatelessWidget {
   final PlayOutState playOutState;
 
   @override
-  Widget build(BuildContext context) => Video(
+  Widget build(BuildContext context) {
+    final holder = useProvider(videoProvider);
+
+    if (!holder.isEqualSource(playOutState))
+      holder.video = Video(
         isLiveStream: playOutState.videoType == VideoType.LIVE,
         url: playOutState.hlsMediaUrl,
         cookie: playOutState.cookie,
         autoPlay: true,
       );
+
+    return holder.video;
+  }
 }
 
 enum HoverBtnType {

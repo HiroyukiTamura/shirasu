@@ -10,8 +10,8 @@ import 'package:shirasu/screen_dashboard/grid_card_item.dart';
 import 'package:shirasu/screen_dashboard/heading.dart';
 import 'package:shirasu/screen_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
-import 'package:shirasu/screen_meta/app_router_delegate.dart';
-import 'package:shirasu/screen_meta/screen_meta.dart';
+import 'package:shirasu/screen_main/app_router_delegate.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
@@ -19,12 +19,12 @@ final _dashBoardProvider =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard());
 
-class ScreenDashboard extends StatefulWidget {
+class PageScreenDashboard extends StatefulWidget {
   @override
   _ScreenDashboardState createState() => _ScreenDashboardState();
 }
 
-class _ScreenDashboardState extends State<ScreenDashboard> {
+class _ScreenDashboardState extends State<PageScreenDashboard> {
   static const _COLUMN_COUNT = 2;
 
   static const _CIRCULAR_HEIGHT = 36;
@@ -159,7 +159,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                   child: BillboardExpanded(
                     item: item,
                     onTap: () async => routerDelegate
-                        .pushPage(AppRoutePath.detailByProgramId(item.id)),
+                        .pushPage(AppRoutePath.channel(item.channelId)),
                   ),
                 );
               }

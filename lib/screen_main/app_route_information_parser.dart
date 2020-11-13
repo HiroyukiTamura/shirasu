@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shirasu/screen_meta/app_router_delegate.dart';
+import 'package:shirasu/screen_main/app_router_delegate.dart';
 
 class AppRouteInformationParser extends RouteInformationParser<AppRoutePath> {
 

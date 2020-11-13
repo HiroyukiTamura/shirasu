@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_dashboard/screen_dashboard.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
-import 'package:shirasu/screen_meta/screen_meta.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 
 class AppRouterDelegate extends RouterDelegate<AppRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutePath> {
@@ -22,7 +22,7 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
             throw UnimplementedError('intro screen');
           else if (pathData is AppRoutePathDashBoard ||
               pathData is AppRoutePathUnknown)
-            return ScreenMeta();
+            return ScreenMain();
           else if (pathData is AppRoutePathChannel)
             return ScreenChannel(channelId: pathData.channelId);
           else if (pathData is AppRoutePathDetail)

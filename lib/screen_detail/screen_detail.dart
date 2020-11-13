@@ -286,7 +286,7 @@ class _ContentWidget extends StatelessWidget {
                       // case 11:
                       //   return SizedBox(height: 36);
                       case 10:
-                        return RowFabs();
+                        return RowFabs(handouts: data.program.handouts,);
                       case 11:
                         return const SizedBox(height: 36);
                       case 12:

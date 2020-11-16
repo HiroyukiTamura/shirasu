@@ -101,9 +101,7 @@ abstract class BaseModelCommentConnection extends _GraphQlModel {}
 abstract class BaseComment extends _GraphQlModel {}
 
 @immutable
-abstract class BaseUser extends _GraphQlModel {
-  String get id;
-}
+abstract class BaseUser extends _GraphQlModel {}
 
 @immutable
 abstract class BaseSearchableProgramConnection extends _GraphQlModel {

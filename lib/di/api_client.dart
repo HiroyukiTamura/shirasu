@@ -4,6 +4,7 @@ import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/new_programs_data.dart';
+import 'package:shirasu/model/watch_history_data.dart';
 
 class ApiClient {
   ApiClient(Client client) : _graphQlClient = _createClient(client);
@@ -19,6 +20,8 @@ class ApiClient {
       'query GetProgram(\$id: ID!) {  viewer {    name    icon    __typename  }  program: getProgram(id: \$id) {    ...UserPageProgramData    extensions {      ...UserPageLiveExtensionData      __typename    }    channel {      ...UserPageChannelData      __typename    }    handouts(sortDirection: DESC) {      items {        ...UserPageHandoutData        __typename      }      nextToken      __typename    }    videos {      items {        ...UserPageVideoData        __typename      }      nextToken      __typename    }    onetimePlans {      ...UserPageOneTimePlanData      __typename    }    __typename  }}fragment UserPageProgramData on Program {  id  channelId  tenantId  adminComment  adminCommentDisappearAt  broadcastAt  detail  mainTime  previewTime  release  tags  title  totalPlayTime  viewerPlanType  isExtensionChargedToSubscribers  archivedAt  releaseState  shouldArchive  extensions {    ...UserPageLiveExtensionData    __typename  }  __typename}fragment UserPageLiveExtensionData on LiveExtension {  id  extensionTime  oneTimePlanId  oneTimePlan {    ...UserPageOneTimePlanData    __typename  }  __typename}fragment UserPageOneTimePlanData on OneTimePlan {  id  parentPlanType  parentPlanId  productType  productId  name  amount  currency  isPurchasable  viewerPurchasedPlan {    isActive    __typename  }  __typename}fragment UserPageChannelData on Channel {  id  tenantId  name  icon  textOnPurchaseScreen  __typename}fragment UserPageHandoutData on Handout {  id  programId  extensionId  name  createdAt  __typename}fragment UserPageVideoData on Video {  id  videoType  mediaStatus  liveUrl  archiveUrl  __typename}';
 
   static const _QUERY_CHANNEL = 'query GetChannel(\$id: ID!) {  channel: getChannel(id: \$id) {    ...UserChannelPageChannelData    subscriptionPlan {      ...UserChannelPageSubscriptionPlanData      viewerPurchasedPlan {        isActive        __typename      }      __typename    }    programs(filter: {release: {eq: true}}, sortDirection: DESC, limit: 12) {      items {        ...UserChannelPageProgramData        __typename      }      nextToken      __typename    }    announcements(sortDirection: DESC, filter: {isOpen: {eq: true}}, limit: 5) {      items {        ...TenantChannelAnnouncementsChannelAnnouncementData        __typename      }      nextToken      __typename    }    __typename  }}fragment UserChannelPageChannelData on Channel {  id  name  icon  twitterUrl  facebookUrl  textOnPurchaseScreen  detail  __typename}fragment UserChannelPageSubscriptionPlanData on SubscriptionPlan {  id  amount  currency  isPurchasable  __typename}fragment UserChannelPageProgramData on Program {  id  tenantId  channelId  title  broadcastAt  totalPlayTime  viewerPlanType  __typename}fragment TenantChannelAnnouncementsChannelAnnouncementData on ChannelAnnouncement {  id  isOpen  isSubscriberOnly  title  text  publishedAt  createdAt  updatedAt  __typename}';
+
+  static const _QUERY_WATCH_HISTORY = 'query GetViewer(\$nextToken: String) {  viewerUser: viewerUser {    watchHistories(limit: 5, sortDirection: DESC, nextToken: \$nextToken) {      items {        ...WatchingHistoryPageWatchHistoryData        __typename      }      nextToken      __typename    }    __typename  }}fragment WatchingHistoryPageWatchHistoryData on WatchHistory {  id  lastViewedAt  program {    id    tenantId    channelId    title    detail    broadcastAt    __typename  }  __typename}';
 
   static const DUMMY_AUTH =
       'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFUWkJNMEZDUkRZek1UVTJOME13UWpBMlJFVXdSa0V5TVRJeU1VSkdOelUxTXpnNU1ETTFRUSJ9.eyJodHRwczovL3NoaXJhc3UuaW8vcm9sZXMiOlsidXNlciJdLCJodHRwczovL3NoaXJhc3UuaW8vdXNlckF0dHJpYnV0ZSI6eyJiaXJ0aERhdGUiOiIxOTkzLTExLTE1VDAwOjAwOjAwLjAwMFoiLCJqb2IiOiJJbmZvcm1hdGlvblRlY2hub2xvZ3kiLCJjb3VudHJ5IjoiSlAiLCJwcmVmZWN0dXJlIjoiMTMiLCJmYW1pbHlOYW1lIjoi55Sw5p2RIiwiZ2l2ZW5OYW1lIjoi5rWp5bm4IiwiZmFtaWx5TmFtZVJlYWRpbmciOiIiLCJnaXZlbk5hbWVSZWFkaW5nIjoiIn0sImh0dHBzOi8vc2hpcmFzdS5pby9jdXN0b21lcklkIjoiY3VzX0lFS0RoM0J0UjlOeG5TIiwiaHR0cHM6Ly9zaGlyYXN1LmlvL2Rpc3RyaWJ1dGVkcyI6W10sImh0dHBzOi8vc2hpcmFzdS5pby90ZW5hbnRzIjpbXSwiZ2l2ZW5fbmFtZSI6Ikhpcm95dWtpIiwiZmFtaWx5X25hbWUiOiJUIiwibmlja25hbWUiOiJoaXJvdGFtdTMiLCJuYW1lIjoiSGlyb3l1a2kgVCIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLXhBUlEwZm9KZENBL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2s2ZTZjUkluNzVSWTV6dVNrb0FJRGRWY1FjSEEvczk2LWMvcGhvdG8uanBnIiwibG9jYWxlIjoiamEiLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMS0xMVQxNjowNToyOC4yODVaIiwiZW1haWwiOiJoaXJvdGFtdTNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vc2hpcmFzdS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDk0MzEyMjg4NTM2MDM1Nzk2ODQiLCJhdWQiOiJreWpUSjVsUTdSVTdtQXllU21YOG5MWWN4VlJ0QTNuQiIsImlhdCI6MTYwNTIyNDEzOSwiZXhwIjoxNjA1MjYwMTM5fQ.bIc04gsCHNWfxHSV327CplS6SMO_qwVJOWi7ZNke1JDHfFb_hpjHq8gdG7kn_Hr5W6nN6PFgo9pSmGZ1KrRgfM8GxPUmQwruuSuyffCgi3hqJOjMgNZA1WOFJkeWFNU72TuakGlrQSU6CUsmy99UqyD4ZNufAw1At-cP-O0yZ-DDY4UMB9UUmf0ev5sIs5-G9u8OBil1JCVxCQaWNPqycH0AzNlgojq9FzeC3B9BJO63fZMqExr-kB592FSe0y-P0qW1N90W4SJrT9J7Hzh-raqywHOY3Bx6ReUCEBqnGuzdU7oPcJg1qG5cUYnbuKmHaZsUUFADaFIWy1u6kJFDxg';
@@ -99,6 +102,14 @@ class ApiClient {
       'id': channelId,
     });
     return ChannelData.fromJson(result.data as Map<String, dynamic>);
+  }
+
+  Future<WatchHistoriesData> queryWatchHistory({String nextToken}) async {
+    final variable = nextToken == null ? null : {
+      'nextToken': nextToken,
+    };
+    final result = await _query(_QUERY_WATCH_HISTORY, variables: variable);
+    return WatchHistoriesData.fromJson(result.data as Map<String, dynamic>);
   }
 
   static String getThumbnailUrl(String itemId) {

@@ -28,14 +28,14 @@ _$_Channel _$_$_ChannelFromJson(Map<String, dynamic> json) {
         ? null
         : SubscriptionPlan.fromJson(
             json['subscriptionPlan'] as Map<String, dynamic>),
-    typename: json['typename'] as String,
+    typename: json['__typename'] as String,
   );
 }
 
 Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
     <String, dynamic>{
       'subscriptionPlan': instance.subscriptionPlan,
-      'typename': instance.typename,
+      '__typename': instance.typename,
     };
 
 _$_SubscriptionPlan _$_$_SubscriptionPlanFromJson(Map<String, dynamic> json) {

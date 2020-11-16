@@ -2,7 +2,8 @@
 import 'package:flutter/cupertino.dart';
 
 enum MediaStatus {
-  ENDED, WAITING,
+  ENDED,
+  WAITING,
 }
 
 @immutable

@@ -31,7 +31,7 @@ _$_ViewerClass _$_$_ViewerClassFromJson(Map<String, dynamic> json) {
         ?.toList(),
     authConnections:
         (json['authConnections'] as List)?.map((e) => e as String)?.toList(),
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -48,7 +48,7 @@ _$_PaymentMethod _$_$_PaymentMethodFromJson(Map<String, dynamic> json) {
     brand: json['brand'] as String,
     last4: json['last4'] as String,
     expirationDate: json['expirationDate'] as String,
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -66,7 +66,7 @@ _$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     icon: json['icon'] as String,
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
     invoiceHistory: json['invoiceHistory'] == null
         ? null
         : InvoiceHistory.fromJson(
@@ -102,7 +102,7 @@ _$_InvoiceHistory _$_$_InvoiceHistoryFromJson(Map<String, dynamic> json) {
             : InvoiceHistoryItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     nextToken: json['nextToken'] as String,
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -125,7 +125,7 @@ _$_InvoiceHistoryItem _$_$_InvoiceHistoryItemFromJson(
         : DateTime.parse(json['createdAt'] as String),
     planType: json['planType'] as String,
     status: json['status'] as String,
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -158,7 +158,7 @@ _$_SubscribedChannel _$_$_SubscribedChannelFromJson(Map<String, dynamic> json) {
     latestInvoice: json['latestInvoice'] == null
         ? null
         : LatestInvoice.fromJson(json['latestInvoice'] as Map<String, dynamic>),
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -179,7 +179,7 @@ _$_Channel _$_$_ChannelFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     icon: json['icon'],
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -202,7 +202,7 @@ _$_LatestInvoice _$_$_LatestInvoiceFromJson(Map<String, dynamic> json) {
     status: json['status'] as String,
     hostedInvoiceUrl: json['hostedInvoiceUrl'] as String,
     nextPaymentAttempt: json['nextPaymentAttempt'],
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -225,7 +225,7 @@ _$_WatchHistories _$_$_WatchHistoriesFromJson(Map<String, dynamic> json) {
             ? null
             : WatchHistoriesItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -245,7 +245,7 @@ _$_WatchHistoriesItem _$_$_WatchHistoriesItemFromJson(
     program: json['program'] == null
         ? null
         : Program.fromJson(json['program'] as Map<String, dynamic>),
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 
@@ -268,7 +268,7 @@ _$_Program _$_$_ProgramFromJson(Map<String, dynamic> json) {
     broadcastAt: json['broadcastAt'] == null
         ? null
         : DateTime.parse(json['broadcastAt'] as String),
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 

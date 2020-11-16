@@ -376,6 +376,7 @@ class __$BroadcastingsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseSearchableProgramConnection)
 
 /// @nodoc
 class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
@@ -440,7 +441,8 @@ class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
   }
 }
 
-abstract class _Broadcastings implements Broadcastings {
+abstract class _Broadcastings
+    implements Broadcastings, BaseSearchableProgramConnection {
   const factory _Broadcastings(
       {@required
           List<Item> items,
@@ -686,6 +688,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseProgram)
 
 /// @nodoc
 class _$_Item with DiagnosticableTreeMixin implements _Item {
@@ -837,7 +840,7 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   }
 }
 
-abstract class _Item implements Item {
+abstract class _Item implements Item, BaseProgram {
   const factory _Item(
       {@required
           DateTime broadcastAt,
@@ -1011,6 +1014,7 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseChannel)
 
 /// @nodoc
 class _$_Channel with DiagnosticableTreeMixin implements _Channel {
@@ -1084,7 +1088,7 @@ class _$_Channel with DiagnosticableTreeMixin implements _Channel {
   }
 }
 
-abstract class _Channel implements Channel {
+abstract class _Channel implements Channel, BaseChannel {
   const factory _Channel(
       {@required
           String id,
@@ -1234,6 +1238,7 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseUser)
 
 /// @nodoc
 class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
@@ -1308,7 +1313,7 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
   }
 }
 
-abstract class _ViewerUser implements ViewerUser {
+abstract class _ViewerUser implements ViewerUser, BaseUser {
   const factory _ViewerUser(
       {@required
           String id,

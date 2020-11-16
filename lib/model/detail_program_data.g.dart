@@ -143,9 +143,8 @@ Map<String, dynamic> _$_$_VideoHandoutsToJson(_$_VideoHandouts instance) =>
 _$_Handouts _$_$_HandoutsFromJson(Map<String, dynamic> json) {
   return _$_Handouts(
     items: (json['items'] as List)
-        ?.map((e) => e == null
-            ? null
-            : DetailPrgItem.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : Handout.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     nextToken: json['nextToken'] as String,
     typename: json['__typename'] as String,

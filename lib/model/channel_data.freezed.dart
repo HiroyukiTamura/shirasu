@@ -116,7 +116,7 @@ class __$ChannelDataCopyWithImpl<$Res> extends _$ChannelDataCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_ChannelData implements _ChannelData {
-  _$_ChannelData({@required this.channel}) : assert(channel != null);
+  const _$_ChannelData({@required this.channel}) : assert(channel != null);
 
   factory _$_ChannelData.fromJson(Map<String, dynamic> json) =>
       _$_$_ChannelDataFromJson(json);
@@ -152,7 +152,7 @@ class _$_ChannelData implements _ChannelData {
 }
 
 abstract class _ChannelData implements ChannelData {
-  factory _ChannelData({@required Channel channel}) = _$_ChannelData;
+  const factory _ChannelData({@required Channel channel}) = _$_ChannelData;
 
   factory _ChannelData.fromJson(Map<String, dynamic> json) =
       _$_ChannelData.fromJson;
@@ -416,10 +416,11 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseChannel)
 
 /// @nodoc
 class _$_Channel implements _Channel {
-  _$_Channel(
+  const _$_Channel(
       {@required
           this.id,
       @required
@@ -541,8 +542,8 @@ class _$_Channel implements _Channel {
   }
 }
 
-abstract class _Channel implements Channel {
-  factory _Channel(
+abstract class _Channel implements Channel, BaseChannel {
+  const factory _Channel(
       {@required
           String id,
       @required
@@ -717,10 +718,11 @@ class __$AnnouncementsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseModelChannelAnnouncementConnection)
 
 /// @nodoc
 class _$_Announcements implements _Announcements {
-  _$_Announcements(
+  const _$_Announcements(
       {@required
           this.items,
       this.nextToken,
@@ -779,8 +781,9 @@ class _$_Announcements implements _Announcements {
   }
 }
 
-abstract class _Announcements implements Announcements {
-  factory _Announcements(
+abstract class _Announcements
+    implements Announcements, BaseModelChannelAnnouncementConnection {
+  const factory _Announcements(
       {@required
           List<AnnouncementsItem> items,
       String nextToken,
@@ -998,10 +1001,11 @@ class __$AnnouncementsItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseChannelAnnouncement)
 
 /// @nodoc
 class _$_AnnouncementsItem implements _AnnouncementsItem {
-  _$_AnnouncementsItem(
+  const _$_AnnouncementsItem(
       {@required
           this.id,
       @required
@@ -1113,8 +1117,9 @@ class _$_AnnouncementsItem implements _AnnouncementsItem {
   }
 }
 
-abstract class _AnnouncementsItem implements AnnouncementsItem {
-  factory _AnnouncementsItem(
+abstract class _AnnouncementsItem
+    implements AnnouncementsItem, BaseChannelAnnouncement {
+  const factory _AnnouncementsItem(
       {@required
           String id,
       @required
@@ -1286,10 +1291,11 @@ class __$ChannelProgramsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseModelProgramConnection)
 
 /// @nodoc
 class _$_ChannelPrograms implements _ChannelPrograms {
-  _$_ChannelPrograms(
+  const _$_ChannelPrograms(
       {@required
           this.items,
       this.nextToken,
@@ -1348,8 +1354,9 @@ class _$_ChannelPrograms implements _ChannelPrograms {
   }
 }
 
-abstract class _ChannelPrograms implements ChannelPrograms {
-  factory _ChannelPrograms(
+abstract class _ChannelPrograms
+    implements ChannelPrograms, BaseModelProgramConnection {
+  const factory _ChannelPrograms(
       {@required
           List<ProgramsItem> items,
       String nextToken,
@@ -1555,10 +1562,11 @@ class __$ProgramsItemCopyWithImpl<$Res> extends _$ProgramsItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseProgram)
 
 /// @nodoc
 class _$_ProgramsItem implements _ProgramsItem {
-  _$_ProgramsItem(
+  const _$_ProgramsItem(
       {@required
           this.id,
       @required
@@ -1663,8 +1671,8 @@ class _$_ProgramsItem implements _ProgramsItem {
   }
 }
 
-abstract class _ProgramsItem implements ProgramsItem {
-  factory _ProgramsItem(
+abstract class _ProgramsItem implements ProgramsItem, BaseProgram {
+  const factory _ProgramsItem(
       {@required
           String id,
       @required
@@ -1885,10 +1893,11 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseSubscriptionPlan)
 
 /// @nodoc
 class _$_SubscriptionPlan implements _SubscriptionPlan {
-  _$_SubscriptionPlan(
+  const _$_SubscriptionPlan(
       {@required
           this.id,
       @required
@@ -1973,8 +1982,9 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan implements SubscriptionPlan {
-  factory _SubscriptionPlan(
+abstract class _SubscriptionPlan
+    implements SubscriptionPlan, BaseSubscriptionPlan {
+  const factory _SubscriptionPlan(
       {@required
           String id,
       @required
@@ -2124,10 +2134,11 @@ class __$PurchasedPlanCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BasePurchasedPlan)
 
 /// @nodoc
 class _$_PurchasedPlan implements _PurchasedPlan {
-  _$_PurchasedPlan(
+  const _$_PurchasedPlan(
       {@required
           this.isActive,
       @required
@@ -2180,8 +2191,8 @@ class _$_PurchasedPlan implements _PurchasedPlan {
   }
 }
 
-abstract class _PurchasedPlan implements PurchasedPlan {
-  factory _PurchasedPlan(
+abstract class _PurchasedPlan implements PurchasedPlan, BasePurchasedPlan {
+  const factory _PurchasedPlan(
       {@required
           bool isActive,
       @required

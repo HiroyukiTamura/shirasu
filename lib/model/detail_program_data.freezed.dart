@@ -613,6 +613,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseProgram)
 
 /// @nodoc
 class _$_ProgramDetail implements _ProgramDetail {
@@ -841,7 +842,7 @@ class _$_ProgramDetail implements _ProgramDetail {
   }
 }
 
-abstract class _ProgramDetail implements ProgramDetail {
+abstract class _ProgramDetail implements ProgramDetail, BaseProgram {
   const factory _ProgramDetail(
       {@required
           String id,
@@ -1103,6 +1104,7 @@ class __$DetailPrgChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseChannel)
 
 /// @nodoc
 class _$_DetailPrgChannel implements _DetailPrgChannel {
@@ -1190,7 +1192,7 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
   }
 }
 
-abstract class _DetailPrgChannel implements DetailPrgChannel {
+abstract class _DetailPrgChannel implements DetailPrgChannel, BaseChannel {
   const factory _DetailPrgChannel(
       {@required
           String id,
@@ -1350,6 +1352,7 @@ class __$VideoHandoutsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseModelHandoutConnection)
 
 /// @nodoc
 class _$_VideoHandouts implements _VideoHandouts {
@@ -1412,7 +1415,8 @@ class _$_VideoHandouts implements _VideoHandouts {
   }
 }
 
-abstract class _VideoHandouts implements VideoHandouts {
+abstract class _VideoHandouts
+    implements VideoHandouts, BaseModelHandoutConnection {
   const factory _VideoHandouts(
       {@required
           List<DetailPrgItem> items,
@@ -1448,11 +1452,11 @@ class _$HandoutsTearOff {
 // ignore: unused_element
   _Handouts call(
       {@required
-          List<DetailPrgItem> items,
+          List<Handout> items,
       String nextToken,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
+      @Assert('typename == "Handouts"')
           String typename}) {
     return _Handouts(
       items: items,
@@ -1473,10 +1477,10 @@ const $Handouts = _$HandoutsTearOff();
 
 /// @nodoc
 mixin _$Handouts {
-  List<DetailPrgItem> get items;
+  List<Handout> get items;
   String get nextToken;
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelHandoutConnection"')
+  @Assert('typename == "Handouts"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1488,10 +1492,10 @@ abstract class $HandoutsCopyWith<$Res> {
   factory $HandoutsCopyWith(Handouts value, $Res Function(Handouts) then) =
       _$HandoutsCopyWithImpl<$Res>;
   $Res call(
-      {List<DetailPrgItem> items,
+      {List<Handout> items,
       String nextToken,
       @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
+      @Assert('typename == "Handouts"')
           String typename});
 }
 
@@ -1510,7 +1514,7 @@ class _$HandoutsCopyWithImpl<$Res> implements $HandoutsCopyWith<$Res> {
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<DetailPrgItem>,
+      items: items == freezed ? _value.items : items as List<Handout>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1523,10 +1527,10 @@ abstract class _$HandoutsCopyWith<$Res> implements $HandoutsCopyWith<$Res> {
       __$HandoutsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<DetailPrgItem> items,
+      {List<Handout> items,
       String nextToken,
       @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
+      @Assert('typename == "Handouts"')
           String typename});
 }
 
@@ -1546,7 +1550,7 @@ class __$HandoutsCopyWithImpl<$Res> extends _$HandoutsCopyWithImpl<$Res>
     Object typename = freezed,
   }) {
     return _then(_Handouts(
-      items: items == freezed ? _value.items : items as List<DetailPrgItem>,
+      items: items == freezed ? _value.items : items as List<Handout>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1554,6 +1558,7 @@ class __$HandoutsCopyWithImpl<$Res> extends _$HandoutsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseHandouts)
 
 /// @nodoc
 class _$_Handouts implements _Handouts {
@@ -1563,7 +1568,7 @@ class _$_Handouts implements _Handouts {
       this.nextToken,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
+      @Assert('typename == "Handouts"')
           this.typename})
       : assert(items != null),
         assert(typename != null);
@@ -1572,12 +1577,12 @@ class _$_Handouts implements _Handouts {
       _$_$_HandoutsFromJson(json);
 
   @override
-  final List<DetailPrgItem> items;
+  final List<Handout> items;
   @override
   final String nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelHandoutConnection"')
+  @Assert('typename == "Handouts"')
   final String typename;
 
   @override
@@ -1616,25 +1621,25 @@ class _$_Handouts implements _Handouts {
   }
 }
 
-abstract class _Handouts implements Handouts {
+abstract class _Handouts implements Handouts, BaseHandouts {
   const factory _Handouts(
       {@required
-          List<DetailPrgItem> items,
+          List<Handout> items,
       String nextToken,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
+      @Assert('typename == "Handouts"')
           String typename}) = _$_Handouts;
 
   factory _Handouts.fromJson(Map<String, dynamic> json) = _$_Handouts.fromJson;
 
   @override
-  List<DetailPrgItem> get items;
+  List<Handout> get items;
   @override
   String get nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelHandoutConnection"')
+  @Assert('typename == "Handouts"')
   String get typename;
   @override
   _$HandoutsCopyWith<_Handouts> get copyWith;
@@ -1791,6 +1796,7 @@ class __$HandoutCopyWithImpl<$Res> extends _$HandoutCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseHandout)
 
 /// @nodoc
 class _$_Handout implements _Handout {
@@ -1879,7 +1885,7 @@ class _$_Handout implements _Handout {
   }
 }
 
-abstract class _Handout implements Handout {
+abstract class _Handout implements Handout, BaseHandout {
   const factory _Handout(
       {@required
           String id,
@@ -2070,6 +2076,7 @@ class __$DetailPrgItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseVideo)
 
 /// @nodoc
 class _$_DetailPrgItem extends _DetailPrgItem {
@@ -2156,7 +2163,7 @@ class _$_DetailPrgItem extends _DetailPrgItem {
   }
 }
 
-abstract class _DetailPrgItem extends DetailPrgItem {
+abstract class _DetailPrgItem extends DetailPrgItem implements BaseVideo {
   const _DetailPrgItem._() : super._();
   const factory _DetailPrgItem(
       {@required
@@ -2411,6 +2418,7 @@ class __$OnetimePlanCopyWithImpl<$Res> extends _$OnetimePlanCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseOneTimePlan)
 
 /// @nodoc
 class _$_OnetimePlan implements _OnetimePlan {
@@ -2543,7 +2551,7 @@ class _$_OnetimePlan implements _OnetimePlan {
   }
 }
 
-abstract class _OnetimePlan implements OnetimePlan {
+abstract class _OnetimePlan implements OnetimePlan, BaseOneTimePlan {
   const factory _OnetimePlan(
       {@required
           String id,
@@ -2766,6 +2774,7 @@ class __$ExtensionCopyWithImpl<$Res> extends _$ExtensionCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseExtension)
 
 /// @nodoc
 class _$_Extension implements _Extension {
@@ -2848,7 +2857,7 @@ class _$_Extension implements _Extension {
   }
 }
 
-abstract class _Extension implements Extension {
+abstract class _Extension implements Extension, BaseExtension {
   const factory _Extension(
       {@required
           String id,
@@ -3000,6 +3009,7 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseViewer)
 
 /// @nodoc
 class _$_Viewer implements _Viewer {
@@ -3063,7 +3073,7 @@ class _$_Viewer implements _Viewer {
   }
 }
 
-abstract class _Viewer implements Viewer {
+abstract class _Viewer implements Viewer, BaseViewer {
   const factory _Viewer(
       {@required
           String name,

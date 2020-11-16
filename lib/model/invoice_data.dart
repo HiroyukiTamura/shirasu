@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/model/base_model.dart';
 
 part 'invoice_data.freezed.dart';
 
@@ -16,6 +17,7 @@ abstract class InvoiceData with _$InvoiceData {
 
 @freezed
 abstract class Invoice with _$Invoice {
+  @Implements(BaseInvoice)
   const factory Invoice({
     @required String id,
     @required DateTime createdAt,

@@ -1,21 +1,24 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/model/base_model.dart';
 
 part 'channel_data.freezed.dart';
-part 'channel_data.g.dart';
 
+part 'channel_data.g.dart';
 
 @freezed
 abstract class ChannelData with _$ChannelData {
-  factory ChannelData({
+  const factory ChannelData({
     @required Channel channel,
   }) = _ChannelData;
 
-  factory ChannelData.fromJson(Map<String, dynamic> json) => _$ChannelDataFromJson(json);
+  factory ChannelData.fromJson(Map<String, dynamic> json) =>
+      _$ChannelDataFromJson(json);
 }
 
 @freezed
 abstract class Channel with _$Channel {
-  factory Channel({
+  @Implements(BaseChannel)
+  const factory Channel({
     @required String id,
     @required String name,
     dynamic icon,
@@ -23,29 +26,39 @@ abstract class Channel with _$Channel {
     String facebookUrl,
     String textOnPurchaseScreen,
     @required String detail,
-    @required @Assert('typename == "Channel"') @JsonKey(name: '__typename') String typename,
+    @required
+    @Assert('typename == "Channel"')
+    @JsonKey(name: '__typename')
+        String typename,
     @required SubscriptionPlan subscriptionPlan,
     @required ChannelPrograms programs,
     @required Announcements announcements,
   }) = _Channel;
 
-  factory Channel.fromJson(Map<String, dynamic> json) => _$ChannelFromJson(json);
+  factory Channel.fromJson(Map<String, dynamic> json) =>
+      _$ChannelFromJson(json);
 }
 
 @freezed
 abstract class Announcements with _$Announcements {
-  factory Announcements({
+  @Implements(BaseModelChannelAnnouncementConnection)
+  const factory Announcements({
     @required List<AnnouncementsItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') @Assert('typename == "ModelChannelAnnouncementConnection"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "ModelChannelAnnouncementConnection"')
+        String typename,
   }) = _Announcements;
 
-  factory Announcements.fromJson(Map<String, dynamic> json) => _$AnnouncementsFromJson(json);
+  factory Announcements.fromJson(Map<String, dynamic> json) =>
+      _$AnnouncementsFromJson(json);
 }
 
 @freezed
 abstract class AnnouncementsItem with _$AnnouncementsItem {
-  factory AnnouncementsItem({
+  @Implements(BaseChannelAnnouncement)
+  const factory AnnouncementsItem({
     @required String id,
     @required bool isOpen,
     @required bool isSubscriberOnly,
@@ -54,26 +67,36 @@ abstract class AnnouncementsItem with _$AnnouncementsItem {
     @required DateTime publishedAt,
     @required DateTime createdAt,
     @required DateTime updatedAt,
-    @required @JsonKey(name: '__typename') @Assert('typename == "ChannelAnnouncement"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "ChannelAnnouncement"')
+        String typename,
   }) = _AnnouncementsItem;
 
-  factory AnnouncementsItem.fromJson(Map<String, dynamic> json) => _$AnnouncementsItemFromJson(json);
+  factory AnnouncementsItem.fromJson(Map<String, dynamic> json) =>
+      _$AnnouncementsItemFromJson(json);
 }
 
 @freezed
 abstract class ChannelPrograms with _$ChannelPrograms {
-  factory ChannelPrograms({
+  @Implements(BaseModelProgramConnection)
+  const factory ChannelPrograms({
     @required List<ProgramsItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') @Assert('typename == "ModelProgramConnection"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "ModelProgramConnection"')
+        String typename,
   }) = _ChannelPrograms;
 
-  factory ChannelPrograms.fromJson(Map<String, dynamic> json) => _$ChannelProgramsFromJson(json);
+  factory ChannelPrograms.fromJson(Map<String, dynamic> json) =>
+      _$ChannelProgramsFromJson(json);
 }
 
 @freezed
 abstract class ProgramsItem with _$ProgramsItem {
-  factory ProgramsItem({
+  @Implements(BaseProgram)
+  const factory ProgramsItem({
     @required String id,
     @required String tenantId,
     @required String channelId,
@@ -81,32 +104,46 @@ abstract class ProgramsItem with _$ProgramsItem {
     @required DateTime broadcastAt,
     @required int totalPlayTime,
     @required String viewerPlanType,
-    @required @JsonKey(name: '__typename') @Assert('typename == "Program"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "Program"')
+        String typename,
   }) = _ProgramsItem;
 
-  factory ProgramsItem.fromJson(Map<String, dynamic> json) => _$ProgramsItemFromJson(json);
+  factory ProgramsItem.fromJson(Map<String, dynamic> json) =>
+      _$ProgramsItemFromJson(json);
 }
 
 @freezed
 abstract class SubscriptionPlan with _$SubscriptionPlan {
-  factory SubscriptionPlan({
+  @Implements(BaseSubscriptionPlan)
+  const factory SubscriptionPlan({
     @required String id,
     @required int amount,
     @required String currency,
     @required bool isPurchasable,
-    @required @JsonKey(name: '__typename') @Assert('typename == "SubscriptionPlan"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "SubscriptionPlan"')
+        String typename,
     PurchasedPlan viewerPurchasedPlan, // null => not purchased
   }) = _SubscriptionPlan;
 
-  factory SubscriptionPlan.fromJson(Map<String, dynamic> json) => _$SubscriptionPlanFromJson(json);
+  factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionPlanFromJson(json);
 }
 
 @freezed
 abstract class PurchasedPlan with _$PurchasedPlan {
-  factory PurchasedPlan({
-      @required bool isActive,
-      @required @JsonKey(name: '__typename') @Assert('typename == "PurchasedPlan"') String typename,
+  @Implements(BasePurchasedPlan)
+  const factory PurchasedPlan({
+    @required bool isActive,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "PurchasedPlan"')
+        String typename,
   }) = _PurchasedPlan;
 
-  factory PurchasedPlan.fromJson(Map<String, dynamic> json) => _$PurchasedPlanFromJson(json);
+  factory PurchasedPlan.fromJson(Map<String, dynamic> json) =>
+      _$PurchasedPlanFromJson(json);
 }

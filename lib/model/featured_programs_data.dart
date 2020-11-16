@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shirasu/model/base_model.dart';
 
 part 'featured_programs_data.freezed.dart';
 
@@ -24,6 +25,7 @@ abstract class FeatureProgramData implements _$FeatureProgramData {
 
 @freezed
 abstract class Broadcastings with _$Broadcastings {
+  @Implements(BaseSearchableProgramConnection)
   const factory Broadcastings({
     @required List<Item> items,
     @JsonKey(name: '__typename')
@@ -38,6 +40,7 @@ abstract class Broadcastings with _$Broadcastings {
 
 @freezed
 abstract class Item with _$Item {
+  @Implements(BaseProgram)
   const factory Item({
     @required DateTime broadcastAt,
     @required String channelId,
@@ -49,7 +52,10 @@ abstract class Item with _$Item {
     @required int totalPlayTime,
     String viewerPlanType,
     @required Channel channel,
-    @JsonKey(name: '__typename') @required @Assert('typename == "Program"') String typename,
+    @JsonKey(name: '__typename')
+    @required
+    @Assert('typename == "Program"')
+        String typename,
   }) = _Item;
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
@@ -57,10 +63,14 @@ abstract class Item with _$Item {
 
 @freezed
 abstract class Channel with _$Channel {
+  @Implements(BaseChannel)
   const factory Channel({
     @required String id,
     @required String name,
-    @JsonKey(name: '__typename') @required @Assert('typename == "Channel"') String typename,
+    @JsonKey(name: '__typename')
+    @required
+    @Assert('typename == "Channel"')
+        String typename,
   }) = _Channel;
 
   factory Channel.fromJson(Map<String, dynamic> json) =>
@@ -69,10 +79,14 @@ abstract class Channel with _$Channel {
 
 @freezed
 abstract class ViewerUser with _$ViewerUser {
+  @Implements(BaseUser)
   const factory ViewerUser({
     @required String id,
     @required List<Item> subscribedPrograms,
-    @JsonKey(name: '__typename') @required @Assert('typename == "User"') String typename,
+    @JsonKey(name: '__typename')
+    @required
+    @Assert('typename == "User"')
+        String typename,
   }) = _ViewerUser;
 
   factory ViewerUser.fromJson(Map<String, dynamic> json) =>

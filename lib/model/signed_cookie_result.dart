@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'signed_cookie_result.freezed.dart';
+
 part 'signed_cookie_result.g.dart';
 
 @freezed

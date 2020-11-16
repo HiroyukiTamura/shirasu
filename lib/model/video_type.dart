@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-enum VideoType {
-  ARCHIVED, LIVE
-}
+enum VideoType { ARCHIVED, LIVE }
 
 @immutable
 abstract class VideoTypeGetter {
-
   VideoType get videoTypeStrict;
 
   static VideoType parse(String value) {

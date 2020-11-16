@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/model/base_model.dart';
 
 part 'new_programs_data.freezed.dart';
 
@@ -16,6 +17,7 @@ abstract class NewProgramsData with _$NewProgramsData {
 
 @freezed
 abstract class NewPrograms with _$NewPrograms {
+  @Implements(BaseSearchableProgramConnection)
   const factory NewPrograms({
     @required List<NewProgramItem> items,
     String nextToken,
@@ -31,6 +33,7 @@ abstract class NewPrograms with _$NewPrograms {
 
 @freezed
 abstract class NewProgramItem with _$NewProgramItem {
+  @Implements(BaseProgram)
   const factory NewProgramItem({
     @required DateTime broadcastAt,
     @required String channelId,
@@ -54,10 +57,14 @@ abstract class NewProgramItem with _$NewProgramItem {
 
 @freezed
 abstract class NewProgramChannel with _$NewProgramChannel {
+  @Implements(BaseChannel)
   const factory NewProgramChannel({
     @required String id,
     @required String name,
-    @JsonKey(name: '__typename') @required @Assert('typename == "Channel"') String typename,
+    @JsonKey(name: '__typename')
+    @required
+    @Assert('typename == "Channel"')
+        String typename,
   }) = _NewProgramChannel;
 
   factory NewProgramChannel.fromJson(Map<String, dynamic> json) =>

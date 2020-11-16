@@ -124,7 +124,7 @@ class __$ChannelSubscriptionPlanCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_ChannelSubscriptionPlan implements _ChannelSubscriptionPlan {
-  _$_ChannelSubscriptionPlan({@required this.channel})
+  const _$_ChannelSubscriptionPlan({@required this.channel})
       : assert(channel != null);
 
   factory _$_ChannelSubscriptionPlan.fromJson(Map<String, dynamic> json) =>
@@ -162,7 +162,7 @@ class _$_ChannelSubscriptionPlan implements _ChannelSubscriptionPlan {
 }
 
 abstract class _ChannelSubscriptionPlan implements ChannelSubscriptionPlan {
-  factory _ChannelSubscriptionPlan(
+  const factory _ChannelSubscriptionPlan(
       {@required ChannelSubscriptionPlan channel}) = _$_ChannelSubscriptionPlan;
 
   factory _ChannelSubscriptionPlan.fromJson(Map<String, dynamic> json) =
@@ -184,8 +184,12 @@ class _$ChannelTearOff {
 
 // ignore: unused_element
   _Channel call(
-      {@required SubscriptionPlan subscriptionPlan,
-      @required String typename}) {
+      {@required
+          SubscriptionPlan subscriptionPlan,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Channel"')
+          String typename}) {
     return _Channel(
       subscriptionPlan: subscriptionPlan,
       typename: typename,
@@ -205,6 +209,8 @@ const $Channel = _$ChannelTearOff();
 /// @nodoc
 mixin _$Channel {
   SubscriptionPlan get subscriptionPlan;
+  @JsonKey(name: '__typename')
+  @Assert('typename == "Channel"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -215,7 +221,11 @@ mixin _$Channel {
 abstract class $ChannelCopyWith<$Res> {
   factory $ChannelCopyWith(Channel value, $Res Function(Channel) then) =
       _$ChannelCopyWithImpl<$Res>;
-  $Res call({SubscriptionPlan subscriptionPlan, String typename});
+  $Res call(
+      {SubscriptionPlan subscriptionPlan,
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Channel"')
+          String typename});
 
   $SubscriptionPlanCopyWith<$Res> get subscriptionPlan;
 }
@@ -257,7 +267,11 @@ abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
   factory _$ChannelCopyWith(_Channel value, $Res Function(_Channel) then) =
       __$ChannelCopyWithImpl<$Res>;
   @override
-  $Res call({SubscriptionPlan subscriptionPlan, String typename});
+  $Res call(
+      {SubscriptionPlan subscriptionPlan,
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Channel"')
+          String typename});
 
   @override
   $SubscriptionPlanCopyWith<$Res> get subscriptionPlan;
@@ -287,10 +301,17 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseChannel)
 
 /// @nodoc
 class _$_Channel implements _Channel {
-  _$_Channel({@required this.subscriptionPlan, @required this.typename})
+  const _$_Channel(
+      {@required
+          this.subscriptionPlan,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Channel"')
+          this.typename})
       : assert(subscriptionPlan != null),
         assert(typename != null);
 
@@ -300,6 +321,8 @@ class _$_Channel implements _Channel {
   @override
   final SubscriptionPlan subscriptionPlan;
   @override
+  @JsonKey(name: '__typename')
+  @Assert('typename == "Channel"')
   final String typename;
 
   @override
@@ -335,16 +358,22 @@ class _$_Channel implements _Channel {
   }
 }
 
-abstract class _Channel implements Channel {
-  factory _Channel(
-      {@required SubscriptionPlan subscriptionPlan,
-      @required String typename}) = _$_Channel;
+abstract class _Channel implements Channel, BaseChannel {
+  const factory _Channel(
+      {@required
+          SubscriptionPlan subscriptionPlan,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Channel"')
+          String typename}) = _$_Channel;
 
   factory _Channel.fromJson(Map<String, dynamic> json) = _$_Channel.fromJson;
 
   @override
   SubscriptionPlan get subscriptionPlan;
   @override
+  @JsonKey(name: '__typename')
+  @Assert('typename == "Channel"')
   String get typename;
   @override
   _$ChannelCopyWith<_Channel> get copyWith;
@@ -580,10 +609,11 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@Implements(BaseSubscriptionPlan)
 
 /// @nodoc
 class _$_SubscriptionPlan implements _SubscriptionPlan {
-  _$_SubscriptionPlan(
+  const _$_SubscriptionPlan(
       {@required
           this.id,
       this.parentPlanType,
@@ -719,8 +749,9 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan implements SubscriptionPlan {
-  factory _SubscriptionPlan(
+abstract class _SubscriptionPlan
+    implements SubscriptionPlan, BaseSubscriptionPlan {
+  const factory _SubscriptionPlan(
       {@required
           String id,
       String parentPlanType,

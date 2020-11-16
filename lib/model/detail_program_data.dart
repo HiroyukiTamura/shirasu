@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
 
@@ -19,6 +20,7 @@ abstract class ProgramDetailData with _$ProgramDetailData {
 
 @freezed
 abstract class ProgramDetail with _$ProgramDetail {
+  @Implements(BaseProgram)
   const factory ProgramDetail({
     @required String id,
     @required String channelId,
@@ -39,7 +41,10 @@ abstract class ProgramDetail with _$ProgramDetail {
     @required String releaseState,
     @required bool shouldArchive,
     @required List<dynamic> extensions,
-    @required @JsonKey(name: '__typename') @Assert('typename == "Program"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "Program"')
+        String typename,
     @required DetailPrgChannel channel,
     @required Handouts handouts,
     @required VideoHandouts videos,
@@ -52,13 +57,17 @@ abstract class ProgramDetail with _$ProgramDetail {
 
 @freezed
 abstract class DetailPrgChannel with _$DetailPrgChannel {
+  @Implements(BaseChannel)
   const factory DetailPrgChannel({
     @required String id,
     @required String tenantId,
     @required String name,
     dynamic icon,
     @required String textOnPurchaseScreen,
-    @required @JsonKey(name: '__typename') @Assert('typename == "Channel"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "Channel"')
+        String typename,
   }) = _DetailPrgChannel;
 
   factory DetailPrgChannel.fromJson(Map<String, dynamic> json) =>
@@ -67,10 +76,14 @@ abstract class DetailPrgChannel with _$DetailPrgChannel {
 
 @freezed
 abstract class VideoHandouts with _$VideoHandouts {
+  @Implements(BaseModelHandoutConnection)
   const factory VideoHandouts({
     @required List<DetailPrgItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') @Assert('typename == "ModelHandoutConnection"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "ModelHandoutConnection"')
+        String typename,
   }) = _VideoHandouts;
 
   factory VideoHandouts.fromJson(Map<String, dynamic> json) =>
@@ -79,10 +92,14 @@ abstract class VideoHandouts with _$VideoHandouts {
 
 @freezed
 abstract class Handouts with _$Handouts {
+  @Implements(BaseHandouts)
   const factory Handouts({
-    @required List<DetailPrgItem> items,
+    @required List<Handout> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') @Assert('typename == "ModelHandoutConnection"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "Handouts"')
+        String typename,
   }) = _Handouts;
 
   factory Handouts.fromJson(Map<String, dynamic> json) =>
@@ -91,13 +108,17 @@ abstract class Handouts with _$Handouts {
 
 @freezed
 abstract class Handout with _$Handout {
+  @Implements(BaseHandout)
   const factory Handout({
     @required String id,
     @required String programId,
     String extensionId,
     @required String name,
     @required DateTime createdAt,
-    @required @JsonKey(name: '__typename') @Assert('typename == "Handout"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "Handout"')
+        String typename,
   }) = _Handout;
 
   factory Handout.fromJson(Map<String, dynamic> json) =>
@@ -107,13 +128,17 @@ abstract class Handout with _$Handout {
 @freezed
 abstract class DetailPrgItem
     with _$DetailPrgItem, VideoTypeGetter, MediaStatusGetter {
+  @Implements(BaseVideo)
   const factory DetailPrgItem({
     @required String id,
     @required String videoType,
     String mediaStatus,
     String liveUrl,
     String archiveUrl,
-    @required @JsonKey(name: '__typename') @Assert('typename == "Video"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "Video"')
+        String typename,
   }) = _DetailPrgItem;
 
   factory DetailPrgItem.fromJson(Map<String, dynamic> json) =>
@@ -141,6 +166,7 @@ abstract class DetailPrgItem
 
 @freezed
 abstract class OnetimePlan with _$OnetimePlan {
+  @Implements(BaseOneTimePlan)
   const factory OnetimePlan({
     @required String id,
     @required String parentPlanType,
@@ -152,7 +178,10 @@ abstract class OnetimePlan with _$OnetimePlan {
     @required String currency,
     @required bool isPurchasable,
     String viewerPurchasedPlan,
-    @required @JsonKey(name: '__typename') @Assert('typename == "OneTimePlan"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "OneTimePlan"')
+        String typename,
   }) = _OnetimePlan;
 
   factory OnetimePlan.fromJson(Map<String, dynamic> json) =>
@@ -161,24 +190,32 @@ abstract class OnetimePlan with _$OnetimePlan {
 
 @freezed
 abstract class Extension with _$Extension {
+  @Implements(BaseExtension)
   const factory Extension({
     @required String id,
     @required int extensionTime,
     @required String oneTimePlanId,
     @required OnetimePlan oneTimePlan,
-    @required @JsonKey(name: '__typename') @Assert('typename == "LiveExtension"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "LiveExtension"')
+        String typename,
   }) = _Extension;
 
   factory Extension.fromJson(Map<String, dynamic> json) =>
       _$ExtensionFromJson(json);
-} 
+}
 
 @freezed
 abstract class Viewer with _$Viewer {
+  @Implements(BaseViewer)
   const factory Viewer({
     @required String name,
     @required String icon,
-    @required @JsonKey(name: '__typename') @Assert('typename == "Viewer"') String typename,
+    @required
+    @JsonKey(name: '__typename')
+    @Assert('typename == "Viewer"')
+        String typename,
   }) = _Viewer;
 
   factory Viewer.fromJson(Map<String, dynamic> json) => _$ViewerFromJson(json);

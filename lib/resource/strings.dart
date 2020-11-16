@@ -75,4 +75,10 @@ static const String WAIT_FOR_START = '放送開始までお待ちください';
   static const String PURCHASE_BTN_TEXT = 'この動画を購入する・チャンネルを購読する';
   static const String PREVIEW_BTN_TEXT = '冒頭を無料で見る';
 //endregion
+
+//region ScreenSubscribing
+  static const String TAB_MY_LIST = 'マイリスト';
+static const String TAB_SUBSCRIBING = '購読中';
+static const String TAB_WATCH_HISTORY = '視聴履歴';
+//endregion
 }

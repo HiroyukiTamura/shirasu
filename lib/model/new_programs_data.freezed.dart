@@ -122,7 +122,7 @@ class __$NewProgramsDataCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_NewProgramsData extends _NewProgramsData {
-  _$_NewProgramsData({@required this.newPrograms})
+  const _$_NewProgramsData({@required this.newPrograms})
       : assert(newPrograms != null),
         super._();
 
@@ -161,8 +161,8 @@ class _$_NewProgramsData extends _NewProgramsData {
 }
 
 abstract class _NewProgramsData extends NewProgramsData {
-  _NewProgramsData._() : super._();
-  factory _NewProgramsData({@required NewPrograms newPrograms}) =
+  const _NewProgramsData._() : super._();
+  const factory _NewProgramsData({@required NewPrograms newPrograms}) =
       _$_NewProgramsData;
 
   factory _NewProgramsData.fromJson(Map<String, dynamic> json) =
@@ -289,7 +289,7 @@ class __$NewProgramsCopyWithImpl<$Res> extends _$NewProgramsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_NewPrograms implements _NewPrograms {
-  _$_NewPrograms(
+  const _$_NewPrograms(
       {@required this.items,
       this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
@@ -344,7 +344,7 @@ class _$_NewPrograms implements _NewPrograms {
 }
 
 abstract class _NewPrograms implements NewPrograms {
-  factory _NewPrograms(
+  const factory _NewPrograms(
       {@required List<NewProgramItem> items,
       String nextToken,
       @required @JsonKey(name: '__typename') String typename}) = _$_NewPrograms;
@@ -581,7 +581,7 @@ class __$NewProgramItemCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_NewProgramItem implements _NewProgramItem {
-  _$_NewProgramItem(
+  const _$_NewProgramItem(
       {@required this.broadcastAt,
       @required this.channelId,
       @required this.id,
@@ -699,7 +699,7 @@ class _$_NewProgramItem implements _NewProgramItem {
 }
 
 abstract class _NewProgramItem implements NewProgramItem {
-  factory _NewProgramItem(
+  const factory _NewProgramItem(
           {@required DateTime broadcastAt,
           @required String channelId,
           @required String id,
@@ -856,7 +856,7 @@ class __$NewProgramChannelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_NewProgramChannel implements _NewProgramChannel {
-  _$_NewProgramChannel(
+  const _$_NewProgramChannel(
       {@required this.id,
       @required this.name,
       @required @JsonKey(name: '__typename') this.typename})
@@ -911,7 +911,7 @@ class _$_NewProgramChannel implements _NewProgramChannel {
 }
 
 abstract class _NewProgramChannel implements NewProgramChannel {
-  factory _NewProgramChannel(
+  const factory _NewProgramChannel(
           {@required String id,
           @required String name,
           @required @JsonKey(name: '__typename') String typename}) =

@@ -137,11 +137,10 @@ class __$ProgramDetailDataCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ProgramDetailData extends _ProgramDetailData {
-  _$_ProgramDetailData({@required this.viewer, @required this.program})
+class _$_ProgramDetailData implements _ProgramDetailData {
+  const _$_ProgramDetailData({@required this.viewer, @required this.program})
       : assert(viewer != null),
-        assert(program != null),
-        super._();
+        assert(program != null);
 
   factory _$_ProgramDetailData.fromJson(Map<String, dynamic> json) =>
       _$_$_ProgramDetailDataFromJson(json);
@@ -182,9 +181,8 @@ class _$_ProgramDetailData extends _ProgramDetailData {
   }
 }
 
-abstract class _ProgramDetailData extends ProgramDetailData {
-  _ProgramDetailData._() : super._();
-  factory _ProgramDetailData(
+abstract class _ProgramDetailData implements ProgramDetailData {
+  const factory _ProgramDetailData(
       {@required Viewer viewer,
       @required ProgramDetail program}) = _$_ProgramDetailData;
 
@@ -592,7 +590,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_ProgramDetail implements _ProgramDetail {
-  _$_ProgramDetail(
+  const _$_ProgramDetail(
       {@required this.id,
       @required this.channelId,
       @required this.tenantId,
@@ -796,7 +794,7 @@ class _$_ProgramDetail implements _ProgramDetail {
 }
 
 abstract class _ProgramDetail implements ProgramDetail {
-  factory _ProgramDetail(
+  const factory _ProgramDetail(
       {@required String id,
       @required String channelId,
       @required String tenantId,
@@ -1026,7 +1024,7 @@ class __$DetailPrgChannelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_DetailPrgChannel implements _DetailPrgChannel {
-  _$_DetailPrgChannel(
+  const _$_DetailPrgChannel(
       {@required this.id,
       @required this.tenantId,
       @required this.name,
@@ -1103,7 +1101,7 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
 }
 
 abstract class _DetailPrgChannel implements DetailPrgChannel {
-  factory _DetailPrgChannel(
+  const factory _DetailPrgChannel(
           {@required String id,
           @required String tenantId,
           @required String name,
@@ -1249,7 +1247,7 @@ class __$VideoHandoutsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_VideoHandouts implements _VideoHandouts {
-  _$_VideoHandouts(
+  const _$_VideoHandouts(
       {@required this.items,
       this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
@@ -1304,7 +1302,7 @@ class _$_VideoHandouts implements _VideoHandouts {
 }
 
 abstract class _VideoHandouts implements VideoHandouts {
-  factory _VideoHandouts(
+  const factory _VideoHandouts(
           {@required List<DetailPrgItem> items,
           String nextToken,
           @required @JsonKey(name: '__typename') String typename}) =
@@ -1435,7 +1433,7 @@ class __$HandoutsCopyWithImpl<$Res> extends _$HandoutsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Handouts implements _Handouts {
-  _$_Handouts(
+  const _$_Handouts(
       {@required this.items,
       this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
@@ -1490,7 +1488,7 @@ class _$_Handouts implements _Handouts {
 }
 
 abstract class _Handouts implements Handouts {
-  factory _Handouts(
+  const factory _Handouts(
       {@required List<DetailPrgItem> items,
       String nextToken,
       @required @JsonKey(name: '__typename') String typename}) = _$_Handouts;
@@ -1650,7 +1648,7 @@ class __$HandoutCopyWithImpl<$Res> extends _$HandoutCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Handout implements _Handout {
-  _$_Handout(
+  const _$_Handout(
       {@required this.id,
       @required this.programId,
       this.extensionId,
@@ -1728,7 +1726,7 @@ class _$_Handout implements _Handout {
 }
 
 abstract class _Handout implements Handout {
-  factory _Handout(
+  const factory _Handout(
       {@required String id,
       @required String programId,
       String extensionId,
@@ -1903,7 +1901,7 @@ class __$DetailPrgItemCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_DetailPrgItem extends _DetailPrgItem {
-  _$_DetailPrgItem(
+  const _$_DetailPrgItem(
       {@required this.id,
       @required this.videoType,
       this.mediaStatus,
@@ -1981,8 +1979,8 @@ class _$_DetailPrgItem extends _DetailPrgItem {
 }
 
 abstract class _DetailPrgItem extends DetailPrgItem {
-  _DetailPrgItem._() : super._();
-  factory _DetailPrgItem(
+  const _DetailPrgItem._() : super._();
+  const factory _DetailPrgItem(
           {@required String id,
           @required String videoType,
           String mediaStatus,
@@ -2216,7 +2214,7 @@ class __$OnetimePlanCopyWithImpl<$Res> extends _$OnetimePlanCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_OnetimePlan implements _OnetimePlan {
-  _$_OnetimePlan(
+  const _$_OnetimePlan(
       {@required this.id,
       @required this.parentPlanType,
       @required this.parentPlanId,
@@ -2333,7 +2331,7 @@ class _$_OnetimePlan implements _OnetimePlan {
 }
 
 abstract class _OnetimePlan implements OnetimePlan {
-  factory _OnetimePlan(
+  const factory _OnetimePlan(
       {@required String id,
       @required String parentPlanType,
       @required String parentPlanId,
@@ -2533,7 +2531,7 @@ class __$ExtensionCopyWithImpl<$Res> extends _$ExtensionCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Extension implements _Extension {
-  _$_Extension(
+  const _$_Extension(
       {@required this.id,
       @required this.extensionTime,
       @required this.oneTimePlanId,
@@ -2605,7 +2603,7 @@ class _$_Extension implements _Extension {
 }
 
 abstract class _Extension implements Extension {
-  factory _Extension(
+  const factory _Extension(
       {@required String id,
       @required int extensionTime,
       @required String oneTimePlanId,
@@ -2737,7 +2735,7 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Viewer implements _Viewer {
-  _$_Viewer(
+  const _$_Viewer(
       {@required this.name,
       @required this.icon,
       @required @JsonKey(name: '__typename') this.typename})
@@ -2792,7 +2790,7 @@ class _$_Viewer implements _Viewer {
 }
 
 abstract class _Viewer implements Viewer {
-  factory _Viewer(
+  const factory _Viewer(
       {@required String name,
       @required String icon,
       @required @JsonKey(name: '__typename') String typename}) = _$_Viewer;

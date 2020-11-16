@@ -6,7 +6,7 @@ part 'invoice_data.g.dart';
 
 @freezed
 abstract class InvoiceData with _$InvoiceData {
-  factory InvoiceData({
+  const factory InvoiceData({
     @required Invoice invoice,
   }) = _InvoiceData;
 
@@ -15,7 +15,7 @@ abstract class InvoiceData with _$InvoiceData {
 
 @freezed
 abstract class Invoice with _$Invoice {
-  factory Invoice({
+  const factory Invoice({
     @required String id,
     @required DateTime createdAt,
     @required String currency,
@@ -26,8 +26,8 @@ abstract class Invoice with _$Invoice {
     @required int tax,
     @required int total,
     @required int subtotal,
-    @required dynamic discount,
-    @required dynamic paymentIntent,
+    dynamic discount,
+    dynamic paymentIntent,
     @required @JsonKey(name: '__typename') String typename,
   }) = _Invoice;
 

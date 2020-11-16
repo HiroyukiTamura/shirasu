@@ -118,7 +118,7 @@ class __$PaymentMethodsDataCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_PaymentMethodsData implements _PaymentMethodsData {
-  _$_PaymentMethodsData({@required this.viewer}) : assert(viewer != null);
+  const _$_PaymentMethodsData({@required this.viewer}) : assert(viewer != null);
 
   factory _$_PaymentMethodsData.fromJson(Map<String, dynamic> json) =>
       _$_$_PaymentMethodsDataFromJson(json);
@@ -154,7 +154,7 @@ class _$_PaymentMethodsData implements _PaymentMethodsData {
 }
 
 abstract class _PaymentMethodsData implements PaymentMethodsData {
-  factory _PaymentMethodsData({@required Viewer viewer}) =
+  const factory _PaymentMethodsData({@required Viewer viewer}) =
       _$_PaymentMethodsData;
 
   factory _PaymentMethodsData.fromJson(Map<String, dynamic> json) =
@@ -272,7 +272,7 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Viewer implements _Viewer {
-  _$_Viewer(
+  const _$_Viewer(
       {@required this.paymentMethods,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(paymentMethods != null),
@@ -321,7 +321,7 @@ class _$_Viewer implements _Viewer {
 }
 
 abstract class _Viewer implements Viewer {
-  factory _Viewer(
+  const factory _Viewer(
       {@required List<PaymentMethod> paymentMethods,
       @required @JsonKey(name: '__typename') String typename}) = _$_Viewer;
 
@@ -475,7 +475,7 @@ class __$PaymentMethodCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_PaymentMethod implements _PaymentMethod {
-  _$_PaymentMethod(
+  const _$_PaymentMethod(
       {@required this.id,
       @required this.brand,
       @required this.last4,
@@ -545,7 +545,7 @@ class _$_PaymentMethod implements _PaymentMethod {
 }
 
 abstract class _PaymentMethod implements PaymentMethod {
-  factory _PaymentMethod(
+  const factory _PaymentMethod(
           {@required String id,
           @required String brand,
           @required String last4,

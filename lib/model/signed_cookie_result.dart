@@ -5,7 +5,7 @@ part 'signed_cookie_result.g.dart';
 
 @freezed
 abstract class SignedCookieResult with _$SignedCookieResult {
-  factory SignedCookieResult({
+  const factory SignedCookieResult({
     @required bool ok,
     String url,
     DateTime signLimitAt,

@@ -5,7 +5,7 @@ part 'payment_methods_list.g.dart';
 
 @freezed
 abstract class PaymentMethodsData with _$PaymentMethodsData {
-  factory PaymentMethodsData({
+  const factory PaymentMethodsData({
     @required Viewer viewer,
   }) = _PaymentMethodsData;
 
@@ -15,7 +15,7 @@ abstract class PaymentMethodsData with _$PaymentMethodsData {
 
 @freezed
 abstract class Viewer with _$Viewer {
-  factory Viewer({
+  const factory Viewer({
     @required List<PaymentMethod> paymentMethods,
     @required @JsonKey(name: '__typename') String typename,
   }) =_Viewer;
@@ -25,7 +25,7 @@ abstract class Viewer with _$Viewer {
 
 @freezed
 abstract class PaymentMethod with _$PaymentMethod {
-  factory PaymentMethod({
+  const factory PaymentMethod({
     @required String id,
     @required String brand,
     @required String last4,

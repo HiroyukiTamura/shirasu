@@ -7,21 +7,19 @@ part 'detail_program_data.freezed.dart';
 part 'detail_program_data.g.dart';
 
 @freezed
-abstract class ProgramDetailData implements _$ProgramDetailData {
-  factory ProgramDetailData({
+abstract class ProgramDetailData with _$ProgramDetailData {
+  const factory ProgramDetailData({
     @required Viewer viewer,
     @required ProgramDetail program,
   }) = _ProgramDetailData;
 
   factory ProgramDetailData.fromJson(Map<String, dynamic> json) =>
       _$ProgramDetailDataFromJson(json);
-
-  const ProgramDetailData._();
 }
 
 @freezed
 abstract class ProgramDetail with _$ProgramDetail {
-  factory ProgramDetail({
+  const factory ProgramDetail({
     @required String id,
     @required String channelId,
     @required String tenantId,
@@ -54,7 +52,7 @@ abstract class ProgramDetail with _$ProgramDetail {
 
 @freezed
 abstract class DetailPrgChannel with _$DetailPrgChannel {
-  factory DetailPrgChannel({
+  const factory DetailPrgChannel({
     @required String id,
     @required String tenantId,
     @required String name,
@@ -69,7 +67,7 @@ abstract class DetailPrgChannel with _$DetailPrgChannel {
 
 @freezed
 abstract class VideoHandouts with _$VideoHandouts {
-  factory VideoHandouts({
+  const factory VideoHandouts({
     @required List<DetailPrgItem> items,
     String nextToken,
     @required @JsonKey(name: '__typename') String typename,
@@ -81,7 +79,7 @@ abstract class VideoHandouts with _$VideoHandouts {
 
 @freezed
 abstract class Handouts with _$Handouts {
-  factory Handouts({
+  const factory Handouts({
     @required List<DetailPrgItem> items,
     String nextToken,
     @required @JsonKey(name: '__typename') String typename,
@@ -93,7 +91,7 @@ abstract class Handouts with _$Handouts {
 
 @freezed
 abstract class Handout with _$Handout {
-  factory Handout({
+  const factory Handout({
     @required String id,
     @required String programId,
     String extensionId,
@@ -109,7 +107,7 @@ abstract class Handout with _$Handout {
 @freezed
 abstract class DetailPrgItem
     with _$DetailPrgItem, VideoTypeGetter, MediaStatusGetter {
-  factory DetailPrgItem({
+  const factory DetailPrgItem({
     @required String id,
     @required String videoType,
     String mediaStatus,
@@ -143,7 +141,7 @@ abstract class DetailPrgItem
 
 @freezed
 abstract class OnetimePlan with _$OnetimePlan {
-  factory OnetimePlan({
+  const factory OnetimePlan({
     @required String id,
     @required String parentPlanType,
     @required String parentPlanId,
@@ -163,7 +161,7 @@ abstract class OnetimePlan with _$OnetimePlan {
 
 @freezed
 abstract class Extension with _$Extension {
-  factory Extension({
+  const factory Extension({
     @required String id,
     @required int extensionTime,
     @required String oneTimePlanId,
@@ -177,7 +175,7 @@ abstract class Extension with _$Extension {
 
 @freezed
 abstract class Viewer with _$Viewer {
-  factory Viewer({
+  const factory Viewer({
     @required String name,
     @required String icon,
     @required @JsonKey(name: '__typename') String typename,

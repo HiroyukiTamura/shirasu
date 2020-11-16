@@ -119,7 +119,7 @@ class __$ListCommentsByProgramCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_ListCommentsByProgram implements _ListCommentsByProgram {
-  _$_ListCommentsByProgram({@required this.comments})
+  const _$_ListCommentsByProgram({@required this.comments})
       : assert(comments != null);
 
   factory _$_ListCommentsByProgram.fromJson(Map<String, dynamic> json) =>
@@ -158,7 +158,7 @@ class _$_ListCommentsByProgram implements _ListCommentsByProgram {
 }
 
 abstract class _ListCommentsByProgram implements ListCommentsByProgram {
-  factory _ListCommentsByProgram({@required Comments comments}) =
+  const factory _ListCommentsByProgram({@required Comments comments}) =
       _$_ListCommentsByProgram;
 
   factory _ListCommentsByProgram.fromJson(Map<String, dynamic> json) =
@@ -281,7 +281,7 @@ class __$CommentsCopyWithImpl<$Res> extends _$CommentsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Comments implements _Comments {
-  _$_Comments(
+  const _$_Comments(
       {@required this.items,
       this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
@@ -336,7 +336,7 @@ class _$_Comments implements _Comments {
 }
 
 abstract class _Comments implements Comments {
-  factory _Comments(
+  const factory _Comments(
       {@required List<CommentItem> items,
       String nextToken,
       @required @JsonKey(name: '__typename') String typename}) = _$_Comments;
@@ -513,7 +513,7 @@ class __$CommentItemCopyWithImpl<$Res> extends _$CommentItemCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_CommentItem implements _CommentItem {
-  _$_CommentItem(
+  const _$_CommentItem(
       {@required this.id,
       @required this.text,
       @required this.commentTime,
@@ -590,7 +590,7 @@ class _$_CommentItem implements _CommentItem {
 }
 
 abstract class _CommentItem implements CommentItem {
-  factory _CommentItem(
+  const factory _CommentItem(
       {@required String id,
       @required String text,
       @required int commentTime,
@@ -738,7 +738,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_User implements _User {
-  _$_User(
+  const _$_User(
       {@required this.id,
       @required this.name,
       @required this.icon,
@@ -800,7 +800,7 @@ class _$_User implements _User {
 }
 
 abstract class _User implements User {
-  factory _User(
+  const factory _User(
       {@required String id,
       @required String name,
       @required String icon,

@@ -5,7 +5,7 @@ part 'list_comments_by_program.g.dart';
 
 @freezed
 abstract class ListCommentsByProgram with _$ListCommentsByProgram {
-  factory ListCommentsByProgram({
+  const factory ListCommentsByProgram({
     @required Comments comments,
   }) = _ListCommentsByProgram;
 
@@ -15,7 +15,7 @@ abstract class ListCommentsByProgram with _$ListCommentsByProgram {
 
 @freezed
 abstract class Comments with _$Comments {
-  factory Comments({
+  const factory Comments({
     @required List<CommentItem> items,
     String nextToken,
     @required @JsonKey(name: '__typename') String typename,
@@ -27,7 +27,7 @@ abstract class Comments with _$Comments {
 
 @freezed
 abstract class CommentItem with _$CommentItem {
-  factory CommentItem({
+  const factory CommentItem({
     @required String id,
     @required String text,
     @required int commentTime,
@@ -42,7 +42,7 @@ abstract class CommentItem with _$CommentItem {
 
 @freezed
 abstract class User with _$User {
-  factory User({
+  const factory User({
     @required String id,
     @required String name,
     @required String icon,

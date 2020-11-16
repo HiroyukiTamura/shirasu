@@ -124,7 +124,7 @@ class __$SignedCookieResultCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SignedCookieResult implements _SignedCookieResult {
-  _$_SignedCookieResult(
+  const _$_SignedCookieResult(
       {@required this.ok, this.url, this.signLimitAt, this.now})
       : assert(ok != null);
 
@@ -179,7 +179,7 @@ class _$_SignedCookieResult implements _SignedCookieResult {
 }
 
 abstract class _SignedCookieResult implements SignedCookieResult {
-  factory _SignedCookieResult(
+  const factory _SignedCookieResult(
       {@required bool ok,
       String url,
       DateTime signLimitAt,

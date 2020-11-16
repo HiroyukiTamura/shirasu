@@ -116,7 +116,7 @@ class __$InvoiceDataCopyWithImpl<$Res> extends _$InvoiceDataCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_InvoiceData implements _InvoiceData {
-  _$_InvoiceData({@required this.invoice}) : assert(invoice != null);
+  const _$_InvoiceData({@required this.invoice}) : assert(invoice != null);
 
   factory _$_InvoiceData.fromJson(Map<String, dynamic> json) =>
       _$_$_InvoiceDataFromJson(json);
@@ -152,7 +152,7 @@ class _$_InvoiceData implements _InvoiceData {
 }
 
 abstract class _InvoiceData implements InvoiceData {
-  factory _InvoiceData({@required Invoice invoice}) = _$_InvoiceData;
+  const factory _InvoiceData({@required Invoice invoice}) = _$_InvoiceData;
 
   factory _InvoiceData.fromJson(Map<String, dynamic> json) =
       _$_InvoiceData.fromJson;
@@ -183,8 +183,8 @@ class _$InvoiceTearOff {
       @required int tax,
       @required int total,
       @required int subtotal,
-      @required dynamic discount,
-      @required dynamic paymentIntent,
+      dynamic discount,
+      dynamic paymentIntent,
       @required @JsonKey(name: '__typename') String typename}) {
     return _Invoice(
       id: id,
@@ -374,7 +374,7 @@ class __$InvoiceCopyWithImpl<$Res> extends _$InvoiceCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Invoice implements _Invoice {
-  _$_Invoice(
+  const _$_Invoice(
       {@required this.id,
       @required this.createdAt,
       @required this.currency,
@@ -385,8 +385,8 @@ class _$_Invoice implements _Invoice {
       @required this.tax,
       @required this.total,
       @required this.subtotal,
-      @required this.discount,
-      @required this.paymentIntent,
+      this.discount,
+      this.paymentIntent,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(createdAt != null),
@@ -398,8 +398,6 @@ class _$_Invoice implements _Invoice {
         assert(tax != null),
         assert(total != null),
         assert(subtotal != null),
-        assert(discount != null),
-        assert(paymentIntent != null),
         assert(typename != null);
 
   factory _$_Invoice.fromJson(Map<String, dynamic> json) =>
@@ -506,7 +504,7 @@ class _$_Invoice implements _Invoice {
 }
 
 abstract class _Invoice implements Invoice {
-  factory _Invoice(
+  const factory _Invoice(
       {@required String id,
       @required DateTime createdAt,
       @required String currency,
@@ -517,8 +515,8 @@ abstract class _Invoice implements Invoice {
       @required int tax,
       @required int total,
       @required int subtotal,
-      @required dynamic discount,
-      @required dynamic paymentIntent,
+      dynamic discount,
+      dynamic paymentIntent,
       @required @JsonKey(name: '__typename') String typename}) = _$_Invoice;
 
   factory _Invoice.fromJson(Map<String, dynamic> json) = _$_Invoice.fromJson;

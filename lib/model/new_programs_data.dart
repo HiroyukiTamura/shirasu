@@ -6,7 +6,7 @@ part 'new_programs_data.g.dart';
 @freezed
 abstract class NewProgramsData implements _$NewProgramsData {
 
-  factory NewProgramsData({
+  const factory NewProgramsData({
     @required NewPrograms newPrograms,
   }) = _NewProgramsData;
 
@@ -17,7 +17,7 @@ abstract class NewProgramsData implements _$NewProgramsData {
 
 @freezed
 abstract class NewPrograms with _$NewPrograms {
-  factory NewPrograms({
+  const factory NewPrograms({
     @required List<NewProgramItem> items,
     String nextToken,
     @JsonKey(name: '__typename') @required String typename,
@@ -28,7 +28,7 @@ abstract class NewPrograms with _$NewPrograms {
 
 @freezed
 abstract class NewProgramItem with _$NewProgramItem {
-  factory NewProgramItem({
+  const factory NewProgramItem({
     @required DateTime broadcastAt,
     @required String channelId,
     @required String id,
@@ -47,7 +47,7 @@ abstract class NewProgramItem with _$NewProgramItem {
 
 @freezed
 abstract class NewProgramChannel with _$NewProgramChannel {
-  factory NewProgramChannel({
+  const factory NewProgramChannel({
     @required String id,
     @required String name,
     @JsonKey(name: '__typename') @required String typename,

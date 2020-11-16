@@ -115,10 +115,8 @@ class __$ChannelDataCopyWithImpl<$Res> extends _$ChannelDataCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ChannelData extends _ChannelData {
-  _$_ChannelData({@required this.channel})
-      : assert(channel != null),
-        super._();
+class _$_ChannelData implements _ChannelData {
+  _$_ChannelData({@required this.channel}) : assert(channel != null);
 
   factory _$_ChannelData.fromJson(Map<String, dynamic> json) =>
       _$_$_ChannelDataFromJson(json);
@@ -153,8 +151,7 @@ class _$_ChannelData extends _ChannelData {
   }
 }
 
-abstract class _ChannelData extends ChannelData {
-  _ChannelData._() : super._();
+abstract class _ChannelData implements ChannelData {
   factory _ChannelData({@required Channel channel}) = _$_ChannelData;
 
   factory _ChannelData.fromJson(Map<String, dynamic> json) =

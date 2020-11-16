@@ -5,14 +5,12 @@ part 'channel_data.g.dart';
 
 
 @freezed
-abstract class ChannelData implements _$ChannelData {
+abstract class ChannelData with _$ChannelData {
   factory ChannelData({
     @required Channel channel,
   }) = _ChannelData;
 
   factory ChannelData.fromJson(Map<String, dynamic> json) => _$ChannelDataFromJson(json);
-
-  const ChannelData._();
 }
 
 @freezed

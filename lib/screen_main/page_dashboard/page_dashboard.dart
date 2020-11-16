@@ -5,14 +5,11 @@ import 'package:flutter_riverpod/all.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/router/screen_main/screen_main_route_path.dart';
-import 'package:shirasu/screen_dashboard/billboard_expaned.dart';
-import 'package:shirasu/screen_dashboard/grid_card_item.dart';
-import 'package:shirasu/screen_dashboard/heading.dart';
-import 'package:shirasu/screen_dashboard/horizontal_carousels.dart';
-import 'package:shirasu/screen_detail/screen_detail.dart';
-import 'package:shirasu/router/app/app_router_delegate.dart';
-import 'package:shirasu/screen_main/screen_main.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard_expaned.dart';
+import 'package:shirasu/screen_main/page_dashboard/grid_card_item.dart';
+import 'package:shirasu/screen_main/page_dashboard/heading.dart';
+import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
@@ -20,15 +17,15 @@ final _dashBoardProvider =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard());
 
-class PageScreenDashboard extends StatefulWidget {
+class PageDashboard extends StatefulWidget {
 
-  const PageScreenDashboard({Key key}): super(key: key);
+  const PageDashboard({Key key}): super(key: key);
 
   @override
-  _ScreenDashboardState createState() => _ScreenDashboardState();
+  _PageDashboardState createState() => _PageDashboardState();
 }
 
-class _ScreenDashboardState extends State<PageScreenDashboard> {
+class _PageDashboardState extends State<PageDashboard> {
   static const _COLUMN_COUNT = 2;
 
   static const _CIRCULAR_HEIGHT = 36;

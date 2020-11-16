@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/list_comments_by_program.dart';
 import 'package:shirasu/model/viewer.dart';
 
 part 'watch_history_data.freezed.dart';

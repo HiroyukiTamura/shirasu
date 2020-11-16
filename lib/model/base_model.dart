@@ -83,8 +83,6 @@ abstract class BasePaymentMethod extends _GraphQlModel {
 abstract class BaseInvoice extends _GraphQlModel {
   String get id;
 
-  String get currency;
-
   DateTime get createdAt;
 
   /// ex. SubscriptionPlan

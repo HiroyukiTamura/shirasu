@@ -5,6 +5,7 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
+import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 
 class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
@@ -23,8 +24,8 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
     final pageList = _appState.list
         .map<Widget>((pathData) => GlobalRoutePathBase.wrappedWhen(
               pathData,
-              dashboard: () => ScreenMain(appState: _appState),
-              subscribing: () => throw UnimplementedError(),
+              dashboard: () => PageDashboardInMainScreen(appState: _appState),
+              subscribing: () => PageSubscribingInMainScreen(appState: _appState,),
               setting: () => throw UnimplementedError(),
               intro: () => ScreenIntro(),
               error: () => throw UnimplementedError(),

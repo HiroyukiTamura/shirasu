@@ -647,8 +647,8 @@ class _$PathDataMainPageDashBoardCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$PathDataMainPageDashBoard implements PathDataMainPageDashBoard {
-  const _$PathDataMainPageDashBoard();
+class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
+  const _$PathDataMainPageDashBoard() : super._();
 
   @override
   String toString() {
@@ -720,7 +720,8 @@ class _$PathDataMainPageDashBoard implements PathDataMainPageDashBoard {
   }
 }
 
-abstract class PathDataMainPageDashBoard implements PathDataMainPageBase {
+abstract class PathDataMainPageDashBoard extends PathDataMainPageBase {
+  const PathDataMainPageDashBoard._() : super._();
   const factory PathDataMainPageDashBoard() = _$PathDataMainPageDashBoard;
 }
 
@@ -746,8 +747,8 @@ class _$PathDataMainPageSubscribingCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$PathDataMainPageSubscribing implements PathDataMainPageSubscribing {
-  const _$PathDataMainPageSubscribing();
+class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
+  const _$PathDataMainPageSubscribing() : super._();
 
   @override
   String toString() {
@@ -819,7 +820,8 @@ class _$PathDataMainPageSubscribing implements PathDataMainPageSubscribing {
   }
 }
 
-abstract class PathDataMainPageSubscribing implements PathDataMainPageBase {
+abstract class PathDataMainPageSubscribing extends PathDataMainPageBase {
+  const PathDataMainPageSubscribing._() : super._();
   const factory PathDataMainPageSubscribing() = _$PathDataMainPageSubscribing;
 }
 
@@ -843,8 +845,8 @@ class _$PathDataMainPageSettingCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$PathDataMainPageSetting implements PathDataMainPageSetting {
-  const _$PathDataMainPageSetting();
+class _$PathDataMainPageSetting extends PathDataMainPageSetting {
+  const _$PathDataMainPageSetting() : super._();
 
   @override
   String toString() {
@@ -916,6 +918,7 @@ class _$PathDataMainPageSetting implements PathDataMainPageSetting {
   }
 }
 
-abstract class PathDataMainPageSetting implements PathDataMainPageBase {
+abstract class PathDataMainPageSetting extends PathDataMainPageBase {
+  const PathDataMainPageSetting._() : super._();
   const factory PathDataMainPageSetting() = _$PathDataMainPageSetting;
 }

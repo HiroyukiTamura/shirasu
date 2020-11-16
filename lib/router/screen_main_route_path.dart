@@ -3,7 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'screen_main_route_path.freezed.dart';
 
+@immutable
 class GlobalRoutePathBase {
+
   static Result wrappedWhen<Result extends Object>(
     GlobalRoutePathBase routePath, {
     Result Function() intro,
@@ -50,11 +52,29 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
 
 @freezed
 abstract class PathDataMainPageBase
-    with _$PathDataMainPageBase, GlobalRoutePathBase {
+    implements _$PathDataMainPageBase, GlobalRoutePathBase {
+
   const factory PathDataMainPageBase.dashboard() = PathDataMainPageDashBoard;
 
   const factory PathDataMainPageBase.subscribing() =
       PathDataMainPageSubscribing;
 
   const factory PathDataMainPageBase.setting() = PathDataMainPageSetting;
+
+  factory PathDataMainPageBase.fromIndex(int index) {
+    switch(index) {
+      case 0:
+        return const PathDataMainPageBase.dashboard();
+      case 1:
+        return const PathDataMainPageBase.subscribing();
+      case 2:
+        return const PathDataMainPageBase.setting();
+      default:
+        throw Exception('unexpected index $index');
+    }
+  }
+
+  const PathDataMainPageBase._();
+
+  int getIndex() => when(dashboard: () => 0, subscribing: () => 1, setting: () => 2);
 }

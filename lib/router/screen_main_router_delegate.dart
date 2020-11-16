@@ -4,8 +4,8 @@ import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 
-class ScreenMainRouterDelegate extends RouterDelegate<GlobalRoutePath>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<GlobalRoutePath> {
+class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<PathDataMainPageBase> {
   ScreenMainRouterDelegate(GlobalAppState appState)
       : navigatorKey = GlobalKey<NavigatorState>() {
     _appState = appState;
@@ -54,9 +54,14 @@ class ScreenMainRouterDelegate extends RouterDelegate<GlobalRoutePath>
   }
 
   @override
-  Future<void> setNewRoutePath(GlobalRoutePath configuration) async {
-    throw Exception();
-  }
+  Future<void> setNewRoutePath(PathDataMainPageBase configuration) async => throw Exception("don't setNewRoutePath $configuration");
+
+  @override
+  PathDataMainPageBase get currentConfiguration => _appState.findLastMainPagePath.when(
+      dashboard: () => const PathDataMainPageBase.dashboard(),
+      subscribing: () => const PathDataMainPageBase.subscribing(),
+      setting: () => const PathDataMainPageBase.setting(),
+    );
 
 // @override
 // AppRoutePath get currentConfiguration {

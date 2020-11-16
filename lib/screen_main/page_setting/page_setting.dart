@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class PageSetting extends StatefulWidget {
+class PageSettingInMainScreen extends StatefulWidget {
 
   @override
-  _PageSettingState createState() => _PageSettingState();
+  _PageSettingInMainScreenState createState() => _PageSettingInMainScreenState();
 }
 
-class _PageSettingState extends State<PageSetting> {
+class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Container();

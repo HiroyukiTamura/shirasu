@@ -41,8 +41,8 @@ Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
 _$_SubscriptionPlan _$_$_SubscriptionPlanFromJson(Map<String, dynamic> json) {
   return _$_SubscriptionPlan(
     id: json['id'] as String,
-    parentPlanType: json['parentPlanType'],
-    parentPlanId: json['parentPlanId'],
+    parentPlanType: json['parentPlanType'] as String,
+    parentPlanId: json['parentPlanId'] as String,
     productType: json['productType'] as String,
     productId: json['productId'] as String,
     name: json['name'] as String,

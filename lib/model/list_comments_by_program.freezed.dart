@@ -180,9 +180,13 @@ class _$CommentsTearOff {
 
 // ignore: unused_element
   _Comments call(
-      {@required List<CommentItem> items,
+      {@required
+          List<CommentItem> items,
       String nextToken,
-      @required @JsonKey(name: '__typename') String typename}) {
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelCommentConnection"')
+          String typename}) {
     return _Comments(
       items: items,
       nextToken: nextToken,
@@ -205,6 +209,7 @@ mixin _$Comments {
   List<CommentItem> get items;
   String get nextToken;
   @JsonKey(name: '__typename')
+  @Assert('typename == "ModelCommentConnection"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -218,7 +223,9 @@ abstract class $CommentsCopyWith<$Res> {
   $Res call(
       {List<CommentItem> items,
       String nextToken,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelCommentConnection"')
+          String typename});
 }
 
 /// @nodoc
@@ -251,7 +258,9 @@ abstract class _$CommentsCopyWith<$Res> implements $CommentsCopyWith<$Res> {
   $Res call(
       {List<CommentItem> items,
       String nextToken,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelCommentConnection"')
+          String typename});
 }
 
 /// @nodoc
@@ -282,9 +291,13 @@ class __$CommentsCopyWithImpl<$Res> extends _$CommentsCopyWithImpl<$Res>
 /// @nodoc
 class _$_Comments implements _Comments {
   const _$_Comments(
-      {@required this.items,
+      {@required
+          this.items,
       this.nextToken,
-      @required @JsonKey(name: '__typename') this.typename})
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelCommentConnection"')
+          this.typename})
       : assert(items != null),
         assert(typename != null);
 
@@ -297,6 +310,7 @@ class _$_Comments implements _Comments {
   final String nextToken;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "ModelCommentConnection"')
   final String typename;
 
   @override
@@ -337,9 +351,13 @@ class _$_Comments implements _Comments {
 
 abstract class _Comments implements Comments {
   const factory _Comments(
-      {@required List<CommentItem> items,
+      {@required
+          List<CommentItem> items,
       String nextToken,
-      @required @JsonKey(name: '__typename') String typename}) = _$_Comments;
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelCommentConnection"')
+          String typename}) = _$_Comments;
 
   factory _Comments.fromJson(Map<String, dynamic> json) = _$_Comments.fromJson;
 
@@ -349,6 +367,7 @@ abstract class _Comments implements Comments {
   String get nextToken;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "ModelCommentConnection"')
   String get typename;
   @override
   _$CommentsCopyWith<_Comments> get copyWith;
@@ -364,12 +383,20 @@ class _$CommentItemTearOff {
 
 // ignore: unused_element
   _CommentItem call(
-      {@required String id,
-      @required String text,
-      @required int commentTime,
-      @required String userId,
-      @required User user,
-      @required @JsonKey(name: '__typename') String typename}) {
+      {@required
+          String id,
+      @required
+          String text,
+      @required
+          int commentTime,
+      @required
+          String userId,
+      @required
+          User user,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Comment"')
+          String typename}) {
     return _CommentItem(
       id: id,
       text: text,
@@ -398,6 +425,7 @@ mixin _$CommentItem {
   String get userId;
   User get user;
   @JsonKey(name: '__typename')
+  @Assert('typename == "Comment"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -415,7 +443,9 @@ abstract class $CommentItemCopyWith<$Res> {
       int commentTime,
       String userId,
       User user,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Comment"')
+          String typename});
 
   $UserCopyWith<$Res> get user;
 }
@@ -472,7 +502,9 @@ abstract class _$CommentItemCopyWith<$Res>
       int commentTime,
       String userId,
       User user,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Comment"')
+          String typename});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -514,12 +546,20 @@ class __$CommentItemCopyWithImpl<$Res> extends _$CommentItemCopyWithImpl<$Res>
 /// @nodoc
 class _$_CommentItem implements _CommentItem {
   const _$_CommentItem(
-      {@required this.id,
-      @required this.text,
-      @required this.commentTime,
-      @required this.userId,
-      @required this.user,
-      @required @JsonKey(name: '__typename') this.typename})
+      {@required
+          this.id,
+      @required
+          this.text,
+      @required
+          this.commentTime,
+      @required
+          this.userId,
+      @required
+          this.user,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Comment"')
+          this.typename})
       : assert(id != null),
         assert(text != null),
         assert(commentTime != null),
@@ -542,6 +582,7 @@ class _$_CommentItem implements _CommentItem {
   final User user;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "Comment"')
   final String typename;
 
   @override
@@ -591,12 +632,20 @@ class _$_CommentItem implements _CommentItem {
 
 abstract class _CommentItem implements CommentItem {
   const factory _CommentItem(
-      {@required String id,
-      @required String text,
-      @required int commentTime,
-      @required String userId,
-      @required User user,
-      @required @JsonKey(name: '__typename') String typename}) = _$_CommentItem;
+      {@required
+          String id,
+      @required
+          String text,
+      @required
+          int commentTime,
+      @required
+          String userId,
+      @required
+          User user,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Comment"')
+          String typename}) = _$_CommentItem;
 
   factory _CommentItem.fromJson(Map<String, dynamic> json) =
       _$_CommentItem.fromJson;
@@ -613,6 +662,7 @@ abstract class _CommentItem implements CommentItem {
   User get user;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "Comment"')
   String get typename;
   @override
   _$CommentItemCopyWith<_CommentItem> get copyWith;
@@ -628,10 +678,16 @@ class _$UserTearOff {
 
 // ignore: unused_element
   _User call(
-      {@required String id,
-      @required String name,
-      @required String icon,
-      @required @JsonKey(name: '__typename') String typename}) {
+      {@required
+          String id,
+      @required
+          String name,
+      @required
+          String icon,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "User"')
+          String typename}) {
     return _User(
       id: id,
       name: name,
@@ -656,6 +712,7 @@ mixin _$User {
   String get name;
   String get icon;
   @JsonKey(name: '__typename')
+  @Assert('typename == "User"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -670,7 +727,9 @@ abstract class $UserCopyWith<$Res> {
       {String id,
       String name,
       String icon,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "User"')
+          String typename});
 }
 
 /// @nodoc
@@ -706,7 +765,9 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       {String id,
       String name,
       String icon,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "User"')
+          String typename});
 }
 
 /// @nodoc
@@ -739,10 +800,16 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 /// @nodoc
 class _$_User implements _User {
   const _$_User(
-      {@required this.id,
-      @required this.name,
-      @required this.icon,
-      @required @JsonKey(name: '__typename') this.typename})
+      {@required
+          this.id,
+      @required
+          this.name,
+      @required
+          this.icon,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "User"')
+          this.typename})
       : assert(id != null),
         assert(name != null),
         assert(icon != null),
@@ -759,6 +826,7 @@ class _$_User implements _User {
   final String icon;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "User"')
   final String typename;
 
   @override
@@ -801,10 +869,16 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {@required String id,
-      @required String name,
-      @required String icon,
-      @required @JsonKey(name: '__typename') String typename}) = _$_User;
+      {@required
+          String id,
+      @required
+          String name,
+      @required
+          String icon,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "User"')
+          String typename}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -816,6 +890,7 @@ abstract class _User implements User {
   String get icon;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "User"')
   String get typename;
   @override
   _$UserCopyWith<_User> get copyWith;

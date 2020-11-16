@@ -17,7 +17,7 @@ abstract class PaymentMethodsData with _$PaymentMethodsData {
 abstract class Viewer with _$Viewer {
   const factory Viewer({
     @required List<PaymentMethod> paymentMethods,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Viewer"') String typename,
   }) =_Viewer;
 
   factory Viewer.fromJson(Map<String, dynamic> json) => _$ViewerFromJson(json);
@@ -30,7 +30,7 @@ abstract class PaymentMethod with _$PaymentMethod {
     @required String brand,
     @required String last4,
     @required String expirationDate,
-    @JsonKey(name: '__typename') @required String typename,
+    @JsonKey(name: '__typename') @required @Assert('typename == "PaymentMethod"') String typename,
   }) = _PaymentMethod;
 
   factory PaymentMethod.fromJson(Map<String, dynamic> json) => _$PaymentMethodFromJson(json);

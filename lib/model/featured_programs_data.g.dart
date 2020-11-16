@@ -61,7 +61,7 @@ _$_Item _$_$_ItemFromJson(Map<String, dynamic> json) {
     tenantId: json['tenantId'] as String,
     title: json['title'] as String,
     totalPlayTime: json['totalPlayTime'] as int,
-    viewerPlanType: json['viewerPlanType'],
+    viewerPlanType: json['viewerPlanType'] as String,
     channel: json['channel'] == null
         ? null
         : Channel.fromJson(json['channel'] as Map<String, dynamic>),

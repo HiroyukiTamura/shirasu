@@ -360,18 +360,30 @@ class _$SubscriptionPlanTearOff {
 
 // ignore: unused_element
   _SubscriptionPlan call(
-      {@required String id,
-      dynamic parentPlanType,
-      dynamic parentPlanId,
-      @required String productType,
-      @required String productId,
-      @required String name,
-      @required int amount,
-      @required String currency,
-      @required String interval,
-      @required int intervalCount,
-      @required bool isPurchasable,
-      @required @JsonKey(name: '__typename') dynamic typename}) {
+      {@required
+          String id,
+      String parentPlanType,
+      String parentPlanId,
+      @required
+          String productType,
+      @required
+          String productId,
+      @required
+          String name,
+      @required
+          int amount,
+      @required
+          String currency,
+      @required
+          String interval,
+      @required
+          int intervalCount,
+      @required
+          bool isPurchasable,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "SubscriptionPlan"')
+          dynamic typename}) {
     return _SubscriptionPlan(
       id: id,
       parentPlanType: parentPlanType,
@@ -401,8 +413,8 @@ const $SubscriptionPlan = _$SubscriptionPlanTearOff();
 /// @nodoc
 mixin _$SubscriptionPlan {
   String get id;
-  dynamic get parentPlanType;
-  dynamic get parentPlanId;
+  String get parentPlanType;
+  String get parentPlanId;
   String get productType;
   String get productId;
   String get name;
@@ -412,6 +424,7 @@ mixin _$SubscriptionPlan {
   int get intervalCount;
   bool get isPurchasable;
   @JsonKey(name: '__typename')
+  @Assert('typename == "SubscriptionPlan"')
   dynamic get typename;
 
   Map<String, dynamic> toJson();
@@ -425,8 +438,8 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       _$SubscriptionPlanCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      dynamic parentPlanType,
-      dynamic parentPlanId,
+      String parentPlanType,
+      String parentPlanId,
       String productType,
       String productId,
       String name,
@@ -435,7 +448,9 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       String interval,
       int intervalCount,
       bool isPurchasable,
-      @JsonKey(name: '__typename') dynamic typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "SubscriptionPlan"')
+          dynamic typename});
 }
 
 /// @nodoc
@@ -466,10 +481,10 @@ class _$SubscriptionPlanCopyWithImpl<$Res>
       id: id == freezed ? _value.id : id as String,
       parentPlanType: parentPlanType == freezed
           ? _value.parentPlanType
-          : parentPlanType as dynamic,
+          : parentPlanType as String,
       parentPlanId: parentPlanId == freezed
           ? _value.parentPlanId
-          : parentPlanId as dynamic,
+          : parentPlanId as String,
       productType:
           productType == freezed ? _value.productType : productType as String,
       productId: productId == freezed ? _value.productId : productId as String,
@@ -497,8 +512,8 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      dynamic parentPlanType,
-      dynamic parentPlanId,
+      String parentPlanType,
+      String parentPlanId,
       String productType,
       String productId,
       String name,
@@ -507,7 +522,9 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
       String interval,
       int intervalCount,
       bool isPurchasable,
-      @JsonKey(name: '__typename') dynamic typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "SubscriptionPlan"')
+          dynamic typename});
 }
 
 /// @nodoc
@@ -540,10 +557,10 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
       id: id == freezed ? _value.id : id as String,
       parentPlanType: parentPlanType == freezed
           ? _value.parentPlanType
-          : parentPlanType as dynamic,
+          : parentPlanType as String,
       parentPlanId: parentPlanId == freezed
           ? _value.parentPlanId
-          : parentPlanId as dynamic,
+          : parentPlanId as String,
       productType:
           productType == freezed ? _value.productType : productType as String,
       productId: productId == freezed ? _value.productId : productId as String,
@@ -567,18 +584,30 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 /// @nodoc
 class _$_SubscriptionPlan implements _SubscriptionPlan {
   _$_SubscriptionPlan(
-      {@required this.id,
+      {@required
+          this.id,
       this.parentPlanType,
       this.parentPlanId,
-      @required this.productType,
-      @required this.productId,
-      @required this.name,
-      @required this.amount,
-      @required this.currency,
-      @required this.interval,
-      @required this.intervalCount,
-      @required this.isPurchasable,
-      @required @JsonKey(name: '__typename') this.typename})
+      @required
+          this.productType,
+      @required
+          this.productId,
+      @required
+          this.name,
+      @required
+          this.amount,
+      @required
+          this.currency,
+      @required
+          this.interval,
+      @required
+          this.intervalCount,
+      @required
+          this.isPurchasable,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "SubscriptionPlan"')
+          this.typename})
       : assert(id != null),
         assert(productType != null),
         assert(productId != null),
@@ -596,9 +625,9 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   @override
   final String id;
   @override
-  final dynamic parentPlanType;
+  final String parentPlanType;
   @override
-  final dynamic parentPlanId;
+  final String parentPlanId;
   @override
   final String productType;
   @override
@@ -617,6 +646,7 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   final bool isPurchasable;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "SubscriptionPlan"')
   final dynamic typename;
 
   @override
@@ -691,19 +721,30 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
 
 abstract class _SubscriptionPlan implements SubscriptionPlan {
   factory _SubscriptionPlan(
-          {@required String id,
-          dynamic parentPlanType,
-          dynamic parentPlanId,
-          @required String productType,
-          @required String productId,
-          @required String name,
-          @required int amount,
-          @required String currency,
-          @required String interval,
-          @required int intervalCount,
-          @required bool isPurchasable,
-          @required @JsonKey(name: '__typename') dynamic typename}) =
-      _$_SubscriptionPlan;
+      {@required
+          String id,
+      String parentPlanType,
+      String parentPlanId,
+      @required
+          String productType,
+      @required
+          String productId,
+      @required
+          String name,
+      @required
+          int amount,
+      @required
+          String currency,
+      @required
+          String interval,
+      @required
+          int intervalCount,
+      @required
+          bool isPurchasable,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "SubscriptionPlan"')
+          dynamic typename}) = _$_SubscriptionPlan;
 
   factory _SubscriptionPlan.fromJson(Map<String, dynamic> json) =
       _$_SubscriptionPlan.fromJson;
@@ -711,9 +752,9 @@ abstract class _SubscriptionPlan implements SubscriptionPlan {
   @override
   String get id;
   @override
-  dynamic get parentPlanType;
+  String get parentPlanType;
   @override
-  dynamic get parentPlanId;
+  String get parentPlanId;
   @override
   String get productType;
   @override
@@ -732,6 +773,7 @@ abstract class _SubscriptionPlan implements SubscriptionPlan {
   bool get isPurchasable;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "SubscriptionPlan"')
   dynamic get typename;
   @override
   _$SubscriptionPlanCopyWith<_SubscriptionPlan> get copyWith;

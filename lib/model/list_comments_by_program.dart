@@ -18,7 +18,7 @@ abstract class Comments with _$Comments {
   const factory Comments({
     @required List<CommentItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "ModelCommentConnection"') String typename,
   }) = _Comments;
 
   factory Comments.fromJson(Map<String, dynamic> json) =>
@@ -33,7 +33,7 @@ abstract class CommentItem with _$CommentItem {
     @required int commentTime,
     @required String userId,
     @required User user,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Comment"') String typename,
   }) = _CommentItem;
 
   factory CommentItem.fromJson(Map<String, dynamic> json) =>
@@ -46,7 +46,7 @@ abstract class User with _$User {
     @required String id,
     @required String name,
     @required String icon,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "User"') String typename,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

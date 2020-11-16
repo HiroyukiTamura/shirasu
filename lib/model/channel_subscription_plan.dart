@@ -26,8 +26,8 @@ abstract class Channel with _$Channel {
 abstract class SubscriptionPlan with _$SubscriptionPlan {
   factory SubscriptionPlan({
     @required String id,
-    dynamic parentPlanType,
-    dynamic parentPlanId,
+    String parentPlanType,
+    String parentPlanId,
     @required String productType,
     @required String productId,
     @required String name,
@@ -36,7 +36,7 @@ abstract class SubscriptionPlan with _$SubscriptionPlan {
     @required String interval,
     @required int intervalCount,
     @required bool isPurchasable,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "SubscriptionPlan"') typename,
   }) = _SubscriptionPlan;
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) => _$SubscriptionPlanFromJson(json);

@@ -28,7 +28,7 @@ _$_Channel _$_$_ChannelFromJson(Map<String, dynamic> json) {
     facebookUrl: json['facebookUrl'] as String,
     textOnPurchaseScreen: json['textOnPurchaseScreen'] as String,
     detail: json['detail'] as String,
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
     subscriptionPlan: json['subscriptionPlan'] == null
         ? null
         : SubscriptionPlan.fromJson(

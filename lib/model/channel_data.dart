@@ -23,7 +23,7 @@ abstract class Channel with _$Channel {
     String facebookUrl,
     String textOnPurchaseScreen,
     @required String detail,
-    @required @JsonKey(name: '__typename') typename,
+    @required @Assert('typename == "Channel"') @JsonKey(name: '__typename') String typename,
     @required SubscriptionPlan subscriptionPlan,
     @required ChannelPrograms programs,
     @required Announcements announcements,
@@ -37,7 +37,7 @@ abstract class Announcements with _$Announcements {
   factory Announcements({
     @required List<AnnouncementsItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "ModelChannelAnnouncementConnection"') String typename,
   }) = _Announcements;
 
   factory Announcements.fromJson(Map<String, dynamic> json) => _$AnnouncementsFromJson(json);
@@ -54,7 +54,7 @@ abstract class AnnouncementsItem with _$AnnouncementsItem {
     @required DateTime publishedAt,
     @required DateTime createdAt,
     @required DateTime updatedAt,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "ChannelAnnouncement"') String typename,
   }) = _AnnouncementsItem;
 
   factory AnnouncementsItem.fromJson(Map<String, dynamic> json) => _$AnnouncementsItemFromJson(json);
@@ -65,7 +65,7 @@ abstract class ChannelPrograms with _$ChannelPrograms {
   factory ChannelPrograms({
     @required List<ProgramsItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "ModelProgramConnection"') String typename,
   }) = _ChannelPrograms;
 
   factory ChannelPrograms.fromJson(Map<String, dynamic> json) => _$ChannelProgramsFromJson(json);
@@ -81,7 +81,7 @@ abstract class ProgramsItem with _$ProgramsItem {
     @required DateTime broadcastAt,
     @required int totalPlayTime,
     @required String viewerPlanType,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Program"') String typename,
   }) = _ProgramsItem;
 
   factory ProgramsItem.fromJson(Map<String, dynamic> json) => _$ProgramsItemFromJson(json);
@@ -94,7 +94,7 @@ abstract class SubscriptionPlan with _$SubscriptionPlan {
     @required int amount,
     @required String currency,
     @required bool isPurchasable,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "SubscriptionPlan"') String typename,
     PurchasedPlan viewerPurchasedPlan, // null => not purchased
   }) = _SubscriptionPlan;
 
@@ -105,7 +105,7 @@ abstract class SubscriptionPlan with _$SubscriptionPlan {
 abstract class PurchasedPlan with _$PurchasedPlan {
   factory PurchasedPlan({
       @required bool isActive,
-      @required @JsonKey(name: '__typename') String typename,
+      @required @JsonKey(name: '__typename') @Assert('typename == "PurchasedPlan"') String typename,
   }) = _PurchasedPlan;
 
   factory PurchasedPlan.fromJson(Map<String, dynamic> json) => _$PurchasedPlanFromJson(json);

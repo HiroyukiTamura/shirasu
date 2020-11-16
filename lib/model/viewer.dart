@@ -18,7 +18,7 @@ abstract class ViewerClass with _$ViewerClass {
   const factory ViewerClass({
     @required List<PaymentMethod> paymentMethods,
     @required List<String> authConnections,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Viewer"') typename,
   }) = _ViewerClass;
 
   factory ViewerClass.fromJson(Map<String, dynamic> json) => _$ViewerClassFromJson(json);
@@ -37,7 +37,7 @@ abstract class PaymentMethod with _$PaymentMethod {
 
     /// ex. 02/25
     @required String expirationDate,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "PaymentMethod"') typename,
   }) = _PaymentMethod;
 
   factory PaymentMethod.fromJson(Map<String, dynamic> json) => _$PaymentMethodFromJson(json);
@@ -50,7 +50,7 @@ abstract class ViewerUser with _$ViewerUser {
     @required String id,
     @required String name,
     @required String icon,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Viewer"') typename,
     @required InvoiceHistory invoiceHistory,
     @required WatchHistories watchHistories,
     @required List<SubscribedChannel> subscribedChannels,
@@ -64,7 +64,7 @@ abstract class InvoiceHistory with _$InvoiceHistory {
   const factory InvoiceHistory({
     @required List<InvoiceHistoryItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "InvoiceConnection"') typename,
   }) = _InvoiceHistory;
 
   factory InvoiceHistory.fromJson(Map<String, dynamic> json) => _$InvoiceHistoryFromJson(json);
@@ -82,7 +82,7 @@ abstract class InvoiceHistoryItem with _$InvoiceHistoryItem {
     @required String planType,
     /// ex. paid
     @required String status,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Invoice"') typename,
   }) = _InvoiceHistoryItem;
 
   factory InvoiceHistoryItem.fromJson(Map<String, dynamic> json) => _$InvoiceHistoryItemFromJson(json);
@@ -97,7 +97,7 @@ abstract class SubscribedChannel with _$SubscribedChannel {
     @required bool isActive,
     @required String latestInvoiceId,
     @required LatestInvoice latestInvoice,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "SubscribedChannel"') typename,
   }) = _SubscribedChannel;
 
   factory SubscribedChannel.fromJson(Map<String, dynamic> json) => _$SubscribedChannelFromJson(json);
@@ -109,7 +109,7 @@ abstract class Channel with _$Channel {
     @required String id,
     @required String name,
     dynamic icon,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Channel"') typename,
   }) = _Channel;
 
   factory Channel.fromJson(Map<String, dynamic> json) => _$ChannelFromJson(json);
@@ -125,7 +125,7 @@ abstract class LatestInvoice with _$LatestInvoice {
     @required String status,
     @required String hostedInvoiceUrl,
     dynamic nextPaymentAttempt,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Invoice"') typename,
   }) = _LatestInvoice;
 
   factory LatestInvoice.fromJson(Map<String, dynamic> json) => _$LatestInvoiceFromJson(json);
@@ -135,7 +135,7 @@ abstract class LatestInvoice with _$LatestInvoice {
 abstract class WatchHistories with _$WatchHistories {
   const factory WatchHistories({
     @required List<WatchHistoriesItem> items,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "ModelWatchHistoryConnection"') typename,
   }) = _WatchHistories;
 
   factory WatchHistories.fromJson(Map<String, dynamic> json) => _$WatchHistoriesFromJson(json);
@@ -147,7 +147,7 @@ abstract class WatchHistoriesItem with _$WatchHistoriesItem {
     @required String id,
     @required DateTime lastViewedAt,
     @required Program program,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "WatchHistory"') typename,
   }) = _WatchHistoriesItem;
 
   factory WatchHistoriesItem.fromJson(Map<String, dynamic> json) => _$WatchHistoriesItemFromJson(json);
@@ -162,7 +162,7 @@ abstract class Program with _$Program {
     @required String title,
     @required String detail,
     @required DateTime broadcastAt,
-    @required @JsonKey(name: '__typename') typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Program"') typename,
   }) = _Program;
 
   factory Program.fromJson(Map<String, dynamic> json) => _$ProgramFromJson(json);

@@ -176,8 +176,12 @@ class _$ViewerTearOff {
 
 // ignore: unused_element
   _Viewer call(
-      {@required List<PaymentMethod> paymentMethods,
-      @required @JsonKey(name: '__typename') String typename}) {
+      {@required
+          List<PaymentMethod> paymentMethods,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Viewer"')
+          String typename}) {
     return _Viewer(
       paymentMethods: paymentMethods,
       typename: typename,
@@ -198,6 +202,7 @@ const $Viewer = _$ViewerTearOff();
 mixin _$Viewer {
   List<PaymentMethod> get paymentMethods;
   @JsonKey(name: '__typename')
+  @Assert('typename == "Viewer"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -210,7 +215,9 @@ abstract class $ViewerCopyWith<$Res> {
       _$ViewerCopyWithImpl<$Res>;
   $Res call(
       {List<PaymentMethod> paymentMethods,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Viewer"')
+          String typename});
 }
 
 /// @nodoc
@@ -242,7 +249,9 @@ abstract class _$ViewerCopyWith<$Res> implements $ViewerCopyWith<$Res> {
   @override
   $Res call(
       {List<PaymentMethod> paymentMethods,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Viewer"')
+          String typename});
 }
 
 /// @nodoc
@@ -273,8 +282,12 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 /// @nodoc
 class _$_Viewer implements _Viewer {
   const _$_Viewer(
-      {@required this.paymentMethods,
-      @required @JsonKey(name: '__typename') this.typename})
+      {@required
+          this.paymentMethods,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Viewer"')
+          this.typename})
       : assert(paymentMethods != null),
         assert(typename != null);
 
@@ -285,6 +298,7 @@ class _$_Viewer implements _Viewer {
   final List<PaymentMethod> paymentMethods;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "Viewer"')
   final String typename;
 
   @override
@@ -322,8 +336,12 @@ class _$_Viewer implements _Viewer {
 
 abstract class _Viewer implements Viewer {
   const factory _Viewer(
-      {@required List<PaymentMethod> paymentMethods,
-      @required @JsonKey(name: '__typename') String typename}) = _$_Viewer;
+      {@required
+          List<PaymentMethod> paymentMethods,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "Viewer"')
+          String typename}) = _$_Viewer;
 
   factory _Viewer.fromJson(Map<String, dynamic> json) = _$_Viewer.fromJson;
 
@@ -331,6 +349,7 @@ abstract class _Viewer implements Viewer {
   List<PaymentMethod> get paymentMethods;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "Viewer"')
   String get typename;
   @override
   _$ViewerCopyWith<_Viewer> get copyWith;
@@ -346,11 +365,18 @@ class _$PaymentMethodTearOff {
 
 // ignore: unused_element
   _PaymentMethod call(
-      {@required String id,
-      @required String brand,
-      @required String last4,
-      @required String expirationDate,
-      @required @JsonKey(name: '__typename') String typename}) {
+      {@required
+          String id,
+      @required
+          String brand,
+      @required
+          String last4,
+      @required
+          String expirationDate,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "PaymentMethod"')
+          String typename}) {
     return _PaymentMethod(
       id: id,
       brand: brand,
@@ -377,6 +403,7 @@ mixin _$PaymentMethod {
   String get last4;
   String get expirationDate;
   @JsonKey(name: '__typename')
+  @Assert('typename == "PaymentMethod"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -393,7 +420,9 @@ abstract class $PaymentMethodCopyWith<$Res> {
       String brand,
       String last4,
       String expirationDate,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "PaymentMethod"')
+          String typename});
 }
 
 /// @nodoc
@@ -437,7 +466,9 @@ abstract class _$PaymentMethodCopyWith<$Res>
       String brand,
       String last4,
       String expirationDate,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename')
+      @Assert('typename == "PaymentMethod"')
+          String typename});
 }
 
 /// @nodoc
@@ -476,11 +507,18 @@ class __$PaymentMethodCopyWithImpl<$Res>
 /// @nodoc
 class _$_PaymentMethod implements _PaymentMethod {
   const _$_PaymentMethod(
-      {@required this.id,
-      @required this.brand,
-      @required this.last4,
-      @required this.expirationDate,
-      @required @JsonKey(name: '__typename') this.typename})
+      {@required
+          this.id,
+      @required
+          this.brand,
+      @required
+          this.last4,
+      @required
+          this.expirationDate,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "PaymentMethod"')
+          this.typename})
       : assert(id != null),
         assert(brand != null),
         assert(last4 != null),
@@ -500,6 +538,7 @@ class _$_PaymentMethod implements _PaymentMethod {
   final String expirationDate;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "PaymentMethod"')
   final String typename;
 
   @override
@@ -546,12 +585,18 @@ class _$_PaymentMethod implements _PaymentMethod {
 
 abstract class _PaymentMethod implements PaymentMethod {
   const factory _PaymentMethod(
-          {@required String id,
-          @required String brand,
-          @required String last4,
-          @required String expirationDate,
-          @required @JsonKey(name: '__typename') String typename}) =
-      _$_PaymentMethod;
+      {@required
+          String id,
+      @required
+          String brand,
+      @required
+          String last4,
+      @required
+          String expirationDate,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "PaymentMethod"')
+          String typename}) = _$_PaymentMethod;
 
   factory _PaymentMethod.fromJson(Map<String, dynamic> json) =
       _$_PaymentMethod.fromJson;
@@ -566,6 +611,7 @@ abstract class _PaymentMethod implements PaymentMethod {
   String get expirationDate;
   @override
   @JsonKey(name: '__typename')
+  @Assert('typename == "PaymentMethod"')
   String get typename;
   @override
   _$PaymentMethodCopyWith<_PaymentMethod> get copyWith;

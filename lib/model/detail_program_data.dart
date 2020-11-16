@@ -39,7 +39,7 @@ abstract class ProgramDetail with _$ProgramDetail {
     @required String releaseState,
     @required bool shouldArchive,
     @required List<dynamic> extensions,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Program"') String typename,
     @required DetailPrgChannel channel,
     @required Handouts handouts,
     @required VideoHandouts videos,
@@ -58,7 +58,7 @@ abstract class DetailPrgChannel with _$DetailPrgChannel {
     @required String name,
     dynamic icon,
     @required String textOnPurchaseScreen,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Channel"') String typename,
   }) = _DetailPrgChannel;
 
   factory DetailPrgChannel.fromJson(Map<String, dynamic> json) =>
@@ -70,7 +70,7 @@ abstract class VideoHandouts with _$VideoHandouts {
   const factory VideoHandouts({
     @required List<DetailPrgItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "ModelHandoutConnection"') String typename,
   }) = _VideoHandouts;
 
   factory VideoHandouts.fromJson(Map<String, dynamic> json) =>
@@ -82,7 +82,7 @@ abstract class Handouts with _$Handouts {
   const factory Handouts({
     @required List<DetailPrgItem> items,
     String nextToken,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "ModelHandoutConnection"') String typename,
   }) = _Handouts;
 
   factory Handouts.fromJson(Map<String, dynamic> json) =>
@@ -97,7 +97,7 @@ abstract class Handout with _$Handout {
     String extensionId,
     @required String name,
     @required DateTime createdAt,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Handout"') String typename,
   }) = _Handout;
 
   factory Handout.fromJson(Map<String, dynamic> json) =>
@@ -113,7 +113,7 @@ abstract class DetailPrgItem
     String mediaStatus,
     String liveUrl,
     String archiveUrl,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Video"') String typename,
   }) = _DetailPrgItem;
 
   factory DetailPrgItem.fromJson(Map<String, dynamic> json) =>
@@ -152,7 +152,7 @@ abstract class OnetimePlan with _$OnetimePlan {
     @required String currency,
     @required bool isPurchasable,
     String viewerPurchasedPlan,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "OneTimePlan"') String typename,
   }) = _OnetimePlan;
 
   factory OnetimePlan.fromJson(Map<String, dynamic> json) =>
@@ -166,7 +166,7 @@ abstract class Extension with _$Extension {
     @required int extensionTime,
     @required String oneTimePlanId,
     @required OnetimePlan oneTimePlan,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "LiveExtension"') String typename,
   }) = _Extension;
 
   factory Extension.fromJson(Map<String, dynamic> json) =>
@@ -178,7 +178,7 @@ abstract class Viewer with _$Viewer {
   const factory Viewer({
     @required String name,
     @required String icon,
-    @required @JsonKey(name: '__typename') String typename,
+    @required @JsonKey(name: '__typename') @Assert('typename == "Viewer"') String typename,
   }) = _Viewer;
 
   factory Viewer.fromJson(Map<String, dynamic> json) => _$ViewerFromJson(json);

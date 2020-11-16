@@ -1,7 +1,7 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'invoice_data.freezed.dart';
+
 part 'invoice_data.g.dart';
 
 @freezed
@@ -10,7 +10,8 @@ abstract class InvoiceData with _$InvoiceData {
     @required Invoice invoice,
   }) = _InvoiceData;
 
-  factory InvoiceData.fromJson(Map<String, dynamic> json) => _$InvoiceDataFromJson(json);
+  factory InvoiceData.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceDataFromJson(json);
 }
 
 @freezed
@@ -28,8 +29,12 @@ abstract class Invoice with _$Invoice {
     @required int subtotal,
     dynamic discount,
     dynamic paymentIntent,
-    @required @JsonKey(name: '__typename') String typename,
+    @required
+    @Assert('typename == Invoice')
+    @JsonKey(name: '__typename')
+        String typename,
   }) = _Invoice;
 
-  factory Invoice.fromJson(Map<String, dynamic> json) => _$InvoiceFromJson(json);
+  factory Invoice.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceFromJson(json);
 }

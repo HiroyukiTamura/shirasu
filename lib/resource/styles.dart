@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 @immutable
 class Styles {
@@ -22,7 +23,10 @@ class Styles {
     primaryColor: const Color(0xff50e6ff),
     accentColor: const Color(0xff50e6ff),
     scaffoldBackgroundColor: Colors.black,
-    appBarTheme: AppBarTheme(color: ThemeData.dark().bottomAppBarColor),
+    appBarTheme: const AppBarTheme(color: Colors.black),
+    textTheme: GoogleFonts.latoTextTheme(
+      ThemeData.dark().textTheme,
+    ),
     primaryTextTheme: const TextTheme(
         bodyText1: TextStyle(
       color: Colors.white,

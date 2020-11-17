@@ -9,29 +9,30 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 
 class SubscribingWidget extends HookWidget {
-
-  const SubscribingWidget({Key key}): super(key: key);
+  const SubscribingWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
       useProvider(
-              subscribingViewModelProvider.select((value) => value.programData))
-          .when(
-              preInitialized: () => const CenterCircleProgress(),
-              success: (programData) => ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
-                    itemBuilder: (context, i) {
-                      final item = programData.viewerUser.subscribedPrograms[i];
-                      return MovieListItem(program: item as BaseProgram);
-                    },
-                    itemCount: programData.viewerUser.subscribedPrograms.length,
-                  ),
-              resultEmpty: () {
-                return Container(); //todo display error widget
-              },
-              error: () {
-                return Container(
-                  child: const Text('error!'),
-                ); //todo display error widget
-              });
+          subscribingViewModelProvider
+              .select((value) => value.programData)).when(
+          preInitialized: () => const CenterCircleProgress(),
+          success: (programData) => ListView.separated(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16),
+                itemBuilder: (context, i) {
+                  final item = programData.viewerUser.subscribedPrograms[i];
+                  return MovieListBigItem(program: item as BaseProgram);
+                },
+                separatorBuilder: (context, i) => const SizedBox(height: 32),
+                itemCount: programData.viewerUser.subscribedPrograms.length,
+              ),
+          resultEmpty: () {
+            return Container(); //todo display error widget
+          },
+          error: () {
+            return Container(
+              child: const Text('error!'),
+            ); //todo display error widget
+          });
 }

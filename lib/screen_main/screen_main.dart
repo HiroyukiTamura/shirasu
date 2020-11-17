@@ -66,7 +66,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.playlist_play_rounded),
-              label: Strings.NAV_ITEM_SUBSCRIBE,
+              label: Strings.NAV_ITEM_LIST,
             ),
             // BottomNavigationBarItem(
             //   icon: Icon(Icons.search),

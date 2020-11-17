@@ -104,6 +104,11 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static const LIST_MOVIE_TITLE_BIG = TextStyle(
+    height: 1.3,
+    fontSize: 14,
+  );
+
   //region screen_detail
   static const DETAIL_CHANNEL_NAME = TextStyle(
     color: Colors.white,

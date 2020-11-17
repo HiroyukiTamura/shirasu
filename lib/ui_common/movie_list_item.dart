@@ -18,9 +18,8 @@ class MovieListItem extends StatelessWidget {
   final BaseProgram program;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
+  Widget build(BuildContext context) => Padding(
+      padding: const EdgeInsets.all(PADDING),
       child: Container(
         height: _TILE_HEIGHT,
         child: Row(
@@ -57,5 +56,35 @@ class MovieListItem extends StatelessWidget {
         ),
       ),
     );
-  }
+}
+
+class MovieListBigItem extends StatelessWidget {
+
+  const MovieListBigItem({Key key, @required this.program}) : super(key: key);
+  static const double PADDING = 8;
+
+  final BaseProgram program;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      AspectRatio(
+        aspectRatio: Dimens.IMG_RATIO,
+        child: CachedNetworkImage(
+          imageUrl: ApiClient.getThumbnailUrl(program.id),
+        ),
+      ),
+      const SizedBox(height: 8),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Text(
+          program.title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 4,
+          style: TextStyles.LIST_MOVIE_TITLE_BIG,
+        ),
+      )
+    ],
+  );
 }

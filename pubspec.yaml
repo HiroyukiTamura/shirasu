@@ -39,6 +39,8 @@ dependencies:
   intl: ^0.16.1
   flutter_linkify: ^4.0.2
   dio: ^3.0.10
+  google_fonts: ^1.1.1
+  tab_indicator_styler: ^1.0.0
   flutter_playout:
     git:
       url: https://github.com/HiroyukTamura/flutter_playout.git

@@ -44,7 +44,7 @@ class Strings {
 
   //region ScreenMeta
   static const String NAV_ITEM_HOME = 'ホーム';
-  static const String NAV_ITEM_SUBSCRIBE = '購読中';
+  static const String NAV_ITEM_LIST = 'リスト';
   static const String NAV_ITEM_SEARCH = '検索';
   static const String NAV_ITEM_CONFIG = '設定';
 

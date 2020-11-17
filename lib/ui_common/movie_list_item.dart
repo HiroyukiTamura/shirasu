@@ -12,6 +12,7 @@ class MovieListItem extends StatelessWidget {
   const MovieListItem({Key key, @required this.program}) : super(key: key);
 
   static const double _TILE_HEIGHT = 72;
+  static const double PADDING = 8;
   static const _THUMBNAIL_WIDTH = _TILE_HEIGHT * Dimens.IMG_RATIO;
 
   final BaseProgram program;
@@ -19,7 +20,7 @@ class MovieListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      padding: const EdgeInsets.all(8),
       child: Container(
         height: _TILE_HEIGHT,
         child: Row(

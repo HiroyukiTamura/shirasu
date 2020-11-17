@@ -8,16 +8,16 @@ import 'package:shirasu/model/watch_history_data.dart';
 part 'viewmodel_subscribing.freezed.dart';
 
 class ViewModelSubscribing extends ChangeNotifier {
-  final apiClient = ApiClient(Client());
+  final _apiClient = ApiClient(Client());
 
-  FeatureProgramState programData;
-  WatchHistoryState watchHistoryState;
+  FeatureProgramState programData = const FeatureProgramStatePreInitialized();
+  WatchHistoryState watchHistoryState = const StatePreInitialized();
 
   Future<void> setUpData() async {
 
     if (!(programData is FeatureProgramStateSuccess)) {
       try {
-        final data = await apiClient.queryFeaturedProgramsList();
+        final data = await _apiClient.queryFeaturedProgramsList();
         programData = FeatureProgramStateSuccess(data);
       } catch (e) {
         print(e);
@@ -26,9 +26,9 @@ class ViewModelSubscribing extends ChangeNotifier {
       notifyListeners();
     }
 
-    if (!(watchHistoryState is WatchHistoryState)) {
+    if (!(watchHistoryState is StateSuccess)) {
       try {
-        final data = await apiClient.queryWatchHistory();
+        final data = await _apiClient.queryWatchHistory();
         watchHistoryState = StateSuccess(data);
       } catch (e) {
         print(e);

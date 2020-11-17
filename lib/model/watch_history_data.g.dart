@@ -11,7 +11,7 @@ _$_WatchHistoriesData _$_$_WatchHistoriesDataFromJson(
   return _$_WatchHistoriesData(
     viewerUser: json['viewerUser'] == null
         ? null
-        : ViewerUser.fromJson(json['viewerUser'] as Map<String, dynamic>),
+        : ViewerUserSimple.fromJson(json['viewerUser'] as Map<String, dynamic>),
   );
 }
 

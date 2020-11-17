@@ -17,7 +17,7 @@ class _$WatchHistoriesDataTearOff {
   const _$WatchHistoriesDataTearOff();
 
 // ignore: unused_element
-  _WatchHistoriesData call({@required ViewerUser viewerUser}) {
+  _WatchHistoriesData call({@required ViewerUserSimple viewerUser}) {
     return _WatchHistoriesData(
       viewerUser: viewerUser,
     );
@@ -35,7 +35,7 @@ const $WatchHistoriesData = _$WatchHistoriesDataTearOff();
 
 /// @nodoc
 mixin _$WatchHistoriesData {
-  ViewerUser get viewerUser;
+  ViewerUserSimple get viewerUser;
 
   Map<String, dynamic> toJson();
   $WatchHistoriesDataCopyWith<WatchHistoriesData> get copyWith;
@@ -46,9 +46,9 @@ abstract class $WatchHistoriesDataCopyWith<$Res> {
   factory $WatchHistoriesDataCopyWith(
           WatchHistoriesData value, $Res Function(WatchHistoriesData) then) =
       _$WatchHistoriesDataCopyWithImpl<$Res>;
-  $Res call({ViewerUser viewerUser});
+  $Res call({ViewerUserSimple viewerUser});
 
-  $ViewerUserCopyWith<$Res> get viewerUser;
+  $ViewerUserSimpleCopyWith<$Res> get viewerUser;
 }
 
 /// @nodoc
@@ -65,17 +65,18 @@ class _$WatchHistoriesDataCopyWithImpl<$Res>
     Object viewerUser = freezed,
   }) {
     return _then(_value.copyWith(
-      viewerUser:
-          viewerUser == freezed ? _value.viewerUser : viewerUser as ViewerUser,
+      viewerUser: viewerUser == freezed
+          ? _value.viewerUser
+          : viewerUser as ViewerUserSimple,
     ));
   }
 
   @override
-  $ViewerUserCopyWith<$Res> get viewerUser {
+  $ViewerUserSimpleCopyWith<$Res> get viewerUser {
     if (_value.viewerUser == null) {
       return null;
     }
-    return $ViewerUserCopyWith<$Res>(_value.viewerUser, (value) {
+    return $ViewerUserSimpleCopyWith<$Res>(_value.viewerUser, (value) {
       return _then(_value.copyWith(viewerUser: value));
     });
   }
@@ -88,10 +89,10 @@ abstract class _$WatchHistoriesDataCopyWith<$Res>
           _WatchHistoriesData value, $Res Function(_WatchHistoriesData) then) =
       __$WatchHistoriesDataCopyWithImpl<$Res>;
   @override
-  $Res call({ViewerUser viewerUser});
+  $Res call({ViewerUserSimple viewerUser});
 
   @override
-  $ViewerUserCopyWith<$Res> get viewerUser;
+  $ViewerUserSimpleCopyWith<$Res> get viewerUser;
 }
 
 /// @nodoc
@@ -110,8 +111,9 @@ class __$WatchHistoriesDataCopyWithImpl<$Res>
     Object viewerUser = freezed,
   }) {
     return _then(_WatchHistoriesData(
-      viewerUser:
-          viewerUser == freezed ? _value.viewerUser : viewerUser as ViewerUser,
+      viewerUser: viewerUser == freezed
+          ? _value.viewerUser
+          : viewerUser as ViewerUserSimple,
     ));
   }
 }
@@ -127,7 +129,7 @@ class _$_WatchHistoriesData implements _WatchHistoriesData {
       _$_$_WatchHistoriesDataFromJson(json);
 
   @override
-  final ViewerUser viewerUser;
+  final ViewerUserSimple viewerUser;
 
   @override
   String toString() {
@@ -158,14 +160,14 @@ class _$_WatchHistoriesData implements _WatchHistoriesData {
 }
 
 abstract class _WatchHistoriesData implements WatchHistoriesData {
-  const factory _WatchHistoriesData({@required ViewerUser viewerUser}) =
+  const factory _WatchHistoriesData({@required ViewerUserSimple viewerUser}) =
       _$_WatchHistoriesData;
 
   factory _WatchHistoriesData.fromJson(Map<String, dynamic> json) =
       _$_WatchHistoriesData.fromJson;
 
   @override
-  ViewerUser get viewerUser;
+  ViewerUserSimple get viewerUser;
   @override
   _$WatchHistoriesDataCopyWith<_WatchHistoriesData> get copyWith;
 }

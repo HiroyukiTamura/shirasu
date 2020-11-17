@@ -18,7 +18,7 @@ import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _dashBoardProvider =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
-        (ref) => ViewModelDashBoard());
+        (_) => ViewModelDashBoard());
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);
@@ -108,6 +108,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
     }
   }
 
+  //todo これ切り出すべき
   Widget _contentListView({
     @required BuildContext context,
     @required DashboardModel model,

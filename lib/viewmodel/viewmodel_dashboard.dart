@@ -5,7 +5,7 @@ import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 
 class ViewModelDashBoard extends ValueNotifier<DashboardModelState> {
-  ViewModelDashBoard() : super(null);
+  ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
 

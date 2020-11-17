@@ -10,18 +10,18 @@ part 'viewmodel_subscribing.freezed.dart';
 class ViewModelSubscribing extends ChangeNotifier {
   final apiClient = ApiClient(Client());
 
-  FeatureProgramDataModelBase _programData;
+  FeatureProgramState programData;
   WatchHistoryState watchHistoryState;
 
   Future<void> setUpData() async {
 
-    if (!(_programData is FeatureProgramDataModelSuccess)) {
+    if (!(programData is FeatureProgramStateSuccess)) {
       try {
         final data = await apiClient.queryFeaturedProgramsList();
-        _programData = FeatureProgramDataModelSuccess(data);
+        programData = FeatureProgramStateSuccess(data);
       } catch (e) {
         print(e);
-        _programData = const FeatureProgramDataModelError();
+        programData = const FeatureProgramStateError();
       }
       notifyListeners();
     }
@@ -39,23 +39,18 @@ class ViewModelSubscribing extends ChangeNotifier {
   }
 }
 
-abstract class FeatureProgramDataModelBase {
-  const FeatureProgramDataModelBase();
-}
-
-class FeatureProgramDataModelSuccess extends FeatureProgramDataModelBase {
-  const FeatureProgramDataModelSuccess(this.programData);
-
-  final FeatureProgramData programData;
-}
-
-class FeatureProgramDataModelError extends FeatureProgramDataModelBase {
-  const FeatureProgramDataModelError();
+@freezed
+abstract class FeatureProgramState with _$FeatureProgramState {
+  const factory FeatureProgramState.preInitialized() = FeatureProgramStatePreInitialized;
+  const factory FeatureProgramState.resultEmpty() = FeatureProgramStateResultEmpty;
+  const factory FeatureProgramState.success(FeatureProgramData featureProgramData) = FeatureProgramStateSuccess;
+  const factory FeatureProgramState.error() = FeatureProgramStateError;
 }
 
 @freezed
 abstract class WatchHistoryState with _$WatchHistoryState {
   const factory WatchHistoryState.preInitialized() = StatePreInitialized;
+  const factory WatchHistoryState.resultEmpty() = StateResultEmpty;
   const factory WatchHistoryState.success(WatchHistoriesData watchHistories) = StateSuccess;
   const factory WatchHistoryState.error() = StateError;
 }

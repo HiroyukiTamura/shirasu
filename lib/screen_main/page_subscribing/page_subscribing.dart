@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_subscribing/watch_history_widget.dart';
+import 'package:shirasu/screen_main/page_subscribing/subscribing_widget.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
 final subscribingViewModelProvider =
@@ -48,7 +49,7 @@ class _PageSubscribingInMainScreenState
             child: TabBarView(
               children: [
                 Container(),
-                Container(),
+                SubscribingWidget(),
                 WatchHistoryWidget(),
               ],
             ),

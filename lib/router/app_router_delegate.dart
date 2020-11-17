@@ -25,8 +25,8 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
         .map<Widget>((pathData) => GlobalRoutePathBase.wrappedWhen(
               pathData,
               dashboard: () => PageDashboardInMainScreen(appState: _appState),
-              subscribing: () => PageSubscribingInMainScreen(appState: _appState,),
-              setting: () => throw UnimplementedError(),
+              subscribing: () => PageDashboardInMainScreen(appState: _appState),
+              setting: () => PageDashboardInMainScreen(appState: _appState),
               intro: () => ScreenIntro(),
               error: () => throw UnimplementedError(),
               channel: (channelId) => ScreenChannel(channelId: channelId),

@@ -17,15 +17,15 @@ final _dashBoardProvider =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard());
 
-class PageDashboard extends StatefulWidget {
+class PageDashboardInMainScreen extends StatefulWidget {
 
-  const PageDashboard({Key key}): super(key: key);
+  const PageDashboardInMainScreen({Key key}): super(key: key);
 
   @override
-  _PageDashboardState createState() => _PageDashboardState();
+  _PageDashboardInMainScreenState createState() => _PageDashboardInMainScreenState();
 }
 
-class _PageDashboardState extends State<PageDashboard> {
+class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   static const _COLUMN_COUNT = 2;
 
   static const _CIRCULAR_HEIGHT = 36;

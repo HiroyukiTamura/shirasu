@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 @immutable
 class Styles {
-
   static final colorTextSub = Colors.white.withOpacity(.7);
   static const BACK_COLOR = Color(0xff1a1a1f);
   static const PRIMARY_COLOR = Color(0xff50e6ff);
@@ -23,5 +22,10 @@ class Styles {
     primaryColor: const Color(0xff50e6ff),
     accentColor: const Color(0xff50e6ff),
     scaffoldBackgroundColor: Colors.black,
+    appBarTheme: AppBarTheme(color: ThemeData.dark().bottomAppBarColor),
+    primaryTextTheme: const TextTheme(
+        bodyText1: TextStyle(
+      color: Colors.white,
+    )),
   );
 }

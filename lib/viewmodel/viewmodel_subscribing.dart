@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/watch_history_data.dart';
 
+part 'viewmodel_subscribing.freezed.dart';
+
 class ViewModelSubscribing extends ChangeNotifier {
   final apiClient = ApiClient(Client());
 
   FeatureProgramDataModelBase _programData;
-  WatchHistoryDataModelBase _watchHistoryDataModelBase;
+  WatchHistoryState watchHistoryState;
 
   Future<void> setUpData() async {
 
@@ -23,13 +26,13 @@ class ViewModelSubscribing extends ChangeNotifier {
       notifyListeners();
     }
 
-    if (!(_watchHistoryDataModelBase is WatchHistoryDataModelError)) {
+    if (!(watchHistoryState is WatchHistoryState)) {
       try {
         final data = await apiClient.queryWatchHistory();
-        _watchHistoryDataModelBase = WatchHistoryDataModelSuccess(data);
+        watchHistoryState = StateSuccess(data);
       } catch (e) {
         print(e);
-        _watchHistoryDataModelBase = const WatchHistoryDataModelError();
+        watchHistoryState = const StateError();
       }
       notifyListeners();
     }
@@ -50,16 +53,9 @@ class FeatureProgramDataModelError extends FeatureProgramDataModelBase {
   const FeatureProgramDataModelError();
 }
 
-abstract class WatchHistoryDataModelBase {
-  const WatchHistoryDataModelBase();
-}
-
-class WatchHistoryDataModelSuccess extends WatchHistoryDataModelBase {
-  const WatchHistoryDataModelSuccess(this.watchHistories);
-
-  final WatchHistoriesData watchHistories;
-}
-
-class WatchHistoryDataModelError extends WatchHistoryDataModelBase {
-  const WatchHistoryDataModelError();
+@freezed
+abstract class WatchHistoryState with _$WatchHistoryState {
+  const factory WatchHistoryState.preInitialized() = StatePreInitialized;
+  const factory WatchHistoryState.success(WatchHistoriesData watchHistories) = StateSuccess;
+  const factory WatchHistoryState.error() = StateError;
 }

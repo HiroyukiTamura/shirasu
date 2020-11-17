@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<PathDataMainPageBase> {
@@ -27,9 +29,9 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
   @override
   Widget build(BuildContext context) {
     final screen = _appState.findLastMainPagePath.when(
-      dashboard: () => const PageDashboard(),
-      subscribing: () => const PageDashboard(),
-      setting: () => const PageDashboard(),
+      dashboard: () => const PageDashboardInMainScreen(),
+      subscribing: () => const PageSubscribingInMainScreen(),
+      setting: () => const PageSettingInMainScreen(),
     );
 
     final page = MaterialPage(

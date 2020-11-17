@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -14,14 +15,14 @@ class ScreenIntro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-    onWillPop: () async {
-      // if (Navigator.canPop(context)) {
-      //   Navigator.pop(context);
-      //   return true;
-      // } else
-      //   return false;
-    },
-    child: IntroductionScreen(
+        onWillPop: () async {
+          // if (Navigator.canPop(context)) {
+          //   Navigator.pop(context);
+          //   return true;
+          // } else
+          //   return false;
+        },
+        child: IntroductionScreen(
           globalBackgroundColor: Colors.transparent,
           pages: _listPagesViewModel(context),
           // onDone: () => Navigator.pop(context),
@@ -41,7 +42,7 @@ class ScreenIntro extends StatelessWidget {
             ),
           ),
         ),
-  );
+      );
 
   static List<PageViewModel> _listPagesViewModel(BuildContext context) => [
         PageViewModel(
@@ -58,8 +59,7 @@ class ScreenIntro extends StatelessWidget {
           bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_1ST, Strings.INTRO_DESC_1ST_2],
           ),
-          image: SvgPicture.asset(
-            'assets/logo_official.svg',
+          image: Assets.logoOfficial.svg(
             width: _IMG_SIZE,
             height: _IMG_SIZE,
             semanticsLabel: Strings.CD_INTRO_IMG,
@@ -79,8 +79,7 @@ class ScreenIntro extends StatelessWidget {
           bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_2ND, Strings.INTRO_DESC_2ND_2],
           ),
-          image: SvgPicture.asset(
-            'assets/undraw_Notify_re_65on.svg',
+          image: Assets.undrawNotifyRe65on.svg(
             width: _IMG_SIZE,
             height: _IMG_SIZE,
             semanticsLabel: Strings.CD_INTRO_IMG,
@@ -99,8 +98,7 @@ class ScreenIntro extends StatelessWidget {
           bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_3RD, Strings.INTRO_DESC_3RD_2],
           ),
-          image: SvgPicture.asset(
-            'assets/undraw_security_o890.svg',
+          image: Assets.undrawSecurityO890.svg(
             width: _IMG_SIZE,
             height: _IMG_SIZE,
             semanticsLabel: Strings.CD_INTRO_IMG,

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -12,17 +14,16 @@ import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_movie_list.dart';
 import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
+import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
 
 final _channelProvider = ChangeNotifierProvider.autoDispose
     .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(id));
 
-class ScreenChannel extends StatefulWidget {
+class ScreenChannel extends StatefulHookWidget {
   const ScreenChannel({Key key, @required this.channelId}) : super(key: key);
 
   final String channelId;
-
-  static const double _CHANNEL_LOGO_SIZE = 32;
 
   @override
   _ScreenChannelState createState() => _ScreenChannelState(channelId);
@@ -39,6 +40,7 @@ class _ScreenChannelState extends State<ScreenChannel>
   final String _logoUrl;
 
   TabController _tabController;
+  static const double _CHANNEL_LOGO_SIZE = 32;
   static const _BILLING_PROMO_CHANNEL = '月額6600円で購読';
 
   @override
@@ -47,7 +49,8 @@ class _ScreenChannelState extends State<ScreenChannel>
     //todo set length dynamically
     _tabController = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback(
-        (_) async => context.read(_channelProvider(_channelId)).setUpData());
+            (_) async =>
+            context.read(_channelProvider(_channelId)).setUpData());
   }
 
   @override
@@ -57,20 +60,13 @@ class _ScreenChannelState extends State<ScreenChannel>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(body: Consumer(
-          builder: (BuildContext context, ScopedReader watch, Widget child) {
-        final viewModel = watch(_channelProvider(_channelId));
-        final value = viewModel.value;
-        if (value == null)
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        if (value is ChannelDataResultError)
-          return const SizedBox(); //error handle
-        if (value is ChannelDataResultSuccess) {
-          final isAnnouncementEmpty = value.channelData.channel.announcements.items.isEmpty;
+  Widget build(BuildContext context) =>
+      useProvider(_channelProvider(_channelId)).value.when(
+        preInitialized: () => const CenterCircleProgress(),
+        error: () => const SizedBox(), //todo show error widget
+        success: (channelData) {
+          final isAnnouncementEmpty = channelData.channel
+              .announcements.items.isEmpty;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -83,13 +79,13 @@ class _ScreenChannelState extends State<ScreenChannel>
                 child: Row(
                   children: [
                     CachedNetworkImage(
-                      height: ScreenChannel._CHANNEL_LOGO_SIZE,
-                      width: ScreenChannel._CHANNEL_LOGO_SIZE,
+                      height: _CHANNEL_LOGO_SIZE,
+                      width: _CHANNEL_LOGO_SIZE,
                       imageUrl: _logoUrl,
                     ),
                     const SizedBox(width: 24),
                     Text(
-                      value.channelData.channel.name,
+                      channelData.channel.name,
                       style: TextStyles.CHANNEL_NAME,
                     )
                   ],
@@ -100,15 +96,17 @@ class _ScreenChannelState extends State<ScreenChannel>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (value.channelData.channel.subscriptionPlan
-                            ?.viewerPurchasedPlan?.isActive ==
+                    if (channelData.channel.subscriptionPlan
+                        ?.viewerPurchasedPlan?.isActive ==
                         true)
                       PurchasedBannerMedium()
-                    else if (value
-                        .channelData.channel.subscriptionPlan?.isPurchasable)
-                      const BillingBtnMedium(text: _BILLING_PROMO_CHANNEL)//todo fix
                     else
-                      const SizedBox.shrink(),
+                      if (channelData.channel.subscriptionPlan
+                          ?.isPurchasable)
+                        const BillingBtnMedium(
+                            text: _BILLING_PROMO_CHANNEL) //todo fix
+                      else
+                        const SizedBox.shrink(),
                     IconButton(
                       icon: Icon(
                         Icons.add_alert,
@@ -142,21 +140,20 @@ class _ScreenChannelState extends State<ScreenChannel>
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    PageChannelDetail(text: value.channelData.channel.detail),
-                    PageMovieList(channelPrograms: value.channelData.channel.programs),
+                    PageChannelDetail(text: channelData.channel
+                        .detail),
+                    PageMovieList(channelPrograms: channelData.channel
+                        .programs),
                     if (!isAnnouncementEmpty)
                       PageNotification(
                           announcements:
-                              value.channelData.channel.announcements),
+                          channelData.channel.announcements),
                   ],
                 ),
               )
             ],
           );
-        } else {
-          throw Exception('unexpected value type :: ${value.runtimeType}');
-        }
-      })),
-    );
-  }
+        },
+
+      );
 }

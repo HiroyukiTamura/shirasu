@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -11,18 +13,19 @@ import 'package:shirasu/screen_main/page_dashboard/grid_card_item.dart';
 import 'package:shirasu/screen_main/page_dashboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/main.dart';
+import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _dashBoardProvider =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard());
 
-class PageDashboardInMainScreen extends StatefulWidget {
-
-  const PageDashboardInMainScreen({Key key}): super(key: key);
+class PageDashboardInMainScreen extends StatefulHookWidget {
+  const PageDashboardInMainScreen({Key key}) : super(key: key);
 
   @override
-  _PageDashboardInMainScreenState createState() => _PageDashboardInMainScreenState();
+  _PageDashboardInMainScreenState createState() =>
+      _PageDashboardInMainScreenState();
 }
 
 class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
@@ -49,37 +52,33 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Consumer(
-        builder: (context, watch, child) {
-          final model = watch(_dashBoardProvider).value;
+  Widget build(BuildContext context) => useProvider(_dashBoardProvider).value.when(
+          preInitialized: () => const CenterCircleProgress(),
+          error: () => throw UnimplementedError(), //todo show error widget
+          success: (model) {
+            final featurePrgData = model?.featureProgramData;
+            final newPrgData = model?.allNewPrograms;
 
-          if (model == null)
-            return const Center(child: CircularProgressIndicator());
+            int itemCount = 0;
 
-          final featurePrgData = model?.featureProgramData;
-          final newPrgData = model?.allNewPrograms;
+            if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
+              itemCount = featurePrgData.nowBroadcastings.items.length + 1;
+            final nowBroadcastingsLast = itemCount;
 
-          int itemCount = 0;
+            if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
+              itemCount += featurePrgData.comingBroadcastings.items.length + 1;
+            final comingBroadcastingsLast = itemCount;
 
-          if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
-            itemCount = featurePrgData.nowBroadcastings.items.length + 1;
-          final nowBroadcastingsLast = itemCount;
+            if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty ==
+                true) itemCount += 2;
 
-          if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
-            itemCount += featurePrgData.comingBroadcastings.items.length + 1;
-          final comingBroadcastingsLast = itemCount;
+            final subscribingLast = itemCount;
 
-          if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty ==
-              true) itemCount += 2;
+            if (newPrgData?.isNotEmpty == true)
+              itemCount += (newPrgData.length / 2).ceil() + 1;
 
-          final subscribingLast = itemCount;
-
-          if (newPrgData?.isNotEmpty == true)
-            itemCount += (newPrgData.length / 2).ceil() + 1;
-
-          return LayoutBuilder(
-            builder: (_, constraints) {
-              return _contentListView(
+            return LayoutBuilder(
+              builder: (_, constraints) => _contentListView(
                 context: context,
                 model: model,
                 itemCount: itemCount,
@@ -87,11 +86,10 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
                 comingBroadcastingsLast: comingBroadcastingsLast,
                 subscribingLast: subscribingLast,
                 constraints: constraints,
-              );
-            },
-          );
-        },
-      );
+              ),
+            );
+          },
+        );
 
   Future<void> _loadMore(BuildContext context) async {
     if (_isLoadingMoreCommanded) return _isLoadingMoreCommanded = true;
@@ -200,8 +198,8 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
                   width: width,
                   height: height,
                   item: item,
-                  onTap: () async => routerDelegate
-                      .pushPage(GlobalRoutePath.program(item.id)),
+                  onTap: () async =>
+                      routerDelegate.pushPage(GlobalRoutePath.program(item.id)),
                 );
               }).toList(growable: false);
 
@@ -217,9 +215,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
                 ),
               );
             } else
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const CenterCircleProgress();
           }),
     );
   }

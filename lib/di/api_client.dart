@@ -123,16 +123,4 @@ class ApiClient {
     final result = await _query(_QUERY_VIEWER);
     return Viewer.fromJson(result.data as Map<String, dynamic>);
   }
-
-  static String getThumbnailUrl(String itemId) {
-    return 'https://shirasu-storage-product.s3.amazonaws.com/public/programs/$itemId/thumbnail';
-  }
-
-  static String getChannelLogoUrl(String channelId) {
-    return 'https://shirasu-storage-product.s3.amazonaws.com/public/channels/$channelId/icon';
-  }
-
-  static String getChannelHeaderUrl(String channelId) {
-    return 'https://shirasu-storage-product.s3.amazonaws.com/public/channels/$channelId/header';
-  }
 }

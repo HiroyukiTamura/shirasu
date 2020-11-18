@@ -4,6 +4,7 @@ import 'package:flutter_playout/video.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
@@ -252,7 +253,7 @@ class _ContentWidget extends StatelessWidget {
                       case 2:
                         return RowChannel(
                           title: data.program.channel.name,
-                          imageUrl: ApiClient.getChannelLogoUrl(
+                          imageUrl: UrlUtil.getChannelLogoUrl(
                               data.program.channelId),
                         );
                       case 3:

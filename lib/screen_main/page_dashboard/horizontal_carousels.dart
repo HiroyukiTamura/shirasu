@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -13,7 +13,7 @@ class _HorizontalCarouselItem extends StatelessWidget {
     @required this.item,
     @required this.width,
     @required this.onTap,
-  })  : _thumbnailUrl = ApiClient.getThumbnailUrl(item.id),
+  })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
         super(key: key);
 
   final Item item;

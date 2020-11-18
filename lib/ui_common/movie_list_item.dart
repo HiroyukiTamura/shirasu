@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -25,7 +25,7 @@ class MovieListItem extends StatelessWidget {
         child: Row(
           children: [
             CachedNetworkImage(
-              imageUrl: ApiClient.getThumbnailUrl(program.id),
+              imageUrl: UrlUtil.getThumbnailUrl(program.id),
               width: _THUMBNAIL_WIDTH,
             ),
             const SizedBox(width: 16),
@@ -72,7 +72,7 @@ class MovieListBigItem extends StatelessWidget {
       AspectRatio(
         aspectRatio: Dimens.IMG_RATIO,
         child: CachedNetworkImage(
-          imageUrl: ApiClient.getThumbnailUrl(program.id),
+          imageUrl: UrlUtil.getThumbnailUrl(program.id),
         ),
       ),
       const SizedBox(height: 8),

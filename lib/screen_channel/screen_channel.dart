@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -32,8 +33,8 @@ class ScreenChannel extends StatefulHookWidget {
 class _ScreenChannelState extends State<ScreenChannel>
     with TickerProviderStateMixin {
   _ScreenChannelState(this._channelId)
-      : _headerUrl = ApiClient.getChannelHeaderUrl(_channelId),
-        _logoUrl = ApiClient.getChannelLogoUrl(_channelId);
+      : _headerUrl = UrlUtil.getChannelHeaderUrl(_channelId),
+        _logoUrl = UrlUtil.getChannelLogoUrl(_channelId);
 
   final String _channelId;
   final String _headerUrl;

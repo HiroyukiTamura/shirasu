@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -77,7 +79,7 @@ class _VideoThumbnail extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: ApiClient.getThumbnailUrl(program.id),
+          imageUrl: UrlUtil.getThumbnailUrl(program.id),
           errorWidget: (context, url, error) {
             //todo log and show error widget
             return Container();

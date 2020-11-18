@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -12,8 +12,8 @@ class BillboardExpanded extends StatelessWidget {
     Key key,
     @required this.item,
     @required this.onTap,
-  })  : _thumbnailUrl = ApiClient.getThumbnailUrl(item.id),
-        _channelLogoUrl = ApiClient.getChannelLogoUrl(item.channelId),
+  })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
+        _channelLogoUrl = UrlUtil.getChannelLogoUrl(item.channelId),
         super(key: key);
 
   static const double _CHANNEL_LOGO_SIZE = 24;

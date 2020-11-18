@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/new_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -13,7 +15,7 @@ class GirdCardItem extends StatelessWidget {
     @required this.height,
     @required this.item,
     @required this.onTap,
-  })  : _thumbnailUrl = ApiClient.getThumbnailUrl(item.id),
+  })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
         super(key: key);
 
   final String _thumbnailUrl;

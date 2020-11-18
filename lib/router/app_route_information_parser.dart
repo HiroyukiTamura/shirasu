@@ -1,39 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 
-class AppRouteInformationParser extends RouteInformationParser<GlobalRoutePathBase> {
-
+class AppRouteInformationParser
+    extends RouteInformationParser<GlobalRoutePathBase> {
   @override
-  Future<GlobalRoutePathBase> parseRouteInformation(RouteInformation routeInformation) async {
-    return const PathDataMainPageBase.dashboard();
+  Future<GlobalRoutePathBase> parseRouteInformation(
+      RouteInformation routeInformation) async {
+    if (routeInformation?.location == null)
+      return const GlobalRoutePathBase.redirect2Root();
 
-    // if (routeInformation?.location == null)
-    //   return GlobalRoutePath.screenMain();
-    //
-    // final uri = Uri.parse(routeInformation.location);
-    // // Handle '/'
-    // if (uri.pathSegments.isEmpty)
-    //   return GlobalRoutePath.screenMain();
-    //
-    // if (uri.pathSegments.length == 1) {
-    //   // Handle '/dashboard'
-    //   if (uri.pathSegments[0] == 'dashboard')
-    //     return GlobalRoutePath.screenMain();
-    //
-    // } else if (uri.pathSegments.length == 2) {
-    //   // Handle '/book/:id'
-    //   if (uri.pathSegments[0] == 'c')
-    //     return GlobalRoutePath.channel(uri.pathSegments[1]);
-    //
-    // } else if (uri.pathSegments.length == 6) {
-    //   // Handle 't/genron/c/genron/p/20201109'
-    //   if (uri.pathSegments[0] == 't' && uri.pathSegments[2] == 'c' && uri.pathSegments[4] == 'p')
-    //     return GlobalRoutePath.detail(uri.pathSegments[0], uri.pathSegments[2], uri.pathSegments[4]);
-    // }
-    //
-    // return GlobalRoutePath.unknown();
+    final uri = Uri.parse(routeInformation.location);
+
+    switch (uri.pathSegments.length) {
+      // Handle '/'
+      case 0:
+        return const GlobalRoutePathBase.redirect2Root();
+      case 1:
+        switch (uri.pathSegments[0]) {
+          case 'dashboard':
+            return const PathDataMainPageBase.dashboard();
+          case 'account':
+            return const PathDataMainPageBase.setting();
+        }
+        break;
+      case 2:
+        // Handle '/c/:id'
+        if (uri.pathSegments[0] == 'c')
+          return GlobalRoutePath.channel(uri.pathSegments[1]);
+        break;
+
+      case 6:
+        // Handle 't/genron/c/genron/p/20201109'
+        if (uri.pathSegments[0] == 't' &&
+            uri.pathSegments[2] == 'c' &&
+            uri.pathSegments[4] == 'p')
+          return GlobalRoutePath.buildProgram(
+            channelId: uri.pathSegments[0],
+            tenantId: uri.pathSegments[2],
+            programIdFragment: uri.pathSegments[4],
+          );
+        break;
+    }
+
+    return const GlobalRoutePath.error();
   }
-
 
   @override
   RouteInformation restoreRouteInformation(GlobalRoutePathBase configuration) {

@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -30,7 +32,7 @@ class PageMovieList extends StatelessWidget {
               child: Row(
                 children: [
                   CachedNetworkImage(
-                    imageUrl: ApiClient.getThumbnailUrl(program.id),
+                    imageUrl: UrlUtil.getThumbnailUrl(program.id),
                     width: _THUMBNAIL_WIDTH,
                   ),
                   const SizedBox(width: 16),

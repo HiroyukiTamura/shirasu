@@ -5,7 +5,7 @@ import 'package:shirasu/resource/strings.dart';
 class EmailStatusLabel extends StatelessWidget {
   EmailStatusLabel({Key key, @required this.isVerified})
       : text = isVerified ? Strings.EMAIL_VERIFIED : Strings.EMAIL_NOT_VERIFIED,
-        color = isVerified ? Colors.white.withOpacity(.8) : Colors.deepOrange,
+        color = isVerified ? Colors.white.withOpacity(.8) : Colors.red.shade900,
         super(key: key);
 
   final bool isVerified;
@@ -16,16 +16,17 @@ class EmailStatusLabel extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     margin: const EdgeInsets.only(top: 4),
     decoration: BoxDecoration(
-      border: Border.all(
-        color: color,
-        width: 1,
-      ),
+      color: color,
+      // border: Border.all(
+      //   color: color,
+      //   width: 1,
+      // ),
       borderRadius: BorderRadius.circular(4),
     ),
     child: Padding(
       padding: const EdgeInsets.all(4),
       child: Text(text, style: TextStyle(
-          color: color,
+          color: Colors.white,
           height: 1
       ),),
     ),

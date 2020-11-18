@@ -14,7 +14,7 @@ class ListTileTitle extends StatelessWidget {
         title,
         style: TextStyle(
           height: 1,
-          color: Colors.white.withOpacity(.8),
+          color: Colors.white.withOpacity(.7),
         ),
       ),
     );

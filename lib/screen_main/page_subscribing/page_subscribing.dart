@@ -47,28 +47,27 @@ class _PageSubscribingInMainScreenState
 
     final tabController =
         useTabController(initialLength: _TAB_LENGTH, initialIndex: 0);
-    return LayoutBuilder(
-      builder: (context, constrains) => Column(children: [
-          TabBar(
-            controller: tabController,
-            indicator: MaterialIndicator(
-              color: Theme.of(context).accentColor,
-              topLeftRadius: _INDICATOR_RADIUS,
-              topRightRadius: _INDICATOR_RADIUS,
-              bottomLeftRadius: _INDICATOR_RADIUS,
-              bottomRightRadius: _INDICATOR_RADIUS,
-              horizontalPadding:
-              (constrains.maxWidth / _TAB_LENGTH - _INDICATOR_WIDTH) /
-                  2,
-              strokeWidth: 1,
-              tabPosition: TabPosition.bottom,
-            ),
-            tabs: const [
-              Tab(text: Strings.TAB_SUBSCRIBING),
-              Tab(text: Strings.TAB_MY_LIST),
-              Tab(text: Strings.TAB_WATCH_HISTORY),
-            ],
-          ),
+        return Column(children: [
+          LayoutBuilder(builder: (context, constrains) => TabBar(
+              controller: tabController,
+              indicator: MaterialIndicator(
+                color: Theme.of(context).accentColor,
+                topLeftRadius: _INDICATOR_RADIUS,
+                topRightRadius: _INDICATOR_RADIUS,
+                bottomLeftRadius: _INDICATOR_RADIUS,
+                bottomRightRadius: _INDICATOR_RADIUS,
+                horizontalPadding:
+                (constrains.maxWidth / _TAB_LENGTH - _INDICATOR_WIDTH) /
+                    2,
+                strokeWidth: 1,
+                tabPosition: TabPosition.bottom,
+              ),
+              tabs: const [
+                Tab(text: Strings.TAB_SUBSCRIBING),
+                Tab(text: Strings.TAB_MY_LIST),
+                Tab(text: Strings.TAB_WATCH_HISTORY),
+              ],
+            )),
           Expanded(
             child: TabBarView(
               controller: tabController,
@@ -79,7 +78,6 @@ class _PageSubscribingInMainScreenState
               ],
             ),
           ),
-        ]),
-    );
+        ]);
   }
 }

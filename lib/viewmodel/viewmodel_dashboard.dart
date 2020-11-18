@@ -10,13 +10,18 @@ class ViewModelDashBoard extends ValueNotifier<DashboardModelState> {
   final _apiClient = ApiClient(Client());
 
   Future<void> requestPrograms() async {
-    final featureProgramData = await _apiClient.queryFeaturedProgramsList();
-    final newProgramsData = await _apiClient.queryNewProgramsList();
+    try {
+      final featureProgramData = await _apiClient.queryFeaturedProgramsList();
+      final newProgramsData = await _apiClient.queryNewProgramsList();
 
-    value = DashboardModelState.success(DashboardModel(
-      featureProgramData: featureProgramData,
-      newProgramsData: newProgramsData,
-    ));
+      value = DashboardModelState.success(DashboardModel(
+            featureProgramData: featureProgramData,
+            newProgramsData: newProgramsData,
+          ));
+    } catch (e) {
+      print(e);
+      value = const StateError();
+    }
   }
 
   //todo exclusion control

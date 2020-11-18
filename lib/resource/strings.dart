@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+//todo split per screen
 @immutable
 class Strings {
   //region Intro
@@ -71,14 +72,63 @@ class Strings {
   static const String SUBSCRIBED = 'チャンネル購読済み';
 
   //region ScreenDetail
-static const String WAIT_FOR_START = '放送開始までお待ちください';
+  static const String WAIT_FOR_START = '放送開始までお待ちください';
   static const String PURCHASE_BTN_TEXT = 'この動画を購入する・チャンネルを購読する';
   static const String PREVIEW_BTN_TEXT = '冒頭を無料で見る';
+
 //endregion
 
-//region ScreenSubscribing
+//region ScreenMain PageSubscribing
   static const String TAB_MY_LIST = 'マイリスト';
-static const String TAB_SUBSCRIBING = '購読中';
-static const String TAB_WATCH_HISTORY = '視聴履歴';
+  static const String TAB_SUBSCRIBING = '購読中';
+  static const String TAB_WATCH_HISTORY = '視聴履歴';
+
+//endregion
+
+//region ScreenMain PageSetting
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.nameLabel
+  static const String NAME_LABEL = 'ユーザー名';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.fullNameLabel
+  static const String FULL_NAME_LABEL = '氏名';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.fullNameReadingLabel
+  static const String FULL_NAME_READABLE_LABEL = '氏名(ふりがな)';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.mailAddress
+  static const String MAIL_ADDRESS = 'メールアドレス';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.birthDateLabel
+  static const String BIRTH_DATE_LABEL = '生年月日';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.jobLabel
+  static const String JOB_LABEL = '職業';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.placeLabel
+  static const String PLACE_LABEL = '居住地域';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.saveButton
+  static const String SAVE_BUTTON = '設定を保存する';
+
+  /// ref: stripe.components.AttachCreditCard.AttachCreditCard.cardExpiry
+  static const String CARD_EXPIRY = '有効期限';
+
+  /// ref: stripe.components.AttachCreditCard.AttachCreditCard.cardNumber
+  static const String CARD_NUMBER = 'クレジットカード番号';
+
+  /// ref: users.pages.UserAccount.UserAccountPage.titleCreditCard
+  static const String TITLE_CREDIT_CARD = 'クレジットカード情報';
+
+  /// ref: users.pages.UserAccount.UserAccountPage.titleCreditCard
+  static const String TITLE_PURCHASE_HISTORY = '購入履歴';
+
+  /// ref: users.pages.UserAccount.UserAccountPage.titleSubscribedChannels
+  static const String TITLE_SUBSCRIBED_CHANNELS = '購読中のチャンネル';
+
+  static const String TITLE_USER_INFO = 'ユーザー情報';
+
+  /// ref: users.pages.UserAccount.UserAccountPage.titleSubscribedChannels
+  static const String WATCH_MORE = 'もっと見る';
 //endregion
 }

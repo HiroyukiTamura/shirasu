@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_main/page_dashboard/list_tile_item.dart';
 import 'package:shirasu/screen_main/page_subscribing/watch_history_widget.dart';
 import 'package:shirasu/screen_main/page_subscribing/subscribing_widget.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';

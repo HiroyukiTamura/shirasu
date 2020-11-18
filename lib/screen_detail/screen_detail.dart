@@ -15,6 +15,7 @@ import 'package:shirasu/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/video_holder.dart';
+import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -203,20 +204,13 @@ class _PrgResultHookedWidget extends HookWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context) {
-    final result =
-        useProvider(detailProvider(id).select((value) => value.prgDataResult));
-    if (result == null)
-      return const Center(
-        child: CircularProgressIndicator(),
+  Widget build(BuildContext context) =>
+      useProvider(detailProvider(id).select((value) => value.prgDataResult))
+          .when(
+        preInitialized: () => const CenterCircleProgress(),
+        success: (data) => _ContentWidget(data: data),
+        error: () => const Text('error'),
       );
-    else if (result is PrgDetailResultError)
-      return Container(); //todo show error widget
-    else if (result is PrgDetailResultSuccess) {
-      return _ContentWidget(data: result.programDetailData);
-    } else
-      throw Exception('unexpected type ${result.runtimeType}');
-  }
 }
 
 class _ContentWidget extends StatelessWidget {
@@ -226,79 +220,81 @@ class _ContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext _) => LayoutBuilder(
-      builder: (context, constrains) {
-        final headerH = constrains.maxWidth / Dimens.IMG_RATIO;
-        final listViewH = constrains.maxHeight - headerH;
-        return Column(
-          children: [
-            VideoHeader(
-              height: headerH,
-              programId: data.program.id,
-              onTap: () =>
-                  context.read(detailProvider(data.program.id)).playVideo(),
-            ),
-            SizedBox(
-              height: listViewH,
-              child: ListView.builder(
-                  itemCount: 14,
-                  padding: const EdgeInsets.only(
-                    bottom: 24,
-                    right: Dimens.MARGIN_OUTLINE,
-                    left: Dimens.MARGIN_OUTLINE,
-                  ),
-                  itemBuilder: (context, index) {
-                    switch (index) {
-                      case 1:
-                        return const SizedBox(height: 16);
-                      case 2:
-                        return RowChannel(
-                          title: data.program.channel.name,
-                          imageUrl: UrlUtil.getChannelLogoUrl(
-                              data.program.channelId),
-                        );
-                      case 3:
-                        return const SizedBox(height: 12);
-                      case 4:
-                        return RowVideoTitle(text: data.program.title);
-                      case 5:
-                        return const SizedBox(height: 4);
-                      case 6:
-                        return RowVideoTime(
-                          broadcastAt: data.program.broadcastAt,
-                          totalPlayTime: data.program.totalPlayTime,
-                        );
-                      case 7:
-                        return const SizedBox(height: 16);
-                      case 8:
-                        return RowVideoTags(textList: data.program.tags);
-                      case 9:
-                        return const SizedBox(height: 36);
-                      // case 10:
-                      //   return ContentCell(
-                      //     child: Row(
-                      //       children: [
-                      //         if (data.program.onetimePlans.any((element) => false))
-                      //         BillingBtnThin(text: data.program.totalPlayTime),
-                      //         SizedBox(width: 16),
-                      //         BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
-                      //       ],
-                      //     ),
-                      //   );
-                      // case 11:
-                      //   return SizedBox(height: 36);
-                      case 10:
-                        return RowFabs(handouts: data.program.handouts,);
-                      case 11:
-                        return const SizedBox(height: 36);
-                      case 12:
-                        return RowVideoDesc(text: data.program.detail);
-                      default:
-                        return const SizedBox();
-                    }
-                  }),
-            ),
-          ],
-        );
-      },
-    );
+        builder: (context, constrains) {
+          final headerH = constrains.maxWidth / Dimens.IMG_RATIO;
+          final listViewH = constrains.maxHeight - headerH;
+          return Column(
+            children: [
+              VideoHeader(
+                height: headerH,
+                programId: data.program.id,
+                onTap: () =>
+                    context.read(detailProvider(data.program.id)).playVideo(),
+              ),
+              SizedBox(
+                height: listViewH,
+                child: ListView.builder(
+                    itemCount: 14,
+                    padding: const EdgeInsets.only(
+                      bottom: 24,
+                      right: Dimens.MARGIN_OUTLINE,
+                      left: Dimens.MARGIN_OUTLINE,
+                    ),
+                    itemBuilder: (context, index) {
+                      switch (index) {
+                        case 1:
+                          return const SizedBox(height: 16);
+                        case 2:
+                          return RowChannel(
+                            title: data.program.channel.name,
+                            imageUrl: UrlUtil.getChannelLogoUrl(
+                                data.program.channelId),
+                          );
+                        case 3:
+                          return const SizedBox(height: 12);
+                        case 4:
+                          return RowVideoTitle(text: data.program.title);
+                        case 5:
+                          return const SizedBox(height: 4);
+                        case 6:
+                          return RowVideoTime(
+                            broadcastAt: data.program.broadcastAt,
+                            totalPlayTime: data.program.totalPlayTime,
+                          );
+                        case 7:
+                          return const SizedBox(height: 16);
+                        case 8:
+                          return RowVideoTags(textList: data.program.tags);
+                        case 9:
+                          return const SizedBox(height: 36);
+                        // case 10:
+                        //   return ContentCell(
+                        //     child: Row(
+                        //       children: [
+                        //         if (data.program.onetimePlans.any((element) => false))
+                        //         BillingBtnThin(text: data.program.totalPlayTime),
+                        //         SizedBox(width: 16),
+                        //         BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
+                        //       ],
+                        //     ),
+                        //   );
+                        // case 11:
+                        //   return SizedBox(height: 36);
+                        case 10:
+                          return RowFabs(
+                            handouts: data.program.handouts,
+                          );
+                        case 11:
+                          return const SizedBox(height: 36);
+                        case 12:
+                          return RowVideoDesc(text: data.program.detail);
+                        default:
+                          return const SizedBox();
+                      }
+                    }),
+              ),
+            ],
+          );
+        },
+      );
 }

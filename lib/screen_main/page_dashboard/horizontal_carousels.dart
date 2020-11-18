@@ -19,43 +19,41 @@ class _HorizontalCarouselItem extends StatelessWidget {
   final Item item;
   final double width;
   final String _thumbnailUrl;
-  final GestureTapCallback onTap;
+  final void Function(Item) onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: double.infinity,
-        width: width,
-        decoration: BoxDecoration(
-          color: Styles.cardBackground,
-          borderRadius: BorderRadius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-                aspectRatio: Dimens.IMG_RATIO,
-                child: CachedNetworkImage(imageUrl: _thumbnailUrl)),
-            Expanded(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    item.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+  Widget build(BuildContext context) => InkWell(
+        onTap: () => onTap(item),
+        child: Container(
+          height: double.infinity,
+          width: width,
+          decoration: BoxDecoration(
+            color: Styles.cardBackground,
+            borderRadius: BorderRadius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AspectRatio(
+                  aspectRatio: Dimens.IMG_RATIO,
+                  child: CachedNetworkImage(imageUrl: _thumbnailUrl)),
+              Expanded(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      item.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class HorizontalCarousels extends StatelessWidget {
@@ -64,9 +62,11 @@ class HorizontalCarousels extends StatelessWidget {
     @required this.list,
     @required this.columnCount,
     @required this.maxWidth,
+    @required this.onTap,
   }) : super(key: key);
 
   final List<Item> list;
+  final void Function(Item) onTap;
   final int columnCount;
   final double maxWidth;
   static const double SEPARATOR_MARGIN = 16;
@@ -92,7 +92,10 @@ class HorizontalCarousels extends StatelessWidget {
             const SizedBox(width: SEPARATOR_MARGIN),
         itemBuilder: (context, index) {
           return _HorizontalCarouselItem(
-              item: list[index], width: width, onTap: () {});
+            item: list[index],
+            width: width,
+            onTap: onTap,
+          );
         },
       ),
     );

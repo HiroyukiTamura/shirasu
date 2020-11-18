@@ -52,44 +52,46 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => useProvider(_dashBoardProvider).value.when(
-          preInitialized: () => const CenterCircleProgress(),
-          error: () => const Text('error!'), //todo show error widget
-          success: (model) {
-            final featurePrgData = model?.featureProgramData;
-            final newPrgData = model?.allNewPrograms;
+  Widget build(BuildContext context) => useProvider(_dashBoardProvider)
+      .value
+      .when(
+        preInitialized: () => const CenterCircleProgress(),
+        error: () => const Text('error!'), //todo show error widget
+        success: (model) {
+          final featurePrgData = model?.featureProgramData;
+          final newPrgData = model?.allNewPrograms;
 
-            int itemCount = 0;
+          int itemCount = 0;
 
-            if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
-              itemCount = featurePrgData.nowBroadcastings.items.length + 1;
-            final nowBroadcastingsLast = itemCount;
+          if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
+            itemCount = featurePrgData.nowBroadcastings.items.length + 1;
+          final nowBroadcastingsLast = itemCount;
 
-            if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
-              itemCount += featurePrgData.comingBroadcastings.items.length + 1;
-            final comingBroadcastingsLast = itemCount;
+          if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
+            itemCount += featurePrgData.comingBroadcastings.items.length + 1;
+          final comingBroadcastingsLast = itemCount;
 
-            if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty ==
-                true) itemCount += 2;
+          if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty ==
+              true) itemCount += 2;
 
-            final subscribingLast = itemCount;
+          final subscribingLast = itemCount;
 
-            if (newPrgData?.isNotEmpty == true)
-              itemCount += (newPrgData.length / 2).ceil() + 1;
+          if (newPrgData?.isNotEmpty == true)
+            itemCount += (newPrgData.length / 2).ceil() + 1;
 
-            return LayoutBuilder(
-              builder: (_, constraints) => _contentListView(
-                context: context,
-                model: model,
-                itemCount: itemCount,
-                nowBroadcastingsLast: nowBroadcastingsLast,
-                comingBroadcastingsLast: comingBroadcastingsLast,
-                subscribingLast: subscribingLast,
-                constraints: constraints,
-              ),
-            );
-          },
-        );
+          return LayoutBuilder(
+            builder: (_, constraints) => _contentListView(
+              context: context,
+              model: model,
+              itemCount: itemCount,
+              nowBroadcastingsLast: nowBroadcastingsLast,
+              comingBroadcastingsLast: comingBroadcastingsLast,
+              subscribingLast: subscribingLast,
+              constraints: constraints,
+            ),
+          );
+        },
+      );
 
   Future<void> _loadMore(BuildContext context) async {
     if (_isLoadingMoreCommanded) return _isLoadingMoreCommanded = true;
@@ -159,7 +161,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
                   child: BillboardExpanded(
                     item: item,
                     onTap: () async => routerDelegate
-                        .pushPage(GlobalRoutePath.channel(item.channelId)),
+                        .pushPage(GlobalRoutePath.program(item.id)),
                   ),
                 );
               }
@@ -175,6 +177,8 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
                         list: featurePrgData.viewerUser.subscribedPrograms,
                         columnCount: _COLUMN_COUNT,
                         maxWidth: constraints.maxWidth,
+                        onTap: (item) async => routerDelegate
+                            .pushPage(GlobalRoutePath.program(item.id)),
                       ),
                     );
             } else if (index < itemCount || isFinish) {

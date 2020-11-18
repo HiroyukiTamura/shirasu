@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_title.dart';
 
 /// layout metrics ref: https://material.io/components/lists#specs
 class ListTileNormal extends StatelessWidget {
@@ -20,18 +21,7 @@ class ListTileNormal extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Container(
-        height: 24,
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          title,
-          style: TextStyle(
-            height: 1,
-            color: Colors.white.withOpacity(.8),
-          ),
-        ),
-      ),
-      const SizedBox(height: 6),
+      ListTileTitle(title: title),
       RichText(
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -51,8 +41,10 @@ class ListTileNormal extends StatelessWidget {
               fontSize: 22,
             ),
           )),
-      const SizedBox(height: 4),
-      if (trailing != null) trailing
+      if (trailing != null) Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: trailing,
+      )
     ],
   );
 }

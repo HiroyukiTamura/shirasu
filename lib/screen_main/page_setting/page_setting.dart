@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
+import 'package:shirasu/screen_main/page_setting/external_auth.dart';
 import 'package:shirasu/screen_main/page_setting/heading.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_normal.dart';
 import 'package:shirasu/screen_main/page_setting/user_name_and_icon.dart';
@@ -81,6 +82,8 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                         text: _DUMMY_USER_EMAIL,
                         trailing: EmailStatusLabel(isVerified: false),
                       );
+                    case 5:
+                      return const ExternalAuth();
                     default:
                       return const SizedBox();
                   }
@@ -89,7 +92,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                 separatorBuilder: (BuildContext context, int index) {
                   switch (index) {
                     default:
-                      return const SizedBox(height: 20);
+                      return const SizedBox(height: 24);
                   }
                 },
               );

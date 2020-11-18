@@ -14,7 +14,7 @@ class EmailStatusLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    margin: const EdgeInsets.only(top: 6),
+    margin: const EdgeInsets.only(top: 4),
     decoration: BoxDecoration(
       border: Border.all(
         color: color,

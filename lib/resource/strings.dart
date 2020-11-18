@@ -90,8 +90,8 @@ class Strings {
   /// ref: users.pages.UserAccount.components.UserAccountInformation.nameLabel
   static const String NAME_LABEL = 'ユーザー名';
 
-  /// ref: users.pages.UserAccount.components.UserAccountInformation.fullNameLabel
-  static const String FULL_NAME_LABEL = '氏名';
+  /// not ref to users.pages.UserAccount.components.UserAccountInformation.fullNameLabel
+  static const String FULL_NAME_LABEL = '名前';
 
   /// ref: users.pages.UserAccount.components.UserAccountInformation.fullNameReadingLabel
   static const String FULL_NAME_READABLE_LABEL = '氏名(ふりがな)';

@@ -50,51 +50,80 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      useProvider(_viewModelProvider).value.when(
-            preInitialized: () => const CenterCircleProgress(),
-            error: () => const Text('error!'), //todo implement
-            success: (data) {
-              return ListView.builder(
-                itemBuilder: (context, i) {
-                  switch (i) {
-                    case 0:
-                      return const Heading(Strings.TITLE_USER_INFO);
-                    case 1:
-                      return ListTile(
-                        leading: CircleAvatar(
+  Widget build(BuildContext context) => useProvider(_viewModelProvider)
+      .value
+      .when(
+        preInitialized: () => const CenterCircleProgress(),
+        error: () => const Text('error!'), //todo implement
+        success: (data) {
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            itemBuilder: (context, i) {
+              switch (i) {
+                // case 0:
+                //   return SizedBox(
+                //     height: 32,
+                //   );
+                // return const Heading(Strings.TITLE_USER_INFO);
+                case 1:
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24,),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
                           backgroundImage:
                               CachedNetworkImageProvider(_DUMMY_USER_ICON_URL),
                         ),
-                        title: Text(data.viewerUser.name),
-                      );
-                    // case 2:
-                    //   return ListTile(
-                    //     title: Text(Strings.FULL_NAME_LABEL),
-                    //     subtitle: Column(
-                    //       crossAxisAlignment: CrossAxisAlignment.start,
-                    //       children: [
-                    //         Text('$_DUMMY_FAMILY_NAME  $_DUMMY_FIRST_NAME'),
-                    //         SizedBox(height: 4),
-                    //         Text(
-                    //           Strings.FULL_NAME_NOTICE,
-                    //           style: TextStyle(height: 1.3),
-                    //         )
-                    //       ],
-                    //     ),
-                    //   );
-                    case 3:
-                      return ListTileUserName(
-                        firstName: _DUMMY_FIRST_NAME,
-                        firstNameReadable: _DUMMY_FIRST_READABLE_NAME,
-                        familyName: _DUMMY_FAMILY_NAME,
-                        familyNameReadable: _DUMMY_FAMILY_READABLE_NAME,
-                      );
-                    case 4:
-                      return ListTileNormal(
-                        title: Strings.MAIL_ADDRESS,
-                        text: _DUMMY_USER_EMAIL,
-                        extra: Row(
+                        SizedBox(width: 16,),
+                        Text(
+                          data.viewerUser.name,
+                          style: const TextStyle(fontSize: 18),
+                        )
+                      ],
+                    ),
+                  );
+                case 2:
+                  return ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    title: Text(Strings.FULL_NAME_LABEL),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$_DUMMY_FAMILY_NAME $_DUMMY_FIRST_NAME($_DUMMY_FAMILY_READABLE_NAME $_DUMMY_FIRST_READABLE_NAME)',
+                          style: TextStyle(color: Colors.blueAccent),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          Strings.FULL_NAME_NOTICE,
+                          style: TextStyle(height: 1.3),
+                        )
+                      ],
+                    ),
+                  );
+                // case 3:
+                //   return ListTileUserName(
+                //     firstName: _DUMMY_FIRST_NAME,
+                //     firstNameReadable: _DUMMY_FIRST_READABLE_NAME,
+                //     familyName: _DUMMY_FAMILY_NAME,
+                //     familyNameReadable: _DUMMY_FAMILY_READABLE_NAME,
+                //   );
+                case 4:
+                  return ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    title: const Text(Strings.MAIL_ADDRESS),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _DUMMY_USER_EMAIL,
+                          style: TextStyle(color: Colors.blueAccent),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
                           children: [
                             EmailStatusLabel(isVerified: false),
                             const SizedBox(width: 16),
@@ -134,32 +163,45 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                                   )),
                             ),
                           ],
-                        ),
-                        height: 108,
-                      );
-                    case 6:
-                      return ListTileNormal(
-                        title: Strings.BIRTH_DATE_LABEL,
-                        text:
-                            DateFormat('yyyy.MM.dd').format(_DUMMY_BIRTH_DATE),
-                      );
-                    case 7:
-                      return ListTileNormal(
-                        title: Strings.JOB_LABEL,
-                        text: _DUMMY_USER_JOB,
-                      );
-                    case 8:
-                      return ListTileNormal(
-                        title: Strings.PLACE_LABEL,
-                        text: _DUMMY_USER_COUNTRY,
-                        subText: _DUMMY_USER_PREFECTURE,
-                      );
-                    default:
-                      return const SizedBox();
-                  }
-                },
-                itemCount: 10,
-              );
+                        )
+                      ],
+                    ),
+                  );
+                case 6:
+                  return ListTile(
+                    title: const Text(Strings.BIRTH_DATE_LABEL),
+                    subtitle: Text(
+                      DateFormat('yyyy.MM.dd').format(_DUMMY_BIRTH_DATE),
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
+                  );
+                case 7:
+                  return ListTile(
+                    title: const Text(Strings.JOB_LABEL),
+                    subtitle: Text(
+                      _DUMMY_USER_JOB,
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
+                  );
+                case 8:
+                  return ListTile(
+                    title: const Text(Strings.PLACE_LABEL),
+                    subtitle: Text(
+                      '$_DUMMY_USER_COUNTRY $_DUMMY_USER_PREFECTURE',
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
+                  );
+                // return ListTileNormal(
+                //   title: Strings.PLACE_LABEL,
+                //   text: _DUMMY_USER_COUNTRY,
+                //   subText: _DUMMY_USER_PREFECTURE,
+                // );
+                default:
+                  return const SizedBox();
+              }
             },
+            itemCount: 10,
           );
+        },
+      );
 }

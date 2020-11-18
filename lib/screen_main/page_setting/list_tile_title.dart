@@ -13,8 +13,9 @@ class ListTileTitle extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
+          fontSize: 13,
           height: 1,
-          color: Colors.white.withOpacity(.7),
+          color: Theme.of(context).accentColor,
         ),
       ),
     );

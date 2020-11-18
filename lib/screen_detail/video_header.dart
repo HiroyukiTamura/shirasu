@@ -2,12 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/video_type.dart';
-import 'package:shirasu/resource/dimens.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -32,9 +29,9 @@ class VideoHeader extends HookWidget {
     final playOutState =
         useProvider(detailProvider(programId).select((it) => it.playOutState));
     final result = context.read(detailProvider(programId)).prgDataResult
-        as PrgDetailResultSuccess;//todo should not call context.read in build method
+        as StateSuccess;//todo should not call context.read in build method?
 
-    final program = result.programDetailData.program;
+    final program = result.data.program;
     Widget child;
     switch (playOutState.commandedState) {
       case PlayerCommandedState.PRE_PLAY:

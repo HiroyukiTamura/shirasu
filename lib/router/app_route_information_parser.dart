@@ -46,20 +46,21 @@ class AppRouteInformationParser
   }
 
   @override
-  RouteInformation restoreRouteInformation(GlobalRoutePathBase configuration) {
-    // final data = configuration.data;
+  RouteInformation restoreRouteInformation(GlobalRoutePathBase configuration) =>
+      RouteInformation(location: restoreLocation(configuration));
 
-    return const RouteInformation(location: '/');
-
-    // if (data is GlobalRoutePathChannel)
-    //   return RouteInformation(location: '/c/${data.channelId}');
-    // else if (data is GlobalRoutePathDetail)
-    //   return RouteInformation(location: '/t/${data.tenantId}/c/${data.channelId}/p/${data.id}');
-    // else if (data is GlobalRoutePathIntro)
-    //   return const RouteInformation(location: '/intro');
-    // else if (data is GlobalRoutePathError)
-    //   return const RouteInformation(location: '/error');
-    // else
-    //   return const RouteInformation(location: '/');
-  }
+  static String restoreLocation(GlobalRoutePathBase configuration) =>
+      GlobalRoutePathBase.wrappedWhen(
+        configuration,
+        intro: () => 'intro',
+        error: () => 'error',
+        channel: (channelId) => '/c/$channelId',
+        program: (programId) {
+          final list = programId.split('-');
+          return '/t/${list[0]}/c/${list[1]}/p/${list[2]}';
+        },
+        dashboard: () => 'dashboard',
+        subscribing: () => 'subscribing',
+        setting: () => 'setting',
+      );
 }

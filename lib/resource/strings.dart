@@ -130,5 +130,18 @@ class Strings {
 
   /// ref: users.pages.UserAccount.UserAccountPage.titleSubscribedChannels
   static const String WATCH_MORE = 'もっと見る';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.fullNameNotice
+  static const String FULL_NAME_NOTICE = '※氏名の変更があった場合はお問い合わせフォームからご連絡ください';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.emailNotVerifed
+  static const String EMAIL_NOT_VERIFIED = '未確認';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.emailVerified
+  static const String EMAIL_VERIFIED = '確認済';
+
+  /// ref: users.pages.UserAccount.components.UserAccountInformation.externalAuthentication
+  static const String EXTERNAL_AUTHENTICATION = '外部サービスログイン連携';
+
 //endregion
 }

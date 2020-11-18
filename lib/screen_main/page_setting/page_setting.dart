@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/resource/styles.dart';
+import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
+import 'package:shirasu/screen_main/page_setting/heading.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_normal.dart';
+import 'package:shirasu/screen_main/page_setting/user_name_and_icon.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 
@@ -21,7 +26,11 @@ class PageSettingInMainScreen extends StatefulHookWidget {
 class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
   static const _DUMMY_USER_ICON_URL =
       'https://lh6.googleusercontent.com/-xARQ0foJdCA/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuck6e6cRIn75RY5zuSkoAIDdVcQcHA/s96-c/photo.jpg';
-  static const double _ICON_SIZE = 64;
+  static const _DUMMY_FAMILY_NAME = '山田';
+  static const _DUMMY_FIRST_NAME = '太郎';
+  static const _DUMMY_FAMILY_READABLE_NAME = 'やまだ';
+  static const _DUMMY_FIRST_READABLE_NAME = 'たろう';
+  static const _DUMMY_USER_EMAIL = 'fugahoge@gmail.com';
 
   @override
   void initState() {
@@ -36,103 +45,54 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
             preInitialized: () => const CenterCircleProgress(),
             error: () => const Text('error!'), //todo implement
             success: (data) {
-              return ListView.builder(
+              return ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 itemBuilder: (context, i) {
                   switch (i) {
                     case 0:
-                      return const _Title(Strings.TITLE_USER_INFO);
+                      return const Heading(Strings.TITLE_USER_INFO);
                     case 1:
-                      return _UserNameAndIcon(
+                      return UserNameAndIcon(
                         iconUrl: _DUMMY_USER_ICON_URL,
                         userName: data.viewerUser.name,
+                      );
+                    case 2:
+                      return ListTileNormal(
+                        title: Strings.FULL_NAME_LABEL,
+                        text: _DUMMY_FAMILY_NAME,
+                        subText: _DUMMY_FIRST_NAME,
+                        trailing: Text(
+                          Strings.FULL_NAME_NOTICE,
+                          style: TextStyle(
+                            height: 1.3,
+                            color: Styles.colorTextSub,
+                          ),
+                        ),
+                      );
+                    case 3:
+                      return ListTileNormal(
+                        title: Strings.FULL_NAME_READABLE_LABEL,
+                        text: _DUMMY_FAMILY_READABLE_NAME,
+                        subText: _DUMMY_FIRST_READABLE_NAME,
+                      );
+                    case 4:
+                      return ListTileNormal(
+                        title: Strings.MAIL_ADDRESS,
+                        text: _DUMMY_USER_EMAIL,
+                        trailing: EmailStatusLabel(isVerified: false),
                       );
                     default:
                       return const SizedBox();
                   }
                 },
                 itemCount: 10,
+                separatorBuilder: (BuildContext context, int index) {
+                  switch (index) {
+                    default:
+                      return const SizedBox(height: 20);
+                  }
+                },
               );
             },
           );
-}
-
-class _Title extends StatelessWidget {
-  const _Title(this.text, {Key key}) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 16),
-    child: Text(
-          text,
-          style: TextStyle(
-            color: Theme.of(context).accentColor,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-  );
-}
-
-class _UserNameAndIcon extends StatelessWidget {
-  const _UserNameAndIcon({
-    Key key,
-    @required this.iconUrl,
-    @required this.userName,
-  }) : super(key: key);
-
-  final String iconUrl;
-  final String userName;
-  static const double _HEIGHT = 60;
-
-  @override
-  Widget build(BuildContext context) => SizedBox(
-        height: _HEIGHT,
-        child: Row(
-          children: [
-            CachedNetworkImage(
-              imageUrl: iconUrl,
-              width: _HEIGHT,
-              height: _HEIGHT,
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              errorWidget: (context, url, error) {
-                print(error);
-                return Container(); //todo show default user image
-              },
-            ),
-            const SizedBox(width: 24),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  Strings.NAME_LABEL,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(.8),
-                  ),
-                ),
-                Text(
-                  userName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
 }

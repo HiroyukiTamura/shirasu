@@ -25,6 +25,7 @@ class _PageSubscribingInMainScreenState
     extends State<PageSubscribingInMainScreen> {
   static const _TAB_LENGTH = 3;
   static const double _INDICATOR_WIDTH = 24;
+  static const double _INDICATOR_RADIUS = 5;
 
   @override
   void initState() {
@@ -38,7 +39,7 @@ class _PageSubscribingInMainScreenState
     // we must call useProvider in this build method because we call `context.read` in afterLayout and subscribingViewModelProvider is AutoDispose.
     //
     // - TabBarView's child may cause to dispose its provider when it disappeared.
-    // - AutoDispose will be disposed when nothing access to it.
+    // - AutoDispose will dispose its provider when nothing access to it.
     // - And TabBarView initialize every pages asynchronously.
     // so, there is the moment afterLayout called but nothing TabBarView's child is initialized,
     // and then subscribingViewModelProvider shall dispose before we read it!
@@ -47,15 +48,15 @@ class _PageSubscribingInMainScreenState
     final tabController =
         useTabController(initialLength: _TAB_LENGTH, initialIndex: 0);
     return LayoutBuilder(
-      builder: (_, constrains) => Column(children: [
+      builder: (context, constrains) => Column(children: [
           TabBar(
             controller: tabController,
             indicator: MaterialIndicator(
               color: Theme.of(context).accentColor,
-              topLeftRadius: 5,
-              topRightRadius: 5,
-              bottomLeftRadius: 5,
-              bottomRightRadius: 5,
+              topLeftRadius: _INDICATOR_RADIUS,
+              topRightRadius: _INDICATOR_RADIUS,
+              bottomLeftRadius: _INDICATOR_RADIUS,
+              bottomRightRadius: _INDICATOR_RADIUS,
               horizontalPadding:
               (constrains.maxWidth / _TAB_LENGTH - _INDICATOR_WIDTH) /
                   2,

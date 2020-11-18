@@ -41,6 +41,7 @@ dependencies:
   dio: ^3.0.10
   google_fonts: ^1.1.1
   tuple: ^1.0.3
+  after_layout: ^1.0.7+2
   tab_indicator_styler: ^1.0.0
   flutter_playout:
     git:

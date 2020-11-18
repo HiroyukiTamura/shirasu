@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -28,28 +29,10 @@ class PageDashboardInMainScreen extends StatefulHookWidget {
       _PageDashboardInMainScreenState();
 }
 
-class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
-  static const _COLUMN_COUNT = 2;
-
-  static const _CIRCULAR_HEIGHT = 36;
-
-  ScrollController _controller;
-  bool _isLoadingMoreCommanded = false;
+class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> with AfterLayoutMixin<PageDashboardInMainScreen> {
 
   @override
-  void initState() {
-    super.initState();
-    _controller = ScrollController();
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => context.read(_dashBoardProvider).requestPrograms());
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _isLoadingMoreCommanded = false;
-    _controller?.dispose();
-  }
+  void afterFirstLayout(BuildContext context) => context.read(_dashBoardProvider).requestPrograms();
 
   @override
   Widget build(BuildContext context) => useProvider(_dashBoardProvider)
@@ -79,19 +62,156 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
           if (newPrgData?.isNotEmpty == true)
             itemCount += (newPrgData.length / 2).ceil() + 1;
 
-          return LayoutBuilder(
-            builder: (_, constraints) => _contentListView(
-              context: context,
-              model: model,
-              itemCount: itemCount,
-              nowBroadcastingsLast: nowBroadcastingsLast,
-              comingBroadcastingsLast: comingBroadcastingsLast,
-              subscribingLast: subscribingLast,
-              constraints: constraints,
-            ),
+          return _ListViewContent(
+            itemCount: itemCount,
+            nowBroadcastingsLast: nowBroadcastingsLast,
+            comingBroadcastingsLast: comingBroadcastingsLast,
+            subscribingLast: subscribingLast,
           );
         },
       );
+}
+
+class _ListViewContent extends StatefulHookWidget {
+  const _ListViewContent({
+    @required this.itemCount,
+    @required this.nowBroadcastingsLast,
+    @required this.comingBroadcastingsLast,
+    @required this.subscribingLast,
+  });
+
+  final int itemCount;
+  final int nowBroadcastingsLast;
+  final int comingBroadcastingsLast;
+  final int subscribingLast;
+
+  @override
+  _ListViewContentState createState() => _ListViewContentState();
+}
+
+class _ListViewContentState extends State<_ListViewContent> {
+
+  static const _COLUMN_COUNT = 2;
+
+  static const _CIRCULAR_HEIGHT = 36;
+
+  bool _isLoadingMoreCommanded = false;
+  
+  @override
+  Widget build(BuildContext context) {
+    final model = (context.read(_dashBoardProvider).value as StateSuccess).dashboardModel;
+    final isFinish = model.newProgramsDataList?.isNotEmpty == true &&
+        model.newProgramsDataList?.last?.newPrograms?.nextToken == null;
+    final featurePrgData = model?.featureProgramData;
+    final newPrgData = model?.allNewPrograms;
+
+    final controller = useScrollController();
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return NotificationListener<ScrollNotification>(
+          onNotification: (notification) {
+            if (!isFinish &&
+                notification is UserScrollNotification &&
+                notification.direction == ScrollDirection.idle &&
+                controller.position.maxScrollExtent - _CIRCULAR_HEIGHT < controller.offset) {
+              _loadMore(context);
+              return true;
+            }
+
+            return false;
+          },
+          child: ListView.builder(
+              controller: controller,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              itemCount: isFinish ? widget.itemCount : widget.itemCount + 1,
+              itemBuilder: (context, index) {
+                if (index < widget.nowBroadcastingsLast && widget.nowBroadcastingsLast != 0) {
+                  return const SizedBox();
+                } else if (index < widget.comingBroadcastingsLast &&
+                    widget.nowBroadcastingsLast != widget.comingBroadcastingsLast) {
+                  final i = index - widget.nowBroadcastingsLast;
+
+                  if (i == 0)
+                    return const Heading(text: Strings.HEADING_UPCOMING);
+                  else {
+                    final item =
+                        featurePrgData.comingBroadcastings.items[i - 1];
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 48,
+                        top: 16,
+                      ),
+                      child: BillboardExpanded(
+                        item: item,
+                        onTap: () async => routerDelegate
+                            .pushPage(GlobalRoutePath.program(item.id)),
+                      ),
+                    );
+                  }
+                } else if (index < widget.subscribingLast &&
+                    widget.comingBroadcastingsLast != widget.subscribingLast) {
+                  final i = index - widget.comingBroadcastingsLast;
+
+                  return i == 0
+                      ? const Heading(text: Strings.HEADING_SUBSCRIBING)
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 16, bottom: 32),
+                          child: HorizontalCarousels(
+                            list: featurePrgData.viewerUser.subscribedPrograms,
+                            columnCount: _COLUMN_COUNT,
+                            maxWidth: constraints.maxWidth,
+                            onTap: (item) async => routerDelegate
+                                .pushPage(GlobalRoutePath.program(item.id)),
+                          ),
+                        );
+                } else if (index < widget.itemCount || isFinish) {
+                  final i = index - widget.subscribingLast;
+
+                  if (i == 0)
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Heading(text: Strings.HEADING_NEW_PRG),
+                    );
+
+                  final rowIndex = i - 1;
+                  final start = rowIndex * _COLUMN_COUNT;
+                  final end = start + _COLUMN_COUNT;
+                  final children = newPrgData
+                      .getRange(start, end)
+                      .toList()
+                      .map<Widget>((item) {
+                    final width = constraints.maxWidth / _COLUMN_COUNT -
+                        GirdCardItem.HORIZONTAL_MARGIN * (_COLUMN_COUNT + 1);
+                    final height = width * Dimens.DASHBOARD_GRID_RATIO -
+                        GirdCardItem.HORIZONTAL_MARGIN * 2;
+                    return GirdCardItem(
+                      width: width,
+                      height: height,
+                      item: item,
+                      onTap: () async => routerDelegate
+                          .pushPage(GlobalRoutePath.program(item.id)),
+                    );
+                  }).toList(growable: false);
+
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      right: GirdCardItem.HORIZONTAL_MARGIN,
+                      left: GirdCardItem.HORIZONTAL_MARGIN,
+                      top: GirdCardItem.HORIZONTAL_MARGIN * 2,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: children,
+                    ),
+                  );
+                } else
+                  return const CenterCircleProgress();
+              }),
+        );
+      },
+    );
+  }
 
   Future<void> _loadMore(BuildContext context) async {
     if (_isLoadingMoreCommanded) return _isLoadingMoreCommanded = true;
@@ -108,120 +228,5 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
         Scaffold.of(context).showSnackBar(snackBar);
         break;
     }
-  }
-
-  //todo これ切り出すべき
-  Widget _contentListView({
-    @required BuildContext context,
-    @required DashboardModel model,
-    @required int itemCount,
-    @required int nowBroadcastingsLast,
-    @required int comingBroadcastingsLast,
-    @required int subscribingLast,
-    @required BoxConstraints constraints,
-  }) {
-    final isFinish = model.newProgramsDataList?.isNotEmpty == true &&
-        model.newProgramsDataList?.last?.newPrograms?.nextToken == null;
-    final featurePrgData = model?.featureProgramData;
-    final newPrgData = model?.allNewPrograms;
-
-    return NotificationListener<ScrollNotification>(
-      onNotification: (notification) {
-        if (!isFinish &&
-            notification is UserScrollNotification &&
-            notification.direction == ScrollDirection.idle &&
-            _controller.position.maxScrollExtent - _CIRCULAR_HEIGHT <
-                _controller.offset) {
-          _loadMore(context);
-          return true;
-        }
-
-        return false;
-      },
-      child: ListView.builder(
-          controller: _controller,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          itemCount: isFinish ? itemCount : itemCount + 1,
-          itemBuilder: (context, index) {
-            if (index < nowBroadcastingsLast && nowBroadcastingsLast != 0) {
-              return const SizedBox();
-            } else if (index < comingBroadcastingsLast &&
-                nowBroadcastingsLast != comingBroadcastingsLast) {
-              final i = index - nowBroadcastingsLast;
-
-              if (i == 0)
-                return const Heading(text: Strings.HEADING_UPCOMING);
-              else {
-                final item = featurePrgData.comingBroadcastings.items[i - 1];
-                return Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 48,
-                    top: 16,
-                  ),
-                  child: BillboardExpanded(
-                    item: item,
-                    onTap: () async => routerDelegate
-                        .pushPage(GlobalRoutePath.program(item.id)),
-                  ),
-                );
-              }
-            } else if (index < subscribingLast &&
-                comingBroadcastingsLast != subscribingLast) {
-              final i = index - comingBroadcastingsLast;
-
-              return i == 0
-                  ? const Heading(text: Strings.HEADING_SUBSCRIBING)
-                  : Padding(
-                      padding: const EdgeInsets.only(top: 16, bottom: 32),
-                      child: HorizontalCarousels(
-                        list: featurePrgData.viewerUser.subscribedPrograms,
-                        columnCount: _COLUMN_COUNT,
-                        maxWidth: constraints.maxWidth,
-                        onTap: (item) async => routerDelegate
-                            .pushPage(GlobalRoutePath.program(item.id)),
-                      ),
-                    );
-            } else if (index < itemCount || isFinish) {
-              final i = index - subscribingLast;
-
-              if (i == 0)
-                return const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Heading(text: Strings.HEADING_NEW_PRG),
-                );
-
-              final rowIndex = i - 1;
-              final start = rowIndex * _COLUMN_COUNT;
-              final end = start + _COLUMN_COUNT;
-              final children =
-                  newPrgData.getRange(start, end).toList().map<Widget>((item) {
-                final width = constraints.maxWidth / _COLUMN_COUNT -
-                    GirdCardItem.HORIZONTAL_MARGIN * (_COLUMN_COUNT + 1);
-                final height = width * Dimens.DASHBOARD_GRID_RATIO -
-                    GirdCardItem.HORIZONTAL_MARGIN * 2;
-                return GirdCardItem(
-                  width: width,
-                  height: height,
-                  item: item,
-                  onTap: () async =>
-                      routerDelegate.pushPage(GlobalRoutePath.program(item.id)),
-                );
-              }).toList(growable: false);
-
-              return Padding(
-                padding: const EdgeInsets.only(
-                  right: GirdCardItem.HORIZONTAL_MARGIN,
-                  left: GirdCardItem.HORIZONTAL_MARGIN,
-                  top: GirdCardItem.HORIZONTAL_MARGIN * 2,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: children,
-                ),
-              );
-            } else
-              return const CenterCircleProgress();
-          }),
-    );
   }
 }

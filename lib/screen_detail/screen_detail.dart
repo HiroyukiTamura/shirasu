@@ -18,6 +18,7 @@ import 'package:shirasu/screen_detail/video_holder.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:after_layout/after_layout.dart';
 
 final detailProvider = ChangeNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id));
@@ -33,18 +34,13 @@ class ScreenDetail extends StatefulWidget {
   _ScreenDetailState createState() => _ScreenDetailState(id);
 }
 
-class _ScreenDetailState extends State<ScreenDetail> {
+class _ScreenDetailState extends State<ScreenDetail> with AfterLayoutMixin<ScreenDetail> {
   _ScreenDetailState(this._id);
 
   final String _id;
 
   @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) async => context.read(detailProvider(_id)).setUpData());
-  }
+  void afterFirstLayout(BuildContext context) => context.read(detailProvider(_id)).setUpData();
 
   @override
   Widget build(BuildContext context) => SafeArea(

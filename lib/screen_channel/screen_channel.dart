@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,34 +32,23 @@ class ScreenChannel extends StatefulHookWidget {
 }
 
 class _ScreenChannelState extends State<ScreenChannel>
-    with TickerProviderStateMixin {
+    with AfterLayoutMixin<ScreenChannel> {
   _ScreenChannelState(this._channelId)
       : _headerUrl = UrlUtil.getChannelHeaderUrl(_channelId),
         _logoUrl = UrlUtil.getChannelLogoUrl(_channelId);
+
+  static const double _CHANNEL_LOGO_SIZE = 32;
+  static const _BILLING_PROMO_CHANNEL = '月額6600円で購読';
 
   final String _channelId;
   final String _headerUrl;
   final String _logoUrl;
 
-  TabController _tabController;
-  static const double _CHANNEL_LOGO_SIZE = 32;
-  static const _BILLING_PROMO_CHANNEL = '月額6600円で購読';
+  int _tabIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
-    //todo set length dynamically
-    _tabController = TabController(length: 3, vsync: this);
-    WidgetsBinding.instance.addPostFrameCallback(
-            (_) async =>
-            context.read(_channelProvider(_channelId)).setUpData());
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _tabController?.dispose();
-  }
+  void afterFirstLayout(BuildContext context) =>
+      context.read(_channelProvider(_channelId)).setUpData();
 
   @override
   Widget build(BuildContext context) =>
@@ -69,6 +59,10 @@ class _ScreenChannelState extends State<ScreenChannel>
           success: (channelData) {
             final isAnnouncementEmpty = channelData.channel
                 .announcements.items.isEmpty;
+            final initialLength = isAnnouncementEmpty ? 2 : 3;
+            final tabController = useTabController(
+                initialLength: initialLength, initialIndex: _tabIndex);
+            tabController.addListener(() => _tabIndex = tabController.index);
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -123,7 +117,7 @@ class _ScreenChannelState extends State<ScreenChannel>
                 ContentCell(
                   child: TabBar(
                       labelColor: Colors.white,
-                      controller: _tabController,
+                      controller: tabController,
                       isScrollable: true,
                       tabs: [
                         const Tab(text: Strings.CHANNEL_TAB_DESC),
@@ -140,7 +134,7 @@ class _ScreenChannelState extends State<ScreenChannel>
                 ),
                 Expanded(
                   child: TabBarView(
-                    controller: _tabController,
+                    controller: tabController,
                     children: [
                       PageChannelDetail(text: channelData.channel
                           .detail),
@@ -156,7 +150,6 @@ class _ScreenChannelState extends State<ScreenChannel>
               ],
             );
           },
-
         ),
       );
 }

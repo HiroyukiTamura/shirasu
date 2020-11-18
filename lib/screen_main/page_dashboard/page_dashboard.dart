@@ -54,7 +54,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   @override
   Widget build(BuildContext context) => useProvider(_dashBoardProvider).value.when(
           preInitialized: () => const CenterCircleProgress(),
-          error: () => throw UnimplementedError(), //todo show error widget
+          error: () => const Text('error!'), //todo show error widget
           success: (model) {
             final featurePrgData = model?.featureProgramData;
             final newPrgData = model?.allNewPrograms;

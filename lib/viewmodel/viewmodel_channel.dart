@@ -7,7 +7,7 @@ import 'package:shirasu/model/channel_data.dart';
 part 'viewmodel_channel.freezed.dart';
 
 class ViewModelChannel extends ValueNotifier<ChannelDataResult> {
-  ViewModelChannel(this._channelId) : super(null);
+  ViewModelChannel(this._channelId) : super(const PreInitialized());
 
   final apiClient = ApiClient(Client());
   final String _channelId;

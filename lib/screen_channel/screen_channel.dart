@@ -61,99 +61,101 @@ class _ScreenChannelState extends State<ScreenChannel>
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_channelProvider(_channelId)).value.when(
-        preInitialized: () => const CenterCircleProgress(),
-        error: () => const SizedBox(), //todo show error widget
-        success: (channelData) {
-          final isAnnouncementEmpty = channelData.channel
-              .announcements.items.isEmpty;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AspectRatio(
-                aspectRatio: Dimens.HEADER_ASPECT,
-                child: CachedNetworkImage(imageUrl: _headerUrl),
-              ),
-              const SizedBox(height: 24),
-              ContentCell(
-                child: Row(
-                  children: [
-                    CachedNetworkImage(
-                      height: _CHANNEL_LOGO_SIZE,
-                      width: _CHANNEL_LOGO_SIZE,
-                      imageUrl: _logoUrl,
-                    ),
-                    const SizedBox(width: 24),
-                    Text(
-                      channelData.channel.name,
-                      style: TextStyles.CHANNEL_NAME,
-                    )
-                  ],
+      Scaffold(
+        body: useProvider(_channelProvider(_channelId)).value.when(
+          preInitialized: () => const CenterCircleProgress(),
+          error: () => const SizedBox(), //todo show error widget
+          success: (channelData) {
+            final isAnnouncementEmpty = channelData.channel
+                .announcements.items.isEmpty;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AspectRatio(
+                  aspectRatio: Dimens.HEADER_ASPECT,
+                  child: CachedNetworkImage(imageUrl: _headerUrl),
                 ),
-              ),
-              const SizedBox(height: 16),
-              ContentCell(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (channelData.channel.subscriptionPlan
-                        ?.viewerPurchasedPlan?.isActive ==
-                        true)
-                      PurchasedBannerMedium()
-                    else
-                      if (channelData.channel.subscriptionPlan
-                          ?.isPurchasable)
-                        const BillingBtnMedium(
-                            text: _BILLING_PROMO_CHANNEL) //todo fix
-                      else
-                        const SizedBox.shrink(),
-                    IconButton(
-                      icon: Icon(
-                        Icons.add_alert,
-                        color: Styles.colorTextSub,
+                const SizedBox(height: 24),
+                ContentCell(
+                  child: Row(
+                    children: [
+                      CachedNetworkImage(
+                        height: _CHANNEL_LOGO_SIZE,
+                        width: _CHANNEL_LOGO_SIZE,
+                        imageUrl: _logoUrl,
                       ),
-                      onPressed: () {},
-                    ),
-                  ],
+                      const SizedBox(width: 24),
+                      Text(
+                        channelData.channel.name,
+                        style: TextStyles.CHANNEL_NAME,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              ContentCell(
-                child: TabBar(
-                    labelColor: Colors.white,
+                const SizedBox(height: 16),
+                ContentCell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (channelData.channel.subscriptionPlan
+                          ?.viewerPurchasedPlan?.isActive ==
+                          true)
+                        PurchasedBannerMedium()
+                      else
+                        if (channelData.channel.subscriptionPlan
+                            ?.isPurchasable)
+                          const BillingBtnMedium(
+                              text: _BILLING_PROMO_CHANNEL) //todo fix
+                        else
+                          const SizedBox.shrink(),
+                      IconButton(
+                        icon: Icon(
+                          Icons.add_alert,
+                          color: Styles.colorTextSub,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ContentCell(
+                  child: TabBar(
+                      labelColor: Colors.white,
+                      controller: _tabController,
+                      isScrollable: true,
+                      tabs: [
+                        const Tab(text: Strings.CHANNEL_TAB_DESC),
+                        const Tab(text: Strings.CHANNEL_TAB_MOVIE),
+                        if (!isAnnouncementEmpty)
+                          const Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
+                      ]),
+                ),
+                SizedBox(
+                  height: .5,
+                  child: ColoredBox(
+                    color: Colors.white.withOpacity(.7),
+                  ),
+                ),
+                Expanded(
+                  child: TabBarView(
                     controller: _tabController,
-                    isScrollable: true,
-                    tabs: [
-                      const Tab(text: Strings.CHANNEL_TAB_DESC),
-                      const Tab(text: Strings.CHANNEL_TAB_MOVIE),
+                    children: [
+                      PageChannelDetail(text: channelData.channel
+                          .detail),
+                      PageMovieList(channelPrograms: channelData.channel
+                          .programs),
                       if (!isAnnouncementEmpty)
-                        const Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
-                    ]),
-              ),
-              SizedBox(
-                height: .5,
-                child: ColoredBox(
-                  color: Colors.white.withOpacity(.7),
-                ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    PageChannelDetail(text: channelData.channel
-                        .detail),
-                    PageMovieList(channelPrograms: channelData.channel
-                        .programs),
-                    if (!isAnnouncementEmpty)
-                      PageNotification(
-                          announcements:
-                          channelData.channel.announcements),
-                  ],
-                ),
-              )
-            ],
-          );
-        },
+                        PageNotification(
+                            announcements:
+                            channelData.channel.announcements),
+                    ],
+                  ),
+                )
+              ],
+            );
+          },
 
+        ),
       );
 }

@@ -68,6 +68,17 @@ class Strings {
     }
   }
 
+  static String planType2Str(String planType) {
+    switch (planType) {
+      case 'SubscriptionPlan':
+        return '月額';
+      case 'OneTimePlan':
+        return '単品';
+      default:
+        throw Exception('unexpected planType :: $planType');
+    }
+  }
+
   static const String MONTHLY = '月額';
   static const String SUBSCRIBED = 'チャンネル購読済み';
 

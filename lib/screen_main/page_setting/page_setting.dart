@@ -1,15 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:intl/intl.dart';
-import 'package:shirasu/gen/assets.gen.dart';
+import 'package:shirasu/model/payment_methods_list.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_subscribed_channel.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_title.dart';
@@ -67,25 +68,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                       iconUrl: data.viewerUser.icon,
                       userName: data.viewerUser.name);
                 case 2:
-                  return ListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: Dimens.SETTING_OUTER_MARGIN, vertical: 8),
-                    title: const Text(Strings.FULL_NAME_LABEL),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '$_DUMMY_FAMILY_NAME $_DUMMY_FIRST_NAME($_DUMMY_FAMILY_READABLE_NAME $_DUMMY_FIRST_READABLE_NAME)',
-                          style: TextStyle(color: Colors.blueAccent),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          Strings.FULL_NAME_NOTICE,
-                          style: TextStyle(height: 1.3),
-                        )
-                      ],
-                    ),
-                  );
+                  return _listItemUserName();
                 case 4:
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(
@@ -166,16 +149,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                 case 11:
                 case 12:
                   // todo VISA、Mastercard、JCB、American Express、DinersClub
-                  return ListTile(
-                    leading: Icon(
-                      FontAwesomeIcons.ccMastercard,
-                      color: Colors.white,
-                    ),
-                    title: Text('XXXX-XXXX-XXXX-$_DUMMY_CARD_NUM'),
-                    subtitle: Text(
-                      '${Strings.CARD_EXPIRY}: $_DUMMY_CARD_EXPIRE_DATE',
-                    ),
-                  );
+                  return ListTilePaymentMethod(paymentMethod: PaymentMethod(id: 'DUMMY_ID', brand: 'visa', last4: _DUMMY_CARD_NUM, expirationDate: _DUMMY_CARD_EXPIRE_DATE));
                 case 13:
                   return const ListTileSeem();
                 case 14:
@@ -187,40 +161,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                 case 17:
                   return const ListTileTitle(title: Strings.TITLE_PURCHASE_HISTORY);
                 case 18:
-                  return ListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: Dimens.SETTING_OUTER_MARGIN,
-                    ),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            DateFormat('yyyy/MM/dd HH:mm').format(data
-                                .viewerUser
-                                .invoiceHistory
-                                .items
-                                .first
-                                .createdAt),
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(.7),
-                              fontSize: 12,
-                              height: 1,
-                            ),
-                          ),
-                        ),
-                        Text(data.viewerUser.invoiceHistory.items.first.label),
-                      ],
-                    ),
-                    subtitle: Text(
-                      '¥6,600 月額',
-                      style: TextStyle(
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                  );
+                  return ListTileInvoiceHistory(invoiceHistoryItem: data.viewerUser.invoiceHistory.items.first);
                 default:
                   return const SizedBox();
               }
@@ -251,6 +192,27 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
       child: Text(
         title,
         style: TextStyles.SETTING_COMPONENT_TITLE,
+      ),
+    );
+
+
+  Widget _listItemUserName() => ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+          horizontal: Dimens.SETTING_OUTER_MARGIN, vertical: 8),
+      title: const Text(Strings.FULL_NAME_LABEL),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$_DUMMY_FAMILY_NAME $_DUMMY_FIRST_NAME($_DUMMY_FAMILY_READABLE_NAME $_DUMMY_FIRST_READABLE_NAME)',
+            style: TextStyle(color: Colors.blueAccent),
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            Strings.FULL_NAME_NOTICE,
+            style: TextStyle(height: 1.3),
+          )
+        ],
       ),
     );
 }

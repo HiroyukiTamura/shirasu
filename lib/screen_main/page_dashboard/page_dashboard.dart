@@ -72,7 +72,8 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> w
       );
 }
 
-class _ListViewContent extends StatefulHookWidget {
+class _ListViewContent extends StatelessWidget {
+
   const _ListViewContent({
     @required this.itemCount,
     @required this.nowBroadcastingsLast,
@@ -85,17 +86,9 @@ class _ListViewContent extends StatefulHookWidget {
   final int comingBroadcastingsLast;
   final int subscribingLast;
 
-  @override
-  _ListViewContentState createState() => _ListViewContentState();
-}
-
-class _ListViewContentState extends State<_ListViewContent> {
-
   static const _COLUMN_COUNT = 2;
 
   static const _CIRCULAR_HEIGHT = 36;
-
-  bool _isLoadingMoreCommanded = false;
   
   @override
   Widget build(BuildContext context) {
@@ -124,13 +117,13 @@ class _ListViewContentState extends State<_ListViewContent> {
           child: ListView.builder(
               controller: controller,
               padding: const EdgeInsets.symmetric(vertical: 16),
-              itemCount: isFinish ? widget.itemCount : widget.itemCount + 1,
+              itemCount: isFinish ? itemCount : itemCount + 1,
               itemBuilder: (context, index) {
-                if (index < widget.nowBroadcastingsLast && widget.nowBroadcastingsLast != 0) {
-                  return const SizedBox();
-                } else if (index < widget.comingBroadcastingsLast &&
-                    widget.nowBroadcastingsLast != widget.comingBroadcastingsLast) {
-                  final i = index - widget.nowBroadcastingsLast;
+                if (index < nowBroadcastingsLast && nowBroadcastingsLast != 0) {
+                  return const SizedBox();//todo implement?
+                } else if (index < comingBroadcastingsLast &&
+                    nowBroadcastingsLast != comingBroadcastingsLast) {
+                  final i = index - nowBroadcastingsLast;
 
                   if (i == 0)
                     return const Heading(text: Strings.HEADING_UPCOMING);
@@ -149,9 +142,9 @@ class _ListViewContentState extends State<_ListViewContent> {
                       ),
                     );
                   }
-                } else if (index < widget.subscribingLast &&
-                    widget.comingBroadcastingsLast != widget.subscribingLast) {
-                  final i = index - widget.comingBroadcastingsLast;
+                } else if (index < subscribingLast &&
+                    comingBroadcastingsLast != subscribingLast) {
+                  final i = index - comingBroadcastingsLast;
 
                   return i == 0
                       ? const Heading(text: Strings.HEADING_SUBSCRIBING)
@@ -165,8 +158,8 @@ class _ListViewContentState extends State<_ListViewContent> {
                                 .pushPage(GlobalRoutePath.program(item.id)),
                           ),
                         );
-                } else if (index < widget.itemCount || isFinish) {
-                  final i = index - widget.subscribingLast;
+                } else if (index < itemCount || isFinish) {
+                  final i = index - subscribingLast;
 
                   if (i == 0)
                     return const Padding(
@@ -214,9 +207,7 @@ class _ListViewContentState extends State<_ListViewContent> {
   }
 
   Future<void> _loadMore(BuildContext context) async {
-    if (_isLoadingMoreCommanded) return _isLoadingMoreCommanded = true;
     final result = await context.read(_dashBoardProvider).loadMoreNewPrg();
-    _isLoadingMoreCommanded = false;
 
     switch (result) {
       case ApiClientResult.NO_MORE:
@@ -226,6 +217,9 @@ class _ListViewContentState extends State<_ListViewContent> {
       case ApiClientResult.FAILURE:
         const snackBar = SnackBar(content: Text(Strings.SNACK_ERR));
         Scaffold.of(context).showSnackBar(snackBar);
+        break;
+      default:
+        // do nothing
         break;
     }
   }

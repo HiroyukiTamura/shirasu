@@ -8,6 +8,7 @@ import 'package:shirasu/model/new_programs_data.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/model/watch_history_data.dart';
 
+/// todo handle timeout
 /// todo can be singleton
 @immutable
 class ApiClient {
@@ -23,32 +24,46 @@ class ApiClient {
   static const _QUERY_DETAIL_PROGRAMS =
       'query GetProgram(\$id: ID!) {  viewer {    name    icon    __typename  }  program: getProgram(id: \$id) {    ...UserPageProgramData    extensions {      ...UserPageLiveExtensionData      __typename    }    channel {      ...UserPageChannelData      __typename    }    handouts(sortDirection: DESC) {      items {        ...UserPageHandoutData        __typename      }      nextToken      __typename    }    videos {      items {        ...UserPageVideoData        __typename      }      nextToken      __typename    }    onetimePlans {      ...UserPageOneTimePlanData      __typename    }    __typename  }}fragment UserPageProgramData on Program {  id  channelId  tenantId  adminComment  adminCommentDisappearAt  broadcastAt  detail  mainTime  previewTime  release  tags  title  totalPlayTime  viewerPlanType  isExtensionChargedToSubscribers  archivedAt  releaseState  shouldArchive  extensions {    ...UserPageLiveExtensionData    __typename  }  __typename}fragment UserPageLiveExtensionData on LiveExtension {  id  extensionTime  oneTimePlanId  oneTimePlan {    ...UserPageOneTimePlanData    __typename  }  __typename}fragment UserPageOneTimePlanData on OneTimePlan {  id  parentPlanType  parentPlanId  productType  productId  name  amount  currency  isPurchasable  viewerPurchasedPlan {    isActive    __typename  }  __typename}fragment UserPageChannelData on Channel {  id  tenantId  name  icon  textOnPurchaseScreen  __typename}fragment UserPageHandoutData on Handout {  id  programId  extensionId  name  createdAt  __typename}fragment UserPageVideoData on Video {  id  videoType  mediaStatus  liveUrl  archiveUrl  __typename}';
 
-  static const _QUERY_CHANNEL = 'query GetChannel(\$id: ID!) {  channel: getChannel(id: \$id) {    ...UserChannelPageChannelData    subscriptionPlan {      ...UserChannelPageSubscriptionPlanData      viewerPurchasedPlan {        isActive        __typename      }      __typename    }    programs(filter: {release: {eq: true}}, sortDirection: DESC, limit: 12) {      items {        ...UserChannelPageProgramData        __typename      }      nextToken      __typename    }    announcements(sortDirection: DESC, filter: {isOpen: {eq: true}}, limit: 5) {      items {        ...TenantChannelAnnouncementsChannelAnnouncementData        __typename      }      nextToken      __typename    }    __typename  }}fragment UserChannelPageChannelData on Channel {  id  name  icon  twitterUrl  facebookUrl  textOnPurchaseScreen  detail  __typename}fragment UserChannelPageSubscriptionPlanData on SubscriptionPlan {  id  amount  currency  isPurchasable  __typename}fragment UserChannelPageProgramData on Program {  id  tenantId  channelId  title  broadcastAt  totalPlayTime  viewerPlanType  __typename}fragment TenantChannelAnnouncementsChannelAnnouncementData on ChannelAnnouncement {  id  isOpen  isSubscriberOnly  title  text  publishedAt  createdAt  updatedAt  __typename}';
+  static const _QUERY_CHANNEL =
+      'query GetChannel(\$id: ID!) {  channel: getChannel(id: \$id) {    ...UserChannelPageChannelData    subscriptionPlan {      ...UserChannelPageSubscriptionPlanData      viewerPurchasedPlan {        isActive        __typename      }      __typename    }    programs(filter: {release: {eq: true}}, sortDirection: DESC, limit: 12) {      items {        ...UserChannelPageProgramData        __typename      }      nextToken      __typename    }    announcements(sortDirection: DESC, filter: {isOpen: {eq: true}}, limit: 5) {      items {        ...TenantChannelAnnouncementsChannelAnnouncementData        __typename      }      nextToken      __typename    }    __typename  }}fragment UserChannelPageChannelData on Channel {  id  name  icon  twitterUrl  facebookUrl  textOnPurchaseScreen  detail  __typename}fragment UserChannelPageSubscriptionPlanData on SubscriptionPlan {  id  amount  currency  isPurchasable  __typename}fragment UserChannelPageProgramData on Program {  id  tenantId  channelId  title  broadcastAt  totalPlayTime  viewerPlanType  __typename}fragment TenantChannelAnnouncementsChannelAnnouncementData on ChannelAnnouncement {  id  isOpen  isSubscriberOnly  title  text  publishedAt  createdAt  updatedAt  __typename}';
 
-  static const _QUERY_WATCH_HISTORY = 'query GetViewer(\$nextToken: String) {  viewerUser: viewerUser {    watchHistories(limit: 5, sortDirection: DESC, nextToken: \$nextToken) {      items {        ...WatchingHistoryPageWatchHistoryData        __typename      }      nextToken      __typename    }    __typename  }}fragment WatchingHistoryPageWatchHistoryData on WatchHistory {  id  lastViewedAt  program {    id    tenantId    channelId    title    detail    broadcastAt    __typename  }  __typename}';
+  static const _QUERY_WATCH_HISTORY =
+      'query GetViewer(\$nextToken: String) {  viewerUser: viewerUser {    watchHistories(limit: 5, sortDirection: DESC, nextToken: \$nextToken) {      items {        ...WatchingHistoryPageWatchHistoryData        __typename      }      nextToken      __typename    }    __typename  }}fragment WatchingHistoryPageWatchHistoryData on WatchHistory {  id  lastViewedAt  program {    id    tenantId    channelId    title    detail    broadcastAt    __typename  }  __typename}';
 
-  static const _QUERY_VIEWER = 'query GetViewer {  viewer {    paymentMethods {      ...UserAccountPaymentMethod      __typename    }    authConnections    __typename  }  viewerUser: viewerUser {    ...UserAccountPageUserData    invoiceHistory {      items {        ...UserAccountInvoiceData        __typename      }      nextToken      __typename    }    watchHistories(limit: 3, sortDirection: DESC) {      items {        ...UserAccountPageWatchHistoryData        __typename      }      __typename    }    subscribedChannels {      ...UserAccountSubscribedChannelData      __typename    }    __typename  }}fragment UserAccountPaymentMethod on PaymentMethod {  id  brand  last4  expirationDate  __typename}fragment UserAccountPageUserData on User {  id  name  icon  __typename}fragment UserAccountInvoiceData on Invoice {  id  total  currency  label  createdAt  planType  status  __typename}fragment UserAccountPageWatchHistoryData on WatchHistory {  id  lastViewedAt  program {    id    tenantId    channelId    title    detail    broadcastAt    __typename  }  __typename}fragment UserAccountSubscribedChannelData on SubscribedChannel {  subscribedAt  currentPeriodEndAt  channel {    id    name    icon    __typename  }  isActive  latestInvoiceId  latestInvoice {    id    description    createdAt    planType    status    hostedInvoiceUrl    nextPaymentAttempt    __typename  }  __typename}';
+  static const _QUERY_VIEWER =
+      'query GetViewer {  viewer {    paymentMethods {      ...UserAccountPaymentMethod      __typename    }    authConnections    __typename  }  viewerUser: viewerUser {    ...UserAccountPageUserData    invoiceHistory {      items {        ...UserAccountInvoiceData        __typename      }      nextToken      __typename    }    watchHistories(limit: 3, sortDirection: DESC) {      items {        ...UserAccountPageWatchHistoryData        __typename      }      __typename    }    subscribedChannels {      ...UserAccountSubscribedChannelData      __typename    }    __typename  }}fragment UserAccountPaymentMethod on PaymentMethod {  id  brand  last4  expirationDate  __typename}fragment UserAccountPageUserData on User {  id  name  icon  __typename}fragment UserAccountInvoiceData on Invoice {  id  total  currency  label  createdAt  planType  status  __typename}fragment UserAccountPageWatchHistoryData on WatchHistory {  id  lastViewedAt  program {    id    tenantId    channelId    title    detail    broadcastAt    __typename  }  __typename}fragment UserAccountSubscribedChannelData on SubscribedChannel {  subscribedAt  currentPeriodEndAt  channel {    id    name    icon    __typename  }  isActive  latestInvoiceId  latestInvoice {    id    description    createdAt    planType    status    hostedInvoiceUrl    nextPaymentAttempt    __typename  }  __typename}';
 
   static const DUMMY_AUTH =
       'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFUWkJNMEZDUkRZek1UVTJOME13UWpBMlJFVXdSa0V5TVRJeU1VSkdOelUxTXpnNU1ETTFRUSJ9.eyJodHRwczovL3NoaXJhc3UuaW8vcm9sZXMiOlsidXNlciJdLCJodHRwczovL3NoaXJhc3UuaW8vdXNlckF0dHJpYnV0ZSI6eyJiaXJ0aERhdGUiOiIxOTkzLTExLTE1VDAwOjAwOjAwLjAwMFoiLCJqb2IiOiJJbmZvcm1hdGlvblRlY2hub2xvZ3kiLCJjb3VudHJ5IjoiSlAiLCJwcmVmZWN0dXJlIjoiMTMiLCJmYW1pbHlOYW1lIjoi55Sw5p2RIiwiZ2l2ZW5OYW1lIjoi5rWp5bm4IiwiZmFtaWx5TmFtZVJlYWRpbmciOiIiLCJnaXZlbk5hbWVSZWFkaW5nIjoiIn0sImh0dHBzOi8vc2hpcmFzdS5pby9jdXN0b21lcklkIjoiY3VzX0lFS0RoM0J0UjlOeG5TIiwiaHR0cHM6Ly9zaGlyYXN1LmlvL2Rpc3RyaWJ1dGVkcyI6W10sImh0dHBzOi8vc2hpcmFzdS5pby90ZW5hbnRzIjpbXSwiZ2l2ZW5fbmFtZSI6Ikhpcm95dWtpIiwiZmFtaWx5X25hbWUiOiJUIiwibmlja25hbWUiOiJoaXJvdGFtdTMiLCJuYW1lIjoiSGlyb3l1a2kgVCIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLXhBUlEwZm9KZENBL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2s2ZTZjUkluNzVSWTV6dVNrb0FJRGRWY1FjSEEvczk2LWMvcGhvdG8uanBnIiwibG9jYWxlIjoiamEiLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMS0xNlQxMDo0OTo1Ni4xMjlaIiwiZW1haWwiOiJoaXJvdGFtdTNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vc2hpcmFzdS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDk0MzEyMjg4NTM2MDM1Nzk2ODQiLCJhdWQiOiJreWpUSjVsUTdSVTdtQXllU21YOG5MWWN4VlJ0QTNuQiIsImlhdCI6MTYwNTcxNzczNCwiZXhwIjoxNjA1NzUzNzM0fQ.NljVJdW5oCIb2PrGq93QaTUH3UR1tQZzsH4Qc883upn3G1XHJm4klIpPOsoXx-nhgb81j_PaTeYEn0t3f3xIdZ5nIEnBh2Ubl2ugo-gt3d0Hv_RvzRXjm6WlS1gkR-Rm96nkSBRXvFHD4iQEaCpqmc8qupY5ZfmB3rql5KSCInKnLvncyAEJibujsLbYEwxoFCZxQ-0r3t3UyxOSwzqzYVFZoJmlxqIeCzcI8gyTawf4tYQo-dKdNNPGm6CUXJ9iftrP7KzLThkK9zGN5bDHPiDLB-VsuGRzgwUd7_a0qcMzQLzhTH6ZNNP4t4hpP4zBq8Ufr8yXvmlbs-s34ODEjg';
 
   final GraphQLClient _graphQlClient;
 
+  /// todo no need client
   static GraphQLClient _createClient(Client client) {
-    final HttpLink httpLink = HttpLink(uri: _URL_PROGRAMS, headers: {
-      'x-amz-user-agent': 'aws-amplify/2.0.2-apollothree',
-    }
-        // httpClient: LoggerHttpClient(client)
-        );
+    final HttpLink httpLink = HttpLink(
+      _URL_PROGRAMS,
+      defaultHeaders: {
+        'x-amz-user-agent': 'aws-amplify/2.0.2-apollothree',
+      },
+      // httpClient: LoggerHttpClient(client)
+    );
 
-    final AuthLink authLink = AuthLink(
+    final authLink = AuthLink(
       getToken: () async => DUMMY_AUTH,
     );
 
-    final link = authLink.concat(httpLink);
+    final errorLink =
+    ErrorLink(onGraphQLError: (request, forward, response) {
+      final statusCode = response.context.entry<HttpLinkResponseContext>().statusCode;
+      return null;
+    });
+
+    final link = authLink.concat(httpLink).concat(errorLink);
+
+
 
     return GraphQLClient(
-      cache: InMemoryCache(),
+      cache: GraphQLCache(store: HiveStore()),
       link: link,
       defaultPolicies: DefaultPolicies(
         query: Policies.safe(
@@ -68,12 +83,14 @@ class ApiClient {
     Map<String, dynamic> variables,
   }) async {
     final result = await _graphQlClient.query(QueryOptions(
-      documentNode: gql(query),
+      document: gql(query),
       variables: variables,
     ));
 
-    if (result.exception != null) {
+
+    if (result.hasException) {
       // エラー処理
+      print(result.exception.linkException);
       print(result.exception);
       for (final error in result.exception.graphqlErrors) print(error.message);
     }
@@ -88,39 +105,41 @@ class ApiClient {
       'now': dateTime.toIso8601String(),
       'nowPlus7D': dateTimeNext.toIso8601String(),
     });
-    return FeatureProgramData.fromJson(result.data as Map<String, dynamic>);
+    return FeatureProgramData.fromJson(result.data);
   }
 
   Future<NewProgramsData> queryNewProgramsList({String nextToken}) async {
     final variables = nextToken == null ? null : {'nextToken': nextToken};
     final result = await _query(_QUERY_NEW_PROGRAMS, variables: variables);
-    return NewProgramsData.fromJson(result.data as Map<String, dynamic>);
+    return NewProgramsData.fromJson(result.data);
   }
 
   Future<ProgramDetailData> queryProgramDetail(String itemId) async {
     final result = await _query(_QUERY_DETAIL_PROGRAMS, variables: {
       'id': itemId,
     });
-    return ProgramDetailData.fromJson(result.data as Map<String, dynamic>);
+    return ProgramDetailData.fromJson(result.data);
   }
 
   Future<ChannelData> queryChannelData(String channelId) async {
     final result = await _query(_QUERY_CHANNEL, variables: {
       'id': channelId,
     });
-    return ChannelData.fromJson(result.data as Map<String, dynamic>);
+    return ChannelData.fromJson(result.data);
   }
 
   Future<WatchHistoriesData> queryWatchHistory({String nextToken}) async {
-    final variable = nextToken == null ? null : {
-      'nextToken': nextToken,
-    };
+    final variable = nextToken == null
+        ? null
+        : {
+            'nextToken': nextToken,
+          };
     final result = await _query(_QUERY_WATCH_HISTORY, variables: variable);
-    return WatchHistoriesData.fromJson(result.data as Map<String, dynamic>);
+    return WatchHistoriesData.fromJson(result.data);
   }
 
   Future<Viewer> queryViewer() async {
     final result = await _query(_QUERY_VIEWER);
-    return Viewer.fromJson(result.data as Map<String, dynamic>);
+    return Viewer.fromJson(result.data);
   }
 }

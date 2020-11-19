@@ -8,6 +8,7 @@ class ViewModelDashBoard extends ValueNotifier<DashboardModelState> {
   ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
+  bool _isLoadMoreCommanded = false;
 
   Future<void> requestPrograms() async {
     try {
@@ -26,6 +27,11 @@ class ViewModelDashBoard extends ValueNotifier<DashboardModelState> {
 
   //todo exclusion control
   Future<ApiClientResult> loadMoreNewPrg() async {
+    if (_isLoadMoreCommanded)
+      return ApiClientResult.CANCELED;
+
+    _isLoadMoreCommanded = true;
+
     final v = value;
     if (v is StateSuccess) {
       final nextToken = v.dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
@@ -54,6 +60,6 @@ class ViewModelDashBoard extends ValueNotifier<DashboardModelState> {
 }
 
 enum ApiClientResult {
-  SUCCESS, FAILURE, NO_MORE
+  SUCCESS, FAILURE, NO_MORE, CANCELED,
 }
 

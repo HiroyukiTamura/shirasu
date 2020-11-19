@@ -9,4 +9,5 @@ class Dimens {
   static const DASHBOARD_GRID_RATIO = 4/3;
   static const double DASHBOARD_ITEM_RADIUS = 4;
   static const double HEADER_ASPECT = 6;
+  static const double SETTING_OUTER_MARGIN = 16;
 }

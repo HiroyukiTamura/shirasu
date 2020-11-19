@@ -138,5 +138,11 @@ class TextStyles {
     color: Colors.white,
     fontSize: 16,
   );
+
+  static const SETTING_SUBTITLE = TextStyle(color: Colors.blueAccent);
+
+  static const SETTING_COMPONENT_TITLE = TextStyle(height: 1);
+
+  static const SETTING_SUBSCRIBED_CHANNEL = TextStyle(height: 1.3);
   //endregion
 }

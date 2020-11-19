@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shirasu/resource/dimens.dart';
 
 class ListTileTop extends StatelessWidget {
 
@@ -12,7 +13,7 @@ class ListTileTop extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 16,
+        horizontal: Dimens.SETTING_OUTER_MARGIN,
         vertical: 24,
       ),
       child: Row(

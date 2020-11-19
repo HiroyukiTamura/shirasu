@@ -63,7 +63,7 @@ class ApiClient {
   }) async {
     final result = await _graphQlClient.query(QueryOptions(
       document: gql(query),
-      variables: variables,
+      variables: variables ?? {},
     ));
 
     if (result.hasException) {

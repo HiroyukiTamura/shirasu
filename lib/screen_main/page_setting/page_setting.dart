@@ -77,13 +77,13 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              CachedNetworkImageProvider(data.viewerUser.icon),
+                        CachedNetworkImage(
+                          imageUrl: data.viewerUser.icon,
+                          imageBuilder: (context, provider) =>
+                              CircleAvatar(backgroundImage: provider),
+                          placeholder: (context, url) => const CircleAvatar(),
                         ),
-                        SizedBox(
-                          width: 16,
-                        ),
+                        const SizedBox(width: 16),
                         Text(
                           data.viewerUser.name,
                           style: const TextStyle(fontSize: 18),
@@ -314,30 +314,27 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                       vertical: 8,
                       horizontal: 16,
                     ),
-                    title: Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              DateFormat('yyyy/MM/dd HH:mm').format(data
-                                  .viewerUser
-                                  .invoiceHistory
-                                  .items
-                                  .first
-                                  .createdAt),
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(.7),
-                                fontSize: 12,
-                                height: 1,
-                              ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            DateFormat('yyyy/MM/dd HH:mm').format(data
+                                .viewerUser
+                                .invoiceHistory
+                                .items
+                                .first
+                                .createdAt),
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(.7),
+                              fontSize: 12,
+                              height: 1,
                             ),
                           ),
-                          Text(
-                              data.viewerUser.invoiceHistory.items.first.label),
-                        ],
-                      ),
+                        ),
+                        Text(data.viewerUser.invoiceHistory.items.first.label),
+                      ],
                     ),
                     subtitle: Text(
                       '¥6,600 月額',

@@ -120,7 +120,23 @@ class _ListViewContent extends HookWidget {
               itemCount: isFinish ? itemCount : itemCount + 1,
               itemBuilder: (context, index) {
                 if (index < nowBroadcastingsLast && nowBroadcastingsLast != 0) {
-                  return const SizedBox();//todo implement?
+                  if (index == 0)
+                    return const Heading(text: Strings.HEADING_NOW_ON_AIR);
+                  else {
+                    final item = featurePrgData.nowBroadcastings.items[index - 1];
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 48,
+                        top: 16,
+                      ),
+                      child: BillboardExpanded(
+                        isLive: true,
+                        item: item,
+                        onTap: () async => routerDelegate
+                            .pushPage(GlobalRoutePath.program(item.id)),
+                      ),
+                    );
+                  }
                 } else if (index < comingBroadcastingsLast &&
                     nowBroadcastingsLast != comingBroadcastingsLast) {
                   final i = index - nowBroadcastingsLast;
@@ -136,6 +152,7 @@ class _ListViewContent extends HookWidget {
                         top: 16,
                       ),
                       child: BillboardExpanded(
+                        isLive: true,
                         item: item,
                         onTap: () async => routerDelegate
                             .pushPage(GlobalRoutePath.program(item.id)),

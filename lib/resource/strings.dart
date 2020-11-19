@@ -143,5 +143,11 @@ class Strings {
   /// ref: users.pages.UserAccount.components.UserAccountInformation.externalAuthentication
   static const String EXTERNAL_AUTHENTICATION = '外部サービスログイン連携';
 
+  static const String CURRENT_PERIOD_END_AT_LABEL = '次回更新日';
+  static const String SUBSCRIPTION_START_DATE = '購読開始日';
+
+  // "users.pages.UserAccount.components.SubscribedChannels.currentPeriodEndAtLabel": "次回更新日",
+  // "users.pages.UserAccount.components.SubscribedChannels.subscriptionStartDate": "購読開始日",
+
 //endregion
 }

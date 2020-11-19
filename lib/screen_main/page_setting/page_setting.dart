@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:intl/intl.dart';
+import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
@@ -30,8 +31,6 @@ class PageSettingInMainScreen extends StatefulHookWidget {
 }
 
 class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
-  static const _DUMMY_USER_ICON_URL =
-      'https://lh6.googleusercontent.com/-xARQ0foJdCA/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuck6e6cRIn75RY5zuSkoAIDdVcQcHA/s96-c/photo.jpg';
   static const _DUMMY_FAMILY_NAME = '山田';
   static const _DUMMY_FIRST_NAME = '太郎';
   static const _DUMMY_FAMILY_READABLE_NAME = 'やまだ';
@@ -40,6 +39,10 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
   static const _DUMMY_USER_JOB = 'IT関係';
   static const _DUMMY_USER_COUNTRY = '日本';
   static const _DUMMY_USER_PREFECTURE = '東京';
+  static const _DUMMY_CARD_NUM = '1234';
+  static const _DUMMY_CARD_EXPIRE_DATE = '25/02';
+  static const _DUMMY_START_SUBSCRIPTION_DATE = '2020/11/02';
+  static const _DUMMY_CURRENT_PERIOD_END_AT = '2020/11/02';
   final _DUMMY_BIRTH_DATE = DateTime.now();
 
   @override
@@ -67,15 +70,20 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                 // return const Heading(Strings.TITLE_USER_INFO);
                 case 1:
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24,),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 24,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircleAvatar(
                           backgroundImage:
-                              CachedNetworkImageProvider(_DUMMY_USER_ICON_URL),
+                              CachedNetworkImageProvider(data.viewerUser.icon),
                         ),
-                        SizedBox(width: 16,),
+                        SizedBox(
+                          width: 16,
+                        ),
                         Text(
                           data.viewerUser.name,
                           style: const TextStyle(fontSize: 18),
@@ -191,6 +199,153 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                       style: TextStyle(color: Colors.blueAccent),
                     ),
                   );
+                case 9:
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 24),
+                    height: 1,
+                    color: Colors.white24,
+                  );
+                case 10:
+                  return Container(
+                    padding: const EdgeInsets.only(
+                      right: 16,
+                      left: 16,
+                      bottom: 8,
+                    ),
+                    child: const Text(
+                      Strings.TITLE_CREDIT_CARD,
+                      style: TextStyle(height: 1),
+                    ),
+                  );
+                case 11:
+                case 12:
+                  // todo VISA、Mastercard、JCB、American Express、DinersClub
+                  return ListTile(
+                    leading: Icon(
+                      FontAwesomeIcons.ccMastercard,
+                      color: Colors.white,
+                    ),
+                    title: Text('XXXX-XXXX-XXXX-$_DUMMY_CARD_NUM'),
+                    subtitle: Text(
+                      '${Strings.CARD_EXPIRY}: $_DUMMY_CARD_EXPIRE_DATE',
+                    ),
+                  );
+                case 13:
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 24),
+                    height: 1,
+                    color: Colors.white24,
+                  );
+                case 14:
+                  return Container(
+                    padding: const EdgeInsets.only(
+                      right: 16,
+                      left: 16,
+                      bottom: 8,
+                    ),
+                    child: const Text(
+                      Strings.TITLE_SUBSCRIBED_CHANNELS,
+                      style: TextStyle(height: 1),
+                    ),
+                  );
+                case 15:
+                  return ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    leading: SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: data.viewerUser.subscribedChannels.first.channel
+                                  .icon ==
+                              null
+                          ? Assets.defaultChannelIcon.svg()
+                          : CachedNetworkImage(
+                              height: 40,
+                              width: 40,
+                              imageUrl: data.viewerUser.subscribedChannels.first
+                                  .channel.icon as String,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) {
+                                print(error);
+                                return Assets.defaultChannelIcon.svg();
+                              },
+                            ),
+                    ),
+                    title: Text(
+                        data.viewerUser.subscribedChannels.first.channel.name),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        '${Strings.SUBSCRIPTION_START_DATE}: $_DUMMY_START_SUBSCRIPTION_DATE\n${Strings.CURRENT_PERIOD_END_AT_LABEL}: $_DUMMY_CURRENT_PERIOD_END_AT',
+                        style: TextStyle(height: 1.3),
+                      ),
+                    ),
+                  );
+                case 16:
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 24),
+                    height: 1,
+                    color: Colors.white24,
+                  );
+                case 17:
+                  return Container(
+                    padding: const EdgeInsets.only(
+                      right: 16,
+                      left: 16,
+                      bottom: 8,
+                    ),
+                    child: const Text(
+                      Strings.TITLE_PURCHASE_HISTORY,
+                      style: TextStyle(height: 1),
+                    ),
+                  );
+                case 18:
+                  return ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 16,
+                    ),
+                    title: Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              DateFormat('yyyy/MM/dd HH:mm').format(data
+                                  .viewerUser
+                                  .invoiceHistory
+                                  .items
+                                  .first
+                                  .createdAt),
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(.7),
+                                fontSize: 12,
+                                height: 1,
+                              ),
+                            ),
+                          ),
+                          Text(
+                              data.viewerUser.invoiceHistory.items.first.label),
+                        ],
+                      ),
+                    ),
+                    subtitle: Text(
+                      '¥6,600 月額',
+                      style: TextStyle(
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                  );
                 // return ListTileNormal(
                 //   title: Strings.PLACE_LABEL,
                 //   text: _DUMMY_USER_COUNTRY,
@@ -200,7 +355,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                   return const SizedBox();
               }
             },
-            itemCount: 10,
+            itemCount: 20,
           );
         },
       );

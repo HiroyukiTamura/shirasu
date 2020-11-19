@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 class Assets {
   Assets._();
 
+  static const SvgGenImage defaultChannelIcon =
+      SvgGenImage('assets/default-channel-icon.svg');
   static const SvgGenImage logoOfficial =
       SvgGenImage('assets/logo_official.svg');
   static const SvgGenImage logoOfficialShadow =

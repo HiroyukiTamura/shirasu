@@ -72,7 +72,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> w
       );
 }
 
-class _ListViewContent extends StatelessWidget {
+class _ListViewContent extends HookWidget {
 
   const _ListViewContent({
     @required this.itemCount,

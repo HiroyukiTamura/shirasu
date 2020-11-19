@@ -1,0 +1,27 @@
+query GetViewer($nextToken: String) {
+    viewerUser: viewerUser {
+        watchHistories(limit: 5, sortDirection: DESC, nextToken: $nextToken) {
+            items {
+                ...WatchingHistoryPageWatchHistoryData
+                __typename
+            }
+            nextToken
+            __typename
+        }
+        __typename
+    }
+}
+fragment WatchingHistoryPageWatchHistoryData on WatchHistory {
+    id
+    lastViewedAt
+    program {
+        id
+        tenantId
+        channelId
+        title
+        detail
+        broadcastAt
+        __typename
+    }
+    __typename
+}

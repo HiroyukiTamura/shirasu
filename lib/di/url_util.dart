@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shirasu/exception.dart';
 
 @immutable
 class UrlUtil {
   UrlUtil() {
-    throw Exception('this class must be used as static');
+    throw const InvalidCreationException();
   }
 
   static const _URL_BASE = 'https://shirasu-storage-product.s3.amazonaws.com';

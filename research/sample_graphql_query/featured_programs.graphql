@@ -1,0 +1,58 @@
+query ListFeaturedPrograms($now: String!, $nowPlus7D: String!) {
+    nowBroadcastings: searchPrograms(
+        filter: {
+            release: { eq: true }
+            broadcastAt: { lte: $now }
+            broadcastEndAt: { gt: $now }
+        }
+        sort: { field: broadcastAt, direction: asc }
+        limit: 100
+    ) {
+        items {
+            ...DashboardProgram
+            __typename
+        }
+        __typename
+    }
+    comingBroadcastings: searchPrograms(
+        filter: { release: { eq: true }, broadcastAt: { gte: $now, lte: $nowPlus7D } }
+        sort: { field: broadcastAt, direction: asc }
+        limit: 100
+    ) {
+        items {
+            ...DashboardProgram
+            __typename
+        }
+        __typename
+    }
+    viewerUser {
+        id
+        subscribedPrograms {
+            ...DashboardProgram
+            __typename
+        }
+        __typename
+    }
+}
+fragment DashboardProgram on Program {
+    broadcastAt
+    channelId
+    id
+    mainTime
+    releasedAt
+    releasedAt
+    tenantId
+    title
+    totalPlayTime
+    viewerPlanType
+    channel {
+        ...DashboardChannel
+        __typename
+    }
+    __typename
+}
+fragment DashboardChannel on Channel {
+    id
+    name
+    __typename
+}

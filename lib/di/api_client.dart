@@ -12,10 +12,13 @@ import 'package:shirasu/model/watch_history_data.dart';
 /// todo can be singleton
 @immutable
 class ApiClient {
+
   ApiClient(Client client) : _graphQlClient = _createClient(client);
 
   static const _URL_PROGRAMS =
       'https://itvvnowbibekdj7la2nlxgkuva.appsync-api.ap-northeast-1.amazonaws.com/graphql';
+
+  //todo reformat queries
   static const _QUERY_FEATURED_PROGRAMS =
       'query ListFeaturedPrograms(\$now: String!, \$nowPlus7D: String!) {  nowBroadcastings: searchPrograms(filter: {release: {eq: true}, broadcastAt: {lte: \$now}, broadcastEndAt: {gt: \$now}}, sort: {field: broadcastAt, direction: asc}, limit: 100) {    items {      ...DashboardProgram      __typename    }    __typename  }  comingBroadcastings: searchPrograms(filter: {release: {eq: true}, broadcastAt: {gte: \$now, lte: \$nowPlus7D}}, sort: {field: broadcastAt, direction: asc}, limit: 100) {    items {      ...DashboardProgram      __typename    }    __typename  }  viewerUser {    id    subscribedPrograms {      ...DashboardProgram      __typename    }    __typename  }}fragment DashboardProgram on Program {  broadcastAt  channelId  id  mainTime  releasedAt  releasedAt  tenantId  title  totalPlayTime  viewerPlanType  channel {    ...DashboardChannel    __typename  }  __typename}fragment DashboardChannel on Channel {  id  name  __typename}';
   static const _QUERY_NEW_PROGRAMS =
@@ -37,6 +40,8 @@ class ApiClient {
       'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFUWkJNMEZDUkRZek1UVTJOME13UWpBMlJFVXdSa0V5TVRJeU1VSkdOelUxTXpnNU1ETTFRUSJ9.eyJodHRwczovL3NoaXJhc3UuaW8vcm9sZXMiOlsidXNlciJdLCJodHRwczovL3NoaXJhc3UuaW8vdXNlckF0dHJpYnV0ZSI6eyJiaXJ0aERhdGUiOiIxOTkzLTExLTE1VDAwOjAwOjAwLjAwMFoiLCJqb2IiOiJJbmZvcm1hdGlvblRlY2hub2xvZ3kiLCJjb3VudHJ5IjoiSlAiLCJwcmVmZWN0dXJlIjoiMTMiLCJmYW1pbHlOYW1lIjoi55Sw5p2RIiwiZ2l2ZW5OYW1lIjoi5rWp5bm4IiwiZmFtaWx5TmFtZVJlYWRpbmciOiIiLCJnaXZlbk5hbWVSZWFkaW5nIjoiIn0sImh0dHBzOi8vc2hpcmFzdS5pby9jdXN0b21lcklkIjoiY3VzX0lFS0RoM0J0UjlOeG5TIiwiaHR0cHM6Ly9zaGlyYXN1LmlvL2Rpc3RyaWJ1dGVkcyI6W10sImh0dHBzOi8vc2hpcmFzdS5pby90ZW5hbnRzIjpbXSwiZ2l2ZW5fbmFtZSI6Ikhpcm95dWtpIiwiZmFtaWx5X25hbWUiOiJUIiwibmlja25hbWUiOiJoaXJvdGFtdTMiLCJuYW1lIjoiSGlyb3l1a2kgVCIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLXhBUlEwZm9KZENBL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2s2ZTZjUkluNzVSWTV6dVNrb0FJRGRWY1FjSEEvczk2LWMvcGhvdG8uanBnIiwibG9jYWxlIjoiamEiLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMS0xNlQxMDo0OTo1Ni4xMjlaIiwiZW1haWwiOiJoaXJvdGFtdTNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vc2hpcmFzdS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDk0MzEyMjg4NTM2MDM1Nzk2ODQiLCJhdWQiOiJreWpUSjVsUTdSVTdtQXllU21YOG5MWWN4VlJ0QTNuQiIsImlhdCI6MTYwNTcxNzczNCwiZXhwIjoxNjA1NzUzNzM0fQ.NljVJdW5oCIb2PrGq93QaTUH3UR1tQZzsH4Qc883upn3G1XHJm4klIpPOsoXx-nhgb81j_PaTeYEn0t3f3xIdZ5nIEnBh2Ubl2ugo-gt3d0Hv_RvzRXjm6WlS1gkR-Rm96nkSBRXvFHD4iQEaCpqmc8qupY5ZfmB3rql5KSCInKnLvncyAEJibujsLbYEwxoFCZxQ-0r3t3UyxOSwzqzYVFZoJmlxqIeCzcI8gyTawf4tYQo-dKdNNPGm6CUXJ9iftrP7KzLThkK9zGN5bDHPiDLB-VsuGRzgwUd7_a0qcMzQLzhTH6ZNNP4t4hpP4zBq8Ufr8yXvmlbs-s34ODEjg';
 
   final GraphQLClient _graphQlClient;
+
+  static Future<void> openHiveStore() async => HiveStore.open();
 
   /// todo no need client
   static GraphQLClient _createClient(Client client) {

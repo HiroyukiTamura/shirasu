@@ -1,0 +1,93 @@
+query GetViewer {
+    viewer {
+        paymentMethods {
+            ...UserAccountPaymentMethod
+            __typename
+        }
+        authConnections
+        __typename
+    }
+    viewerUser: viewerUser {
+        ...UserAccountPageUserData
+        invoiceHistory {
+            items {
+                ...UserAccountInvoiceData
+                __typename
+            }
+            nextToken
+            __typename
+        }
+        watchHistories(limit: 3, sortDirection: DESC) {
+            items {
+                ...UserAccountPageWatchHistoryData
+                __typename
+            }
+            __typename
+        }
+        subscribedChannels {
+            ...UserAccountSubscribedChannelData
+            __typename
+        }
+        __typename
+    }
+}
+fragment UserAccountPaymentMethod on PaymentMethod {
+    id
+    brand
+    last4
+    expirationDate
+    __typename
+}
+fragment UserAccountPageUserData on User {
+    id
+    name
+    icon
+    __typename
+}
+fragment UserAccountInvoiceData on Invoice {
+    id
+    total
+    currency
+    label
+    createdAt
+    planType
+    status
+    __typename
+}
+fragment UserAccountPageWatchHistoryData on WatchHistory {
+    id
+    lastViewedAt
+    program {
+        id
+        tenantId
+        channelId
+        title
+        detail
+        broadcastAt
+        __typename
+    }
+    __typename
+}
+fragment UserAccountSubscribedChannelData on SubscribedChannel {
+    subscribedAt
+    currentPeriodEndAt
+    channel {
+        id
+        name
+        icon
+        __typename
+    }
+    isActive
+    latestInvoiceId
+    latestInvoice {
+        id
+        description
+        createdAt
+        planType
+        status
+        hostedInvoiceUrl
+        nextPaymentAttempt
+        __typename
+    }
+    __typename
+}

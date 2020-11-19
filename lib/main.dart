@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
@@ -12,6 +13,7 @@ Future<void> main() async {
 
   await Hive.initFlutter();
   await HiveClient.init();
+  await ApiClient.openHiveStore();
 
   runApp(ProviderScope(child: MyApp()));
 }

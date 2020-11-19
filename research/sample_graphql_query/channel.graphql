@@ -1,0 +1,72 @@
+query GetChannel($id: ID!) {
+    channel: getChannel(id: $id) {
+        ...UserChannelPageChannelData
+        subscriptionPlan {
+            ...UserChannelPageSubscriptionPlanData
+            viewerPurchasedPlan {
+                isActive
+                __typename
+            }
+            __typename
+        }
+        programs(filter: { release: { eq: true } }, sortDirection: DESC, limit: 12) {
+            items {
+                ...UserChannelPageProgramData
+                __typename
+            }
+            nextToken
+            __typename
+        }
+        announcements(
+            sortDirection: DESC
+            filter: { isOpen: { eq: true } }
+            limit: 5
+        ) {
+            items {
+                ...TenantChannelAnnouncementsChannelAnnouncementData
+                __typename
+            }
+            nextToken
+            __typename
+        }
+        __typename
+    }
+}
+fragment UserChannelPageChannelData on Channel {
+    id
+    name
+    icon
+    twitterUrl
+    facebookUrl
+    textOnPurchaseScreen
+    detail
+    __typename
+}
+fragment UserChannelPageSubscriptionPlanData on SubscriptionPlan {
+    id
+    amount
+    currency
+    isPurchasable
+    __typename
+}
+fragment UserChannelPageProgramData on Program {
+    id
+    tenantId
+    channelId
+    title
+    broadcastAt
+    totalPlayTime
+    viewerPlanType
+    __typename
+}
+fragment TenantChannelAnnouncementsChannelAnnouncementData on ChannelAnnouncement {
+    id
+    isOpen
+    isSubscriberOnly
+    title
+    text
+    publishedAt
+    createdAt
+    updatedAt
+    __typename
+}

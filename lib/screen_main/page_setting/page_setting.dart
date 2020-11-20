@@ -153,6 +153,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
   static Widget _listItem({
     @required String title,
     @required String subTitle,
+    GestureTapCallback onTap
   }) =>
       ListTile(
         title: Text(title),
@@ -160,6 +161,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
           subTitle,
           style: TextStyles.SETTING_SUBTITLE,
         ),
+        onTap: onTap,
       );
 
   static Widget _componentTitle({@required String title}) => Padding(
@@ -220,6 +222,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
           title: Strings.BIRTH_DATE_LABEL,
           subTitle: DateFormat('yyyy/MM/dd').format(
               ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.birthDate),
+          onTap: () async => _onTapBirthDate(),
         );
       case 4:
         return _listItem(
@@ -256,6 +259,10 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
           ),
         ),
       );
+
+  static void _onTapBirthDate() async {
+
+  }
 }
 
 class _Thresholds {

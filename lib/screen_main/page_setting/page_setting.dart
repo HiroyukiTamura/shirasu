@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/payment_methods_list.dart';
+import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -33,87 +34,90 @@ class PageSettingInMainScreen extends StatefulHookWidget {
 
 class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
     with AfterLayoutMixin<PageSettingInMainScreen> {
-
   @override
   void afterFirstLayout(BuildContext context) =>
       context.read(_viewModelProvider).setUpData();
 
   @override
-  Widget build(BuildContext context) =>
-      useProvider(_viewModelProvider).value.when(
-            preInitialized: () => const CenterCircleProgress(),
-            error: () => const Text('error!'), //todo implement
-            success: (data, locationStr) {
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(
-                    vertical: Dimens.SETTING_OUTER_MARGIN),
-                itemBuilder: (context, i) {
-                  switch (i) {
-                    case 1:
-                      return ListTileTop(
-                          iconUrl: data.viewerUser.icon,
-                          userName: data.viewerUser.name);
-                    case 2:
-                      return _listItemUserName(ViewModelSetting.dummyUser);
-                    case 4:
-                      return ListItemEmail(
-                        user: ViewModelSetting.dummyUser,
-                      );
-                    case 6:
-                      return _listItem(
-                        title: Strings.BIRTH_DATE_LABEL,
-                        subTitle: DateFormat('yyyy/MM/dd').format(
-                            ViewModelSetting.dummyUser
-                                .httpsShirasuIoUserAttribute.birthDate),
-                      );
-                    case 7:
-                      return _listItem(
-                        title: Strings.JOB_LABEL,
-                        subTitle: Strings.JOB_MAP[ViewModelSetting
-                                .dummyUser.httpsShirasuIoUserAttribute.job] ??
-                            Strings.DEFAULT_EMPTY,
-                      );
-                    case 8:
-                      return _listItem(
-                        title: Strings.PLACE_LABEL,
-                        subTitle: locationStr,
-                      );
-                    case 9:
-                      return const ListTileSeem();
-                    case 10:
-                      return _componentTitle(title: Strings.TITLE_CREDIT_CARD);
-                    case 11:
-                    case 12:
-                      // todo VISA、Mastercard、JCB、American Express、DinersClub
-                      return ListTilePaymentMethod(
-                          paymentMethod: data.viewer.paymentMethods.first
-                              as BasePaymentMethod); //todo why cast?
-                    case 13:
-                      return const ListTileSeem();
-                    case 14:
-                      return const ListTileTitle(
-                          title: Strings.TITLE_SUBSCRIBED_CHANNELS);
-                    case 15:
-                      return ListTileSubscribedChannel(
-                          subscribedChannel:
-                              data.viewerUser.subscribedChannels.first);
-                    case 16:
-                      return const ListTileSeem();
-                    case 17:
-                      return const ListTileTitle(
-                          title: Strings.TITLE_PURCHASE_HISTORY);
-                    case 18:
-                      return ListTileInvoiceHistory(
-                          invoiceHistoryItem:
-                              data.viewerUser.invoiceHistory.items.first);
-                    default:
-                      return const SizedBox();
-                  }
-                },
-                itemCount: 20,
+  Widget build(BuildContext context) => useProvider(_viewModelProvider)
+      .value
+      .when(
+        preInitialized: () => const CenterCircleProgress(),
+        error: () => const Text('error!'), //todo implement
+        success: (data, locationStr) {
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(
+                vertical: Dimens.SETTING_OUTER_MARGIN),
+            itemBuilder: (context, i) {
+              final threshHolds = _Thresholds();
+
+              if (i <= threshHolds.threshold)
+                return _genListItemAboveCreditCard(
+                  data.viewerUser,
+                  locationStr,
+                  i,
+                );
+
+              threshHolds.swap(data.viewer.paymentMethods.length);
+
+              if (i <= threshHolds.threshold)
+                return ListTilePaymentMethod(
+                  paymentMethod:
+                      data.viewer.paymentMethods[i - threshHolds.preThreshHold-1]
+                          as BasePaymentMethod,
+                ); //todo why cast?
+
+              threshHolds.swap(2);
+
+              if (i <= threshHolds.threshold) {
+                switch (i - threshHolds.preThreshHold -1) {
+                  case 0:
+                    return const ListTileSeem();
+                  case 1:
+                    return _componentTitle(
+                      title: Strings.TITLE_SUBSCRIBED_CHANNELS,
+                    );
+                }
+                throw Exception();
+              }
+
+              threshHolds.swap(data.viewerUser.subscribedChannels.length);
+
+              if (i <= threshHolds.threshold) {
+                final index = i - threshHolds.preThreshHold -1;
+                return ListTileSubscribedChannel(
+                  subscribedChannel: data.viewerUser.subscribedChannels[index],
+                );
+              }
+
+              threshHolds.swap(2);
+
+              if (i <= threshHolds.threshold) {
+                switch (i - threshHolds.preThreshHold -1) {
+                  case 0:
+                    return const ListTileSeem();
+                  case 1:
+                    return _componentTitle(
+                      title: Strings.TITLE_PURCHASE_HISTORY,
+                    );
+                }
+                throw Exception();
+              }
+
+              threshHolds.swap(data.viewerUser.invoiceHistory.items.length);
+
+              final index = i - threshHolds.preThreshHold -1;
+              return ListTileInvoiceHistory(
+                invoiceHistoryItem: data.viewerUser.invoiceHistory.items[index],
               );
             },
+            itemCount: 12 +
+                data.viewer.paymentMethods.length +
+                data.viewerUser.subscribedChannels.length +
+                data.viewerUser.invoiceHistory.items.length,
           );
+        },
+      );
 
   static Widget _listItem({
     @required String title,
@@ -131,7 +135,8 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         padding: const EdgeInsets.only(
           right: 16,
           left: 16,
-          bottom: 8,
+          bottom: 16,
+          top: 8,
         ),
         child: Text(
           title,
@@ -167,4 +172,56 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
       ),
     );
   }
+
+  static Widget _genListItemAboveCreditCard(
+      ViewerUser viewerUser, String locationStr, int index) {
+    switch (index) {
+      case 0:
+        return ListTileTop(iconUrl: viewerUser.icon, userName: viewerUser.name);
+      case 1:
+        return _listItemUserName(ViewModelSetting.dummyUser);
+      case 2:
+        return ListItemEmail(
+          user: ViewModelSetting.dummyUser,
+        );
+      case 3:
+        return _listItem(
+          title: Strings.BIRTH_DATE_LABEL,
+          subTitle: DateFormat('yyyy/MM/dd').format(
+              ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.birthDate),
+        );
+      case 4:
+        return _listItem(
+          title: Strings.JOB_LABEL,
+          subTitle: Strings.JOB_MAP[
+                  ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.job] ??
+              Strings.DEFAULT_EMPTY,
+        );
+      case 5:
+        return _listItem(
+          title: Strings.PLACE_LABEL,
+          subTitle: locationStr,
+        );
+      case 6:
+        return const ListTileSeem();
+      case 7:
+        return _componentTitle(title: Strings.TITLE_CREDIT_CARD);
+      default:
+        throw Exception('unexpected index: $index');
+    }
+  }
+}
+
+class _Thresholds {
+  int _preThreshHold = 7;
+  int _threshold = 7;
+
+  void swap(int num) {
+    _preThreshHold = _threshold;
+    _threshold += num;
+  }
+
+  int get preThreshHold => _preThreshHold;
+
+  int get threshold => _threshold;
 }

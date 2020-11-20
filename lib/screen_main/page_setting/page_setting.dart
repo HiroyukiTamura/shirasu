@@ -18,6 +18,7 @@ import 'package:shirasu/screen_main/page_setting/list_tile_subscribed_channel.da
 import 'package:shirasu/screen_main/page_setting/list_tile_title.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_top.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
 
@@ -62,15 +63,15 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
 
               if (i <= threshHolds.threshold)
                 return ListTilePaymentMethod(
-                  paymentMethod:
-                      data.viewer.paymentMethods[i - threshHolds.preThreshHold-1]
-                          as BasePaymentMethod,
+                  paymentMethod: data.viewer
+                          .paymentMethods[i - threshHolds.preThreshHold - 1]
+                      as BasePaymentMethod,
                 ); //todo why cast?
 
               threshHolds.swap(2);
 
               if (i <= threshHolds.threshold) {
-                switch (i - threshHolds.preThreshHold -1) {
+                switch (i - threshHolds.preThreshHold - 1) {
                   case 0:
                     return const ListTileSeem();
                   case 1:
@@ -84,7 +85,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
               threshHolds.swap(data.viewerUser.subscribedChannels.length);
 
               if (i <= threshHolds.threshold) {
-                final index = i - threshHolds.preThreshHold -1;
+                final index = i - threshHolds.preThreshHold - 1;
                 return ListTileSubscribedChannel(
                   subscribedChannel: data.viewerUser.subscribedChannels[index],
                 );
@@ -93,7 +94,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
               threshHolds.swap(2);
 
               if (i <= threshHolds.threshold) {
-                switch (i - threshHolds.preThreshHold -1) {
+                switch (i - threshHolds.preThreshHold - 1) {
                   case 0:
                     return const ListTileSeem();
                   case 1:
@@ -106,15 +107,45 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
 
               threshHolds.swap(data.viewerUser.invoiceHistory.items.length);
 
-              final index = i - threshHolds.preThreshHold -1;
-              return ListTileInvoiceHistory(
-                invoiceHistoryItem: data.viewerUser.invoiceHistory.items[index],
-              );
+              if (i <= threshHolds.threshold) {
+                final index = i - threshHolds.preThreshHold - 1;
+                return ListTileInvoiceHistory(
+                  invoiceHistoryItem:
+                      data.viewerUser.invoiceHistory.items[index],
+                );
+              }
+
+              threshHolds.swap(2);
+
+              if (i <= threshHolds.threshold) {
+                switch (i - threshHolds.preThreshHold - 1) {
+                  case 0:
+                    return const ListTileSeem();
+                  case 1:
+                    return _componentTitle(
+                      title: Strings.TITLE_WATCH_HISTORY,
+                    );
+                }
+                throw Exception();
+              }
+
+              threshHolds.swap(data.viewerUser.watchHistories.items.length);
+
+              if (i <= threshHolds.threshold) {
+                final index = i - threshHolds.preThreshHold - 1;
+                return MovieListItem(
+                  program: data.viewerUser.watchHistories.items[index].program
+                      as BaseProgram, //todo why cast?
+                );
+              }
+
+              return _loadMoreBtn();
             },
-            itemCount: 12 +
+            itemCount: 15 +
                 data.viewer.paymentMethods.length +
                 data.viewerUser.subscribedChannels.length +
-                data.viewerUser.invoiceHistory.items.length,
+                data.viewerUser.invoiceHistory.items.length +
+                data.viewerUser.watchHistories.items.length,
           );
         },
       );
@@ -210,6 +241,21 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         throw Exception('unexpected index: $index');
     }
   }
+
+  static Widget _loadMoreBtn() => Container(
+    alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: TextButton(
+          onPressed: () {},
+          child: const Text(
+            Strings.WATCH_MORE,
+            style: TextStyle(
+              height: 1,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
 }
 
 class _Thresholds {

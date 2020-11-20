@@ -140,6 +140,9 @@ class Strings {
 
   static const String TITLE_USER_INFO = 'ユーザー情報';
 
+  /// ref: users.pages.UserAccount.UserAccountPage.titleWatchingHistory
+  static const String TITLE_WATCH_HISTORY = '視聴履歴';
+
   /// ref: users.pages.UserAccount.UserAccountPage.titleSubscribedChannels
   static const String WATCH_MORE = 'もっと見る';
 

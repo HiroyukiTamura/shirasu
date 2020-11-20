@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 //todo split per screen
+//todo remove type definition
 @immutable
 class Strings {
   //region Intro
@@ -158,6 +159,91 @@ class Strings {
   static const String SUBSCRIPTION_START_DATE = '購読開始日';
 
   static const String AUTH_SYNC_CHECKED = '連携済';
+
+  static const String DEFAULT_EMPTY = '---';
+
+  static const Map<String, String> JOB_MAP = {
+    'jobAcademia': '大学関係',
+    'jobBroadcasting': '放送関係',
+    'jobCivilServant': '公務員',
+    'jobCreatorOrArtist': 'クリエイター・アーティスト',
+    'jobHumanitiesStudent': '学生（文系）',
+    'jobInformationTechnology': 'IT関係',
+    'jobOther': 'その他',
+    'jobOtherEducation': 'その他教育関係',
+    'jobOtherEmployeeOrExecutive': 'その他会社員・会社役員',
+    'jobOtherStudent': '学生（その他）',
+    'jobPartTime': 'フリーター',
+    'jobPublishing': '出版関係',
+    'jobScienceStudent': '学生（理系）',
+    'jobSelfEmployed': '自営業',
+    'jobUnemployed': '無職',
+  };
+
+  
+  // "messages.job.jobAcademia": "大学関係",
+  // "messages.job.jobBroadcasting": "放送関係",
+  // "messages.job.jobCivilServant": "公務員",
+  // "messages.job.jobCreatorOrArtist": "クリエイター・アーティスト",
+  // "messages.job.jobHumanitiesStudent": "学生（文系）",
+  // "messages.job.jobInformationTechnology": "IT関係",
+  // "messages.job.jobOther": "その他",
+  // "messages.job.jobOtherEducation": "その他教育関係",
+  // "messages.job.jobOtherEmployeeOrExecutive": "その他会社員・会社役員",
+  // "messages.job.jobOtherStudent": "学生（その他）",
+  // "messages.job.jobPartTime": "フリーター",
+  // "messages.job.jobPublishing": "出版関係",
+  // "messages.job.jobScienceStudent": "学生（理系）",
+  // "messages.job.jobSelfEmployed": "自営業",
+  // "messages.job.jobUnemployed": "無職",
+  // "messages.job.unselected": "職業を選択してください",
+  // "messages.prefecture.prefecture1": "北海道",
+  // "messages.prefecture.prefecture10": "群馬県",
+  // "messages.prefecture.prefecture11": "埼玉県",
+  // "messages.prefecture.prefecture12": "千葉県",
+  // "messages.prefecture.prefecture13": "東京都",
+  // "messages.prefecture.prefecture14": "神奈川県",
+  // "messages.prefecture.prefecture15": "新潟県",
+  // "messages.prefecture.prefecture16": "富山県",
+  // "messages.prefecture.prefecture17": "石川県",
+  // "messages.prefecture.prefecture18": "福井県",
+  // "messages.prefecture.prefecture19": "山梨県",
+  // "messages.prefecture.prefecture2": "青森県",
+  // "messages.prefecture.prefecture20": "長野県",
+  // "messages.prefecture.prefecture21": "岐阜県",
+  // "messages.prefecture.prefecture22": "静岡県",
+  // "messages.prefecture.prefecture23": "愛知県",
+  // "messages.prefecture.prefecture24": "三重県",
+  // "messages.prefecture.prefecture25": "滋賀県",
+  // "messages.prefecture.prefecture26": "京都府",
+  // "messages.prefecture.prefecture27": "大阪府",
+  // "messages.prefecture.prefecture28": "兵庫県",
+  // "messages.prefecture.prefecture29": "奈良県",
+  // "messages.prefecture.prefecture3": "岩手県",
+  // "messages.prefecture.prefecture30": "和歌山県",
+  // "messages.prefecture.prefecture31": "鳥取県",
+  // "messages.prefecture.prefecture32": "島根県",
+  // "messages.prefecture.prefecture33": "岡山県",
+  // "messages.prefecture.prefecture34": "広島県",
+  // "messages.prefecture.prefecture35": "山口県",
+  // "messages.prefecture.prefecture36": "徳島県",
+  // "messages.prefecture.prefecture37": "香川県",
+  // "messages.prefecture.prefecture38": "愛媛県",
+  // "messages.prefecture.prefecture39": "高知県",
+  // "messages.prefecture.prefecture4": "宮城県",
+  // "messages.prefecture.prefecture40": "福岡県",
+  // "messages.prefecture.prefecture41": "佐賀県",
+  // "messages.prefecture.prefecture42": "長崎県",
+  // "messages.prefecture.prefecture43": "熊本県",
+  // "messages.prefecture.prefecture44": "大分県",
+  // "messages.prefecture.prefecture45": "宮崎県",
+  // "messages.prefecture.prefecture46": "鹿児島県",
+  // "messages.prefecture.prefecture47": "沖縄県",
+  // "messages.prefecture.prefecture5": "秋田県",
+  // "messages.prefecture.prefecture6": "山形県",
+  // "messages.prefecture.prefecture7": "福島県",
+  // "messages.prefecture.prefecture8": "茨城県",
+  // "messages.prefecture.prefecture9": "栃木県",
 
   // "users.pages.UserAccount.components.SubscribedChannels.currentPeriodEndAtLabel": "次回更新日",
   // "users.pages.UserAccount.components.SubscribedChannels.subscriptionStartDate": "購読開始日",

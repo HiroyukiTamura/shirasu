@@ -19,9 +19,10 @@ class _$SettingModelStateTearOff {
   }
 
 // ignore: unused_element
-  StateSuccess success(Viewer data) {
+  StateSuccess success(Viewer data, String locationStr) {
     return StateSuccess(
       data,
+      locationStr,
     );
   }
 
@@ -40,13 +41,13 @@ mixin _$SettingModelState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result preInitialized(),
-    @required Result success(Viewer data),
+    @required Result success(Viewer data, String locationStr),
     @required Result error(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result preInitialized(),
-    Result success(Viewer data),
+    Result success(Viewer data, String locationStr),
     Result error(),
     @required Result orElse(),
   });
@@ -122,7 +123,7 @@ class _$StatePreInitialized implements StatePreInitialized {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result preInitialized(),
-    @required Result success(Viewer data),
+    @required Result success(Viewer data, String locationStr),
     @required Result error(),
   }) {
     assert(preInitialized != null);
@@ -135,7 +136,7 @@ class _$StatePreInitialized implements StatePreInitialized {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result preInitialized(),
-    Result success(Viewer data),
+    Result success(Viewer data, String locationStr),
     Result error(),
     @required Result orElse(),
   }) {
@@ -184,7 +185,7 @@ abstract class $StateSuccessCopyWith<$Res> {
   factory $StateSuccessCopyWith(
           StateSuccess value, $Res Function(StateSuccess) then) =
       _$StateSuccessCopyWithImpl<$Res>;
-  $Res call({Viewer data});
+  $Res call({Viewer data, String locationStr});
 
   $ViewerCopyWith<$Res> get data;
 }
@@ -203,9 +204,11 @@ class _$StateSuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object data = freezed,
+    Object locationStr = freezed,
   }) {
     return _then(StateSuccess(
       data == freezed ? _value.data : data as Viewer,
+      locationStr == freezed ? _value.locationStr : locationStr as String,
     ));
   }
 
@@ -222,14 +225,18 @@ class _$StateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 class _$StateSuccess implements StateSuccess {
-  const _$StateSuccess(this.data) : assert(data != null);
+  const _$StateSuccess(this.data, this.locationStr)
+      : assert(data != null),
+        assert(locationStr != null);
 
   @override
   final Viewer data;
+  @override
+  final String locationStr;
 
   @override
   String toString() {
-    return 'SettingModelState.success(data: $data)';
+    return 'SettingModelState.success(data: $data, locationStr: $locationStr)';
   }
 
   @override
@@ -237,12 +244,17 @@ class _$StateSuccess implements StateSuccess {
     return identical(this, other) ||
         (other is StateSuccess &&
             (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)));
+                const DeepCollectionEquality().equals(other.data, data)) &&
+            (identical(other.locationStr, locationStr) ||
+                const DeepCollectionEquality()
+                    .equals(other.locationStr, locationStr)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(data) ^
+      const DeepCollectionEquality().hash(locationStr);
 
   @override
   $StateSuccessCopyWith<StateSuccess> get copyWith =>
@@ -252,26 +264,26 @@ class _$StateSuccess implements StateSuccess {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result preInitialized(),
-    @required Result success(Viewer data),
+    @required Result success(Viewer data, String locationStr),
     @required Result error(),
   }) {
     assert(preInitialized != null);
     assert(success != null);
     assert(error != null);
-    return success(data);
+    return success(data, locationStr);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result preInitialized(),
-    Result success(Viewer data),
+    Result success(Viewer data, String locationStr),
     Result error(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
-      return success(data);
+      return success(data, locationStr);
     }
     return orElse();
   }
@@ -306,9 +318,10 @@ class _$StateSuccess implements StateSuccess {
 }
 
 abstract class StateSuccess implements SettingModelState {
-  const factory StateSuccess(Viewer data) = _$StateSuccess;
+  const factory StateSuccess(Viewer data, String locationStr) = _$StateSuccess;
 
   Viewer get data;
+  String get locationStr;
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
 
@@ -351,7 +364,7 @@ class _$StateError implements StateError {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result preInitialized(),
-    @required Result success(Viewer data),
+    @required Result success(Viewer data, String locationStr),
     @required Result error(),
   }) {
     assert(preInitialized != null);
@@ -364,7 +377,7 @@ class _$StateError implements StateError {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result preInitialized(),
-    Result success(Viewer data),
+    Result success(Viewer data, String locationStr),
     Result error(),
     @required Result orElse(),
   }) {

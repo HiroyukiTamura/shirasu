@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -30,51 +31,19 @@ class PageSettingInMainScreen extends StatefulHookWidget {
       _PageSettingInMainScreenState();
 }
 
-class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
-  static const _DUMMY_USER_JOB = 'IT関係';
-  static const _DUMMY_USER_COUNTRY = '日本';
-  static const _DUMMY_USER_PREFECTURE = '東京';
-  final _DUMMY_BIRTH_DATE = DateTime.now();
-  final User _dummyUser = User(
-    email: 'hogehoge@gmail.com',
-    emailVerified: true,
-    givenName: '太郎',
-    httpsShirasuIoCustomerId: '',
-    nickname: 'NICK_NAME',
-    sub: 'auth0|xxxx',
-    familyName: '山田',
-    httpsShirasuIoRoles: [],
-    httpsShirasuIoDistributeds: [],
-    updatedAt: DateTime.now(),
-    httpsShirasuIoTenants: [],
-    locale: '',
-    name: '',
-    picture: '',
-    httpsShirasuIoUserAttribute: HttpsShirasuIoUserAttribute(
-      birthDate: DateTime.now(),
-      job: '',
-      country: '',
-      familyName: '山田',
-      givenName: '太郎',
-      familyNameReading: 'やまだ',
-      givenNameReading: 'たろう',
-      prefecture: '13',
-    ),
-  );
+class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
+    with AfterLayoutMixin<PageSettingInMainScreen> {
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => context.read(_viewModelProvider).setUpData());
-  }
+  void afterFirstLayout(BuildContext context) =>
+      context.read(_viewModelProvider).setUpData();
 
   @override
   Widget build(BuildContext context) =>
       useProvider(_viewModelProvider).value.when(
             preInitialized: () => const CenterCircleProgress(),
             error: () => const Text('error!'), //todo implement
-            success: (data) {
+            success: (data, locationStr) {
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(
                     vertical: Dimens.SETTING_OUTER_MARGIN),
@@ -85,27 +54,29 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen> {
                           iconUrl: data.viewerUser.icon,
                           userName: data.viewerUser.name);
                     case 2:
-                      return _listItemUserName(_dummyUser);
+                      return _listItemUserName(ViewModelSetting.dummyUser);
                     case 4:
                       return ListItemEmail(
-                        user: _dummyUser,
+                        user: ViewModelSetting.dummyUser,
                       );
                     case 6:
                       return _listItem(
                         title: Strings.BIRTH_DATE_LABEL,
-                        subTitle:
-                            DateFormat('yyyy.MM.dd').format(_DUMMY_BIRTH_DATE),
+                        subTitle: DateFormat('yyyy/MM/dd').format(
+                            ViewModelSetting.dummyUser
+                                .httpsShirasuIoUserAttribute.birthDate),
                       );
                     case 7:
                       return _listItem(
                         title: Strings.JOB_LABEL,
-                        subTitle: _DUMMY_USER_JOB,
+                        subTitle: Strings.JOB_MAP[ViewModelSetting
+                                .dummyUser.httpsShirasuIoUserAttribute.job] ??
+                            Strings.DEFAULT_EMPTY,
                       );
                     case 8:
                       return _listItem(
                         title: Strings.PLACE_LABEL,
-                        subTitle:
-                            '$_DUMMY_USER_COUNTRY $_DUMMY_USER_PREFECTURE',
+                        subTitle: locationStr,
                       );
                     case 9:
                       return const ListTileSeem();

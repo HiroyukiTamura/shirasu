@@ -1,35 +1,101 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/model/country_data.dart';
+import 'package:shirasu/model/prefecture_data.dart';
 import 'package:shirasu/model/viewer.dart';
+import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/resource/strings.dart';
 
 part 'viewmodel_setting.freezed.dart';
 
 class ViewModelSetting extends ValueNotifier<SettingModelState> {
-
-  ViewModelSetting(): super(const StatePreInitialized());
+  ViewModelSetting() : super(const StatePreInitialized());
 
   final apiClient = ApiClient(Client());
+  static final User dummyUser = User(
+    email: 'hogehoge@gmail.com',
+    emailVerified: true,
+    givenName: '太郎',
+    httpsShirasuIoCustomerId: '',
+    nickname: 'NICK_NAME',
+    sub: 'auth0|xxxx',
+    familyName: '山田',
+    httpsShirasuIoRoles: [],
+    httpsShirasuIoDistributeds: [],
+    updatedAt: DateTime.now(),
+    httpsShirasuIoTenants: [],
+    locale: '',
+    name: '',
+    picture: '',
+    httpsShirasuIoUserAttribute: HttpsShirasuIoUserAttribute(
+      birthDate: DateTime.now(),
+      job: 'jobAcademia',
+      country: 'jp',
+      familyName: '山田',
+      givenName: '太郎',
+      familyNameReading: 'やまだ',
+      givenNameReading: 'たろう',
+      prefecture: '13',
+    ),
+  );
 
   /// todo should be synchronized?
   Future<void> setUpData() async {
-    if (value is StateSuccess)
-      return;
+    if (value is StateSuccess) return;
 
     try {
       final viewer = await apiClient.queryViewer();
-      value = StateSuccess(viewer);
+      final locationStr = await _genLocationStr(dummyUser);
+      value = StateSuccess(viewer, locationStr);
     } catch (e) {
       print(e);
       value = const StateError();
     }
+  }
+
+  /// [countryCode] : ex. JP
+  static Future<String> _getCountryName(String countryCode) async {
+    final string = await rootBundle.loadString('assets/country.json');
+    final json = jsonDecode(string);
+    return CountryData.fromJson(json as Map<String, dynamic>)
+        .countries[countryCode.toUpperCase()];
+  }
+
+  /// [prefectureCode] : 1 ~ 47
+  static Future<String> _getPrefectureName(String prefectureCode) async {
+    final string = await rootBundle.loadString('assets/prefecture.json');
+    final json = jsonDecode(string);
+    return PrefectureData.fromJson(json as Map<String, dynamic>)
+        .prefecture
+        .firstWhere((it) => it.code == int.tryParse(prefectureCode), orElse: () => null)
+        ?.name;
+  }
+
+  static Future<String> _genLocationStr(User user) async {
+    String countryStr =
+        await _getCountryName(user.httpsShirasuIoUserAttribute.country) ??
+            Strings.DEFAULT_EMPTY;
+    if (user.httpsShirasuIoUserAttribute.country.toUpperCase() == 'JP') {
+      final prefectureStr = await _getPrefectureName(
+              user.httpsShirasuIoUserAttribute.prefecture) ??
+          Strings.DEFAULT_EMPTY;
+      countryStr += ' $prefectureStr';
+    }
+    return countryStr;
   }
 }
 
 @freezed
 abstract class SettingModelState with _$SettingModelState {
   const factory SettingModelState.preInitialized() = StatePreInitialized;
-  const factory SettingModelState.success(Viewer data) = StateSuccess;
+
+  const factory SettingModelState.success(Viewer data, String locationStr) =
+      StateSuccess;
+
   const factory SettingModelState.error() = StateError;
 }

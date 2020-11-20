@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shirasu/model/payment_methods_list.dart';
+import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/resource/strings.dart';
 
 /// amex: "/static/img/amex-logo.png",
@@ -14,7 +14,7 @@ class ListTilePaymentMethod extends StatelessWidget {
 
   const ListTilePaymentMethod({Key key, @required this.paymentMethod}) : super(key: key);
 
-  final PaymentMethod paymentMethod;
+  final BasePaymentMethod paymentMethod;
 
   @override
   Widget build(BuildContext context) => ListTile(

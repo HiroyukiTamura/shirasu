@@ -157,6 +157,8 @@ class Strings {
   static const String CURRENT_PERIOD_END_AT_LABEL = '次回更新日';
   static const String SUBSCRIPTION_START_DATE = '購読開始日';
 
+  static const String AUTH_SYNC_CHECKED = '連携済';
+
   // "users.pages.UserAccount.components.SubscribedChannels.currentPeriodEndAtLabel": "次回更新日",
   // "users.pages.UserAccount.components.SubscribedChannels.subscriptionStartDate": "購読開始日",
 

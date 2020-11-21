@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:intl/intl.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/payment_methods_list.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
@@ -260,8 +262,10 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         ),
       );
 
-  static void _onTapBirthDate() async {
-
+  static Future<void> _onTapBirthDate() async {
+    final birthDate = ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.birthDate;
+    await routerDelegate
+        .pushPage(GlobalRoutePath.editBirthDate(birthDate.year, birthDate.month, birthDate.day));
   }
 }
 

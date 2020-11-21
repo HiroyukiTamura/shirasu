@@ -5,18 +5,18 @@ part 'screen_main_route_path.freezed.dart';
 
 @immutable
 class GlobalRoutePathBase {
-
   const factory GlobalRoutePathBase.redirect2Root() = PathDataMainPageDashBoard;
 
   static Result wrappedWhen<Result extends Object>(
     GlobalRoutePathBase routePath, {
-    Result Function() intro,
-    Result Function() error,
-    Result Function(String channelId) channel,
-    Result Function(String programId) program,
-    Result Function() dashboard,
-    Result Function() subscribing,
-    Result Function() setting,
+    @required Result Function() intro,
+    @required Result Function() error,
+    @required Result Function(String channelId) channel,
+    @required Result Function(String programId) program,
+    @required Result Function(int year, int month, int day) editBirthDate,
+    @required Result Function() dashboard,
+    @required Result Function() subscribing,
+    @required Result Function() setting,
   }) {
     if (routePath is GlobalRoutePath)
       return routePath.when(
@@ -24,6 +24,7 @@ class GlobalRoutePathBase {
         error: error,
         channel: channel,
         program: program,
+        editBirthDate: editBirthDate,
       );
     else if (routePath is PathDataMainPageBase)
       return routePath.when(
@@ -46,6 +47,9 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.channel(String channelId) = PathDataChannel;
 
   const factory GlobalRoutePath.program(String programId) = PathDataProgram;
+
+  const factory GlobalRoutePath.editBirthDate(int year, int month, int date) =
+      PathDataEditBirthDate;
 
   factory GlobalRoutePath.buildProgram({
     @required String channelId,

@@ -54,6 +54,7 @@ class AppRouteInformationParser
         configuration,
         intro: () => 'intro',
         error: () => 'error',
+        editBirthDate: (int year, int month, int day) => 'edit_birth_date',
         channel: (channelId) => '/c/$channelId',
         program: (programId) {
           final list = programId.split('-');

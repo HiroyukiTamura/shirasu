@@ -14,6 +14,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_birthdate.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_job.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
@@ -47,8 +48,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
       useProvider(settingViewModelProvider.select((it) => it.state)).when(
         preInitialized: () => const CenterCircleProgress(),
         error: () => const Text('error!'), //todo implement
-        success: (data, locationStr) {
-          return ListView.builder(
+        success: (data, locationStr) => ListView.builder(
             padding: const EdgeInsets.symmetric(
                 vertical: Dimens.SETTING_OUTER_MARGIN),
             itemBuilder: (context, i) {
@@ -149,8 +149,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
                 data.viewerUser.subscribedChannels.length +
                 data.viewerUser.invoiceHistory.items.length +
                 data.viewerUser.watchHistories.items.length,
-          );
-        },
+          ),
       );
 
   static Widget listItem(
@@ -222,12 +221,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
       case 3:
         return const ListTileBirthDate();
       case 4:
-        return listItem(
-          title: Strings.JOB_LABEL,
-          subTitle: Strings.JOB_MAP[
-                  ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.job] ??
-              Strings.DEFAULT_EMPTY,
-        );
+        return const ListTileJob();
       case 5:
         return listItem(
           title: Strings.PLACE_LABEL,

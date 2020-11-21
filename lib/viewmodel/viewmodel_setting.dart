@@ -67,6 +67,11 @@ class ViewModelSetting extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateJobCode(String jobCode) {
+    editedUserInfo = editedUserInfo.copyWith(jobCode: jobCode);
+    notifyListeners();
+  }
+
   /// [countryCode] : ex. JP
   static Future<String> _getCountryName(String countryCode) async {
     final string = await rootBundle.loadString('assets/country.json');
@@ -113,12 +118,12 @@ abstract class SettingModelState with _$SettingModelState {
 @freezed
 abstract class EditedUserInfo implements _$EditedUserInfo {
   
-  const factory EditedUserInfo({DateTime birthDate}) =
+  const factory EditedUserInfo({DateTime birthDate, String jobCode}) =
       _EditedUserInfo;
 
-  const factory EditedUserInfo.empty() = EditedUserInfo;
+  factory EditedUserInfo.empty() => const EditedUserInfo();
 
   const EditedUserInfo._();
 
-  bool get isEdited => birthDate != null;
+  bool get isEdited => birthDate != null || jobCode != null;
 }

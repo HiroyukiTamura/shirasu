@@ -426,9 +426,10 @@ class _$EditedUserInfoTearOff {
   const _$EditedUserInfoTearOff();
 
 // ignore: unused_element
-  _EditedUserInfo call({DateTime birthDate}) {
+  _EditedUserInfo call({DateTime birthDate, String jobCode}) {
     return _EditedUserInfo(
       birthDate: birthDate,
+      jobCode: jobCode,
     );
   }
 }
@@ -440,6 +441,7 @@ const $EditedUserInfo = _$EditedUserInfoTearOff();
 /// @nodoc
 mixin _$EditedUserInfo {
   DateTime get birthDate;
+  String get jobCode;
 
   $EditedUserInfoCopyWith<EditedUserInfo> get copyWith;
 }
@@ -449,7 +451,7 @@ abstract class $EditedUserInfoCopyWith<$Res> {
   factory $EditedUserInfoCopyWith(
           EditedUserInfo value, $Res Function(EditedUserInfo) then) =
       _$EditedUserInfoCopyWithImpl<$Res>;
-  $Res call({DateTime birthDate});
+  $Res call({DateTime birthDate, String jobCode});
 }
 
 /// @nodoc
@@ -464,10 +466,12 @@ class _$EditedUserInfoCopyWithImpl<$Res>
   @override
   $Res call({
     Object birthDate = freezed,
+    Object jobCode = freezed,
   }) {
     return _then(_value.copyWith(
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
+      jobCode: jobCode == freezed ? _value.jobCode : jobCode as String,
     ));
   }
 }
@@ -479,7 +483,7 @@ abstract class _$EditedUserInfoCopyWith<$Res>
           _EditedUserInfo value, $Res Function(_EditedUserInfo) then) =
       __$EditedUserInfoCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime birthDate});
+  $Res call({DateTime birthDate, String jobCode});
 }
 
 /// @nodoc
@@ -496,24 +500,28 @@ class __$EditedUserInfoCopyWithImpl<$Res>
   @override
   $Res call({
     Object birthDate = freezed,
+    Object jobCode = freezed,
   }) {
     return _then(_EditedUserInfo(
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
+      jobCode: jobCode == freezed ? _value.jobCode : jobCode as String,
     ));
   }
 }
 
 /// @nodoc
 class _$_EditedUserInfo extends _EditedUserInfo {
-  const _$_EditedUserInfo({this.birthDate}) : super._();
+  const _$_EditedUserInfo({this.birthDate, this.jobCode}) : super._();
 
   @override
   final DateTime birthDate;
+  @override
+  final String jobCode;
 
   @override
   String toString() {
-    return 'EditedUserInfo(birthDate: $birthDate)';
+    return 'EditedUserInfo(birthDate: $birthDate, jobCode: $jobCode)';
   }
 
   @override
@@ -522,12 +530,16 @@ class _$_EditedUserInfo extends _EditedUserInfo {
         (other is _EditedUserInfo &&
             (identical(other.birthDate, birthDate) ||
                 const DeepCollectionEquality()
-                    .equals(other.birthDate, birthDate)));
+                    .equals(other.birthDate, birthDate)) &&
+            (identical(other.jobCode, jobCode) ||
+                const DeepCollectionEquality().equals(other.jobCode, jobCode)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(birthDate);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(birthDate) ^
+      const DeepCollectionEquality().hash(jobCode);
 
   @override
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith =>
@@ -536,10 +548,13 @@ class _$_EditedUserInfo extends _EditedUserInfo {
 
 abstract class _EditedUserInfo extends EditedUserInfo {
   const _EditedUserInfo._() : super._();
-  const factory _EditedUserInfo({DateTime birthDate}) = _$_EditedUserInfo;
+  const factory _EditedUserInfo({DateTime birthDate, String jobCode}) =
+      _$_EditedUserInfo;
 
   @override
   DateTime get birthDate;
+  @override
+  String get jobCode;
   @override
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith;
 }

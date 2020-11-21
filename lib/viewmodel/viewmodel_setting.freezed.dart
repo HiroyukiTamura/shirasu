@@ -420,3 +420,126 @@ class _$StateError implements StateError {
 abstract class StateError implements SettingModelState {
   const factory StateError() = _$StateError;
 }
+
+/// @nodoc
+class _$EditedUserInfoTearOff {
+  const _$EditedUserInfoTearOff();
+
+// ignore: unused_element
+  _EditedUserInfo call({DateTime birthDate}) {
+    return _EditedUserInfo(
+      birthDate: birthDate,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $EditedUserInfo = _$EditedUserInfoTearOff();
+
+/// @nodoc
+mixin _$EditedUserInfo {
+  DateTime get birthDate;
+
+  $EditedUserInfoCopyWith<EditedUserInfo> get copyWith;
+}
+
+/// @nodoc
+abstract class $EditedUserInfoCopyWith<$Res> {
+  factory $EditedUserInfoCopyWith(
+          EditedUserInfo value, $Res Function(EditedUserInfo) then) =
+      _$EditedUserInfoCopyWithImpl<$Res>;
+  $Res call({DateTime birthDate});
+}
+
+/// @nodoc
+class _$EditedUserInfoCopyWithImpl<$Res>
+    implements $EditedUserInfoCopyWith<$Res> {
+  _$EditedUserInfoCopyWithImpl(this._value, this._then);
+
+  final EditedUserInfo _value;
+  // ignore: unused_field
+  final $Res Function(EditedUserInfo) _then;
+
+  @override
+  $Res call({
+    Object birthDate = freezed,
+  }) {
+    return _then(_value.copyWith(
+      birthDate:
+          birthDate == freezed ? _value.birthDate : birthDate as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$EditedUserInfoCopyWith<$Res>
+    implements $EditedUserInfoCopyWith<$Res> {
+  factory _$EditedUserInfoCopyWith(
+          _EditedUserInfo value, $Res Function(_EditedUserInfo) then) =
+      __$EditedUserInfoCopyWithImpl<$Res>;
+  @override
+  $Res call({DateTime birthDate});
+}
+
+/// @nodoc
+class __$EditedUserInfoCopyWithImpl<$Res>
+    extends _$EditedUserInfoCopyWithImpl<$Res>
+    implements _$EditedUserInfoCopyWith<$Res> {
+  __$EditedUserInfoCopyWithImpl(
+      _EditedUserInfo _value, $Res Function(_EditedUserInfo) _then)
+      : super(_value, (v) => _then(v as _EditedUserInfo));
+
+  @override
+  _EditedUserInfo get _value => super._value as _EditedUserInfo;
+
+  @override
+  $Res call({
+    Object birthDate = freezed,
+  }) {
+    return _then(_EditedUserInfo(
+      birthDate:
+          birthDate == freezed ? _value.birthDate : birthDate as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_EditedUserInfo extends _EditedUserInfo {
+  const _$_EditedUserInfo({this.birthDate}) : super._();
+
+  @override
+  final DateTime birthDate;
+
+  @override
+  String toString() {
+    return 'EditedUserInfo(birthDate: $birthDate)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _EditedUserInfo &&
+            (identical(other.birthDate, birthDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.birthDate, birthDate)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(birthDate);
+
+  @override
+  _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith =>
+      __$EditedUserInfoCopyWithImpl<_EditedUserInfo>(this, _$identity);
+}
+
+abstract class _EditedUserInfo extends EditedUserInfo {
+  const _EditedUserInfo._() : super._();
+  const factory _EditedUserInfo({DateTime birthDate}) = _$_EditedUserInfo;
+
+  @override
+  DateTime get birthDate;
+  @override
+  _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith;
+}

@@ -13,10 +13,11 @@ import 'package:shirasu/resource/strings.dart';
 
 part 'viewmodel_setting.freezed.dart';
 
-class ViewModelSetting extends ValueNotifier<SettingModelState> {
-  ViewModelSetting() : super(const StatePreInitialized());
-
+class ViewModelSetting extends ChangeNotifier {
   final apiClient = ApiClient(Client());
+  EditedUserInfo editedUserInfo = EditedUserInfo.empty();
+  SettingModelState state = const SettingModelState.preInitialized();
+
   static final User dummyUser = User(
     email: 'hogehoge@gmail.com',
     emailVerified: true,
@@ -45,17 +46,25 @@ class ViewModelSetting extends ValueNotifier<SettingModelState> {
   );
 
   /// todo should be synchronized?
+  /// todo check is disposed
   Future<void> setUpData() async {
-    if (value is StateSuccess) return;
+    if (state is StateSuccess) return;
 
     try {
       final viewer = await apiClient.queryViewer();
       final locationStr = await _genLocationStr(dummyUser);
-      value = StateSuccess(viewer, locationStr);
+      state = StateSuccess(viewer, locationStr);
     } catch (e) {
       print(e);
-      value = const StateError();
+      state = const StateError();
     }
+
+    notifyListeners();
+  }
+
+  void updateBirthDate(DateTime birthDate) {
+    editedUserInfo = editedUserInfo.copyWith(birthDate: birthDate);
+    notifyListeners();
   }
 
   /// [countryCode] : ex. JP
@@ -72,7 +81,8 @@ class ViewModelSetting extends ValueNotifier<SettingModelState> {
     final json = jsonDecode(string);
     return PrefectureData.fromJson(json as Map<String, dynamic>)
         .prefecture
-        .firstWhere((it) => it.code == int.tryParse(prefectureCode), orElse: () => null)
+        .firstWhere((it) => it.code == int.tryParse(prefectureCode),
+            orElse: () => null)
         ?.name;
   }
 
@@ -98,4 +108,17 @@ abstract class SettingModelState with _$SettingModelState {
       StateSuccess;
 
   const factory SettingModelState.error() = StateError;
+}
+
+@freezed
+abstract class EditedUserInfo implements _$EditedUserInfo {
+  
+  const factory EditedUserInfo({DateTime birthDate}) =
+      _EditedUserInfo;
+
+  const factory EditedUserInfo.empty() = EditedUserInfo;
+
+  const EditedUserInfo._();
+
+  bool get isEdited => birthDate != null;
 }

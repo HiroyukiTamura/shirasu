@@ -13,6 +13,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_birthdate.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
@@ -24,27 +25,26 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
 
-final _viewModelProvider = ChangeNotifierProvider.autoDispose<ViewModelSetting>(
+final settingViewModelProvider = ChangeNotifierProvider.autoDispose<ViewModelSetting>(
     (_) => ViewModelSetting());
 
 class PageSettingInMainScreen extends StatefulHookWidget {
   const PageSettingInMainScreen({Key key}) : super(key: key);
 
   @override
-  _PageSettingInMainScreenState createState() =>
-      _PageSettingInMainScreenState();
+  PageSettingInMainScreenState createState() =>
+      PageSettingInMainScreenState();
 }
 
-class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
+class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
     with AfterLayoutMixin<PageSettingInMainScreen> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(_viewModelProvider).setUpData();
+      context.read(settingViewModelProvider).setUpData();
 
   @override
-  Widget build(BuildContext context) => useProvider(_viewModelProvider)
-      .value
-      .when(
+  Widget build(BuildContext context) =>
+      useProvider(settingViewModelProvider.select((it) => it.state)).when(
         preInitialized: () => const CenterCircleProgress(),
         error: () => const Text('error!'), //todo implement
         success: (data, locationStr) {
@@ -56,6 +56,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
 
               if (i <= threshHolds.threshold)
                 return _genListItemAboveCreditCard(
+                  context,
                   data.viewerUser,
                   locationStr,
                   i,
@@ -152,11 +153,10 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         },
       );
 
-  static Widget _listItem({
-    @required String title,
-    @required String subTitle,
-    GestureTapCallback onTap
-  }) =>
+  static Widget listItem(
+          {@required String title,
+          @required String subTitle,
+          GestureTapCallback onTap}) =>
       ListTile(
         title: Text(title),
         subtitle: Text(
@@ -179,7 +179,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         ),
       );
 
-  static Widget _listItemUserName(User user) {
+  static Widget listItemUserName(User user) {
     String userName =
         '${user.httpsShirasuIoUserAttribute.familyName} ${user.httpsShirasuIoUserAttribute.givenName}';
     if (user.httpsShirasuIoUserAttribute.familyNameReading != null &&
@@ -208,33 +208,28 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
     );
   }
 
-  static Widget _genListItemAboveCreditCard(
+  static Widget _genListItemAboveCreditCard(BuildContext context,
       ViewerUser viewerUser, String locationStr, int index) {
     switch (index) {
       case 0:
         return ListTileTop(iconUrl: viewerUser.icon, userName: viewerUser.name);
       case 1:
-        return _listItemUserName(ViewModelSetting.dummyUser);
+        return listItemUserName(ViewModelSetting.dummyUser);
       case 2:
         return ListItemEmail(
           user: ViewModelSetting.dummyUser,
         );
       case 3:
-        return _listItem(
-          title: Strings.BIRTH_DATE_LABEL,
-          subTitle: DateFormat('yyyy/MM/dd').format(
-              ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.birthDate),
-          onTap: () async => _onTapBirthDate(),
-        );
+        return const ListTileBirthDate();
       case 4:
-        return _listItem(
+        return listItem(
           title: Strings.JOB_LABEL,
           subTitle: Strings.JOB_MAP[
                   ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.job] ??
               Strings.DEFAULT_EMPTY,
         );
       case 5:
-        return _listItem(
+        return listItem(
           title: Strings.PLACE_LABEL,
           subTitle: locationStr,
         );
@@ -248,7 +243,7 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
   }
 
   static Widget _loadMoreBtn() => Container(
-    alignment: Alignment.center,
+        alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: TextButton(
           onPressed: () {},
@@ -261,12 +256,6 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
           ),
         ),
       );
-
-  static Future<void> _onTapBirthDate() async {
-    final birthDate = ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.birthDate;
-    final path = GlobalRoutePath.buildEditBirthDate(birthDate);
-    await routerDelegate.pushPage(path);
-  }
 }
 
 class _Thresholds {

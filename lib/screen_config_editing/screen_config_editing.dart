@@ -29,7 +29,8 @@ class ScreenConfigEditing extends HookWidget {
         appBar: AppBar(
           title: const Text(Strings.BIRTH_DATE_LABEL),
         ),
-        body: Center(
+        body: Align(
+          alignment: Alignment.topCenter,
           child: Row(
             children: [
               DropdownButton<int>(

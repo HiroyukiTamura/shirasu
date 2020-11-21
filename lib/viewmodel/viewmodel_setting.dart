@@ -5,6 +5,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/model/country_data.dart';
 import 'package:shirasu/model/prefecture_data.dart';
 import 'package:shirasu/model/viewer.dart';
@@ -74,7 +75,7 @@ class ViewModelSetting extends ChangeNotifier {
 
   /// [countryCode] : ex. JP
   static Future<String> _getCountryName(String countryCode) async {
-    final string = await rootBundle.loadString('assets/country.json');
+    final string = await rootBundle.loadString(Assets.json.country);
     final json = jsonDecode(string);
     return CountryData.fromJson(json as Map<String, dynamic>)
         .countries[countryCode.toUpperCase()];
@@ -82,7 +83,7 @@ class ViewModelSetting extends ChangeNotifier {
 
   /// [prefectureCode] : 1 ~ 47
   static Future<String> _getPrefectureName(String prefectureCode) async {
-    final string = await rootBundle.loadString('assets/prefecture.json');
+    final string = await rootBundle.loadString(Assets.json.prefecture);
     final json = jsonDecode(string);
     return PrefectureData.fromJson(json as Map<String, dynamic>)
         .prefecture

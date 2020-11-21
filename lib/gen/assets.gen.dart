@@ -7,11 +7,19 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsJsonGen {
+  const $AssetsJsonGen();
+
+  String get country => 'assets/json/country.json';
+  String get prefecture => 'assets/json/prefecture.json';
+}
+
 class Assets {
   Assets._();
 
   static const SvgGenImage defaultChannelIcon =
       SvgGenImage('assets/default-channel-icon.svg');
+  static const $AssetsJsonGen json = $AssetsJsonGen();
   static const SvgGenImage logoOfficial =
       SvgGenImage('assets/logo_official.svg');
   static const SvgGenImage logoOfficialShadow =

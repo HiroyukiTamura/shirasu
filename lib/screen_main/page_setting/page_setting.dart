@@ -264,8 +264,8 @@ class _PageSettingInMainScreenState extends State<PageSettingInMainScreen>
 
   static Future<void> _onTapBirthDate() async {
     final birthDate = ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.birthDate;
-    await routerDelegate
-        .pushPage(GlobalRoutePath.editBirthDate(birthDate.year, birthDate.month, birthDate.day));
+    final path = GlobalRoutePath.buildEditBirthDate(birthDate);
+    await routerDelegate.pushPage(path);
   }
 }
 

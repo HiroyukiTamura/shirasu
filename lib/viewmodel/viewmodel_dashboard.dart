@@ -3,12 +3,18 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/dashboard_model.dart';
+import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 
 class ViewModelDashBoard extends ValueNotifier<DashboardModelState> {
   ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
   bool _isLoadMoreCommanded = false;
+  bool _isMounted = true;
+
+  bool get isMounted => _isMounted;
+
+  void onDispose() => _isMounted = false;
 
   Future<void> requestPrograms() async {
     try {

@@ -20,6 +20,7 @@ class Styles {
     // closer together (more dense) than on mobile platforms.
     visualDensity: VisualDensity.adaptivePlatformDensity,
     brightness: Brightness.dark,
+    primaryColorBrightness: Brightness.dark,
     primaryColor: const Color(0xff50e6ff),
     accentColor: const Color(0xff50e6ff),
     scaffoldBackgroundColor: Colors.black,
@@ -28,8 +29,8 @@ class Styles {
       ThemeData.dark().textTheme,
     ),
     primaryTextTheme: const TextTheme(
-        bodyText1: TextStyle(
-      color: Colors.white,
-    )),
+      headline6: TextStyle(color: Colors.white),
+      bodyText1: TextStyle(color: Colors.white),
+    ),
   );
 }

@@ -36,11 +36,8 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             error: () => throw UnimplementedError(),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
-            editBirthDate: (int year, int month, int day) =>
-                ScreenConfigEditing(
-              year: year,
-              month: month,
-              day: day,
+            editBirthDate: (BirthDateIntentData data) => ScreenConfigEditing(
+              intentData: data,
             ),
           );
           return Tuple2(location, screen);

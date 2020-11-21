@@ -17,9 +17,13 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
-final _dashBoardProvider =
+final dashBoardProvider =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
-        (_) => ViewModelDashBoard());
+        (ref) {
+          final viewModel = ViewModelDashBoard();
+          ref.onDispose(() => viewModel.onDispose());
+          return viewModel;
+        });
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);
@@ -32,10 +36,10 @@ class PageDashboardInMainScreen extends StatefulHookWidget {
 class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> with AfterLayoutMixin<PageDashboardInMainScreen> {
 
   @override
-  void afterFirstLayout(BuildContext context) => context.read(_dashBoardProvider).requestPrograms();
+  void afterFirstLayout(BuildContext context) => context.read(dashBoardProvider).requestPrograms();
 
   @override
-  Widget build(BuildContext context) => useProvider(_dashBoardProvider)
+  Widget build(BuildContext context) => useProvider(dashBoardProvider)
       .value
       .when(
         preInitialized: () => const CenterCircleProgress(),
@@ -92,7 +96,7 @@ class _ListViewContent extends HookWidget {
   
   @override
   Widget build(BuildContext context) {
-    final model = (context.read(_dashBoardProvider).value as StateSuccess).dashboardModel;
+    final model = (context.read(dashBoardProvider).value as StateSuccess).dashboardModel;
     final isFinish = model.newProgramsDataList?.isNotEmpty == true &&
         model.newProgramsDataList?.last?.newPrograms?.nextToken == null;
     final featurePrgData = model?.featureProgramData;
@@ -224,7 +228,7 @@ class _ListViewContent extends HookWidget {
   }
 
   Future<void> _loadMore(BuildContext context) async {
-    final result = await context.read(_dashBoardProvider).loadMoreNewPrg();
+    final result = await context.read(dashBoardProvider).loadMoreNewPrg();
 
     switch (result) {
       case ApiClientResult.NO_MORE:

@@ -38,11 +38,9 @@ class _$GlobalRoutePathTearOff {
   }
 
 // ignore: unused_element
-  PathDataEditBirthDate editBirthDate(int year, int month, int date) {
+  PathDataEditBirthDate editBirthDate(BirthDateIntentData data) {
     return PathDataEditBirthDate(
-      year,
-      month,
-      date,
+      data,
     );
   }
 }
@@ -59,7 +57,7 @@ mixin _$GlobalRoutePath {
     @required Result error(),
     @required Result channel(String channelId),
     @required Result program(String programId),
-    @required Result editBirthDate(int year, int month, int date),
+    @required Result editBirthDate(BirthDateIntentData data),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -67,7 +65,7 @@ mixin _$GlobalRoutePath {
     Result error(),
     Result channel(String channelId),
     Result program(String programId),
-    Result editBirthDate(int year, int month, int date),
+    Result editBirthDate(BirthDateIntentData data),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -149,7 +147,7 @@ class _$PathDataIntro implements PathDataIntro {
     @required Result error(),
     @required Result channel(String channelId),
     @required Result program(String programId),
-    @required Result editBirthDate(int year, int month, int date),
+    @required Result editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -166,7 +164,7 @@ class _$PathDataIntro implements PathDataIntro {
     Result error(),
     Result channel(String channelId),
     Result program(String programId),
-    Result editBirthDate(int year, int month, int date),
+    Result editBirthDate(BirthDateIntentData data),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -258,7 +256,7 @@ class _$PathDataError implements PathDataError {
     @required Result error(),
     @required Result channel(String channelId),
     @required Result program(String programId),
-    @required Result editBirthDate(int year, int month, int date),
+    @required Result editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -275,7 +273,7 @@ class _$PathDataError implements PathDataError {
     Result error(),
     Result channel(String channelId),
     Result program(String programId),
-    Result editBirthDate(int year, int month, int date),
+    Result editBirthDate(BirthDateIntentData data),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -389,7 +387,7 @@ class _$PathDataChannel implements PathDataChannel {
     @required Result error(),
     @required Result channel(String channelId),
     @required Result program(String programId),
-    @required Result editBirthDate(int year, int month, int date),
+    @required Result editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -406,7 +404,7 @@ class _$PathDataChannel implements PathDataChannel {
     Result error(),
     Result channel(String channelId),
     Result program(String programId),
-    Result editBirthDate(int year, int month, int date),
+    Result editBirthDate(BirthDateIntentData data),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -523,7 +521,7 @@ class _$PathDataProgram implements PathDataProgram {
     @required Result error(),
     @required Result channel(String channelId),
     @required Result program(String programId),
-    @required Result editBirthDate(int year, int month, int date),
+    @required Result editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -540,7 +538,7 @@ class _$PathDataProgram implements PathDataProgram {
     Result error(),
     Result channel(String channelId),
     Result program(String programId),
-    Result editBirthDate(int year, int month, int date),
+    Result editBirthDate(BirthDateIntentData data),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -597,7 +595,7 @@ abstract class $PathDataEditBirthDateCopyWith<$Res> {
   factory $PathDataEditBirthDateCopyWith(PathDataEditBirthDate value,
           $Res Function(PathDataEditBirthDate) then) =
       _$PathDataEditBirthDateCopyWithImpl<$Res>;
-  $Res call({int year, int month, int date});
+  $Res call({BirthDateIntentData data});
 }
 
 /// @nodoc
@@ -613,55 +611,37 @@ class _$PathDataEditBirthDateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object year = freezed,
-    Object month = freezed,
-    Object date = freezed,
+    Object data = freezed,
   }) {
     return _then(PathDataEditBirthDate(
-      year == freezed ? _value.year : year as int,
-      month == freezed ? _value.month : month as int,
-      date == freezed ? _value.date : date as int,
+      data == freezed ? _value.data : data as BirthDateIntentData,
     ));
   }
 }
 
 /// @nodoc
 class _$PathDataEditBirthDate implements PathDataEditBirthDate {
-  const _$PathDataEditBirthDate(this.year, this.month, this.date)
-      : assert(year != null),
-        assert(month != null),
-        assert(date != null);
+  const _$PathDataEditBirthDate(this.data) : assert(data != null);
 
   @override
-  final int year;
-  @override
-  final int month;
-  @override
-  final int date;
+  final BirthDateIntentData data;
 
   @override
   String toString() {
-    return 'GlobalRoutePath.editBirthDate(year: $year, month: $month, date: $date)';
+    return 'GlobalRoutePath.editBirthDate(data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is PathDataEditBirthDate &&
-            (identical(other.year, year) ||
-                const DeepCollectionEquality().equals(other.year, year)) &&
-            (identical(other.month, month) ||
-                const DeepCollectionEquality().equals(other.month, month)) &&
-            (identical(other.date, date) ||
-                const DeepCollectionEquality().equals(other.date, date)));
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(year) ^
-      const DeepCollectionEquality().hash(month) ^
-      const DeepCollectionEquality().hash(date);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
 
   @override
   $PathDataEditBirthDateCopyWith<PathDataEditBirthDate> get copyWith =>
@@ -675,14 +655,14 @@ class _$PathDataEditBirthDate implements PathDataEditBirthDate {
     @required Result error(),
     @required Result channel(String channelId),
     @required Result program(String programId),
-    @required Result editBirthDate(int year, int month, int date),
+    @required Result editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
     assert(editBirthDate != null);
-    return editBirthDate(year, month, date);
+    return editBirthDate(data);
   }
 
   @override
@@ -692,12 +672,12 @@ class _$PathDataEditBirthDate implements PathDataEditBirthDate {
     Result error(),
     Result channel(String channelId),
     Result program(String programId),
-    Result editBirthDate(int year, int month, int date),
+    Result editBirthDate(BirthDateIntentData data),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (editBirthDate != null) {
-      return editBirthDate(year, month, date);
+      return editBirthDate(data);
     }
     return orElse();
   }
@@ -738,12 +718,10 @@ class _$PathDataEditBirthDate implements PathDataEditBirthDate {
 }
 
 abstract class PathDataEditBirthDate implements GlobalRoutePath {
-  const factory PathDataEditBirthDate(int year, int month, int date) =
+  const factory PathDataEditBirthDate(BirthDateIntentData data) =
       _$PathDataEditBirthDate;
 
-  int get year;
-  int get month;
-  int get date;
+  BirthDateIntentData get data;
   $PathDataEditBirthDateCopyWith<PathDataEditBirthDate> get copyWith;
 }
 

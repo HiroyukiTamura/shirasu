@@ -4,6 +4,9 @@ import 'package:shirasu/resource/styles.dart';
 
 @immutable
 class TextStyles {
+
+  const TextStyles._();
+
   static const TEXT_HEIGHT = 1.3;
   static const TEXT_H_SML = 1.2;
 

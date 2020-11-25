@@ -9,6 +9,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_intro/body_widget.dart';
+import 'package:shirasu/ui_common/images.dart';
 
 class ScreenIntro extends StatelessWidget {
   static const double _IMG_SIZE = 128;
@@ -59,10 +60,10 @@ class ScreenIntro extends StatelessWidget {
           bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_1ST, Strings.INTRO_DESC_1ST_2],
           ),
-          image: Assets.logoOfficial.svg(
+          image: Assets.svg.logoOfficial.supportWeb().toWidget(
             width: _IMG_SIZE,
             height: _IMG_SIZE,
-            semanticsLabel: Strings.CD_INTRO_IMG,
+            semanticLabel: Strings.CD_INTRO_IMG,
           ),
         ),
         PageViewModel(
@@ -79,10 +80,10 @@ class ScreenIntro extends StatelessWidget {
           bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_2ND, Strings.INTRO_DESC_2ND_2],
           ),
-          image: Assets.undrawNotifyRe65on.svg(
+          image: Assets.svg.undrawNotifyRe65on.supportWeb().toWidget(
             width: _IMG_SIZE,
             height: _IMG_SIZE,
-            semanticsLabel: Strings.CD_INTRO_IMG,
+            semanticLabel: Strings.CD_INTRO_IMG,
           ),
         ),
         PageViewModel(
@@ -98,10 +99,10 @@ class ScreenIntro extends StatelessWidget {
           bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_3RD, Strings.INTRO_DESC_3RD_2],
           ),
-          image: Assets.undrawSecurityO890.svg(
+          image: Assets.svg.undrawSecurityO890.supportWeb().toWidget(
             width: _IMG_SIZE,
             height: _IMG_SIZE,
-            semanticsLabel: Strings.CD_INTRO_IMG,
+            semanticLabel: Strings.CD_INTRO_IMG,
           ),
         ),
       ];

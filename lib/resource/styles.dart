@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 @immutable
 class Styles {
+
+  const Styles._();
+
   static final colorTextSub = Colors.white.withOpacity(.7);
   static const BACK_COLOR = Color(0xff1a1a1f);
   static const PRIMARY_COLOR = Color(0xff50e6ff);

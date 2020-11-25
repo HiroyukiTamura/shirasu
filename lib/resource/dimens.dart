@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class Dimens {
+
+  const Dimens._();
+
   static const double CHANNEL_PAGE_VERTICAL_MARGIN = 24;
   static const double MARGIN_OUTLINE = 16;
   static const double DASHBOARD_OUTER_MARGIN = 8;

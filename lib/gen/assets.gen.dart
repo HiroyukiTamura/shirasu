@@ -14,24 +14,50 @@ class $AssetsJsonGen {
   String get prefecture => 'assets/json/prefecture.json';
 }
 
+class $AssetsPngGen {
+  const $AssetsPngGen();
+
+  AssetGenImage get defaultChannelIcon =>
+      const AssetGenImage('assets/png/default-channel-icon.png');
+  AssetGenImage get logoOfficial =>
+      const AssetGenImage('assets/png/logo_official.png');
+  AssetGenImage get logoOfficialShadow =>
+      const AssetGenImage('assets/png/logo_official_shadow.png');
+  AssetGenImage get undrawNotifyRe65on =>
+      const AssetGenImage('assets/png/undraw_Notify_re_65on.png');
+  AssetGenImage get undrawMyAppGrf2 =>
+      const AssetGenImage('assets/png/undraw_my_app_grf2.png');
+  AssetGenImage get undrawSecurityO890 =>
+      const AssetGenImage('assets/png/undraw_security_o890.png');
+  AssetGenImage get undrawWarningCyit =>
+      const AssetGenImage('assets/png/undraw_warning_cyit.png');
+}
+
+class $AssetsSvgGen {
+  const $AssetsSvgGen();
+
+  SvgGenImage get defaultChannelIcon =>
+      const SvgGenImage('assets/svg/default-channel-icon.svg');
+  SvgGenImage get logoOfficial =>
+      const SvgGenImage('assets/svg/logo_official.svg');
+  SvgGenImage get logoOfficialShadow =>
+      const SvgGenImage('assets/svg/logo_official_shadow.svg');
+  SvgGenImage get undrawNotifyRe65on =>
+      const SvgGenImage('assets/svg/undraw_Notify_re_65on.svg');
+  SvgGenImage get undrawMyAppGrf2 =>
+      const SvgGenImage('assets/svg/undraw_my_app_grf2.svg');
+  SvgGenImage get undrawSecurityO890 =>
+      const SvgGenImage('assets/svg/undraw_security_o890.svg');
+  SvgGenImage get undrawWarningCyit =>
+      const SvgGenImage('assets/svg/undraw_warning_cyit.svg');
+}
+
 class Assets {
   Assets._();
 
-  static const SvgGenImage defaultChannelIcon =
-      SvgGenImage('assets/default-channel-icon.svg');
   static const $AssetsJsonGen json = $AssetsJsonGen();
-  static const SvgGenImage logoOfficial =
-      SvgGenImage('assets/logo_official.svg');
-  static const SvgGenImage logoOfficialShadow =
-      SvgGenImage('assets/logo_official_shadow.svg');
-  static const SvgGenImage undrawNotifyRe65on =
-      SvgGenImage('assets/undraw_Notify_re_65on.svg');
-  static const SvgGenImage undrawMyAppGrf2 =
-      SvgGenImage('assets/undraw_my_app_grf2.svg');
-  static const SvgGenImage undrawSecurityO890 =
-      SvgGenImage('assets/undraw_security_o890.svg');
-  static const SvgGenImage undrawWarningCyit =
-      SvgGenImage('assets/undraw_warning_cyit.svg');
+  static const $AssetsPngGen png = $AssetsPngGen();
+  static const $AssetsSvgGen svg = $AssetsSvgGen();
 }
 
 class AssetGenImage extends AssetImage {

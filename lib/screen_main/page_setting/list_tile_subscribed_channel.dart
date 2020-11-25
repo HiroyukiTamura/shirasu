@@ -6,6 +6,7 @@ import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/ui_common/images.dart';
 
 class ListTileSubscribedChannel extends StatelessWidget {
   const ListTileSubscribedChannel({Key key, @required this.subscribedChannel})
@@ -48,7 +49,7 @@ class ListTileSubscribedChannel extends StatelessWidget {
         ),
       );
 
-  static Widget _defaultIcon() => Assets.defaultChannelIcon.svg(
+  static Widget _defaultIcon() => Assets.svg.defaultChannelIcon.supportWeb().toWidget(
       height: _ICON_SIZE,
       width: _ICON_SIZE,
     );

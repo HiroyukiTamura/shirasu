@@ -23,6 +23,7 @@ import 'package:shirasu/screen_main/page_setting/list_tile_title.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_top.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
+import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
 
@@ -47,7 +48,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
   Widget build(BuildContext context) =>
       useProvider(settingViewModelProvider.select((it) => it.state)).when(
         preInitialized: () => const CenterCircleProgress(),
-        error: () => const Text('error!'), //todo implement
+        error: () => const PageError(), //todo implement
         success: (data, locationStr) => ListView.builder(
             padding: const EdgeInsets.symmetric(
                 vertical: Dimens.SETTING_OUTER_MARGIN),

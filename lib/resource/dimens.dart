@@ -10,4 +10,6 @@ class Dimens {
   static const double DASHBOARD_ITEM_RADIUS = 4;
   static const double HEADER_ASPECT = 6;
   static const double SETTING_OUTER_MARGIN = 16;
+  /// @see assets\undraw_warning_cyit.svg
+  static const double ERROR_WIDGET_RATIO = 832.63 / 1032.24;
 }

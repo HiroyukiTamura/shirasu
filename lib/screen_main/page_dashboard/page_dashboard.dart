@@ -15,6 +15,7 @@ import 'package:shirasu/screen_main/page_dashboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final dashBoardProvider =
@@ -43,7 +44,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> w
       .value
       .when(
         preInitialized: () => const CenterCircleProgress(),
-        error: () => const Text('error!'), //todo show error widget
+        error: () => const PageError(), //todo show error widget
         success: (model) {
           final featurePrgData = model?.featureProgramData;
           final newPrgData = model?.allNewPrograms;

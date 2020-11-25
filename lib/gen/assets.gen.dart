@@ -30,6 +30,8 @@ class Assets {
       SvgGenImage('assets/undraw_my_app_grf2.svg');
   static const SvgGenImage undrawSecurityO890 =
       SvgGenImage('assets/undraw_security_o890.svg');
+  static const SvgGenImage undrawWarningCyit =
+      SvgGenImage('assets/undraw_warning_cyit.svg');
 }
 
 class AssetGenImage extends AssetImage {

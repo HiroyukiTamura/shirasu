@@ -7,6 +7,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
+import 'package:shirasu/ui_common/page_error.dart';
 
 class SubscribingWidget extends HookWidget {
   const SubscribingWidget({Key key}) : super(key: key);
@@ -30,9 +31,5 @@ class SubscribingWidget extends HookWidget {
           resultEmpty: () {
             return Container(); //todo display error widget
           },
-          error: () {
-            return Container(
-              child: const Text('error!'),
-            ); //todo display error widget
-          });
+          error: () => const PageError());
 }

@@ -16,6 +16,7 @@ import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/video_holder.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:after_layout/after_layout.dart';
@@ -61,7 +62,7 @@ class _PrgResultHookedWidget extends HookWidget {
           .when(
         preInitialized: () => const CenterCircleProgress(),
         success: (data) => _ContentWidget(data: data),
-        error: () => const Text('error'),
+        error: () => const PageError(),
       );
 }
 

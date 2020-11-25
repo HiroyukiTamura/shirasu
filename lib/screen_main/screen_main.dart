@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
 
-class PageDashboardInMainScreen extends StatefulWidget {
-  const PageDashboardInMainScreen({Key key, @required this.appState}) : super(key: key);
+class PageDashboardInMainScreen extends StatefulHookWidget {
+  const PageDashboardInMainScreen({Key key, @required this.appState})
+      : super(key: key);
 
   final GlobalAppState appState;
 
   @override
-  _PageDashboardInMainScreenState createState() => _PageDashboardInMainScreenState();
+  _PageDashboardInMainScreenState createState() =>
+      _PageDashboardInMainScreenState();
 }
 
 class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {

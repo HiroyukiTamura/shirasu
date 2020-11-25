@@ -19,12 +19,11 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final dashBoardProvider =
-    ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
-        (ref) {
-          final viewModel = ViewModelDashBoard();
-          ref.onDispose(() => viewModel.onDispose());
-          return viewModel;
-        });
+    ChangeNotifierProvider.autoDispose<ViewModelDashBoard>((ref) {
+  final viewModel = ViewModelDashBoard();
+  ref.onDispose(() => viewModel.onDispose());
+  return viewModel;
+});
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);
@@ -34,10 +33,11 @@ class PageDashboardInMainScreen extends StatefulHookWidget {
       _PageDashboardInMainScreenState();
 }
 
-class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> with AfterLayoutMixin<PageDashboardInMainScreen> {
-
+class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
+    with AfterLayoutMixin<PageDashboardInMainScreen> {
   @override
-  void afterFirstLayout(BuildContext context) => context.read(dashBoardProvider).requestPrograms();
+  void afterFirstLayout(BuildContext context) =>
+      context.read(dashBoardProvider).requestPrograms();
 
   @override
   Widget build(BuildContext context) => useProvider(dashBoardProvider)
@@ -78,7 +78,6 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> w
 }
 
 class _ListViewContent extends HookWidget {
-
   const _ListViewContent({
     @required this.itemCount,
     @required this.nowBroadcastingsLast,
@@ -94,10 +93,11 @@ class _ListViewContent extends HookWidget {
   static const _COLUMN_COUNT = 2;
 
   static const _CIRCULAR_HEIGHT = 36;
-  
+
   @override
   Widget build(BuildContext context) {
-    final model = (context.read(dashBoardProvider).value as StateSuccess).dashboardModel;
+    final model =
+        (context.read(dashBoardProvider).value as StateSuccess).dashboardModel;
     final isFinish = model.newProgramsDataList?.isNotEmpty == true &&
         model.newProgramsDataList?.last?.newPrograms?.nextToken == null;
     final featurePrgData = model?.featureProgramData;
@@ -112,7 +112,8 @@ class _ListViewContent extends HookWidget {
             if (!isFinish &&
                 notification is UserScrollNotification &&
                 notification.direction == ScrollDirection.idle &&
-                controller.position.maxScrollExtent - _CIRCULAR_HEIGHT < controller.offset) {
+                controller.position.maxScrollExtent - _CIRCULAR_HEIGHT <
+                    controller.offset) {
               _loadMore(context);
               return true;
             }
@@ -128,7 +129,8 @@ class _ListViewContent extends HookWidget {
                   if (index == 0)
                     return const Heading(text: Strings.HEADING_NOW_ON_AIR);
                   else {
-                    final item = featurePrgData.nowBroadcastings.items[index - 1];
+                    final item =
+                        featurePrgData.nowBroadcastings.items[index - 1];
                     return Padding(
                       padding: const EdgeInsets.only(
                         bottom: 48,
@@ -137,7 +139,9 @@ class _ListViewContent extends HookWidget {
                       child: BillboardExpanded(
                         isLive: true,
                         item: item,
-                        onTap: () async => routerDelegate
+                        onTap: () async => context
+                            .read(appRouterProvider)
+                            .delegate
                             .pushPage(GlobalRoutePath.program(item.id)),
                       ),
                     );
@@ -159,7 +163,9 @@ class _ListViewContent extends HookWidget {
                       child: BillboardExpanded(
                         isLive: true,
                         item: item,
-                        onTap: () async => routerDelegate
+                        onTap: () async => context
+                            .read(appRouterProvider)
+                            .delegate
                             .pushPage(GlobalRoutePath.program(item.id)),
                       ),
                     );
@@ -176,7 +182,9 @@ class _ListViewContent extends HookWidget {
                             list: featurePrgData.viewerUser.subscribedPrograms,
                             columnCount: _COLUMN_COUNT,
                             maxWidth: constraints.maxWidth,
-                            onTap: (item) async => routerDelegate
+                            onTap: (item) async => context
+                                .read(appRouterProvider)
+                                .delegate
                                 .pushPage(GlobalRoutePath.program(item.id)),
                           ),
                         );
@@ -204,7 +212,9 @@ class _ListViewContent extends HookWidget {
                       width: width,
                       height: height,
                       item: item,
-                      onTap: () async => routerDelegate
+                      onTap: () async => context
+                          .read(appRouterProvider)
+                          .delegate
                           .pushPage(GlobalRoutePath.program(item.id)),
                     );
                   }).toList(growable: false);

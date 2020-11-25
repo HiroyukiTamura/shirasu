@@ -7,7 +7,6 @@ import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_config_editing/screen_config_editing.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
-import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:tuple/tuple.dart';
 
@@ -66,4 +65,6 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
       _appState.push(configuration);
 
   Future<void> pushPage(GlobalRoutePath path) => setNewRoutePath(path);
+
+  Future<void> swapPageInMainScreen(PathDataMainPageBase path) => setNewRoutePath(path);
 }

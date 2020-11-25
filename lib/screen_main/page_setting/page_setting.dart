@@ -15,6 +15,7 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_birthdate.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_job.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_load_more.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
@@ -143,7 +144,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
                 );
               }
 
-              return _loadMoreBtn();
+              return const ListTileLoadMore();
             },
             itemCount: 15 +
                 data.viewer.paymentMethods.length +
@@ -236,21 +237,6 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         throw Exception('unexpected index: $index');
     }
   }
-
-  static Widget _loadMoreBtn() => Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: TextButton(
-          onPressed: () {},
-          child: const Text(
-            Strings.WATCH_MORE,
-            style: TextStyle(
-              height: 1,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      );
 }
 
 class _Thresholds {

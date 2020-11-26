@@ -577,7 +577,7 @@ class _$WatchHistoryStateTearOff {
   }
 
 // ignore: unused_element
-  StateSuccess success(WatchHistoriesData watchHistories) {
+  StateSuccess success(List<WatchHistoriesData> watchHistories) {
     return StateSuccess(
       watchHistories,
     );
@@ -599,14 +599,14 @@ mixin _$WatchHistoryState {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
-    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult success(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult resultEmpty(),
-    TResult success(WatchHistoriesData watchHistories),
+    TResult success(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   });
@@ -685,7 +685,7 @@ class _$StatePreInitialized implements StatePreInitialized {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
-    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult success(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -700,7 +700,7 @@ class _$StatePreInitialized implements StatePreInitialized {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult resultEmpty(),
-    TResult success(WatchHistoriesData watchHistories),
+    TResult success(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -788,7 +788,7 @@ class _$StateResultEmpty implements StateResultEmpty {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
-    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult success(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -803,7 +803,7 @@ class _$StateResultEmpty implements StateResultEmpty {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult resultEmpty(),
-    TResult success(WatchHistoriesData watchHistories),
+    TResult success(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -855,9 +855,7 @@ abstract class $StateSuccessCopyWith<$Res> {
   factory $StateSuccessCopyWith(
           StateSuccess value, $Res Function(StateSuccess) then) =
       _$StateSuccessCopyWithImpl<$Res>;
-  $Res call({WatchHistoriesData watchHistories});
-
-  $WatchHistoriesDataCopyWith<$Res> get watchHistories;
+  $Res call({List<WatchHistoriesData> watchHistories});
 }
 
 /// @nodoc
@@ -878,18 +876,8 @@ class _$StateSuccessCopyWithImpl<$Res>
     return _then(StateSuccess(
       watchHistories == freezed
           ? _value.watchHistories
-          : watchHistories as WatchHistoriesData,
+          : watchHistories as List<WatchHistoriesData>,
     ));
-  }
-
-  @override
-  $WatchHistoriesDataCopyWith<$Res> get watchHistories {
-    if (_value.watchHistories == null) {
-      return null;
-    }
-    return $WatchHistoriesDataCopyWith<$Res>(_value.watchHistories, (value) {
-      return _then(_value.copyWith(watchHistories: value));
-    });
   }
 }
 
@@ -898,7 +886,7 @@ class _$StateSuccess implements StateSuccess {
   const _$StateSuccess(this.watchHistories) : assert(watchHistories != null);
 
   @override
-  final WatchHistoriesData watchHistories;
+  final List<WatchHistoriesData> watchHistories;
 
   @override
   String toString() {
@@ -928,7 +916,7 @@ class _$StateSuccess implements StateSuccess {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
-    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult success(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -943,7 +931,7 @@ class _$StateSuccess implements StateSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult resultEmpty(),
-    TResult success(WatchHistoriesData watchHistories),
+    TResult success(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -987,10 +975,10 @@ class _$StateSuccess implements StateSuccess {
 }
 
 abstract class StateSuccess implements WatchHistoryState {
-  const factory StateSuccess(WatchHistoriesData watchHistories) =
+  const factory StateSuccess(List<WatchHistoriesData> watchHistories) =
       _$StateSuccess;
 
-  WatchHistoriesData get watchHistories;
+  List<WatchHistoriesData> get watchHistories;
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
 
@@ -1034,7 +1022,7 @@ class _$StateError implements StateError {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
-    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult success(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -1049,7 +1037,7 @@ class _$StateError implements StateError {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult resultEmpty(),
-    TResult success(WatchHistoriesData watchHistories),
+    TResult success(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {

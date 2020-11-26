@@ -58,6 +58,8 @@ class ViewModelDashBoard extends ValueNotifier<DashboardModelState> {
       } catch (e) {
         debugPrint(e.toString());
         return ApiClientResult.FAILURE;
+      } finally {
+        _isLoadMoreCommanded = false;
       }
 
     } else

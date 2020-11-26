@@ -92,8 +92,6 @@ class _ListViewContent extends HookWidget {
 
   static const _COLUMN_COUNT = 2;
 
-  static const _CIRCULAR_HEIGHT = 36;
-
   @override
   Widget build(BuildContext context) {
     final model =
@@ -109,10 +107,11 @@ class _ListViewContent extends HookWidget {
       builder: (context, constraints) {
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
+            //todo fix; remove Dimens.CIRCULAR_HEIGHT
             if (!isFinish &&
                 notification is UserScrollNotification &&
-                notification.direction == ScrollDirection.idle &&
-                controller.position.maxScrollExtent - _CIRCULAR_HEIGHT <
+                notification.direction == ScrollDirection.forward &&
+                controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
                     controller.offset) {
               _loadMore(context);
               return true;
@@ -120,6 +119,7 @@ class _ListViewContent extends HookWidget {
 
             return false;
           },
+          // todo bug fix
           child: ListView.builder(
               controller: controller,
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -161,7 +161,7 @@ class _ListViewContent extends HookWidget {
                         top: 16,
                       ),
                       child: BillboardExpanded(
-                        isLive: true,
+                        isLive: false,
                         item: item,
                         onTap: () async => context
                             .read(appRouterProvider)

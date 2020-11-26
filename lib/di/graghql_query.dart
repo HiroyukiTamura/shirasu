@@ -393,10 +393,11 @@ fragment UserAccountSubscribedChannelData on SubscribedChannel {
 }
   ''';
 
+  /// CAUTION if [limit] is null be set 20
   static String genQueryForWatchHistory({int limit}) => '''
 query GetViewer(\$nextToken: String) {
     viewerUser: viewerUser {
-        watchHistories(limit: ${limit ?? 5}, sortDirection: DESC, nextToken: \$nextToken) {
+        watchHistories(limit: ${limit ?? 20}, sortDirection: DESC, nextToken: \$nextToken) {
             items {
                 ...WatchingHistoryPageWatchHistoryData
                 __typename

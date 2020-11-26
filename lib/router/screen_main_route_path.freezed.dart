@@ -735,8 +735,10 @@ class _$PathDataMainPageBaseTearOff {
   }
 
 // ignore: unused_element
-  PathDataMainPageSubscribing subscribing() {
-    return const PathDataMainPageSubscribing();
+  PathDataMainPageSubscribing subscribing(PageSubscribingPageIndex index) {
+    return PathDataMainPageSubscribing(
+      index,
+    );
   }
 
 // ignore: unused_element
@@ -754,13 +756,13 @@ mixin _$PathDataMainPageBase {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result dashboard(),
-    @required Result subscribing(),
+    @required Result subscribing(PageSubscribingPageIndex index),
     @required Result setting(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result dashboard(),
-    Result subscribing(),
+    Result subscribing(PageSubscribingPageIndex index),
     Result setting(),
     @required Result orElse(),
   });
@@ -837,7 +839,7 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result dashboard(),
-    @required Result subscribing(),
+    @required Result subscribing(PageSubscribingPageIndex index),
     @required Result setting(),
   }) {
     assert(dashboard != null);
@@ -850,7 +852,7 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result dashboard(),
-    Result subscribing(),
+    Result subscribing(PageSubscribingPageIndex index),
     Result setting(),
     @required Result orElse(),
   }) {
@@ -901,6 +903,7 @@ abstract class $PathDataMainPageSubscribingCopyWith<$Res> {
           PathDataMainPageSubscribing value,
           $Res Function(PathDataMainPageSubscribing) then) =
       _$PathDataMainPageSubscribingCopyWithImpl<$Res>;
+  $Res call({PageSubscribingPageIndex index});
 }
 
 /// @nodoc
@@ -914,49 +917,72 @@ class _$PathDataMainPageSubscribingCopyWithImpl<$Res>
   @override
   PathDataMainPageSubscribing get _value =>
       super._value as PathDataMainPageSubscribing;
+
+  @override
+  $Res call({
+    Object index = freezed,
+  }) {
+    return _then(PathDataMainPageSubscribing(
+      index == freezed ? _value.index : index as PageSubscribingPageIndex,
+    ));
+  }
 }
 
 /// @nodoc
 class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
-  const _$PathDataMainPageSubscribing() : super._();
+  const _$PathDataMainPageSubscribing(this.index)
+      : assert(index != null),
+        super._();
+
+  @override
+  final PageSubscribingPageIndex index;
 
   @override
   String toString() {
-    return 'PathDataMainPageBase.subscribing()';
+    return 'PathDataMainPageBase.subscribing(index: $index)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataMainPageSubscribing);
+    return identical(this, other) ||
+        (other is PathDataMainPageSubscribing &&
+            (identical(other.index, index) ||
+                const DeepCollectionEquality().equals(other.index, index)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(index);
+
+  @override
+  $PathDataMainPageSubscribingCopyWith<PathDataMainPageSubscribing>
+      get copyWith => _$PathDataMainPageSubscribingCopyWithImpl<
+          PathDataMainPageSubscribing>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result dashboard(),
-    @required Result subscribing(),
+    @required Result subscribing(PageSubscribingPageIndex index),
     @required Result setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
     assert(setting != null);
-    return subscribing();
+    return subscribing(index);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result dashboard(),
-    Result subscribing(),
+    Result subscribing(PageSubscribingPageIndex index),
     Result setting(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (subscribing != null) {
-      return subscribing();
+      return subscribing(index);
     }
     return orElse();
   }
@@ -992,7 +1018,12 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
 
 abstract class PathDataMainPageSubscribing extends PathDataMainPageBase {
   const PathDataMainPageSubscribing._() : super._();
-  const factory PathDataMainPageSubscribing() = _$PathDataMainPageSubscribing;
+  const factory PathDataMainPageSubscribing(PageSubscribingPageIndex index) =
+      _$PathDataMainPageSubscribing;
+
+  PageSubscribingPageIndex get index;
+  $PathDataMainPageSubscribingCopyWith<PathDataMainPageSubscribing>
+      get copyWith;
 }
 
 /// @nodoc
@@ -1035,7 +1066,7 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result dashboard(),
-    @required Result subscribing(),
+    @required Result subscribing(PageSubscribingPageIndex index),
     @required Result setting(),
   }) {
     assert(dashboard != null);
@@ -1048,7 +1079,7 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result dashboard(),
-    Result subscribing(),
+    Result subscribing(PageSubscribingPageIndex index),
     Result setting(),
     @required Result orElse(),
   }) {

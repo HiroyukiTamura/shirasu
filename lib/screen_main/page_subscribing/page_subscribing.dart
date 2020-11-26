@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,17 +22,17 @@ class PageSubscribingInMainScreen extends StatefulHookWidget {
 }
 
 class _PageSubscribingInMainScreenState
-    extends State<PageSubscribingInMainScreen> {
+    extends State<PageSubscribingInMainScreen>
+    with AfterLayoutMixin<PageSubscribingInMainScreen> {
   static const _TAB_LENGTH = 3;
   static const double _INDICATOR_WIDTH = 24;
   static const double _INDICATOR_RADIUS = 5;
 
+  static const PAGE_INDEX_DEFAULT = PageSubscribingPageIndex.SUBSCRIBING;
+
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => context.read(subscribingViewModelProvider).setUpData());
-  }
+  void afterFirstLayout(BuildContext context) =>
+      context.read(subscribingViewModelProvider).setUpData();
 
   @override
   Widget build(BuildContext context) {
@@ -46,37 +47,42 @@ class _PageSubscribingInMainScreenState
 
     final tabController =
         useTabController(initialLength: _TAB_LENGTH, initialIndex: 0);
-        return Column(children: [
-          LayoutBuilder(builder: (context, constrains) => TabBar(
-              controller: tabController,
-              indicator: MaterialIndicator(
-                color: Theme.of(context).accentColor,
-                topLeftRadius: _INDICATOR_RADIUS,
-                topRightRadius: _INDICATOR_RADIUS,
-                bottomLeftRadius: _INDICATOR_RADIUS,
-                bottomRightRadius: _INDICATOR_RADIUS,
-                horizontalPadding:
-                (constrains.maxWidth / _TAB_LENGTH - _INDICATOR_WIDTH) /
-                    2,
-                strokeWidth: 1,
-                tabPosition: TabPosition.bottom,
-              ),
-              tabs: const [
-                Tab(text: Strings.TAB_SUBSCRIBING),
-                Tab(text: Strings.TAB_MY_LIST),
-                Tab(text: Strings.TAB_WATCH_HISTORY),
-              ],
-            )),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [
-                const SubscribingWidget(),
-                Container(),
-                const WatchHistoryWidget(),
-              ],
-            ),
-          ),
-        ]);
+    return Column(children: [
+      LayoutBuilder(
+          builder: (context, constrains) => TabBar(
+                controller: tabController,
+                indicator: MaterialIndicator(
+                  color: Theme.of(context).accentColor,
+                  topLeftRadius: _INDICATOR_RADIUS,
+                  topRightRadius: _INDICATOR_RADIUS,
+                  bottomLeftRadius: _INDICATOR_RADIUS,
+                  bottomRightRadius: _INDICATOR_RADIUS,
+                  horizontalPadding:
+                      (constrains.maxWidth / _TAB_LENGTH - _INDICATOR_WIDTH) /
+                          2,
+                  strokeWidth: 1,
+                  tabPosition: TabPosition.bottom,
+                ),
+                tabs: const [
+                  Tab(text: Strings.TAB_SUBSCRIBING),
+                  Tab(text: Strings.TAB_MY_LIST),
+                  Tab(text: Strings.TAB_WATCH_HISTORY),
+                ],
+              )),
+      Expanded(
+        child: TabBarView(
+          controller: tabController,
+          children: [
+            const SubscribingWidget(),
+            Container(),
+            const WatchHistoryWidget(),
+          ],
+        ),
+      ),
+    ]);
   }
+}
+
+enum PageSubscribingPageIndex {
+  SUBSCRIBING, WATCH_HISTORY
 }

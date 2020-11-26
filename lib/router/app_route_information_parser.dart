@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 class AppRouteInformationParser
     extends RouteInformationParser<GlobalRoutePathBase> {
@@ -61,7 +62,7 @@ class AppRouteInformationParser
           return '/t/${list[0]}/c/${list[1]}/p/${list[2]}';
         },
         dashboard: () => 'dashboard',
-        subscribing: () => 'subscribing',
+        subscribing: (PageSubscribingPageIndex index) => 'subscribing/$index',
         setting: () => 'setting',
       );
 }

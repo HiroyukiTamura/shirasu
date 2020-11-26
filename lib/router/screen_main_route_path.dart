@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 part 'screen_main_route_path.freezed.dart';
 
@@ -15,7 +16,7 @@ class GlobalRoutePathBase {
     @required Result Function(String programId) program,
     @required Result Function(BirthDateIntentData birthDate) editBirthDate,
     @required Result Function() dashboard,
-    @required Result Function() subscribing,
+    @required Result Function(PageSubscribingPageIndex index) subscribing,
     @required Result Function() setting,
   }) {
     if (routePath is GlobalRoutePath)
@@ -66,7 +67,7 @@ abstract class PathDataMainPageBase
     implements _$PathDataMainPageBase, GlobalRoutePathBase {
   const factory PathDataMainPageBase.dashboard() = PathDataMainPageDashBoard;
 
-  const factory PathDataMainPageBase.subscribing() =
+  const factory PathDataMainPageBase.subscribing(PageSubscribingPageIndex index) =
       PathDataMainPageSubscribing;
 
   const factory PathDataMainPageBase.setting() = PathDataMainPageSetting;
@@ -76,7 +77,7 @@ abstract class PathDataMainPageBase
       case 0:
         return const PathDataMainPageBase.dashboard();
       case 1:
-        return const PathDataMainPageBase.subscribing();
+        return const PathDataMainPageBase.subscribing(PageSubscribingPageIndex.SUBSCRIBING);
       case 2:
         return const PathDataMainPageBase.setting();
       default:
@@ -87,7 +88,7 @@ abstract class PathDataMainPageBase
   const PathDataMainPageBase._();
 
   int getIndex() =>
-      when(dashboard: () => 0, subscribing: () => 1, setting: () => 2);
+      when(dashboard: () => 0, subscribing: (PageSubscribingPageIndex index) => 1, setting: () => 2);
 }
 
 @immutable

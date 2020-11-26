@@ -43,34 +43,34 @@ const $FeatureProgramState = _$FeatureProgramStateTearOff();
 /// @nodoc
 mixin _$FeatureProgramState {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(FeatureProgramData featureProgramData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult error(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(FeatureProgramData featureProgramData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(FeatureProgramData featureProgramData),
+    TResult error(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(FeatureProgramStatePreInitialized value),
-    @required Result resultEmpty(FeatureProgramStateResultEmpty value),
-    @required Result success(FeatureProgramStateSuccess value),
-    @required Result error(FeatureProgramStateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
+    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    @required TResult success(FeatureProgramStateSuccess value),
+    @required TResult error(FeatureProgramStateError value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(FeatureProgramStatePreInitialized value),
-    Result resultEmpty(FeatureProgramStateResultEmpty value),
-    Result success(FeatureProgramStateSuccess value),
-    Result error(FeatureProgramStateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(FeatureProgramStatePreInitialized value),
+    TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    TResult success(FeatureProgramStateSuccess value),
+    TResult error(FeatureProgramStateError value),
+    @required TResult orElse(),
   });
 }
 
@@ -134,11 +134,11 @@ class _$FeatureProgramStatePreInitialized
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(FeatureProgramData featureProgramData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -149,12 +149,12 @@ class _$FeatureProgramStatePreInitialized
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(FeatureProgramData featureProgramData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(FeatureProgramData featureProgramData),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (preInitialized != null) {
@@ -165,11 +165,11 @@ class _$FeatureProgramStatePreInitialized
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(FeatureProgramStatePreInitialized value),
-    @required Result resultEmpty(FeatureProgramStateResultEmpty value),
-    @required Result success(FeatureProgramStateSuccess value),
-    @required Result error(FeatureProgramStateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
+    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    @required TResult success(FeatureProgramStateSuccess value),
+    @required TResult error(FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -180,12 +180,12 @@ class _$FeatureProgramStatePreInitialized
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(FeatureProgramStatePreInitialized value),
-    Result resultEmpty(FeatureProgramStateResultEmpty value),
-    Result success(FeatureProgramStateSuccess value),
-    Result error(FeatureProgramStateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(FeatureProgramStatePreInitialized value),
+    TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    TResult success(FeatureProgramStateSuccess value),
+    TResult error(FeatureProgramStateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (preInitialized != null) {
@@ -243,11 +243,11 @@ class _$FeatureProgramStateResultEmpty
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(FeatureProgramData featureProgramData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -258,12 +258,12 @@ class _$FeatureProgramStateResultEmpty
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(FeatureProgramData featureProgramData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(FeatureProgramData featureProgramData),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resultEmpty != null) {
@@ -274,11 +274,11 @@ class _$FeatureProgramStateResultEmpty
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(FeatureProgramStatePreInitialized value),
-    @required Result resultEmpty(FeatureProgramStateResultEmpty value),
-    @required Result success(FeatureProgramStateSuccess value),
-    @required Result error(FeatureProgramStateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
+    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    @required TResult success(FeatureProgramStateSuccess value),
+    @required TResult error(FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -289,12 +289,12 @@ class _$FeatureProgramStateResultEmpty
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(FeatureProgramStatePreInitialized value),
-    Result resultEmpty(FeatureProgramStateResultEmpty value),
-    Result success(FeatureProgramStateSuccess value),
-    Result error(FeatureProgramStateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(FeatureProgramStatePreInitialized value),
+    TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    TResult success(FeatureProgramStateSuccess value),
+    TResult error(FeatureProgramStateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resultEmpty != null) {
@@ -389,11 +389,11 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(FeatureProgramData featureProgramData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -404,12 +404,12 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(FeatureProgramData featureProgramData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(FeatureProgramData featureProgramData),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -420,11 +420,11 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(FeatureProgramStatePreInitialized value),
-    @required Result resultEmpty(FeatureProgramStateResultEmpty value),
-    @required Result success(FeatureProgramStateSuccess value),
-    @required Result error(FeatureProgramStateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
+    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    @required TResult success(FeatureProgramStateSuccess value),
+    @required TResult error(FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -435,12 +435,12 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(FeatureProgramStatePreInitialized value),
-    Result resultEmpty(FeatureProgramStateResultEmpty value),
-    Result success(FeatureProgramStateSuccess value),
-    Result error(FeatureProgramStateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(FeatureProgramStatePreInitialized value),
+    TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    TResult success(FeatureProgramStateSuccess value),
+    TResult error(FeatureProgramStateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -497,11 +497,11 @@ class _$FeatureProgramStateError implements FeatureProgramStateError {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(FeatureProgramData featureProgramData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -512,12 +512,12 @@ class _$FeatureProgramStateError implements FeatureProgramStateError {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(FeatureProgramData featureProgramData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(FeatureProgramData featureProgramData),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -528,11 +528,11 @@ class _$FeatureProgramStateError implements FeatureProgramStateError {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(FeatureProgramStatePreInitialized value),
-    @required Result resultEmpty(FeatureProgramStateResultEmpty value),
-    @required Result success(FeatureProgramStateSuccess value),
-    @required Result error(FeatureProgramStateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
+    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    @required TResult success(FeatureProgramStateSuccess value),
+    @required TResult error(FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -543,12 +543,12 @@ class _$FeatureProgramStateError implements FeatureProgramStateError {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(FeatureProgramStatePreInitialized value),
-    Result resultEmpty(FeatureProgramStateResultEmpty value),
-    Result success(FeatureProgramStateSuccess value),
-    Result error(FeatureProgramStateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(FeatureProgramStatePreInitialized value),
+    TResult resultEmpty(FeatureProgramStateResultEmpty value),
+    TResult success(FeatureProgramStateSuccess value),
+    TResult error(FeatureProgramStateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -596,34 +596,34 @@ const $WatchHistoryState = _$WatchHistoryStateTearOff();
 /// @nodoc
 mixin _$WatchHistoryState {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(WatchHistoriesData watchHistories),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult error(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(WatchHistoriesData watchHistories),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(WatchHistoriesData watchHistories),
+    TResult error(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result resultEmpty(StateResultEmpty value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult resultEmpty(StateResultEmpty value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result resultEmpty(StateResultEmpty value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult resultEmpty(StateResultEmpty value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   });
 }
 
@@ -682,11 +682,11 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(WatchHistoriesData watchHistories),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -697,12 +697,12 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(WatchHistoriesData watchHistories),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(WatchHistoriesData watchHistories),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (preInitialized != null) {
@@ -713,11 +713,11 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result resultEmpty(StateResultEmpty value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult resultEmpty(StateResultEmpty value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -728,12 +728,12 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result resultEmpty(StateResultEmpty value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult resultEmpty(StateResultEmpty value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (preInitialized != null) {
@@ -785,11 +785,11 @@ class _$StateResultEmpty implements StateResultEmpty {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(WatchHistoriesData watchHistories),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -800,12 +800,12 @@ class _$StateResultEmpty implements StateResultEmpty {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(WatchHistoriesData watchHistories),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(WatchHistoriesData watchHistories),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resultEmpty != null) {
@@ -816,11 +816,11 @@ class _$StateResultEmpty implements StateResultEmpty {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result resultEmpty(StateResultEmpty value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult resultEmpty(StateResultEmpty value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -831,12 +831,12 @@ class _$StateResultEmpty implements StateResultEmpty {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result resultEmpty(StateResultEmpty value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult resultEmpty(StateResultEmpty value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resultEmpty != null) {
@@ -925,11 +925,11 @@ class _$StateSuccess implements StateSuccess {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(WatchHistoriesData watchHistories),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -940,12 +940,12 @@ class _$StateSuccess implements StateSuccess {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(WatchHistoriesData watchHistories),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(WatchHistoriesData watchHistories),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -956,11 +956,11 @@ class _$StateSuccess implements StateSuccess {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result resultEmpty(StateResultEmpty value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult resultEmpty(StateResultEmpty value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -971,12 +971,12 @@ class _$StateSuccess implements StateSuccess {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result resultEmpty(StateResultEmpty value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult resultEmpty(StateResultEmpty value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -1031,11 +1031,11 @@ class _$StateError implements StateError {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result resultEmpty(),
-    @required Result success(WatchHistoriesData watchHistories),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(WatchHistoriesData watchHistories),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -1046,12 +1046,12 @@ class _$StateError implements StateError {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result resultEmpty(),
-    Result success(WatchHistoriesData watchHistories),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(WatchHistoriesData watchHistories),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -1062,11 +1062,11 @@ class _$StateError implements StateError {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result resultEmpty(StateResultEmpty value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult resultEmpty(StateResultEmpty value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
@@ -1077,12 +1077,12 @@ class _$StateError implements StateError {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result resultEmpty(StateResultEmpty value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult resultEmpty(StateResultEmpty value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {

@@ -220,6 +220,7 @@ Map<String, dynamic> _$_$_LatestInvoiceToJson(_$_LatestInvoice instance) =>
 
 _$_WatchHistories _$_$_WatchHistoriesFromJson(Map<String, dynamic> json) {
   return _$_WatchHistories(
+    nextToken: json['nextToken'] as String,
     items: (json['items'] as List)
         ?.map((e) => e == null
             ? null
@@ -231,6 +232,7 @@ _$_WatchHistories _$_$_WatchHistoriesFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_WatchHistoriesToJson(_$_WatchHistories instance) =>
     <String, dynamic>{
+      'nextToken': instance.nextToken,
       'items': instance.items,
       '__typename': instance.typename,
     };

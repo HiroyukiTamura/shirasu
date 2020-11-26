@@ -1,12 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shirasu/exception.dart';
 
 @immutable
 class GraphqlQuery {
-
-  GraphqlQuery() {
-    throw const InvalidCreationException();
-  }
+  const GraphqlQuery._();
 
   static const QUERY_FEATURED_PROGRAMS = r'''
 query ListFeaturedPrograms($now: String!, $nowPlus7D: String!) {
@@ -301,36 +297,6 @@ fragment TenantChannelAnnouncementsChannelAnnouncementData on ChannelAnnouncemen
 }
   ''';
 
-  static const QUERY_WATCH_HISTORY = r'''
-query GetViewer($nextToken: String) {
-    viewerUser: viewerUser {
-        watchHistories(limit: 5, sortDirection: DESC, nextToken: $nextToken) {
-            items {
-                ...WatchingHistoryPageWatchHistoryData
-                __typename
-            }
-            nextToken
-            __typename
-        }
-        __typename
-    }
-}
-fragment WatchingHistoryPageWatchHistoryData on WatchHistory {
-    id
-    lastViewedAt
-    program {
-        id
-        tenantId
-        channelId
-        title
-        detail
-        broadcastAt
-        __typename
-    }
-    __typename
-}
-  ''';
-
   static const QUERY_VIEWER = r'''
 query GetViewer {
     viewer {
@@ -421,6 +387,36 @@ fragment UserAccountSubscribedChannelData on SubscribedChannel {
         status
         hostedInvoiceUrl
         nextPaymentAttempt
+        __typename
+    }
+    __typename
+}
+  ''';
+
+  static String genQueryForWatchHistory({int limit}) => '''
+query GetViewer(\$nextToken: String) {
+    viewerUser: viewerUser {
+        watchHistories(limit: ${limit ?? 5}, sortDirection: DESC, nextToken: \$nextToken) {
+            items {
+                ...WatchingHistoryPageWatchHistoryData
+                __typename
+            }
+            nextToken
+            __typename
+        }
+        __typename
+    }
+}
+fragment WatchingHistoryPageWatchHistoryData on WatchHistory {
+    id
+    lastViewedAt
+    program {
+        id
+        tenantId
+        channelId
+        title
+        detail
+        broadcastAt
         __typename
     }
     __typename

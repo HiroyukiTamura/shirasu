@@ -171,6 +171,7 @@ abstract class WatchHistories with _$WatchHistories {
 
   @Implements(BaseModelWatchHistoryConnection)
   const factory WatchHistories({
+    String nextToken,
     @required List<WatchHistoriesItem> items,
     @required
     @JsonKey(name: '__typename')

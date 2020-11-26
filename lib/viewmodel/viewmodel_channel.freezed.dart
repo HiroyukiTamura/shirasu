@@ -38,30 +38,30 @@ const $ChannelDataResult = _$ChannelDataResultTearOff();
 /// @nodoc
 mixin _$ChannelDataResult {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result success(ChannelData channelData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult success(ChannelData channelData),
+    @required TResult error(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result success(ChannelData channelData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult success(ChannelData channelData),
+    TResult error(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(PreInitialized value),
-    @required Result success(Success value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(PreInitialized value),
+    @required TResult success(Success value),
+    @required TResult error(Error value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(PreInitialized value),
-    Result success(Success value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(PreInitialized value),
+    TResult success(Success value),
+    TResult error(Error value),
+    @required TResult orElse(),
   });
 }
 
@@ -120,10 +120,10 @@ class _$PreInitialized implements PreInitialized {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result success(ChannelData channelData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult success(ChannelData channelData),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -133,11 +133,11 @@ class _$PreInitialized implements PreInitialized {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result success(ChannelData channelData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult success(ChannelData channelData),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (preInitialized != null) {
@@ -148,10 +148,10 @@ class _$PreInitialized implements PreInitialized {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(PreInitialized value),
-    @required Result success(Success value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(PreInitialized value),
+    @required TResult success(Success value),
+    @required TResult error(Error value),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -161,11 +161,11 @@ class _$PreInitialized implements PreInitialized {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(PreInitialized value),
-    Result success(Success value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(PreInitialized value),
+    TResult success(Success value),
+    TResult error(Error value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (preInitialized != null) {
@@ -248,10 +248,10 @@ class _$Success implements Success {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result success(ChannelData channelData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult success(ChannelData channelData),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -261,11 +261,11 @@ class _$Success implements Success {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result success(ChannelData channelData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult success(ChannelData channelData),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -276,10 +276,10 @@ class _$Success implements Success {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(PreInitialized value),
-    @required Result success(Success value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(PreInitialized value),
+    @required TResult success(Success value),
+    @required TResult error(Error value),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -289,11 +289,11 @@ class _$Success implements Success {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(PreInitialized value),
-    Result success(Success value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(PreInitialized value),
+    TResult success(Success value),
+    TResult error(Error value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -345,10 +345,10 @@ class _$Error implements Error {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result success(ChannelData channelData),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult success(ChannelData channelData),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -358,11 +358,11 @@ class _$Error implements Error {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result success(ChannelData channelData),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult success(ChannelData channelData),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -373,10 +373,10 @@ class _$Error implements Error {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(PreInitialized value),
-    @required Result success(Success value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(PreInitialized value),
+    @required TResult success(Success value),
+    @required TResult error(Error value),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -386,11 +386,11 @@ class _$Error implements Error {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(PreInitialized value),
-    Result success(Success value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(PreInitialized value),
+    TResult success(Success value),
+    TResult error(Error value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {

@@ -28,7 +28,7 @@ class ViewModelSubscribing extends ChangeNotifier {
 
     if (!(watchHistoryState is StateSuccess)) {
       try {
-        final data = await _apiClient.queryWatchHistory();
+        final data = await _apiClient.queryWatchHistory(limit: 20);
         watchHistoryState = StateSuccess(data);
       } catch (e) {
         print(e);

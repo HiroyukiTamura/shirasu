@@ -106,13 +106,14 @@ class ApiClient {
     return ChannelData.fromJson(result.data);
   }
 
-  Future<WatchHistoriesData> queryWatchHistory({String nextToken}) async {
+  Future<WatchHistoriesData> queryWatchHistory({String nextToken, int limit}) async {
     final variable = nextToken == null
         ? null
         : {
             'nextToken': nextToken,
           };
-    final result = await _query(GraphqlQuery.QUERY_WATCH_HISTORY, variables: variable);
+    final query = GraphqlQuery.genQueryForWatchHistory(limit: limit);
+    final result = await _query(query, variables: variable);
     return WatchHistoriesData.fromJson(result.data);
   }
 

@@ -39,30 +39,30 @@ const $SettingModelState = _$SettingModelStateTearOff();
 /// @nodoc
 mixin _$SettingModelState {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result success(Viewer data, String locationStr),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult success(Viewer data, String locationStr),
+    @required TResult error(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result success(Viewer data, String locationStr),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult success(Viewer data, String locationStr),
+    TResult error(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   });
 }
 
@@ -121,10 +121,10 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result success(Viewer data, String locationStr),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult success(Viewer data, String locationStr),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -134,11 +134,11 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result success(Viewer data, String locationStr),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult success(Viewer data, String locationStr),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (preInitialized != null) {
@@ -149,10 +149,10 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -162,11 +162,11 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (preInitialized != null) {
@@ -262,10 +262,10 @@ class _$StateSuccess implements StateSuccess {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result success(Viewer data, String locationStr),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult success(Viewer data, String locationStr),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -275,11 +275,11 @@ class _$StateSuccess implements StateSuccess {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result success(Viewer data, String locationStr),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult success(Viewer data, String locationStr),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -290,10 +290,10 @@ class _$StateSuccess implements StateSuccess {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -303,11 +303,11 @@ class _$StateSuccess implements StateSuccess {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
@@ -362,10 +362,10 @@ class _$StateError implements StateError {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result preInitialized(),
-    @required Result success(Viewer data, String locationStr),
-    @required Result error(),
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult success(Viewer data, String locationStr),
+    @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -375,11 +375,11 @@ class _$StateError implements StateError {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result preInitialized(),
-    Result success(Viewer data, String locationStr),
-    Result error(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult success(Viewer data, String locationStr),
+    TResult error(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -390,10 +390,10 @@ class _$StateError implements StateError {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result preInitialized(StatePreInitialized value),
-    @required Result success(StateSuccess value),
-    @required Result error(StateError value),
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult success(StateSuccess value),
+    @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -403,11 +403,11 @@ class _$StateError implements StateError {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result preInitialized(StatePreInitialized value),
-    Result success(StateSuccess value),
-    Result error(StateError value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult success(StateSuccess value),
+    TResult error(StateError value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {

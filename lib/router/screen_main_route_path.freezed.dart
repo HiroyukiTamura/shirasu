@@ -52,38 +52,38 @@ const $GlobalRoutePath = _$GlobalRoutePathTearOff();
 /// @nodoc
 mixin _$GlobalRoutePath {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result intro(),
-    @required Result error(),
-    @required Result channel(String channelId),
-    @required Result program(String programId),
-    @required Result editBirthDate(BirthDateIntentData data),
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult editBirthDate(BirthDateIntentData data),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result intro(),
-    Result error(),
-    Result channel(String channelId),
-    Result program(String programId),
-    Result editBirthDate(BirthDateIntentData data),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult editBirthDate(BirthDateIntentData data),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result intro(PathDataIntro value),
-    @required Result error(PathDataError value),
-    @required Result channel(PathDataChannel value),
-    @required Result program(PathDataProgram value),
-    @required Result editBirthDate(PathDataEditBirthDate value),
+  TResult map<TResult extends Object>({
+    @required TResult intro(PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult editBirthDate(PathDataEditBirthDate value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result intro(PathDataIntro value),
-    Result error(PathDataError value),
-    Result channel(PathDataChannel value),
-    Result program(PathDataProgram value),
-    Result editBirthDate(PathDataEditBirthDate value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult editBirthDate(PathDataEditBirthDate value),
+    @required TResult orElse(),
   });
 }
 
@@ -142,12 +142,12 @@ class _$PathDataIntro implements PathDataIntro {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result intro(),
-    @required Result error(),
-    @required Result channel(String channelId),
-    @required Result program(String programId),
-    @required Result editBirthDate(BirthDateIntentData data),
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -159,13 +159,13 @@ class _$PathDataIntro implements PathDataIntro {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result intro(),
-    Result error(),
-    Result channel(String channelId),
-    Result program(String programId),
-    Result editBirthDate(BirthDateIntentData data),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult editBirthDate(BirthDateIntentData data),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (intro != null) {
@@ -176,12 +176,12 @@ class _$PathDataIntro implements PathDataIntro {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result intro(PathDataIntro value),
-    @required Result error(PathDataError value),
-    @required Result channel(PathDataChannel value),
-    @required Result program(PathDataProgram value),
-    @required Result editBirthDate(PathDataEditBirthDate value),
+  TResult map<TResult extends Object>({
+    @required TResult intro(PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -193,13 +193,13 @@ class _$PathDataIntro implements PathDataIntro {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result intro(PathDataIntro value),
-    Result error(PathDataError value),
-    Result channel(PathDataChannel value),
-    Result program(PathDataProgram value),
-    Result editBirthDate(PathDataEditBirthDate value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult editBirthDate(PathDataEditBirthDate value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (intro != null) {
@@ -251,12 +251,12 @@ class _$PathDataError implements PathDataError {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result intro(),
-    @required Result error(),
-    @required Result channel(String channelId),
-    @required Result program(String programId),
-    @required Result editBirthDate(BirthDateIntentData data),
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -268,13 +268,13 @@ class _$PathDataError implements PathDataError {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result intro(),
-    Result error(),
-    Result channel(String channelId),
-    Result program(String programId),
-    Result editBirthDate(BirthDateIntentData data),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult editBirthDate(BirthDateIntentData data),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -285,12 +285,12 @@ class _$PathDataError implements PathDataError {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result intro(PathDataIntro value),
-    @required Result error(PathDataError value),
-    @required Result channel(PathDataChannel value),
-    @required Result program(PathDataProgram value),
-    @required Result editBirthDate(PathDataEditBirthDate value),
+  TResult map<TResult extends Object>({
+    @required TResult intro(PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -302,13 +302,13 @@ class _$PathDataError implements PathDataError {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result intro(PathDataIntro value),
-    Result error(PathDataError value),
-    Result channel(PathDataChannel value),
-    Result program(PathDataProgram value),
-    Result editBirthDate(PathDataEditBirthDate value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult editBirthDate(PathDataEditBirthDate value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -382,12 +382,12 @@ class _$PathDataChannel implements PathDataChannel {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result intro(),
-    @required Result error(),
-    @required Result channel(String channelId),
-    @required Result program(String programId),
-    @required Result editBirthDate(BirthDateIntentData data),
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -399,13 +399,13 @@ class _$PathDataChannel implements PathDataChannel {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result intro(),
-    Result error(),
-    Result channel(String channelId),
-    Result program(String programId),
-    Result editBirthDate(BirthDateIntentData data),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult editBirthDate(BirthDateIntentData data),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (channel != null) {
@@ -416,12 +416,12 @@ class _$PathDataChannel implements PathDataChannel {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result intro(PathDataIntro value),
-    @required Result error(PathDataError value),
-    @required Result channel(PathDataChannel value),
-    @required Result program(PathDataProgram value),
-    @required Result editBirthDate(PathDataEditBirthDate value),
+  TResult map<TResult extends Object>({
+    @required TResult intro(PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -433,13 +433,13 @@ class _$PathDataChannel implements PathDataChannel {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result intro(PathDataIntro value),
-    Result error(PathDataError value),
-    Result channel(PathDataChannel value),
-    Result program(PathDataProgram value),
-    Result editBirthDate(PathDataEditBirthDate value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult editBirthDate(PathDataEditBirthDate value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (channel != null) {
@@ -516,12 +516,12 @@ class _$PathDataProgram implements PathDataProgram {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result intro(),
-    @required Result error(),
-    @required Result channel(String channelId),
-    @required Result program(String programId),
-    @required Result editBirthDate(BirthDateIntentData data),
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -533,13 +533,13 @@ class _$PathDataProgram implements PathDataProgram {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result intro(),
-    Result error(),
-    Result channel(String channelId),
-    Result program(String programId),
-    Result editBirthDate(BirthDateIntentData data),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult editBirthDate(BirthDateIntentData data),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (program != null) {
@@ -550,12 +550,12 @@ class _$PathDataProgram implements PathDataProgram {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result intro(PathDataIntro value),
-    @required Result error(PathDataError value),
-    @required Result channel(PathDataChannel value),
-    @required Result program(PathDataProgram value),
-    @required Result editBirthDate(PathDataEditBirthDate value),
+  TResult map<TResult extends Object>({
+    @required TResult intro(PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -567,13 +567,13 @@ class _$PathDataProgram implements PathDataProgram {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result intro(PathDataIntro value),
-    Result error(PathDataError value),
-    Result channel(PathDataChannel value),
-    Result program(PathDataProgram value),
-    Result editBirthDate(PathDataEditBirthDate value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult editBirthDate(PathDataEditBirthDate value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (program != null) {
@@ -650,12 +650,12 @@ class _$PathDataEditBirthDate implements PathDataEditBirthDate {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result intro(),
-    @required Result error(),
-    @required Result channel(String channelId),
-    @required Result program(String programId),
-    @required Result editBirthDate(BirthDateIntentData data),
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -667,13 +667,13 @@ class _$PathDataEditBirthDate implements PathDataEditBirthDate {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result intro(),
-    Result error(),
-    Result channel(String channelId),
-    Result program(String programId),
-    Result editBirthDate(BirthDateIntentData data),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult editBirthDate(BirthDateIntentData data),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (editBirthDate != null) {
@@ -684,12 +684,12 @@ class _$PathDataEditBirthDate implements PathDataEditBirthDate {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result intro(PathDataIntro value),
-    @required Result error(PathDataError value),
-    @required Result channel(PathDataChannel value),
-    @required Result program(PathDataProgram value),
-    @required Result editBirthDate(PathDataEditBirthDate value),
+  TResult map<TResult extends Object>({
+    @required TResult intro(PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -701,13 +701,13 @@ class _$PathDataEditBirthDate implements PathDataEditBirthDate {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result intro(PathDataIntro value),
-    Result error(PathDataError value),
-    Result channel(PathDataChannel value),
-    Result program(PathDataProgram value),
-    Result editBirthDate(PathDataEditBirthDate value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult editBirthDate(PathDataEditBirthDate value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (editBirthDate != null) {
@@ -754,30 +754,30 @@ const $PathDataMainPageBase = _$PathDataMainPageBaseTearOff();
 /// @nodoc
 mixin _$PathDataMainPageBase {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result dashboard(),
-    @required Result subscribing(SubscribingTabPage index),
-    @required Result setting(),
+  TResult when<TResult extends Object>({
+    @required TResult dashboard(),
+    @required TResult subscribing(SubscribingTabPage index),
+    @required TResult setting(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result dashboard(),
-    Result subscribing(SubscribingTabPage index),
-    Result setting(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult dashboard(),
+    TResult subscribing(SubscribingTabPage index),
+    TResult setting(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result dashboard(PathDataMainPageDashBoard value),
-    @required Result subscribing(PathDataMainPageSubscribing value),
-    @required Result setting(PathDataMainPageSetting value),
+  TResult map<TResult extends Object>({
+    @required TResult dashboard(PathDataMainPageDashBoard value),
+    @required TResult subscribing(PathDataMainPageSubscribing value),
+    @required TResult setting(PathDataMainPageSetting value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result dashboard(PathDataMainPageDashBoard value),
-    Result subscribing(PathDataMainPageSubscribing value),
-    Result setting(PathDataMainPageSetting value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult dashboard(PathDataMainPageDashBoard value),
+    TResult subscribing(PathDataMainPageSubscribing value),
+    TResult setting(PathDataMainPageSetting value),
+    @required TResult orElse(),
   });
 }
 
@@ -837,10 +837,10 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result dashboard(),
-    @required Result subscribing(SubscribingTabPage index),
-    @required Result setting(),
+  TResult when<TResult extends Object>({
+    @required TResult dashboard(),
+    @required TResult subscribing(SubscribingTabPage index),
+    @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -850,11 +850,11 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result dashboard(),
-    Result subscribing(SubscribingTabPage index),
-    Result setting(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult dashboard(),
+    TResult subscribing(SubscribingTabPage index),
+    TResult setting(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (dashboard != null) {
@@ -865,10 +865,10 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result dashboard(PathDataMainPageDashBoard value),
-    @required Result subscribing(PathDataMainPageSubscribing value),
-    @required Result setting(PathDataMainPageSetting value),
+  TResult map<TResult extends Object>({
+    @required TResult dashboard(PathDataMainPageDashBoard value),
+    @required TResult subscribing(PathDataMainPageSubscribing value),
+    @required TResult setting(PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -878,11 +878,11 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result dashboard(PathDataMainPageDashBoard value),
-    Result subscribing(PathDataMainPageSubscribing value),
-    Result setting(PathDataMainPageSetting value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult dashboard(PathDataMainPageDashBoard value),
+    TResult subscribing(PathDataMainPageSubscribing value),
+    TResult setting(PathDataMainPageSetting value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (dashboard != null) {
@@ -961,10 +961,10 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result dashboard(),
-    @required Result subscribing(SubscribingTabPage index),
-    @required Result setting(),
+  TResult when<TResult extends Object>({
+    @required TResult dashboard(),
+    @required TResult subscribing(SubscribingTabPage index),
+    @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -974,11 +974,11 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result dashboard(),
-    Result subscribing(SubscribingTabPage index),
-    Result setting(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult dashboard(),
+    TResult subscribing(SubscribingTabPage index),
+    TResult setting(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (subscribing != null) {
@@ -989,10 +989,10 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result dashboard(PathDataMainPageDashBoard value),
-    @required Result subscribing(PathDataMainPageSubscribing value),
-    @required Result setting(PathDataMainPageSetting value),
+  TResult map<TResult extends Object>({
+    @required TResult dashboard(PathDataMainPageDashBoard value),
+    @required TResult subscribing(PathDataMainPageSubscribing value),
+    @required TResult setting(PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -1002,11 +1002,11 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result dashboard(PathDataMainPageDashBoard value),
-    Result subscribing(PathDataMainPageSubscribing value),
-    Result setting(PathDataMainPageSetting value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult dashboard(PathDataMainPageDashBoard value),
+    TResult subscribing(PathDataMainPageSubscribing value),
+    TResult setting(PathDataMainPageSetting value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (subscribing != null) {
@@ -1064,10 +1064,10 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result dashboard(),
-    @required Result subscribing(SubscribingTabPage index),
-    @required Result setting(),
+  TResult when<TResult extends Object>({
+    @required TResult dashboard(),
+    @required TResult subscribing(SubscribingTabPage index),
+    @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -1077,11 +1077,11 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result dashboard(),
-    Result subscribing(SubscribingTabPage index),
-    Result setting(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult dashboard(),
+    TResult subscribing(SubscribingTabPage index),
+    TResult setting(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (setting != null) {
@@ -1092,10 +1092,10 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result dashboard(PathDataMainPageDashBoard value),
-    @required Result subscribing(PathDataMainPageSubscribing value),
-    @required Result setting(PathDataMainPageSetting value),
+  TResult map<TResult extends Object>({
+    @required TResult dashboard(PathDataMainPageDashBoard value),
+    @required TResult subscribing(PathDataMainPageSubscribing value),
+    @required TResult setting(PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -1105,11 +1105,11 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result dashboard(PathDataMainPageDashBoard value),
-    Result subscribing(PathDataMainPageSubscribing value),
-    Result setting(PathDataMainPageSetting value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult dashboard(PathDataMainPageDashBoard value),
+    TResult subscribing(PathDataMainPageSubscribing value),
+    TResult setting(PathDataMainPageSetting value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (setting != null) {

@@ -2484,13 +2484,15 @@ class _$WatchHistoriesTearOff {
 
 // ignore: unused_element
   _WatchHistories call(
-      {@required
+      {String nextToken,
+      @required
           List<WatchHistoriesItem> items,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "ModelWatchHistoryConnection"')
           String typename}) {
     return _WatchHistories(
+      nextToken: nextToken,
       items: items,
       typename: typename,
     );
@@ -2508,6 +2510,7 @@ const $WatchHistories = _$WatchHistoriesTearOff();
 
 /// @nodoc
 mixin _$WatchHistories {
+  String get nextToken;
   List<WatchHistoriesItem> get items;
   @JsonKey(name: '__typename')
   @Assert('typename == "ModelWatchHistoryConnection"')
@@ -2523,7 +2526,8 @@ abstract class $WatchHistoriesCopyWith<$Res> {
           WatchHistories value, $Res Function(WatchHistories) then) =
       _$WatchHistoriesCopyWithImpl<$Res>;
   $Res call(
-      {List<WatchHistoriesItem> items,
+      {String nextToken,
+      List<WatchHistoriesItem> items,
       @JsonKey(name: '__typename')
       @Assert('typename == "ModelWatchHistoryConnection"')
           String typename});
@@ -2540,10 +2544,12 @@ class _$WatchHistoriesCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object nextToken = freezed,
     Object items = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       items:
           items == freezed ? _value.items : items as List<WatchHistoriesItem>,
       typename: typename == freezed ? _value.typename : typename as String,
@@ -2559,7 +2565,8 @@ abstract class _$WatchHistoriesCopyWith<$Res>
       __$WatchHistoriesCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<WatchHistoriesItem> items,
+      {String nextToken,
+      List<WatchHistoriesItem> items,
       @JsonKey(name: '__typename')
       @Assert('typename == "ModelWatchHistoryConnection"')
           String typename});
@@ -2578,10 +2585,12 @@ class __$WatchHistoriesCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object nextToken = freezed,
     Object items = freezed,
     Object typename = freezed,
   }) {
     return _then(_WatchHistories(
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       items:
           items == freezed ? _value.items : items as List<WatchHistoriesItem>,
       typename: typename == freezed ? _value.typename : typename as String,
@@ -2595,7 +2604,8 @@ class __$WatchHistoriesCopyWithImpl<$Res>
 /// @nodoc
 class _$_WatchHistories implements _WatchHistories {
   const _$_WatchHistories(
-      {@required
+      {this.nextToken,
+      @required
           this.items,
       @required
       @JsonKey(name: '__typename')
@@ -2608,6 +2618,8 @@ class _$_WatchHistories implements _WatchHistories {
       _$_$_WatchHistoriesFromJson(json);
 
   @override
+  final String nextToken;
+  @override
   final List<WatchHistoriesItem> items;
   @override
   @JsonKey(name: '__typename')
@@ -2616,13 +2628,16 @@ class _$_WatchHistories implements _WatchHistories {
 
   @override
   String toString() {
-    return 'WatchHistories(items: $items, typename: $typename)';
+    return 'WatchHistories(nextToken: $nextToken, items: $items, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _WatchHistories &&
+            (identical(other.nextToken, nextToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.nextToken, nextToken)) &&
             (identical(other.items, items) ||
                 const DeepCollectionEquality().equals(other.items, items)) &&
             (identical(other.typename, typename) ||
@@ -2633,6 +2648,7 @@ class _$_WatchHistories implements _WatchHistories {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(items) ^
       const DeepCollectionEquality().hash(typename);
 
@@ -2649,7 +2665,8 @@ class _$_WatchHistories implements _WatchHistories {
 abstract class _WatchHistories
     implements WatchHistories, BaseModelWatchHistoryConnection {
   const factory _WatchHistories(
-      {@required
+      {String nextToken,
+      @required
           List<WatchHistoriesItem> items,
       @required
       @JsonKey(name: '__typename')
@@ -2659,6 +2676,8 @@ abstract class _WatchHistories
   factory _WatchHistories.fromJson(Map<String, dynamic> json) =
       _$_WatchHistories.fromJson;
 
+  @override
+  String get nextToken;
   @override
   List<WatchHistoriesItem> get items;
   @override

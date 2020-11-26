@@ -735,7 +735,7 @@ class _$PathDataMainPageBaseTearOff {
   }
 
 // ignore: unused_element
-  PathDataMainPageSubscribing subscribing(PageSubscribingPageIndex index) {
+  PathDataMainPageSubscribing subscribing(SubscribingTabPage index) {
     return PathDataMainPageSubscribing(
       index,
     );
@@ -756,13 +756,13 @@ mixin _$PathDataMainPageBase {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result dashboard(),
-    @required Result subscribing(PageSubscribingPageIndex index),
+    @required Result subscribing(SubscribingTabPage index),
     @required Result setting(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result dashboard(),
-    Result subscribing(PageSubscribingPageIndex index),
+    Result subscribing(SubscribingTabPage index),
     Result setting(),
     @required Result orElse(),
   });
@@ -839,7 +839,7 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result dashboard(),
-    @required Result subscribing(PageSubscribingPageIndex index),
+    @required Result subscribing(SubscribingTabPage index),
     @required Result setting(),
   }) {
     assert(dashboard != null);
@@ -852,7 +852,7 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result dashboard(),
-    Result subscribing(PageSubscribingPageIndex index),
+    Result subscribing(SubscribingTabPage index),
     Result setting(),
     @required Result orElse(),
   }) {
@@ -903,7 +903,7 @@ abstract class $PathDataMainPageSubscribingCopyWith<$Res> {
           PathDataMainPageSubscribing value,
           $Res Function(PathDataMainPageSubscribing) then) =
       _$PathDataMainPageSubscribingCopyWithImpl<$Res>;
-  $Res call({PageSubscribingPageIndex index});
+  $Res call({SubscribingTabPage index});
 }
 
 /// @nodoc
@@ -923,7 +923,7 @@ class _$PathDataMainPageSubscribingCopyWithImpl<$Res>
     Object index = freezed,
   }) {
     return _then(PathDataMainPageSubscribing(
-      index == freezed ? _value.index : index as PageSubscribingPageIndex,
+      index == freezed ? _value.index : index as SubscribingTabPage,
     ));
   }
 }
@@ -935,7 +935,7 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
         super._();
 
   @override
-  final PageSubscribingPageIndex index;
+  final SubscribingTabPage index;
 
   @override
   String toString() {
@@ -963,7 +963,7 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result dashboard(),
-    @required Result subscribing(PageSubscribingPageIndex index),
+    @required Result subscribing(SubscribingTabPage index),
     @required Result setting(),
   }) {
     assert(dashboard != null);
@@ -976,7 +976,7 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result dashboard(),
-    Result subscribing(PageSubscribingPageIndex index),
+    Result subscribing(SubscribingTabPage index),
     Result setting(),
     @required Result orElse(),
   }) {
@@ -1018,10 +1018,10 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
 
 abstract class PathDataMainPageSubscribing extends PathDataMainPageBase {
   const PathDataMainPageSubscribing._() : super._();
-  const factory PathDataMainPageSubscribing(PageSubscribingPageIndex index) =
+  const factory PathDataMainPageSubscribing(SubscribingTabPage index) =
       _$PathDataMainPageSubscribing;
 
-  PageSubscribingPageIndex get index;
+  SubscribingTabPage get index;
   $PathDataMainPageSubscribingCopyWith<PathDataMainPageSubscribing>
       get copyWith;
 }
@@ -1066,7 +1066,7 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result dashboard(),
-    @required Result subscribing(PageSubscribingPageIndex index),
+    @required Result subscribing(SubscribingTabPage index),
     @required Result setting(),
   }) {
     assert(dashboard != null);
@@ -1079,7 +1079,7 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result dashboard(),
-    Result subscribing(PageSubscribingPageIndex index),
+    Result subscribing(SubscribingTabPage index),
     Result setting(),
     @required Result orElse(),
   }) {

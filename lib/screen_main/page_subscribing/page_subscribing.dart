@@ -14,21 +14,30 @@ final subscribingViewModelProvider =
         (_) => ViewModelSubscribing());
 
 class PageSubscribingInMainScreen extends StatefulHookWidget {
-  const PageSubscribingInMainScreen({Key key}) : super(key: key);
+  const PageSubscribingInMainScreen({
+    @required this.initialPage,
+    Key key,
+  }) : super(key: key);
+
+  static const PAGE_INDEX_DEFAULT = SubscribingTabPage.SUBSCRIBING;
+  final SubscribingTabPage initialPage;
 
   @override
   _PageSubscribingInMainScreenState createState() =>
-      _PageSubscribingInMainScreenState();
+      _PageSubscribingInMainScreenState(initialPage);
 }
 
 class _PageSubscribingInMainScreenState
     extends State<PageSubscribingInMainScreen>
     with AfterLayoutMixin<PageSubscribingInMainScreen> {
-  static const _TAB_LENGTH = 3;
+
+  _PageSubscribingInMainScreenState(SubscribingTabPage initialPage): initialIndex = initialPage.index;
+
+  static const _TAB_LENGTH = 2;
   static const double _INDICATOR_WIDTH = 24;
   static const double _INDICATOR_RADIUS = 5;
 
-  static const PAGE_INDEX_DEFAULT = PageSubscribingPageIndex.SUBSCRIBING;
+  final int initialIndex;
 
   @override
   void afterFirstLayout(BuildContext context) =>
@@ -46,7 +55,7 @@ class _PageSubscribingInMainScreenState
     useProvider(subscribingViewModelProvider.select((_) => null));
 
     final tabController =
-        useTabController(initialLength: _TAB_LENGTH, initialIndex: 0);
+        useTabController(initialLength: _TAB_LENGTH, initialIndex: initialIndex);
     return Column(children: [
       LayoutBuilder(
           builder: (context, constrains) => TabBar(
@@ -65,17 +74,17 @@ class _PageSubscribingInMainScreenState
                 ),
                 tabs: const [
                   Tab(text: Strings.TAB_SUBSCRIBING),
-                  Tab(text: Strings.TAB_MY_LIST),
+                  // Tab(text: Strings.TAB_MY_LIST),
                   Tab(text: Strings.TAB_WATCH_HISTORY),
                 ],
               )),
       Expanded(
         child: TabBarView(
           controller: tabController,
-          children: [
-            const SubscribingWidget(),
-            Container(),
-            const WatchHistoryWidget(),
+          children: const [
+            SubscribingWidget(),
+            // Container(),
+            WatchHistoryWidget(),
           ],
         ),
       ),
@@ -83,6 +92,4 @@ class _PageSubscribingInMainScreenState
   }
 }
 
-enum PageSubscribingPageIndex {
-  SUBSCRIBING, WATCH_HISTORY
-}
+enum SubscribingTabPage { SUBSCRIBING, WATCH_HISTORY }

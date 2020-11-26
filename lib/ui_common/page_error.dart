@@ -11,29 +11,27 @@ class PageError extends StatelessWidget {
 
   final String text;
 
+  /// todo fix layout metrics, colors of image
   @override
   Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constrains) {
-          final width =
-              max(constrains.maxHeight, constrains.maxWidth) / Dimens.IMG_RATIO;
-          return SafeArea(
-            child: Container(
-              alignment: Alignment.center,
-              width: width,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Assets.svg.undrawWarningCyit.supportWeb().toWidget(
-                          width: width,
-                          height: width * Dimens.ERROR_WIDGET_RATIO,
-                        ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Text(text),
-                  ]),
-            ),
-          );
-        },
+        builder: (context, constrains) => SafeArea(
+          child: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(48),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              AspectRatio(
+                aspectRatio: Dimens.ERROR_WIDGET_RATIO,
+                child: Assets.svg.undrawWarningCyit.supportWeb().toWidget(),
+              ),
+              Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ]),
+          ),
+        ),
       );
 }

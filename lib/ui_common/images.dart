@@ -24,7 +24,7 @@ class GenImage {
     double height,
     Color color,
     BlendMode colorBlendMode,
-    BoxFit fit,
+    BoxFit fit = BoxFit.contain,
     AlignmentGeometry alignment = Alignment.center,
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect centerSlice,

@@ -30,7 +30,7 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
   Widget build(BuildContext context) {
     final screen = _appState.findLastMainPagePath.when(
       dashboard: () => const PageDashboardInMainScreen(),
-      subscribing: (PageSubscribingPageIndex index) => const PageSubscribingInMainScreen(),
+      subscribing: (SubscribingTabPage initialPage) => PageSubscribingInMainScreen(initialPage: initialPage),
       setting: () => const PageSettingInMainScreen(),
     );
 
@@ -61,7 +61,7 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
   @override
   PathDataMainPageBase get currentConfiguration => _appState.findLastMainPagePath.when(
       dashboard: () => const PathDataMainPageBase.dashboard(),
-      // subscribing: (index) => const PathDataMainPageBase.subscribing(index),
+      subscribing: (initialPage) => PathDataMainPageBase.subscribing(initialPage),
       setting: () => const PathDataMainPageBase.setting(),
     );
 

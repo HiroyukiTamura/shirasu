@@ -16,7 +16,7 @@ class GlobalRoutePathBase {
     @required Result Function(String programId) program,
     @required Result Function(BirthDateIntentData birthDate) editBirthDate,
     @required Result Function() dashboard,
-    @required Result Function(PageSubscribingPageIndex index) subscribing,
+    @required Result Function(SubscribingTabPage initialPage) subscribing,
     @required Result Function() setting,
   }) {
     if (routePath is GlobalRoutePath)
@@ -67,7 +67,7 @@ abstract class PathDataMainPageBase
     implements _$PathDataMainPageBase, GlobalRoutePathBase {
   const factory PathDataMainPageBase.dashboard() = PathDataMainPageDashBoard;
 
-  const factory PathDataMainPageBase.subscribing(PageSubscribingPageIndex index) =
+  const factory PathDataMainPageBase.subscribing(SubscribingTabPage index) =
       PathDataMainPageSubscribing;
 
   const factory PathDataMainPageBase.setting() = PathDataMainPageSetting;
@@ -77,7 +77,7 @@ abstract class PathDataMainPageBase
       case 0:
         return const PathDataMainPageBase.dashboard();
       case 1:
-        return const PathDataMainPageBase.subscribing(PageSubscribingPageIndex.SUBSCRIBING);
+        return const PathDataMainPageBase.subscribing(PageSubscribingInMainScreen.PAGE_INDEX_DEFAULT);
       case 2:
         return const PathDataMainPageBase.setting();
       default:
@@ -88,7 +88,7 @@ abstract class PathDataMainPageBase
   const PathDataMainPageBase._();
 
   int getIndex() =>
-      when(dashboard: () => 0, subscribing: (PageSubscribingPageIndex index) => 1, setting: () => 2);
+      when(dashboard: () => 0, subscribing: (SubscribingTabPage initialPage) => 1, setting: () => 2);
 }
 
 @immutable

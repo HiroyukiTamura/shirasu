@@ -62,7 +62,7 @@ class AppRouteInformationParser
           return '/t/${list[0]}/c/${list[1]}/p/${list[2]}';
         },
         dashboard: () => 'dashboard',
-        subscribing: (PageSubscribingPageIndex index) => 'subscribing/$index',
+        subscribing: (SubscribingTabPage initialPage) => 'subscribing/$initialPage',
         setting: () => 'setting',
       );
 }

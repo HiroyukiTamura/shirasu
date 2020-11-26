@@ -30,7 +30,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
           final screen = GlobalRoutePathBase.wrappedWhen(
             pathData,
             dashboard: () => PageDashboardInMainScreen(appState: _appState),
-            subscribing: (PageSubscribingPageIndex index) => PageDashboardInMainScreen(appState: _appState),
+            subscribing: (SubscribingTabPage initialPage) => PageDashboardInMainScreen(appState: _appState),
             setting: () => PageDashboardInMainScreen(appState: _appState),
             intro: () => ScreenIntro(),
             error: () => throw UnimplementedError(),

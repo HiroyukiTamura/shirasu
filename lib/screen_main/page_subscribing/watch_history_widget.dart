@@ -3,9 +3,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/model/base_model.dart';
@@ -28,7 +30,8 @@ class WatchHistoryWidget extends HookWidget {
             .expand((it) => it.viewerUser.watchHistories.items)
             .toList();
 
-        final isLoadMoreCommanded = context.read(subscribingViewModelProvider).isLoadMoreCommanded;
+        final isLoadMoreCommanded =
+            context.read(subscribingViewModelProvider).isLoadMoreCommanded;
 
         final listView = _listView(
           controller: sc,
@@ -43,7 +46,7 @@ class WatchHistoryWidget extends HookWidget {
                       notification.direction == ScrollDirection.forward &&
                       sc.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
                           sc.offset) {
-                    _loadMore(context);//todo debug
+                    _loadMore(context); //todo debug
                     return true;
                   }
 
@@ -70,11 +73,17 @@ class WatchHistoryWidget extends HookWidget {
       controller: controller,
       padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
       itemBuilder: (context, i) {
-        if (showLoadingIndicator && i == items.length - 1) {
+        if (showLoadingIndicator && i == items.length - 1)
           return const CenterCircleProgress();
-        } else {
+        else {
           final program = items[i].program as BaseProgram; //todo why cast?
-          return MovieListItem(program: program);
+          return MovieListItem(
+            program: program,
+            onTap: () async => context
+                .read(appRouterProvider)
+                .delegate
+                .pushPage(GlobalRoutePath.program(program.id)),
+          );
         }
       },
       itemCount: itemCount,

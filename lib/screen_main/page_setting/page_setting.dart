@@ -28,15 +28,15 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
 
-final settingViewModelProvider = ChangeNotifierProvider.autoDispose<ViewModelSetting>(
-    (_) => ViewModelSetting());
+final settingViewModelProvider =
+    ChangeNotifierProvider.autoDispose<ViewModelSetting>(
+        (_) => ViewModelSetting());
 
 class PageSettingInMainScreen extends StatefulHookWidget {
   const PageSettingInMainScreen({Key key}) : super(key: key);
 
   @override
-  PageSettingInMainScreenState createState() =>
-      PageSettingInMainScreenState();
+  PageSettingInMainScreenState createState() => PageSettingInMainScreenState();
 }
 
 class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
@@ -51,107 +51,111 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         preInitialized: () => const CenterCircleProgress(),
         error: () => const PageError(), //todo implement
         success: (data, locationStr) => ListView.builder(
-            padding: const EdgeInsets.symmetric(
-                vertical: Dimens.SETTING_OUTER_MARGIN),
-            itemBuilder: (context, i) {
-              final threshHolds = _Thresholds();
+          padding:
+              const EdgeInsets.symmetric(vertical: Dimens.SETTING_OUTER_MARGIN),
+          itemBuilder: (context, i) {
+            final threshHolds = _Thresholds();
 
-              if (i <= threshHolds.threshold)
-                return _genListItemAboveCreditCard(
-                  context,
-                  data.viewerUser,
-                  locationStr,
-                  i,
-                );
+            if (i <= threshHolds.threshold)
+              return _genListItemAboveCreditCard(
+                context,
+                data.viewerUser,
+                locationStr,
+                i,
+              );
 
-              threshHolds.swap(data.viewer.paymentMethods.length);
+            threshHolds.swap(data.viewer.paymentMethods.length);
 
-              if (i <= threshHolds.threshold)
-                return ListTilePaymentMethod(
-                  paymentMethod: data.viewer
-                          .paymentMethods[i - threshHolds.preThreshHold - 1]
-                      as BasePaymentMethod,
-                ); //todo why cast?
+            if (i <= threshHolds.threshold)
+              return ListTilePaymentMethod(
+                paymentMethod: data.viewer
+                        .paymentMethods[i - threshHolds.preThreshHold - 1]
+                    as BasePaymentMethod,
+              ); //todo why cast?
 
-              threshHolds.swap(2);
+            threshHolds.swap(2);
 
-              if (i <= threshHolds.threshold) {
-                switch (i - threshHolds.preThreshHold - 1) {
-                  case 0:
-                    return const ListTileSeem();
-                  case 1:
-                    return _componentTitle(
-                      title: Strings.TITLE_SUBSCRIBED_CHANNELS,
-                    );
-                }
-                throw Exception();
+            if (i <= threshHolds.threshold) {
+              switch (i - threshHolds.preThreshHold - 1) {
+                case 0:
+                  return const ListTileSeem();
+                case 1:
+                  return _componentTitle(
+                    title: Strings.TITLE_SUBSCRIBED_CHANNELS,
+                  );
               }
+              throw Exception();
+            }
 
-              threshHolds.swap(data.viewerUser.subscribedChannels.length);
+            threshHolds.swap(data.viewerUser.subscribedChannels.length);
 
-              if (i <= threshHolds.threshold) {
-                final index = i - threshHolds.preThreshHold - 1;
-                return ListTileSubscribedChannel(
-                  subscribedChannel: data.viewerUser.subscribedChannels[index],
-                );
+            if (i <= threshHolds.threshold) {
+              final index = i - threshHolds.preThreshHold - 1;
+              return ListTileSubscribedChannel(
+                subscribedChannel: data.viewerUser.subscribedChannels[index],
+              );
+            }
+
+            threshHolds.swap(2);
+
+            if (i <= threshHolds.threshold) {
+              switch (i - threshHolds.preThreshHold - 1) {
+                case 0:
+                  return const ListTileSeem();
+                case 1:
+                  return _componentTitle(
+                    title: Strings.TITLE_PURCHASE_HISTORY,
+                  );
               }
+              throw Exception();
+            }
 
-              threshHolds.swap(2);
+            threshHolds.swap(data.viewerUser.invoiceHistory.items.length);
 
-              if (i <= threshHolds.threshold) {
-                switch (i - threshHolds.preThreshHold - 1) {
-                  case 0:
-                    return const ListTileSeem();
-                  case 1:
-                    return _componentTitle(
-                      title: Strings.TITLE_PURCHASE_HISTORY,
-                    );
-                }
-                throw Exception();
+            if (i <= threshHolds.threshold) {
+              final index = i - threshHolds.preThreshHold - 1;
+              return ListTileInvoiceHistory(
+                invoiceHistoryItem: data.viewerUser.invoiceHistory.items[index],
+              );
+            }
+
+            threshHolds.swap(2);
+
+            if (i <= threshHolds.threshold) {
+              switch (i - threshHolds.preThreshHold - 1) {
+                case 0:
+                  return const ListTileSeem();
+                case 1:
+                  return _componentTitle(
+                    title: Strings.TITLE_WATCH_HISTORY,
+                  );
               }
+              throw Exception();
+            }
 
-              threshHolds.swap(data.viewerUser.invoiceHistory.items.length);
+            threshHolds.swap(data.viewerUser.watchHistories.items.length);
 
-              if (i <= threshHolds.threshold) {
-                final index = i - threshHolds.preThreshHold - 1;
-                return ListTileInvoiceHistory(
-                  invoiceHistoryItem:
-                      data.viewerUser.invoiceHistory.items[index],
-                );
-              }
+            if (i <= threshHolds.threshold) {
+              final index = i - threshHolds.preThreshHold - 1;
+              final program =
+                  data.viewerUser.watchHistories.items[index].program;
+              return MovieListItem(
+                program: program as BaseProgram, //todo why cast?
+                onTap: () async => context
+                    .read(appRouterProvider)
+                    .delegate
+                    .pushPage(GlobalRoutePath.program(program.id)),
+              );
+            }
 
-              threshHolds.swap(2);
-
-              if (i <= threshHolds.threshold) {
-                switch (i - threshHolds.preThreshHold - 1) {
-                  case 0:
-                    return const ListTileSeem();
-                  case 1:
-                    return _componentTitle(
-                      title: Strings.TITLE_WATCH_HISTORY,
-                    );
-                }
-                throw Exception();
-              }
-
-              threshHolds.swap(data.viewerUser.watchHistories.items.length);
-
-              if (i <= threshHolds.threshold) {
-                final index = i - threshHolds.preThreshHold - 1;
-                return MovieListItem(
-                  program: data.viewerUser.watchHistories.items[index].program
-                      as BaseProgram, //todo why cast?
-                );
-              }
-
-              return const ListTileLoadMore();
-            },
-            itemCount: 15 +
-                data.viewer.paymentMethods.length +
-                data.viewerUser.subscribedChannels.length +
-                data.viewerUser.invoiceHistory.items.length +
-                data.viewerUser.watchHistories.items.length,
-          ),
+            return const ListTileLoadMore();
+          },
+          itemCount: 15 +
+              data.viewer.paymentMethods.length +
+              data.viewerUser.subscribedChannels.length +
+              data.viewerUser.invoiceHistory.items.length +
+              data.viewerUser.watchHistories.items.length,
+        ),
       );
 
   static Widget listItem(

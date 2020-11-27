@@ -30,15 +30,14 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
           final screen = GlobalRoutePathBase.wrappedWhen(
             pathData,
             dashboard: () => PageDashboardInMainScreen(appState: _appState),
-            subscribing: (SubscribingTabPage initialPage) => PageDashboardInMainScreen(appState: _appState),
+            subscribing: (initialPage) =>
+                PageDashboardInMainScreen(appState: _appState),
             setting: () => PageDashboardInMainScreen(appState: _appState),
             intro: () => ScreenIntro(),
             error: () => throw UnimplementedError(),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
-            editBirthDate: (BirthDateIntentData data) => ScreenConfigEditing(
-              intentData: data,
-            ),
+            editBirthDate: (data) => ScreenConfigEditing(intentData: data),
           );
           return Tuple2(location, screen);
         })
@@ -67,5 +66,6 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
 
   Future<void> pushPage(GlobalRoutePath path) => setNewRoutePath(path);
 
-  Future<void> swapPageInMainScreen(PathDataMainPageBase path) => setNewRoutePath(path);
+  Future<void> swapPageInMainScreen(PathDataMainPageBase path) =>
+      setNewRoutePath(path);
 }

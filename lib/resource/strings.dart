@@ -97,6 +97,8 @@ class Strings {
   static const String TAB_MY_LIST = 'マイリスト';
   static const String TAB_SUBSCRIBING = '購読中';
   static const String TAB_WATCH_HISTORY = '視聴履歴';
+  static const String WATCH_HISTORY_EMPTY_MSG = '動画を視聴すると、履歴がこの画面に表示されます。';
+  static const String SUBSCRIBING_EMPTY_MSG = '動画を視聴すると、履歴がこの画面に表示されます。';
 
 //endregion
 

@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -9,60 +10,74 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
-final _watchHistoryViewModelProvider =
-ChangeNotifierProvider.autoDispose<ViewModelWatchHistory>(
+final _viewmodelProvider =
+    ChangeNotifierProvider.autoDispose<ViewModelWatchHistory>(
         (_) => ViewModelWatchHistory());
 
-class WatchHistoryWidget extends HookWidget {
+class WatchHistoryWidget extends StatefulHookWidget {
   const WatchHistoryWidget({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => useProvider(
-      _watchHistoryViewModelProvider
-          .select((value) => value.watchHistoryState)).when(
-      preInitialized: () => const CenterCircleProgress(),
-      success: (watchHistories) {
-        final sc = useScrollController();
-        final items = watchHistories
-            .expand((it) => it.viewerUser.watchHistories.items)
-            .toList();
+  _WatchHistoryWidgetState createState() => _WatchHistoryWidgetState();
+}
 
-        final isLoadMoreCommanded =
-            context.read(_watchHistoryViewModelProvider).isLoadMoreCommanded;
+class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
+    with AfterLayoutMixin<WatchHistoryWidget> {
+  @override
+  void afterFirstLayout(BuildContext context) =>
+      context.read(_viewmodelProvider).setUpData();
 
-        final listView = _listView(
-          controller: sc,
-          items: items,
-          showLoadingIndicator: isLoadMoreCommanded,
-        );
+  @override
+  Widget build(BuildContext context) =>
+      useProvider(_viewmodelProvider.select((value) => value.watchHistoryState))
+          .when(
+              preInitialized: () => const CenterCircleProgress(),
+              success: (watchHistories) {
+                final sc = useScrollController();
+                final items = watchHistories
+                    .expand((it) => it.viewerUser.watchHistories.items)
+                    .toList();
 
-        return isLoadMoreCommanded
-            ? NotificationListener<ScrollNotification>(
-                onNotification: (notification) {
-                  if (notification is UserScrollNotification &&
-                      notification.direction == ScrollDirection.forward &&
-                      sc.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
-                          sc.offset) {
-                    _loadMore(context); //todo debug
-                    return true;
-                  }
+                final isLoadMoreCommanded =
+                    context.read(_viewmodelProvider).isLoadMoreCommanded;
 
-                  return false;
-                },
-                child: listView,
-              )
-            : listView;
-      },
-      resultEmpty: () {
-        return Container(); //todo display error widget
-      },
-      error: () => const PageError());
+                final listView = _listView(
+                  controller: sc,
+                  items: items,
+                  showLoadingIndicator: isLoadMoreCommanded,
+                );
+
+                return isLoadMoreCommanded
+                    ? NotificationListener<ScrollNotification>(
+                        onNotification: (notification) {
+                          if (notification is UserScrollNotification &&
+                              notification.direction ==
+                                  ScrollDirection.forward &&
+                              sc.position.maxScrollExtent -
+                                      Dimens.CIRCULAR_HEIGHT <
+                                  sc.offset) {
+                            _loadMore(context); //todo debug
+                            return true;
+                          }
+
+                          return false;
+                        },
+                        child: listView,
+                      )
+                    : listView;
+              },
+              resultEmpty: () => const EmptyListWidget(
+                  text: Strings.WATCH_HISTORY_EMPTY_MSG,
+                  icon: Icons.history,
+                ),
+              error: () => const PageError());
 
   static Widget _listView({
     @required ScrollController controller,
@@ -96,7 +111,7 @@ class WatchHistoryWidget extends HookWidget {
   /// todo refactor @see [_ListViewContent._loadMore]
   Future<void> _loadMore(BuildContext context) async {
     final result =
-        await context.read(_watchHistoryViewModelProvider).loadMoreWatchHistory();
+        await context.read(_viewmodelProvider).loadMoreWatchHistory();
 
     switch (result) {
       case ApiClientResult.NO_MORE:

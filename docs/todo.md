@@ -5,7 +5,8 @@ the list below is more prior ones.
 
 - [ ] feature layout for now broadcasting program
 - [ ] display channel on `screen_dashboard`
-- [ ] split ViewModel on `ViewModelSubscribing`
+- [x] split ViewModel on `ViewModelSubscribing`
+- [ ] create empty result widget
 - [ ] check itself is disposed on ViewModels and Notifiers
 - [ ] display comments, handouts
 - [ ] create native ui for video player, configure plugin  

@@ -11,14 +11,24 @@ import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
+import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
-class SubscribingWidget extends HookWidget {
+final _subscribingViewModelProvider =
+ChangeNotifierProvider.autoDispose<ViewModelSubscribing>(
+        (_) => ViewModelSubscribing());
+
+class SubscribingWidget extends StatefulHookWidget {
   const SubscribingWidget({Key key}) : super(key: key);
 
   @override
+  _SubscribingWidgetState createState() => _SubscribingWidgetState();
+}
+
+class _SubscribingWidgetState extends State<SubscribingWidget> {
+  @override
   Widget build(BuildContext context) =>
       useProvider(
-              subscribingViewModelProvider.select((value) => value.programData))
+          _subscribingViewModelProvider.select((value) => value.programData))
           .when(
               preInitialized: () => const CenterCircleProgress(),
               success: (programData) => ListView.builder(

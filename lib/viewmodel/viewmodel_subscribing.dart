@@ -8,18 +8,12 @@ import 'package:shirasu/viewmodel/viewmodel_dashboard.dart' show ApiClientResult
 
 part 'viewmodel_subscribing.freezed.dart';
 
-//todo split per page?
 class ViewModelSubscribing extends ChangeNotifier {
   final _apiClient = ApiClient(Client());
-  bool _isLoadMoreCommanded = false;
 
   FeatureProgramState programData = const FeatureProgramStatePreInitialized();
-  WatchHistoryState watchHistoryState = const StatePreInitialized();
-
-  bool get isLoadMoreCommanded => _isLoadMoreCommanded;
 
   Future<void> setUpData() async {
-
     if (!(programData is FeatureProgramStateSuccess)) {
       try {
         final data = await _apiClient.queryFeaturedProgramsList();
@@ -30,7 +24,19 @@ class ViewModelSubscribing extends ChangeNotifier {
       }
       notifyListeners();
     }
+  }
+}
 
+class ViewModelWatchHistory extends ChangeNotifier {
+
+  final _apiClient = ApiClient(Client());
+  bool _isLoadMoreCommanded = false;
+
+  WatchHistoryState watchHistoryState = const StatePreInitialized();
+
+  bool get isLoadMoreCommanded => _isLoadMoreCommanded;
+
+  Future<void> setUpData() async {
     if (!(watchHistoryState is StateSuccess)) {
       try {
         final data = await _apiClient.queryWatchHistory();

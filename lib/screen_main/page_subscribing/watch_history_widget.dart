@@ -11,17 +11,20 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
-import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
+import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
+
+final _watchHistoryViewModelProvider =
+ChangeNotifierProvider.autoDispose<ViewModelWatchHistory>(
+        (_) => ViewModelWatchHistory());
 
 class WatchHistoryWidget extends HookWidget {
   const WatchHistoryWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => useProvider(
-      subscribingViewModelProvider
+      _watchHistoryViewModelProvider
           .select((value) => value.watchHistoryState)).when(
       preInitialized: () => const CenterCircleProgress(),
       success: (watchHistories) {
@@ -31,7 +34,7 @@ class WatchHistoryWidget extends HookWidget {
             .toList();
 
         final isLoadMoreCommanded =
-            context.read(subscribingViewModelProvider).isLoadMoreCommanded;
+            context.read(_watchHistoryViewModelProvider).isLoadMoreCommanded;
 
         final listView = _listView(
           controller: sc,
@@ -93,7 +96,7 @@ class WatchHistoryWidget extends HookWidget {
   /// todo refactor @see [_ListViewContent._loadMore]
   Future<void> _loadMore(BuildContext context) async {
     final result =
-        await context.read(subscribingViewModelProvider).loadMoreWatchHistory();
+        await context.read(_watchHistoryViewModelProvider).loadMoreWatchHistory();
 
     switch (result) {
       case ApiClientResult.NO_MORE:

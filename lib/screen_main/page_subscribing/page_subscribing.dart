@@ -9,10 +9,6 @@ import 'package:shirasu/screen_main/page_subscribing/subscribing_widget.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-final subscribingViewModelProvider =
-    ChangeNotifierProvider.autoDispose<ViewModelSubscribing>(
-        (_) => ViewModelSubscribing());
-
 class PageSubscribingInMainScreen extends StatefulHookWidget {
   const PageSubscribingInMainScreen({
     @required this.initialPage,
@@ -28,8 +24,7 @@ class PageSubscribingInMainScreen extends StatefulHookWidget {
 }
 
 class _PageSubscribingInMainScreenState
-    extends State<PageSubscribingInMainScreen>
-    with AfterLayoutMixin<PageSubscribingInMainScreen> {
+    extends State<PageSubscribingInMainScreen> {
 
   _PageSubscribingInMainScreenState(SubscribingTabPage initialPage): initialIndex = initialPage.index;
 
@@ -40,20 +35,7 @@ class _PageSubscribingInMainScreenState
   final int initialIndex;
 
   @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(subscribingViewModelProvider).setUpData();
-
-  @override
   Widget build(BuildContext context) {
-    // we must call useProvider in this build method because we call `context.read` in afterLayout and subscribingViewModelProvider is AutoDispose.
-    //
-    // - TabBarView's child may cause to dispose its provider when it disappeared.
-    // - AutoDispose will dispose its provider when nothing access to it.
-    // - And TabBarView initialize every pages asynchronously.
-    // so, there is the moment afterLayout called but nothing TabBarView's child is initialized,
-    // and then subscribingViewModelProvider shall dispose before we read it!
-    useProvider(subscribingViewModelProvider.select((_) => null));
-
     final tabController =
         useTabController(initialLength: _TAB_LENGTH, initialIndex: initialIndex);
     return Column(children: [

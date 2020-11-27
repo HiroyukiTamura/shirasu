@@ -92,3 +92,20 @@ abstract class ViewerUser with _$ViewerUser {
   factory ViewerUser.fromJson(Map<String, dynamic> json) =>
       _$ViewerUserFromJson(json);
 }
+
+@freezed
+abstract class Channels with _$Channels {
+
+  @Implements(BaseModelChannelConnection)
+  const factory Channels({
+    @required List<Channel> items,
+    String nextToken,
+    @JsonKey(name: '__typename')
+    @required
+    @Assert('typename == "ModelChannelConnection"')
+    String typename,
+  }) = _Channels;
+
+  factory Channels.fromJson(Map<String, dynamic> json) =>
+      _$ChannelsFromJson(json);
+}

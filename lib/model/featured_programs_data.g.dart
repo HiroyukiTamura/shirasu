@@ -115,3 +115,21 @@ Map<String, dynamic> _$_$_ViewerUserToJson(_$_ViewerUser instance) =>
       'subscribedPrograms': instance.subscribedPrograms,
       '__typename': instance.typename,
     };
+
+_$_Channels _$_$_ChannelsFromJson(Map<String, dynamic> json) {
+  return _$_Channels(
+    items: (json['items'] as List)
+        ?.map((e) =>
+            e == null ? null : Channel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    nextToken: json['nextToken'] as String,
+    typename: json['__typename'] as String,
+  );
+}
+
+Map<String, dynamic> _$_$_ChannelsToJson(_$_Channels instance) =>
+    <String, dynamic>{
+      'items': instance.items,
+      'nextToken': instance.nextToken,
+      '__typename': instance.typename,
+    };

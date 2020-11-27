@@ -5,7 +5,11 @@ class GraphqlQuery {
   const GraphqlQuery._();
 
   static const QUERY_FEATURED_PROGRAMS = r'''
-query ListFeaturedPrograms($now: String!, $nowPlus7D: String!) {
+query ListProgramsAndChannels(
+    $now: String!
+    $nowPlus7D: String!
+    $nextToken: String
+) {
     nowBroadcastings: searchPrograms(
         filter: {
             release: { eq: true }
@@ -32,12 +36,23 @@ query ListFeaturedPrograms($now: String!, $nowPlus7D: String!) {
         }
         __typename
     }
-    viewerUser {
+    viewerUser: viewerUser {
         id
         subscribedPrograms {
             ...DashboardProgram
             __typename
         }
+        __typename
+    }
+    channels: listChannels(
+        filter: { release: { eq: open } }
+        nextToken: $nextToken
+    ) {
+        items {
+            ...DashboardChannel
+            __typename
+        }
+        nextToken
         __typename
     }
 }

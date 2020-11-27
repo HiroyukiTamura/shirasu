@@ -1338,3 +1338,217 @@ abstract class _ViewerUser implements ViewerUser, BaseUser {
   @override
   _$ViewerUserCopyWith<_ViewerUser> get copyWith;
 }
+
+Channels _$ChannelsFromJson(Map<String, dynamic> json) {
+  return _Channels.fromJson(json);
+}
+
+/// @nodoc
+class _$ChannelsTearOff {
+  const _$ChannelsTearOff();
+
+// ignore: unused_element
+  _Channels call(
+      {@required
+          List<Channel> items,
+      String nextToken,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelChannelConnection"')
+          String typename}) {
+    return _Channels(
+      items: items,
+      nextToken: nextToken,
+      typename: typename,
+    );
+  }
+
+// ignore: unused_element
+  Channels fromJson(Map<String, Object> json) {
+    return Channels.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $Channels = _$ChannelsTearOff();
+
+/// @nodoc
+mixin _$Channels {
+  List<Channel> get items;
+  String get nextToken;
+  @JsonKey(name: '__typename')
+  @Assert('typename == "ModelChannelConnection"')
+  String get typename;
+
+  Map<String, dynamic> toJson();
+  $ChannelsCopyWith<Channels> get copyWith;
+}
+
+/// @nodoc
+abstract class $ChannelsCopyWith<$Res> {
+  factory $ChannelsCopyWith(Channels value, $Res Function(Channels) then) =
+      _$ChannelsCopyWithImpl<$Res>;
+  $Res call(
+      {List<Channel> items,
+      String nextToken,
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelChannelConnection"')
+          String typename});
+}
+
+/// @nodoc
+class _$ChannelsCopyWithImpl<$Res> implements $ChannelsCopyWith<$Res> {
+  _$ChannelsCopyWithImpl(this._value, this._then);
+
+  final Channels _value;
+  // ignore: unused_field
+  final $Res Function(Channels) _then;
+
+  @override
+  $Res call({
+    Object items = freezed,
+    Object nextToken = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_value.copyWith(
+      items: items == freezed ? _value.items : items as List<Channel>,
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ChannelsCopyWith<$Res> implements $ChannelsCopyWith<$Res> {
+  factory _$ChannelsCopyWith(_Channels value, $Res Function(_Channels) then) =
+      __$ChannelsCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {List<Channel> items,
+      String nextToken,
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelChannelConnection"')
+          String typename});
+}
+
+/// @nodoc
+class __$ChannelsCopyWithImpl<$Res> extends _$ChannelsCopyWithImpl<$Res>
+    implements _$ChannelsCopyWith<$Res> {
+  __$ChannelsCopyWithImpl(_Channels _value, $Res Function(_Channels) _then)
+      : super(_value, (v) => _then(v as _Channels));
+
+  @override
+  _Channels get _value => super._value as _Channels;
+
+  @override
+  $Res call({
+    Object items = freezed,
+    Object nextToken = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_Channels(
+      items: items == freezed ? _value.items : items as List<Channel>,
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+@Implements(BaseModelChannelConnection)
+
+/// @nodoc
+class _$_Channels with DiagnosticableTreeMixin implements _Channels {
+  const _$_Channels(
+      {@required
+          this.items,
+      this.nextToken,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelChannelConnection"')
+          this.typename})
+      : assert(items != null),
+        assert(typename != null);
+
+  factory _$_Channels.fromJson(Map<String, dynamic> json) =>
+      _$_$_ChannelsFromJson(json);
+
+  @override
+  final List<Channel> items;
+  @override
+  final String nextToken;
+  @override
+  @JsonKey(name: '__typename')
+  @Assert('typename == "ModelChannelConnection"')
+  final String typename;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'Channels(items: $items, nextToken: $nextToken, typename: $typename)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Channels'))
+      ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('nextToken', nextToken))
+      ..add(DiagnosticsProperty('typename', typename));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Channels &&
+            (identical(other.items, items) ||
+                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.nextToken, nextToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.nextToken, nextToken)) &&
+            (identical(other.typename, typename) ||
+                const DeepCollectionEquality()
+                    .equals(other.typename, typename)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(nextToken) ^
+      const DeepCollectionEquality().hash(typename);
+
+  @override
+  _$ChannelsCopyWith<_Channels> get copyWith =>
+      __$ChannelsCopyWithImpl<_Channels>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ChannelsToJson(this);
+  }
+}
+
+abstract class _Channels implements Channels, BaseModelChannelConnection {
+  const factory _Channels(
+      {@required
+          List<Channel> items,
+      String nextToken,
+      @required
+      @JsonKey(name: '__typename')
+      @Assert('typename == "ModelChannelConnection"')
+          String typename}) = _$_Channels;
+
+  factory _Channels.fromJson(Map<String, dynamic> json) = _$_Channels.fromJson;
+
+  @override
+  List<Channel> get items;
+  @override
+  String get nextToken;
+  @override
+  @JsonKey(name: '__typename')
+  @Assert('typename == "ModelChannelConnection"')
+  String get typename;
+  @override
+  _$ChannelsCopyWith<_Channels> get copyWith;
+}

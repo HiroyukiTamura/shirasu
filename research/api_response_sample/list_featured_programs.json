@@ -7,13 +7,13 @@
     "comingBroadcastings": {
       "items": [
         {
-          "broadcastAt": "2020-11-09T10:00:00.000Z",
+          "broadcastAt": "2020-11-27T10:00:00.000Z",
           "channelId": "genron",
-          "id": "genron-genron-20201109",
+          "id": "genron-genron-20201127",
           "mainTime": 10800,
-          "releasedAt": "2020-11-09T10:00:00.000Z",
+          "releasedAt": "2020-11-27T10:00:00.000Z",
           "tenantId": "genron",
-          "title": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w #ゲンロン201109",
+          "title": "小田部胤久×宮﨑裕助「カント『判断力批判』からみる美学史と現代思想――『美学』刊行記念」 @parages #ゲンロン201127",
           "totalPlayTime": 10800,
           "viewerPlanType": "SubscriptionPlan",
           "channel": {
@@ -24,13 +24,64 @@
           "__typename": "Program"
         },
         {
-          "broadcastAt": "2020-11-13T10:00:00.000Z",
+          "broadcastAt": "2020-11-27T10:30:00.000Z",
+          "channelId": "beobachter",
+          "id": "tsujita-beobachter-20201127",
+          "mainTime": 7200,
+          "releasedAt": "2020-11-27T10:30:00.000Z",
+          "tenantId": "tsujita",
+          "title": "【オープン記念】「国威発揚ウォッチ」チャンネルは何をめざし、何をするか？　時事ニュースに触れながら、プロパガンダと評論の未来を語り尽くす初放送！",
+          "totalPlayTime": 7200,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "beobachter",
+            "name": "辻田真佐憲の国威発揚ウォッチ",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-28T10:00:00.000Z",
           "channelId": "genron",
-          "id": "genron-genron-20201113",
+          "id": "genron-genron-20201128",
           "mainTime": 10800,
-          "releasedAt": "2020-11-13T10:00:00.000Z",
+          "releasedAt": "2020-11-28T10:00:00.000Z",
           "tenantId": "genron",
-          "title": "猪瀬直樹×石戸諭×速水健朗「日本の意思決定は変わらないのか――猪瀬直樹『公』刊行記念イベント」 @inosenaoki @satoruishido @gotanda6 #ゲンロン201113",
+          "title": "磯野真穂×小松理虔×東畑開人「コントロールの倫理とケアの倫理――不確実さ、不真面目さ、不安定さ」 @mahoisono @riken_komatsu @ktowhata #ゲンロン201128",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-30T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201130",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-30T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "さやわか×辻田真佐憲×東浩紀「プロパガンダとサブカルの時代における批評の役割――さやわか&辻田真佐憲チャンネル開設記念特別放送」 @someru @reichsneet @hazuma #ゲンロン201130",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-12-02T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201202",
+          "mainTime": 10800,
+          "releasedAt": "2020-12-02T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "大山顕×大井昌和×さやわか「写真とマンガ、または視点と人称のクリエイトについて――『新写真論』『ゲンロン11』 をめぐって」【ニッポンのマンガ #9】 @sohsai @ooimasakazu @someru #ゲンロン201202",
           "totalPlayTime": 10800,
           "viewerPlanType": "SubscriptionPlan",
           "channel": {
@@ -46,6 +97,74 @@
     "viewerUser": {
       "id": "google-oauth2|109431228853603579684",
       "subscribedPrograms": [
+        {
+          "broadcastAt": "2020-12-09T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201209",
+          "mainTime": 10800,
+          "releasedAt": "2020-12-09T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "伊藤剛×斎藤環×さやわか「『鬼滅の刃』と少年マンガの新情勢――竈門炭治郎の優しさと強さが伝えるもの」 @GoITO @pentaxxx @someru #ゲンロン201209",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-12-02T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201202",
+          "mainTime": 10800,
+          "releasedAt": "2020-12-02T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "大山顕×大井昌和×さやわか「写真とマンガ、または視点と人称のクリエイトについて――『新写真論』『ゲンロン11』 をめぐって」【ニッポンのマンガ #9】 @sohsai @ooimasakazu @someru #ゲンロン201202",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-30T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201130",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-30T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "さやわか×辻田真佐憲×東浩紀「プロパガンダとサブカルの時代における批評の役割――さやわか&辻田真佐憲チャンネル開設記念特別放送」 @someru @reichsneet @hazuma #ゲンロン201130",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-28T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201128",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-28T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "磯野真穂×小松理虔×東畑開人「コントロールの倫理とケアの倫理――不確実さ、不真面目さ、不安定さ」 @mahoisono @riken_komatsu @ktowhata #ゲンロン201128",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
         {
           "broadcastAt": "2020-11-27T10:00:00.000Z",
           "channelId": "genron",
@@ -64,14 +183,82 @@
           "__typename": "Program"
         },
         {
+          "broadcastAt": "2020-11-25T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201125",
+          "mainTime": 18300,
+          "releasedAt": "2020-11-25T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "夏野剛×東浩紀「ニッポンの動画――DXは日本社会を変えるのか？」 @tnatsu @hazuma #ゲンロン201125",
+          "totalPlayTime": 21900,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-24T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201124",
+          "mainTime": 11979,
+          "releasedAt": "2020-11-24T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "飯田泰之×井上智洋「経済学は格差をどのように捉えてきたかーーコロナショックとこれからの世界経済」 @iida_yasuyuki @tomo_monga #ゲンロン201124",
+          "totalPlayTime": 11979,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-19T13:55:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201119221516",
+          "mainTime": 7200,
+          "releasedAt": "2020-11-19T13:55:00.000Z",
+          "tenantId": "genron",
+          "title": "東浩紀×さやわか：シラス初突発＆ノートPC生放送、ついにｷﾀｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ",
+          "totalPlayTime": 21600,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-18T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201118",
+          "mainTime": 16270,
+          "releasedAt": "2020-11-18T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "ノック・パックサナーウィン×上田洋子×福冨渉「プーケットと感染症――観光、医療、津波復興」【 コロナ禍の世界から #5 】 @yuvmsk @sh0f #ゲンロン201118",
+          "totalPlayTime": 16270,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
           "broadcastAt": "2020-11-14T10:00:00.000Z",
           "channelId": "genron",
           "id": "genron-genron-20201114",
-          "mainTime": 10800,
+          "mainTime": 14708,
           "releasedAt": "2020-11-14T10:00:00.000Z",
           "tenantId": "genron",
           "title": "夏目房之介×伊藤剛×さやわか「マンガの『線』を総括する」【『ゲンロン11』刊行記念】 @fusa811 @GoITO @someru #ゲンロン201114",
-          "totalPlayTime": 10800,
+          "totalPlayTime": 14708,
           "viewerPlanType": "SubscriptionPlan",
           "channel": {
             "id": "genron",
@@ -84,11 +271,11 @@
           "broadcastAt": "2020-11-13T10:00:00.000Z",
           "channelId": "genron",
           "id": "genron-genron-20201113",
-          "mainTime": 10800,
+          "mainTime": 13729,
           "releasedAt": "2020-11-13T10:00:00.000Z",
           "tenantId": "genron",
           "title": "猪瀬直樹×石戸諭×速水健朗「日本の意思決定は変わらないのか――猪瀬直樹『公』刊行記念イベント」 @inosenaoki @satoruishido @gotanda6 #ゲンロン201113",
-          "totalPlayTime": 10800,
+          "totalPlayTime": 13729,
           "viewerPlanType": "SubscriptionPlan",
           "channel": {
             "id": "genron",
@@ -101,11 +288,11 @@
           "broadcastAt": "2020-11-09T10:00:00.000Z",
           "channelId": "genron",
           "id": "genron-genron-20201109",
-          "mainTime": 10800,
+          "mainTime": 18600,
           "releasedAt": "2020-11-09T10:00:00.000Z",
           "tenantId": "genron",
           "title": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w #ゲンロン201109",
-          "totalPlayTime": 10800,
+          "totalPlayTime": 40200,
           "viewerPlanType": "SubscriptionPlan",
           "channel": {
             "id": "genron",
@@ -235,6 +422,27 @@
         }
       ],
       "__typename": "User"
+    },
+    "channels": {
+      "items": [
+        {
+          "id": "someru",
+          "name": "さやわかのカルチャーお白洲",
+          "__typename": "Channel"
+        },
+        {
+          "id": "genron",
+          "name": "ゲンロン完全中継チャンネル",
+          "__typename": "Channel"
+        },
+        {
+          "id": "beobachter",
+          "name": "辻田真佐憲の国威発揚ウォッチ",
+          "__typename": "Channel"
+        }
+      ],
+      "nextToken": null,
+      "__typename": "ModelChannelConnection"
     }
   }
 }

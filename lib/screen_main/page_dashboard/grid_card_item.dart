@@ -62,7 +62,7 @@ class GirdCardItem extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox.expand(
+            SizedBox.expand(// may be converted to Positioned.fill and remove width and height of its parent
               child: InkWell(
                 onTap: onTap,
               ),

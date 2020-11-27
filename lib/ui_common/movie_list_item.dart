@@ -7,6 +7,7 @@ import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/ui_common/stacked_inkwell.dart';
 
 class MovieListItem extends StatelessWidget {
   const MovieListItem({Key key, @required this.program}) : super(key: key);
@@ -71,40 +72,31 @@ class MovieListBigItem extends StatelessWidget {
   final GestureTapCallback onTap;
 
   @override
-  Widget build(BuildContext context) => Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AspectRatio(
-                aspectRatio: Dimens.IMG_RATIO,
-                child: CachedNetworkImage(
-                  imageUrl: UrlUtil.getThumbnailUrl(program.id),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  program.title,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                  style: TextStyles.LIST_MOVIE_TITLE_BIG,
-                ),
-              )
-            ],
-          ),
-        ),
-        Positioned.fill(
-          child: Material(
-            type: MaterialType.transparency,
-            child: InkWell(
-              onTap: onTap,
+  Widget build(BuildContext context) => StackedInkwell(
+    onTap: onTap,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AspectRatio(
+            aspectRatio: Dimens.IMG_RATIO,
+            child: CachedNetworkImage(
+              imageUrl: UrlUtil.getThumbnailUrl(program.id),
             ),
           ),
-        ),
-      ],
-    );
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              program.title,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 4,
+              style: TextStyles.LIST_MOVIE_TITLE_BIG,
+            ),
+          )
+        ],
+      ),
+    ),
+  );
 }

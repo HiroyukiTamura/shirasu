@@ -11,6 +11,7 @@ import 'package:shirasu/model/prefecture_data.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/util/global.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_setting.freezed.dart';
@@ -51,22 +52,19 @@ class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
   /// todo check is disposed
   @override
   Future<void> initialize() async {
-    if (state is StateSuccess) return;
+    if (state is StateSuccess || state is StateLoading) return;
 
-    SettingModelState newState;
-    try {
+    notifyIfNotDisposed(() => state = const StateLoading());
+
+    final newState = await runCatch<SettingModelState>(trying: () async {
       final viewer = await apiClient.queryViewer();
       final locationStr = await _genLocationStr(dummyUser);
-      newState = StateSuccess(viewer, locationStr);
-    } catch (e) {
-      print(e);
-      newState = const StateError();
-    }
+      return StateSuccess(viewer, locationStr);
+    }, onError: (e) {
+      return const StateError();
+    });
 
-    if (!isDisposed) {
-      state = newState;
-      notifyListeners();
-    }
+    notifyIfNotDisposed(() => state = newState);
   }
 
   void updateBirthDate(DateTime birthDate) {
@@ -126,7 +124,6 @@ abstract class SettingModelState with _$SettingModelState {
 
 @freezed
 abstract class EditedUserInfo implements _$EditedUserInfo {
-  
   const factory EditedUserInfo({DateTime birthDate, String jobCode}) =
       _EditedUserInfo;
 

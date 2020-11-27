@@ -55,7 +55,7 @@ class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
           (it) =>
               it.videoTypeStrict == VideoType.LIVE &&
               it.mediaStatusStrict != MediaStatus.ENDED,
-          orElse: () => null);
+          orElse: () => null);// create extension method
 
       return detailPrgItem;
     } else

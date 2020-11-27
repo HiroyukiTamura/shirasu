@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -15,6 +16,7 @@ import 'package:shirasu/screen_main/page_dashboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
@@ -197,38 +199,13 @@ class _ListViewContent extends HookWidget {
                       child: Heading(text: Strings.HEADING_NEW_PRG),
                     );
 
-                  final rowIndex = i - 1;
-                  final start = rowIndex * _COLUMN_COUNT;
-                  final end = start + _COLUMN_COUNT;
-                  final children = newPrgData
-                      .getRange(start, end)
-                      .toList()
-                      .map<Widget>((item) {
-                    final width = constraints.maxWidth / _COLUMN_COUNT -
-                        GirdCardItem.HORIZONTAL_MARGIN * (_COLUMN_COUNT + 1);
-                    final height = width * Dimens.DASHBOARD_GRID_RATIO -
-                        GirdCardItem.HORIZONTAL_MARGIN * 2;
-                    return GirdCardItem(
-                      width: width,
-                      height: height,
-                      item: item,
-                      onTap: () async => context
-                          .read(appRouterProvider)
-                          .delegate
-                          .pushPage(GlobalRoutePath.program(item.id)),
-                    );
-                  }).toList(growable: false);
-
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                      right: GirdCardItem.HORIZONTAL_MARGIN,
-                      left: GirdCardItem.HORIZONTAL_MARGIN,
-                      top: GirdCardItem.HORIZONTAL_MARGIN * 2,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: children,
-                    ),
+                  final item = newPrgData[i - 1] as BaseProgram;
+                  return MovieListItem(
+                    program: item,
+                    onTap: () async => context
+                        .read(appRouterProvider)
+                        .delegate
+                        .pushPage(GlobalRoutePath.program(item.id)),
                   );
                 } else
                   return const CenterCircleProgress();

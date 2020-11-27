@@ -11,10 +11,11 @@ import 'package:shirasu/model/prefecture_data.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_setting.freezed.dart';
 
-class ViewModelSetting extends ChangeNotifier {
+class ViewModelSetting extends ChangeNotifier with ViewModelBase {
   final apiClient = ApiClient(Client());
   EditedUserInfo editedUserInfo = EditedUserInfo.empty();
   SettingModelState state = const SettingModelState.preInitialized();
@@ -48,19 +49,24 @@ class ViewModelSetting extends ChangeNotifier {
 
   /// todo should be synchronized?
   /// todo check is disposed
+  @override
   Future<void> setUpData() async {
     if (state is StateSuccess) return;
 
+    SettingModelState newState;
     try {
       final viewer = await apiClient.queryViewer();
       final locationStr = await _genLocationStr(dummyUser);
-      state = StateSuccess(viewer, locationStr);
+      newState = StateSuccess(viewer, locationStr);
     } catch (e) {
       print(e);
-      state = const StateError();
+      newState = const StateError();
     }
 
-    notifyListeners();
+    if (!isDisposed) {
+      state = newState;
+      notifyListeners();
+    }
   }
 
   void updateBirthDate(DateTime birthDate) {

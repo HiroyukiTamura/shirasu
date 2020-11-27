@@ -8,10 +8,11 @@ import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
-class ViewModelDetail extends ChangeNotifier {
+class ViewModelDetail extends ChangeNotifier with ViewModelBase {
   ViewModelDetail(this.id): super();
 
   final _apiClient = ApiClient(Client());
@@ -21,17 +22,23 @@ class ViewModelDetail extends ChangeNotifier {
   DetailModelState prgDataResult = const DetailModelState.preInitialized();
   PlayOutState playOutState = PlayOutState.initial();
 
+  @override
   Future<void> setUpData() async {
     if (prgDataResult is StateSuccess) return;
 
+    DetailModelState state;
     try {
       final result = await _apiClient.queryProgramDetail(id);
-      prgDataResult = DetailModelState.success(result);
+      state = DetailModelState.success(result);
     } catch (e) {
       print(e);
-      prgDataResult = const DetailModelState.error();
+      state = const DetailModelState.error();
     }
-    notifyListeners();
+
+    if (!isDisposed) {
+      prgDataResult = state;
+      notifyListeners();
+    }
   }
 
   DetailPrgItem _findAvailableVideoData() {

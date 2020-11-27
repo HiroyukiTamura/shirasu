@@ -584,6 +584,13 @@ class _$WatchHistoryStateTearOff {
   }
 
 // ignore: unused_element
+  StateLoadingMore loadingMore(List<WatchHistoriesData> watchHistories) {
+    return StateLoadingMore(
+      watchHistories,
+    );
+  }
+
+// ignore: unused_element
   StateError error() {
     return const StateError();
   }
@@ -600,6 +607,7 @@ mixin _$WatchHistoryState {
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
     @required TResult success(List<WatchHistoriesData> watchHistories),
+    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   });
   @optionalTypeArgs
@@ -607,6 +615,7 @@ mixin _$WatchHistoryState {
     TResult preInitialized(),
     TResult resultEmpty(),
     TResult success(List<WatchHistoriesData> watchHistories),
+    TResult loadingMore(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   });
@@ -615,6 +624,7 @@ mixin _$WatchHistoryState {
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult resultEmpty(StateResultEmpty value),
     @required TResult success(StateSuccess value),
+    @required TResult loadingMore(StateLoadingMore value),
     @required TResult error(StateError value),
   });
   @optionalTypeArgs
@@ -622,6 +632,7 @@ mixin _$WatchHistoryState {
     TResult preInitialized(StatePreInitialized value),
     TResult resultEmpty(StateResultEmpty value),
     TResult success(StateSuccess value),
+    TResult loadingMore(StateLoadingMore value),
     TResult error(StateError value),
     @required TResult orElse(),
   });
@@ -686,11 +697,13 @@ class _$StatePreInitialized implements StatePreInitialized {
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
     @required TResult success(List<WatchHistoriesData> watchHistories),
+    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
     assert(success != null);
+    assert(loadingMore != null);
     assert(error != null);
     return preInitialized();
   }
@@ -701,6 +714,7 @@ class _$StatePreInitialized implements StatePreInitialized {
     TResult preInitialized(),
     TResult resultEmpty(),
     TResult success(List<WatchHistoriesData> watchHistories),
+    TResult loadingMore(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -717,11 +731,13 @@ class _$StatePreInitialized implements StatePreInitialized {
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult resultEmpty(StateResultEmpty value),
     @required TResult success(StateSuccess value),
+    @required TResult loadingMore(StateLoadingMore value),
     @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
     assert(success != null);
+    assert(loadingMore != null);
     assert(error != null);
     return preInitialized(this);
   }
@@ -732,6 +748,7 @@ class _$StatePreInitialized implements StatePreInitialized {
     TResult preInitialized(StatePreInitialized value),
     TResult resultEmpty(StateResultEmpty value),
     TResult success(StateSuccess value),
+    TResult loadingMore(StateLoadingMore value),
     TResult error(StateError value),
     @required TResult orElse(),
   }) {
@@ -789,11 +806,13 @@ class _$StateResultEmpty implements StateResultEmpty {
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
     @required TResult success(List<WatchHistoriesData> watchHistories),
+    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
     assert(success != null);
+    assert(loadingMore != null);
     assert(error != null);
     return resultEmpty();
   }
@@ -804,6 +823,7 @@ class _$StateResultEmpty implements StateResultEmpty {
     TResult preInitialized(),
     TResult resultEmpty(),
     TResult success(List<WatchHistoriesData> watchHistories),
+    TResult loadingMore(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -820,11 +840,13 @@ class _$StateResultEmpty implements StateResultEmpty {
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult resultEmpty(StateResultEmpty value),
     @required TResult success(StateSuccess value),
+    @required TResult loadingMore(StateLoadingMore value),
     @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
     assert(success != null);
+    assert(loadingMore != null);
     assert(error != null);
     return resultEmpty(this);
   }
@@ -835,6 +857,7 @@ class _$StateResultEmpty implements StateResultEmpty {
     TResult preInitialized(StatePreInitialized value),
     TResult resultEmpty(StateResultEmpty value),
     TResult success(StateSuccess value),
+    TResult loadingMore(StateLoadingMore value),
     TResult error(StateError value),
     @required TResult orElse(),
   }) {
@@ -917,11 +940,13 @@ class _$StateSuccess implements StateSuccess {
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
     @required TResult success(List<WatchHistoriesData> watchHistories),
+    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
     assert(success != null);
+    assert(loadingMore != null);
     assert(error != null);
     return success(watchHistories);
   }
@@ -932,6 +957,7 @@ class _$StateSuccess implements StateSuccess {
     TResult preInitialized(),
     TResult resultEmpty(),
     TResult success(List<WatchHistoriesData> watchHistories),
+    TResult loadingMore(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -948,11 +974,13 @@ class _$StateSuccess implements StateSuccess {
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult resultEmpty(StateResultEmpty value),
     @required TResult success(StateSuccess value),
+    @required TResult loadingMore(StateLoadingMore value),
     @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
     assert(success != null);
+    assert(loadingMore != null);
     assert(error != null);
     return success(this);
   }
@@ -963,6 +991,7 @@ class _$StateSuccess implements StateSuccess {
     TResult preInitialized(StatePreInitialized value),
     TResult resultEmpty(StateResultEmpty value),
     TResult success(StateSuccess value),
+    TResult loadingMore(StateLoadingMore value),
     TResult error(StateError value),
     @required TResult orElse(),
   }) {
@@ -980,6 +1009,145 @@ abstract class StateSuccess implements WatchHistoryState {
 
   List<WatchHistoriesData> get watchHistories;
   $StateSuccessCopyWith<StateSuccess> get copyWith;
+}
+
+/// @nodoc
+abstract class $StateLoadingMoreCopyWith<$Res> {
+  factory $StateLoadingMoreCopyWith(
+          StateLoadingMore value, $Res Function(StateLoadingMore) then) =
+      _$StateLoadingMoreCopyWithImpl<$Res>;
+  $Res call({List<WatchHistoriesData> watchHistories});
+}
+
+/// @nodoc
+class _$StateLoadingMoreCopyWithImpl<$Res>
+    extends _$WatchHistoryStateCopyWithImpl<$Res>
+    implements $StateLoadingMoreCopyWith<$Res> {
+  _$StateLoadingMoreCopyWithImpl(
+      StateLoadingMore _value, $Res Function(StateLoadingMore) _then)
+      : super(_value, (v) => _then(v as StateLoadingMore));
+
+  @override
+  StateLoadingMore get _value => super._value as StateLoadingMore;
+
+  @override
+  $Res call({
+    Object watchHistories = freezed,
+  }) {
+    return _then(StateLoadingMore(
+      watchHistories == freezed
+          ? _value.watchHistories
+          : watchHistories as List<WatchHistoriesData>,
+    ));
+  }
+}
+
+/// @nodoc
+class _$StateLoadingMore implements StateLoadingMore {
+  const _$StateLoadingMore(this.watchHistories)
+      : assert(watchHistories != null);
+
+  @override
+  final List<WatchHistoriesData> watchHistories;
+
+  @override
+  String toString() {
+    return 'WatchHistoryState.loadingMore(watchHistories: $watchHistories)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is StateLoadingMore &&
+            (identical(other.watchHistories, watchHistories) ||
+                const DeepCollectionEquality()
+                    .equals(other.watchHistories, watchHistories)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(watchHistories);
+
+  @override
+  $StateLoadingMoreCopyWith<StateLoadingMore> get copyWith =>
+      _$StateLoadingMoreCopyWithImpl<StateLoadingMore>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult resultEmpty(),
+    @required TResult success(List<WatchHistoriesData> watchHistories),
+    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    @required TResult error(),
+  }) {
+    assert(preInitialized != null);
+    assert(resultEmpty != null);
+    assert(success != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return loadingMore(watchHistories);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult resultEmpty(),
+    TResult success(List<WatchHistoriesData> watchHistories),
+    TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (loadingMore != null) {
+      return loadingMore(watchHistories);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(StatePreInitialized value),
+    @required TResult resultEmpty(StateResultEmpty value),
+    @required TResult success(StateSuccess value),
+    @required TResult loadingMore(StateLoadingMore value),
+    @required TResult error(StateError value),
+  }) {
+    assert(preInitialized != null);
+    assert(resultEmpty != null);
+    assert(success != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return loadingMore(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(StatePreInitialized value),
+    TResult resultEmpty(StateResultEmpty value),
+    TResult success(StateSuccess value),
+    TResult loadingMore(StateLoadingMore value),
+    TResult error(StateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (loadingMore != null) {
+      return loadingMore(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StateLoadingMore implements WatchHistoryState {
+  const factory StateLoadingMore(List<WatchHistoriesData> watchHistories) =
+      _$StateLoadingMore;
+
+  List<WatchHistoriesData> get watchHistories;
+  $StateLoadingMoreCopyWith<StateLoadingMore> get copyWith;
 }
 
 /// @nodoc
@@ -1023,11 +1191,13 @@ class _$StateError implements StateError {
     @required TResult preInitialized(),
     @required TResult resultEmpty(),
     @required TResult success(List<WatchHistoriesData> watchHistories),
+    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
     assert(success != null);
+    assert(loadingMore != null);
     assert(error != null);
     return error();
   }
@@ -1038,6 +1208,7 @@ class _$StateError implements StateError {
     TResult preInitialized(),
     TResult resultEmpty(),
     TResult success(List<WatchHistoriesData> watchHistories),
+    TResult loadingMore(List<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -1054,11 +1225,13 @@ class _$StateError implements StateError {
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult resultEmpty(StateResultEmpty value),
     @required TResult success(StateSuccess value),
+    @required TResult loadingMore(StateLoadingMore value),
     @required TResult error(StateError value),
   }) {
     assert(preInitialized != null);
     assert(resultEmpty != null);
     assert(success != null);
+    assert(loadingMore != null);
     assert(error != null);
     return error(this);
   }
@@ -1069,6 +1242,7 @@ class _$StateError implements StateError {
     TResult preInitialized(StatePreInitialized value),
     TResult resultEmpty(StateResultEmpty value),
     TResult success(StateSuccess value),
+    TResult loadingMore(StateLoadingMore value),
     TResult error(StateError value),
     @required TResult orElse(),
   }) {

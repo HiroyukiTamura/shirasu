@@ -4,85 +4,103 @@ import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/watch_history_data.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart' show ApiClientResult;
 
 part 'viewmodel_subscribing.freezed.dart';
 
-class ViewModelSubscribing extends ChangeNotifier {
+class ViewModelSubscribing extends ChangeNotifier with ViewModelBase {
   final _apiClient = ApiClient(Client());
 
   FeatureProgramState programData = const FeatureProgramStatePreInitialized();
 
+  @override
   Future<void> setUpData() async {
-    if (!(programData is FeatureProgramStateSuccess)) {
-      try {
-        final data = await _apiClient.queryFeaturedProgramsList();
-        programData = FeatureProgramStateSuccess(data);
-      } catch (e) {
-        print(e);
-        programData = const FeatureProgramStateError();
-      }
+    FeatureProgramState state;
+    if (programData is FeatureProgramStateSuccess)
+      return;
+
+    try {
+      final data = await _apiClient.queryFeaturedProgramsList();
+      state = FeatureProgramStateSuccess(data);
+    } catch (e) {
+      print(e);
+      state = const FeatureProgramStateError();
+    }
+
+    if (!isDisposed) {
+      programData = state;
       notifyListeners();
     }
   }
 }
 
-class ViewModelWatchHistory extends ChangeNotifier {
+class ViewModelWatchHistory extends ChangeNotifier with ViewModelBase {
 
   final _apiClient = ApiClient(Client());
-  bool _isLoadMoreCommanded = false;
 
   WatchHistoryState watchHistoryState = const StatePreInitialized();
 
-  bool get isLoadMoreCommanded => _isLoadMoreCommanded;
-
+  @override
   Future<void> setUpData() async {
-    if (!(watchHistoryState is StateSuccess)) {
-      try {
-        final data = await _apiClient.queryWatchHistory();
-        watchHistoryState = StateSuccess([data]);
-      } catch (e) {
-        print(e);
-        watchHistoryState = const StateError();
-      }
+
+    WatchHistoryState state;
+
+    if (watchHistoryState is StateSuccess)
+      return;
+
+    try {
+      final data = await _apiClient.queryWatchHistory();
+      state = StateSuccess([data]);
+    } catch (e) {
+      print(e);
+      state = const StateError();
+    }
+
+    if (!isDisposed) {
+      watchHistoryState = state;
       notifyListeners();
     }
   }
 
-  Future<ApiClientResult> loadMoreWatchHistory() async {
-    if (_isLoadMoreCommanded)
-      return ApiClientResult.CANCELED;
 
-    final data = watchHistoryState;
-    if (data is StateSuccess) {
-      final nextToken = data.watchHistories.last.viewerUser.watchHistories.nextToken;
+  Future<void> loadMoreWatchHistory() async {
+    if (watchHistoryState is StateLoadingMore)
+      return;
+
+    final oldState = watchHistoryState;
+    if (oldState is StateSuccess) {
+      final nextToken = oldState.watchHistories.last.viewerUser.watchHistories.nextToken;
       if (nextToken == null)
-        return ApiClientResult.CANCELED;
+        return;
 
-      watchHistoryState = StateSuccess(data.watchHistories);
-      _isLoadMoreCommanded = true;
+      // we don't check isDisposed because there is no async functions above
+      watchHistoryState = StateLoadingMore(oldState.watchHistories);
+      notifyListeners();
 
       try {
         final newOne = await _apiClient.queryWatchHistory(
           nextToken: nextToken,
         );
-        data.watchHistories.add(newOne);
+
+        if (!isDisposed)
+          return ApiClientResult.CANCELED;
+
+        oldState.watchHistories.add(newOne);
+        watchHistoryState = StateSuccess(oldState.watchHistories);
         notifyListeners();
 
-        if (newOne.viewerUser.watchHistories.items.isEmpty)
-          return ApiClientResult.NO_MORE;
+        if (newOne.viewerUser.watchHistories.items.isEmpty) {
+          //todo show SnackBar
+        }
 
-        return ApiClientResult.SUCCESS;
+        return;
 
       } catch (e) {
         debugPrint(e.toString());
-        return ApiClientResult.FAILURE;
-      } finally {
-        _isLoadMoreCommanded = false;
+        //todo show SnackBar
       }
-
-    } else
-      return ApiClientResult.FAILURE;
+    }
   }
 }
 
@@ -99,5 +117,6 @@ abstract class WatchHistoryState with _$WatchHistoryState {
   const factory WatchHistoryState.preInitialized() = StatePreInitialized;
   const factory WatchHistoryState.resultEmpty() = StateResultEmpty;
   const factory WatchHistoryState.success(List<WatchHistoriesData> watchHistories) = StateSuccess;
+  const factory WatchHistoryState.loadingMore(List<WatchHistoriesData> watchHistories) = StateLoadingMore;
   const factory WatchHistoryState.error() = StateError;
 }

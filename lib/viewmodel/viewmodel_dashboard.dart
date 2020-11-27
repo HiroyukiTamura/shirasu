@@ -1,33 +1,37 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-class ViewModelDashBoard extends ValueNotifier<DashboardModelState> {
+class ViewModelDashBoard extends ValueNotifier<DashboardModelState> with ViewModelBase {
   ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
   bool _isLoadMoreCommanded = false;
-  bool _isMounted = true;
 
-  bool get isMounted => _isMounted;
-
-  void onDispose() => _isMounted = false;
-
-  Future<void> requestPrograms() async {
+  @override
+  Future<void> setUpData() async {
+    DashboardModelState state;
     try {
       final featureProgramData = await _apiClient.queryFeaturedProgramsList();
       final newProgramsData = await _apiClient.queryNewProgramsList();
 
-      value = DashboardModelState.success(DashboardModel(
-            featureProgramData: featureProgramData,
-            newProgramsData: newProgramsData,
-          ));
+      state = DashboardModelState.success(DashboardModel(
+        featureProgramData: featureProgramData,
+        newProgramsData: newProgramsData,
+      ));
     } catch (e) {
       print(e);
-      value = const StateError();
+      state = const StateError();
+    }
+
+    if (!isDisposed) {
+      value = state;
+      notifyListeners();
     }
   }
 

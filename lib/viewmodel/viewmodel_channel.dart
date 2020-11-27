@@ -3,25 +3,33 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/channel_data.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_channel.freezed.dart';
 
-class ViewModelChannel extends ValueNotifier<ChannelDataResult> {
+class ViewModelChannel extends ValueNotifier<ChannelDataResult> with ViewModelBase {
   ViewModelChannel(this._channelId) : super(const PreInitialized());
 
   final apiClient = ApiClient(Client());
   final String _channelId;
 
+  @override
   Future<void> setUpData() async {
     if (value is Success)
       return;
 
+    ChannelDataResult result;
     try {
       final data = await apiClient.queryChannelData(_channelId);
-      value = Success(data);
+      result = Success(data);
     } catch (e) {
       print(e);
-      value = const Error();
+      result = const Error();
+    }
+
+    if (!isDisposed) {
+      value = result;
+      notifyListeners();
     }
   }
 }

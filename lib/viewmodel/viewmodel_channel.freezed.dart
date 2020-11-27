@@ -19,6 +19,11 @@ class _$ChannelDataResultTearOff {
   }
 
 // ignore: unused_element
+  Loading loading() {
+    return const Loading();
+  }
+
+// ignore: unused_element
   Success success(ChannelData channelData) {
     return Success(
       channelData,
@@ -40,12 +45,14 @@ mixin _$ChannelDataResult {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
+    @required TResult loading(),
     @required TResult success(ChannelData channelData),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
+    TResult loading(),
     TResult success(ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
@@ -53,12 +60,14 @@ mixin _$ChannelDataResult {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult preInitialized(PreInitialized value),
+    @required TResult loading(Loading value),
     @required TResult success(Success value),
     @required TResult error(Error value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(PreInitialized value),
+    TResult loading(Loading value),
     TResult success(Success value),
     TResult error(Error value),
     @required TResult orElse(),
@@ -122,10 +131,12 @@ class _$PreInitialized implements PreInitialized {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
+    @required TResult loading(),
     @required TResult success(ChannelData channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
+    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return preInitialized();
@@ -135,6 +146,7 @@ class _$PreInitialized implements PreInitialized {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
+    TResult loading(),
     TResult success(ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
@@ -150,10 +162,12 @@ class _$PreInitialized implements PreInitialized {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult preInitialized(PreInitialized value),
+    @required TResult loading(Loading value),
     @required TResult success(Success value),
     @required TResult error(Error value),
   }) {
     assert(preInitialized != null);
+    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return preInitialized(this);
@@ -163,6 +177,7 @@ class _$PreInitialized implements PreInitialized {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(PreInitialized value),
+    TResult loading(Loading value),
     TResult success(Success value),
     TResult error(Error value),
     @required TResult orElse(),
@@ -177,6 +192,106 @@ class _$PreInitialized implements PreInitialized {
 
 abstract class PreInitialized implements ChannelDataResult {
   const factory PreInitialized() = _$PreInitialized;
+}
+
+/// @nodoc
+abstract class $LoadingCopyWith<$Res> {
+  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
+      _$LoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$LoadingCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
+    implements $LoadingCopyWith<$Res> {
+  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
+      : super(_value, (v) => _then(v as Loading));
+
+  @override
+  Loading get _value => super._value as Loading;
+}
+
+/// @nodoc
+class _$Loading implements Loading {
+  const _$Loading();
+
+  @override
+  String toString() {
+    return 'ChannelDataResult.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is Loading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult loading(),
+    @required TResult success(ChannelData channelData),
+    @required TResult error(),
+  }) {
+    assert(preInitialized != null);
+    assert(loading != null);
+    assert(success != null);
+    assert(error != null);
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult loading(),
+    TResult success(ChannelData channelData),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(PreInitialized value),
+    @required TResult loading(Loading value),
+    @required TResult success(Success value),
+    @required TResult error(Error value),
+  }) {
+    assert(preInitialized != null);
+    assert(loading != null);
+    assert(success != null);
+    assert(error != null);
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(PreInitialized value),
+    TResult loading(Loading value),
+    TResult success(Success value),
+    TResult error(Error value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Loading implements ChannelDataResult {
+  const factory Loading() = _$Loading;
 }
 
 /// @nodoc
@@ -250,10 +365,12 @@ class _$Success implements Success {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
+    @required TResult loading(),
     @required TResult success(ChannelData channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
+    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return success(channelData);
@@ -263,6 +380,7 @@ class _$Success implements Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
+    TResult loading(),
     TResult success(ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
@@ -278,10 +396,12 @@ class _$Success implements Success {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult preInitialized(PreInitialized value),
+    @required TResult loading(Loading value),
     @required TResult success(Success value),
     @required TResult error(Error value),
   }) {
     assert(preInitialized != null);
+    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return success(this);
@@ -291,6 +411,7 @@ class _$Success implements Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(PreInitialized value),
+    TResult loading(Loading value),
     TResult success(Success value),
     TResult error(Error value),
     @required TResult orElse(),
@@ -347,10 +468,12 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
+    @required TResult loading(),
     @required TResult success(ChannelData channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
+    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return error();
@@ -360,6 +483,7 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
+    TResult loading(),
     TResult success(ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
@@ -375,10 +499,12 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult preInitialized(PreInitialized value),
+    @required TResult loading(Loading value),
     @required TResult success(Success value),
     @required TResult error(Error value),
   }) {
     assert(preInitialized != null);
+    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return error(this);
@@ -388,6 +514,7 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(PreInitialized value),
+    TResult loading(Loading value),
     TResult success(Success value),
     TResult error(Error value),
     @required TResult orElse(),

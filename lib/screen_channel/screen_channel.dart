@@ -17,6 +17,7 @@ import 'package:shirasu/screen_channel/page_movie_list.dart';
 import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
 
 final _channelProvider = ChangeNotifierProvider.autoDispose
@@ -48,14 +49,15 @@ class _ScreenChannelState extends State<ScreenChannel>
 
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(_channelProvider(_channelId)).setUpData();
+      context.read(_channelProvider(_channelId)).initialize();
 
   @override
   Widget build(BuildContext context) =>
       Scaffold(
         body: useProvider(_channelProvider(_channelId)).value.when(
           preInitialized: () => const CenterCircleProgress(),
-          error: () => const SizedBox(), //todo show error widget
+          loading: () => const CenterCircleProgress(),
+          error: () => const PageError(),
           success: (channelData) {
             final isAnnouncementEmpty = channelData.channel
                 .announcements.items.isEmpty;

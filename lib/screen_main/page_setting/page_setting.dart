@@ -43,12 +43,13 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
     with AfterLayoutMixin<PageSettingInMainScreen> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(settingViewModelProvider).setUpData();
+      context.read(settingViewModelProvider).initialize();
 
   @override
   Widget build(BuildContext context) =>
       useProvider(settingViewModelProvider.select((it) => it.state)).when(
         preInitialized: () => const CenterCircleProgress(),
+        loading: () => const CenterCircleProgress(),
         error: () => const PageError(), //todo implement
         success: (data, locationStr) => ListView.builder(
           padding:

@@ -7,29 +7,24 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_channel.freezed.dart';
 
-class ViewModelChannel extends ValueNotifier<ChannelDataResult> with ViewModelBase {
+class ViewModelChannel extends DisposableValueNotifier<ChannelDataResult> with ViewModelBase {
   ViewModelChannel(this._channelId) : super(const PreInitialized());
 
   final apiClient = ApiClient(Client());
   final String _channelId;
 
   @override
-  Future<void> setUpData() async {
-    if (value is Success)
+  Future<void> initialize() async {
+    if (value is Success || value is Loading)
       return;
 
-    ChannelDataResult result;
     try {
+      value = const ChannelDataResult.loading();
       final data = await apiClient.queryChannelData(_channelId);
-      result = Success(data);
+      value = ChannelDataResult.success(data);
     } catch (e) {
       print(e);
-      result = const Error();
-    }
-
-    if (!isDisposed) {
-      value = result;
-      notifyListeners();
+      value = const ChannelDataResult.error();
     }
   }
 }
@@ -37,6 +32,7 @@ class ViewModelChannel extends ValueNotifier<ChannelDataResult> with ViewModelBa
 @freezed
 abstract class ChannelDataResult with _$ChannelDataResult {
   const factory ChannelDataResult.preInitialized() = PreInitialized;
+  const factory ChannelDataResult.loading() = Loading;
   const factory ChannelDataResult.success(ChannelData channelData) = Success;
   const factory ChannelDataResult.error() = Error;
 }

@@ -39,7 +39,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
     with AfterLayoutMixin<PageDashboardInMainScreen> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(dashBoardProvider).setUpData();
+      context.read(dashBoardProvider).initialize();
 
   @override
   Widget build(BuildContext context) => useProvider(dashBoardProvider)

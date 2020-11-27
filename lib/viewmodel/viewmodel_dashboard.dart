@@ -7,14 +7,14 @@ import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-class ViewModelDashBoard extends ValueNotifier<DashboardModelState> with ViewModelBase {
+class ViewModelDashBoard extends DisposableValueNotifier<DashboardModelState> with ViewModelBase {
   ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
   bool _isLoadMoreCommanded = false;
 
   @override
-  Future<void> setUpData() async {
+  Future<void> initialize() async {
     DashboardModelState state;
     try {
       final featureProgramData = await _apiClient.queryFeaturedProgramsList();

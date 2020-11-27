@@ -12,7 +12,7 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
-class ViewModelDetail extends ChangeNotifier with ViewModelBase {
+class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
   ViewModelDetail(this.id): super();
 
   final _apiClient = ApiClient(Client());
@@ -23,11 +23,12 @@ class ViewModelDetail extends ChangeNotifier with ViewModelBase {
   PlayOutState playOutState = PlayOutState.initial();
 
   @override
-  Future<void> setUpData() async {
+  Future<void> initialize() async {
     if (prgDataResult is StateSuccess) return;
 
     DetailModelState state;
     try {
+      notifyIfNotDisposed(() => prgDataResult = const DetailModelState.loading());
       final result = await _apiClient.queryProgramDetail(id);
       state = DetailModelState.success(result);
     } catch (e) {
@@ -35,10 +36,7 @@ class ViewModelDetail extends ChangeNotifier with ViewModelBase {
       state = const DetailModelState.error();
     }
 
-    if (!isDisposed) {
-      prgDataResult = state;
-      notifyListeners();
-    }
+    notifyIfNotDisposed(() => prgDataResult = state);
   }
 
   DetailPrgItem _findAvailableVideoData() {
@@ -92,6 +90,7 @@ class ViewModelDetail extends ChangeNotifier with ViewModelBase {
 @freezed
 abstract class DetailModelState with _$DetailModelState {
   const factory DetailModelState.preInitialized() = PreInitialized;
+  const factory DetailModelState.loading() = StateLoading;
   const factory DetailModelState.success(ProgramDetailData data) = StateSuccess;
   const factory DetailModelState.error() = StateError;
 }

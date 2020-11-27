@@ -15,7 +15,7 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_setting.freezed.dart';
 
-class ViewModelSetting extends ChangeNotifier with ViewModelBase {
+class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
   final apiClient = ApiClient(Client());
   EditedUserInfo editedUserInfo = EditedUserInfo.empty();
   SettingModelState state = const SettingModelState.preInitialized();
@@ -50,7 +50,7 @@ class ViewModelSetting extends ChangeNotifier with ViewModelBase {
   /// todo should be synchronized?
   /// todo check is disposed
   @override
-  Future<void> setUpData() async {
+  Future<void> initialize() async {
     if (state is StateSuccess) return;
 
     SettingModelState newState;
@@ -115,6 +115,8 @@ class ViewModelSetting extends ChangeNotifier with ViewModelBase {
 @freezed
 abstract class SettingModelState with _$SettingModelState {
   const factory SettingModelState.preInitialized() = StatePreInitialized;
+
+  const factory SettingModelState.loading() = StateLoading;
 
   const factory SettingModelState.success(Viewer data, String locationStr) =
       StateSuccess;

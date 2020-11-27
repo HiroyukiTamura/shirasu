@@ -31,29 +31,31 @@ class _SubscribingWidgetState extends State<SubscribingWidget>
     with AfterLayoutMixin<SubscribingWidget> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(_viewmodelProvider).setUpData();
+      context.read(_viewmodelProvider).initialize();
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewmodelProvider.select((value) => value.programData)).when(
-          preInitialized: () => const CenterCircleProgress(),
-          success: (programData) => ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                itemBuilder: (context, i) {
-                  final item = programData.viewerUser.subscribedPrograms[i];
-                  return MovieListBigItem(
-                    program: item as BaseProgram,
-                    onTap: () async =>
-                        context.read(appRouterProvider).delegate.pushPage(
-                              GlobalRoutePath.program(item.id),
-                            ),
-                  );
-                },
-                itemCount: programData.viewerUser.subscribedPrograms.length,
-              ),
-          resultEmpty: () => const EmptyListWidget(
-                text: Strings.SUBSCRIBING_EMPTY_MSG,
-                icon: Icons.history,
-              ),
-          error: () => const PageError());
+      useProvider(_viewmodelProvider).value.when(
+            preInitialized: () => const CenterCircleProgress(),
+            loading: () => const CenterCircleProgress(),
+            error: () => const PageError(),
+            resultEmpty: () => const EmptyListWidget(
+              text: Strings.SUBSCRIBING_EMPTY_MSG,
+              icon: Icons.history,
+            ),
+            success: (programData) => ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              itemBuilder: (context, i) {
+                final item = programData.viewerUser.subscribedPrograms[i];
+                return MovieListBigItem(
+                  program: item as BaseProgram,
+                  onTap: () async =>
+                      context.read(appRouterProvider).delegate.pushPage(
+                            GlobalRoutePath.program(item.id),
+                          ),
+                );
+              },
+              itemCount: programData.viewerUser.subscribedPrograms.length,
+            ),
+          );
 }

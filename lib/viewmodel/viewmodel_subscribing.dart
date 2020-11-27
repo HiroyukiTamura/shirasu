@@ -9,74 +9,59 @@ import 'package:shirasu/viewmodel/viewmodel_dashboard.dart' show ApiClientResult
 
 part 'viewmodel_subscribing.freezed.dart';
 
-class ViewModelSubscribing extends ChangeNotifier with ViewModelBase {
+class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> with ViewModelBase {
+
+  ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
+
   final _apiClient = ApiClient(Client());
 
-  FeatureProgramState programData = const FeatureProgramStatePreInitialized();
-
   @override
-  Future<void> setUpData() async {
-    FeatureProgramState state;
-    if (programData is FeatureProgramStateSuccess)
+  Future<void> initialize() async {
+    if (value is FeatureProgramStateSuccess || value is FeatureProgramStateLoading)
       return;
 
     try {
       final data = await _apiClient.queryFeaturedProgramsList();
-      state = FeatureProgramStateSuccess(data);
+      value = FeatureProgramStateSuccess(data);
     } catch (e) {
       print(e);
-      state = const FeatureProgramStateError();
-    }
-
-    if (!isDisposed) {
-      programData = state;
-      notifyListeners();
+      value = const FeatureProgramStateError();
     }
   }
 }
 
-class ViewModelWatchHistory extends ChangeNotifier with ViewModelBase {
+class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> with ViewModelBase {
+
+  ViewModelWatchHistory() : super(const StatePreInitialized());
 
   final _apiClient = ApiClient(Client());
 
-  WatchHistoryState watchHistoryState = const StatePreInitialized();
-
   @override
-  Future<void> setUpData() async {
-
-    WatchHistoryState state;
-
-    if (watchHistoryState is StateSuccess)
+  Future<void> initialize() async {
+    if (value is StateSuccess || value is StateLoading)
       return;
 
     try {
+      value = const StateLoading();
       final data = await _apiClient.queryWatchHistory();
-      state = StateSuccess([data]);
+      value = StateSuccess([data]);
     } catch (e) {
       print(e);
-      state = const StateError();
+      value = const StateError();
     }
 
-    if (!isDisposed) {
-      watchHistoryState = state;
-      notifyListeners();
-    }
+    notifyListeners();
   }
 
 
   Future<void> loadMoreWatchHistory() async {
-    if (watchHistoryState is StateLoadingMore)
-      return;
-
-    final oldState = watchHistoryState;
+    final oldState = value;
     if (oldState is StateSuccess) {
       final nextToken = oldState.watchHistories.last.viewerUser.watchHistories.nextToken;
       if (nextToken == null)
         return;
 
-      // we don't check isDisposed because there is no async functions above
-      watchHistoryState = StateLoadingMore(oldState.watchHistories);
-      notifyListeners();
+      value = StateLoadingMore(oldState.watchHistories);
 
       try {
         final newOne = await _apiClient.queryWatchHistory(
@@ -87,8 +72,7 @@ class ViewModelWatchHistory extends ChangeNotifier with ViewModelBase {
           return ApiClientResult.CANCELED;
 
         oldState.watchHistories.add(newOne);
-        watchHistoryState = StateSuccess(oldState.watchHistories);
-        notifyListeners();
+        value = StateSuccess(oldState.watchHistories);
 
         if (newOne.viewerUser.watchHistories.items.isEmpty) {
           //todo show SnackBar
@@ -107,6 +91,7 @@ class ViewModelWatchHistory extends ChangeNotifier with ViewModelBase {
 @freezed
 abstract class FeatureProgramState with _$FeatureProgramState {
   const factory FeatureProgramState.preInitialized() = FeatureProgramStatePreInitialized;
+  const factory FeatureProgramState.loading() = FeatureProgramStateLoading;
   const factory FeatureProgramState.resultEmpty() = FeatureProgramStateResultEmpty;
   const factory FeatureProgramState.success(FeatureProgramData featureProgramData) = FeatureProgramStateSuccess;
   const factory FeatureProgramState.error() = FeatureProgramStateError;
@@ -115,6 +100,7 @@ abstract class FeatureProgramState with _$FeatureProgramState {
 @freezed
 abstract class WatchHistoryState with _$WatchHistoryState {
   const factory WatchHistoryState.preInitialized() = StatePreInitialized;
+  const factory WatchHistoryState.loading() = StateLoading;
   const factory WatchHistoryState.resultEmpty() = StateResultEmpty;
   const factory WatchHistoryState.success(List<WatchHistoriesData> watchHistories) = StateSuccess;
   const factory WatchHistoryState.loadingMore(List<WatchHistoriesData> watchHistories) = StateLoadingMore;

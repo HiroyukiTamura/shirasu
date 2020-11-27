@@ -33,47 +33,46 @@ class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
     with AfterLayoutMixin<WatchHistoryWidget> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(_viewmodelProvider).setUpData();
+      context.read(_viewmodelProvider).initialize();
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewmodelProvider.select((value) => value.watchHistoryState))
-          .when(
-              preInitialized: () => const CenterCircleProgress(),
-              loadingMore: (watchHistories) => _ContentListView(
-                    watchHistories: watchHistories,
-                    showLoadingIndicator: false,
-                  ),
-              success: (watchHistories) => _ContentListView(
-                    watchHistories: watchHistories,
-                    showLoadingIndicator: true,
-                  ),
-              resultEmpty: () => const EmptyListWidget(
-                    text: Strings.WATCH_HISTORY_EMPTY_MSG,
-                    icon: Icons.history,
-                  ),
-              error: () => const PageError());
-
+      useProvider(_viewmodelProvider).value.when(
+          loading: () => const CenterCircleProgress(),
+          preInitialized: () => const CenterCircleProgress(),
+          loadingMore: (watchHistories) => _ContentListView(
+                watchHistories: watchHistories,
+                showLoadingIndicator: false,
+              ),
+          success: (watchHistories) => _ContentListView(
+                watchHistories: watchHistories,
+                showLoadingIndicator: true,
+              ),
+          resultEmpty: () => const EmptyListWidget(
+                text: Strings.WATCH_HISTORY_EMPTY_MSG,
+                icon: Icons.history,
+              ),
+          error: () => const PageError());
 
   /// todo refactor @see [_ListViewContent._loadMore]
-  // Future<void> _loadMore(BuildContext context) async {
-  //   final result =
-  //       await context.read(_viewmodelProvider).loadMoreWatchHistory();
-  //
-  //   switch (result) {
-  //     case ApiClientResult.NO_MORE:
-  //       const snackBar = SnackBar(content: Text(Strings.SNACK_NO_MORE_ITEM));
-  //       Scaffold.of(context).showSnackBar(snackBar);
-  //       break;
-  //     case ApiClientResult.FAILURE:
-  //       const snackBar = SnackBar(content: Text(Strings.SNACK_ERR));
-  //       Scaffold.of(context).showSnackBar(snackBar);
-  //       break;
-  //     default:
-  //       // do nothing
-  //       break;
-  //   }
-  // }
+// Future<void> _loadMore(BuildContext context) async {
+//   final result =
+//       await context.read(_viewmodelProvider).loadMoreWatchHistory();
+//
+//   switch (result) {
+//     case ApiClientResult.NO_MORE:
+//       const snackBar = SnackBar(content: Text(Strings.SNACK_NO_MORE_ITEM));
+//       Scaffold.of(context).showSnackBar(snackBar);
+//       break;
+//     case ApiClientResult.FAILURE:
+//       const snackBar = SnackBar(content: Text(Strings.SNACK_ERR));
+//       Scaffold.of(context).showSnackBar(snackBar);
+//       break;
+//     default:
+//       // do nothing
+//       break;
+//   }
+// }
 }
 
 class _ContentListView extends HookWidget {

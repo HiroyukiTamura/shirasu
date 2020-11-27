@@ -35,13 +35,15 @@ class ScreenDetail extends StatefulWidget {
   _ScreenDetailState createState() => _ScreenDetailState(id);
 }
 
-class _ScreenDetailState extends State<ScreenDetail> with AfterLayoutMixin<ScreenDetail> {
+class _ScreenDetailState extends State<ScreenDetail>
+    with AfterLayoutMixin<ScreenDetail> {
   _ScreenDetailState(this._id);
 
   final String _id;
 
   @override
-  void afterFirstLayout(BuildContext context) => context.read(detailProvider(_id)).setUpData();
+  void afterFirstLayout(BuildContext context) =>
+      context.read(detailProvider(_id)).initialize();
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -60,6 +62,7 @@ class _PrgResultHookedWidget extends HookWidget {
   Widget build(BuildContext context) =>
       useProvider(detailProvider(id).select((value) => value.prgDataResult))
           .when(
+        loading: () => const CenterCircleProgress(),
         preInitialized: () => const CenterCircleProgress(),
         success: (data) => _ContentWidget(data: data),
         error: () => const PageError(),
@@ -81,8 +84,9 @@ class _ContentWidget extends StatelessWidget {
               VideoHeader(
                 height: headerH,
                 programId: data.program.id,
-                onTap: () =>
-                    context.read(detailProvider(data.program.id)).playVideo(),//todo don't context.read in onTap
+                onTap: () => context
+                    .read(detailProvider(data.program.id))
+                    .playVideo(), //todo don't context.read in onTap
               ),
               SizedBox(
                 height: listViewH,

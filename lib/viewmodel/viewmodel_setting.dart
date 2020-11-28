@@ -12,7 +12,7 @@ import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util/global.dart';
-import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/base/viewmodel_base.dart';
 
 part 'viewmodel_setting.freezed.dart';
 

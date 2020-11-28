@@ -4,16 +4,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
-import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
-import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/base/viewmodel_base.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
 class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
-  ViewModelDetail(this.id): super();
+  ViewModelDetail(this.id) : super();
 
   final _apiClient = ApiClient(Client());
   final _dioClient = DioClient();
@@ -24,11 +23,25 @@ class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
 
   @override
   Future<void> initialize() async {
-    if (prgDataResult is StateSuccess) return;
+    if (!(prgDataResult is PreInitialized)) return;
+    //
+    // tryNotifyState<DetailModelState1, DetailModelState>(
+    //   preTrying: () => prgDataResult = const DetailModelState.loading(),
+    //   trying: () async {
+    //     final result = await _apiClient.queryProgramDetail(id);
+    //     return DetailModelState.success(result);
+    //   },
+    //   onError: (e) {
+    //     print(e);
+    //     return const DetailModelState.error();
+    //   },
+    //   postTrying: (result) => prgDataResult = result,
+    // );
 
     DetailModelState state;
     try {
-      notifyIfNotDisposed(() => prgDataResult = const DetailModelState.loading());
+      notifyIfNotDisposed(
+          () => prgDataResult = const DetailModelState.loading());
       final result = await _apiClient.queryProgramDetail(id);
       state = DetailModelState.success(result);
     } catch (e) {
@@ -55,7 +68,7 @@ class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
           (it) =>
               it.videoTypeStrict == VideoType.LIVE &&
               it.mediaStatusStrict != MediaStatus.ENDED,
-          orElse: () => null);// create extension method
+          orElse: () => null); // create extension method
 
       return detailPrgItem;
     } else
@@ -66,7 +79,8 @@ class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
     final prg = _findAvailableVideoData();
     if (prg == null) return; // todo handle error
 
-    playOutState = PlayOutState.initialize(prg.urlAvailable, prg.videoTypeStrict);
+    playOutState =
+        PlayOutState.initialize(prg.urlAvailable, prg.videoTypeStrict);
     notifyListeners();
 
     String cookie;
@@ -78,10 +92,10 @@ class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
       print(e);
     }
 
-    if (cookie == null)
-      return;
+    if (cookie == null) return;
 
-    playOutState = PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict, cookie);
+    playOutState =
+        PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict, cookie);
 
     notifyListeners();
   }
@@ -118,13 +132,14 @@ class PlayOutState {
       );
 
   factory PlayOutState.play(
-      String hlsMediaUrl, VideoType videoType, String cookie) => PlayOutState._(
-      commandedState: PlayerCommandedState.POST_PLAY,
-      playerState: PlayerState.PLAYING,
-      hlsMediaUrl: hlsMediaUrl,
-      videoType: videoType,
-      cookie: cookie,
-    );
+          String hlsMediaUrl, VideoType videoType, String cookie) =>
+      PlayOutState._(
+        commandedState: PlayerCommandedState.POST_PLAY,
+        playerState: PlayerState.PLAYING,
+        hlsMediaUrl: hlsMediaUrl,
+        videoType: videoType,
+        cookie: cookie,
+      );
 
   final PlayerCommandedState commandedState;
   final PlayerState playerState;

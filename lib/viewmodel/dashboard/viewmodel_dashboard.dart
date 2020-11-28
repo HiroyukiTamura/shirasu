@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
-import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/base/viewmodel_base.dart';
 
 class ViewModelDashBoard extends DisposableValueNotifier<DashboardModelState> with ViewModelBase {
   ViewModelDashBoard() : super(const DashboardModelState.preInitialized());

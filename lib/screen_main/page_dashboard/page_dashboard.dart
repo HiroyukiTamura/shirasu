@@ -18,7 +18,7 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
+import 'package:shirasu/viewmodel/dashboard/viewmodel_dashboard.dart';
 
 final dashBoardProvider =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>((ref) {

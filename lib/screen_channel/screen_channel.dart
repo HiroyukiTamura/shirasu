@@ -18,7 +18,7 @@ import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/viewmodel/viewmodel_channel.dart';
+import 'package:shirasu/viewmodel/channel/viewmodel_channel.dart';
 
 final _channelProvider = ChangeNotifierProvider.autoDispose
     .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(id));

@@ -9,6 +9,7 @@ import 'package:shirasu/viewmodel/viewmodel_dashboard.dart' show ApiClientResult
 
 part 'viewmodel_subscribing.freezed.dart';
 
+
 class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> with ViewModelBase {
 
   ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());

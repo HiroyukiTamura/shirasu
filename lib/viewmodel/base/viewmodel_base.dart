@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shirasu/viewmodel/base/base_state.dart';
 
-mixin DisposeState<T> {
+mixin DisposeState {
   bool _isDisposed = false;
 
   bool get isDisposed => _isDisposed;
@@ -13,7 +13,7 @@ mixin DisposeState<T> {
 }
 
 abstract class DisposableValueNotifier<T extends BaseStateGroup> extends ValueNotifier<T>
-    with DisposeState<T> {
+    with DisposeState {
   DisposableValueNotifier(this.handler) : super(handler.preInitialized() as T);
 
   final BaseStateImpl handler;

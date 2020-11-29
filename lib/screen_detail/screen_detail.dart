@@ -17,12 +17,19 @@ import 'package:shirasu/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/video_holder.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/viewmodel/viewmodel_detail.dart';
+import 'package:shirasu/viewmodel/detail/detail_api_notifer.dart';
+import 'package:shirasu/viewmodel/detail/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:after_layout/after_layout.dart';
 
+final detailApiProvider = ChangeNotifierProvider.autoDispose
+    .family<DetailApiNotifier, String>((ref, id) => DetailApiNotifier(id));
+
 final detailProvider = ChangeNotifierProvider.autoDispose
-    .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id));
+    .family<ViewModelDetail, String>((ref, id) {
+      final detailApiNotifier = ref.watch(detailApiProvider(id));
+      return ViewModelDetail(id, detailApiNotifier);
+    });
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
@@ -59,14 +66,16 @@ class _PrgResultHookedWidget extends HookWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context) =>
-      useProvider(detailProvider(id).select((value) => value.prgDataResult))
-          .when(
-        loading: () => const CenterCircleProgress(),
-        preInitialized: () => const CenterCircleProgress(),
-        success: (data) => _ContentWidget(data: data),
-        error: () => const PageError(),
-      );
+  Widget build(BuildContext context) {
+    useProvider(detailApiProvider(id)).handler;
+    // return useProvider(detailProvider(id).select((value) => value.prgDataResult))
+    //       .when(
+    //     loading: () => const CenterCircleProgress(),
+    //     preInitialized: () => const CenterCircleProgress(),
+    //     success: (data) => _ContentWidget(data: data),
+    //     error: () => const PageError(),
+    //   );
+  }
 }
 
 class _ContentWidget extends StatelessWidget {

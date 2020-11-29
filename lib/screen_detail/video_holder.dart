@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_playout/video.dart';
 import 'package:shirasu/model/video_type.dart';
-import 'package:shirasu/viewmodel/viewmodel_detail.dart';
+import 'package:shirasu/viewmodel/detail/viewmodel_detail.dart';
 
 class VideoHolder {
   Video video;

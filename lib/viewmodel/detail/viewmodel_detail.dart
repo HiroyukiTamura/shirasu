@@ -8,14 +8,16 @@ import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
 import 'package:shirasu/viewmodel/base/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/detail/detail_api_notifer.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
 class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
-  ViewModelDetail(this.id) : super();
+  ViewModelDetail(this.id, this.detailApiNotifier) : super();
 
   final _apiClient = ApiClient(Client());
   final _dioClient = DioClient();
+  final DetailApiNotifier detailApiNotifier;
   final String id;
 
   DetailModelState prgDataResult = const DetailModelState.preInitialized();
@@ -99,14 +101,6 @@ class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
 
     notifyListeners();
   }
-}
-
-@freezed
-abstract class DetailModelState with _$DetailModelState {
-  const factory DetailModelState.preInitialized() = PreInitialized;
-  const factory DetailModelState.loading() = StateLoading;
-  const factory DetailModelState.success(ProgramDetailData data) = StateSuccess;
-  const factory DetailModelState.error() = StateError;
 }
 
 class PlayOutState {

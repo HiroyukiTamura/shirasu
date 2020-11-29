@@ -11,6 +11,7 @@ part 'viewmodel_subscribing.freezed.dart';
 
 class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> with ViewModelBase {
 
+
   ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
 
   final _apiClient = ApiClient(Client());

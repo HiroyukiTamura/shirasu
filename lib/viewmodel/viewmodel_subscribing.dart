@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/watch_history_data.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart' show ApiClientResult;
 
@@ -34,9 +35,10 @@ class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> 
 
 class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> with ViewModelBase {
 
-  ViewModelWatchHistory() : super(const StatePreInitialized());
+  ViewModelWatchHistory(this.msgNotifier) : super(const StatePreInitialized());
 
   final _apiClient = ApiClient(Client());
+  final SnackBarMessageNotifier msgNotifier;
 
   @override
   Future<void> initialize() async {
@@ -62,6 +64,7 @@ class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> w
       if (nextToken == null)
         return;
 
+      // we don't check if Disposed
       value = StateLoadingMore(oldState.watchHistories);
 
       try {
@@ -75,15 +78,14 @@ class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> w
         oldState.watchHistories.add(newOne);
         value = StateSuccess(oldState.watchHistories);
 
-        if (newOne.viewerUser.watchHistories.items.isEmpty) {
-          //todo show SnackBar
-        }
+        if (newOne.viewerUser.watchHistories.items.isEmpty)
+          msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
 
         return;
 
       } catch (e) {
         debugPrint(e.toString());
-        //todo show SnackBar
+        msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
       }
     }
   }

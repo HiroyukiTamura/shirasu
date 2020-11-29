@@ -42,7 +42,7 @@ class Strings {
 //endregion
 
   //region SnackBar
-  static const String SNACK_NO_MORE_ITEM = '新着番組は他にありません';
+  static const String SNACK_NO_MORE_ITEM = 'アイテムは他にありません';
   static const String SNACK_ERR = '処理に失敗しました';
 
   //endregion

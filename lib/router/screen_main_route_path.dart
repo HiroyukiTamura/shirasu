@@ -34,7 +34,7 @@ class GlobalRoutePathBase {
         setting: setting,
       );
     else
-      throw UnimplementedError(
+      throw UnsupportedError(
           'unexpected routePath type: ${routePath.runtimeType}');
   }
 }

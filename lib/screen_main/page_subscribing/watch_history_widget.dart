@@ -15,12 +15,16 @@ import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
+import 'package:shirasu/ui_common/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
 final _viewmodelProvider =
     ChangeNotifierProvider.autoDispose<ViewModelWatchHistory>(
-        (_) => ViewModelWatchHistory());
+        (ref) {
+          final snackBarMsgNotifier = ref.read(snackBarMsgProvider);
+          return ViewModelWatchHistory(snackBarMsgNotifier);
+        });
 
 class WatchHistoryWidget extends StatefulHookWidget {
   const WatchHistoryWidget({Key key}) : super(key: key);
@@ -46,7 +50,7 @@ class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
               ),
           success: (watchHistories) => _ContentListView(
                 watchHistories: watchHistories,
-                showLoadingIndicator: true,
+                showLoadingIndicator: true, //todo fix
               ),
           resultEmpty: () => const EmptyListWidget(
                 text: Strings.WATCH_HISTORY_EMPTY_MSG,
@@ -96,24 +100,38 @@ class _ContentListView extends HookWidget {
     int itemCount = items.length;
     if (showLoadingIndicator) itemCount++;
 
-    final listView = ListView.builder(
-      controller: sc,
-      padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
-      itemBuilder: (context, i) {
-        if (showLoadingIndicator && i == items.length - 1)
-          return const CenterCircleProgress();
-        else {
-          final program = items[i].program as BaseProgram; //todo why cast?
-          return MovieListItem(
-            program: program,
-            onTap: () async => context
-                .read(appRouterProvider)
-                .delegate
-                .pushPage(GlobalRoutePath.program(program.id)),
-          );
-        }
+    final listView = ProviderListener<SnackBarMessageNotifier>(
+      onChange: (context, viewModel) {
+        if (viewModel.value == null)
+          return;
+
+        final text = Util.convert2SnackText(viewModel.value);
+        final snackBar = SnackBar(content: Text(text));
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
+        viewModel.clear();
       },
-      itemCount: itemCount,
+      provider: snackBarMsgProvider,
+      child: ListView.builder(
+        controller: sc,
+        padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
+        itemBuilder: (context, i) {
+          if (showLoadingIndicator && i == items.length - 1)
+            return const CenterCircleProgress();
+          else {
+            final program = items[i].program as BaseProgram; //todo why cast?
+            return MovieListItem(
+              program: program,
+              onTap: () async => context
+                  .read(appRouterProvider)
+                  .delegate
+                  .pushPage(GlobalRoutePath.program(program.id)),
+            );
+          }
+        },
+        itemCount: itemCount,
+      ),
     );
 
     return showLoadingIndicator

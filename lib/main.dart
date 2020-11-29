@@ -8,10 +8,10 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/app_router_asset.dart';
-import 'package:shirasu/router/app_router_delegate.dart';
-import 'package:tuple/tuple.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+
+final snackBarMsgProvider = ChangeNotifierProvider((_) => SnackBarMessageNotifier());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

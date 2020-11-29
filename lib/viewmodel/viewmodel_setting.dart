@@ -63,10 +63,7 @@ class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
       newState = const StateError();
     }
 
-    if (!isDisposed) {
-      state = newState;
-      notifyListeners();
-    }
+    notifyIfNotDisposed(() => state = newState);
   }
 
   void updateBirthDate(DateTime birthDate) {

@@ -15,23 +15,17 @@ class ViewModelDashBoard extends DisposableValueNotifier<DashboardModelState> wi
 
   @override
   Future<void> initialize() async {
-    DashboardModelState state;
     try {
       final featureProgramData = await _apiClient.queryFeaturedProgramsList();
       final newProgramsData = await _apiClient.queryNewProgramsList();
 
-      state = DashboardModelState.success(DashboardModel(
+      value = DashboardModelState.success(DashboardModel(
         featureProgramData: featureProgramData,
         newProgramsData: newProgramsData,
       ));
     } catch (e) {
       print(e);
-      state = const StateError();
-    }
-
-    if (!isDisposed) {
-      value = state;
-      notifyListeners();
+      value = const StateError();
     }
   }
 

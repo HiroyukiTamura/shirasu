@@ -11,15 +11,16 @@ part 'viewmodel_subscribing.freezed.dart';
 
 class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> with ViewModelBase {
 
-
   ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
 
   final _apiClient = ApiClient(Client());
 
   @override
   Future<void> initialize() async {
-    if (value is FeatureProgramStateSuccess || value is FeatureProgramStateLoading)
+    if (!(value is FeatureProgramStatePreInitialized))
       return;
+
+    value = const FeatureProgramStatePreInitialized();
 
     try {
       final data = await _apiClient.queryFeaturedProgramsList();
@@ -39,19 +40,18 @@ class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> w
 
   @override
   Future<void> initialize() async {
-    if (value is StateSuccess || value is StateLoading)
+    if (!(value is StatePreInitialized))
       return;
 
+    value = const StateLoading();
+
     try {
-      value = const StateLoading();
       final data = await _apiClient.queryWatchHistory();
       value = StateSuccess([data]);
     } catch (e) {
       print(e);
       value = const StateError();
     }
-
-    notifyListeners();
   }
 
 

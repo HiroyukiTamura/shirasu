@@ -117,7 +117,7 @@ class _ContentListView extends HookWidget {
         controller: sc,
         padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
         itemBuilder: (context, i) {
-          if (showLoadingIndicator && i == items.length - 1)
+          if (showLoadingIndicator && i == itemCount - 1)
             return const CenterCircleProgress();
           else {
             final program = items[i].program as BaseProgram; //todo why cast?

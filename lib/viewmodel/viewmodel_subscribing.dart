@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/watch_history_data.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';

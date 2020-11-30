@@ -15,7 +15,8 @@ abstract class DisposableValueNotifier<T> extends ValueNotifier<T> with DisposeS
 
   @override
   set value(T newValue) {
-    if (!isDisposed) super.value = newValue;
+    if (!isDisposed)
+      super.value = newValue;
   }
 }
 

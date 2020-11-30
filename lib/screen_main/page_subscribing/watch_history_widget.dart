@@ -13,6 +13,7 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/model/base_model.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/ui_common/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
@@ -45,7 +46,7 @@ class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
           preInitialized: () => const CenterCircleProgress(),
           loadingMore: (watchHistories) => _ContentListView(
                 watchHistories: watchHistories,
-                showLoadingIndicator: false,
+                showLoadingIndicator: true,
               ),
           success: (watchHistories) => _ContentListView(
                 watchHistories: watchHistories,
@@ -79,19 +80,7 @@ class _ContentListView extends HookWidget {
     int itemCount = items.length;
     if (showLoadingIndicator) itemCount++;
 
-    final listView = ProviderListener<SnackBarMessageNotifier>(
-      onChange: (context, viewModel) {
-        if (viewModel.state == null)
-          return;
-
-        final text = Util.convert2SnackText(viewModel.state);
-        final snackBar = SnackBar(content: Text(text));
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(snackBar);
-        viewModel.clear();
-      },
-      provider: snackBarMsgProvider,
+    final listView = MsgNtfListener(
       child: ListView.builder(
         controller: sc,
         padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),

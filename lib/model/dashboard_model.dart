@@ -6,18 +6,15 @@ import 'package:shirasu/model/new_programs_data.dart';
 
 part 'dashboard_model.freezed.dart';
 
-@immutable
-class DashboardModel {
-  DashboardModel({
-    @required this.featureProgramData,
-    NewProgramsData newProgramsData,
-  }) : newProgramsDataList = [newProgramsData];
+@freezed
+abstract class DashboardModel implements _$DashboardModel {
 
-  final FeatureProgramData featureProgramData;
-  final List<NewProgramsData> newProgramsDataList;
+  const factory DashboardModel(
+      FeatureProgramData featureProgramData,
+      List<NewProgramsData> newProgramsDataList,
+      ) = _DashboardModel;
 
-  void appendNewPrograms(NewProgramsData newOne) =>
-      newProgramsDataList.add(newOne);
+  const DashboardModel._();
 
   List<NewProgramItem> get allNewPrograms => newProgramsDataList
       .map((it) => it.newPrograms.items)
@@ -27,6 +24,7 @@ class DashboardModel {
 
 @freezed
 abstract class DashboardModelState with _$DashboardModelState {
+  const factory DashboardModelState.loadingMore(DashboardModel dashboardModel) = StateLoadmore;
   const factory DashboardModelState.preInitialized() = StatePreInitialized;
   const factory DashboardModelState.success(DashboardModel dashboardModel) = StateSuccess;
   const factory DashboardModelState.error() = StateError;

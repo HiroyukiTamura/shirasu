@@ -6,13 +6,14 @@ import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 class ViewModelDashBoard extends StateNotifier<DashboardModelState> with ViewModelBase, LocatorMixin, SafeStateSetter<DashboardModelState> {
-  ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
+  ViewModelDashBoard(this.msgNotifier) : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
-  bool _isLoadMoreCommanded = false;
+  final SnackBarMessageNotifier msgNotifier;
 
   @override
   Future<void> initialize() async {
@@ -24,8 +25,7 @@ class ViewModelDashBoard extends StateNotifier<DashboardModelState> with ViewMod
       final newProgramsData = await _apiClient.queryNewProgramsList();
 
       newModel = DashboardModelState.success(DashboardModel(
-        featureProgramData: featureProgramData,
-        newProgramsData: newProgramsData,
+        featureProgramData, [newProgramsData]
       ));
     } catch (e) {
       print(e);
@@ -35,43 +35,34 @@ class ViewModelDashBoard extends StateNotifier<DashboardModelState> with ViewMod
     setState(newModel);
   }
 
-  //todo exclusion control
-  Future<ApiClientResult> loadMoreNewPrg() async {
-    if (_isLoadMoreCommanded)
-      return ApiClientResult.CANCELED;
 
-    _isLoadMoreCommanded = true;
-
-    final v = state;
-    if (v is StateSuccess) {
-      final nextToken = v.dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
+  Future<void> loadMoreNewPrg() async {
+    final oldState = state;
+    if (oldState is StateSuccess) {
+      final nextToken = oldState.dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
       if (nextToken == null)
-        return ApiClientResult.FAILURE;
+        return;
+
+      // we don't check if Disposed
+      state = StateLoadmore(oldState.dashboardModel);
 
       try {
         final newProgramsData = await _apiClient.queryNewProgramsList(
           nextToken: nextToken,
         );
-        v.dashboardModel.appendNewPrograms(newProgramsData);
-        notifyListeners();
-        if (newProgramsData.newPrograms.items.isEmpty)
-          return ApiClientResult.NO_MORE;
 
-        return ApiClientResult.SUCCESS;
+        oldState.dashboardModel.newProgramsDataList.add(newProgramsData);
+        setState(StateSuccess(oldState.dashboardModel));
+
+        if (newProgramsData.newPrograms.items.isEmpty)
+          msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
 
       } catch (e) {
         debugPrint(e.toString());
-        return ApiClientResult.FAILURE;
-      } finally {
-        _isLoadMoreCommanded = false;
+        setState(const StateError());
+        msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
       }
-
-    } else
-      return ApiClientResult.FAILURE;
+    }
   }
-}
-
-enum ApiClientResult {
-  SUCCESS, FAILURE, NO_MORE, CANCELED,
 }
 

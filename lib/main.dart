@@ -12,7 +12,7 @@ import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 // todo should dispose?
-final snackBarMsgProvider = ChangeNotifierProvider<SnackBarMessageNotifier>(
+final snackBarMsgProvider = StateNotifierProvider<SnackBarMessageNotifier>(
     (_) => SnackBarMessageNotifier());
 
 Future<void> main() async {

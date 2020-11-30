@@ -6,24 +6,17 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
-import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
-import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final _viewmodelProvider =
-    ChangeNotifierProvider.autoDispose<ViewModelSubscribing>(
-        (ref) {
-          final viewModel = ViewModelSubscribing();
-          ref.listenDispose(viewModel);
-          return viewModel;
-        });
+    StateNotifierProvider.autoDispose<ViewModelSubscribing>(
+        (_) => ViewModelSubscribing());
 
 class SubscribingWidget extends StatefulHookWidget {
   const SubscribingWidget({Key key}) : super(key: key);
@@ -40,7 +33,7 @@ class _SubscribingWidgetState extends State<SubscribingWidget>
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewmodelProvider).value.when(
+      useProvider(_viewmodelProvider).state.when(
             preInitialized: () => const CenterCircleProgress(),
             loading: () => const CenterCircleProgress(),
             error: () => const PageError(),

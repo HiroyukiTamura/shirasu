@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -19,14 +18,9 @@ import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
-import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final _channelProvider = ChangeNotifierProvider.autoDispose
-    .family<ViewModelChannel, String>((ref, id) {
-      final viewModel = ViewModelChannel(id);
-      ref.listenDispose(viewModel);
-      return viewModel;
-    });
+    .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(id));
 
 class ScreenChannel extends StatefulHookWidget {
   const ScreenChannel({Key key, @required this.channelId}) : super(key: key);
@@ -59,7 +53,7 @@ class _ScreenChannelState extends State<ScreenChannel>
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        body: useProvider(_channelProvider(_channelId)).value.when(
+        body: useProvider(_channelProvider(_channelId)).state.when(
           preInitialized: () => const CenterCircleProgress(),
           loading: () => const CenterCircleProgress(),
           error: () => const PageError(),

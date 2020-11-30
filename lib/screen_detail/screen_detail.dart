@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_playout/video.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -20,14 +18,9 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final detailProvider = ChangeNotifierProvider.autoDispose
-    .family<ViewModelDetail, String>((ref, id) {
-      final viewModel = ViewModelDetail(id);
-      ref.listenDispose(viewModel);
-      return viewModel;
-    });
+    .family<ViewModelDetail, String>((_, id) => ViewModelDetail(id));
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
@@ -65,7 +58,7 @@ class _PrgResultHookedWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(detailProvider(id).select((value) => value.prgDataResult))
+      useProvider(detailProvider(id).select((value) => value.state.prgDataResult))
           .when(
         loading: () => const CenterCircleProgress(),
         preInitialized: () => const CenterCircleProgress(),

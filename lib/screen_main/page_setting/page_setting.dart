@@ -3,10 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:intl/intl.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/payment_methods_list.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -20,22 +18,16 @@ import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_subscribed_channel.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_title.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_top.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
-import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final settingViewModelProvider =
     ChangeNotifierProvider.autoDispose<ViewModelSetting>(
-        (ref) {
-          final viewModel = ViewModelSetting();
-          ref.listenDispose(viewModel);
-          return viewModel;
-        });
+        (ref) => ViewModelSetting());
 
 class PageSettingInMainScreen extends StatefulHookWidget {
   const PageSettingInMainScreen({Key key}) : super(key: key);
@@ -52,7 +44,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(settingViewModelProvider.select((it) => it.state)).when(
+      useProvider(settingViewModelProvider.select((it) => it.state.settingModelState)).when(
         preInitialized: () => const CenterCircleProgress(),
         loading: () => const CenterCircleProgress(),
         error: () => const PageError(), //todo implement

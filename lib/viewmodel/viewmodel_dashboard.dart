@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-class ViewModelDashBoard extends DisposableValueNotifier<DashboardModelState> with ViewModelBase {
+class ViewModelDashBoard extends StateNotifier<DashboardModelState> with ViewModelBase, LocatorMixin, SafeStateSetter<DashboardModelState> {
   ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
@@ -15,18 +16,23 @@ class ViewModelDashBoard extends DisposableValueNotifier<DashboardModelState> wi
 
   @override
   Future<void> initialize() async {
+
+    DashboardModelState newModel;
+
     try {
       final featureProgramData = await _apiClient.queryFeaturedProgramsList();
       final newProgramsData = await _apiClient.queryNewProgramsList();
 
-      value = DashboardModelState.success(DashboardModel(
+      newModel = DashboardModelState.success(DashboardModel(
         featureProgramData: featureProgramData,
         newProgramsData: newProgramsData,
       ));
     } catch (e) {
       print(e);
-      value = const StateError();
+      newModel = const StateError();
     }
+
+    setState(newModel);
   }
 
   //todo exclusion control
@@ -36,7 +42,7 @@ class ViewModelDashBoard extends DisposableValueNotifier<DashboardModelState> wi
 
     _isLoadMoreCommanded = true;
 
-    final v = value;
+    final v = state;
     if (v is StateSuccess) {
       final nextToken = v.dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
       if (nextToken == null)

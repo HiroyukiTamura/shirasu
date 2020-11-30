@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'viewmodel_setting.dart';
+part of 'model_setting.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -687,4 +687,180 @@ abstract class _EditedUserInfo extends EditedUserInfo {
   String get jobCode;
   @override
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith;
+}
+
+/// @nodoc
+class _$SettingModelTearOff {
+  const _$SettingModelTearOff();
+
+// ignore: unused_element
+  _SettingModel call(
+      SettingModelState settingModelState, EditedUserInfo editedUserInfo) {
+    return _SettingModel(
+      settingModelState,
+      editedUserInfo,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $SettingModel = _$SettingModelTearOff();
+
+/// @nodoc
+mixin _$SettingModel {
+  SettingModelState get settingModelState;
+  EditedUserInfo get editedUserInfo;
+
+  $SettingModelCopyWith<SettingModel> get copyWith;
+}
+
+/// @nodoc
+abstract class $SettingModelCopyWith<$Res> {
+  factory $SettingModelCopyWith(
+          SettingModel value, $Res Function(SettingModel) then) =
+      _$SettingModelCopyWithImpl<$Res>;
+  $Res call(
+      {SettingModelState settingModelState, EditedUserInfo editedUserInfo});
+
+  $SettingModelStateCopyWith<$Res> get settingModelState;
+  $EditedUserInfoCopyWith<$Res> get editedUserInfo;
+}
+
+/// @nodoc
+class _$SettingModelCopyWithImpl<$Res> implements $SettingModelCopyWith<$Res> {
+  _$SettingModelCopyWithImpl(this._value, this._then);
+
+  final SettingModel _value;
+  // ignore: unused_field
+  final $Res Function(SettingModel) _then;
+
+  @override
+  $Res call({
+    Object settingModelState = freezed,
+    Object editedUserInfo = freezed,
+  }) {
+    return _then(_value.copyWith(
+      settingModelState: settingModelState == freezed
+          ? _value.settingModelState
+          : settingModelState as SettingModelState,
+      editedUserInfo: editedUserInfo == freezed
+          ? _value.editedUserInfo
+          : editedUserInfo as EditedUserInfo,
+    ));
+  }
+
+  @override
+  $SettingModelStateCopyWith<$Res> get settingModelState {
+    if (_value.settingModelState == null) {
+      return null;
+    }
+    return $SettingModelStateCopyWith<$Res>(_value.settingModelState, (value) {
+      return _then(_value.copyWith(settingModelState: value));
+    });
+  }
+
+  @override
+  $EditedUserInfoCopyWith<$Res> get editedUserInfo {
+    if (_value.editedUserInfo == null) {
+      return null;
+    }
+    return $EditedUserInfoCopyWith<$Res>(_value.editedUserInfo, (value) {
+      return _then(_value.copyWith(editedUserInfo: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$SettingModelCopyWith<$Res>
+    implements $SettingModelCopyWith<$Res> {
+  factory _$SettingModelCopyWith(
+          _SettingModel value, $Res Function(_SettingModel) then) =
+      __$SettingModelCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {SettingModelState settingModelState, EditedUserInfo editedUserInfo});
+
+  @override
+  $SettingModelStateCopyWith<$Res> get settingModelState;
+  @override
+  $EditedUserInfoCopyWith<$Res> get editedUserInfo;
+}
+
+/// @nodoc
+class __$SettingModelCopyWithImpl<$Res> extends _$SettingModelCopyWithImpl<$Res>
+    implements _$SettingModelCopyWith<$Res> {
+  __$SettingModelCopyWithImpl(
+      _SettingModel _value, $Res Function(_SettingModel) _then)
+      : super(_value, (v) => _then(v as _SettingModel));
+
+  @override
+  _SettingModel get _value => super._value as _SettingModel;
+
+  @override
+  $Res call({
+    Object settingModelState = freezed,
+    Object editedUserInfo = freezed,
+  }) {
+    return _then(_SettingModel(
+      settingModelState == freezed
+          ? _value.settingModelState
+          : settingModelState as SettingModelState,
+      editedUserInfo == freezed
+          ? _value.editedUserInfo
+          : editedUserInfo as EditedUserInfo,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_SettingModel implements _SettingModel {
+  const _$_SettingModel(this.settingModelState, this.editedUserInfo)
+      : assert(settingModelState != null),
+        assert(editedUserInfo != null);
+
+  @override
+  final SettingModelState settingModelState;
+  @override
+  final EditedUserInfo editedUserInfo;
+
+  @override
+  String toString() {
+    return 'SettingModel(settingModelState: $settingModelState, editedUserInfo: $editedUserInfo)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _SettingModel &&
+            (identical(other.settingModelState, settingModelState) ||
+                const DeepCollectionEquality()
+                    .equals(other.settingModelState, settingModelState)) &&
+            (identical(other.editedUserInfo, editedUserInfo) ||
+                const DeepCollectionEquality()
+                    .equals(other.editedUserInfo, editedUserInfo)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(settingModelState) ^
+      const DeepCollectionEquality().hash(editedUserInfo);
+
+  @override
+  _$SettingModelCopyWith<_SettingModel> get copyWith =>
+      __$SettingModelCopyWithImpl<_SettingModel>(this, _$identity);
+}
+
+abstract class _SettingModel implements SettingModel {
+  const factory _SettingModel(
+          SettingModelState settingModelState, EditedUserInfo editedUserInfo) =
+      _$_SettingModel;
+
+  @override
+  SettingModelState get settingModelState;
+  @override
+  EditedUserInfo get editedUserInfo;
+  @override
+  _$SettingModelCopyWith<_SettingModel> get copyWith;
 }

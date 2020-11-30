@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/main.dart';
@@ -11,7 +12,8 @@ import 'package:shirasu/viewmodel/viewmodel_dashboard.dart' show ApiClientResult
 
 part 'viewmodel_subscribing.freezed.dart';
 
-class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> with ViewModelBase {
+//todo fix lint config as concerned to lack of generics
+class ViewModelSubscribing extends StateNotifier<FeatureProgramState> with ViewModelBase, SafeStateSetter<FeatureProgramState> {
 
   ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
 
@@ -19,22 +21,24 @@ class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> 
 
   @override
   Future<void> initialize() async {
-    if (!(value is FeatureProgramStatePreInitialized))
+    if (!(state is FeatureProgramStatePreInitialized))
       return;
 
-    value = const FeatureProgramStatePreInitialized();
+    state = const FeatureProgramStatePreInitialized();
 
+    FeatureProgramState newState;
     try {
       final data = await _apiClient.queryFeaturedProgramsList();
-      value = FeatureProgramStateSuccess(data);
+      newState = FeatureProgramStateSuccess(data);
     } catch (e) {
       print(e);
-      value = const FeatureProgramStateError();
+      newState = const FeatureProgramStateError();
     }
+    setState(newState);
   }
 }
 
-class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> with ViewModelBase {
+class ViewModelWatchHistory extends StateNotifier<WatchHistoryState> with ViewModelBase, SafeStateSetter<WatchHistoryState> {
 
   ViewModelWatchHistory(this.msgNotifier) : super(const StatePreInitialized());
 
@@ -43,41 +47,42 @@ class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> w
 
   @override
   Future<void> initialize() async {
-    if (!(value is StatePreInitialized))
+    if (!(state is StatePreInitialized))
       return;
 
-    value = const StateLoading();
+    state = const StateLoading();
+
+    WatchHistoryState newState;
 
     try {
       final data = await _apiClient.queryWatchHistory();
-      value = StateSuccess([data]);
+      state = StateSuccess([data]);
     } catch (e) {
       print(e);
-      value = const StateError();
+      state = const StateError();
     }
+
+    setState(newState);
   }
 
 
   Future<void> loadMoreWatchHistory() async {
-    final oldState = value;
+    final oldState = state;
     if (oldState is StateSuccess) {
       final nextToken = oldState.watchHistories.last.viewerUser.watchHistories.nextToken;
       if (nextToken == null)
         return;
 
       // we don't check if Disposed
-      value = StateLoadingMore(oldState.watchHistories);
+      state = StateLoadingMore(oldState.watchHistories);
 
       try {
         final newOne = await _apiClient.queryWatchHistory(
           nextToken: nextToken,
         );
 
-        if (!isDisposed)
-          return ApiClientResult.CANCELED;
-
-        oldState.watchHistories.add(newOne);
-        value = StateSuccess(oldState.watchHistories);
+        oldState.watchHistories.add(newOne);//todo fix to watchHistories immutable collection
+        setState(StateSuccess(oldState.watchHistories));
 
         if (newOne.viewerUser.watchHistories.items.isEmpty)
           msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
@@ -85,6 +90,7 @@ class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> w
         return;
 
       } catch (e) {
+        setState(StateSuccess(oldState.watchHistories));
         debugPrint(e.toString());
         msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
       }

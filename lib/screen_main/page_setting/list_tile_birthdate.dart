@@ -14,7 +14,7 @@ class ListTileBirthDate extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final birthDate =
-        useProvider(settingViewModelProvider.select((it) => it.editedUserInfo))
+        useProvider(settingViewModelProvider.select((it) => it.state.editedUserInfo))
             .birthDate ??
             ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.birthDate;
     return PageSettingInMainScreenState.listItem(

@@ -21,12 +21,8 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-final dashBoardProvider =
-    ChangeNotifierProvider.autoDispose<ViewModelDashBoard>((ref) {
-  final viewModel = ViewModelDashBoard();
-  ref.listenDispose(viewModel);
-  return viewModel;
-});
+final dashBoardProvider = StateNotifierProvider.autoDispose<ViewModelDashBoard>(
+    (_) => ViewModelDashBoard());
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);
@@ -44,7 +40,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
 
   @override
   Widget build(BuildContext context) => useProvider(dashBoardProvider)
-      .value
+      .state
       .when(
         preInitialized: () => const CenterCircleProgress(),
         error: () => const PageError(), //todo show error widget
@@ -98,7 +94,7 @@ class _ListViewContent extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final model =
-        (context.read(dashBoardProvider).value as StateSuccess).dashboardModel;
+        (context.read(dashBoardProvider).state as StateSuccess).dashboardModel;
     final isFinish = model.newProgramsDataList?.isNotEmpty == true &&
         model.newProgramsDataList?.last?.newPrograms?.nextToken == null;
     final featurePrgData = model?.featureProgramData;

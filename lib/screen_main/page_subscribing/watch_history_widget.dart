@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/model/watch_history_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -18,15 +17,12 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/ui_common/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
-import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final _viewmodelProvider =
     ChangeNotifierProvider.autoDispose<ViewModelWatchHistory>(
         (ref) {
           final snackBarMsgNotifier = ref.read(snackBarMsgProvider);
-          final viewModel = ViewModelWatchHistory(snackBarMsgNotifier);
-          ref.listenDispose(viewModel);
-          return viewModel;
+          return ViewModelWatchHistory(snackBarMsgNotifier);
         });
 
 class WatchHistoryWidget extends StatefulHookWidget {
@@ -44,7 +40,7 @@ class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewmodelProvider).value.when(
+      useProvider(_viewmodelProvider).state.when(
           loading: () => const CenterCircleProgress(),
           preInitialized: () => const CenterCircleProgress(),
           loadingMore: (watchHistories) => _ContentListView(
@@ -53,33 +49,13 @@ class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
               ),
           success: (watchHistories) => _ContentListView(
                 watchHistories: watchHistories,
-                showLoadingIndicator: true, //todo fix
+                showLoadingIndicator: watchHistories.last.viewerUser.watchHistories.nextToken != null,
               ),
           resultEmpty: () => const EmptyListWidget(
                 text: Strings.WATCH_HISTORY_EMPTY_MSG,
                 icon: Icons.history,
               ),
           error: () => const PageError());
-
-  /// todo refactor @see [_ListViewContent._loadMore]
-// Future<void> _loadMore(BuildContext context) async {
-//   final result =
-//       await context.read(_viewmodelProvider).loadMoreWatchHistory();
-//
-//   switch (result) {
-//     case ApiClientResult.NO_MORE:
-//       const snackBar = SnackBar(content: Text(Strings.SNACK_NO_MORE_ITEM));
-//       Scaffold.of(context).showSnackBar(snackBar);
-//       break;
-//     case ApiClientResult.FAILURE:
-//       const snackBar = SnackBar(content: Text(Strings.SNACK_ERR));
-//       Scaffold.of(context).showSnackBar(snackBar);
-//       break;
-//     default:
-//       // do nothing
-//       break;
-//   }
-// }
 }
 
 class _ContentListView extends HookWidget {
@@ -105,10 +81,10 @@ class _ContentListView extends HookWidget {
 
     final listView = ProviderListener<SnackBarMessageNotifier>(
       onChange: (context, viewModel) {
-        if (viewModel.value == null)
+        if (viewModel.state == null)
           return;
 
-        final text = Util.convert2SnackText(viewModel.value);
+        final text = Util.convert2SnackText(viewModel.state);
         final snackBar = SnackBar(content: Text(text));
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
@@ -137,6 +113,7 @@ class _ContentListView extends HookWidget {
       ),
     );
 
+    //todo must debug
     return showLoadingIndicator
         ? listView
         : NotificationListener<ScrollNotification>(

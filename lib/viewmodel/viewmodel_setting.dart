@@ -1,24 +1,22 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/model/country_data.dart';
 import 'package:shirasu/model/prefecture_data.dart';
-import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/model_setting.dart';
 
-part 'viewmodel_setting.freezed.dart';
+class ViewModelSetting extends StateNotifier<SettingModel> with ViewModelBase, SafeStateSetter {
 
-class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
-  final apiClient = ApiClient(Client());
-  EditedUserInfo editedUserInfo = EditedUserInfo.empty();
-  SettingModelState state = const SettingModelState.preInitialized();
+  ViewModelSetting(): super(SettingModel.initial());
+
+  final _apiClient = ApiClient(Client());
 
   static final User dummyUser = User(
     email: 'hogehoge@gmail.com',
@@ -51,11 +49,11 @@ class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
   /// todo check is disposed
   @override
   Future<void> initialize() async {
-    if (state is StateSuccess) return;
+    if (state.settingModelState is StateSuccess) return;
 
     SettingModelState newState;
     try {
-      final viewer = await apiClient.queryViewer();
+      final viewer = await _apiClient.queryViewer();
       final locationStr = await _genLocationStr(dummyUser);
       newState = StateSuccess(viewer, locationStr);
     } catch (e) {
@@ -63,17 +61,17 @@ class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
       newState = const StateError();
     }
 
-    notifyIfNotDisposed(() => state = newState);
+    setState(state.copyWith(settingModelState: newState));
   }
 
   void updateBirthDate(DateTime birthDate) {
-    editedUserInfo = editedUserInfo.copyWith(birthDate: birthDate);
-    notifyListeners();
+    final editedUserInfo = state.editedUserInfo.copyWith(birthDate: birthDate);
+    state = state.copyWith(editedUserInfo: editedUserInfo);
   }
 
   void updateJobCode(String jobCode) {
-    editedUserInfo = editedUserInfo.copyWith(jobCode: jobCode);
-    notifyListeners();
+    final editedUserInfo = state.editedUserInfo.copyWith(jobCode: jobCode);
+    state = state.copyWith(editedUserInfo: editedUserInfo);
   }
 
   /// [countryCode] : ex. JP
@@ -107,29 +105,4 @@ class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
     }
     return countryStr;
   }
-}
-
-@freezed
-abstract class SettingModelState with _$SettingModelState {
-  const factory SettingModelState.preInitialized() = StatePreInitialized;
-
-  const factory SettingModelState.loading() = StateLoading;
-
-  const factory SettingModelState.success(Viewer data, String locationStr) =
-      StateSuccess;
-
-  const factory SettingModelState.error() = StateError;
-}
-
-@freezed
-abstract class EditedUserInfo implements _$EditedUserInfo {
-  
-  const factory EditedUserInfo({DateTime birthDate, String jobCode}) =
-      _EditedUserInfo;
-
-  factory EditedUserInfo.empty() => const EditedUserInfo();
-
-  const EditedUserInfo._();
-
-  bool get isEdited => birthDate != null || jobCode != null;
 }

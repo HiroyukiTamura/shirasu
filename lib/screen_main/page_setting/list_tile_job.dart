@@ -12,7 +12,7 @@ class ListTileJob extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final job =
-        useProvider(settingViewModelProvider.select((it) => it.editedUserInfo))
+        useProvider(settingViewModelProvider.select((it) => it.state.editedUserInfo))
                 .jobCode ??
             ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.job;
 

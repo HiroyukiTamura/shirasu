@@ -18,12 +18,15 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/ui_common/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final _viewmodelProvider =
     ChangeNotifierProvider.autoDispose<ViewModelWatchHistory>(
         (ref) {
           final snackBarMsgNotifier = ref.read(snackBarMsgProvider);
-          return ViewModelWatchHistory(snackBarMsgNotifier);
+          final viewModel = ViewModelWatchHistory(snackBarMsgNotifier);
+          ref.listenDispose(viewModel);
+          return viewModel;
         });
 
 class WatchHistoryWidget extends StatefulHookWidget {

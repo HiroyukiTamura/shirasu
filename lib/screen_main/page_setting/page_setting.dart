@@ -27,10 +27,15 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final settingViewModelProvider =
     ChangeNotifierProvider.autoDispose<ViewModelSetting>(
-        (_) => ViewModelSetting());
+        (ref) {
+          final viewModel = ViewModelSetting();
+          ref.listenDispose(viewModel);
+          return viewModel;
+        });
 
 class PageSettingInMainScreen extends StatefulHookWidget {
   const PageSettingInMainScreen({Key key}) : super(key: key);

@@ -15,10 +15,15 @@ import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final _viewmodelProvider =
     ChangeNotifierProvider.autoDispose<ViewModelSubscribing>(
-        (_) => ViewModelSubscribing());
+        (ref) {
+          final viewModel = ViewModelSubscribing();
+          ref.listenDispose(viewModel);
+          return viewModel;
+        });
 
 class SubscribingWidget extends StatefulHookWidget {
   const SubscribingWidget({Key key}) : super(key: key);

@@ -20,9 +20,14 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:after_layout/after_layout.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final detailProvider = ChangeNotifierProvider.autoDispose
-    .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id));
+    .family<ViewModelDetail, String>((ref, id) {
+      final viewModel = ViewModelDetail(id);
+      ref.listenDispose(viewModel);
+      return viewModel;
+    });
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 

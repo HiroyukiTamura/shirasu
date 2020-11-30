@@ -11,7 +11,9 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
-final snackBarMsgProvider = ChangeNotifierProvider((_) => SnackBarMessageNotifier());
+// todo should dispose?
+final snackBarMsgProvider = ChangeNotifierProvider<SnackBarMessageNotifier>(
+    (_) => SnackBarMessageNotifier());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +33,6 @@ class MyApp extends StatefulHookWidget {
 }
 
 class MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     // final isInitialLaunch = HiveClient.isInitialLaunchApp();

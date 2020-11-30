@@ -19,9 +19,14 @@ import 'package:shirasu/screen_detail/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final _channelProvider = ChangeNotifierProvider.autoDispose
-    .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(id));
+    .family<ViewModelChannel, String>((ref, id) {
+      final viewModel = ViewModelChannel(id);
+      ref.listenDispose(viewModel);
+      return viewModel;
+    });
 
 class ScreenChannel extends StatefulHookWidget {
   const ScreenChannel({Key key, @required this.channelId}) : super(key: key);

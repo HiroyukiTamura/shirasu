@@ -19,11 +19,12 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 final dashBoardProvider =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>((ref) {
   final viewModel = ViewModelDashBoard();
-  ref.onDispose(() => viewModel.onDispose());
+  ref.listenDispose(viewModel);
   return viewModel;
 });
 

@@ -26,7 +26,7 @@ import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
 
 final settingViewModelProvider =
-    ChangeNotifierProvider.autoDispose<ViewModelSetting>(
+    StateNotifierProvider.autoDispose<ViewModelSetting>(
         (ref) => ViewModelSetting());
 
 class PageSettingInMainScreen extends StatefulHookWidget {

@@ -19,7 +19,7 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
 
-final _channelProvider = ChangeNotifierProvider.autoDispose
+final _channelProvider = StateNotifierProvider.autoDispose
     .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(id));
 
 class ScreenChannel extends StatefulHookWidget {

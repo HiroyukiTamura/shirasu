@@ -7,6 +7,7 @@ the list below is more prior ones.
 - [ ] display channel on `screen_dashboard`
 - [x] split ViewModel on `ViewModelSubscribing`
 - [x] create empty result widget
+- [ ] migrate null safety
 - [ ] migrate all Notifier to StateNotifier
 - [ ] check itself is disposed on ViewModels and Notifiers
 - [ ] display comments, handouts

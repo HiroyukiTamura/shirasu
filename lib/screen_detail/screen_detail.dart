@@ -19,7 +19,7 @@ import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:after_layout/after_layout.dart';
 
-final detailProvider = ChangeNotifierProvider.autoDispose
+final detailProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((_, id) => ViewModelDetail(id));
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());

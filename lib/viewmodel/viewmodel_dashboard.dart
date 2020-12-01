@@ -9,24 +9,26 @@ import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-class ViewModelDashBoard extends StateNotifier<DashboardModelState> with ViewModelBase, LocatorMixin, SafeStateSetter<DashboardModelState> {
-  ViewModelDashBoard(this.msgNotifier) : super(const DashboardModelState.preInitialized());
+class ViewModelDashBoard extends StateNotifier<DashboardModelState>
+    with ViewModelBase, LocatorMixin, SafeStateSetter<DashboardModelState> {
+  ViewModelDashBoard(this.msgNotifier)
+      : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
   final SnackBarMessageNotifier msgNotifier;
 
   @override
   Future<void> initialize() async {
-
     DashboardModelState newModel;
 
     try {
       final featureProgramData = await _apiClient.queryFeaturedProgramsList();
       final newProgramsData = await _apiClient.queryNewProgramsList();
-
-      newModel = DashboardModelState.success(DashboardModel(
-        featureProgramData, [newProgramsData]
-      ));
+      final model = DashboardModel(
+        featureProgramData: featureProgramData,
+        newProgramsDataList: [newProgramsData],
+      );
+      newModel = DashboardModelState.success(model);
     } catch (e) {
       print(e);
       newModel = const StateError();
@@ -35,13 +37,12 @@ class ViewModelDashBoard extends StateNotifier<DashboardModelState> with ViewMod
     setState(newModel);
   }
 
-
   Future<void> loadMoreNewPrg() async {
     final oldState = state;
     if (oldState is StateSuccess) {
-      final nextToken = oldState.dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
-      if (nextToken == null)
-        return;
+      final nextToken = oldState
+          .dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
+      if (nextToken == null) return;
 
       // we don't check if Disposed
       state = StateLoadmore(oldState.dashboardModel);
@@ -56,7 +57,6 @@ class ViewModelDashBoard extends StateNotifier<DashboardModelState> with ViewMod
 
         if (newProgramsData.newPrograms.items.isEmpty)
           msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
-
       } catch (e) {
         debugPrint(e.toString());
         setState(const StateError());
@@ -65,4 +65,3 @@ class ViewModelDashBoard extends StateNotifier<DashboardModelState> with ViewMod
     }
   }
 }
-

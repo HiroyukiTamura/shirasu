@@ -11,6 +11,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard_expaned.dart';
+import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/screen_main/page_dashboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/main.dart';
@@ -87,8 +88,11 @@ class _ListViewContent extends HookWidget {
 
     final subscribingLast = itemCount;
 
-    if (newPrgData?.isNotEmpty == true)
-      itemCount += (newPrgData.length / 2).ceil() + 1;
+    if (featurePrgData?.channels?.items?.isNotEmpty == true) itemCount += 2;
+
+    final channelsLast = itemCount;
+
+    if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
     final controller = useScrollController();
 
@@ -178,6 +182,18 @@ class _ListViewContent extends HookWidget {
                                   .read(appRouterProvider)
                                   .delegate
                                   .pushPage(GlobalRoutePath.program(item.id)),
+                            ),
+                          );
+                  } else if (index < channelsLast &&
+                      channelsLast != subscribingLast) {
+                    final i = index - channelsLast;
+
+                    return i == 0
+                        ? const Heading(text: Strings.HEADING_CHANNEL)
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 16, bottom: 32),
+                            child: ChannelListItem(
+                              channels: featurePrgData.channels,
                             ),
                           );
                   } else if (index < itemCount || !showLoadingIndicator) {

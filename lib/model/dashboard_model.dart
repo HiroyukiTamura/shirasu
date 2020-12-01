@@ -8,11 +8,10 @@ part 'dashboard_model.freezed.dart';
 
 @freezed
 abstract class DashboardModel implements _$DashboardModel {
-
-  const factory DashboardModel(
-      FeatureProgramData featureProgramData,
-      List<NewProgramsData> newProgramsDataList,
-      ) = _DashboardModel;
+  const factory DashboardModel({
+    @required FeatureProgramData featureProgramData,
+    @required List<NewProgramsData> newProgramsDataList,
+  }) = _DashboardModel;
 
   const DashboardModel._();
 
@@ -24,8 +23,13 @@ abstract class DashboardModel implements _$DashboardModel {
 
 @freezed
 abstract class DashboardModelState with _$DashboardModelState {
-  const factory DashboardModelState.loadingMore(DashboardModel dashboardModel) = StateLoadmore;
+  const factory DashboardModelState.loadingMore(DashboardModel dashboardModel) =
+      StateLoadmore;
+
   const factory DashboardModelState.preInitialized() = StatePreInitialized;
-  const factory DashboardModelState.success(DashboardModel dashboardModel) = StateSuccess;
+
+  const factory DashboardModelState.success(DashboardModel dashboardModel) =
+      StateSuccess;
+
   const factory DashboardModelState.error() = StateError;
 }

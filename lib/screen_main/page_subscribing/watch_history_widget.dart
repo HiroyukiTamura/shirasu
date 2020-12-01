@@ -15,12 +15,10 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/ui_common/util.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
 final _viewmodelProvider =
-    ChangeNotifierProvider.autoDispose<ViewModelWatchHistory>(
+    StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
         (ref) {
           final snackBarMsgNotifier = ref.read(snackBarMsgProvider);
           return ViewModelWatchHistory(snackBarMsgNotifier);

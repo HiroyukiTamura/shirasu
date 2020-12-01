@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/main.dart';
@@ -22,7 +21,7 @@ class MsgNtfListener extends StatelessWidget {
 
           final text = Util.convert2SnackText(viewModel.state);
           final snackBar = SnackBar(content: Text(text));
-          ScaffoldMessenger.of(context)
+          Scaffold.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(snackBar);
           viewModel.clear();

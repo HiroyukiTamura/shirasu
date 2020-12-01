@@ -11,6 +11,7 @@ abstract class FeatureProgramData implements _$FeatureProgramData {
   const factory FeatureProgramData({
     @required Broadcastings nowBroadcastings,
     @required Broadcastings comingBroadcastings,
+    @required Channels channels,
     @required ViewerUser viewerUser,
   }) = _FeatureProgramData;
 

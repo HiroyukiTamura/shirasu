@@ -14,11 +14,12 @@ class _$DashboardModelTearOff {
   const _$DashboardModelTearOff();
 
 // ignore: unused_element
-  _DashboardModel call(FeatureProgramData featureProgramData,
-      List<NewProgramsData> newProgramsDataList) {
+  _DashboardModel call(
+      {@required FeatureProgramData featureProgramData,
+      @required List<NewProgramsData> newProgramsDataList}) {
     return _DashboardModel(
-      featureProgramData,
-      newProgramsDataList,
+      featureProgramData: featureProgramData,
+      newProgramsDataList: newProgramsDataList,
     );
   }
 }
@@ -115,10 +116,10 @@ class __$DashboardModelCopyWithImpl<$Res>
     Object newProgramsDataList = freezed,
   }) {
     return _then(_DashboardModel(
-      featureProgramData == freezed
+      featureProgramData: featureProgramData == freezed
           ? _value.featureProgramData
           : featureProgramData as FeatureProgramData,
-      newProgramsDataList == freezed
+      newProgramsDataList: newProgramsDataList == freezed
           ? _value.newProgramsDataList
           : newProgramsDataList as List<NewProgramsData>,
     ));
@@ -127,7 +128,8 @@ class __$DashboardModelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_DashboardModel extends _DashboardModel {
-  const _$_DashboardModel(this.featureProgramData, this.newProgramsDataList)
+  const _$_DashboardModel(
+      {@required this.featureProgramData, @required this.newProgramsDataList})
       : assert(featureProgramData != null),
         assert(newProgramsDataList != null),
         super._();
@@ -167,8 +169,9 @@ class _$_DashboardModel extends _DashboardModel {
 
 abstract class _DashboardModel extends DashboardModel {
   const _DashboardModel._() : super._();
-  const factory _DashboardModel(FeatureProgramData featureProgramData,
-      List<NewProgramsData> newProgramsDataList) = _$_DashboardModel;
+  const factory _DashboardModel(
+      {@required FeatureProgramData featureProgramData,
+      @required List<NewProgramsData> newProgramsDataList}) = _$_DashboardModel;
 
   @override
   FeatureProgramData get featureProgramData;

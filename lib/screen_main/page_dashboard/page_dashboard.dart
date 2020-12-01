@@ -19,12 +19,9 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/ui_common/util.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
-final dashBoardProvider = StateNotifierProvider.autoDispose<ViewModelDashBoard>(
-    (ref) => ViewModelDashBoard(ref.read(snackBarMsgProvider)));
+final dashBoardSProvider = StateProvider.autoDispose<ViewModelDashBoard>((_) => ViewModelDashBoard());
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);
@@ -38,10 +35,11 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
     with AfterLayoutMixin<PageDashboardInMainScreen> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(dashBoardProvider).initialize();
+      context.read(dashBoardSProvider).state.initialize();
 
   @override
-  Widget build(BuildContext context) => useProvider(dashBoardProvider)
+  Widget build(BuildContext context) => useProvider(dashBoardSProvider)
+      .state
       .state
       .when(
         preInitialized: () => const CenterCircleProgress(),
@@ -106,7 +104,7 @@ class _ListViewContent extends HookWidget {
                 notification.direction == ScrollDirection.forward &&
                 controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
                     controller.offset) {
-              context.read(dashBoardProvider).loadMoreNewPrg();
+              context.read(dashBoardSProvider).state.loadMoreNewPrg();
               return true;
             }
 

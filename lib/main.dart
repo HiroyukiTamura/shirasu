@@ -11,9 +11,12 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
-// todo should dispose?
-final snackBarMsgProvider = StateNotifierProvider<SnackBarMessageNotifier>(
-    (_) => SnackBarMessageNotifier());
+final snackBarMsgSProvider =
+    StateProvider.autoDispose<SnackBarMessageNotifier>(
+        (_) => SnackBarMessageNotifier());
+
+final snackBarMsgProvider = Provider.autoDispose<SnackBarMessageNotifier>(
+    (ref) => ref.watch(snackBarMsgSProvider).state);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

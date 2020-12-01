@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
@@ -11,11 +11,11 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 class ViewModelDashBoard extends StateNotifier<DashboardModelState>
     with ViewModelBase, LocatorMixin, SafeStateSetter<DashboardModelState> {
-  ViewModelDashBoard(this.msgNotifier)
+  ViewModelDashBoard()
       : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
-  final SnackBarMessageNotifier msgNotifier;
+  SnackBarMessageNotifier get _msgNotifier => read<SnackBarMessageNotifier>();
 
   @override
   Future<void> initialize() async {
@@ -56,11 +56,11 @@ class ViewModelDashBoard extends StateNotifier<DashboardModelState>
         setState(StateSuccess(oldState.dashboardModel));
 
         if (newProgramsData.newPrograms.items.isEmpty)
-          msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
+          _msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
       } catch (e) {
         debugPrint(e.toString());
         setState(const StateError());
-        msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
+        _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
       }
     }
   }

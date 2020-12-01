@@ -19,8 +19,11 @@ import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:after_layout/after_layout.dart';
 
-final detailProvider = StateNotifierProvider.autoDispose
+final detailSNProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((_, id) => ViewModelDetail(id));
+
+final detailSProvider = StateProvider.autoDispose
+    .family<ViewModelDetail, String>((ref, id) => ref.watch(detailSNProvider(id)));
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
@@ -41,7 +44,7 @@ class _ScreenDetailState extends State<ScreenDetail>
 
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(detailProvider(_id)).initialize();
+      context.read(detailSNProvider(_id)).initialize();
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -57,9 +60,8 @@ class _PrgResultHookedWidget extends HookWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context) =>
-      useProvider(detailProvider(id).select((value) => value.state.prgDataResult))
-          .when(
+  Widget build(BuildContext context) => useProvider(
+          detailSProvider(id).select((it) => it.state.state.prgDataResult)).when(
         loading: () => const CenterCircleProgress(),
         preInitialized: () => const CenterCircleProgress(),
         success: (data) => _ContentWidget(data: data),
@@ -83,7 +85,7 @@ class _ContentWidget extends StatelessWidget {
                 height: headerH,
                 programId: data.program.id,
                 onTap: () => context
-                    .read(detailProvider(data.program.id))
+                    .read(detailSNProvider(data.program.id))
                     .playVideo(), //todo don't context.read in onTap
               ),
               SizedBox(

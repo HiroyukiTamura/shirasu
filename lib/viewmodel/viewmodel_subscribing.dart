@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/watch_history_data.dart';
@@ -36,12 +36,12 @@ class ViewModelSubscribing extends StateNotifier<FeatureProgramState> with ViewM
   }
 }
 
-class ViewModelWatchHistory extends StateNotifier<WatchHistoryState> with ViewModelBase, SafeStateSetter<WatchHistoryState> {
+class ViewModelWatchHistory extends StateNotifier<WatchHistoryState> with ViewModelBase, SafeStateSetter<WatchHistoryState>, LocatorMixin {
 
-  ViewModelWatchHistory(this.msgNotifier) : super(const StatePreInitialized());
+  ViewModelWatchHistory() : super(const StatePreInitialized());
 
   final _apiClient = ApiClient(Client());
-  final SnackBarMessageNotifier msgNotifier;
+  SnackBarMessageNotifier get _msgNotifier => read<SnackBarMessageNotifier>();
 
   @override
   Future<void> initialize() async {
@@ -83,14 +83,14 @@ class ViewModelWatchHistory extends StateNotifier<WatchHistoryState> with ViewMo
         setState(StateSuccess(oldState.watchHistories));
 
         if (newOne.viewerUser.watchHistories.items.isEmpty)
-          msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
+          _msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
 
         return;
 
       } catch (e) {
         setState(StateSuccess(oldState.watchHistories));
         debugPrint(e.toString());
-        msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
+        _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
       }
     }
   }

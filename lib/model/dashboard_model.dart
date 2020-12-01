@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/model/featured_programs_data.dart'
-    show FeatureProgramData;
+import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/new_programs_data.dart';
 
 part 'dashboard_model.freezed.dart';

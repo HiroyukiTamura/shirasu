@@ -19,8 +19,8 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
 
-final _channelProvider = StateNotifierProvider.autoDispose
-    .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(id));
+final _channelSProvider = StateProvider.autoDispose
+    .family<ViewModelChannel, String>((_, id) => ViewModelChannel(id));
 
 class ScreenChannel extends StatefulHookWidget {
   const ScreenChannel({Key key, @required this.channelId}) : super(key: key);
@@ -48,12 +48,12 @@ class _ScreenChannelState extends State<ScreenChannel>
 
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(_channelProvider(_channelId)).initialize();
+      context.read(_channelSProvider(_channelId)).state.initialize();
 
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        body: useProvider(_channelProvider(_channelId)).state.when(
+        body: useProvider(_channelSProvider(_channelId)).state.state.when(
           preInitialized: () => const CenterCircleProgress(),
           loading: () => const CenterCircleProgress(),
           error: () => const PageError(),

@@ -11,6 +11,7 @@ mixin ViewModelBase {
 }
 
 mixin SafeStateSetter<T> on StateNotifier<T> {
+  @protected
   void setState(T state) {
     if (mounted)
       this.state = state;

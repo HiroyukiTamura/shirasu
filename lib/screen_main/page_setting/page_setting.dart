@@ -25,8 +25,8 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
 
-final settingViewModelProvider =
-    StateNotifierProvider.autoDispose<ViewModelSetting>(
+final settingViewModelSProvider =
+    StateProvider.autoDispose<ViewModelSetting>(
         (ref) => ViewModelSetting());
 
 class PageSettingInMainScreen extends StatefulHookWidget {
@@ -40,11 +40,11 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
     with AfterLayoutMixin<PageSettingInMainScreen> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(settingViewModelProvider).initialize();
+      context.read(settingViewModelSProvider).state.initialize();
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(settingViewModelProvider.select((it) => it.state.settingModelState)).when(
+      useProvider(settingViewModelSProvider.select((it) => it.state.state.settingModelState)).when(
         preInitialized: () => const CenterCircleProgress(),
         loading: () => const CenterCircleProgress(),
         error: () => const PageError(), //todo implement

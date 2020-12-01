@@ -27,9 +27,8 @@ class VideoHeader extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final playOutState =
-        useProvider(detailProvider(programId).select((it) => it.state.playOutState));
-    final result = context.read(detailProvider(programId)).state.prgDataResult
-        as StateSuccess;//todo should not call context.read in build method?
+        useProvider(detailSProvider(programId).select((it) => it.state.state.playOutState));
+    final result = useProvider(detailSNProvider(programId)).state.prgDataResult as StateSuccess;
 
     final program = result.data.program;
     Widget child;

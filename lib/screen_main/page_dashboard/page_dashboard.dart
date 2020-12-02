@@ -193,7 +193,7 @@ class _ListViewContent extends HookWidget {
                             ),
                           );
                   } else if (index < itemCount || !showLoadingIndicator) {
-                    final i = index - subscribingLast;
+                    final i = index - channelsLast;
 
                     if (i == 0)
                       return const Padding(

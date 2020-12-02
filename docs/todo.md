@@ -8,9 +8,9 @@ the list below is more prior ones.
 - [x] split ViewModel on `ViewModelSubscribing`
 - [x] create empty result widget
 - [ ] migrate null safety
-- [ ] migrate all Notifier to StateNotifier
-- [ ] check itself is disposed on ViewModels and Notifiers
-- [ ] display comments, handouts
+- [x] migrate all Notifier to StateNotifier
+- [ ] ~~check itself is disposed on ViewModels and Notifiers~~
+- [ ] display comments, handouts (low priority)
 - [ ] create native ui for video player, configure plugin  
 - [ ] add analytics and log error (firebase)
 - [ ] auth management

@@ -190,4 +190,8 @@ class Strings {
   };
 
 //endregion
+
+//region screen_user_location
+  static const String APP_BAR_LOCATION = '居住地域';
+//endregion
 }

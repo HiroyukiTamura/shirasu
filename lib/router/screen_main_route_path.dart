@@ -17,6 +17,7 @@ class GlobalRoutePathBase {
     @required Result Function() dashboard,
     @required Result Function(SubscribingTabPage initialPage) subscribing,
     @required Result Function() setting,
+        @required Result Function(UserLocation userLocation) userLocation,
   }) {
     if (routePath is GlobalRoutePath)
       return routePath.when(
@@ -24,6 +25,7 @@ class GlobalRoutePathBase {
         error: error,
         channel: channel,
         program: program,
+        editUserLocation: userLocation,
       );
     else if (routePath is PathDataMainPageBase)
       return routePath.when(
@@ -46,6 +48,8 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.channel(String channelId) = PathDataChannel;
 
   const factory GlobalRoutePath.program(String programId) = PathDataProgram;
+
+  const factory GlobalRoutePath.editUserLocation(UserLocation userLocation) = PathDataUserLocation;
 
   factory GlobalRoutePath.buildProgram({
     @required String channelId,
@@ -70,7 +74,8 @@ abstract class PathDataMainPageBase
       case 0:
         return const PathDataMainPageBase.dashboard();
       case 1:
-        return const PathDataMainPageBase.subscribing(PageSubscribingInMainScreen.PAGE_INDEX_DEFAULT);
+        return const PathDataMainPageBase.subscribing(
+            PageSubscribingInMainScreen.PAGE_INDEX_DEFAULT);
       case 2:
         return const PathDataMainPageBase.setting();
       default:
@@ -80,6 +85,19 @@ abstract class PathDataMainPageBase
 
   const PathDataMainPageBase._();
 
-  int getIndex() =>
-      when(dashboard: () => 0, subscribing: (SubscribingTabPage initialPage) => 1, setting: () => 2);
+  int getIndex() => when(
+      dashboard: () => 0,
+      subscribing: (SubscribingTabPage initialPage) => 1,
+      setting: () => 2);
+}
+
+@immutable
+class UserLocation {
+  const UserLocation({
+    @required this.countryCode,
+    @required this.prefectureCode,
+  });
+
+  final String countryCode;
+  final String prefectureCode;
 }

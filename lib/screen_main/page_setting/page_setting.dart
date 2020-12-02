@@ -213,8 +213,12 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
     );
   }
 
-  static Widget _genListItemAboveCreditCard(BuildContext context,
-      ViewerUser viewerUser, String locationStr, int index) {
+  static Widget _genListItemAboveCreditCard(
+    BuildContext context,
+    ViewerUser viewerUser,
+    String locationStr,
+    int index,
+  ) {
     switch (index) {
       case 0:
         return ListTileTop(iconUrl: viewerUser.icon, userName: viewerUser.name);
@@ -232,6 +236,16 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         return listItem(
           title: Strings.PLACE_LABEL,
           subTitle: locationStr,
+          onTap: () async => context.read(appRouterProvider).delegate.pushPage(
+                GlobalRoutePath.editUserLocation(
+                  UserLocation(
+                    countryCode: ViewModelSetting
+                        .dummyUser.httpsShirasuIoUserAttribute.country,
+                    prefectureCode: ViewModelSetting
+                        .dummyUser.httpsShirasuIoUserAttribute.prefecture,
+                  ),
+                ),
+              ),
         );
       case 6:
         return const ListTileSeem();

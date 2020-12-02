@@ -22,9 +22,6 @@ import 'package:after_layout/after_layout.dart';
 final detailSNProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((_, id) => ViewModelDetail(id));
 
-final detailSProvider = StateProvider.autoDispose
-    .family<ViewModelDetail, String>((ref, id) => ref.watch(detailSNProvider(id)));
-
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
 class ScreenDetail extends StatefulWidget {
@@ -60,8 +57,7 @@ class _PrgResultHookedWidget extends HookWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context) => useProvider(
-          detailSProvider(id).select((it) => it.state.state.prgDataResult)).when(
+  Widget build(BuildContext context) => useProvider(detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
         loading: () => const CenterCircleProgress(),
         preInitialized: () => const CenterCircleProgress(),
         success: (data) => _ContentWidget(data: data),

@@ -17,8 +17,8 @@ import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
-final _viewmodelSProvider =
-    StateProvider.autoDispose<ViewModelWatchHistory>(
+final _viewmodelSNProvider =
+    StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
         (_) => ViewModelWatchHistory());
 
 class WatchHistoryWidget extends StatefulHookWidget {
@@ -32,11 +32,11 @@ class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
     with AfterLayoutMixin<WatchHistoryWidget> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(_viewmodelSProvider).state.initialize();
+      context.read(_viewmodelSNProvider).initialize();
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewmodelSProvider.select((it) => it.state.state)).when(
+      useProvider(_viewmodelSNProvider.state).when(
           loading: () => const CenterCircleProgress(),
           preInitialized: () => const CenterCircleProgress(),
           loadingMore: (watchHistories) => _ContentListView(
@@ -106,7 +106,7 @@ class _ContentListView extends HookWidget {
                   notification.direction == ScrollDirection.forward &&
                   sc.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
                       sc.offset) {
-                context.read(_viewmodelSProvider).state.loadMoreWatchHistory();
+                context.read(_viewmodelSNProvider).loadMoreWatchHistory();
                 return true;
               }
 

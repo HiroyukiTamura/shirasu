@@ -27,8 +27,8 @@ class VideoHeader extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final playOutState =
-        useProvider(detailSProvider(programId).select((it) => it.state.state.playOutState));
-    final result = useProvider(detailSNProvider(programId)).state.prgDataResult as StateSuccess;
+        useProvider(detailSNProvider(programId).state.select((it) => it.playOutState));
+    final result = useProvider(detailSNProvider(programId)).state.prgDataResult as StateSuccess;//we want rebuild here
 
     final program = result.data.program;
     Widget child;

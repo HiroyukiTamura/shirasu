@@ -103,7 +103,7 @@ abstract class ProgramsItem with _$ProgramsItem {
     @required String title,
     @required DateTime broadcastAt,
     @required int totalPlayTime,
-    @required String viewerPlanType,
+    String viewerPlanType,
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "Program"')

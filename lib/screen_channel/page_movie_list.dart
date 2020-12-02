@@ -4,15 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/ui_common/stacked_inkwell.dart';
+import 'package:flutter_riverpod/all.dart';
 
 class PageMovieList extends StatelessWidget {
-
-  const PageMovieList({Key key, @required this.channelPrograms}) : super(key: key);
+  const PageMovieList({
+    Key key,
+    @required this.channelPrograms,
+  }) : super(key: key);
 
   static const double _TILE_HEIGHT = 72;
   static const _THUMBNAIL_WIDTH = _TILE_HEIGHT * Dimens.IMG_RATIO;
@@ -21,11 +27,18 @@ class PageMovieList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN),
-        itemCount: channelPrograms.items.length,
-        itemBuilder: (context, i) {
-          final program = channelPrograms.items[i];
-          return Padding(
+      padding: const EdgeInsets.symmetric(
+          vertical: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN),
+      itemCount: channelPrograms.items.length,
+      itemBuilder: (context, i) {
+        final program = channelPrograms.items[i];
+        return StackedInkwell(
+          onTap: () async => context
+              .read(appRouterProvider)
+              .delegate
+              .pushPage(GlobalRoutePath.program(program.id)),
+          //todo extract to router util
+          child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
             child: Container(
               height: _TILE_HEIGHT,
@@ -46,11 +59,10 @@ class PageMovieList extends StatelessWidget {
                           maxLines: 2,
                           style: TextStyles.LIST_MOVIE_TITLE,
                         ),
-                        const SizedBox(
-                          height: 4,
-                        ),
+                        const SizedBox(height: 4),
                         Text(
-                          DateFormat('yyyy/MM/dd HH:mm').format(program.broadcastAt),
+                          DateFormat('yyyy/MM/dd HH:mm')
+                              .format(program.broadcastAt),
                           style: TextStyle(
                             fontSize: 12,
                             color: Styles.colorTextSub,
@@ -62,6 +74,7 @@ class PageMovieList extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      });
 }

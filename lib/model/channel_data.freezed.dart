@@ -1402,8 +1402,7 @@ class _$ProgramsItemTearOff {
           DateTime broadcastAt,
       @required
           int totalPlayTime,
-      @required
-          String viewerPlanType,
+      String viewerPlanType,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -1579,8 +1578,7 @@ class _$_ProgramsItem implements _ProgramsItem {
           this.broadcastAt,
       @required
           this.totalPlayTime,
-      @required
-          this.viewerPlanType,
+      this.viewerPlanType,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -1591,7 +1589,6 @@ class _$_ProgramsItem implements _ProgramsItem {
         assert(title != null),
         assert(broadcastAt != null),
         assert(totalPlayTime != null),
-        assert(viewerPlanType != null),
         assert(typename != null);
 
   factory _$_ProgramsItem.fromJson(Map<String, dynamic> json) =>
@@ -1685,8 +1682,7 @@ abstract class _ProgramsItem implements ProgramsItem, BaseProgram {
           DateTime broadcastAt,
       @required
           int totalPlayTime,
-      @required
-          String viewerPlanType,
+      String viewerPlanType,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')

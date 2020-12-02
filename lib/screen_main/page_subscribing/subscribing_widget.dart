@@ -14,8 +14,8 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
-final _viewmodelSProvider =
-    StateProvider.autoDispose<ViewModelSubscribing>(
+final _viewmodelSNProvider =
+    StateNotifierProvider.autoDispose<ViewModelSubscribing>(
         (_) => ViewModelSubscribing());
 
 class SubscribingWidget extends StatefulHookWidget {
@@ -29,11 +29,11 @@ class _SubscribingWidgetState extends State<SubscribingWidget>
     with AfterLayoutMixin<SubscribingWidget> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(_viewmodelSProvider).state.initialize();
+      context.read(_viewmodelSNProvider).initialize();
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewmodelSProvider.select((it) => it.state.state)).when(
+      useProvider(_viewmodelSNProvider.state).when(
             preInitialized: () => const CenterCircleProgress(),
             loading: () => const CenterCircleProgress(),
             error: () => const PageError(),

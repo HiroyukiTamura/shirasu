@@ -34,22 +34,23 @@ class ChannelListItem extends StatelessWidget {
             imageUrl: UrlUtil.getChannelLogoUrl(id),
             height: _SIZE,
             width: _SIZE,
-            imageBuilder: (context, imageProvider) => StackedInkwell(
-              circle: true,
-              onTap: () async => context
-                  .read(appRouterProvider)
-                  .delegate
-                  .pushPage(GlobalRoutePath.channel(id)),// todo move to context extension method
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                      onError: (e, stackTrace) {
-                        debugPrintStack(stackTrace: stackTrace);
-                        debugPrint(e.toString());
-                      }),
+            imageBuilder: (context, imageProvider) => ClipOval(
+              child: StackedInkwell(
+                onTap: () async => context
+                    .read(appRouterProvider)
+                    .delegate
+                    .pushPage(GlobalRoutePath.channel(id)),// todo move to context extension method
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                        onError: (e, stackTrace) {
+                          debugPrintStack(stackTrace: stackTrace);
+                          debugPrint(e.toString());
+                        }),
+                  ),
                 ),
               ),
             ),

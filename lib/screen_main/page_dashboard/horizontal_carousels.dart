@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/ui_common/stacked_inkwell.dart';
 
 class _HorizontalCarouselItem extends StatelessWidget {
   _HorizontalCarouselItem({
@@ -22,35 +22,37 @@ class _HorizontalCarouselItem extends StatelessWidget {
   final void Function(Item) onTap;
 
   @override
-  Widget build(BuildContext context) => InkWell(
-        onTap: () => onTap(item),
-        child: Container(
-          height: double.infinity,
-          width: width,
-          decoration: BoxDecoration(
-            color: Styles.cardBackground,
-            borderRadius: BorderRadius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AspectRatio(
+  Widget build(BuildContext context) => ClipRRect(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
+        ),
+        child: StackedInkwell(
+          onTap: () => onTap(item),
+          child: Container(
+            height: double.infinity,
+            width: width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AspectRatio(
                   aspectRatio: Dimens.IMG_RATIO,
-                  child: CachedNetworkImage(imageUrl: _thumbnailUrl)),
-              Expanded(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      item.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+                  child: CachedNetworkImage(imageUrl: _thumbnailUrl),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        item.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       );

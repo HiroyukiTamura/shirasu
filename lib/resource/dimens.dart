@@ -10,7 +10,7 @@ class Dimens {
   static const double DASHBOARD_OUTER_MARGIN = 8;
   static const IMG_RATIO = 1920 / 1080;
   static const DASHBOARD_GRID_RATIO = 4/3;
-  static const double DASHBOARD_ITEM_RADIUS = 4;
+  static const double DASHBOARD_ITEM_RADIUS = 8;
   static const double HEADER_ASPECT = 6;
   static const double SETTING_OUTER_MARGIN = 16;
   static const double CIRCULAR_HEIGHT = 36;

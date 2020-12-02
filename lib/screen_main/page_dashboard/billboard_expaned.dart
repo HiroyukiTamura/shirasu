@@ -29,7 +29,6 @@ class BillboardExpanded extends StatelessWidget {
   @override
   Widget build(BuildContext context) => StackedInkwell(
     onTap: onTap,
-    circle: false,
     child: Column(
       children: [
         AspectRatio(

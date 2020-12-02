@@ -25,7 +25,6 @@ class MovieListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => StackedInkwell(
-        circle: false,
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(PADDING),
@@ -82,7 +81,6 @@ class MovieListBigItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => StackedInkwell(
-        circle: false,
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),

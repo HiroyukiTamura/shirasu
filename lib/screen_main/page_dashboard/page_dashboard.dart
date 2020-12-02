@@ -21,7 +21,8 @@ import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
-final dashBoardSProvider = StateProvider.autoDispose<ViewModelDashBoard>((_) => ViewModelDashBoard());
+final _viewModelSProvider =
+    StateNotifierProvider.autoDispose<ViewModelDashBoard>((_) => ViewModelDashBoard());
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);
@@ -35,12 +36,10 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
     with AfterLayoutMixin<PageDashboardInMainScreen> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(dashBoardSProvider).state.initialize();
+      context.read(_viewModelSProvider).initialize();
 
   @override
-  Widget build(BuildContext context) => useProvider(dashBoardSProvider)
-      .state
-      .state
+  Widget build(BuildContext context) => useProvider(_viewModelSProvider.state)
       .when(
         preInitialized: () => const CenterCircleProgress(),
         error: () => const PageError(), //todo show error widget
@@ -95,8 +94,7 @@ class _ListViewContent extends HookWidget {
     final controller = useScrollController();
 
     return LayoutBuilder(
-      builder: (context, constraints) {
-        return NotificationListener<ScrollNotification>(
+      builder: (context, constraints) => NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             //todo fix; remove Dimens.CIRCULAR_HEIGHT
             if (showLoadingIndicator &&
@@ -104,7 +102,7 @@ class _ListViewContent extends HookWidget {
                 notification.direction == ScrollDirection.forward &&
                 controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
                     controller.offset) {
-              context.read(dashBoardSProvider).state.loadMoreNewPrg();
+              context.read(_viewModelSProvider).loadMoreNewPrg();
               return true;
             }
 
@@ -183,8 +181,8 @@ class _ListViewContent extends HookWidget {
                             ),
                           );
                   } else if (index < channelsLast &&
-                      channelsLast != subscribingLast) {
-                    final i = index - channelsLast;
+                      subscribingLast != channelsLast) {
+                    final i = index - subscribingLast;
 
                     return i == 0
                         ? const Heading(text: Strings.HEADING_CHANNEL)
@@ -215,8 +213,7 @@ class _ListViewContent extends HookWidget {
                     return const CenterCircleProgress();
                 }),
           ),
-        );
-      },
+        ),
     );
   }
 }

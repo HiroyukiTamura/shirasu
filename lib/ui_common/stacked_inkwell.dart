@@ -7,8 +7,10 @@ class StackedInkwell extends StatelessWidget {
     Key key,
     @required this.onTap,
     @required this.child,
+    @required this.circle,
   }) : super(key: key);
 
+  final bool circle;
   final Widget child;
   final GestureTapCallback onTap;
 
@@ -16,14 +18,21 @@ class StackedInkwell extends StatelessWidget {
   Widget build(BuildContext context) => Stack(
         children: [
           child,
-          Positioned.fill(
-            child: Material(
-              type: MaterialType.transparency,
-              child: InkWell(
-                onTap: onTap,
-              ),
-            ),
-          ),
+          if (circle)
+            ClipOval(
+              child: _inkWell(),
+            )
+          else
+            _inkWell()
         ],
+      );
+
+  Widget _inkWell() => Positioned.fill(
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            onTap: onTap,
+          ),
+        ),
       );
 }

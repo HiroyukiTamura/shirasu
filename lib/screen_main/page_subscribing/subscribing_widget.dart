@@ -33,7 +33,7 @@ class _SubscribingWidgetState extends State<SubscribingWidget>
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewmodelSProvider).state.state.when(
+      useProvider(_viewmodelSProvider.select((it) => it.state.state)).when(
             preInitialized: () => const CenterCircleProgress(),
             loading: () => const CenterCircleProgress(),
             error: () => const PageError(),

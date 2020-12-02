@@ -53,7 +53,7 @@ class _ScreenChannelState extends State<ScreenChannel>
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        body: useProvider(_channelSProvider(_channelId)).state.state.when(
+        body: useProvider(_channelSProvider(_channelId).select((it) => it.state.state)).when(
           preInitialized: () => const CenterCircleProgress(),
           loading: () => const CenterCircleProgress(),
           error: () => const PageError(),

@@ -36,7 +36,7 @@ class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewmodelSProvider).state.state.when(
+      useProvider(_viewmodelSProvider.select((it) => it.state.state)).when(
           loading: () => const CenterCircleProgress(),
           preInitialized: () => const CenterCircleProgress(),
           loadingMore: (watchHistories) => _ContentListView(

@@ -36,13 +36,6 @@ class _$GlobalRoutePathTearOff {
       programId,
     );
   }
-
-// ignore: unused_element
-  PathDataEditBirthDate editBirthDate(BirthDateIntentData data) {
-    return PathDataEditBirthDate(
-      data,
-    );
-  }
 }
 
 /// @nodoc
@@ -57,7 +50,6 @@ mixin _$GlobalRoutePath {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editBirthDate(BirthDateIntentData data),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -65,7 +57,6 @@ mixin _$GlobalRoutePath {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editBirthDate(BirthDateIntentData data),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -74,7 +65,6 @@ mixin _$GlobalRoutePath {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editBirthDate(PathDataEditBirthDate value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -82,7 +72,6 @@ mixin _$GlobalRoutePath {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editBirthDate(PathDataEditBirthDate value),
     @required TResult orElse(),
   });
 }
@@ -147,13 +136,11 @@ class _$PathDataIntro implements PathDataIntro {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editBirthDate != null);
     return intro();
   }
 
@@ -164,7 +151,6 @@ class _$PathDataIntro implements PathDataIntro {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editBirthDate(BirthDateIntentData data),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -181,13 +167,11 @@ class _$PathDataIntro implements PathDataIntro {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editBirthDate != null);
     return intro(this);
   }
 
@@ -198,7 +182,6 @@ class _$PathDataIntro implements PathDataIntro {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editBirthDate(PathDataEditBirthDate value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -256,13 +239,11 @@ class _$PathDataError implements PathDataError {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editBirthDate != null);
     return error();
   }
 
@@ -273,7 +254,6 @@ class _$PathDataError implements PathDataError {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editBirthDate(BirthDateIntentData data),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -290,13 +270,11 @@ class _$PathDataError implements PathDataError {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editBirthDate != null);
     return error(this);
   }
 
@@ -307,7 +285,6 @@ class _$PathDataError implements PathDataError {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editBirthDate(PathDataEditBirthDate value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -387,13 +364,11 @@ class _$PathDataChannel implements PathDataChannel {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editBirthDate != null);
     return channel(channelId);
   }
 
@@ -404,7 +379,6 @@ class _$PathDataChannel implements PathDataChannel {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editBirthDate(BirthDateIntentData data),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -421,13 +395,11 @@ class _$PathDataChannel implements PathDataChannel {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editBirthDate != null);
     return channel(this);
   }
 
@@ -438,7 +410,6 @@ class _$PathDataChannel implements PathDataChannel {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editBirthDate(PathDataEditBirthDate value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -521,13 +492,11 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editBirthDate(BirthDateIntentData data),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editBirthDate != null);
     return program(programId);
   }
 
@@ -538,7 +507,6 @@ class _$PathDataProgram implements PathDataProgram {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editBirthDate(BirthDateIntentData data),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -555,13 +523,11 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editBirthDate(PathDataEditBirthDate value),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editBirthDate != null);
     return program(this);
   }
 
@@ -572,7 +538,6 @@ class _$PathDataProgram implements PathDataProgram {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editBirthDate(PathDataEditBirthDate value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -588,141 +553,6 @@ abstract class PathDataProgram implements GlobalRoutePath {
 
   String get programId;
   $PathDataProgramCopyWith<PathDataProgram> get copyWith;
-}
-
-/// @nodoc
-abstract class $PathDataEditBirthDateCopyWith<$Res> {
-  factory $PathDataEditBirthDateCopyWith(PathDataEditBirthDate value,
-          $Res Function(PathDataEditBirthDate) then) =
-      _$PathDataEditBirthDateCopyWithImpl<$Res>;
-  $Res call({BirthDateIntentData data});
-}
-
-/// @nodoc
-class _$PathDataEditBirthDateCopyWithImpl<$Res>
-    extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements $PathDataEditBirthDateCopyWith<$Res> {
-  _$PathDataEditBirthDateCopyWithImpl(
-      PathDataEditBirthDate _value, $Res Function(PathDataEditBirthDate) _then)
-      : super(_value, (v) => _then(v as PathDataEditBirthDate));
-
-  @override
-  PathDataEditBirthDate get _value => super._value as PathDataEditBirthDate;
-
-  @override
-  $Res call({
-    Object data = freezed,
-  }) {
-    return _then(PathDataEditBirthDate(
-      data == freezed ? _value.data : data as BirthDateIntentData,
-    ));
-  }
-}
-
-/// @nodoc
-class _$PathDataEditBirthDate implements PathDataEditBirthDate {
-  const _$PathDataEditBirthDate(this.data) : assert(data != null);
-
-  @override
-  final BirthDateIntentData data;
-
-  @override
-  String toString() {
-    return 'GlobalRoutePath.editBirthDate(data: $data)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is PathDataEditBirthDate &&
-            (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
-
-  @override
-  $PathDataEditBirthDateCopyWith<PathDataEditBirthDate> get copyWith =>
-      _$PathDataEditBirthDateCopyWithImpl<PathDataEditBirthDate>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult intro(),
-    @required TResult error(),
-    @required TResult channel(String channelId),
-    @required TResult program(String programId),
-    @required TResult editBirthDate(BirthDateIntentData data),
-  }) {
-    assert(intro != null);
-    assert(error != null);
-    assert(channel != null);
-    assert(program != null);
-    assert(editBirthDate != null);
-    return editBirthDate(data);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult intro(),
-    TResult error(),
-    TResult channel(String channelId),
-    TResult program(String programId),
-    TResult editBirthDate(BirthDateIntentData data),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (editBirthDate != null) {
-      return editBirthDate(data);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
-    @required TResult program(PathDataProgram value),
-    @required TResult editBirthDate(PathDataEditBirthDate value),
-  }) {
-    assert(intro != null);
-    assert(error != null);
-    assert(channel != null);
-    assert(program != null);
-    assert(editBirthDate != null);
-    return editBirthDate(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
-    TResult program(PathDataProgram value),
-    TResult editBirthDate(PathDataEditBirthDate value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (editBirthDate != null) {
-      return editBirthDate(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class PathDataEditBirthDate implements GlobalRoutePath {
-  const factory PathDataEditBirthDate(BirthDateIntentData data) =
-      _$PathDataEditBirthDate;
-
-  BirthDateIntentData get data;
-  $PathDataEditBirthDateCopyWith<PathDataEditBirthDate> get copyWith;
 }
 
 /// @nodoc

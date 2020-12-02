@@ -44,7 +44,8 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(settingViewModelSProvider.state.select((it) => it.settingModelState)).when(
+      useProvider(settingViewModelSProvider.state
+          .select((it) => it.settingModelState)).when(
         preInitialized: () => const CenterCircleProgress(),
         loading: () => const CenterCircleProgress(),
         error: () => const PageError(), //todo implement
@@ -156,10 +157,11 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         ),
       );
 
-  static Widget listItem(
-          {@required String title,
-          @required String subTitle,
-          GestureTapCallback onTap}) =>
+  static Widget listItem({
+    @required String title,
+    @required String subTitle,
+    GestureTapCallback onTap,
+  }) =>
       ListTile(
         title: Text(title),
         subtitle: Text(

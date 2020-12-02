@@ -55,7 +55,6 @@ class AppRouteInformationParser
         configuration,
         intro: () => 'intro',
         error: () => 'error',
-        editBirthDate: (BirthDateIntentData data) => 'edit_birth_date',
         channel: (channelId) => '/c/$channelId',
         program: (programId) {
           final list = programId.split('-');

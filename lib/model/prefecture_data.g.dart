@@ -22,13 +22,13 @@ Map<String, dynamic> _$_$_PrefectureDataToJson(_$_PrefectureData instance) =>
 
 _$_Prefecture _$_$_PrefectureFromJson(Map<String, dynamic> json) {
   return _$_Prefecture(
-    code: json['code'] as int,
+    codeInt: json['code'] as int,
     name: json['name'] as String,
   );
 }
 
 Map<String, dynamic> _$_$_PrefectureToJson(_$_Prefecture instance) =>
     <String, dynamic>{
-      'code': instance.code,
+      'code': instance.codeInt,
       'name': instance.name,
     };

@@ -7,8 +7,7 @@ import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-class ViewModelDashBoard extends StateNotifier<DashboardModelState>
-    with ViewModelBase, LocatorMixin, SafeStateSetter<DashboardModelState> {
+class ViewModelDashBoard extends ViewModelBase<DashboardModelState> with LocatorMixin {
   ViewModelDashBoard()
       : super(const DashboardModelState.preInitialized());
 

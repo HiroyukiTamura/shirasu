@@ -11,7 +11,7 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 part 'viewmodel_subscribing.freezed.dart';
 
 //todo fix lint config as concerned to lack of generics
-class ViewModelSubscribing extends StateNotifier<FeatureProgramState> with ViewModelBase, SafeStateSetter<FeatureProgramState> {
+class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
 
   ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
 
@@ -36,7 +36,7 @@ class ViewModelSubscribing extends StateNotifier<FeatureProgramState> with ViewM
   }
 }
 
-class ViewModelWatchHistory extends StateNotifier<WatchHistoryState> with ViewModelBase, SafeStateSetter<WatchHistoryState>, LocatorMixin {
+class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> with LocatorMixin {
 
   ViewModelWatchHistory() : super(const StatePreInitialized());
 

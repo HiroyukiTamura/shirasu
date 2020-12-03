@@ -48,7 +48,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
           .select((it) => it.settingModelState)).when(
         preInitialized: () => const CenterCircleProgress(),
         loading: () => const CenterCircleProgress(),
-        error: () => const PageError(), //todo implement
+        error: () => const PageError(),
         success: (data, locationStr) => ListView.builder(
           padding:
               const EdgeInsets.symmetric(vertical: Dimens.SETTING_OUTER_MARGIN),

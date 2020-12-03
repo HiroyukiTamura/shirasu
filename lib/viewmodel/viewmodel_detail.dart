@@ -14,7 +14,7 @@ import 'package:shirasu/viewmodel/model_detail.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
-class ViewModelDetail extends StateNotifier<ModelDetail> with ViewModelBase, LocatorMixin, SafeStateSetter<ModelDetail> {
+class ViewModelDetail extends ViewModelBase<ModelDetail> with LocatorMixin {
   ViewModelDetail(this.id) : super(ModelDetail.initial());
 
   final _apiClient = ApiClient(Client());

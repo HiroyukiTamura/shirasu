@@ -14,12 +14,17 @@ abstract class PrefectureData with _$PrefectureData {
 }
 
 @freezed
-abstract class Prefecture with _$Prefecture {
+abstract class Prefecture implements _$Prefecture {
+
   const factory Prefecture({
-    @required int code,
+    @required @JsonKey(name: 'code') int codeInt,
     @required String name,
   }) = _Prefecture;
 
+  const Prefecture._();
+
   factory Prefecture.fromJson(Map<String, dynamic> json) =>
       _$PrefectureFromJson(json);
+
+  String get code => codeInt.toString();
 }

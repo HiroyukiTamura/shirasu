@@ -8,7 +8,7 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_channel.freezed.dart';
 
-class ViewModelChannel extends StateNotifier<ChannelDataResult> with ViewModelBase, SafeStateSetter<ChannelDataResult> {
+class ViewModelChannel extends ViewModelBase<ChannelDataResult> {
   ViewModelChannel(this._channelId) : super(const PreInitialized());
 
   final _apiClient = ApiClient(Client());

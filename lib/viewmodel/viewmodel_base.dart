@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-mixin ViewModelBase {
-  /// this method must called only in [AfterLayoutMixin.afterFirstLayout]
-  @protected
-  Future<void> initialize();
-}
+abstract class ViewModelBase<T> extends StateNotifier<T> {
 
-mixin SafeStateSetter<T> on StateNotifier<T> {
+  ViewModelBase(T state) : super(state);
+
+  @protected
+  Future<void> initialize() async {}
+
   @protected
   void setState(T state) {
     if (mounted)

@@ -1,22 +1,19 @@
-import 'dart:convert';
 
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:hooks_riverpod/all.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/gen/assets.gen.dart';
-import 'package:shirasu/model/country_data.dart';
-import 'package:shirasu/model/prefecture_data.dart';
+import 'package:shirasu/di/local_json_client.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model_setting.dart';
+import 'package:shirasu/viewmodel/viewmodel_user_location.dart';
 
-class ViewModelSetting extends StateNotifier<SettingModel> with ViewModelBase, SafeStateSetter {
-
-  ViewModelSetting(): super(SettingModel.initial());
+class ViewModelSetting extends ViewModelBase<SettingModel> with LocatorMixin {
+  ViewModelSetting() : super(SettingModel.initial());
 
   final _apiClient = ApiClient(Client());
+  final _jsonClient = const LocalJsonClient();
 
   static final User dummyUser = User(
     email: 'hogehoge@gmail.com',
@@ -36,7 +33,7 @@ class ViewModelSetting extends StateNotifier<SettingModel> with ViewModelBase, S
     httpsShirasuIoUserAttribute: HttpsShirasuIoUserAttribute(
       birthDate: DateTime.now(),
       job: 'jobAcademia',
-      country: 'jp',
+      countryNonFixedCase: 'jp',
       familyName: '山田',
       givenName: '太郎',
       familyNameReading: 'やまだ',
@@ -44,6 +41,15 @@ class ViewModelSetting extends StateNotifier<SettingModel> with ViewModelBase, S
       prefecture: '13',
     ),
   );
+
+  @override
+  void update(T Function<T>() watch) {
+    final editedState = watch<ViewModelUserLocation>().state;
+    if (editedState is Drafted) {
+      //todo 次ここから
+      setState(state.copyWith(editedUserInfo: editedState.data));
+    }
+  }
 
   /// todo should be synchronized?
   /// todo check is disposed
@@ -74,32 +80,13 @@ class ViewModelSetting extends StateNotifier<SettingModel> with ViewModelBase, S
     state = state.copyWith(editedUserInfo: editedUserInfo);
   }
 
-  /// [countryCode] : ex. JP
-  static Future<String> _getCountryName(String countryCode) async {
-    final string = await rootBundle.loadString(Assets.json.country);
-    final json = jsonDecode(string);
-    return CountryData.fromJson(json as Map<String, dynamic>)
-        .countries[countryCode.toUpperCase()];
-  }
-
-  /// [prefectureCode] : 1 ~ 47
-  static Future<String> _getPrefectureName(String prefectureCode) async {
-    final string = await rootBundle.loadString(Assets.json.prefecture);
-    final json = jsonDecode(string);
-    return PrefectureData.fromJson(json as Map<String, dynamic>)
-        .prefecture
-        .firstWhere((it) => it.code == int.tryParse(prefectureCode),
-            orElse: () => null)
-        ?.name;
-  }
-
-  static Future<String> _genLocationStr(User user) async {
-    String countryStr =
-        await _getCountryName(user.httpsShirasuIoUserAttribute.country) ??
-            Strings.DEFAULT_EMPTY;
-    if (user.httpsShirasuIoUserAttribute.country.toUpperCase() == 'JP') {
-      final prefectureStr = await _getPrefectureName(
-              user.httpsShirasuIoUserAttribute.prefecture) ??
+  Future<String> _genLocationStr(User user) async {
+    String countryStr = await _jsonClient
+            .getCountryName(user.httpsShirasuIoUserAttribute.country) ??
+        Strings.DEFAULT_EMPTY;
+    if (LocalJsonClient.isJapan(user.httpsShirasuIoUserAttribute.country)) {
+      final prefectureStr = await _jsonClient
+              .getPrefectureName(user.httpsShirasuIoUserAttribute.prefecture) ??
           Strings.DEFAULT_EMPTY;
       countryStr += ' $prefectureStr';
     }

@@ -556,10 +556,16 @@ class _$EditedUserInfoTearOff {
   const _$EditedUserInfoTearOff();
 
 // ignore: unused_element
-  _EditedUserInfo call({DateTime birthDate, String jobCode}) {
+  _EditedUserInfo call(
+      {DateTime birthDate,
+      String jobCode,
+      String countryCode,
+      String prefectureCode}) {
     return _EditedUserInfo(
       birthDate: birthDate,
       jobCode: jobCode,
+      countryCode: countryCode,
+      prefectureCode: prefectureCode,
     );
   }
 }
@@ -572,6 +578,8 @@ const $EditedUserInfo = _$EditedUserInfoTearOff();
 mixin _$EditedUserInfo {
   DateTime get birthDate;
   String get jobCode;
+  String get countryCode;
+  String get prefectureCode;
 
   $EditedUserInfoCopyWith<EditedUserInfo> get copyWith;
 }
@@ -581,7 +589,11 @@ abstract class $EditedUserInfoCopyWith<$Res> {
   factory $EditedUserInfoCopyWith(
           EditedUserInfo value, $Res Function(EditedUserInfo) then) =
       _$EditedUserInfoCopyWithImpl<$Res>;
-  $Res call({DateTime birthDate, String jobCode});
+  $Res call(
+      {DateTime birthDate,
+      String jobCode,
+      String countryCode,
+      String prefectureCode});
 }
 
 /// @nodoc
@@ -597,11 +609,18 @@ class _$EditedUserInfoCopyWithImpl<$Res>
   $Res call({
     Object birthDate = freezed,
     Object jobCode = freezed,
+    Object countryCode = freezed,
+    Object prefectureCode = freezed,
   }) {
     return _then(_value.copyWith(
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
       jobCode: jobCode == freezed ? _value.jobCode : jobCode as String,
+      countryCode:
+          countryCode == freezed ? _value.countryCode : countryCode as String,
+      prefectureCode: prefectureCode == freezed
+          ? _value.prefectureCode
+          : prefectureCode as String,
     ));
   }
 }
@@ -613,7 +632,11 @@ abstract class _$EditedUserInfoCopyWith<$Res>
           _EditedUserInfo value, $Res Function(_EditedUserInfo) then) =
       __$EditedUserInfoCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime birthDate, String jobCode});
+  $Res call(
+      {DateTime birthDate,
+      String jobCode,
+      String countryCode,
+      String prefectureCode});
 }
 
 /// @nodoc
@@ -631,27 +654,40 @@ class __$EditedUserInfoCopyWithImpl<$Res>
   $Res call({
     Object birthDate = freezed,
     Object jobCode = freezed,
+    Object countryCode = freezed,
+    Object prefectureCode = freezed,
   }) {
     return _then(_EditedUserInfo(
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
       jobCode: jobCode == freezed ? _value.jobCode : jobCode as String,
+      countryCode:
+          countryCode == freezed ? _value.countryCode : countryCode as String,
+      prefectureCode: prefectureCode == freezed
+          ? _value.prefectureCode
+          : prefectureCode as String,
     ));
   }
 }
 
 /// @nodoc
 class _$_EditedUserInfo extends _EditedUserInfo {
-  const _$_EditedUserInfo({this.birthDate, this.jobCode}) : super._();
+  const _$_EditedUserInfo(
+      {this.birthDate, this.jobCode, this.countryCode, this.prefectureCode})
+      : super._();
 
   @override
   final DateTime birthDate;
   @override
   final String jobCode;
+  @override
+  final String countryCode;
+  @override
+  final String prefectureCode;
 
   @override
   String toString() {
-    return 'EditedUserInfo(birthDate: $birthDate, jobCode: $jobCode)';
+    return 'EditedUserInfo(birthDate: $birthDate, jobCode: $jobCode, countryCode: $countryCode, prefectureCode: $prefectureCode)';
   }
 
   @override
@@ -662,14 +698,23 @@ class _$_EditedUserInfo extends _EditedUserInfo {
                 const DeepCollectionEquality()
                     .equals(other.birthDate, birthDate)) &&
             (identical(other.jobCode, jobCode) ||
-                const DeepCollectionEquality().equals(other.jobCode, jobCode)));
+                const DeepCollectionEquality()
+                    .equals(other.jobCode, jobCode)) &&
+            (identical(other.countryCode, countryCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.countryCode, countryCode)) &&
+            (identical(other.prefectureCode, prefectureCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.prefectureCode, prefectureCode)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(birthDate) ^
-      const DeepCollectionEquality().hash(jobCode);
+      const DeepCollectionEquality().hash(jobCode) ^
+      const DeepCollectionEquality().hash(countryCode) ^
+      const DeepCollectionEquality().hash(prefectureCode);
 
   @override
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith =>
@@ -678,13 +723,20 @@ class _$_EditedUserInfo extends _EditedUserInfo {
 
 abstract class _EditedUserInfo extends EditedUserInfo {
   const _EditedUserInfo._() : super._();
-  const factory _EditedUserInfo({DateTime birthDate, String jobCode}) =
-      _$_EditedUserInfo;
+  const factory _EditedUserInfo(
+      {DateTime birthDate,
+      String jobCode,
+      String countryCode,
+      String prefectureCode}) = _$_EditedUserInfo;
 
   @override
   DateTime get birthDate;
   @override
   String get jobCode;
+  @override
+  String get countryCode;
+  @override
+  String get prefectureCode;
   @override
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith;
 }

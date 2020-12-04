@@ -17,7 +17,7 @@ class GlobalRoutePathBase {
     @required Result Function() dashboard,
     @required Result Function(SubscribingTabPage initialPage) subscribing,
     @required Result Function() setting,
-        @required Result Function(UserLocation userLocation) userLocation,
+    @required Result Function() userLocation,
   }) {
     if (routePath is GlobalRoutePath)
       return routePath.when(
@@ -49,7 +49,8 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
 
   const factory GlobalRoutePath.program(String programId) = PathDataProgram;
 
-  const factory GlobalRoutePath.editUserLocation(UserLocation userLocation) = PathDataUserLocation;
+  const factory GlobalRoutePath.editUserLocation() =
+      PathDataUserLocation;
 
   factory GlobalRoutePath.buildProgram({
     @required String channelId,
@@ -89,15 +90,4 @@ abstract class PathDataMainPageBase
       dashboard: () => 0,
       subscribing: (SubscribingTabPage initialPage) => 1,
       setting: () => 2);
-}
-
-@immutable
-class UserLocation {
-  const UserLocation({
-    @required this.countryCode,
-    @required this.prefectureCode,
-  });
-
-  final String countryCode;
-  final String prefectureCode;
 }

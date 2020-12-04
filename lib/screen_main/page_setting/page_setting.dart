@@ -22,6 +22,7 @@ import 'package:shirasu/screen_main/page_setting/list_tile_top.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
+import 'package:shirasu/viewmodel/model_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
 
@@ -237,14 +238,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
           title: Strings.PLACE_LABEL,
           subTitle: locationStr,
           onTap: () async => context.read(appRouterProvider).delegate.pushPage(
-                GlobalRoutePath.editUserLocation(
-                  UserLocation(
-                    countryCode: ViewModelSetting
-                        .dummyUser.httpsShirasuIoUserAttribute.country,
-                    prefectureCode: ViewModelSetting
-                        .dummyUser.httpsShirasuIoUserAttribute.prefecture,
-                  ),
-                ),
+                const GlobalRoutePath.editUserLocation(),
               ),
         );
       case 6:

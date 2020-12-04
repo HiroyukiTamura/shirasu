@@ -6,20 +6,18 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/local_json_client.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_user_location.dart';
 import 'package:shirasu/extension.dart';
 
-final _viewModelProvider = StateNotifierProvider.autoDispose
-    .family<ViewModelUserLocation, UserLocation>(
-  (ref, userLocation) => ViewModelUserLocation(userLocation),
+final _viewModelProvider =
+    StateNotifierProvider.autoDispose<ViewModelUserLocation>(
+  (ref) => ViewModelUserLocation.createFromSettingVm(ref),
 );
 
 class ScreenUserLocation extends StatefulHookWidget {
-  const ScreenUserLocation({
-    @required this.userLocation,
-  }) : super();
-
-  final UserLocation userLocation;
+  const ScreenUserLocation() : super();
 
   @override
   _ScreenUserLocationState createState() => _ScreenUserLocationState();
@@ -29,7 +27,7 @@ class _ScreenUserLocationState extends State<ScreenUserLocation>
     with AfterLayoutMixin<ScreenUserLocation> {
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(_viewModelProvider(widget.userLocation)).initialize();
+      context.read(_viewModelProvider).initialize();
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -37,20 +35,18 @@ class _ScreenUserLocationState extends State<ScreenUserLocation>
           appBar: AppBar(
             title: const Text(Strings.APP_BAR_LOCATION),
           ),
-          body: _Body(userLocation: widget.userLocation),
+          body: const _Body(),
           floatingActionButton: _fab(),
         ),
       );
 
-  Widget _fab() => useProvider(_viewModelProvider(widget.userLocation)
-          .state
-          .select((state) => state.status)).maybeWhen(
+  Widget _fab() =>
+      useProvider(_viewModelProvider.state.select((state) => state.status))
+          .maybeWhen(
         initialized: () => FloatingActionButton(
           onPressed: () {
-            context
-              .read(_viewModelProvider(widget.userLocation))
-              .onTapSaveBtn();
-            Navigator.pop(context);//todo fix
+            context.read(_viewModelProvider).onTapSaveBtn();
+            Navigator.pop(context); //todo fix
           },
           child: const Icon(Icons.check),
         ),
@@ -59,18 +55,13 @@ class _ScreenUserLocationState extends State<ScreenUserLocation>
 }
 
 class _Body extends HookWidget {
-  const _Body({
-    @required this.userLocation,
-    Key key,
-  }) : super(key: key);
+  const _Body({Key key}) : super(key: key);
 
   static const double _SPACE = 32;
 
-  final UserLocation userLocation;
-
   @override
   Widget build(BuildContext context) {
-    final state = useProvider(_viewModelProvider(userLocation).state);
+    final state = useProvider(_viewModelProvider.state);
     return state.status.maybeWhen(
       preInitialized: () => const SizedBox.shrink(),
       orElse: () => Padding(
@@ -80,10 +71,10 @@ class _Body extends HookWidget {
         ),
         child: Row(
           children: [
-            _RowItemCountry(userLocation: userLocation),
+            const _RowItemCountry(),
             if (LocalJsonClient.isJapan(state.data.countryCode)) ...[
               const SizedBox(width: _SPACE),
-              _RowItemPrefecture(userLocation: userLocation),
+              const _RowItemPrefecture(),
             ]
           ],
         ),
@@ -93,14 +84,12 @@ class _Body extends HookWidget {
 }
 
 class _RowItemPrefecture extends HookWidget {
-  const _RowItemPrefecture({Key key, @required this.userLocation})
-      : super(key: key);
-
-  final UserLocation userLocation;
+  const _RowItemPrefecture({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final data = useProvider(_viewModelProvider(userLocation).state.select((state) => state.data));
+    final data =
+        useProvider(_viewModelProvider.state.select((state) => state.data));
     return Expanded(
       child: DropdownButton<String>(
         isExpanded: true,
@@ -111,25 +100,20 @@ class _RowItemPrefecture extends HookWidget {
                   child: Text(prefecture.name),
                 ))
             .toUnmodifiableList(),
-        onChanged: (code) => context
-            .read(_viewModelProvider(userLocation))
-            .changePrefecture(code),
+        onChanged: (code) =>
+            context.read(_viewModelProvider).changePrefecture(code),
       ),
     );
   }
 }
 
 class _RowItemCountry extends HookWidget {
-  const _RowItemCountry({
-    @required this.userLocation,
-    Key key,
-  }) : super(key: key);
-
-  final UserLocation userLocation;
+  const _RowItemCountry({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final data = useProvider(_viewModelProvider(userLocation).state.select((state) => state.data));
+    final data =
+        useProvider(_viewModelProvider.state.select((state) => state.data));
     return Expanded(
       child: DropdownButton<String>(
         isExpanded: true,
@@ -140,9 +124,8 @@ class _RowItemCountry extends HookWidget {
                   child: Text(entry.value),
                 ))
             .toUnmodifiableList(),
-        onChanged: (code) => context
-            .read(_viewModelProvider(userLocation))
-            .changeCountry(code),
+        onChanged: (code) =>
+            context.read(_viewModelProvider).changeCountry(code),
       ),
     );
   }

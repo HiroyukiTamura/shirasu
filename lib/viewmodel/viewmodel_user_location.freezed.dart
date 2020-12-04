@@ -192,6 +192,11 @@ class _$ModelStatusTearOff {
   Drafted drafted() {
     return const Drafted();
   }
+
+// ignore: unused_element
+  DraftNotified draftNotified() {
+    return const DraftNotified();
+  }
 }
 
 /// @nodoc
@@ -205,12 +210,14 @@ mixin _$ModelStatus {
     @required TResult preInitialized(),
     @required TResult initialized(),
     @required TResult drafted(),
+    @required TResult draftNotified(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult initialized(),
     TResult drafted(),
+    TResult draftNotified(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -218,12 +225,14 @@ mixin _$ModelStatus {
     @required TResult preInitialized(PreInitalized value),
     @required TResult initialized(Initalized value),
     @required TResult drafted(Drafted value),
+    @required TResult draftNotified(DraftNotified value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(PreInitalized value),
     TResult initialized(Initalized value),
     TResult drafted(Drafted value),
+    TResult draftNotified(DraftNotified value),
     @required TResult orElse(),
   });
 }
@@ -285,10 +294,12 @@ class _$PreInitalized implements PreInitalized {
     @required TResult preInitialized(),
     @required TResult initialized(),
     @required TResult drafted(),
+    @required TResult draftNotified(),
   }) {
     assert(preInitialized != null);
     assert(initialized != null);
     assert(drafted != null);
+    assert(draftNotified != null);
     return preInitialized();
   }
 
@@ -298,6 +309,7 @@ class _$PreInitalized implements PreInitalized {
     TResult preInitialized(),
     TResult initialized(),
     TResult drafted(),
+    TResult draftNotified(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -313,10 +325,12 @@ class _$PreInitalized implements PreInitalized {
     @required TResult preInitialized(PreInitalized value),
     @required TResult initialized(Initalized value),
     @required TResult drafted(Drafted value),
+    @required TResult draftNotified(DraftNotified value),
   }) {
     assert(preInitialized != null);
     assert(initialized != null);
     assert(drafted != null);
+    assert(draftNotified != null);
     return preInitialized(this);
   }
 
@@ -326,6 +340,7 @@ class _$PreInitalized implements PreInitalized {
     TResult preInitialized(PreInitalized value),
     TResult initialized(Initalized value),
     TResult drafted(Drafted value),
+    TResult draftNotified(DraftNotified value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -380,10 +395,12 @@ class _$Initalized implements Initalized {
     @required TResult preInitialized(),
     @required TResult initialized(),
     @required TResult drafted(),
+    @required TResult draftNotified(),
   }) {
     assert(preInitialized != null);
     assert(initialized != null);
     assert(drafted != null);
+    assert(draftNotified != null);
     return initialized();
   }
 
@@ -393,6 +410,7 @@ class _$Initalized implements Initalized {
     TResult preInitialized(),
     TResult initialized(),
     TResult drafted(),
+    TResult draftNotified(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -408,10 +426,12 @@ class _$Initalized implements Initalized {
     @required TResult preInitialized(PreInitalized value),
     @required TResult initialized(Initalized value),
     @required TResult drafted(Drafted value),
+    @required TResult draftNotified(DraftNotified value),
   }) {
     assert(preInitialized != null);
     assert(initialized != null);
     assert(drafted != null);
+    assert(draftNotified != null);
     return initialized(this);
   }
 
@@ -421,6 +441,7 @@ class _$Initalized implements Initalized {
     TResult preInitialized(PreInitalized value),
     TResult initialized(Initalized value),
     TResult drafted(Drafted value),
+    TResult draftNotified(DraftNotified value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -474,10 +495,12 @@ class _$Drafted implements Drafted {
     @required TResult preInitialized(),
     @required TResult initialized(),
     @required TResult drafted(),
+    @required TResult draftNotified(),
   }) {
     assert(preInitialized != null);
     assert(initialized != null);
     assert(drafted != null);
+    assert(draftNotified != null);
     return drafted();
   }
 
@@ -487,6 +510,7 @@ class _$Drafted implements Drafted {
     TResult preInitialized(),
     TResult initialized(),
     TResult drafted(),
+    TResult draftNotified(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -502,10 +526,12 @@ class _$Drafted implements Drafted {
     @required TResult preInitialized(PreInitalized value),
     @required TResult initialized(Initalized value),
     @required TResult drafted(Drafted value),
+    @required TResult draftNotified(DraftNotified value),
   }) {
     assert(preInitialized != null);
     assert(initialized != null);
     assert(drafted != null);
+    assert(draftNotified != null);
     return drafted(this);
   }
 
@@ -515,6 +541,7 @@ class _$Drafted implements Drafted {
     TResult preInitialized(PreInitalized value),
     TResult initialized(Initalized value),
     TResult drafted(Drafted value),
+    TResult draftNotified(DraftNotified value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -527,6 +554,108 @@ class _$Drafted implements Drafted {
 
 abstract class Drafted implements ModelStatus {
   const factory Drafted() = _$Drafted;
+}
+
+/// @nodoc
+abstract class $DraftNotifiedCopyWith<$Res> {
+  factory $DraftNotifiedCopyWith(
+          DraftNotified value, $Res Function(DraftNotified) then) =
+      _$DraftNotifiedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$DraftNotifiedCopyWithImpl<$Res> extends _$ModelStatusCopyWithImpl<$Res>
+    implements $DraftNotifiedCopyWith<$Res> {
+  _$DraftNotifiedCopyWithImpl(
+      DraftNotified _value, $Res Function(DraftNotified) _then)
+      : super(_value, (v) => _then(v as DraftNotified));
+
+  @override
+  DraftNotified get _value => super._value as DraftNotified;
+}
+
+/// @nodoc
+class _$DraftNotified implements DraftNotified {
+  const _$DraftNotified();
+
+  @override
+  String toString() {
+    return 'ModelStatus.draftNotified()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is DraftNotified);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult initialized(),
+    @required TResult drafted(),
+    @required TResult draftNotified(),
+  }) {
+    assert(preInitialized != null);
+    assert(initialized != null);
+    assert(drafted != null);
+    assert(draftNotified != null);
+    return draftNotified();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult initialized(),
+    TResult drafted(),
+    TResult draftNotified(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (draftNotified != null) {
+      return draftNotified();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(PreInitalized value),
+    @required TResult initialized(Initalized value),
+    @required TResult drafted(Drafted value),
+    @required TResult draftNotified(DraftNotified value),
+  }) {
+    assert(preInitialized != null);
+    assert(initialized != null);
+    assert(drafted != null);
+    assert(draftNotified != null);
+    return draftNotified(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(PreInitalized value),
+    TResult initialized(Initalized value),
+    TResult drafted(Drafted value),
+    TResult draftNotified(DraftNotified value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (draftNotified != null) {
+      return draftNotified(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DraftNotified implements ModelStatus {
+  const factory DraftNotified() = _$DraftNotified;
 }
 
 /// @nodoc

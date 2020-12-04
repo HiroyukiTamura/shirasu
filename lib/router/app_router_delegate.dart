@@ -37,7 +37,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             error: () => throw UnimplementedError(),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
-            userLocation: (UserLocation userLocation) => ScreenUserLocation(userLocation: userLocation),
+            userLocation: () => const ScreenUserLocation(),
           );
           return Tuple2(location, screen);
         })

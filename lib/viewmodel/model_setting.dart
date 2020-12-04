@@ -17,19 +17,30 @@ abstract class SettingModelState with _$SettingModelState {
 
 @freezed
 abstract class EditedUserInfo implements _$EditedUserInfo {
-  const factory EditedUserInfo({DateTime birthDate, String jobCode}) =
-      _EditedUserInfo;
+  const factory EditedUserInfo({
+    DateTime birthDate,
+    String jobCode,
+    String countryCode,
+    String prefectureCode,
+  }) = _EditedUserInfo;
 
   factory EditedUserInfo.empty() => const EditedUserInfo();
 
   const EditedUserInfo._();
 
-  bool get isEdited => birthDate != null || jobCode != null;
+  bool get isEdited =>
+      birthDate != null ||
+      jobCode != null ||
+      countryCode != null ||
+      prefectureCode != null;
 }
 
 @freezed
 abstract class SettingModel with _$SettingModel {
-  const factory SettingModel(SettingModelState settingModelState, EditedUserInfo editedUserInfo) = _SettingModel;
+  const factory SettingModel(
+          SettingModelState settingModelState, EditedUserInfo editedUserInfo) =
+      _SettingModel;
 
-  factory SettingModel.initial() => const SettingModel(SettingModelState.preInitialized(), EditedUserInfo());
+  factory SettingModel.initial() =>
+      const SettingModel(SettingModelState.preInitialized(), EditedUserInfo());
 }

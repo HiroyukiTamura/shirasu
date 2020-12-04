@@ -1,4 +1,3 @@
-
 import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
@@ -9,7 +8,7 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_user_location.dart';
 
-class ViewModelSetting extends ViewModelBase<SettingModel> with LocatorMixin {
+class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting() : super(SettingModel.initial());
 
   final _apiClient = ApiClient(Client());
@@ -42,15 +41,6 @@ class ViewModelSetting extends ViewModelBase<SettingModel> with LocatorMixin {
     ),
   );
 
-  @override
-  void update(T Function<T>() watch) {
-    final editedState = watch<ViewModelUserLocation>().state;
-    if (editedState is Drafted) {
-      //todo 次ここから
-      setState(state.copyWith(editedUserInfo: editedState.data));
-    }
-  }
-
   /// todo should be synchronized?
   /// todo check is disposed
   @override
@@ -79,6 +69,16 @@ class ViewModelSetting extends ViewModelBase<SettingModel> with LocatorMixin {
     final editedUserInfo = state.editedUserInfo.copyWith(jobCode: jobCode);
     state = state.copyWith(editedUserInfo: editedUserInfo);
   }
+
+  void updateUserLocation(String countryCode, String prefectureCode) =>
+      setState(
+        state.copyWith(
+          editedUserInfo: state.editedUserInfo.copyWith(
+            countryCode: countryCode,
+            prefectureCode: prefectureCode,
+          ),
+        ),
+      );
 
   Future<String> _genLocationStr(User user) async {
     String countryStr = await _jsonClient

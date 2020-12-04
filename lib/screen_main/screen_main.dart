@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/main.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
+import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 
-class PageDashboardInMainScreen extends StatefulHookWidget {
+class PageDashboardInMainScreen extends StatefulWidget {
   const PageDashboardInMainScreen({Key key, @required this.appState})
       : super(key: key);
 
@@ -54,13 +54,14 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
           routerDelegate: _routerDelegate,
           backButtonDispatcher: _backButtonDispatcher,
         ),
+        floatingActionButton: _Fab(delegate: _routerDelegate,),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(.6),
           showUnselectedLabels: true,
           unselectedFontSize: 14,
           onTap: (index) {
-           final data = PathDataMainPageBase.fromIndex(index);
+            final data = PathDataMainPageBase.fromIndex(index);
             _routerDelegate.appState.push(data);
           },
           currentIndex: _routerDelegate.currentConfiguration.getIndex(),
@@ -83,6 +84,29 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+//todo refactor
+class _Fab extends HookWidget {
+  const _Fab({
+    @required this.delegate,
+    Key key,
+  }) : super(key: key);
+
+  final ScreenMainRouterDelegate delegate;
+
+  @override
+  Widget build(BuildContext context) {
+    final isEdited = useProvider(settingViewModelSProvider.state.select((it) => it.editedUserInfo.isEdited));
+
+    return Visibility(
+      visible: isEdited,
+      child: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.save),
       ),
     );
   }

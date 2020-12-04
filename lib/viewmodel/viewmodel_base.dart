@@ -11,6 +11,7 @@ abstract class ViewModelBase<T> extends StateNotifier<T> {
   @protected
   Future<void> initialize() async {}
 
+  /// todo rename to trySetState?
   @protected
   void setState(T state) {
     if (mounted)

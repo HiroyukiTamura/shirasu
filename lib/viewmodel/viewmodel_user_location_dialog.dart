@@ -1,27 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/local_json_client.dart';
 import 'package:shirasu/model/country_data.dart';
 import 'package:shirasu/model/prefecture_data.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 
-part 'viewmodel_user_location.freezed.dart';
+part 'viewmodel_user_location_dialog.freezed.dart';
 
-class ViewModelUserLocation extends ViewModelBase<UserLocationModel> {
-  ViewModelUserLocation._({
+class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
+
+  ViewModelUserLocationDialog._({
     @required this.ref,
     @required this.countryCode,
     @required this.prefectureCode,
   }) : super(UserLocationModel.preInitialized());
 
-  factory ViewModelUserLocation.createFromSettingVm(ProviderReference ref) {
+  factory ViewModelUserLocationDialog.createFromSettingVm(ProviderReference ref) {
     final editedUserInfo =
         ref.read(settingViewModelSProvider.state).editedUserInfo;
-    return ViewModelUserLocation._(
+    return ViewModelUserLocationDialog._(
       ref: ref,
       countryCode: editedUserInfo.countryCode ??
           ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.country,
@@ -38,8 +37,15 @@ class ViewModelUserLocation extends ViewModelBase<UserLocationModel> {
 
   @override
   Future<void> initialize() async {
-    final countryData = await _jsonClient.getCountryData();
-    final prefectureData = await _jsonClient.getPrefectureData();
+
+    CountryData countryData;
+    PrefectureData prefectureData;
+
+    //todo move to extension method
+    await Future.wait([
+      _jsonClient.getCountryData().then((it) => countryData = it),
+      _jsonClient.getPrefectureData().then((it) => prefectureData = it),
+    ]);
 
     setState(UserLocationModel.initialized(
       countryData: countryData,
@@ -50,16 +56,12 @@ class ViewModelUserLocation extends ViewModelBase<UserLocationModel> {
   }
 
   void changeCountry(String countryCode) =>
-      setState(state.toCountry(countryCode));
+      state = state.toCountry(countryCode);
 
   void changePrefecture(String prefectureCode) =>
-      setState(state.toPrefecture(prefectureCode));
-
-  void onTapSaveBtn() {
-    setState(state.toDraft());
-    ref.read(settingViewModelSProvider).updateUserLocation(countryCode, prefectureCode);
-  }
+      state = state.toPrefecture(prefectureCode);
 }
+
 
 @freezed
 abstract class UserLocationModel implements _$UserLocationModel {
@@ -89,8 +91,6 @@ abstract class UserLocationModel implements _$UserLocationModel {
         ),
       );
 
-  UserLocationModel toDraft() => copyWith(status: const Drafted());
-
   UserLocationModel toCountry(String countryCode) =>
       copyWith(data: data.copyWith(countryCode: countryCode));
 
@@ -103,10 +103,6 @@ abstract class ModelStatus with _$ModelStatus {
   const factory ModelStatus.preInitialized() = PreInitalized;
 
   const factory ModelStatus.initialized() = Initalized;
-
-  const factory ModelStatus.drafted() = Drafted;
-
-  const factory ModelStatus.draftNotified() = DraftNotified;
 }
 
 @freezed

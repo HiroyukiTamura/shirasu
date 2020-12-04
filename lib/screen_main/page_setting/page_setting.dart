@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/dialog/user_location_dialog.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/viewer.dart';
@@ -237,9 +238,11 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         return listItem(
           title: Strings.PLACE_LABEL,
           subTitle: locationStr,
-          onTap: () async => context.read(appRouterProvider).delegate.pushPage(
-                const GlobalRoutePath.editUserLocation(),
-              ),
+          onTap: () async {
+            final result = await UserLocationDialog.show(context);
+            if (result != null)
+              context.read(settingViewModelSProvider).updateUserLocation(result.countryCode, result.prefectureCode);
+          },
         );
       case 6:
         return const ListTileSeem();

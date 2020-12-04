@@ -191,7 +191,10 @@ class Strings {
 
 //endregion
 
-//region screen_user_location
+//region dialog
   static const String APP_BAR_LOCATION = '居住地域';
+  static const String DIALOG_TITLE_LOCATION = '居住地域';
+  static const String DIALOG_OK = 'OK';
+  static const String DIALOG_CANCEL = 'キャンセル';
 //endregion
 }

@@ -9,7 +9,7 @@ abstract class SettingModelState with _$SettingModelState {
 
   const factory SettingModelState.loading() = StateLoading;
 
-  const factory SettingModelState.success(Viewer data, String locationStr) =
+  const factory SettingModelState.success(Viewer data) =
       StateSuccess;
 
   const factory SettingModelState.error() = StateError;
@@ -20,8 +20,7 @@ abstract class EditedUserInfo implements _$EditedUserInfo {
   const factory EditedUserInfo({
     DateTime birthDate,
     String jobCode,
-    String countryCode,
-    String prefectureCode,
+    Location location,
   }) = _EditedUserInfo;
 
   factory EditedUserInfo.empty() => const EditedUserInfo();
@@ -31,8 +30,7 @@ abstract class EditedUserInfo implements _$EditedUserInfo {
   bool get isEdited =>
       birthDate != null ||
       jobCode != null ||
-      countryCode != null ||
-      prefectureCode != null;
+      location != null;
 }
 
 @freezed
@@ -43,4 +41,12 @@ abstract class SettingModel with _$SettingModel {
 
   factory SettingModel.initial() =>
       const SettingModel(SettingModelState.preInitialized(), EditedUserInfo());
+}
+
+@freezed
+abstract class Location with _$Location {
+  const factory Location({
+    @required String countryCode,
+    @required String prefectureCode,
+  }) = _Location;
 }

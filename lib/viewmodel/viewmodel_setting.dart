@@ -12,7 +12,6 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting() : super(SettingModel.initial());
 
   final _apiClient = ApiClient(Client());
-  final _jsonClient = const LocalJsonClient();
 
   static final User dummyUser = User(
     email: 'hogehoge@gmail.com',
@@ -50,8 +49,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     SettingModelState newState;
     try {
       final viewer = await _apiClient.queryViewer();
-      final locationStr = await _genLocationStr(dummyUser);
-      newState = StateSuccess(viewer, locationStr);
+      newState = StateSuccess(viewer);
     } catch (e) {
       print(e);
       newState = const StateError();
@@ -74,22 +72,11 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
       setState(
         state.copyWith(
           editedUserInfo: state.editedUserInfo.copyWith(
-            countryCode: countryCode,
-            prefectureCode: prefectureCode,
+            location: Location(
+              countryCode: countryCode,
+              prefectureCode: prefectureCode,
+            ),
           ),
         ),
       );
-
-  Future<String> _genLocationStr(User user) async {
-    String countryStr = await _jsonClient
-            .getCountryName(user.httpsShirasuIoUserAttribute.country) ??
-        Strings.DEFAULT_EMPTY;
-    if (LocalJsonClient.isJapan(user.httpsShirasuIoUserAttribute.country)) {
-      final prefectureStr = await _jsonClient
-              .getPrefectureName(user.httpsShirasuIoUserAttribute.prefecture) ??
-          Strings.DEFAULT_EMPTY;
-      countryStr += ' $prefectureStr';
-    }
-    return countryStr;
-  }
 }

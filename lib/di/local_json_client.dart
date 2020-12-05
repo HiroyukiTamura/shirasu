@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:shirasu/gen/assets.gen.dart';
+import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/country_data.dart';
 import 'package:shirasu/model/prefecture_data.dart';
+import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/viewmodel/model_setting.dart';
 
 class LocalJsonClient {
-
   const LocalJsonClient();
 
   /// [countryCode] : ex. JP
@@ -26,8 +28,7 @@ class LocalJsonClient {
   Future<String> getPrefectureName(String prefectureCode) async {
     final data = await getPrefectureData();
     return data.prefecture
-        .firstWhere((it) => it.code == prefectureCode,
-        orElse: () => null)
+        .firstWhere((it) => it.code == prefectureCode, orElse: () => null)
         ?.name;
   }
 
@@ -37,4 +38,20 @@ class LocalJsonClient {
   }
 
   static bool isJapan(String countryCode) => countryCode.toUpperCase() == 'JP';
+
+  Future<String> genLocationStr(
+      User user, Location location) async {
+    final countryCode = location?.countryCode ??
+        user?.httpsShirasuIoUserAttribute?.country;
+    final prefectureCode = location?.prefectureCode ??
+        user?.httpsShirasuIoUserAttribute?.prefecture;
+    String countryStr =
+        await getCountryName(countryCode) ?? Strings.DEFAULT_EMPTY;
+    if (LocalJsonClient.isJapan(countryCode)) {
+      final prefectureStr =
+          await getPrefectureName(prefectureCode) ?? Strings.DEFAULT_EMPTY;
+      countryStr += ' $prefectureStr';
+    }
+    return countryStr;
+  }
 }

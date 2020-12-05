@@ -15,6 +15,7 @@ import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_birthdate.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_job.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_load_more.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_location.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
@@ -51,7 +52,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         preInitialized: () => const CenterCircleProgress(),
         loading: () => const CenterCircleProgress(),
         error: () => const PageError(),
-        success: (data, locationStr) => ListView.builder(
+        success: (data) => ListView.builder(
           padding:
               const EdgeInsets.symmetric(vertical: Dimens.SETTING_OUTER_MARGIN),
           itemBuilder: (context, i) {
@@ -61,7 +62,6 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
               return _genListItemAboveCreditCard(
                 context,
                 data.viewerUser,
-                locationStr,
                 i,
               );
 
@@ -218,7 +218,6 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
   static Widget _genListItemAboveCreditCard(
     BuildContext context,
     ViewerUser viewerUser,
-    String locationStr,
     int index,
   ) {
     switch (index) {
@@ -235,15 +234,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
       case 4:
         return const ListTileJob();
       case 5:
-        return listItem(
-          title: Strings.PLACE_LABEL,
-          subTitle: locationStr,
-          onTap: () async {
-            final result = await UserLocationDialog.show(context);
-            if (result != null)
-              context.read(settingViewModelSProvider).updateUserLocation(result.countryCode, result.prefectureCode);
-          },
-        );
+        return ListTileLocation();
       case 6:
         return const ListTileSeem();
       case 7:

@@ -24,10 +24,9 @@ class _$SettingModelStateTearOff {
   }
 
 // ignore: unused_element
-  StateSuccess success(Viewer data, String locationStr) {
+  StateSuccess success(Viewer data) {
     return StateSuccess(
       data,
-      locationStr,
     );
   }
 
@@ -47,14 +46,14 @@ mixin _$SettingModelState {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data, String locationStr),
+    @required TResult success(Viewer data),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data, String locationStr),
+    TResult success(Viewer data),
     TResult error(),
     @required TResult orElse(),
   });
@@ -133,7 +132,7 @@ class _$StatePreInitialized implements StatePreInitialized {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data, String locationStr),
+    @required TResult success(Viewer data),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -148,7 +147,7 @@ class _$StatePreInitialized implements StatePreInitialized {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data, String locationStr),
+    TResult success(Viewer data),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -236,7 +235,7 @@ class _$StateLoading implements StateLoading {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data, String locationStr),
+    @required TResult success(Viewer data),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -251,7 +250,7 @@ class _$StateLoading implements StateLoading {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data, String locationStr),
+    TResult success(Viewer data),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -303,7 +302,7 @@ abstract class $StateSuccessCopyWith<$Res> {
   factory $StateSuccessCopyWith(
           StateSuccess value, $Res Function(StateSuccess) then) =
       _$StateSuccessCopyWithImpl<$Res>;
-  $Res call({Viewer data, String locationStr});
+  $Res call({Viewer data});
 
   $ViewerCopyWith<$Res> get data;
 }
@@ -322,11 +321,9 @@ class _$StateSuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object data = freezed,
-    Object locationStr = freezed,
   }) {
     return _then(StateSuccess(
       data == freezed ? _value.data : data as Viewer,
-      locationStr == freezed ? _value.locationStr : locationStr as String,
     ));
   }
 
@@ -343,18 +340,14 @@ class _$StateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 class _$StateSuccess implements StateSuccess {
-  const _$StateSuccess(this.data, this.locationStr)
-      : assert(data != null),
-        assert(locationStr != null);
+  const _$StateSuccess(this.data) : assert(data != null);
 
   @override
   final Viewer data;
-  @override
-  final String locationStr;
 
   @override
   String toString() {
-    return 'SettingModelState.success(data: $data, locationStr: $locationStr)';
+    return 'SettingModelState.success(data: $data)';
   }
 
   @override
@@ -362,17 +355,12 @@ class _$StateSuccess implements StateSuccess {
     return identical(this, other) ||
         (other is StateSuccess &&
             (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)) &&
-            (identical(other.locationStr, locationStr) ||
-                const DeepCollectionEquality()
-                    .equals(other.locationStr, locationStr)));
+                const DeepCollectionEquality().equals(other.data, data)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(data) ^
-      const DeepCollectionEquality().hash(locationStr);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
 
   @override
   $StateSuccessCopyWith<StateSuccess> get copyWith =>
@@ -383,14 +371,14 @@ class _$StateSuccess implements StateSuccess {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data, String locationStr),
+    @required TResult success(Viewer data),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
     assert(success != null);
     assert(error != null);
-    return success(data, locationStr);
+    return success(data);
   }
 
   @override
@@ -398,13 +386,13 @@ class _$StateSuccess implements StateSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data, String locationStr),
+    TResult success(Viewer data),
     TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
-      return success(data, locationStr);
+      return success(data);
     }
     return orElse();
   }
@@ -442,10 +430,9 @@ class _$StateSuccess implements StateSuccess {
 }
 
 abstract class StateSuccess implements SettingModelState {
-  const factory StateSuccess(Viewer data, String locationStr) = _$StateSuccess;
+  const factory StateSuccess(Viewer data) = _$StateSuccess;
 
   Viewer get data;
-  String get locationStr;
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
 
@@ -489,7 +476,7 @@ class _$StateError implements StateError {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data, String locationStr),
+    @required TResult success(Viewer data),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -504,7 +491,7 @@ class _$StateError implements StateError {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data, String locationStr),
+    TResult success(Viewer data),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -557,15 +544,11 @@ class _$EditedUserInfoTearOff {
 
 // ignore: unused_element
   _EditedUserInfo call(
-      {DateTime birthDate,
-      String jobCode,
-      String countryCode,
-      String prefectureCode}) {
+      {DateTime birthDate, String jobCode, Location location}) {
     return _EditedUserInfo(
       birthDate: birthDate,
       jobCode: jobCode,
-      countryCode: countryCode,
-      prefectureCode: prefectureCode,
+      location: location,
     );
   }
 }
@@ -578,8 +561,7 @@ const $EditedUserInfo = _$EditedUserInfoTearOff();
 mixin _$EditedUserInfo {
   DateTime get birthDate;
   String get jobCode;
-  String get countryCode;
-  String get prefectureCode;
+  Location get location;
 
   $EditedUserInfoCopyWith<EditedUserInfo> get copyWith;
 }
@@ -589,11 +571,9 @@ abstract class $EditedUserInfoCopyWith<$Res> {
   factory $EditedUserInfoCopyWith(
           EditedUserInfo value, $Res Function(EditedUserInfo) then) =
       _$EditedUserInfoCopyWithImpl<$Res>;
-  $Res call(
-      {DateTime birthDate,
-      String jobCode,
-      String countryCode,
-      String prefectureCode});
+  $Res call({DateTime birthDate, String jobCode, Location location});
+
+  $LocationCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -609,19 +589,24 @@ class _$EditedUserInfoCopyWithImpl<$Res>
   $Res call({
     Object birthDate = freezed,
     Object jobCode = freezed,
-    Object countryCode = freezed,
-    Object prefectureCode = freezed,
+    Object location = freezed,
   }) {
     return _then(_value.copyWith(
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
       jobCode: jobCode == freezed ? _value.jobCode : jobCode as String,
-      countryCode:
-          countryCode == freezed ? _value.countryCode : countryCode as String,
-      prefectureCode: prefectureCode == freezed
-          ? _value.prefectureCode
-          : prefectureCode as String,
+      location: location == freezed ? _value.location : location as Location,
     ));
+  }
+
+  @override
+  $LocationCopyWith<$Res> get location {
+    if (_value.location == null) {
+      return null;
+    }
+    return $LocationCopyWith<$Res>(_value.location, (value) {
+      return _then(_value.copyWith(location: value));
+    });
   }
 }
 
@@ -632,11 +617,10 @@ abstract class _$EditedUserInfoCopyWith<$Res>
           _EditedUserInfo value, $Res Function(_EditedUserInfo) then) =
       __$EditedUserInfoCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {DateTime birthDate,
-      String jobCode,
-      String countryCode,
-      String prefectureCode});
+  $Res call({DateTime birthDate, String jobCode, Location location});
+
+  @override
+  $LocationCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -654,26 +638,20 @@ class __$EditedUserInfoCopyWithImpl<$Res>
   $Res call({
     Object birthDate = freezed,
     Object jobCode = freezed,
-    Object countryCode = freezed,
-    Object prefectureCode = freezed,
+    Object location = freezed,
   }) {
     return _then(_EditedUserInfo(
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
       jobCode: jobCode == freezed ? _value.jobCode : jobCode as String,
-      countryCode:
-          countryCode == freezed ? _value.countryCode : countryCode as String,
-      prefectureCode: prefectureCode == freezed
-          ? _value.prefectureCode
-          : prefectureCode as String,
+      location: location == freezed ? _value.location : location as Location,
     ));
   }
 }
 
 /// @nodoc
 class _$_EditedUserInfo extends _EditedUserInfo {
-  const _$_EditedUserInfo(
-      {this.birthDate, this.jobCode, this.countryCode, this.prefectureCode})
+  const _$_EditedUserInfo({this.birthDate, this.jobCode, this.location})
       : super._();
 
   @override
@@ -681,13 +659,11 @@ class _$_EditedUserInfo extends _EditedUserInfo {
   @override
   final String jobCode;
   @override
-  final String countryCode;
-  @override
-  final String prefectureCode;
+  final Location location;
 
   @override
   String toString() {
-    return 'EditedUserInfo(birthDate: $birthDate, jobCode: $jobCode, countryCode: $countryCode, prefectureCode: $prefectureCode)';
+    return 'EditedUserInfo(birthDate: $birthDate, jobCode: $jobCode, location: $location)';
   }
 
   @override
@@ -700,12 +676,9 @@ class _$_EditedUserInfo extends _EditedUserInfo {
             (identical(other.jobCode, jobCode) ||
                 const DeepCollectionEquality()
                     .equals(other.jobCode, jobCode)) &&
-            (identical(other.countryCode, countryCode) ||
+            (identical(other.location, location) ||
                 const DeepCollectionEquality()
-                    .equals(other.countryCode, countryCode)) &&
-            (identical(other.prefectureCode, prefectureCode) ||
-                const DeepCollectionEquality()
-                    .equals(other.prefectureCode, prefectureCode)));
+                    .equals(other.location, location)));
   }
 
   @override
@@ -713,8 +686,7 @@ class _$_EditedUserInfo extends _EditedUserInfo {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(birthDate) ^
       const DeepCollectionEquality().hash(jobCode) ^
-      const DeepCollectionEquality().hash(countryCode) ^
-      const DeepCollectionEquality().hash(prefectureCode);
+      const DeepCollectionEquality().hash(location);
 
   @override
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith =>
@@ -726,17 +698,14 @@ abstract class _EditedUserInfo extends EditedUserInfo {
   const factory _EditedUserInfo(
       {DateTime birthDate,
       String jobCode,
-      String countryCode,
-      String prefectureCode}) = _$_EditedUserInfo;
+      Location location}) = _$_EditedUserInfo;
 
   @override
   DateTime get birthDate;
   @override
   String get jobCode;
   @override
-  String get countryCode;
-  @override
-  String get prefectureCode;
+  Location get location;
   @override
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith;
 }
@@ -915,4 +884,144 @@ abstract class _SettingModel implements SettingModel {
   EditedUserInfo get editedUserInfo;
   @override
   _$SettingModelCopyWith<_SettingModel> get copyWith;
+}
+
+/// @nodoc
+class _$LocationTearOff {
+  const _$LocationTearOff();
+
+// ignore: unused_element
+  _Location call(
+      {@required String countryCode, @required String prefectureCode}) {
+    return _Location(
+      countryCode: countryCode,
+      prefectureCode: prefectureCode,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $Location = _$LocationTearOff();
+
+/// @nodoc
+mixin _$Location {
+  String get countryCode;
+  String get prefectureCode;
+
+  $LocationCopyWith<Location> get copyWith;
+}
+
+/// @nodoc
+abstract class $LocationCopyWith<$Res> {
+  factory $LocationCopyWith(Location value, $Res Function(Location) then) =
+      _$LocationCopyWithImpl<$Res>;
+  $Res call({String countryCode, String prefectureCode});
+}
+
+/// @nodoc
+class _$LocationCopyWithImpl<$Res> implements $LocationCopyWith<$Res> {
+  _$LocationCopyWithImpl(this._value, this._then);
+
+  final Location _value;
+  // ignore: unused_field
+  final $Res Function(Location) _then;
+
+  @override
+  $Res call({
+    Object countryCode = freezed,
+    Object prefectureCode = freezed,
+  }) {
+    return _then(_value.copyWith(
+      countryCode:
+          countryCode == freezed ? _value.countryCode : countryCode as String,
+      prefectureCode: prefectureCode == freezed
+          ? _value.prefectureCode
+          : prefectureCode as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
+  factory _$LocationCopyWith(_Location value, $Res Function(_Location) then) =
+      __$LocationCopyWithImpl<$Res>;
+  @override
+  $Res call({String countryCode, String prefectureCode});
+}
+
+/// @nodoc
+class __$LocationCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res>
+    implements _$LocationCopyWith<$Res> {
+  __$LocationCopyWithImpl(_Location _value, $Res Function(_Location) _then)
+      : super(_value, (v) => _then(v as _Location));
+
+  @override
+  _Location get _value => super._value as _Location;
+
+  @override
+  $Res call({
+    Object countryCode = freezed,
+    Object prefectureCode = freezed,
+  }) {
+    return _then(_Location(
+      countryCode:
+          countryCode == freezed ? _value.countryCode : countryCode as String,
+      prefectureCode: prefectureCode == freezed
+          ? _value.prefectureCode
+          : prefectureCode as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_Location implements _Location {
+  const _$_Location({@required this.countryCode, @required this.prefectureCode})
+      : assert(countryCode != null),
+        assert(prefectureCode != null);
+
+  @override
+  final String countryCode;
+  @override
+  final String prefectureCode;
+
+  @override
+  String toString() {
+    return 'Location(countryCode: $countryCode, prefectureCode: $prefectureCode)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Location &&
+            (identical(other.countryCode, countryCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.countryCode, countryCode)) &&
+            (identical(other.prefectureCode, prefectureCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.prefectureCode, prefectureCode)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(countryCode) ^
+      const DeepCollectionEquality().hash(prefectureCode);
+
+  @override
+  _$LocationCopyWith<_Location> get copyWith =>
+      __$LocationCopyWithImpl<_Location>(this, _$identity);
+}
+
+abstract class _Location implements Location {
+  const factory _Location(
+      {@required String countryCode,
+      @required String prefectureCode}) = _$_Location;
+
+  @override
+  String get countryCode;
+  @override
+  String get prefectureCode;
+  @override
+  _$LocationCopyWith<_Location> get copyWith;
 }

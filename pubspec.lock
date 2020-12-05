@@ -30,7 +30,7 @@ packages:
     source: hosted
     version: "1.6.0"
   async:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: async
       url: "https://pub.dartlang.org"
@@ -820,7 +820,7 @@ packages:
     source: hosted
     version: "1.10.0-nullsafety.1"
   state_notifier:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: state_notifier
       url: "https://pub.dartlang.org"

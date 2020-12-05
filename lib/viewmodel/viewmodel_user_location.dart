@@ -19,13 +19,12 @@ class ViewModelUserLocation extends ViewModelBase<UserLocationModel> {
   }) : super(UserLocationModel.preInitialized());
 
   factory ViewModelUserLocation.createFromSettingVm(ProviderReference ref) {
-    final editedUserInfo =
-        ref.read(settingViewModelSProvider.state).editedUserInfo;
+    final location = ref.read(settingViewModelSProvider.state).editedUserInfo.location;
     return ViewModelUserLocation._(
       ref: ref,
-      countryCode: editedUserInfo.countryCode ??
+      countryCode: location.countryCode ??
           ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.country,
-      prefectureCode: editedUserInfo.prefectureCode ??
+      prefectureCode: location.prefectureCode ??
           ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.prefecture,
     );
   }

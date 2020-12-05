@@ -5,32 +5,43 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
-class ListTileLoadMore extends HookWidget {
+final _showLoadMoreProvider = Provider.autoDispose<bool>((ref) =>
+    ref.watch(settingViewModelSProvider.state).settingModelState.maybeWhen(
+          success: (data) {
+            return data.viewerUser.watchHistories.items.isNotEmpty;
+          },
+          orElse: () => false,
+        ));
 
-  const ListTileLoadMore({Key key}): super(key: key);
+class ListTileLoadMore extends HookWidget {
+  const ListTileLoadMore({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Center(
-      child: TextButton(
-        onPressed: () async {
-          const path = PathDataMainPageBase.subscribing(SubscribingTabPage.WATCH_HISTORY);
-          return context
-            .read(appRouterProvider)
-            .delegate
-            .swapPageInMainScreen(path);
-        },
-        child: const Padding(
-          padding: EdgeInsets.all(8),
-          child: Text(
-            Strings.WATCH_MORE,
-            style: TextStyle(
-              height: 1,
-              fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) => useProvider(_showLoadMoreProvider)
+      ? Center(
+          child: TextButton(
+            onPressed: () async {
+              const path = PathDataMainPageBase.subscribing(
+                  SubscribingTabPage.WATCH_HISTORY);
+              return context
+                  .read(appRouterProvider)
+                  .delegate
+                  .swapPageInMainScreen(path);
+            },
+            child: const Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                Strings.WATCH_MORE,
+                style: TextStyle(
+                  height: 1,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        )
+      : const SizedBox.shrink();
 }

@@ -120,3 +120,9 @@ abstract class BaseModelWatchHistoryConnection extends _GraphQlModel {}
 
 @immutable
 abstract class BaseModelChannelConnection extends _GraphQlModel {}
+
+@immutable
+abstract class BaseUserWithAttribute extends _GraphQlModel {}
+
+@immutable
+abstract class BaseUserAttribute extends _GraphQlModel {}

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/channel_data.dart';
@@ -7,24 +8,24 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'viewmodel_channel.freezed.dart';
 
-class ViewModelChannel extends DisposableValueNotifier<ChannelDataResult> with ViewModelBase {
+class ViewModelChannel extends ViewModelBase<ChannelDataResult> {
   ViewModelChannel(this._channelId) : super(const PreInitialized());
 
-  final apiClient = ApiClient(Client());
+  final _apiClient = ApiClient(Client());
   final String _channelId;
 
   @override
   Future<void> initialize() async {
-    if (value is Success || value is Loading)
+    if (!(state is PreInitialized))
       return;
 
     try {
-      value = const ChannelDataResult.loading();
-      final data = await apiClient.queryChannelData(_channelId);
-      value = ChannelDataResult.success(data);
+      state = const ChannelDataResult.loading();
+      final data = await _apiClient.queryChannelData(_channelId);
+      setState(ChannelDataResult.success(data));
     } catch (e) {
       print(e);
-      value = const ChannelDataResult.error();
+      setState(const ChannelDataResult.error());
     }
   }
 }

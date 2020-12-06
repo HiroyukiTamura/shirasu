@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_playout/video.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -21,8 +19,8 @@ import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:after_layout/after_layout.dart';
 
-final detailProvider = ChangeNotifierProvider.autoDispose
-    .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id));
+final detailSNProvider = StateNotifierProvider.autoDispose
+    .family<ViewModelDetail, String>((_, id) => ViewModelDetail(id));
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
@@ -43,7 +41,7 @@ class _ScreenDetailState extends State<ScreenDetail>
 
   @override
   void afterFirstLayout(BuildContext context) =>
-      context.read(detailProvider(_id)).initialize();
+      context.read(detailSNProvider(_id)).initialize();
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -59,9 +57,7 @@ class _PrgResultHookedWidget extends HookWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context) =>
-      useProvider(detailProvider(id).select((value) => value.prgDataResult))
-          .when(
+  Widget build(BuildContext context) => useProvider(detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
         loading: () => const CenterCircleProgress(),
         preInitialized: () => const CenterCircleProgress(),
         success: (data) => _ContentWidget(data: data),
@@ -85,7 +81,7 @@ class _ContentWidget extends StatelessWidget {
                 height: headerH,
                 programId: data.program.id,
                 onTap: () => context
-                    .read(detailProvider(data.program.id))
+                    .read(detailSNProvider(data.program.id))
                     .playVideo(), //todo don't context.read in onTap
               ),
               SizedBox(

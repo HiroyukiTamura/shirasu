@@ -6,7 +6,7 @@ import 'package:shirasu/screen_main/page_subscribing/watch_history_widget.dart';
 import 'package:shirasu/screen_main/page_subscribing/subscribing_widget.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-class PageSubscribingInMainScreen extends StatelessWidget {
+class PageSubscribingInMainScreen extends HookWidget {
   PageSubscribingInMainScreen({
     @required SubscribingTabPage initialPage,
     Key key,

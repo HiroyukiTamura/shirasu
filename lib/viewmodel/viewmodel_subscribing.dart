@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:http/http.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/watch_history_data.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:shirasu/viewmodel/viewmodel_dashboard.dart' show ApiClientResult;
 
 part 'viewmodel_subscribing.freezed.dart';
 
-
-class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> with ViewModelBase {
+//todo fix lint config as concerned to lack of generics
+class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
 
   ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
 
@@ -18,72 +19,78 @@ class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> 
 
   @override
   Future<void> initialize() async {
-    if (value is FeatureProgramStateSuccess || value is FeatureProgramStateLoading)
+    if (!(state is FeatureProgramStatePreInitialized))
       return;
 
+    state = const FeatureProgramStatePreInitialized();
+
+    FeatureProgramState newState;
     try {
       final data = await _apiClient.queryFeaturedProgramsList();
-      value = FeatureProgramStateSuccess(data);
+      newState = FeatureProgramStateSuccess(data);
     } catch (e) {
       print(e);
-      value = const FeatureProgramStateError();
+      newState = const FeatureProgramStateError();
     }
+    setState(newState);
   }
 }
 
-class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> with ViewModelBase {
+class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> with LocatorMixin {
 
   ViewModelWatchHistory() : super(const StatePreInitialized());
 
   final _apiClient = ApiClient(Client());
+  SnackBarMessageNotifier get _msgNotifier => read<SnackBarMessageNotifier>();
 
   @override
   Future<void> initialize() async {
-    if (value is StateSuccess || value is StateLoading)
+    if (!(state is StatePreInitialized))
       return;
 
+    state = const StateLoading();
+
+    WatchHistoryState newState;
+
     try {
-      value = const StateLoading();
       final data = await _apiClient.queryWatchHistory();
-      value = StateSuccess([data]);
+      state = StateSuccess([data]);
     } catch (e) {
       print(e);
-      value = const StateError();
+      state = const StateError();
     }
 
-    notifyListeners();
+    setState(newState);
   }
 
 
   Future<void> loadMoreWatchHistory() async {
-    final oldState = value;
+    final oldState = state;
     if (oldState is StateSuccess) {
       final nextToken = oldState.watchHistories.last.viewerUser.watchHistories.nextToken;
       if (nextToken == null)
         return;
 
-      value = StateLoadingMore(oldState.watchHistories);
+      // we don't check if Disposed
+      state = StateLoadingMore(oldState.watchHistories);
 
       try {
         final newOne = await _apiClient.queryWatchHistory(
           nextToken: nextToken,
         );
 
-        if (!isDisposed)
-          return ApiClientResult.CANCELED;
+        oldState.watchHistories.add(newOne);//todo fix to watchHistories immutable collection
+        setState(StateSuccess(oldState.watchHistories));
 
-        oldState.watchHistories.add(newOne);
-        value = StateSuccess(oldState.watchHistories);
-
-        if (newOne.viewerUser.watchHistories.items.isEmpty) {
-          //todo show SnackBar
-        }
+        if (newOne.viewerUser.watchHistories.items.isEmpty)
+          _msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
 
         return;
 
       } catch (e) {
+        setState(StateSuccess(oldState.watchHistories));
         debugPrint(e.toString());
-        //todo show SnackBar
+        _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
       }
     }
   }

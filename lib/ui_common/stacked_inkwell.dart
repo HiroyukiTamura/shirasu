@@ -16,14 +16,16 @@ class StackedInkwell extends StatelessWidget {
   Widget build(BuildContext context) => Stack(
         children: [
           child,
-          Positioned.fill(
-            child: Material(
-              type: MaterialType.transparency,
-              child: InkWell(
-                onTap: onTap,
-              ),
-            ),
-          ),
+          _inkWell()
         ],
+      );
+
+  Widget _inkWell() => Positioned.fill(
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            onTap: onTap,
+          ),
+        ),
       );
 }

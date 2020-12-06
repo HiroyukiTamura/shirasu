@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/screen_channel/content_cell.dart';
 
 class PageChannelDetail extends StatelessWidget {
   const PageChannelDetail({Key key, @required this.text}) : super(key: key);
@@ -10,8 +9,11 @@ class PageChannelDetail extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext context) => ContentCell(
-        verticalPadding: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN,
+  Widget build(BuildContext context) => SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(
+          vertical: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN,
+          horizontal: Dimens.MARGIN_OUTLINE,
+        ),
         child: Text(
           text,
           style: TextStyles.CHANNEL_PLAIN,

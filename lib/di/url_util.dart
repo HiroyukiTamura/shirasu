@@ -6,6 +6,7 @@ class UrlUtil {
   const UrlUtil._();
 
   static const _URL_BASE = 'https://shirasu-storage-product.s3.amazonaws.com';
+  static const URL_ACCOUNT = 'https://shirasu.io/account';
 
   static String getThumbnailUrl(String itemId) =>
       '$_URL_BASE/public/programs/$itemId/thumbnail';

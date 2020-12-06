@@ -43,7 +43,7 @@ class ListTilePaymentMethod extends StatelessWidget {
       case 'visa':
         return FontAwesomeIcons.ccVisa;
       default:
-        throw Exception('unexpected item: ${paymentMethod.brand}');
+        throw UnsupportedError('unexpected item: ${paymentMethod.brand}');
     }
   }
 }

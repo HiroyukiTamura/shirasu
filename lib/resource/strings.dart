@@ -32,6 +32,7 @@ class Strings {
   static const HEADING_UPCOMING = 'まもなく放送';
   static const HEADING_NEW_PRG = '新着番組';
   static const HEADING_SUBSCRIBING = '購読中の番組';
+  static const HEADING_CHANNEL = 'チャンネル';
   static const HEADING_NOW_ON_AIR = 'ただいま放送中';
   //endregion
 
@@ -42,7 +43,7 @@ class Strings {
 //endregion
 
   //region SnackBar
-  static const String SNACK_NO_MORE_ITEM = '新着番組は他にありません';
+  static const String SNACK_NO_MORE_ITEM = 'アイテムは他にありません';
   static const String SNACK_ERR = '処理に失敗しました';
 
   //endregion
@@ -188,5 +189,15 @@ class Strings {
     'jobUnemployed': '無職',
   };
 
+  static const String NO_ITEM_SUFFIX = 'はありません';
+  static const String OPEN_WEB = 'WEBページを開く';
+
+//endregion
+
+//region dialog
+  static const String APP_BAR_LOCATION = '居住地域';
+  static const String DIALOG_TITLE_LOCATION = '居住地域';
+  static const String DIALOG_OK = 'OK';
+  static const String DIALOG_CANCEL = 'キャンセル';
 //endregion
 }

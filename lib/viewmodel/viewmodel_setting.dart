@@ -1,24 +1,18 @@
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:http/http.dart';
+import 'package:async/async.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/gen/assets.gen.dart';
-import 'package:shirasu/model/country_data.dart';
-import 'package:shirasu/model/prefecture_data.dart';
-import 'package:shirasu/model/viewer.dart';
+import 'package:shirasu/di/local_json_client.dart';
 import 'package:shirasu/model/auth_data.dart';
-import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/model_setting.dart';
+import 'package:riverpod/src/framework.dart';
 
-part 'viewmodel_setting.freezed.dart';
+class ViewModelSetting extends ViewModelBase<SettingModel> {
+  ViewModelSetting() : super(SettingModel.initial());
 
-class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
-  final apiClient = ApiClient(Client());
-  EditedUserInfo editedUserInfo = EditedUserInfo.empty();
-  SettingModelState state = const SettingModelState.preInitialized();
+  final _apiClient = ApiClient(Client());
 
   static final User dummyUser = User(
     email: 'hogehoge@gmail.com',
@@ -38,7 +32,7 @@ class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
     httpsShirasuIoUserAttribute: HttpsShirasuIoUserAttribute(
       birthDate: DateTime.now(),
       job: 'jobAcademia',
-      country: 'jp',
+      countryNonFixedCase: 'jp',
       familyName: '山田',
       givenName: '太郎',
       familyNameReading: 'やまだ',
@@ -51,88 +45,64 @@ class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
   /// todo check is disposed
   @override
   Future<void> initialize() async {
-    if (state is StateSuccess) return;
+    if (state.settingModelState is StateSuccess) return;
 
     SettingModelState newState;
     try {
-      final viewer = await apiClient.queryViewer();
-      final locationStr = await _genLocationStr(dummyUser);
-      newState = StateSuccess(viewer, locationStr);
+      final viewer = await _apiClient.queryViewer();
+      newState = StateSuccess(viewer);
     } catch (e) {
       print(e);
       newState = const StateError();
     }
 
-    if (!isDisposed) {
-      state = newState;
-      notifyListeners();
-    }
+    setState(state.copyWith(settingModelState: newState));
   }
 
   void updateBirthDate(DateTime birthDate) {
-    editedUserInfo = editedUserInfo.copyWith(birthDate: birthDate);
-    notifyListeners();
+    final editedUserInfo = state.editedUserInfo.copyWith(birthDate: birthDate);
+    state = state.copyWith(editedUserInfo: editedUserInfo);
   }
 
   void updateJobCode(String jobCode) {
-    editedUserInfo = editedUserInfo.copyWith(jobCode: jobCode);
-    notifyListeners();
+    final editedUserInfo = state.editedUserInfo.copyWith(jobCode: jobCode);
+    state = state.copyWith(editedUserInfo: editedUserInfo);
   }
 
-  /// [countryCode] : ex. JP
-  static Future<String> _getCountryName(String countryCode) async {
-    final string = await rootBundle.loadString(Assets.json.country);
-    final json = jsonDecode(string);
-    return CountryData.fromJson(json as Map<String, dynamic>)
-        .countries[countryCode.toUpperCase()];
-  }
-
-  /// [prefectureCode] : 1 ~ 47
-  static Future<String> _getPrefectureName(String prefectureCode) async {
-    final string = await rootBundle.loadString(Assets.json.prefecture);
-    final json = jsonDecode(string);
-    return PrefectureData.fromJson(json as Map<String, dynamic>)
-        .prefecture
-        .firstWhere((it) => it.code == int.tryParse(prefectureCode),
-            orElse: () => null)
-        ?.name;
-  }
-
-  static Future<String> _genLocationStr(User user) async {
-    String countryStr =
-        await _getCountryName(user.httpsShirasuIoUserAttribute.country) ??
-            Strings.DEFAULT_EMPTY;
-    if (user.httpsShirasuIoUserAttribute.country.toUpperCase() == 'JP') {
-      final prefectureStr = await _getPrefectureName(
-              user.httpsShirasuIoUserAttribute.prefecture) ??
-          Strings.DEFAULT_EMPTY;
-      countryStr += ' $prefectureStr';
-    }
-    return countryStr;
-  }
+  void updateUserLocation(String countryCode, String prefectureCode) =>
+      setState(
+        state.copyWith(
+          editedUserInfo: state.editedUserInfo.copyWith(
+            location: Location(
+              countryCode: countryCode,
+              prefectureCode: prefectureCode,
+            ),
+          ),
+        ),
+      );
 }
 
-@freezed
-abstract class SettingModelState with _$SettingModelState {
-  const factory SettingModelState.preInitialized() = StatePreInitialized;
+class LocationTextNotifier extends StateNotifier<String>
+    with StateTrySetter<String> {
+  LocationTextNotifier(AutoDisposeProviderReference ref) : super('') {
+    final removeListener = ref
+        .watch<ViewModelSetting>(settingViewModelSProvider)
+        .addListener(
+            (state) async => _updateLocation(state.editedUserInfo.location));
+    ref.onDispose(removeListener);
+  }
 
-  const factory SettingModelState.loading() = StateLoading;
+  final LocalJsonClient _jsonClient = const LocalJsonClient();
 
-  const factory SettingModelState.success(Viewer data, String locationStr) =
-      StateSuccess;
+  CancelableOperation<String> _completer;
 
-  const factory SettingModelState.error() = StateError;
-}
-
-@freezed
-abstract class EditedUserInfo implements _$EditedUserInfo {
-  
-  const factory EditedUserInfo({DateTime birthDate, String jobCode}) =
-      _EditedUserInfo;
-
-  factory EditedUserInfo.empty() => const EditedUserInfo();
-
-  const EditedUserInfo._();
-
-  bool get isEdited => birthDate != null || jobCode != null;
+  /// cancel old future if it's not completed
+  Future<void> _updateLocation(Location location) async {
+    if (_completer?.isCompleted == false)
+      await _completer.cancel();
+    _completer = CancelableOperation.fromFuture(
+        _jsonClient.genLocationStr(ViewModelSetting.dummyUser, location));
+    final text = await _completer.value;
+    setState(text);
+  }
 }

@@ -166,9 +166,10 @@ class _$PrefectureTearOff {
   const _$PrefectureTearOff();
 
 // ignore: unused_element
-  _Prefecture call({@required int code, @required String name}) {
+  _Prefecture call(
+      {@required @JsonKey(name: 'code') int codeInt, @required String name}) {
     return _Prefecture(
-      code: code,
+      codeInt: codeInt,
       name: name,
     );
   }
@@ -185,7 +186,8 @@ const $Prefecture = _$PrefectureTearOff();
 
 /// @nodoc
 mixin _$Prefecture {
-  int get code;
+  @JsonKey(name: 'code')
+  int get codeInt;
   String get name;
 
   Map<String, dynamic> toJson();
@@ -197,7 +199,7 @@ abstract class $PrefectureCopyWith<$Res> {
   factory $PrefectureCopyWith(
           Prefecture value, $Res Function(Prefecture) then) =
       _$PrefectureCopyWithImpl<$Res>;
-  $Res call({int code, String name});
+  $Res call({@JsonKey(name: 'code') int codeInt, String name});
 }
 
 /// @nodoc
@@ -210,11 +212,11 @@ class _$PrefectureCopyWithImpl<$Res> implements $PrefectureCopyWith<$Res> {
 
   @override
   $Res call({
-    Object code = freezed,
+    Object codeInt = freezed,
     Object name = freezed,
   }) {
     return _then(_value.copyWith(
-      code: code == freezed ? _value.code : code as int,
+      codeInt: codeInt == freezed ? _value.codeInt : codeInt as int,
       name: name == freezed ? _value.name : name as String,
     ));
   }
@@ -226,7 +228,7 @@ abstract class _$PrefectureCopyWith<$Res> implements $PrefectureCopyWith<$Res> {
           _Prefecture value, $Res Function(_Prefecture) then) =
       __$PrefectureCopyWithImpl<$Res>;
   @override
-  $Res call({int code, String name});
+  $Res call({@JsonKey(name: 'code') int codeInt, String name});
 }
 
 /// @nodoc
@@ -241,11 +243,11 @@ class __$PrefectureCopyWithImpl<$Res> extends _$PrefectureCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object code = freezed,
+    Object codeInt = freezed,
     Object name = freezed,
   }) {
     return _then(_Prefecture(
-      code: code == freezed ? _value.code : code as int,
+      codeInt: codeInt == freezed ? _value.codeInt : codeInt as int,
       name: name == freezed ? _value.name : name as String,
     ));
   }
@@ -254,30 +256,34 @@ class __$PrefectureCopyWithImpl<$Res> extends _$PrefectureCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Prefecture implements _Prefecture {
-  const _$_Prefecture({@required this.code, @required this.name})
-      : assert(code != null),
-        assert(name != null);
+class _$_Prefecture extends _Prefecture {
+  const _$_Prefecture(
+      {@required @JsonKey(name: 'code') this.codeInt, @required this.name})
+      : assert(codeInt != null),
+        assert(name != null),
+        super._();
 
   factory _$_Prefecture.fromJson(Map<String, dynamic> json) =>
       _$_$_PrefectureFromJson(json);
 
   @override
-  final int code;
+  @JsonKey(name: 'code')
+  final int codeInt;
   @override
   final String name;
 
   @override
   String toString() {
-    return 'Prefecture(code: $code, name: $name)';
+    return 'Prefecture(codeInt: $codeInt, name: $name)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Prefecture &&
-            (identical(other.code, code) ||
-                const DeepCollectionEquality().equals(other.code, code)) &&
+            (identical(other.codeInt, codeInt) ||
+                const DeepCollectionEquality()
+                    .equals(other.codeInt, codeInt)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)));
   }
@@ -285,7 +291,7 @@ class _$_Prefecture implements _Prefecture {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(code) ^
+      const DeepCollectionEquality().hash(codeInt) ^
       const DeepCollectionEquality().hash(name);
 
   @override
@@ -298,15 +304,18 @@ class _$_Prefecture implements _Prefecture {
   }
 }
 
-abstract class _Prefecture implements Prefecture {
-  const factory _Prefecture({@required int code, @required String name}) =
-      _$_Prefecture;
+abstract class _Prefecture extends Prefecture {
+  const _Prefecture._() : super._();
+  const factory _Prefecture(
+      {@required @JsonKey(name: 'code') int codeInt,
+      @required String name}) = _$_Prefecture;
 
   factory _Prefecture.fromJson(Map<String, dynamic> json) =
       _$_Prefecture.fromJson;
 
   @override
-  int get code;
+  @JsonKey(name: 'code')
+  int get codeInt;
   @override
   String get name;
   @override

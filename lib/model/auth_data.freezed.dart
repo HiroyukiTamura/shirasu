@@ -1337,7 +1337,7 @@ class _$HttpsShirasuIoUserAttributeTearOff {
   _HttpsShirasuIoUserAttribute call(
       {@required DateTime birthDate,
       @required String job,
-      @required String country,
+      @required @JsonKey(name: 'country') String countryNonFixedCase,
       @required String prefecture,
       @required String familyName,
       @required String givenName,
@@ -1346,7 +1346,7 @@ class _$HttpsShirasuIoUserAttributeTearOff {
     return _HttpsShirasuIoUserAttribute(
       birthDate: birthDate,
       job: job,
-      country: country,
+      countryNonFixedCase: countryNonFixedCase,
       prefecture: prefecture,
       familyName: familyName,
       givenName: givenName,
@@ -1369,7 +1369,8 @@ const $HttpsShirasuIoUserAttribute = _$HttpsShirasuIoUserAttributeTearOff();
 mixin _$HttpsShirasuIoUserAttribute {
   DateTime get birthDate;
   String get job;
-  String get country;
+  @JsonKey(name: 'country')
+  String get countryNonFixedCase;
   String get prefecture;
   String get familyName;
   String get givenName;
@@ -1390,7 +1391,7 @@ abstract class $HttpsShirasuIoUserAttributeCopyWith<$Res> {
   $Res call(
       {DateTime birthDate,
       String job,
-      String country,
+      @JsonKey(name: 'country') String countryNonFixedCase,
       String prefecture,
       String familyName,
       String givenName,
@@ -1411,7 +1412,7 @@ class _$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
   $Res call({
     Object birthDate = freezed,
     Object job = freezed,
-    Object country = freezed,
+    Object countryNonFixedCase = freezed,
     Object prefecture = freezed,
     Object familyName = freezed,
     Object givenName = freezed,
@@ -1422,7 +1423,9 @@ class _$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
       job: job == freezed ? _value.job : job as String,
-      country: country == freezed ? _value.country : country as String,
+      countryNonFixedCase: countryNonFixedCase == freezed
+          ? _value.countryNonFixedCase
+          : countryNonFixedCase as String,
       prefecture:
           prefecture == freezed ? _value.prefecture : prefecture as String,
       familyName:
@@ -1449,7 +1452,7 @@ abstract class _$HttpsShirasuIoUserAttributeCopyWith<$Res>
   $Res call(
       {DateTime birthDate,
       String job,
-      String country,
+      @JsonKey(name: 'country') String countryNonFixedCase,
       String prefecture,
       String familyName,
       String givenName,
@@ -1474,7 +1477,7 @@ class __$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
   $Res call({
     Object birthDate = freezed,
     Object job = freezed,
-    Object country = freezed,
+    Object countryNonFixedCase = freezed,
     Object prefecture = freezed,
     Object familyName = freezed,
     Object givenName = freezed,
@@ -1485,7 +1488,9 @@ class __$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
       job: job == freezed ? _value.job : job as String,
-      country: country == freezed ? _value.country : country as String,
+      countryNonFixedCase: countryNonFixedCase == freezed
+          ? _value.countryNonFixedCase
+          : countryNonFixedCase as String,
       prefecture:
           prefecture == freezed ? _value.prefecture : prefecture as String,
       familyName:
@@ -1504,11 +1509,11 @@ class __$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_HttpsShirasuIoUserAttribute implements _HttpsShirasuIoUserAttribute {
+class _$_HttpsShirasuIoUserAttribute extends _HttpsShirasuIoUserAttribute {
   const _$_HttpsShirasuIoUserAttribute(
       {@required this.birthDate,
       @required this.job,
-      @required this.country,
+      @required @JsonKey(name: 'country') this.countryNonFixedCase,
       @required this.prefecture,
       @required this.familyName,
       @required this.givenName,
@@ -1516,12 +1521,13 @@ class _$_HttpsShirasuIoUserAttribute implements _HttpsShirasuIoUserAttribute {
       @required this.givenNameReading})
       : assert(birthDate != null),
         assert(job != null),
-        assert(country != null),
+        assert(countryNonFixedCase != null),
         assert(prefecture != null),
         assert(familyName != null),
         assert(givenName != null),
         assert(familyNameReading != null),
-        assert(givenNameReading != null);
+        assert(givenNameReading != null),
+        super._();
 
   factory _$_HttpsShirasuIoUserAttribute.fromJson(Map<String, dynamic> json) =>
       _$_$_HttpsShirasuIoUserAttributeFromJson(json);
@@ -1531,7 +1537,8 @@ class _$_HttpsShirasuIoUserAttribute implements _HttpsShirasuIoUserAttribute {
   @override
   final String job;
   @override
-  final String country;
+  @JsonKey(name: 'country')
+  final String countryNonFixedCase;
   @override
   final String prefecture;
   @override
@@ -1545,7 +1552,7 @@ class _$_HttpsShirasuIoUserAttribute implements _HttpsShirasuIoUserAttribute {
 
   @override
   String toString() {
-    return 'HttpsShirasuIoUserAttribute(birthDate: $birthDate, job: $job, country: $country, prefecture: $prefecture, familyName: $familyName, givenName: $givenName, familyNameReading: $familyNameReading, givenNameReading: $givenNameReading)';
+    return 'HttpsShirasuIoUserAttribute(birthDate: $birthDate, job: $job, countryNonFixedCase: $countryNonFixedCase, prefecture: $prefecture, familyName: $familyName, givenName: $givenName, familyNameReading: $familyNameReading, givenNameReading: $givenNameReading)';
   }
 
   @override
@@ -1557,9 +1564,9 @@ class _$_HttpsShirasuIoUserAttribute implements _HttpsShirasuIoUserAttribute {
                     .equals(other.birthDate, birthDate)) &&
             (identical(other.job, job) ||
                 const DeepCollectionEquality().equals(other.job, job)) &&
-            (identical(other.country, country) ||
+            (identical(other.countryNonFixedCase, countryNonFixedCase) ||
                 const DeepCollectionEquality()
-                    .equals(other.country, country)) &&
+                    .equals(other.countryNonFixedCase, countryNonFixedCase)) &&
             (identical(other.prefecture, prefecture) ||
                 const DeepCollectionEquality()
                     .equals(other.prefecture, prefecture)) &&
@@ -1582,7 +1589,7 @@ class _$_HttpsShirasuIoUserAttribute implements _HttpsShirasuIoUserAttribute {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(birthDate) ^
       const DeepCollectionEquality().hash(job) ^
-      const DeepCollectionEquality().hash(country) ^
+      const DeepCollectionEquality().hash(countryNonFixedCase) ^
       const DeepCollectionEquality().hash(prefecture) ^
       const DeepCollectionEquality().hash(familyName) ^
       const DeepCollectionEquality().hash(givenName) ^
@@ -1601,11 +1608,12 @@ class _$_HttpsShirasuIoUserAttribute implements _HttpsShirasuIoUserAttribute {
 }
 
 abstract class _HttpsShirasuIoUserAttribute
-    implements HttpsShirasuIoUserAttribute {
+    extends HttpsShirasuIoUserAttribute {
+  const _HttpsShirasuIoUserAttribute._() : super._();
   const factory _HttpsShirasuIoUserAttribute(
       {@required DateTime birthDate,
       @required String job,
-      @required String country,
+      @required @JsonKey(name: 'country') String countryNonFixedCase,
       @required String prefecture,
       @required String familyName,
       @required String givenName,
@@ -1620,7 +1628,8 @@ abstract class _HttpsShirasuIoUserAttribute
   @override
   String get job;
   @override
-  String get country;
+  @JsonKey(name: 'country')
+  String get countryNonFixedCase;
   @override
   String get prefecture;
   @override

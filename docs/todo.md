@@ -4,11 +4,16 @@ many todo issues exists on source code.
 the list below is more prior ones.
 
 - [ ] feature layout for now broadcasting program
-- [ ] display channel on `screen_dashboard`
+- [x] display channel on `screen_dashboard`
 - [x] split ViewModel on `ViewModelSubscribing`
 - [x] create empty result widget
-- [ ] check itself is disposed on ViewModels and Notifiers
-- [ ] display comments, handouts
+- [ ] migrate null safety
+- [ ] add semantic label to all images
+- [x] migrate all Notifier to StateNotifier
+- [ ] use functional_widget
+- [ ] remove all LocatorMixin
+- [ ] ~~check itself is disposed on ViewModels and Notifiers~~
+- [ ] display comments, handouts (low priority)
 - [ ] create native ui for video player, configure plugin  
 - [ ] add analytics and log error (firebase)
 - [ ] auth management

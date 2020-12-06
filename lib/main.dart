@@ -8,10 +8,16 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
-import 'package:tuple/tuple.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+
+final snackBarMsgSProvider =
+    StateProvider.autoDispose<SnackBarMessageNotifier>(
+        (_) => SnackBarMessageNotifier());
+
+final snackBarMsgProvider = Provider.autoDispose<SnackBarMessageNotifier>(
+    (ref) => ref.watch(snackBarMsgSProvider).state);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +37,6 @@ class MyApp extends StatefulHookWidget {
 }
 
 class MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     // final isInitialLaunch = HiveClient.isInitialLaunchApp();

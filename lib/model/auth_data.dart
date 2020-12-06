@@ -76,11 +76,11 @@ abstract class Claims with _$Claims {
 }
 
 @freezed
-abstract class HttpsShirasuIoUserAttribute with _$HttpsShirasuIoUserAttribute {
+abstract class HttpsShirasuIoUserAttribute implements _$HttpsShirasuIoUserAttribute {
   const factory HttpsShirasuIoUserAttribute({
     @required DateTime birthDate,
     @required String job,
-    @required String country,
+    @required @JsonKey(name: 'country') String countryNonFixedCase,
     @required String prefecture,
     @required String familyName,
     @required String givenName,
@@ -88,8 +88,12 @@ abstract class HttpsShirasuIoUserAttribute with _$HttpsShirasuIoUserAttribute {
     @required String givenNameReading,
   }) = _HttpsShirasuIoUserAttribute;
 
+  const HttpsShirasuIoUserAttribute._();
+
   factory HttpsShirasuIoUserAttribute.fromJson(Map<String, dynamic> json) =>
       _$HttpsShirasuIoUserAttributeFromJson(json);
+
+  String get country => countryNonFixedCase.toUpperCase();
 }
 
 @freezed

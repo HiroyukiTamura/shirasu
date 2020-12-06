@@ -17,6 +17,9 @@ _$_FeatureProgramData _$_$_FeatureProgramDataFromJson(
         ? null
         : Broadcastings.fromJson(
             json['comingBroadcastings'] as Map<String, dynamic>),
+    channels: json['channels'] == null
+        ? null
+        : Channels.fromJson(json['channels'] as Map<String, dynamic>),
     viewerUser: json['viewerUser'] == null
         ? null
         : ViewerUser.fromJson(json['viewerUser'] as Map<String, dynamic>),
@@ -28,6 +31,7 @@ Map<String, dynamic> _$_$_FeatureProgramDataToJson(
     <String, dynamic>{
       'nowBroadcastings': instance.nowBroadcastings,
       'comingBroadcastings': instance.comingBroadcastings,
+      'channels': instance.channels,
       'viewerUser': instance.viewerUser,
     };
 

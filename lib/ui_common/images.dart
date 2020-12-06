@@ -67,7 +67,7 @@ class GenImage {
         filterQuality: filterQuality,
       );
     else
-      throw UnimplementedError(toString());
+      throw UnsupportedError(toString());
   }
 }
 

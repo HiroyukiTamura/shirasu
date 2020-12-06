@@ -10,14 +10,19 @@ class PageNotification extends StatelessWidget {
       : super(key: key);
 
   final Announcements announcements;
+  static const double _SEPARATE_HEIGHT =
+      Dimens.CHANNEL_PAGE_VERTICAL_MARGIN * 2;
 
   @override
-  Widget build(BuildContext context) => ListView.builder(
+  Widget build(BuildContext context) => ListView.separated(
       itemCount: announcements.items.length, //0の場合の例外処理
       padding: const EdgeInsets.symmetric(
         horizontal: Dimens.MARGIN_OUTLINE,
         vertical: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN,
       ),
+      separatorBuilder: (context, index) => const SizedBox(
+            height: _SEPARATE_HEIGHT,
+          ),
       itemBuilder: (context, index) {
         final item = announcements.items[index];
         return Column(

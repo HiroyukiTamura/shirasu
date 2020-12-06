@@ -14,7 +14,6 @@ class GlobalRoutePathBase {
     @required Result Function() error,
     @required Result Function(String channelId) channel,
     @required Result Function(String programId) program,
-    @required Result Function(BirthDateIntentData birthDate) editBirthDate,
     @required Result Function() dashboard,
     @required Result Function(SubscribingTabPage initialPage) subscribing,
     @required Result Function() setting,
@@ -25,7 +24,6 @@ class GlobalRoutePathBase {
         error: error,
         channel: channel,
         program: program,
-        editBirthDate: editBirthDate,
       );
     else if (routePath is PathDataMainPageBase)
       return routePath.when(
@@ -34,7 +32,7 @@ class GlobalRoutePathBase {
         setting: setting,
       );
     else
-      throw UnimplementedError(
+      throw UnsupportedError(
           'unexpected routePath type: ${routePath.runtimeType}');
   }
 }
@@ -49,17 +47,12 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
 
   const factory GlobalRoutePath.program(String programId) = PathDataProgram;
 
-  const factory GlobalRoutePath.editBirthDate(BirthDateIntentData data) =
-      PathDataEditBirthDate;
-
   factory GlobalRoutePath.buildProgram({
     @required String channelId,
     @required String tenantId,
     @required String programIdFragment,
   }) =>
       GlobalRoutePath.program('$channelId-$tenantId-$programIdFragment');
-
-  factory GlobalRoutePath.buildEditBirthDate(DateTime dateTime) => GlobalRoutePath.editBirthDate(BirthDateIntentData(dateTime));
 }
 
 @freezed
@@ -77,7 +70,8 @@ abstract class PathDataMainPageBase
       case 0:
         return const PathDataMainPageBase.dashboard();
       case 1:
-        return const PathDataMainPageBase.subscribing(PageSubscribingInMainScreen.PAGE_INDEX_DEFAULT);
+        return const PathDataMainPageBase.subscribing(
+            PageSubscribingInMainScreen.PAGE_INDEX_DEFAULT);
       case 2:
         return const PathDataMainPageBase.setting();
       default:
@@ -87,18 +81,8 @@ abstract class PathDataMainPageBase
 
   const PathDataMainPageBase._();
 
-  int getIndex() =>
-      when(dashboard: () => 0, subscribing: (SubscribingTabPage initialPage) => 1, setting: () => 2);
-}
-
-@immutable
-class BirthDateIntentData {
-  BirthDateIntentData(DateTime dateTime)
-      : year = dateTime.year,
-        month = dateTime.month,
-        date = dateTime.day;
-
-  final int year;
-  final int month;
-  final int date;
+  int getIndex() => when(
+      dashboard: () => 0,
+      subscribing: (SubscribingTabPage initialPage) => 1,
+      setting: () => 2);
 }

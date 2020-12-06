@@ -1,77 +1,69 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:http/http.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/model/dashboard_model.dart';
-import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-class ViewModelDashBoard extends DisposableValueNotifier<DashboardModelState> with ViewModelBase {
-  ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
+class ViewModelDashBoard extends ViewModelBase<DashboardModelState> with LocatorMixin {
+  ViewModelDashBoard()
+      : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
-  bool _isLoadMoreCommanded = false;
+  SnackBarMessageNotifier get _msgNotifier => read<SnackBarMessageNotifier>();
 
   @override
   Future<void> initialize() async {
-    DashboardModelState state;
+    if (!(state is StatePreInitialized))
+      return;
+
+    setState(const DashboardModelState.preInitialized());
+
+    DashboardModelState newModel;
+
     try {
       final featureProgramData = await _apiClient.queryFeaturedProgramsList();
       final newProgramsData = await _apiClient.queryNewProgramsList();
-
-      state = DashboardModelState.success(DashboardModel(
+      final model = DashboardModel(
         featureProgramData: featureProgramData,
-        newProgramsData: newProgramsData,
-      ));
+        newProgramsDataList: [newProgramsData],
+      );
+      newModel = DashboardModelState.success(model);
     } catch (e) {
       print(e);
-      state = const StateError();
+      newModel = const DashboardModelState.error();
     }
 
-    if (!isDisposed) {
-      value = state;
-      notifyListeners();
-    }
+    setState(newModel);
   }
 
-  //todo exclusion control
-  Future<ApiClientResult> loadMoreNewPrg() async {
-    if (_isLoadMoreCommanded)
-      return ApiClientResult.CANCELED;
+  Future<void> loadMoreNewPrg() async {
+    final oldState = state;
+    if (oldState is StateSuccess) {
+      final nextToken = oldState
+          .dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
+      if (nextToken == null) return;
 
-    _isLoadMoreCommanded = true;
-
-    final v = value;
-    if (v is StateSuccess) {
-      final nextToken = v.dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
-      if (nextToken == null)
-        return ApiClientResult.FAILURE;
+      // we don't check if Disposed
+      state = StateLoadmore(oldState.dashboardModel);
 
       try {
         final newProgramsData = await _apiClient.queryNewProgramsList(
           nextToken: nextToken,
         );
-        v.dashboardModel.appendNewPrograms(newProgramsData);
-        notifyListeners();
+
+        oldState.dashboardModel.newProgramsDataList.add(newProgramsData);
+        setState(StateSuccess(oldState.dashboardModel));
+
         if (newProgramsData.newPrograms.items.isEmpty)
-          return ApiClientResult.NO_MORE;
-
-        return ApiClientResult.SUCCESS;
-
+          _msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
       } catch (e) {
         debugPrint(e.toString());
-        return ApiClientResult.FAILURE;
-      } finally {
-        _isLoadMoreCommanded = false;
+        setState(const StateError());
+        _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
       }
-
-    } else
-      return ApiClientResult.FAILURE;
+    }
   }
 }
-
-enum ApiClientResult {
-  SUCCESS, FAILURE, NO_MORE, CANCELED,
-}
-

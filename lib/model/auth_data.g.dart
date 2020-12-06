@@ -138,7 +138,7 @@ _$_HttpsShirasuIoUserAttribute _$_$_HttpsShirasuIoUserAttributeFromJson(
         ? null
         : DateTime.parse(json['birthDate'] as String),
     job: json['job'] as String,
-    country: json['country'] as String,
+    countryNonFixedCase: json['country'] as String,
     prefecture: json['prefecture'] as String,
     familyName: json['familyName'] as String,
     givenName: json['givenName'] as String,
@@ -152,7 +152,7 @@ Map<String, dynamic> _$_$_HttpsShirasuIoUserAttributeToJson(
     <String, dynamic>{
       'birthDate': instance.birthDate?.toIso8601String(),
       'job': instance.job,
-      'country': instance.country,
+      'country': instance.countryNonFixedCase,
       'prefecture': instance.prefecture,
       'familyName': instance.familyName,
       'givenName': instance.givenName,

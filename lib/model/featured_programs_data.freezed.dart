@@ -20,10 +20,12 @@ class _$FeatureProgramDataTearOff {
   _FeatureProgramData call(
       {@required Broadcastings nowBroadcastings,
       @required Broadcastings comingBroadcastings,
+      @required Channels channels,
       @required ViewerUser viewerUser}) {
     return _FeatureProgramData(
       nowBroadcastings: nowBroadcastings,
       comingBroadcastings: comingBroadcastings,
+      channels: channels,
       viewerUser: viewerUser,
     );
   }
@@ -42,6 +44,7 @@ const $FeatureProgramData = _$FeatureProgramDataTearOff();
 mixin _$FeatureProgramData {
   Broadcastings get nowBroadcastings;
   Broadcastings get comingBroadcastings;
+  Channels get channels;
   ViewerUser get viewerUser;
 
   Map<String, dynamic> toJson();
@@ -56,10 +59,12 @@ abstract class $FeatureProgramDataCopyWith<$Res> {
   $Res call(
       {Broadcastings nowBroadcastings,
       Broadcastings comingBroadcastings,
+      Channels channels,
       ViewerUser viewerUser});
 
   $BroadcastingsCopyWith<$Res> get nowBroadcastings;
   $BroadcastingsCopyWith<$Res> get comingBroadcastings;
+  $ChannelsCopyWith<$Res> get channels;
   $ViewerUserCopyWith<$Res> get viewerUser;
 }
 
@@ -76,6 +81,7 @@ class _$FeatureProgramDataCopyWithImpl<$Res>
   $Res call({
     Object nowBroadcastings = freezed,
     Object comingBroadcastings = freezed,
+    Object channels = freezed,
     Object viewerUser = freezed,
   }) {
     return _then(_value.copyWith(
@@ -85,6 +91,7 @@ class _$FeatureProgramDataCopyWithImpl<$Res>
       comingBroadcastings: comingBroadcastings == freezed
           ? _value.comingBroadcastings
           : comingBroadcastings as Broadcastings,
+      channels: channels == freezed ? _value.channels : channels as Channels,
       viewerUser:
           viewerUser == freezed ? _value.viewerUser : viewerUser as ViewerUser,
     ));
@@ -111,6 +118,16 @@ class _$FeatureProgramDataCopyWithImpl<$Res>
   }
 
   @override
+  $ChannelsCopyWith<$Res> get channels {
+    if (_value.channels == null) {
+      return null;
+    }
+    return $ChannelsCopyWith<$Res>(_value.channels, (value) {
+      return _then(_value.copyWith(channels: value));
+    });
+  }
+
+  @override
   $ViewerUserCopyWith<$Res> get viewerUser {
     if (_value.viewerUser == null) {
       return null;
@@ -131,12 +148,15 @@ abstract class _$FeatureProgramDataCopyWith<$Res>
   $Res call(
       {Broadcastings nowBroadcastings,
       Broadcastings comingBroadcastings,
+      Channels channels,
       ViewerUser viewerUser});
 
   @override
   $BroadcastingsCopyWith<$Res> get nowBroadcastings;
   @override
   $BroadcastingsCopyWith<$Res> get comingBroadcastings;
+  @override
+  $ChannelsCopyWith<$Res> get channels;
   @override
   $ViewerUserCopyWith<$Res> get viewerUser;
 }
@@ -156,6 +176,7 @@ class __$FeatureProgramDataCopyWithImpl<$Res>
   $Res call({
     Object nowBroadcastings = freezed,
     Object comingBroadcastings = freezed,
+    Object channels = freezed,
     Object viewerUser = freezed,
   }) {
     return _then(_FeatureProgramData(
@@ -165,6 +186,7 @@ class __$FeatureProgramDataCopyWithImpl<$Res>
       comingBroadcastings: comingBroadcastings == freezed
           ? _value.comingBroadcastings
           : comingBroadcastings as Broadcastings,
+      channels: channels == freezed ? _value.channels : channels as Channels,
       viewerUser:
           viewerUser == freezed ? _value.viewerUser : viewerUser as ViewerUser,
     ));
@@ -179,9 +201,11 @@ class _$_FeatureProgramData extends _FeatureProgramData
   const _$_FeatureProgramData(
       {@required this.nowBroadcastings,
       @required this.comingBroadcastings,
+      @required this.channels,
       @required this.viewerUser})
       : assert(nowBroadcastings != null),
         assert(comingBroadcastings != null),
+        assert(channels != null),
         assert(viewerUser != null),
         super._();
 
@@ -193,11 +217,13 @@ class _$_FeatureProgramData extends _FeatureProgramData
   @override
   final Broadcastings comingBroadcastings;
   @override
+  final Channels channels;
+  @override
   final ViewerUser viewerUser;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FeatureProgramData(nowBroadcastings: $nowBroadcastings, comingBroadcastings: $comingBroadcastings, viewerUser: $viewerUser)';
+    return 'FeatureProgramData(nowBroadcastings: $nowBroadcastings, comingBroadcastings: $comingBroadcastings, channels: $channels, viewerUser: $viewerUser)';
   }
 
   @override
@@ -207,6 +233,7 @@ class _$_FeatureProgramData extends _FeatureProgramData
       ..add(DiagnosticsProperty('type', 'FeatureProgramData'))
       ..add(DiagnosticsProperty('nowBroadcastings', nowBroadcastings))
       ..add(DiagnosticsProperty('comingBroadcastings', comingBroadcastings))
+      ..add(DiagnosticsProperty('channels', channels))
       ..add(DiagnosticsProperty('viewerUser', viewerUser));
   }
 
@@ -220,6 +247,9 @@ class _$_FeatureProgramData extends _FeatureProgramData
             (identical(other.comingBroadcastings, comingBroadcastings) ||
                 const DeepCollectionEquality()
                     .equals(other.comingBroadcastings, comingBroadcastings)) &&
+            (identical(other.channels, channels) ||
+                const DeepCollectionEquality()
+                    .equals(other.channels, channels)) &&
             (identical(other.viewerUser, viewerUser) ||
                 const DeepCollectionEquality()
                     .equals(other.viewerUser, viewerUser)));
@@ -230,6 +260,7 @@ class _$_FeatureProgramData extends _FeatureProgramData
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(nowBroadcastings) ^
       const DeepCollectionEquality().hash(comingBroadcastings) ^
+      const DeepCollectionEquality().hash(channels) ^
       const DeepCollectionEquality().hash(viewerUser);
 
   @override
@@ -247,6 +278,7 @@ abstract class _FeatureProgramData extends FeatureProgramData {
   const factory _FeatureProgramData(
       {@required Broadcastings nowBroadcastings,
       @required Broadcastings comingBroadcastings,
+      @required Channels channels,
       @required ViewerUser viewerUser}) = _$_FeatureProgramData;
 
   factory _FeatureProgramData.fromJson(Map<String, dynamic> json) =
@@ -256,6 +288,8 @@ abstract class _FeatureProgramData extends FeatureProgramData {
   Broadcastings get nowBroadcastings;
   @override
   Broadcastings get comingBroadcastings;
+  @override
+  Channels get channels;
   @override
   ViewerUser get viewerUser;
   @override

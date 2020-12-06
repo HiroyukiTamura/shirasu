@@ -73,7 +73,7 @@ class TextStyles {
   );
 
   static const CHANNEL_PLAIN = TextStyle(
-    fontSize: 13,
+    fontSize: 14,
     color: Colors.white,
     height: TextStyles.TEXT_HEIGHT,
   );

@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 @immutable
 class Styles {
-
   const Styles._();
 
   static final colorTextSub = Colors.white.withOpacity(.7);
@@ -17,7 +16,7 @@ class Styles {
   static const COLOR_2 = Color(0xffffa800);
   static final introDot = Colors.white.withOpacity(.8);
 
-  static final theme = ThemeData(
+  static final theme = ThemeData.dark().copyWith(
     // This makes the visual density adapt to the platform that you run
     // the app on. For desktop platforms, the controls will be smaller and
     // closer together (more dense) than on mobile platforms.
@@ -34,6 +33,13 @@ class Styles {
     primaryTextTheme: const TextTheme(
       headline6: TextStyle(color: Colors.white),
       bodyText1: TextStyle(color: Colors.white),
+    ),
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: Color(0xFF323232),
+      contentTextStyle: TextStyle(
+        color: Colors.white,
+      ),
+      behavior: SnackBarBehavior.floating,
     ),
   );
 }

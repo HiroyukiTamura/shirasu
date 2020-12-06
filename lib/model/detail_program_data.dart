@@ -159,7 +159,7 @@ abstract class DetailPrgItem
       case VideoType.ARCHIVED:
         return archiveUrl;
       default:
-        throw UnimplementedError('unknown VideoType: $videoTypeStrict');
+        throw UnsupportedError('unknown VideoType: $videoTypeStrict');
     }
   }
 }

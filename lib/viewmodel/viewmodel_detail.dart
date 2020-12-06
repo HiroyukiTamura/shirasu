@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_playout/player_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
-import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
@@ -14,7 +12,7 @@ import 'package:shirasu/viewmodel/model_detail.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
-class ViewModelDetail extends ViewModelBase<ModelDetail> with LocatorMixin {
+class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(this.id) : super(ModelDetail.initial());
 
   final _apiClient = ApiClient(Client());

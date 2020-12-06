@@ -3,16 +3,19 @@ import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/dashboard_model.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:riverpod/src/framework.dart';
 
-class ViewModelDashBoard extends ViewModelBase<DashboardModelState> with LocatorMixin {
-  ViewModelDashBoard()
+class ViewModelDashBoard extends ViewModelBase<DashboardModelState> {
+  ViewModelDashBoard(this._ref)
       : super(const DashboardModelState.preInitialized());
 
   final _apiClient = ApiClient(Client());
-  SnackBarMessageNotifier get _msgNotifier => read<SnackBarMessageNotifier>();
+  final AutoDisposeProviderReference _ref;
+  SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 
   @override
   Future<void> initialize() async {

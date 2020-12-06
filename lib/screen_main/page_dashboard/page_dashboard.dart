@@ -22,7 +22,7 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _viewModelSProvider =
-    StateNotifierProvider.autoDispose<ViewModelDashBoard>((_) => ViewModelDashBoard());
+    StateNotifierProvider.autoDispose<ViewModelDashBoard>((ref) => ViewModelDashBoard(ref));
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);

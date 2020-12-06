@@ -13,7 +13,7 @@ the list below is more prior ones.
 - [ ] make JsonApiClient as singleton 
 - [x] migrate all Notifier to StateNotifier
 - [ ] use functional_widget
-- [ ] remove all LocatorMixin
+- [x] remove all LocatorMixin
 - [ ] ~~check itself is disposed on ViewModels and Notifiers~~
 - [ ] display comments, handouts (low priority)
 - [ ] create native ui for video player, configure plugin  
@@ -23,8 +23,8 @@ the list below is more prior ones.
 - [ ] fix layout (low priority), rethink whole design and theme, refactor codes for styling
 - [ ] add func for update user data
 - [ ] add func for update user icon(necessary to research AWS auth system)(low priority)
-- [ ] add func for update user's credit card data(display security excuse and send web intent)
+- [x] add func for update user's credit card data(display security excuse and send web intent)
 - [ ] add screen purchase history(low priority)
 - [ ] add button and func for unsubscribe channel(display security excuse and send web intent)
 - [ ] push notification when start program
-- [ ] favorite program list
+- [ ] favorite program list(low priority)

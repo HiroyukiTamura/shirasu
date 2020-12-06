@@ -19,7 +19,7 @@ import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
 final _viewmodelSNProvider =
     StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
-        (_) => ViewModelWatchHistory());
+        (ref) => ViewModelWatchHistory(ref));
 
 class WatchHistoryWidget extends StatefulHookWidget {
   const WatchHistoryWidget({Key key}) : super(key: key);

@@ -14,11 +14,13 @@ import 'package:riverpod/src/framework.dart';
 import 'message_notifier.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
-  ViewModelSetting(this.ref) : super(SettingModel.initial());
+  ViewModelSetting(this._ref) : super(SettingModel.initial());
 
   /// todo is really correct that `AutoDisposeProviderReference` exists in StateNotifier??
-  final AutoDisposeProviderReference ref;
+  final AutoDisposeProviderReference _ref;
   final _apiClient = ApiClient(Client());
+
+  SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 
   static final User dummyUser = User(
     email: 'hogehoge@gmail.com',
@@ -87,6 +89,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
         ),
       );
 
+
   Future<void> postProfile() async {
 
     if (state.uploadingProfile)
@@ -109,7 +112,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
       //todo update `dummyUser`
     } catch (e) {
       print(e);
-      ref.read(snackBarMsgProvider).notifyErrorMsg(ErrorMsg.UNKNOWN);
+      _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
     }
 
     setState(state.copyWith(

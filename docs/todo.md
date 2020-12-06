@@ -10,6 +10,8 @@ the list below is more prior ones.
 - [ ] migrate null safety
 - [ ] add semantic label to all images
 - [x] migrate all Notifier to StateNotifier
+- [ ] use functional_widget
+- [ ] remove all LocatorMixin
 - [ ] ~~check itself is disposed on ViewModels and Notifiers~~
 - [ ] display comments, handouts (low priority)
 - [ ] create native ui for video player, configure plugin  

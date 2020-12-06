@@ -81,11 +81,15 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
             if (i <= threshHolds.threshold) {
               switch (i - threshHolds.preThreshHold - 1) {
                 case 0:
-                  return const ListTileSeem();
+                  return const ListTileSeem(
+                    paddingTop: false,
+                    paddingBtm: true,
+                  );
                 case 1:
                   return ListTileTitle(
                     title: Strings.TITLE_SUBSCRIBED_CHANNELS,
                     showEmptyText: data.viewerUser.subscribedChannels.isEmpty,
+                    isCreditCard: false,
                   );
               }
               throw Exception();
@@ -105,11 +109,15 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
             if (i <= threshHolds.threshold) {
               switch (i - threshHolds.preThreshHold - 1) {
                 case 0:
-                  return const ListTileSeem();
+                  return const ListTileSeem(
+                    paddingBtm: true,
+                    paddingTop: true,
+                  );
                 case 1:
                   return ListTileTitle(
                     title: Strings.TITLE_PURCHASE_HISTORY,
                     showEmptyText: data.viewerUser.invoiceHistory.items.isEmpty,
+                    isCreditCard: false,
                   );
               }
               throw Exception();
@@ -129,11 +137,15 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
             if (i <= threshHolds.threshold) {
               switch (i - threshHolds.preThreshHold - 1) {
                 case 0:
-                  return const ListTileSeem();
+                  return const ListTileSeem(
+                    paddingBtm: true,
+                    paddingTop: true,
+                  );
                 case 1:
                   return ListTileTitle(
                     title: Strings.TITLE_WATCH_HISTORY,
                     showEmptyText: data.viewerUser.watchHistories.items.isEmpty,
+                    isCreditCard: false,
                   );
               }
               throw Exception();
@@ -200,7 +212,10 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
           const SizedBox(height: 4),
           const Text(
             Strings.FULL_NAME_NOTICE,
-            style: TextStyle(height: 1.3),
+            style: TextStyle(
+              height: 1.3,
+              fontSize: 13,
+            ),
           )
         ],
       ),
@@ -229,11 +244,15 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
       case 5:
         return ListTileLocation();
       case 6:
-        return const ListTileSeem();
+        return const ListTileSeem(
+          paddingBtm: false,
+          paddingTop: true,
+        );
       case 7:
         return ListTileTitle(
           title: Strings.TITLE_CREDIT_CARD,
           showEmptyText: viewer.viewer.paymentMethods.isEmpty,
+          isCreditCard: true,
         );
       default:
         throw Exception('unexpected index: $index');

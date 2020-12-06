@@ -8,7 +8,10 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 
-class PageDashboardInMainScreen extends StatefulWidget {
+
+final screenMainScaffoldProvider = Provider<GlobalKey<ScaffoldState>>((_) => GlobalKey<ScaffoldState>());
+
+class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key, @required this.appState})
       : super(key: key);
 
@@ -49,40 +52,44 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
     _backButtonDispatcher.takePriority();
 
     return SafeArea(
+      // nest Scaffold because of it displays BottomSheet above BottomNavigationBar
       child: Scaffold(
-        body: Router(
-          routerDelegate: _routerDelegate,
-          backButtonDispatcher: _backButtonDispatcher,
-        ),
-        floatingActionButton: _Fab(delegate: _routerDelegate,),
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white.withOpacity(.6),
-          showUnselectedLabels: true,
-          unselectedFontSize: 14,
-          onTap: (index) {
-            final data = PathDataMainPageBase.fromIndex(index);
-            _routerDelegate.appState.push(data);
-          },
-          currentIndex: _routerDelegate.currentConfiguration.getIndex(),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: Strings.NAV_ITEM_HOME,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.playlist_play_rounded),
-              label: Strings.NAV_ITEM_LIST,
-            ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.search),
-            //   label: Strings.NAV_ITEM_SEARCH,
-            // ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: Strings.NAV_ITEM_CONFIG,
-            ),
-          ],
+        key: useProvider(screenMainScaffoldProvider),
+        body: Scaffold(
+          body: Router(
+            routerDelegate: _routerDelegate,
+            backButtonDispatcher: _backButtonDispatcher,
+          ),
+          floatingActionButton: _Fab(delegate: _routerDelegate,),
+          bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white.withOpacity(.6),
+            showUnselectedLabels: true,
+            unselectedFontSize: 14,
+            onTap: (index) {
+              final data = PathDataMainPageBase.fromIndex(index);
+              _routerDelegate.appState.push(data);
+            },
+            currentIndex: _routerDelegate.currentConfiguration.getIndex(),
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: Strings.NAV_ITEM_HOME,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.playlist_play_rounded),
+                label: Strings.NAV_ITEM_LIST,
+              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.search),
+              //   label: Strings.NAV_ITEM_SEARCH,
+              // ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: Strings.NAV_ITEM_CONFIG,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -190,6 +190,7 @@ class Strings {
   };
 
   static const String NO_ITEM_SUFFIX = 'はありません';
+  static const String OPEN_WEB = 'WEBページを開く';
 
 //endregion
 

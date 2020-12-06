@@ -30,7 +30,7 @@ abstract class UpdateUserWithAttrVariable with _$UpdateUserWithAttrVariable {
             id: userId,
             birthDate: birthDate.toUtc(),
             job: jobFixed,
-            country: country,
+            country: country.toUpperCase(),
             prefecture: prefectureFixed,
           ),
         ),

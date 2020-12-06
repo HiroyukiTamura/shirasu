@@ -107,6 +107,8 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
           dummyUser.httpsShirasuIoUserAttribute?.prefecture,
     );
 
+    state = state.copyWith(uploadingProfile: true);
+
     try {
       final updatedData = await _apiClient.updateUserWithAttr(variable);
       //todo update `dummyUser`

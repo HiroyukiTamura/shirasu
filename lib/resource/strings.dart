@@ -189,6 +189,8 @@ class Strings {
     'jobUnemployed': '無職',
   };
 
+  static const String NO_ITEM_SUFFIX = 'はありません';
+
 //endregion
 
 //region dialog

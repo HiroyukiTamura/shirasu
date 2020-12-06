@@ -16,6 +16,7 @@ import 'package:shirasu/screen_main/page_setting/list_tile_birthdate.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_job.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_load_more.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_location.dart';
+import 'package:shirasu/screen_main/page_setting/list_tile_title.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
@@ -27,6 +28,7 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/extension.dart';
 
 final settingViewModelSProvider =
     StateNotifierProvider.autoDispose<ViewModelSetting>(
@@ -61,7 +63,7 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
             if (i <= threshHolds.threshold)
               return _genListItemAboveCreditCard(
                 context,
-                data.viewerUser,
+                data,
                 i,
               );
 
@@ -81,8 +83,9 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
                 case 0:
                   return const ListTileSeem();
                 case 1:
-                  return _componentTitle(
+                  return ListTileTitle(
                     title: Strings.TITLE_SUBSCRIBED_CHANNELS,
+                    showEmptyText: data.viewerUser.subscribedChannels.isEmpty,
                   );
               }
               throw Exception();
@@ -104,8 +107,9 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
                 case 0:
                   return const ListTileSeem();
                 case 1:
-                  return _componentTitle(
+                  return ListTileTitle(
                     title: Strings.TITLE_PURCHASE_HISTORY,
+                    showEmptyText: data.viewerUser.invoiceHistory.items.isEmpty,
                   );
               }
               throw Exception();
@@ -127,8 +131,9 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
                 case 0:
                   return const ListTileSeem();
                 case 1:
-                  return _componentTitle(
+                  return ListTileTitle(
                     title: Strings.TITLE_WATCH_HISTORY,
+                    showEmptyText: data.viewerUser.watchHistories.items.isEmpty,
                   );
               }
               throw Exception();
@@ -173,19 +178,6 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         onTap: onTap,
       );
 
-  static Widget _componentTitle({@required String title}) => Padding(
-        padding: const EdgeInsets.only(
-          right: 16,
-          left: 16,
-          bottom: 16,
-          top: 8,
-        ),
-        child: Text(
-          title,
-          style: TextStyles.SETTING_COMPONENT_TITLE,
-        ),
-      );
-
   static Widget listItemUserName(User user) {
     String userName =
         '${user.httpsShirasuIoUserAttribute.familyName} ${user.httpsShirasuIoUserAttribute.givenName}';
@@ -217,12 +209,13 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
 
   static Widget _genListItemAboveCreditCard(
     BuildContext context,
-    ViewerUser viewerUser,
+    Viewer viewer,
     int index,
   ) {
     switch (index) {
       case 0:
-        return ListTileTop(iconUrl: viewerUser.icon, userName: viewerUser.name);
+        return ListTileTop(
+            iconUrl: viewer.viewerUser.icon, userName: viewer.viewerUser.name);
       case 1:
         return listItemUserName(ViewModelSetting.dummyUser);
       case 2:
@@ -238,7 +231,10 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
       case 6:
         return const ListTileSeem();
       case 7:
-        return _componentTitle(title: Strings.TITLE_CREDIT_CARD);
+        return ListTileTitle(
+          title: Strings.TITLE_CREDIT_CARD,
+          showEmptyText: viewer.viewer.paymentMethods.isEmpty,
+        );
       default:
         throw Exception('unexpected index: $index');
     }

@@ -10,9 +10,7 @@ import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 final _showLoadMoreProvider = Provider.autoDispose<bool>((ref) =>
     ref.watch(settingViewModelSProvider.state).settingModelState.maybeWhen(
-          success: (data) {
-            return data.viewerUser.watchHistories.items.isNotEmpty;
-          },
+          success: (data) => data.viewerUser.watchHistories.items.isNotEmpty,
           orElse: () => false,
         ));
 

@@ -12,12 +12,8 @@ import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
-final snackBarMsgSProvider =
-    StateProvider.autoDispose<SnackBarMessageNotifier>(
-        (_) => SnackBarMessageNotifier());
-
-final snackBarMsgProvider = Provider.autoDispose<SnackBarMessageNotifier>(
-    (ref) => ref.watch(snackBarMsgSProvider).state);
+final snackBarMsgProvider = StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
+    (ref) => SnackBarMessageNotifier());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

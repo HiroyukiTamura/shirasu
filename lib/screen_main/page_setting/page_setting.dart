@@ -32,7 +32,7 @@ import 'package:shirasu/extension.dart';
 
 final settingViewModelSProvider =
     StateNotifierProvider.autoDispose<ViewModelSetting>(
-        (_) => ViewModelSetting());
+        (ref) => ViewModelSetting(ref));
 
 class PageSettingInMainScreen extends StatefulHookWidget {
   const PageSettingInMainScreen({Key key}) : super(key: key);

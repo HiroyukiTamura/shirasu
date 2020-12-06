@@ -438,4 +438,44 @@ fragment WatchingHistoryPageWatchHistoryData on WatchHistory {
     __typename
 }
   ''';
+
+  static const QUERY_UPDATE_USER_WITH_ATTRIBUTE = r'''
+mutation UpdateUserWithAttribute($input: UpdateUserWithAttributeInput) {
+    updateUserWithAttribute(input: $input) {
+        user {
+            id
+            name
+            icon
+            createdAt
+            updatedAt
+            roles
+            tenants {
+                nextToken
+                __typename
+            }
+            comments {
+                nextToken
+                __typename
+            }
+            reviews {
+                nextToken
+                __typename
+            }
+            __typename
+        }
+        attr {
+            id
+            email
+            birthDate
+            job
+            country
+            prefecture
+            createdAt
+            updatedAt
+            __typename
+        }
+        __typename
+    }
+}
+  ''';
 }

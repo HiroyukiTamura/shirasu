@@ -3,15 +3,21 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/local_json_client.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/model/update_user_with_attr_variable.dart'
+    show UpdateUserWithAttrVariable;
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model_setting.dart';
 import 'package:riverpod/src/framework.dart';
+import 'message_notifier.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
-  ViewModelSetting() : super(SettingModel.initial());
+  ViewModelSetting(this.ref) : super(SettingModel.initial());
 
+  /// todo is really correct that `AutoDisposeProviderReference` exists in StateNotifier??
+  final AutoDisposeProviderReference ref;
   final _apiClient = ApiClient(Client());
 
   static final User dummyUser = User(
@@ -80,6 +86,37 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
           ),
         ),
       );
+
+  Future<void> postProfile() async {
+
+    if (state.uploadingProfile)
+      return;
+
+    final variable = UpdateUserWithAttrVariable.build(
+      userId: dummyUser.sub,
+      birthDate: state.editedUserInfo.birthDate ??
+          dummyUser.httpsShirasuIoUserAttribute.birthDate,
+      job: state.editedUserInfo.jobCode ??
+          dummyUser.httpsShirasuIoUserAttribute.job,
+      country: state.editedUserInfo.location.countryCode ??
+          dummyUser.httpsShirasuIoUserAttribute.country,
+      prefecture: state.editedUserInfo.location.prefectureCode ??
+          dummyUser.httpsShirasuIoUserAttribute.prefecture,
+    );
+
+    try {
+      final updatedData = await _apiClient.updateUserWithAttr(variable);
+      //todo update `dummyUser`
+    } catch (e) {
+      print(e);
+      ref.read(snackBarMsgProvider).notifyErrorMsg(ErrorMsg.UNKNOWN);
+    }
+
+    setState(state.copyWith(
+      uploadingProfile: false,
+      editedUserInfo: EditedUserInfo.empty(),
+    ));
+  }
 }
 
 class LocationTextNotifier extends StateNotifier<String>
@@ -98,8 +135,7 @@ class LocationTextNotifier extends StateNotifier<String>
 
   /// cancel old future if it's not completed
   Future<void> _updateLocation(Location location) async {
-    if (_completer?.isCompleted == false)
-      await _completer.cancel();
+    if (_completer?.isCompleted == false) await _completer.cancel();
     _completer = CancelableOperation.fromFuture(
         _jsonClient.genLocationStr(ViewModelSetting.dummyUser, location));
     final text = await _completer.value;

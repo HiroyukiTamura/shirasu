@@ -6,6 +6,8 @@ import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/model/detail_program_data.dart' show ProgramDetailData;
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/new_programs_data.dart';
+import 'package:shirasu/model/update_user_with_attr_variable.dart';
+import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/model/watch_history_data.dart';
 
@@ -69,7 +71,8 @@ class ApiClient {
     if (result.hasException) {
       // todo error handle
       print(result.exception);
-      final isTokenExpired = result.exception.graphqlErrors.any((it) => it.message.toLowerCase().contains('token has expired'));
+      final isTokenExpired = result.exception.graphqlErrors
+          .any((it) => it.message.toLowerCase().contains('token has expired'));
       for (final error in result.exception.graphqlErrors) print(error.message);
     }
 
@@ -79,7 +82,8 @@ class ApiClient {
   Future<FeatureProgramData> queryFeaturedProgramsList() async {
     final dateTime = DateTime.now().toUtc();
     final dateTimeNext = dateTime.add(const Duration(days: 7));
-    final result = await _query(GraphqlQuery.QUERY_FEATURED_PROGRAMS, variables: {
+    final result =
+        await _query(GraphqlQuery.QUERY_FEATURED_PROGRAMS, variables: {
       'now': dateTime.toIso8601String(),
       'nowPlus7D': dateTimeNext.toIso8601String(),
     });
@@ -88,7 +92,8 @@ class ApiClient {
 
   Future<NewProgramsData> queryNewProgramsList({String nextToken}) async {
     final variables = nextToken == null ? null : {'nextToken': nextToken};
-    final result = await _query(GraphqlQuery.QUERY_NEW_PROGRAMS, variables: variables);
+    final result =
+        await _query(GraphqlQuery.QUERY_NEW_PROGRAMS, variables: variables);
     return NewProgramsData.fromJson(result.data);
   }
 
@@ -106,7 +111,8 @@ class ApiClient {
     return ChannelData.fromJson(result.data);
   }
 
-  Future<WatchHistoriesData> queryWatchHistory({String nextToken, int limit}) async {
+  Future<WatchHistoriesData> queryWatchHistory(
+      {String nextToken, int limit}) async {
     final variable = nextToken == null
         ? null
         : {
@@ -120,5 +126,14 @@ class ApiClient {
   Future<Viewer> queryViewer() async {
     final result = await _query(GraphqlQuery.QUERY_VIEWER);
     return Viewer.fromJson(result.data);
+  }
+
+  Future<UserWithAttributeData> updateUserWithAttr(
+      UpdateUserWithAttrVariable variable) async {
+    final result = await _query(
+      GraphqlQuery.QUERY_UPDATE_USER_WITH_ATTRIBUTE,
+      variables: variable.toJson(),
+    );
+    return UserWithAttributeData.fromJson(result.data);
   }
 }

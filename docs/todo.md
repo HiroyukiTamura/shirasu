@@ -9,6 +9,8 @@ the list below is more prior ones.
 - [x] create empty result widget
 - [ ] migrate null safety
 - [ ] add semantic label to all images
+- [ ] create images for error loading
+- [ ] make JsonApiClient as singleton 
 - [x] migrate all Notifier to StateNotifier
 - [ ] use functional_widget
 - [ ] remove all LocatorMixin

@@ -96,7 +96,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   }
 }
 
-//todo refactor
+//todo listen current page
 class _Fab extends HookWidget {
   const _Fab({
     @required this.delegate,
@@ -112,7 +112,7 @@ class _Fab extends HookWidget {
     return Visibility(
       visible: isEdited,
       child: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async => context.read(settingViewModelSProvider).postProfile(),
         child: const Icon(Icons.save),
       ),
     );

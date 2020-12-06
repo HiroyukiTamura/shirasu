@@ -9,8 +9,7 @@ abstract class SettingModelState with _$SettingModelState {
 
   const factory SettingModelState.loading() = StateLoading;
 
-  const factory SettingModelState.success(Viewer data) =
-      StateSuccess;
+  const factory SettingModelState.success(Viewer data) = StateSuccess;
 
   const factory SettingModelState.error() = StateError;
 }
@@ -27,20 +26,19 @@ abstract class EditedUserInfo implements _$EditedUserInfo {
 
   const EditedUserInfo._();
 
-  bool get isEdited =>
-      birthDate != null ||
-      jobCode != null ||
-      location != null;
+  bool get isEdited => birthDate != null || jobCode != null || location != null;
 }
 
 @freezed
 abstract class SettingModel with _$SettingModel {
   const factory SettingModel(
-          SettingModelState settingModelState, EditedUserInfo editedUserInfo) =
-      _SettingModel;
+    @required SettingModelState settingModelState,
+    @required bool uploadingProfile,
+    @required EditedUserInfo editedUserInfo,
+  ) = _SettingModel;
 
   factory SettingModel.initial() =>
-      const SettingModel(SettingModelState.preInitialized(), EditedUserInfo());
+      const SettingModel(StatePreInitialized(), false, EditedUserInfo());
 }
 
 @freezed

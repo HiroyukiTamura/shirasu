@@ -24,12 +24,12 @@
           "user"
         ],
         "https://shirasu.io/userAttribute": {
-          "birthDate": "1993-11-15T00:00:00.000Z",
+          "birthDate": "1991-10-11T00:00:00.000Z",
           "job": "InformationTechnology",
           "country": "JP",
           "prefecture": "13",
-          "familyName": "田村",
-          "givenName": "浩幸",
+          "familyName": "山田",
+          "givenName": "太郎",
           "familyNameReading": "",
           "givenNameReading": ""
         },
@@ -57,7 +57,7 @@
           "user"
         ],
         "https://shirasu.io/userAttribute": {
-          "birthDate": "1993-11-15T00:00:00.000Z",
+          "birthDate": "1991-10-11T00:00:00.000Z",
           "job": "InformationTechnology",
           "country": "JP",
           "prefecture": "13",

@@ -6,9 +6,7 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
-import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
-import 'package:shirasu/screen_user_location/screen_user_location.dart';
 import 'package:tuple/tuple.dart';
 
 class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
@@ -37,7 +35,6 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             error: () => throw UnimplementedError(),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
-            userLocation: () => const ScreenUserLocation(),
           );
           return Tuple2(location, screen);
         })

@@ -36,11 +36,6 @@ class _$GlobalRoutePathTearOff {
       programId,
     );
   }
-
-// ignore: unused_element
-  PathDataUserLocation editUserLocation() {
-    return const PathDataUserLocation();
-  }
 }
 
 /// @nodoc
@@ -55,7 +50,6 @@ mixin _$GlobalRoutePath {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editUserLocation(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -63,7 +57,6 @@ mixin _$GlobalRoutePath {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editUserLocation(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -72,7 +65,6 @@ mixin _$GlobalRoutePath {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editUserLocation(PathDataUserLocation value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -80,7 +72,6 @@ mixin _$GlobalRoutePath {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editUserLocation(PathDataUserLocation value),
     @required TResult orElse(),
   });
 }
@@ -145,13 +136,11 @@ class _$PathDataIntro implements PathDataIntro {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editUserLocation(),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editUserLocation != null);
     return intro();
   }
 
@@ -162,7 +151,6 @@ class _$PathDataIntro implements PathDataIntro {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editUserLocation(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -179,13 +167,11 @@ class _$PathDataIntro implements PathDataIntro {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editUserLocation(PathDataUserLocation value),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editUserLocation != null);
     return intro(this);
   }
 
@@ -196,7 +182,6 @@ class _$PathDataIntro implements PathDataIntro {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editUserLocation(PathDataUserLocation value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -254,13 +239,11 @@ class _$PathDataError implements PathDataError {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editUserLocation(),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editUserLocation != null);
     return error();
   }
 
@@ -271,7 +254,6 @@ class _$PathDataError implements PathDataError {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editUserLocation(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -288,13 +270,11 @@ class _$PathDataError implements PathDataError {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editUserLocation(PathDataUserLocation value),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editUserLocation != null);
     return error(this);
   }
 
@@ -305,7 +285,6 @@ class _$PathDataError implements PathDataError {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editUserLocation(PathDataUserLocation value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -385,13 +364,11 @@ class _$PathDataChannel implements PathDataChannel {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editUserLocation(),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editUserLocation != null);
     return channel(channelId);
   }
 
@@ -402,7 +379,6 @@ class _$PathDataChannel implements PathDataChannel {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editUserLocation(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -419,13 +395,11 @@ class _$PathDataChannel implements PathDataChannel {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editUserLocation(PathDataUserLocation value),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editUserLocation != null);
     return channel(this);
   }
 
@@ -436,7 +410,6 @@ class _$PathDataChannel implements PathDataChannel {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editUserLocation(PathDataUserLocation value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -519,13 +492,11 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult error(),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
-    @required TResult editUserLocation(),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editUserLocation != null);
     return program(programId);
   }
 
@@ -536,7 +507,6 @@ class _$PathDataProgram implements PathDataProgram {
     TResult error(),
     TResult channel(String channelId),
     TResult program(String programId),
-    TResult editUserLocation(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -553,13 +523,11 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult error(PathDataError value),
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult editUserLocation(PathDataUserLocation value),
   }) {
     assert(intro != null);
     assert(error != null);
     assert(channel != null);
     assert(program != null);
-    assert(editUserLocation != null);
     return program(this);
   }
 
@@ -570,7 +538,6 @@ class _$PathDataProgram implements PathDataProgram {
     TResult error(PathDataError value),
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult editUserLocation(PathDataUserLocation value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -586,115 +553,6 @@ abstract class PathDataProgram implements GlobalRoutePath {
 
   String get programId;
   $PathDataProgramCopyWith<PathDataProgram> get copyWith;
-}
-
-/// @nodoc
-abstract class $PathDataUserLocationCopyWith<$Res> {
-  factory $PathDataUserLocationCopyWith(PathDataUserLocation value,
-          $Res Function(PathDataUserLocation) then) =
-      _$PathDataUserLocationCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$PathDataUserLocationCopyWithImpl<$Res>
-    extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements $PathDataUserLocationCopyWith<$Res> {
-  _$PathDataUserLocationCopyWithImpl(
-      PathDataUserLocation _value, $Res Function(PathDataUserLocation) _then)
-      : super(_value, (v) => _then(v as PathDataUserLocation));
-
-  @override
-  PathDataUserLocation get _value => super._value as PathDataUserLocation;
-}
-
-/// @nodoc
-class _$PathDataUserLocation implements PathDataUserLocation {
-  const _$PathDataUserLocation();
-
-  @override
-  String toString() {
-    return 'GlobalRoutePath.editUserLocation()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataUserLocation);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult intro(),
-    @required TResult error(),
-    @required TResult channel(String channelId),
-    @required TResult program(String programId),
-    @required TResult editUserLocation(),
-  }) {
-    assert(intro != null);
-    assert(error != null);
-    assert(channel != null);
-    assert(program != null);
-    assert(editUserLocation != null);
-    return editUserLocation();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult intro(),
-    TResult error(),
-    TResult channel(String channelId),
-    TResult program(String programId),
-    TResult editUserLocation(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (editUserLocation != null) {
-      return editUserLocation();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
-    @required TResult program(PathDataProgram value),
-    @required TResult editUserLocation(PathDataUserLocation value),
-  }) {
-    assert(intro != null);
-    assert(error != null);
-    assert(channel != null);
-    assert(program != null);
-    assert(editUserLocation != null);
-    return editUserLocation(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
-    TResult program(PathDataProgram value),
-    TResult editUserLocation(PathDataUserLocation value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (editUserLocation != null) {
-      return editUserLocation(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class PathDataUserLocation implements GlobalRoutePath {
-  const factory PathDataUserLocation() = _$PathDataUserLocation;
 }
 
 /// @nodoc

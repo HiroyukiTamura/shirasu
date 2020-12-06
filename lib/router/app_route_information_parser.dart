@@ -63,6 +63,5 @@ class AppRouteInformationParser
         dashboard: () => 'dashboard',
         subscribing: (SubscribingTabPage initialPage) => 'subscribing/$initialPage',
         setting: () => 'setting',
-        userLocation: () => 'user_location',
       );
 }

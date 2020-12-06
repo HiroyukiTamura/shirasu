@@ -134,7 +134,7 @@ class LocationTextNotifier extends StateNotifier<String>
     ref.onDispose(removeListener);
   }
 
-  final LocalJsonClient _jsonClient = const LocalJsonClient();
+  final LocalJsonClient _jsonClient = LocalJsonClient.instance();
 
   CancelableOperation<String> _completer;
 

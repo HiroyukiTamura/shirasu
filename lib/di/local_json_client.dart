@@ -7,28 +7,43 @@ import 'package:shirasu/model/country_data.dart';
 import 'package:shirasu/model/prefecture_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/model_setting.dart';
+import 'package:shirasu/extension.dart';
 
 class LocalJsonClient {
-  const LocalJsonClient();
+
+  factory LocalJsonClient.instance() => _instance ??= LocalJsonClient._();
+
+  LocalJsonClient._();
+
+  static LocalJsonClient _instance;
+
+  CountryData countryData;
+  PrefectureData prefectureData;
 
   /// [countryCode] : ex. JP
   Future<CountryData> getCountryData() async {
-    final string = await rootBundle.loadString(Assets.json.country);
-    final json = jsonDecode(string);
-    return CountryData.fromJson(json as Map<String, dynamic>);
+    if (countryData == null) {
+      final string = await rootBundle.loadString(Assets.json.country);
+      final json = jsonDecode(string);
+      countryData = CountryData.fromJson(json as Map<String, dynamic>);
+    }
+    return countryData;
   }
 
   Future<PrefectureData> getPrefectureData() async {
-    final string = await rootBundle.loadString(Assets.json.prefecture);
-    final json = jsonDecode(string);
-    return PrefectureData.fromJson(json as Map<String, dynamic>);
+    if (prefectureData == null) {
+      final string = await rootBundle.loadString(Assets.json.prefecture);
+      final json = jsonDecode(string);
+      prefectureData = PrefectureData.fromJson(json as Map<String, dynamic>);
+    }
+    return prefectureData;
   }
 
   /// [prefectureCode] : 1 ~ 47
   Future<String> getPrefectureName(String prefectureCode) async {
     final data = await getPrefectureData();
     return data.prefecture
-        .firstWhere((it) => it.code == prefectureCode, orElse: () => null)
+        .firstWhereOrNull((it) => it.code == prefectureCode)
         ?.name;
   }
 

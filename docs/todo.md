@@ -10,7 +10,7 @@ the list below is more prior ones.
 - [ ] migrate null safety
 - [ ] add semantic label to all images
 - [ ] create images for error loading
-- [ ] make JsonApiClient as singleton 
+- [x] make JsonApiClient as singleton 
 - [x] migrate all Notifier to StateNotifier
 - [ ] use functional_widget
 - [x] remove all LocatorMixin
@@ -21,7 +21,7 @@ the list below is more prior ones.
 - [ ] auth management
 - [ ] fix route path bug(the cause is not detected)
 - [ ] fix layout (low priority), rethink whole design and theme, refactor codes for styling
-- [ ] add func for update user data
+- [x] add func for update user data
 - [ ] add func for update user icon(necessary to research AWS auth system)(low priority)
 - [x] add func for update user's credit card data(display security excuse and send web intent)
 - [ ] add screen purchase history(low priority)

@@ -21,7 +21,7 @@ class ApiClient {
       'https://itvvnowbibekdj7la2nlxgkuva.appsync-api.ap-northeast-1.amazonaws.com/graphql';
 
   static const DUMMY_AUTH =
-      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFUWkJNMEZDUkRZek1UVTJOME13UWpBMlJFVXdSa0V5TVRJeU1VSkdOelUxTXpnNU1ETTFRUSJ9.eyJodHRwczovL3NoaXJhc3UuaW8vcm9sZXMiOlsidXNlciJdLCJodHRwczovL3NoaXJhc3UuaW8vdXNlckF0dHJpYnV0ZSI6eyJiaXJ0aERhdGUiOiIxOTkzLTExLTE1VDAwOjAwOjAwLjAwMFoiLCJqb2IiOiJJbmZvcm1hdGlvblRlY2hub2xvZ3kiLCJjb3VudHJ5IjoiSlAiLCJwcmVmZWN0dXJlIjoiMTMiLCJmYW1pbHlOYW1lIjoi55Sw5p2RIiwiZ2l2ZW5OYW1lIjoi5rWp5bm4IiwiZmFtaWx5TmFtZVJlYWRpbmciOiIiLCJnaXZlbk5hbWVSZWFkaW5nIjoiIn0sImh0dHBzOi8vc2hpcmFzdS5pby9jdXN0b21lcklkIjoiY3VzX0lON1o1WDZUY01OWFYzIiwiaHR0cHM6Ly9zaGlyYXN1LmlvL2Rpc3RyaWJ1dGVkcyI6W10sImh0dHBzOi8vc2hpcmFzdS5pby90ZW5hbnRzIjpbXSwibmlja25hbWUiOiJoaXJveXVrdGFtdXJhIiwibmFtZSI6Imhpcm95dWt0YW11cmFAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzg4OWZlZTk5YjNiNTQyMjg0YTZjNzNkZmE1ZjJlN2ZlP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGaGkucG5nIiwidXBkYXRlZF9hdCI6IjIwMjAtMTItMDVUMTM6Mjc6MTEuMjk5WiIsImVtYWlsIjoiaGlyb3l1a3RhbXVyYUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9zaGlyYXN1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZmFjMjBjMGJmNDZiMjAwNmUxNDM2MzMiLCJhdWQiOiJreWpUSjVsUTdSVTdtQXllU21YOG5MWWN4VlJ0QTNuQiIsImlhdCI6MTYwNzIyOTc4OCwiZXhwIjoxNjA3MjY1Nzg4fQ.E_5hHwJzmzOEuLiZwl2vIancB6JMZQHzpc7qYtOmWZIPM5-WBAw0Hb79ixfZNpNXnsyTgqbUnoKeXmEZI9gMKIgbq2v5lecGm9rmPfLVIyMjUy0a01mUTMqYcjq27CUshP5x1w__bqyersLQp6nfQDrv73EXJwKIVHQWMFiRLZDUkBttIZ8jAHa4gOy7kdH8fbCpXcJ7GcEqs6kDWCPUYdg8O9pZu5P1olIQyryyhsE-xt6tNT3AJaH7jD0Irh5TfJfZ5bGYk1MwiWu2SySXZkVp8OvT5hmli_PuS3cdkl0EBKkwaS0QQMn2EmKboLXG5gktD-o1Y76WRUWCC7f2qw';
+      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFUWkJNMEZDUkRZek1UVTJOME13UWpBMlJFVXdSa0V5TVRJeU1VSkdOelUxTXpnNU1ETTFRUSJ9.eyJodHRwczovL3NoaXJhc3UuaW8vcm9sZXMiOlsidXNlciJdLCJodHRwczovL3NoaXJhc3UuaW8vdXNlckF0dHJpYnV0ZSI6eyJiaXJ0aERhdGUiOiIxOTkzLTExLTE1VDAwOjAwOjAwLjAwMFoiLCJqb2IiOiJJbmZvcm1hdGlvblRlY2hub2xvZ3kiLCJjb3VudHJ5IjoiSlAiLCJwcmVmZWN0dXJlIjoiMTMiLCJmYW1pbHlOYW1lIjoi55Sw5p2RIiwiZ2l2ZW5OYW1lIjoi5rWp5bm4IiwiZmFtaWx5TmFtZVJlYWRpbmciOiIiLCJnaXZlbk5hbWVSZWFkaW5nIjoiIn0sImh0dHBzOi8vc2hpcmFzdS5pby9jdXN0b21lcklkIjoiY3VzX0lFS0RoM0J0UjlOeG5TIiwiaHR0cHM6Ly9zaGlyYXN1LmlvL2Rpc3RyaWJ1dGVkcyI6W10sImh0dHBzOi8vc2hpcmFzdS5pby90ZW5hbnRzIjpbXSwiZ2l2ZW5fbmFtZSI6Ikhpcm95dWtpIiwiZmFtaWx5X25hbWUiOiJUIiwibmlja25hbWUiOiJoaXJvdGFtdTMiLCJuYW1lIjoiSGlyb3l1a2kgVCIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLXhBUlEwZm9KZENBL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FNWnV1Y2s2ZTZjUkluNzVSWTV6dVNrb0FJRGRWY1FjSEEvczk2LWMvcGhvdG8uanBnIiwibG9jYWxlIjoiamEiLCJ1cGRhdGVkX2F0IjoiMjAyMC0xMi0wNlQxNTowMTozMi4xNDZaIiwiZW1haWwiOiJoaXJvdGFtdTNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vc2hpcmFzdS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDk0MzEyMjg4NTM2MDM1Nzk2ODQiLCJhdWQiOiJreWpUSjVsUTdSVTdtQXllU21YOG5MWWN4VlJ0QTNuQiIsImlhdCI6MTYwNzI2Njg5NiwiZXhwIjoxNjA3MzAyODk2LCJub25jZSI6ImEwdGhiM2R2UW1sRlVVOUdka2R1Y0ZBd2JFdHdSM0p6WXk1TlRUSnBVbFZ3VUdGTlZ6UnFXVVoyYWc9PSJ9.o7C8CDtpKTGVxw69uZ856xzcaBFGtOISILiSH1KiBPueXL3oTXQIWMgVNaoAFmMK87pu8wyxp8GuqB0sMxWUnl8wxe9t2-sjInEwALqyrO54G_ZD6zyY7Igqtq7ylxIDtpy92BQmViax-JT3IHwP0mJyj0K6PMgEkxaGNiMVYN4a7FtcVP3l60m0IazluWuUsgt3ZBE4omEgMJmAt6ZQ4CVoZ05EfebEJzPi9s2T3WbirOveDgSlIRyWrAjwJz5fnzFG50_erslMROVE_tBZauT-gFA3TKtBTmAk8AOmzFYMLhps9W--gTMledey0tBumibV_sYFaYhtQP54fq7NLQ';
 
   final GraphQLClient _graphQlClient;
 
@@ -64,6 +64,26 @@ class ApiClient {
     Map<String, dynamic> variables,
   }) async {
     final result = await _graphQlClient.query(QueryOptions(
+      document: gql(query),
+      variables: variables ?? {},
+    ));
+
+    if (result.hasException) {
+      // todo error handle
+      print(result.exception);
+      final isTokenExpired = result.exception.graphqlErrors
+          .any((it) => it.message.toLowerCase().contains('token has expired'));
+      for (final error in result.exception.graphqlErrors) print(error.message);
+    }
+
+    return result;
+  }
+
+  Future<QueryResult> _mutate(
+      String query, {
+        Map<String, dynamic> variables,
+      }) async {
+    final result = await _graphQlClient.mutate(MutationOptions(
       document: gql(query),
       variables: variables ?? {},
     ));
@@ -130,7 +150,7 @@ class ApiClient {
 
   Future<UserWithAttributeData> updateUserWithAttr(
       UpdateUserWithAttrVariable variable) async {
-    final result = await _query(
+    final result = await _mutate(
       GraphqlQuery.QUERY_UPDATE_USER_WITH_ATTRIBUTE,
       variables: variable.toJson(),
     );

@@ -75,26 +75,24 @@ class _ContentListView extends HookWidget {
     int itemCount = items.length;
     if (showLoadingIndicator) itemCount++;
 
-    final listView = MsgNtfListener(
-      child: ListView.builder(
-        controller: sc,
-        padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
-        itemBuilder: (context, i) {
-          if (showLoadingIndicator && i == itemCount - 1)
-            return const CenterCircleProgress();
-          else {
-            final program = items[i].program as BaseProgram; //todo why cast?
-            return MovieListItem(
-              program: program,
-              onTap: () async => context
-                  .read(appRouterProvider)
-                  .delegate
-                  .pushPage(GlobalRoutePath.program(program.id)),
-            );
-          }
-        },
-        itemCount: itemCount,
-      ),
+    final listView = ListView.builder(
+      controller: sc,
+      padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
+      itemBuilder: (context, i) {
+        if (showLoadingIndicator && i == itemCount - 1)
+          return const CenterCircleProgress();
+        else {
+          final program = items[i].program as BaseProgram; //todo why cast?
+          return MovieListItem(
+            program: program,
+            onTap: () async => context
+                .read(appRouterProvider)
+                .delegate
+                .pushPage(GlobalRoutePath.program(program.id)),
+          );
+        }
+      },
+      itemCount: itemCount,
     );
 
     //todo must debug

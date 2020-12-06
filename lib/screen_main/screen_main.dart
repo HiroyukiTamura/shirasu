@@ -7,6 +7,7 @@ import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 
 
 final screenMainScaffoldProvider = Provider<GlobalKey<ScaffoldState>>((_) => GlobalKey<ScaffoldState>());
@@ -56,9 +57,11 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
       child: Scaffold(
         key: useProvider(screenMainScaffoldProvider),
         body: Scaffold(
-          body: Router(
-            routerDelegate: _routerDelegate,
-            backButtonDispatcher: _backButtonDispatcher,
+          body: MsgNtfListener(
+            child: Router(
+              routerDelegate: _routerDelegate,
+              backButtonDispatcher: _backButtonDispatcher,
+            ),
           ),
           floatingActionButton: _Fab(delegate: _routerDelegate,),
           bottomNavigationBar: BottomNavigationBar(

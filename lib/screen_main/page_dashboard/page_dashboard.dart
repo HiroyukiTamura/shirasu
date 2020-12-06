@@ -109,110 +109,108 @@ class _ListViewContent extends HookWidget {
             return false;
           },
           // todo bug fix
-          child: MsgNtfListener(
-            child: ListView.builder(
-                controller: controller,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
-                itemBuilder: (context, index) {
-                  if (index < nowBroadcastingsLast &&
-                      nowBroadcastingsLast != 0) {
-                    if (index == 0)
-                      return const Heading(text: Strings.HEADING_NOW_ON_AIR);
-                    else {
-                      final item =
-                          featurePrgData.nowBroadcastings.items[index - 1];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 48,
-                          top: 16,
-                        ),
-                        child: BillboardExpanded(
-                          isLive: true,
-                          item: item,
-                          onTap: () async => context
-                              .read(appRouterProvider)
-                              .delegate
-                              .pushPage(GlobalRoutePath.program(item.id)),
-                        ),
-                      );
-                    }
-                  } else if (index < comingBroadcastingsLast &&
-                      nowBroadcastingsLast != comingBroadcastingsLast) {
-                    final i = index - nowBroadcastingsLast;
-
-                    if (i == 0)
-                      return const Heading(text: Strings.HEADING_UPCOMING);
-                    else {
-                      final item =
-                          featurePrgData.comingBroadcastings.items[i - 1];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 48,
-                          top: 16,
-                        ),
-                        child: BillboardExpanded(
-                          isLive: false,
-                          item: item,
-                          onTap: () async => context
-                              .read(appRouterProvider)
-                              .delegate
-                              .pushPage(GlobalRoutePath.program(item.id)),
-                        ),
-                      );
-                    }
-                  } else if (index < subscribingLast &&
-                      comingBroadcastingsLast != subscribingLast) {
-                    final i = index - comingBroadcastingsLast;
-
-                    return i == 0
-                        ? const Heading(text: Strings.HEADING_SUBSCRIBING)
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 16, bottom: 32),
-                            child: HorizontalCarousels(
-                              list:
-                                  featurePrgData.viewerUser.subscribedPrograms,
-                              columnCount: _COLUMN_COUNT,
-                              maxWidth: constraints.maxWidth,
-                              onTap: (item) async => context
-                                  .read(appRouterProvider)
-                                  .delegate
-                                  .pushPage(GlobalRoutePath.program(item.id)),
-                            ),
-                          );
-                  } else if (index < channelsLast &&
-                      subscribingLast != channelsLast) {
-                    final i = index - subscribingLast;
-
-                    return i == 0
-                        ? const Heading(text: Strings.HEADING_CHANNEL)
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 16, bottom: 32),
-                            child: ChannelListItem(
-                              channels: featurePrgData.channels,
-                            ),
-                          );
-                  } else if (index < itemCount || !showLoadingIndicator) {
-                    final i = index - channelsLast;
-
-                    if (i == 0)
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Heading(text: Strings.HEADING_NEW_PRG),
-                      );
-
-                    final item = newPrgData[i - 1] as BaseProgram;
-                    return MovieListItem(
-                      program: item,
-                      onTap: () async => context
-                          .read(appRouterProvider)
-                          .delegate
-                          .pushPage(GlobalRoutePath.program(item.id)),
+          child: ListView.builder(
+              controller: controller,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
+              itemBuilder: (context, index) {
+                if (index < nowBroadcastingsLast &&
+                    nowBroadcastingsLast != 0) {
+                  if (index == 0)
+                    return const Heading(text: Strings.HEADING_NOW_ON_AIR);
+                  else {
+                    final item =
+                        featurePrgData.nowBroadcastings.items[index - 1];
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 48,
+                        top: 16,
+                      ),
+                      child: BillboardExpanded(
+                        isLive: true,
+                        item: item,
+                        onTap: () async => context
+                            .read(appRouterProvider)
+                            .delegate
+                            .pushPage(GlobalRoutePath.program(item.id)),
+                      ),
                     );
-                  } else
-                    return const CenterCircleProgress();
-                }),
-          ),
+                  }
+                } else if (index < comingBroadcastingsLast &&
+                    nowBroadcastingsLast != comingBroadcastingsLast) {
+                  final i = index - nowBroadcastingsLast;
+
+                  if (i == 0)
+                    return const Heading(text: Strings.HEADING_UPCOMING);
+                  else {
+                    final item =
+                        featurePrgData.comingBroadcastings.items[i - 1];
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 48,
+                        top: 16,
+                      ),
+                      child: BillboardExpanded(
+                        isLive: false,
+                        item: item,
+                        onTap: () async => context
+                            .read(appRouterProvider)
+                            .delegate
+                            .pushPage(GlobalRoutePath.program(item.id)),
+                      ),
+                    );
+                  }
+                } else if (index < subscribingLast &&
+                    comingBroadcastingsLast != subscribingLast) {
+                  final i = index - comingBroadcastingsLast;
+
+                  return i == 0
+                      ? const Heading(text: Strings.HEADING_SUBSCRIBING)
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 16, bottom: 32),
+                          child: HorizontalCarousels(
+                            list:
+                                featurePrgData.viewerUser.subscribedPrograms,
+                            columnCount: _COLUMN_COUNT,
+                            maxWidth: constraints.maxWidth,
+                            onTap: (item) async => context
+                                .read(appRouterProvider)
+                                .delegate
+                                .pushPage(GlobalRoutePath.program(item.id)),
+                          ),
+                        );
+                } else if (index < channelsLast &&
+                    subscribingLast != channelsLast) {
+                  final i = index - subscribingLast;
+
+                  return i == 0
+                      ? const Heading(text: Strings.HEADING_CHANNEL)
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 16, bottom: 32),
+                          child: ChannelListItem(
+                            channels: featurePrgData.channels,
+                          ),
+                        );
+                } else if (index < itemCount || !showLoadingIndicator) {
+                  final i = index - channelsLast;
+
+                  if (i == 0)
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Heading(text: Strings.HEADING_NEW_PRG),
+                    );
+
+                  final item = newPrgData[i - 1] as BaseProgram;
+                  return MovieListItem(
+                    program: item,
+                    onTap: () async => context
+                        .read(appRouterProvider)
+                        .delegate
+                        .pushPage(GlobalRoutePath.program(item.id)),
+                  );
+                } else
+                  return const CenterCircleProgress();
+              }),
         ),
     );
   }

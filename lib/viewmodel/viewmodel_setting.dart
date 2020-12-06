@@ -28,7 +28,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     givenName: '太郎',
     httpsShirasuIoCustomerId: '',
     nickname: 'NICK_NAME',
-    sub: 'auth0|xxxx',
+    sub: 'google-oauth2|109431228853603579684',
     familyName: '山田',
     httpsShirasuIoRoles: [],
     httpsShirasuIoDistributeds: [],
@@ -97,14 +97,14 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     final variable = UpdateUserWithAttrVariable.build(
       userId: dummyUser.sub,
-      birthDate: state.editedUserInfo.birthDate ??
+      birthDate: state.editedUserInfo?.birthDate ??
           dummyUser.httpsShirasuIoUserAttribute.birthDate,
-      job: state.editedUserInfo.jobCode ??
+      job: state.editedUserInfo?.jobCode ??
           dummyUser.httpsShirasuIoUserAttribute.job,
-      country: state.editedUserInfo.location.countryCode ??
+      country: state.editedUserInfo?.location?.countryCode ??
           dummyUser.httpsShirasuIoUserAttribute.country,
-      prefecture: state.editedUserInfo.location.prefectureCode ??
-          dummyUser.httpsShirasuIoUserAttribute.prefecture,
+      prefecture: state.editedUserInfo?.location?.prefectureCode ??
+          dummyUser.httpsShirasuIoUserAttribute?.prefecture,
     );
 
     try {

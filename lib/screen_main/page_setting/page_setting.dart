@@ -81,8 +81,8 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
             if (i <= threshHolds.threshold) {
               switch (i - threshHolds.preThreshHold - 1) {
                 case 0:
-                  return const ListTileSeem(
-                    paddingTop: false,
+                  return ListTileSeem(
+                    paddingTop: data.viewer.paymentMethods.isNotEmpty,
                     paddingBtm: true,
                   );
                 case 1:

@@ -58,10 +58,10 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
 
     try {
       final data = await _apiClient.queryWatchHistory();
-      state = StateSuccess([data]);
+      newState = state = StateSuccess([data]);
     } catch (e) {
       print(e);
-      state = const StateError();
+      newState = state = const StateError();
     }
 
     setState(newState);

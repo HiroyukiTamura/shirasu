@@ -192,6 +192,11 @@ class Strings {
   static const String NO_ITEM_SUFFIX = 'はありません';
   static const String OPEN_WEB = 'WEBページを開く';
 
+  static const String TAB_USER_INFO = 'アカウント';
+  static const String TAB_APP_CONFIG = 'アプリ設定';
+
+  static const String ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
+
 //endregion
 
 //region dialog

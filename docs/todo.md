@@ -14,6 +14,7 @@ the list below is more prior ones.
 - [x] migrate all Notifier to StateNotifier
 - [ ] use functional_widget
 - [x] remove all LocatorMixin
+- [ ] create config page
 - [ ] ~~check itself is disposed on ViewModels and Notifiers~~
 - [ ] display comments, handouts (low priority)
 - [ ] create native ui for video player, configure plugin  

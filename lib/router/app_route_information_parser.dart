@@ -63,5 +63,6 @@ class AppRouteInformationParser
         dashboard: () => 'dashboard',
         subscribing: (SubscribingTabPage initialPage) => 'subscribing/$initialPage',
         setting: () => 'setting',
+        ossLicense: () => 'oss_license',
       );
 }

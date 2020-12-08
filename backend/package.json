@@ -6,7 +6,7 @@
   "scripts": {
     "run script": "ts-node ./src/index.ts",
     "tsc": "tsc",
-    "run browserify(please run on terminal after run tsc)": "browserify dist -p esmify > bundle.js"
+    "run browserify(please run on terminal after run tsc)": "browserify dist -p esmify > public/dist/bundle.js"
   },
   "author": "",
   "dependencies": {

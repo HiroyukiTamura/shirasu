@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:shirasu/model/auth_data.dart';
@@ -9,6 +10,11 @@ class HiveAuthData extends HiveObject {
     @required this.body,
     @required this.expiresAt,
   });
+
+  factory HiveAuthData.parse(AuthData authData) => HiveAuthData._(
+        body: HiveBody.parse(authData.body),
+        expiresAt: authData.expiresAt,
+      );
 
   @HiveField(0)
   HiveBody body;
@@ -30,6 +36,18 @@ class HiveBody extends HiveObject {
     @required this.decodedToken,
     @required this.audience,
   });
+
+  factory HiveBody.parse(Body body) => HiveBody._(
+        clientId: body.clientId,
+        accessToken: body.accessToken,
+        refreshToken: body.refreshToken,
+        idToken: body.idToken,
+        scope: body.scope,
+        expiresIn: body.expiresIn,
+        tokenType: body.tokenType,
+        decodedToken: HiveDecodedToken.parse(body.decodedToken),
+        audience: body.audience,
+      );
 
   @HiveField(2)
   String clientId;
@@ -61,6 +79,14 @@ class HiveDecodedToken extends HiveObject {
     @required this.user,
   });
 
+  factory HiveDecodedToken.parse(DecodedToken decodedToken) =>
+      HiveDecodedToken._(
+        encoded: HiveEncoded.parse(decodedToken.encoded),
+        header: HiveHeader.parse(decodedToken.header),
+        claims: HiveClaims.parse(decodedToken.claims),
+        user: HiveUser.parse(decodedToken.user),
+      );
+
   @HiveField(11)
   HiveEncoded encoded;
   @HiveField(12)
@@ -74,7 +100,6 @@ class HiveDecodedToken extends HiveObject {
 /// hive model for [Claims]
 @HiveType(typeId: 3)
 class HiveClaims extends HiveObject {
-
   HiveClaims._({
     @required this.raw,
     @required this.httpsShirasuIoRoles,
@@ -97,7 +122,32 @@ class HiveClaims extends HiveObject {
     @required this.iat,
     @required this.exp,
     @required this.nonce,
-});
+  });
+
+  factory HiveClaims.parse(Claims claims) => HiveClaims._(
+        raw: claims.raw,
+        httpsShirasuIoRoles: claims.httpsShirasuIoRoles,
+        httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
+            claims.httpsShirasuIoUserAttribute),
+        httpsShirasuIoCustomerId: claims.httpsShirasuIoCustomerId,
+        httpsShirasuIoDistributeds: claims.httpsShirasuIoDistributeds,
+        httpsShirasuIoTenants: claims.httpsShirasuIoTenants,
+        givenName: claims.givenName,
+        familyName: claims.familyName,
+        nickname: claims.nickname,
+        name: claims.name,
+        picture: claims.picture,
+        locale: claims.locale,
+        updatedAt: claims.updatedAt,
+        email: claims.email,
+        emailVerified: claims.emailVerified,
+        iss: claims.iss,
+        sub: claims.sub,
+        aud: claims.aud,
+        iat: claims.iat,
+        exp: claims.exp,
+        nonce: claims.nonce,
+      );
 
   @HiveField(15)
   String raw;
@@ -152,9 +202,23 @@ class HiveHttpsShirasuIoUserAttribute extends HiveObject {
     @required this.country,
     @required this.prefecture,
     @required this.familyName,
+    @required this.familyNameReading,
     @required this.givenName,
     @required this.givenNameReading,
   });
+
+  factory HiveHttpsShirasuIoUserAttribute.parse(
+          HttpsShirasuIoUserAttribute attribute) =>
+      HiveHttpsShirasuIoUserAttribute._(
+        birthDate: attribute.birthDate,
+        job: attribute.job,
+        country: attribute.country,
+        prefecture: attribute.prefecture,
+        familyName: attribute.familyName,
+        givenName: attribute.givenName,
+        familyNameReading: attribute.familyNameReading,
+        givenNameReading: attribute.givenNameReading,
+      );
 
   @HiveField(36)
   DateTime birthDate;
@@ -183,6 +247,12 @@ class HiveEncoded extends HiveObject {
     @required this.signature,
   });
 
+  factory HiveEncoded.parse(Encoded encoded) => HiveEncoded._(
+        header: encoded.header,
+        payload: encoded.payload,
+        signature: encoded.signature,
+      );
+
   @HiveField(43)
   String header;
   @HiveField(44)
@@ -199,6 +269,12 @@ class HiveHeader extends HiveObject {
     @required this.typ,
     @required this.kid,
   });
+
+  factory HiveHeader.parse(Header header) => HiveHeader._(
+        alg: header.alg,
+        typ: header.typ,
+        kid: header.kid,
+      );
 
   @HiveField(46)
   String alg;
@@ -228,6 +304,25 @@ class HiveUser extends HiveObject {
     @required this.emailVerified,
     @required this.sub,
   });
+
+  factory HiveUser.parse(User user) => HiveUser._(
+      httpsShirasuIoRoles: user.httpsShirasuIoRoles,
+      httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
+          user.httpsShirasuIoUserAttribute),
+      httpsShirasuIoCustomerId: user.httpsShirasuIoCustomerId,
+      httpsShirasuIoDistributeds: user.httpsShirasuIoDistributeds,
+      httpsShirasuIoTenants: user.httpsShirasuIoTenants,
+      givenName: user.givenName,
+      familyName: user.familyName,
+      nickname: user.nickname,
+      name: user.name,
+      picture: user.picture,
+      locale: user.locale,
+      updatedAt: user.updatedAt,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      sub: user.sub,
+    );
 
   @HiveField(49)
   List<String> httpsShirasuIoRoles;

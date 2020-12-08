@@ -1,9 +1,15 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:shirasu/model/auth_data.dart';
 
 /// hive model for [AuthData]
 @HiveType(typeId: 0)
 class HiveAuthData extends HiveObject {
+  HiveAuthData._({
+    @required this.body,
+    @required this.expiresAt,
+  });
+
   @HiveField(0)
   HiveBody body;
   @HiveField(1)
@@ -13,6 +19,18 @@ class HiveAuthData extends HiveObject {
 /// hive model for [Body]
 @HiveType(typeId: 1)
 class HiveBody extends HiveObject {
+  HiveBody._({
+    @required this.clientId,
+    @required this.accessToken,
+    @required this.refreshToken,
+    @required this.idToken,
+    @required this.scope,
+    @required this.expiresIn,
+    @required this.tokenType,
+    @required this.decodedToken,
+    @required this.audience,
+  });
+
   @HiveField(2)
   String clientId;
   @HiveField(3)
@@ -36,6 +54,13 @@ class HiveBody extends HiveObject {
 /// hive model for [DecodedToken]
 @HiveType(typeId: 2)
 class HiveDecodedToken extends HiveObject {
+  HiveDecodedToken._({
+    @required this.encoded,
+    @required this.header,
+    @required this.claims,
+    @required this.user,
+  });
+
   @HiveField(11)
   HiveEncoded encoded;
   @HiveField(12)
@@ -49,6 +74,31 @@ class HiveDecodedToken extends HiveObject {
 /// hive model for [Claims]
 @HiveType(typeId: 3)
 class HiveClaims extends HiveObject {
+
+  HiveClaims._({
+    @required this.raw,
+    @required this.httpsShirasuIoRoles,
+    @required this.httpsShirasuIoUserAttribute,
+    @required this.httpsShirasuIoCustomerId,
+    @required this.httpsShirasuIoDistributeds,
+    @required this.httpsShirasuIoTenants,
+    @required this.givenName,
+    @required this.familyName,
+    @required this.nickname,
+    @required this.name,
+    @required this.picture,
+    @required this.locale,
+    @required this.updatedAt,
+    @required this.email,
+    @required this.emailVerified,
+    @required this.iss,
+    @required this.sub,
+    @required this.aud,
+    @required this.iat,
+    @required this.exp,
+    @required this.nonce,
+});
+
   @HiveField(15)
   String raw;
   @HiveField(16)
@@ -96,6 +146,16 @@ class HiveClaims extends HiveObject {
 /// hive model for [HttpsShirasuIoUserAttribute]
 @HiveType(typeId: 4)
 class HiveHttpsShirasuIoUserAttribute extends HiveObject {
+  HiveHttpsShirasuIoUserAttribute._({
+    @required this.birthDate,
+    @required this.job,
+    @required this.country,
+    @required this.prefecture,
+    @required this.familyName,
+    @required this.givenName,
+    @required this.givenNameReading,
+  });
+
   @HiveField(36)
   DateTime birthDate;
   @HiveField(37)
@@ -117,6 +177,12 @@ class HiveHttpsShirasuIoUserAttribute extends HiveObject {
 /// hive model for [HiveEncoded]
 @HiveType(typeId: 5)
 class HiveEncoded extends HiveObject {
+  HiveEncoded._({
+    @required this.header,
+    @required this.payload,
+    @required this.signature,
+  });
+
   @HiveField(43)
   String header;
   @HiveField(44)
@@ -128,6 +194,12 @@ class HiveEncoded extends HiveObject {
 /// hive model for [Header]
 @HiveType(typeId: 6)
 class HiveHeader extends HiveObject {
+  HiveHeader._({
+    @required this.alg,
+    @required this.typ,
+    @required this.kid,
+  });
+
   @HiveField(46)
   String alg;
   @HiveField(47)
@@ -139,6 +211,24 @@ class HiveHeader extends HiveObject {
 /// hive model for [User]
 @HiveType(typeId: 7)
 class HiveUser extends HiveObject {
+  HiveUser._({
+    @required this.httpsShirasuIoRoles,
+    @required this.httpsShirasuIoUserAttribute,
+    @required this.httpsShirasuIoCustomerId,
+    @required this.httpsShirasuIoDistributeds,
+    @required this.httpsShirasuIoTenants,
+    @required this.givenName,
+    @required this.familyName,
+    @required this.nickname,
+    @required this.name,
+    @required this.picture,
+    @required this.locale,
+    @required this.updatedAt,
+    @required this.email,
+    @required this.emailVerified,
+    @required this.sub,
+  });
+
   @HiveField(49)
   List<String> httpsShirasuIoRoles;
   @HiveField(50)

@@ -29,6 +29,7 @@ dependencies:
   http: ^0.12.2
   url_launcher: ^5.7.10
   cached_network_image: ^2.3.3
+  flutter_webview_plugin: ^0.3.11
   webview_flutter: ^1.0.7
   font_awesome_flutter: ^8.10.0
   hive: ^1.4.4+1

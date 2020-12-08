@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
@@ -37,6 +38,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
             ossLicense: () => ScreenOssLicense(),
+            auth: () => const ScreenAuth(),
           );
           return Tuple2(location, screen);
         })

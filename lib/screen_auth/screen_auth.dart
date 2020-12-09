@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,21 +5,15 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/viewmodel_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final _viewModelProvider =
-    StateNotifierProvider.autoDispose<ViewModelAuth>((ref) => ViewModelAuth());
+    StateNotifierProvider.autoDispose<ViewModelAuth>((ref) => ViewModelAuth(ref));
 
-class ScreenAuth extends StatefulHookWidget {
-  const ScreenAuth({Key key}) : super(key: key);
+class ScreenAuth extends HookWidget {
 
-  @override
-  _ScreenAuthState createState() => _ScreenAuthState();
-}
-
-class _ScreenAuthState extends State<ScreenAuth> {
+  const ScreenAuth({Key key}): super(key: key);
 
   static const _USER_AGENT = 'USER_AGENT';
 

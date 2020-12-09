@@ -6,6 +6,8 @@ class UrlUtil {
   const UrlUtil._();
 
   static const _URL_BASE = 'https://shirasu-storage-product.s3.amazonaws.com';
+  static const URL_GRAPHQL =
+      'https://itvvnowbibekdj7la2nlxgkuva.appsync-api.ap-northeast-1.amazonaws.com/graphql';
   static const URL_HOME = 'https://shirasu.io/';
   static const URL_AUTH_BASE = 'https://shirasu.auth0.com/';
   static const URL_AUTH_GOOGLE_BASE = 'https://accounts.google.com/';

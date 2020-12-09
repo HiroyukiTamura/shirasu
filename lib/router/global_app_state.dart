@@ -21,7 +21,11 @@ class GlobalAppState extends ChangeNotifier {
     if (last is PathDataAuth && path is PathDataAuth)
       return;
 
-    if (last is PathDataError || last is PathDataIntro) _list.removeLast();
+    if (last is PathDataAuth && path is PathDataError)
+      _list.removeLast();
+
+    if (last is PathDataError || last is PathDataIntro)
+      _list.removeLast();
 
     if (last is PathDataMainPageBase && path is PathDataMainPageBase)
       _list.removeLast();

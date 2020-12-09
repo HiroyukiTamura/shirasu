@@ -8,15 +8,20 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/di/local_json_client.dart';
 import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:riverpod/src/framework.dart';
 
 part 'viewmodel_auth.freezed.dart';
 
 class ViewModelAuth extends ViewModelBase<AuthModel> {
-  ViewModelAuth() : super(AuthModel.initial()) {
+  ViewModelAuth(this._ref) : super(AuthModel.initial()) {
     initialize();
   }
+
+  final AutoDisposeProviderReference _ref;
 
   CancelableOperation<Null> _cancelable;
 
@@ -35,7 +40,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
         if (!url.startsWith(UrlUtil.URL_HOME) &&
             !url.startsWith(UrlUtil.URL_AUTH_BASE) &&
             !url.startsWith(UrlUtil.URL_AUTH_GOOGLE_BASE)) {
-          //todo handle error
+          //todo handle error??
         }
 
         // url except home page
@@ -64,16 +69,18 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
             }
           }
 
-          if (success) {
-            debugPrint('success!!');
-            // todo kill WebView
-          } else {
-            // todo clear cache and handle error
+          final delegate = _ref.read(appRouterProvider).delegate;
+          if (success)
+            await delegate.popRoute();
+          else {
+            await _plugin.clearCache();
+            await _plugin.cleanCookies();
+            await delegate.pushPage(const GlobalRoutePath.error());
           }
         }
       })
       ..onHttpError.listen((e) {
-        // todo handle error
+        // todo log error
       })
       ..onStateChanged.listen((viewState) async {
         if (viewState.type == WebViewState.finishLoad &&

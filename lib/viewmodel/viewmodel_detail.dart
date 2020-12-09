@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
+import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
@@ -28,7 +29,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     ModelDetail newState;
     try {
       final result = await _apiClient.queryProgramDetail(id);
-      newState = state.copyWith(prgDataResult: DetailModelState.success(result));
+      newState =
+          state.copyWith(prgDataResult: DetailModelState.success(result));
     } catch (e) {
       print(e);
       newState = state.copyWith(prgDataResult: const DetailModelState.error());
@@ -46,7 +48,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       if (archivedAt?.isBefore(DateTime.now()) == true)
         detailPrgItem = v.data.program.videos.items.firstWhere(
             (it) => it.videoTypeStrict == VideoType.ARCHIVED,
-            orElse: () => null);//todo create extension
+            orElse: () => null); //todo create extension
 
       detailPrgItem ??= v.data.program.videos.items.firstWhere(
           (it) =>
@@ -63,21 +65,23 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final prg = _findAvailableVideoData();
     if (prg == null) return; // todo handle error
 
-    state = state.copyWith(playOutState: PlayOutState.initialize(prg.urlAvailable, prg.videoTypeStrict));
+    state = state.copyWith(
+        playOutState:
+            PlayOutState.initialize(prg.urlAvailable, prg.videoTypeStrict));
 
     String cookie;
     try {
-      cookie = await _dioClient.getSignedCookie(
-          prg.id, prg.videoTypeStrict, ApiClient.DUMMY_AUTH);
+      cookie = await _dioClient.getSignedCookie(prg.id, prg.videoTypeStrict,
+          HiveAuthClient.instance().authData.body.idToken);
       debugPrint(cookie);
     } catch (e) {
-      print(e);
+      print(e); //todo handle error
     }
 
-    if (cookie == null)
-      return;
+    if (cookie == null) return;
 
-    final playOutState = PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict, cookie);
+    final playOutState =
+        PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict, cookie);
     final newState = state.copyWith(playOutState: playOutState);
     setState(newState);
   }

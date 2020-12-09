@@ -28,4 +28,9 @@ class UrlUtil {
 
   static String getHandoutUrl(String programId, String handoutId) =>
       '$_URL_BASE/private/programs/$programId/handouts/$handoutId';
+
+  static String programId2UrlSegment(String programId) {
+    final list = programId.split('-');
+    return '/t/${list[0]}/c/${list[1]}/p/${list[2]}';
+  }
 }

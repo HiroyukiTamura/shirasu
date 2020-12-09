@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/util.dart';
 
 @immutable
 abstract class _GraphQlModel {
@@ -126,3 +128,26 @@ abstract class BaseUserWithAttribute extends _GraphQlModel {}
 
 @immutable
 abstract class BaseUserAttribute extends _GraphQlModel {}
+
+class CurrencyUtil {
+  static bool _isJapanCurrency(String currency) {
+    final s = currency.toUpperCase();
+    return s == 'JP' || s == 'JPY';
+  }
+
+  static String currencyAsSuffix(String currency) {
+    if (_isJapanCurrency(currency))
+      return Strings.SUFFIX_YEN;
+
+    throw UnsupportedError('unexpected currency :: $currency');
+    // todo english
+  }
+
+  static int amountWithTax(String currency, int amount) {
+    if (_isJapanCurrency(currency))
+      return (amount * (Util.JP_TAX_RATIO +1)).ceil();
+
+    throw UnsupportedError('unexpected currency :: $currency');
+    // todo english
+  }
+}

@@ -42,7 +42,9 @@ class _PrgResultHookedWidget extends HookWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context) => useProvider(detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
+  Widget build(BuildContext context) =>
+      useProvider(detailSNProvider(id).state.select((it) => it.prgDataResult))
+          .when(
         loading: () => const CenterCircleProgress(),
         preInitialized: () => const CenterCircleProgress(),
         success: (data) => _ContentWidget(data: data),
@@ -65,7 +67,7 @@ class _ContentWidget extends StatelessWidget {
               VideoHeader(
                 height: headerH,
                 programId: data.program.id,
-                onTap: () => context
+                onTap: () async => context
                     .read(detailSNProvider(data.program.id))
                     .playVideo(), //todo don't context.read in onTap
               ),
@@ -84,9 +86,8 @@ class _ContentWidget extends StatelessWidget {
                           return const SizedBox(height: 16);
                         case 2:
                           return RowChannel(
+                            channelId: data.program.channelId,
                             title: data.program.channel.name,
-                            imageUrl: UrlUtil.getChannelLogoUrl(
-                                data.program.channelId),
                           );
                         case 3:
                           return const SizedBox(height: 12);
@@ -105,29 +106,22 @@ class _ContentWidget extends StatelessWidget {
                           return RowVideoTags(textList: data.program.tags);
                         case 9:
                           return const SizedBox(height: 36);
-                        // case 10:
-                        //   return ContentCell(
-                        //     child: Row(
-                        //       children: [
-                        //         if (data.program.onetimePlans.any((element) => false))
-                        //         BillingBtnThin(text: data.program.totalPlayTime),
-                        //         SizedBox(width: 16),
-                        //         BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
-                        //       ],
-                        //     ),
-                        //   );
-                        // case 11:
-                        //   return SizedBox(height: 36);
                         case 10:
-                          return RowFabs(
-                            handouts: data.program.handouts,
+                          return Visibility(
+                            visible: false,
+                            child: RowFabs(
+                              handouts: data.program.handouts,
+                            ),
                           );
                         case 11:
-                          return const SizedBox(height: 36);
+                          return const Visibility(
+                            visible: false,
+                            child: SizedBox(height: 36),
+                          );
                         case 12:
                           return RowVideoDesc(text: data.program.detail);
                         default:
-                          return const SizedBox();
+                          return const SizedBox.shrink();
                       }
                     }),
               ),

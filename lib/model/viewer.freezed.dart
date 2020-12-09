@@ -1413,7 +1413,7 @@ class __$InvoiceHistoryItemCopyWithImpl<$Res>
 @Implements(BaseInvoice)
 
 /// @nodoc
-class _$_InvoiceHistoryItem implements _InvoiceHistoryItem {
+class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   const _$_InvoiceHistoryItem(
       {@required
           this.id,
@@ -1440,7 +1440,8 @@ class _$_InvoiceHistoryItem implements _InvoiceHistoryItem {
         assert(createdAt != null),
         assert(planType != null),
         assert(status != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_InvoiceHistoryItem.fromJson(Map<String, dynamic> json) =>
       _$_$_InvoiceHistoryItemFromJson(json);
@@ -1517,7 +1518,9 @@ class _$_InvoiceHistoryItem implements _InvoiceHistoryItem {
   }
 }
 
-abstract class _InvoiceHistoryItem implements InvoiceHistoryItem, BaseInvoice {
+abstract class _InvoiceHistoryItem extends InvoiceHistoryItem
+    implements BaseInvoice {
+  const _InvoiceHistoryItem._() : super._();
   const factory _InvoiceHistoryItem(
       {@required
           String id,

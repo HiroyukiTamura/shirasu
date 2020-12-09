@@ -11,29 +11,36 @@ class RowFabs extends StatelessWidget {
 
   final Handouts handouts;
 
+  /// todo implement
   @override
-  Widget build(BuildContext context) {
-    return Row(
+  Widget build(BuildContext context) => Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const _Fab(icon: Icons.comment),
-        const _Fab(icon: Icons.text_snippet),
-        if (handouts.items.isNotEmpty)
-          const _Fab(icon: Icons.alarm_add),
-        const _Fab(icon: Icons.share),
+        if (handouts.items.isNotEmpty) const _Fab(icon: Icons.text_snippet),
+        const _Fab(icon: Icons.alarm_add),
+        _Fab(icon: Icons.share, onPressed: () => _onClickShareBtn(),),
       ],
     );
+
+  Future<void> _onClickShareBtn() async {
+
   }
 }
 
 class _Fab extends StatelessWidget {
-  const _Fab({Key key, this.icon}) : super(key: key);
+  const _Fab({
+    Key key,
+    @required this.icon,
+    @required this.onPressed,
+  }) : super(key: key);
 
   final IconData icon;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) => RawMaterialButton(
-        onPressed: () {},
+        onPressed: onPressed,
         elevation: 0,
         constraints: const BoxConstraints(
           minWidth: 54,

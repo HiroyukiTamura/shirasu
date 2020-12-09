@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 //todo remove type definition
 @immutable
 class Strings {
-
   const Strings._();
 
   //region Intro
@@ -34,6 +33,7 @@ class Strings {
   static const HEADING_SUBSCRIBING = '購読中の番組';
   static const HEADING_CHANNEL = 'チャンネル';
   static const HEADING_NOW_ON_AIR = 'ただいま放送中';
+
   //endregion
 
   //region contents description
@@ -65,15 +65,7 @@ class Strings {
 
 //endregion
 
-  //region about purchase
-  static String currency2Str(String currency) {
-    switch (currency.toUpperCase()) {
-      case 'JPY':
-        return '円';
-      default:
-        throw Exception('unexpected currency :: $currency');
-    }
-  }
+  static const String SUFFIX_YEN = '円';
 
   static String planType2Str(String planType) {
     switch (planType) {
@@ -91,7 +83,7 @@ class Strings {
 
   //region ScreenDetail
   static const String WAIT_FOR_START = '放送開始までお待ちください';
-  static const String PURCHASE_BTN_TEXT = 'この動画を購入する・チャンネルを購読する';
+  static const String PURCHASE_BTN_TEXT = 'この番組を視聴する';
   static const String PREVIEW_BTN_TEXT = '冒頭を無料で見る';
 
 //endregion
@@ -166,6 +158,10 @@ class Strings {
   /// ref: users.pages.UserAccount.components.UserAccountInformation.externalAuthentication
   static const String EXTERNAL_AUTHENTICATION = '外部サービスログイン連携';
 
+  /// ref: users.pages.Program.components.PlayerContainer.previewExistMessage
+  static const String PREVIEW_EXIST_MESSAGE =
+      '冒頭を無料で見ることができます。\n番組開始後に冒頭無料視聴をお選びください。';
+
   static const String CURRENT_PERIOD_END_AT_LABEL = '次回更新日';
   static const String SUBSCRIPTION_START_DATE = '購読開始日';
 
@@ -203,6 +199,7 @@ class Strings {
 
   //region screen_auth
   static const String APP_BAR_LOGIN = 'ログイン';
+
   //endregion
 
 //region dialog
@@ -210,5 +207,12 @@ class Strings {
   static const String DIALOG_TITLE_LOCATION = '居住地域';
   static const String DIALOG_OK = 'OK';
   static const String DIALOG_CANCEL = 'キャンセル';
+
+//endregion
+
+//region bottom sheet
+  static const String BTM_SHEET_MSG_CREDIT_CARD = '重要な個人情報を扱うため、クレジットカードの編集は本アプリでは対応していません。\n公式Webページ上で行ってください。';
+  static const String SUFFIX_PURCHASE_ONE_TIME = 'で番組を購入';
+  static const String BTM_SHEET_OR = 'または';
 //endregion
 }

@@ -79,7 +79,7 @@ class BillingBtnMedium extends StatelessWidget {
 
   /// todo need logic for tax ratio, currency and country
   factory BillingBtnMedium.subscribe(int amount, String currency, {Key key}) {
-    final text = '${Strings.MONTHLY}$amount${Strings.currency2Str(currency)}';
+    final text = '${Strings.MONTHLY}$amount${currency}';
     return BillingBtnMedium(text: text, key: key,);
   }
 

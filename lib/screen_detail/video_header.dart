@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/dialog/btm_sheet_common.dart';
+import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/video_type.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,6 +13,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:flutter_playout/video.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
+import 'package:shirasu/extension.dart';
 
 class VideoHeader extends HookWidget {
   const VideoHeader({
@@ -26,9 +29,10 @@ class VideoHeader extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playOutState =
-        useProvider(detailSNProvider(programId).state.select((it) => it.playOutState));
-    final result = useProvider(detailSNProvider(programId)).state.prgDataResult as StateSuccess;//we want rebuild here
+    final playOutState = useProvider(
+        detailSNProvider(programId).state.select((it) => it.playOutState));
+    final result = useProvider(detailSNProvider(programId)).state.prgDataResult
+        as StateSuccess; //we want rebuild here
 
     final program = result.data.program;
     Widget child;
@@ -81,12 +85,12 @@ class _VideoThumbnail extends StatelessWidget {
             return Container();
           },
         ),
-        _hoverWidget(),
+        _hoverWidget(context),
       ],
     );
   }
 
-  Widget _hoverWidget() {
+  Widget _hoverWidget(BuildContext context) {
     if (isLoading) return _loadingCircle();
 
     final isWaiting = DateTime.now().isBefore(program.broadcastAt);
@@ -98,13 +102,25 @@ class _VideoThumbnail extends StatelessWidget {
 
     return _HoverBackDrop(
       opacity: .7,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (isPurchasable) _purchaseBtn(),
-          if (canPreview) _previewBtn(),
-        ],
+      child: IntrinsicWidth(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (isPurchasable)
+              _HoverBtn(
+                label: Strings.PURCHASE_BTN_TEXT,
+                onPressed: () async => _onClickPurchaseBtn(context),
+              ),
+            if (isPurchasable && canPreview) const SizedBox(height: 16),
+            if (canPreview && isWaiting) _previewExistMessage(),
+            if (canPreview && !isWaiting)
+              _HoverBtn(
+                label: Strings.PREVIEW_BTN_TEXT,
+                onPressed: () async => _onClickPreviewBtn(),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -141,16 +157,55 @@ class _VideoThumbnail extends StatelessWidget {
         ),
       );
 
-  //todo implement action, update ui
-  Widget _purchaseBtn() => RaisedButton(
-        onPressed: () {},
-        child: const Text(Strings.PURCHASE_BTN_TEXT),
-      );
+  /// todo implement
+  Future<void> _onClickPurchaseBtn(BuildContext context) async {
+    BtmSheetCommon.showUrlLauncherBtmSheet(
+        context: context,
+        url: UrlUtil.programId2UrlSegment(program.id),
+        child: Column(children: <Widget>[
+          ...program.onetimePlans.map((it) {
+            return Text('${it.amountWithTax}${it.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_ONE_TIME}');
+          }).joinWith(() => const Text(Strings.BTM_SHEET_OR)),
+        ],));
+  }
 
-  //todo implement action, update ui
-  Widget _previewBtn() => RaisedButton(
-        onPressed: () {},
-        child: const Text(Strings.PREVIEW_BTN_TEXT),
+  /// todo implement
+  Future<void> _onClickPreviewBtn() async {}
+
+  Widget _previewExistMessage() => const Text(
+        Strings.PREVIEW_EXIST_MESSAGE,
+        textAlign: TextAlign.center,
+      );
+}
+
+class _HoverBtn extends StatelessWidget {
+  const _HoverBtn({Key key, @required this.label, @required this.onPressed})
+      : super(key: key);
+
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) => RaisedButton.icon(
+        onPressed: onPressed,
+        padding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(1000),
+            side: const BorderSide(color: Colors.white)),
+        color: Colors.black,
+        label: Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ),
+        icon: const Icon(
+          Icons.play_arrow,
+          color: Colors.white,
+        ),
       );
 }
 
@@ -167,6 +222,7 @@ class _HoverBackDrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SizedBox.expand(
         child: Container(
+          padding: const EdgeInsets.all(16),
           alignment: Alignment.center,
           color: Colors.black.withOpacity(.7),
           child: child,

@@ -9,6 +9,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class Util {
   const Util._();
 
+  static const JP_TAX_RATIO = 0.1;
+
   static String convert2SnackText(ErrorMsg msg) {
     switch (msg) {
       case ErrorMsg.UNKNOWN:

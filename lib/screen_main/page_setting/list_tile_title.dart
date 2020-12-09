@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/dialog/btm_sheet_common.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
@@ -65,42 +66,10 @@ class ListTileTitle extends StatelessWidget {
         : content;
   }
 
-  Future<void> _onTapCreditCard(BuildContext context) async {
-    final result = await showModalBottomSheet<bool>(
-        context: context
-            .read(screenMainScaffoldProvider)
-            .currentContext, //show BottomSheet over BottomNavigationBar
-        builder: (context) => Padding(
-              padding: const EdgeInsets.only(
-                top: 24,
-                left: 24,
-                right: 24,
-                bottom: 16,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('セキュアな情報を取り扱うので公式のWebページに遷移するよ'),//todo resourcing
-                  const SizedBox(height: 12),
-                  ButtonBar(
-                    layoutBehavior: ButtonBarLayoutBehavior.constrained,
-                    children: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, false),
-                        child: const Text(Strings.DIALOG_CANCEL),
-                      ),
-                      const SizedBox(width: 8),
-                      RaisedButton(//todo styling
-                        onPressed: () => Navigator.pop(context, true),
-                        child: const Text(Strings.OPEN_WEB),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ));
-
-    if (result == true)
-      await Util.launchUrl(context, UrlUtil.URL_ACCOUNT);
-  }
+  Future<void> _onTapCreditCard(BuildContext context) async =>
+      BtmSheetCommon.showUrlLauncherBtmSheet(
+        context: context,
+        url: UrlUtil.URL_ACCOUNT,
+        child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
+      );
 }

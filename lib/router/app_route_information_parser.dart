@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
@@ -56,10 +57,7 @@ class AppRouteInformationParser
         intro: () => 'intro',
         error: () => 'error',
         channel: (channelId) => '/c/$channelId',
-        program: (programId) {
-          final list = programId.split('-');
-          return '/t/${list[0]}/c/${list[1]}/p/${list[2]}';
-        },
+        program: (programId) => UrlUtil.programId2UrlSegment(programId),
         dashboard: () => 'dashboard',
         subscribing: (SubscribingTabPage initialPage) => 'subscribing/$initialPage',
         setting: () => 'setting',

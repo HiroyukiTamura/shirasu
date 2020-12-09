@@ -17,9 +17,7 @@ import 'package:riverpod/src/framework.dart';
 part 'viewmodel_auth.freezed.dart';
 
 class ViewModelAuth extends ViewModelBase<AuthModel> {
-  ViewModelAuth(this._ref) : super(AuthModel.initial()) {
-    initialize();
-  }
+  ViewModelAuth(this._ref) : super(AuthModel.initial());
 
   final AutoDisposeProviderReference _ref;
 

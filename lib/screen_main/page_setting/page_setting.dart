@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -46,18 +45,8 @@ class PageSettingInMainScreen extends StatelessWidget {
       );
 }
 
-class PageUserInfo extends StatefulHookWidget {
+class PageUserInfo extends HookWidget {
   const PageUserInfo({Key key}) : super(key: key);
-
-  @override
-  PageSettingInMainScreenState createState() => PageSettingInMainScreenState();
-}
-
-class PageSettingInMainScreenState extends State<PageUserInfo>
-    with AfterLayoutMixin<PageUserInfo> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(settingViewModelSProvider).initialize();
 
   @override
   Widget build(BuildContext context) =>

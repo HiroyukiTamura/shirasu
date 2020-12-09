@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart';
@@ -13,6 +14,8 @@ class ViewModelChannel extends ViewModelBase<ChannelDataResult> {
 
   final _apiClient = ApiClient(Client());
   final String _channelId;
+
+  int tabIndex = 0;
 
   @override
   Future<void> initialize() async {

@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -20,18 +19,9 @@ final _viewmodelSNProvider =
     StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
         (ref) => ViewModelWatchHistory(ref));
 
-class WatchHistoryWidget extends StatefulHookWidget {
+class WatchHistoryWidget extends StatelessWidget {
+
   const WatchHistoryWidget({Key key}) : super(key: key);
-
-  @override
-  _WatchHistoryWidgetState createState() => _WatchHistoryWidgetState();
-}
-
-class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
-    with AfterLayoutMixin<WatchHistoryWidget> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(_viewmodelSNProvider).initialize();
 
   @override
   Widget build(BuildContext context) =>

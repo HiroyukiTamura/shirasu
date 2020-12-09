@@ -17,36 +17,21 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:after_layout/after_layout.dart';
 
 final detailSNProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((_, id) => ViewModelDetail(id));
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
-class ScreenDetail extends StatefulWidget {
+class ScreenDetail extends HookWidget {
   const ScreenDetail({Key key, @required this.id}) : super(key: key);
 
   final String id;
 
   @override
-  _ScreenDetailState createState() => _ScreenDetailState(id);
-}
-
-class _ScreenDetailState extends State<ScreenDetail>
-    with AfterLayoutMixin<ScreenDetail> {
-  _ScreenDetailState(this._id);
-
-  final String _id;
-
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(detailSNProvider(_id)).initialize();
-
-  @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-          body: _PrgResultHookedWidget(id: _id),
+          body: _PrgResultHookedWidget(id: id),
         ),
       );
 }

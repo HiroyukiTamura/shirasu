@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -24,19 +23,9 @@ import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 final _viewModelSProvider =
     StateNotifierProvider.autoDispose<ViewModelDashBoard>((ref) => ViewModelDashBoard(ref));
 
-class PageDashboardInMainScreen extends StatefulHookWidget {
-  const PageDashboardInMainScreen({Key key}) : super(key: key);
+class PageDashboardInMainScreen extends HookWidget {
 
-  @override
-  _PageDashboardInMainScreenState createState() =>
-      _PageDashboardInMainScreenState();
-}
-
-class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
-    with AfterLayoutMixin<PageDashboardInMainScreen> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(_viewModelSProvider).initialize();
+  const PageDashboardInMainScreen({Key key}): super(key: key);
 
   @override
   Widget build(BuildContext context) => useProvider(_viewModelSProvider.state)

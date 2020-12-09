@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -6,7 +5,9 @@ import 'package:state_notifier/state_notifier.dart';
 
 abstract class ViewModelBase<T> extends StateNotifier<T> with StateTrySetter<T> {
 
-  ViewModelBase(T state) : super(state);
+  ViewModelBase(T state) : super(state) {
+    initialize();
+  }
 
   @protected
   Future<void> initialize() async {}

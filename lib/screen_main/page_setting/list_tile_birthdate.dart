@@ -15,7 +15,7 @@ class ListTileBirthDate extends HookWidget {
     final birthDate = useProvider(settingViewModelSProvider.state
             .select((it) => it.editedUserInfo)).birthDate ??
         ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.birthDate;
-    return PageSettingInMainScreenState.listItem(
+    return PageUserInfo.listItem(
       title: Strings.BIRTH_DATE_LABEL,
       subTitle: DateFormat('yyyy/MM/dd').format(birthDate),
       onTap: () async => _onTapBirthDate(context),

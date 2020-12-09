@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -46,7 +45,7 @@ class MyApp extends StatefulHookWidget {
   MyAppState createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp> with WidgetsBindingObserver, AfterLayoutMixin<MyApp> {
+class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();

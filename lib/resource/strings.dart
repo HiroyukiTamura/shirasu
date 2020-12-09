@@ -44,7 +44,9 @@ class Strings {
 
   //region SnackBar
   static const String SNACK_NO_MORE_ITEM = 'アイテムは他にありません';
+
   static const String SNACK_ERR = '処理に失敗しました';
+  static const String SNACK_CANT_OPEN_URL = 'Webページを開けません';
 
   //endregion
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:shirasu/util.dart';
 
 class RowVideoDesc extends StatelessWidget {
 
@@ -12,13 +12,7 @@ class RowVideoDesc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Linkify(
-    onOpen: (link) async {
-      if (await canLaunch(link.url)) {
-        await launch(link.url);
-      } else {
-        throw 'Could not launch $link';//todo err handle
-      }
-    },
+    onOpen: (link) async => Util.launchUrl(context, link.url),
     text: text,
     style: TextStyles.DETAIL_VIDEO_DESC,
     linkStyle: TextStyles.DETAIL_VIDEO_DESC_LINK,

@@ -11,5 +11,5 @@ class SnackBarMessageNotifier extends StateNotifier<ErrorMsg> {
 }
 
 enum ErrorMsg {
-  UNKNOWN, NO_MORE_ITEM,
+  UNKNOWN, NO_MORE_ITEM, CANT_OPEN_URL,
 }

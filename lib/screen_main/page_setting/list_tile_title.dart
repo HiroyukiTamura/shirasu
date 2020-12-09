@@ -6,6 +6,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
+import 'package:shirasu/util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ListTileTitle extends StatelessWidget {
@@ -99,12 +100,7 @@ class ListTileTitle extends StatelessWidget {
               ),
             ));
 
-    if (result == true) {
-      if (await canLaunch(UrlUtil.URL_ACCOUNT)) {
-        await launch(UrlUtil.URL_ACCOUNT);
-      } else {
-        throw Exception('Could not launch'); //todo err handle
-      }
-    }
+    if (result == true)
+      await Util.launchUrl(context, UrlUtil.URL_ACCOUNT);
   }
 }

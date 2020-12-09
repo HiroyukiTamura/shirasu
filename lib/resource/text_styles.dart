@@ -127,13 +127,13 @@ class TextStyles {
 
   static const DETAIL_VIDEO_DESC = TextStyle(
     color: Colors.white,
-    fontSize: 13,
+    fontSize: 14,
     height: TextStyles.TEXT_HEIGHT,
   );
 
   static const DETAIL_VIDEO_DESC_LINK = TextStyle(
     color: Colors.deepOrange,
-    fontSize: 13,
+    fontSize: 14,
     height: TextStyles.TEXT_HEIGHT,
   );
 

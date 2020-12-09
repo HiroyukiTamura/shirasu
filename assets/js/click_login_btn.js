@@ -1,0 +1,1 @@
+document.getElementsByClassName("main__login-button")[0].click()

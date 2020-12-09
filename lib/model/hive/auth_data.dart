@@ -1,17 +1,19 @@
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:shirasu/model/auth_data.dart';
 
+part 'auth_data.g.dart';
+
 /// hive model for [AuthData]
 @HiveType(typeId: 0)
 class HiveAuthData extends HiveObject {
-  HiveAuthData._({
+  /// don't use default constrictor manually
+  HiveAuthData({
     @required this.body,
     @required this.expiresAt,
   });
 
-  factory HiveAuthData.parse(AuthData authData) => HiveAuthData._(
+  factory HiveAuthData.parse(AuthData authData) => HiveAuthData(
         body: HiveBody.parse(authData.body),
         expiresAt: authData.expiresAt,
       );
@@ -25,7 +27,8 @@ class HiveAuthData extends HiveObject {
 /// hive model for [Body]
 @HiveType(typeId: 1)
 class HiveBody extends HiveObject {
-  HiveBody._({
+  /// don't use default constrictor manually
+  HiveBody({
     @required this.clientId,
     @required this.accessToken,
     @required this.refreshToken,
@@ -37,7 +40,7 @@ class HiveBody extends HiveObject {
     @required this.audience,
   });
 
-  factory HiveBody.parse(Body body) => HiveBody._(
+  factory HiveBody.parse(Body body) => HiveBody(
         clientId: body.clientId,
         accessToken: body.accessToken,
         refreshToken: body.refreshToken,
@@ -72,7 +75,8 @@ class HiveBody extends HiveObject {
 /// hive model for [DecodedToken]
 @HiveType(typeId: 2)
 class HiveDecodedToken extends HiveObject {
-  HiveDecodedToken._({
+  /// don't use default constrictor manually
+  HiveDecodedToken({
     @required this.encoded,
     @required this.header,
     @required this.claims,
@@ -80,7 +84,7 @@ class HiveDecodedToken extends HiveObject {
   });
 
   factory HiveDecodedToken.parse(DecodedToken decodedToken) =>
-      HiveDecodedToken._(
+      HiveDecodedToken(
         encoded: HiveEncoded.parse(decodedToken.encoded),
         header: HiveHeader.parse(decodedToken.header),
         claims: HiveClaims.parse(decodedToken.claims),
@@ -100,7 +104,8 @@ class HiveDecodedToken extends HiveObject {
 /// hive model for [Claims]
 @HiveType(typeId: 3)
 class HiveClaims extends HiveObject {
-  HiveClaims._({
+  /// don't use default constrictor manually
+  HiveClaims({
     @required this.raw,
     @required this.httpsShirasuIoRoles,
     @required this.httpsShirasuIoUserAttribute,
@@ -124,7 +129,7 @@ class HiveClaims extends HiveObject {
     @required this.nonce,
   });
 
-  factory HiveClaims.parse(Claims claims) => HiveClaims._(
+  factory HiveClaims.parse(Claims claims) => HiveClaims(
         raw: claims.raw,
         httpsShirasuIoRoles: claims.httpsShirasuIoRoles,
         httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
@@ -196,7 +201,8 @@ class HiveClaims extends HiveObject {
 /// hive model for [HttpsShirasuIoUserAttribute]
 @HiveType(typeId: 4)
 class HiveHttpsShirasuIoUserAttribute extends HiveObject {
-  HiveHttpsShirasuIoUserAttribute._({
+  /// don't use default constrictor manually
+  HiveHttpsShirasuIoUserAttribute({
     @required this.birthDate,
     @required this.job,
     @required this.country,
@@ -209,7 +215,7 @@ class HiveHttpsShirasuIoUserAttribute extends HiveObject {
 
   factory HiveHttpsShirasuIoUserAttribute.parse(
           HttpsShirasuIoUserAttribute attribute) =>
-      HiveHttpsShirasuIoUserAttribute._(
+      HiveHttpsShirasuIoUserAttribute(
         birthDate: attribute.birthDate,
         job: attribute.job,
         country: attribute.country,
@@ -241,13 +247,14 @@ class HiveHttpsShirasuIoUserAttribute extends HiveObject {
 /// hive model for [HiveEncoded]
 @HiveType(typeId: 5)
 class HiveEncoded extends HiveObject {
-  HiveEncoded._({
+  /// don't use default constrictor manually
+  HiveEncoded({
     @required this.header,
     @required this.payload,
     @required this.signature,
   });
 
-  factory HiveEncoded.parse(Encoded encoded) => HiveEncoded._(
+  factory HiveEncoded.parse(Encoded encoded) => HiveEncoded(
         header: encoded.header,
         payload: encoded.payload,
         signature: encoded.signature,
@@ -264,13 +271,14 @@ class HiveEncoded extends HiveObject {
 /// hive model for [Header]
 @HiveType(typeId: 6)
 class HiveHeader extends HiveObject {
-  HiveHeader._({
+  /// don't use default constrictor manually
+  HiveHeader({
     @required this.alg,
     @required this.typ,
     @required this.kid,
   });
 
-  factory HiveHeader.parse(Header header) => HiveHeader._(
+  factory HiveHeader.parse(Header header) => HiveHeader(
         alg: header.alg,
         typ: header.typ,
         kid: header.kid,
@@ -287,7 +295,8 @@ class HiveHeader extends HiveObject {
 /// hive model for [User]
 @HiveType(typeId: 7)
 class HiveUser extends HiveObject {
-  HiveUser._({
+  /// don't use default constrictor manually
+  HiveUser({
     @required this.httpsShirasuIoRoles,
     @required this.httpsShirasuIoUserAttribute,
     @required this.httpsShirasuIoCustomerId,
@@ -305,7 +314,7 @@ class HiveUser extends HiveObject {
     @required this.sub,
   });
 
-  factory HiveUser.parse(User user) => HiveUser._(
+  factory HiveUser.parse(User user) => HiveUser(
       httpsShirasuIoRoles: user.httpsShirasuIoRoles,
       httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
           user.httpsShirasuIoUserAttribute),

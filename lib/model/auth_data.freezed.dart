@@ -186,13 +186,13 @@ class _$BodyTearOff {
 
 // ignore: unused_element
   _Body call(
-      {@required String clientId,
-      @required String accessToken,
-      @required String refreshToken,
-      @required String idToken,
+      {@required @JsonKey(name: 'client_id') String clientId,
+      @required @JsonKey(name: 'access_token') String accessToken,
+      @required @JsonKey(name: 'refresh_token') String refreshToken,
+      @required @JsonKey(name: 'id_token') String idToken,
       @required String scope,
-      @required int expiresIn,
-      @required String tokenType,
+      @required @JsonKey(name: 'expires_in') int expiresIn,
+      @required @JsonKey(name: 'token_type') String tokenType,
       @required DecodedToken decodedToken,
       @required String audience}) {
     return _Body(
@@ -220,12 +220,18 @@ const $Body = _$BodyTearOff();
 
 /// @nodoc
 mixin _$Body {
+  @JsonKey(name: 'client_id')
   String get clientId;
+  @JsonKey(name: 'access_token')
   String get accessToken;
+  @JsonKey(name: 'refresh_token')
   String get refreshToken;
+  @JsonKey(name: 'id_token')
   String get idToken;
   String get scope;
+  @JsonKey(name: 'expires_in')
   int get expiresIn;
+  @JsonKey(name: 'token_type')
   String get tokenType;
   DecodedToken get decodedToken;
   String get audience;
@@ -239,13 +245,13 @@ abstract class $BodyCopyWith<$Res> {
   factory $BodyCopyWith(Body value, $Res Function(Body) then) =
       _$BodyCopyWithImpl<$Res>;
   $Res call(
-      {String clientId,
-      String accessToken,
-      String refreshToken,
-      String idToken,
+      {@JsonKey(name: 'client_id') String clientId,
+      @JsonKey(name: 'access_token') String accessToken,
+      @JsonKey(name: 'refresh_token') String refreshToken,
+      @JsonKey(name: 'id_token') String idToken,
       String scope,
-      int expiresIn,
-      String tokenType,
+      @JsonKey(name: 'expires_in') int expiresIn,
+      @JsonKey(name: 'token_type') String tokenType,
       DecodedToken decodedToken,
       String audience});
 
@@ -307,13 +313,13 @@ abstract class _$BodyCopyWith<$Res> implements $BodyCopyWith<$Res> {
       __$BodyCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String clientId,
-      String accessToken,
-      String refreshToken,
-      String idToken,
+      {@JsonKey(name: 'client_id') String clientId,
+      @JsonKey(name: 'access_token') String accessToken,
+      @JsonKey(name: 'refresh_token') String refreshToken,
+      @JsonKey(name: 'id_token') String idToken,
       String scope,
-      int expiresIn,
-      String tokenType,
+      @JsonKey(name: 'expires_in') int expiresIn,
+      @JsonKey(name: 'token_type') String tokenType,
       DecodedToken decodedToken,
       String audience});
 
@@ -366,13 +372,13 @@ class __$BodyCopyWithImpl<$Res> extends _$BodyCopyWithImpl<$Res>
 /// @nodoc
 class _$_Body implements _Body {
   const _$_Body(
-      {@required this.clientId,
-      @required this.accessToken,
-      @required this.refreshToken,
-      @required this.idToken,
+      {@required @JsonKey(name: 'client_id') this.clientId,
+      @required @JsonKey(name: 'access_token') this.accessToken,
+      @required @JsonKey(name: 'refresh_token') this.refreshToken,
+      @required @JsonKey(name: 'id_token') this.idToken,
       @required this.scope,
-      @required this.expiresIn,
-      @required this.tokenType,
+      @required @JsonKey(name: 'expires_in') this.expiresIn,
+      @required @JsonKey(name: 'token_type') this.tokenType,
       @required this.decodedToken,
       @required this.audience})
       : assert(clientId != null),
@@ -389,18 +395,24 @@ class _$_Body implements _Body {
       _$_$_BodyFromJson(json);
 
   @override
+  @JsonKey(name: 'client_id')
   final String clientId;
   @override
+  @JsonKey(name: 'access_token')
   final String accessToken;
   @override
+  @JsonKey(name: 'refresh_token')
   final String refreshToken;
   @override
+  @JsonKey(name: 'id_token')
   final String idToken;
   @override
   final String scope;
   @override
+  @JsonKey(name: 'expires_in')
   final int expiresIn;
   @override
+  @JsonKey(name: 'token_type')
   final String tokenType;
   @override
   final DecodedToken decodedToken;
@@ -469,31 +481,37 @@ class _$_Body implements _Body {
 
 abstract class _Body implements Body {
   const factory _Body(
-      {@required String clientId,
-      @required String accessToken,
-      @required String refreshToken,
-      @required String idToken,
+      {@required @JsonKey(name: 'client_id') String clientId,
+      @required @JsonKey(name: 'access_token') String accessToken,
+      @required @JsonKey(name: 'refresh_token') String refreshToken,
+      @required @JsonKey(name: 'id_token') String idToken,
       @required String scope,
-      @required int expiresIn,
-      @required String tokenType,
+      @required @JsonKey(name: 'expires_in') int expiresIn,
+      @required @JsonKey(name: 'token_type') String tokenType,
       @required DecodedToken decodedToken,
       @required String audience}) = _$_Body;
 
   factory _Body.fromJson(Map<String, dynamic> json) = _$_Body.fromJson;
 
   @override
+  @JsonKey(name: 'client_id')
   String get clientId;
   @override
+  @JsonKey(name: 'access_token')
   String get accessToken;
   @override
+  @JsonKey(name: 'refresh_token')
   String get refreshToken;
   @override
+  @JsonKey(name: 'id_token')
   String get idToken;
   @override
   String get scope;
   @override
+  @JsonKey(name: 'expires_in')
   int get expiresIn;
   @override
+  @JsonKey(name: 'token_type')
   String get tokenType;
   @override
   DecodedToken get decodedToken;
@@ -764,27 +782,58 @@ class _$ClaimsTearOff {
 
 // ignore: unused_element
   _Claims call(
-      {@required String raw,
-      @required List<String> httpsShirasuIoRoles,
-      @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @required String httpsShirasuIoCustomerId,
-      @required List<dynamic> httpsShirasuIoDistributeds,
-      @required List<dynamic> httpsShirasuIoTenants,
-      @required String givenName,
-      @required String familyName,
-      @required String nickname,
-      @required String name,
-      @required String picture,
-      @required String locale,
-      @required DateTime updatedAt,
-      @required String email,
-      @required bool emailVerified,
-      @required String iss,
-      @required String sub,
-      @required String aud,
-      @required int iat,
-      @required int exp,
-      @required String nonce}) {
+      {@required
+      @JsonKey(name: '__raw')
+          String raw,
+      @required
+      @JsonKey(name: 'https://shirasu.io/roles')
+          List<String> httpsShirasuIoRoles,
+      @required
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+      @required
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          String httpsShirasuIoCustomerId,
+      @required
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          List<dynamic> httpsShirasuIoDistributeds,
+      @required
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          List<dynamic> httpsShirasuIoTenants,
+      @required
+      @JsonKey(name: 'given_name')
+          String givenName,
+      @required
+      @JsonKey(name: 'family_name')
+          String familyName,
+      @required
+          String nickname,
+      @required
+          String name,
+      @required
+          String picture,
+      @required
+          String locale,
+      @required
+      @JsonKey(name: 'updated_at')
+          DateTime updatedAt,
+      @required
+          String email,
+      @required
+      @JsonKey(name: 'email_verified')
+          bool emailVerified,
+      @required
+          String iss,
+      @required
+          String sub,
+      @required
+          String aud,
+      @required
+          int iat,
+      @required
+          int exp,
+      @required
+          String nonce}) {
     return _Claims(
       raw: raw,
       httpsShirasuIoRoles: httpsShirasuIoRoles,
@@ -822,20 +871,30 @@ const $Claims = _$ClaimsTearOff();
 
 /// @nodoc
 mixin _$Claims {
+  @JsonKey(name: '__raw')
   String get raw;
+  @JsonKey(name: 'https://shirasu.io/roles')
   List<String> get httpsShirasuIoRoles;
+  @JsonKey(name: 'https://shirasu.io/userAttribute')
   HttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
+  @JsonKey(name: 'https://shirasu.io/customerId')
   String get httpsShirasuIoCustomerId;
+  @JsonKey(name: 'https://shirasu.io/distributeds')
   List<dynamic> get httpsShirasuIoDistributeds;
+  @JsonKey(name: 'https://shirasu.io/tenants')
   List<dynamic> get httpsShirasuIoTenants;
+  @JsonKey(name: 'given_name')
   String get givenName;
+  @JsonKey(name: 'family_name')
   String get familyName;
   String get nickname;
   String get name;
   String get picture;
   String get locale;
+  @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   String get email;
+  @JsonKey(name: 'email_verified')
   bool get emailVerified;
   String get iss;
   String get sub;
@@ -853,21 +912,31 @@ abstract class $ClaimsCopyWith<$Res> {
   factory $ClaimsCopyWith(Claims value, $Res Function(Claims) then) =
       _$ClaimsCopyWithImpl<$Res>;
   $Res call(
-      {String raw,
-      List<String> httpsShirasuIoRoles,
-      HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      String httpsShirasuIoCustomerId,
-      List<dynamic> httpsShirasuIoDistributeds,
-      List<dynamic> httpsShirasuIoTenants,
-      String givenName,
-      String familyName,
+      {@JsonKey(name: '__raw')
+          String raw,
+      @JsonKey(name: 'https://shirasu.io/roles')
+          List<String> httpsShirasuIoRoles,
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          String httpsShirasuIoCustomerId,
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          List<dynamic> httpsShirasuIoDistributeds,
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          List<dynamic> httpsShirasuIoTenants,
+      @JsonKey(name: 'given_name')
+          String givenName,
+      @JsonKey(name: 'family_name')
+          String familyName,
       String nickname,
       String name,
       String picture,
       String locale,
-      DateTime updatedAt,
+      @JsonKey(name: 'updated_at')
+          DateTime updatedAt,
       String email,
-      bool emailVerified,
+      @JsonKey(name: 'email_verified')
+          bool emailVerified,
       String iss,
       String sub,
       String aud,
@@ -967,21 +1036,31 @@ abstract class _$ClaimsCopyWith<$Res> implements $ClaimsCopyWith<$Res> {
       __$ClaimsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String raw,
-      List<String> httpsShirasuIoRoles,
-      HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      String httpsShirasuIoCustomerId,
-      List<dynamic> httpsShirasuIoDistributeds,
-      List<dynamic> httpsShirasuIoTenants,
-      String givenName,
-      String familyName,
+      {@JsonKey(name: '__raw')
+          String raw,
+      @JsonKey(name: 'https://shirasu.io/roles')
+          List<String> httpsShirasuIoRoles,
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          String httpsShirasuIoCustomerId,
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          List<dynamic> httpsShirasuIoDistributeds,
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          List<dynamic> httpsShirasuIoTenants,
+      @JsonKey(name: 'given_name')
+          String givenName,
+      @JsonKey(name: 'family_name')
+          String familyName,
       String nickname,
       String name,
       String picture,
       String locale,
-      DateTime updatedAt,
+      @JsonKey(name: 'updated_at')
+          DateTime updatedAt,
       String email,
-      bool emailVerified,
+      @JsonKey(name: 'email_verified')
+          bool emailVerified,
       String iss,
       String sub,
       String aud,
@@ -1071,27 +1150,58 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
 /// @nodoc
 class _$_Claims implements _Claims {
   const _$_Claims(
-      {@required this.raw,
-      @required this.httpsShirasuIoRoles,
-      @required this.httpsShirasuIoUserAttribute,
-      @required this.httpsShirasuIoCustomerId,
-      @required this.httpsShirasuIoDistributeds,
-      @required this.httpsShirasuIoTenants,
-      @required this.givenName,
-      @required this.familyName,
-      @required this.nickname,
-      @required this.name,
-      @required this.picture,
-      @required this.locale,
-      @required this.updatedAt,
-      @required this.email,
-      @required this.emailVerified,
-      @required this.iss,
-      @required this.sub,
-      @required this.aud,
-      @required this.iat,
-      @required this.exp,
-      @required this.nonce})
+      {@required
+      @JsonKey(name: '__raw')
+          this.raw,
+      @required
+      @JsonKey(name: 'https://shirasu.io/roles')
+          this.httpsShirasuIoRoles,
+      @required
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          this.httpsShirasuIoUserAttribute,
+      @required
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          this.httpsShirasuIoCustomerId,
+      @required
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          this.httpsShirasuIoDistributeds,
+      @required
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          this.httpsShirasuIoTenants,
+      @required
+      @JsonKey(name: 'given_name')
+          this.givenName,
+      @required
+      @JsonKey(name: 'family_name')
+          this.familyName,
+      @required
+          this.nickname,
+      @required
+          this.name,
+      @required
+          this.picture,
+      @required
+          this.locale,
+      @required
+      @JsonKey(name: 'updated_at')
+          this.updatedAt,
+      @required
+          this.email,
+      @required
+      @JsonKey(name: 'email_verified')
+          this.emailVerified,
+      @required
+          this.iss,
+      @required
+          this.sub,
+      @required
+          this.aud,
+      @required
+          this.iat,
+      @required
+          this.exp,
+      @required
+          this.nonce})
       : assert(raw != null),
         assert(httpsShirasuIoRoles != null),
         assert(httpsShirasuIoUserAttribute != null),
@@ -1118,20 +1228,28 @@ class _$_Claims implements _Claims {
       _$_$_ClaimsFromJson(json);
 
   @override
+  @JsonKey(name: '__raw')
   final String raw;
   @override
+  @JsonKey(name: 'https://shirasu.io/roles')
   final List<String> httpsShirasuIoRoles;
   @override
+  @JsonKey(name: 'https://shirasu.io/userAttribute')
   final HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
   @override
+  @JsonKey(name: 'https://shirasu.io/customerId')
   final String httpsShirasuIoCustomerId;
   @override
+  @JsonKey(name: 'https://shirasu.io/distributeds')
   final List<dynamic> httpsShirasuIoDistributeds;
   @override
+  @JsonKey(name: 'https://shirasu.io/tenants')
   final List<dynamic> httpsShirasuIoTenants;
   @override
+  @JsonKey(name: 'given_name')
   final String givenName;
   @override
+  @JsonKey(name: 'family_name')
   final String familyName;
   @override
   final String nickname;
@@ -1142,10 +1260,12 @@ class _$_Claims implements _Claims {
   @override
   final String locale;
   @override
+  @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
   @override
   final String email;
   @override
+  @JsonKey(name: 'email_verified')
   final bool emailVerified;
   @override
   final String iss;
@@ -1254,45 +1374,84 @@ class _$_Claims implements _Claims {
 
 abstract class _Claims implements Claims {
   const factory _Claims(
-      {@required String raw,
-      @required List<String> httpsShirasuIoRoles,
-      @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @required String httpsShirasuIoCustomerId,
-      @required List<dynamic> httpsShirasuIoDistributeds,
-      @required List<dynamic> httpsShirasuIoTenants,
-      @required String givenName,
-      @required String familyName,
-      @required String nickname,
-      @required String name,
-      @required String picture,
-      @required String locale,
-      @required DateTime updatedAt,
-      @required String email,
-      @required bool emailVerified,
-      @required String iss,
-      @required String sub,
-      @required String aud,
-      @required int iat,
-      @required int exp,
-      @required String nonce}) = _$_Claims;
+      {@required
+      @JsonKey(name: '__raw')
+          String raw,
+      @required
+      @JsonKey(name: 'https://shirasu.io/roles')
+          List<String> httpsShirasuIoRoles,
+      @required
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+      @required
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          String httpsShirasuIoCustomerId,
+      @required
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          List<dynamic> httpsShirasuIoDistributeds,
+      @required
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          List<dynamic> httpsShirasuIoTenants,
+      @required
+      @JsonKey(name: 'given_name')
+          String givenName,
+      @required
+      @JsonKey(name: 'family_name')
+          String familyName,
+      @required
+          String nickname,
+      @required
+          String name,
+      @required
+          String picture,
+      @required
+          String locale,
+      @required
+      @JsonKey(name: 'updated_at')
+          DateTime updatedAt,
+      @required
+          String email,
+      @required
+      @JsonKey(name: 'email_verified')
+          bool emailVerified,
+      @required
+          String iss,
+      @required
+          String sub,
+      @required
+          String aud,
+      @required
+          int iat,
+      @required
+          int exp,
+      @required
+          String nonce}) = _$_Claims;
 
   factory _Claims.fromJson(Map<String, dynamic> json) = _$_Claims.fromJson;
 
   @override
+  @JsonKey(name: '__raw')
   String get raw;
   @override
+  @JsonKey(name: 'https://shirasu.io/roles')
   List<String> get httpsShirasuIoRoles;
   @override
+  @JsonKey(name: 'https://shirasu.io/userAttribute')
   HttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
   @override
+  @JsonKey(name: 'https://shirasu.io/customerId')
   String get httpsShirasuIoCustomerId;
   @override
+  @JsonKey(name: 'https://shirasu.io/distributeds')
   List<dynamic> get httpsShirasuIoDistributeds;
   @override
+  @JsonKey(name: 'https://shirasu.io/tenants')
   List<dynamic> get httpsShirasuIoTenants;
   @override
+  @JsonKey(name: 'given_name')
   String get givenName;
   @override
+  @JsonKey(name: 'family_name')
   String get familyName;
   @override
   String get nickname;
@@ -1303,10 +1462,12 @@ abstract class _Claims implements Claims {
   @override
   String get locale;
   @override
+  @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   @override
   String get email;
   @override
+  @JsonKey(name: 'email_verified')
   bool get emailVerified;
   @override
   String get iss;
@@ -1998,21 +2159,45 @@ class _$UserTearOff {
 
 // ignore: unused_element
   _User call(
-      {@required List<String> httpsShirasuIoRoles,
-      @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @required String httpsShirasuIoCustomerId,
-      @required List<dynamic> httpsShirasuIoDistributeds,
-      @required List<dynamic> httpsShirasuIoTenants,
-      @required String givenName,
-      @required String familyName,
-      @required String nickname,
-      @required String name,
-      @required String picture,
-      @required String locale,
-      @required DateTime updatedAt,
-      @required String email,
-      @required bool emailVerified,
-      @required String sub}) {
+      {@required
+      @JsonKey(name: 'https://shirasu.io/roles')
+          List<String> httpsShirasuIoRoles,
+      @required
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+      @required
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          String httpsShirasuIoCustomerId,
+      @required
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          List<dynamic> httpsShirasuIoDistributeds,
+      @required
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          List<dynamic> httpsShirasuIoTenants,
+      @required
+      @JsonKey(name: 'given_name')
+          String givenName,
+      @required
+      @JsonKey(name: 'family_name')
+          String familyName,
+      @required
+          String nickname,
+      @required
+          String name,
+      @required
+          String picture,
+      @required
+          String locale,
+      @required
+      @JsonKey(name: 'updated_at')
+          DateTime updatedAt,
+      @required
+          String email,
+      @required
+      @JsonKey(name: 'email_verified')
+          bool emailVerified,
+      @required
+          String sub}) {
     return _User(
       httpsShirasuIoRoles: httpsShirasuIoRoles,
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute,
@@ -2044,19 +2229,28 @@ const $User = _$UserTearOff();
 
 /// @nodoc
 mixin _$User {
+  @JsonKey(name: 'https://shirasu.io/roles')
   List<String> get httpsShirasuIoRoles;
+  @JsonKey(name: 'https://shirasu.io/userAttribute')
   HttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
+  @JsonKey(name: 'https://shirasu.io/customerId')
   String get httpsShirasuIoCustomerId;
+  @JsonKey(name: 'https://shirasu.io/distributeds')
   List<dynamic> get httpsShirasuIoDistributeds;
+  @JsonKey(name: 'https://shirasu.io/tenants')
   List<dynamic> get httpsShirasuIoTenants;
+  @JsonKey(name: 'given_name')
   String get givenName;
+  @JsonKey(name: 'family_name')
   String get familyName;
   String get nickname;
   String get name;
   String get picture;
   String get locale;
+  @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   String get email;
+  @JsonKey(name: 'email_verified')
   bool get emailVerified;
   String get sub;
 
@@ -2069,20 +2263,29 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
-      {List<String> httpsShirasuIoRoles,
-      HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      String httpsShirasuIoCustomerId,
-      List<dynamic> httpsShirasuIoDistributeds,
-      List<dynamic> httpsShirasuIoTenants,
-      String givenName,
-      String familyName,
+      {@JsonKey(name: 'https://shirasu.io/roles')
+          List<String> httpsShirasuIoRoles,
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          String httpsShirasuIoCustomerId,
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          List<dynamic> httpsShirasuIoDistributeds,
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          List<dynamic> httpsShirasuIoTenants,
+      @JsonKey(name: 'given_name')
+          String givenName,
+      @JsonKey(name: 'family_name')
+          String familyName,
       String nickname,
       String name,
       String picture,
       String locale,
-      DateTime updatedAt,
+      @JsonKey(name: 'updated_at')
+          DateTime updatedAt,
       String email,
-      bool emailVerified,
+      @JsonKey(name: 'email_verified')
+          bool emailVerified,
       String sub});
 
   $HttpsShirasuIoUserAttributeCopyWith<$Res> get httpsShirasuIoUserAttribute;
@@ -2165,20 +2368,29 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<String> httpsShirasuIoRoles,
-      HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      String httpsShirasuIoCustomerId,
-      List<dynamic> httpsShirasuIoDistributeds,
-      List<dynamic> httpsShirasuIoTenants,
-      String givenName,
-      String familyName,
+      {@JsonKey(name: 'https://shirasu.io/roles')
+          List<String> httpsShirasuIoRoles,
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          String httpsShirasuIoCustomerId,
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          List<dynamic> httpsShirasuIoDistributeds,
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          List<dynamic> httpsShirasuIoTenants,
+      @JsonKey(name: 'given_name')
+          String givenName,
+      @JsonKey(name: 'family_name')
+          String familyName,
       String nickname,
       String name,
       String picture,
       String locale,
-      DateTime updatedAt,
+      @JsonKey(name: 'updated_at')
+          DateTime updatedAt,
       String email,
-      bool emailVerified,
+      @JsonKey(name: 'email_verified')
+          bool emailVerified,
       String sub});
 
   @override
@@ -2251,21 +2463,45 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 /// @nodoc
 class _$_User implements _User {
   const _$_User(
-      {@required this.httpsShirasuIoRoles,
-      @required this.httpsShirasuIoUserAttribute,
-      @required this.httpsShirasuIoCustomerId,
-      @required this.httpsShirasuIoDistributeds,
-      @required this.httpsShirasuIoTenants,
-      @required this.givenName,
-      @required this.familyName,
-      @required this.nickname,
-      @required this.name,
-      @required this.picture,
-      @required this.locale,
-      @required this.updatedAt,
-      @required this.email,
-      @required this.emailVerified,
-      @required this.sub})
+      {@required
+      @JsonKey(name: 'https://shirasu.io/roles')
+          this.httpsShirasuIoRoles,
+      @required
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          this.httpsShirasuIoUserAttribute,
+      @required
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          this.httpsShirasuIoCustomerId,
+      @required
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          this.httpsShirasuIoDistributeds,
+      @required
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          this.httpsShirasuIoTenants,
+      @required
+      @JsonKey(name: 'given_name')
+          this.givenName,
+      @required
+      @JsonKey(name: 'family_name')
+          this.familyName,
+      @required
+          this.nickname,
+      @required
+          this.name,
+      @required
+          this.picture,
+      @required
+          this.locale,
+      @required
+      @JsonKey(name: 'updated_at')
+          this.updatedAt,
+      @required
+          this.email,
+      @required
+      @JsonKey(name: 'email_verified')
+          this.emailVerified,
+      @required
+          this.sub})
       : assert(httpsShirasuIoRoles != null),
         assert(httpsShirasuIoUserAttribute != null),
         assert(httpsShirasuIoCustomerId != null),
@@ -2286,18 +2522,25 @@ class _$_User implements _User {
       _$_$_UserFromJson(json);
 
   @override
+  @JsonKey(name: 'https://shirasu.io/roles')
   final List<String> httpsShirasuIoRoles;
   @override
+  @JsonKey(name: 'https://shirasu.io/userAttribute')
   final HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
   @override
+  @JsonKey(name: 'https://shirasu.io/customerId')
   final String httpsShirasuIoCustomerId;
   @override
+  @JsonKey(name: 'https://shirasu.io/distributeds')
   final List<dynamic> httpsShirasuIoDistributeds;
   @override
+  @JsonKey(name: 'https://shirasu.io/tenants')
   final List<dynamic> httpsShirasuIoTenants;
   @override
+  @JsonKey(name: 'given_name')
   final String givenName;
   @override
+  @JsonKey(name: 'family_name')
   final String familyName;
   @override
   final String nickname;
@@ -2308,10 +2551,12 @@ class _$_User implements _User {
   @override
   final String locale;
   @override
+  @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
   @override
   final String email;
   @override
+  @JsonKey(name: 'email_verified')
   final bool emailVerified;
   @override
   final String sub;
@@ -2398,37 +2643,68 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {@required List<String> httpsShirasuIoRoles,
-      @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @required String httpsShirasuIoCustomerId,
-      @required List<dynamic> httpsShirasuIoDistributeds,
-      @required List<dynamic> httpsShirasuIoTenants,
-      @required String givenName,
-      @required String familyName,
-      @required String nickname,
-      @required String name,
-      @required String picture,
-      @required String locale,
-      @required DateTime updatedAt,
-      @required String email,
-      @required bool emailVerified,
-      @required String sub}) = _$_User;
+      {@required
+      @JsonKey(name: 'https://shirasu.io/roles')
+          List<String> httpsShirasuIoRoles,
+      @required
+      @JsonKey(name: 'https://shirasu.io/userAttribute')
+          HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+      @required
+      @JsonKey(name: 'https://shirasu.io/customerId')
+          String httpsShirasuIoCustomerId,
+      @required
+      @JsonKey(name: 'https://shirasu.io/distributeds')
+          List<dynamic> httpsShirasuIoDistributeds,
+      @required
+      @JsonKey(name: 'https://shirasu.io/tenants')
+          List<dynamic> httpsShirasuIoTenants,
+      @required
+      @JsonKey(name: 'given_name')
+          String givenName,
+      @required
+      @JsonKey(name: 'family_name')
+          String familyName,
+      @required
+          String nickname,
+      @required
+          String name,
+      @required
+          String picture,
+      @required
+          String locale,
+      @required
+      @JsonKey(name: 'updated_at')
+          DateTime updatedAt,
+      @required
+          String email,
+      @required
+      @JsonKey(name: 'email_verified')
+          bool emailVerified,
+      @required
+          String sub}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
+  @JsonKey(name: 'https://shirasu.io/roles')
   List<String> get httpsShirasuIoRoles;
   @override
+  @JsonKey(name: 'https://shirasu.io/userAttribute')
   HttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
   @override
+  @JsonKey(name: 'https://shirasu.io/customerId')
   String get httpsShirasuIoCustomerId;
   @override
+  @JsonKey(name: 'https://shirasu.io/distributeds')
   List<dynamic> get httpsShirasuIoDistributeds;
   @override
+  @JsonKey(name: 'https://shirasu.io/tenants')
   List<dynamic> get httpsShirasuIoTenants;
   @override
+  @JsonKey(name: 'given_name')
   String get givenName;
   @override
+  @JsonKey(name: 'family_name')
   String get familyName;
   @override
   String get nickname;
@@ -2439,10 +2715,12 @@ abstract class _User implements User {
   @override
   String get locale;
   @override
+  @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   @override
   String get email;
   @override
+  @JsonKey(name: 'email_verified')
   bool get emailVerified;
   @override
   String get sub;

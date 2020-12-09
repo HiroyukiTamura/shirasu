@@ -7,6 +7,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsJsGen {
+  const $AssetsJsGen();
+
+  String get clickLoginBtn => 'assets/js/click_login_btn.js';
+  String get localStorageGetter => 'assets/js/local_storage_getter.js';
+}
+
 class $AssetsJsonGen {
   const $AssetsJsonGen();
 
@@ -55,6 +62,7 @@ class $AssetsSvgGen {
 class Assets {
   Assets._();
 
+  static const $AssetsJsGen js = $AssetsJsGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsPngGen png = $AssetsPngGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();

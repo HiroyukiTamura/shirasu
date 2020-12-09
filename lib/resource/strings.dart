@@ -199,6 +199,10 @@ class Strings {
 
 //endregion
 
+  //region screen_auth
+  static const String APP_BAR_LOGIN = 'ログイン';
+  //endregion
+
 //region dialog
   static const String APP_BAR_LOCATION = '居住地域';
   static const String DIALOG_TITLE_LOCATION = '居住地域';

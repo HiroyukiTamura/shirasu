@@ -10,33 +10,38 @@ import 'package:shirasu/viewmodel/model_setting.dart';
 import 'package:shirasu/extension.dart';
 
 class LocalJsonClient {
-
   factory LocalJsonClient.instance() => _instance ??= LocalJsonClient._();
 
   LocalJsonClient._();
 
   static LocalJsonClient _instance;
 
-  CountryData countryData;
-  PrefectureData prefectureData;
+  CountryData _countryData;
+  PrefectureData _prefectureData;
+  String _jsClickLoginBtn;
+  String _jsLocalStorageGetter;
+
+  Future<String> get jsClickLoginBtn async =>
+      _jsClickLoginBtn ??= await rootBundle.loadString(Assets.js.clickLoginBtn);
+
+  Future<String> get jsLocalStorageGetter async => _jsLocalStorageGetter ??=
+      await rootBundle.loadString(Assets.js.localStorageGetter);
 
   /// [countryCode] : ex. JP
-  Future<CountryData> getCountryData() async {
-    if (countryData == null) {
-      final string = await rootBundle.loadString(Assets.json.country);
-      final json = jsonDecode(string);
-      countryData = CountryData.fromJson(json as Map<String, dynamic>);
-    }
-    return countryData;
+  Future<CountryData> getCountryData() async => _countryData ??= await _loadCountryData();
+
+  Future<PrefectureData> getPrefectureData() async => _prefectureData ??= await _loadPrefectureData();
+
+  static Future<CountryData> _loadCountryData() async {
+    final string = await rootBundle.loadString(Assets.json.country);
+    final json = jsonDecode(string);
+    return CountryData.fromJson(json as Map<String, dynamic>);
   }
 
-  Future<PrefectureData> getPrefectureData() async {
-    if (prefectureData == null) {
-      final string = await rootBundle.loadString(Assets.json.prefecture);
-      final json = jsonDecode(string);
-      prefectureData = PrefectureData.fromJson(json as Map<String, dynamic>);
-    }
-    return prefectureData;
+  static Future<PrefectureData> _loadPrefectureData() async {
+    final string = await rootBundle.loadString(Assets.json.prefecture);
+    final json = jsonDecode(string);
+    return PrefectureData.fromJson(json as Map<String, dynamic>);
   }
 
   /// [prefectureCode] : 1 ~ 47
@@ -54,10 +59,9 @@ class LocalJsonClient {
 
   static bool isJapan(String countryCode) => countryCode.toUpperCase() == 'JP';
 
-  Future<String> genLocationStr(
-      User user, Location location) async {
-    final countryCode = location?.countryCode ??
-        user?.httpsShirasuIoUserAttribute?.country;
+  Future<String> genLocationStr(User user, Location location) async {
+    final countryCode =
+        location?.countryCode ?? user?.httpsShirasuIoUserAttribute?.country;
     final prefectureCode = location?.prefectureCode ??
         user?.httpsShirasuIoUserAttribute?.prefecture;
     String countryStr =

@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,19 +8,32 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/hive_client.dart';
+import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_asset.dart';
-import 'package:shirasu/router/app_router_delegate.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
-final snackBarMsgProvider = StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
-    (ref) => SnackBarMessageNotifier());
+final snackBarMsgProvider =
+    StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
+        (ref) => SnackBarMessageNotifier());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
-  await HiveClient.init();
+  Hive
+    ..registerAdapter(HiveAuthDataAdapter())
+    ..registerAdapter(HiveBodyAdapter())
+    ..registerAdapter(HiveDecodedTokenAdapter())
+    ..registerAdapter(HiveClaimsAdapter())
+    ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
+    ..registerAdapter(HiveEncodedAdapter())
+    ..registerAdapter(HiveHeaderAdapter())
+    ..registerAdapter(HiveUserAdapter());
+
+  await HiveAuthClient.instance().init();
+  await HivePrefectureClient.instance().init();
   await ApiClient.openHiveStore();
 
   runApp(ProviderScope(child: MyApp()));
@@ -32,7 +46,37 @@ class MyApp extends StatefulHookWidget {
   MyAppState createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> with WidgetsBindingObserver, AfterLayoutMixin<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && HiveAuthClient.instance().maybeExpired)
+      context
+          .read(appRouterProvider)
+          .delegate.pushPage(const GlobalRoutePath.auth());
+  }
+
+
+  // todo should be called on navigation listener
+  @override
+  void afterFirstLayout(BuildContext context) {
+    if (HiveAuthClient.instance().maybeExpired)
+      context
+          .read(appRouterProvider)
+          .delegate.pushPage(const GlobalRoutePath.auth());
+  }
+
   @override
   Widget build(BuildContext context) {
     // final isInitialLaunch = HiveClient.isInitialLaunchApp();

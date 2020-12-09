@@ -14,10 +14,10 @@ class _$AuthModelTearOff {
   const _$AuthModelTearOff();
 
 // ignore: unused_element
-  _AuthModel call({@required String lastUrl, @required double lastProgress}) {
+  _AuthModel call({String lastUrl, WebViewState viewState}) {
     return _AuthModel(
       lastUrl: lastUrl,
-      lastProgress: lastProgress,
+      viewState: viewState,
     );
   }
 }
@@ -29,7 +29,7 @@ const $AuthModel = _$AuthModelTearOff();
 /// @nodoc
 mixin _$AuthModel {
   String get lastUrl;
-  double get lastProgress;
+  WebViewState get viewState;
 
   $AuthModelCopyWith<AuthModel> get copyWith;
 }
@@ -38,7 +38,7 @@ mixin _$AuthModel {
 abstract class $AuthModelCopyWith<$Res> {
   factory $AuthModelCopyWith(AuthModel value, $Res Function(AuthModel) then) =
       _$AuthModelCopyWithImpl<$Res>;
-  $Res call({String lastUrl, double lastProgress});
+  $Res call({String lastUrl, WebViewState viewState});
 }
 
 /// @nodoc
@@ -52,13 +52,12 @@ class _$AuthModelCopyWithImpl<$Res> implements $AuthModelCopyWith<$Res> {
   @override
   $Res call({
     Object lastUrl = freezed,
-    Object lastProgress = freezed,
+    Object viewState = freezed,
   }) {
     return _then(_value.copyWith(
       lastUrl: lastUrl == freezed ? _value.lastUrl : lastUrl as String,
-      lastProgress: lastProgress == freezed
-          ? _value.lastProgress
-          : lastProgress as double,
+      viewState:
+          viewState == freezed ? _value.viewState : viewState as WebViewState,
     ));
   }
 }
@@ -69,7 +68,7 @@ abstract class _$AuthModelCopyWith<$Res> implements $AuthModelCopyWith<$Res> {
           _AuthModel value, $Res Function(_AuthModel) then) =
       __$AuthModelCopyWithImpl<$Res>;
   @override
-  $Res call({String lastUrl, double lastProgress});
+  $Res call({String lastUrl, WebViewState viewState});
 }
 
 /// @nodoc
@@ -84,32 +83,28 @@ class __$AuthModelCopyWithImpl<$Res> extends _$AuthModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object lastUrl = freezed,
-    Object lastProgress = freezed,
+    Object viewState = freezed,
   }) {
     return _then(_AuthModel(
       lastUrl: lastUrl == freezed ? _value.lastUrl : lastUrl as String,
-      lastProgress: lastProgress == freezed
-          ? _value.lastProgress
-          : lastProgress as double,
+      viewState:
+          viewState == freezed ? _value.viewState : viewState as WebViewState,
     ));
   }
 }
 
 /// @nodoc
 class _$_AuthModel extends _AuthModel {
-  const _$_AuthModel({@required this.lastUrl, @required this.lastProgress})
-      : assert(lastUrl != null),
-        assert(lastProgress != null),
-        super._();
+  const _$_AuthModel({this.lastUrl, this.viewState}) : super._();
 
   @override
   final String lastUrl;
   @override
-  final double lastProgress;
+  final WebViewState viewState;
 
   @override
   String toString() {
-    return 'AuthModel(lastUrl: $lastUrl, lastProgress: $lastProgress)';
+    return 'AuthModel(lastUrl: $lastUrl, viewState: $viewState)';
   }
 
   @override
@@ -119,16 +114,16 @@ class _$_AuthModel extends _AuthModel {
             (identical(other.lastUrl, lastUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.lastUrl, lastUrl)) &&
-            (identical(other.lastProgress, lastProgress) ||
+            (identical(other.viewState, viewState) ||
                 const DeepCollectionEquality()
-                    .equals(other.lastProgress, lastProgress)));
+                    .equals(other.viewState, viewState)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(lastUrl) ^
-      const DeepCollectionEquality().hash(lastProgress);
+      const DeepCollectionEquality().hash(viewState);
 
   @override
   _$AuthModelCopyWith<_AuthModel> get copyWith =>
@@ -137,13 +132,13 @@ class _$_AuthModel extends _AuthModel {
 
 abstract class _AuthModel extends AuthModel {
   const _AuthModel._() : super._();
-  const factory _AuthModel(
-      {@required String lastUrl, @required double lastProgress}) = _$_AuthModel;
+  const factory _AuthModel({String lastUrl, WebViewState viewState}) =
+      _$_AuthModel;
 
   @override
   String get lastUrl;
   @override
-  double get lastProgress;
+  WebViewState get viewState;
   @override
   _$AuthModelCopyWith<_AuthModel> get copyWith;
 }

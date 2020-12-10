@@ -215,6 +215,7 @@ class Strings {
   static const String SUFFIX_PURCHASE_ONE_TIME = 'で番組を購入';
   static const String SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL = 'でチャンネルを購読';
   static const String BTM_SHEET_OR = 'または';
-  static const String BTM_SHEET_MSG_PAYMENT = 'する必要があります。なお、決済に関わる重要な操作は本アプリでは対応していません。\n公式Webページ上で行ってください。';
+  static const String BTM_SHEET_MSG_PAYMENT_PREFIX = 'この番組を視聴するには';
+  static const String BTM_SHEET_MSG_PAYMENT = 'する必要があります。なお、決済に関わる重要な操作は本アプリでは対応していません。公式Webページ上で行ってください。';
 //endregion
 }

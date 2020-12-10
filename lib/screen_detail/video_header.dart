@@ -75,7 +75,8 @@ class _VideoThumbnail extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = useProvider(detailSNProvider(programId)).state.prgDataResult as StateSuccess; //we want rebuild here
+    final result = useProvider(detailSNProvider(programId)).state.prgDataResult
+        as StateSuccess; //we want rebuild here
 
     final program = result.programDetailData.program;
     return Stack(
@@ -161,22 +162,49 @@ class _VideoThumbnail extends HookWidget {
 
   /// todo implement
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    final result = context.read(detailSNProvider(programId).state).prgDataResult as StateSuccess;
+    final result = context.read(detailSNProvider(programId).state).prgDataResult
+        as StateSuccess;
     final program = result.programDetailData.program;
     final subscriptionPlan = result.channelData.channel.subscriptionPlan;
     await BtmSheetCommon.showUrlLauncherBtmSheet(
         context: context,
         url: UrlUtil.programId2Url(programId),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ...program.onetimePlans
-                .map((it) => Text(
-                    '${it.amountWithTax}${it.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_ONE_TIME}'))
-                .joinWith(() => const Text(Strings.BTM_SHEET_OR)),
-            if (program.onetimePlans.isNotEmpty)
-              const Text(Strings.BTM_SHEET_OR),
-            Text('${subscriptionPlan.amountWithTax}${subscriptionPlan.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL}'),
-            const Text(Strings.BTM_SHEET_MSG_PAYMENT),
+            const Text(
+              Strings.BTM_SHEET_MSG_PAYMENT_PREFIX,
+              style: TextStyle(height: 1.3),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...program.onetimePlans.map(
+                    (it) => Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Text(
+                        '・ ${it.amountWithTax}${it.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_ONE_TIME}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '・ ${subscriptionPlan.amountWithTax}${subscriptionPlan.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Text(
+              Strings.BTM_SHEET_MSG_PAYMENT,
+              style: TextStyle(height: 1.3),
+            ),
           ],
         ));
   }

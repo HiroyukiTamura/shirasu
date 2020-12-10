@@ -28,20 +28,25 @@ class BtmSheetCommon extends StatelessWidget {
           children: [
             child,
             const SizedBox(height: 12),
-            ButtonBar(
-              layoutBehavior: ButtonBarLayoutBehavior.constrained,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: const Text(Strings.DIALOG_CANCEL),
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text(Strings.DIALOG_CANCEL, style: TextStyle(color: Colors.blueAccent),),
+              )
+            ),
+            const SizedBox(width: 8),
+            SizedBox(
+              width: double.infinity,
+              child: MaterialButton(
+                elevation: 0,
+                onPressed: () => Navigator.pop(context, true),
+                color: Colors.blueAccent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(1000),
                 ),
-                const SizedBox(width: 8),
-                RaisedButton(
-                  //todo styling
-                  onPressed: () => Navigator.pop(context, true),
-                  child: Text(positiveBtnString),
-                )
-              ],
+                child: Text(positiveBtnString),
+              ),
             ),
           ],
         ),

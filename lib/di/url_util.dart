@@ -33,4 +33,8 @@ class UrlUtil {
     final list = programId.split('-');
     return '/t/${list[0]}/c/${list[1]}/p/${list[2]}';
   }
+
+  static String programId2Url(String programId) => '$URL_HOME${programId2UrlSegment(programId)}';
+
+  static String programId2channelId(String programId) => programId.split('-')[1];
 }

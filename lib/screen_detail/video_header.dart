@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/dialog/btm_sheet_common.dart';
-import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/video_type.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -34,19 +33,19 @@ class VideoHeader extends HookWidget {
     final result = useProvider(detailSNProvider(programId)).state.prgDataResult
         as StateSuccess; //we want rebuild here
 
-    final program = result.data.program;
+    final program = result.programDetailData.program;
     Widget child;
     switch (playOutState.commandedState) {
       case PlayerCommandedState.PRE_PLAY:
         child = _VideoThumbnail(
-          program: program,
+          programId: program.id,
           onTap: onTap,
           isLoading: false,
         );
         break;
       case PlayerCommandedState.INITIALIZING:
         child = _VideoThumbnail(
-          program: program,
+          programId: program.id,
           isLoading: true,
         );
         break;
@@ -61,21 +60,24 @@ class VideoHeader extends HookWidget {
   }
 }
 
-class _VideoThumbnail extends StatelessWidget {
+class _VideoThumbnail extends HookWidget {
   const _VideoThumbnail({
     Key key,
-    @required this.program,
+    @required this.programId,
     @required this.isLoading,
     this.onTap,
   }) : super(key: key);
 
-  final ProgramDetail program;
   final VoidCallback onTap;
+  final String programId;
   final bool isLoading;
   static const double _ICON_SIZE = 80;
 
   @override
   Widget build(BuildContext context) {
+    final result = useProvider(detailSNProvider(programId)).state.prgDataResult as StateSuccess; //we want rebuild here
+
+    final program = result.programDetailData.program;
     return Stack(
       children: [
         CachedNetworkImage(
@@ -85,12 +87,12 @@ class _VideoThumbnail extends StatelessWidget {
             return Container();
           },
         ),
-        _hoverWidget(context),
+        _hoverWidget(context, program),
       ],
     );
   }
 
-  Widget _hoverWidget(BuildContext context) {
+  Widget _hoverWidget(BuildContext context, ProgramDetail program) {
     if (isLoading) return _loadingCircle();
 
     final isWaiting = DateTime.now().isBefore(program.broadcastAt);
@@ -159,14 +161,24 @@ class _VideoThumbnail extends StatelessWidget {
 
   /// todo implement
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    BtmSheetCommon.showUrlLauncherBtmSheet(
+    final result = context.read(detailSNProvider(programId).state).prgDataResult as StateSuccess;
+    final program = result.programDetailData.program;
+    final subscriptionPlan = result.channelData.channel.subscriptionPlan;
+    await BtmSheetCommon.showUrlLauncherBtmSheet(
         context: context,
-        url: UrlUtil.programId2UrlSegment(program.id),
-        child: Column(children: <Widget>[
-          ...program.onetimePlans.map((it) {
-            return Text('${it.amountWithTax}${it.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_ONE_TIME}');
-          }).joinWith(() => const Text(Strings.BTM_SHEET_OR)),
-        ],));
+        url: UrlUtil.programId2Url(programId),
+        child: Column(
+          children: <Widget>[
+            ...program.onetimePlans
+                .map((it) => Text(
+                    '${it.amountWithTax}${it.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_ONE_TIME}'))
+                .joinWith(() => const Text(Strings.BTM_SHEET_OR)),
+            if (program.onetimePlans.isNotEmpty)
+              const Text(Strings.BTM_SHEET_OR),
+            Text('${subscriptionPlan.amountWithTax}${subscriptionPlan.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL}'),
+            const Text(Strings.BTM_SHEET_MSG_PAYMENT),
+          ],
+        ));
   }
 
   /// todo implement

@@ -5,20 +5,26 @@ import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
 import 'package:shirasu/di/hive_client.dart';
+import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model_detail.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
-  ViewModelDetail(this.id) : super(ModelDetail.initial());
+  ViewModelDetail(this.id)
+      : channelId = UrlUtil.programId2channelId(id),
+        super(ModelDetail.initial());
 
   final _apiClient = ApiClient(Client());
   final _dioClient = DioClient();
   final String id;
+  final String channelId;
 
   @override
   Future<void> initialize() async {
@@ -28,9 +34,12 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(prgDataResult: const DetailModelState.loading());
     ModelDetail newState;
     try {
-      final result = await _apiClient.queryProgramDetail(id);
+      final data = await Util.wait2<ProgramDetailData, ChannelData>(
+          () async => _apiClient.queryProgramDetail(id),
+          () async => _apiClient.queryChannelData(channelId));
+
       newState =
-          state.copyWith(prgDataResult: DetailModelState.success(result));
+          state.copyWith(prgDataResult: DetailModelState.success(data.item1, data.item2));
     } catch (e) {
       print(e);
       newState = state.copyWith(prgDataResult: const DetailModelState.error());
@@ -41,16 +50,16 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   DetailPrgItem _findAvailableVideoData() {
     final v = state.prgDataResult;
     if (v is StateSuccess) {
-      final archivedAt = v.data.program.archivedAt;
+      final archivedAt = v.programDetailData.program.archivedAt;
 
       //todo shouldn't written in DetailProgramData?
       DetailPrgItem detailPrgItem;
       if (archivedAt?.isBefore(DateTime.now()) == true)
-        detailPrgItem = v.data.program.videos.items.firstWhere(
+        detailPrgItem = v.programDetailData.program.videos.items.firstWhere(
             (it) => it.videoTypeStrict == VideoType.ARCHIVED,
             orElse: () => null); //todo create extension
 
-      detailPrgItem ??= v.data.program.videos.items.firstWhere(
+      detailPrgItem ??= v.programDetailData.program.videos.items.firstWhere(
           (it) =>
               it.videoTypeStrict == VideoType.LIVE &&
               it.mediaStatusStrict != MediaStatus.ENDED,
@@ -93,7 +102,7 @@ abstract class DetailModelState with _$DetailModelState {
 
   const factory DetailModelState.loading() = StateLoading;
 
-  const factory DetailModelState.success(ProgramDetailData data) = StateSuccess;
+  const factory DetailModelState.success(ProgramDetailData programDetailData, ChannelData channelData) = StateSuccess;
 
   const factory DetailModelState.error() = StateError;
 }

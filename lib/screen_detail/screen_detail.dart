@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
@@ -31,24 +30,15 @@ class ScreenDetail extends HookWidget {
   @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-          body: _PrgResultHookedWidget(id: id),
+          body: useProvider(detailSNProvider(id)
+              .state
+              .select((it) => it.prgDataResult)).when(
+            loading: () => const CenterCircleProgress(),
+            preInitialized: () => const CenterCircleProgress(),
+            success: (programDetailData, channelData) => _ContentWidget(data: programDetailData),
+            error: () => const PageError(),
+          ),
         ),
-      );
-}
-
-class _PrgResultHookedWidget extends HookWidget {
-  const _PrgResultHookedWidget({@required this.id});
-
-  final String id;
-
-  @override
-  Widget build(BuildContext context) =>
-      useProvider(detailSNProvider(id).state.select((it) => it.prgDataResult))
-          .when(
-        loading: () => const CenterCircleProgress(),
-        preInitialized: () => const CenterCircleProgress(),
-        success: (data) => _ContentWidget(data: data),
-        error: () => const PageError(),
       );
 }
 

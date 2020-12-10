@@ -20,10 +20,12 @@ class VideoHeader extends HookWidget {
     @required this.programId,
     @required this.height,
     @required this.onTap,
+    @required this.onTapPreviewBtn,
   }) : super(key: key);
 
   final String programId;
   final VoidCallback onTap;
+  final VoidCallback onTapPreviewBtn;
   final double height;
 
   @override
@@ -40,6 +42,7 @@ class VideoHeader extends HookWidget {
         child = _VideoThumbnail(
           programId: program.id,
           onTap: onTap,
+          onTapPreviewBtn: onTapPreviewBtn,
           isLoading: false,
         );
         break;
@@ -66,9 +69,11 @@ class _VideoThumbnail extends HookWidget {
     @required this.programId,
     @required this.isLoading,
     this.onTap,
+    this.onTapPreviewBtn,
   }) : super(key: key);
 
   final VoidCallback onTap;
+  final VoidCallback onTapPreviewBtn;
   final String programId;
   final bool isLoading;
   static const double _ICON_SIZE = 80;
@@ -120,7 +125,7 @@ class _VideoThumbnail extends HookWidget {
             if (canPreview && !isWaiting)
               _HoverBtn(
                 label: Strings.PREVIEW_BTN_TEXT,
-                onPressed: () async => _onClickPreviewBtn(),
+                onPressed: onTapPreviewBtn,
               ),
           ],
         ),
@@ -208,9 +213,6 @@ class _VideoThumbnail extends HookWidget {
           ],
         ));
   }
-
-  /// todo implement
-  Future<void> _onClickPreviewBtn() async {}
 
   Widget _previewExistMessage() => const Text(
         Strings.PREVIEW_EXIST_MESSAGE,

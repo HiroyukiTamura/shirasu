@@ -13,6 +13,7 @@ import 'package:shirasu/model/video_type.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model_detail.dart';
+import 'package:shirasu/extension.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
@@ -30,7 +31,6 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   Future<void> initialize() async {
     if (state.prgDataResult is StateSuccess) return;
 
-    // DetailModelState state;
     state = state.copyWith(prgDataResult: const DetailModelState.loading());
     ModelDetail newState;
     try {
@@ -38,8 +38,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           () async => _apiClient.queryProgramDetail(id),
           () async => _apiClient.queryChannelData(channelId));
 
-      newState =
-          state.copyWith(prgDataResult: DetailModelState.success(data.item1, data.item2));
+      newState = state.copyWith(
+          prgDataResult: DetailModelState.success(data.item1, data.item2));
     } catch (e) {
       print(e);
       newState = state.copyWith(prgDataResult: const DetailModelState.error());
@@ -55,28 +55,39 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       //todo shouldn't written in DetailProgramData?
       DetailPrgItem detailPrgItem;
       if (archivedAt?.isBefore(DateTime.now()) == true)
-        detailPrgItem = v.programDetailData.program.videos.items.firstWhere(
-            (it) => it.videoTypeStrict == VideoType.ARCHIVED,
-            orElse: () => null); //todo create extension
+        detailPrgItem =
+            v.programDetailData.program.videos.items.firstWhereOrNull(
+          (it) => it.videoTypeStrict == VideoType.ARCHIVED,
+        );
 
-      detailPrgItem ??= v.programDetailData.program.videos.items.firstWhere(
-          (it) =>
-              it.videoTypeStrict == VideoType.LIVE &&
-              it.mediaStatusStrict != MediaStatus.ENDED,
-          orElse: () => null);
+      detailPrgItem ??=
+          v.programDetailData.program.videos.items.firstWhereOrNull(
+        (it) =>
+            it.videoTypeStrict == VideoType.LIVE &&
+            it.mediaStatusStrict != MediaStatus.ENDED,
+      );
 
       return detailPrgItem;
     } else
       return null;
   }
 
-  Future<void> playVideo() async {
-    final prg = _findAvailableVideoData();
+  DetailPrgItem _findPreviewArchivedVideoData() {
+    final v = state.prgDataResult;
+    if (v is StateSuccess)
+      //todo shouldn't written in DetailProgramData?
+      return v.programDetailData.program.videos.items.firstWhereOrNull(
+        (it) => it.videoTypeStrict == VideoType.ARCHIVED && it.isFree,
+      );
+    else
+      return null;
+  }
+
+  Future<void> playVideo(bool preview) async {
+    final prg = preview ? _findPreviewArchivedVideoData() : _findAvailableVideoData();
     if (prg == null) return; // todo handle error
 
-    state = state.copyWith(
-        playOutState:
-            PlayOutState.initialize(prg.urlAvailable, prg.videoTypeStrict));
+    state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
     String cookie;
     try {
@@ -87,12 +98,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       print(e); //todo handle error
     }
 
-    if (cookie == null) return;
-
-    final playOutState =
-        PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict, cookie);
-    final newState = state.copyWith(playOutState: playOutState);
-    setState(newState);
+    if (cookie != null)
+      setState(state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie));
   }
 }
 
@@ -102,7 +109,9 @@ abstract class DetailModelState with _$DetailModelState {
 
   const factory DetailModelState.loading() = StateLoading;
 
-  const factory DetailModelState.success(ProgramDetailData programDetailData, ChannelData channelData) = StateSuccess;
+  const factory DetailModelState.success(
+          ProgramDetailData programDetailData, ChannelData channelData) =
+      StateSuccess;
 
   const factory DetailModelState.error() = StateError;
 }

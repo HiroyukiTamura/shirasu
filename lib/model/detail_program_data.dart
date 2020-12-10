@@ -155,6 +155,9 @@ abstract class DetailPrgItem
   @override
   MediaStatus get mediaStatusStrict => MediaStatusGetter.parse(mediaStatus);
 
+  bool get isFree => id.endsWith(':free');
+
+  // todo converting VideoType
   String get urlAvailable {
     switch (videoTypeStrict) {
       case VideoType.LIVE:

@@ -59,7 +59,10 @@ class _ContentWidget extends StatelessWidget {
                 programId: data.program.id,
                 onTap: () async => context
                     .read(detailSNProvider(data.program.id))
-                    .playVideo(), //todo don't context.read in onTap
+                    .playVideo(false),
+                onTapPreviewBtn: () async => context
+                      .read(detailSNProvider(data.program.id))
+                      .playVideo(true),
               ),
               SizedBox(
                 height: listViewH,

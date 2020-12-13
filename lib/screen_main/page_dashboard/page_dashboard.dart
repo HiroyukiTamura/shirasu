@@ -22,15 +22,15 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _viewModelSProvider =
-    StateNotifierProvider.autoDispose<ViewModelDashBoard>((ref) => ViewModelDashBoard(ref));
+    StateNotifierProvider.autoDispose<ViewModelDashBoard>(
+        (ref) => ViewModelDashBoard(ref));
 
 class PageDashboardInMainScreen extends HookWidget {
-
-  const PageDashboardInMainScreen({Key key}): super(key: key);
+  const PageDashboardInMainScreen({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => useProvider(_viewModelSProvider.state)
-      .when(
+  Widget build(BuildContext context) =>
+      useProvider(_viewModelSProvider.state).when(
         preInitialized: () => const CenterCircleProgress(),
         error: () => const PageError(), //todo show error widget
         loadingMore: (model) => _ListViewContent(
@@ -60,11 +60,7 @@ class _ListViewContent extends HookWidget {
     final featurePrgData = model.featureProgramData;
     final newPrgData = model.allNewPrograms;
 
-    int itemCount = 1; // fixme
-
-    if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
-      itemCount = featurePrgData.nowBroadcastings.items.length + 1;
-    final nowBroadcastingsLast = itemCount;
+    int itemCount = 0;
 
     if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
       itemCount += featurePrgData.comingBroadcastings.items.length + 1;
@@ -84,7 +80,9 @@ class _ListViewContent extends HookWidget {
     final controller = useScrollController();
 
     return LayoutBuilder(
-      builder: (context, constraints) => NotificationListener<ScrollNotification>(
+      builder: (context, constraints) {
+        final expandedHeight = BillboardHeader.getExpandedHeight(constraints.maxWidth);
+        return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             //todo fix; remove Dimens.CIRCULAR_HEIGHT
             if (showLoadingIndicator &&
@@ -98,104 +96,109 @@ class _ListViewContent extends HookWidget {
 
             return false;
           },
-          // todo bug fix
-          child: ListView.builder(
-              controller: controller,
-              padding: const EdgeInsets.only(bottom: 16),
-              itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
-              itemBuilder: (context, index) {
-                if (index < nowBroadcastingsLast &&
-                    nowBroadcastingsLast != 0) {
-                    final item =
-                        featurePrgData.comingBroadcastings.items[index];// fixme
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 48,
-                      ),
-                      child: BillboardHeader(
-                        item: item,
-                        onTap: () async => context
-                            .read(appRouterProvider)
-                            .delegate
-                            .pushPage(GlobalRoutePath.program(item.id)),
-                      ),
-                    );
-                } else if (index < comingBroadcastingsLast &&
-                    nowBroadcastingsLast != comingBroadcastingsLast) {
-                  final i = index - nowBroadcastingsLast;
-
-                  if (i == 0)
-                    return const Heading(text: Strings.HEADING_UPCOMING);
-                  else {
-                    final item =
-                        featurePrgData.comingBroadcastings.items[i - 1];
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 48,
-                        top: 16,
-                      ),
-                      child: BillboardExpanded(
-                        isLive: false,
-                        item: item,
-                        onTap: () async => context
-                            .read(appRouterProvider)
-                            .delegate
-                            .pushPage(GlobalRoutePath.program(item.id)),
-                      ),
-                    );
-                  }
-                } else if (index < subscribingLast &&
-                    comingBroadcastingsLast != subscribingLast) {
-                  final i = index - comingBroadcastingsLast;
-
-                  return i == 0
-                      ? const Heading(text: Strings.HEADING_SUBSCRIBING)
-                      : Padding(
-                          padding: const EdgeInsets.only(top: 16, bottom: 32),
-                          child: HorizontalCarousels(
-                            list:
-                                featurePrgData.viewerUser.subscribedPrograms,
-                            columnCount: _COLUMN_COUNT,
-                            maxWidth: constraints.maxWidth,
-                            onTap: (item) async => context
+          child: CustomScrollView(
+            controller: controller,
+            slivers: [
+              SliverAppBar(
+                shadowColor: Colors.transparent,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                floating: true,
+                flexibleSpace: BillboardHeader(
+                  items: featurePrgData.comingBroadcastings.items,
+                  height: expandedHeight,
+                ),
+                expandedHeight: expandedHeight,
+                toolbarHeight: 0,
+              ),
+              SliverList(
+                // Use a delegate to build items as they're scrolled on screen.
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    if (index < comingBroadcastingsLast &&
+                        comingBroadcastingsLast != 0) {
+                      if (index == 0)
+                        return const Heading(text: Strings.HEADING_UPCOMING);
+                      else {
+                        final item =
+                            featurePrgData.comingBroadcastings.items[index - 1];
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 48,
+                            top: 16,
+                          ),
+                          child: BillboardExpanded(
+                            isLive: false,
+                            item: item,
+                            onTap: () async => context
                                 .read(appRouterProvider)
                                 .delegate
                                 .pushPage(GlobalRoutePath.program(item.id)),
                           ),
                         );
-                } else if (index < channelsLast &&
-                    subscribingLast != channelsLast) {
-                  final i = index - subscribingLast;
+                      }
+                    } else if (index < subscribingLast &&
+                        comingBroadcastingsLast != subscribingLast) {
+                      final i = index - comingBroadcastingsLast;
 
-                  return i == 0
-                      ? const Heading(text: Strings.HEADING_CHANNEL)
-                      : Padding(
-                          padding: const EdgeInsets.only(top: 16, bottom: 32),
-                          child: ChannelListItem(
-                            channels: featurePrgData.channels,
-                          ),
+                      return i == 0
+                          ? const Heading(text: Strings.HEADING_SUBSCRIBING)
+                          : Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 16, bottom: 32),
+                              child: HorizontalCarousels(
+                                list: featurePrgData
+                                    .viewerUser.subscribedPrograms,
+                                columnCount: _COLUMN_COUNT,
+                                maxWidth: constraints.maxWidth,
+                                onTap: (item) async => context
+                                    .read(appRouterProvider)
+                                    .delegate
+                                    .pushPage(GlobalRoutePath.program(item.id)),
+                              ),
+                            );
+                    } else if (index < channelsLast &&
+                        subscribingLast != channelsLast) {
+                      final i = index - subscribingLast;
+
+                      return i == 0
+                          ? const Heading(text: Strings.HEADING_CHANNEL)
+                          : Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 16, bottom: 32),
+                              child: ChannelListItem(
+                                channels: featurePrgData.channels,
+                              ),
+                            );
+                    } else if (index < itemCount || !showLoadingIndicator) {
+                      final i = index - channelsLast;
+
+                      if (i == 0)
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Heading(text: Strings.HEADING_NEW_PRG),
                         );
-                } else if (index < itemCount || !showLoadingIndicator) {
-                  final i = index - channelsLast;
 
-                  if (i == 0)
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Heading(text: Strings.HEADING_NEW_PRG),
-                    );
-
-                  final item = newPrgData[i - 1] as BaseProgram;
-                  return MovieListItem(
-                    program: item,
-                    onTap: () async => context
-                        .read(appRouterProvider)
-                        .delegate
-                        .pushPage(GlobalRoutePath.program(item.id)),
-                  );
-                } else
-                  return const CenterCircleProgress();
-              }),
-        ),
+                      final item = newPrgData[i - 1] as BaseProgram;
+                      return MovieListItem(
+                        program: item,
+                        onTap: () async => context
+                            .read(appRouterProvider)
+                            .delegate
+                            .pushPage(GlobalRoutePath.program(item.id)),
+                      );
+                    } else
+                      return const CenterCircleProgress();
+                  },
+                  // controller: controller,
+                  // padding: const EdgeInsets.only(bottom: 16),
+                  childCount: showLoadingIndicator ? itemCount + 1 : itemCount,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

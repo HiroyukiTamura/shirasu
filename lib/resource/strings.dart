@@ -32,7 +32,7 @@ class Strings {
   static const HEADING_NEW_PRG = '新着番組';
   static const HEADING_SUBSCRIBING = '購読中の番組';
   static const HEADING_CHANNEL = 'チャンネル';
-  static const HEADING_NOW_ON_AIR = 'ただいま放送中';
+  static const HEADING_NOW_ON_AIR = 'NOW ON AIR';
 
   //endregion
 

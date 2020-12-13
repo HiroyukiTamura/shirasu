@@ -10,6 +10,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard_expaned.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard_haeder.dart';
 import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/screen_main/page_dashboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
@@ -59,7 +60,7 @@ class _ListViewContent extends HookWidget {
     final featurePrgData = model.featureProgramData;
     final newPrgData = model.allNewPrograms;
 
-    int itemCount = 0;
+    int itemCount = 1; // fixme
 
     if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
       itemCount = featurePrgData.nowBroadcastings.items.length + 1;
@@ -100,23 +101,18 @@ class _ListViewContent extends HookWidget {
           // todo bug fix
           child: ListView.builder(
               controller: controller,
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.only(bottom: 16),
               itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
               itemBuilder: (context, index) {
                 if (index < nowBroadcastingsLast &&
                     nowBroadcastingsLast != 0) {
-                  if (index == 0)
-                    return const Heading(text: Strings.HEADING_NOW_ON_AIR);
-                  else {
                     final item =
-                        featurePrgData.nowBroadcastings.items[index - 1];
+                        featurePrgData.comingBroadcastings.items[index];// fixme
                     return Padding(
                       padding: const EdgeInsets.only(
                         bottom: 48,
-                        top: 16,
                       ),
-                      child: BillboardExpanded(
-                        isLive: true,
+                      child: BillboardHeader(
                         item: item,
                         onTap: () async => context
                             .read(appRouterProvider)
@@ -124,7 +120,6 @@ class _ListViewContent extends HookWidget {
                             .pushPage(GlobalRoutePath.program(item.id)),
                       ),
                     );
-                  }
                 } else if (index < comingBroadcastingsLast &&
                     nowBroadcastingsLast != comingBroadcastingsLast) {
                   final i = index - nowBroadcastingsLast;

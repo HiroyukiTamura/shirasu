@@ -162,12 +162,9 @@ class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
       httpsShirasuIoCustomerId: fields[18] as String,
       httpsShirasuIoDistributeds: (fields[19] as List)?.cast<dynamic>(),
       httpsShirasuIoTenants: (fields[20] as List)?.cast<dynamic>(),
-      givenName: fields[21] as String,
-      familyName: fields[22] as String,
       nickname: fields[23] as String,
       name: fields[24] as String,
       picture: fields[25] as String,
-      locale: fields[26] as String,
       updatedAt: fields[27] as DateTime,
       email: fields[28] as String,
       emailVerified: fields[29] as bool,
@@ -176,14 +173,13 @@ class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
       aud: fields[32] as String,
       iat: fields[33] as int,
       exp: fields[34] as int,
-      nonce: fields[35] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, HiveClaims obj) {
     writer
-      ..writeByte(21)
+      ..writeByte(17)
       ..writeByte(15)
       ..write(obj.raw)
       ..writeByte(16)
@@ -196,18 +192,12 @@ class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
       ..write(obj.httpsShirasuIoDistributeds)
       ..writeByte(20)
       ..write(obj.httpsShirasuIoTenants)
-      ..writeByte(21)
-      ..write(obj.givenName)
-      ..writeByte(22)
-      ..write(obj.familyName)
       ..writeByte(23)
       ..write(obj.nickname)
       ..writeByte(24)
       ..write(obj.name)
       ..writeByte(25)
       ..write(obj.picture)
-      ..writeByte(26)
-      ..write(obj.locale)
       ..writeByte(27)
       ..write(obj.updatedAt)
       ..writeByte(28)
@@ -223,9 +213,7 @@ class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
       ..writeByte(33)
       ..write(obj.iat)
       ..writeByte(34)
-      ..write(obj.exp)
-      ..writeByte(35)
-      ..write(obj.nonce);
+      ..write(obj.exp);
   }
 
   @override
@@ -392,12 +380,9 @@ class HiveUserAdapter extends TypeAdapter<HiveUser> {
       httpsShirasuIoCustomerId: fields[51] as String,
       httpsShirasuIoDistributeds: (fields[52] as List)?.cast<dynamic>(),
       httpsShirasuIoTenants: (fields[53] as List)?.cast<dynamic>(),
-      givenName: fields[54] as String,
-      familyName: fields[55] as String,
       nickname: fields[56] as String,
       name: fields[57] as String,
       picture: fields[58] as String,
-      locale: fields[59] as String,
       updatedAt: fields[60] as DateTime,
       email: fields[61] as String,
       emailVerified: fields[62] as bool,
@@ -408,7 +393,7 @@ class HiveUserAdapter extends TypeAdapter<HiveUser> {
   @override
   void write(BinaryWriter writer, HiveUser obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(12)
       ..writeByte(49)
       ..write(obj.httpsShirasuIoRoles)
       ..writeByte(50)
@@ -419,18 +404,12 @@ class HiveUserAdapter extends TypeAdapter<HiveUser> {
       ..write(obj.httpsShirasuIoDistributeds)
       ..writeByte(53)
       ..write(obj.httpsShirasuIoTenants)
-      ..writeByte(54)
-      ..write(obj.givenName)
-      ..writeByte(55)
-      ..write(obj.familyName)
       ..writeByte(56)
       ..write(obj.nickname)
       ..writeByte(57)
       ..write(obj.name)
       ..writeByte(58)
       ..write(obj.picture)
-      ..writeByte(59)
-      ..write(obj.locale)
       ..writeByte(60)
       ..write(obj.updatedAt)
       ..writeByte(61)

@@ -81,7 +81,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
     // url except home page
     if (url != UrlUtil.URL_HOME && url.startsWith(UrlUtil.URL_HOME)) {
       final storage = await _plugin.evalJavascript(_jsLocalStorageGetter);
-      if (storage.isEmpty) return;
+      if (storage.isEmpty || storage == '\"\"') return;
 
       try {
         final authData =

@@ -801,19 +801,11 @@ class _$ClaimsTearOff {
       @JsonKey(name: 'https://shirasu.io/tenants')
           List<dynamic> httpsShirasuIoTenants,
       @required
-      @JsonKey(name: 'given_name')
-          String givenName,
-      @required
-      @JsonKey(name: 'family_name')
-          String familyName,
-      @required
           String nickname,
       @required
           String name,
       @required
           String picture,
-      @required
-          String locale,
       @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
@@ -831,9 +823,7 @@ class _$ClaimsTearOff {
       @required
           int iat,
       @required
-          int exp,
-      @required
-          String nonce}) {
+          int exp}) {
     return _Claims(
       raw: raw,
       httpsShirasuIoRoles: httpsShirasuIoRoles,
@@ -841,12 +831,9 @@ class _$ClaimsTearOff {
       httpsShirasuIoCustomerId: httpsShirasuIoCustomerId,
       httpsShirasuIoDistributeds: httpsShirasuIoDistributeds,
       httpsShirasuIoTenants: httpsShirasuIoTenants,
-      givenName: givenName,
-      familyName: familyName,
       nickname: nickname,
       name: name,
       picture: picture,
-      locale: locale,
       updatedAt: updatedAt,
       email: email,
       emailVerified: emailVerified,
@@ -855,7 +842,6 @@ class _$ClaimsTearOff {
       aud: aud,
       iat: iat,
       exp: exp,
-      nonce: nonce,
     );
   }
 
@@ -882,15 +868,12 @@ mixin _$Claims {
   @JsonKey(name: 'https://shirasu.io/distributeds')
   List<dynamic> get httpsShirasuIoDistributeds;
   @JsonKey(name: 'https://shirasu.io/tenants')
-  List<dynamic> get httpsShirasuIoTenants;
-  @JsonKey(name: 'given_name')
-  String get givenName;
-  @JsonKey(name: 'family_name')
-  String get familyName;
+  List<dynamic>
+      get httpsShirasuIoTenants; // @JsonKey(name: 'given_name') @required String givenName,
+// @JsonKey(name: 'family_name') @required String familyName,
   String get nickname;
   String get name;
-  String get picture;
-  String get locale;
+  String get picture; // @required String locale,
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   String get email;
@@ -901,7 +884,6 @@ mixin _$Claims {
   String get aud;
   int get iat;
   int get exp;
-  String get nonce;
 
   Map<String, dynamic> toJson();
   $ClaimsCopyWith<Claims> get copyWith;
@@ -924,14 +906,9 @@ abstract class $ClaimsCopyWith<$Res> {
           List<dynamic> httpsShirasuIoDistributeds,
       @JsonKey(name: 'https://shirasu.io/tenants')
           List<dynamic> httpsShirasuIoTenants,
-      @JsonKey(name: 'given_name')
-          String givenName,
-      @JsonKey(name: 'family_name')
-          String familyName,
       String nickname,
       String name,
       String picture,
-      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -941,8 +918,7 @@ abstract class $ClaimsCopyWith<$Res> {
       String sub,
       String aud,
       int iat,
-      int exp,
-      String nonce});
+      int exp});
 
   $HttpsShirasuIoUserAttributeCopyWith<$Res> get httpsShirasuIoUserAttribute;
 }
@@ -963,12 +939,9 @@ class _$ClaimsCopyWithImpl<$Res> implements $ClaimsCopyWith<$Res> {
     Object httpsShirasuIoCustomerId = freezed,
     Object httpsShirasuIoDistributeds = freezed,
     Object httpsShirasuIoTenants = freezed,
-    Object givenName = freezed,
-    Object familyName = freezed,
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -977,7 +950,6 @@ class _$ClaimsCopyWithImpl<$Res> implements $ClaimsCopyWith<$Res> {
     Object aud = freezed,
     Object iat = freezed,
     Object exp = freezed,
-    Object nonce = freezed,
   }) {
     return _then(_value.copyWith(
       raw: raw == freezed ? _value.raw : raw as String,
@@ -996,13 +968,9 @@ class _$ClaimsCopyWithImpl<$Res> implements $ClaimsCopyWith<$Res> {
       httpsShirasuIoTenants: httpsShirasuIoTenants == freezed
           ? _value.httpsShirasuIoTenants
           : httpsShirasuIoTenants as List<dynamic>,
-      givenName: givenName == freezed ? _value.givenName : givenName as String,
-      familyName:
-          familyName == freezed ? _value.familyName : familyName as String,
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -1014,7 +982,6 @@ class _$ClaimsCopyWithImpl<$Res> implements $ClaimsCopyWith<$Res> {
       aud: aud == freezed ? _value.aud : aud as String,
       iat: iat == freezed ? _value.iat : iat as int,
       exp: exp == freezed ? _value.exp : exp as int,
-      nonce: nonce == freezed ? _value.nonce : nonce as String,
     ));
   }
 
@@ -1048,14 +1015,9 @@ abstract class _$ClaimsCopyWith<$Res> implements $ClaimsCopyWith<$Res> {
           List<dynamic> httpsShirasuIoDistributeds,
       @JsonKey(name: 'https://shirasu.io/tenants')
           List<dynamic> httpsShirasuIoTenants,
-      @JsonKey(name: 'given_name')
-          String givenName,
-      @JsonKey(name: 'family_name')
-          String familyName,
       String nickname,
       String name,
       String picture,
-      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -1065,8 +1027,7 @@ abstract class _$ClaimsCopyWith<$Res> implements $ClaimsCopyWith<$Res> {
       String sub,
       String aud,
       int iat,
-      int exp,
-      String nonce});
+      int exp});
 
   @override
   $HttpsShirasuIoUserAttributeCopyWith<$Res> get httpsShirasuIoUserAttribute;
@@ -1089,12 +1050,9 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
     Object httpsShirasuIoCustomerId = freezed,
     Object httpsShirasuIoDistributeds = freezed,
     Object httpsShirasuIoTenants = freezed,
-    Object givenName = freezed,
-    Object familyName = freezed,
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -1103,7 +1061,6 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
     Object aud = freezed,
     Object iat = freezed,
     Object exp = freezed,
-    Object nonce = freezed,
   }) {
     return _then(_Claims(
       raw: raw == freezed ? _value.raw : raw as String,
@@ -1122,13 +1079,9 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
       httpsShirasuIoTenants: httpsShirasuIoTenants == freezed
           ? _value.httpsShirasuIoTenants
           : httpsShirasuIoTenants as List<dynamic>,
-      givenName: givenName == freezed ? _value.givenName : givenName as String,
-      familyName:
-          familyName == freezed ? _value.familyName : familyName as String,
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -1140,7 +1093,6 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
       aud: aud == freezed ? _value.aud : aud as String,
       iat: iat == freezed ? _value.iat : iat as int,
       exp: exp == freezed ? _value.exp : exp as int,
-      nonce: nonce == freezed ? _value.nonce : nonce as String,
     ));
   }
 }
@@ -1169,19 +1121,11 @@ class _$_Claims implements _Claims {
       @JsonKey(name: 'https://shirasu.io/tenants')
           this.httpsShirasuIoTenants,
       @required
-      @JsonKey(name: 'given_name')
-          this.givenName,
-      @required
-      @JsonKey(name: 'family_name')
-          this.familyName,
-      @required
           this.nickname,
       @required
           this.name,
       @required
           this.picture,
-      @required
-          this.locale,
       @required
       @JsonKey(name: 'updated_at')
           this.updatedAt,
@@ -1199,21 +1143,16 @@ class _$_Claims implements _Claims {
       @required
           this.iat,
       @required
-          this.exp,
-      @required
-          this.nonce})
+          this.exp})
       : assert(raw != null),
         assert(httpsShirasuIoRoles != null),
         assert(httpsShirasuIoUserAttribute != null),
         assert(httpsShirasuIoCustomerId != null),
         assert(httpsShirasuIoDistributeds != null),
         assert(httpsShirasuIoTenants != null),
-        assert(givenName != null),
-        assert(familyName != null),
         assert(nickname != null),
         assert(name != null),
         assert(picture != null),
-        assert(locale != null),
         assert(updatedAt != null),
         assert(email != null),
         assert(emailVerified != null),
@@ -1221,8 +1160,7 @@ class _$_Claims implements _Claims {
         assert(sub != null),
         assert(aud != null),
         assert(iat != null),
-        assert(exp != null),
-        assert(nonce != null);
+        assert(exp != null);
 
   factory _$_Claims.fromJson(Map<String, dynamic> json) =>
       _$_$_ClaimsFromJson(json);
@@ -1245,21 +1183,14 @@ class _$_Claims implements _Claims {
   @override
   @JsonKey(name: 'https://shirasu.io/tenants')
   final List<dynamic> httpsShirasuIoTenants;
-  @override
-  @JsonKey(name: 'given_name')
-  final String givenName;
-  @override
-  @JsonKey(name: 'family_name')
-  final String familyName;
-  @override
+  @override // @JsonKey(name: 'given_name') @required String givenName,
+// @JsonKey(name: 'family_name') @required String familyName,
   final String nickname;
   @override
   final String name;
   @override
   final String picture;
-  @override
-  final String locale;
-  @override
+  @override // @required String locale,
   @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
   @override
@@ -1277,12 +1208,10 @@ class _$_Claims implements _Claims {
   final int iat;
   @override
   final int exp;
-  @override
-  final String nonce;
 
   @override
   String toString() {
-    return 'Claims(raw: $raw, httpsShirasuIoRoles: $httpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, httpsShirasuIoDistributeds: $httpsShirasuIoDistributeds, httpsShirasuIoTenants: $httpsShirasuIoTenants, givenName: $givenName, familyName: $familyName, nickname: $nickname, name: $name, picture: $picture, locale: $locale, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, iss: $iss, sub: $sub, aud: $aud, iat: $iat, exp: $exp, nonce: $nonce)';
+    return 'Claims(raw: $raw, httpsShirasuIoRoles: $httpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, httpsShirasuIoDistributeds: $httpsShirasuIoDistributeds, httpsShirasuIoTenants: $httpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, iss: $iss, sub: $sub, aud: $aud, iat: $iat, exp: $exp)';
   }
 
   @override
@@ -1309,12 +1238,6 @@ class _$_Claims implements _Claims {
             (identical(other.httpsShirasuIoTenants, httpsShirasuIoTenants) ||
                 const DeepCollectionEquality().equals(
                     other.httpsShirasuIoTenants, httpsShirasuIoTenants)) &&
-            (identical(other.givenName, givenName) ||
-                const DeepCollectionEquality()
-                    .equals(other.givenName, givenName)) &&
-            (identical(other.familyName, familyName) ||
-                const DeepCollectionEquality()
-                    .equals(other.familyName, familyName)) &&
             (identical(other.nickname, nickname) ||
                 const DeepCollectionEquality()
                     .equals(other.nickname, nickname)) &&
@@ -1323,18 +1246,20 @@ class _$_Claims implements _Claims {
             (identical(other.picture, picture) ||
                 const DeepCollectionEquality()
                     .equals(other.picture, picture)) &&
-            (identical(other.locale, locale) ||
-                const DeepCollectionEquality().equals(other.locale, locale)) &&
             (identical(other.updatedAt, updatedAt) ||
-                const DeepCollectionEquality().equals(other.updatedAt, updatedAt)) &&
-            (identical(other.email, email) || const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.emailVerified, emailVerified) || const DeepCollectionEquality().equals(other.emailVerified, emailVerified)) &&
-            (identical(other.iss, iss) || const DeepCollectionEquality().equals(other.iss, iss)) &&
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.emailVerified, emailVerified) ||
+                const DeepCollectionEquality()
+                    .equals(other.emailVerified, emailVerified)) &&
+            (identical(other.iss, iss) ||
+                const DeepCollectionEquality().equals(other.iss, iss)) &&
             (identical(other.sub, sub) || const DeepCollectionEquality().equals(other.sub, sub)) &&
             (identical(other.aud, aud) || const DeepCollectionEquality().equals(other.aud, aud)) &&
             (identical(other.iat, iat) || const DeepCollectionEquality().equals(other.iat, iat)) &&
-            (identical(other.exp, exp) || const DeepCollectionEquality().equals(other.exp, exp)) &&
-            (identical(other.nonce, nonce) || const DeepCollectionEquality().equals(other.nonce, nonce)));
+            (identical(other.exp, exp) || const DeepCollectionEquality().equals(other.exp, exp)));
   }
 
   @override
@@ -1346,12 +1271,9 @@ class _$_Claims implements _Claims {
       const DeepCollectionEquality().hash(httpsShirasuIoCustomerId) ^
       const DeepCollectionEquality().hash(httpsShirasuIoDistributeds) ^
       const DeepCollectionEquality().hash(httpsShirasuIoTenants) ^
-      const DeepCollectionEquality().hash(givenName) ^
-      const DeepCollectionEquality().hash(familyName) ^
       const DeepCollectionEquality().hash(nickname) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
-      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(emailVerified) ^
@@ -1359,8 +1281,7 @@ class _$_Claims implements _Claims {
       const DeepCollectionEquality().hash(sub) ^
       const DeepCollectionEquality().hash(aud) ^
       const DeepCollectionEquality().hash(iat) ^
-      const DeepCollectionEquality().hash(exp) ^
-      const DeepCollectionEquality().hash(nonce);
+      const DeepCollectionEquality().hash(exp);
 
   @override
   _$ClaimsCopyWith<_Claims> get copyWith =>
@@ -1393,19 +1314,11 @@ abstract class _Claims implements Claims {
       @JsonKey(name: 'https://shirasu.io/tenants')
           List<dynamic> httpsShirasuIoTenants,
       @required
-      @JsonKey(name: 'given_name')
-          String givenName,
-      @required
-      @JsonKey(name: 'family_name')
-          String familyName,
-      @required
           String nickname,
       @required
           String name,
       @required
           String picture,
-      @required
-          String locale,
       @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
@@ -1423,9 +1336,7 @@ abstract class _Claims implements Claims {
       @required
           int iat,
       @required
-          int exp,
-      @required
-          String nonce}) = _$_Claims;
+          int exp}) = _$_Claims;
 
   factory _Claims.fromJson(Map<String, dynamic> json) = _$_Claims.fromJson;
 
@@ -1447,21 +1358,14 @@ abstract class _Claims implements Claims {
   @override
   @JsonKey(name: 'https://shirasu.io/tenants')
   List<dynamic> get httpsShirasuIoTenants;
-  @override
-  @JsonKey(name: 'given_name')
-  String get givenName;
-  @override
-  @JsonKey(name: 'family_name')
-  String get familyName;
-  @override
+  @override // @JsonKey(name: 'given_name') @required String givenName,
+// @JsonKey(name: 'family_name') @required String familyName,
   String get nickname;
   @override
   String get name;
   @override
   String get picture;
-  @override
-  String get locale;
-  @override
+  @override // @required String locale,
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   @override
@@ -1479,8 +1383,6 @@ abstract class _Claims implements Claims {
   int get iat;
   @override
   int get exp;
-  @override
-  String get nonce;
   @override
   _$ClaimsCopyWith<_Claims> get copyWith;
 }
@@ -2175,19 +2077,11 @@ class _$UserTearOff {
       @JsonKey(name: 'https://shirasu.io/tenants')
           List<dynamic> httpsShirasuIoTenants,
       @required
-      @JsonKey(name: 'given_name')
-          String givenName,
-      @required
-      @JsonKey(name: 'family_name')
-          String familyName,
-      @required
           String nickname,
       @required
           String name,
       @required
           String picture,
-      @required
-          String locale,
       @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
@@ -2204,12 +2098,9 @@ class _$UserTearOff {
       httpsShirasuIoCustomerId: httpsShirasuIoCustomerId,
       httpsShirasuIoDistributeds: httpsShirasuIoDistributeds,
       httpsShirasuIoTenants: httpsShirasuIoTenants,
-      givenName: givenName,
-      familyName: familyName,
       nickname: nickname,
       name: name,
       picture: picture,
-      locale: locale,
       updatedAt: updatedAt,
       email: email,
       emailVerified: emailVerified,
@@ -2238,15 +2129,12 @@ mixin _$User {
   @JsonKey(name: 'https://shirasu.io/distributeds')
   List<dynamic> get httpsShirasuIoDistributeds;
   @JsonKey(name: 'https://shirasu.io/tenants')
-  List<dynamic> get httpsShirasuIoTenants;
-  @JsonKey(name: 'given_name')
-  String get givenName;
-  @JsonKey(name: 'family_name')
-  String get familyName;
+  List<dynamic>
+      get httpsShirasuIoTenants; // @JsonKey(name: 'given_name') @required String givenName,
+// @JsonKey(name: 'family_name') @required String familyName,
   String get nickname;
   String get name;
-  String get picture;
-  String get locale;
+  String get picture; // @required String locale,
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   String get email;
@@ -2273,14 +2161,9 @@ abstract class $UserCopyWith<$Res> {
           List<dynamic> httpsShirasuIoDistributeds,
       @JsonKey(name: 'https://shirasu.io/tenants')
           List<dynamic> httpsShirasuIoTenants,
-      @JsonKey(name: 'given_name')
-          String givenName,
-      @JsonKey(name: 'family_name')
-          String familyName,
       String nickname,
       String name,
       String picture,
-      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -2306,12 +2189,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object httpsShirasuIoCustomerId = freezed,
     Object httpsShirasuIoDistributeds = freezed,
     Object httpsShirasuIoTenants = freezed,
-    Object givenName = freezed,
-    Object familyName = freezed,
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -2333,13 +2213,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       httpsShirasuIoTenants: httpsShirasuIoTenants == freezed
           ? _value.httpsShirasuIoTenants
           : httpsShirasuIoTenants as List<dynamic>,
-      givenName: givenName == freezed ? _value.givenName : givenName as String,
-      familyName:
-          familyName == freezed ? _value.familyName : familyName as String,
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -2378,14 +2254,9 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
           List<dynamic> httpsShirasuIoDistributeds,
       @JsonKey(name: 'https://shirasu.io/tenants')
           List<dynamic> httpsShirasuIoTenants,
-      @JsonKey(name: 'given_name')
-          String givenName,
-      @JsonKey(name: 'family_name')
-          String familyName,
       String nickname,
       String name,
       String picture,
-      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -2413,12 +2284,9 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object httpsShirasuIoCustomerId = freezed,
     Object httpsShirasuIoDistributeds = freezed,
     Object httpsShirasuIoTenants = freezed,
-    Object givenName = freezed,
-    Object familyName = freezed,
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -2440,13 +2308,9 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       httpsShirasuIoTenants: httpsShirasuIoTenants == freezed
           ? _value.httpsShirasuIoTenants
           : httpsShirasuIoTenants as List<dynamic>,
-      givenName: givenName == freezed ? _value.givenName : givenName as String,
-      familyName:
-          familyName == freezed ? _value.familyName : familyName as String,
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -2479,19 +2343,11 @@ class _$_User implements _User {
       @JsonKey(name: 'https://shirasu.io/tenants')
           this.httpsShirasuIoTenants,
       @required
-      @JsonKey(name: 'given_name')
-          this.givenName,
-      @required
-      @JsonKey(name: 'family_name')
-          this.familyName,
-      @required
           this.nickname,
       @required
           this.name,
       @required
           this.picture,
-      @required
-          this.locale,
       @required
       @JsonKey(name: 'updated_at')
           this.updatedAt,
@@ -2507,12 +2363,9 @@ class _$_User implements _User {
         assert(httpsShirasuIoCustomerId != null),
         assert(httpsShirasuIoDistributeds != null),
         assert(httpsShirasuIoTenants != null),
-        assert(givenName != null),
-        assert(familyName != null),
         assert(nickname != null),
         assert(name != null),
         assert(picture != null),
-        assert(locale != null),
         assert(updatedAt != null),
         assert(email != null),
         assert(emailVerified != null),
@@ -2536,21 +2389,14 @@ class _$_User implements _User {
   @override
   @JsonKey(name: 'https://shirasu.io/tenants')
   final List<dynamic> httpsShirasuIoTenants;
-  @override
-  @JsonKey(name: 'given_name')
-  final String givenName;
-  @override
-  @JsonKey(name: 'family_name')
-  final String familyName;
-  @override
+  @override // @JsonKey(name: 'given_name') @required String givenName,
+// @JsonKey(name: 'family_name') @required String familyName,
   final String nickname;
   @override
   final String name;
   @override
   final String picture;
-  @override
-  final String locale;
-  @override
+  @override // @required String locale,
   @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
   @override
@@ -2563,7 +2409,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(httpsShirasuIoRoles: $httpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, httpsShirasuIoDistributeds: $httpsShirasuIoDistributeds, httpsShirasuIoTenants: $httpsShirasuIoTenants, givenName: $givenName, familyName: $familyName, nickname: $nickname, name: $name, picture: $picture, locale: $locale, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
+    return 'User(httpsShirasuIoRoles: $httpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, httpsShirasuIoDistributeds: $httpsShirasuIoDistributeds, httpsShirasuIoTenants: $httpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
   }
 
   @override
@@ -2588,12 +2434,6 @@ class _$_User implements _User {
             (identical(other.httpsShirasuIoTenants, httpsShirasuIoTenants) ||
                 const DeepCollectionEquality().equals(
                     other.httpsShirasuIoTenants, httpsShirasuIoTenants)) &&
-            (identical(other.givenName, givenName) ||
-                const DeepCollectionEquality()
-                    .equals(other.givenName, givenName)) &&
-            (identical(other.familyName, familyName) ||
-                const DeepCollectionEquality()
-                    .equals(other.familyName, familyName)) &&
             (identical(other.nickname, nickname) ||
                 const DeepCollectionEquality()
                     .equals(other.nickname, nickname)) &&
@@ -2602,14 +2442,16 @@ class _$_User implements _User {
             (identical(other.picture, picture) ||
                 const DeepCollectionEquality()
                     .equals(other.picture, picture)) &&
-            (identical(other.locale, locale) ||
-                const DeepCollectionEquality().equals(other.locale, locale)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
                     .equals(other.updatedAt, updatedAt)) &&
-            (identical(other.email, email) || const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.emailVerified, emailVerified) || const DeepCollectionEquality().equals(other.emailVerified, emailVerified)) &&
-            (identical(other.sub, sub) || const DeepCollectionEquality().equals(other.sub, sub)));
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.emailVerified, emailVerified) ||
+                const DeepCollectionEquality()
+                    .equals(other.emailVerified, emailVerified)) &&
+            (identical(other.sub, sub) ||
+                const DeepCollectionEquality().equals(other.sub, sub)));
   }
 
   @override
@@ -2620,12 +2462,9 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(httpsShirasuIoCustomerId) ^
       const DeepCollectionEquality().hash(httpsShirasuIoDistributeds) ^
       const DeepCollectionEquality().hash(httpsShirasuIoTenants) ^
-      const DeepCollectionEquality().hash(givenName) ^
-      const DeepCollectionEquality().hash(familyName) ^
       const DeepCollectionEquality().hash(nickname) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
-      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(emailVerified) ^
@@ -2659,19 +2498,11 @@ abstract class _User implements User {
       @JsonKey(name: 'https://shirasu.io/tenants')
           List<dynamic> httpsShirasuIoTenants,
       @required
-      @JsonKey(name: 'given_name')
-          String givenName,
-      @required
-      @JsonKey(name: 'family_name')
-          String familyName,
-      @required
           String nickname,
       @required
           String name,
       @required
           String picture,
-      @required
-          String locale,
       @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
@@ -2700,21 +2531,14 @@ abstract class _User implements User {
   @override
   @JsonKey(name: 'https://shirasu.io/tenants')
   List<dynamic> get httpsShirasuIoTenants;
-  @override
-  @JsonKey(name: 'given_name')
-  String get givenName;
-  @override
-  @JsonKey(name: 'family_name')
-  String get familyName;
-  @override
+  @override // @JsonKey(name: 'given_name') @required String givenName,
+// @JsonKey(name: 'family_name') @required String familyName,
   String get nickname;
   @override
   String get name;
   @override
   String get picture;
-  @override
-  String get locale;
-  @override
+  @override // @required String locale,
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   @override

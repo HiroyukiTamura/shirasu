@@ -4,6 +4,7 @@ import 'package:shirasu/model/auth_data.dart';
 
 part 'auth_data.g.dart';
 
+/// todo reindex [HiveField]
 /// hive model for [AuthData]
 @HiveType(typeId: 0)
 class HiveAuthData extends HiveObject {
@@ -112,12 +113,12 @@ class HiveClaims extends HiveObject {
     @required this.httpsShirasuIoCustomerId,
     @required this.httpsShirasuIoDistributeds,
     @required this.httpsShirasuIoTenants,
-    @required this.givenName,
-    @required this.familyName,
+    // @required this.givenName,
+    // @required this.familyName,
     @required this.nickname,
     @required this.name,
     @required this.picture,
-    @required this.locale,
+    // @required this.locale,
     @required this.updatedAt,
     @required this.email,
     @required this.emailVerified,
@@ -126,7 +127,7 @@ class HiveClaims extends HiveObject {
     @required this.aud,
     @required this.iat,
     @required this.exp,
-    @required this.nonce,
+    // @required this.nonce,
   });
 
   factory HiveClaims.parse(Claims claims) => HiveClaims(
@@ -137,12 +138,12 @@ class HiveClaims extends HiveObject {
         httpsShirasuIoCustomerId: claims.httpsShirasuIoCustomerId,
         httpsShirasuIoDistributeds: claims.httpsShirasuIoDistributeds,
         httpsShirasuIoTenants: claims.httpsShirasuIoTenants,
-        givenName: claims.givenName,
-        familyName: claims.familyName,
+        // givenName: claims.givenName,
+        // familyName: claims.familyName,
         nickname: claims.nickname,
         name: claims.name,
         picture: claims.picture,
-        locale: claims.locale,
+        // locale: claims.locale,
         updatedAt: claims.updatedAt,
         email: claims.email,
         emailVerified: claims.emailVerified,
@@ -151,7 +152,7 @@ class HiveClaims extends HiveObject {
         aud: claims.aud,
         iat: claims.iat,
         exp: claims.exp,
-        nonce: claims.nonce,
+        // nonce: claims.nonce,
       );
 
   @HiveField(15)
@@ -166,18 +167,18 @@ class HiveClaims extends HiveObject {
   List<dynamic> httpsShirasuIoDistributeds;
   @HiveField(20)
   List<dynamic> httpsShirasuIoTenants;
-  @HiveField(21)
-  String givenName;
-  @HiveField(22)
-  String familyName;
+  // @HiveField(21)
+  // String givenName;
+  // @HiveField(22)
+  // String familyName;
   @HiveField(23)
   String nickname;
   @HiveField(24)
   String name;
   @HiveField(25)
   String picture;
-  @HiveField(26)
-  String locale;
+  // @HiveField(26)
+  // String locale;
   @HiveField(27)
   DateTime updatedAt;
   @HiveField(28)
@@ -194,8 +195,8 @@ class HiveClaims extends HiveObject {
   int iat;
   @HiveField(34)
   int exp;
-  @HiveField(35)
-  String nonce;
+  // @HiveField(35)
+  // String nonce;
 }
 
 /// hive model for [HttpsShirasuIoUserAttribute]
@@ -302,12 +303,12 @@ class HiveUser extends HiveObject {
     @required this.httpsShirasuIoCustomerId,
     @required this.httpsShirasuIoDistributeds,
     @required this.httpsShirasuIoTenants,
-    @required this.givenName,
-    @required this.familyName,
+    // @required this.givenName,
+    // @required this.familyName,
     @required this.nickname,
     @required this.name,
     @required this.picture,
-    @required this.locale,
+    // @required this.locale,
     @required this.updatedAt,
     @required this.email,
     @required this.emailVerified,
@@ -321,12 +322,9 @@ class HiveUser extends HiveObject {
       httpsShirasuIoCustomerId: user.httpsShirasuIoCustomerId,
       httpsShirasuIoDistributeds: user.httpsShirasuIoDistributeds,
       httpsShirasuIoTenants: user.httpsShirasuIoTenants,
-      givenName: user.givenName,
-      familyName: user.familyName,
       nickname: user.nickname,
       name: user.name,
       picture: user.picture,
-      locale: user.locale,
       updatedAt: user.updatedAt,
       email: user.email,
       emailVerified: user.emailVerified,
@@ -343,18 +341,18 @@ class HiveUser extends HiveObject {
   List<dynamic> httpsShirasuIoDistributeds;
   @HiveField(53)
   List<dynamic> httpsShirasuIoTenants;
-  @HiveField(54)
-  String givenName;
-  @HiveField(55)
-  String familyName;
+  // @HiveField(54)
+  // String givenName;
+  // @HiveField(55)
+  // String familyName;
   @HiveField(56)
   String nickname;
   @HiveField(57)
   String name;
   @HiveField(58)
   String picture;
-  @HiveField(59)
-  String locale;
+  // @HiveField(59)
+  // String locale;
   @HiveField(60)
   DateTime updatedAt;
   @HiveField(61)

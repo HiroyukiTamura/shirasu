@@ -42,6 +42,22 @@ class TextStyles {
     decoration: TextDecoration.none,
   );
 
+  static const DASHBOARD_BILLBOARD_TITLE_H = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    height: TEXT_HEIGHT,
+    color: Colors.white,
+    decoration: TextDecoration.none,
+  );
+
+  static const DASHBOARD_BILLBOARD_CHANNEL_NAME_H = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    height: TEXT_HEIGHT,
+    color: Colors.white,
+    decoration: TextDecoration.none,
+  );
+
   static const DASHBOARD_BILLBOARD_CHANNEL_NAME = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,

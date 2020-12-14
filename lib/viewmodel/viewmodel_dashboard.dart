@@ -9,9 +9,9 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:riverpod/src/framework.dart';
 
-class ViewModelDashBoard extends ViewModelBase<DashboardModelState> {
+class ViewModelDashBoard extends ViewModelBase<DashboardModel> {
   ViewModelDashBoard(this._ref)
-      : super(const DashboardModelState.preInitialized());
+      : super(DashboardModel.preInitialized());
 
   final _apiClient = ApiClient(Client());
   final AutoDisposeProviderReference _ref;
@@ -22,21 +22,21 @@ class ViewModelDashBoard extends ViewModelBase<DashboardModelState> {
     if (!(state is StatePreInitialized))
       return;
 
-    setState(const DashboardModelState.preInitialized());
+    setState(DashboardModel.preInitialized());
 
-    DashboardModelState newModel;
+    DashboardModel newModel;
 
     try {
       final featureProgramData = await _apiClient.queryFeaturedProgramsList();
       final newProgramsData = await _apiClient.queryNewProgramsList();
-      final model = DashboardModel(
+      final data = ApiData(
         featureProgramData: featureProgramData,
         newProgramsDataList: [newProgramsData],
       );
-      newModel = DashboardModelState.success(model);
+      newModel = state.copyAsSuccess(data);
     } catch (e) {
       print(e);
-      newModel = const DashboardModelState.error();
+      newModel = DashboardModel.error();
     }
 
     setState(newModel);
@@ -46,27 +46,33 @@ class ViewModelDashBoard extends ViewModelBase<DashboardModelState> {
     final oldState = state;
     if (oldState is StateSuccess) {
       final nextToken = oldState
-          .dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
+          .apiData.newProgramsDataList?.last?.newPrograms?.nextToken;
       if (nextToken == null) return;
 
       // we don't check if Disposed
-      state = StateLoadmore(oldState.dashboardModel);
+      state = oldState.copyAsLoadMore();
 
       try {
         final newProgramsData = await _apiClient.queryNewProgramsList(
           nextToken: nextToken,
         );
 
-        oldState.dashboardModel.newProgramsDataList.add(newProgramsData);
-        setState(StateSuccess(oldState.dashboardModel));
+        oldState.apiData.newProgramsDataList.add(newProgramsData);
+        setState(oldState.copyAsSuccess(oldState.apiData));
 
         if (newProgramsData.newPrograms.items.isEmpty)
           _msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
       } catch (e) {
         debugPrint(e.toString());
-        setState(const StateError());
+        setState(DashboardModel.error());
         _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
       }
     }
+  }
+
+  void updateScrollOffset(double offset) {
+    final s = state.state;
+    if (s is StateSuccess)
+      setState(state.copyWith(offset: offset));
   }
 }

@@ -17,32 +17,37 @@ import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
-import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
 final _viewModelSProvider =
-StateNotifierProvider.autoDispose<ViewModelDashBoard>((ref) => ViewModelDashBoard(ref));
+    StateNotifierProvider.autoDispose<ViewModelDashBoard>(
+        (ref) => ViewModelDashBoard(ref));
 
 class PageDashboardInMainScreen extends HookWidget {
-
-  const PageDashboardInMainScreen({Key key}): super(key: key);
+  const PageDashboardInMainScreen({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => useProvider(_viewModelSProvider.state)
-      .when(
-    preInitialized: () => const CenterCircleProgress(),
-    error: () => const PageError(), //todo show error widget
-    loadingMore: (model) => _ListViewContent(
-      model: model,
-      showLoadingIndicator: true,
-    ),
-    success: (model) => _ListViewContent(
-      model: model,
-      showLoadingIndicator: model.newProgramsDataList?.isNotEmpty == true &&
-          model.newProgramsDataList?.last?.newPrograms?.nextToken == null,
-    ),
-  );
+  Widget build(BuildContext context) =>
+      useProvider(_viewModelSProvider.state.select((state) => state.state))
+          .when(
+        preInitialized: () => const CenterCircleProgress(),
+        error: () => const PageError(),
+        loadingMore: () => _ListViewContent(
+          model: useProvider(_viewModelSProvider).state.apiData,
+          // we don't want to rebuild
+          showLoadingIndicator: true,
+        ),
+        success: () {
+          final model = useProvider(_viewModelSProvider).state.apiData;
+          return _ListViewContent(
+            model: model, // we don't want to rebuild,
+            showLoadingIndicator: model.newProgramsDataList?.isNotEmpty ==
+                    true &&
+                model.newProgramsDataList?.last?.newPrograms?.nextToken == null,
+          );
+        },
+      );
 }
 
 class _ListViewContent extends HookWidget {
@@ -52,7 +57,7 @@ class _ListViewContent extends HookWidget {
   });
 
   static const _COLUMN_COUNT = 2;
-  final DashboardModel model;
+  final ApiData model;
   final bool showLoadingIndicator;
 
   @override
@@ -82,9 +87,13 @@ class _ListViewContent extends HookWidget {
     if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
     final controller = useScrollController();
+    controller.addListener(() => context
+        .read(_viewModelSProvider)
+        .updateScrollOffset(controller.offset));
 
     return LayoutBuilder(
-      builder: (context, constraints) => NotificationListener<ScrollNotification>(
+      builder: (context, constraints) =>
+          NotificationListener<ScrollNotification>(
         onNotification: (notification) {
           //todo fix; remove Dimens.CIRCULAR_HEIGHT
           if (showLoadingIndicator &&
@@ -104,16 +113,15 @@ class _ListViewContent extends HookWidget {
             padding: const EdgeInsets.only(bottom: 16),
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
-              if (index < nowBroadcastingsLast &&
-                  nowBroadcastingsLast != 0) {
+              if (index < nowBroadcastingsLast && nowBroadcastingsLast != 0) {
                 return Padding(
                   padding: const EdgeInsets.only(
                     bottom: 48,
                   ),
                   child: BillboardHeader(
                     items: featurePrgData.comingBroadcastings.items,
-                    height: BillboardHeader.getExpandedHeight(constraints.maxWidth),
-                    width: constraints.maxWidth,
+                    height:
+                        BillboardHeader.getExpandedHeight(constraints.maxWidth),
                     scrollRatio: .5,
                   ),
                 );
@@ -124,8 +132,7 @@ class _ListViewContent extends HookWidget {
                 if (i == 0)
                   return const Heading(text: Strings.HEADING_UPCOMING);
                 else {
-                  final item =
-                  featurePrgData.comingBroadcastings.items[i - 1];
+                  final item = featurePrgData.comingBroadcastings.items[i - 1];
                   return Padding(
                     padding: const EdgeInsets.only(
                       bottom: 48,
@@ -148,18 +155,17 @@ class _ListViewContent extends HookWidget {
                 return i == 0
                     ? const Heading(text: Strings.HEADING_SUBSCRIBING)
                     : Padding(
-                  padding: const EdgeInsets.only(top: 16, bottom: 32),
-                  child: HorizontalCarousels(
-                    list:
-                    featurePrgData.viewerUser.subscribedPrograms,
-                    columnCount: _COLUMN_COUNT,
-                    maxWidth: constraints.maxWidth,
-                    onTap: (item) async => context
-                        .read(appRouterProvider)
-                        .delegate
-                        .pushPage(GlobalRoutePath.program(item.id)),
-                  ),
-                );
+                        padding: const EdgeInsets.only(top: 16, bottom: 32),
+                        child: HorizontalCarousels(
+                          list: featurePrgData.viewerUser.subscribedPrograms,
+                          columnCount: _COLUMN_COUNT,
+                          maxWidth: constraints.maxWidth,
+                          onTap: (item) async => context
+                              .read(appRouterProvider)
+                              .delegate
+                              .pushPage(GlobalRoutePath.program(item.id)),
+                        ),
+                      );
               } else if (index < channelsLast &&
                   subscribingLast != channelsLast) {
                 final i = index - subscribingLast;
@@ -167,11 +173,11 @@ class _ListViewContent extends HookWidget {
                 return i == 0
                     ? const Heading(text: Strings.HEADING_CHANNEL)
                     : Padding(
-                  padding: const EdgeInsets.only(top: 16, bottom: 32),
-                  child: ChannelListItem(
-                    channels: featurePrgData.channels,
-                  ),
-                );
+                        padding: const EdgeInsets.only(top: 16, bottom: 32),
+                        child: ChannelListItem(
+                          channels: featurePrgData.channels,
+                        ),
+                      );
               } else if (index < itemCount || !showLoadingIndicator) {
                 final i = index - channelsLast;
 

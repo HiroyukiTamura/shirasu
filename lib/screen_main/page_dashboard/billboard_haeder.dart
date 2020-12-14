@@ -20,7 +20,6 @@ class BillboardHeader extends StatelessWidget {
     @required this.items,
     @required this.height,
     @required this.scrollRatio,
-    @required this.width,
   }) : super(key: key);
 
   static const double _TITLE_H = 56;
@@ -30,7 +29,6 @@ class BillboardHeader extends StatelessWidget {
 
   final List<Item> items;
   final double height;
-  final double width;
   final double scrollRatio;
 
   @override
@@ -44,7 +42,6 @@ class BillboardHeader extends StatelessWidget {
               color: Colors.deepOrange,
               child: _Content(
                 height: height,
-                width: width,
                 items: items,
                 scrollRatio: scrollRatio,
               ),
@@ -69,13 +66,11 @@ class _Content extends HookWidget {
     @required this.height,
     @required this.items,
     @required this.scrollRatio,
-    @required this.width,
   })
       : paddingBtm = height * scrollRatio / 2,
         super(key: key);
 
   final double height;
-  final double width;
   final List<Item> items;
   final double scrollRatio;
   final double paddingBtm;
@@ -86,40 +81,37 @@ class _Content extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final controller = useScrollController(initialScrollOffset: height + paddingBtm);
-    return ScrollConfiguration(
-      behavior: const NoEffectScrollBehavior(),
-      child: SingleChildScrollView(
-        controller: controller,
-        padding: EdgeInsets.only(bottom: paddingBtm),
-        physics: const NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              height: _TITLE_H,
-              child: Text(
-                Strings.HEADING_NOW_ON_AIR,
-                style: GoogleFonts.roboto(
-                  fontSize: 24,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+    return SingleChildScrollView(
+      controller: controller,
+      padding: EdgeInsets.only(bottom: paddingBtm),
+      physics: const NeverScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            height: _TITLE_H,
+            child: Text(
+              Strings.HEADING_NOW_ON_AIR,
+              style: GoogleFonts.roboto(
+                fontSize: 24,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: _SPACE_H),
-            SizedBox(
-              height: height - (_SPACE_H + _TITLE_H),
-              child: PageView.builder(
-                itemBuilder: (context, i) =>
-                    _BillboardHeaderItem(
-                      item: items[i],
-                      height: height,
-                    ),
-                itemCount: items.length,
-              ),
+          ),
+          const SizedBox(height: _SPACE_H),
+          SizedBox(
+            height: height - (_SPACE_H + _TITLE_H),
+            child: PageView.builder(
+              itemBuilder: (context, i) =>
+                  _BillboardHeaderItem(
+                    item: items[i],
+                    height: height,
+                  ),
+              itemCount: items.length,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

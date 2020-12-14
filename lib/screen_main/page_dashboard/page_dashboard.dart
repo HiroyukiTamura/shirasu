@@ -20,7 +20,7 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
-final _viewModelSProvider =
+final dashboardViewModelSProvider =
     StateNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard(ref));
 
@@ -29,17 +29,17 @@ class PageDashboardInMainScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_viewModelSProvider.state.select((state) => state.state))
+      useProvider(dashboardViewModelSProvider.state.select((state) => state.state))
           .when(
         preInitialized: () => const CenterCircleProgress(),
         error: () => const PageError(),
         loadingMore: () => _ListViewContent(
-          model: useProvider(_viewModelSProvider).state.apiData,
+          model: useProvider(dashboardViewModelSProvider).state.apiData,
           // we don't want to rebuild
           showLoadingIndicator: true,
         ),
         success: () {
-          final model = useProvider(_viewModelSProvider).state.apiData;
+          final model = useProvider(dashboardViewModelSProvider).state.apiData;
           return _ListViewContent(
             model: model, // we don't want to rebuild,
             showLoadingIndicator: model.newProgramsDataList?.isNotEmpty ==
@@ -88,7 +88,7 @@ class _ListViewContent extends HookWidget {
 
     final controller = useScrollController();
     controller.addListener(() => context
-        .read(_viewModelSProvider)
+        .read(dashboardViewModelSProvider)
         .updateScrollOffset(controller.offset));
 
     return LayoutBuilder(
@@ -101,7 +101,7 @@ class _ListViewContent extends HookWidget {
               notification.direction == ScrollDirection.forward &&
               controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
                   controller.offset) {
-            context.read(_viewModelSProvider).loadMoreNewPrg();
+            context.read(dashboardViewModelSProvider).loadMoreNewPrg();
             return true;
           }
 
@@ -114,15 +114,18 @@ class _ListViewContent extends HookWidget {
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
               if (index < nowBroadcastingsLast && nowBroadcastingsLast != 0) {
-                return Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 48,
-                  ),
-                  child: BillboardHeader(
-                    items: featurePrgData.comingBroadcastings.items,
-                    height:
-                        BillboardHeader.getExpandedHeight(constraints.maxWidth),
-                    scrollRatio: .5,
+                // todo implement
+                return ColoredBox(
+                  color: Colors.deepOrange,
+                  child: Column(
+                    children: [
+                      BillboardHeader(
+                        items: featurePrgData.comingBroadcastings.items,
+                        height:
+                            BillboardHeader.getExpandedHeight(constraints.maxWidth),
+                      ),
+                      const SizedBox(height: 48),
+                    ],
                   ),
                 );
               } else if (index < comingBroadcastingsLast &&

@@ -19,7 +19,7 @@ class ViewModelDashBoard extends ViewModelBase<DashboardModel> {
 
   @override
   Future<void> initialize() async {
-    if (!(state is StatePreInitialized))
+    if (!(state.state is StatePreInitialized))
       return;
 
     setState(DashboardModel.preInitialized());

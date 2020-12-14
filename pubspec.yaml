@@ -47,6 +47,7 @@ dependencies:
   google_fonts: ^1.1.1
   tuple: ^1.0.3
   tab_indicator_styler: ^1.0.0
+  smooth_page_indicator: ^0.2.0
   synchronized: ^2.2.0+2
   flutter_playout:
     git:

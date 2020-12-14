@@ -10,53 +10,58 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/ui_common/no_effect_scroll_behavior.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tab_indicator_styler/tab_indicator_styler.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class BillboardHeader extends StatelessWidget {
+class BillboardHeader extends HookWidget {
   const BillboardHeader({
     Key key,
     @required this.items,
     @required this.height,
-    @required this.scrollRatio,
   }) : super(key: key);
 
-  static const double _TITLE_H = 56;
-  static const double _SPACE_H = 16;
+  static const double _TITLE_H = 72;
+  static const double _INDICATOR_H = 48;
   static const double _PRG_TITLE_H = 108;
   static const double CARD_RADIUS = 8;
+  static const double _CARD_PADDING = 4;
 
   final List<Item> items;
   final double height;
-  final double scrollRatio;
 
   @override
-  Widget build(BuildContext context) =>
-      SizedBox(
-        height: height,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            ColoredBox(
-              color: Colors.deepOrange,
-              child: _Content(
-                height: height,
-                items: items,
-                scrollRatio: scrollRatio,
-              ),
-            ),
-            if (0 < scrollRatio)
-              Opacity(
-                  opacity: scrollRatio,
-                  child: const ColoredBox(color: Colors.black)),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    final offset = useProvider(
+        dashboardViewModelSProvider.state.select((state) => state.offset));
+    final double scrollRatio =
+        0 < offset && offset < height ? offset / height : 0;
+    return SizedBox(
+      height: height,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          _Content(
+            height: height,
+            items: items,
+            scrollRatio: scrollRatio,
+          ),
+          if (0 < scrollRatio)
+            Opacity(
+                opacity: scrollRatio,
+                child: const ColoredBox(color: Colors.black)),
+        ],
+      ),
+    );
+  }
 
   static double getExpandedHeight(double maxWidth) {
-    final thumbnailHeight = (maxWidth - CARD_RADIUS * 2) / Dimens.IMG_RATIO;
-    return _TITLE_H + _SPACE_H + thumbnailHeight + _PRG_TITLE_H;
+    final thumbnailHeight =
+        (maxWidth - (CARD_RADIUS + _CARD_PADDING) * 2) / Dimens.IMG_RATIO;
+    return _TITLE_H + _PRG_TITLE_H + thumbnailHeight + _INDICATOR_H;
   }
 }
 
@@ -66,52 +71,65 @@ class _Content extends HookWidget {
     @required this.height,
     @required this.items,
     @required this.scrollRatio,
-  })
-      : paddingBtm = height * scrollRatio / 2,
+  })  : padding = height * scrollRatio / 2,
         super(key: key);
 
   final double height;
   final List<Item> items;
   final double scrollRatio;
-  final double paddingBtm;
+  final double padding;
 
-  static const double _TITLE_H = 56;
-  static const double _SPACE_H = 16;
 
+  /// todo refactor
   @override
   Widget build(BuildContext context) {
-    final controller = useScrollController(initialScrollOffset: height + paddingBtm);
+    final sc = useScrollController(initialScrollOffset: height + padding);
+    final pc = usePageController();
     return SingleChildScrollView(
-      controller: controller,
-      padding: EdgeInsets.only(bottom: paddingBtm),
+      controller: sc,
+      padding: EdgeInsets.only(top: padding),
       physics: const NeverScrollableScrollPhysics(),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: _TITLE_H,
-            child: Text(
-              Strings.HEADING_NOW_ON_AIR,
-              style: GoogleFonts.roboto(
-                fontSize: 24,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: BillboardHeader._CARD_PADDING + BillboardHeader.CARD_RADIUS),
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              height: BillboardHeader._TITLE_H - BillboardHeader._CARD_PADDING - BillboardHeader.CARD_RADIUS,
+              child: Text(
+                Strings.HEADING_NOW_ON_AIR,
+                style: GoogleFonts.roboto(
+                  fontSize: 28,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: _SPACE_H),
-          SizedBox(
-            height: height - (_SPACE_H + _TITLE_H),
-            child: PageView.builder(
-              itemBuilder: (context, i) =>
-                  _BillboardHeaderItem(
-                    item: items[i],
-                    height: height,
-                  ),
-              itemCount: items.length,
+            SizedBox(
+              height: height -
+                  (BillboardHeader._TITLE_H + BillboardHeader._INDICATOR_H),
+              child: PageView.builder(
+                controller: pc,
+                itemBuilder: (context, i) => _BillboardHeaderItem(item: items[i]),
+                itemCount: items.length,
+              ),
             ),
-          ),
-        ],
+            Container(
+              height: BillboardHeader._INDICATOR_H - BillboardHeader._CARD_PADDING - BillboardHeader.CARD_RADIUS,
+              alignment: Alignment.center,
+              child: SmoothPageIndicator(
+                controller: pc,
+                count: items.length,
+                effect: WormEffect(
+                  dotColor: Colors.white.withOpacity(.5),
+                  activeDotColor: Colors.white,
+                  dotHeight: 8,
+                  dotWidth: 8,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -121,9 +139,7 @@ class _BillboardHeaderItem extends StatelessWidget {
   _BillboardHeaderItem({
     Key key,
     @required this.item,
-    @required this.height,
-  })
-      : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
+  })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
         _channelLogoUrl = UrlUtil.getChannelLogoUrl(item.channelId),
         super(key: key);
 
@@ -132,53 +148,56 @@ class _BillboardHeaderItem extends StatelessWidget {
   final String _thumbnailUrl;
   final String _channelLogoUrl;
   final Item item;
-  final double height;
 
   @override
-  Widget build(BuildContext context) =>
-      Card(
-        elevation: 8,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(BillboardHeader.CARD_RADIUS),
-        ),
-        child: ColoredBox(
-          color: Colors.black,
-          child: StackedInkwell(
-            onTap: () async =>
-                context
-                    .read(appRouterProvider)
-                    .delegate
-                    .pushPage(GlobalRoutePath.program(item.id)),
-            child: Column(
-              children: [
-                AspectRatio(
-                  aspectRatio: Dimens.IMG_RATIO,
-                  child: CachedNetworkImage(
-                    imageUrl: _thumbnailUrl,
-                    errorWidget: (context, url, error) {
-                      print(error);
-                      return Container(
-                        height: double.infinity,
-                        width: double.infinity,
-                        color: Colors.white60,
-                      ); //todo show default thumbnail
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      item.title,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                      style: TextStyles.DASHBOARD_BILLBOARD_TITLE_H,
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(BillboardHeader._CARD_PADDING),
+        child: Card(
+          elevation: 4,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(BillboardHeader.CARD_RADIUS),
+          ),
+          child: ColoredBox(
+            color: Colors.black,
+            child: StackedInkwell(
+              onTap: () async => context
+                  .read(appRouterProvider)
+                  .delegate
+                  .pushPage(GlobalRoutePath.program(item.id)),
+              child: Column(
+                children: [
+                  AspectRatio(
+                    aspectRatio: Dimens.IMG_RATIO,
+                    child: CachedNetworkImage(
+                      imageUrl: _thumbnailUrl,
+                      errorWidget: (context, url, error) {
+                        print(error);
+                        return Container(
+                          height: double.infinity,
+                          width: double.infinity,
+                          color: Colors.white60,
+                        ); //todo show default thumbnail
+                      },
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 4,
+                      ),
+                      child: Text(
+                        item.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyles.DASHBOARD_BILLBOARD_TITLE_H,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

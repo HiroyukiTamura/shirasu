@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 extension IteratableExt<E> on Iterable<E> {
   List<E> toUnmodifiableList() => List.unmodifiable(this);
 

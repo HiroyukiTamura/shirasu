@@ -1,8 +1,11 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/new_programs_data.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'dashboard_model.freezed.dart';
 
@@ -32,8 +35,8 @@ abstract class DashboardModel implements _$DashboardModel {
 
   const DashboardModel._();
 
-  factory DashboardModel.preInitialized() => DashboardModel(state: const StatePreInitialized());
-  factory DashboardModel.error() => DashboardModel(state: const StateError());
+  factory DashboardModel.preInitialized() => const DashboardModel(state: StatePreInitialized());
+  factory DashboardModel.error() => const DashboardModel(state: StateError());
 
   DashboardModel copyAsSuccess(ApiData apiData) => copyWith(state: const StateSuccess(), apiData: apiData);
 
@@ -51,4 +54,32 @@ abstract class DashboardState with _$DashboardState {
   StateSuccess;
 
   const factory DashboardState.error() = StateError;
+}
+
+mixin MutableState on ViewModelBaseChangeNotifier {
+  DashboardModel _state = DashboardModel.preInitialized();
+  ui.Image _headerImage;
+
+  void trySetState(DashboardModel state) {
+    if (isMounted) {
+      _state = state;
+      notifyListeners();
+    }
+  }
+
+  DashboardModel get state => _state;
+
+  set state(DashboardModel state) {
+    _state = state;
+    notifyListeners();
+  }
+
+  void trySetHeaderImage(ui.Image headerImage) {
+    if (isMounted) {
+      _headerImage = headerImage;
+      notifyListeners();
+    }
+  }
+
+  ui.Image get headerImage => _headerImage;
 }

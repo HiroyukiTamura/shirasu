@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,16 +21,17 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
+/// todo rename
 final dashboardViewModelSProvider =
-    StateNotifierProvider.autoDispose<ViewModelDashBoard>(
+    ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard(ref));
 
 class PageDashboardInMainScreen extends HookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      useProvider(dashboardViewModelSProvider.state.select((state) => state.state))
+  Widget build(BuildContext context) => useProvider(
+              dashboardViewModelSProvider.select((viewModel) => viewModel.state.state))
           .when(
         preInitialized: () => const CenterCircleProgress(),
         error: () => const PageError(),
@@ -115,18 +117,15 @@ class _ListViewContent extends HookWidget {
             itemBuilder: (context, index) {
               if (index < nowBroadcastingsLast && nowBroadcastingsLast != 0) {
                 // todo implement
-                return ColoredBox(
-                  color: Colors.deepOrange,
-                  child: Column(
-                    children: [
-                      BillboardHeader(
-                        items: featurePrgData.comingBroadcastings.items,
-                        height:
-                            BillboardHeader.getExpandedHeight(constraints.maxWidth),
-                      ),
-                      const SizedBox(height: 48),
-                    ],
-                  ),
+                return Column(
+                  children: [
+                    BillboardHeader(
+                      items: featurePrgData.comingBroadcastings.items,
+                      height:
+                          BillboardHeader.getExpandedHeight(constraints.maxWidth),
+                    ),
+                    const SizedBox(height: 48),
+                  ],
                 );
               } else if (index < comingBroadcastingsLast &&
                   nowBroadcastingsLast != comingBroadcastingsLast) {

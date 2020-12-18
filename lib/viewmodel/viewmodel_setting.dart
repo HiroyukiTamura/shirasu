@@ -82,6 +82,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
       );
 }
 
+
 class LocationTextNotifier extends StateNotifier<String>
     with StateTrySetter<String> {
   LocationTextNotifier(AutoDisposeProviderReference ref) : super('') {

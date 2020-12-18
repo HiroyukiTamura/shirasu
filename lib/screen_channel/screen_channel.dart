@@ -22,38 +22,33 @@ final _channelProvider = StateNotifierProvider.autoDispose
     .family<ViewModelChannel, String>((_, id) => ViewModelChannel(id));
 
 class ScreenChannel extends HookWidget {
-
   ScreenChannel({Key key, @required this.channelId})
-      :
-        _headerUrl = UrlUtil.getChannelHeaderUrl(channelId),
+      : _headerUrl = UrlUtil.getChannelHeaderUrl(channelId),
         _logoUrl = UrlUtil.getChannelLogoUrl(channelId),
         super(key: key);
 
   static const double _CHANNEL_LOGO_SIZE = 32;
-  static const _BILLING_PROMO_CHANNEL = '月額6600円で購読';
 
   final String channelId;
   final String _headerUrl;
   final String _logoUrl;
 
   @override
-  Widget build(BuildContext context) =>
-      SafeArea(
+  Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
           body: useProvider(_channelProvider(channelId).state).when(
             preInitialized: () => const CenterCircleProgress(),
             loading: () => const CenterCircleProgress(),
             error: () => const PageError(),
             success: (channelData) {
-              final isAnnouncementEmpty = channelData.channel
-                  .announcements.items.isEmpty;
+              final isAnnouncementEmpty =
+                  channelData.channel.announcements.items.isEmpty;
               final initialLength = isAnnouncementEmpty ? 2 : 3;
               final tabController = useTabController(
                   initialLength: initialLength,
-                  initialIndex: useProvider(_channelProvider(channelId))
-                      .tabIndex);
-              tabController.addListener(() =>
-              context
+                  initialIndex:
+                      useProvider(_channelProvider(channelId)).tabIndex);
+              tabController.addListener(() => context
                   .read(_channelProvider(channelId))
                   .tabIndex = tabController.index);
               return Column(
@@ -86,22 +81,25 @@ class ScreenChannel extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         if (channelData.channel.subscriptionPlan
-                            ?.viewerPurchasedPlan?.isActive ==
+                                ?.viewerPurchasedPlan?.isActive ==
                             true)
                           PurchasedBannerMedium()
+                        else if (channelData
+                            .channel.subscriptionPlan?.isPurchasable == true)
+                          BillingBtnMedium.subscribe(
+                            amountWithTax: channelData
+                                .channel.subscriptionPlan.amountWithTax,
+                            currencyAsSuffix: channelData
+                                .channel.subscriptionPlan.currencyAsSuffix,
+                          )
                         else
-                          if (channelData.channel.subscriptionPlan
-                              ?.isPurchasable)
-                            const BillingBtnMedium(
-                                text: _BILLING_PROMO_CHANNEL) //todo fix
-                          else
-                            const SizedBox.shrink(),
+                          const SizedBox.shrink(),
                         IconButton(
                           icon: Icon(
                             Icons.add_alert,
                             color: Styles.colorTextSub,
                           ),
-                          onPressed: () {},
+                          onPressed: () {},//todo implement
                         ),
                       ],
                     ),
@@ -129,14 +127,13 @@ class ScreenChannel extends HookWidget {
                     child: TabBarView(
                       controller: tabController,
                       children: [
-                        PageChannelDetail(text: channelData.channel
-                            .detail),
-                        PageMovieList(channelPrograms: channelData.channel
-                            .programs,),
+                        PageChannelDetail(text: channelData.channel.detail),
+                        PageMovieList(
+                          channelPrograms: channelData.channel.programs,
+                        ),
                         if (!isAnnouncementEmpty)
                           PageNotification(
-                              announcements:
-                              channelData.channel.announcements),
+                              announcements: channelData.channel.announcements),
                       ],
                     ),
                   )

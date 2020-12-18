@@ -75,12 +75,12 @@ class BillingBtnThin extends StatelessWidget {
 /// todo update design? is it enough affordance to purchase?
 class BillingBtnMedium extends StatelessWidget {
 
-  const BillingBtnMedium({Key key, @required this.text}) : super(key: key);
+  const BillingBtnMedium._({Key key, @required this.text}) : super(key: key);
 
   /// todo need logic for tax ratio, currency and country
-  factory BillingBtnMedium.subscribe(int amount, String currency, {Key key}) {
-    final text = '${Strings.MONTHLY}$amount${currency}';
-    return BillingBtnMedium(text: text, key: key,);
+  factory BillingBtnMedium.subscribe({@required int amountWithTax, @required String currencyAsSuffix, Key key}) {
+    final text = '${Strings.MONTHLY}$amountWithTax$currencyAsSuffix';
+    return BillingBtnMedium._(text: text, key: key,);
   }
 
   final String text;

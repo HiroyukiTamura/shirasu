@@ -1,12 +1,9 @@
-import 'dart:ui' as ui;
-
 import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shirasu/di/network_image_client.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
@@ -16,12 +13,9 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/ui_common/image_painter.dart';
-import 'package:shirasu/ui_common/no_effect_scroll_behavior.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class BillboardHeader extends HookWidget {
   const BillboardHeader({
@@ -207,11 +201,10 @@ class _Content extends HookWidget {
   final double scrollRatio;
   final double _padding;
   final bool _showIndicator;
-  
+
   double get _pageViewH {
     double h = height - BillboardHeader._TITLE_H;
-    if (_showIndicator)
-      h -= BillboardHeader._INDICATOR_H;
+    if (_showIndicator) h -= BillboardHeader._INDICATOR_H;
     return h;
   }
 

@@ -69,9 +69,8 @@ class _ListViewContent extends HookWidget {
 
     int itemCount = 0;
 
-    if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
-      itemCount = featurePrgData.nowBroadcastings.items.length;
-    final nowBroadcastingsLast = itemCount;
+    final anyNowBroadcastings = featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
+    final nowBroadcastingsLast = anyNowBroadcastings ? 1 : 0;
 
     if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
       itemCount += featurePrgData.comingBroadcastings.items.length + 1;
@@ -115,17 +114,14 @@ class _ListViewContent extends HookWidget {
             padding: const EdgeInsets.only(bottom: 16),
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
-              if (index < nowBroadcastingsLast && nowBroadcastingsLast != 0) {
-                // todo implement
-                return Column(
-                  children: [
-                    BillboardHeader(
-                      items: featurePrgData.nowBroadcastings.items,
-                      height:
-                          BillboardHeader.getExpandedHeight(constraints.maxWidth, 1 < featurePrgData.nowBroadcastings.items.length),
-                    ),
-                    const SizedBox(height: 48),
-                  ],
+              if (index == 0 && anyNowBroadcastings) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 48),
+                  child: BillboardHeader(
+                    items: featurePrgData.nowBroadcastings.items,
+                    height:
+                        BillboardHeader.getExpandedHeight(constraints.maxWidth, 1 < featurePrgData.nowBroadcastings.items.length),
+                  ),
                 );
               } else if (index < comingBroadcastingsLast &&
                   nowBroadcastingsLast != comingBroadcastingsLast) {

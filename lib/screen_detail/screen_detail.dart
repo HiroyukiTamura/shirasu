@@ -30,12 +30,12 @@ class ScreenDetail extends HookWidget {
   @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-          body: useProvider(detailSNProvider(id)
-              .state
-              .select((it) => it.prgDataResult)).when(
+          body: useProvider(
+              detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
             loading: () => const CenterCircleProgress(),
             preInitialized: () => const CenterCircleProgress(),
-            success: (programDetailData, channelData) => _ContentWidget(data: programDetailData),
+            success: (programDetailData, channelData) =>
+                _ContentWidget(data: programDetailData),
             error: () => const PageError(),
           ),
         ),
@@ -61,29 +61,21 @@ class _ContentWidget extends StatelessWidget {
                     .read(detailSNProvider(data.program.id))
                     .playVideo(false),
                 onTapPreviewBtn: () async => context
-                      .read(detailSNProvider(data.program.id))
-                      .playVideo(true),
+                    .read(detailSNProvider(data.program.id))
+                    .playVideo(true),
               ),
               SizedBox(
                 height: listViewH,
                 child: ListView.builder(
                     itemCount: 14,
-                    padding: const EdgeInsets.only(
-                      bottom: 24,
-                      right: Dimens.MARGIN_OUTLINE,
-                      left: Dimens.MARGIN_OUTLINE,
-                    ),
+                    padding: const EdgeInsets.only(bottom: 24),
                     itemBuilder: (context, index) {
                       switch (index) {
-                        case 1:
-                          return const SizedBox(height: 16);
-                        case 2:
+                        case 3:
                           return RowChannel(
                             channelId: data.program.channelId,
                             title: data.program.channel.name,
                           );
-                        case 3:
-                          return const SizedBox(height: 12);
                         case 4:
                           return RowVideoTitle(text: data.program.title);
                         case 5:

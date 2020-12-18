@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shirasu/resource/dimens.dart';
 
-class ContentCell extends StatelessWidget {
+abstract class WidgetItemBase extends StatelessWidget {
+  const WidgetItemBase({Key key}) : super(key: key);
 
-  const ContentCell({Key key, this.child}) : super(key: key);
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => Padding(
+  @protected
+  Widget basePadding({@required Widget child}) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: Dimens.MARGIN_OUTLINE),
         child: child,
       );

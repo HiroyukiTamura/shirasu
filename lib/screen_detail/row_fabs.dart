@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/model/detail_program_data.dart';
-import 'package:shirasu/screen_detail/content_cell.dart';
+import 'package:shirasu/screen_detail/padding_row.dart';
 
-class RowFabs extends StatelessWidget {
+class RowFabs extends WidgetItemBase {
   const RowFabs({
     Key key,
     @required this.handouts,
@@ -13,15 +13,17 @@ class RowFabs extends StatelessWidget {
 
   /// todo implement
   @override
-  Widget build(BuildContext context) => Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        const _Fab(icon: Icons.comment),
-        if (handouts.items.isNotEmpty) const _Fab(icon: Icons.text_snippet),
-        const _Fab(icon: Icons.alarm_add),
-        _Fab(icon: Icons.share, onPressed: () => _onClickShareBtn(),),
-      ],
-    );
+  Widget build(BuildContext context) => basePadding(
+    child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          const _Fab(icon: Icons.comment),
+          if (handouts.items.isNotEmpty) const _Fab(icon: Icons.text_snippet),
+          const _Fab(icon: Icons.alarm_add),
+          _Fab(icon: Icons.share, onPressed: () => _onClickShareBtn(),),
+        ],
+      ),
+  );
 
   Future<void> _onClickShareBtn() async {
 

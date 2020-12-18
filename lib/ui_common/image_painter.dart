@@ -1,9 +1,10 @@
 import 'dart:ui' as ui;
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ImagePainter extends CustomPainter {
+class ImagePainter extends CustomPainter with EquatableMixin {
   const ImagePainter({
     @required this.image,
     @required this.widgetW,
@@ -23,5 +24,10 @@ class ImagePainter extends CustomPainter {
       );
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return this != oldDelegate;
+  }
+
+  @override
+  List<Object> get props => [image, widgetW, widgetH];
 }

@@ -19,7 +19,7 @@ final _viewmodelSNProvider =
     StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
         (ref) => ViewModelWatchHistory(ref));
 
-class WatchHistoryWidget extends StatelessWidget {
+class WatchHistoryWidget extends HookWidget {
 
   const WatchHistoryWidget({Key key}) : super(key: key);
 

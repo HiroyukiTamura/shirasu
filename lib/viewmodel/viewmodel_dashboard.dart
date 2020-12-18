@@ -44,18 +44,12 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     trySetState(newModel);
 
     try {
-      final headerImage = await NetworkImageClient.requestHeaderImage();
+      final headerImage = await NetworkImageClient.instance.requestHeaderImage();
       trySetHeaderImage(headerImage);
     } catch (e) {
       // todo handle error
       print(e);
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    headerImage.dispose();
   }
 
   Future<void> loadMoreNewPrg() async {

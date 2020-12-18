@@ -29,12 +29,14 @@ class BtmSheetCommon extends StatelessWidget {
             child,
             const SizedBox(height: 12),
             SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text(Strings.DIALOG_CANCEL, style: TextStyle(color: Colors.blueAccent),),
-              )
-            ),
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: const Text(
+                    Strings.DIALOG_CANCEL,
+                    style: TextStyle(color: Colors.blueAccent),
+                  ),
+                )),
             const SizedBox(width: 8),
             SizedBox(
               width: double.infinity,
@@ -43,7 +45,7 @@ class BtmSheetCommon extends StatelessWidget {
                 onPressed: () => Navigator.pop(context, true),
                 color: Colors.blueAccent,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(1000),
+                  borderRadius: BorderRadius.circular(1000),
                 ),
                 child: Text(positiveBtnString),
               ),
@@ -59,13 +61,15 @@ class BtmSheetCommon extends StatelessWidget {
     @required Widget child,
   }) async {
     final result = await showModalBottomSheet<bool>(
-        context: context
-            .read(screenMainScaffoldProvider)
-            .currentContext, //show BottomSheet over BottomNavigationBar
-        builder: (context) => BtmSheetCommon(
-              positiveBtnString: Strings.OPEN_WEB,
-              child: child,
-            ));
+      context: context
+          .read(screenMainScaffoldProvider)
+          .key
+          .currentContext, //show BottomSheet over BottomNavigationBar
+      builder: (context) => BtmSheetCommon(
+        positiveBtnString: Strings.OPEN_WEB,
+        child: child,
+      ),
+    );
 
     if (result == true) await Util.launchUrl(context, url);
   }

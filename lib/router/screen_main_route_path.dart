@@ -5,7 +5,7 @@ import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 part 'screen_main_route_path.freezed.dart';
 
 @immutable
-class GlobalRoutePathBase {
+abstract class GlobalRoutePathBase {
   const factory GlobalRoutePathBase.redirect2Root() = PathDataMainPageDashBoard;
 
   static Result wrappedWhen<Result extends Object>(
@@ -89,7 +89,7 @@ abstract class PathDataMainPageBase
 
   const PathDataMainPageBase._();
 
-  int getIndex() => when(
+  int get pageIndex => when(
       dashboard: () => 0,
       subscribing: (SubscribingTabPage initialPage) => 1,
       setting: () => 2);

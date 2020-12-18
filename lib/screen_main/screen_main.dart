@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
@@ -10,7 +12,14 @@ import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 
 final screenMainScaffoldProvider =
-    Provider<GlobalKey<ScaffoldState>>((_) => GlobalKey<ScaffoldState>());
+    Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+
+class ScaffoldKeyHolder {
+
+  ScaffoldKeyHolder();
+
+  GlobalKey<ScaffoldState> key;
+}
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key, @required this.appState})
@@ -31,6 +40,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   void initState() {
     super.initState();
     _routerDelegate = ScreenMainRouterDelegate(widget.appState);
+    context.read(screenMainScaffoldProvider).key = GlobalKey<ScaffoldState>();
   }
 
   @override
@@ -55,7 +65,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
     return SafeArea(
       // nest Scaffold because of it displays BottomSheet above BottomNavigationBar
       child: Scaffold(
-        key: useProvider(screenMainScaffoldProvider),
+        key: useProvider(screenMainScaffoldProvider).key,
         body: Scaffold(
           body: MsgNtfListener(
             child: Router(
@@ -71,11 +81,8 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
             unselectedItemColor: Colors.white.withOpacity(.6),
             showUnselectedLabels: true,
             unselectedFontSize: 14,
-            onTap: (index) {
-              final data = PathDataMainPageBase.fromIndex(index);
-              _routerDelegate.appState.push(data);
-            },
-            currentIndex: _routerDelegate.currentConfiguration.getIndex(),
+            onTap: (index) async => _routerDelegate.swapPage(index),
+            currentIndex: _routerDelegate.pageIndex,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),

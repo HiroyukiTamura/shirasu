@@ -7,7 +7,16 @@ import 'package:shirasu/di/url_util.dart';
 
 class NetworkImageClient{
 
-  static Future<ui.Image> requestHeaderImage() {
+  NetworkImageClient._();
+
+  static final NetworkImageClient instance = NetworkImageClient._();
+
+  ui.Image _image;
+
+  Future<ui.Image> requestHeaderImage() async {
+    if (_image != null)
+      return _image;
+
     Completer<ui.Image> completer = Completer<ui.Image>();
     const CachedNetworkImageProvider(UrlUtil.URL_HEADER_BACKDROP)
         .resolve(const ImageConfiguration())
@@ -19,7 +28,7 @@ class NetworkImageClient{
             // todo handle error
           }),
         );
-    return completer.future;
+    return _image = await completer.future;
   }
 
 }

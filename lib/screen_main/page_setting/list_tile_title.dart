@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/dialog/btm_sheet_common.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
+import 'package:shirasu/util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ListTileTitle extends StatelessWidget {
@@ -24,11 +26,13 @@ class ListTileTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final content = Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: isCreditCard
+      padding: EdgeInsets.only(
+        right: 16,
+        left: 16,
+        top: isCreditCard
             ? ListTileSeem.SEEM_PADDING + _PADDING_VERTICAL
             : _PADDING_VERTICAL,
+        bottom: _PADDING_VERTICAL,
       ), //todo extract to dimens
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,47 +66,10 @@ class ListTileTitle extends StatelessWidget {
         : content;
   }
 
-  Future<void> _onTapCreditCard(BuildContext context) async {
-    final result = await showModalBottomSheet<bool>(
-        context: context
-            .read(screenMainScaffoldProvider)
-            .currentContext, //show BottomSheet over BottomNavigationBar
-        builder: (context) => Padding(
-              padding: const EdgeInsets.only(
-                top: 24,
-                left: 24,
-                right: 24,
-                bottom: 16,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('セキュアな情報を取り扱うので公式のWebページに遷移するよ'),//todo resourcing
-                  const SizedBox(height: 12),
-                  ButtonBar(
-                    layoutBehavior: ButtonBarLayoutBehavior.constrained,
-                    children: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, false),
-                        child: const Text(Strings.DIALOG_CANCEL),
-                      ),
-                      const SizedBox(width: 8),
-                      RaisedButton(//todo styling
-                        onPressed: () => Navigator.pop(context, true),
-                        child: const Text(Strings.OPEN_WEB),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ));
-
-    if (result == true) {
-      if (await canLaunch(UrlUtil.URL_ACCOUNT)) {
-        await launch(UrlUtil.URL_ACCOUNT);
-      } else {
-        throw Exception('Could not launch'); //todo err handle
-      }
-    }
-  }
+  Future<void> _onTapCreditCard(BuildContext context) async =>
+      BtmSheetCommon.showUrlLauncherBtmSheet(
+        context: context,
+        url: UrlUtil.URL_ACCOUNT,
+        child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
+      );
 }

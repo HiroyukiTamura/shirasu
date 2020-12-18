@@ -2,6 +2,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
+import 'package:shirasu/resource/strings.dart';
+
+import '../util.dart';
 
 part 'detail_program_data.freezed.dart';
 
@@ -152,6 +155,9 @@ abstract class DetailPrgItem
   @override
   MediaStatus get mediaStatusStrict => MediaStatusGetter.parse(mediaStatus);
 
+  bool get isFree => id.endsWith(':free');
+
+  // todo converting VideoType
   String get urlAvailable {
     switch (videoTypeStrict) {
       case VideoType.LIVE:
@@ -165,7 +171,8 @@ abstract class DetailPrgItem
 }
 
 @freezed
-abstract class OnetimePlan with _$OnetimePlan {
+abstract class OnetimePlan implements _$OnetimePlan {
+
   @Implements(BaseOneTimePlan)
   const factory OnetimePlan({
     @required String id,
@@ -181,11 +188,17 @@ abstract class OnetimePlan with _$OnetimePlan {
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "OneTimePlan"')
-        String typename,
+    String typename,
   }) = _OnetimePlan;
+
+  const OnetimePlan._();
 
   factory OnetimePlan.fromJson(Map<String, dynamic> json) =>
       _$OnetimePlanFromJson(json);
+
+  String get currencyAsSuffix => CurrencyUtil.currencyAsSuffix(currency);
+
+  int get amountWithTax => CurrencyUtil.amountWithTax(currency, amount);
 }
 
 @freezed

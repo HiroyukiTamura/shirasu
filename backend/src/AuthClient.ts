@@ -9,6 +9,8 @@ export default class AuthClient {
         this.auth0Client = await createAuth0Client({
             domain: Statics.AUTH0_DOMAIN,
             client_id: Statics.AUTH0_CLIENT_ID,
+            redirect_uri: Statics.AUTH0_CALLBACK,
+            useRefreshTokenst: true,
             cacheLocation: 'localstorage',
         });
     }
@@ -16,6 +18,7 @@ export default class AuthClient {
     loginWithRedirect(): Promise<void> {
         return this.auth0Client!.loginWithRedirect({
             redirect_uri: Statics.AUTH0_CALLBACK,
+            appState: {'redirectTo': '/'},
         })
     }
 

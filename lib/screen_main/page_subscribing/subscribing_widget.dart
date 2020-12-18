@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -18,18 +17,9 @@ final _viewmodelSNProvider =
     StateNotifierProvider.autoDispose<ViewModelSubscribing>(
         (_) => ViewModelSubscribing());
 
-class SubscribingWidget extends StatefulHookWidget {
-  const SubscribingWidget({Key key}) : super(key: key);
+class SubscribingWidget extends HookWidget {
 
-  @override
-  _SubscribingWidgetState createState() => _SubscribingWidgetState();
-}
-
-class _SubscribingWidgetState extends State<SubscribingWidget>
-    with AfterLayoutMixin<SubscribingWidget> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(_viewmodelSNProvider).initialize();
+  const SubscribingWidget({Key key}): super(key: key);
 
   @override
   Widget build(BuildContext context) =>

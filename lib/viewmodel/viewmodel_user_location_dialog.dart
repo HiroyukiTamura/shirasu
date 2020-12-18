@@ -4,6 +4,7 @@ import 'package:shirasu/di/local_json_client.dart';
 import 'package:shirasu/model/country_data.dart';
 import 'package:shirasu/model/prefecture_data.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 
@@ -29,7 +30,7 @@ class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
     );
   }
 
-  final _jsonClient = const LocalJsonClient();
+  final _jsonClient = LocalJsonClient.instance();
 
   final ProviderReference ref;
   final String countryCode;
@@ -38,18 +39,11 @@ class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
   @override
   Future<void> initialize() async {
 
-    CountryData countryData;
-    PrefectureData prefectureData;
-
-    //todo move to extension method
-    await Future.wait([
-      _jsonClient.getCountryData().then((it) => countryData = it),
-      _jsonClient.getPrefectureData().then((it) => prefectureData = it),
-    ]);
+    final tuple = await Util.wait2(_jsonClient.getCountryData, _jsonClient.getPrefectureData);
 
     setState(UserLocationModel.initialized(
-      countryData: countryData,
-      prefectureData: prefectureData,
+      countryData: tuple.item1,
+      prefectureData: tuple.item2,
       countryCode: countryCode,
       prefectureCode: prefectureCode,
     ));

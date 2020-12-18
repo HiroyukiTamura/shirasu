@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/dialog/btm_sheet_common.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/video_type.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,6 +12,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:flutter_playout/video.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
+import 'package:shirasu/extension.dart';
 
 class VideoHeader extends HookWidget {
   const VideoHeader({
@@ -18,31 +20,35 @@ class VideoHeader extends HookWidget {
     @required this.programId,
     @required this.height,
     @required this.onTap,
+    @required this.onTapPreviewBtn,
   }) : super(key: key);
 
   final String programId;
   final VoidCallback onTap;
+  final VoidCallback onTapPreviewBtn;
   final double height;
 
   @override
   Widget build(BuildContext context) {
-    final playOutState =
-        useProvider(detailSNProvider(programId).state.select((it) => it.playOutState));
-    final result = useProvider(detailSNProvider(programId)).state.prgDataResult as StateSuccess;//we want rebuild here
+    final playOutState = useProvider(
+        detailSNProvider(programId).state.select((it) => it.playOutState));
+    final result = useProvider(detailSNProvider(programId)).state.prgDataResult
+        as StateSuccess; //we want rebuild here
 
-    final program = result.data.program;
+    final program = result.programDetailData.program;
     Widget child;
     switch (playOutState.commandedState) {
       case PlayerCommandedState.PRE_PLAY:
         child = _VideoThumbnail(
-          program: program,
+          programId: program.id,
           onTap: onTap,
+          onTapPreviewBtn: onTapPreviewBtn,
           isLoading: false,
         );
         break;
       case PlayerCommandedState.INITIALIZING:
         child = _VideoThumbnail(
-          program: program,
+          programId: program.id,
           isLoading: true,
         );
         break;
@@ -57,21 +63,27 @@ class VideoHeader extends HookWidget {
   }
 }
 
-class _VideoThumbnail extends StatelessWidget {
+class _VideoThumbnail extends HookWidget {
   const _VideoThumbnail({
     Key key,
-    @required this.program,
+    @required this.programId,
     @required this.isLoading,
     this.onTap,
+    this.onTapPreviewBtn,
   }) : super(key: key);
 
-  final ProgramDetail program;
   final VoidCallback onTap;
+  final VoidCallback onTapPreviewBtn;
+  final String programId;
   final bool isLoading;
   static const double _ICON_SIZE = 80;
 
   @override
   Widget build(BuildContext context) {
+    final result = useProvider(detailSNProvider(programId)).state.prgDataResult
+        as StateSuccess; //we want rebuild here
+
+    final program = result.programDetailData.program;
     return Stack(
       children: [
         CachedNetworkImage(
@@ -81,12 +93,12 @@ class _VideoThumbnail extends StatelessWidget {
             return Container();
           },
         ),
-        _hoverWidget(),
+        _hoverWidget(context, program),
       ],
     );
   }
 
-  Widget _hoverWidget() {
+  Widget _hoverWidget(BuildContext context, ProgramDetail program) {
     if (isLoading) return _loadingCircle();
 
     final isWaiting = DateTime.now().isBefore(program.broadcastAt);
@@ -98,13 +110,25 @@ class _VideoThumbnail extends StatelessWidget {
 
     return _HoverBackDrop(
       opacity: .7,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (isPurchasable) _purchaseBtn(),
-          if (canPreview) _previewBtn(),
-        ],
+      child: IntrinsicWidth(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (isPurchasable)
+              _HoverBtn(
+                label: Strings.PURCHASE_BTN_TEXT,
+                onPressed: () async => _onClickPurchaseBtn(context),
+              ),
+            if (isPurchasable && canPreview) const SizedBox(height: 16),
+            if (canPreview && isWaiting) _previewExistMessage(),
+            if (canPreview && !isWaiting)
+              _HoverBtn(
+                label: Strings.PREVIEW_BTN_TEXT,
+                onPressed: onTapPreviewBtn,
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -141,16 +165,89 @@ class _VideoThumbnail extends StatelessWidget {
         ),
       );
 
-  //todo implement action, update ui
-  Widget _purchaseBtn() => RaisedButton(
-        onPressed: () {},
-        child: const Text(Strings.PURCHASE_BTN_TEXT),
-      );
+  /// todo implement
+  Future<void> _onClickPurchaseBtn(BuildContext context) async {
+    final result = context.read(detailSNProvider(programId).state).prgDataResult
+        as StateSuccess;
+    final program = result.programDetailData.program;
+    final subscriptionPlan = result.channelData.channel.subscriptionPlan;
+    await BtmSheetCommon.showUrlLauncherBtmSheet(
+        context: context,
+        url: UrlUtil.programId2Url(programId),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const Text(
+              Strings.BTM_SHEET_MSG_PAYMENT_PREFIX,
+              style: TextStyle(height: 1.3),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...program.onetimePlans.map(
+                    (it) => Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Text(
+                        '・ ${it.amountWithTax}${it.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_ONE_TIME}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '・ ${subscriptionPlan.amountWithTax}${subscriptionPlan.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Text(
+              Strings.BTM_SHEET_MSG_PAYMENT,
+              style: TextStyle(height: 1.3),
+            ),
+          ],
+        ));
+  }
 
-  //todo implement action, update ui
-  Widget _previewBtn() => RaisedButton(
-        onPressed: () {},
-        child: const Text(Strings.PREVIEW_BTN_TEXT),
+  Widget _previewExistMessage() => const Text(
+        Strings.PREVIEW_EXIST_MESSAGE,
+        textAlign: TextAlign.center,
+      );
+}
+
+class _HoverBtn extends StatelessWidget {
+  const _HoverBtn({Key key, @required this.label, @required this.onPressed})
+      : super(key: key);
+
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) => RaisedButton.icon(
+        onPressed: onPressed,
+        padding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(1000),
+            side: const BorderSide(color: Colors.white)),
+        color: Colors.black,
+        label: Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ),
+        icon: const Icon(
+          Icons.play_arrow,
+          color: Colors.white,
+        ),
       );
 }
 
@@ -167,6 +264,7 @@ class _HoverBackDrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SizedBox.expand(
         child: Container(
+          padding: const EdgeInsets.all(16),
           alignment: Alignment.center,
           color: Colors.black.withOpacity(.7),
           child: child,

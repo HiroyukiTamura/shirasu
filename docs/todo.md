@@ -9,9 +9,12 @@ the list below is more prior ones.
 - [x] create empty result widget
 - [ ] migrate null safety
 - [ ] add semantic label to all images
+- [ ] create images for error loading
+- [x] make JsonApiClient as singleton 
 - [x] migrate all Notifier to StateNotifier
 - [ ] use functional_widget
-- [ ] remove all LocatorMixin
+- [x] remove all LocatorMixin
+- [ ] create config page
 - [ ] ~~check itself is disposed on ViewModels and Notifiers~~
 - [ ] display comments, handouts (low priority)
 - [ ] create native ui for video player, configure plugin  
@@ -19,10 +22,10 @@ the list below is more prior ones.
 - [ ] auth management
 - [ ] fix route path bug(the cause is not detected)
 - [ ] fix layout (low priority), rethink whole design and theme, refactor codes for styling
-- [ ] add func for update user data
+- [x] add func for update user data
 - [ ] add func for update user icon(necessary to research AWS auth system)(low priority)
-- [ ] add func for update user's credit card data(display security excuse and send web intent)
+- [x] add func for update user's credit card data(display security excuse and send web intent)
 - [ ] add screen purchase history(low priority)
 - [ ] add button and func for unsubscribe channel(display security excuse and send web intent)
 - [ ] push notification when start program
-- [ ] favorite program list
+- [ ] favorite program list(low priority)

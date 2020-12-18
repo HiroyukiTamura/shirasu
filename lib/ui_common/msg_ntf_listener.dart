@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/ui_common/util.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 class MsgNtfListener extends StatelessWidget {

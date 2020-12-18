@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -13,26 +12,16 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
 final _viewmodelSNProvider =
     StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
-        (_) => ViewModelWatchHistory());
+        (ref) => ViewModelWatchHistory(ref));
 
-class WatchHistoryWidget extends StatefulHookWidget {
+class WatchHistoryWidget extends StatelessWidget {
+
   const WatchHistoryWidget({Key key}) : super(key: key);
-
-  @override
-  _WatchHistoryWidgetState createState() => _WatchHistoryWidgetState();
-}
-
-class _WatchHistoryWidgetState extends State<WatchHistoryWidget>
-    with AfterLayoutMixin<WatchHistoryWidget> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(_viewmodelSNProvider).initialize();
 
   @override
   Widget build(BuildContext context) =>
@@ -75,26 +64,24 @@ class _ContentListView extends HookWidget {
     int itemCount = items.length;
     if (showLoadingIndicator) itemCount++;
 
-    final listView = MsgNtfListener(
-      child: ListView.builder(
-        controller: sc,
-        padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
-        itemBuilder: (context, i) {
-          if (showLoadingIndicator && i == itemCount - 1)
-            return const CenterCircleProgress();
-          else {
-            final program = items[i].program as BaseProgram; //todo why cast?
-            return MovieListItem(
-              program: program,
-              onTap: () async => context
-                  .read(appRouterProvider)
-                  .delegate
-                  .pushPage(GlobalRoutePath.program(program.id)),
-            );
-          }
-        },
-        itemCount: itemCount,
-      ),
+    final listView = ListView.builder(
+      controller: sc,
+      padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
+      itemBuilder: (context, i) {
+        if (showLoadingIndicator && i == itemCount - 1)
+          return const CenterCircleProgress();
+        else {
+          final program = items[i].program as BaseProgram; //todo why cast?
+          return MovieListItem(
+            program: program,
+            onTap: () async => context
+                .read(appRouterProvider)
+                .delegate
+                .pushPage(GlobalRoutePath.program(program.id)),
+          );
+        }
+      },
+      itemCount: itemCount,
     );
 
     //todo must debug

@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -22,39 +21,26 @@ import 'package:shirasu/viewmodel/viewmodel_channel.dart';
 final _channelProvider = StateNotifierProvider.autoDispose
     .family<ViewModelChannel, String>((_, id) => ViewModelChannel(id));
 
-class ScreenChannel extends StatefulHookWidget {
-  const ScreenChannel({Key key, @required this.channelId}) : super(key: key);
+class ScreenChannel extends HookWidget {
 
-  final String channelId;
-
-  @override
-  _ScreenChannelState createState() => _ScreenChannelState(channelId);
-}
-
-class _ScreenChannelState extends State<ScreenChannel>
-    with AfterLayoutMixin<ScreenChannel> {
-  _ScreenChannelState(this._channelId)
-      : _headerUrl = UrlUtil.getChannelHeaderUrl(_channelId),
-        _logoUrl = UrlUtil.getChannelLogoUrl(_channelId);
+  ScreenChannel({Key key, @required this.channelId})
+      :
+        _headerUrl = UrlUtil.getChannelHeaderUrl(channelId),
+        _logoUrl = UrlUtil.getChannelLogoUrl(channelId),
+        super(key: key);
 
   static const double _CHANNEL_LOGO_SIZE = 32;
   static const _BILLING_PROMO_CHANNEL = '月額6600円で購読';
 
-  final String _channelId;
+  final String channelId;
   final String _headerUrl;
   final String _logoUrl;
-
-  int _tabIndex = 0;
-
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(_channelProvider(_channelId)).initialize();
 
   @override
   Widget build(BuildContext context) =>
       SafeArea(
         child: Scaffold(
-          body: useProvider(_channelProvider(_channelId).state).when(
+          body: useProvider(_channelProvider(channelId).state).when(
             preInitialized: () => const CenterCircleProgress(),
             loading: () => const CenterCircleProgress(),
             error: () => const PageError(),
@@ -63,8 +49,13 @@ class _ScreenChannelState extends State<ScreenChannel>
                   .announcements.items.isEmpty;
               final initialLength = isAnnouncementEmpty ? 2 : 3;
               final tabController = useTabController(
-                  initialLength: initialLength, initialIndex: _tabIndex);
-              tabController.addListener(() => _tabIndex = tabController.index);
+                  initialLength: initialLength,
+                  initialIndex: useProvider(_channelProvider(channelId))
+                      .tabIndex);
+              tabController.addListener(() =>
+              context
+                  .read(_channelProvider(channelId))
+                  .tabIndex = tabController.index);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

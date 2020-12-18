@@ -1,4 +1,4 @@
-import 'package:after_layout/after_layout.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -11,47 +11,44 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard_expaned.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard_haeder.dart';
 import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/screen_main/page_dashboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
-import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
-final _viewModelSProvider =
-    StateNotifierProvider.autoDispose<ViewModelDashBoard>((_) => ViewModelDashBoard());
+/// todo rename
+final dashboardViewModelSProvider =
+    ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
+        (ref) => ViewModelDashBoard(ref));
 
-class PageDashboardInMainScreen extends StatefulHookWidget {
+class PageDashboardInMainScreen extends HookWidget {
   const PageDashboardInMainScreen({Key key}) : super(key: key);
 
   @override
-  _PageDashboardInMainScreenState createState() =>
-      _PageDashboardInMainScreenState();
-}
-
-class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
-    with AfterLayoutMixin<PageDashboardInMainScreen> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(_viewModelSProvider).initialize();
-
-  @override
-  Widget build(BuildContext context) => useProvider(_viewModelSProvider.state)
-      .when(
+  Widget build(BuildContext context) => useProvider(
+              dashboardViewModelSProvider.select((viewModel) => viewModel.state.state))
+          .when(
         preInitialized: () => const CenterCircleProgress(),
-        error: () => const PageError(), //todo show error widget
-        loadingMore: (model) => _ListViewContent(
-          model: model,
+        error: () => const PageError(),
+        loadingMore: () => _ListViewContent(
+          model: useProvider(dashboardViewModelSProvider).state.apiData,
+          // we don't want to rebuild
           showLoadingIndicator: true,
         ),
-        success: (model) => _ListViewContent(
-          model: model,
-          showLoadingIndicator: model.newProgramsDataList?.isNotEmpty == true &&
-              model.newProgramsDataList?.last?.newPrograms?.nextToken == null,
-        ),
+        success: () {
+          final model = useProvider(dashboardViewModelSProvider).state.apiData;
+          return _ListViewContent(
+            model: model, // we don't want to rebuild,
+            showLoadingIndicator: model.newProgramsDataList?.isNotEmpty ==
+                    true &&
+                model.newProgramsDataList?.last?.newPrograms?.nextToken == null,
+          );
+        },
       );
 }
 
@@ -62,7 +59,7 @@ class _ListViewContent extends HookWidget {
   });
 
   static const _COLUMN_COUNT = 2;
-  final DashboardModel model;
+  final ApiData model;
   final bool showLoadingIndicator;
 
   @override
@@ -72,9 +69,8 @@ class _ListViewContent extends HookWidget {
 
     int itemCount = 0;
 
-    if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
-      itemCount = featurePrgData.nowBroadcastings.items.length + 1;
-    final nowBroadcastingsLast = itemCount;
+    final anyNowBroadcastings = featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
+    final nowBroadcastingsLast = anyNowBroadcastings ? 1 : 0;
 
     if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
       itemCount += featurePrgData.comingBroadcastings.items.length + 1;
@@ -92,128 +88,115 @@ class _ListViewContent extends HookWidget {
     if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
     final controller = useScrollController();
+    controller.addListener(() => context
+        .read(dashboardViewModelSProvider)
+        .updateScrollOffset(controller.offset));
 
     return LayoutBuilder(
-      builder: (context, constraints) => NotificationListener<ScrollNotification>(
-          onNotification: (notification) {
-            //todo fix; remove Dimens.CIRCULAR_HEIGHT
-            if (showLoadingIndicator &&
-                notification is UserScrollNotification &&
-                notification.direction == ScrollDirection.forward &&
-                controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
-                    controller.offset) {
-              context.read(_viewModelSProvider).loadMoreNewPrg();
-              return true;
-            }
+      builder: (context, constraints) =>
+          NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          //todo fix; remove Dimens.CIRCULAR_HEIGHT
+          if (showLoadingIndicator &&
+              notification is UserScrollNotification &&
+              notification.direction == ScrollDirection.forward &&
+              controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
+                  controller.offset) {
+            context.read(dashboardViewModelSProvider).loadMoreNewPrg();
+            return true;
+          }
 
-            return false;
-          },
-          // todo bug fix
-          child: MsgNtfListener(
-            child: ListView.builder(
-                controller: controller,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
-                itemBuilder: (context, index) {
-                  if (index < nowBroadcastingsLast &&
-                      nowBroadcastingsLast != 0) {
-                    if (index == 0)
-                      return const Heading(text: Strings.HEADING_NOW_ON_AIR);
-                    else {
-                      final item =
-                          featurePrgData.nowBroadcastings.items[index - 1];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 48,
-                          top: 16,
-                        ),
-                        child: BillboardExpanded(
-                          isLive: true,
-                          item: item,
-                          onTap: () async => context
-                              .read(appRouterProvider)
-                              .delegate
-                              .pushPage(GlobalRoutePath.program(item.id)),
-                        ),
-                      );
-                    }
-                  } else if (index < comingBroadcastingsLast &&
-                      nowBroadcastingsLast != comingBroadcastingsLast) {
-                    final i = index - nowBroadcastingsLast;
+          return false;
+        },
+        // todo bug fix
+        child: ListView.builder(
+            controller: controller,
+            padding: const EdgeInsets.only(bottom: 16),
+            itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
+            itemBuilder: (context, index) {
+              if (index == 0 && anyNowBroadcastings) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 48),
+                  child: BillboardHeader(
+                    items: featurePrgData.nowBroadcastings.items,
+                    height:
+                        BillboardHeader.getExpandedHeight(constraints.maxWidth, 1 < featurePrgData.nowBroadcastings.items.length),
+                  ),
+                );
+              } else if (index < comingBroadcastingsLast &&
+                  nowBroadcastingsLast != comingBroadcastingsLast) {
+                final i = index - nowBroadcastingsLast;
 
-                    if (i == 0)
-                      return const Heading(text: Strings.HEADING_UPCOMING);
-                    else {
-                      final item =
-                          featurePrgData.comingBroadcastings.items[i - 1];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 48,
-                          top: 16,
-                        ),
-                        child: BillboardExpanded(
-                          isLive: false,
-                          item: item,
-                          onTap: () async => context
-                              .read(appRouterProvider)
-                              .delegate
-                              .pushPage(GlobalRoutePath.program(item.id)),
-                        ),
-                      );
-                    }
-                  } else if (index < subscribingLast &&
-                      comingBroadcastingsLast != subscribingLast) {
-                    final i = index - comingBroadcastingsLast;
-
-                    return i == 0
-                        ? const Heading(text: Strings.HEADING_SUBSCRIBING)
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 16, bottom: 32),
-                            child: HorizontalCarousels(
-                              list:
-                                  featurePrgData.viewerUser.subscribedPrograms,
-                              columnCount: _COLUMN_COUNT,
-                              maxWidth: constraints.maxWidth,
-                              onTap: (item) async => context
-                                  .read(appRouterProvider)
-                                  .delegate
-                                  .pushPage(GlobalRoutePath.program(item.id)),
-                            ),
-                          );
-                  } else if (index < channelsLast &&
-                      subscribingLast != channelsLast) {
-                    final i = index - subscribingLast;
-
-                    return i == 0
-                        ? const Heading(text: Strings.HEADING_CHANNEL)
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 16, bottom: 32),
-                            child: ChannelListItem(
-                              channels: featurePrgData.channels,
-                            ),
-                          );
-                  } else if (index < itemCount || !showLoadingIndicator) {
-                    final i = index - channelsLast;
-
-                    if (i == 0)
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Heading(text: Strings.HEADING_NEW_PRG),
-                      );
-
-                    final item = newPrgData[i - 1] as BaseProgram;
-                    return MovieListItem(
-                      program: item,
+                if (i == 0)
+                  return const Heading(text: Strings.HEADING_UPCOMING);
+                else {
+                  final item = featurePrgData.comingBroadcastings.items[i - 1];
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 48,
+                      top: 16,
+                    ),
+                    child: BillboardExpanded(
+                      isLive: false,
+                      item: item,
                       onTap: () async => context
                           .read(appRouterProvider)
                           .delegate
                           .pushPage(GlobalRoutePath.program(item.id)),
-                    );
-                  } else
-                    return const CenterCircleProgress();
-                }),
-          ),
-        ),
+                    ),
+                  );
+                }
+              } else if (index < subscribingLast &&
+                  comingBroadcastingsLast != subscribingLast) {
+                final i = index - comingBroadcastingsLast;
+
+                return i == 0
+                    ? const Heading(text: Strings.HEADING_SUBSCRIBING)
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 16, bottom: 32),
+                        child: HorizontalCarousels(
+                          list: featurePrgData.viewerUser.subscribedPrograms,
+                          columnCount: _COLUMN_COUNT,
+                          maxWidth: constraints.maxWidth,
+                          onTap: (item) async => context
+                              .read(appRouterProvider)
+                              .delegate
+                              .pushPage(GlobalRoutePath.program(item.id)),
+                        ),
+                      );
+              } else if (index < channelsLast &&
+                  subscribingLast != channelsLast) {
+                final i = index - subscribingLast;
+
+                return i == 0
+                    ? const Heading(text: Strings.HEADING_CHANNEL)
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 16, bottom: 32),
+                        child: ChannelListItem(
+                          channels: featurePrgData.channels,
+                        ),
+                      );
+              } else if (index < itemCount || !showLoadingIndicator) {
+                final i = index - channelsLast;
+
+                if (i == 0)
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Heading(text: Strings.HEADING_NEW_PRG),
+                  );
+
+                final item = newPrgData[i - 1] as BaseProgram;
+                return MovieListItem(
+                  program: item,
+                  onTap: () async => context
+                      .read(appRouterProvider)
+                      .delegate
+                      .pushPage(GlobalRoutePath.program(item.id)),
+                );
+              } else
+                return const CenterCircleProgress();
+            }),
+      ),
     );
   }
 }

@@ -24,9 +24,11 @@ class _$DetailModelStateTearOff {
   }
 
 // ignore: unused_element
-  StateSuccess success(ProgramDetailData data) {
+  StateSuccess success(
+      ProgramDetailData programDetailData, ChannelData channelData) {
     return StateSuccess(
-      data,
+      programDetailData,
+      channelData,
     );
   }
 
@@ -46,14 +48,17 @@ mixin _$DetailModelState {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(ProgramDetailData data),
+    @required
+        TResult success(
+            ProgramDetailData programDetailData, ChannelData channelData),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(ProgramDetailData data),
+    TResult success(
+        ProgramDetailData programDetailData, ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
   });
@@ -132,7 +137,9 @@ class _$PreInitialized implements PreInitialized {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(ProgramDetailData data),
+    @required
+        TResult success(
+            ProgramDetailData programDetailData, ChannelData channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -147,7 +154,8 @@ class _$PreInitialized implements PreInitialized {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(ProgramDetailData data),
+    TResult success(
+        ProgramDetailData programDetailData, ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -235,7 +243,9 @@ class _$StateLoading implements StateLoading {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(ProgramDetailData data),
+    @required
+        TResult success(
+            ProgramDetailData programDetailData, ChannelData channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -250,7 +260,8 @@ class _$StateLoading implements StateLoading {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(ProgramDetailData data),
+    TResult success(
+        ProgramDetailData programDetailData, ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -302,9 +313,10 @@ abstract class $StateSuccessCopyWith<$Res> {
   factory $StateSuccessCopyWith(
           StateSuccess value, $Res Function(StateSuccess) then) =
       _$StateSuccessCopyWithImpl<$Res>;
-  $Res call({ProgramDetailData data});
+  $Res call({ProgramDetailData programDetailData, ChannelData channelData});
 
-  $ProgramDetailDataCopyWith<$Res> get data;
+  $ProgramDetailDataCopyWith<$Res> get programDetailData;
+  $ChannelDataCopyWith<$Res> get channelData;
 }
 
 /// @nodoc
@@ -320,47 +332,71 @@ class _$StateSuccessCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object data = freezed,
+    Object programDetailData = freezed,
+    Object channelData = freezed,
   }) {
     return _then(StateSuccess(
-      data == freezed ? _value.data : data as ProgramDetailData,
+      programDetailData == freezed
+          ? _value.programDetailData
+          : programDetailData as ProgramDetailData,
+      channelData == freezed ? _value.channelData : channelData as ChannelData,
     ));
   }
 
   @override
-  $ProgramDetailDataCopyWith<$Res> get data {
-    if (_value.data == null) {
+  $ProgramDetailDataCopyWith<$Res> get programDetailData {
+    if (_value.programDetailData == null) {
       return null;
     }
-    return $ProgramDetailDataCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value));
+    return $ProgramDetailDataCopyWith<$Res>(_value.programDetailData, (value) {
+      return _then(_value.copyWith(programDetailData: value));
+    });
+  }
+
+  @override
+  $ChannelDataCopyWith<$Res> get channelData {
+    if (_value.channelData == null) {
+      return null;
+    }
+    return $ChannelDataCopyWith<$Res>(_value.channelData, (value) {
+      return _then(_value.copyWith(channelData: value));
     });
   }
 }
 
 /// @nodoc
 class _$StateSuccess implements StateSuccess {
-  const _$StateSuccess(this.data) : assert(data != null);
+  const _$StateSuccess(this.programDetailData, this.channelData)
+      : assert(programDetailData != null),
+        assert(channelData != null);
 
   @override
-  final ProgramDetailData data;
+  final ProgramDetailData programDetailData;
+  @override
+  final ChannelData channelData;
 
   @override
   String toString() {
-    return 'DetailModelState.success(data: $data)';
+    return 'DetailModelState.success(programDetailData: $programDetailData, channelData: $channelData)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is StateSuccess &&
-            (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)));
+            (identical(other.programDetailData, programDetailData) ||
+                const DeepCollectionEquality()
+                    .equals(other.programDetailData, programDetailData)) &&
+            (identical(other.channelData, channelData) ||
+                const DeepCollectionEquality()
+                    .equals(other.channelData, channelData)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(programDetailData) ^
+      const DeepCollectionEquality().hash(channelData);
 
   @override
   $StateSuccessCopyWith<StateSuccess> get copyWith =>
@@ -371,14 +407,16 @@ class _$StateSuccess implements StateSuccess {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(ProgramDetailData data),
+    @required
+        TResult success(
+            ProgramDetailData programDetailData, ChannelData channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
     assert(success != null);
     assert(error != null);
-    return success(data);
+    return success(programDetailData, channelData);
   }
 
   @override
@@ -386,13 +424,14 @@ class _$StateSuccess implements StateSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(ProgramDetailData data),
+    TResult success(
+        ProgramDetailData programDetailData, ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
-      return success(data);
+      return success(programDetailData, channelData);
     }
     return orElse();
   }
@@ -430,9 +469,12 @@ class _$StateSuccess implements StateSuccess {
 }
 
 abstract class StateSuccess implements DetailModelState {
-  const factory StateSuccess(ProgramDetailData data) = _$StateSuccess;
+  const factory StateSuccess(
+          ProgramDetailData programDetailData, ChannelData channelData) =
+      _$StateSuccess;
 
-  ProgramDetailData get data;
+  ProgramDetailData get programDetailData;
+  ChannelData get channelData;
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
 
@@ -476,7 +518,9 @@ class _$StateError implements StateError {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(ProgramDetailData data),
+    @required
+        TResult success(
+            ProgramDetailData programDetailData, ChannelData channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -491,7 +535,8 @@ class _$StateError implements StateError {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(ProgramDetailData data),
+    TResult success(
+        ProgramDetailData programDetailData, ChannelData channelData),
     TResult error(),
     @required TResult orElse(),
   }) {

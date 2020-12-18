@@ -86,7 +86,7 @@ abstract class InvoiceHistory with _$InvoiceHistory {
 }
 
 @freezed
-abstract class InvoiceHistoryItem with _$InvoiceHistoryItem {
+abstract class InvoiceHistoryItem implements _$InvoiceHistoryItem {
   @Implements(BaseInvoice)
   const factory InvoiceHistoryItem({
     @required String id,
@@ -102,8 +102,12 @@ abstract class InvoiceHistoryItem with _$InvoiceHistoryItem {
         String typename,
   }) = _InvoiceHistoryItem;
 
+  const InvoiceHistoryItem._();
+
   factory InvoiceHistoryItem.fromJson(Map<String, dynamic> json) =>
       _$InvoiceHistoryItemFromJson(json);
+
+  String get currencyAsSuffix => CurrencyUtil.currencyAsSuffix(currency);
 }
 
 @freezed

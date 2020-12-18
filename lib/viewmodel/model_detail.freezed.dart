@@ -118,10 +118,11 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_ModelDetail implements _ModelDetail {
+class _$_ModelDetail extends _ModelDetail {
   const _$_ModelDetail(this.prgDataResult, this.playOutState)
       : assert(prgDataResult != null),
-        assert(playOutState != null);
+        assert(playOutState != null),
+        super._();
 
   @override
   final DetailModelState prgDataResult;
@@ -156,7 +157,8 @@ class _$_ModelDetail implements _ModelDetail {
       __$ModelDetailCopyWithImpl<_ModelDetail>(this, _$identity);
 }
 
-abstract class _ModelDetail implements ModelDetail {
+abstract class _ModelDetail extends ModelDetail {
+  const _ModelDetail._() : super._();
   const factory _ModelDetail(
           DetailModelState prgDataResult, PlayOutState playOutState) =
       _$_ModelDetail;

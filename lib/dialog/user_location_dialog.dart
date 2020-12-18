@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -20,21 +19,9 @@ class MsgUserLocation {
   final String prefectureCode;
 }
 
-class UserLocationDialog extends StatefulHookWidget {
+class UserLocationDialog extends HookWidget {
+
   const UserLocationDialog();
-
-  static Future<MsgUserLocation> show(BuildContext context) async => showDialog(
-      context: context, builder: (context) => const UserLocationDialog());
-
-  @override
-  _UserLocationDialogState createState() => _UserLocationDialogState();
-}
-
-class _UserLocationDialogState extends State<UserLocationDialog>
-    with AfterLayoutMixin<UserLocationDialog> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(_viewModelProvider).initialize();
 
   @override
   Widget build(BuildContext context) => AlertDialog(
@@ -59,6 +46,9 @@ class _UserLocationDialogState extends State<UserLocationDialog>
           ),
         ],
       );
+
+  static Future<MsgUserLocation> show(BuildContext context) async => showDialog(
+      context: context, builder: (context) => const UserLocationDialog());
 }
 
 class _UserLocationDialogContent extends HookWidget {

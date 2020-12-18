@@ -1,36 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_playout/player_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
-import 'package:shirasu/model/dashboard_model.dart';
+import 'package:shirasu/di/hive_client.dart';
+import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model_detail.dart';
+import 'package:shirasu/extension.dart';
 
 part 'viewmodel_detail.freezed.dart';
 
-class ViewModelDetail extends ViewModelBase<ModelDetail> with LocatorMixin {
-  ViewModelDetail(this.id) : super(ModelDetail.initial());
+class ViewModelDetail extends ViewModelBase<ModelDetail> {
+  ViewModelDetail(this.id)
+      : channelId = UrlUtil.programId2channelId(id),
+        super(ModelDetail.initial());
 
   final _apiClient = ApiClient(Client());
   final _dioClient = DioClient();
   final String id;
+  final String channelId;
 
   @override
   Future<void> initialize() async {
     if (state.prgDataResult is StateSuccess) return;
 
-    // DetailModelState state;
     state = state.copyWith(prgDataResult: const DetailModelState.loading());
     ModelDetail newState;
     try {
-      final result = await _apiClient.queryProgramDetail(id);
-      newState = state.copyWith(prgDataResult: DetailModelState.success(result));
+      final data = await Util.wait2<ProgramDetailData, ChannelData>(
+          () async => _apiClient.queryProgramDetail(id),
+          () async => _apiClient.queryChannelData(channelId));
+
+      newState = state.copyWith(
+          prgDataResult: DetailModelState.success(data.item1, data.item2));
     } catch (e) {
       print(e);
       newState = state.copyWith(prgDataResult: const DetailModelState.error());
@@ -41,47 +50,56 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> with LocatorMixin {
   DetailPrgItem _findAvailableVideoData() {
     final v = state.prgDataResult;
     if (v is StateSuccess) {
-      final archivedAt = v.data.program.archivedAt;
+      final archivedAt = v.programDetailData.program.archivedAt;
 
       //todo shouldn't written in DetailProgramData?
       DetailPrgItem detailPrgItem;
       if (archivedAt?.isBefore(DateTime.now()) == true)
-        detailPrgItem = v.data.program.videos.items.firstWhere(
-            (it) => it.videoTypeStrict == VideoType.ARCHIVED,
-            orElse: () => null);//todo create extension
+        detailPrgItem =
+            v.programDetailData.program.videos.items.firstWhereOrNull(
+          (it) => it.videoTypeStrict == VideoType.ARCHIVED,
+        );
 
-      detailPrgItem ??= v.data.program.videos.items.firstWhere(
-          (it) =>
-              it.videoTypeStrict == VideoType.LIVE &&
-              it.mediaStatusStrict != MediaStatus.ENDED,
-          orElse: () => null);
+      detailPrgItem ??=
+          v.programDetailData.program.videos.items.firstWhereOrNull(
+        (it) =>
+            it.videoTypeStrict == VideoType.LIVE &&
+            it.mediaStatusStrict != MediaStatus.ENDED,
+      );
 
       return detailPrgItem;
     } else
       return null;
   }
 
-  Future<void> playVideo() async {
-    final prg = _findAvailableVideoData();
+  DetailPrgItem _findPreviewArchivedVideoData() {
+    final v = state.prgDataResult;
+    if (v is StateSuccess)
+      //todo shouldn't written in DetailProgramData?
+      return v.programDetailData.program.videos.items.firstWhereOrNull(
+        (it) => it.videoTypeStrict == VideoType.ARCHIVED && it.isFree,
+      );
+    else
+      return null;
+  }
+
+  Future<void> playVideo(bool preview) async {
+    final prg = preview ? _findPreviewArchivedVideoData() : _findAvailableVideoData();
     if (prg == null) return; // todo handle error
 
-    state = state.copyWith(playOutState: PlayOutState.initialize(prg.urlAvailable, prg.videoTypeStrict));
+    state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
     String cookie;
     try {
-      cookie = await _dioClient.getSignedCookie(
-          prg.id, prg.videoTypeStrict, ApiClient.DUMMY_AUTH);
+      cookie = await _dioClient.getSignedCookie(prg.id, prg.videoTypeStrict,
+          HiveAuthClient.instance().authData.body.idToken);
       debugPrint(cookie);
     } catch (e) {
-      print(e);
+      print(e); //todo handle error
     }
 
-    if (cookie == null)
-      return;
-
-    final playOutState = PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict, cookie);
-    final newState = state.copyWith(playOutState: playOutState);
-    setState(newState);
+    if (cookie != null)
+      setState(state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie));
   }
 }
 
@@ -91,7 +109,9 @@ abstract class DetailModelState with _$DetailModelState {
 
   const factory DetailModelState.loading() = StateLoading;
 
-  const factory DetailModelState.success(ProgramDetailData data) = StateSuccess;
+  const factory DetailModelState.success(
+          ProgramDetailData programDetailData, ChannelData channelData) =
+      StateSuccess;
 
   const factory DetailModelState.error() = StateError;
 }

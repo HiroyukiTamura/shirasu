@@ -115,7 +115,7 @@ abstract class ProgramsItem with _$ProgramsItem {
 }
 
 @freezed
-abstract class SubscriptionPlan with _$SubscriptionPlan {
+abstract class SubscriptionPlan implements _$SubscriptionPlan {
   @Implements(BaseSubscriptionPlan)
   const factory SubscriptionPlan({
     @required String id,
@@ -129,8 +129,14 @@ abstract class SubscriptionPlan with _$SubscriptionPlan {
     PurchasedPlan viewerPurchasedPlan, // null => not purchased
   }) = _SubscriptionPlan;
 
+  const SubscriptionPlan._();
+
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionPlanFromJson(json);
+
+  String get currencyAsSuffix => CurrencyUtil.currencyAsSuffix(currency);
+
+  int get amountWithTax => CurrencyUtil.amountWithTax(currency, amount);
 }
 
 @freezed

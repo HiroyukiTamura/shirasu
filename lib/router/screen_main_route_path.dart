@@ -17,6 +17,8 @@ class GlobalRoutePathBase {
     @required Result Function() dashboard,
     @required Result Function(SubscribingTabPage initialPage) subscribing,
     @required Result Function() setting,
+    @required Result Function() ossLicense,
+    @required Result Function() auth,
   }) {
     if (routePath is GlobalRoutePath)
       return routePath.when(
@@ -24,6 +26,8 @@ class GlobalRoutePathBase {
         error: error,
         channel: channel,
         program: program,
+        ossLicense: ossLicense,
+        auth: auth,
       );
     else if (routePath is PathDataMainPageBase)
       return routePath.when(
@@ -46,6 +50,10 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.channel(String channelId) = PathDataChannel;
 
   const factory GlobalRoutePath.program(String programId) = PathDataProgram;
+
+  const factory GlobalRoutePath.ossLicense() = PathDataOssLicense;
+
+  const factory GlobalRoutePath.auth() = PathDataAuth;
 
   factory GlobalRoutePath.buildProgram({
     @required String channelId,

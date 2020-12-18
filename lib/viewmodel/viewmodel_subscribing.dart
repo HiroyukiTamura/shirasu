@@ -3,10 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/model/watch_history_data.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:riverpod/src/framework.dart';
 
 part 'viewmodel_subscribing.freezed.dart';
 
@@ -36,12 +38,14 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
   }
 }
 
-class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> with LocatorMixin {
+class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
 
-  ViewModelWatchHistory() : super(const StatePreInitialized());
+  ViewModelWatchHistory(this._ref) : super(const StatePreInitialized());
 
+  final AutoDisposeProviderReference _ref;
   final _apiClient = ApiClient(Client());
-  SnackBarMessageNotifier get _msgNotifier => read<SnackBarMessageNotifier>();
+
+  SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 
   @override
   Future<void> initialize() async {
@@ -54,10 +58,10 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> with Locato
 
     try {
       final data = await _apiClient.queryWatchHistory();
-      state = StateSuccess([data]);
+      newState = state = StateSuccess([data]);
     } catch (e) {
       print(e);
-      state = const StateError();
+      newState = state = const StateError();
     }
 
     setState(newState);

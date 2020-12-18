@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -11,6 +12,11 @@ class ListTileInvoiceHistory extends StatelessWidget {
   const ListTileInvoiceHistory({Key key, @required this.invoiceHistoryItem}) : super(key: key);
 
   final InvoiceHistoryItem invoiceHistoryItem;
+
+  String get _paymentText {
+    final planTypeStr = Strings.planType2Str(invoiceHistoryItem.planType);
+    return '${invoiceHistoryItem.total}${invoiceHistoryItem.currencyAsSuffix} $planTypeStr';
+  }
 
   @override
   Widget build(BuildContext context) => ListTile(
@@ -36,14 +42,8 @@ class ListTileInvoiceHistory extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        _paymentText(),
+        _paymentText,
         style: TextStyles.SETTING_SUBTITLE,
       ),
     );
-
-  String _paymentText() {
-    final currencyStr = Strings.currency2Str(invoiceHistoryItem.currency);
-    final planTypeStr = Strings.planType2Str(invoiceHistoryItem.planType);
-    return '${invoiceHistoryItem.total}$currencyStr $planTypeStr';
-  }
 }

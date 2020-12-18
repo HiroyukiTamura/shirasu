@@ -1,9 +1,7 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/dialog/user_location_dialog.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/viewer.dart';
@@ -11,6 +9,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_setting/app_config/page_app_config.dart';
 import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_birthdate.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_job.dart';
@@ -23,29 +22,31 @@ import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_subscribed_channel.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_top.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/material_tab_view.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/viewmodel/model_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
-import 'package:shirasu/extension.dart';
 
 final settingViewModelSProvider =
     StateNotifierProvider.autoDispose<ViewModelSetting>(
-        (_) => ViewModelSetting());
+        (ref) => ViewModelSetting(ref));
 
-class PageSettingInMainScreen extends StatefulHookWidget {
+class PageSettingInMainScreen extends StatelessWidget {
   const PageSettingInMainScreen({Key key}) : super(key: key);
 
   @override
-  PageSettingInMainScreenState createState() => PageSettingInMainScreenState();
+  Widget build(BuildContext context) => MaterialTabView(
+        tabs: const [
+          Tab(text: Strings.TAB_USER_INFO),
+          Tab(text: Strings.TAB_APP_CONFIG)
+        ],
+        pages: const [PageUserInfo(), PageAppConfig()],
+      );
 }
 
-class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
-    with AfterLayoutMixin<PageSettingInMainScreen> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(settingViewModelSProvider).initialize();
+class PageUserInfo extends HookWidget {
+  const PageUserInfo({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
@@ -81,8 +82,8 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
             if (i <= threshHolds.threshold) {
               switch (i - threshHolds.preThreshHold - 1) {
                 case 0:
-                  return const ListTileSeem(
-                    paddingTop: false,
+                  return ListTileSeem(
+                    paddingTop: data.viewer.paymentMethods.isNotEmpty,
                     paddingBtm: true,
                   );
                 case 1:

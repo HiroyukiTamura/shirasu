@@ -17,13 +17,13 @@ abstract class AuthData with _$AuthData {
 @freezed
 abstract class Body with _$Body {
   const factory Body({
-    @required String clientId,
-    @required String accessToken,
-    @required String refreshToken,
-    @required String idToken,
+    @JsonKey(name: 'client_id') @required String clientId,
+    @JsonKey(name: 'access_token') @required String accessToken,
+    @JsonKey(name: 'refresh_token') @required String refreshToken,
+    @JsonKey(name: 'id_token') @required String idToken,
     @required String scope,
-    @required int expiresIn,
-    @required String tokenType,
+    @JsonKey(name: 'expires_in') @required int expiresIn,
+    @JsonKey(name: 'token_type') @required String tokenType,
     @required DecodedToken decodedToken,
     @required String audience,
   }) = _Body;
@@ -48,27 +48,27 @@ abstract class DecodedToken with _$DecodedToken {
 @freezed
 abstract class Claims with _$Claims {
   const factory Claims({
-    @required String raw,
-    @required List<String> httpsShirasuIoRoles,
-    @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-    @required String httpsShirasuIoCustomerId,
-    @required List<dynamic> httpsShirasuIoDistributeds,
-    @required List<dynamic> httpsShirasuIoTenants,
-    @required String givenName,
-    @required String familyName,
+    @JsonKey(name: '__raw') @required String raw,
+    @JsonKey(name: 'https://shirasu.io/roles') @required List<String> httpsShirasuIoRoles,
+    @JsonKey(name: 'https://shirasu.io/userAttribute') @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+    @JsonKey(name: 'https://shirasu.io/customerId') @required String httpsShirasuIoCustomerId,
+    @JsonKey(name: 'https://shirasu.io/distributeds') @required List<dynamic> httpsShirasuIoDistributeds,
+    @JsonKey(name: 'https://shirasu.io/tenants') @required List<dynamic> httpsShirasuIoTenants,
+    // @JsonKey(name: 'given_name') @required String givenName,
+    // @JsonKey(name: 'family_name') @required String familyName,
     @required String nickname,
     @required String name,
     @required String picture,
-    @required String locale,
-    @required DateTime updatedAt,
+    // @required String locale,
+    @JsonKey(name: 'updated_at') @required DateTime updatedAt,
     @required String email,
-    @required bool emailVerified,
+    @JsonKey(name: 'email_verified') @required bool emailVerified,
     @required String iss,
     @required String sub,
     @required String aud,
     @required int iat,
     @required int exp,
-    @required String nonce,
+    // @required String nonce,
   }) = _Claims;
 
   factory Claims.fromJson(Map<String, dynamic> json) =>
@@ -123,20 +123,20 @@ abstract class Header with _$Header {
 @freezed
 abstract class User with _$User {
   const factory User({
-    @required List<String> httpsShirasuIoRoles,
-    @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-    @required String httpsShirasuIoCustomerId,
-    @required List<dynamic> httpsShirasuIoDistributeds,
-    @required List<dynamic> httpsShirasuIoTenants,
-    @required String givenName,
-    @required String familyName,
+    @JsonKey(name: 'https://shirasu.io/roles') @required List<String> httpsShirasuIoRoles,
+    @JsonKey(name: 'https://shirasu.io/userAttribute') @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+    @JsonKey(name: 'https://shirasu.io/customerId') @required String httpsShirasuIoCustomerId,
+    @JsonKey(name: 'https://shirasu.io/distributeds') @required List<dynamic> httpsShirasuIoDistributeds,
+    @JsonKey(name: 'https://shirasu.io/tenants') @required List<dynamic> httpsShirasuIoTenants,
+    // @JsonKey(name: 'given_name') @required String givenName,
+    // @JsonKey(name: 'family_name') @required String familyName,
     @required String nickname,
     @required String name,
     @required String picture,
-    @required String locale,
-    @required DateTime updatedAt,
+    // @required String locale,
+    @JsonKey(name: 'updated_at') @required DateTime updatedAt,
     @required String email,
-    @required bool emailVerified,
+    @JsonKey(name: 'email_verified') @required bool emailVerified,
     @required String sub,
   }) = _User;
 

@@ -14,7 +14,7 @@ final _locationTextProvider =
 
 class ListTileLocation extends HookWidget {
   @override
-  Widget build(BuildContext context) => PageSettingInMainScreenState.listItem(
+  Widget build(BuildContext context) => PageUserInfo.listItem(
         title: Strings.PLACE_LABEL,
         subTitle: useProvider(_locationTextProvider.state),
         onTap: () async {

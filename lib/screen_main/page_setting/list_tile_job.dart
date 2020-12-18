@@ -16,7 +16,7 @@ class ListTileJob extends HookWidget {
                 .jobCode ??
             ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.job;
 
-    return PageSettingInMainScreenState.listItem(
+    return PageUserInfo.listItem(
         title: Strings.JOB_LABEL,
         subTitle: Strings.JOB_MAP[job] ?? Strings.DEFAULT_EMPTY,
         onTap: () async {

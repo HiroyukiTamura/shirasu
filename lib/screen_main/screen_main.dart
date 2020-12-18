@@ -7,9 +7,10 @@ import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 
-
-final screenMainScaffoldProvider = Provider<GlobalKey<ScaffoldState>>((_) => GlobalKey<ScaffoldState>());
+final screenMainScaffoldProvider =
+    Provider<GlobalKey<ScaffoldState>>((_) => GlobalKey<ScaffoldState>());
 
 class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({Key key, @required this.appState})
@@ -56,11 +57,15 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
       child: Scaffold(
         key: useProvider(screenMainScaffoldProvider),
         body: Scaffold(
-          body: Router(
-            routerDelegate: _routerDelegate,
-            backButtonDispatcher: _backButtonDispatcher,
+          body: MsgNtfListener(
+            child: Router(
+              routerDelegate: _routerDelegate,
+              backButtonDispatcher: _backButtonDispatcher,
+            ),
           ),
-          floatingActionButton: _Fab(delegate: _routerDelegate,),
+          floatingActionButton: _Fab(
+            delegate: _routerDelegate,
+          ),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white.withOpacity(.6),
@@ -96,24 +101,49 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   }
 }
 
-//todo refactor
+//todo listen current page
 class _Fab extends HookWidget {
   const _Fab({
     @required this.delegate,
     Key key,
   }) : super(key: key);
 
+  static const double _STROKE_WIDTH = 2;
+  /// @see `_kSizeConstraints` in `flutter/material/floating_action_button.dart`
+  static const double _FAB_SIZE = 56;
+  static const _FAB_WRAPPER_SIZE = Size.square(_STROKE_WIDTH + _FAB_SIZE);
+
   final ScreenMainRouterDelegate delegate;
 
   @override
   Widget build(BuildContext context) {
     final isEdited = useProvider(settingViewModelSProvider.state.select((it) => it.editedUserInfo.isEdited));
+    final isUploadingProfile = useProvider(settingViewModelSProvider.state.select((it) => it.uploadingProfile));
 
     return Visibility(
       visible: isEdited,
-      child: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.save),
+      child: SizedBox.fromSize(
+        size: _FAB_WRAPPER_SIZE,
+        child: Stack(
+          children: [
+            Visibility(
+              visible: isUploadingProfile,
+              child: const SizedBox.expand(
+                child: CircularProgressIndicator(
+                  strokeWidth: _STROKE_WIDTH,
+                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                ),
+              ),
+            ),
+            Center(
+              child: FloatingActionButton(
+                onPressed: isUploadingProfile ? null : () async =>
+                    context.read(settingViewModelSProvider).postProfile(),
+                child: const Icon(Icons.save),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

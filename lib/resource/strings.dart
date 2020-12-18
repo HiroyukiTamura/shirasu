@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 //todo remove type definition
 @immutable
 class Strings {
-
   const Strings._();
 
   //region Intro
@@ -33,7 +32,8 @@ class Strings {
   static const HEADING_NEW_PRG = '新着番組';
   static const HEADING_SUBSCRIBING = '購読中の番組';
   static const HEADING_CHANNEL = 'チャンネル';
-  static const HEADING_NOW_ON_AIR = 'ただいま放送中';
+  static const HEADING_NOW_ON_AIR = 'NOW ON AIR';
+
   //endregion
 
   //region contents description
@@ -44,7 +44,9 @@ class Strings {
 
   //region SnackBar
   static const String SNACK_NO_MORE_ITEM = 'アイテムは他にありません';
+
   static const String SNACK_ERR = '処理に失敗しました';
+  static const String SNACK_CANT_OPEN_URL = 'Webページを開けません';
 
   //endregion
 
@@ -63,15 +65,7 @@ class Strings {
 
 //endregion
 
-  //region about purchase
-  static String currency2Str(String currency) {
-    switch (currency.toUpperCase()) {
-      case 'JPY':
-        return '円';
-      default:
-        throw Exception('unexpected currency :: $currency');
-    }
-  }
+  static const String SUFFIX_YEN = '円';
 
   static String planType2Str(String planType) {
     switch (planType) {
@@ -89,7 +83,7 @@ class Strings {
 
   //region ScreenDetail
   static const String WAIT_FOR_START = '放送開始までお待ちください';
-  static const String PURCHASE_BTN_TEXT = 'この動画を購入する・チャンネルを購読する';
+  static const String PURCHASE_BTN_TEXT = 'この番組を視聴する';
   static const String PREVIEW_BTN_TEXT = '冒頭を無料で見る';
 
 //endregion
@@ -164,6 +158,10 @@ class Strings {
   /// ref: users.pages.UserAccount.components.UserAccountInformation.externalAuthentication
   static const String EXTERNAL_AUTHENTICATION = '外部サービスログイン連携';
 
+  /// ref: users.pages.Program.components.PlayerContainer.previewExistMessage
+  static const String PREVIEW_EXIST_MESSAGE =
+      '冒頭を無料で見ることができます。\n番組開始後に冒頭無料視聴をお選びください。';
+
   static const String CURRENT_PERIOD_END_AT_LABEL = '次回更新日';
   static const String SUBSCRIPTION_START_DATE = '購読開始日';
 
@@ -192,12 +190,32 @@ class Strings {
   static const String NO_ITEM_SUFFIX = 'はありません';
   static const String OPEN_WEB = 'WEBページを開く';
 
+  static const String TAB_USER_INFO = 'アカウント';
+  static const String TAB_APP_CONFIG = 'アプリ設定';
+
+  static const String ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
+
 //endregion
+
+  //region screen_auth
+  static const String APP_BAR_LOGIN = 'ログイン';
+
+  //endregion
 
 //region dialog
   static const String APP_BAR_LOCATION = '居住地域';
   static const String DIALOG_TITLE_LOCATION = '居住地域';
   static const String DIALOG_OK = 'OK';
   static const String DIALOG_CANCEL = 'キャンセル';
+
+//endregion
+
+//region bottom sheet
+  static const String BTM_SHEET_MSG_CREDIT_CARD = '決済に関わる重要な操作は本アプリでは対応していません。\n公式Webページ上で行ってください。';
+  static const String SUFFIX_PURCHASE_ONE_TIME = 'で番組を購入';
+  static const String SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL = 'でチャンネルを購読';
+  static const String BTM_SHEET_OR = 'または';
+  static const String BTM_SHEET_MSG_PAYMENT_PREFIX = 'この番組を視聴するには';
+  static const String BTM_SHEET_MSG_PAYMENT = 'する必要があります。なお、決済に関わる重要な操作は本アプリでは対応していません。公式Webページ上で行ってください。';
 //endregion
 }

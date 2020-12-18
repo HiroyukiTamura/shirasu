@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
@@ -17,51 +16,29 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:after_layout/after_layout.dart';
 
 final detailSNProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((_, id) => ViewModelDetail(id));
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
-class ScreenDetail extends StatefulWidget {
+class ScreenDetail extends HookWidget {
   const ScreenDetail({Key key, @required this.id}) : super(key: key);
 
   final String id;
 
   @override
-  _ScreenDetailState createState() => _ScreenDetailState(id);
-}
-
-class _ScreenDetailState extends State<ScreenDetail>
-    with AfterLayoutMixin<ScreenDetail> {
-  _ScreenDetailState(this._id);
-
-  final String _id;
-
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(detailSNProvider(_id)).initialize();
-
-  @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-          body: _PrgResultHookedWidget(id: _id),
+          body: useProvider(detailSNProvider(id)
+              .state
+              .select((it) => it.prgDataResult)).when(
+            loading: () => const CenterCircleProgress(),
+            preInitialized: () => const CenterCircleProgress(),
+            success: (programDetailData, channelData) => _ContentWidget(data: programDetailData),
+            error: () => const PageError(),
+          ),
         ),
-      );
-}
-
-class _PrgResultHookedWidget extends HookWidget {
-  const _PrgResultHookedWidget({@required this.id});
-
-  final String id;
-
-  @override
-  Widget build(BuildContext context) => useProvider(detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
-        loading: () => const CenterCircleProgress(),
-        preInitialized: () => const CenterCircleProgress(),
-        success: (data) => _ContentWidget(data: data),
-        error: () => const PageError(),
       );
 }
 
@@ -80,9 +57,12 @@ class _ContentWidget extends StatelessWidget {
               VideoHeader(
                 height: headerH,
                 programId: data.program.id,
-                onTap: () => context
+                onTap: () async => context
                     .read(detailSNProvider(data.program.id))
-                    .playVideo(), //todo don't context.read in onTap
+                    .playVideo(false),
+                onTapPreviewBtn: () async => context
+                      .read(detailSNProvider(data.program.id))
+                      .playVideo(true),
               ),
               SizedBox(
                 height: listViewH,
@@ -99,9 +79,8 @@ class _ContentWidget extends StatelessWidget {
                           return const SizedBox(height: 16);
                         case 2:
                           return RowChannel(
+                            channelId: data.program.channelId,
                             title: data.program.channel.name,
-                            imageUrl: UrlUtil.getChannelLogoUrl(
-                                data.program.channelId),
                           );
                         case 3:
                           return const SizedBox(height: 12);
@@ -120,29 +99,22 @@ class _ContentWidget extends StatelessWidget {
                           return RowVideoTags(textList: data.program.tags);
                         case 9:
                           return const SizedBox(height: 36);
-                        // case 10:
-                        //   return ContentCell(
-                        //     child: Row(
-                        //       children: [
-                        //         if (data.program.onetimePlans.any((element) => false))
-                        //         BillingBtnThin(text: data.program.totalPlayTime),
-                        //         SizedBox(width: 16),
-                        //         BillingBtnThin(text: BILLING_PROMO_CHANNEL_M),
-                        //       ],
-                        //     ),
-                        //   );
-                        // case 11:
-                        //   return SizedBox(height: 36);
                         case 10:
-                          return RowFabs(
-                            handouts: data.program.handouts,
+                          return Visibility(
+                            visible: false,
+                            child: RowFabs(
+                              handouts: data.program.handouts,
+                            ),
                           );
                         case 11:
-                          return const SizedBox(height: 36);
+                          return const Visibility(
+                            visible: false,
+                            child: SizedBox(height: 36),
+                          );
                         case 12:
                           return RowVideoDesc(text: data.program.detail);
                         default:
-                          return const SizedBox();
+                          return const SizedBox.shrink();
                       }
                     }),
               ),

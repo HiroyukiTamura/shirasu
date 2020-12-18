@@ -716,9 +716,12 @@ class _$SettingModelTearOff {
 
 // ignore: unused_element
   _SettingModel call(
-      SettingModelState settingModelState, EditedUserInfo editedUserInfo) {
+      @required SettingModelState settingModelState,
+      @required bool uploadingProfile,
+      @required EditedUserInfo editedUserInfo) {
     return _SettingModel(
       settingModelState,
+      uploadingProfile,
       editedUserInfo,
     );
   }
@@ -731,6 +734,7 @@ const $SettingModel = _$SettingModelTearOff();
 /// @nodoc
 mixin _$SettingModel {
   SettingModelState get settingModelState;
+  bool get uploadingProfile;
   EditedUserInfo get editedUserInfo;
 
   $SettingModelCopyWith<SettingModel> get copyWith;
@@ -742,7 +746,9 @@ abstract class $SettingModelCopyWith<$Res> {
           SettingModel value, $Res Function(SettingModel) then) =
       _$SettingModelCopyWithImpl<$Res>;
   $Res call(
-      {SettingModelState settingModelState, EditedUserInfo editedUserInfo});
+      {SettingModelState settingModelState,
+      bool uploadingProfile,
+      EditedUserInfo editedUserInfo});
 
   $SettingModelStateCopyWith<$Res> get settingModelState;
   $EditedUserInfoCopyWith<$Res> get editedUserInfo;
@@ -759,12 +765,16 @@ class _$SettingModelCopyWithImpl<$Res> implements $SettingModelCopyWith<$Res> {
   @override
   $Res call({
     Object settingModelState = freezed,
+    Object uploadingProfile = freezed,
     Object editedUserInfo = freezed,
   }) {
     return _then(_value.copyWith(
       settingModelState: settingModelState == freezed
           ? _value.settingModelState
           : settingModelState as SettingModelState,
+      uploadingProfile: uploadingProfile == freezed
+          ? _value.uploadingProfile
+          : uploadingProfile as bool,
       editedUserInfo: editedUserInfo == freezed
           ? _value.editedUserInfo
           : editedUserInfo as EditedUserInfo,
@@ -800,7 +810,9 @@ abstract class _$SettingModelCopyWith<$Res>
       __$SettingModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {SettingModelState settingModelState, EditedUserInfo editedUserInfo});
+      {SettingModelState settingModelState,
+      bool uploadingProfile,
+      EditedUserInfo editedUserInfo});
 
   @override
   $SettingModelStateCopyWith<$Res> get settingModelState;
@@ -821,12 +833,16 @@ class __$SettingModelCopyWithImpl<$Res> extends _$SettingModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object settingModelState = freezed,
+    Object uploadingProfile = freezed,
     Object editedUserInfo = freezed,
   }) {
     return _then(_SettingModel(
       settingModelState == freezed
           ? _value.settingModelState
           : settingModelState as SettingModelState,
+      uploadingProfile == freezed
+          ? _value.uploadingProfile
+          : uploadingProfile as bool,
       editedUserInfo == freezed
           ? _value.editedUserInfo
           : editedUserInfo as EditedUserInfo,
@@ -836,18 +852,22 @@ class __$SettingModelCopyWithImpl<$Res> extends _$SettingModelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SettingModel implements _SettingModel {
-  const _$_SettingModel(this.settingModelState, this.editedUserInfo)
+  const _$_SettingModel(@required this.settingModelState,
+      @required this.uploadingProfile, @required this.editedUserInfo)
       : assert(settingModelState != null),
+        assert(uploadingProfile != null),
         assert(editedUserInfo != null);
 
   @override
   final SettingModelState settingModelState;
   @override
+  final bool uploadingProfile;
+  @override
   final EditedUserInfo editedUserInfo;
 
   @override
   String toString() {
-    return 'SettingModel(settingModelState: $settingModelState, editedUserInfo: $editedUserInfo)';
+    return 'SettingModel(settingModelState: $settingModelState, uploadingProfile: $uploadingProfile, editedUserInfo: $editedUserInfo)';
   }
 
   @override
@@ -857,6 +877,9 @@ class _$_SettingModel implements _SettingModel {
             (identical(other.settingModelState, settingModelState) ||
                 const DeepCollectionEquality()
                     .equals(other.settingModelState, settingModelState)) &&
+            (identical(other.uploadingProfile, uploadingProfile) ||
+                const DeepCollectionEquality()
+                    .equals(other.uploadingProfile, uploadingProfile)) &&
             (identical(other.editedUserInfo, editedUserInfo) ||
                 const DeepCollectionEquality()
                     .equals(other.editedUserInfo, editedUserInfo)));
@@ -866,6 +889,7 @@ class _$_SettingModel implements _SettingModel {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(settingModelState) ^
+      const DeepCollectionEquality().hash(uploadingProfile) ^
       const DeepCollectionEquality().hash(editedUserInfo);
 
   @override
@@ -875,11 +899,14 @@ class _$_SettingModel implements _SettingModel {
 
 abstract class _SettingModel implements SettingModel {
   const factory _SettingModel(
-          SettingModelState settingModelState, EditedUserInfo editedUserInfo) =
-      _$_SettingModel;
+      @required SettingModelState settingModelState,
+      @required bool uploadingProfile,
+      @required EditedUserInfo editedUserInfo) = _$_SettingModel;
 
   @override
   SettingModelState get settingModelState;
+  @override
+  bool get uploadingProfile;
   @override
   EditedUserInfo get editedUserInfo;
   @override

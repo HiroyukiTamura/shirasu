@@ -1892,7 +1892,7 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 @Implements(BaseSubscriptionPlan)
 
 /// @nodoc
-class _$_SubscriptionPlan implements _SubscriptionPlan {
+class _$_SubscriptionPlan extends _SubscriptionPlan {
   const _$_SubscriptionPlan(
       {@required
           this.id,
@@ -1911,7 +1911,8 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
         assert(amount != null),
         assert(currency != null),
         assert(isPurchasable != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$_$_SubscriptionPlanFromJson(json);
@@ -1978,8 +1979,9 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan
-    implements SubscriptionPlan, BaseSubscriptionPlan {
+abstract class _SubscriptionPlan extends SubscriptionPlan
+    implements BaseSubscriptionPlan {
+  const _SubscriptionPlan._() : super._();
   const factory _SubscriptionPlan(
       {@required
           String id,

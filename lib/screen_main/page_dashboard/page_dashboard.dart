@@ -67,10 +67,10 @@ class _ListViewContent extends HookWidget {
     final featurePrgData = model.featureProgramData;
     final newPrgData = model.allNewPrograms;
 
-    int itemCount = 1; // fixme
+    int itemCount = 0;
 
     if (featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true)
-      itemCount = featurePrgData.nowBroadcastings.items.length + 1;
+      itemCount = featurePrgData.nowBroadcastings.items.length;
     final nowBroadcastingsLast = itemCount;
 
     if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
@@ -120,9 +120,9 @@ class _ListViewContent extends HookWidget {
                 return Column(
                   children: [
                     BillboardHeader(
-                      items: featurePrgData.comingBroadcastings.items,
+                      items: featurePrgData.nowBroadcastings.items,
                       height:
-                          BillboardHeader.getExpandedHeight(constraints.maxWidth),
+                          BillboardHeader.getExpandedHeight(constraints.maxWidth, 1 < featurePrgData.nowBroadcastings.items.length),
                     ),
                     const SizedBox(height: 48),
                   ],

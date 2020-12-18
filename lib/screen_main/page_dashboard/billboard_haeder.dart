@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -65,10 +66,12 @@ class BillboardHeader extends HookWidget {
     );
   }
 
-  static double getExpandedHeight(double maxWidth) {
+  static double getExpandedHeight(double maxWidth, bool showIndicator) {
     final thumbnailHeight =
         (maxWidth - (CARD_RADIUS + _CARD_PADDING) * 2) / Dimens.IMG_RATIO;
-    return _TITLE_H + _PRG_TITLE_H + thumbnailHeight + _INDICATOR_H;
+    double height = _TITLE_H + _PRG_TITLE_H + thumbnailHeight;
+    if (showIndicator) height += _INDICATOR_H;
+    return height;
   }
 }
 
@@ -84,29 +87,74 @@ class _BackDrop extends HookWidget {
   Widget build(BuildContext context) {
     final image = useProvider(dashboardViewModelSProvider
         .select((viewModel) => viewModel.headerImage));
-    if (image == null) return const SizedBox.shrink();
+    return image == null
+        ? const SizedBox.shrink()
+        : _BackDropInner(
+            height: height,
+            width: height * (image.width / image.height),
+          );
+  }
+}
 
-    final width = height * (image.width / image.height);
+class _BackDropInner extends StatefulWidget {
+  const _BackDropInner({
+    Key key,
+    @required this.height,
+    @required this.width,
+  }) : super(key: key);
 
-    return CarouselSlider(
-        items: [
-          _BackdropImage(
-            widgetH: height,
-            widgetW: width,
-          ),
-          _BackdropImage(
-            widgetH: height,
-            widgetW: width,
-          )
-        ],
-        options: CarouselOptions(
-          height: height,
-          aspectRatio: image.width / image.height,
-          autoPlayInterval: const Duration(minutes: 30),
-          autoPlayAnimationDuration: const Duration(seconds: 30),
-          scrollDirection: Axis.horizontal,
-        )
-    );
+  final double height;
+  final double width;
+
+  @override
+  _BackDropInnerState createState() => _BackDropInnerState();
+}
+
+class _BackDropInnerState extends State<_BackDropInner>
+    with AfterLayoutMixin<_BackDropInner> {
+  ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    final pos =
+        context.read(dashboardViewModelSProvider).headerBackDropScrollPos;
+    _controller = ScrollController(
+      initialScrollOffset: 10000 < pos ? 0 : pos,
+      // restore position if it's not too far
+      keepScrollOffset: true,
+    )..addListener(() => context
+        .read(dashboardViewModelSProvider)
+        .headerBackDropScrollPos = _controller.offset);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => ListView.builder(
+        scrollDirection: Axis.horizontal,
+        controller: _controller,
+        itemBuilder: (context, i) => _BackdropImage(
+          widgetH: widget.height,
+          widgetW: widget.width,
+        ),
+      );
+
+  @override
+  void afterFirstLayout(BuildContext context) => _startScroll();
+
+  Future<void> _startScroll() async {
+    while (mounted) {
+      await _controller.animateTo(
+        500,
+        duration: const Duration(minutes: 1),
+        curve: Curves.linear,
+      );
+    }
   }
 }
 
@@ -124,15 +172,20 @@ class _BackdropImage extends HookWidget {
   Widget build(BuildContext context) {
     final image = useProvider(dashboardViewModelSProvider
         .select((viewModel) => viewModel.headerImage));
-    return ColorFiltered(
-      colorFilter:
-          ColorFilter.mode(Colors.black.withOpacity(.5), BlendMode.srcOver),
+    return SizedBox(
+      width: widgetW,
+      height: widgetH,
       child: ColorFiltered(
-        colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.saturation),
-        child: CustomPaint(
-          size: const Size(double.infinity, double.infinity),
-          painter:
-              ImagePainter(image: image, widgetH: widgetH, widgetW: widgetW),
+        colorFilter:
+            ColorFilter.mode(Colors.black.withOpacity(.5), BlendMode.srcOver),
+        child: ColorFiltered(
+          colorFilter:
+              const ColorFilter.mode(Colors.grey, BlendMode.saturation),
+          child: CustomPaint(
+            size: const Size(double.infinity, double.infinity),
+            painter:
+                ImagePainter(image: image, widgetH: widgetH, widgetW: widgetW),
+          ),
         ),
       ),
     );
@@ -145,22 +198,31 @@ class _Content extends HookWidget {
     @required this.height,
     @required this.items,
     @required this.scrollRatio,
-  })  : padding = height * scrollRatio / 2,
+  })  : _padding = height * scrollRatio / 2,
+        _showIndicator = 1 < items.length,
         super(key: key);
 
   final double height;
   final List<Item> items;
   final double scrollRatio;
-  final double padding;
+  final double _padding;
+  final bool _showIndicator;
+  
+  double get _pageViewH {
+    double h = height - BillboardHeader._TITLE_H;
+    if (_showIndicator)
+      h -= BillboardHeader._INDICATOR_H;
+    return h;
+  }
 
   /// todo refactor
   @override
   Widget build(BuildContext context) {
-    final sc = useScrollController(initialScrollOffset: height + padding);
+    final sc = useScrollController(initialScrollOffset: height + _padding);
     final pc = usePageController();
     return SingleChildScrollView(
       controller: sc,
-      padding: EdgeInsets.only(top: padding),
+      padding: EdgeInsets.only(top: _padding),
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -183,8 +245,7 @@ class _Content extends HookWidget {
               ),
             ),
             SizedBox(
-              height: height -
-                  (BillboardHeader._TITLE_H + BillboardHeader._INDICATOR_H),
+              height: _pageViewH,
               child: PageView.builder(
                 controller: pc,
                 itemBuilder: (context, i) =>
@@ -192,22 +253,23 @@ class _Content extends HookWidget {
                 itemCount: items.length,
               ),
             ),
-            Container(
-              height: BillboardHeader._INDICATOR_H -
-                  BillboardHeader._CARD_PADDING -
-                  BillboardHeader.CARD_RADIUS,
-              alignment: Alignment.center,
-              child: SmoothPageIndicator(
-                controller: pc,
-                count: items.length,
-                effect: WormEffect(
-                  dotColor: Colors.white.withOpacity(.5),
-                  activeDotColor: Colors.white,
-                  dotHeight: 8,
-                  dotWidth: 8,
+            if (_showIndicator)
+              Container(
+                height: BillboardHeader._INDICATOR_H -
+                    BillboardHeader._CARD_PADDING -
+                    BillboardHeader.CARD_RADIUS,
+                alignment: Alignment.center,
+                child: SmoothPageIndicator(
+                  controller: pc,
+                  count: items.length,
+                  effect: WormEffect(
+                    dotColor: Colors.white.withOpacity(.5),
+                    activeDotColor: Colors.white,
+                    dotHeight: 8,
+                    dotWidth: 8,
+                  ),
                 ),
-              ),
-            )
+              )
           ],
         ),
       ),

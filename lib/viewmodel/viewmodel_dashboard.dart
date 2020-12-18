@@ -18,6 +18,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   final _apiClient = ApiClient(Client());
   final AutoDisposeProviderReference _ref;
 
+  double headerBackDropScrollPos = 0;
+
   SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 
   @override
@@ -86,6 +88,6 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   void updateScrollOffset(double offset) {
     final s = state;
-    if (s is StateSuccess) trySetState(s.copyWith(offset: offset));
+    if (s.state is StateSuccess) trySetState(s.copyWith(offset: offset));
   }
 }

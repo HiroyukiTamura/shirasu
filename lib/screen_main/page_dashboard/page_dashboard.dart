@@ -11,7 +11,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard_expaned.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard_haeder.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard_header.dart';
 import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/screen_main/page_dashboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';

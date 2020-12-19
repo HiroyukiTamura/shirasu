@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,13 +10,21 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_dashboard/header_backdrop.dart';
+import 'package:shirasu/screen_main/page_dashboard/header_color_filter.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
-import 'package:shirasu/ui_common/image_painter.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:shirasu/extension.dart';
 
-class BillboardHeader extends HookWidget {
+final scrollRatioProvider =
+    Provider.family.autoDispose<double, double>((ref, height) {
+  final offset = ref.watch(dashboardViewModelSProvider).state.offset;
+  return 0 < offset && offset < height ? offset / height : 0;
+});
+
+class BillboardHeader extends StatelessWidget {
   const BillboardHeader({
     Key key,
     @required this.items,
@@ -27,162 +34,34 @@ class BillboardHeader extends HookWidget {
   static const double _TITLE_H = 72;
   static const double _INDICATOR_H = 48;
   static const double _PRG_TITLE_H = 108;
-  static const double CARD_RADIUS = 8;
+  static const double _CARD_RADIUS = 8;
   static const double _CARD_PADDING = 4;
+  static const double _CARD_SPACE = _CARD_RADIUS + _CARD_PADDING;
 
   final List<Item> items;
   final double height;
 
   @override
-  Widget build(BuildContext context) {
-    final offset = useProvider(
-        dashboardViewModelSProvider.select((state) => state.state.offset));
-    final double scrollRatio =
-        0 < offset && offset < height ? offset / height : 0;
-
-    return SizedBox(
-      height: height,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          _BackDrop(height: height),
-          _Content(
-            height: height,
-            items: items,
-            scrollRatio: scrollRatio,
-          ),
-          if (0 < scrollRatio)
-            Opacity(
-                opacity: scrollRatio,
-                child: const ColoredBox(color: Colors.black)),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => SizedBox(
+        height: height,
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            BackDrop(height: height),
+            _Content(
+              height: height,
+              items: items,
+            ),
+            HeaderColorFilter(height: height),
+          ],
+        ),
+      );
 
   static double getExpandedHeight(double maxWidth, bool showIndicator) {
-    final thumbnailHeight =
-        (maxWidth - (CARD_RADIUS + _CARD_PADDING) * 2) / Dimens.IMG_RATIO;
+    final thumbnailHeight = (maxWidth - _CARD_SPACE * 2) / Dimens.IMG_RATIO;
     double height = _TITLE_H + _PRG_TITLE_H + thumbnailHeight;
     if (showIndicator) height += _INDICATOR_H;
     return height;
-  }
-}
-
-class _BackDrop extends HookWidget {
-  const _BackDrop({
-    @required this.height,
-    Key key,
-  }) : super(key: key);
-
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    final image = useProvider(dashboardViewModelSProvider
-        .select((viewModel) => viewModel.headerImage));
-    return image == null
-        ? const SizedBox.shrink()
-        : _BackDropInner(
-            height: height,
-            width: height * (image.width / image.height),
-          );
-  }
-}
-
-class _BackDropInner extends StatefulWidget {
-  const _BackDropInner({
-    Key key,
-    @required this.height,
-    @required this.width,
-  }) : super(key: key);
-
-  final double height;
-  final double width;
-
-  @override
-  _BackDropInnerState createState() => _BackDropInnerState();
-}
-
-class _BackDropInnerState extends State<_BackDropInner>
-    with AfterLayoutMixin<_BackDropInner> {
-  ScrollController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    final pos =
-        context.read(dashboardViewModelSProvider).headerBackDropScrollPos;
-    _controller = ScrollController(
-      initialScrollOffset: 10000 < pos ? 0 : pos,
-      // restore position if it's not too far
-      keepScrollOffset: true,
-    )..addListener(() => context
-        .read(dashboardViewModelSProvider)
-        .headerBackDropScrollPos = _controller.offset);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => ListView.builder(
-        scrollDirection: Axis.horizontal,
-        controller: _controller,
-        itemBuilder: (context, i) => _BackdropImage(
-          widgetH: widget.height,
-          widgetW: widget.width,
-        ),
-      );
-
-  @override
-  void afterFirstLayout(BuildContext context) => _startScroll();
-
-  Future<void> _startScroll() async {
-    while (mounted) {
-      await _controller.animateTo(
-        500,
-        duration: const Duration(minutes: 1),
-        curve: Curves.linear,
-      );
-    }
-  }
-}
-
-class _BackdropImage extends HookWidget {
-  const _BackdropImage({
-    @required this.widgetH,
-    @required this.widgetW,
-    Key key,
-  }) : super(key: key);
-
-  final double widgetH;
-  final double widgetW;
-
-  @override
-  Widget build(BuildContext context) {
-    final image = useProvider(dashboardViewModelSProvider
-        .select((viewModel) => viewModel.headerImage));
-    return SizedBox(
-      width: widgetW,
-      height: widgetH,
-      child: ColorFiltered(
-        colorFilter:
-            ColorFilter.mode(Colors.black.withOpacity(.5), BlendMode.srcOver),
-        child: ColorFiltered(
-          colorFilter:
-              const ColorFilter.mode(Colors.grey, BlendMode.saturation),
-          child: CustomPaint(
-            size: const Size(double.infinity, double.infinity),
-            painter:
-                ImagePainter(image: image, widgetH: widgetH, widgetW: widgetW),
-          ),
-        ),
-      ),
-    );
   }
 }
 
@@ -191,15 +70,11 @@ class _Content extends HookWidget {
     Key key,
     @required this.height,
     @required this.items,
-    @required this.scrollRatio,
-  })  : _padding = height * scrollRatio / 2,
-        _showIndicator = 1 < items.length,
+  })  : _showIndicator = 1 < items.length,
         super(key: key);
 
   final double height;
   final List<Item> items;
-  final double scrollRatio;
-  final double _padding;
   final bool _showIndicator;
 
   double get _pageViewH {
@@ -211,23 +86,24 @@ class _Content extends HookWidget {
   /// todo refactor
   @override
   Widget build(BuildContext context) {
-    final sc = useScrollController(initialScrollOffset: height + _padding);
+    final scrollRatio = useProvider(scrollRatioProvider(height));
+    final padding = height * scrollRatio / 2;
+    final sc = useScrollController(initialScrollOffset: height + padding);
     final pc = usePageController();
+
     return SingleChildScrollView(
       controller: sc,
-      padding: EdgeInsets.only(top: _padding),
+      padding: EdgeInsets.only(top: padding),
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            vertical:
-                BillboardHeader._CARD_PADDING + BillboardHeader.CARD_RADIUS),
+          vertical: BillboardHeader._CARD_SPACE,
+        ),
         child: Column(
           children: [
             Container(
               alignment: Alignment.center,
-              height: BillboardHeader._TITLE_H -
-                  BillboardHeader._CARD_PADDING -
-                  BillboardHeader.CARD_RADIUS,
+              height: BillboardHeader._TITLE_H - BillboardHeader._CARD_SPACE,
               child: Text(
                 Strings.HEADING_NOW_ON_AIR,
                 style: GoogleFonts.roboto(
@@ -248,9 +124,7 @@ class _Content extends HookWidget {
             ),
             if (_showIndicator)
               Container(
-                height: BillboardHeader._INDICATOR_H -
-                    BillboardHeader._CARD_PADDING -
-                    BillboardHeader.CARD_RADIUS,
+                height: BillboardHeader._INDICATOR_H - BillboardHeader._CARD_SPACE,
                 alignment: Alignment.center,
                 child: SmoothPageIndicator(
                   controller: pc,
@@ -275,13 +149,9 @@ class _BillboardHeaderItem extends StatelessWidget {
     Key key,
     @required this.item,
   })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
-        _channelLogoUrl = UrlUtil.getChannelLogoUrl(item.channelId),
         super(key: key);
 
-  static const double _CHANNEL_LOGO_SIZE = 24;
-
   final String _thumbnailUrl;
-  final String _channelLogoUrl;
   final Item item;
 
   @override
@@ -291,15 +161,13 @@ class _BillboardHeaderItem extends StatelessWidget {
           elevation: 4,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(BillboardHeader.CARD_RADIUS),
+            borderRadius: BorderRadius.circular(BillboardHeader._CARD_RADIUS),
           ),
           child: ColoredBox(
             color: Colors.black,
             child: StackedInkwell(
-              onTap: () async => context
-                  .read(appRouterProvider)
-                  .delegate
-                  .pushPage(GlobalRoutePath.program(item.id)),
+              onTap: () async =>
+                  context.pushPage(GlobalRoutePath.program(item.id)),
               child: Column(
                 children: [
                   AspectRatio(

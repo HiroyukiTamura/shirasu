@@ -1,5 +1,3 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' show Client;
@@ -7,7 +5,7 @@ import 'package:riverpod/src/framework.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/network_image_client.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/model/dashboard_model.dart';
+import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';

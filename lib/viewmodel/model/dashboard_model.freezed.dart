@@ -364,8 +364,8 @@ class _$DashboardStateTearOff {
   const _$DashboardStateTearOff();
 
 // ignore: unused_element
-  StateLoadmore loadingMore() {
-    return const StateLoadmore();
+  _StateLoadMore loadingMore() {
+    return const _StateLoadMore();
   }
 
 // ignore: unused_element
@@ -379,8 +379,8 @@ class _$DashboardStateTearOff {
   }
 
 // ignore: unused_element
-  StateError error() {
-    return const StateError();
+  _StateError error() {
+    return const _StateError();
   }
 }
 
@@ -407,17 +407,17 @@ mixin _$DashboardState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   });
 }
@@ -440,27 +440,27 @@ class _$DashboardStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $StateLoadmoreCopyWith<$Res> {
-  factory $StateLoadmoreCopyWith(
-          StateLoadmore value, $Res Function(StateLoadmore) then) =
-      _$StateLoadmoreCopyWithImpl<$Res>;
+abstract class _$StateLoadMoreCopyWith<$Res> {
+  factory _$StateLoadMoreCopyWith(
+          _StateLoadMore value, $Res Function(_StateLoadMore) then) =
+      __$StateLoadMoreCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateLoadmoreCopyWithImpl<$Res>
+class __$StateLoadMoreCopyWithImpl<$Res>
     extends _$DashboardStateCopyWithImpl<$Res>
-    implements $StateLoadmoreCopyWith<$Res> {
-  _$StateLoadmoreCopyWithImpl(
-      StateLoadmore _value, $Res Function(StateLoadmore) _then)
-      : super(_value, (v) => _then(v as StateLoadmore));
+    implements _$StateLoadMoreCopyWith<$Res> {
+  __$StateLoadMoreCopyWithImpl(
+      _StateLoadMore _value, $Res Function(_StateLoadMore) _then)
+      : super(_value, (v) => _then(v as _StateLoadMore));
 
   @override
-  StateLoadmore get _value => super._value as StateLoadmore;
+  _StateLoadMore get _value => super._value as _StateLoadMore;
 }
 
 /// @nodoc
-class _$StateLoadmore implements StateLoadmore {
-  const _$StateLoadmore();
+class _$_StateLoadMore implements _StateLoadMore {
+  const _$_StateLoadMore();
 
   @override
   String toString() {
@@ -469,7 +469,7 @@ class _$StateLoadmore implements StateLoadmore {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateLoadmore);
+    return identical(this, other) || (other is _StateLoadMore);
   }
 
   @override
@@ -509,10 +509,10 @@ class _$StateLoadmore implements StateLoadmore {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(loadingMore != null);
     assert(preInitialized != null);
@@ -524,10 +524,10 @@ class _$StateLoadmore implements StateLoadmore {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -538,8 +538,8 @@ class _$StateLoadmore implements StateLoadmore {
   }
 }
 
-abstract class StateLoadmore implements DashboardState {
-  const factory StateLoadmore() = _$StateLoadmore;
+abstract class _StateLoadMore implements DashboardState {
+  const factory _StateLoadMore() = _$_StateLoadMore;
 }
 
 /// @nodoc
@@ -612,10 +612,10 @@ class _$StatePreInitialized implements StatePreInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(loadingMore != null);
     assert(preInitialized != null);
@@ -627,10 +627,10 @@ class _$StatePreInitialized implements StatePreInitialized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -715,10 +715,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(loadingMore != null);
     assert(preInitialized != null);
@@ -730,10 +730,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -749,25 +749,26 @@ abstract class StateSuccess implements DashboardState {
 }
 
 /// @nodoc
-abstract class $StateErrorCopyWith<$Res> {
-  factory $StateErrorCopyWith(
-          StateError value, $Res Function(StateError) then) =
-      _$StateErrorCopyWithImpl<$Res>;
+abstract class _$StateErrorCopyWith<$Res> {
+  factory _$StateErrorCopyWith(
+          _StateError value, $Res Function(_StateError) then) =
+      __$StateErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateErrorCopyWithImpl<$Res> extends _$DashboardStateCopyWithImpl<$Res>
-    implements $StateErrorCopyWith<$Res> {
-  _$StateErrorCopyWithImpl(StateError _value, $Res Function(StateError) _then)
-      : super(_value, (v) => _then(v as StateError));
+class __$StateErrorCopyWithImpl<$Res> extends _$DashboardStateCopyWithImpl<$Res>
+    implements _$StateErrorCopyWith<$Res> {
+  __$StateErrorCopyWithImpl(
+      _StateError _value, $Res Function(_StateError) _then)
+      : super(_value, (v) => _then(v as _StateError));
 
   @override
-  StateError get _value => super._value as StateError;
+  _StateError get _value => super._value as _StateError;
 }
 
 /// @nodoc
-class _$StateError implements StateError {
-  const _$StateError();
+class _$_StateError implements _StateError {
+  const _$_StateError();
 
   @override
   String toString() {
@@ -776,7 +777,7 @@ class _$StateError implements StateError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateError);
+    return identical(this, other) || (other is _StateError);
   }
 
   @override
@@ -816,10 +817,10 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(loadingMore != null);
     assert(preInitialized != null);
@@ -831,10 +832,10 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -845,6 +846,6 @@ class _$StateError implements StateError {
   }
 }
 
-abstract class StateError implements DashboardState {
-  const factory StateError() = _$StateError;
+abstract class _StateError implements DashboardState {
+  const factory _StateError() = _$_StateError;
 }

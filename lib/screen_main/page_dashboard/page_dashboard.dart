@@ -6,7 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/dashboard_model.dart';
+import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -114,11 +114,11 @@ class _ListViewContent extends HookWidget {
             padding: const EdgeInsets.only(bottom: 16),
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
-              if (index == 0 && anyNowBroadcastings) {
+              if (index == 0 /*&& anyNowBroadcastings*/) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 48),
                   child: BillboardHeader(
-                    items: featurePrgData.nowBroadcastings.items,
+                    items: featurePrgData.comingBroadcastings.items,
                     height:
                         BillboardHeader.getExpandedHeight(constraints.maxWidth, 1 < featurePrgData.nowBroadcastings.items.length),
                   ),

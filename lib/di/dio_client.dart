@@ -5,6 +5,8 @@ import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
 import 'package:shirasu/model/video_type.dart';
 
+/// todo singleton
+///
 class DioClient {
   final Dio _dio = Dio();
   static const _URL_OAUTH_TOKEN = 'https://shirasu.io/oauth/token';

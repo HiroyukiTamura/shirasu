@@ -13,7 +13,7 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   ViewModelDashBoard(this._ref) : super();
 
-  final _apiClient = ApiClient(Client());
+  final _apiClient = ApiClient.instance();
   final AutoDisposeProviderReference _ref;
 
   double headerBackDropScrollPos = 0;

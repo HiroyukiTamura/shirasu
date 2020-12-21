@@ -18,7 +18,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
   /// todo is really correct that `AutoDisposeProviderReference` exists in StateNotifier??
   final AutoDisposeProviderReference _ref;
-  final _apiClient = ApiClient(Client());
+  final _apiClient = ApiClient.instance();
 
   SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 

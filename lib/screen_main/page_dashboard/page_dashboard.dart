@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard_expaned.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard_expanded.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard_header.dart';
 import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/screen_main/page_dashboard/heading.dart';

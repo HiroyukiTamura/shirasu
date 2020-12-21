@@ -27,4 +27,10 @@ extension IntX on int {
 extension BuildContextX on BuildContext {
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(appRouterProvider).delegate.pushPage(path);
+
+  Future<void> pushProgramPage(String id) async =>
+      read(appRouterProvider).delegate.pushPage(GlobalRoutePath.program(id));
+
+  Future<void> pushChannelPage(String id) async =>
+      read(appRouterProvider).delegate.pushPage(GlobalRoutePath.channel(id));
 }

@@ -614,7 +614,6 @@ class __$NewProgramItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseProgram)
 
 /// @nodoc
 class _$_NewProgramItem implements _NewProgramItem {
@@ -748,7 +747,7 @@ class _$_NewProgramItem implements _NewProgramItem {
   }
 }
 
-abstract class _NewProgramItem implements NewProgramItem, BaseProgram {
+abstract class _NewProgramItem implements NewProgramItem {
   const factory _NewProgramItem(
       {@required
           DateTime broadcastAt,
@@ -929,7 +928,6 @@ class __$NewProgramChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseChannel)
 
 /// @nodoc
 class _$_NewProgramChannel implements _NewProgramChannel {
@@ -993,7 +991,7 @@ class _$_NewProgramChannel implements _NewProgramChannel {
   }
 }
 
-abstract class _NewProgramChannel implements NewProgramChannel, BaseChannel {
+abstract class _NewProgramChannel implements NewProgramChannel {
   const factory _NewProgramChannel(
       {@required
           String id,

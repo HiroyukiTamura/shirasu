@@ -12,11 +12,11 @@ class BackDrop extends HookWidget {
   final double height;
 
   @override
-  Widget build(BuildContext _context) => backDrop(_context, height: height);
+  Widget build(BuildContext _context) => backDrop(height: height);
 }
 
-class _BackdropImage extends HookWidget {
-  const _BackdropImage(
+class _ColoredBackdropImage extends HookWidget {
+  const _ColoredBackdropImage(
       {Key key, @required this.widgetH, @required this.widgetW})
       : super(key: key);
 
@@ -26,5 +26,5 @@ class _BackdropImage extends HookWidget {
 
   @override
   Widget build(BuildContext _context) =>
-      _backdropImage(_context, widgetH: widgetH, widgetW: widgetW);
+      _coloredBackdropImage(widgetH: widgetH, widgetW: widgetW);
 }

@@ -52,7 +52,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   Future<void> loadMoreNewPrg() async {
     final oldState = state;
-    if (oldState is StateSuccess) {
+    if (oldState.state is StateSuccess) {
       final nextToken =
           oldState.apiData.newProgramsDataList?.last?.newPrograms?.nextToken;
       if (nextToken == null) return;

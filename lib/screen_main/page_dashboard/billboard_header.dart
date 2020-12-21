@@ -20,7 +20,7 @@ import 'package:shirasu/extension.dart';
 
 final scrollRatioProvider =
     Provider.family.autoDispose<double, double>((ref, height) {
-  final offset = ref.watch(dashboardViewModelSProvider).state.offset;
+  final offset = ref.watch(pDashboardViewModel).state.offset;
   return 0 < offset && offset < height ? offset / height : 0;
 });
 
@@ -184,7 +184,7 @@ class _BillboardHeaderItem extends StatelessWidget {
         ),
       );
 
-  Future<void> _onTap(BuildContext context) async => context.pushPage(GlobalRoutePath.program(item.id));
+  Future<void> _onTap(BuildContext context) async => context.pushProgramPage(item.id);
   
   Widget _thumbnail() => AspectRatio(
       aspectRatio: Dimens.IMG_RATIO,

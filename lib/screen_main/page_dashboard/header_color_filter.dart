@@ -7,8 +7,7 @@ import 'package:shirasu/screen_main/page_dashboard/billboard_header.dart';
 part 'header_color_filter.g.dart';
 
 @hwidget
-Widget headerColorFilter(
-  BuildContext context, {
+Widget headerColorFilter({
   @required double height,
 }) {
   final scrollRatio = useProvider(scrollRatioProvider(height));

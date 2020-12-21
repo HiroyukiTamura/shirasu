@@ -12,6 +12,5 @@ class HeaderColorFilter extends HookWidget {
   final double height;
 
   @override
-  Widget build(BuildContext _context) =>
-      headerColorFilter(_context, height: height);
+  Widget build(BuildContext _context) => headerColorFilter(height: height);
 }

@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,22 +11,23 @@ import 'package:shirasu/ui_common/image_painter.dart';
 
 part 'header_backdrop.g.dart';
 
+final _pHeaderImage = Provider.autoDispose<ui.Image>(
+    (ref) => ref.watch(pDashboardViewModel).headerImage);
+
 @hwidget
-Widget backDrop(
-    BuildContext context, {
-      @required double height,
-    }) {
-  final image = useProvider(dashboardViewModelSProvider
-      .select((viewModel) => viewModel.headerImage));
+Widget backDrop({
+  @required double height,
+}) {
+  final image = useProvider(_pHeaderImage);
   return image == null
       ? const SizedBox.shrink()
       : _BackDropInner(
-    height: height,
-    width: height * (image.width / image.height),
-  );
+          height: height,
+          width: height * (image.width / image.height),
+        );
 }
 
-class _BackDropInner extends StatefulWidget {
+class _BackDropInner extends StatefulHookWidget {
   const _BackDropInner({
     Key key,
     @required this.height,
@@ -45,15 +48,12 @@ class _BackDropInnerState extends State<_BackDropInner>
   @override
   void initState() {
     super.initState();
-    final pos =
-        context.read(dashboardViewModelSProvider).headerBackDropScrollPos;
+    final pos = context.read(pDashboardViewModel).headerBackDropScrollPos;
     _controller = ScrollController(
       initialScrollOffset: 10000 < pos ? 0 : pos,
       // restore position if it's not too far
       keepScrollOffset: true,
-    )..addListener(() => context
-        .read(dashboardViewModelSProvider)
-        .headerBackDropScrollPos = _controller.offset);
+    )..addListener(() async => _onScroll());
   }
 
   @override
@@ -64,16 +64,20 @@ class _BackDropInnerState extends State<_BackDropInner>
 
   @override
   Widget build(BuildContext context) => ListView.builder(
-    scrollDirection: Axis.horizontal,
-    controller: _controller,
-    itemBuilder: (context, i) => _BackdropImage(
-      widgetH: widget.height,
-      widgetW: widget.width,
-    ),
-  );
+        scrollDirection: Axis.horizontal,
+        controller: _controller,
+        itemBuilder: (context, i) => _ColoredBackdropImage(
+          widgetH: widget.height,
+          widgetW: widget.width,
+        ),
+      );
 
   @override
   void afterFirstLayout(BuildContext context) => _startScroll();
+
+  Future<void> _onScroll() async =>
+      context.read(pDashboardViewModel).headerBackDropScrollPos =
+          _controller.offset;
 
   Future<void> _startScroll() async {
     while (mounted) {
@@ -87,28 +91,27 @@ class _BackDropInnerState extends State<_BackDropInner>
 }
 
 @hwidget
-Widget _backdropImage(
-    BuildContext context, {
-      @required double widgetH,
-      @required double widgetW,
-    }) {
-  final image = useProvider(dashboardViewModelSProvider
-      .select((viewModel) => viewModel.headerImage));
-  return SizedBox(
-    width: widgetW,
-    height: widgetH,
-    child: ColorFiltered(
-      colorFilter:
-      ColorFilter.mode(Colors.black.withOpacity(.5), BlendMode.srcOver),
+Widget _coloredBackdropImage({
+  @required double widgetH,
+  @required double widgetW,
+}) =>
+    SizedBox(
+      width: widgetW,
+      height: widgetH,
       child: ColorFiltered(
         colorFilter:
-        const ColorFilter.mode(Colors.grey, BlendMode.saturation),
-        child: CustomPaint(
-          size: const Size(double.infinity, double.infinity),
-          painter:
-          ImagePainter(image: image, widgetH: widgetH, widgetW: widgetW),
+            ColorFilter.mode(Colors.black.withOpacity(.5), BlendMode.srcOver),
+        child: ColorFiltered(
+          colorFilter:
+              const ColorFilter.mode(Colors.grey, BlendMode.saturation),
+          child: CustomPaint(
+            size: Size(widgetW, widgetH),
+            painter: ImagePainter(
+              image: useProvider(_pHeaderImage),
+              widgetH: widgetH,
+              widgetW: widgetW,
+            ),
+          ),
         ),
       ),
-    ),
-  );
-}
+    );

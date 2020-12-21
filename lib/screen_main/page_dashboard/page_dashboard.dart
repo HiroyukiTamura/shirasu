@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,20 +8,18 @@ import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard_expaned.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard_header.dart';
 import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/screen_main/page_dashboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
+import 'package:shirasu/extension.dart';
 
-/// todo rename
-final dashboardViewModelSProvider =
+final pDashboardViewModel =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard(ref));
 
@@ -31,22 +28,24 @@ class PageDashboardInMainScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) => useProvider(
-              dashboardViewModelSProvider.select((viewModel) => viewModel.state.state))
+              pDashboardViewModel.select((viewModel) => viewModel.state.state))
           .when(
         preInitialized: () => const CenterCircleProgress(),
         error: () => const PageError(),
         loadingMore: () => _ListViewContent(
-          model: useProvider(dashboardViewModelSProvider).state.apiData,
+          model: useProvider(pDashboardViewModel).state.apiData,
           // we don't want to rebuild
           showLoadingIndicator: true,
         ),
         success: () {
-          final model = useProvider(dashboardViewModelSProvider).state.apiData;
+          final model = useProvider(pDashboardViewModel)
+              .state
+              .apiData; // we don't want to rebuild,
           return _ListViewContent(
-            model: model, // we don't want to rebuild,
+            model: model,
             showLoadingIndicator: model.newProgramsDataList?.isNotEmpty ==
                     true &&
-                model.newProgramsDataList?.last?.newPrograms?.nextToken == null,
+                model.newProgramsDataList?.last?.newPrograms?.nextToken != null,
           );
         },
       );
@@ -58,7 +57,7 @@ class _ListViewContent extends HookWidget {
     @required this.showLoadingIndicator,
   });
 
-  static const _COLUMN_COUNT = 2;
+  static const _COLUMN_COUNT = 2; // todo set dynamically
   final ApiData model;
   final bool showLoadingIndicator;
 
@@ -69,7 +68,8 @@ class _ListViewContent extends HookWidget {
 
     int itemCount = 0;
 
-    final anyNowBroadcastings = featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
+    final anyNowBroadcastings =
+        featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
     final nowBroadcastingsLast = anyNowBroadcastings ? 1 : 0;
 
     if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
@@ -88,39 +88,27 @@ class _ListViewContent extends HookWidget {
     if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
     final controller = useScrollController();
-    controller.addListener(() => context
-        .read(dashboardViewModelSProvider)
-        .updateScrollOffset(controller.offset));
+    controller.addListener(() async => _onScroll(context, controller));
 
     return LayoutBuilder(
       builder: (context, constraints) =>
           NotificationListener<ScrollNotification>(
-        onNotification: (notification) {
-          //todo fix; remove Dimens.CIRCULAR_HEIGHT
-          if (showLoadingIndicator &&
-              notification is UserScrollNotification &&
-              notification.direction == ScrollDirection.forward &&
-              controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
-                  controller.offset) {
-            context.read(dashboardViewModelSProvider).loadMoreNewPrg();
-            return true;
-          }
-
-          return false;
-        },
-        // todo bug fix
+        onNotification: (notification) =>
+            _onScrollNotification(context, controller, notification),
         child: ListView.builder(
             controller: controller,
             padding: const EdgeInsets.only(bottom: 16),
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
               if (index == 0 /*&& anyNowBroadcastings*/) {
+                //fixme
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 48),
                   child: BillboardHeader(
                     items: featurePrgData.comingBroadcastings.items,
-                    height:
-                        BillboardHeader.getExpandedHeight(constraints.maxWidth, 1 < featurePrgData.nowBroadcastings.items.length),
+                    height: BillboardHeader.getExpandedHeight(
+                        constraints.maxWidth,
+                        1 < featurePrgData.nowBroadcastings.items.length),
                   ),
                 );
               } else if (index < comingBroadcastingsLast &&
@@ -131,19 +119,9 @@ class _ListViewContent extends HookWidget {
                   return const Heading(text: Strings.HEADING_UPCOMING);
                 else {
                   final item = featurePrgData.comingBroadcastings.items[i - 1];
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 48,
-                      top: 16,
-                    ),
-                    child: BillboardExpanded(
-                      isLive: false,
-                      item: item,
-                      onTap: () async => context
-                          .read(appRouterProvider)
-                          .delegate
-                          .pushPage(GlobalRoutePath.program(item.id)),
-                    ),
+                  return BillboardExpanded(
+                    item: item,
+                    onTap: () async => context.pushProgramPage(item.id),
                   );
                 }
               } else if (index < subscribingLast &&
@@ -152,17 +130,11 @@ class _ListViewContent extends HookWidget {
 
                 return i == 0
                     ? const Heading(text: Strings.HEADING_SUBSCRIBING)
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 32),
-                        child: HorizontalCarousels(
-                          list: featurePrgData.viewerUser.subscribedPrograms,
-                          columnCount: _COLUMN_COUNT,
-                          maxWidth: constraints.maxWidth,
-                          onTap: (item) async => context
-                              .read(appRouterProvider)
-                              .delegate
-                              .pushPage(GlobalRoutePath.program(item.id)),
-                        ),
+                    : HorizontalCarousels(
+                        list: featurePrgData.viewerUser.subscribedPrograms,
+                        columnCount: _COLUMN_COUNT,
+                        maxWidth: constraints.maxWidth,
+                        onTap: (item) async => context.pushProgramPage(item.id),
                       );
               } else if (index < channelsLast &&
                   subscribingLast != channelsLast) {
@@ -170,33 +142,43 @@ class _ListViewContent extends HookWidget {
 
                 return i == 0
                     ? const Heading(text: Strings.HEADING_CHANNEL)
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 32),
-                        child: ChannelListItem(
-                          channels: featurePrgData.channels,
-                        ),
-                      );
+                    : ChannelListItem(channels: featurePrgData.channels);
               } else if (index < itemCount || !showLoadingIndicator) {
                 final i = index - channelsLast;
 
                 if (i == 0)
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Heading(text: Strings.HEADING_NEW_PRG),
+                  return const Heading(
+                    text: Strings.HEADING_NEW_PRG,
+                    verticalPadding: 16,
                   );
 
-                final item = newPrgData[i - 1] as BaseProgram;
+                final item = newPrgData[i - 1];
                 return MovieListItem(
                   program: item,
-                  onTap: () async => context
-                      .read(appRouterProvider)
-                      .delegate
-                      .pushPage(GlobalRoutePath.program(item.id)),
+                  onTap: () async => context.pushProgramPage(item.id),
                 );
               } else
                 return const CenterCircleProgress();
             }),
       ),
     );
+  }
+
+  Future<void> _onScroll(
+          BuildContext context, ScrollController controller) async =>
+      context.read(pDashboardViewModel).updateScrollOffset(controller.offset);
+
+  bool _onScrollNotification(BuildContext context, ScrollController controller,
+      ScrollNotification notification) {
+    if (showLoadingIndicator &&
+        notification is UserScrollNotification &&
+        notification.direction == ScrollDirection.idle &&
+        controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
+            controller.offset) {
+      context.read(pDashboardViewModel).loadMoreNewPrg();
+      return true;
+    }
+
+    return false;
   }
 }

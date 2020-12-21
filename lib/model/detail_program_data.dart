@@ -59,8 +59,8 @@ abstract class ProgramDetail with _$ProgramDetail {
 }
 
 @freezed
-abstract class DetailPrgChannel with _$DetailPrgChannel {
-  @Implements(BaseChannel)
+abstract class DetailPrgChannel with _$DetailPrgChannel implements BaseChannel {
+
   const factory DetailPrgChannel({
     @required String id,
     @required String tenantId,

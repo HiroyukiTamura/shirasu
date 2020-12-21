@@ -416,7 +416,6 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseChannel)
 
 /// @nodoc
 class _$_Channel implements _Channel {
@@ -542,7 +541,7 @@ class _$_Channel implements _Channel {
   }
 }
 
-abstract class _Channel implements Channel, BaseChannel {
+abstract class _Channel implements Channel {
   const factory _Channel(
       {@required
           String id,

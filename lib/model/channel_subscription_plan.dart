@@ -16,8 +16,8 @@ abstract class ChannelSubscriptionPlan with _$ChannelSubscriptionPlan {
 }
 
 @freezed
-abstract class Channel with _$Channel {
-  @Implements(BaseChannel)
+abstract class Channel with _$Channel implements BaseChannel {
+
   const factory Channel({
     @required SubscriptionPlan subscriptionPlan,
     @required

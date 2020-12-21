@@ -63,8 +63,8 @@ abstract class Item with _$Item {
 }
 
 @freezed
-abstract class Channel with _$Channel {
-  @Implements(BaseChannel)
+abstract class Channel with _$Channel implements BaseChannel {
+
   const factory Channel({
     @required String id,
     @required String name,

@@ -1104,7 +1104,6 @@ class __$DetailPrgChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseChannel)
 
 /// @nodoc
 class _$_DetailPrgChannel implements _DetailPrgChannel {
@@ -1192,7 +1191,7 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
   }
 }
 
-abstract class _DetailPrgChannel implements DetailPrgChannel, BaseChannel {
+abstract class _DetailPrgChannel implements DetailPrgChannel {
   const factory _DetailPrgChannel(
       {@required
           String id,

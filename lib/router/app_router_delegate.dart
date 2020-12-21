@@ -8,7 +8,7 @@ import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
-import 'package:shirasu/screen_oss_licence.dart';
+import 'package:shirasu/screen_oss_licence/screen_oss_licence.dart';
 import 'package:tuple/tuple.dart';
 
 class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>

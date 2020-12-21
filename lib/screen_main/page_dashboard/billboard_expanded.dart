@@ -30,7 +30,7 @@ class BillboardExpanded extends StatelessWidget {
       bottom: 48,
       top: 16,
     ),
-    child: StackedInkwell(
+    child: StackedInkWell(
           onTap: onTap,
           child: Column(
             children: [

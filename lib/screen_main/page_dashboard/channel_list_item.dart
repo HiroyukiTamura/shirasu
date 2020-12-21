@@ -45,7 +45,7 @@ Widget _listItem({
       height: _SIZE,
       width: _SIZE,
       imageBuilder: (context, imageProvider) => ClipOval(
-        child: StackedInkwell(
+        child: StackedInkWell(
           onTap: () => onTap(context, id),
           child: Container(
             decoration: BoxDecoration(

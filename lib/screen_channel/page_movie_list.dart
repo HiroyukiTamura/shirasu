@@ -32,7 +32,7 @@ class PageMovieList extends StatelessWidget {
       itemCount: channelPrograms.items.length,
       itemBuilder: (context, i) {
         final program = channelPrograms.items[i];
-        return StackedInkwell(
+        return StackedInkWell(
           onTap: () async => context
               .read(appRouterProvider)
               .delegate

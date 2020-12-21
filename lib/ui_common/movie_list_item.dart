@@ -8,6 +8,9 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+
+part 'movie_list_item.g.dart';
 
 class MovieListItem extends StatelessWidget {
   const MovieListItem({
@@ -24,7 +27,7 @@ class MovieListItem extends StatelessWidget {
   final GestureTapCallback onTap;
 
   @override
-  Widget build(BuildContext context) => StackedInkwell(
+  Widget build(BuildContext context) => StackedInkWell(
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(PADDING),
@@ -68,43 +71,42 @@ class MovieListItem extends StatelessWidget {
       );
 }
 
-class MovieListBigItem extends StatelessWidget {
-  const MovieListBigItem({
-    Key key,
-    @required this.program,
-    @required this.onTap,
-  }) : super(key: key);
-  static const double PADDING = 8;
-
-  final BaseProgram program;
-  final GestureTapCallback onTap;
-
-  @override
-  Widget build(BuildContext context) => StackedInkwell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AspectRatio(
-                aspectRatio: Dimens.IMG_RATIO,
-                child: CachedNetworkImage(
-                  imageUrl: UrlUtil.getThumbnailUrl(program.id),
-                ),
+@swidget
+Widget movieListBigItem({
+  @required BaseProgram program,
+  @required GestureTapCallback onTap,
+}) =>
+    StackedInkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AspectRatio(
+              aspectRatio: Dimens.IMG_RATIO,
+              child: CachedNetworkImage(
+                imageUrl: UrlUtil.getThumbnailUrl(program.id),
+                errorWidget: (context, url, error) {
+                  //todo log and show error widget
+                  return Container();
+                },
               ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  program.title,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                  style: TextStyles.LIST_MOVIE_TITLE_BIG,
-                ),
-              )
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 8,
+                left: 8,
+                top: 8,
+              ),
+              child: Text(
+                program.title,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 4,
+                style: TextStyles.LIST_MOVIE_TITLE_BIG,
+              ),
+            )
+          ],
         ),
-      );
-}
+      ),
+    );

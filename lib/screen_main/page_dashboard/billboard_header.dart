@@ -178,7 +178,7 @@ class _BillboardHeaderItem extends StatelessWidget {
           ),
           child: ColoredBox(
             color: Colors.black,
-            child: StackedInkwell(
+            child: StackedInkWell(
               onTap: () async => onTapItem(context, item.id),
               child: Column(
                 children: [

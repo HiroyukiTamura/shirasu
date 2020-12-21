@@ -23,7 +23,7 @@ class RowChannel extends WidgetItemBase {
   final String channelId;
 
   @override
-  Widget build(BuildContext context) => StackedInkwell(
+  Widget build(BuildContext context) => StackedInkWell(
         onTap: () async => context
             .read(appRouterProvider)
             .delegate

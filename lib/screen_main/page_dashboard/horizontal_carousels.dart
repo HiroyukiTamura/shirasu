@@ -56,7 +56,7 @@ Widget _horizontalCarouselItem({
     borderRadius: const BorderRadius.all(
       Radius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
     ),
-    child: StackedInkwell(
+    child: StackedInkWell(
       onTap: () async => onTap(item),
       child: Container(
         width: width,

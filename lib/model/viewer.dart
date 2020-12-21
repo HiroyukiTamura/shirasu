@@ -16,8 +16,8 @@ abstract class Viewer with _$Viewer {
 }
 
 @freezed
-abstract class ViewerClass with _$ViewerClass {
-  @Implements(BaseViewer)
+abstract class ViewerClass with _$ViewerClass implements BaseViewer {
+
   const factory ViewerClass({
     @required List<PaymentMethod> paymentMethods,
     @required List<String> authConnections,
@@ -32,8 +32,8 @@ abstract class ViewerClass with _$ViewerClass {
 }
 
 @freezed
-abstract class PaymentMethod with _$PaymentMethod {
-  @Implements(BasePaymentMethod)
+abstract class PaymentMethod with _$PaymentMethod implements BasePaymentMethod {
+
   const factory PaymentMethod({
     @required String id,
     @required String brand,
@@ -50,8 +50,8 @@ abstract class PaymentMethod with _$PaymentMethod {
 }
 
 @freezed
-abstract class ViewerUser with _$ViewerUser {
-  @Implements(BaseViewer)
+abstract class ViewerUser with _$ViewerUser implements BaseViewer {
+
   const factory ViewerUser({
     @required String id,
     @required String name,
@@ -70,8 +70,8 @@ abstract class ViewerUser with _$ViewerUser {
 }
 
 @freezed
-abstract class InvoiceHistory with _$InvoiceHistory {
-  @Implements(BaseInvoiceConnection)
+abstract class InvoiceHistory with _$InvoiceHistory implements BaseInvoiceConnection {
+
   const factory InvoiceHistory({
     @required List<InvoiceHistoryItem> items,
     String nextToken,
@@ -86,8 +86,8 @@ abstract class InvoiceHistory with _$InvoiceHistory {
 }
 
 @freezed
-abstract class InvoiceHistoryItem implements _$InvoiceHistoryItem {
-  @Implements(BaseInvoice)
+abstract class InvoiceHistoryItem implements _$InvoiceHistoryItem, BaseInvoice {
+
   const factory InvoiceHistoryItem({
     @required String id,
     @required int total,
@@ -111,9 +111,8 @@ abstract class InvoiceHistoryItem implements _$InvoiceHistoryItem {
 }
 
 @freezed
-abstract class SubscribedChannel with _$SubscribedChannel {
+abstract class SubscribedChannel with _$SubscribedChannel implements BaseSubscribedChannel {
 
-  @Implements(BaseSubscribedChannel)
   const factory SubscribedChannel({
     @required DateTime subscribedAt,
     @required DateTime currentPeriodEndAt,
@@ -149,9 +148,8 @@ abstract class Channel with _$Channel implements BaseChannel {
 }
 
 @freezed
-abstract class LatestInvoice with _$LatestInvoice {
+abstract class LatestInvoice with _$LatestInvoice implements BaseInvoice {
 
-  @Implements(BaseInvoice)
   const factory LatestInvoice({
     @required String id,
     String description,
@@ -171,9 +169,8 @@ abstract class LatestInvoice with _$LatestInvoice {
 }
 
 @freezed
-abstract class WatchHistories with _$WatchHistories {
+abstract class WatchHistories with _$WatchHistories implements BaseModelWatchHistoryConnection {
 
-  @Implements(BaseModelWatchHistoryConnection)
   const factory WatchHistories({
     String nextToken,
     @required List<WatchHistoriesItem> items,
@@ -188,9 +185,8 @@ abstract class WatchHistories with _$WatchHistories {
 }
 
 @freezed
-abstract class WatchHistoriesItem with _$WatchHistoriesItem {
+abstract class WatchHistoriesItem with _$WatchHistoriesItem implements BaseWatchHistory {
 
-  @Implements(BaseWatchHistory)
   const factory WatchHistoriesItem({
     @required String id,
     @required DateTime lastViewedAt,
@@ -206,8 +202,8 @@ abstract class WatchHistoriesItem with _$WatchHistoriesItem {
 }
 
 @freezed
-abstract class Program with _$Program {
-  @Implements(BaseProgram)
+abstract class Program with _$Program implements BaseProgram{
+
   const factory Program({
     @required String id,
     @required String tenantId,

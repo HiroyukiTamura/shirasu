@@ -16,8 +16,8 @@ abstract class ListCommentsByProgram with _$ListCommentsByProgram {
 }
 
 @freezed
-abstract class Comments with _$Comments {
-  @Implements(BaseModelCommentConnection)
+abstract class Comments with _$Comments implements BaseModelCommentConnection {
+
   const factory Comments({
     @required List<CommentItem> items,
     String nextToken,
@@ -32,8 +32,8 @@ abstract class Comments with _$Comments {
 }
 
 @freezed
-abstract class CommentItem with _$CommentItem {
-  @Implements(BaseComment)
+abstract class CommentItem with _$CommentItem implements BaseComment {
+
   const factory CommentItem({
     @required String id,
     @required String text,
@@ -51,8 +51,8 @@ abstract class CommentItem with _$CommentItem {
 }
 
 @freezed
-abstract class User with _$User {
-  @Implements(BaseUser)
+abstract class User with _$User implements BaseUser {
+
   const factory User({
     @required String id,
     @required String name,

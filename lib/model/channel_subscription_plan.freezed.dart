@@ -608,7 +608,6 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseSubscriptionPlan)
 
 /// @nodoc
 class _$_SubscriptionPlan implements _SubscriptionPlan {
@@ -748,8 +747,7 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan
-    implements SubscriptionPlan, BaseSubscriptionPlan {
+abstract class _SubscriptionPlan implements SubscriptionPlan {
   const factory _SubscriptionPlan(
       {@required
           String id,

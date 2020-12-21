@@ -16,8 +16,8 @@ abstract class NewProgramsData with _$NewProgramsData {
 }
 
 @freezed
-abstract class NewPrograms with _$NewPrograms {
-  @Implements(BaseSearchableProgramConnection)
+abstract class NewPrograms with _$NewPrograms implements BaseSearchableProgramConnection {
+
   const factory NewPrograms({
     @required List<NewProgramItem> items,
     String nextToken,

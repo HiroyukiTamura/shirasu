@@ -36,7 +36,7 @@ class SubscribingWidget extends HookWidget {
               itemBuilder: (context, i) {
                 final item = programData.viewerUser.subscribedPrograms[i];
                 return MovieListBigItem(
-                  program: item as BaseProgram,
+                  program: item,
                   onTap: () async =>
                       context.read(appRouterProvider).delegate.pushPage(
                             GlobalRoutePath.program(item.id),

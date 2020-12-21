@@ -389,7 +389,6 @@ class __$InvoiceCopyWithImpl<$Res> extends _$InvoiceCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseInvoice)
 
 /// @nodoc
 class _$_Invoice implements _Invoice {
@@ -536,7 +535,7 @@ class _$_Invoice implements _Invoice {
   }
 }
 
-abstract class _Invoice implements Invoice, BaseInvoice {
+abstract class _Invoice implements Invoice {
   const factory _Invoice(
       {@required
           String id,

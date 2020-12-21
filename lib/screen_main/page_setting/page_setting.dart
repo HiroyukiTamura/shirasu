@@ -72,10 +72,9 @@ class PageUserInfo extends HookWidget {
 
             if (i <= threshHolds.threshold)
               return ListTilePaymentMethod(
-                paymentMethod: data.viewer
-                        .paymentMethods[i - threshHolds.preThreshHold - 1]
-                    as BasePaymentMethod,
-              ); //todo why cast?
+                paymentMethod: data
+                    .viewer.paymentMethods[i - threshHolds.preThreshHold - 1],
+              );
 
             threshHolds.swap(2);
 
@@ -159,7 +158,7 @@ class PageUserInfo extends HookWidget {
               final program =
                   data.viewerUser.watchHistories.items[index].program;
               return MovieListItem(
-                program: program as BaseProgram, //todo why cast?
+                program: program,
                 onTap: () async => context
                     .read(appRouterProvider)
                     .delegate

@@ -22,8 +22,8 @@ abstract class ProgramDetailData with _$ProgramDetailData {
 }
 
 @freezed
-abstract class ProgramDetail with _$ProgramDetail {
-  @Implements(BaseProgram)
+abstract class ProgramDetail with _$ProgramDetail implements BaseProgram{
+
   const factory ProgramDetail({
     @required String id,
     @required String channelId,
@@ -78,8 +78,8 @@ abstract class DetailPrgChannel with _$DetailPrgChannel implements BaseChannel {
 }
 
 @freezed
-abstract class VideoHandouts with _$VideoHandouts {
-  @Implements(BaseModelHandoutConnection)
+abstract class VideoHandouts with _$VideoHandouts implements BaseModelHandoutConnection {
+
   const factory VideoHandouts({
     @required List<DetailPrgItem> items,
     String nextToken,
@@ -94,8 +94,8 @@ abstract class VideoHandouts with _$VideoHandouts {
 }
 
 @freezed
-abstract class Handouts with _$Handouts {
-  @Implements(BaseHandouts)
+abstract class Handouts with _$Handouts implements BaseHandouts {
+
   const factory Handouts({
     @required List<Handout> items,
     String nextToken,
@@ -110,8 +110,8 @@ abstract class Handouts with _$Handouts {
 }
 
 @freezed
-abstract class Handout with _$Handout {
-  @Implements(BaseHandout)
+abstract class Handout with _$Handout implements BaseHandout {
+
   const factory Handout({
     @required String id,
     @required String programId,
@@ -130,8 +130,8 @@ abstract class Handout with _$Handout {
 
 @freezed
 abstract class DetailPrgItem
-    with _$DetailPrgItem, VideoTypeGetter, MediaStatusGetter {
-  @Implements(BaseVideo)
+    with _$DetailPrgItem, VideoTypeGetter, MediaStatusGetter implements BaseVideo {
+
   const factory DetailPrgItem({
     @required String id,
     @required String videoType,
@@ -171,9 +171,8 @@ abstract class DetailPrgItem
 }
 
 @freezed
-abstract class OnetimePlan implements _$OnetimePlan {
+abstract class OnetimePlan implements _$OnetimePlan, BaseOneTimePlan {
 
-  @Implements(BaseOneTimePlan)
   const factory OnetimePlan({
     @required String id,
     @required String parentPlanType,
@@ -202,8 +201,8 @@ abstract class OnetimePlan implements _$OnetimePlan {
 }
 
 @freezed
-abstract class Extension with _$Extension {
-  @Implements(BaseExtension)
+abstract class Extension with _$Extension implements BaseExtension {
+
   const factory Extension({
     @required String id,
     @required int extensionTime,
@@ -220,8 +219,8 @@ abstract class Extension with _$Extension {
 }
 
 @freezed
-abstract class Viewer with _$Viewer {
-  @Implements(BaseViewer)
+abstract class Viewer with _$Viewer implements BaseViewer {
+
   const factory Viewer({
     @required String name,
     @required String icon,

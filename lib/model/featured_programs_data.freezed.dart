@@ -410,7 +410,6 @@ class __$BroadcastingsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseSearchableProgramConnection)
 
 /// @nodoc
 class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
@@ -475,8 +474,7 @@ class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
   }
 }
 
-abstract class _Broadcastings
-    implements Broadcastings, BaseSearchableProgramConnection {
+abstract class _Broadcastings implements Broadcastings {
   const factory _Broadcastings(
       {@required
           List<Item> items,
@@ -722,7 +720,6 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseProgram)
 
 /// @nodoc
 class _$_Item with DiagnosticableTreeMixin implements _Item {
@@ -874,7 +871,7 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   }
 }
 
-abstract class _Item implements Item, BaseProgram {
+abstract class _Item implements Item {
   const factory _Item(
       {@required
           DateTime broadcastAt,
@@ -1271,7 +1268,6 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseUser)
 
 /// @nodoc
 class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
@@ -1346,7 +1342,7 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
   }
 }
 
-abstract class _ViewerUser implements ViewerUser, BaseUser {
+abstract class _ViewerUser implements ViewerUser {
   const factory _ViewerUser(
       {@required
           String id,
@@ -1489,7 +1485,6 @@ class __$ChannelsCopyWithImpl<$Res> extends _$ChannelsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseModelChannelConnection)
 
 /// @nodoc
 class _$_Channels with DiagnosticableTreeMixin implements _Channels {
@@ -1562,7 +1557,7 @@ class _$_Channels with DiagnosticableTreeMixin implements _Channels {
   }
 }
 
-abstract class _Channels implements Channels, BaseModelChannelConnection {
+abstract class _Channels implements Channels {
   const factory _Channels(
       {@required
           List<Channel> items,

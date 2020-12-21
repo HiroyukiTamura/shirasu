@@ -71,7 +71,7 @@ class _ContentListView extends HookWidget {
         if (showLoadingIndicator && i == itemCount - 1)
           return const CenterCircleProgress();
         else {
-          final program = items[i].program as BaseProgram; //todo why cast?
+          final program = items[i].program;
           return MovieListItem(
             program: program,
             onTap: () async => context

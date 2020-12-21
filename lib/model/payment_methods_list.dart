@@ -16,8 +16,8 @@ abstract class PaymentMethodsData with _$PaymentMethodsData {
 }
 
 @freezed
-abstract class Viewer with _$Viewer {
-  @Implements(BaseViewer)
+abstract class Viewer with _$Viewer implements BaseViewer {
+
   const factory Viewer({
     @required List<PaymentMethod> paymentMethods,
     @required
@@ -30,8 +30,8 @@ abstract class Viewer with _$Viewer {
 }
 
 @freezed
-abstract class PaymentMethod with _$PaymentMethod {
-  @Implements(BasePaymentMethod)
+abstract class PaymentMethod with _$PaymentMethod implements BasePaymentMethod {
+
   const factory PaymentMethod({
     @required String id,
     @required String brand,

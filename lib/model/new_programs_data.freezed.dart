@@ -293,7 +293,6 @@ class __$NewProgramsCopyWithImpl<$Res> extends _$NewProgramsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseSearchableProgramConnection)
 
 /// @nodoc
 class _$_NewPrograms implements _NewPrograms {
@@ -356,8 +355,7 @@ class _$_NewPrograms implements _NewPrograms {
   }
 }
 
-abstract class _NewPrograms
-    implements NewPrograms, BaseSearchableProgramConnection {
+abstract class _NewPrograms implements NewPrograms {
   const factory _NewPrograms(
       {@required
           List<NewProgramItem> items,

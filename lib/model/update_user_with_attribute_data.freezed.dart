@@ -331,7 +331,6 @@ class __$UserWithAttributeCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseUserWithAttribute)
 
 /// @nodoc
 class _$_UserWithAttribute implements _UserWithAttribute {
@@ -395,8 +394,7 @@ class _$_UserWithAttribute implements _UserWithAttribute {
   }
 }
 
-abstract class _UserWithAttribute
-    implements UserWithAttribute, BaseUserWithAttribute {
+abstract class _UserWithAttribute implements UserWithAttribute {
   const factory _UserWithAttribute(
       {@required
           User user,
@@ -612,7 +610,6 @@ class __$UserAttributeCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseUserAttribute)
 
 /// @nodoc
 class _$_UserAttribute implements _UserAttribute {
@@ -729,7 +726,7 @@ class _$_UserAttribute implements _UserAttribute {
   }
 }
 
-abstract class _UserAttribute implements UserAttribute, BaseUserAttribute {
+abstract class _UserAttribute implements UserAttribute {
   const factory _UserAttribute(
       {@required
           String id,
@@ -942,7 +939,6 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseUser)
 
 /// @nodoc
 class _$_User implements _User {
@@ -1040,7 +1036,7 @@ class _$_User implements _User {
   }
 }
 
-abstract class _User implements User, BaseUser {
+abstract class _User implements User {
   const factory _User(
       {@required
           String id,

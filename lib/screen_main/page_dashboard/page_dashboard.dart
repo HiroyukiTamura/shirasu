@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -19,37 +19,33 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 import 'package:shirasu/extension.dart';
 
+part 'page_dashboard.g.dart';
+
 final pDashboardViewModel =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard(ref));
 
-class PageDashboardInMainScreen extends HookWidget {
-  const PageDashboardInMainScreen({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => useProvider(
-              pDashboardViewModel.select((viewModel) => viewModel.state.state))
-          .when(
-        preInitialized: () => const CenterCircleProgress(),
-        error: () => const PageError(),
-        loadingMore: () => _ListViewContent(
-          model: useProvider(pDashboardViewModel).state.apiData,
-          // we don't want to rebuild
-          showLoadingIndicator: true,
-        ),
-        success: () {
-          final model = useProvider(pDashboardViewModel)
-              .state
-              .apiData; // we don't want to rebuild,
-          return _ListViewContent(
-            model: model,
-            showLoadingIndicator: model.newProgramsDataList?.isNotEmpty ==
-                    true &&
-                model.newProgramsDataList?.last?.newPrograms?.nextToken != null,
-          );
-        },
-      );
-}
+@hwidget
+Widget pageDashboardInMainScreen() => useProvider(
+        pDashboardViewModel.select((viewModel) => viewModel.state.state)).when(
+      preInitialized: () => const CenterCircleProgress(),
+      error: () => const PageError(),
+      loadingMore: () => _ListViewContent(
+        model: useProvider(pDashboardViewModel).state.apiData,
+        // we don't want to rebuild
+        showLoadingIndicator: true,
+      ),
+      success: () {
+        final model = useProvider(pDashboardViewModel)
+            .state
+            .apiData; // we don't want to rebuild,
+        return _ListViewContent(
+          model: model,
+          showLoadingIndicator: model.newProgramsDataList?.isNotEmpty == true &&
+              model.newProgramsDataList?.last?.newPrograms?.nextToken != null,
+        );
+      },
+    );
 
 class _ListViewContent extends HookWidget {
   const _ListViewContent({
@@ -102,14 +98,13 @@ class _ListViewContent extends HookWidget {
             itemBuilder: (context, index) {
               if (index == 0 /*&& anyNowBroadcastings*/) {
                 //fixme
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 48),
-                  child: BillboardHeader(
-                    items: featurePrgData.comingBroadcastings.items,
-                    height: BillboardHeader.getExpandedHeight(
-                        constraints.maxWidth,
-                        1 < featurePrgData.nowBroadcastings.items.length),
-                  ),
+                return BillboardHeader(
+                  items: featurePrgData.comingBroadcastings.items,
+                  height: BillboardHeader.getExpandedHeight(
+                      constraints.maxWidth,
+                      1 < featurePrgData.nowBroadcastings.items.length),
+                  onTapItem: (BuildContext context, String prgId) async =>
+                      context.pushProgramPage(prgId),
                 );
               } else if (index < comingBroadcastingsLast &&
                   nowBroadcastingsLast != comingBroadcastingsLast) {
@@ -142,7 +137,11 @@ class _ListViewContent extends HookWidget {
 
                 return i == 0
                     ? const Heading(text: Strings.HEADING_CHANNEL)
-                    : ChannelListItem(channels: featurePrgData.channels);
+                    : ChannelListItem(
+                        channels: featurePrgData.channels,
+                        onTap: (BuildContext context, String channelId) async =>
+                            context.pushChannelPage(channelId),
+                      );
               } else if (index < itemCount || !showLoadingIndicator) {
                 final i = index - channelsLast;
 

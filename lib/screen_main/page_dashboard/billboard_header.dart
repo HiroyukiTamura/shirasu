@@ -4,19 +4,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/header_backdrop.dart';
 import 'package:shirasu/screen_main/page_dashboard/header_color_filter.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:shirasu/extension.dart';
 
 final scrollRatioProvider =
     Provider.family.autoDispose<double, double>((ref, height) {
@@ -24,11 +21,14 @@ final scrollRatioProvider =
   return 0 < offset && offset < height ? offset / height : 0;
 });
 
+typedef OnTapItem = void Function(BuildContext context, String prgId);
+
 class BillboardHeader extends StatelessWidget {
   const BillboardHeader({
     Key key,
     @required this.items,
     @required this.height,
+    @required this.onTapItem,
   }) : super(key: key);
 
   static const double _TITLE_H = 72;
@@ -40,10 +40,12 @@ class BillboardHeader extends StatelessWidget {
 
   final List<Item> items;
   final double height;
+  final OnTapItem onTapItem;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
+  Widget build(BuildContext context) => Container(
         height: height,
+        margin: const EdgeInsets.only(bottom: 48),
         child: Stack(
           fit: StackFit.expand,
           children: <Widget>[
@@ -51,6 +53,7 @@ class BillboardHeader extends StatelessWidget {
             _Content(
               height: height,
               items: items,
+              onTapItem: onTapItem,
             ),
             HeaderColorFilter(height: height),
           ],
@@ -60,8 +63,7 @@ class BillboardHeader extends StatelessWidget {
   static double getExpandedHeight(double maxWidth, bool showIndicator) {
     final thumbnailHeight = (maxWidth - _CARD_SPACE * 2) / Dimens.IMG_RATIO;
     double height = _TITLE_H + _PRG_TITLE_H + _CARD_SPACE * 2 + thumbnailHeight;
-    if (showIndicator)
-      height += _INDICATOR_H;
+    if (showIndicator) height += _INDICATOR_H;
     return height;
   }
 }
@@ -71,12 +73,14 @@ class _Content extends HookWidget {
     Key key,
     @required this.height,
     @required this.items,
+    @required this.onTapItem,
   })  : _showIndicator = 1 < items.length,
         super(key: key);
 
   final double height;
   final List<Item> items;
   final bool _showIndicator;
+  final OnTapItem onTapItem;
 
   double get _pageViewH {
     double h = height - BillboardHeader._TITLE_H;
@@ -103,8 +107,7 @@ class _Content extends HookWidget {
           children: [
             _title(),
             _pageView(pc),
-            if (_showIndicator)
-              _indicator(pc),
+            if (_showIndicator) _indicator(pc),
           ],
         ),
       ),
@@ -112,53 +115,57 @@ class _Content extends HookWidget {
   }
 
   static Widget _title() => Container(
-      alignment: Alignment.center,
-      height: BillboardHeader._TITLE_H - BillboardHeader._CARD_SPACE,
-      child: Text(
-        Strings.HEADING_NOW_ON_AIR,
-        style: GoogleFonts.roboto(
-          fontSize: 28,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
+        alignment: Alignment.center,
+        height: BillboardHeader._TITLE_H - BillboardHeader._CARD_SPACE,
+        child: Text(
+          Strings.HEADING_NOW_ON_AIR,
+          style: GoogleFonts.roboto(
+            fontSize: 28,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
-    );
+      );
 
   Widget _pageView(PageController pc) => SizedBox(
-      height: _pageViewH,
-      child: PageView.builder(
-        controller: pc,
-        itemBuilder: (context, i) =>
-            _BillboardHeaderItem(item: items[i]),
-        itemCount: items.length,
-      ),
-    );
+        height: _pageViewH,
+        child: PageView.builder(
+          controller: pc,
+          itemBuilder: (context, i) => _BillboardHeaderItem(
+            item: items[i],
+            onTapItem: onTapItem,
+          ),
+          itemCount: items.length,
+        ),
+      );
 
   Widget _indicator(PageController pc) => Container(
-      height: BillboardHeader._INDICATOR_H,
-      alignment: Alignment.center,
-      child: SmoothPageIndicator(
-        controller: pc,
-        count: items.length,
-        effect: WormEffect(
-          dotColor: Colors.white.withOpacity(.5),
-          activeDotColor: Colors.white,
-          dotHeight: 8,
-          dotWidth: 8,
+        height: BillboardHeader._INDICATOR_H,
+        alignment: Alignment.center,
+        child: SmoothPageIndicator(
+          controller: pc,
+          count: items.length,
+          effect: WormEffect(
+            dotColor: Colors.white.withOpacity(.5),
+            activeDotColor: Colors.white,
+            dotHeight: 8,
+            dotWidth: 8,
+          ),
         ),
-      ),
-    );
+      );
 }
 
 class _BillboardHeaderItem extends StatelessWidget {
   _BillboardHeaderItem({
     Key key,
     @required this.item,
+    @required this.onTapItem,
   })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
         super(key: key);
 
   final String _thumbnailUrl;
   final Item item;
+  final OnTapItem onTapItem;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -172,7 +179,7 @@ class _BillboardHeaderItem extends StatelessWidget {
           child: ColoredBox(
             color: Colors.black,
             child: StackedInkwell(
-              onTap: () async => _onTap(context),
+              onTap: () async => onTapItem(context, item.id),
               child: Column(
                 children: [
                   _thumbnail(),
@@ -184,36 +191,34 @@ class _BillboardHeaderItem extends StatelessWidget {
         ),
       );
 
-  Future<void> _onTap(BuildContext context) async => context.pushProgramPage(item.id);
-  
   Widget _thumbnail() => AspectRatio(
-      aspectRatio: Dimens.IMG_RATIO,
-      child: CachedNetworkImage(
-        imageUrl: _thumbnailUrl,
-        errorWidget: (context, url, error) {
-          print(error);
-          return Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Colors.white60,
-          ); //todo show default thumbnail
-        },
-      ),
-    );
-  
+        aspectRatio: Dimens.IMG_RATIO,
+        child: CachedNetworkImage(
+          imageUrl: _thumbnailUrl,
+          errorWidget: (context, url, error) {
+            print(error);
+            return Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: Colors.white60,
+            ); //todo show default thumbnail
+          },
+        ),
+      );
+
   Widget _title() => Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 4,
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 4,
+          ),
+          child: Text(
+            item.title,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            style: TextStyles.DASHBOARD_BILLBOARD_TITLE_H,
+          ),
         ),
-        child: Text(
-          item.title,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          style: TextStyles.DASHBOARD_BILLBOARD_TITLE_H,
-        ),
-      ),
-    );
+      );
 }

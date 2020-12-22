@@ -96,8 +96,7 @@ class _ListViewContent extends HookWidget {
             padding: const EdgeInsets.only(bottom: 16),
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
-              if (index == 0 /*&& anyNowBroadcastings*/) {
-                //fixme
+              if (index == 0 && anyNowBroadcastings) {
                 return BillboardHeader(
                   items: featurePrgData.comingBroadcastings.items,
                   height: BillboardHeader.getExpandedHeight(

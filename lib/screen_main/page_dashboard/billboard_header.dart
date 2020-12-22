@@ -37,7 +37,8 @@ class BillboardHeader extends StatelessWidget {
   static const double _PRG_TITLE_H = 108;
   static const double _CARD_RADIUS = 8;
   static const double _CARD_PADDING = 4;
-  static const double _CARD_SPACE = _CARD_RADIUS/2 + _CARD_PADDING;
+  static const double _BTM_PADDING = 24;
+  static const double _CARD_SPACE = _CARD_RADIUS / 2 + _CARD_PADDING;
 
   final List<Item> items;
   final double height;
@@ -63,8 +64,11 @@ class BillboardHeader extends StatelessWidget {
 
   static double getExpandedHeight(double maxWidth, bool showIndicator) {
     final thumbnailHeight = (maxWidth - _CARD_SPACE * 2) / Dimens.IMG_RATIO;
-    double height = _TITLE_H + _PRG_TITLE_H + _CARD_SPACE * 2 + thumbnailHeight;
-    if (showIndicator) height += _INDICATOR_H;
+    double height = _TITLE_H +
+        _PRG_TITLE_H +
+        _CARD_SPACE * 2 +
+        thumbnailHeight +
+        (showIndicator ? _INDICATOR_H : _BTM_PADDING);
     return height;
   }
 }
@@ -84,8 +88,12 @@ class _Content extends HookWidget {
   final OnTapItem onTapItem;
 
   double get _pageViewH {
-    double h = height - BillboardHeader._TITLE_H - BillboardHeader._CARD_SPACE * 2;
-    if (_showIndicator) h -= BillboardHeader._INDICATOR_H;
+    double h = height -
+        BillboardHeader._TITLE_H -
+        BillboardHeader._CARD_SPACE * 2 -
+        (_showIndicator
+            ? BillboardHeader._INDICATOR_H
+            : BillboardHeader._BTM_PADDING);
     return h;
   }
 
@@ -101,12 +109,16 @@ class _Content extends HookWidget {
       padding: EdgeInsets.only(top: padding),
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: BillboardHeader._CARD_SPACE),
+        padding:
+            const EdgeInsets.symmetric(vertical: BillboardHeader._CARD_SPACE),
         child: Column(
           children: [
             _title(),
             _pageView(pc),
-            if (_showIndicator) _indicator(pc),
+            if (_showIndicator)
+              _indicator(pc)
+            else
+              const SizedBox(height: BillboardHeader._BTM_PADDING)
           ],
         ),
       ),

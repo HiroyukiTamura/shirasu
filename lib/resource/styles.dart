@@ -23,8 +23,8 @@ class Styles {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     brightness: Brightness.dark,
     primaryColorBrightness: Brightness.dark,
-    primaryColor: const Color(0xff50e6ff),
-    accentColor: const Color(0xff50e6ff),
+    primaryColor: Colors.deepOrange,
+    accentColor: Colors.deepOrange,
     scaffoldBackgroundColor: Colors.black,
     appBarTheme: const AppBarTheme(color: Colors.black),
     textTheme: GoogleFonts.latoTextTheme(

@@ -35,6 +35,7 @@ class MovieListItem extends StatelessWidget {
             height: _TILE_HEIGHT,
             child: Row(
               children: [
+                // todo handle error
                 CachedNetworkImage(
                   imageUrl: UrlUtil.getThumbnailUrl(program.id),
                   width: _THUMBNAIL_WIDTH,

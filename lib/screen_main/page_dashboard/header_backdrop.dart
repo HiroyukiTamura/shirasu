@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:after_layout/after_layout.dart';
@@ -82,7 +83,7 @@ class _BackDropInnerState extends State<_BackDropInner>
   Future<void> _startScroll() async {
     while (mounted) {
       await _controller.animateTo(
-        500,
+        _controller.offset + 500,
         duration: const Duration(minutes: 1),
         curve: Curves.linear,
       );

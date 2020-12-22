@@ -42,7 +42,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     trySetState(newModel);
 
     try {
-      final headerImage = await NetworkImageClient.instance.requestHeaderImage();
+      final headerImage =
+          await NetworkImageClient.instance.requestHeaderImage();
       trySetHeaderImage(headerImage);
     } catch (e) {
       // todo handle error

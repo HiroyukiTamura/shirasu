@@ -31,12 +31,12 @@ class BillboardHeader extends StatelessWidget {
     @required this.onTapItem,
   }) : super(key: key);
 
-  static const double _TITLE_H = 72;
+  static const double _TITLE_H = 64;
   static const double _INDICATOR_H = 36;
   static const double _PRG_TITLE_H = 108;
   static const double _CARD_RADIUS = 8;
   static const double _CARD_PADDING = 4;
-  static const double _CARD_SPACE = _CARD_RADIUS + _CARD_PADDING;
+  static const double _CARD_SPACE = _CARD_RADIUS/2 + _CARD_PADDING;
 
   final List<Item> items;
   final double height;
@@ -83,7 +83,7 @@ class _Content extends HookWidget {
   final OnTapItem onTapItem;
 
   double get _pageViewH {
-    double h = height - BillboardHeader._TITLE_H;
+    double h = height - BillboardHeader._TITLE_H - BillboardHeader._CARD_SPACE * 2;
     if (_showIndicator) h -= BillboardHeader._INDICATOR_H;
     return h;
   }
@@ -100,9 +100,7 @@ class _Content extends HookWidget {
       padding: EdgeInsets.only(top: padding),
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: BillboardHeader._CARD_SPACE,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: BillboardHeader._CARD_SPACE),
         child: Column(
           children: [
             _title(),
@@ -116,7 +114,7 @@ class _Content extends HookWidget {
 
   static Widget _title() => Container(
         alignment: Alignment.center,
-        height: BillboardHeader._TITLE_H - BillboardHeader._CARD_SPACE,
+        height: BillboardHeader._TITLE_H,
         child: Text(
           Strings.HEADING_NOW_ON_AIR,
           style: GoogleFonts.roboto(

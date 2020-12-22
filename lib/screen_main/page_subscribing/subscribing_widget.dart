@@ -9,6 +9,7 @@ import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/extension.dart';
 
 part 'subscribing_widget.g.dart';

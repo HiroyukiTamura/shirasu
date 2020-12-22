@@ -13,6 +13,7 @@ import 'package:shirasu/screen_main/page_dashboard/header_color_filter.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 final scrollRatioProvider =
@@ -193,14 +194,7 @@ class _BillboardHeaderItem extends StatelessWidget {
         aspectRatio: Dimens.IMG_RATIO,
         child: CachedNetworkImage(
           imageUrl: _thumbnailUrl,
-          errorWidget: (context, url, error) {
-            print(error);
-            return Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.white60,
-            ); //todo show default thumbnail
-          },
+          errorWidget: Util.defaultPrgThumbnail,
         ),
       );
 

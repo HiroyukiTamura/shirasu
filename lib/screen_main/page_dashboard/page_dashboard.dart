@@ -117,6 +117,7 @@ class _ListViewContent extends HookWidget {
                   return BillboardExpanded(
                     item: item,
                     onTap: () async => context.pushProgramPage(item.id),
+                    btmPadding: i != featurePrgData.comingBroadcastings.items.length,
                   );
                 }
               } else if (index < subscribingLast &&

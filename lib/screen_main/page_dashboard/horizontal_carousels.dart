@@ -8,6 +8,7 @@ import 'package:shirasu/model/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
@@ -23,7 +24,7 @@ Widget horizontalCarousels({
   @required BoxConstraints constraints,
   @required double maxWidth,
   @required bool detailCaption,
-  @required void Function(Item) onTap,
+  @required OnTapItem onTapItem,
 }) {
   final columnCount = (constraints.maxWidth / _MAX_WIDTH).ceil();
   final inScreenItemCount = columnCount - 1 + 7 / 16;
@@ -31,7 +32,7 @@ Widget horizontalCarousels({
       Dimens.DASHBOARD_OUTER_MARGIN -
       (columnCount - 1) * _SEPARATOR_MARGIN;
   final width = nonMarginTotalWidth / inScreenItemCount;
-  final height = width / Dimens.IMG_RATIO + 108;
+  final height = width / Dimens.IMG_RATIO + 108;//todo share this value
 
   return Container(
     margin: const EdgeInsets.only(top: 16, bottom: 32),
@@ -44,10 +45,10 @@ Widget horizontalCarousels({
       scrollDirection: Axis.horizontal,
       separatorBuilder: (BuildContext context, int index) =>
           const SizedBox(width: _SEPARATOR_MARGIN),
-      itemBuilder: (context, index) => _HorizontalCarouselItem(
+      itemBuilder: (context, index) => HorizontalCarouselItem(
         item: list[index],
         width: width,
-        onTap: onTap,
+        onTapItem: onTapItem,
         detailCaption: detailCaption,
       ),
     ),
@@ -55,22 +56,23 @@ Widget horizontalCarousels({
 }
 
 @swidget
-Widget _horizontalCarouselItem(
+Widget horizontalCarouselItem(
   BuildContext context, {
   @required Item item,
   @required double width,
   @required bool detailCaption,
-  @required void Function(Item) onTap,
+  @required OnTapItem onTapItem,
+  Color backGround,
 }) =>
     ClipRRect(
       borderRadius: const BorderRadius.all(
         Radius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
       ),
       child: StackedInkWell(
-        onTap: () async => onTap(item),
+        onTap: () => onTapItem(context, item.id),
         child: Container(
           width: width,
-          color: Styles.cardBackground,
+          color: backGround ?? Styles.cardBackground,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -83,7 +85,7 @@ Widget _horizontalCarouselItem(
               ),
               Expanded(
                 child: detailCaption
-                    ? _CaptionDetail(item: item)
+                    ? HorizontalCarouselDetailCaption(item: item)
                     : _CaptionTitle(item: item),
               ),
             ],
@@ -104,12 +106,16 @@ Widget _captionTitle({@required Item item}) => Container(
       ),
     );
 
-@swidget
-Widget _captionDetail(
-  BuildContext context, {
-  @required Item item,
-}) =>
-    Padding(
+class HorizontalCarouselDetailCaption extends StatelessWidget {
+
+  const HorizontalCarouselDetailCaption({Key key, @required this.item}) : super(key: key);
+
+  static const double HEIGHT = 108;
+  final Item item;
+
+  @override
+  Widget build(BuildContext context) => Container(
+      height: HEIGHT,
       padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,3 +159,4 @@ Widget _captionDetail(
         ],
       ),
     );
+}

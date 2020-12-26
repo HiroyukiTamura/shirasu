@@ -13,7 +13,7 @@ class HorizontalCarousels extends StatelessWidget {
       @required this.constraints,
       @required this.maxWidth,
       @required this.detailCaption,
-      @required this.onTap})
+      @required this.onTapItem})
       : super(key: key);
 
   final List<Item> list;
@@ -24,7 +24,7 @@ class HorizontalCarousels extends StatelessWidget {
 
   final bool detailCaption;
 
-  final void Function(Item) onTap;
+  final void Function(BuildContext, String) onTapItem;
 
   @override
   Widget build(BuildContext _context) => horizontalCarousels(
@@ -32,16 +32,17 @@ class HorizontalCarousels extends StatelessWidget {
       constraints: constraints,
       maxWidth: maxWidth,
       detailCaption: detailCaption,
-      onTap: onTap);
+      onTapItem: onTapItem);
 }
 
-class _HorizontalCarouselItem extends StatelessWidget {
-  const _HorizontalCarouselItem(
+class HorizontalCarouselItem extends StatelessWidget {
+  const HorizontalCarouselItem(
       {Key key,
       @required this.item,
       @required this.width,
       @required this.detailCaption,
-      @required this.onTap})
+      @required this.onTapItem,
+      this.backGround})
       : super(key: key);
 
   final Item item;
@@ -50,11 +51,17 @@ class _HorizontalCarouselItem extends StatelessWidget {
 
   final bool detailCaption;
 
-  final void Function(Item) onTap;
+  final void Function(BuildContext, String) onTapItem;
+
+  final Color backGround;
 
   @override
-  Widget build(BuildContext _context) => _horizontalCarouselItem(_context,
-      item: item, width: width, detailCaption: detailCaption, onTap: onTap);
+  Widget build(BuildContext _context) => horizontalCarouselItem(_context,
+      item: item,
+      width: width,
+      detailCaption: detailCaption,
+      onTapItem: onTapItem,
+      backGround: backGround);
 }
 
 class _CaptionTitle extends StatelessWidget {
@@ -64,13 +71,4 @@ class _CaptionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext _context) => _captionTitle(item: item);
-}
-
-class _CaptionDetail extends StatelessWidget {
-  const _CaptionDetail({Key key, @required this.item}) : super(key: key);
-
-  final Item item;
-
-  @override
-  Widget build(BuildContext _context) => _captionDetail(_context, item: item);
 }

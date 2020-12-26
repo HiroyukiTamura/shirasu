@@ -7,10 +7,10 @@ part of 'header_color_filter.dart';
 // **************************************************************************
 
 class HeaderColorFilter extends HookWidget {
-  const HeaderColorFilter({Key key, @required this.height}) : super(key: key);
+  const HeaderColorFilter({Key key, @required this.data}) : super(key: key);
 
-  final double height;
+  final HeaderData data;
 
   @override
-  Widget build(BuildContext _context) => headerColorFilter(height: height);
+  Widget build(BuildContext _context) => headerColorFilter(data: data);
 }

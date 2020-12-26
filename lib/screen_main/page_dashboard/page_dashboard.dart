@@ -8,10 +8,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard_expanded.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard_header.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_expanded.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
-import 'package:shirasu/screen_main/page_dashboard/heading.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
@@ -64,7 +64,7 @@ class _ListViewContent extends HookWidget {
     final newPrgData = model.allNewPrograms;
 
     final anyNowBroadcastings =
-        featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
+        featurePrgData?.nowBroadcastings?.items?.isNotEmpty != true; //fixme
 
     int itemCount = _NOW_BROADCASTINGS_LAST;
 
@@ -102,13 +102,12 @@ class _ListViewContent extends HookWidget {
             itemBuilder: (context, index) {
               if (index == 0) {
                 return anyNowBroadcastings
-                    ? BillboardHeader(
-                        items: featurePrgData.comingBroadcastings.items,
-                        height: BillboardHeader.getExpandedHeight(
-                            constraints.maxWidth,
-                            1 < featurePrgData.nowBroadcastings.items.length),
+                    ? BillboardHeader.build(
                         onTapItem: (BuildContext context, String prgId) async =>
                             context.pushProgramPage(prgId),
+                        items: featurePrgData.comingBroadcastings.items,
+                        constraints: constraints,
+                        wideMode: context.isBigScreen,
                       )
                     : const SizedBox(height: 16);
               } else if (index < comingBroadcastingsLast &&
@@ -124,7 +123,7 @@ class _ListViewContent extends HookWidget {
                     maxWidth: constraints.maxWidth,
                     constraints: constraints,
                     detailCaption: true,
-                    onTap: (item) async => context.pushProgramPage(item.id),
+                    onTapItem: (item, id) async => context.pushProgramPage(id),
                   );
                 else {
                   final item = featurePrgData.comingBroadcastings.items[i - 1];
@@ -146,7 +145,8 @@ class _ListViewContent extends HookWidget {
                         maxWidth: constraints.maxWidth,
                         constraints: constraints,
                         detailCaption: false,
-                        onTap: (item) async => context.pushProgramPage(item.id),
+                        onTapItem: (item, id) async =>
+                            context.pushProgramPage(id),
                       );
               } else if (index < channelsLast &&
                   subscribingLast != channelsLast) {

@@ -33,4 +33,6 @@ extension BuildContextX on BuildContext {
 
   Future<void> pushChannelPage(String id) async =>
       read(appRouterProvider).delegate.pushPage(GlobalRoutePath.channel(id));
+
+  bool get isBigScreen => 600 < MediaQuery.of(this).size.width;
 }

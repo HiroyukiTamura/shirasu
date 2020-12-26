@@ -14,6 +14,7 @@ Widget heading(BuildContext context, {
       text,
       style: TextStyle(
         fontSize: 20,
+        height: 1,
         fontWeight: FontWeight.bold,
         decoration: TextDecoration.none,
         color: Theme.of(context).accentColor,

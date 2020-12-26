@@ -64,7 +64,7 @@ class _ContentListView extends HookWidget {
 
     final listView = ListView.builder(
       controller: sc,
-      padding: const EdgeInsets.symmetric(vertical: MovieListItem.PADDING),
+      padding: const EdgeInsets.symmetric(vertical: MovieListItemBase.PADDING),
       itemBuilder: (context, i) {
         if (showLoadingIndicator && i == itemCount - 1)
           return const CenterCircleProgress();

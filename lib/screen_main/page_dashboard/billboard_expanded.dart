@@ -94,7 +94,7 @@ class BillboardExpanded extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 12),
               child: Container(
                 height: 1,
-                color: Colors.deepOrange,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),

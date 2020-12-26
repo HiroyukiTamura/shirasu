@@ -6,7 +6,7 @@ class Styles {
   const Styles._();
 
   static final colorTextSub = Colors.white.withOpacity(.7);
-  static const BACK_COLOR = Color(0xff1a1a1f);
+  static const BACK_COLOR = Color(0xff181818);
   static const PRIMARY_COLOR = Color(0xff50e6ff);
   static const PRIMARY_COLOR_DARK = Color(0xff0078D4);
   static const ACCENT_COLOR_DARK = Color(0xffd45c00);
@@ -23,9 +23,9 @@ class Styles {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     brightness: Brightness.dark,
     primaryColorBrightness: Brightness.dark,
-    primaryColor: Colors.deepOrange,
-    accentColor: Colors.deepOrange,
-    scaffoldBackgroundColor: Colors.black,
+    primaryColor: PRIMARY_COLOR,
+    accentColor: PRIMARY_COLOR,
+    scaffoldBackgroundColor: BACK_COLOR,
     appBarTheme: const AppBarTheme(color: Colors.black),
     textTheme: GoogleFonts.latoTextTheme(
       ThemeData.dark().textTheme,

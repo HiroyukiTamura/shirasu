@@ -123,6 +123,11 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static const LIST_MOVIE_TITLE_THICK = TextStyle(
+    height: TextStyles.TEXT_H_SML,
+    fontSize: 16,
+  );
+
   static const LIST_MOVIE_TITLE_BIG = TextStyle(
     height: 1.3,
     fontSize: 14,

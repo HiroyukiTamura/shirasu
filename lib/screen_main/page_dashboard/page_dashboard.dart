@@ -54,6 +54,8 @@ class _ListViewContent extends HookWidget {
   });
 
   static const _COLUMN_COUNT = 2; // todo set dynamically
+  static const _NOW_BROADCASTINGS_LAST = 1;
+
   final ApiData model;
   final bool showLoadingIndicator;
 
@@ -66,7 +68,6 @@ class _ListViewContent extends HookWidget {
 
     final anyNowBroadcastings =
         featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
-    final nowBroadcastingsLast = anyNowBroadcastings ? 1 : 0;
 
     if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
       itemCount += featurePrgData.comingBroadcastings.items.length + 1;
@@ -96,18 +97,18 @@ class _ListViewContent extends HookWidget {
             padding: const EdgeInsets.only(bottom: 16),
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
-              if (index == 0 && anyNowBroadcastings) {
-                return BillboardHeader(
+              if (index == 0) {
+                return anyNowBroadcastings ? BillboardHeader(
                   items: featurePrgData.comingBroadcastings.items,
                   height: BillboardHeader.getExpandedHeight(
                       constraints.maxWidth,
                       1 < featurePrgData.nowBroadcastings.items.length),
                   onTapItem: (BuildContext context, String prgId) async =>
                       context.pushProgramPage(prgId),
-                );
+                ) : const SizedBox(height: 16);
               } else if (index < comingBroadcastingsLast &&
-                  nowBroadcastingsLast != comingBroadcastingsLast) {
-                final i = index - nowBroadcastingsLast;
+                  _NOW_BROADCASTINGS_LAST != comingBroadcastingsLast) {
+                final i = index - _NOW_BROADCASTINGS_LAST;
 
                 if (i == 0)
                   return const Heading(text: Strings.HEADING_UPCOMING);

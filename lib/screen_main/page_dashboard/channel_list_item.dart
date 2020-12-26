@@ -4,8 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/featured_programs_data.dart';
+import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/extension.dart';
 
 part 'channel_list_item.g.dart';
 
@@ -27,36 +29,14 @@ Widget channelListItem({
         itemCount: channels.items.length,
         scrollDirection: Axis.horizontal,
         separatorBuilder: (context, i) => const SizedBox(width: _PADDING),
-        itemBuilder: (context, i) => _ListItem(
-          id: channels.items[i].id,
-          onTap: onTap,
-        ),
+        itemBuilder: (context, i) {
+          final id = channels.items[i].id;
+          return CircleCachedNetworkImage(
+            onTap: () => context.pushChannelPage(id),
+            size: _SIZE,
+            imageUrl: UrlUtil.getChannelLogoUrl(id),
+            errorWidget: Util.defaultChannelIcon,
+          );
+        },
       ),
-    );
-
-@swidget
-Widget _listItem({
-  @required String id,
-  @required OnTapChannel onTap,
-}) =>
-    CachedNetworkImage(
-      imageUrl: UrlUtil.getChannelLogoUrl(id),
-      height: _SIZE,
-      width: _SIZE,
-      imageBuilder: (context, imageProvider) => ClipOval(
-        child: StackedInkWell(
-          onTap: () => onTap(context, id),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-                onError: (e, stackTrace) => Util.onImageError(error: e, stackTrace: stackTrace,),
-              ),
-            ),
-          ),
-        ),
-      ),
-      errorWidget: Util.defaultChannelIcon,
     );

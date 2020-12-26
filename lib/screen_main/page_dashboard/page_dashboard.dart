@@ -53,7 +53,6 @@ class _ListViewContent extends HookWidget {
     @required this.showLoadingIndicator,
   });
 
-  static const _COLUMN_COUNT = 2; // todo set dynamically
   static const _NOW_BROADCASTINGS_LAST = 1;
 
   final ApiData model;
@@ -64,13 +63,17 @@ class _ListViewContent extends HookWidget {
     final featurePrgData = model.featureProgramData;
     final newPrgData = model.allNewPrograms;
 
-    int itemCount = 0;
-
     final anyNowBroadcastings =
         featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
 
-    if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
-      itemCount += featurePrgData.comingBroadcastings.items.length + 1;
+    int itemCount = _NOW_BROADCASTINGS_LAST;
+
+    if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true) {
+      final row = context.isBigScreen
+          ? 1
+          : featurePrgData.comingBroadcastings.items.length;
+      itemCount += row + 1;
+    }
     final comingBroadcastingsLast = itemCount;
 
     if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty == true)
@@ -98,26 +101,38 @@ class _ListViewContent extends HookWidget {
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
               if (index == 0) {
-                return anyNowBroadcastings ? BillboardHeader(
-                  items: featurePrgData.comingBroadcastings.items,
-                  height: BillboardHeader.getExpandedHeight(
-                      constraints.maxWidth,
-                      1 < featurePrgData.nowBroadcastings.items.length),
-                  onTapItem: (BuildContext context, String prgId) async =>
-                      context.pushProgramPage(prgId),
-                ) : const SizedBox(height: 16);
+                return anyNowBroadcastings
+                    ? BillboardHeader(
+                        items: featurePrgData.comingBroadcastings.items,
+                        height: BillboardHeader.getExpandedHeight(
+                            constraints.maxWidth,
+                            1 < featurePrgData.nowBroadcastings.items.length),
+                        onTapItem: (BuildContext context, String prgId) async =>
+                            context.pushProgramPage(prgId),
+                      )
+                    : const SizedBox(height: 16);
               } else if (index < comingBroadcastingsLast &&
                   _NOW_BROADCASTINGS_LAST != comingBroadcastingsLast) {
                 final i = index - _NOW_BROADCASTINGS_LAST;
 
                 if (i == 0)
                   return const Heading(text: Strings.HEADING_UPCOMING);
+
+                if (context.isBigScreen)
+                  return HorizontalCarousels(
+                    list: featurePrgData.comingBroadcastings.items,
+                    maxWidth: constraints.maxWidth,
+                    constraints: constraints,
+                    detailCaption: true,
+                    onTap: (item) async => context.pushProgramPage(item.id),
+                  );
                 else {
                   final item = featurePrgData.comingBroadcastings.items[i - 1];
                   return BillboardExpanded(
                     item: item,
                     onTap: () async => context.pushProgramPage(item.id),
-                    btmPadding: i != featurePrgData.comingBroadcastings.items.length,
+                    btmPadding:
+                        i != featurePrgData.comingBroadcastings.items.length,
                   );
                 }
               } else if (index < subscribingLast &&
@@ -128,8 +143,9 @@ class _ListViewContent extends HookWidget {
                     ? const Heading(text: Strings.HEADING_SUBSCRIBING)
                     : HorizontalCarousels(
                         list: featurePrgData.viewerUser.subscribedPrograms,
-                        columnCount: _COLUMN_COUNT,
                         maxWidth: constraints.maxWidth,
+                        constraints: constraints,
+                        detailCaption: false,
                         onTap: (item) async => context.pushProgramPage(item.id),
                       );
               } else if (index < channelsLast &&

@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/ui_common/images.dart';
+import 'package:shirasu/util.dart';
 
 class ListTileTop extends StatelessWidget {
   const ListTileTop({
@@ -25,26 +27,10 @@ class ListTileTop extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CachedNetworkImage(
+            CircleCachedNetworkImage(
               imageUrl: iconUrl,
-              height: _SIZE,
-              width: _SIZE,
-              imageBuilder: (context, provider) => Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: provider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              errorWidget: (context, url, e) {
-                debugPrint(e.toString());
-                return Assets.svg.logoOfficial.supportWeb().toWidget(
-                  width: _SIZE,
-                  height: _SIZE,
-                );
-              }
+              size: _SIZE,
+              errorWidget: Util.defaultChannelIcon,
             ),
             const SizedBox(width: 16),
             Text(

@@ -52,17 +52,17 @@ class BillboardHeader extends StatelessWidget {
         (constraints.maxWidth - CARD_SPACE * 2) / Dimens.IMG_RATIO;
     final showIndicator = 1 < items.length;
     final bottomH = showIndicator ? INDICATOR_H : BTM_PADDING;
-    final contentH = BillboardHeaderMultiCardView.WIDTH / Dimens.IMG_RATIO +
-        HorizontalCarouselDetailCaption.HEIGHT;
+    final commonH = TITLE_H + CARD_SPACE * 2 + bottomH + BTM_NOTCH_H_PAD;
     final height = wideMode
-        ? TITLE_H + CARD_SPACE * 2 + contentH + bottomH //todo fix
-        : TITLE_H + _PRG_TITLE_H + CARD_SPACE * 2 + thumbnailHeight + bottomH;
+        ? BillboardHeaderMultiCardView.WIDTH / Dimens.IMG_RATIO +
+            HorizontalCarouselDetailCaption.HEIGHT
+        : _PRG_TITLE_H + thumbnailHeight;
     return BillboardHeader._(
       data: HeaderData(
         wideMode: wideMode,
         constraints: constraints,
         items: items,
-        height: height,
+        height: height + commonH,
         showIndicator: showIndicator,
       ),
       onTapItem: onTapItem,
@@ -76,24 +76,45 @@ class BillboardHeader extends StatelessWidget {
   static const double CARD_PADDING = 4;
   static const double BTM_PADDING = 24;
   static const double CARD_SPACE = CARD_RADIUS / 2 + CARD_PADDING;
+  static const double BTM_NOTCH_H = 36;
+  static const double BTM_NOTCH_H_PAD = 24;
+  static const _CORNER_RADIUS = Radius.circular(BTM_NOTCH_H_PAD);
 
   final HeaderData data;
   final OnTapItem onTapItem;
 
   @override
-  Widget build(BuildContext context) => Container(
-        height: data.height,
-        margin: const EdgeInsets.only(bottom: 48),
-        child: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            BackDrop(height: data.height),
-            BillboardHeaderContent(
-              data: data,
-              onTapItem: onTapItem,
+  Widget build(BuildContext context) => Stack(
+        children: [
+          Container(
+            height: data.height,
+            child: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                BackDrop(height: data.height),
+                BillboardHeaderContent(
+                  data: data,
+                  onTapItem: onTapItem,
+                ),
+                HeaderColorFilter(data: data),
+              ],
             ),
-            HeaderColorFilter(data: data),
-          ],
-        ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: BTM_NOTCH_H_PAD,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: _CORNER_RADIUS,
+                    topRight: _CORNER_RADIUS,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       );
 }

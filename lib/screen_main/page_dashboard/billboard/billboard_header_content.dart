@@ -27,6 +27,7 @@ class BillboardHeaderContent extends HookWidget {
     double h = data.height -
         BillboardHeader.TITLE_H -
         BillboardHeader.CARD_SPACE * 2 -
+        BillboardHeader.BTM_NOTCH_H_PAD -
         (data.showIndicator
             ? BillboardHeader.INDICATOR_H
             : BillboardHeader.BTM_PADDING);
@@ -42,6 +43,8 @@ class BillboardHeaderContent extends HookWidget {
       final scrollRatio = useProvider(scrollRatioProvider(data.height));
       topPadding = data.height * scrollRatio / 2;
       sc = useScrollController(initialScrollOffset: data.height + topPadding);
+    } else {
+      useProvider(scrollRatioProvider(data.height));// avoid hook mismatch
     }
     final pc = usePageController();
 
@@ -55,22 +58,24 @@ class BillboardHeaderContent extends HookWidget {
         child: Column(
           children: [
             const _Title(),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: BillboardHeader.CARD_SPACE),
-              child: data.wideMode
-                  ? BillboardHeaderMultiCardView(
-                      data: data,
-                      onTapItem: onTapItem,
-                      controller: pc,
-                    )
-                  : BillboardHeaderSingleCardView(
-                      onTapItem: onTapItem,
-                      height: _singleCardViewH,
-                      data: data,
-                      controller: pc,
-                    ),
-            ),
+            if (data.wideMode)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: BillboardHeader.CARD_SPACE,
+                ),
+                child: BillboardHeaderMultiCardView(
+                  data: data,
+                  onTapItem: onTapItem,
+                  controller: pc,
+                ),
+              )
+            else
+              BillboardHeaderSingleCardView(
+                onTapItem: onTapItem,
+                height: _singleCardViewH,
+                data: data,
+                controller: pc,
+              ),
             if (data.showIndicator)
               _Indicator(
                 controller: pc,

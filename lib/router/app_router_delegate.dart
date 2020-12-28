@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/global_app_state.dart';
+import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
@@ -36,12 +37,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             auth: () => const ScreenAuth(),
             mainPage: () => PageDashboardInMainScreen(appState: _appState),
           );
-          final location = GlobalRoutePathBase.wrappedWhenType(
-            pathData,
-            pathDataMainPageBase: () => 'main_page',
-            globalRoutePath: () =>
-                AppRouteInformationParser.restoreLocation(pathData),
-          );
+          final location = NavigationValueKeyHandler.getValueKey(pathData);
           return Tuple2(location, screen);
         })
         .map((tuple) => MaterialPage(

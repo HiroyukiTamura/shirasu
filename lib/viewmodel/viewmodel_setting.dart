@@ -1,6 +1,5 @@
 import 'package:async/async.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:http/http.dart' show Client;
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/local_json_client.dart';
 import 'package:shirasu/main.dart';
@@ -9,7 +8,7 @@ import 'package:shirasu/model/update_user_with_attr_variable.dart'
     show UpdateUserWithAttrVariable;
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:shirasu/viewmodel/model_setting.dart';
+import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'package:riverpod/src/framework.dart';
 import 'message_notifier.dart';
 

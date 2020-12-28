@@ -108,7 +108,6 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   }
 }
 
-//todo listen current page
 class _Fab extends HookWidget {
   const _Fab({
     @required this.delegate,
@@ -124,6 +123,9 @@ class _Fab extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (delegate.page is PathDataMainPageSetting)
+      return const SizedBox.shrink();
+
     final isEdited = useProvider(settingViewModelSProvider.state.select((it) => it.editedUserInfo.isEdited));
     final isUploadingProfile = useProvider(settingViewModelSProvider.state.select((it) => it.uploadingProfile));
 

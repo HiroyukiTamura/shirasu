@@ -4,9 +4,6 @@ import 'package:shirasu/router/app_router_delegate.dart';
 
 @immutable
 class AppRouterAsset {
-
-  AppRouterAsset(): delegate = AppRouterDelegate(), parser = AppRouteInformationParser();
-
-  final AppRouterDelegate delegate;
-  final AppRouteInformationParser parser;
+  final AppRouterDelegate delegate = AppRouterDelegate();
+  final AppRouteInformationParser parser = AppRouteInformationParser();
 }

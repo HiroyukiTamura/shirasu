@@ -64,6 +64,8 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
 
   int get pageIndex => _appState.findLastMainPagePath.pageIndex;
 
+  PathDataMainPageBase get page => _appState.findLastMainPagePath;
+
   Future<void> swapPage(int index) async {
     final path = PathDataMainPageBase.fromIndex(index);
     _appState.push(path);

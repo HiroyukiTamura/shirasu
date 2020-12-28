@@ -26,19 +26,21 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
   Widget build(BuildContext context) {
     final pageList = _appState.list
         .map<Tuple2<String, Widget>>((pathData) {
-          final location = AppRouteInformationParser.restoreLocation(pathData);
-          final screen = GlobalRoutePathBase.wrappedWhen(
+          final screen = GlobalRoutePathBase.wrappedWhenRough(
             pathData,
-            dashboard: () => PageDashboardInMainScreen(appState: _appState),
-            subscribing: (initialPage) =>
-                PageDashboardInMainScreen(appState: _appState),
-            setting: () => PageDashboardInMainScreen(appState: _appState),
             intro: () => ScreenIntro(),
             error: () => throw UnimplementedError(),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
-            ossLicense: () => ScreenOssLicense(),
+            ossLicense: () => const ScreenOssLicense(),
             auth: () => const ScreenAuth(),
+            mainPage: () => PageDashboardInMainScreen(appState: _appState),
+          );
+          final location = GlobalRoutePathBase.wrappedWhenType(
+            pathData,
+            pathDataMainPageBase: () => 'main_page',
+            globalRoutePath: () =>
+                AppRouteInformationParser.restoreLocation(pathData),
           );
           return Tuple2(location, screen);
         })

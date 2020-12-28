@@ -7,6 +7,8 @@ class NavigationValueKeyHandler {
 
   static const _KEY_MAIN_PAGE = 'main_page';
 
+  static const KEY_IN_PLAYER = 'key_in_player';
+
   static String getValueKey(GlobalRoutePathBase pathData) =>
       GlobalRoutePathBase.wrappedWhenType(
         pathData,

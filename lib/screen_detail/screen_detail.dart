@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/router/global_app_state.dart';
+import 'package:shirasu/router/in_player_app_router_delegate.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/row_video_desc.dart';
@@ -12,6 +14,7 @@ import 'package:shirasu/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/video_holder.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
@@ -22,24 +25,89 @@ final detailSNProvider = StateNotifierProvider.autoDispose
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
-class ScreenDetail extends HookWidget {
-  const ScreenDetail({Key key, @required this.id}) : super(key: key);
+final scaffoldProvider =
+    Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+
+class ScreenDetail extends StatefulHookWidget {
+  const ScreenDetail({
+    @required this.appState,
+    Key key,
+    this.id,
+  }) : super(key: key);
 
   final String id;
+  final GlobalAppState appState;
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-          body: useProvider(
-              detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
-            loading: () => const CenterCircleProgress(),
-            preInitialized: () => const CenterCircleProgress(),
-            success: (programDetailData, channelData) =>
-                _ContentWidget(data: programDetailData),
-            error: () => const PageError(),
+  _ScreenDetailState createState() => _ScreenDetailState();
+}
+
+class _ScreenDetailState extends State<ScreenDetail> {
+  InPlayerAppRouterDelegate _routerDelegate;
+  ChildBackButtonDispatcher _backButtonDispatcher;
+
+  @override
+  void initState() {
+    super.initState();
+    _routerDelegate = InPlayerAppRouterDelegate(widget.appState);
+    context.read(scaffoldProvider).key = GlobalKey<ScaffoldState>();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _routerDelegate.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant ScreenDetail oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _routerDelegate.appState = widget.appState;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Defer back button dispatching to the child router
+    _backButtonDispatcher = Router.of(context)
+        .backButtonDispatcher
+        .createChildBackButtonDispatcher();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _backButtonDispatcher.takePriority();
+
+    return SafeArea(
+      child: Scaffold(
+        key: useProvider(scaffoldProvider).key,
+        body: Scaffold(
+          body: Stack(
+            children: [
+              Router(
+                routerDelegate: _routerDelegate,
+                backButtonDispatcher: _backButtonDispatcher,
+              ),
+              if (widget.id == null)
+                const SizedBox.shrink()
+              else
+                Scaffold(
+                  body: useProvider(detailSNProvider(widget.id)
+                      .state
+                      .select((it) => it.prgDataResult)).when(
+                    loading: () => const CenterCircleProgress(),
+                    preInitialized: () => const CenterCircleProgress(),
+                    success: (programDetailData, channelData) =>
+                        _ContentWidget(data: programDetailData),
+                    error: () => const PageError(),
+                  ),
+                ),
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
 }
 
 class _ContentWidget extends StatelessWidget {

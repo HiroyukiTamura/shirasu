@@ -25,30 +25,15 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
 
   @override
   Widget build(BuildContext context) {
-    final pageList = _appState.list
-        .map<Tuple2<String, Widget>>((pathData) {
-          final screen = GlobalRoutePathBase.wrappedWhenRough(
-            pathData,
-            intro: () => ScreenIntro(),
-            error: () => throw UnimplementedError(),
-            channel: (channelId) => ScreenChannel(channelId: channelId),
-            program: (programId) => ScreenDetail(id: programId),
-            ossLicense: () => const ScreenOssLicense(),
-            auth: () => const ScreenAuth(),
-            mainPage: () => PageDashboardInMainScreen(appState: _appState),
-          );
-          final location = NavigationValueKeyHandler.getValueKey(pathData);
-          return Tuple2(location, screen);
-        })
-        .map((tuple) => MaterialPage(
-              key: ValueKey(tuple.item1),
-              child: tuple.item2,
-            ))
-        .toList();
+
+    final page = MaterialPage(
+      key: const ValueKey(NavigationValueKeyHandler.KEY_IN_PLAYER),
+      child: ScreenDetail(appState: _appState),
+    );
 
     return Navigator(
       key: navigatorKey,
-      pages: pageList,
+      pages: [page],
       onPopPage: (route, result) {
         if (!route.didPop(result)) return false;
 

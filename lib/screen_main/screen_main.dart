@@ -15,7 +15,6 @@ final screenMainScaffoldProvider =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 class ScaffoldKeyHolder {
-
   ScaffoldKeyHolder();
 
   GlobalKey<ScaffoldState> key;
@@ -44,6 +43,12 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _routerDelegate.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant PageDashboardInMainScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     _routerDelegate.appState = widget.appState;
@@ -66,42 +71,38 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
       // nest Scaffold because of it displays BottomSheet above BottomNavigationBar
       child: Scaffold(
         key: useProvider(screenMainScaffoldProvider).key,
-        body: Scaffold(
-          body: MsgNtfListener(
-            child: Router(
-              routerDelegate: _routerDelegate,
-              backButtonDispatcher: _backButtonDispatcher,
+        body: Router(
+          routerDelegate: _routerDelegate,
+          backButtonDispatcher: _backButtonDispatcher,
+        ),
+        floatingActionButton: _Fab(
+          delegate: _routerDelegate,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white.withOpacity(.6),
+          showUnselectedLabels: true,
+          unselectedFontSize: 14,
+          onTap: (index) async => _routerDelegate.swapPage(index),
+          currentIndex: _routerDelegate.pageIndex,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: Strings.NAV_ITEM_HOME,
             ),
-          ),
-          floatingActionButton: _Fab(
-            delegate: _routerDelegate,
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white.withOpacity(.6),
-            showUnselectedLabels: true,
-            unselectedFontSize: 14,
-            onTap: (index) async => _routerDelegate.swapPage(index),
-            currentIndex: _routerDelegate.pageIndex,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: Strings.NAV_ITEM_HOME,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.playlist_play_rounded),
-                label: Strings.NAV_ITEM_LIST,
-              ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Icons.search),
-              //   label: Strings.NAV_ITEM_SEARCH,
-              // ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: Strings.NAV_ITEM_CONFIG,
-              ),
-            ],
-          ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.playlist_play_rounded),
+              label: Strings.NAV_ITEM_LIST,
+            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.search),
+            //   label: Strings.NAV_ITEM_SEARCH,
+            // ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: Strings.NAV_ITEM_CONFIG,
+            ),
+          ],
         ),
       ),
     );
@@ -115,6 +116,7 @@ class _Fab extends HookWidget {
   }) : super(key: key);
 
   static const double _STROKE_WIDTH = 2;
+
   /// @see `_kSizeConstraints` in `flutter/material/floating_action_button.dart`
   static const double _FAB_SIZE = 56;
   static const _FAB_WRAPPER_SIZE = Size.square(_STROKE_WIDTH + _FAB_SIZE);
@@ -126,8 +128,10 @@ class _Fab extends HookWidget {
     if (delegate.page is PathDataMainPageSetting)
       return const SizedBox.shrink();
 
-    final isEdited = useProvider(settingViewModelSProvider.state.select((it) => it.editedUserInfo.isEdited));
-    final isUploadingProfile = useProvider(settingViewModelSProvider.state.select((it) => it.uploadingProfile));
+    final isEdited = useProvider(settingViewModelSProvider.state
+        .select((it) => it.editedUserInfo.isEdited));
+    final isUploadingProfile = useProvider(
+        settingViewModelSProvider.state.select((it) => it.uploadingProfile));
 
     return Visibility(
       visible: isEdited,
@@ -146,8 +150,10 @@ class _Fab extends HookWidget {
             ),
             Center(
               child: FloatingActionButton(
-                onPressed: isUploadingProfile ? null : () async =>
-                    context.read(settingViewModelSProvider).postProfile(),
+                onPressed: isUploadingProfile
+                    ? null
+                    : () async =>
+                        context.read(settingViewModelSProvider).postProfile(),
                 child: const Icon(Icons.save),
               ),
             ),

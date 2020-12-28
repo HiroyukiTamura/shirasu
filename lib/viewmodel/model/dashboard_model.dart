@@ -9,7 +9,6 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 part 'dashboard_model.freezed.dart';
 
-///todo move to viewmodel package
 @freezed
 abstract class ApiData implements _$ApiData {
   const factory ApiData({
@@ -31,29 +30,33 @@ abstract class DashboardModel implements _$DashboardModel {
     @required DashboardState state,
     ApiData apiData,
     @Default(0) double offset,
-}) = _DashboardModel;
+    @Default(0) double channelHorizontalOffset,
+    @Default(0) double subscribingChannelOffset,
+    @Default(0) int billboardHeaderPage,
+  }) = _DashboardModel;
 
   const DashboardModel._();
 
-  factory DashboardModel.preInitialized() => const DashboardModel(state: StatePreInitialized());
-  factory DashboardModel.error() => const DashboardModel(state: StateError());
+  factory DashboardModel.preInitialized() =>
+      const DashboardModel(state: StatePreInitialized());
 
-  DashboardModel copyAsSuccess(ApiData apiData) => copyWith(state: const StateSuccess(), apiData: apiData);
+  factory DashboardModel.error() => const DashboardModel(state: _StateError());
 
-  DashboardModel copyAsLoadMore() => copyWith(state: const StateLoadmore());
+  DashboardModel copyAsSuccess(ApiData apiData) =>
+      copyWith(state: const StateSuccess(), apiData: apiData);
+
+  DashboardModel copyAsLoadMore() => copyWith(state: const _StateLoadMore());
 }
 
 @freezed
 abstract class DashboardState with _$DashboardState {
-  const factory DashboardState.loadingMore() =
-  StateLoadmore;
+  const factory DashboardState.loadingMore() = _StateLoadMore;
 
   const factory DashboardState.preInitialized() = StatePreInitialized;
 
-  const factory DashboardState.success() =
-  StateSuccess;
+  const factory DashboardState.success() = StateSuccess;
 
-  const factory DashboardState.error() = StateError;
+  const factory DashboardState.error() = _StateError;
 }
 
 mixin MutableState on ViewModelBaseChangeNotifier {

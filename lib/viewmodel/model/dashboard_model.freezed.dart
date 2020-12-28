@@ -181,11 +181,19 @@ class _$DashboardModelTearOff {
 
 // ignore: unused_element
   _DashboardModel call(
-      {@required DashboardState state, ApiData apiData, double offset = 0}) {
+      {@required DashboardState state,
+      ApiData apiData,
+      double offset = 0,
+      double channelHorizontalOffset = 0,
+      double subscribingChannelOffset = 0,
+      int billboardHeaderPage = 0}) {
     return _DashboardModel(
       state: state,
       apiData: apiData,
       offset: offset,
+      channelHorizontalOffset: channelHorizontalOffset,
+      subscribingChannelOffset: subscribingChannelOffset,
+      billboardHeaderPage: billboardHeaderPage,
     );
   }
 }
@@ -199,6 +207,9 @@ mixin _$DashboardModel {
   DashboardState get state;
   ApiData get apiData;
   double get offset;
+  double get channelHorizontalOffset;
+  double get subscribingChannelOffset;
+  int get billboardHeaderPage;
 
   $DashboardModelCopyWith<DashboardModel> get copyWith;
 }
@@ -208,7 +219,13 @@ abstract class $DashboardModelCopyWith<$Res> {
   factory $DashboardModelCopyWith(
           DashboardModel value, $Res Function(DashboardModel) then) =
       _$DashboardModelCopyWithImpl<$Res>;
-  $Res call({DashboardState state, ApiData apiData, double offset});
+  $Res call(
+      {DashboardState state,
+      ApiData apiData,
+      double offset,
+      double channelHorizontalOffset,
+      double subscribingChannelOffset,
+      int billboardHeaderPage});
 
   $DashboardStateCopyWith<$Res> get state;
   $ApiDataCopyWith<$Res> get apiData;
@@ -228,11 +245,23 @@ class _$DashboardModelCopyWithImpl<$Res>
     Object state = freezed,
     Object apiData = freezed,
     Object offset = freezed,
+    Object channelHorizontalOffset = freezed,
+    Object subscribingChannelOffset = freezed,
+    Object billboardHeaderPage = freezed,
   }) {
     return _then(_value.copyWith(
       state: state == freezed ? _value.state : state as DashboardState,
       apiData: apiData == freezed ? _value.apiData : apiData as ApiData,
       offset: offset == freezed ? _value.offset : offset as double,
+      channelHorizontalOffset: channelHorizontalOffset == freezed
+          ? _value.channelHorizontalOffset
+          : channelHorizontalOffset as double,
+      subscribingChannelOffset: subscribingChannelOffset == freezed
+          ? _value.subscribingChannelOffset
+          : subscribingChannelOffset as double,
+      billboardHeaderPage: billboardHeaderPage == freezed
+          ? _value.billboardHeaderPage
+          : billboardHeaderPage as int,
     ));
   }
 
@@ -264,7 +293,13 @@ abstract class _$DashboardModelCopyWith<$Res>
           _DashboardModel value, $Res Function(_DashboardModel) then) =
       __$DashboardModelCopyWithImpl<$Res>;
   @override
-  $Res call({DashboardState state, ApiData apiData, double offset});
+  $Res call(
+      {DashboardState state,
+      ApiData apiData,
+      double offset,
+      double channelHorizontalOffset,
+      double subscribingChannelOffset,
+      int billboardHeaderPage});
 
   @override
   $DashboardStateCopyWith<$Res> get state;
@@ -288,20 +323,41 @@ class __$DashboardModelCopyWithImpl<$Res>
     Object state = freezed,
     Object apiData = freezed,
     Object offset = freezed,
+    Object channelHorizontalOffset = freezed,
+    Object subscribingChannelOffset = freezed,
+    Object billboardHeaderPage = freezed,
   }) {
     return _then(_DashboardModel(
       state: state == freezed ? _value.state : state as DashboardState,
       apiData: apiData == freezed ? _value.apiData : apiData as ApiData,
       offset: offset == freezed ? _value.offset : offset as double,
+      channelHorizontalOffset: channelHorizontalOffset == freezed
+          ? _value.channelHorizontalOffset
+          : channelHorizontalOffset as double,
+      subscribingChannelOffset: subscribingChannelOffset == freezed
+          ? _value.subscribingChannelOffset
+          : subscribingChannelOffset as double,
+      billboardHeaderPage: billboardHeaderPage == freezed
+          ? _value.billboardHeaderPage
+          : billboardHeaderPage as int,
     ));
   }
 }
 
 /// @nodoc
 class _$_DashboardModel extends _DashboardModel {
-  const _$_DashboardModel({@required this.state, this.apiData, this.offset = 0})
+  const _$_DashboardModel(
+      {@required this.state,
+      this.apiData,
+      this.offset = 0,
+      this.channelHorizontalOffset = 0,
+      this.subscribingChannelOffset = 0,
+      this.billboardHeaderPage = 0})
       : assert(state != null),
         assert(offset != null),
+        assert(channelHorizontalOffset != null),
+        assert(subscribingChannelOffset != null),
+        assert(billboardHeaderPage != null),
         super._();
 
   @override
@@ -311,10 +367,19 @@ class _$_DashboardModel extends _DashboardModel {
   @JsonKey(defaultValue: 0)
   @override
   final double offset;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double channelHorizontalOffset;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double subscribingChannelOffset;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int billboardHeaderPage;
 
   @override
   String toString() {
-    return 'DashboardModel(state: $state, apiData: $apiData, offset: $offset)';
+    return 'DashboardModel(state: $state, apiData: $apiData, offset: $offset, channelHorizontalOffset: $channelHorizontalOffset, subscribingChannelOffset: $subscribingChannelOffset, billboardHeaderPage: $billboardHeaderPage)';
   }
 
   @override
@@ -327,7 +392,19 @@ class _$_DashboardModel extends _DashboardModel {
                 const DeepCollectionEquality()
                     .equals(other.apiData, apiData)) &&
             (identical(other.offset, offset) ||
-                const DeepCollectionEquality().equals(other.offset, offset)));
+                const DeepCollectionEquality().equals(other.offset, offset)) &&
+            (identical(
+                    other.channelHorizontalOffset, channelHorizontalOffset) ||
+                const DeepCollectionEquality().equals(
+                    other.channelHorizontalOffset, channelHorizontalOffset)) &&
+            (identical(
+                    other.subscribingChannelOffset, subscribingChannelOffset) ||
+                const DeepCollectionEquality().equals(
+                    other.subscribingChannelOffset,
+                    subscribingChannelOffset)) &&
+            (identical(other.billboardHeaderPage, billboardHeaderPage) ||
+                const DeepCollectionEquality()
+                    .equals(other.billboardHeaderPage, billboardHeaderPage)));
   }
 
   @override
@@ -335,7 +412,10 @@ class _$_DashboardModel extends _DashboardModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(state) ^
       const DeepCollectionEquality().hash(apiData) ^
-      const DeepCollectionEquality().hash(offset);
+      const DeepCollectionEquality().hash(offset) ^
+      const DeepCollectionEquality().hash(channelHorizontalOffset) ^
+      const DeepCollectionEquality().hash(subscribingChannelOffset) ^
+      const DeepCollectionEquality().hash(billboardHeaderPage);
 
   @override
   _$DashboardModelCopyWith<_DashboardModel> get copyWith =>
@@ -347,7 +427,10 @@ abstract class _DashboardModel extends DashboardModel {
   const factory _DashboardModel(
       {@required DashboardState state,
       ApiData apiData,
-      double offset}) = _$_DashboardModel;
+      double offset,
+      double channelHorizontalOffset,
+      double subscribingChannelOffset,
+      int billboardHeaderPage}) = _$_DashboardModel;
 
   @override
   DashboardState get state;
@@ -355,6 +438,12 @@ abstract class _DashboardModel extends DashboardModel {
   ApiData get apiData;
   @override
   double get offset;
+  @override
+  double get channelHorizontalOffset;
+  @override
+  double get subscribingChannelOffset;
+  @override
+  int get billboardHeaderPage;
   @override
   _$DashboardModelCopyWith<_DashboardModel> get copyWith;
 }
@@ -364,8 +453,8 @@ class _$DashboardStateTearOff {
   const _$DashboardStateTearOff();
 
 // ignore: unused_element
-  StateLoadmore loadingMore() {
-    return const StateLoadmore();
+  _StateLoadMore loadingMore() {
+    return const _StateLoadMore();
   }
 
 // ignore: unused_element
@@ -379,8 +468,8 @@ class _$DashboardStateTearOff {
   }
 
 // ignore: unused_element
-  StateError error() {
-    return const StateError();
+  _StateError error() {
+    return const _StateError();
   }
 }
 
@@ -407,17 +496,17 @@ mixin _$DashboardState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   });
 }
@@ -440,27 +529,27 @@ class _$DashboardStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $StateLoadmoreCopyWith<$Res> {
-  factory $StateLoadmoreCopyWith(
-          StateLoadmore value, $Res Function(StateLoadmore) then) =
-      _$StateLoadmoreCopyWithImpl<$Res>;
+abstract class _$StateLoadMoreCopyWith<$Res> {
+  factory _$StateLoadMoreCopyWith(
+          _StateLoadMore value, $Res Function(_StateLoadMore) then) =
+      __$StateLoadMoreCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateLoadmoreCopyWithImpl<$Res>
+class __$StateLoadMoreCopyWithImpl<$Res>
     extends _$DashboardStateCopyWithImpl<$Res>
-    implements $StateLoadmoreCopyWith<$Res> {
-  _$StateLoadmoreCopyWithImpl(
-      StateLoadmore _value, $Res Function(StateLoadmore) _then)
-      : super(_value, (v) => _then(v as StateLoadmore));
+    implements _$StateLoadMoreCopyWith<$Res> {
+  __$StateLoadMoreCopyWithImpl(
+      _StateLoadMore _value, $Res Function(_StateLoadMore) _then)
+      : super(_value, (v) => _then(v as _StateLoadMore));
 
   @override
-  StateLoadmore get _value => super._value as StateLoadmore;
+  _StateLoadMore get _value => super._value as _StateLoadMore;
 }
 
 /// @nodoc
-class _$StateLoadmore implements StateLoadmore {
-  const _$StateLoadmore();
+class _$_StateLoadMore implements _StateLoadMore {
+  const _$_StateLoadMore();
 
   @override
   String toString() {
@@ -469,7 +558,7 @@ class _$StateLoadmore implements StateLoadmore {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateLoadmore);
+    return identical(this, other) || (other is _StateLoadMore);
   }
 
   @override
@@ -509,10 +598,10 @@ class _$StateLoadmore implements StateLoadmore {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(loadingMore != null);
     assert(preInitialized != null);
@@ -524,10 +613,10 @@ class _$StateLoadmore implements StateLoadmore {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -538,8 +627,8 @@ class _$StateLoadmore implements StateLoadmore {
   }
 }
 
-abstract class StateLoadmore implements DashboardState {
-  const factory StateLoadmore() = _$StateLoadmore;
+abstract class _StateLoadMore implements DashboardState {
+  const factory _StateLoadMore() = _$_StateLoadMore;
 }
 
 /// @nodoc
@@ -612,10 +701,10 @@ class _$StatePreInitialized implements StatePreInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(loadingMore != null);
     assert(preInitialized != null);
@@ -627,10 +716,10 @@ class _$StatePreInitialized implements StatePreInitialized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -715,10 +804,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(loadingMore != null);
     assert(preInitialized != null);
@@ -730,10 +819,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -749,25 +838,26 @@ abstract class StateSuccess implements DashboardState {
 }
 
 /// @nodoc
-abstract class $StateErrorCopyWith<$Res> {
-  factory $StateErrorCopyWith(
-          StateError value, $Res Function(StateError) then) =
-      _$StateErrorCopyWithImpl<$Res>;
+abstract class _$StateErrorCopyWith<$Res> {
+  factory _$StateErrorCopyWith(
+          _StateError value, $Res Function(_StateError) then) =
+      __$StateErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateErrorCopyWithImpl<$Res> extends _$DashboardStateCopyWithImpl<$Res>
-    implements $StateErrorCopyWith<$Res> {
-  _$StateErrorCopyWithImpl(StateError _value, $Res Function(StateError) _then)
-      : super(_value, (v) => _then(v as StateError));
+class __$StateErrorCopyWithImpl<$Res> extends _$DashboardStateCopyWithImpl<$Res>
+    implements _$StateErrorCopyWith<$Res> {
+  __$StateErrorCopyWithImpl(
+      _StateError _value, $Res Function(_StateError) _then)
+      : super(_value, (v) => _then(v as _StateError));
 
   @override
-  StateError get _value => super._value as StateError;
+  _StateError get _value => super._value as _StateError;
 }
 
 /// @nodoc
-class _$StateError implements StateError {
-  const _$StateError();
+class _$_StateError implements _StateError {
+  const _$_StateError();
 
   @override
   String toString() {
@@ -776,7 +866,7 @@ class _$StateError implements StateError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateError);
+    return identical(this, other) || (other is _StateError);
   }
 
   @override
@@ -816,10 +906,10 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(StateLoadmore value),
+    @required TResult loadingMore(_StateLoadMore value),
     @required TResult preInitialized(StatePreInitialized value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(loadingMore != null);
     assert(preInitialized != null);
@@ -831,10 +921,10 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(StateLoadmore value),
+    TResult loadingMore(_StateLoadMore value),
     TResult preInitialized(StatePreInitialized value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -845,6 +935,6 @@ class _$StateError implements StateError {
   }
 }
 
-abstract class StateError implements DashboardState {
-  const factory StateError() = _$StateError;
+abstract class _StateError implements DashboardState {
+  const factory _StateError() = _$_StateError;
 }

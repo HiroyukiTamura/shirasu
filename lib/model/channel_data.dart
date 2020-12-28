@@ -16,8 +16,8 @@ abstract class ChannelData with _$ChannelData {
 }
 
 @freezed
-abstract class Channel with _$Channel {
-  @Implements(BaseChannel)
+abstract class Channel with _$Channel implements BaseChannel {
+
   const factory Channel({
     @required String id,
     @required String name,
@@ -40,8 +40,8 @@ abstract class Channel with _$Channel {
 }
 
 @freezed
-abstract class Announcements with _$Announcements {
-  @Implements(BaseModelChannelAnnouncementConnection)
+abstract class Announcements with _$Announcements implements BaseModelChannelAnnouncementConnection {
+
   const factory Announcements({
     @required List<AnnouncementsItem> items,
     String nextToken,
@@ -56,8 +56,8 @@ abstract class Announcements with _$Announcements {
 }
 
 @freezed
-abstract class AnnouncementsItem with _$AnnouncementsItem {
-  @Implements(BaseChannelAnnouncement)
+abstract class AnnouncementsItem with _$AnnouncementsItem implements BaseChannelAnnouncement {
+
   const factory AnnouncementsItem({
     @required String id,
     @required bool isOpen,
@@ -78,8 +78,8 @@ abstract class AnnouncementsItem with _$AnnouncementsItem {
 }
 
 @freezed
-abstract class ChannelPrograms with _$ChannelPrograms {
-  @Implements(BaseModelProgramConnection)
+abstract class ChannelPrograms with _$ChannelPrograms implements BaseModelProgramConnection {
+
   const factory ChannelPrograms({
     @required List<ProgramsItem> items,
     String nextToken,
@@ -94,8 +94,8 @@ abstract class ChannelPrograms with _$ChannelPrograms {
 }
 
 @freezed
-abstract class ProgramsItem with _$ProgramsItem {
-  @Implements(BaseProgram)
+abstract class ProgramsItem with _$ProgramsItem implements BaseProgram {
+
   const factory ProgramsItem({
     @required String id,
     @required String tenantId,
@@ -115,8 +115,8 @@ abstract class ProgramsItem with _$ProgramsItem {
 }
 
 @freezed
-abstract class SubscriptionPlan implements _$SubscriptionPlan {
-  @Implements(BaseSubscriptionPlan)
+abstract class SubscriptionPlan implements _$SubscriptionPlan, BaseSubscriptionPlan {
+
   const factory SubscriptionPlan({
     @required String id,
     @required int amount,
@@ -140,8 +140,8 @@ abstract class SubscriptionPlan implements _$SubscriptionPlan {
 }
 
 @freezed
-abstract class PurchasedPlan with _$PurchasedPlan {
-  @Implements(BasePurchasedPlan)
+abstract class PurchasedPlan with _$PurchasedPlan implements BasePurchasedPlan {
+
   const factory PurchasedPlan({
     @required bool isActive,
     @required

@@ -17,7 +17,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
 
   ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
 
-  final _apiClient = ApiClient(Client());
+  final _apiClient = ApiClient.instance();
 
   @override
   Future<void> initialize() async {
@@ -43,7 +43,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   ViewModelWatchHistory(this._ref) : super(const StatePreInitialized());
 
   final AutoDisposeProviderReference _ref;
-  final _apiClient = ApiClient(Client());
+  final _apiClient = ApiClient.instance();
 
   SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 

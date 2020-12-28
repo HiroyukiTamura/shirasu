@@ -50,6 +50,7 @@ dependencies:
   smooth_page_indicator: ^0.2.0
   synchronized: ^2.2.0+2
   after_layout: ^1.0.7+2
+  functional_widget_annotation: ^0.8.0
   flutter_playout:
     git:
       url: https://github.com/HiroyukTamura/flutter_playout.git
@@ -63,6 +64,7 @@ dev_dependencies:
   build_runner: ^1.10.4
   freezed: ^0.12.2
   json_serializable: ^3.5.0
+  functional_widget: ^0.8.1
 
 
 flutter_gen:

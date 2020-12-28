@@ -12,7 +12,7 @@ part 'viewmodel_channel.freezed.dart';
 class ViewModelChannel extends ViewModelBase<ChannelDataResult> {
   ViewModelChannel(this._channelId) : super(const PreInitialized());
 
-  final _apiClient = ApiClient(Client());
+  final _apiClient = ApiClient.instance();
   final String _channelId;
 
   int tabIndex = 0;

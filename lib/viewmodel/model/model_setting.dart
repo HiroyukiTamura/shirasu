@@ -31,14 +31,17 @@ abstract class EditedUserInfo implements _$EditedUserInfo {
 
 @freezed
 abstract class SettingModel with _$SettingModel {
-  const factory SettingModel(
+  const factory SettingModel({
     @required SettingModelState settingModelState,
     @required bool uploadingProfile,
     @required EditedUserInfo editedUserInfo,
-  ) = _SettingModel;
+  }) = _SettingModel;
 
-  factory SettingModel.initial() =>
-      const SettingModel(StatePreInitialized(), false, EditedUserInfo());
+  factory SettingModel.initial() => const SettingModel(
+        settingModelState: StatePreInitialized(),
+        editedUserInfo: EditedUserInfo(),
+        uploadingProfile: false,
+      );
 }
 
 @freezed

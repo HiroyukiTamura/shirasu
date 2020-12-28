@@ -278,7 +278,6 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseViewer)
 
 /// @nodoc
 class _$_Viewer implements _Viewer {
@@ -335,7 +334,7 @@ class _$_Viewer implements _Viewer {
   }
 }
 
-abstract class _Viewer implements Viewer, BaseViewer {
+abstract class _Viewer implements Viewer {
   const factory _Viewer(
       {@required
           List<PaymentMethod> paymentMethods,
@@ -504,7 +503,6 @@ class __$PaymentMethodCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BasePaymentMethod)
 
 /// @nodoc
 class _$_PaymentMethod implements _PaymentMethod {
@@ -585,7 +583,7 @@ class _$_PaymentMethod implements _PaymentMethod {
   }
 }
 
-abstract class _PaymentMethod implements PaymentMethod, BasePaymentMethod {
+abstract class _PaymentMethod implements PaymentMethod {
   const factory _PaymentMethod(
       {@required
           String id,

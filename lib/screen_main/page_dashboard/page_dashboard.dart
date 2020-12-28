@@ -1,64 +1,60 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/dashboard_model.dart';
+import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
+import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard_expaned.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard_haeder.dart';
-import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
-import 'package:shirasu/screen_main/page_dashboard/heading.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_expanded.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
+import 'package:shirasu/extension.dart';
 
-/// todo rename
-final dashboardViewModelSProvider =
+part 'page_dashboard.g.dart';
+
+final pDashboardViewModel =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard(ref));
 
-class PageDashboardInMainScreen extends HookWidget {
-  const PageDashboardInMainScreen({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => useProvider(
-              dashboardViewModelSProvider.select((viewModel) => viewModel.state.state))
-          .when(
-        preInitialized: () => const CenterCircleProgress(),
-        error: () => const PageError(),
-        loadingMore: () => _ListViewContent(
-          model: useProvider(dashboardViewModelSProvider).state.apiData,
-          // we don't want to rebuild
-          showLoadingIndicator: true,
-        ),
-        success: () {
-          final model = useProvider(dashboardViewModelSProvider).state.apiData;
-          return _ListViewContent(
-            model: model, // we don't want to rebuild,
-            showLoadingIndicator: model.newProgramsDataList?.isNotEmpty ==
-                    true &&
-                model.newProgramsDataList?.last?.newPrograms?.nextToken == null,
-          );
-        },
-      );
-}
+@hwidget
+Widget pageDashboardInMainScreen() => useProvider(
+        pDashboardViewModel.select((viewModel) => viewModel.state.state)).when(
+      preInitialized: () => const CenterCircleProgress(),
+      error: () => const PageError(),
+      loadingMore: () => _ListViewContent(
+        model: useProvider(pDashboardViewModel).state.apiData,
+        // we don't want to rebuild
+        showLoadingIndicator: true,
+      ),
+      success: () {
+        final model = useProvider(pDashboardViewModel)
+            .state
+            .apiData; // we don't want to rebuild,
+        return _ListViewContent(
+          model: model,
+          showLoadingIndicator: model.newProgramsDataList?.isNotEmpty == true &&
+              model.newProgramsDataList?.last?.newPrograms?.nextToken != null,
+        );
+      },
+    );
 
 class _ListViewContent extends HookWidget {
-  const _ListViewContent({
+  _ListViewContent({
     @required this.model,
     @required this.showLoadingIndicator,
   });
 
-  static const _COLUMN_COUNT = 2;
+  static const _NOW_BROADCASTINGS_LAST = 1;
+
   final ApiData model;
   final bool showLoadingIndicator;
 
@@ -67,13 +63,17 @@ class _ListViewContent extends HookWidget {
     final featurePrgData = model.featureProgramData;
     final newPrgData = model.allNewPrograms;
 
-    int itemCount = 0;
+    final anyNowBroadcastings =
+        featurePrgData?.nowBroadcastings?.items?.isNotEmpty != true;
 
-    final anyNowBroadcastings = featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
-    final nowBroadcastingsLast = anyNowBroadcastings ? 1 : 0;
+    int itemCount = _NOW_BROADCASTINGS_LAST;
 
-    if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
-      itemCount += featurePrgData.comingBroadcastings.items.length + 1;
+    if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true) {
+      final row = context.isBigScreen
+          ? 1
+          : featurePrgData.comingBroadcastings.items.length;
+      itemCount += row + 1;
+    }
     final comingBroadcastingsLast = itemCount;
 
     if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty == true)
@@ -87,63 +87,51 @@ class _ListViewContent extends HookWidget {
 
     if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
-    final controller = useScrollController();
-    controller.addListener(() => context
-        .read(dashboardViewModelSProvider)
-        .updateScrollOffset(controller.offset));
+    final controller = useScrollController(keepScrollOffset: false);
+    controller.addListener(() async => _onScroll(context, controller));
 
     return LayoutBuilder(
       builder: (context, constraints) =>
           NotificationListener<ScrollNotification>(
-        onNotification: (notification) {
-          //todo fix; remove Dimens.CIRCULAR_HEIGHT
-          if (showLoadingIndicator &&
-              notification is UserScrollNotification &&
-              notification.direction == ScrollDirection.forward &&
-              controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
-                  controller.offset) {
-            context.read(dashboardViewModelSProvider).loadMoreNewPrg();
-            return true;
-          }
-
-          return false;
-        },
-        // todo bug fix
+        onNotification: (notification) =>
+            _onScrollNotification(context, controller, notification),
         child: ListView.builder(
             controller: controller,
             padding: const EdgeInsets.only(bottom: 16),
             itemCount: showLoadingIndicator ? itemCount + 1 : itemCount,
             itemBuilder: (context, index) {
-              if (index == 0 && anyNowBroadcastings) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 48),
-                  child: BillboardHeader(
-                    items: featurePrgData.nowBroadcastings.items,
-                    height:
-                        BillboardHeader.getExpandedHeight(constraints.maxWidth, 1 < featurePrgData.nowBroadcastings.items.length),
-                  ),
-                );
+              if (index == 0) {
+                return anyNowBroadcastings
+                    ? BillboardHeader.build(
+                        onTapItem: (BuildContext context, String prgId) async =>
+                            context.pushProgramPage(prgId),
+                        items: featurePrgData.comingBroadcastings.items,
+                        constraints: constraints,
+                        wideMode: context.isBigScreen,
+                      )
+                    : const SizedBox(height: 16);
               } else if (index < comingBroadcastingsLast &&
-                  nowBroadcastingsLast != comingBroadcastingsLast) {
-                final i = index - nowBroadcastingsLast;
+                  _NOW_BROADCASTINGS_LAST != comingBroadcastingsLast) {
+                final i = index - _NOW_BROADCASTINGS_LAST;
 
                 if (i == 0)
                   return const Heading(text: Strings.HEADING_UPCOMING);
+
+                if (context.isBigScreen)
+                  return HorizontalCarousels(
+                    list: featurePrgData.comingBroadcastings.items,
+                    maxWidth: constraints.maxWidth,
+                    constraints: constraints,
+                    detailCaption: true,
+                    onTapItem: (item, id) async => context.pushProgramPage(id),
+                  );
                 else {
                   final item = featurePrgData.comingBroadcastings.items[i - 1];
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 48,
-                      top: 16,
-                    ),
-                    child: BillboardExpanded(
-                      isLive: false,
-                      item: item,
-                      onTap: () async => context
-                          .read(appRouterProvider)
-                          .delegate
-                          .pushPage(GlobalRoutePath.program(item.id)),
-                    ),
+                  return BillboardExpanded(
+                    item: item,
+                    onTap: () async => context.pushProgramPage(item.id),
+                    btmPadding:
+                        i != featurePrgData.comingBroadcastings.items.length,
                   );
                 }
               } else if (index < subscribingLast &&
@@ -152,17 +140,13 @@ class _ListViewContent extends HookWidget {
 
                 return i == 0
                     ? const Heading(text: Strings.HEADING_SUBSCRIBING)
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 32),
-                        child: HorizontalCarousels(
-                          list: featurePrgData.viewerUser.subscribedPrograms,
-                          columnCount: _COLUMN_COUNT,
-                          maxWidth: constraints.maxWidth,
-                          onTap: (item) async => context
-                              .read(appRouterProvider)
-                              .delegate
-                              .pushPage(GlobalRoutePath.program(item.id)),
-                        ),
+                    : HorizontalCarousels(
+                        list: featurePrgData.viewerUser.subscribedPrograms,
+                        maxWidth: constraints.maxWidth,
+                        constraints: constraints,
+                        detailCaption: true,
+                        onTapItem: (item, id) async =>
+                            context.pushProgramPage(id),
                       );
               } else if (index < channelsLast &&
                   subscribingLast != channelsLast) {
@@ -170,33 +154,47 @@ class _ListViewContent extends HookWidget {
 
                 return i == 0
                     ? const Heading(text: Strings.HEADING_CHANNEL)
-                    : Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 32),
-                        child: ChannelListItem(
-                          channels: featurePrgData.channels,
-                        ),
+                    : ChannelListItem(
+                        channels: featurePrgData.channels,
+                        onTap: (BuildContext context, String channelId) async =>
+                            context.pushChannelPage(channelId),
                       );
               } else if (index < itemCount || !showLoadingIndicator) {
                 final i = index - channelsLast;
 
                 if (i == 0)
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Heading(text: Strings.HEADING_NEW_PRG),
+                  return const Heading(
+                    text: Strings.HEADING_NEW_PRG,
+                    verticalPadding: 16,
                   );
 
-                final item = newPrgData[i - 1] as BaseProgram;
+                final item = newPrgData[i - 1];
                 return MovieListItem(
                   program: item,
-                  onTap: () async => context
-                      .read(appRouterProvider)
-                      .delegate
-                      .pushPage(GlobalRoutePath.program(item.id)),
+                  onTap: () async => context.pushProgramPage(item.id),
                 );
               } else
                 return const CenterCircleProgress();
             }),
       ),
     );
+  }
+
+  Future<void> _onScroll(
+          BuildContext context, ScrollController controller) async =>
+      context.read(pDashboardViewModel).updateScrollOffset(controller.offset);
+
+  bool _onScrollNotification(BuildContext context, ScrollController controller,
+      ScrollNotification notification) {
+    if (showLoadingIndicator &&
+        notification is UserScrollNotification &&
+        notification.direction == ScrollDirection.idle &&
+        controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
+            controller.offset) {
+      context.read(pDashboardViewModel).loadMoreNewPrg();
+      return true;
+    }
+
+    return false;
   }
 }

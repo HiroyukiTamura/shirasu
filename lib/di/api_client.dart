@@ -14,10 +14,14 @@ import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/model/watch_history_data.dart';
 
 /// todo handle timeout
-/// todo can be singleton
 @immutable
 class ApiClient {
-  ApiClient(Client client) : _graphQlClient = _createClient(client);
+
+  ApiClient._(): _graphQlClient = _createClient(Client());
+
+  factory ApiClient.instance() => _instance ??= ApiClient._();
+
+  static ApiClient _instance;
 
   final GraphQLClient _graphQlClient;
 

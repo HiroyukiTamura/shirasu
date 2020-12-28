@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/global_app_state.dart';
+import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_in_player.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
-import 'package:shirasu/screen_oss_licence.dart';
+import 'package:shirasu/screen_oss_licence/screen_oss_licence.dart';
 import 'package:tuple/tuple.dart';
 
 class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
@@ -24,33 +26,15 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
 
   @override
   Widget build(BuildContext context) {
-    final pageList = _appState.list
-        .map<Tuple2<String, Widget>>((pathData) {
-          final location = AppRouteInformationParser.restoreLocation(pathData);
-          final screen = GlobalRoutePathBase.wrappedWhen(
-            pathData,
-            dashboard: () => PageDashboardInMainScreen(appState: _appState),
-            subscribing: (initialPage) =>
-                PageDashboardInMainScreen(appState: _appState),
-            setting: () => PageDashboardInMainScreen(appState: _appState),
-            intro: () => ScreenIntro(),
-            error: () => throw UnimplementedError(),
-            channel: (channelId) => ScreenChannel(channelId: channelId),
-            program: (programId) => ScreenDetail(id: programId),
-            ossLicense: () => ScreenOssLicense(),
-            auth: () => const ScreenAuth(),
-          );
-          return Tuple2(location, screen);
-        })
-        .map((tuple) => MaterialPage(
-              key: ValueKey(tuple.item1),
-              child: tuple.item2,
-            ))
-        .toList();
+
+    final page = MaterialPage(
+      key: const ValueKey(NavigationValueKeyHandler.KEY_IN_PLAYER),
+      child: ScreenInPlayer(appState: _appState),
+    );
 
     return Navigator(
       key: navigatorKey,
-      pages: pageList,
+      pages: [page],
       onPopPage: (route, result) {
         if (!route.didPop(result)) return false;
 

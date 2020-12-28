@@ -12,6 +12,7 @@ import 'package:shirasu/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/video_holder.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
@@ -22,20 +23,24 @@ final detailSNProvider = StateNotifierProvider.autoDispose
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
+final scaffoldProvider =
+    Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+
 class ScreenDetail extends HookWidget {
-  const ScreenDetail({Key key, @required this.id}) : super(key: key);
+  const ScreenDetail({@required this.id});
 
   final String id;
 
   @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-          body: useProvider(detailSNProvider(id)
-              .state
-              .select((it) => it.prgDataResult)).when(
+          key: useProvider(scaffoldProvider).key,
+          body: useProvider(
+              detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
             loading: () => const CenterCircleProgress(),
             preInitialized: () => const CenterCircleProgress(),
-            success: (programDetailData, channelData) => _ContentWidget(data: programDetailData),
+            success: (programDetailData, channelData) =>
+                _ContentWidget(data: programDetailData),
             error: () => const PageError(),
           ),
         ),
@@ -43,7 +48,7 @@ class ScreenDetail extends HookWidget {
 }
 
 class _ContentWidget extends StatelessWidget {
-  const _ContentWidget({Key key, this.data}) : super(key: key);
+  const _ContentWidget({Key key, @required this.data}) : super(key: key);
 
   final ProgramDetailData data;
 
@@ -61,29 +66,21 @@ class _ContentWidget extends StatelessWidget {
                     .read(detailSNProvider(data.program.id))
                     .playVideo(false),
                 onTapPreviewBtn: () async => context
-                      .read(detailSNProvider(data.program.id))
-                      .playVideo(true),
+                    .read(detailSNProvider(data.program.id))
+                    .playVideo(true),
               ),
               SizedBox(
                 height: listViewH,
                 child: ListView.builder(
                     itemCount: 14,
-                    padding: const EdgeInsets.only(
-                      bottom: 24,
-                      right: Dimens.MARGIN_OUTLINE,
-                      left: Dimens.MARGIN_OUTLINE,
-                    ),
+                    padding: const EdgeInsets.only(bottom: 24),
                     itemBuilder: (context, index) {
                       switch (index) {
-                        case 1:
-                          return const SizedBox(height: 16);
-                        case 2:
+                        case 3:
                           return RowChannel(
                             channelId: data.program.channelId,
                             title: data.program.channel.name,
                           );
-                        case 3:
-                          return const SizedBox(height: 12);
                         case 4:
                           return RowVideoTitle(text: data.program.title);
                         case 5:

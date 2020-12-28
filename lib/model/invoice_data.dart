@@ -16,8 +16,8 @@ abstract class InvoiceData with _$InvoiceData {
 }
 
 @freezed
-abstract class Invoice with _$Invoice {
-  @Implements(BaseInvoice)
+abstract class Invoice with _$Invoice implements BaseInvoice {
+
   const factory Invoice({
     @required String id,
     @required DateTime createdAt,

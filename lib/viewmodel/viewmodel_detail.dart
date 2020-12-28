@@ -22,7 +22,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       : channelId = UrlUtil.programId2channelId(id),
         super(ModelDetail.initial());
 
-  final _apiClient = ApiClient(Client());
+  final _apiClient = ApiClient.instance();
   final _dioClient = DioClient();
   final String id;
   final String channelId;

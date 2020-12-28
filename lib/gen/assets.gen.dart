@@ -24,8 +24,10 @@ class $AssetsJsonGen {
 class $AssetsPngGen {
   const $AssetsPngGen();
 
-  AssetGenImage get defaultChannelIcon =>
-      const AssetGenImage('assets/png/default-channel-icon.png');
+  AssetGenImage get defaultChannel =>
+      const AssetGenImage('assets/png/default_channel.png');
+  AssetGenImage get defaultThumbnail =>
+      const AssetGenImage('assets/png/default_thumbnail.jpeg');
   AssetGenImage get logoOfficial =>
       const AssetGenImage('assets/png/logo_official.png');
   AssetGenImage get logoOfficialShadow =>

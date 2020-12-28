@@ -305,7 +305,6 @@ class __$ViewerUserSimpleCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseUser)
 
 /// @nodoc
 class _$_ViewerUserSimple implements _ViewerUserSimple {
@@ -362,7 +361,7 @@ class _$_ViewerUserSimple implements _ViewerUserSimple {
   }
 }
 
-abstract class _ViewerUserSimple implements ViewerUserSimple, BaseUser {
+abstract class _ViewerUserSimple implements ViewerUserSimple {
   const factory _ViewerUserSimple(
       {@required
           WatchHistories watchHistories,

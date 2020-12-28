@@ -416,7 +416,6 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseChannel)
 
 /// @nodoc
 class _$_Channel implements _Channel {
@@ -542,7 +541,7 @@ class _$_Channel implements _Channel {
   }
 }
 
-abstract class _Channel implements Channel, BaseChannel {
+abstract class _Channel implements Channel {
   const factory _Channel(
       {@required
           String id,
@@ -718,7 +717,6 @@ class __$AnnouncementsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseModelChannelAnnouncementConnection)
 
 /// @nodoc
 class _$_Announcements implements _Announcements {
@@ -781,8 +779,7 @@ class _$_Announcements implements _Announcements {
   }
 }
 
-abstract class _Announcements
-    implements Announcements, BaseModelChannelAnnouncementConnection {
+abstract class _Announcements implements Announcements {
   const factory _Announcements(
       {@required
           List<AnnouncementsItem> items,
@@ -1001,7 +998,6 @@ class __$AnnouncementsItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseChannelAnnouncement)
 
 /// @nodoc
 class _$_AnnouncementsItem implements _AnnouncementsItem {
@@ -1117,8 +1113,7 @@ class _$_AnnouncementsItem implements _AnnouncementsItem {
   }
 }
 
-abstract class _AnnouncementsItem
-    implements AnnouncementsItem, BaseChannelAnnouncement {
+abstract class _AnnouncementsItem implements AnnouncementsItem {
   const factory _AnnouncementsItem(
       {@required
           String id,
@@ -1291,7 +1286,6 @@ class __$ChannelProgramsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseModelProgramConnection)
 
 /// @nodoc
 class _$_ChannelPrograms implements _ChannelPrograms {
@@ -1354,8 +1348,7 @@ class _$_ChannelPrograms implements _ChannelPrograms {
   }
 }
 
-abstract class _ChannelPrograms
-    implements ChannelPrograms, BaseModelProgramConnection {
+abstract class _ChannelPrograms implements ChannelPrograms {
   const factory _ChannelPrograms(
       {@required
           List<ProgramsItem> items,
@@ -1561,7 +1554,6 @@ class __$ProgramsItemCopyWithImpl<$Res> extends _$ProgramsItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseProgram)
 
 /// @nodoc
 class _$_ProgramsItem implements _ProgramsItem {
@@ -1668,7 +1660,7 @@ class _$_ProgramsItem implements _ProgramsItem {
   }
 }
 
-abstract class _ProgramsItem implements ProgramsItem, BaseProgram {
+abstract class _ProgramsItem implements ProgramsItem {
   const factory _ProgramsItem(
       {@required
           String id,
@@ -1889,7 +1881,6 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseSubscriptionPlan)
 
 /// @nodoc
 class _$_SubscriptionPlan extends _SubscriptionPlan {
@@ -1979,8 +1970,7 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan extends SubscriptionPlan
-    implements BaseSubscriptionPlan {
+abstract class _SubscriptionPlan extends SubscriptionPlan {
   const _SubscriptionPlan._() : super._();
   const factory _SubscriptionPlan(
       {@required
@@ -2132,7 +2122,6 @@ class __$PurchasedPlanCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BasePurchasedPlan)
 
 /// @nodoc
 class _$_PurchasedPlan implements _PurchasedPlan {
@@ -2189,7 +2178,7 @@ class _$_PurchasedPlan implements _PurchasedPlan {
   }
 }
 
-abstract class _PurchasedPlan implements PurchasedPlan, BasePurchasedPlan {
+abstract class _PurchasedPlan implements PurchasedPlan {
   const factory _PurchasedPlan(
       {@required
           bool isActive,

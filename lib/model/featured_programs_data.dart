@@ -25,8 +25,8 @@ abstract class FeatureProgramData implements _$FeatureProgramData {
 }
 
 @freezed
-abstract class Broadcastings with _$Broadcastings {
-  @Implements(BaseSearchableProgramConnection)
+abstract class Broadcastings with _$Broadcastings implements BaseSearchableProgramConnection {
+
   const factory Broadcastings({
     @required List<Item> items,
     @JsonKey(name: '__typename')
@@ -40,8 +40,8 @@ abstract class Broadcastings with _$Broadcastings {
 }
 
 @freezed
-abstract class Item with _$Item {
-  @Implements(BaseProgram)
+abstract class Item with _$Item implements BaseProgram{
+
   const factory Item({
     @required DateTime broadcastAt,
     @required String channelId,
@@ -63,8 +63,8 @@ abstract class Item with _$Item {
 }
 
 @freezed
-abstract class Channel with _$Channel {
-  @Implements(BaseChannel)
+abstract class Channel with _$Channel implements BaseChannel {
+
   const factory Channel({
     @required String id,
     @required String name,
@@ -79,8 +79,8 @@ abstract class Channel with _$Channel {
 }
 
 @freezed
-abstract class ViewerUser with _$ViewerUser {
-  @Implements(BaseUser)
+abstract class ViewerUser with _$ViewerUser implements BaseUser {
+
   const factory ViewerUser({
     @required String id,
     @required List<Item> subscribedPrograms,
@@ -95,9 +95,8 @@ abstract class ViewerUser with _$ViewerUser {
 }
 
 @freezed
-abstract class Channels with _$Channels {
+abstract class Channels with _$Channels implements BaseModelChannelConnection {
 
-  @Implements(BaseModelChannelConnection)
   const factory Channels({
     @required List<Channel> items,
     String nextToken,

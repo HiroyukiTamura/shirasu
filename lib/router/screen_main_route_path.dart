@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
@@ -5,7 +6,7 @@ import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 part 'screen_main_route_path.freezed.dart';
 
 @immutable
-class GlobalRoutePathBase {
+abstract class GlobalRoutePathBase {
   const factory GlobalRoutePathBase.redirect2Root() = PathDataMainPageDashBoard;
 
   static Result wrappedWhen<Result extends Object>(
@@ -35,6 +36,46 @@ class GlobalRoutePathBase {
         subscribing: subscribing,
         setting: setting,
       );
+    else
+      throw UnsupportedError(
+          'unexpected routePath type: ${routePath.runtimeType}');
+  }
+
+  static Result wrappedWhenRough<Result extends Object>(
+      GlobalRoutePathBase routePath, {
+        @required Result Function() intro,
+        @required Result Function() error,
+        @required Result Function(String channelId) channel,
+        @required Result Function(String programId) program,
+        @required Result Function() mainPage,
+        @required Result Function() ossLicense,
+        @required Result Function() auth,
+      }) {
+    if (routePath is PathDataMainPageBase)
+      return mainPage();
+    if (routePath is GlobalRoutePath)
+      return routePath.when(
+        intro: intro,
+        error: error,
+        channel: channel,
+        program: program,
+        ossLicense: ossLicense,
+        auth: auth,
+      );
+    else
+      throw UnsupportedError(
+          'unexpected routePath type: ${routePath.runtimeType}');
+  }
+
+  static Result wrappedWhenType<Result extends Object>(
+      GlobalRoutePathBase routePath, {
+        @required Result Function() pathDataMainPageBase,
+        @required Result Function() globalRoutePath,
+      }) {
+    if (routePath is PathDataMainPageBase)
+      return pathDataMainPageBase();
+    if (routePath is GlobalRoutePath)
+      return globalRoutePath();
     else
       throw UnsupportedError(
           'unexpected routePath type: ${routePath.runtimeType}');
@@ -89,7 +130,7 @@ abstract class PathDataMainPageBase
 
   const PathDataMainPageBase._();
 
-  int getIndex() => when(
+  int get pageIndex => when(
       dashboard: () => 0,
       subscribing: (SubscribingTabPage initialPage) => 1,
       setting: () => 2);

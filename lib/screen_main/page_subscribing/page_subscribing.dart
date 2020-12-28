@@ -5,7 +5,6 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_subscribing/watch_history_widget.dart';
 import 'package:shirasu/screen_main/page_subscribing/subscribing_widget.dart';
 import 'package:shirasu/ui_common/material_tab_view.dart';
-import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 class PageSubscribingInMainScreen extends HookWidget {
   PageSubscribingInMainScreen({

@@ -359,6 +359,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.0"
+  functional_widget:
+    dependency: "direct dev"
+    description:
+      name: functional_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.1"
+  functional_widget_annotation:
+    dependency: "direct main"
+    description:
+      name: functional_widget_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
   glob:
     dependency: transitive
     description:

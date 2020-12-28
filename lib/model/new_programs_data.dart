@@ -16,8 +16,8 @@ abstract class NewProgramsData with _$NewProgramsData {
 }
 
 @freezed
-abstract class NewPrograms with _$NewPrograms {
-  @Implements(BaseSearchableProgramConnection)
+abstract class NewPrograms with _$NewPrograms implements BaseSearchableProgramConnection {
+
   const factory NewPrograms({
     @required List<NewProgramItem> items,
     String nextToken,
@@ -32,8 +32,7 @@ abstract class NewPrograms with _$NewPrograms {
 }
 
 @freezed
-abstract class NewProgramItem with _$NewProgramItem {
-  @Implements(BaseProgram)
+abstract class NewProgramItem with _$NewProgramItem implements BaseProgram {
   const factory NewProgramItem({
     @required DateTime broadcastAt,
     @required String channelId,
@@ -56,8 +55,7 @@ abstract class NewProgramItem with _$NewProgramItem {
 }
 
 @freezed
-abstract class NewProgramChannel with _$NewProgramChannel {
-  @Implements(BaseChannel)
+abstract class NewProgramChannel with _$NewProgramChannel implements BaseChannel {
   const factory NewProgramChannel({
     @required String id,
     @required String name,

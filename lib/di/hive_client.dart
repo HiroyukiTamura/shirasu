@@ -29,6 +29,9 @@ class HiveAuthClient extends HiveClient<HiveAuthData> {
       Hive.box<HiveAuthData>(boxName)
           .put(_KEY_AUTH_DATA, HiveAuthData.parse(authData));
 
+  Future<void> clearAuthData() async =>
+      Hive.box<HiveAuthData>(boxName).clear();
+
   bool get maybeExpired {
     final expiredAt = authData?.expiresAt;
     return expiredAt == null ||

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shirasu/router/no_animation_page.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -28,14 +29,16 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
 
   @override
   Widget build(BuildContext context) {
-    final screen = _appState.findLastMainPagePath.when(
+    final path = _appState.findLastMainPagePath;
+    final screen = path.when(
       dashboard: () => const PageDashboardInMainScreen(),
-      subscribing: (SubscribingTabPage initialPage) => PageSubscribingInMainScreen(initialPage: initialPage),
+      subscribing: (SubscribingTabPage initialPage) =>
+          PageSubscribingInMainScreen(initialPage: initialPage),
       setting: () => const PageSettingInMainScreen(),
     );
 
-    final page = MaterialPage(
-      key: ValueKey(screen.runtimeType.toString()),
+    final page = NoAnimationPage(
+      key: ValueKey(path.pageIndex),
       child: screen,
     );
 
@@ -56,25 +59,16 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
   }
 
   @override
-  Future<void> setNewRoutePath(PathDataMainPageBase configuration) async => throw Exception("don't setNewRoutePath $configuration");
+  Future<void> setNewRoutePath(PathDataMainPageBase configuration) async =>
+      throw Exception("don't setNewRoutePath $configuration");
 
-  @override
-  PathDataMainPageBase get currentConfiguration => _appState.findLastMainPagePath.when(
-      dashboard: () => const PathDataMainPageBase.dashboard(),
-      subscribing: (initialPage) => PathDataMainPageBase.subscribing(initialPage),
-      setting: () => const PathDataMainPageBase.setting(),
-    );
+  int get pageIndex => _appState.findLastMainPagePath.pageIndex;
 
-// @override
-// AppRoutePath get currentConfiguration {
-//   final pathData = _pathDataList.isEmpty
-//       ? AppRoutePath.screenMain().data
-//       : _pathDataList.last;
-//   return AppRoutePath._(pathData);
-// }
-//
-// Future<void> pushPage(AppRoutePath path) async {
-//   setNewRoutePath(path);
-//   notifyListeners();
-// }
+  PathDataMainPageBase get page => _appState.findLastMainPagePath;
+
+  Future<void> swapPage(int index) async {
+    final path = PathDataMainPageBase.fromIndex(index);
+    _appState.push(path);
+    notifyListeners();
+  }
 }

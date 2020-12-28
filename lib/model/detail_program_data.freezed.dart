@@ -613,7 +613,6 @@ class __$ProgramDetailCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseProgram)
 
 /// @nodoc
 class _$_ProgramDetail implements _ProgramDetail {
@@ -842,7 +841,7 @@ class _$_ProgramDetail implements _ProgramDetail {
   }
 }
 
-abstract class _ProgramDetail implements ProgramDetail, BaseProgram {
+abstract class _ProgramDetail implements ProgramDetail {
   const factory _ProgramDetail(
       {@required
           String id,
@@ -1104,7 +1103,6 @@ class __$DetailPrgChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseChannel)
 
 /// @nodoc
 class _$_DetailPrgChannel implements _DetailPrgChannel {
@@ -1192,7 +1190,7 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
   }
 }
 
-abstract class _DetailPrgChannel implements DetailPrgChannel, BaseChannel {
+abstract class _DetailPrgChannel implements DetailPrgChannel {
   const factory _DetailPrgChannel(
       {@required
           String id,
@@ -1352,7 +1350,6 @@ class __$VideoHandoutsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseModelHandoutConnection)
 
 /// @nodoc
 class _$_VideoHandouts implements _VideoHandouts {
@@ -1415,8 +1412,7 @@ class _$_VideoHandouts implements _VideoHandouts {
   }
 }
 
-abstract class _VideoHandouts
-    implements VideoHandouts, BaseModelHandoutConnection {
+abstract class _VideoHandouts implements VideoHandouts {
   const factory _VideoHandouts(
       {@required
           List<DetailPrgItem> items,
@@ -1558,7 +1554,6 @@ class __$HandoutsCopyWithImpl<$Res> extends _$HandoutsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseHandouts)
 
 /// @nodoc
 class _$_Handouts implements _Handouts {
@@ -1621,7 +1616,7 @@ class _$_Handouts implements _Handouts {
   }
 }
 
-abstract class _Handouts implements Handouts, BaseHandouts {
+abstract class _Handouts implements Handouts {
   const factory _Handouts(
       {@required
           List<Handout> items,
@@ -1796,7 +1791,6 @@ class __$HandoutCopyWithImpl<$Res> extends _$HandoutCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseHandout)
 
 /// @nodoc
 class _$_Handout implements _Handout {
@@ -1885,7 +1879,7 @@ class _$_Handout implements _Handout {
   }
 }
 
-abstract class _Handout implements Handout, BaseHandout {
+abstract class _Handout implements Handout {
   const factory _Handout(
       {@required
           String id,
@@ -2076,7 +2070,6 @@ class __$DetailPrgItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseVideo)
 
 /// @nodoc
 class _$_DetailPrgItem extends _DetailPrgItem {
@@ -2163,7 +2156,7 @@ class _$_DetailPrgItem extends _DetailPrgItem {
   }
 }
 
-abstract class _DetailPrgItem extends DetailPrgItem implements BaseVideo {
+abstract class _DetailPrgItem extends DetailPrgItem {
   const _DetailPrgItem._() : super._();
   const factory _DetailPrgItem(
       {@required
@@ -2418,7 +2411,6 @@ class __$OnetimePlanCopyWithImpl<$Res> extends _$OnetimePlanCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseOneTimePlan)
 
 /// @nodoc
 class _$_OnetimePlan extends _OnetimePlan {
@@ -2552,7 +2544,7 @@ class _$_OnetimePlan extends _OnetimePlan {
   }
 }
 
-abstract class _OnetimePlan extends OnetimePlan implements BaseOneTimePlan {
+abstract class _OnetimePlan extends OnetimePlan {
   const _OnetimePlan._() : super._();
   const factory _OnetimePlan(
       {@required
@@ -2776,7 +2768,6 @@ class __$ExtensionCopyWithImpl<$Res> extends _$ExtensionCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseExtension)
 
 /// @nodoc
 class _$_Extension implements _Extension {
@@ -2859,7 +2850,7 @@ class _$_Extension implements _Extension {
   }
 }
 
-abstract class _Extension implements Extension, BaseExtension {
+abstract class _Extension implements Extension {
   const factory _Extension(
       {@required
           String id,
@@ -3011,7 +3002,6 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseViewer)
 
 /// @nodoc
 class _$_Viewer implements _Viewer {
@@ -3075,7 +3065,7 @@ class _$_Viewer implements _Viewer {
   }
 }
 
-abstract class _Viewer implements Viewer, BaseViewer {
+abstract class _Viewer implements Viewer {
   const factory _Viewer(
       {@required
           String name,

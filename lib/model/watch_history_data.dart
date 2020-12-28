@@ -16,9 +16,8 @@ abstract class WatchHistoriesData with _$WatchHistoriesData {
 }
 
 @freezed
-abstract class ViewerUserSimple with _$ViewerUserSimple {
+abstract class ViewerUserSimple with _$ViewerUserSimple implements BaseUser {
 
-  @Implements(BaseUser)
   const factory ViewerUserSimple({
     @required WatchHistories watchHistories,
     @required @JsonKey(name: '__typename') @Assert(

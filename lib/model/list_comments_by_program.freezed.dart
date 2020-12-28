@@ -287,7 +287,6 @@ class __$CommentsCopyWithImpl<$Res> extends _$CommentsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseModelCommentConnection)
 
 /// @nodoc
 class _$_Comments implements _Comments {
@@ -350,7 +349,7 @@ class _$_Comments implements _Comments {
   }
 }
 
-abstract class _Comments implements Comments, BaseModelCommentConnection {
+abstract class _Comments implements Comments {
   const factory _Comments(
       {@required
           List<CommentItem> items,
@@ -543,7 +542,6 @@ class __$CommentItemCopyWithImpl<$Res> extends _$CommentItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseComment)
 
 /// @nodoc
 class _$_CommentItem implements _CommentItem {
@@ -632,7 +630,7 @@ class _$_CommentItem implements _CommentItem {
   }
 }
 
-abstract class _CommentItem implements CommentItem, BaseComment {
+abstract class _CommentItem implements CommentItem {
   const factory _CommentItem(
       {@required
           String id,
@@ -798,7 +796,6 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseUser)
 
 /// @nodoc
 class _$_User implements _User {
@@ -870,7 +867,7 @@ class _$_User implements _User {
   }
 }
 
-abstract class _User implements User, BaseUser {
+abstract class _User implements User {
   const factory _User(
       {@required
           String id,

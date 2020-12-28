@@ -323,7 +323,6 @@ class __$ViewerClassCopyWithImpl<$Res> extends _$ViewerClassCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseViewer)
 
 /// @nodoc
 class _$_ViewerClass implements _ViewerClass {
@@ -389,7 +388,7 @@ class _$_ViewerClass implements _ViewerClass {
   }
 }
 
-abstract class _ViewerClass implements ViewerClass, BaseViewer {
+abstract class _ViewerClass implements ViewerClass {
   const factory _ViewerClass(
       {@required
           List<PaymentMethod> paymentMethods,
@@ -563,7 +562,6 @@ class __$PaymentMethodCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BasePaymentMethod)
 
 /// @nodoc
 class _$_PaymentMethod implements _PaymentMethod {
@@ -644,7 +642,7 @@ class _$_PaymentMethod implements _PaymentMethod {
   }
 }
 
-abstract class _PaymentMethod implements PaymentMethod, BasePaymentMethod {
+abstract class _PaymentMethod implements PaymentMethod {
   const factory _PaymentMethod(
       {@required
           String id,
@@ -879,7 +877,6 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseViewer)
 
 /// @nodoc
 class _$_ViewerUser implements _ViewerUser {
@@ -978,7 +975,7 @@ class _$_ViewerUser implements _ViewerUser {
   }
 }
 
-abstract class _ViewerUser implements ViewerUser, BaseViewer {
+abstract class _ViewerUser implements ViewerUser {
   const factory _ViewerUser(
       {@required
           String id,
@@ -1145,7 +1142,6 @@ class __$InvoiceHistoryCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseInvoiceConnection)
 
 /// @nodoc
 class _$_InvoiceHistory implements _InvoiceHistory {
@@ -1208,8 +1204,7 @@ class _$_InvoiceHistory implements _InvoiceHistory {
   }
 }
 
-abstract class _InvoiceHistory
-    implements InvoiceHistory, BaseInvoiceConnection {
+abstract class _InvoiceHistory implements InvoiceHistory {
   const factory _InvoiceHistory(
       {@required
           List<InvoiceHistoryItem> items,
@@ -1410,7 +1405,6 @@ class __$InvoiceHistoryItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseInvoice)
 
 /// @nodoc
 class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
@@ -1518,8 +1512,7 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   }
 }
 
-abstract class _InvoiceHistoryItem extends InvoiceHistoryItem
-    implements BaseInvoice {
+abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   const _InvoiceHistoryItem._() : super._();
   const factory _InvoiceHistoryItem(
       {@required
@@ -1774,7 +1767,6 @@ class __$SubscribedChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseSubscribedChannel)
 
 /// @nodoc
 class _$_SubscribedChannel implements _SubscribedChannel {
@@ -1876,8 +1868,7 @@ class _$_SubscribedChannel implements _SubscribedChannel {
   }
 }
 
-abstract class _SubscribedChannel
-    implements SubscribedChannel, BaseSubscribedChannel {
+abstract class _SubscribedChannel implements SubscribedChannel {
   const factory _SubscribedChannel(
       {@required
           DateTime subscribedAt,
@@ -2046,7 +2037,6 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseChannel)
 
 /// @nodoc
 class _$_Channel implements _Channel {
@@ -2116,7 +2106,7 @@ class _$_Channel implements _Channel {
   }
 }
 
-abstract class _Channel implements Channel, BaseChannel {
+abstract class _Channel implements Channel {
   const factory _Channel(
       {@required
           String id,
@@ -2328,7 +2318,6 @@ class __$LatestInvoiceCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseInvoice)
 
 /// @nodoc
 class _$_LatestInvoice implements _LatestInvoice {
@@ -2433,7 +2422,7 @@ class _$_LatestInvoice implements _LatestInvoice {
   }
 }
 
-abstract class _LatestInvoice implements LatestInvoice, BaseInvoice {
+abstract class _LatestInvoice implements LatestInvoice {
   const factory _LatestInvoice(
       {@required
           String id,
@@ -2602,7 +2591,6 @@ class __$WatchHistoriesCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseModelWatchHistoryConnection)
 
 /// @nodoc
 class _$_WatchHistories implements _WatchHistories {
@@ -2665,8 +2653,7 @@ class _$_WatchHistories implements _WatchHistories {
   }
 }
 
-abstract class _WatchHistories
-    implements WatchHistories, BaseModelWatchHistoryConnection {
+abstract class _WatchHistories implements WatchHistories {
   const factory _WatchHistories(
       {String nextToken,
       @required
@@ -2844,7 +2831,6 @@ class __$WatchHistoriesItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseWatchHistory)
 
 /// @nodoc
 class _$_WatchHistoriesItem implements _WatchHistoriesItem {
@@ -2918,8 +2904,7 @@ class _$_WatchHistoriesItem implements _WatchHistoriesItem {
   }
 }
 
-abstract class _WatchHistoriesItem
-    implements WatchHistoriesItem, BaseWatchHistory {
+abstract class _WatchHistoriesItem implements WatchHistoriesItem {
   const factory _WatchHistoriesItem(
       {@required
           String id,
@@ -3109,7 +3094,6 @@ class __$ProgramCopyWithImpl<$Res> extends _$ProgramCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
-@Implements(BaseProgram)
 
 /// @nodoc
 class _$_Program implements _Program {
@@ -3208,7 +3192,7 @@ class _$_Program implements _Program {
   }
 }
 
-abstract class _Program implements Program, BaseProgram {
+abstract class _Program implements Program {
   const factory _Program(
       {@required
           String id,

@@ -16,8 +16,8 @@ abstract class UserWithAttributeData with _$UserWithAttributeData {
 }
 
 @freezed
-abstract class UserWithAttribute with _$UserWithAttribute {
-  @Implements(BaseUserWithAttribute)
+abstract class UserWithAttribute with _$UserWithAttribute implements BaseUserWithAttribute {
+
   const factory UserWithAttribute({
     @required User user,
     @required UserAttribute attr,
@@ -32,8 +32,8 @@ abstract class UserWithAttribute with _$UserWithAttribute {
 }
 
 @freezed
-abstract class UserAttribute with _$UserAttribute {
-  @Implements(BaseUserAttribute)
+abstract class UserAttribute with _$UserAttribute implements BaseUserAttribute {
+
   const factory UserAttribute({
     @required String id,
     @required String email,
@@ -54,8 +54,8 @@ abstract class UserAttribute with _$UserAttribute {
 }
 
 @freezed
-abstract class User with _$User {
-  @Implements(BaseUser)
+abstract class User with _$User implements BaseUser {
+
   const factory User({
     @required String id,
     @required String name,

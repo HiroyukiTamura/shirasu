@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 
-class CenterCircleProgress extends StatelessWidget {
+part 'center_circle_progress.g.dart';
 
-  const CenterCircleProgress({Key key}): super(key: key);
-
-  @override
-  Widget build(BuildContext context) => const Center(
-      child: CircularProgressIndicator(),
-    );
-}
+@swidget
+Widget centerCircleProgress() => const Center(
+    child: CircularProgressIndicator(),
+  );

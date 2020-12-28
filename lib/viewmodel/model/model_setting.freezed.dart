@@ -716,13 +716,13 @@ class _$SettingModelTearOff {
 
 // ignore: unused_element
   _SettingModel call(
-      @required SettingModelState settingModelState,
+      {@required SettingModelState settingModelState,
       @required bool uploadingProfile,
-      @required EditedUserInfo editedUserInfo) {
+      @required EditedUserInfo editedUserInfo}) {
     return _SettingModel(
-      settingModelState,
-      uploadingProfile,
-      editedUserInfo,
+      settingModelState: settingModelState,
+      uploadingProfile: uploadingProfile,
+      editedUserInfo: editedUserInfo,
     );
   }
 }
@@ -837,13 +837,13 @@ class __$SettingModelCopyWithImpl<$Res> extends _$SettingModelCopyWithImpl<$Res>
     Object editedUserInfo = freezed,
   }) {
     return _then(_SettingModel(
-      settingModelState == freezed
+      settingModelState: settingModelState == freezed
           ? _value.settingModelState
           : settingModelState as SettingModelState,
-      uploadingProfile == freezed
+      uploadingProfile: uploadingProfile == freezed
           ? _value.uploadingProfile
           : uploadingProfile as bool,
-      editedUserInfo == freezed
+      editedUserInfo: editedUserInfo == freezed
           ? _value.editedUserInfo
           : editedUserInfo as EditedUserInfo,
     ));
@@ -852,8 +852,10 @@ class __$SettingModelCopyWithImpl<$Res> extends _$SettingModelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SettingModel implements _SettingModel {
-  const _$_SettingModel(@required this.settingModelState,
-      @required this.uploadingProfile, @required this.editedUserInfo)
+  const _$_SettingModel(
+      {@required this.settingModelState,
+      @required this.uploadingProfile,
+      @required this.editedUserInfo})
       : assert(settingModelState != null),
         assert(uploadingProfile != null),
         assert(editedUserInfo != null);
@@ -899,9 +901,9 @@ class _$_SettingModel implements _SettingModel {
 
 abstract class _SettingModel implements SettingModel {
   const factory _SettingModel(
-      @required SettingModelState settingModelState,
+      {@required SettingModelState settingModelState,
       @required bool uploadingProfile,
-      @required EditedUserInfo editedUserInfo) = _$_SettingModel;
+      @required EditedUserInfo editedUserInfo}) = _$_SettingModel;
 
   @override
   SettingModelState get settingModelState;

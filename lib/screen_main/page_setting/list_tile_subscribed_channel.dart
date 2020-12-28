@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/ui_common/images.dart';
+import 'package:shirasu/ui_common/circle_cached_network_image.dart';
+import 'package:shirasu/util.dart';
 
 class ListTileSubscribedChannel extends StatelessWidget {
   const ListTileSubscribedChannel({Key key, @required this.subscribedChannel})
@@ -19,26 +18,11 @@ class ListTileSubscribedChannel extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        leading: subscribedChannel.channel.icon == null
-            ? _defaultIcon()
-            : CachedNetworkImage(
-                height: _ICON_SIZE,
-                width: _ICON_SIZE,
-                imageUrl: subscribedChannel.channel.icon as String,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                errorWidget: (context, url, error) {
-                  print(error);
-                  return _defaultIcon();
-                },
-              ),
+        leading: CircleCachedNetworkImage(
+          size: _ICON_SIZE,
+          errorWidget: Util.defaultChannelIcon,
+          imageUrl: subscribedChannel.channel.icon as String,
+        ),
         title: Text(subscribedChannel.channel.name),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4),
@@ -48,9 +32,4 @@ class ListTileSubscribedChannel extends StatelessWidget {
           ),
         ),
       );
-
-  static Widget _defaultIcon() => Assets.svg.defaultChannelIcon.supportWeb().toWidget(
-      height: _ICON_SIZE,
-      width: _ICON_SIZE,
-    );
 }

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/screen_detail/content_cell.dart';
-import 'package:shirasu/extension.dart';
+import 'package:shirasu/screen_detail/padding_row.dart';
 
-class RowVideoTags extends StatelessWidget {
+class RowVideoTags extends WidgetItemBase {
 
   const RowVideoTags({Key key, @required this.textList}) : super(key: key);
 
@@ -13,12 +12,14 @@ class RowVideoTags extends StatelessWidget {
   static const double _SPACE = 8;
 
   @override
-  Widget build(BuildContext context) => Wrap(
-    spacing: _SPACE,
-    runSpacing: _SPACE,
-    children: textList
-        .map((text) => _VideoTagChip(text: text))
-        .toList(growable: false),
+  Widget build(BuildContext context) => basePadding(
+    child: Wrap(
+      spacing: _SPACE,
+      runSpacing: _SPACE,
+      children: textList
+          .map((text) => _VideoTagChip(text: text))
+          .toList(growable: false),
+    ),
   );
 }
 

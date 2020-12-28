@@ -65,6 +65,12 @@ dev_dependencies:
   freezed: ^0.12.2
   json_serializable: ^3.5.0
   functional_widget: ^0.8.1
+  flutter_launcher_icons: "^0.8.0" # needs quotes @see https://github.com/fluttercommunity/flutter_launcher_icons/issues/220
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/png/app_logo.png"
 
 
 flutter_gen:

@@ -7,6 +7,7 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_in_player.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/screen_oss_licence/screen_oss_licence.dart';
@@ -28,7 +29,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
 
     final page = MaterialPage(
       key: const ValueKey(NavigationValueKeyHandler.KEY_IN_PLAYER),
-      child: ScreenDetail(appState: _appState),
+      child: ScreenInPlayer(appState: _appState),
     );
 
     return Navigator(

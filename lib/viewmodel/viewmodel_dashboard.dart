@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart' show Client;
 import 'package:riverpod/src/framework.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/network_image_client.dart';
@@ -82,5 +81,20 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   void updateScrollOffset(double offset) {
     final s = state;
     if (s.state is StateSuccess) trySetState(s.copyWith(offset: offset));
+  }
+
+  void updateBillboardHeaderPage(int page) {
+    final s = state;
+    if (s.state is StateSuccess) trySetState(s.copyWith(billboardHeaderPage: page));
+  }
+
+  void updateChannelOffset(double offset) {
+    final s = state;
+    if (s.state is StateSuccess) trySetState(s.copyWith(channelHorizontalOffset: offset));
+  }
+
+  void updateSubscribingCarouselOffset(double offset) {
+    final s = state;
+    if (s.state is StateSuccess) trySetState(s.copyWith(subscribingChannelOffset: offset));
   }
 }

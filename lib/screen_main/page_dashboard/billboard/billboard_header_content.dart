@@ -9,11 +9,12 @@ import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.da
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_multi_card_view.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_single_card.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 part 'billboard_header_content.g.dart';
 
-class BillboardHeaderContent extends HookWidget {
+class BillboardHeaderContent extends StatefulHookWidget {
   const BillboardHeaderContent({
     Key key,
     @required this.data,
@@ -23,30 +24,56 @@ class BillboardHeaderContent extends HookWidget {
   final HeaderData data;
   final OnTapItem onTapItem;
 
+  @override
+  _BillboardHeaderContentState createState() => _BillboardHeaderContentState();
+}
+
+class _BillboardHeaderContentState extends State<BillboardHeaderContent>
+    with AutomaticKeepAliveClientMixin {
+  PageController _pc;
+
   double get _singleCardViewH {
-    double h = data.height -
+    double h = widget.data.height -
         BillboardHeader.TITLE_H -
         BillboardHeader.CARD_SPACE * 2 -
         BillboardHeader.BTM_NOTCH_H_PAD -
-        (data.showIndicator
+        (widget.data.showIndicator
             ? BillboardHeader.INDICATOR_H
             : BillboardHeader.BTM_PADDING);
     return h;
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+    _pc = PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pc.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     ScrollController sc;
     double topPadding = 0;
 
-    if (!data.wideMode) {
-      final scrollRatio = useProvider(scrollRatioProvider(data.height));
-      topPadding = data.height * scrollRatio / 2;
-      sc = useScrollController(initialScrollOffset: data.height + topPadding);
+    if (!widget.data.wideMode) {
+      final scrollRatio = useProvider(scrollRatioProvider(widget.data.height));
+      topPadding = widget.data.height * scrollRatio / 2;
+      sc = useScrollController(
+          initialScrollOffset: widget.data.height + topPadding);
     } else {
-      useProvider(scrollRatioProvider(data.height));// avoid hook mismatch
+      useProvider(
+          scrollRatioProvider(widget.data.height)); // avoid hook mismatch
     }
-    final pc = usePageController();
 
     return SingleChildScrollView(
       controller: sc,
@@ -58,28 +85,31 @@ class BillboardHeaderContent extends HookWidget {
         child: Column(
           children: [
             const _Title(),
-            if (data.wideMode)
+            if (widget.data.wideMode)
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: BillboardHeader.CARD_SPACE,
                 ),
                 child: BillboardHeaderMultiCardView(
-                  data: data,
-                  onTapItem: onTapItem,
-                  controller: pc,
+                  data: widget.data,
+                  onTapItem: widget.onTapItem,
+                  controller: _pc,
                 ),
               )
             else
               BillboardHeaderSingleCardView(
-                onTapItem: onTapItem,
+                onTapItem: widget.onTapItem,
                 height: _singleCardViewH,
-                data: data,
-                controller: pc,
+                data: widget.data,
+                controller: _pc,
               ),
-            if (data.showIndicator)
+            if (widget.data.showIndicator)
               _Indicator(
-                controller: pc,
-                count: data.items.length,
+                controller: _pc,
+                count: widget.data.wideMode
+                    ? BillboardHeaderMultiCardView.calcPageCount(
+                        widget.data.constraints, widget.data.items)
+                    : widget.data.items.length,
               )
             else
               const SizedBox(height: BillboardHeader.BTM_PADDING)

@@ -30,6 +30,9 @@ abstract class DashboardModel implements _$DashboardModel {
     @required DashboardState state,
     ApiData apiData,
     @Default(0) double offset,
+    @Default(0) double channelHorizontalOffset,
+    @Default(0) double subscribingChannelOffset,
+    @Default(0) int billboardHeaderPage,
   }) = _DashboardModel;
 
   const DashboardModel._();

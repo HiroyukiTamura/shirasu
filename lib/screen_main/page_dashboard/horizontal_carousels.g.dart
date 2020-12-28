@@ -6,35 +6,6 @@ part of 'horizontal_carousels.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class HorizontalCarousels extends StatelessWidget {
-  const HorizontalCarousels(
-      {Key key,
-      @required this.list,
-      @required this.constraints,
-      @required this.maxWidth,
-      @required this.detailCaption,
-      @required this.onTapItem})
-      : super(key: key);
-
-  final List<Item> list;
-
-  final BoxConstraints constraints;
-
-  final double maxWidth;
-
-  final bool detailCaption;
-
-  final void Function(BuildContext, String) onTapItem;
-
-  @override
-  Widget build(BuildContext _context) => horizontalCarousels(
-      list: list,
-      constraints: constraints,
-      maxWidth: maxWidth,
-      detailCaption: detailCaption,
-      onTapItem: onTapItem);
-}
-
 class HorizontalCarouselItem extends StatelessWidget {
   const HorizontalCarouselItem(
       {Key key,

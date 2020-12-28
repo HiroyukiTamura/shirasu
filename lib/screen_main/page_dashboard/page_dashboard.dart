@@ -5,12 +5,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_expanded.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
-import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
@@ -48,7 +48,7 @@ Widget pageDashboardInMainScreen() => useProvider(
     );
 
 class _ListViewContent extends HookWidget {
-  const _ListViewContent({
+  _ListViewContent({
     @required this.model,
     @required this.showLoadingIndicator,
   });
@@ -64,7 +64,7 @@ class _ListViewContent extends HookWidget {
     final newPrgData = model.allNewPrograms;
 
     final anyNowBroadcastings =
-        featurePrgData?.nowBroadcastings?.items?.isNotEmpty != true; //fixme
+        featurePrgData?.nowBroadcastings?.items?.isNotEmpty != true;
 
     int itemCount = _NOW_BROADCASTINGS_LAST;
 
@@ -87,7 +87,7 @@ class _ListViewContent extends HookWidget {
 
     if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
-    final controller = useScrollController();
+    final controller = useScrollController(keepScrollOffset: false);
     controller.addListener(() async => _onScroll(context, controller));
 
     return LayoutBuilder(
@@ -144,7 +144,7 @@ class _ListViewContent extends HookWidget {
                         list: featurePrgData.viewerUser.subscribedPrograms,
                         maxWidth: constraints.maxWidth,
                         constraints: constraints,
-                        detailCaption: false,
+                        detailCaption: true,
                         onTapItem: (item, id) async =>
                             context.pushProgramPage(id),
                       );

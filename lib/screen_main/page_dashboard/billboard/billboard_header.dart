@@ -50,7 +50,9 @@ class BillboardHeader extends StatelessWidget {
   }) {
     final thumbnailHeight =
         (constraints.maxWidth - CARD_SPACE * 2) / Dimens.IMG_RATIO;
-    final showIndicator = 1 < items.length;
+    final showIndicator = (!wideMode && items.isNotEmpty) ||
+        (wideMode &&
+            1 < BillboardHeaderMultiCardView.calcPageCount(constraints, items));
     final bottomH = showIndicator ? INDICATOR_H : BTM_PADDING;
     final commonH = TITLE_H + CARD_SPACE * 2 + bottomH + BTM_NOTCH_H_PAD;
     final height = wideMode

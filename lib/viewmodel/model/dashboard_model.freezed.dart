@@ -181,11 +181,19 @@ class _$DashboardModelTearOff {
 
 // ignore: unused_element
   _DashboardModel call(
-      {@required DashboardState state, ApiData apiData, double offset = 0}) {
+      {@required DashboardState state,
+      ApiData apiData,
+      double offset = 0,
+      double channelHorizontalOffset = 0,
+      double subscribingChannelOffset = 0,
+      int billboardHeaderPage = 0}) {
     return _DashboardModel(
       state: state,
       apiData: apiData,
       offset: offset,
+      channelHorizontalOffset: channelHorizontalOffset,
+      subscribingChannelOffset: subscribingChannelOffset,
+      billboardHeaderPage: billboardHeaderPage,
     );
   }
 }
@@ -199,6 +207,9 @@ mixin _$DashboardModel {
   DashboardState get state;
   ApiData get apiData;
   double get offset;
+  double get channelHorizontalOffset;
+  double get subscribingChannelOffset;
+  int get billboardHeaderPage;
 
   $DashboardModelCopyWith<DashboardModel> get copyWith;
 }
@@ -208,7 +219,13 @@ abstract class $DashboardModelCopyWith<$Res> {
   factory $DashboardModelCopyWith(
           DashboardModel value, $Res Function(DashboardModel) then) =
       _$DashboardModelCopyWithImpl<$Res>;
-  $Res call({DashboardState state, ApiData apiData, double offset});
+  $Res call(
+      {DashboardState state,
+      ApiData apiData,
+      double offset,
+      double channelHorizontalOffset,
+      double subscribingChannelOffset,
+      int billboardHeaderPage});
 
   $DashboardStateCopyWith<$Res> get state;
   $ApiDataCopyWith<$Res> get apiData;
@@ -228,11 +245,23 @@ class _$DashboardModelCopyWithImpl<$Res>
     Object state = freezed,
     Object apiData = freezed,
     Object offset = freezed,
+    Object channelHorizontalOffset = freezed,
+    Object subscribingChannelOffset = freezed,
+    Object billboardHeaderPage = freezed,
   }) {
     return _then(_value.copyWith(
       state: state == freezed ? _value.state : state as DashboardState,
       apiData: apiData == freezed ? _value.apiData : apiData as ApiData,
       offset: offset == freezed ? _value.offset : offset as double,
+      channelHorizontalOffset: channelHorizontalOffset == freezed
+          ? _value.channelHorizontalOffset
+          : channelHorizontalOffset as double,
+      subscribingChannelOffset: subscribingChannelOffset == freezed
+          ? _value.subscribingChannelOffset
+          : subscribingChannelOffset as double,
+      billboardHeaderPage: billboardHeaderPage == freezed
+          ? _value.billboardHeaderPage
+          : billboardHeaderPage as int,
     ));
   }
 
@@ -264,7 +293,13 @@ abstract class _$DashboardModelCopyWith<$Res>
           _DashboardModel value, $Res Function(_DashboardModel) then) =
       __$DashboardModelCopyWithImpl<$Res>;
   @override
-  $Res call({DashboardState state, ApiData apiData, double offset});
+  $Res call(
+      {DashboardState state,
+      ApiData apiData,
+      double offset,
+      double channelHorizontalOffset,
+      double subscribingChannelOffset,
+      int billboardHeaderPage});
 
   @override
   $DashboardStateCopyWith<$Res> get state;
@@ -288,20 +323,41 @@ class __$DashboardModelCopyWithImpl<$Res>
     Object state = freezed,
     Object apiData = freezed,
     Object offset = freezed,
+    Object channelHorizontalOffset = freezed,
+    Object subscribingChannelOffset = freezed,
+    Object billboardHeaderPage = freezed,
   }) {
     return _then(_DashboardModel(
       state: state == freezed ? _value.state : state as DashboardState,
       apiData: apiData == freezed ? _value.apiData : apiData as ApiData,
       offset: offset == freezed ? _value.offset : offset as double,
+      channelHorizontalOffset: channelHorizontalOffset == freezed
+          ? _value.channelHorizontalOffset
+          : channelHorizontalOffset as double,
+      subscribingChannelOffset: subscribingChannelOffset == freezed
+          ? _value.subscribingChannelOffset
+          : subscribingChannelOffset as double,
+      billboardHeaderPage: billboardHeaderPage == freezed
+          ? _value.billboardHeaderPage
+          : billboardHeaderPage as int,
     ));
   }
 }
 
 /// @nodoc
 class _$_DashboardModel extends _DashboardModel {
-  const _$_DashboardModel({@required this.state, this.apiData, this.offset = 0})
+  const _$_DashboardModel(
+      {@required this.state,
+      this.apiData,
+      this.offset = 0,
+      this.channelHorizontalOffset = 0,
+      this.subscribingChannelOffset = 0,
+      this.billboardHeaderPage = 0})
       : assert(state != null),
         assert(offset != null),
+        assert(channelHorizontalOffset != null),
+        assert(subscribingChannelOffset != null),
+        assert(billboardHeaderPage != null),
         super._();
 
   @override
@@ -311,10 +367,19 @@ class _$_DashboardModel extends _DashboardModel {
   @JsonKey(defaultValue: 0)
   @override
   final double offset;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double channelHorizontalOffset;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double subscribingChannelOffset;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int billboardHeaderPage;
 
   @override
   String toString() {
-    return 'DashboardModel(state: $state, apiData: $apiData, offset: $offset)';
+    return 'DashboardModel(state: $state, apiData: $apiData, offset: $offset, channelHorizontalOffset: $channelHorizontalOffset, subscribingChannelOffset: $subscribingChannelOffset, billboardHeaderPage: $billboardHeaderPage)';
   }
 
   @override
@@ -327,7 +392,19 @@ class _$_DashboardModel extends _DashboardModel {
                 const DeepCollectionEquality()
                     .equals(other.apiData, apiData)) &&
             (identical(other.offset, offset) ||
-                const DeepCollectionEquality().equals(other.offset, offset)));
+                const DeepCollectionEquality().equals(other.offset, offset)) &&
+            (identical(
+                    other.channelHorizontalOffset, channelHorizontalOffset) ||
+                const DeepCollectionEquality().equals(
+                    other.channelHorizontalOffset, channelHorizontalOffset)) &&
+            (identical(
+                    other.subscribingChannelOffset, subscribingChannelOffset) ||
+                const DeepCollectionEquality().equals(
+                    other.subscribingChannelOffset,
+                    subscribingChannelOffset)) &&
+            (identical(other.billboardHeaderPage, billboardHeaderPage) ||
+                const DeepCollectionEquality()
+                    .equals(other.billboardHeaderPage, billboardHeaderPage)));
   }
 
   @override
@@ -335,7 +412,10 @@ class _$_DashboardModel extends _DashboardModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(state) ^
       const DeepCollectionEquality().hash(apiData) ^
-      const DeepCollectionEquality().hash(offset);
+      const DeepCollectionEquality().hash(offset) ^
+      const DeepCollectionEquality().hash(channelHorizontalOffset) ^
+      const DeepCollectionEquality().hash(subscribingChannelOffset) ^
+      const DeepCollectionEquality().hash(billboardHeaderPage);
 
   @override
   _$DashboardModelCopyWith<_DashboardModel> get copyWith =>
@@ -347,7 +427,10 @@ abstract class _DashboardModel extends DashboardModel {
   const factory _DashboardModel(
       {@required DashboardState state,
       ApiData apiData,
-      double offset}) = _$_DashboardModel;
+      double offset,
+      double channelHorizontalOffset,
+      double subscribingChannelOffset,
+      int billboardHeaderPage}) = _$_DashboardModel;
 
   @override
   DashboardState get state;
@@ -355,6 +438,12 @@ abstract class _DashboardModel extends DashboardModel {
   ApiData get apiData;
   @override
   double get offset;
+  @override
+  double get channelHorizontalOffset;
+  @override
+  double get subscribingChannelOffset;
+  @override
+  int get billboardHeaderPage;
   @override
   _$DashboardModelCopyWith<_DashboardModel> get copyWith;
 }

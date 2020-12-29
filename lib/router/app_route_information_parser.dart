@@ -59,7 +59,7 @@ class AppRouteInformationParser
         channel: (channelId) => '/c/$channelId',
         program: (programId) => UrlUtil.programId2UrlSegment(programId),
         dashboard: () => 'dashboard',
-        subscribing: (SubscribingTabPage initialPage) => 'subscribing/$initialPage',
+        subscribing: (PageListTabPage initialPage) => 'subscribing/$initialPage',
         setting: () => 'setting',
         ossLicense: () => 'oss_license',
         auth: () => 'auth',

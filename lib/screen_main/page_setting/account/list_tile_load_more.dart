@@ -24,7 +24,7 @@ Widget listTileLoadMore(BuildContext context) =>
             child: TextButton(
               onPressed: () async {
                 const path = PathDataMainPageBase.subscribing(
-                    SubscribingTabPage.WATCH_HISTORY);
+                    PageListTabPage.WATCH_HISTORY);
                 return context
                     .read(appRouterProvider)
                     .delegate

@@ -1,136 +1,118 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
-class BillingBtn extends StatelessWidget {
+part 'billing_btn.g.dart';
 
-  final String text;
+// class BillingBtn extends StatelessWidget {
+//   const BillingBtn({Key key, @required this.text}) : super(key: key);
+//
+//   final String text;
+//
+//   @override
+//   Widget build(BuildContext context) => Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 16),
+//         child: Container(
+//           padding: const EdgeInsets.all(16),
+//           decoration: BoxDecoration(
+//             border: Border.all(color: Colors.deepOrange),
+//             borderRadius: BorderRadius.circular(100),
+//           ),
+//           child: Row(
+//             children: [
+//               Icon(
+//                 Icons.play_arrow_sharp,
+//                 color: Colors.white,
+//               ),
+//               SizedBox(width: 16),
+//               Text(
+//                 text,
+//                 style: TextStyle(
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+// }
 
-  const BillingBtn({Key key, @required this.text}) : super(key: key);
+// class BillingBtnThin extends StatelessWidget {
+//   const BillingBtnThin({Key key, @required this.text}) : super(key: key);
+//
+//   final String text;
+//
+//   @override
+//   Widget build(BuildContext context) => Expanded(
+//         child: Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//           decoration: BoxDecoration(
+//             border: Border.all(color: Colors.deepOrange),
+//             borderRadius: BorderRadius.circular(100),
+//           ),
+//           child: Row(
+//             children: [
+//               Icon(
+//                 Icons.play_arrow_sharp,
+//                 color: Colors.white,
+//               ),
+//               SizedBox(width: 16),
+//               Text(
+//                 text,
+//                 style: TextStyle(
+//                   fontSize: 12,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+// }
 
-  @override
-  Widget build(BuildContext context) => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.deepOrange),
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.play_arrow_sharp,
-              color: Colors.white,
-            ),
-            SizedBox(width: 16),
-            Text(
-              text,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
+@swidget
+Widget billingBtnMedium({
+  @required int amountWithTax,
+  @required String currencyAsSuffix,
+  @required GestureTapCallback onTap,
+}) =>
+    _ButtonMedium(
+      onTap: onTap,
+      icon: Icons.play_arrow_sharp,
+      text: '${Strings.MONTHLY}$amountWithTax$currencyAsSuffix${Strings.SUBSCRIBE_SUFFIX}',
+    );
+
+@swidget
+Widget purchasedBannerMedium({@required GestureTapCallback onTap}) =>
+    _ButtonMedium(
+      onTap: onTap,
+      icon: Icons.check_circle,
+      text: Strings.SUBSCRIBED,
+    );
+
+@swidget
+Widget _buttonMedium({
+  @required GestureTapCallback onTap,
+  @required IconData icon,
+  @required String text,
+}) =>
+    RaisedButton.icon(
+      color: Colors.transparent,
+      icon: Icon(icon, color: Colors.white),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Dimens.MARGIN_OUTLINE, vertical: 8),
+      onPressed: onTap,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(100),
+        side: const BorderSide(color: Colors.deepOrange),
+      ),
+      label: Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyles.PURCHASED_BANNER,
       ),
     );
-}
-
-class BillingBtnThin extends StatelessWidget {
-
-  final String text;
-
-  const BillingBtnThin({Key key, @required this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => Expanded(
-    child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.deepOrange),
-        borderRadius: BorderRadius.circular(100),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            Icons.play_arrow_sharp,
-            color: Colors.white,
-          ),
-          SizedBox(width: 16),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-/// todo update design? is it enough affordance to purchase?
-class BillingBtnMedium extends StatelessWidget {
-
-  const BillingBtnMedium._({Key key, @required this.text}) : super(key: key);
-
-  /// todo need logic for tax ratio, currency and country
-  factory BillingBtnMedium.subscribe({@required int amountWithTax, @required String currencyAsSuffix, Key key}) {
-    final text = '${Strings.MONTHLY}$amountWithTax$currencyAsSuffix';
-    return BillingBtnMedium._(text: text, key: key,);
-  }
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: Dimens.MARGIN_OUTLINE, vertical: 8),
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.deepOrange),
-      borderRadius: BorderRadius.circular(100),
-    ),
-    child: Row(
-      children: [
-        const Icon(
-          Icons.play_arrow_sharp,
-          color: Colors.white,
-        ),
-        const SizedBox(width: 16),
-        Text(
-          text,
-          style: TextStyles.PURCHASE_BTN,
-        ),
-        const SizedBox(width: 8),
-      ],
-    ),
-  );
-}
-
-/// todo add price
-class PurchasedBannerMedium extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: Dimens.MARGIN_OUTLINE, vertical: 8),
-    decoration: BoxDecoration(
-      color: Colors.deepOrange,
-      borderRadius: BorderRadius.circular(100),
-    ),
-    child: Row(
-      children: [
-        const Icon(
-          Icons.check_circle,
-          color: Colors.white,
-        ),
-        const SizedBox(width: 16),
-        const Text(
-          Strings.SUBSCRIBED,
-          style: TextStyles.PURCHASED_BANNER,
-        ),
-        const SizedBox(width: 8),
-      ],
-    ),
-  );
-}

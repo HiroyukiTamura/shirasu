@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart' as p;
 
 @immutable
 class UrlUtil {
@@ -17,26 +18,28 @@ class UrlUtil {
   static const URL_GITHUB = 'https://github.com/HiroyukTamura/shirasu';
 
   static String getThumbnailUrl(String itemId) =>
-      '$_URL_BASE/public/programs/$itemId/thumbnail';
+      p.join(_URL_BASE, 'public/programs', itemId, 'thumbnail');
 
   static String getChannelLogoUrl(String channelId) =>
-      '$_URL_BASE/public/channels/$channelId/icon';
+      p.join(_URL_BASE, 'public/channels', channelId, 'icon');
 
   static String getChannelHeaderUrl(String channelId) =>
-      '$_URL_BASE/public/channels/$channelId/header';
+      p.join(_URL_BASE, 'public/channels', channelId, 'header');
 
   static String getHandoutThumbnailUrl(String programId, String handoutId) =>
-      '$_URL_BASE/public/programs/$programId/handouts/$handoutId/thumbnail';
+      p.join(_URL_BASE, 'public/programs', programId, 'handouts', handoutId, 'thumbnail');
 
   static String getHandoutUrl(String programId, String handoutId) =>
-      '$_URL_BASE/private/programs/$programId/handouts/$handoutId';
+      p.join(_URL_BASE, 'private/programs', programId, 'handouts', handoutId);
 
   static String programId2UrlSegment(String programId) {
     final list = programId.split('-');
-    return '/t/${list[0]}/c/${list[1]}/p/${list[2]}';
+    return p.join('t', list[0], 'c', list[1], 'p', list[2]);
   }
 
-  static String programId2Url(String programId) => '$URL_HOME${programId2UrlSegment(programId)}';
+  static String channelId2Url(String channelId) => p.join(URL_HOME, 'c', channelId);
+
+  static String programId2Url(String programId) => p.join(URL_HOME, programId2UrlSegment(programId));
 
   static String programId2channelId(String programId) => programId.split('-')[1];
 }

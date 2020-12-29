@@ -32,8 +32,8 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
     final path = _appState.findLastMainPagePath;
     final screen = path.when(
       dashboard: () => const PageDashboardInMainScreen(),
-      subscribing: (SubscribingTabPage initialPage) =>
-          PageSubscribingInMainScreen(initialPage: initialPage),
+      subscribing: (PageListTabPage initialPage) =>
+          PageListInMainScreen(initialPage: initialPage),
       setting: () => const PageSettingInMainScreen(),
     );
 

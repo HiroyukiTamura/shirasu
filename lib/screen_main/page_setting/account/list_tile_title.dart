@@ -22,13 +22,11 @@ class ListTileTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final content = Padding(
-      padding: EdgeInsets.only(
-        right: 16,
-        left: 16,
-        top: isCreditCard
+      padding: EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: isCreditCard
             ? ListTileSeem.SEEM_PADDING + _PADDING_VERTICAL
             : _PADDING_VERTICAL,
-        bottom: _PADDING_VERTICAL,
       ), //todo extract to dimens
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

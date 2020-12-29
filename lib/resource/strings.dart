@@ -80,6 +80,7 @@ class Strings {
 
   static const String MONTHLY = '月額';
   static const String SUBSCRIBED = 'チャンネル購読済み';
+  static const String SUBSCRIBE_SUFFIX = 'で購読する';
 
   //region ScreenDetail
   static const String WAIT_FOR_START = '放送開始までお待ちください';
@@ -93,7 +94,7 @@ class Strings {
   static const String TAB_SUBSCRIBING = '購読中';
   static const String TAB_WATCH_HISTORY = '視聴履歴';
   static const String WATCH_HISTORY_EMPTY_MSG = '動画を視聴すると、履歴がこの画面に表示されます。';
-  static const String SUBSCRIBING_EMPTY_MSG = '動画を視聴すると、履歴がこの画面に表示されます。';
+  static const String SUBSCRIBING_EMPTY_MSG = '動画を購読すると、番組一覧がこの画面に表示されます。';
 
 //endregion
 

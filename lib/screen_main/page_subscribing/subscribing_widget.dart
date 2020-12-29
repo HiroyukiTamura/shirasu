@@ -25,7 +25,7 @@ Widget subscribingWidget() => useProvider(_viewmodelSNProvider.state).when(
       error: () => const PageError(),
       resultEmpty: () => const EmptyListWidget(
         text: Strings.SUBSCRIBING_EMPTY_MSG,
-        icon: Icons.history,
+        icon: Icons.video_collection,
       ),
       success: (programData) => ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 16),

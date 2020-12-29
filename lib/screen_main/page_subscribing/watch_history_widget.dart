@@ -15,6 +15,7 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
+import 'package:shirasu/extension.dart';
 
 part 'watch_history_widget.g.dart';
 
@@ -72,10 +73,7 @@ class _ContentListView extends HookWidget {
           final program = items[i].program;
           return MovieListItem(
             program: program,
-            onTap: () async => context
-                .read(appRouterProvider)
-                .delegate
-                .pushPage(GlobalRoutePath.program(program.id)),
+            onTap: () async => context.pushProgramPage(program.id),
           );
         }
       },

@@ -145,7 +145,7 @@ class CurrencyUtil {
 
   static int amountWithTax(String currency, int amount) {
     if (_isJapanCurrency(currency))
-      return (amount * (Util.JP_TAX_RATIO +1)).ceil();
+      return (amount * (Util.JP_TAX_RATIO +1)).floor();
 
     throw UnsupportedError('unexpected currency :: $currency');
     // todo english

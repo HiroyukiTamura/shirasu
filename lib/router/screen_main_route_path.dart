@@ -16,7 +16,7 @@ abstract class GlobalRoutePathBase {
     @required Result Function(String channelId) channel,
     @required Result Function(String programId) program,
     @required Result Function() dashboard,
-    @required Result Function(SubscribingTabPage initialPage) subscribing,
+    @required Result Function(PageListTabPage initialPage) subscribing,
     @required Result Function() setting,
     @required Result Function() ossLicense,
     @required Result Function() auth,
@@ -109,7 +109,7 @@ abstract class PathDataMainPageBase
     implements _$PathDataMainPageBase, GlobalRoutePathBase {
   const factory PathDataMainPageBase.dashboard() = PathDataMainPageDashBoard;
 
-  const factory PathDataMainPageBase.subscribing(SubscribingTabPage index) =
+  const factory PathDataMainPageBase.subscribing(PageListTabPage index) =
       PathDataMainPageSubscribing;
 
   const factory PathDataMainPageBase.setting() = PathDataMainPageSetting;
@@ -120,7 +120,7 @@ abstract class PathDataMainPageBase
         return const PathDataMainPageBase.dashboard();
       case 1:
         return const PathDataMainPageBase.subscribing(
-            PageSubscribingInMainScreen.PAGE_INDEX_DEFAULT);
+            PageListInMainScreen.PAGE_INDEX_DEFAULT);
       case 2:
         return const PathDataMainPageBase.setting();
       default:
@@ -132,6 +132,6 @@ abstract class PathDataMainPageBase
 
   int get pageIndex => when(
       dashboard: () => 0,
-      subscribing: (SubscribingTabPage initialPage) => 1,
+      subscribing: (PageListTabPage initialPage) => 1,
       setting: () => 2);
 }

@@ -1,16 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'list_item_user_name.dart';
+part of 'list_tile_load_more.dart';
 
 // **************************************************************************
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class ListItemUserName extends StatelessWidget {
-  const ListItemUserName(this.user, {Key key}) : super(key: key);
-
-  final User user;
+class ListTileLoadMore extends HookWidget {
+  const ListTileLoadMore({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext _context) => listItemUserName(user);
+  Widget build(BuildContext _context) => listTileLoadMore(_context);
 }

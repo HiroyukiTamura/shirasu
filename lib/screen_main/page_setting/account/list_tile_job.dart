@@ -19,25 +19,28 @@ class ListTileJob extends HookWidget {
     return PageUserInfo.listItem(
         title: Strings.JOB_LABEL,
         subTitle: Strings.JOB_MAP[job] ?? Strings.DEFAULT_EMPTY,
-        onTap: () async {
-          final jobCode = await showDialog<String>(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => SimpleDialog(
-                  title: const Text(Strings.JOB_LABEL),
-                  children: Strings.JOB_MAP // todo take care of if job unselected
-                      .map<String, Widget>((key, value) {
-                        final widget = SimpleDialogOption(
-                          onPressed: () async => Navigator.pop(context, key),
-                          child: Text(value),
-                        );
-                        return MapEntry(key, widget);
-                      })
-                      .values
-                      .toList(),
-                ));
-          if (jobCode != null)
-            context.read(settingViewModelSProvider).updateJobCode(jobCode);
-        });
+        onTap: () async => _onTap(context),
+    );
+  }
+
+  Future<void> _onTap(BuildContext context) async {
+    final jobCode = await showDialog<String>(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => SimpleDialog(
+          title: const Text(Strings.JOB_LABEL),
+          children: Strings.JOB_MAP // todo take care of if job unselected
+              .map<String, Widget>((key, value) {
+            final widget = SimpleDialogOption(
+              onPressed: () async => Navigator.pop(context, key),
+              child: Text(value),
+            );
+            return MapEntry(key, widget);
+          })
+              .values
+              .toList(),
+        ));
+    if (jobCode != null)
+      context.read(settingViewModelSProvider).updateJobCode(jobCode);
   }
 }

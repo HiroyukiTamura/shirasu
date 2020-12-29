@@ -9,6 +9,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_item_user_name.dart';
 import 'package:shirasu/screen_main/page_setting/app_config/page_app_config.dart';
 import 'package:shirasu/screen_main/page_setting/account/email_status_label.dart';
 import 'package:shirasu/screen_main/page_setting/account/list_tile_birthdate.dart';
@@ -184,38 +185,6 @@ class PageUserInfo extends HookWidget {
         onTap: onTap,
       );
 
-  static Widget listItemUserName(User user) {
-    String userName =
-        '${user.httpsShirasuIoUserAttribute.familyName} ${user.httpsShirasuIoUserAttribute.givenName}';
-    if (user.httpsShirasuIoUserAttribute.familyNameReading != null &&
-        user.httpsShirasuIoUserAttribute.givenNameReading != null)
-      userName +=
-          '(${user.httpsShirasuIoUserAttribute.familyNameReading} ${user.httpsShirasuIoUserAttribute.givenNameReading})';
-
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(
-          horizontal: Dimens.SETTING_OUTER_MARGIN, vertical: 8),
-      title: const Text(Strings.FULL_NAME_LABEL),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            userName,
-            style: TextStyles.SETTING_SUBTITLE,
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            Strings.FULL_NAME_NOTICE,
-            style: TextStyle(
-              height: 1.3,
-              fontSize: 13,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
   static Widget _genListItemAboveCreditCard(
     BuildContext context,
     Viewer viewer,
@@ -228,7 +197,7 @@ class PageUserInfo extends HookWidget {
           userName: viewer.viewerUser.name,
         );
       case 1:
-        return listItemUserName(ViewModelSetting.dummyUser);
+        return ListItemUserName(user: ViewModelSetting.dummyUser);
       case 2:
         return ListItemEmail(
           user: ViewModelSetting.dummyUser,
@@ -238,7 +207,7 @@ class PageUserInfo extends HookWidget {
       case 4:
         return const ListTileJob();
       case 5:
-        return ListTileLocation();
+        return const ListTileLocation();
       case 6:
         return const ListTileSeem(
           paddingBtm: false,

@@ -133,7 +133,7 @@ class EmailStatusLabel extends StatelessWidget {
           padding: const EdgeInsets.all(4),
           child: Text(
             text,
-            style: TextStyle(color: Colors.white, height: 1),
+            style: const TextStyle(color: Colors.white, height: 1),
           ),
         ),
       );

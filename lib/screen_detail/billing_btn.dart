@@ -94,7 +94,7 @@ Widget purchasedBannerMedium({@required GestureTapCallback onTap}) =>
     );
 
 @swidget
-Widget _buttonMedium({
+Widget _buttonMedium(BuildContext context, {
   @required GestureTapCallback onTap,
   @required IconData icon,
   @required String text,
@@ -107,7 +107,7 @@ Widget _buttonMedium({
       onPressed: onTap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100),
-        side: const BorderSide(color: Colors.deepOrange),
+        side: BorderSide(color: Theme.of(context).primaryColor),
       ),
       label: Text(
         text,

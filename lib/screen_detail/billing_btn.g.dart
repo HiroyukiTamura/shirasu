@@ -50,5 +50,5 @@ class _ButtonMedium extends StatelessWidget {
 
   @override
   Widget build(BuildContext _context) =>
-      _buttonMedium(onTap: onTap, icon: icon, text: text);
+      _buttonMedium(_context, onTap: onTap, icon: icon, text: text);
 }

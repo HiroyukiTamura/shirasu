@@ -193,6 +193,8 @@ class Strings {
   static const String TAB_USER_INFO = 'アカウント';
   static const String TAB_APP_CONFIG = 'アプリ設定';
 
+  static const String ITEM_TITLE_MOVIE_QUALITY = '画質 - Wifi回線時';
+  static const String ITEM_TITLE_MOVIE_QUALITY_MOBILE = '画質 - モバイル回線時';
   static const String ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
   static const String ITEM_TITLE_GITHUB = 'GitHub';
 

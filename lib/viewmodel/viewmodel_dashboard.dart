@@ -57,10 +57,9 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
           oldState.apiData.newProgramsDataList?.last?.newPrograms?.nextToken;
       if (nextToken == null) return;
 
-      // we don't check if Disposed
-      state = oldState.copyAsLoadMore();
-
       try {
+        state = oldState.copyAsLoadMore();
+
         final newProgramsData = await _apiClient.queryNewProgramsList(
           nextToken: nextToken,
         );
@@ -80,21 +79,25 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   void updateScrollOffset(double offset) {
     final s = state;
-    if (s.state is StateSuccess) trySetState(s.copyWith(offset: offset));
+    if (s.state is StateSuccess && isMounted)
+      state = s.copyWith(offset: offset);
   }
 
   void updateBillboardHeaderPage(int page) {
     final s = state;
-    if (s.state is StateSuccess) trySetState(s.copyWith(billboardHeaderPage: page));
+    if (s.state is StateSuccess && isMounted)
+      state = s.copyWith(billboardHeaderPage: page);
   }
 
   void updateChannelOffset(double offset) {
     final s = state;
-    if (s.state is StateSuccess) trySetState(s.copyWith(channelHorizontalOffset: offset));
+    if (s.state is StateSuccess && isMounted)
+      state = s.copyWith(channelHorizontalOffset: offset);
   }
 
   void updateSubscribingCarouselOffset(double offset) {
     final s = state;
-    if (s.state is StateSuccess) trySetState(s.copyWith(subscribingChannelOffset: offset));
+    if (s.state is StateSuccess && isMounted)
+      state = s.copyWith(subscribingChannelOffset: offset);
   }
 }

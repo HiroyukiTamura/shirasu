@@ -4,7 +4,7 @@ import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/dialog/btm_sheet_common.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_seem.dart';
 
 class ListTileTitle extends StatelessWidget {
   const ListTileTitle({

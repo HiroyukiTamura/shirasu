@@ -63,36 +63,27 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
       newState = const StateError();
     }
 
-    setState(state.copyWith(settingModelState: newState));
+    if (mounted) state = state.copyWith(settingModelState: newState);
   }
 
-  void updateBirthDate(DateTime birthDate) {
-    final editedUserInfo = state.editedUserInfo.copyWith(birthDate: birthDate);
-    state = state.copyWith(editedUserInfo: editedUserInfo);
-  }
+  void updateBirthDate(DateTime birthDate) =>
+      state = state.copyWith.editedUserInfo(birthDate: birthDate);
 
-  void updateJobCode(String jobCode) {
-    final editedUserInfo = state.editedUserInfo.copyWith(jobCode: jobCode);
-    state = state.copyWith(editedUserInfo: editedUserInfo);
-  }
+  void updateJobCode(String jobCode) =>
+      state = state.copyWith.editedUserInfo(jobCode: jobCode);
 
-  void updateUserLocation(String countryCode, String prefectureCode) =>
-      setState(
-        state.copyWith(
-          editedUserInfo: state.editedUserInfo.copyWith(
-            location: Location(
-              countryCode: countryCode,
-              prefectureCode: prefectureCode,
-            ),
-          ),
+  void updateUserLocation(String countryCode, String prefectureCode) {
+    if (mounted)
+      state = state.copyWith.editedUserInfo(
+        location: Location(
+          countryCode: countryCode,
+          prefectureCode: prefectureCode,
         ),
       );
-
+  }
 
   Future<void> postProfile() async {
-
-    if (state.uploadingProfile)
-      return;
+    if (state.uploadingProfile) return;
 
     final variable = UpdateUserWithAttrVariable.build(
       userId: dummyUser.sub,
@@ -111,15 +102,17 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     try {
       final updatedData = await _apiClient.updateUserWithAttr(variable);
       //todo update `dummyUser`
+
     } catch (e) {
       print(e);
       _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
     }
 
-    setState(state.copyWith(
-      uploadingProfile: false,
-      editedUserInfo: EditedUserInfo.empty(),
-    ));
+    if (mounted)
+      state = state.copyWith(
+        uploadingProfile: false,
+        editedUserInfo: EditedUserInfo.empty(),
+      );
   }
 }
 

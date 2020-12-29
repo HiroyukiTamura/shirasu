@@ -14,6 +14,7 @@ class UrlUtil {
   static const URL_ACCOUNT = 'https://shirasu.io/account';
   static const URL_DASHBOARD = 'https://shirasu.io/dashboard';
   static const URL_HEADER_BACKDROP = 'https://shirasu.io/top/kv_mix.a70089e9.jpg';
+  static const URL_GITHUB = 'https://github.com/HiroyukTamura/shirasu';
 
   static String getThumbnailUrl(String itemId) =>
       '$_URL_BASE/public/programs/$itemId/thumbnail';

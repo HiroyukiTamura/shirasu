@@ -5,10 +5,6 @@ import 'package:shirasu/dialog/btm_sheet_common.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/screen_main/screen_main.dart';
-import 'package:shirasu/util.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ListTileTitle extends StatelessWidget {
   const ListTileTitle({

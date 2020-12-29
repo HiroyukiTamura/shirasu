@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -28,22 +28,20 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:shirasu/model/auth_data.dart';
 
+part 'page_setting.g.dart';
+
 final settingViewModelSProvider =
     StateNotifierProvider.autoDispose<ViewModelSetting>(
         (ref) => ViewModelSetting(ref));
 
-class PageSettingInMainScreen extends StatelessWidget {
-  const PageSettingInMainScreen({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => MaterialTabView(
-        tabs: const [
-          Tab(text: Strings.TAB_USER_INFO),
-          Tab(text: Strings.TAB_APP_CONFIG)
-        ],
-        pages: const [PageUserInfo(), PageAppConfig()],
-      );
-}
+@swidget
+Widget pageSettingInMainScreen() => const MaterialTabView(
+      tabs: [
+        Tab(text: Strings.TAB_USER_INFO),
+        Tab(text: Strings.TAB_APP_CONFIG)
+      ],
+      pages: [PageUserInfo(), PageAppConfig()],
+    );
 
 class PageUserInfo extends HookWidget {
   const PageUserInfo({Key key}) : super(key: key);
@@ -62,11 +60,7 @@ class PageUserInfo extends HookWidget {
             final threshHolds = _Thresholds();
 
             if (i <= threshHolds.threshold)
-              return _genListItemAboveCreditCard(
-                context,
-                data,
-                i,
-              );
+              return _genListItemAboveCreditCard(context, data, i);
 
             threshHolds.swap(data.viewer.paymentMethods.length);
 
@@ -230,7 +224,9 @@ class PageUserInfo extends HookWidget {
     switch (index) {
       case 0:
         return ListTileTop(
-            iconUrl: viewer.viewerUser.icon, userName: viewer.viewerUser.name);
+          iconUrl: viewer.viewerUser.icon,
+          userName: viewer.viewerUser.name,
+        );
       case 1:
         return listItemUserName(ViewModelSetting.dummyUser);
       case 2:

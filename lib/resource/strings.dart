@@ -194,6 +194,7 @@ class Strings {
   static const String TAB_APP_CONFIG = 'アプリ設定';
 
   static const String ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
+  static const String ITEM_TITLE_GITHUB = 'GitHub';
 
 //endregion
 
@@ -211,11 +212,20 @@ class Strings {
 //endregion
 
 //region bottom sheet
-  static const String BTM_SHEET_MSG_CREDIT_CARD = '決済に関わる重要な操作は本アプリでは対応していません。\n公式Webページ上で行ってください。';
+  static const String BTM_SHEET_MSG_CREDIT_CARD =
+      '決済に関わる重要な操作は本アプリでは対応していません。\n公式Webページ上で行ってください。';
   static const String SUFFIX_PURCHASE_ONE_TIME = 'で番組を購入';
   static const String SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL = 'でチャンネルを購読';
   static const String BTM_SHEET_OR = 'または';
   static const String BTM_SHEET_MSG_PAYMENT_PREFIX = 'この番組を視聴するには';
-  static const String BTM_SHEET_MSG_PAYMENT = 'する必要があります。なお、決済に関わる重要な操作は本アプリでは対応していません。公式Webページ上で行ってください。';
+  static const String BTM_SHEET_MSG_PAYMENT =
+      'する必要があります。なお、決済に関わる重要な操作は本アプリでは対応していません。公式Webページ上で行ってください。';
+
+//endregion
+
+//region license
+  static const String LICENSE_LEGAL_APP =
+      '''Except where otherwise noted,
+ all of this app is licensed under CC BY-NC-SA 4.0 license''';
 //endregion
 }

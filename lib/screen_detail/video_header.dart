@@ -30,8 +30,8 @@ class VideoHeader extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final playOutState = useProvider(
-        detailSNProvider(programId).state.select((it) => it.playOutState));
-    final result = useProvider(detailSNProvider(programId)).state.prgDataResult
+        detailSNProvider.state.select((it) => it.playOutState));
+    final result = useProvider(detailSNProvider).state.prgDataResult
         as StateSuccess; //we want rebuild here
 
     final program = result.programDetailData.program;
@@ -79,7 +79,7 @@ class _VideoThumbnail extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = useProvider(detailSNProvider(programId)).state.prgDataResult
+    final result = useProvider(detailSNProvider).state.prgDataResult
         as StateSuccess; //we want rebuild here
 
     final program = result.programDetailData.program;
@@ -166,7 +166,7 @@ class _VideoThumbnail extends HookWidget {
 
   /// todo implement
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    final result = context.read(detailSNProvider(programId).state).prgDataResult
+    final result = context.read(detailSNProvider).state.prgDataResult
         as StateSuccess;
     final program = result.programDetailData.program;
     final subscriptionPlan = result.channelData.channel.subscriptionPlan;

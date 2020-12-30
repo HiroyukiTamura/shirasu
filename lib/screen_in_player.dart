@@ -15,10 +15,8 @@ class ScreenInPlayer extends StatefulHookWidget {
   const ScreenInPlayer({
     @required this.appState,
     Key key,
-    this.id,
   }) : super(key: key);
 
-  final String id;
   final GlobalAppState appState;
 
   @override
@@ -71,10 +69,7 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> {
                 routerDelegate: _routerDelegate,
                 backButtonDispatcher: _backButtonDispatcher,
               ),
-              if (widget.id == null)
-                const SizedBox.shrink()
-              else
-                ScreenDetail(id: widget.id),
+              const ScreenDetail(),
             ],
           ),
         ),

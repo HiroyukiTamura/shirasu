@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_detail/screen_detail.dart';
 
 extension IteratableX<E> on Iterable<E> {
   List<E> toUnmodifiableList() => List.unmodifiable(this);
@@ -28,8 +29,7 @@ extension BuildContextX on BuildContext {
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(appRouterProvider).delegate.pushPage(path);
 
-  Future<void> pushProgramPage(String id) async =>
-      read(appRouterProvider).delegate.pushPage(GlobalRoutePath.program(id));
+  Future<void> pushProgramPage(String id) async => read(pDetailId).state = id;
 
   Future<void> pushChannelPage(String id) async =>
       read(appRouterProvider).delegate.pushPage(GlobalRoutePath.channel(id));

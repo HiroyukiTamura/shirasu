@@ -114,7 +114,7 @@ class _Content extends HookWidget {
                       ?.isActive ==
                   true)
                 PurchasedBannerMedium(
-                  onTap: () => _onTapSubscribeBtn(context),
+                  onTap: () async => _onTapSubscribeBtn(context),
                 )
               else if (channelData.channel.subscriptionPlan?.isPurchasable ==
                   true)

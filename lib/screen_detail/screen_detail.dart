@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -18,34 +19,41 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-final detailSNProvider = StateNotifierProvider.autoDispose
-    .family<ViewModelDetail, String>((_, id) => ViewModelDetail(id));
+part 'screen_detail.g.dart';
+
+final pDetailId =
+    StateNotifierProvider.autoDispose<StateController<String>>((_) => StateController(null));
+
+final detailSNProvider =
+    StateNotifierProvider.autoDispose<ViewModelDetail>((ref) {
+  final id = ref.watch(pDetailId.state);
+  return ViewModelDetail(id);
+});
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
 final scaffoldProvider =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
-class ScreenDetail extends HookWidget {
-  const ScreenDetail({@required this.id});
+@hwidget
+Widget screenDetail() => useProvider(pDetailId.state) == null
+      ? const SizedBox.shrink()
+      : const ScreenDetailContent();
 
-  final String id;
-
-  @override
-  Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-          key: useProvider(scaffoldProvider).key,
-          body: useProvider(
-              detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
-            loading: () => const CenterCircleProgress(),
-            preInitialized: () => const CenterCircleProgress(),
-            success: (programDetailData, channelData) =>
-                _ContentWidget(data: programDetailData),
-            error: () => const PageError(),
-          ),
-        ),
-      );
-}
+@hwidget
+Widget screenDetailContent() => SafeArea(
+    child: Scaffold(
+      key: useProvider(scaffoldProvider).key,
+      body: useProvider(
+          detailSNProvider.state.select((it) => it.prgDataResult)).when(
+        loading: () => const CenterCircleProgress(),
+        preInitialized: () => const CenterCircleProgress(),
+        success: (programDetailData, channelData) =>
+            _ContentWidget(data: programDetailData),
+        error: () => const PageError(),
+      ),
+    ),
+  );
 
 class _ContentWidget extends StatelessWidget {
   const _ContentWidget({Key key, @required this.data}) : super(key: key);
@@ -62,12 +70,8 @@ class _ContentWidget extends StatelessWidget {
               VideoHeader(
                 height: headerH,
                 programId: data.program.id,
-                onTap: () async => context
-                    .read(detailSNProvider(data.program.id))
-                    .playVideo(false),
-                onTapPreviewBtn: () async => context
-                    .read(detailSNProvider(data.program.id))
-                    .playVideo(true),
+                onTap: () async => _playVideo(context, true),
+                onTapPreviewBtn: () async => _playVideo(context, false),
               ),
               SizedBox(
                 height: listViewH,
@@ -119,4 +123,8 @@ class _ContentWidget extends StatelessWidget {
           );
         },
       );
+
+  Future<void> _playVideo(BuildContext context, bool isPreview) async => context
+        .read(detailSNProvider)
+        .playVideo(false);
 }

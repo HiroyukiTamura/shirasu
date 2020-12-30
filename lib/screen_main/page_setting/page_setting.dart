@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/account/list_item_user_name.dart';
 import 'package:shirasu/screen_main/page_setting/app_config/page_app_config.dart';
 import 'package:shirasu/screen_main/page_setting/account/email_status_label.dart';
@@ -27,7 +25,7 @@ import 'package:shirasu/ui_common/material_tab_view.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
-import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/extension.dart';
 
 part 'page_setting.g.dart';
 
@@ -154,10 +152,7 @@ class PageUserInfo extends HookWidget {
                   data.viewerUser.watchHistories.items[index].program;
               return MovieListItem(
                 program: program,
-                onTap: () async => context
-                    .read(appRouterProvider)
-                    .delegate
-                    .pushPage(GlobalRoutePath.program(program.id)),
+                onTap: () async => context.pushProgramPage(program.id),
               );
             }
 

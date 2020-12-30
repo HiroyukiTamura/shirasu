@@ -44,8 +44,9 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
 
   @override
   void dispose() {
-    super.dispose();
+    context.read(screenMainScaffoldProvider).key = null;
     _routerDelegate.dispose();
+    super.dispose();
   }
 
   @override

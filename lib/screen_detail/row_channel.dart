@@ -9,6 +9,7 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_detail/padding_row.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/extension.dart';
 
 class RowChannel extends WidgetItemBase {
   RowChannel({
@@ -24,13 +25,11 @@ class RowChannel extends WidgetItemBase {
 
   @override
   Widget build(BuildContext context) => StackedInkWell(
-        onTap: () async => context
-            .read(appRouterProvider)
-            .delegate
-            .pushPage(GlobalRoutePath.channel(channelId)),
+        onTap: () async => context.pushChannelPage(channelId),
         child: Container(
           height: 56,
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: Dimens.MARGIN_OUTLINE),
+          padding: const EdgeInsets.symmetric(
+              vertical: 16, horizontal: Dimens.MARGIN_OUTLINE),
           child: Row(
             children: [
               CachedNetworkImage(

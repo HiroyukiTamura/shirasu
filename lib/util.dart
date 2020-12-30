@@ -13,13 +13,13 @@ class Util {
 
   static const JP_TAX_RATIO = 0.1;
 
-  static String convert2SnackText(ErrorMsg msg) {
+  static String convert2SnackText(SnackMsg msg) {
     switch (msg) {
-      case ErrorMsg.UNKNOWN:
+      case SnackMsg.UNKNOWN:
         return Strings.SNACK_ERR;
-      case ErrorMsg.NO_MORE_ITEM:
+      case SnackMsg.NO_MORE_ITEM:
         return Strings.SNACK_NO_MORE_ITEM;
-      case ErrorMsg.CANT_OPEN_URL:
+      case SnackMsg.CANT_OPEN_URL:
         return Strings.SNACK_CANT_OPEN_URL;
       default:
         throw UnsupportedError('unexpected error');
@@ -39,7 +39,7 @@ class Util {
 
   static Future<void> launchUrl(BuildContext context, String url) async {
     if (!await canLaunch(url)) {
-      context.read(snackBarMsgProvider).notifyErrorMsg(ErrorMsg.CANT_OPEN_URL);
+      context.read(snackBarMsgProvider).notifyMsg(SnackMsg.CANT_OPEN_URL);
       return;
     }
 

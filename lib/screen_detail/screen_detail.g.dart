@@ -12,10 +12,3 @@ class ScreenDetail extends HookWidget {
   @override
   Widget build(BuildContext _context) => screenDetail();
 }
-
-class ScreenDetailContent extends HookWidget {
-  const ScreenDetailContent({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext _context) => screenDetailContent();
-}

@@ -7,6 +7,7 @@ import 'package:shirasu/router/in_player_app_router_delegate.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 
 final scaffoldProvider =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());

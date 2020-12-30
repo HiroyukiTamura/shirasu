@@ -87,13 +87,13 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
         setState(StateSuccess(oldState.watchHistories));
 
         if (newOne.viewerUser.watchHistories.items.isEmpty)
-          _msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
+          _msgNotifier.notifyMsg(SnackMsg.NO_MORE_ITEM);
 
         return;
       } catch (e) {
         setState(StateSuccess(oldState.watchHistories));
         debugPrint(e.toString());
-        _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
+        _msgNotifier.notifyMsg(SnackMsg.UNKNOWN);
       }
     }
   }

@@ -28,16 +28,16 @@ class BillboardHeaderSingleCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    height: height,
-    child: PageView.builder(
-      controller: controller,
-      itemBuilder: (context, i) => _BillboardHeaderSingleCard(
-        item: data.items[i],
-        onTapItem: onTapItem,
-      ),
-      itemCount: data.items.length,
-    ),
-  );
+        height: height,
+        child: PageView.builder(
+          controller: controller,
+          itemBuilder: (context, i) => _BillboardHeaderSingleCard(
+            item: data.items[i],
+            onTapItem: onTapItem,
+          ),
+          itemCount: data.items.length,
+        ),
+      );
 }
 
 class _BillboardHeaderSingleCard extends StatelessWidget {
@@ -79,26 +79,26 @@ class _BillboardHeaderSingleCard extends StatelessWidget {
 
 @swidget
 Widget _thumbnail({@required String url}) => AspectRatio(
-    aspectRatio: Dimens.IMG_RATIO,
-    child: CachedNetworkImage(
-      imageUrl: url,
-      errorWidget: Util.defaultPrgThumbnail,
-    ),
-  );
+      aspectRatio: Dimens.IMG_RATIO,
+      child: CachedNetworkImage(
+        imageUrl: url,
+        errorWidget: Util.defaultPrgThumbnail,
+      ),
+    );
 
 @swidget
 Widget _title({@required String title}) => Expanded(
-    child: Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 4,
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 4,
+        ),
+        child: Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+          style: TextStyles.DASHBOARD_BILLBOARD_TITLE_H,
+        ),
       ),
-      child: Text(
-        title,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-        style: TextStyles.DASHBOARD_BILLBOARD_TITLE_H,
-      ),
-    ),
-  );
+    );

@@ -2,9 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
-import 'package:shirasu/resource/strings.dart';
 
-import '../util.dart';
 
 part 'detail_program_data.freezed.dart';
 

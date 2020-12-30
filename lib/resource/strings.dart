@@ -224,6 +224,10 @@ class Strings {
   static const String BTM_SHEET_MSG_PAYMENT =
       'する必要があります。なお、決済に関わる重要な操作は本アプリでは対応していません。公式Webページ上で行ってください。';
 
+  static const String SHARE_TWITTER = 'twitterで共有';
+  static const String SHARE_FACEBOOK = 'facebookで共有';
+  static const String COPY_URL = 'URLをコピー';
+
 //endregion
 
 //region license

@@ -15,6 +15,7 @@ import 'package:shirasu/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/video_holder.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -32,7 +33,7 @@ final detailSNProvider =
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
-final scaffoldProvider =
+final pDetailScaffold =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 @hwidget
@@ -40,20 +41,47 @@ Widget screenDetail() => useProvider(pDetailId.state) == null
       ? const SizedBox.shrink()
       : const ScreenDetailContent();
 
-@hwidget
-Widget screenDetailContent() => SafeArea(
-    child: Scaffold(
-      key: useProvider(scaffoldProvider).key,
-      body: useProvider(
-          detailSNProvider.state.select((it) => it.prgDataResult)).when(
-        loading: () => const CenterCircleProgress(),
-        preInitialized: () => const CenterCircleProgress(),
-        success: (programDetailData, channelData) =>
-            _ContentWidget(data: programDetailData),
-        error: () => const PageError(),
+class ScreenDetailContent extends StatefulHookWidget {
+
+  const ScreenDetailContent();
+
+  @override
+  _ScreenDetailContentState createState() => _ScreenDetailContentState();
+}
+
+class _ScreenDetailContentState extends State<ScreenDetailContent> {
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read(pDetailScaffold).key = scaffoldKey;
+  }
+
+  @override
+  Widget build(BuildContext context) => SafeArea(
+      child: Scaffold(
+        key: scaffoldKey,
+        body: MsgNtfListener(
+          child: useProvider(
+              detailSNProvider.state.select((it) => it.prgDataResult)).when(
+            loading: () => const CenterCircleProgress(),
+            preInitialized: () => const CenterCircleProgress(),
+            success: (programDetailData, channelData) =>
+                _ContentWidget(data: programDetailData),
+            error: () => const PageError(),
+          ),
+        ),
       ),
-    ),
-  );
+    );
+
+  @override
+  void dispose() {
+    context.read(pDetailScaffold).key = null;
+    super.dispose();
+  }
+}
 
 class _ContentWidget extends StatelessWidget {
   const _ContentWidget({Key key, @required this.data}) : super(key: key);
@@ -82,8 +110,8 @@ class _ContentWidget extends StatelessWidget {
                       switch (index) {
                         case 3:
                           return RowChannel(
-                            channelId: data.program.channelId,
                             title: data.program.channel.name,
+                            channelId: data.program.channel.id,
                           );
                         case 4:
                           return RowVideoTitle(text: data.program.title);
@@ -101,17 +129,11 @@ class _ContentWidget extends StatelessWidget {
                         case 9:
                           return const SizedBox(height: 36);
                         case 10:
-                          return Visibility(
-                            visible: false,
-                            child: RowFabs(
-                              handouts: data.program.handouts,
-                            ),
+                          return RowFabs(
+                            program: data.program,
                           );
                         case 11:
-                          return const Visibility(
-                            visible: false,
-                            child: SizedBox(height: 36),
-                          );
+                          return const SizedBox(height: 36);
                         case 12:
                           return RowVideoDesc(text: data.program.detail);
                         default:

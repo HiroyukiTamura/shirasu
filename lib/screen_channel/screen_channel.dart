@@ -26,8 +26,8 @@ import 'package:shirasu/extension.dart';
 
 part 'screen_channel.g.dart';
 
-final _channelProvider = StateNotifierProvider.autoDispose
-    .family<ViewModelChannel, String>((_, id) => ViewModelChannel(id));
+final channelProvider = StateNotifierProvider.autoDispose
+    .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(ref, id));
 
 const double _CHANNEL_LOGO_SIZE = 32;
 
@@ -38,7 +38,8 @@ Widget screenChannel(
 }) =>
     SafeArea(
       child: Scaffold(
-        body: useProvider(_channelProvider(channelId).state).when(
+        body: useProvider(
+            channelProvider(channelId).state.select((it) => it.result)).when(
           preInitialized: () => const CenterCircleProgress(),
           loading: () => const CenterCircleProgress(),
           error: () => const PageError(),
@@ -48,10 +49,9 @@ Widget screenChannel(
             final initialLength = isAnnouncementEmpty ? 2 : 3;
             final tabController = useTabController(
                 initialLength: initialLength,
-                initialIndex:
-                    useProvider(_channelProvider(channelId)).tabIndex);
+                initialIndex: useProvider(channelProvider(channelId)).tabIndex);
             tabController.addListener(() => context
-                .read(_channelProvider(channelId))
+                .read(channelProvider(channelId))
                 .tabIndex = tabController.index);
             return _Content(
               channelData: channelData,
@@ -63,7 +63,7 @@ Widget screenChannel(
       ),
     );
 
-class _Content extends StatelessWidget {
+class _Content extends HookWidget {
   const _Content({
     Key key,
     @required this.channelData,
@@ -162,9 +162,9 @@ class _Content extends StatelessWidget {
             children: [
               PageChannelDetail(text: channelData.channel.detail),
               PageMovieList(
-                channelPrograms: channelData.channel.programs,
                 onTapItem: (BuildContext context, String prgId) async =>
                     context.pushProgramPage(prgId),
+                channelId: channelData.channel.id,
               ),
               if (!isAnnouncementEmpty)
                 PageNotification(
@@ -176,9 +176,10 @@ class _Content extends StatelessWidget {
     );
   }
 
-  Future<void> _onTapSubscribeBtn(BuildContext context) async => BtmSheetCommon.showUrlLauncherBtmSheet(
-      context: context,
-      url: UrlUtil.channelId2Url(channelData.channel.id),
-      child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
-    );
+  Future<void> _onTapSubscribeBtn(BuildContext context) async =>
+      BtmSheetCommon.showUrlLauncherBtmSheet(
+        context: context,
+        url: UrlUtil.channelId2Url(channelData.channel.id),
+        child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
+      );
 }

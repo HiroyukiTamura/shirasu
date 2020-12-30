@@ -1,13 +1,167 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'viewmodel_channel.dart';
+part of 'model_channel.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+/// @nodoc
+class _$ChannelModelTearOff {
+  const _$ChannelModelTearOff();
+
+// ignore: unused_element
+  _ChannelModel call(
+      {@required ChannelDataResult result, @required bool loading}) {
+    return _ChannelModel(
+      result: result,
+      loading: loading,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $ChannelModel = _$ChannelModelTearOff();
+
+/// @nodoc
+mixin _$ChannelModel {
+  ChannelDataResult get result;
+  bool get loading;
+
+  $ChannelModelCopyWith<ChannelModel> get copyWith;
+}
+
+/// @nodoc
+abstract class $ChannelModelCopyWith<$Res> {
+  factory $ChannelModelCopyWith(
+          ChannelModel value, $Res Function(ChannelModel) then) =
+      _$ChannelModelCopyWithImpl<$Res>;
+  $Res call({ChannelDataResult result, bool loading});
+
+  $ChannelDataResultCopyWith<$Res> get result;
+}
+
+/// @nodoc
+class _$ChannelModelCopyWithImpl<$Res> implements $ChannelModelCopyWith<$Res> {
+  _$ChannelModelCopyWithImpl(this._value, this._then);
+
+  final ChannelModel _value;
+  // ignore: unused_field
+  final $Res Function(ChannelModel) _then;
+
+  @override
+  $Res call({
+    Object result = freezed,
+    Object loading = freezed,
+  }) {
+    return _then(_value.copyWith(
+      result: result == freezed ? _value.result : result as ChannelDataResult,
+      loading: loading == freezed ? _value.loading : loading as bool,
+    ));
+  }
+
+  @override
+  $ChannelDataResultCopyWith<$Res> get result {
+    if (_value.result == null) {
+      return null;
+    }
+    return $ChannelDataResultCopyWith<$Res>(_value.result, (value) {
+      return _then(_value.copyWith(result: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$ChannelModelCopyWith<$Res>
+    implements $ChannelModelCopyWith<$Res> {
+  factory _$ChannelModelCopyWith(
+          _ChannelModel value, $Res Function(_ChannelModel) then) =
+      __$ChannelModelCopyWithImpl<$Res>;
+  @override
+  $Res call({ChannelDataResult result, bool loading});
+
+  @override
+  $ChannelDataResultCopyWith<$Res> get result;
+}
+
+/// @nodoc
+class __$ChannelModelCopyWithImpl<$Res> extends _$ChannelModelCopyWithImpl<$Res>
+    implements _$ChannelModelCopyWith<$Res> {
+  __$ChannelModelCopyWithImpl(
+      _ChannelModel _value, $Res Function(_ChannelModel) _then)
+      : super(_value, (v) => _then(v as _ChannelModel));
+
+  @override
+  _ChannelModel get _value => super._value as _ChannelModel;
+
+  @override
+  $Res call({
+    Object result = freezed,
+    Object loading = freezed,
+  }) {
+    return _then(_ChannelModel(
+      result: result == freezed ? _value.result : result as ChannelDataResult,
+      loading: loading == freezed ? _value.loading : loading as bool,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_ChannelModel extends _ChannelModel {
+  const _$_ChannelModel({@required this.result, @required this.loading})
+      : assert(result != null),
+        assert(loading != null),
+        assert(!loading || (result is Success && loading)),
+        super._();
+
+  @override
+  final ChannelDataResult result;
+  @override
+  final bool loading;
+
+  @override
+  String toString() {
+    return 'ChannelModel(result: $result, loading: $loading)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ChannelModel &&
+            (identical(other.result, result) ||
+                const DeepCollectionEquality().equals(other.result, result)) &&
+            (identical(other.loading, loading) ||
+                const DeepCollectionEquality().equals(other.loading, loading)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(result) ^
+      const DeepCollectionEquality().hash(loading);
+
+  @override
+  _$ChannelModelCopyWith<_ChannelModel> get copyWith =>
+      __$ChannelModelCopyWithImpl<_ChannelModel>(this, _$identity);
+}
+
+abstract class _ChannelModel extends ChannelModel {
+  const _ChannelModel._() : super._();
+  const factory _ChannelModel(
+      {@required ChannelDataResult result,
+      @required bool loading}) = _$_ChannelModel;
+
+  @override
+  ChannelDataResult get result;
+  @override
+  bool get loading;
+  @override
+  _$ChannelModelCopyWith<_ChannelModel> get copyWith;
+}
 
 /// @nodoc
 class _$ChannelDataResultTearOff {

@@ -17,7 +17,6 @@ abstract class ChannelData with _$ChannelData {
 
 @freezed
 abstract class Channel with _$Channel implements BaseChannel {
-
   const factory Channel({
     @required String id,
     @required String name,
@@ -40,8 +39,9 @@ abstract class Channel with _$Channel implements BaseChannel {
 }
 
 @freezed
-abstract class Announcements with _$Announcements implements BaseModelChannelAnnouncementConnection {
-
+abstract class Announcements
+    with _$Announcements
+    implements BaseModelChannelAnnouncementConnection {
   const factory Announcements({
     @required List<AnnouncementsItem> items,
     String nextToken,
@@ -56,8 +56,9 @@ abstract class Announcements with _$Announcements implements BaseModelChannelAnn
 }
 
 @freezed
-abstract class AnnouncementsItem with _$AnnouncementsItem implements BaseChannelAnnouncement {
-
+abstract class AnnouncementsItem
+    with _$AnnouncementsItem
+    implements BaseChannelAnnouncement {
   const factory AnnouncementsItem({
     @required String id,
     @required bool isOpen,
@@ -78,8 +79,8 @@ abstract class AnnouncementsItem with _$AnnouncementsItem implements BaseChannel
 }
 
 @freezed
-abstract class ChannelPrograms with _$ChannelPrograms implements BaseModelProgramConnection {
-
+abstract class ChannelPrograms
+    implements _$ChannelPrograms, BaseModelProgramConnection {
   const factory ChannelPrograms({
     @required List<ProgramsItem> items,
     String nextToken,
@@ -89,13 +90,23 @@ abstract class ChannelPrograms with _$ChannelPrograms implements BaseModelProgra
         String typename,
   }) = _ChannelPrograms;
 
+  const ChannelPrograms._();
+
   factory ChannelPrograms.fromJson(Map<String, dynamic> json) =>
       _$ChannelProgramsFromJson(json);
+
+  ChannelPrograms append(ChannelPrograms newOne) {
+    items.addAll(newOne.items);
+    return ChannelPrograms(
+      items: items,
+      typename: newOne.typename,
+      nextToken: newOne.nextToken,
+    );
+  }
 }
 
 @freezed
 abstract class ProgramsItem with _$ProgramsItem implements BaseProgram {
-
   const factory ProgramsItem({
     @required String id,
     @required String tenantId,
@@ -115,8 +126,8 @@ abstract class ProgramsItem with _$ProgramsItem implements BaseProgram {
 }
 
 @freezed
-abstract class SubscriptionPlan implements _$SubscriptionPlan, BaseSubscriptionPlan {
-
+abstract class SubscriptionPlan
+    implements _$SubscriptionPlan, BaseSubscriptionPlan {
   const factory SubscriptionPlan({
     @required String id,
     @required int amount,
@@ -141,7 +152,6 @@ abstract class SubscriptionPlan implements _$SubscriptionPlan, BaseSubscriptionP
 
 @freezed
 abstract class PurchasedPlan with _$PurchasedPlan implements BasePurchasedPlan {
-
   const factory PurchasedPlan({
     @required bool isActive,
     @required

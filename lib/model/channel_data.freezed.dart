@@ -1288,7 +1288,7 @@ class __$ChannelProgramsCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ChannelPrograms implements _ChannelPrograms {
+class _$_ChannelPrograms extends _ChannelPrograms {
   const _$_ChannelPrograms(
       {@required
           this.items,
@@ -1298,7 +1298,8 @@ class _$_ChannelPrograms implements _ChannelPrograms {
       @Assert('typename == "ModelProgramConnection"')
           this.typename})
       : assert(items != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_ChannelPrograms.fromJson(Map<String, dynamic> json) =>
       _$_$_ChannelProgramsFromJson(json);
@@ -1348,7 +1349,8 @@ class _$_ChannelPrograms implements _ChannelPrograms {
   }
 }
 
-abstract class _ChannelPrograms implements ChannelPrograms {
+abstract class _ChannelPrograms extends ChannelPrograms {
+  const _ChannelPrograms._() : super._();
   const factory _ChannelPrograms(
       {@required
           List<ProgramsItem> items,

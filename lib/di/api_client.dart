@@ -124,10 +124,13 @@ class ApiClient {
     return ProgramDetailData.fromJson(result.data);
   }
 
-  Future<ChannelData> queryChannelData(String channelId) async {
-    final result = await _query(GraphqlQuery.QUERY_CHANNEL, variables: {
+  Future<ChannelData> queryChannelData(String channelId, {String nextToken}) async {
+    final variables = {
       'id': channelId,
-    });
+      if (nextToken != null)
+        'nextToken': nextToken
+    };
+    final result = await _query(GraphqlQuery.QUERY_CHANNEL, variables: variables);
     return ChannelData.fromJson(result.data);
   }
 

@@ -26,6 +26,10 @@ class RowFabs extends WidgetItemBase {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const _Fab(icon: Icons.comment),
+            _Fab(
+              icon: Icons.credit_card,
+              onPressed: () => _onClickPaymentBtn(context),
+            ),
             if (program.handouts.items.isNotEmpty)
               const _Fab(icon: Icons.text_snippet),
             const _Fab(icon: Icons.alarm_add),
@@ -37,16 +41,20 @@ class RowFabs extends WidgetItemBase {
         ),
       );
 
-  Future<void> _onClickShareBtn(BuildContext context) async => showModalBottomSheet<void>(
-      context: context
-          .read(pDetailScaffold)
-          .key?.currentContext,
-      builder: (context) => BtmSheetSnsShare(
-        url: UrlUtil.programId2Url(program.id),
-        urlTwitter: UrlUtil.programId2TwitterUrl(program.title, program.id).toString(),
-        urlFaceBook: UrlUtil.programId2FaceBookUrl(program.id).toString(),
-      ),
-    );
+  Future<void> _onClickShareBtn(BuildContext context) async =>
+      showModalBottomSheet<void>(
+        context: context.read(pDetailScaffold).key?.currentContext,
+        builder: (context) => BtmSheetSnsShare(
+          url: UrlUtil.programId2Url(program.id),
+          urlTwitter: UrlUtil.programId2TwitterUrl(program.title, program.id)
+              .toString(),
+          urlFaceBook: UrlUtil.programId2FaceBookUrl(program.id).toString(),
+        ),
+      );
+
+  Future<void> _onClickPaymentBtn(BuildContext context) async {
+
+  }
 }
 
 @swidget

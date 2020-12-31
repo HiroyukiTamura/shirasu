@@ -11,7 +11,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:flutter_playout/video.dart';
-import 'package:shirasu/viewmodel/viewmodel_detail.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 class VideoHeader extends HookWidget {
   const VideoHeader({

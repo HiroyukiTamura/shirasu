@@ -42,17 +42,16 @@ abstract class GlobalRoutePathBase {
   }
 
   static Result wrappedWhenRough<Result extends Object>(
-      GlobalRoutePathBase routePath, {
-        @required Result Function() intro,
-        @required Result Function() error,
-        @required Result Function(String channelId) channel,
-        @required Result Function(String programId) program,
-        @required Result Function() mainPage,
-        @required Result Function() ossLicense,
-        @required Result Function() auth,
-      }) {
-    if (routePath is PathDataMainPageBase)
-      return mainPage();
+    GlobalRoutePathBase routePath, {
+    @required Result Function() intro,
+    @required Result Function() error,
+    @required Result Function(String channelId) channel,
+    @required Result Function(String programId) program,
+    @required Result Function() mainPage,
+    @required Result Function() ossLicense,
+    @required Result Function() auth,
+  }) {
+    if (routePath is PathDataMainPageBase) return mainPage();
     if (routePath is GlobalRoutePath)
       return routePath.when(
         intro: intro,
@@ -68,12 +67,11 @@ abstract class GlobalRoutePathBase {
   }
 
   static Result wrappedWhenType<Result extends Object>(
-      GlobalRoutePathBase routePath, {
-        @required Result Function() pathDataMainPageBase,
-        @required Result Function() globalRoutePath,
-      }) {
-    if (routePath is PathDataMainPageBase)
-      return pathDataMainPageBase();
+    GlobalRoutePathBase routePath, {
+    @required Result Function() pathDataMainPageBase,
+    @required Result Function() globalRoutePath,
+  }) {
+    if (routePath is PathDataMainPageBase) return pathDataMainPageBase();
     if (routePath is GlobalRoutePath)
       return globalRoutePath();
     else

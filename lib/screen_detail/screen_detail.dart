@@ -19,30 +19,32 @@ import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/viewmodel/viewmodel_detail_controller.dart';
 
 part 'screen_detail.g.dart';
 
-final pDetailId =
-    StateNotifierProvider.autoDispose<StateController<String>>((_) => StateController(null));
+final pDetailController =
+    StateNotifierProvider.autoDispose<ViewModelDetailController>(
+        (_) => ViewModelDetailController());
+
+final pDetailId = Provider.autoDispose<String>((ref) => ref.watch(pDetailController.state).id);
 
 final detailSNProvider =
     StateNotifierProvider.autoDispose<ViewModelDetail>((ref) {
-  final id = ref.watch(pDetailId.state);
+  final id = ref.watch(pDetailId);
   return ViewModelDetail(id);
 });
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
-final pDetailScaffold =
-    Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 @hwidget
-Widget screenDetail() => useProvider(pDetailId.state) == null
-      ? const SizedBox.shrink()
-      : const ScreenDetailContent();
+Widget screenDetail() => useProvider(pDetailId) == null
+    ? const SizedBox.shrink()
+    : const ScreenDetailContent();
 
 class ScreenDetailContent extends StatefulHookWidget {
-
   const ScreenDetailContent();
 
   @override
@@ -50,7 +52,6 @@ class ScreenDetailContent extends StatefulHookWidget {
 }
 
 class _ScreenDetailContentState extends State<ScreenDetailContent> {
-
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
@@ -61,20 +62,20 @@ class _ScreenDetailContentState extends State<ScreenDetailContent> {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-      child: Scaffold(
-        key: scaffoldKey,
-        body: MsgNtfListener(
-          child: useProvider(
-              detailSNProvider.state.select((it) => it.prgDataResult)).when(
-            loading: () => const CenterCircleProgress(),
-            preInitialized: () => const CenterCircleProgress(),
-            success: (programDetailData, channelData) =>
-                _ContentWidget(data: programDetailData),
-            error: () => const PageError(),
+        child: Scaffold(
+          key: scaffoldKey,
+          body: MsgNtfListener(
+            child: useProvider(
+                detailSNProvider.state.select((it) => it.prgDataResult)).when(
+              loading: () => const CenterCircleProgress(),
+              preInitialized: () => const CenterCircleProgress(),
+              success: (programDetailData, channelData) =>
+                  _ContentWidget(data: programDetailData),
+              error: () => const PageError(),
+            ),
           ),
         ),
-      ),
-    );
+      );
 
   @override
   void dispose() {
@@ -146,7 +147,6 @@ class _ContentWidget extends StatelessWidget {
         },
       );
 
-  Future<void> _playVideo(BuildContext context, bool isPreview) async => context
-        .read(detailSNProvider)
-        .playVideo(false);
+  Future<void> _playVideo(BuildContext context, bool isPreview) async =>
+      context.read(detailSNProvider).playVideo(false);
 }

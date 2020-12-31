@@ -1,8 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_playout/player_state.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
 import 'package:shirasu/di/hive_client.dart';
@@ -12,11 +8,9 @@ import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/model/media_status.dart';
 import 'package:shirasu/model/video_type.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:shirasu/viewmodel/model_detail.dart';
 import 'package:shirasu/extension.dart';
-
-part 'viewmodel_detail.freezed.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(this.id)
@@ -85,7 +79,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   Future<void> playVideo(bool preview) async {
-    final prg = preview ? _findPreviewArchivedVideoData() : _findAvailableVideoData();
+    final prg =
+        preview ? _findPreviewArchivedVideoData() : _findAvailableVideoData();
     if (prg == null) return; // todo handle error
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
@@ -102,64 +97,4 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (cookie != null)
       setState(state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie));
   }
-}
-
-@freezed
-abstract class DetailModelState with _$DetailModelState {
-  const factory DetailModelState.preInitialized() = PreInitialized;
-
-  const factory DetailModelState.loading() = StateLoading;
-
-  const factory DetailModelState.success(
-          ProgramDetailData programDetailData, ChannelData channelData) =
-      StateSuccess;
-
-  const factory DetailModelState.error() = StateError;
-}
-
-class PlayOutState {
-  const PlayOutState._({
-    @required this.commandedState,
-    @required this.playerState,
-    this.hlsMediaUrl,
-    this.videoType,
-    this.cookie,
-  });
-
-  factory PlayOutState.initial() => const PlayOutState._(
-        commandedState: PlayerCommandedState.PRE_PLAY,
-        playerState: PlayerState.PLAYING,
-      );
-
-  factory PlayOutState.initialize(String hlsMediaUrl, VideoType videoType) =>
-      PlayOutState._(
-        commandedState: PlayerCommandedState.INITIALIZING,
-        playerState: PlayerState.PLAYING,
-        hlsMediaUrl: hlsMediaUrl,
-        videoType: videoType,
-      );
-
-  factory PlayOutState.play(
-          String hlsMediaUrl, VideoType videoType, String cookie) =>
-      PlayOutState._(
-        commandedState: PlayerCommandedState.POST_PLAY,
-        playerState: PlayerState.PLAYING,
-        hlsMediaUrl: hlsMediaUrl,
-        videoType: videoType,
-        cookie: cookie,
-      );
-
-  final PlayerCommandedState commandedState;
-  final PlayerState playerState;
-  final String hlsMediaUrl;
-  final VideoType videoType;
-  final String cookie;
-}
-
-enum PlayerCommandedState {
-  PLAY_ERROR,
-  PRE_PLAY,
-  POST_PLAY,
-  INITIALIZING,
-  ERROR,
 }

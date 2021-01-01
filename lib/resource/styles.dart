@@ -5,6 +5,7 @@ class Styles {
   const Styles._();
 
   static final colorTextSub = Colors.white.withOpacity(.7);
+  static const COLOR_TEXT_BLUE_WHITE = Color(0xffd9f9ff);
   static const BACK_COLOR = Color(0xff181818);
   // static const TWITTER_COLOR = Color(0xff1DA1F2);
   // static const FACEBOOK_COLOR = Color(0xff4267B2);

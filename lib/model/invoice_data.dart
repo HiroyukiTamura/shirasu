@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/type/plan_type.dart';
+import 'package:shirasu/model/mixins/plan_type.dart';
 
 part 'invoice_data.freezed.dart';
 

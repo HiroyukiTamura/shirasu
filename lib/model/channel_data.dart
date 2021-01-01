@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/type/plan_type.dart';
+import 'package:shirasu/model/mixins/currency_mixin.dart';
+import 'package:shirasu/model/mixins/plan_type.dart';
 
 part 'channel_data.freezed.dart';
 
@@ -129,7 +130,7 @@ abstract class ProgramsItem with _$ProgramsItem, ViewerPlanTypeMixin implements 
 }
 
 @freezed
-abstract class SubscriptionPlan
+abstract class SubscriptionPlan with CurrencyMixin
     implements _$SubscriptionPlan, BaseSubscriptionPlan {
   const factory SubscriptionPlan({
     @required String id,
@@ -147,10 +148,6 @@ abstract class SubscriptionPlan
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionPlanFromJson(json);
-
-  String get currencyAsSuffix => CurrencyUtil.currencyAsSuffix(currency);
-
-  int get amountWithTax => CurrencyUtil.amountWithTax(currency, amount);
 }
 
 @freezed

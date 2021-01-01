@@ -1407,7 +1407,7 @@ class __$InvoiceHistoryItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
+class _$_InvoiceHistoryItem implements _InvoiceHistoryItem {
   const _$_InvoiceHistoryItem(
       {@required
           this.id,
@@ -1434,8 +1434,7 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
         assert(createdAt != null),
         assert(planType != null),
         assert(status != null),
-        assert(typename != null),
-        super._();
+        assert(typename != null);
 
   factory _$_InvoiceHistoryItem.fromJson(Map<String, dynamic> json) =>
       _$_$_InvoiceHistoryItemFromJson(json);
@@ -1512,8 +1511,7 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   }
 }
 
-abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
-  const _InvoiceHistoryItem._() : super._();
+abstract class _InvoiceHistoryItem implements InvoiceHistoryItem {
   const factory _InvoiceHistoryItem(
       {@required
           String id,

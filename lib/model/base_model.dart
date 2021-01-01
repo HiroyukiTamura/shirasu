@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shirasu/model/type/plan_type.dart';
+import 'package:shirasu/model/mixins/plan_type.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util.dart';
 
@@ -83,16 +83,10 @@ abstract class BasePaymentMethod extends _GraphQlModel {
 }
 
 @immutable
-abstract class BaseInvoice extends _GraphQlModel {
+abstract class BaseInvoice extends _GraphQlModel with PlanTypeMixin {
   String get id;
 
   DateTime get createdAt;
-
-  /// ex. SubscriptionPlan
-  @visibleForTesting
-  String get planType;
-
-  PlanType get planTypeStrict => PlanTypeUtil.parse(planType);
 
   /// ex. paid
   String get status;
@@ -132,26 +126,3 @@ abstract class BaseUserWithAttribute extends _GraphQlModel {}
 
 @immutable
 abstract class BaseUserAttribute extends _GraphQlModel {}
-
-class CurrencyUtil {
-  static bool _isJapanCurrency(String currency) {
-    final s = currency.toUpperCase();
-    return s == 'JP' || s == 'JPY';
-  }
-
-  static String currencyAsSuffix(String currency) {
-    if (_isJapanCurrency(currency))
-      return Strings.SUFFIX_YEN;
-
-    throw UnsupportedError('unexpected currency :: $currency');
-    // todo english
-  }
-
-  static int amountWithTax(String currency, int amount) {
-    if (_isJapanCurrency(currency))
-      return (amount * (Util.JP_TAX_RATIO +1)).floor();
-
-    throw UnsupportedError('unexpected currency :: $currency');
-    // todo english
-  }
-}

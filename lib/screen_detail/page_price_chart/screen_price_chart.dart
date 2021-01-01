@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/model/detail_program_data.dart';
-import 'package:shirasu/model/type/plan_type.dart';
-import 'package:shirasu/model/type/product_type.dart';
+import 'package:shirasu/model/mixins/plan_type.dart';
+import 'package:shirasu/model/mixins/product_type.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/extension.dart';
 import 'package:quiver/iterables.dart';
@@ -64,9 +64,8 @@ class ScreenPriceChart extends HookWidget {
               );
             case 2:
               final children = <TableRow>[];
-              final mainType = program.onetimePlans.firstWhereOrNull(
-                  (it) => it.productTypeStrict == ProductType.PROGRAM);
-              if (mainType != null) {
+              final mainType = program.onetimePlaneMain;
+              if (program.onetimePlaneMain != null) {
                 final price = '${mainType.amountWithTax}${mainType.currencyAsSuffix}';
                 final mainTypeRow = TableRow(
                   children: [

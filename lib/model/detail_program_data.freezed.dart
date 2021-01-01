@@ -619,7 +619,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ProgramDetail implements _ProgramDetail {
+class _$_ProgramDetail extends _ProgramDetail {
   const _$_ProgramDetail(
       {@required
           this.id,
@@ -685,7 +685,8 @@ class _$_ProgramDetail implements _ProgramDetail {
         assert(channel != null),
         assert(handouts != null),
         assert(videos != null),
-        assert(onetimePlans != null);
+        assert(onetimePlans != null),
+        super._();
 
   factory _$_ProgramDetail.fromJson(Map<String, dynamic> json) =>
       _$_$_ProgramDetailFromJson(json);
@@ -847,7 +848,8 @@ class _$_ProgramDetail implements _ProgramDetail {
   }
 }
 
-abstract class _ProgramDetail implements ProgramDetail {
+abstract class _ProgramDetail extends ProgramDetail {
+  const _ProgramDetail._() : super._();
   const factory _ProgramDetail(
       {@required
           String id,
@@ -2427,7 +2429,7 @@ class __$OnetimePlanCopyWithImpl<$Res> extends _$OnetimePlanCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_OnetimePlan extends _OnetimePlan {
+class _$_OnetimePlan implements _OnetimePlan {
   const _$_OnetimePlan(
       {@required
           this.id,
@@ -2459,8 +2461,7 @@ class _$_OnetimePlan extends _OnetimePlan {
         assert(amount != null),
         assert(currency != null),
         assert(isPurchasable != null),
-        assert(typename != null),
-        super._();
+        assert(typename != null);
 
   factory _$_OnetimePlan.fromJson(Map<String, dynamic> json) =>
       _$_$_OnetimePlanFromJson(json);
@@ -2558,8 +2559,7 @@ class _$_OnetimePlan extends _OnetimePlan {
   }
 }
 
-abstract class _OnetimePlan extends OnetimePlan {
-  const _OnetimePlan._() : super._();
+abstract class _OnetimePlan implements OnetimePlan {
   const factory _OnetimePlan(
       {@required
           String id,

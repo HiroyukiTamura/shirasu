@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/type/plan_type.dart';
-import 'package:shirasu/model/type/product_type.dart';
+import 'package:shirasu/model/mixins/plan_type.dart';
+import 'package:shirasu/model/mixins/product_type.dart';
 
 part 'channel_subscription_plan.freezed.dart';
 
@@ -19,7 +19,6 @@ abstract class ChannelSubscriptionPlan with _$ChannelSubscriptionPlan {
 
 @freezed
 abstract class Channel with _$Channel implements BaseChannel {
-
   const factory Channel({
     @required SubscriptionPlan subscriptionPlan,
     @required
@@ -33,15 +32,14 @@ abstract class Channel with _$Channel implements BaseChannel {
 }
 
 @freezed
-abstract class SubscriptionPlan with ProductTypeMixin, ParentPlanTypeMixin, _$SubscriptionPlan implements BaseSubscriptionPlan {
-
+abstract class SubscriptionPlan
+    with ProductTypeMixin, ParentPlanTypeMixin, _$SubscriptionPlan
+    implements BaseSubscriptionPlan {
   const factory SubscriptionPlan({
     @required String id,
-    @visibleForTesting
-    String parentPlanType,
+    @visibleForTesting String parentPlanType,
     String parentPlanId,
-    @visibleForTesting
-    @required String productType,
+    @visibleForTesting @required String productType,
     @required String productId,
     @required String name,
     @required int amount,

@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/type/plan_type.dart';
+import 'package:shirasu/model/mixins/currency_mixin.dart';
+import 'package:shirasu/model/mixins/plan_type.dart';
 
 part 'viewer.freezed.dart';
 
@@ -18,7 +19,6 @@ abstract class Viewer with _$Viewer {
 
 @freezed
 abstract class ViewerClass with _$ViewerClass implements BaseViewer {
-
   const factory ViewerClass({
     @required List<PaymentMethod> paymentMethods,
     @required List<String> authConnections,
@@ -34,7 +34,6 @@ abstract class ViewerClass with _$ViewerClass implements BaseViewer {
 
 @freezed
 abstract class PaymentMethod with _$PaymentMethod implements BasePaymentMethod {
-
   const factory PaymentMethod({
     @required String id,
     @required String brand,
@@ -52,7 +51,6 @@ abstract class PaymentMethod with _$PaymentMethod implements BasePaymentMethod {
 
 @freezed
 abstract class ViewerUser with _$ViewerUser implements BaseViewer {
-
   const factory ViewerUser({
     @required String id,
     @required String name,
@@ -60,7 +58,7 @@ abstract class ViewerUser with _$ViewerUser implements BaseViewer {
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "Viewer"')
-       String typename,
+        String typename,
     @required InvoiceHistory invoiceHistory,
     @required WatchHistories watchHistories,
     @required List<SubscribedChannel> subscribedChannels,
@@ -71,8 +69,9 @@ abstract class ViewerUser with _$ViewerUser implements BaseViewer {
 }
 
 @freezed
-abstract class InvoiceHistory with _$InvoiceHistory implements BaseInvoiceConnection {
-
+abstract class InvoiceHistory
+    with _$InvoiceHistory
+    implements BaseInvoiceConnection {
   const factory InvoiceHistory({
     @required List<InvoiceHistoryItem> items,
     String nextToken,
@@ -87,8 +86,9 @@ abstract class InvoiceHistory with _$InvoiceHistory implements BaseInvoiceConnec
 }
 
 @freezed
-abstract class InvoiceHistoryItem with PlanTypeMixin implements _$InvoiceHistoryItem, BaseInvoice {
-
+abstract class InvoiceHistoryItem
+    with PlanTypeMixin, CurrencyMixin, _$InvoiceHistoryItem
+    implements BaseInvoice {
   const factory InvoiceHistoryItem({
     @required String id,
     @required int total,
@@ -103,17 +103,14 @@ abstract class InvoiceHistoryItem with PlanTypeMixin implements _$InvoiceHistory
         String typename,
   }) = _InvoiceHistoryItem;
 
-  const InvoiceHistoryItem._();
-
   factory InvoiceHistoryItem.fromJson(Map<String, dynamic> json) =>
       _$InvoiceHistoryItemFromJson(json);
-
-  String get currencyAsSuffix => CurrencyUtil.currencyAsSuffix(currency);
 }
 
 @freezed
-abstract class SubscribedChannel with _$SubscribedChannel implements BaseSubscribedChannel {
-
+abstract class SubscribedChannel
+    with _$SubscribedChannel
+    implements BaseSubscribedChannel {
   const factory SubscribedChannel({
     @required DateTime subscribedAt,
     @required DateTime currentPeriodEndAt,
@@ -133,7 +130,6 @@ abstract class SubscribedChannel with _$SubscribedChannel implements BaseSubscri
 
 @freezed
 abstract class Channel with _$Channel implements BaseChannel {
-
   const factory Channel({
     @required String id,
     @required String name,
@@ -141,7 +137,7 @@ abstract class Channel with _$Channel implements BaseChannel {
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "Channel"')
-       String typename,
+        String typename,
   }) = _Channel;
 
   factory Channel.fromJson(Map<String, dynamic> json) =>
@@ -149,8 +145,9 @@ abstract class Channel with _$Channel implements BaseChannel {
 }
 
 @freezed
-abstract class LatestInvoice with _$LatestInvoice, PlanTypeMixin implements BaseInvoice {
-
+abstract class LatestInvoice
+    with _$LatestInvoice, PlanTypeMixin
+    implements BaseInvoice {
   const factory LatestInvoice({
     @required String id,
     String description,
@@ -162,7 +159,7 @@ abstract class LatestInvoice with _$LatestInvoice, PlanTypeMixin implements Base
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "Invoice"')
-       String typename,
+        String typename,
   }) = _LatestInvoice;
 
   factory LatestInvoice.fromJson(Map<String, dynamic> json) =>
@@ -170,15 +167,16 @@ abstract class LatestInvoice with _$LatestInvoice, PlanTypeMixin implements Base
 }
 
 @freezed
-abstract class WatchHistories with _$WatchHistories implements BaseModelWatchHistoryConnection {
-
+abstract class WatchHistories
+    with _$WatchHistories
+    implements BaseModelWatchHistoryConnection {
   const factory WatchHistories({
     String nextToken,
     @required List<WatchHistoriesItem> items,
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "ModelWatchHistoryConnection"')
-       String typename,
+        String typename,
   }) = _WatchHistories;
 
   factory WatchHistories.fromJson(Map<String, dynamic> json) =>
@@ -186,8 +184,9 @@ abstract class WatchHistories with _$WatchHistories implements BaseModelWatchHis
 }
 
 @freezed
-abstract class WatchHistoriesItem with _$WatchHistoriesItem implements BaseWatchHistory {
-
+abstract class WatchHistoriesItem
+    with _$WatchHistoriesItem
+    implements BaseWatchHistory {
   const factory WatchHistoriesItem({
     @required String id,
     @required DateTime lastViewedAt,
@@ -195,7 +194,7 @@ abstract class WatchHistoriesItem with _$WatchHistoriesItem implements BaseWatch
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "WatchHistory"')
-       String typename,
+        String typename,
   }) = _WatchHistoriesItem;
 
   factory WatchHistoriesItem.fromJson(Map<String, dynamic> json) =>
@@ -203,8 +202,7 @@ abstract class WatchHistoriesItem with _$WatchHistoriesItem implements BaseWatch
 }
 
 @freezed
-abstract class Program with _$Program implements BaseProgram{
-
+abstract class Program with _$Program implements BaseProgram {
   const factory Program({
     @required String id,
     @required String tenantId,
@@ -215,7 +213,7 @@ abstract class Program with _$Program implements BaseProgram{
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "Program"')
-       String typename,
+        String typename,
   }) = _Program;
 
   factory Program.fromJson(Map<String, dynamic> json) =>

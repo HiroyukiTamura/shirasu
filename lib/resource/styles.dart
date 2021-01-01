@@ -6,8 +6,8 @@ class Styles {
 
   static final colorTextSub = Colors.white.withOpacity(.7);
   static const BACK_COLOR = Color(0xff181818);
-  static const TWITTER_COLOR = Color(0xff1DA1F2);
-  static const FACEBOOK_COLOR = Color(0xff4267B2);
+  // static const TWITTER_COLOR = Color(0xff1DA1F2);
+  // static const FACEBOOK_COLOR = Color(0xff4267B2);
   static const PRIMARY_COLOR = Color(0xff50e6ff);
   static const PRIMARY_COLOR_DARK = Color(0xff0078D4);
   static const ACCENT_COLOR_DARK = Color(0xffd45c00);

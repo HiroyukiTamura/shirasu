@@ -9,6 +9,7 @@ import 'package:shirasu/model/graphql/mixins/product_type.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/extension.dart';
 import 'package:quiver/iterables.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/util.dart';
 
 part 'screen_price_chart.g.dart';
@@ -28,11 +29,7 @@ class ScreenPriceChart extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        padding: const EdgeInsets.symmetric(
-          vertical: 8,
-          horizontal: 8,
-        ),
-        itemCount: 3,
+        itemCount: 5,
         itemBuilder: (context, index) {
           switch (index) {
             case 0:
@@ -40,7 +37,7 @@ class ScreenPriceChart extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.only(left: 16, right: 16, top: 32),
                     child: Text(
                       Strings.ARCHIVE_PRICE_TABLE_TITLE,
                       style: TextStyle(
@@ -55,34 +52,57 @@ class ScreenPriceChart extends HookWidget {
                 ],
               );
             case 1:
-              return const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: Text(
-                  Strings.ARCHIVE_PRICE_TABLE_NOTE,
-                  style: TextStyle(height: 1.3, fontSize: 13),
-                ),
-              );
-            case 2:
-              final children = <TableRow>[];
+              final children = <TableRow>[
+                TableRow(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                        width: .7,
+                      ),
+                    ),
+                  ),
+                  children: [
+                    SizedBox.shrink(),
+                    _TableCell(
+                      text: Strings.ARCHIVE_PRICE_TABLE_HEADER_LABEL_DURATION,
+                      bold: true,
+                    ),
+                    _TableCell(
+                      text: Strings.ARCHIVE_PRICE_TABLE_HEADER_LABEL_GUEST,
+                      bold: true,
+                    ),
+                    _TableCell(
+                      text: Strings.ARCHIVE_PRICE_TABLE_HEADER_LABEL_SUBSCRIBER,
+                      bold: true,
+                    ),
+                  ],
+                )
+              ];
               final mainType = program.onetimePlaneMain;
               if (program.onetimePlaneMain != null) {
-                final price = '${mainType.amountWithTax}${mainType.currencyAsSuffix}';
+                final price =
+                    '${mainType.amountWithTax}${mainType.currencyAsSuffix}';
                 final mainTypeRow = TableRow(
                   children: [
-                    Container(
-                      child: const Text(Strings.ARCHIVE_PRICE_TABLE_MAIN_TYPE),
+                    const _TableCell(
+                      text: Strings.ARCHIVE_PRICE_TABLE_MAIN_TYPE,
+                      bold: true,
                     ),
-                    Container(
-                      child: Text(Util.sec2Hms(program.mainTime)),
+                    _TableCell(
+                      text: Util.sec2Hms(program.mainTime),
+                      bold: false,
                     ),
-                    Container(
-                      child: Text(mainType.parentPlanTypeStrict ==
+                    _TableCell(
+                      text: price,
+                      bold: false,
+                    ),
+                    _TableCell(
+                      text: mainType.parentPlanTypeStrict ==
                               PlanType.SUBSCRIPTION
                           ? Strings.ARCHIVE_PRICE_TABLE_FREE
-                          : '${mainType.amountWithTax}${mainType.currencyAsSuffix}'),
-                    ),
-                    Container(
-                      child: Text(price),
+                          : '${mainType.amountWithTax}${mainType.currencyAsSuffix}',
+                      bold: false,
                     ),
                   ],
                 );
@@ -93,27 +113,74 @@ class ScreenPriceChart extends HookWidget {
                 final price =
                     '${it.value.oneTimePlan.amountWithTax}${it.value.oneTimePlan.currencyAsSuffix}';
                 return TableRow(children: [
-                  Container(
-                    child: Text(
-                        '${Strings.ARCHIVE_PRICE_TABLE_NOTE_EXTENSION}${it.index + 1}${Strings.ARCHIVE_PRICE_TABLE_NOTE_EXTENSION_SUFFIX}'),
+                  _TableCell(
+                    text:
+                        '${Strings.ARCHIVE_PRICE_TABLE_NOTE_EXTENSION}${it.index + 1}',
+                    bold: true,
                   ),
-                  Container(
-                    child: Text(Util.sec2Hms(it.value.extensionTime)),
+                  _TableCell(
+                    text: Util.sec2Hms(it.value.extensionTime),
+                    bold: false,
                   ),
-                  Container(
-                    child: Text(program.isExtensionChargedToSubscribers
+                  _TableCell(
+                    text: price,
+                    bold: false,
+                  ),
+                  _TableCell(
+                    text: program.isExtensionChargedToSubscribers
                         ? price
-                        : Strings.ARCHIVE_PRICE_TABLE_FREE),
-                  ),
-                  Container(
-                    child: Text(price),
+                        : Strings.ARCHIVE_PRICE_TABLE_FREE,
+                    bold: false,
                   ),
                 ]);
               }).toUnmodifiableList();
               children.addAll(extensionRows);
 
-              return Table(
-                children: children,
+              return Padding(
+                padding: const EdgeInsets.only(top: 24, right: 16, left: 16),
+                child: Table(
+                  defaultColumnWidth: const IntrinsicColumnWidth(),
+                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                  children: children,
+                ),
+              );
+            case 2:
+              return Padding(
+                padding: EdgeInsets.only(top: 40, left: 16, right: 16),
+                child: Text(
+                  Strings.ARCHIVE_PRICE_TABLE_NOTE,
+                  style: TextStyle(
+                      height: 1.3,
+                      fontSize: 13,
+                      color: Colors.white.withOpacity(.85)),
+                ),
+              );
+            case 3:
+              return Container(
+                padding:
+                    EdgeInsets.only(right: 16, left: 16, top: 16,),
+                child: const Text(
+                  Strings.BTM_SHEET_MSG_CREDIT_CARD,
+                  style: TextStyle(
+                    height: 1.3,
+                    fontSize: 13,
+                    color: Colors.white,
+                  ),
+                ),
+              );
+            case 4:
+              return Container(
+                padding: EdgeInsets.symmetric(vertical: 36),
+                alignment: Alignment.center,
+                child: TextButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  child: Text(
+                    Strings.OPEN_WEB,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
               );
 
             default:
@@ -124,6 +191,32 @@ class ScreenPriceChart extends HookWidget {
 }
 
 @swidget
+Widget _tableCell(
+  BuildContext context, {
+  @required String text,
+  @required bool bold,
+  Color color,
+}) {
+  Color backColor = Colors.white.withOpacity(.85);
+  if (text == '無料' || text == '会員') backColor = Color(0xffd9f9ff);
+  if (text.endsWith('円') || text == '非会員') backColor = Colors.white;
+  // if (text.endsWith('円'))
+  //   textColor = const Color(0xff);
+
+  return Container(
+    height: 48,
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+    alignment: Alignment.center,
+    child: Text(
+      text,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(color: backColor),
+    ),
+  );
+}
+
+@swidget
 Widget _clearBtn({
   @required VoidCallback onPressed,
 }) =>
@@ -131,8 +224,8 @@ Widget _clearBtn({
       onPressed: onPressed,
       elevation: 0,
       constraints: const BoxConstraints(
-        minWidth: 36,
-        minHeight: 36,
+        minWidth: 0,
+        minHeight: 0,
       ),
       shape: const CircleBorder(),
       child: const Padding(

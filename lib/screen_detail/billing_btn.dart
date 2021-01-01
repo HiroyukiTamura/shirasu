@@ -81,27 +81,38 @@ Widget billingBtnMedium({
 }) =>
     _ButtonMedium(
       onTap: onTap,
-      icon: Icons.play_arrow_sharp,
-      text: '${Strings.MONTHLY}$amountWithTax$currencyAsSuffix${Strings.SUBSCRIBE_SUFFIX}',
+      icon: const Icon(
+        Icons.play_arrow_sharp,
+        color: Colors.white,
+      ),
+      text:
+          '${Strings.MONTHLY}$amountWithTax$currencyAsSuffix${Strings.SUBSCRIBE_SUFFIX}',
     );
 
 @swidget
-Widget purchasedBannerMedium({@required GestureTapCallback onTap}) =>
+Widget purchasedBannerMedium(
+  BuildContext context, {
+  @required GestureTapCallback onTap,
+}) =>
     _ButtonMedium(
       onTap: onTap,
-      icon: Icons.check_circle,
+      icon: Icon(
+        Icons.check_circle,
+        color: Theme.of(context).primaryColor,
+      ),
       text: Strings.SUBSCRIBED,
     );
 
 @swidget
-Widget _buttonMedium(BuildContext context, {
+Widget _buttonMedium(
+  BuildContext context, {
   @required GestureTapCallback onTap,
-  @required IconData icon,
+  @required Icon icon,
   @required String text,
 }) =>
     RaisedButton.icon(
       color: Colors.transparent,
-      icon: Icon(icon, color: Colors.white),
+      icon: icon,
       padding: const EdgeInsets.symmetric(
           horizontal: Dimens.MARGIN_OUTLINE, vertical: 8),
       onPressed: onTap,

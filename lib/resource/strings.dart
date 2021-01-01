@@ -243,8 +243,7 @@ class Strings {
   /// ref: users.pages.Program.components.ArchivePriceTable.note
   static const String ARCHIVE_PRICE_TABLE_NOTE = '''※表記は全て「税込」となります
 ※延長は直前の本編あるいは延長を購入していないと視聴することができません。
-※延長1回目の購入は本編の購入のあと、延長2回目の購入は1回目までの購入のあととなります。
-''';
+※延長1回目の購入は本編の購入のあと、延長2回目の購入は1回目までの購入のあととなります。''';
 
   /// ref: users.pages.Program.components.ArchivePriceTable.extension
   static const String ARCHIVE_PRICE_TABLE_NOTE_EXTENSION = '延長';
@@ -256,6 +255,15 @@ class Strings {
 
   /// ref: "users.pages.Program.components.ArchivePriceTable.mainType"
   static const String ARCHIVE_PRICE_TABLE_MAIN_TYPE = '本編';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.headerLabelDuration"
+  static const String ARCHIVE_PRICE_TABLE_HEADER_LABEL_DURATION = '放送時間';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.headerLabelGuest"
+  static const String ARCHIVE_PRICE_TABLE_HEADER_LABEL_GUEST = '非会員';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.headerLabelSubscriber"
+  static const String ARCHIVE_PRICE_TABLE_HEADER_LABEL_SUBSCRIBER = '会員';
 
 //endregion
 }

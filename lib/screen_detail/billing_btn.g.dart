@@ -34,7 +34,8 @@ class PurchasedBannerMedium extends StatelessWidget {
   final void Function() onTap;
 
   @override
-  Widget build(BuildContext _context) => purchasedBannerMedium(onTap: onTap);
+  Widget build(BuildContext _context) =>
+      purchasedBannerMedium(_context, onTap: onTap);
 }
 
 class _ButtonMedium extends StatelessWidget {
@@ -44,7 +45,7 @@ class _ButtonMedium extends StatelessWidget {
 
   final void Function() onTap;
 
-  final IconData icon;
+  final Icon icon;
 
   final String text;
 

@@ -1,7 +1,7 @@
 import 'package:flutter_playout/player_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/model/channel_data.dart';
-import 'package:shirasu/model/detail_program_data.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/mixins/video_type.dart';
 
 part 'model_detail.freezed.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/viewer.dart';
+import 'package:shirasu/model/graphql/base_model.dart';
+import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/model/channel_data.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
 
 part 'model_channel.freezed.dart';
 

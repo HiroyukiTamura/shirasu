@@ -2,8 +2,8 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/model/featured_programs_data.dart';
-import 'package:shirasu/model/new_programs_data.dart';
+import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 

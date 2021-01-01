@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/model/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';

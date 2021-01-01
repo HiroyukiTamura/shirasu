@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shirasu/model/base_model.dart';
+import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/resource/strings.dart';
 
 /// amex: "/static/img/amex-logo.png",

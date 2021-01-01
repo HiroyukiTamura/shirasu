@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shirasu/model/base_model.dart';
+import 'package:shirasu/model/graphql/base_model.dart';
 
 part 'featured_programs_data.freezed.dart';
 

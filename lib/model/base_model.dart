@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shirasu/model/type/plan_type.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util.dart';
 
@@ -88,7 +89,10 @@ abstract class BaseInvoice extends _GraphQlModel {
   DateTime get createdAt;
 
   /// ex. SubscriptionPlan
+  @visibleForTesting
   String get planType;
+
+  PlanType get planTypeStrict => PlanTypeUtil.parse(planType);
 
   /// ex. paid
   String get status;

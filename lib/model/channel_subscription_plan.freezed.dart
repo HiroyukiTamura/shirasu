@@ -390,9 +390,11 @@ class _$SubscriptionPlanTearOff {
   _SubscriptionPlan call(
       {@required
           String id,
-      String parentPlanType,
+      @visibleForTesting
+          String parentPlanType,
       String parentPlanId,
       @required
+      @visibleForTesting
           String productType,
       @required
           String productId,
@@ -411,7 +413,7 @@ class _$SubscriptionPlanTearOff {
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "SubscriptionPlan"')
-          dynamic typename}) {
+          String typename}) {
     return _SubscriptionPlan(
       id: id,
       parentPlanType: parentPlanType,
@@ -441,8 +443,10 @@ const $SubscriptionPlan = _$SubscriptionPlanTearOff();
 /// @nodoc
 mixin _$SubscriptionPlan {
   String get id;
+  @visibleForTesting
   String get parentPlanType;
   String get parentPlanId;
+  @visibleForTesting
   String get productType;
   String get productId;
   String get name;
@@ -453,7 +457,7 @@ mixin _$SubscriptionPlan {
   bool get isPurchasable;
   @JsonKey(name: '__typename')
   @Assert('typename == "SubscriptionPlan"')
-  dynamic get typename;
+  String get typename;
 
   Map<String, dynamic> toJson();
   $SubscriptionPlanCopyWith<SubscriptionPlan> get copyWith;
@@ -466,9 +470,11 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       _$SubscriptionPlanCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      String parentPlanType,
+      @visibleForTesting
+          String parentPlanType,
       String parentPlanId,
-      String productType,
+      @visibleForTesting
+          String productType,
       String productId,
       String name,
       int amount,
@@ -478,7 +484,7 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       bool isPurchasable,
       @JsonKey(name: '__typename')
       @Assert('typename == "SubscriptionPlan"')
-          dynamic typename});
+          String typename});
 }
 
 /// @nodoc
@@ -526,7 +532,7 @@ class _$SubscriptionPlanCopyWithImpl<$Res>
       isPurchasable: isPurchasable == freezed
           ? _value.isPurchasable
           : isPurchasable as bool,
-      typename: typename == freezed ? _value.typename : typename as dynamic,
+      typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
 }
@@ -540,9 +546,11 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      String parentPlanType,
+      @visibleForTesting
+          String parentPlanType,
       String parentPlanId,
-      String productType,
+      @visibleForTesting
+          String productType,
       String productId,
       String name,
       int amount,
@@ -552,7 +560,7 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
       bool isPurchasable,
       @JsonKey(name: '__typename')
       @Assert('typename == "SubscriptionPlan"')
-          dynamic typename});
+          String typename});
 }
 
 /// @nodoc
@@ -602,7 +610,7 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
       isPurchasable: isPurchasable == freezed
           ? _value.isPurchasable
           : isPurchasable as bool,
-      typename: typename == freezed ? _value.typename : typename,
+      typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
 }
@@ -610,13 +618,15 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_SubscriptionPlan extends _SubscriptionPlan {
+class _$_SubscriptionPlan implements _SubscriptionPlan {
   const _$_SubscriptionPlan(
       {@required
           this.id,
-      this.parentPlanType,
+      @visibleForTesting
+          this.parentPlanType,
       this.parentPlanId,
       @required
+      @visibleForTesting
           this.productType,
       @required
           this.productId,
@@ -645,8 +655,7 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
         assert(interval != null),
         assert(intervalCount != null),
         assert(isPurchasable != null),
-        assert(typename != null),
-        super._();
+        assert(typename != null);
 
   factory _$_SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$_$_SubscriptionPlanFromJson(json);
@@ -654,10 +663,12 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   @override
   final String id;
   @override
+  @visibleForTesting
   final String parentPlanType;
   @override
   final String parentPlanId;
   @override
+  @visibleForTesting
   final String productType;
   @override
   final String productId;
@@ -676,7 +687,7 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   @override
   @JsonKey(name: '__typename')
   @Assert('typename == "SubscriptionPlan"')
-  final dynamic typename;
+  final String typename;
 
   @override
   String toString() {
@@ -748,14 +759,15 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan extends SubscriptionPlan {
-  const _SubscriptionPlan._() : super._();
+abstract class _SubscriptionPlan implements SubscriptionPlan {
   const factory _SubscriptionPlan(
       {@required
           String id,
-      String parentPlanType,
+      @visibleForTesting
+          String parentPlanType,
       String parentPlanId,
       @required
+      @visibleForTesting
           String productType,
       @required
           String productId,
@@ -774,7 +786,7 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "SubscriptionPlan"')
-          dynamic typename}) = _$_SubscriptionPlan;
+          String typename}) = _$_SubscriptionPlan;
 
   factory _SubscriptionPlan.fromJson(Map<String, dynamic> json) =
       _$_SubscriptionPlan.fromJson;
@@ -782,10 +794,12 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   @override
   String get id;
   @override
+  @visibleForTesting
   String get parentPlanType;
   @override
   String get parentPlanId;
   @override
+  @visibleForTesting
   String get productType;
   @override
   String get productId;
@@ -804,7 +818,7 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   @override
   @JsonKey(name: '__typename')
   @Assert('typename == "SubscriptionPlan"')
-  dynamic get typename;
+  String get typename;
   @override
   _$SubscriptionPlanCopyWith<_SubscriptionPlan> get copyWith;
 }

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
+import 'package:shirasu/model/type/plan_type.dart';
 
 part 'new_programs_data.freezed.dart';
 
@@ -32,7 +33,7 @@ abstract class NewPrograms with _$NewPrograms implements BaseSearchableProgramCo
 }
 
 @freezed
-abstract class NewProgramItem with _$NewProgramItem implements BaseProgram {
+abstract class NewProgramItem with _$NewProgramItem, ViewerPlanTypeMixin implements BaseProgram {
   const factory NewProgramItem({
     @required DateTime broadcastAt,
     @required String channelId,
@@ -42,6 +43,7 @@ abstract class NewProgramItem with _$NewProgramItem implements BaseProgram {
     @required String tenantId,
     @required String title,
     @required int totalPlayTime,
+    @visibleForTesting
     String viewerPlanType,
     @required NewProgramChannel channel,
     @JsonKey(name: '__typename')

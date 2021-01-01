@@ -522,7 +522,8 @@ class _$ItemTearOff {
           String title,
       @required
           int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       @required
           Channel channel,
       @required
@@ -564,6 +565,7 @@ mixin _$Item {
   String get tenantId;
   String get title;
   int get totalPlayTime;
+  @visibleForTesting
   String get viewerPlanType;
   Channel get channel;
   @JsonKey(name: '__typename')
@@ -587,7 +589,8 @@ abstract class $ItemCopyWith<$Res> {
       String tenantId,
       String title,
       int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       Channel channel,
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -664,7 +667,8 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String tenantId,
       String title,
       int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       Channel channel,
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -740,7 +744,8 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
           this.title,
       @required
           this.totalPlayTime,
-      this.viewerPlanType,
+      @visibleForTesting
+          this.viewerPlanType,
       @required
           this.channel,
       @required
@@ -778,6 +783,7 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   @override
   final int totalPlayTime;
   @override
+  @visibleForTesting
   final String viewerPlanType;
   @override
   final Channel channel;
@@ -889,7 +895,8 @@ abstract class _Item implements Item {
           String title,
       @required
           int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       @required
           Channel channel,
       @required
@@ -916,6 +923,7 @@ abstract class _Item implements Item {
   @override
   int get totalPlayTime;
   @override
+  @visibleForTesting
   String get viewerPlanType;
   @override
   Channel get channel;

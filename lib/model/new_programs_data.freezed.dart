@@ -406,7 +406,8 @@ class _$NewProgramItemTearOff {
           String title,
       @required
           int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       @required
           NewProgramChannel channel,
       @required
@@ -448,6 +449,7 @@ mixin _$NewProgramItem {
   String get tenantId;
   String get title;
   int get totalPlayTime;
+  @visibleForTesting
   String get viewerPlanType;
   NewProgramChannel get channel;
   @JsonKey(name: '__typename')
@@ -472,7 +474,8 @@ abstract class $NewProgramItemCopyWith<$Res> {
       String tenantId,
       String title,
       int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       NewProgramChannel channel,
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -553,7 +556,8 @@ abstract class _$NewProgramItemCopyWith<$Res>
       String tenantId,
       String title,
       int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       NewProgramChannel channel,
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -632,7 +636,8 @@ class _$_NewProgramItem implements _NewProgramItem {
           this.title,
       @required
           this.totalPlayTime,
-      this.viewerPlanType,
+      @visibleForTesting
+          this.viewerPlanType,
       @required
           this.channel,
       @required
@@ -670,6 +675,7 @@ class _$_NewProgramItem implements _NewProgramItem {
   @override
   final int totalPlayTime;
   @override
+  @visibleForTesting
   final String viewerPlanType;
   @override
   final NewProgramChannel channel;
@@ -763,7 +769,8 @@ abstract class _NewProgramItem implements NewProgramItem {
           String title,
       @required
           int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       @required
           NewProgramChannel channel,
       @required
@@ -791,6 +798,7 @@ abstract class _NewProgramItem implements NewProgramItem {
   @override
   int get totalPlayTime;
   @override
+  @visibleForTesting
   String get viewerPlanType;
   @override
   NewProgramChannel get channel;

@@ -1397,7 +1397,8 @@ class _$ProgramsItemTearOff {
           DateTime broadcastAt,
       @required
           int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -1432,6 +1433,7 @@ mixin _$ProgramsItem {
   String get title;
   DateTime get broadcastAt;
   int get totalPlayTime;
+  @visibleForTesting
   String get viewerPlanType;
   @JsonKey(name: '__typename')
   @Assert('typename == "Program"')
@@ -1453,7 +1455,8 @@ abstract class $ProgramsItemCopyWith<$Res> {
       String title,
       DateTime broadcastAt,
       int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
           String typename});
@@ -1510,7 +1513,8 @@ abstract class _$ProgramsItemCopyWith<$Res>
       String title,
       DateTime broadcastAt,
       int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
           String typename});
@@ -1572,7 +1576,8 @@ class _$_ProgramsItem implements _ProgramsItem {
           this.broadcastAt,
       @required
           this.totalPlayTime,
-      this.viewerPlanType,
+      @visibleForTesting
+          this.viewerPlanType,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -1601,6 +1606,7 @@ class _$_ProgramsItem implements _ProgramsItem {
   @override
   final int totalPlayTime;
   @override
+  @visibleForTesting
   final String viewerPlanType;
   @override
   @JsonKey(name: '__typename')
@@ -1676,7 +1682,8 @@ abstract class _ProgramsItem implements ProgramsItem {
           DateTime broadcastAt,
       @required
           int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -1698,6 +1705,7 @@ abstract class _ProgramsItem implements ProgramsItem {
   @override
   int get totalPlayTime;
   @override
+  @visibleForTesting
   String get viewerPlanType;
   @override
   @JsonKey(name: '__typename')

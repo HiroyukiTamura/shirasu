@@ -1,10 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/media_status.dart';
-import 'package:shirasu/model/plan_type.dart';
-import 'package:shirasu/model/product_type.dart';
-import 'package:shirasu/model/video_type.dart';
+import 'package:shirasu/model/type/media_status.dart';
+import 'package:shirasu/model/type/plan_type.dart';
+import 'package:shirasu/model/type/product_type.dart';
+import 'package:shirasu/model/type/video_type.dart';
+import 'package:shirasu/util.dart';
 
 
 part 'detail_program_data.freezed.dart';
@@ -23,7 +24,7 @@ abstract class ProgramDetailData with _$ProgramDetailData {
 }
 
 @freezed
-abstract class ProgramDetail with _$ProgramDetail implements BaseProgram{
+abstract class ProgramDetail with ViewerPlanTypeMixin, _$ProgramDetail implements BaseProgram{
 
   const factory ProgramDetail({
     @required String id,
@@ -39,6 +40,7 @@ abstract class ProgramDetail with _$ProgramDetail implements BaseProgram{
     @required List<String> tags,
     @required String title,
     @required int totalPlayTime,
+    @visibleForTesting
     String viewerPlanType,
     bool isExtensionChargedToSubscribers,
     DateTime archivedAt,
@@ -131,7 +133,7 @@ abstract class Handout with _$Handout implements BaseHandout {
 
 @freezed
 abstract class DetailPrgItem
-    with _$DetailPrgItem, VideoTypeGetter, MediaStatusGetter implements BaseVideo {
+    with _$DetailPrgItem, VideoTypeMixin, MediaStatusMixin implements BaseVideo {
 
   const factory DetailPrgItem({
     @required String id,
@@ -150,12 +152,6 @@ abstract class DetailPrgItem
 
   const DetailPrgItem._();
 
-  @override
-  VideoType get videoTypeStrict => VideoTypeGetter.parse(videoType);
-
-  @override
-  MediaStatus get mediaStatusStrict => MediaStatusGetter.parse(mediaStatus);
-
   bool get isFree => id.endsWith(':free');
 
   // todo converting VideoType
@@ -172,12 +168,14 @@ abstract class DetailPrgItem
 }
 
 @freezed
-abstract class OnetimePlan with ProductTypeGetter implements _$OnetimePlan, BaseOneTimePlan {
+abstract class OnetimePlan with ProductTypeMixin, ParentPlanTypeMixin implements _$OnetimePlan, BaseOneTimePlan {
 
   const factory OnetimePlan({
     @required String id,
+    @visibleForTesting
     String parentPlanType,
     String parentPlanId,
+    @visibleForTesting
     @required String productType,
     @required String productId,
     @required String name,
@@ -199,11 +197,6 @@ abstract class OnetimePlan with ProductTypeGetter implements _$OnetimePlan, Base
   String get currencyAsSuffix => CurrencyUtil.currencyAsSuffix(currency);
 
   int get amountWithTax => CurrencyUtil.amountWithTax(currency, amount);
-
-  @override
-  ProductType get productTypeStrict => ProductTypeGetter.parse(productType);//todo hide raw productType?
-
-  PlanType get parentTypePlanStrict => PlanTypeGetter.parse(parentPlanType);
 }
 
 @freezed

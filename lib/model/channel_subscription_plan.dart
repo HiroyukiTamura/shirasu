@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/product_type.dart';
+import 'package:shirasu/model/type/plan_type.dart';
+import 'package:shirasu/model/type/product_type.dart';
 
 part 'channel_subscription_plan.freezed.dart';
 
@@ -32,12 +33,14 @@ abstract class Channel with _$Channel implements BaseChannel {
 }
 
 @freezed
-abstract class SubscriptionPlan with _$SubscriptionPlan, ProductTypeGetter implements BaseSubscriptionPlan {
+abstract class SubscriptionPlan with ProductTypeMixin, ParentPlanTypeMixin, _$SubscriptionPlan implements BaseSubscriptionPlan {
 
   const factory SubscriptionPlan({
     @required String id,
+    @visibleForTesting
     String parentPlanType,
     String parentPlanId,
+    @visibleForTesting
     @required String productType,
     @required String productId,
     @required String name,
@@ -49,14 +52,9 @@ abstract class SubscriptionPlan with _$SubscriptionPlan, ProductTypeGetter imple
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "SubscriptionPlan"')
-        typename,
+        String typename,
   }) = _SubscriptionPlan;
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionPlanFromJson(json);
-
-  const SubscriptionPlan._();
-
-  @override
-  ProductType get productTypeStrict => ProductTypeGetter.parse(productType);
 }

@@ -51,7 +51,7 @@ _$_SubscriptionPlan _$_$_SubscriptionPlanFromJson(Map<String, dynamic> json) {
     interval: json['interval'] as String,
     intervalCount: json['intervalCount'] as int,
     isPurchasable: json['isPurchasable'] as bool,
-    typename: json['__typename'],
+    typename: json['__typename'] as String,
   );
 }
 

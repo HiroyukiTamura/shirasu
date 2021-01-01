@@ -231,7 +231,8 @@ class _$ProgramDetailTearOff {
           String title,
       @required
           int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       @required
@@ -305,6 +306,7 @@ mixin _$ProgramDetail {
   List<String> get tags;
   String get title;
   int get totalPlayTime;
+  @visibleForTesting
   String get viewerPlanType;
   bool get isExtensionChargedToSubscribers;
   DateTime get archivedAt;
@@ -342,7 +344,8 @@ abstract class $ProgramDetailCopyWith<$Res> {
       List<String> tags,
       String title,
       int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       String releaseState,
@@ -500,7 +503,8 @@ abstract class _$ProgramDetailCopyWith<$Res>
       List<String> tags,
       String title,
       int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       String releaseState,
@@ -641,7 +645,8 @@ class _$_ProgramDetail implements _ProgramDetail {
           this.title,
       @required
           this.totalPlayTime,
-      this.viewerPlanType,
+      @visibleForTesting
+          this.viewerPlanType,
       this.isExtensionChargedToSubscribers,
       this.archivedAt,
       @required
@@ -712,6 +717,7 @@ class _$_ProgramDetail implements _ProgramDetail {
   @override
   final int totalPlayTime;
   @override
+  @visibleForTesting
   final String viewerPlanType;
   @override
   final bool isExtensionChargedToSubscribers;
@@ -867,7 +873,8 @@ abstract class _ProgramDetail implements ProgramDetail {
           String title,
       @required
           int totalPlayTime,
-      String viewerPlanType,
+      @visibleForTesting
+          String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       @required
@@ -919,6 +926,7 @@ abstract class _ProgramDetail implements ProgramDetail {
   @override
   int get totalPlayTime;
   @override
+  @visibleForTesting
   String get viewerPlanType;
   @override
   bool get isExtensionChargedToSubscribers;
@@ -2204,9 +2212,11 @@ class _$OnetimePlanTearOff {
   _OnetimePlan call(
       {@required
           String id,
-      String parentPlanType,
+      @visibleForTesting
+          String parentPlanType,
       String parentPlanId,
       @required
+      @visibleForTesting
           String productType,
       @required
           String productId,
@@ -2251,8 +2261,10 @@ const $OnetimePlan = _$OnetimePlanTearOff();
 /// @nodoc
 mixin _$OnetimePlan {
   String get id;
+  @visibleForTesting
   String get parentPlanType;
   String get parentPlanId;
+  @visibleForTesting
   String get productType;
   String get productId;
   String get name;
@@ -2275,9 +2287,11 @@ abstract class $OnetimePlanCopyWith<$Res> {
       _$OnetimePlanCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      String parentPlanType,
+      @visibleForTesting
+          String parentPlanType,
       String parentPlanId,
-      String productType,
+      @visibleForTesting
+          String productType,
       String productId,
       String name,
       int amount,
@@ -2345,9 +2359,11 @@ abstract class _$OnetimePlanCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      String parentPlanType,
+      @visibleForTesting
+          String parentPlanType,
       String parentPlanId,
-      String productType,
+      @visibleForTesting
+          String productType,
       String productId,
       String name,
       int amount,
@@ -2415,9 +2431,11 @@ class _$_OnetimePlan extends _OnetimePlan {
   const _$_OnetimePlan(
       {@required
           this.id,
-      this.parentPlanType,
+      @visibleForTesting
+          this.parentPlanType,
       this.parentPlanId,
       @required
+      @visibleForTesting
           this.productType,
       @required
           this.productId,
@@ -2450,10 +2468,12 @@ class _$_OnetimePlan extends _OnetimePlan {
   @override
   final String id;
   @override
+  @visibleForTesting
   final String parentPlanType;
   @override
   final String parentPlanId;
   @override
+  @visibleForTesting
   final String productType;
   @override
   final String productId;
@@ -2543,9 +2563,11 @@ abstract class _OnetimePlan extends OnetimePlan {
   const factory _OnetimePlan(
       {@required
           String id,
-      String parentPlanType,
+      @visibleForTesting
+          String parentPlanType,
       String parentPlanId,
       @required
+      @visibleForTesting
           String productType,
       @required
           String productId,
@@ -2569,10 +2591,12 @@ abstract class _OnetimePlan extends OnetimePlan {
   @override
   String get id;
   @override
+  @visibleForTesting
   String get parentPlanType;
   @override
   String get parentPlanId;
   @override
+  @visibleForTesting
   String get productType;
   @override
   String get productId;

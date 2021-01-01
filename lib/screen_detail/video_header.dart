@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/dialog/btm_sheet_common.dart';
 import 'package:shirasu/model/detail_program_data.dart';
-import 'package:shirasu/model/video_type.dart';
+import 'package:shirasu/model/type/video_type.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';

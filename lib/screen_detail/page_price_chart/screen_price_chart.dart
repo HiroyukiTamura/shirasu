@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/model/detail_program_data.dart';
-import 'package:shirasu/model/plan_type.dart';
-import 'package:shirasu/model/product_type.dart';
+import 'package:shirasu/model/type/plan_type.dart';
+import 'package:shirasu/model/type/product_type.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/extension.dart';
 import 'package:quiver/iterables.dart';
@@ -77,7 +77,7 @@ class ScreenPriceChart extends HookWidget {
                       child: Text(Util.sec2Hms(program.mainTime)),
                     ),
                     Container(
-                      child: Text(mainType.parentTypePlanStrict ==
+                      child: Text(mainType.parentPlanTypeStrict ==
                               PlanType.SUBSCRIPTION
                           ? Strings.ARCHIVE_PRICE_TABLE_FREE
                           : '${mainType.amountWithTax}${mainType.currencyAsSuffix}'),

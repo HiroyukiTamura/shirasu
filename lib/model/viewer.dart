@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
+import 'package:shirasu/model/type/plan_type.dart';
 
 part 'viewer.freezed.dart';
 
@@ -86,7 +87,7 @@ abstract class InvoiceHistory with _$InvoiceHistory implements BaseInvoiceConnec
 }
 
 @freezed
-abstract class InvoiceHistoryItem implements _$InvoiceHistoryItem, BaseInvoice {
+abstract class InvoiceHistoryItem with PlanTypeMixin implements _$InvoiceHistoryItem, BaseInvoice {
 
   const factory InvoiceHistoryItem({
     @required String id,
@@ -148,7 +149,7 @@ abstract class Channel with _$Channel implements BaseChannel {
 }
 
 @freezed
-abstract class LatestInvoice with _$LatestInvoice implements BaseInvoice {
+abstract class LatestInvoice with _$LatestInvoice, PlanTypeMixin implements BaseInvoice {
 
   const factory LatestInvoice({
     @required String id,

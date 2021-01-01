@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
-import 'package:shirasu/model/video_type.dart';
+import 'package:shirasu/model/type/video_type.dart';
 
 /// todo singleton
 ///

@@ -51,6 +51,7 @@ dependencies:
   synchronized: ^2.2.0+2
   after_layout: ^1.0.7+2
   functional_widget_annotation: ^0.8.0
+  quiver: ^2.1.5
   flutter_playout:
     git:
       url: https://github.com/HiroyukTamura/flutter_playout.git

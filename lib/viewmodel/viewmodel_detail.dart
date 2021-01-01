@@ -34,7 +34,12 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           () async => _apiClient.queryChannelData(channelId));
 
       newState = state.copyWith(
-          prgDataResult: DetailModelState.success(data.item1, data.item2));
+        prgDataResult: DetailModelState.success(
+          programDetailData: data.item1,
+          channelData: data.item2,
+          page: const PageSheetModel.hidden(),
+        ),
+      );
     } catch (e) {
       print(e);
       newState = state.copyWith(prgDataResult: const DetailModelState.error());
@@ -96,5 +101,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     if (cookie != null)
       setState(state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie));
+  }
+
+  void togglePage(PageSheetModel pageSheet) {
+    final newOne = state.copyAsPageSheet(pageSheet);
+    if (newOne != null)
+      state = newOne;
   }
 }

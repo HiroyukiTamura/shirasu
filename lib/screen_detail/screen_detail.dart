@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/channel_data.dart';
 import 'package:shirasu/model/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/screen_detail/page_price_chart/screen_price_chart.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/row_video_desc.dart';
@@ -17,6 +19,7 @@ import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail_controller.dart';
@@ -27,13 +30,21 @@ final pDetailController =
     StateNotifierProvider.autoDispose<ViewModelDetailController>(
         (_) => ViewModelDetailController());
 
-final pDetailId = Provider.autoDispose<String>((ref) => ref.watch(pDetailController.state).id);
+final pDetailId = Provider.autoDispose<String>(
+    (ref) => ref.watch(pDetailController.state).id);
 
 final detailSNProvider =
     StateNotifierProvider.autoDispose<ViewModelDetail>((ref) {
   final id = ref.watch(pDetailId);
   return ViewModelDetail(id);
 });
+
+final _pBtmSheetExpanded = Provider.autoDispose<PageSheetModel>(
+  (ref) => ref.watch(detailSNProvider.state).prgDataResult.maybeWhen(
+        success: (programDetail, channelData, page) => page,
+        orElse: () => const PageSheetModel.hidden(),
+      ),
+);
 
 final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
@@ -69,7 +80,7 @@ class _ScreenDetailContentState extends State<ScreenDetailContent> {
                 detailSNProvider.state.select((it) => it.prgDataResult)).when(
               loading: () => const CenterCircleProgress(),
               preInitialized: () => const CenterCircleProgress(),
-              success: (programDetailData, channelData) =>
+              success: (programDetailData, channelData, page) =>
                   _ContentWidget(data: programDetailData),
               error: () => const PageError(),
             ),
@@ -84,7 +95,7 @@ class _ScreenDetailContentState extends State<ScreenDetailContent> {
   }
 }
 
-class _ContentWidget extends StatelessWidget {
+class _ContentWidget extends HookWidget {
   const _ContentWidget({Key key, @required this.data}) : super(key: key);
 
   final ProgramDetailData data;
@@ -104,43 +115,38 @@ class _ContentWidget extends StatelessWidget {
               ),
               SizedBox(
                 height: listViewH,
-                child: ListView.builder(
-                    itemCount: 14,
-                    padding: const EdgeInsets.only(bottom: 24),
-                    itemBuilder: (context, index) {
-                      switch (index) {
-                        case 3:
-                          return RowChannel(
-                            title: data.program.channel.name,
-                            channelId: data.program.channel.id,
-                          );
-                        case 4:
-                          return RowVideoTitle(text: data.program.title);
-                        case 5:
-                          return const SizedBox(height: 4);
-                        case 6:
-                          return RowVideoTime(
-                            broadcastAt: data.program.broadcastAt,
-                            totalPlayTime: data.program.totalPlayTime,
-                          );
-                        case 7:
-                          return const SizedBox(height: 16);
-                        case 8:
-                          return RowVideoTags(textList: data.program.tags);
-                        case 9:
-                          return const SizedBox(height: 36);
-                        case 10:
-                          return RowFabs(
-                            program: data.program,
-                          );
-                        case 11:
-                          return const SizedBox(height: 36);
-                        case 12:
-                          return RowVideoDesc(text: data.program.detail);
-                        default:
-                          return const SizedBox.shrink();
-                      }
-                    }),
+                child: Stack(
+                  children: [
+                    ListView.builder(
+                        itemCount: 6,
+                        padding: const EdgeInsets.only(bottom: 24),
+                        itemBuilder: (context, index) {
+                          switch (index) {
+                            case 0:
+                              return RowChannel(
+                                title: data.program.channel.name,
+                                channelId: data.program.channel.id,
+                              );
+                            case 1:
+                              return RowVideoTitle(text: data.program.title);
+                            case 2:
+                              return RowVideoTime(
+                                broadcastAt: data.program.broadcastAt,
+                                totalPlayTime: data.program.totalPlayTime,
+                              );
+                            case 3:
+                              return RowVideoTags(textList: data.program.tags);
+                            case 4:
+                              return RowFabs(program: data.program);
+                            case 5:
+                              return RowVideoDesc(text: data.program.detail);
+                            default:
+                              return const SizedBox.shrink();
+                          }
+                        }),
+                    BottomSheet(subscriptionPlan: null, program: data.program,),//todo
+                  ],
+                ),
               ),
             ],
           );
@@ -149,4 +155,45 @@ class _ContentWidget extends StatelessWidget {
 
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>
       context.read(detailSNProvider).playVideo(false);
+}
+
+class BottomSheet extends HookWidget {
+  const BottomSheet({
+    Key key,
+    @required this.program,
+    @required this.subscriptionPlan,
+  }) : super(key: key);
+
+  final ProgramDetail program;
+  final SubscriptionPlan subscriptionPlan;
+
+  @override
+  Widget build(BuildContext context) => ColoredBox(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: useProvider(_pBtmSheetExpanded).when(
+          hidden: () => const SizedBox.shrink(),
+          comment: () => DraggableScrollableSheet(
+            maxChildSize: 1,
+            initialChildSize: 1,
+            minChildSize: 1,
+            builder: (context, scrollController) {
+              return Placeholder(
+                color: Colors.blue[100],
+              );
+            },
+          ),
+          pricing: () => DraggableScrollableSheet(
+            maxChildSize: 1,
+            initialChildSize: 1,
+            minChildSize: 1,
+            builder: (context, scrollController) => ScreenPriceChart(
+              subscriptionPlan: subscriptionPlan,
+              program: program,
+              onClearClicked: () {
+                //todo implement
+              },
+            ),
+          ),
+        ),
+      );
 }

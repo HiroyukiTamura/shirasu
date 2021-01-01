@@ -239,7 +239,7 @@ class _$ProgramDetailTearOff {
       @required
           bool shouldArchive,
       @required
-          List<dynamic> extensions,
+          List<Extension> extensions,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -310,7 +310,7 @@ mixin _$ProgramDetail {
   DateTime get archivedAt;
   String get releaseState;
   bool get shouldArchive;
-  List<dynamic> get extensions;
+  List<Extension> get extensions;
   @JsonKey(name: '__typename')
   @Assert('typename == "Program"')
   String get typename;
@@ -347,7 +347,7 @@ abstract class $ProgramDetailCopyWith<$Res> {
       DateTime archivedAt,
       String releaseState,
       bool shouldArchive,
-      List<dynamic> extensions,
+      List<Extension> extensions,
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
           String typename,
@@ -436,7 +436,7 @@ class _$ProgramDetailCopyWithImpl<$Res>
           : shouldArchive as bool,
       extensions: extensions == freezed
           ? _value.extensions
-          : extensions as List<dynamic>,
+          : extensions as List<Extension>,
       typename: typename == freezed ? _value.typename : typename as String,
       channel:
           channel == freezed ? _value.channel : channel as DetailPrgChannel,
@@ -505,7 +505,7 @@ abstract class _$ProgramDetailCopyWith<$Res>
       DateTime archivedAt,
       String releaseState,
       bool shouldArchive,
-      List<dynamic> extensions,
+      List<Extension> extensions,
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
           String typename,
@@ -599,7 +599,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
           : shouldArchive as bool,
       extensions: extensions == freezed
           ? _value.extensions
-          : extensions as List<dynamic>,
+          : extensions as List<Extension>,
       typename: typename == freezed ? _value.typename : typename as String,
       channel:
           channel == freezed ? _value.channel : channel as DetailPrgChannel,
@@ -722,7 +722,7 @@ class _$_ProgramDetail implements _ProgramDetail {
   @override
   final bool shouldArchive;
   @override
-  final List<dynamic> extensions;
+  final List<Extension> extensions;
   @override
   @JsonKey(name: '__typename')
   @Assert('typename == "Program"')
@@ -875,7 +875,7 @@ abstract class _ProgramDetail implements ProgramDetail {
       @required
           bool shouldArchive,
       @required
-          List<dynamic> extensions,
+          List<Extension> extensions,
       @required
       @JsonKey(name: '__typename')
       @Assert('typename == "Program"')
@@ -929,7 +929,7 @@ abstract class _ProgramDetail implements ProgramDetail {
   @override
   bool get shouldArchive;
   @override
-  List<dynamic> get extensions;
+  List<Extension> get extensions;
   @override
   @JsonKey(name: '__typename')
   @Assert('typename == "Program"')
@@ -2204,10 +2204,8 @@ class _$OnetimePlanTearOff {
   _OnetimePlan call(
       {@required
           String id,
-      @required
-          String parentPlanType,
-      @required
-          String parentPlanId,
+      String parentPlanType,
+      String parentPlanId,
       @required
           String productType,
       @required
@@ -2417,10 +2415,8 @@ class _$_OnetimePlan extends _OnetimePlan {
   const _$_OnetimePlan(
       {@required
           this.id,
-      @required
-          this.parentPlanType,
-      @required
-          this.parentPlanId,
+      this.parentPlanType,
+      this.parentPlanId,
       @required
           this.productType,
       @required
@@ -2439,8 +2435,6 @@ class _$_OnetimePlan extends _OnetimePlan {
       @Assert('typename == "OneTimePlan"')
           this.typename})
       : assert(id != null),
-        assert(parentPlanType != null),
-        assert(parentPlanId != null),
         assert(productType != null),
         assert(productId != null),
         assert(name != null),
@@ -2549,10 +2543,8 @@ abstract class _OnetimePlan extends OnetimePlan {
   const factory _OnetimePlan(
       {@required
           String id,
-      @required
-          String parentPlanType,
-      @required
-          String parentPlanId,
+      String parentPlanType,
+      String parentPlanId,
       @required
           String productType,
       @required

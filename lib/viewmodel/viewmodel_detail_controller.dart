@@ -12,7 +12,7 @@ class ViewModelDetailController extends StateNotifier<DetailControllerModel> {
 @freezed
 abstract class DetailControllerModel with _$DetailControllerModel {
   const factory DetailControllerModel({
-    @required String id,
+    String id,
     @required bool expand,
   }) = _DetailControllerModel;
 }

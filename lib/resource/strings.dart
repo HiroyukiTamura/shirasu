@@ -237,14 +237,25 @@ class Strings {
 //endregion
 
 //region screen_price_chart
-///   users.pages.Program.components.ArchivePriceTable.title
+  /// ref: users.pages.Program.components.ArchivePriceTable.title
   static const String ARCHIVE_PRICE_TABLE_TITLE = '番組価格';
-  /// users.pages.Program.components.ArchivePriceTable.note
-  static const String ARCHIVE_PRICE_TABLE_NOTE =
-  '''※表記は全て「税込」となります
+
+  /// ref: users.pages.Program.components.ArchivePriceTable.note
+  static const String ARCHIVE_PRICE_TABLE_NOTE = '''※表記は全て「税込」となります
 ※延長は直前の本編あるいは延長を購入していないと視聴することができません。
 ※延長1回目の購入は本編の購入のあと、延長2回目の購入は1回目までの購入のあととなります。
 ''';
 
-  //endregion
+  /// ref: users.pages.Program.components.ArchivePriceTable.extension
+  static const String ARCHIVE_PRICE_TABLE_NOTE_EXTENSION = '延長';
+
+  static const String ARCHIVE_PRICE_TABLE_NOTE_EXTENSION_SUFFIX = '回';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.free"
+  static const String ARCHIVE_PRICE_TABLE_FREE = '無料';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.mainType"
+  static const String ARCHIVE_PRICE_TABLE_MAIN_TYPE = '本編';
+
+//endregion
 }

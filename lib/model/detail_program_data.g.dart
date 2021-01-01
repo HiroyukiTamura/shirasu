@@ -51,7 +51,10 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['archivedAt'] as String),
     releaseState: json['releaseState'] as String,
     shouldArchive: json['shouldArchive'] as bool,
-    extensions: json['extensions'] as List,
+    extensions: (json['extensions'] as List)
+        ?.map((e) =>
+            e == null ? null : Extension.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     typename: json['__typename'] as String,
     channel: json['channel'] == null
         ? null

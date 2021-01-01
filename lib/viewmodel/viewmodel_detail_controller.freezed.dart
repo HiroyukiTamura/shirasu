@@ -14,7 +14,7 @@ class _$DetailControllerModelTearOff {
   const _$DetailControllerModelTearOff();
 
 // ignore: unused_element
-  _DetailControllerModel call({@required String id, @required bool expand}) {
+  _DetailControllerModel call({String id, @required bool expand}) {
     return _DetailControllerModel(
       id: id,
       expand: expand,
@@ -98,9 +98,8 @@ class __$DetailControllerModelCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_DetailControllerModel implements _DetailControllerModel {
-  const _$_DetailControllerModel({@required this.id, @required this.expand})
-      : assert(id != null),
-        assert(expand != null);
+  const _$_DetailControllerModel({this.id, @required this.expand})
+      : assert(expand != null);
 
   @override
   final String id;
@@ -135,8 +134,8 @@ class _$_DetailControllerModel implements _DetailControllerModel {
 }
 
 abstract class _DetailControllerModel implements DetailControllerModel {
-  const factory _DetailControllerModel(
-      {@required String id, @required bool expand}) = _$_DetailControllerModel;
+  const factory _DetailControllerModel({String id, @required bool expand}) =
+      _$_DetailControllerModel;
 
   @override
   String get id;

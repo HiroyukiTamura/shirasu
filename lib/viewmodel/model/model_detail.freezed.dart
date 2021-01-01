@@ -14,10 +14,12 @@ class _$ModelDetailTearOff {
   const _$ModelDetailTearOff();
 
 // ignore: unused_element
-  _ModelDetail call(DetailModelState prgDataResult, PlayOutState playOutState) {
+  _ModelDetail call(
+      {@required DetailModelState prgDataResult,
+      @required PlayOutState playOutState}) {
     return _ModelDetail(
-      prgDataResult,
-      playOutState,
+      prgDataResult: prgDataResult,
+      playOutState: playOutState,
     );
   }
 }
@@ -107,10 +109,10 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
     Object playOutState = freezed,
   }) {
     return _then(_ModelDetail(
-      prgDataResult == freezed
+      prgDataResult: prgDataResult == freezed
           ? _value.prgDataResult
           : prgDataResult as DetailModelState,
-      playOutState == freezed
+      playOutState: playOutState == freezed
           ? _value.playOutState
           : playOutState as PlayOutState,
     ));
@@ -119,7 +121,8 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_ModelDetail extends _ModelDetail {
-  const _$_ModelDetail(this.prgDataResult, this.playOutState)
+  const _$_ModelDetail(
+      {@required this.prgDataResult, @required this.playOutState})
       : assert(prgDataResult != null),
         assert(playOutState != null),
         super._();
@@ -160,8 +163,8 @@ class _$_ModelDetail extends _ModelDetail {
 abstract class _ModelDetail extends ModelDetail {
   const _ModelDetail._() : super._();
   const factory _ModelDetail(
-          DetailModelState prgDataResult, PlayOutState playOutState) =
-      _$_ModelDetail;
+      {@required DetailModelState prgDataResult,
+      @required PlayOutState playOutState}) = _$_ModelDetail;
 
   @override
   DetailModelState get prgDataResult;
@@ -187,10 +190,13 @@ class _$DetailModelStateTearOff {
 
 // ignore: unused_element
   StateSuccess success(
-      ProgramDetailData programDetailData, ChannelData channelData) {
+      {@required ProgramDetailData programDetailData,
+      @required ChannelData channelData,
+      @required PageSheetModel page}) {
     return StateSuccess(
-      programDetailData,
-      channelData,
+      programDetailData: programDetailData,
+      channelData: channelData,
+      page: page,
     );
   }
 
@@ -211,16 +217,16 @@ mixin _$DetailModelState {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required
-        TResult success(
-            ProgramDetailData programDetailData, ChannelData channelData),
+        TResult success(ProgramDetailData programDetailData,
+            ChannelData channelData, PageSheetModel page),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(
-        ProgramDetailData programDetailData, ChannelData channelData),
+    TResult success(ProgramDetailData programDetailData,
+        ChannelData channelData, PageSheetModel page),
     TResult error(),
     @required TResult orElse(),
   });
@@ -300,8 +306,8 @@ class _$PreInitialized implements PreInitialized {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required
-        TResult success(
-            ProgramDetailData programDetailData, ChannelData channelData),
+        TResult success(ProgramDetailData programDetailData,
+            ChannelData channelData, PageSheetModel page),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -316,8 +322,8 @@ class _$PreInitialized implements PreInitialized {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(
-        ProgramDetailData programDetailData, ChannelData channelData),
+    TResult success(ProgramDetailData programDetailData,
+        ChannelData channelData, PageSheetModel page),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -406,8 +412,8 @@ class _$StateLoading implements StateLoading {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required
-        TResult success(
-            ProgramDetailData programDetailData, ChannelData channelData),
+        TResult success(ProgramDetailData programDetailData,
+            ChannelData channelData, PageSheetModel page),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -422,8 +428,8 @@ class _$StateLoading implements StateLoading {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(
-        ProgramDetailData programDetailData, ChannelData channelData),
+    TResult success(ProgramDetailData programDetailData,
+        ChannelData channelData, PageSheetModel page),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -475,10 +481,14 @@ abstract class $StateSuccessCopyWith<$Res> {
   factory $StateSuccessCopyWith(
           StateSuccess value, $Res Function(StateSuccess) then) =
       _$StateSuccessCopyWithImpl<$Res>;
-  $Res call({ProgramDetailData programDetailData, ChannelData channelData});
+  $Res call(
+      {ProgramDetailData programDetailData,
+      ChannelData channelData,
+      PageSheetModel page});
 
   $ProgramDetailDataCopyWith<$Res> get programDetailData;
   $ChannelDataCopyWith<$Res> get channelData;
+  $PageSheetModelCopyWith<$Res> get page;
 }
 
 /// @nodoc
@@ -496,12 +506,16 @@ class _$StateSuccessCopyWithImpl<$Res>
   $Res call({
     Object programDetailData = freezed,
     Object channelData = freezed,
+    Object page = freezed,
   }) {
     return _then(StateSuccess(
-      programDetailData == freezed
+      programDetailData: programDetailData == freezed
           ? _value.programDetailData
           : programDetailData as ProgramDetailData,
-      channelData == freezed ? _value.channelData : channelData as ChannelData,
+      channelData: channelData == freezed
+          ? _value.channelData
+          : channelData as ChannelData,
+      page: page == freezed ? _value.page : page as PageSheetModel,
     ));
   }
 
@@ -524,22 +538,38 @@ class _$StateSuccessCopyWithImpl<$Res>
       return _then(_value.copyWith(channelData: value));
     });
   }
+
+  @override
+  $PageSheetModelCopyWith<$Res> get page {
+    if (_value.page == null) {
+      return null;
+    }
+    return $PageSheetModelCopyWith<$Res>(_value.page, (value) {
+      return _then(_value.copyWith(page: value));
+    });
+  }
 }
 
 /// @nodoc
 class _$StateSuccess implements StateSuccess {
-  const _$StateSuccess(this.programDetailData, this.channelData)
+  const _$StateSuccess(
+      {@required this.programDetailData,
+      @required this.channelData,
+      @required this.page})
       : assert(programDetailData != null),
-        assert(channelData != null);
+        assert(channelData != null),
+        assert(page != null);
 
   @override
   final ProgramDetailData programDetailData;
   @override
   final ChannelData channelData;
+  @override
+  final PageSheetModel page;
 
   @override
   String toString() {
-    return 'DetailModelState.success(programDetailData: $programDetailData, channelData: $channelData)';
+    return 'DetailModelState.success(programDetailData: $programDetailData, channelData: $channelData, page: $page)';
   }
 
   @override
@@ -551,14 +581,17 @@ class _$StateSuccess implements StateSuccess {
                     .equals(other.programDetailData, programDetailData)) &&
             (identical(other.channelData, channelData) ||
                 const DeepCollectionEquality()
-                    .equals(other.channelData, channelData)));
+                    .equals(other.channelData, channelData)) &&
+            (identical(other.page, page) ||
+                const DeepCollectionEquality().equals(other.page, page)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(programDetailData) ^
-      const DeepCollectionEquality().hash(channelData);
+      const DeepCollectionEquality().hash(channelData) ^
+      const DeepCollectionEquality().hash(page);
 
   @override
   $StateSuccessCopyWith<StateSuccess> get copyWith =>
@@ -570,15 +603,15 @@ class _$StateSuccess implements StateSuccess {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required
-        TResult success(
-            ProgramDetailData programDetailData, ChannelData channelData),
+        TResult success(ProgramDetailData programDetailData,
+            ChannelData channelData, PageSheetModel page),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
     assert(success != null);
     assert(error != null);
-    return success(programDetailData, channelData);
+    return success(programDetailData, channelData, page);
   }
 
   @override
@@ -586,14 +619,14 @@ class _$StateSuccess implements StateSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(
-        ProgramDetailData programDetailData, ChannelData channelData),
+    TResult success(ProgramDetailData programDetailData,
+        ChannelData channelData, PageSheetModel page),
     TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
-      return success(programDetailData, channelData);
+      return success(programDetailData, channelData, page);
     }
     return orElse();
   }
@@ -632,11 +665,13 @@ class _$StateSuccess implements StateSuccess {
 
 abstract class StateSuccess implements DetailModelState {
   const factory StateSuccess(
-          ProgramDetailData programDetailData, ChannelData channelData) =
-      _$StateSuccess;
+      {@required ProgramDetailData programDetailData,
+      @required ChannelData channelData,
+      @required PageSheetModel page}) = _$StateSuccess;
 
   ProgramDetailData get programDetailData;
   ChannelData get channelData;
+  PageSheetModel get page;
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
 
@@ -681,8 +716,8 @@ class _$StateError implements StateError {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required
-        TResult success(
-            ProgramDetailData programDetailData, ChannelData channelData),
+        TResult success(ProgramDetailData programDetailData,
+            ChannelData channelData, PageSheetModel page),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -697,8 +732,8 @@ class _$StateError implements StateError {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(
-        ProgramDetailData programDetailData, ChannelData channelData),
+    TResult success(ProgramDetailData programDetailData,
+        ChannelData channelData, PageSheetModel page),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -743,4 +778,357 @@ class _$StateError implements StateError {
 
 abstract class StateError implements DetailModelState {
   const factory StateError() = _$StateError;
+}
+
+/// @nodoc
+class _$PageSheetModelTearOff {
+  const _$PageSheetModelTearOff();
+
+// ignore: unused_element
+  Hidden hidden() {
+    return const Hidden();
+  }
+
+// ignore: unused_element
+  Comment comment() {
+    return const Comment();
+  }
+
+// ignore: unused_element
+  Pricing pricing() {
+    return const Pricing();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $PageSheetModel = _$PageSheetModelTearOff();
+
+/// @nodoc
+mixin _$PageSheetModel {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult hidden(),
+    @required TResult comment(),
+    @required TResult pricing(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult hidden(),
+    TResult comment(),
+    TResult pricing(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult hidden(Hidden value),
+    @required TResult comment(Comment value),
+    @required TResult pricing(Pricing value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult hidden(Hidden value),
+    TResult comment(Comment value),
+    TResult pricing(Pricing value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $PageSheetModelCopyWith<$Res> {
+  factory $PageSheetModelCopyWith(
+          PageSheetModel value, $Res Function(PageSheetModel) then) =
+      _$PageSheetModelCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PageSheetModelCopyWithImpl<$Res>
+    implements $PageSheetModelCopyWith<$Res> {
+  _$PageSheetModelCopyWithImpl(this._value, this._then);
+
+  final PageSheetModel _value;
+  // ignore: unused_field
+  final $Res Function(PageSheetModel) _then;
+}
+
+/// @nodoc
+abstract class $HiddenCopyWith<$Res> {
+  factory $HiddenCopyWith(Hidden value, $Res Function(Hidden) then) =
+      _$HiddenCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$HiddenCopyWithImpl<$Res> extends _$PageSheetModelCopyWithImpl<$Res>
+    implements $HiddenCopyWith<$Res> {
+  _$HiddenCopyWithImpl(Hidden _value, $Res Function(Hidden) _then)
+      : super(_value, (v) => _then(v as Hidden));
+
+  @override
+  Hidden get _value => super._value as Hidden;
+}
+
+/// @nodoc
+class _$Hidden implements Hidden {
+  const _$Hidden();
+
+  @override
+  String toString() {
+    return 'PageSheetModel.hidden()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is Hidden);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult hidden(),
+    @required TResult comment(),
+    @required TResult pricing(),
+  }) {
+    assert(hidden != null);
+    assert(comment != null);
+    assert(pricing != null);
+    return hidden();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult hidden(),
+    TResult comment(),
+    TResult pricing(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (hidden != null) {
+      return hidden();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult hidden(Hidden value),
+    @required TResult comment(Comment value),
+    @required TResult pricing(Pricing value),
+  }) {
+    assert(hidden != null);
+    assert(comment != null);
+    assert(pricing != null);
+    return hidden(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult hidden(Hidden value),
+    TResult comment(Comment value),
+    TResult pricing(Pricing value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (hidden != null) {
+      return hidden(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Hidden implements PageSheetModel {
+  const factory Hidden() = _$Hidden;
+}
+
+/// @nodoc
+abstract class $CommentCopyWith<$Res> {
+  factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
+      _$CommentCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CommentCopyWithImpl<$Res> extends _$PageSheetModelCopyWithImpl<$Res>
+    implements $CommentCopyWith<$Res> {
+  _$CommentCopyWithImpl(Comment _value, $Res Function(Comment) _then)
+      : super(_value, (v) => _then(v as Comment));
+
+  @override
+  Comment get _value => super._value as Comment;
+}
+
+/// @nodoc
+class _$Comment implements Comment {
+  const _$Comment();
+
+  @override
+  String toString() {
+    return 'PageSheetModel.comment()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is Comment);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult hidden(),
+    @required TResult comment(),
+    @required TResult pricing(),
+  }) {
+    assert(hidden != null);
+    assert(comment != null);
+    assert(pricing != null);
+    return comment();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult hidden(),
+    TResult comment(),
+    TResult pricing(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (comment != null) {
+      return comment();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult hidden(Hidden value),
+    @required TResult comment(Comment value),
+    @required TResult pricing(Pricing value),
+  }) {
+    assert(hidden != null);
+    assert(comment != null);
+    assert(pricing != null);
+    return comment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult hidden(Hidden value),
+    TResult comment(Comment value),
+    TResult pricing(Pricing value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (comment != null) {
+      return comment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Comment implements PageSheetModel {
+  const factory Comment() = _$Comment;
+}
+
+/// @nodoc
+abstract class $PricingCopyWith<$Res> {
+  factory $PricingCopyWith(Pricing value, $Res Function(Pricing) then) =
+      _$PricingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PricingCopyWithImpl<$Res> extends _$PageSheetModelCopyWithImpl<$Res>
+    implements $PricingCopyWith<$Res> {
+  _$PricingCopyWithImpl(Pricing _value, $Res Function(Pricing) _then)
+      : super(_value, (v) => _then(v as Pricing));
+
+  @override
+  Pricing get _value => super._value as Pricing;
+}
+
+/// @nodoc
+class _$Pricing implements Pricing {
+  const _$Pricing();
+
+  @override
+  String toString() {
+    return 'PageSheetModel.pricing()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is Pricing);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult hidden(),
+    @required TResult comment(),
+    @required TResult pricing(),
+  }) {
+    assert(hidden != null);
+    assert(comment != null);
+    assert(pricing != null);
+    return pricing();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult hidden(),
+    TResult comment(),
+    TResult pricing(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (pricing != null) {
+      return pricing();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult hidden(Hidden value),
+    @required TResult comment(Comment value),
+    @required TResult pricing(Pricing value),
+  }) {
+    assert(hidden != null);
+    assert(comment != null);
+    assert(pricing != null);
+    return pricing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult hidden(Hidden value),
+    TResult comment(Comment value),
+    TResult pricing(Pricing value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (pricing != null) {
+      return pricing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Pricing implements PageSheetModel {
+  const factory Pricing() = _$Pricing;
 }

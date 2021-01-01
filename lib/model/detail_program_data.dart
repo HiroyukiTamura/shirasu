@@ -1,6 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 import 'package:shirasu/model/base_model.dart';
 import 'package:shirasu/model/media_status.dart';
+import 'package:shirasu/model/plan_type.dart';
+import 'package:shirasu/model/product_type.dart';
 import 'package:shirasu/model/video_type.dart';
 
 
@@ -41,7 +44,7 @@ abstract class ProgramDetail with _$ProgramDetail implements BaseProgram{
     DateTime archivedAt,
     @required String releaseState,
     @required bool shouldArchive,
-    @required List<dynamic> extensions,
+    @required List<Extension> extensions,
     @required
     @JsonKey(name: '__typename')
     @Assert('typename == "Program"')
@@ -169,12 +172,12 @@ abstract class DetailPrgItem
 }
 
 @freezed
-abstract class OnetimePlan implements _$OnetimePlan, BaseOneTimePlan {
+abstract class OnetimePlan with ProductTypeGetter implements _$OnetimePlan, BaseOneTimePlan {
 
   const factory OnetimePlan({
     @required String id,
-    @required String parentPlanType,
-    @required String parentPlanId,
+    String parentPlanType,
+    String parentPlanId,
     @required String productType,
     @required String productId,
     @required String name,
@@ -196,6 +199,11 @@ abstract class OnetimePlan implements _$OnetimePlan, BaseOneTimePlan {
   String get currencyAsSuffix => CurrencyUtil.currencyAsSuffix(currency);
 
   int get amountWithTax => CurrencyUtil.amountWithTax(currency, amount);
+
+  @override
+  ProductType get productTypeStrict => ProductTypeGetter.parse(productType);//todo hide raw productType?
+
+  PlanType get parentTypePlanStrict => PlanTypeGetter.parse(parentPlanType);
 }
 
 @freezed

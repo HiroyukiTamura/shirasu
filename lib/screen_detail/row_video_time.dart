@@ -17,6 +17,7 @@ class RowVideoTime extends WidgetItemBase {
 
   @override
   Widget build(BuildContext context) => basePadding(
+    top: 4,
     child: Text(
           _text,
           style: TextStyle(

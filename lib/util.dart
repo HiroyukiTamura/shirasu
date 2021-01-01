@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -60,5 +61,13 @@ class Util {
     // todo log error
     debugPrintStack(stackTrace: stackTrace);
     debugPrint(error.toString());
+  }
+
+  static String sec2Hms(int sec) {
+    final duration = Duration(seconds: sec);
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(0)
+        .toUtc()
+        .add(duration);
+    return DateFormat('hh:mm:ss').format(dateTime);
   }
 }

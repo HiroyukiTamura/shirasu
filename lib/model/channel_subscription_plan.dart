@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/base_model.dart';
+import 'package:shirasu/model/product_type.dart';
 
 part 'channel_subscription_plan.freezed.dart';
 
@@ -31,7 +32,7 @@ abstract class Channel with _$Channel implements BaseChannel {
 }
 
 @freezed
-abstract class SubscriptionPlan with _$SubscriptionPlan implements BaseSubscriptionPlan {
+abstract class SubscriptionPlan with _$SubscriptionPlan, ProductTypeGetter implements BaseSubscriptionPlan {
 
   const factory SubscriptionPlan({
     @required String id,
@@ -53,4 +54,9 @@ abstract class SubscriptionPlan with _$SubscriptionPlan implements BaseSubscript
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionPlanFromJson(json);
+
+  const SubscriptionPlan._();
+
+  @override
+  ProductType get productTypeStrict => ProductTypeGetter.parse(productType);
 }

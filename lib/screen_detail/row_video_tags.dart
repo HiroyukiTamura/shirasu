@@ -13,6 +13,7 @@ class RowVideoTags extends WidgetItemBase {
 
   @override
   Widget build(BuildContext context) => basePadding(
+    top: 16,
     child: Wrap(
       spacing: _SPACE,
       runSpacing: _SPACE,

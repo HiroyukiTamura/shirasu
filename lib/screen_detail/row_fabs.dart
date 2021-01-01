@@ -8,6 +8,7 @@ import 'package:shirasu/screen_detail/padding_row.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'row_fabs.g.dart';
 
@@ -17,11 +18,14 @@ class RowFabs extends WidgetItemBase {
     Key key,
   }) : super(key: key);
 
+  static const double _PADDING_V = 36;
   final ProgramDetail program;
 
   /// todo implement
   @override
   Widget build(BuildContext context) => basePadding(
+        top: _PADDING_V,
+        bottom: _PADDING_V,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -52,9 +56,8 @@ class RowFabs extends WidgetItemBase {
         ),
       );
 
-  Future<void> _onClickPaymentBtn(BuildContext context) async {
-
-  }
+  Future<void> _onClickPaymentBtn(BuildContext context) async =>
+      context.read(detailSNProvider).togglePage(const PageSheetModel.pricing());
 }
 
 @swidget

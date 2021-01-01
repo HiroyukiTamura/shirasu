@@ -391,7 +391,7 @@ class __$InvoiceCopyWithImpl<$Res> extends _$InvoiceCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Invoice implements _Invoice {
+class _$_Invoice extends _Invoice {
   const _$_Invoice(
       {@required
           this.id,
@@ -429,7 +429,8 @@ class _$_Invoice implements _Invoice {
         assert(tax != null),
         assert(total != null),
         assert(subtotal != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_Invoice.fromJson(Map<String, dynamic> json) =>
       _$_$_InvoiceFromJson(json);
@@ -535,7 +536,8 @@ class _$_Invoice implements _Invoice {
   }
 }
 
-abstract class _Invoice implements Invoice {
+abstract class _Invoice extends Invoice {
+  const _Invoice._() : super._();
   const factory _Invoice(
       {@required
           String id,

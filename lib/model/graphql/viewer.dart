@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
-import 'package:shirasu/model/mixins/currency_mixin.dart';
-import 'package:shirasu/model/mixins/plan_type.dart';
+import 'package:shirasu/model/graphql/mixins/currency_mixin.dart';
+import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 
 part 'viewer.freezed.dart';
 
@@ -88,7 +88,7 @@ abstract class InvoiceHistory
 @freezed
 abstract class InvoiceHistoryItem
     with PlanTypeMixin, CurrencyMixin, _$InvoiceHistoryItem
-    implements BaseInvoice {
+    implements _$InvoiceHistoryItem, BaseInvoice {
   const factory InvoiceHistoryItem({
     @required String id,
     @required int total,
@@ -105,6 +105,8 @@ abstract class InvoiceHistoryItem
 
   factory InvoiceHistoryItem.fromJson(Map<String, dynamic> json) =>
       _$InvoiceHistoryItemFromJson(json);
+
+  const InvoiceHistoryItem._();
 }
 
 @freezed
@@ -146,8 +148,8 @@ abstract class Channel with _$Channel implements BaseChannel {
 
 @freezed
 abstract class LatestInvoice
-    with _$LatestInvoice, PlanTypeMixin
-    implements BaseInvoice {
+    with PlanTypeMixin
+    implements _$LatestInvoice, BaseInvoice {
   const factory LatestInvoice({
     @required String id,
     String description,
@@ -164,6 +166,8 @@ abstract class LatestInvoice
 
   factory LatestInvoice.fromJson(Map<String, dynamic> json) =>
       _$LatestInvoiceFromJson(json);
+
+  const LatestInvoice._();
 }
 
 @freezed

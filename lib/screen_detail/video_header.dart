@@ -6,7 +6,7 @@ import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/dialog/btm_sheet_common.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:shirasu/model/mixins/video_type.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail.dart';

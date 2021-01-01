@@ -2429,7 +2429,7 @@ class __$OnetimePlanCopyWithImpl<$Res> extends _$OnetimePlanCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_OnetimePlan implements _OnetimePlan {
+class _$_OnetimePlan extends _OnetimePlan {
   const _$_OnetimePlan(
       {@required
           this.id,
@@ -2461,7 +2461,8 @@ class _$_OnetimePlan implements _OnetimePlan {
         assert(amount != null),
         assert(currency != null),
         assert(isPurchasable != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_OnetimePlan.fromJson(Map<String, dynamic> json) =>
       _$_$_OnetimePlanFromJson(json);
@@ -2559,7 +2560,8 @@ class _$_OnetimePlan implements _OnetimePlan {
   }
 }
 
-abstract class _OnetimePlan implements OnetimePlan {
+abstract class _OnetimePlan extends OnetimePlan {
+  const _OnetimePlan._() : super._();
   const factory _OnetimePlan(
       {@required
           String id,

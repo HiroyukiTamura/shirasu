@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
-import 'package:shirasu/model/mixins/currency_mixin.dart';
-import 'package:shirasu/model/mixins/media_status.dart';
-import 'package:shirasu/model/mixins/plan_type.dart';
-import 'package:shirasu/model/mixins/product_type.dart';
-import 'package:shirasu/model/mixins/video_type.dart';
+import 'package:shirasu/model/graphql/mixins/currency_mixin.dart';
+import 'package:shirasu/model/graphql/mixins/media_status.dart';
+import 'package:shirasu/model/graphql/mixins/plan_type.dart';
+import 'package:shirasu/model/graphql/mixins/product_type.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/extension.dart';
 
 part 'detail_program_data.freezed.dart';
@@ -173,8 +173,8 @@ abstract class DetailPrgItem
 
 @freezed
 abstract class OnetimePlan
-    with ProductTypeMixin, ParentPlanTypeMixin, CurrencyMixin, _$OnetimePlan
-    implements BaseOneTimePlan {
+    with ProductTypeMixin, ParentPlanTypeMixin, AmountMixin
+    implements _$OnetimePlan, BaseOneTimePlan {
   const factory OnetimePlan({
     @required String id,
     @visibleForTesting String parentPlanType,
@@ -194,6 +194,8 @@ abstract class OnetimePlan
 
   factory OnetimePlan.fromJson(Map<String, dynamic> json) =>
       _$OnetimePlanFromJson(json);
+
+  const OnetimePlan._();
 }
 
 @freezed

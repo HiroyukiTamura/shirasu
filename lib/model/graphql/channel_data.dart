@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
-import 'package:shirasu/model/mixins/currency_mixin.dart';
-import 'package:shirasu/model/mixins/plan_type.dart';
+import 'package:shirasu/model/graphql/mixins/currency_mixin.dart';
+import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 
 part 'channel_data.freezed.dart';
 
@@ -108,7 +108,7 @@ abstract class ChannelPrograms
 }
 
 @freezed
-abstract class ProgramsItem with _$ProgramsItem, ViewerPlanTypeMixin implements BaseProgram {
+abstract class ProgramsItem with ViewerPlanTypeMixin implements BaseProgram, _$ProgramsItem {
 
   const factory ProgramsItem({
     @required String id,
@@ -127,10 +127,12 @@ abstract class ProgramsItem with _$ProgramsItem, ViewerPlanTypeMixin implements 
 
   factory ProgramsItem.fromJson(Map<String, dynamic> json) =>
       _$ProgramsItemFromJson(json);
+
+  const ProgramsItem._();
 }
 
 @freezed
-abstract class SubscriptionPlan with CurrencyMixin
+abstract class SubscriptionPlan with AmountMixin
     implements _$SubscriptionPlan, BaseSubscriptionPlan {
   const factory SubscriptionPlan({
     @required String id,

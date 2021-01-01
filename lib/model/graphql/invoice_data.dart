@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
-import 'package:shirasu/model/mixins/plan_type.dart';
 
 part 'invoice_data.freezed.dart';
 
@@ -17,7 +16,7 @@ abstract class InvoiceData with _$InvoiceData {
 }
 
 @freezed
-abstract class Invoice with _$Invoice, PlanTypeMixin implements BaseInvoice {
+abstract class Invoice implements _$Invoice, BaseInvoice {
   const factory Invoice({
     @required String id,
     @required DateTime createdAt,
@@ -39,4 +38,6 @@ abstract class Invoice with _$Invoice, PlanTypeMixin implements BaseInvoice {
 
   factory Invoice.fromJson(Map<String, dynamic> json) =>
       _$InvoiceFromJson(json);
+
+  const Invoice._();
 }

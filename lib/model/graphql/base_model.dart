@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shirasu/model/mixins/plan_type.dart';
+import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 
 @immutable
 abstract class _GraphQlModel {

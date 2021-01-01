@@ -1562,7 +1562,7 @@ class __$ProgramsItemCopyWithImpl<$Res> extends _$ProgramsItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ProgramsItem implements _ProgramsItem {
+class _$_ProgramsItem extends _ProgramsItem {
   const _$_ProgramsItem(
       {@required
           this.id,
@@ -1588,7 +1588,8 @@ class _$_ProgramsItem implements _ProgramsItem {
         assert(title != null),
         assert(broadcastAt != null),
         assert(totalPlayTime != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_ProgramsItem.fromJson(Map<String, dynamic> json) =>
       _$_$_ProgramsItemFromJson(json);
@@ -1668,7 +1669,8 @@ class _$_ProgramsItem implements _ProgramsItem {
   }
 }
 
-abstract class _ProgramsItem implements ProgramsItem {
+abstract class _ProgramsItem extends ProgramsItem {
+  const _ProgramsItem._() : super._();
   const factory _ProgramsItem(
       {@required
           String id,

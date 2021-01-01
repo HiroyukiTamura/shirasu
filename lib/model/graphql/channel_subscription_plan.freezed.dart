@@ -618,7 +618,7 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_SubscriptionPlan implements _SubscriptionPlan {
+class _$_SubscriptionPlan extends _SubscriptionPlan {
   const _$_SubscriptionPlan(
       {@required
           this.id,
@@ -655,7 +655,8 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
         assert(interval != null),
         assert(intervalCount != null),
         assert(isPurchasable != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$_$_SubscriptionPlanFromJson(json);
@@ -759,7 +760,8 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan implements SubscriptionPlan {
+abstract class _SubscriptionPlan extends SubscriptionPlan {
+  const _SubscriptionPlan._() : super._();
   const factory _SubscriptionPlan(
       {@required
           String id,

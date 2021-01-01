@@ -1407,7 +1407,7 @@ class __$InvoiceHistoryItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_InvoiceHistoryItem implements _InvoiceHistoryItem {
+class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   const _$_InvoiceHistoryItem(
       {@required
           this.id,
@@ -1434,7 +1434,8 @@ class _$_InvoiceHistoryItem implements _InvoiceHistoryItem {
         assert(createdAt != null),
         assert(planType != null),
         assert(status != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_InvoiceHistoryItem.fromJson(Map<String, dynamic> json) =>
       _$_$_InvoiceHistoryItemFromJson(json);
@@ -1511,7 +1512,8 @@ class _$_InvoiceHistoryItem implements _InvoiceHistoryItem {
   }
 }
 
-abstract class _InvoiceHistoryItem implements InvoiceHistoryItem {
+abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
+  const _InvoiceHistoryItem._() : super._();
   const factory _InvoiceHistoryItem(
       {@required
           String id,
@@ -2318,7 +2320,7 @@ class __$LatestInvoiceCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_LatestInvoice implements _LatestInvoice {
+class _$_LatestInvoice extends _LatestInvoice {
   const _$_LatestInvoice(
       {@required
           this.id,
@@ -2341,7 +2343,8 @@ class _$_LatestInvoice implements _LatestInvoice {
         assert(planType != null),
         assert(status != null),
         assert(hostedInvoiceUrl != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_LatestInvoice.fromJson(Map<String, dynamic> json) =>
       _$_$_LatestInvoiceFromJson(json);
@@ -2420,7 +2423,8 @@ class _$_LatestInvoice implements _LatestInvoice {
   }
 }
 
-abstract class _LatestInvoice implements LatestInvoice {
+abstract class _LatestInvoice extends LatestInvoice {
+  const _LatestInvoice._() : super._();
   const factory _LatestInvoice(
       {@required
           String id,

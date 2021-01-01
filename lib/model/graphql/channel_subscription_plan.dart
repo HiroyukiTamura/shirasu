@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
-import 'package:shirasu/model/mixins/plan_type.dart';
-import 'package:shirasu/model/mixins/product_type.dart';
+import 'package:shirasu/model/graphql/mixins/plan_type.dart';
+import 'package:shirasu/model/graphql/mixins/product_type.dart';
 
 part 'channel_subscription_plan.freezed.dart';
 
@@ -33,8 +33,8 @@ abstract class Channel with _$Channel implements BaseChannel {
 
 @freezed
 abstract class SubscriptionPlan
-    with ProductTypeMixin, ParentPlanTypeMixin, _$SubscriptionPlan
-    implements BaseSubscriptionPlan {
+    with ProductTypeMixin, ParentPlanTypeMixin
+    implements _$SubscriptionPlan, BaseSubscriptionPlan {
   const factory SubscriptionPlan({
     @required String id,
     @visibleForTesting String parentPlanType,
@@ -55,4 +55,6 @@ abstract class SubscriptionPlan
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionPlanFromJson(json);
+
+  const SubscriptionPlan._();
 }

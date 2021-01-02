@@ -265,5 +265,8 @@ class Strings {
   /// ref: "users.pages.Program.components.ArchivePriceTable.headerLabelSubscriber"
   static const String ARCHIVE_PRICE_TABLE_HEADER_LABEL_SUBSCRIBER = '会員';
 
+  /// ref: "users.pages.Program.components.SPProgramTabHeader.handouts"
+  static const String HEADER_HANDOUTS = '関連資料';
+
 //endregion
 }

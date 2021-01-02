@@ -6,21 +6,17 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/screen_detail/page_price_chart/item_base.dart';
+import 'package:shirasu/screen_detail/page_base/item_base.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/extension.dart';
-
-part 'item_table.g.dart';
 
 class ItemTable extends ItemBase {
   const ItemTable({
     @required this.program,
-    @required this.subscriptionPlan,
     Key key,
   }) : super(key: key);
 
   final ProgramDetail program;
-  final SubscriptionPlan subscriptionPlan;
 
   @override
   Widget build(BuildContext context) {

@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_detail/page_price_chart/item_base.dart';
+import 'package:shirasu/screen_detail/page_base/item_base.dart';
 
 class ItemHeading extends ItemBase {
   const ItemHeading({
+    @required this.text,
     @required this.onClearClicked,
     Key key,
   }) : super(key: key);
 
   final VoidCallback onClearClicked;
+  final String text;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -19,7 +20,7 @@ class ItemHeading extends ItemBase {
           padding: const EdgeInsets.only(top: 32),
           child: ItemBase.itemPadding(
             child: Text(
-              Strings.ARCHIVE_PRICE_TABLE_TITLE,
+              text,
               style: TextStyle(
                 height: 1,
                 fontSize: 18,

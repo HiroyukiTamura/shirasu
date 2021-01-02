@@ -159,4 +159,15 @@ class ApiClient {
     );
     return UserWithAttributeData.fromJson(result.data);
   }
+
+  Future<String> queryHandOutUrl (String programId, String handoutId) async {
+    final result = await _mutate(
+      GraphqlQuery.QUERY_HAND_OUT_URL,
+      variables: {
+        'key': 'private/programs/$programId/handouts/$handoutId',
+        'operation': 'getObject',
+      },
+    );
+    return result.data['getSignedUrl'] as String;
+  }
 }

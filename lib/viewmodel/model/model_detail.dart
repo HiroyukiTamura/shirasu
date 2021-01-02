@@ -11,6 +11,7 @@ abstract class ModelDetail implements _$ModelDetail {
   const factory ModelDetail({
     @required DetailModelState prgDataResult,
     @required PlayOutState playOutState,
+    @required bool isHandoutUrlRequesting,
   }) = _ModelDetail;
 
   const ModelDetail._();
@@ -18,6 +19,7 @@ abstract class ModelDetail implements _$ModelDetail {
   factory ModelDetail.initial() => ModelDetail(
         prgDataResult: const DetailModelState.preInitialized(),
         playOutState: PlayOutState.initial(),
+        isHandoutUrlRequesting: false,
       );
 
   ModelDetail copyAsInitialize(String urlAvailable, VideoType videoType) =>
@@ -33,7 +35,9 @@ abstract class ModelDetail implements _$ModelDetail {
 
   ModelDetail copyAsPageSheet(PageSheetModel pageSheetModel) {
     final p = prgDataResult;
-    return p is StateSuccess ? copyWith(prgDataResult: p.copyWith(page: pageSheetModel)) : null;
+    return p is StateSuccess
+        ? copyWith(prgDataResult: p.copyWith(page: pageSheetModel))
+        : null;
   }
 }
 

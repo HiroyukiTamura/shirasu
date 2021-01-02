@@ -16,10 +16,12 @@ class _$ModelDetailTearOff {
 // ignore: unused_element
   _ModelDetail call(
       {@required DetailModelState prgDataResult,
-      @required PlayOutState playOutState}) {
+      @required PlayOutState playOutState,
+      @required bool isHandoutUrlRequesting}) {
     return _ModelDetail(
       prgDataResult: prgDataResult,
       playOutState: playOutState,
+      isHandoutUrlRequesting: isHandoutUrlRequesting,
     );
   }
 }
@@ -32,6 +34,7 @@ const $ModelDetail = _$ModelDetailTearOff();
 mixin _$ModelDetail {
   DetailModelState get prgDataResult;
   PlayOutState get playOutState;
+  bool get isHandoutUrlRequesting;
 
   $ModelDetailCopyWith<ModelDetail> get copyWith;
 }
@@ -41,7 +44,10 @@ abstract class $ModelDetailCopyWith<$Res> {
   factory $ModelDetailCopyWith(
           ModelDetail value, $Res Function(ModelDetail) then) =
       _$ModelDetailCopyWithImpl<$Res>;
-  $Res call({DetailModelState prgDataResult, PlayOutState playOutState});
+  $Res call(
+      {DetailModelState prgDataResult,
+      PlayOutState playOutState,
+      bool isHandoutUrlRequesting});
 
   $DetailModelStateCopyWith<$Res> get prgDataResult;
 }
@@ -58,6 +64,7 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
   $Res call({
     Object prgDataResult = freezed,
     Object playOutState = freezed,
+    Object isHandoutUrlRequesting = freezed,
   }) {
     return _then(_value.copyWith(
       prgDataResult: prgDataResult == freezed
@@ -66,6 +73,9 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       playOutState: playOutState == freezed
           ? _value.playOutState
           : playOutState as PlayOutState,
+      isHandoutUrlRequesting: isHandoutUrlRequesting == freezed
+          ? _value.isHandoutUrlRequesting
+          : isHandoutUrlRequesting as bool,
     ));
   }
 
@@ -87,7 +97,10 @@ abstract class _$ModelDetailCopyWith<$Res>
           _ModelDetail value, $Res Function(_ModelDetail) then) =
       __$ModelDetailCopyWithImpl<$Res>;
   @override
-  $Res call({DetailModelState prgDataResult, PlayOutState playOutState});
+  $Res call(
+      {DetailModelState prgDataResult,
+      PlayOutState playOutState,
+      bool isHandoutUrlRequesting});
 
   @override
   $DetailModelStateCopyWith<$Res> get prgDataResult;
@@ -107,6 +120,7 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
   $Res call({
     Object prgDataResult = freezed,
     Object playOutState = freezed,
+    Object isHandoutUrlRequesting = freezed,
   }) {
     return _then(_ModelDetail(
       prgDataResult: prgDataResult == freezed
@@ -115,6 +129,9 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
       playOutState: playOutState == freezed
           ? _value.playOutState
           : playOutState as PlayOutState,
+      isHandoutUrlRequesting: isHandoutUrlRequesting == freezed
+          ? _value.isHandoutUrlRequesting
+          : isHandoutUrlRequesting as bool,
     ));
   }
 }
@@ -122,19 +139,24 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
 /// @nodoc
 class _$_ModelDetail extends _ModelDetail {
   const _$_ModelDetail(
-      {@required this.prgDataResult, @required this.playOutState})
+      {@required this.prgDataResult,
+      @required this.playOutState,
+      @required this.isHandoutUrlRequesting})
       : assert(prgDataResult != null),
         assert(playOutState != null),
+        assert(isHandoutUrlRequesting != null),
         super._();
 
   @override
   final DetailModelState prgDataResult;
   @override
   final PlayOutState playOutState;
+  @override
+  final bool isHandoutUrlRequesting;
 
   @override
   String toString() {
-    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState)';
+    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting)';
   }
 
   @override
@@ -146,14 +168,18 @@ class _$_ModelDetail extends _ModelDetail {
                     .equals(other.prgDataResult, prgDataResult)) &&
             (identical(other.playOutState, playOutState) ||
                 const DeepCollectionEquality()
-                    .equals(other.playOutState, playOutState)));
+                    .equals(other.playOutState, playOutState)) &&
+            (identical(other.isHandoutUrlRequesting, isHandoutUrlRequesting) ||
+                const DeepCollectionEquality().equals(
+                    other.isHandoutUrlRequesting, isHandoutUrlRequesting)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(prgDataResult) ^
-      const DeepCollectionEquality().hash(playOutState);
+      const DeepCollectionEquality().hash(playOutState) ^
+      const DeepCollectionEquality().hash(isHandoutUrlRequesting);
 
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith =>
@@ -164,12 +190,15 @@ abstract class _ModelDetail extends ModelDetail {
   const _ModelDetail._() : super._();
   const factory _ModelDetail(
       {@required DetailModelState prgDataResult,
-      @required PlayOutState playOutState}) = _$_ModelDetail;
+      @required PlayOutState playOutState,
+      @required bool isHandoutUrlRequesting}) = _$_ModelDetail;
 
   @override
   DetailModelState get prgDataResult;
   @override
   PlayOutState get playOutState;
+  @override
+  bool get isHandoutUrlRequesting;
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith;
 }

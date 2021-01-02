@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/screen_detail/page_hands_out/screen_handsout.dart';
 import 'package:shirasu/screen_detail/page_price_chart/screen_price_chart.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/row_fabs.dart';
@@ -36,7 +37,7 @@ final pDetailId = Provider.autoDispose<String>(
 final detailSNProvider =
     StateNotifierProvider.autoDispose<ViewModelDetail>((ref) {
   final id = ref.watch(pDetailId);
-  return ViewModelDetail(id);
+  return ViewModelDetail(id, ref);
 });
 
 final _pBtmSheetExpanded = Provider.autoDispose<PageSheetModel>(
@@ -144,7 +145,7 @@ class _ContentWidget extends HookWidget {
                               return const SizedBox.shrink();
                           }
                         }),
-                    BottomSheet(subscriptionPlan: null, program: data.program,),//todo
+                    BottomSheet(program: data.program)
                   ],
                 ),
               ),
@@ -160,12 +161,10 @@ class _ContentWidget extends HookWidget {
 class BottomSheet extends HookWidget {
   const BottomSheet({
     Key key,
-    @required this.program,
-    @required this.subscriptionPlan,
+    @required this.program
   }) : super(key: key);
 
   final ProgramDetail program;
-  final SubscriptionPlan subscriptionPlan;
 
   @override
   Widget build(BuildContext context) => ColoredBox(
@@ -176,21 +175,18 @@ class BottomSheet extends HookWidget {
             maxChildSize: 1,
             initialChildSize: 1,
             minChildSize: 1,
-            builder: (context, scrollController) {
-              return Placeholder(
-                color: Colors.blue[100],
-              );
-            },
+            builder: (context, scrollController) => ScreenHandsOut(handouts: program.handouts, onClearClicked: () {
+                //todo collapse
+              },),
           ),
           pricing: () => DraggableScrollableSheet(
             maxChildSize: 1,
             initialChildSize: 1,
             minChildSize: 1,
             builder: (context, scrollController) => ScreenPriceChart(
-              subscriptionPlan: subscriptionPlan,
               program: program,
               onClearClicked: () {
-                //todo implement
+                //todo collapse
               },
             ),
           ),

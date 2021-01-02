@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_detail/page_price_chart/item_base.dart';
+import 'package:shirasu/screen_detail/page_base/item_base.dart';
 
 class ItemNote extends ItemBase {
 

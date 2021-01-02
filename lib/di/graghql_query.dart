@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-@immutable
+/// todo remove `QUERY` suffix
 class GraphqlQuery {
   const GraphqlQuery._();
 
@@ -483,4 +483,21 @@ mutation UpdateUserWithAttribute($input: UpdateUserWithAttributeInput) {
     }
 }
   ''';
+
+  static const String QUERY_HAND_OUT_URL = r'''
+mutation GetSignedUrl(
+    $operation: S3Operation!
+    $key: String!
+    $contentType: String
+    $contentLength: Int
+    $filename: String
+) {
+    getSignedUrl(
+        operation: $operation
+        key: $key
+        contentType: $contentType
+        contentLength: $contentLength
+        filename: $filename
+    )
+}''';
 }

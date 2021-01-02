@@ -3,22 +3,28 @@ import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/media_status.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:shirasu/screen_detail/page_hands_out/screen_handsout.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/extension.dart';
+import 'package:riverpod/src/framework.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
-  ViewModelDetail(this.id)
+  ViewModelDetail(this.id, this._ref)
       : channelId = UrlUtil.programId2channelId(id),
         super(ModelDetail.initial());
 
   final _apiClient = ApiClient.instance();
   final _dioClient = DioClient();
+  final AutoDisposeProviderReference _ref;
   final String id;
   final String channelId;
 
@@ -101,6 +107,30 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     if (cookie != null)
       setState(state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie));
+  }
+
+  Future<void> queryHandOutUrl(String handoutId) async {
+    if (state.isHandoutUrlRequesting)
+      return;
+
+    state = state.copyWith(isHandoutUrlRequesting: true);
+
+    String url;
+    try {
+      url = await _apiClient.queryHandOutUrl(id, handoutId);
+    } catch (e) {
+      print(e);
+    }
+
+    if (!mounted)
+      return;
+
+    if (url == null)
+      _ref.read(snackBarMsgProvider).state = SnackMsg.UNKNOWN;
+    else
+      _ref.read(handoutUrlProvider).state = url;
+
+    state = state.copyWith(isHandoutUrlRequesting: false);
   }
 
   void togglePage(PageSheetModel pageSheet) {

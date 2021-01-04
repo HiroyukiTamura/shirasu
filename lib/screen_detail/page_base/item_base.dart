@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/screen_detail/page_base/item_heading.dart';
+
+part 'item_base.g.dart';
+
+typedef OnClearClicked = Function(BuildContext context);
 
 abstract class ItemBase extends StatelessWidget {
   const ItemBase({
@@ -18,23 +23,19 @@ abstract class ItemBase extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: child,
       );
-
-  @protected
-  static Widget draggableSheet({
-    @required String heading,
-    @required Widget child,
-  }) =>
-      DraggableScrollableSheet(
-        maxChildSize: 1,
-        initialChildSize: 1,
-        minChildSize: 1,
-        builder: (context, scrollController) => Column(
-            children: [
-              ItemHeading(text: heading, onClearClicked: () {
-                //todo implement
-              }),
-              Expanded(child: child),
-            ],
-          ),
-      );
 }
+
+@swidget
+Widget draggableSheet(
+  BuildContext context, {
+  @required String heading,
+  @required Widget child,
+  @required OnClearClicked onClearClicked,
+}) =>
+    Column(
+      children: [
+        ItemHeading(
+            text: heading, onClearClicked: () => onClearClicked(context)),
+        Expanded(child: child),
+      ],
+    );

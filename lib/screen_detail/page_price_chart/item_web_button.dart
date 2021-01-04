@@ -15,7 +15,7 @@ class ItemWebButton extends ItemBase {
         padding: const EdgeInsets.symmetric(vertical: 36),
         alignment: Alignment.center,
         child: TextButton(
-          onPressed: () => onTap,
+          onPressed: onTap,
           child: Text(
             Strings.OPEN_WEB,
             style: TextStyle(

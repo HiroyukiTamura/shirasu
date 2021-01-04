@@ -8,14 +8,13 @@ import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/media_status.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
-import 'package:shirasu/screen_detail/page_hands_out/screen_handsout.dart';
-import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/extension.dart';
 import 'package:riverpod/src/framework.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(this.id, this._ref)
@@ -24,6 +23,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   final _apiClient = ApiClient.instance();
   final _dioClient = DioClient();
+  final panelController = PanelController();
   final AutoDisposeProviderReference _ref;
   final String id;
   final String channelId;
@@ -134,9 +134,19 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     return url;
   }
 
-  void togglePage(PageSheetModel pageSheet) {
+  Future<void> togglePage(PageSheetModel pageSheet) async {
     final newOne = state.copyAsPageSheet(pageSheet);
-    if (newOne != null)
-      state = newOne;
+    if (newOne == null)
+      return;
+
+    state = newOne;
+
+    if (!panelController.isAttached)
+      return;
+
+    if (pageSheet is PageSheetModelHidden)
+      await panelController.close();
+    else
+      await panelController.open();
   }
 }

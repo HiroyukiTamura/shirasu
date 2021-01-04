@@ -21,28 +21,30 @@ class ScreenPriceChart extends HookWidget {
   }) : super(key: key);
 
   final ProgramDetail program;
-  final VoidCallback onClearClicked;
+  final OnClearClicked onClearClicked;
 
   @override
-  Widget build(BuildContext context) => ItemBase.draggableSheet(
-    heading: Strings.ARCHIVE_PRICE_TABLE_TITLE,
-    child: ListView.builder(
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return ItemTable(program: program);
-            case 1:
-              return const ItemNote();
-            case 2:
-              return const ItemNoteCredit();
-            case 3:
-              return ItemWebButton(
-                  onTap: () =>
-                      Util.launchUrl(context, UrlUtil.programId2Url(program.id)));
-            default:
-              return const SizedBox.shrink();
-          }
-        }),
-  );
+  Widget build(BuildContext context) => DraggableSheet(
+        heading: Strings.ARCHIVE_PRICE_TABLE_TITLE,
+        onClearClicked: onClearClicked,
+        child: ListView.builder(
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              switch (index) {
+                case 0:
+                  return ItemTable(program: program);
+                case 1:
+                  return const ItemNote();
+                case 2:
+                  return const ItemNoteCredit();
+                case 3:
+                  return ItemWebButton(
+                    onTap: () async => Util.launchUrl(
+                        context, UrlUtil.programId2Url(program.id)),
+                  );
+                default:
+                  return const SizedBox.shrink();
+              }
+            }),
+      );
 }

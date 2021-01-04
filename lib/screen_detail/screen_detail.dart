@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/screen_detail/page_base/item_base.dart';
 import 'package:shirasu/screen_detail/page_hands_out/screen_handsout.dart';
 import 'package:shirasu/screen_detail/page_hands_out/screen_handsout.dart';
 import 'package:shirasu/screen_detail/page_price_chart/screen_price_chart.dart';
@@ -25,6 +26,7 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail_controller.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 part 'screen_detail.g.dart';
 
@@ -103,7 +105,9 @@ class _ContentWidget extends HookWidget {
   final ProgramDetailData data;
 
   @override
-  Widget build(BuildContext _) => LayoutBuilder(
+  Widget build(BuildContext _) {
+    final panelController = useProvider(detailSNProvider).panelController;
+    return LayoutBuilder(
         builder: (context, constrains) {
           final headerH = constrains.maxWidth / Dimens.IMG_RATIO;
           final listViewH = constrains.maxHeight - headerH;
@@ -115,77 +119,72 @@ class _ContentWidget extends HookWidget {
                 onTap: () async => _playVideo(context, true),
                 onTapPreviewBtn: () async => _playVideo(context, false),
               ),
-              SizedBox(// todo why not Expanded?
-                height: listViewH,
-                child: Stack(
-                  children: [
-                    ListView.builder(
-                        itemCount: 6,
-                        padding: const EdgeInsets.only(bottom: 24),
-                        itemBuilder: (context, index) {
-                          switch (index) {
-                            case 0:
-                              return RowChannel(
-                                title: data.program.channel.name,
-                                channelId: data.program.channel.id,
-                              );
-                            case 1:
-                              return RowVideoTitle(text: data.program.title);
-                            case 2:
-                              return RowVideoTime(
-                                broadcastAt: data.program.broadcastAt,
-                                totalPlayTime: data.program.totalPlayTime,
-                              );
-                            case 3:
-                              return RowVideoTags(textList: data.program.tags);
-                            case 4:
-                              return RowFabs(program: data.program);
-                            case 5:
-                              return RowVideoDesc(text: data.program.detail);
-                            default:
-                              return const SizedBox.shrink();
-                          }
-                        }),
-                    BottomSheet(program: data.program)
-                  ],
+              Expanded(
+                child: SlidingUpPanel(
+                  minHeight: 0,
+                  maxHeight: listViewH,
+                  controller: panelController,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  panel: BottomSheet(program: data.program),
+                  body: ListView.builder(
+                      itemCount: 6,
+                      padding: const EdgeInsets.only(bottom: 24),
+                      itemBuilder: (context, index) {
+                        switch (index) {
+                          case 0:
+                            return RowChannel(
+                              title: data.program.channel.name,
+                              channelId: data.program.channel.id,
+                            );
+                          case 1:
+                            return RowVideoTitle(text: data.program.title);
+                          case 2:
+                            return RowVideoTime(
+                              broadcastAt: data.program.broadcastAt,
+                              totalPlayTime: data.program.totalPlayTime,
+                            );
+                          case 3:
+                            return RowVideoTags(textList: data.program.tags);
+                          case 4:
+                            return RowFabs(program: data.program);
+                          case 5:
+                            return RowVideoDesc(text: data.program.detail);
+                          default:
+                            return const SizedBox.shrink();
+                        }
+                      }),
                 ),
               ),
             ],
           );
         },
       );
+  }
 
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>
       context.read(detailSNProvider).playVideo(false);
 }
 
 class BottomSheet extends HookWidget {
-  const BottomSheet({Key key, @required this.program}) : super(key: key);
+  const BottomSheet({
+    Key key,
+    @required this.program,
+  }) : super(key: key);
 
   final ProgramDetail program;
 
   @override
-  Widget build(BuildContext context) => ColoredBox(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: useProvider(_pBtmSheetExpanded).when(
-          hidden: () => const SizedBox.shrink(),
-          handouts: () => ScreenHandouts(
-            program: program,
-            onClearClicked: () {
-              //todo collapse
-            },
-          ),
-          pricing: () => DraggableScrollableSheet(
-            maxChildSize: 1,
-            initialChildSize: 1,
-            minChildSize: 1,
-            builder: (context, scrollController) => ScreenPriceChart(
-              program: program,
-              onClearClicked: () {
-                //todo collapse
-              },
-            ),
-          ),
+  Widget build(BuildContext context) => useProvider(_pBtmSheetExpanded).when(
+        hidden: () => const SizedBox.shrink(),
+        handouts: () => ScreenHandouts(
+          program: program,
+          onClearClicked: _onClearClicked,
+        ),
+        pricing: () => ScreenPriceChart(
+          program: program,
+          onClearClicked: _onClearClicked,
         ),
       );
+
+  Future<void> _onClearClicked(BuildContext context) async => context.read(detailSNProvider).panelController.close();
 }

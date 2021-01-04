@@ -21,16 +21,16 @@ class ScreenHandouts extends HookWidget {
     @required this.onClearClicked,
   }) : super();
 
-  final VoidCallback onClearClicked;
+  final OnClearClicked onClearClicked;
   final ProgramDetail program;
 
   @override
-  Widget build(BuildContext context) => ItemBase.draggableSheet(
+  Widget build(BuildContext context) => DraggableSheet(
+        heading: Strings.HEADER_HANDOUTS,
+        onClearClicked: onClearClicked,
         child: _ScreenHandsOutInner(
           program: program,
-          onClearClicked: onClearClicked,
         ),
-        heading: Strings.HEADER_HANDOUTS,
       );
 }
 
@@ -38,12 +38,10 @@ class _ScreenHandsOutInner extends HookWidget {
   _ScreenHandsOutInner({
     Key key,
     @required this.program,
-    @required this.onClearClicked,
   })  : assert(program.handouts.items.isNotEmpty),
         super(key: key);
 
   final ProgramDetail program;
-  final VoidCallback onClearClicked;
 
   @override
   Widget build(BuildContext context) => useProvider(

@@ -8,9 +8,13 @@ import 'package:shirasu/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final scaffoldProvider =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+
+final _pPanelExpanded = Provider.autoDispose<bool>(
+    (ref) => ref.watch(pDetailController.state).expand);
 
 class ScreenInPlayer extends StatefulHookWidget {
   const ScreenInPlayer({
@@ -27,6 +31,7 @@ class ScreenInPlayer extends StatefulHookWidget {
 class _ScreenInPlayerState extends State<ScreenInPlayer> {
   InPlayerAppRouterDelegate _routerDelegate;
   ChildBackButtonDispatcher _backButtonDispatcher;
+  final PanelController _panelController = PanelController();
 
   @override
   void initState() {
@@ -60,21 +65,42 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> {
   Widget build(BuildContext context) {
     _backButtonDispatcher.takePriority();
 
-    return SafeArea(
-      child: Scaffold(
-        key: useProvider(scaffoldProvider).key,
-        body: Scaffold(
-          body: Stack(
-            children: [
-              Router(
-                routerDelegate: _routerDelegate,
-                backButtonDispatcher: _backButtonDispatcher,
+    return WillPopScope(
+      onWillPop: () async => _onWillPop(context),
+      child: SafeArea(
+        child: Scaffold(
+          key: useProvider(scaffoldProvider).key,
+          body: Scaffold(
+            body: LayoutBuilder(
+              builder: (context, constraints) => ProviderListener<bool>(
+                provider: _pPanelExpanded,
+                onChange: _onChangePanelProvider,
+                child: SlidingUpPanel(
+                  isDraggable: false,
+                  controller: _panelController,
+                  //todo is it reusable?
+                  maxHeight: constraints.maxHeight,
+                  minHeight: 0,
+                  body: Router(
+                    routerDelegate: _routerDelegate,
+                    backButtonDispatcher: _backButtonDispatcher,
+                  ),
+                  panel: const ScreenDetail(),
+                ),
               ),
-              const ScreenDetail(),
-            ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  bool _onWillPop(BuildContext context) => context.read(pDetailController).collapse();
+
+  void _onChangePanelProvider(BuildContext context, bool isExpanded) {
+    if (_panelController.isPanelOpen && !isExpanded)
+      _panelController.close();
+    else if (_panelController.isPanelClosed && isExpanded)
+      _panelController.open();
   }
 }

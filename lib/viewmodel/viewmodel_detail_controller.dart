@@ -4,9 +4,17 @@ import 'package:hooks_riverpod/all.dart';
 part 'viewmodel_detail_controller.freezed.dart';
 
 class ViewModelDetailController extends StateNotifier<DetailControllerModel> {
-  ViewModelDetailController() : super(DetailControllerModel(id: null, expand: false));
+  ViewModelDetailController() : super(const DetailControllerModel(expand: false));
 
   void expand(String id) => state = DetailControllerModel(id: id, expand: true);
+
+  bool collapse() {
+    if (!state.expand)
+      return true;
+
+    state = state.copyWith(expand: false);
+    return false;
+  }
 }
 
 @freezed

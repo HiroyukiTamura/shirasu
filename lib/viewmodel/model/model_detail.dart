@@ -105,9 +105,9 @@ enum PlayerCommandedState {
 
 @freezed
 abstract class PageSheetModel with _$PageSheetModel {
-  const factory PageSheetModel.hidden() = Hidden;
+  const factory PageSheetModel.hidden() = PageSheetModelHidden;
 
-  const factory PageSheetModel.comment() = Comment;
+  const factory PageSheetModel.handouts() = PageSheetModelHandouts;
 
-  const factory PageSheetModel.pricing() = Pricing;
+  const factory PageSheetModel.pricing() = PageSheetModelPricing;
 }

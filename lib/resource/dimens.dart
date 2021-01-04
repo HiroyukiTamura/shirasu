@@ -16,4 +16,5 @@ class Dimens {
   static const double CIRCULAR_HEIGHT = 36;
   /// @see assets\undraw_warning_cyit.svg
   static const double ERROR_WIDGET_RATIO = 832.63 / 1032.24;
+  static const double HANDOUT_THUMBNAIL_RATIO = 16/9;
 }

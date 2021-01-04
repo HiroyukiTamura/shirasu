@@ -814,18 +814,18 @@ class _$PageSheetModelTearOff {
   const _$PageSheetModelTearOff();
 
 // ignore: unused_element
-  Hidden hidden() {
-    return const Hidden();
+  PageSheetModelHidden hidden() {
+    return const PageSheetModelHidden();
   }
 
 // ignore: unused_element
-  Comment comment() {
-    return const Comment();
+  PageSheetModelHandouts handouts() {
+    return const PageSheetModelHandouts();
   }
 
 // ignore: unused_element
-  Pricing pricing() {
-    return const Pricing();
+  PageSheetModelPricing pricing() {
+    return const PageSheetModelPricing();
   }
 }
 
@@ -838,27 +838,27 @@ mixin _$PageSheetModel {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult hidden(),
-    @required TResult comment(),
+    @required TResult handouts(),
     @required TResult pricing(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult hidden(),
-    TResult comment(),
+    TResult handouts(),
     TResult pricing(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult hidden(Hidden value),
-    @required TResult comment(Comment value),
-    @required TResult pricing(Pricing value),
+    @required TResult hidden(PageSheetModelHidden value),
+    @required TResult handouts(PageSheetModelHandouts value),
+    @required TResult pricing(PageSheetModelPricing value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult hidden(Hidden value),
-    TResult comment(Comment value),
-    TResult pricing(Pricing value),
+    TResult hidden(PageSheetModelHidden value),
+    TResult handouts(PageSheetModelHandouts value),
+    TResult pricing(PageSheetModelPricing value),
     @required TResult orElse(),
   });
 }
@@ -881,24 +881,27 @@ class _$PageSheetModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $HiddenCopyWith<$Res> {
-  factory $HiddenCopyWith(Hidden value, $Res Function(Hidden) then) =
-      _$HiddenCopyWithImpl<$Res>;
+abstract class $PageSheetModelHiddenCopyWith<$Res> {
+  factory $PageSheetModelHiddenCopyWith(PageSheetModelHidden value,
+          $Res Function(PageSheetModelHidden) then) =
+      _$PageSheetModelHiddenCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HiddenCopyWithImpl<$Res> extends _$PageSheetModelCopyWithImpl<$Res>
-    implements $HiddenCopyWith<$Res> {
-  _$HiddenCopyWithImpl(Hidden _value, $Res Function(Hidden) _then)
-      : super(_value, (v) => _then(v as Hidden));
+class _$PageSheetModelHiddenCopyWithImpl<$Res>
+    extends _$PageSheetModelCopyWithImpl<$Res>
+    implements $PageSheetModelHiddenCopyWith<$Res> {
+  _$PageSheetModelHiddenCopyWithImpl(
+      PageSheetModelHidden _value, $Res Function(PageSheetModelHidden) _then)
+      : super(_value, (v) => _then(v as PageSheetModelHidden));
 
   @override
-  Hidden get _value => super._value as Hidden;
+  PageSheetModelHidden get _value => super._value as PageSheetModelHidden;
 }
 
 /// @nodoc
-class _$Hidden implements Hidden {
-  const _$Hidden();
+class _$PageSheetModelHidden implements PageSheetModelHidden {
+  const _$PageSheetModelHidden();
 
   @override
   String toString() {
@@ -907,7 +910,7 @@ class _$Hidden implements Hidden {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Hidden);
+    return identical(this, other) || (other is PageSheetModelHidden);
   }
 
   @override
@@ -917,11 +920,11 @@ class _$Hidden implements Hidden {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult hidden(),
-    @required TResult comment(),
+    @required TResult handouts(),
     @required TResult pricing(),
   }) {
     assert(hidden != null);
-    assert(comment != null);
+    assert(handouts != null);
     assert(pricing != null);
     return hidden();
   }
@@ -930,7 +933,7 @@ class _$Hidden implements Hidden {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult hidden(),
-    TResult comment(),
+    TResult handouts(),
     TResult pricing(),
     @required TResult orElse(),
   }) {
@@ -944,12 +947,12 @@ class _$Hidden implements Hidden {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult hidden(Hidden value),
-    @required TResult comment(Comment value),
-    @required TResult pricing(Pricing value),
+    @required TResult hidden(PageSheetModelHidden value),
+    @required TResult handouts(PageSheetModelHandouts value),
+    @required TResult pricing(PageSheetModelPricing value),
   }) {
     assert(hidden != null);
-    assert(comment != null);
+    assert(handouts != null);
     assert(pricing != null);
     return hidden(this);
   }
@@ -957,9 +960,9 @@ class _$Hidden implements Hidden {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult hidden(Hidden value),
-    TResult comment(Comment value),
-    TResult pricing(Pricing value),
+    TResult hidden(PageSheetModelHidden value),
+    TResult handouts(PageSheetModelHandouts value),
+    TResult pricing(PageSheetModelPricing value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -970,38 +973,41 @@ class _$Hidden implements Hidden {
   }
 }
 
-abstract class Hidden implements PageSheetModel {
-  const factory Hidden() = _$Hidden;
+abstract class PageSheetModelHidden implements PageSheetModel {
+  const factory PageSheetModelHidden() = _$PageSheetModelHidden;
 }
 
 /// @nodoc
-abstract class $CommentCopyWith<$Res> {
-  factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
-      _$CommentCopyWithImpl<$Res>;
+abstract class $PageSheetModelHandoutsCopyWith<$Res> {
+  factory $PageSheetModelHandoutsCopyWith(PageSheetModelHandouts value,
+          $Res Function(PageSheetModelHandouts) then) =
+      _$PageSheetModelHandoutsCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$CommentCopyWithImpl<$Res> extends _$PageSheetModelCopyWithImpl<$Res>
-    implements $CommentCopyWith<$Res> {
-  _$CommentCopyWithImpl(Comment _value, $Res Function(Comment) _then)
-      : super(_value, (v) => _then(v as Comment));
+class _$PageSheetModelHandoutsCopyWithImpl<$Res>
+    extends _$PageSheetModelCopyWithImpl<$Res>
+    implements $PageSheetModelHandoutsCopyWith<$Res> {
+  _$PageSheetModelHandoutsCopyWithImpl(PageSheetModelHandouts _value,
+      $Res Function(PageSheetModelHandouts) _then)
+      : super(_value, (v) => _then(v as PageSheetModelHandouts));
 
   @override
-  Comment get _value => super._value as Comment;
+  PageSheetModelHandouts get _value => super._value as PageSheetModelHandouts;
 }
 
 /// @nodoc
-class _$Comment implements Comment {
-  const _$Comment();
+class _$PageSheetModelHandouts implements PageSheetModelHandouts {
+  const _$PageSheetModelHandouts();
 
   @override
   String toString() {
-    return 'PageSheetModel.comment()';
+    return 'PageSheetModel.handouts()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Comment);
+    return identical(this, other) || (other is PageSheetModelHandouts);
   }
 
   @override
@@ -1011,26 +1017,26 @@ class _$Comment implements Comment {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult hidden(),
-    @required TResult comment(),
+    @required TResult handouts(),
     @required TResult pricing(),
   }) {
     assert(hidden != null);
-    assert(comment != null);
+    assert(handouts != null);
     assert(pricing != null);
-    return comment();
+    return handouts();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult hidden(),
-    TResult comment(),
+    TResult handouts(),
     TResult pricing(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (comment != null) {
-      return comment();
+    if (handouts != null) {
+      return handouts();
     }
     return orElse();
   }
@@ -1038,55 +1044,58 @@ class _$Comment implements Comment {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult hidden(Hidden value),
-    @required TResult comment(Comment value),
-    @required TResult pricing(Pricing value),
+    @required TResult hidden(PageSheetModelHidden value),
+    @required TResult handouts(PageSheetModelHandouts value),
+    @required TResult pricing(PageSheetModelPricing value),
   }) {
     assert(hidden != null);
-    assert(comment != null);
+    assert(handouts != null);
     assert(pricing != null);
-    return comment(this);
+    return handouts(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult hidden(Hidden value),
-    TResult comment(Comment value),
-    TResult pricing(Pricing value),
+    TResult hidden(PageSheetModelHidden value),
+    TResult handouts(PageSheetModelHandouts value),
+    TResult pricing(PageSheetModelPricing value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (comment != null) {
-      return comment(this);
+    if (handouts != null) {
+      return handouts(this);
     }
     return orElse();
   }
 }
 
-abstract class Comment implements PageSheetModel {
-  const factory Comment() = _$Comment;
+abstract class PageSheetModelHandouts implements PageSheetModel {
+  const factory PageSheetModelHandouts() = _$PageSheetModelHandouts;
 }
 
 /// @nodoc
-abstract class $PricingCopyWith<$Res> {
-  factory $PricingCopyWith(Pricing value, $Res Function(Pricing) then) =
-      _$PricingCopyWithImpl<$Res>;
+abstract class $PageSheetModelPricingCopyWith<$Res> {
+  factory $PageSheetModelPricingCopyWith(PageSheetModelPricing value,
+          $Res Function(PageSheetModelPricing) then) =
+      _$PageSheetModelPricingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PricingCopyWithImpl<$Res> extends _$PageSheetModelCopyWithImpl<$Res>
-    implements $PricingCopyWith<$Res> {
-  _$PricingCopyWithImpl(Pricing _value, $Res Function(Pricing) _then)
-      : super(_value, (v) => _then(v as Pricing));
+class _$PageSheetModelPricingCopyWithImpl<$Res>
+    extends _$PageSheetModelCopyWithImpl<$Res>
+    implements $PageSheetModelPricingCopyWith<$Res> {
+  _$PageSheetModelPricingCopyWithImpl(
+      PageSheetModelPricing _value, $Res Function(PageSheetModelPricing) _then)
+      : super(_value, (v) => _then(v as PageSheetModelPricing));
 
   @override
-  Pricing get _value => super._value as Pricing;
+  PageSheetModelPricing get _value => super._value as PageSheetModelPricing;
 }
 
 /// @nodoc
-class _$Pricing implements Pricing {
-  const _$Pricing();
+class _$PageSheetModelPricing implements PageSheetModelPricing {
+  const _$PageSheetModelPricing();
 
   @override
   String toString() {
@@ -1095,7 +1104,7 @@ class _$Pricing implements Pricing {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Pricing);
+    return identical(this, other) || (other is PageSheetModelPricing);
   }
 
   @override
@@ -1105,11 +1114,11 @@ class _$Pricing implements Pricing {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult hidden(),
-    @required TResult comment(),
+    @required TResult handouts(),
     @required TResult pricing(),
   }) {
     assert(hidden != null);
-    assert(comment != null);
+    assert(handouts != null);
     assert(pricing != null);
     return pricing();
   }
@@ -1118,7 +1127,7 @@ class _$Pricing implements Pricing {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult hidden(),
-    TResult comment(),
+    TResult handouts(),
     TResult pricing(),
     @required TResult orElse(),
   }) {
@@ -1132,12 +1141,12 @@ class _$Pricing implements Pricing {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult hidden(Hidden value),
-    @required TResult comment(Comment value),
-    @required TResult pricing(Pricing value),
+    @required TResult hidden(PageSheetModelHidden value),
+    @required TResult handouts(PageSheetModelHandouts value),
+    @required TResult pricing(PageSheetModelPricing value),
   }) {
     assert(hidden != null);
-    assert(comment != null);
+    assert(handouts != null);
     assert(pricing != null);
     return pricing(this);
   }
@@ -1145,9 +1154,9 @@ class _$Pricing implements Pricing {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult hidden(Hidden value),
-    TResult comment(Comment value),
-    TResult pricing(Pricing value),
+    TResult hidden(PageSheetModelHidden value),
+    TResult handouts(PageSheetModelHandouts value),
+    TResult pricing(PageSheetModelPricing value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1158,6 +1167,6 @@ class _$Pricing implements Pricing {
   }
 }
 
-abstract class Pricing implements PageSheetModel {
-  const factory Pricing() = _$Pricing;
+abstract class PageSheetModelPricing implements PageSheetModel {
+  const factory PageSheetModelPricing() = _$PageSheetModelPricing;
 }

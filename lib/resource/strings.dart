@@ -268,5 +268,8 @@ class Strings {
   /// ref: "users.pages.Program.components.SPProgramTabHeader.handouts"
   static const String HEADER_HANDOUTS = '関連資料';
 
+  /// ref: "atomic.molecules.HandoutList.extensionPurchaserOnly"
+  static const String EXTENSION_PURCHASER_ONLY = '延長購入者のみ';
+
 //endregion
 }

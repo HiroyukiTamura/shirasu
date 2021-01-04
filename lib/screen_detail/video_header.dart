@@ -102,7 +102,7 @@ class _VideoThumbnail extends HookWidget {
 
     final isWaiting = DateTime.now().isBefore(program.broadcastAt);
     final isPurchasable = program.onetimePlans.any((it) => it.isPurchasable);
-    final isPurchased = program.viewerPlanType != null; //todo need more logic
+    final isPurchased = program.viewerPlanTypeStrict != null; //todo need more logic
     final canPreview = program.previewTime != 0;
 
     if (isPurchased) return isWaiting ? _waitingText() : _playBtn();

@@ -29,13 +29,14 @@ class RowFabs extends WidgetItemBase {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const _Fab(icon: Icons.comment),
+            // const _Fab(icon: Icons.comment),
             _Fab(
               icon: Icons.credit_card,
               onPressed: () => _onClickPaymentBtn(context),
             ),
             if (program.handouts.items.isNotEmpty)
-              const _Fab(icon: Icons.text_snippet),
+              _Fab(icon: Icons.text_snippet,
+                onPressed: () => _onClickHandoutsBtn(context),),
             const _Fab(icon: Icons.alarm_add),
             _Fab(
               icon: Icons.share,
@@ -58,6 +59,9 @@ class RowFabs extends WidgetItemBase {
 
   Future<void> _onClickPaymentBtn(BuildContext context) async =>
       context.read(detailSNProvider).togglePage(const PageSheetModel.pricing());
+
+  Future<void> _onClickHandoutsBtn(BuildContext context) async =>
+      context.read(detailSNProvider).togglePage(const PageSheetModel.handouts());
 }
 
 @swidget

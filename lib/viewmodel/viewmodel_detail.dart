@@ -109,9 +109,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       setState(state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie));
   }
 
-  Future<void> queryHandOutUrl(String handoutId) async {
+  Future<String> queryHandOutUrl(String handoutId) async {
     if (state.isHandoutUrlRequesting)
-      return;
+      return null;
 
     state = state.copyWith(isHandoutUrlRequesting: true);
 
@@ -123,14 +123,15 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     }
 
     if (!mounted)
-      return;
+      return null;
 
     if (url == null)
       _ref.read(snackBarMsgProvider).state = SnackMsg.UNKNOWN;
     else
-      _ref.read(handoutUrlProvider).state = url;
 
     state = state.copyWith(isHandoutUrlRequesting: false);
+
+    return url;
   }
 
   void togglePage(PageSheetModel pageSheet) {

@@ -57,6 +57,11 @@ class Util {
     return Assets.svg.defaultChannelIcon.supportWeb().toWidget();
   }
 
+  static Widget defaultHandoutThumbnail(BuildContext context, String url, dynamic error) {
+    onImageError(url: url, error: error);
+    return Assets.jpeg.defaultHandoutThumbnail.image();
+  }
+
   static void onImageError({String url, dynamic error, StackTrace stackTrace}) {
     // todo log error
     debugPrintStack(stackTrace: stackTrace);

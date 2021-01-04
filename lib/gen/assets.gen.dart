@@ -7,6 +7,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsJpegGen {
+  const $AssetsJpegGen();
+
+  AssetGenImage get defaultHandoutThumbnail =>
+      const AssetGenImage('assets/jpeg/default-handout-thumbnail.jpeg');
+}
+
 class $AssetsJsGen {
   const $AssetsJsGen();
 
@@ -65,6 +72,7 @@ class $AssetsSvgGen {
 class Assets {
   Assets._();
 
+  static const $AssetsJpegGen jpeg = $AssetsJpegGen();
   static const $AssetsJsGen js = $AssetsJsGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsPngGen png = $AssetsPngGen();

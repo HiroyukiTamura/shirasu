@@ -67,7 +67,7 @@ class ItemTable extends ItemBase {
 
     return ItemBase.itemPadding(
       child: Padding(
-        padding: const EdgeInsets.only(top: 24),
+        padding: const EdgeInsets.only(top: 8),
         child: Table(
           defaultColumnWidth: const IntrinsicColumnWidth(),
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,

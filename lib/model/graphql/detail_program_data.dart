@@ -64,6 +64,11 @@ abstract class ProgramDetail
   OnetimePlan get onetimePlaneMain => onetimePlans.firstWhereOrNull(
         (it) => it.productTypeStrict == ProductType.PROGRAM,
       );
+
+  // todo detect logic for one time plan user who don't purchased extension
+  bool get isExtensionAvailable =>
+      viewerPlanTypeStrict == PlanType.SUBSCRIPTION &&
+      !isExtensionChargedToSubscribers;
 }
 
 @freezed

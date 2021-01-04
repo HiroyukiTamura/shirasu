@@ -115,7 +115,7 @@ class _ContentWidget extends HookWidget {
                 onTap: () async => _playVideo(context, true),
                 onTapPreviewBtn: () async => _playVideo(context, false),
               ),
-              SizedBox(
+              SizedBox(// todo why not Expanded?
                 height: listViewH,
                 child: Stack(
                   children: [
@@ -170,11 +170,11 @@ class BottomSheet extends HookWidget {
         child: useProvider(_pBtmSheetExpanded).when(
           hidden: () => const SizedBox.shrink(),
           handouts: () => ScreenHandouts(
-              handouts: program.handouts,
-              onClearClicked: () {
-
-                //todo collapse
-              }),
+            program: program,
+            onClearClicked: () {
+              //todo collapse
+            },
+          ),
           pricing: () => DraggableScrollableSheet(
             maxChildSize: 1,
             initialChildSize: 1,

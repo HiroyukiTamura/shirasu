@@ -17,17 +17,17 @@ import 'package:shirasu/util.dart';
 
 class ScreenHandouts extends HookWidget {
   const ScreenHandouts({
-    @required this.handouts,
+    @required this.program,
     @required this.onClearClicked,
   }) : super();
 
-  final Handouts handouts;
   final VoidCallback onClearClicked;
+  final ProgramDetail program;
 
   @override
   Widget build(BuildContext context) => ItemBase.draggableSheet(
         child: _ScreenHandsOutInner(
-          handouts: handouts,
+          program: program,
           onClearClicked: onClearClicked,
         ),
         heading: Strings.HEADER_HANDOUTS,
@@ -37,12 +37,12 @@ class ScreenHandouts extends HookWidget {
 class _ScreenHandsOutInner extends HookWidget {
   _ScreenHandsOutInner({
     Key key,
-    @required this.handouts,
+    @required this.program,
     @required this.onClearClicked,
-  })  : assert(handouts.items.isNotEmpty),
+  })  : assert(program.handouts.items.isNotEmpty),
         super(key: key);
 
-  final Handouts handouts;
+  final ProgramDetail program;
   final VoidCallback onClearClicked;
 
   @override
@@ -50,30 +50,31 @@ class _ScreenHandsOutInner extends HookWidget {
           detailSNProvider.state.select((it) => it.isHandoutUrlRequesting))
       ? const CenterCircleProgress()
       : ListView.builder(
-          itemCount: handouts.items.length + 3,
+          itemCount: program.handouts.items.length,
           itemBuilder: (context, index) {
-            final handout = handouts.items[0];
+            final handout = program.handouts.items[index];
             final createdAt =
                 DateFormat('yyyy.MM.dd HH:mm').format(handout.createdAt);
-            // todo ripple color is not shown
+            // todo ripple effect is not shown
+            final isExtensionOnly = handout.extensionId != null;
+            final enabled = program.isExtensionAvailable && isExtensionOnly;
             return ListTile(
+              enabled: enabled,
               leading: AspectRatio(
                 aspectRatio: Dimens.HANDOUT_THUMBNAIL_RATIO,
                 child: CachedNetworkImage(
                   imageUrl:
-                      UrlUtil.URL_DEFAULT_HANDOUT_THUMBNAIL, // no error widget
+                      UrlUtil.getHandoutThumbnailUrl(program.id, handout.id),
+                  errorWidget: Util.defaultHandoutThumbnail,
                 ),
               ),
               title: Text(
                 handout.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  height: 1.3,
-                  fontSize: 15
-                ),
+                style: const TextStyle(height: 1.3, fontSize: 15),
               ),
-              isThreeLine: true,
+              isThreeLine: isExtensionOnly,
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -85,15 +86,18 @@ class _ScreenHandsOutInner extends HookWidget {
                       height: 1.3,
                     ),
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    Strings.EXTENSION_PURCHASER_ONLY,
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 13,
-                      height: 1,
+                  if (isExtensionOnly)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Text(
+                        Strings.EXTENSION_PURCHASER_ONLY,
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 13,
+                          height: 1,
+                        ),
+                      ),
                     ),
-                  ),
                 ],
               ),
               onTap: () async => _onTapItem(context, handout.id),

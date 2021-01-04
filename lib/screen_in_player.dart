@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/in_player_app_router_delegate.dart';
-import 'package:shirasu/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';

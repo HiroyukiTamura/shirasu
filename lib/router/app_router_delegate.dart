@@ -6,7 +6,7 @@ import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
-import 'package:shirasu/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_in_player.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/screen_main.dart';

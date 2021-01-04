@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/screen_detail/padding_row.dart';
+import 'package:shirasu/screen_detail/screen_detail/padding_row.dart';
 import 'package:shirasu/extension.dart';
 
 part 'row_video_tags.g.dart';

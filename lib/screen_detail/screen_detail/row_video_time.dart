@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/screen_detail/padding_row.dart';
+import 'package:shirasu/screen_detail/screen_detail/padding_row.dart';
 
 class RowVideoTime extends StatelessWidget {
   RowVideoTime({

@@ -4,7 +4,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/screen_detail/padding_row.dart';
+import 'package:shirasu/screen_detail/screen_detail/padding_row.dart';
 
 part 'row_video_title.g.dart';
 

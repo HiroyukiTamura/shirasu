@@ -11,7 +11,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
 import 'package:shirasu/screen_detail/page_base/item_heading.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/util.dart';

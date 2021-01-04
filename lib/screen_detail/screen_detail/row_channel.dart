@@ -7,7 +7,7 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
-import 'package:shirasu/screen_detail/padding_row.dart';
+import 'package:shirasu/screen_detail/screen_detail/padding_row.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/extension.dart';

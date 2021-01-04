@@ -3,13 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/screen_detail/page_base/item_base.dart';
-import 'package:shirasu/screen_detail/page_hands_out/screen_handsout.dart';
-import 'package:shirasu/screen_detail/page_hands_out/screen_handsout.dart';
-import 'package:shirasu/screen_detail/page_price_chart/screen_price_chart.dart';
+import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
+import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
 import 'package:shirasu/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/row_video_desc.dart';
@@ -176,11 +173,11 @@ class BottomSheet extends HookWidget {
   @override
   Widget build(BuildContext context) => useProvider(_pBtmSheetExpanded).when(
         hidden: () => const SizedBox.shrink(),
-        handouts: () => ScreenHandouts(
+        handouts: () => PageHandouts(
           program: program,
           onClearClicked: _onClearClicked,
         ),
-        pricing: () => ScreenPriceChart(
+        pricing: () => PagePriceChart(
           program: program,
           onClearClicked: _onClearClicked,
         ),

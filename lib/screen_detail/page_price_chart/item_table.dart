@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:quiver/iterables.dart';
-import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -10,7 +10,7 @@ import 'package:shirasu/screen_detail/page_base/item_base.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/extension.dart';
 
-class ItemTable extends ItemBase {
+class ItemTable extends StatelessWidget {
   const ItemTable({
     @required this.program,
     Key key,
@@ -65,7 +65,7 @@ class ItemTable extends ItemBase {
 
     children.addAll(extensionRows);
 
-    return ItemBase.itemPadding(
+    return ItemPadding(
       child: Padding(
         padding: const EdgeInsets.only(top: 8),
         child: Table(
@@ -110,7 +110,7 @@ class ItemTable extends ItemBase {
       );
 }
 
-class _TableCell extends ItemBase {
+class _TableCell extends StatelessWidget {
   const _TableCell({
     @required this.text,
     @required this.columnIndex,
@@ -126,7 +126,7 @@ class _TableCell extends ItemBase {
       case 3:
         return Styles.COLOR_TEXT_BLUE_WHITE;
       default:
-        return ItemBase.color;
+        return Styles.colorPriceWhite;
     }
   }
 

@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/padding_row.dart';
 
-class RowVideoTime extends WidgetItemBase {
+class RowVideoTime extends StatelessWidget {
   RowVideoTime({
     Key key,
     @required this.broadcastAt,

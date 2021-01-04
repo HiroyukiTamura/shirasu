@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/padding_row.dart';
+import 'package:shirasu/extension.dart';
 
-class RowVideoTags extends WidgetItemBase {
+part 'row_video_tags.g.dart';
 
-  const RowVideoTags({Key key, @required this.textList}) : super(key: key);
+const double _SPACE = 8;
 
-  final List<String> textList;
-  static const double _SPACE = 8;
+@swidget
+Widget rowVideoTags({@required List<String> textList}) => BasePadding(
+      top: 16,
+      child: Wrap(
+        spacing: _SPACE,
+        runSpacing: _SPACE,
+        children: textList
+            .map((text) => _VideoTagChip(text: text))
+            .toUnmodifiableList(),
+      ),
+    );
 
-  @override
-  Widget build(BuildContext context) => basePadding(
-    top: 16,
-    child: Wrap(
-      spacing: _SPACE,
-      runSpacing: _SPACE,
-      children: textList
-          .map((text) => _VideoTagChip(text: text))
-          .toList(growable: false),
-    ),
-  );
-}
-
-class _VideoTagChip extends StatelessWidget {
-
-  const _VideoTagChip({@required this.text}) : super();
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => RichText(
+@swidget
+Widget _videoTagChip({
+  @required String text,
+}) => RichText(
     text: TextSpan(
         style: TextStyle(
           color: Styles.colorTextSub,
@@ -49,4 +43,3 @@ class _VideoTagChip extends StatelessWidget {
           TextSpan(text: text)
         ]),
   );
-}

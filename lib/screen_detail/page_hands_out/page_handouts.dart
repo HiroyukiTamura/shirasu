@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -15,24 +16,19 @@ import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/util.dart';
 
-class ScreenHandouts extends HookWidget {
-  const ScreenHandouts({
-    @required this.program,
-    @required this.onClearClicked,
-  }) : super();
+part 'page_handouts.g.dart';
 
-  final OnClearClicked onClearClicked;
-  final ProgramDetail program;
-
-  @override
-  Widget build(BuildContext context) => DraggableSheet(
-        heading: Strings.HEADER_HANDOUTS,
-        onClearClicked: onClearClicked,
-        child: _ScreenHandsOutInner(
-          program: program,
-        ),
-      );
-}
+@hwidget
+Widget pageHandouts({
+  @required OnClearClicked onClearClicked,
+  @required ProgramDetail program,
+}) => DraggableSheet(
+    heading: Strings.HEADER_HANDOUTS,
+    onClearClicked: onClearClicked,
+    child: _ScreenHandsOutInner(
+      program: program,
+    ),
+  );
 
 class _ScreenHandsOutInner extends HookWidget {
   _ScreenHandsOutInner({

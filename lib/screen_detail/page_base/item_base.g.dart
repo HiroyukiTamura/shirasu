@@ -6,6 +6,15 @@ part of 'item_base.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
+class ItemPadding extends StatelessWidget {
+  const ItemPadding({Key key, @required this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext _context) => itemPadding(child: child);
+}
+
 class DraggableSheet extends StatelessWidget {
   const DraggableSheet(
       {Key key,

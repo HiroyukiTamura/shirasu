@@ -13,7 +13,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 part 'row_fabs.g.dart';
 
-class RowFabs extends WidgetItemBase {
+class RowFabs extends StatelessWidget {
   const RowFabs({
     @required this.program,
     Key key,

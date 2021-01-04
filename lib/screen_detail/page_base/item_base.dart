@@ -7,23 +7,14 @@ part 'item_base.g.dart';
 
 typedef OnClearClicked = Function(BuildContext context);
 
-abstract class ItemBase extends StatelessWidget {
-  const ItemBase({
-    Key key,
-  }) : super(key: key);
-
-  @protected
-  static Color color = Colors.white.withOpacity(.85);
-
-  @protected
-  static Widget itemPadding({
-    @required Widget child,
-  }) =>
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: child,
-      );
-}
+@swidget
+Widget itemPadding({
+  @required Widget child,
+}) =>
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: child,
+    );
 
 @swidget
 Widget draggableSheet(
@@ -35,7 +26,9 @@ Widget draggableSheet(
     Column(
       children: [
         ItemHeading(
-            text: heading, onClearClicked: () => onClearClicked(context)),
+          text: heading,
+          onClearClicked: () => onClearClicked(context),
+        ),
         Expanded(child: child),
       ],
     );

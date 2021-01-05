@@ -11,6 +11,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'video_thumbnail.g.dart';
@@ -41,10 +42,7 @@ class VideoThumbnail extends HookWidget {
       children: [
         CachedNetworkImage(
           imageUrl: UrlUtil.getThumbnailUrl(program.id),
-          errorWidget: (context, url, error) {
-            //todo log and show error widget
-            return Container();
-          },
+          errorWidget: Util.defaultPrgThumbnail,
         ),
         _hoverWidget(context, program),
       ],

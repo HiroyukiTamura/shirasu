@@ -95,7 +95,12 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> {
     );
   }
 
-  bool _onWillPop(BuildContext context) => context.read(pDetailController).collapse();
+  Future<bool> _onWillPop(BuildContext context) async {
+    final closed = await context.read(detailSNProvider).tryClosePanel();
+    if (!closed)
+      return context.read(pDetailController).collapse();
+    return false;
+  }
 
   void _onChangePanelProvider(BuildContext context, bool isExpanded) {
     if (_panelController.isPanelOpen && !isExpanded)

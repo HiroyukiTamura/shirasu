@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/router/app_route_information_parser.dart';
+import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
-import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/screen_oss_licence/screen_oss_licence.dart';
 import 'package:tuple/tuple.dart';
 
 class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<GlobalRoutePathBase> {
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<GlobalRoutePathBase>, OnPopPageMixin {
   InPlayerAppRouterDelegate(GlobalAppState appState) : navigatorKey = GlobalKey<NavigatorState>() {
     _appState = appState;
   }
@@ -55,17 +54,7 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
     ))
         .toList();
 
-    return Navigator(
-      key: navigatorKey,
-      pages: pageList,
-      onPopPage: (route, result) {
-        if (!route.didPop(result)) return false;
-
-        _appState.pop();
-
-        return true;
-      },
-    );
+    return createNavigator(pageList);
   }
 
   @override

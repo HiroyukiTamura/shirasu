@@ -149,4 +149,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     else
       await panelController.open();
   }
+
+  Future<bool> tryClosePanel() async {
+    if (panelController.isPanelClosed)
+      return false;
+    await panelController.close();
+    return true;
+  }
 }

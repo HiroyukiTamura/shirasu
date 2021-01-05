@@ -94,6 +94,12 @@ class _ScreenDetailContentState extends State<ScreenDetailContent> {
     context.read(pDetailScaffold).key = null;
     super.dispose();
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.dependOnInheritedWidgetOfExactType();
+  }
 }
 
 class _ContentWidget extends HookWidget {

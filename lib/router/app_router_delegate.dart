@@ -13,8 +13,10 @@ import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/screen_oss_licence/screen_oss_licence.dart';
 import 'package:tuple/tuple.dart';
 
+import 'app_router_asset.dart';
+
 class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<GlobalRoutePathBase> {
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<GlobalRoutePathBase>, OnPopPageMixin {
   AppRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
     _appState.addListener(notifyListeners);
   }
@@ -32,17 +34,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
       child: ScreenInPlayer(appState: _appState),
     );
 
-    return Navigator(
-      key: navigatorKey,
-      pages: [page],
-      onPopPage: (route, result) {
-        if (!route.didPop(result)) return false;
-
-        _appState.pop();
-
-        return true;
-      },
-    );
+    return createNavigator([page]);
   }
 
   @override

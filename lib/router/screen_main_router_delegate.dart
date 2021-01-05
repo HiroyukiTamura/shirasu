@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/router/no_animation_page.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_app_state.dart';
@@ -8,7 +9,7 @@ import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<PathDataMainPageBase> {
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<PathDataMainPageBase>, OnPopPageMixin {
   ScreenMainRouterDelegate(GlobalAppState appState)
       : navigatorKey = GlobalKey<NavigatorState>() {
     _appState = appState;
@@ -42,20 +43,7 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
       child: screen,
     );
 
-    return Navigator(
-      key: navigatorKey,
-      pages: [page],
-      onPopPage: (route, result) {
-        //todo implement
-
-        // if (!route.didPop(result)) return false;
-        //
-        // //todo handle error
-        // notifyListeners();
-
-        return true;
-      },
-    );
+    return createNavigator([page]);
   }
 
   @override

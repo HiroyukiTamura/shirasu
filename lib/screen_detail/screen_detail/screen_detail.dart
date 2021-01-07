@@ -22,21 +22,16 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:shirasu/viewmodel/viewmodel_detail_controller.dart';
+import 'package:shirasu/viewmodel/player_animation_manager.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 part 'screen_detail.g.dart';
 
-final pDetailController =
-    StateNotifierProvider.autoDispose<ViewModelDetailController>(
-        (_) => ViewModelDetailController());
-
-final pDetailId = Provider.autoDispose<String>(
-    (ref) => ref.watch(pDetailController.state).id);
+final pDetailId = StateProvider.autoDispose<String>((_) => null);
 
 final detailSNProvider =
     StateNotifierProvider.autoDispose<ViewModelDetail>((ref) {
-  final id = ref.watch(pDetailId);
+  final id = ref.watch(pDetailId).state;
   return ViewModelDetail(id, ref);
 });
 
@@ -52,7 +47,7 @@ final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 @hwidget
-Widget screenDetail() => useProvider(pDetailId) == null
+Widget screenDetail() => useProvider(pDetailId).state == null
     ? const SizedBox.shrink()
     : const ScreenDetailContent();
 
@@ -63,28 +58,32 @@ class ScreenDetailContent extends StatefulHookWidget {
   _ScreenDetailContentState createState() => _ScreenDetailContentState();
 }
 
-class _ScreenDetailContentState extends State<ScreenDetailContent> {
+class _ScreenDetailContentState extends State<ScreenDetailContent>
+    with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  PlayerAnimationManager _pam;
 
   @override
   void initState() {
     super.initState();
     context.read(pDetailScaffold).key = scaffoldKey;
+    _pam = PlayerAnimationManager(this);
   }
 
   @override
   Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-          key: scaffoldKey,
-          body: MsgNtfListener(
-            child: useProvider(
-                detailSNProvider.state.select((it) => it.prgDataResult)).when(
-              loading: () => const CenterCircleProgress(),
-              preInitialized: () => const CenterCircleProgress(),
-              success: (programDetailData, channelData, page) =>
-                  _ContentWidget(data: programDetailData),
-              error: () => const PageError(),
+        child: WillPopScope(
+          onWillPop: _onWillPop,
+          child: useProvider(
+              detailSNProvider.state.select((it) => it.prgDataResult)).when(
+            loading: () => const CenterCircleProgress(),
+            preInitialized: () => const CenterCircleProgress(),
+            success: (programDetailData, channelData, page) => EpisodePlayer(
+              data: programDetailData,
+              pam: _pam,
             ),
+            error: () => const PageError(),
           ),
         ),
       );
@@ -92,6 +91,7 @@ class _ScreenDetailContentState extends State<ScreenDetailContent> {
   @override
   void dispose() {
     context.read(pDetailScaffold).key = null;
+    _pam.dispose();
     super.dispose();
   }
 
@@ -100,35 +100,114 @@ class _ScreenDetailContentState extends State<ScreenDetailContent> {
     super.didChangeDependencies();
     context.dependOnInheritedWidgetOfExactType();
   }
+
+  Future<bool> _onWillPop() async {
+    final closed = await context.read(detailSNProvider).tryClosePanel();
+    if (!closed) return _pam.collapse();
+    return false;
+  }
+}
+
+class EpisodePlayer extends StatelessWidget {
+  const EpisodePlayer({
+    Key key,
+    @required this.pam,
+    @required this.data,
+  }) : super(key: key);
+
+  static const _margin = 8.0;
+  static const _bottomBarHeight = 48.0;
+  static const _SHRINKED_HEIGHT = kBottomNavigationBarHeight;
+  static const _shrinkedAspectRatio = 2.5;
+
+  final PlayerAnimationManager pam;
+  final ProgramDetailData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      const shrinkedBottom = _bottomBarHeight + _margin;
+      final shrinkedTop = constraints.maxHeight - (shrinkedBottom + _SHRINKED_HEIGHT);
+      return AnimatedBuilder(
+        animation: pam.animation,
+        builder: (context, child) {
+          final expandedRatio = pam.animation.value;
+          final top = shrinkedTop * (1 - expandedRatio);
+          final margin = (1 - expandedRatio) * _margin;
+          final bottom = (1 - expandedRatio) * shrinkedBottom + margin;
+          return Stack(
+            children: [
+              Positioned(
+                top: top,
+                left: margin,
+                right: margin,
+                bottom: bottom,
+                child: child,
+              ),
+            ],
+          );
+        },
+        child: GestureDetector(
+          onTap: pam.expand,
+          onVerticalDragUpdate: (details) {
+            final delta = -details.primaryDelta;
+            pam.addAnimationValue(delta / shrinkedTop);
+          },
+          onVerticalDragEnd: (details) {
+            final threshold = pam.status == PlayerStatus.shrinked ? 0.3 : 0.7;
+            pam.animation.value > threshold ? pam.expand() : pam.collapse();
+          },
+          child: Scaffold(
+            primary: false,
+            body: _ContentWidget(
+              data: data,
+              pam: pam,
+            ),
+          ),
+        ),
+      );
+    },);
+  }
 }
 
 class _ContentWidget extends HookWidget {
-  const _ContentWidget({Key key, @required this.data}) : super(key: key);
+  const _ContentWidget({
+    Key key,
+    @required this.pam,
+    @required this.data,
+  }) : super(key: key);
 
   final ProgramDetailData data;
+  final PlayerAnimationManager pam;
 
   @override
   Widget build(BuildContext _) {
     final panelController = useProvider(detailSNProvider).panelController;
     return LayoutBuilder(
-        builder: (context, constrains) {
-          final headerH = constrains.maxWidth / Dimens.IMG_RATIO;
-          final listViewH = constrains.maxHeight - headerH;
-          return Column(
-            children: [
-              VideoHeader(
-                height: headerH,
-                programId: data.program.id,
-                onTap: () async => _playVideo(context, true),
-                onTapPreviewBtn: () async => _playVideo(context, false),
-              ),
-              Expanded(
+      builder: (context, constraints) {
+        final aspectRatio = constraints.maxWidth / constraints.maxHeight;
+        if (aspectRatio > EpisodePlayer._shrinkedAspectRatio - 0.1)
+          return _VideoRow(pam: pam);
+
+        final headerH = constraints.maxWidth / Dimens.IMG_RATIO;
+        final listViewH = constraints.maxHeight - headerH;
+        return Column(
+          children: [
+            VideoHeader(
+              height: headerH,
+              programId: data.program.id,
+              onTap: () async => _playVideo(context, true),
+              onTapPreviewBtn: () async => _playVideo(context, false),
+            ),
+            Expanded(
+              child: FadeTransition(
+                opacity: pam.contentFadeAnimation,
                 child: SlidingUpPanel(
                   minHeight: 0,
                   maxHeight: listViewH,
                   controller: panelController,
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  panel: BottomSheet(program: data.program),
+                  panel: _BottomSheet(program: data.program),
                   body: ListView.builder(
                       itemCount: 6,
                       padding: const EdgeInsets.only(bottom: 24),
@@ -158,18 +237,19 @@ class _ContentWidget extends HookWidget {
                       }),
                 ),
               ),
-            ],
-          );
-        },
-      );
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>
       context.read(detailSNProvider).playVideo(false);
 }
 
-class BottomSheet extends HookWidget {
-  const BottomSheet({
+class _BottomSheet extends HookWidget {
+  const _BottomSheet({
     Key key,
     @required this.program,
   }) : super(key: key);
@@ -189,5 +269,87 @@ class BottomSheet extends HookWidget {
         ),
       );
 
-  Future<void> _onClearClicked(BuildContext context) async => context.read(detailSNProvider).panelController.close();
+  Future<void> _onClearClicked(BuildContext context) async =>
+      context.read(detailSNProvider).panelController.close();
+}
+
+class _VideoRow extends StatelessWidget {
+  const _VideoRow({
+    Key key,
+    @required this.pam,
+  }) : super(key: key);
+
+  final PlayerAnimationManager pam;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return Stack(
+      children: <Widget>[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(
+                width: EpisodePlayer._SHRINKED_HEIGHT *
+                        EpisodePlayer._shrinkedAspectRatio +
+                    4.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'タイトル',
+                    maxLines: 1,
+                    style: textTheme.caption,
+                  ),
+                  Text(
+                    'チャンネル名',
+                    maxLines: 1,
+                    style: textTheme.overline,
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.play_arrow),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () {},
+            )
+          ],
+        ),
+        _Video(pam: pam),
+      ],
+    );
+  }
+}
+
+class _Video extends HookWidget {
+  const _Video({
+    Key key,
+    @required this.pam,
+  }) : super(key: key);
+
+  static final _aspectTween = Tween<double>(
+    begin: EpisodePlayer._shrinkedAspectRatio,
+    end: 16 / 9,
+  );
+
+  final PlayerAnimationManager pam;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: pam.animation,
+      builder: (context, child) => AspectRatio(
+        aspectRatio: _aspectTween.evaluate(pam.animation),
+        child: child,
+      ),
+      child: const Placeholder(),
+    );
+  }
 }

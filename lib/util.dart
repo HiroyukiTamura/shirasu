@@ -8,6 +8,7 @@ import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/ui_common/images.dart';
+import 'package:riverpod/src/framework.dart';
 
 class Util {
   const Util._();
@@ -75,4 +76,8 @@ class Util {
         .add(duration);
     return DateFormat('hh:mm:ss').format(dateTime);
   }
+}
+
+mixin Disposable {
+  void dispose();
 }

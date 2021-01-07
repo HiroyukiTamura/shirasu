@@ -17,13 +17,10 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
         ChangeNotifier,
         PopNavigatorRouterDelegateMixin<GlobalRoutePathBase>,
         OnPopPageMixin {
-  InPlayerAppRouterDelegate(GlobalAppState appState, TickerProvider vsync)
-      : pam = PlayerAnimationManager(vsync),
-        navigatorKey = GlobalKey<NavigatorState>() {
+  InPlayerAppRouterDelegate(GlobalAppState appState)
+      :navigatorKey = GlobalKey<NavigatorState>() {
     _appState = appState;
   }
-
-  final PlayerAnimationManager pam;
 
   @override
   final GlobalKey<NavigatorState> navigatorKey;
@@ -40,12 +37,6 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
   GlobalAppState _appState;
 
   @override
-  void dispose() {
-    super.dispose();
-    pam.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final pageList = _appState.list
         .map<Tuple2<String, Widget>>((pathData) {
@@ -59,8 +50,7 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             ossLicense: () => const ScreenOssLicense(),
             auth: () => const ScreenAuth(),
             mainPage: () => PageDashboardInMainScreen(
-              appState: _appState,
-              pam: pam,
+              appState: _appState
             ),
           );
           final location = NavigationValueKeyHandler.getValueKey(pathData);

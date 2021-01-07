@@ -26,21 +26,15 @@ class ScreenInPlayer extends StatefulHookWidget {
   _ScreenInPlayerState createState() => _ScreenInPlayerState();
 }
 
-class _ScreenInPlayerState extends State<ScreenInPlayer> with TickerProviderStateMixin {
+class _ScreenInPlayerState extends State<ScreenInPlayer> {
   InPlayerAppRouterDelegate _routerDelegate;
   ChildBackButtonDispatcher _backButtonDispatcher;
 
   @override
   void initState() {
     super.initState();
-    _routerDelegate = InPlayerAppRouterDelegate(widget.appState, this);
+    _routerDelegate = InPlayerAppRouterDelegate(widget.appState);
     context.read(scaffoldProvider).key = GlobalKey<ScaffoldState>();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _routerDelegate.dispose();
   }
 
   @override
@@ -72,7 +66,7 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> with TickerProviderStat
               routerDelegate: _routerDelegate,
               backButtonDispatcher: _backButtonDispatcher,
             ),
-            ScreenDetail(pam: _routerDelegate.pam),
+            const ScreenDetail(),
           ]),
         ),
       ),

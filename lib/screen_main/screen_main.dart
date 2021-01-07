@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -25,19 +26,16 @@ class PageDashboardInMainScreen extends StatefulHookWidget {
   const PageDashboardInMainScreen({
     Key key,
     @required this.appState,
-    @required this.pam,
   }) : super(key: key);
 
   final GlobalAppState appState;
-  final PlayerAnimationManager pam;
 
   @override
   _PageDashboardInMainScreenState createState() =>
       _PageDashboardInMainScreenState();
 }
 
-class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
-    with TickerProviderStateMixin {
+class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
   ScreenMainRouterDelegate _routerDelegate;
   ChildBackButtonDispatcher _backButtonDispatcher;
 
@@ -82,24 +80,20 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen>
           routerDelegate: _routerDelegate,
           backButtonDispatcher: _backButtonDispatcher,
         ),
-        floatingActionButton: _Fab(
-          delegate: _routerDelegate,
-        ),
-        bottomNavigationBar: _MainBottomNavigationBar(
-          routerDelegate: _routerDelegate,
-          pam: widget.pam,
-        ),
+        floatingActionButton: _Fab(delegate: _routerDelegate),
+        bottomNavigationBar:
+            _MainBottomNavigationBar(routerDelegate: _routerDelegate),
       ),
     );
   }
 }
 
-@swidget
+@hwidget
 Widget _mainBottomNavigationBar({
   @required ScreenMainRouterDelegate routerDelegate,
-  @required PlayerAnimationManager pam,
-}) =>
-    AnimatedBuilder(
+}) {
+  final pam = useProvider(pPlayerAnimationProvider).pam;
+  return AnimatedBuilder(
       builder: (context, child) => Align(
         alignment: Alignment.topCenter,
         heightFactor: 1 - pam.animation.value,
@@ -133,6 +127,7 @@ Widget _mainBottomNavigationBar({
         ],
       ),
     );
+}
 
 class _Fab extends HookWidget {
   const _Fab({

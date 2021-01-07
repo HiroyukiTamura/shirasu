@@ -162,7 +162,7 @@ class _Content extends HookWidget {
             children: [
               PageChannelDetail(text: channelData.channel.detail),
               PageMovieList(
-                onTapItem: (BuildContext context, String prgId) async =>
+                onTapItem: (context, prgId) async =>
                     context.pushProgramPage(prgId),
                 channelId: channelData.channel.id,
               ),

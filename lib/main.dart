@@ -12,10 +12,13 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/viewmodel/player_animation_manager.dart';
 
 final snackBarMsgProvider =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
         (ref) => SnackBarMessageNotifier());
+
+final pPlayerAnimationProvider = Provider<PlayerAnimationManagerHolder>((_) => PlayerAnimationManagerHolder());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,16 +48,18 @@ class MyApp extends StatefulHookWidget {
   MyAppState createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    context.read(pPlayerAnimationProvider).init(this);
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    context.read(pPlayerAnimationProvider).pam.dispose();
     super.dispose();
   }
 

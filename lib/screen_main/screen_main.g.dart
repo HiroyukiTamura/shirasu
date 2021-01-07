@@ -6,16 +6,13 @@ part of 'screen_main.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class _MainBottomNavigationBar extends StatelessWidget {
-  const _MainBottomNavigationBar(
-      {Key key, @required this.routerDelegate, @required this.pam})
+class _MainBottomNavigationBar extends HookWidget {
+  const _MainBottomNavigationBar({Key key, @required this.routerDelegate})
       : super(key: key);
 
   final ScreenMainRouterDelegate routerDelegate;
 
-  final PlayerAnimationManager pam;
-
   @override
   Widget build(BuildContext _context) =>
-      _mainBottomNavigationBar(routerDelegate: routerDelegate, pam: pam);
+      _mainBottomNavigationBar(routerDelegate: routerDelegate);
 }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_channel.dart';
@@ -49,9 +49,7 @@ final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 class ScreenDetail extends StatefulHookWidget {
-  const ScreenDetail({@required this.pam});
-
-  final PlayerAnimationManager pam;
+  const ScreenDetail();
 
   @override
   ScreenDetailState createState() => ScreenDetailState();
@@ -71,27 +69,30 @@ class ScreenDetailState extends State<ScreenDetail> {
   }
 
   @override
-  Widget build(BuildContext context) => useProvider(pDetailId).state == null
+  Widget build(BuildContext context) {
+    final pam = useProvider(pPlayerAnimationProvider).pam;
+    return useProvider(pDetailId).state == null
       ? const SizedBox.shrink()
       : LayoutBuilder(
           builder: (context, constraints) {
             final shrinkedTop =
                 constraints.maxHeight - (_BOTTOM_BAR_HEIGHT + SHRINKED_HEIGHT);
             return AnimatedBuilder(
-              animation: widget.pam.animation,
+              animation: pam.animation,
               builder: (context, child) =>
                   _animationBuilder(context, child, shrinkedTop),
               child: GestureDetector(
-                onTap: widget.pam.expand,
+                onTap: pam.expand,
                 onVerticalDragUpdate: (details) =>
-                    _onVerticalDragUpdate(details, shrinkedTop),
+                    _onVerticalDragUpdate(context, details, shrinkedTop),
                 onVerticalDragEnd: (details) =>
-                    _onVerticalDragEnd(details, shrinkedTop),
-                child: _ExpandableWidget(pam: widget.pam),
+                    _onVerticalDragEnd(context, details, shrinkedTop),
+                child: const _ExpandableWidget(),
               ),
             );
           },
         );
+  }
 
   @override
   void dispose() {
@@ -107,7 +108,8 @@ class ScreenDetailState extends State<ScreenDetail> {
 
   Widget _animationBuilder(
       BuildContext context, Widget child, double shrinkedTop) {
-    final expandedRatio = widget.pam.animation.value;
+    final expandedRatio =
+        context.read(pPlayerAnimationProvider).pam.animation.value;
     final top = shrinkedTop * (1 - expandedRatio);
     final bottom = _BOTTOM_BAR_HEIGHT * (1 - expandedRatio);
     return Stack(
@@ -124,24 +126,25 @@ class ScreenDetailState extends State<ScreenDetail> {
     );
   }
 
-  void _onVerticalDragUpdate(DragUpdateDetails details, double shrinkedTop) {
+  void _onVerticalDragUpdate(
+      BuildContext context, DragUpdateDetails details, double shrinkedTop) {
     final delta = -details.primaryDelta;
-    widget.pam.addAnimationValue(delta / shrinkedTop);
+    context
+        .read(pPlayerAnimationProvider)
+        .pam
+        .addAnimationValue(delta / shrinkedTop);
   }
 
-  void _onVerticalDragEnd(DragEndDetails details, double shrinkedTop) {
-    final threshold = widget.pam.status == PlayerStatus.shrinked ? 0.3 : 0.7;
-    widget.pam.animation.value > threshold ? widget.pam.expand() : widget.pam.collapse();
+  void _onVerticalDragEnd(
+      BuildContext context, DragEndDetails details, double shrinkedTop) {
+    final pam = context.read(pPlayerAnimationProvider).pam;
+    final threshold = pam.status == PlayerStatus.shrinked ? 0.3 : 0.7;
+    pam.animation.value > threshold ? pam.expand() : pam.collapse();
   }
 }
 
 class _ExpandableWidget extends HookWidget {
-  const _ExpandableWidget({
-    Key key,
-    @required this.pam,
-  }) : super(key: key);
-
-  final PlayerAnimationManager pam;
+  const _ExpandableWidget({Key key}) : super(key: key);
 
   ///todo is this Scaffold necessary?
   @override
@@ -165,19 +168,19 @@ class _ExpandableWidget extends HookWidget {
 
   Future<bool> _onWillPop(BuildContext context) async {
     final closed = await context.read(detailSNProvider).tryClosePanel();
-    if (!closed) return pam.collapse();
+    if (!closed) return context.read(pPlayerAnimationProvider).pam.collapse();
     return false;
   }
 
   Widget _successWidget(ProgramDetailData programDetailData,
-          ChannelData channelData, PageSheetModel page) =>
-      LayoutBuilder(builder: (context, constraints) {
+          ChannelData channelData, PageSheetModel page) {
+    final pam = useProvider(pPlayerAnimationProvider).pam;
+    return LayoutBuilder(builder: (context, constraints) {
         final aspectRatio = constraints.maxWidth / constraints.maxHeight;
 
         if (aspectRatio > ScreenDetailState.SHRINKED_ASPECT_RATIO - 0.1)
           return VideoRow(
             data: programDetailData,
-            pam: pam,
             width: constraints.maxWidth,
             height: constraints.maxHeight,
           );
@@ -202,7 +205,6 @@ class _ExpandableWidget extends HookWidget {
                       );
               case 1:
                 return _PlayerBody(
-                  pam: pam,
                   height: listViewH,
                   data: programDetailData,
                 );
@@ -213,6 +215,7 @@ class _ExpandableWidget extends HookWidget {
           itemCount: 2,
         );
       });
+  }
 }
 
 class _BottomSheet extends HookWidget {
@@ -243,12 +246,10 @@ class _BottomSheet extends HookWidget {
 ///todo migrate to functional_widget
 class _PlayerBody extends HookWidget {
   const _PlayerBody({
-    @required this.pam,
     @required this.height,
     @required this.data,
   });
 
-  final PlayerAnimationManager pam;
   final double height;
   final ProgramDetailData data;
 
@@ -258,7 +259,7 @@ class _PlayerBody extends HookWidget {
       : SizedBox(
           height: height,
           child: FadeTransition(
-            opacity: pam.contentFadeAnimation,
+            opacity: useProvider(pPlayerAnimationProvider).pam.contentFadeAnimation,
             child: SlidingUpPanel(
               minHeight: 0,
               maxHeight: height,

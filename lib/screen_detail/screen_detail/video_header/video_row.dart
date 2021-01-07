@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -17,7 +18,6 @@ const double _kBtnWidth = kMinInteractiveDimension;
 class VideoRow extends HookWidget {
   const VideoRow({
     Key key,
-    @required this.pam,
     @required this.height,
     @required this.width,
     @required this.data,
@@ -26,7 +26,6 @@ class VideoRow extends HookWidget {
   final double height;
   final double width;
   final ProgramDetailData data;
-  final PlayerAnimationManager pam;
 
   static const double _LEFT_PAD = 8;
 
@@ -73,7 +72,8 @@ class VideoRow extends HookWidget {
             iconData: Icons.play_arrow,
             spaceRatio: spaceRatio,
             height: height,
-            right: _kBtnWidth * 2 < currentW ? _kBtnWidth : currentW - _kBtnWidth,
+            right:
+                _kBtnWidth * 2 < currentW ? _kBtnWidth : currentW - _kBtnWidth,
             onPressed: () {
               //todo implement
             },
@@ -85,10 +85,7 @@ class VideoRow extends HookWidget {
           right: _kBtnWidth < currentW ? 0 : currentW - _kBtnWidth,
           onPressed: spaceRatio == 1 ? () => _onTapCloseBtn(context) : null,
         ),
-        _Video(
-          pam: pam,
-          height: height,
-        ),
+        _Video(height: height),
       ],
     );
   }
@@ -147,7 +144,6 @@ class _Video extends HookWidget {
   const _Video({
     Key key,
     @required this.height,
-    @required this.pam,
   }) : super(key: key);
 
   static final _aspectTween = Tween<double>(
@@ -155,12 +151,12 @@ class _Video extends HookWidget {
     end: Dimens.IMG_RATIO,
   );
 
-  final PlayerAnimationManager pam;
   final double height;
 
   @override
   Widget build(BuildContext context) {
-    final aspectRatio = _aspectTween.evaluate(pam.animation);
+    final animation = useProvider(pPlayerAnimationProvider).pam.animation;
+    final aspectRatio = _aspectTween.evaluate(animation);
     return Positioned(
       height: height,
       width: height * aspectRatio,

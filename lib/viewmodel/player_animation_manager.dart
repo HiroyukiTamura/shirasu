@@ -8,6 +8,20 @@ enum PlayerStatus {
   expanded,
 }
 
+class PlayerAnimationManagerHolder implements Disposable {
+  PlayerAnimationManager _pam;
+
+  PlayerAnimationManager get pam => _pam;
+
+  void init(TickerProvider vsync) => _pam = PlayerAnimationManager(vsync);
+
+  @override
+  void dispose() {
+    _pam?.dispose();
+    _pam = null;
+  }
+}
+
 // TODO(mono): 完全に隠れた方のアニメーションを無効化したり(Visibility+α)
 class PlayerAnimationManager with Disposable {
   PlayerAnimationManager(TickerProvider vsync)

@@ -49,27 +49,25 @@ final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 class ScreenDetail extends StatefulHookWidget {
-  const ScreenDetail();
+  const ScreenDetail({@required this.pam});
+
+  final PlayerAnimationManager pam;
 
   @override
   ScreenDetailState createState() => ScreenDetailState();
 }
 
-class ScreenDetailState extends State<ScreenDetail>
-    with TickerProviderStateMixin {
+class ScreenDetailState extends State<ScreenDetail> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   static const double _BOTTOM_BAR_HEIGHT = kBottomNavigationBarHeight;
   static const double SHRINKED_HEIGHT = 56;
   static const double SHRINKED_ASPECT_RATIO = 2.5;
 
-  PlayerAnimationManager _pam;
-
   @override
   void initState() {
     super.initState();
     context.read(pDetailScaffold).key = scaffoldKey;
-    _pam = PlayerAnimationManager(this);
   }
 
   @override
@@ -80,16 +78,16 @@ class ScreenDetailState extends State<ScreenDetail>
             final shrinkedTop =
                 constraints.maxHeight - (_BOTTOM_BAR_HEIGHT + SHRINKED_HEIGHT);
             return AnimatedBuilder(
-              animation: _pam.animation,
+              animation: widget.pam.animation,
               builder: (context, child) =>
                   _animationBuilder(context, child, shrinkedTop),
               child: GestureDetector(
-                onTap: _pam.expand,
+                onTap: widget.pam.expand,
                 onVerticalDragUpdate: (details) =>
                     _onVerticalDragUpdate(details, shrinkedTop),
                 onVerticalDragEnd: (details) =>
                     _onVerticalDragEnd(details, shrinkedTop),
-                child: _ExpandableWidget(pam: _pam),
+                child: _ExpandableWidget(pam: widget.pam),
               ),
             );
           },
@@ -98,7 +96,6 @@ class ScreenDetailState extends State<ScreenDetail>
   @override
   void dispose() {
     context.read(pDetailScaffold).key = null;
-    _pam.dispose();
     super.dispose();
   }
 
@@ -110,7 +107,7 @@ class ScreenDetailState extends State<ScreenDetail>
 
   Widget _animationBuilder(
       BuildContext context, Widget child, double shrinkedTop) {
-    final expandedRatio = _pam.animation.value;
+    final expandedRatio = widget.pam.animation.value;
     final top = shrinkedTop * (1 - expandedRatio);
     final bottom = _BOTTOM_BAR_HEIGHT * (1 - expandedRatio);
     return Stack(
@@ -129,12 +126,12 @@ class ScreenDetailState extends State<ScreenDetail>
 
   void _onVerticalDragUpdate(DragUpdateDetails details, double shrinkedTop) {
     final delta = -details.primaryDelta;
-    _pam.addAnimationValue(delta / shrinkedTop);
+    widget.pam.addAnimationValue(delta / shrinkedTop);
   }
 
   void _onVerticalDragEnd(DragEndDetails details, double shrinkedTop) {
-    final threshold = _pam.status == PlayerStatus.shrinked ? 0.3 : 0.7;
-    _pam.animation.value > threshold ? _pam.expand() : _pam.collapse();
+    final threshold = widget.pam.status == PlayerStatus.shrinked ? 0.3 : 0.7;
+    widget.pam.animation.value > threshold ? widget.pam.expand() : widget.pam.collapse();
   }
 }
 

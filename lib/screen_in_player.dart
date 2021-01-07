@@ -33,7 +33,7 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> with TickerProviderStat
   @override
   void initState() {
     super.initState();
-    _routerDelegate = InPlayerAppRouterDelegate(widget.appState);
+    _routerDelegate = InPlayerAppRouterDelegate(widget.appState, this);
     context.read(scaffoldProvider).key = GlobalKey<ScaffoldState>();
   }
 
@@ -72,7 +72,7 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> with TickerProviderStat
               routerDelegate: _routerDelegate,
               backButtonDispatcher: _backButtonDispatcher,
             ),
-            const ScreenDetail(),
+            ScreenDetail(pam: _routerDelegate.pam),
           ]),
         ),
       ),

@@ -26,7 +26,7 @@ class VideoHeader extends HookWidget {
     final playOutState = useProvider(
         detailSNProvider.state.select((it) => it.playOutState));
     final result = useProvider(detailSNProvider).state.prgDataResult
-        as StateSuccess; //we want rebuild here
+        as StateSuccess; //we don't want rebuild here
 
     final program = result.programDetailData.program;
     Widget child;

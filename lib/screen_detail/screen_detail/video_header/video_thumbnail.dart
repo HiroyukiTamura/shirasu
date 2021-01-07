@@ -35,12 +35,13 @@ class VideoThumbnail extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final result = useProvider(detailSNProvider).state.prgDataResult
-        as StateSuccess; //we want rebuild here
+        as StateSuccess; //we don't want rebuild here
 
     final program = result.programDetailData.program;
     return Stack(
       children: [
         CachedNetworkImage(
+          fit: BoxFit.cover,
           imageUrl: UrlUtil.getThumbnailUrl(program.id),
           errorWidget: Util.defaultPrgThumbnail,
         ),

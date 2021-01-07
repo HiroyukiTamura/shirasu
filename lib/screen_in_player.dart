@@ -66,6 +66,7 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> with TickerProviderStat
       child: Scaffold(
         key: useProvider(scaffoldProvider).key,
         body: Scaffold(
+          primary: false,
           body: Stack(children: [
             Router(
               routerDelegate: _routerDelegate,

@@ -3,14 +3,17 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_desc.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_time.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/minimized_player_view.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_header.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
@@ -25,7 +28,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/player_animation_manager.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-part 'screen_detail.g.dart';
+// part 'screen_detail.g.dart';
 
 final pDetailId = StateProvider.autoDispose<String>((_) => null);
 
@@ -46,21 +49,20 @@ final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
-@hwidget
-Widget screenDetail() => useProvider(pDetailId).state == null
-    ? const SizedBox.shrink()
-    : const ScreenDetailContent();
-
-class ScreenDetailContent extends StatefulHookWidget {
-  const ScreenDetailContent();
+class ScreenDetail extends StatefulHookWidget {
+  const ScreenDetail();
 
   @override
-  _ScreenDetailContentState createState() => _ScreenDetailContentState();
+  _ScreenDetailState createState() => _ScreenDetailState();
 }
 
-class _ScreenDetailContentState extends State<ScreenDetailContent>
+class _ScreenDetailState extends State<ScreenDetail>
     with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  static const double _BOTTOM_BAR_HEIGHT = kBottomNavigationBarHeight;
+  static const double _SHRINKED_HEIGHT = 56;
+  static const double _SHRINKED_ASPECT_RATIO = 2.5;
 
   PlayerAnimationManager _pam;
 
@@ -72,21 +74,27 @@ class _ScreenDetailContentState extends State<ScreenDetailContent>
   }
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-        child: WillPopScope(
-          onWillPop: _onWillPop,
-          child: useProvider(
-              detailSNProvider.state.select((it) => it.prgDataResult)).when(
-            loading: () => const CenterCircleProgress(),
-            preInitialized: () => const CenterCircleProgress(),
-            success: (programDetailData, channelData, page) => EpisodePlayer(
-              data: programDetailData,
-              pam: _pam,
-            ),
-            error: () => const PageError(),
-          ),
-        ),
-      );
+  Widget build(BuildContext context) => useProvider(pDetailId).state == null
+      ? const SizedBox.shrink()
+      : LayoutBuilder(
+          builder: (context, constraints) {
+            final shrinkedTop =
+                constraints.maxHeight - (_BOTTOM_BAR_HEIGHT + _SHRINKED_HEIGHT);
+            return AnimatedBuilder(
+              animation: _pam.animation,
+              builder: (context, child) =>
+                  _animationBuilder(context, child, shrinkedTop),
+              child: GestureDetector(
+                onTap: _pam.expand,
+                onVerticalDragUpdate: (details) =>
+                    _onVerticalDragUpdate(details, shrinkedTop),
+                onVerticalDragEnd: (details) =>
+                    _onVerticalDragEnd(details, shrinkedTop),
+                child: _ExpandableWidget(pam: _pam),
+              ),
+            );
+          },
+        );
 
   @override
   void dispose() {
@@ -101,151 +109,107 @@ class _ScreenDetailContentState extends State<ScreenDetailContent>
     context.dependOnInheritedWidgetOfExactType();
   }
 
-  Future<bool> _onWillPop() async {
-    final closed = await context.read(detailSNProvider).tryClosePanel();
-    if (!closed) return _pam.collapse();
-    return false;
-  }
-}
-
-class EpisodePlayer extends StatelessWidget {
-  const EpisodePlayer({
-    Key key,
-    @required this.pam,
-    @required this.data,
-  }) : super(key: key);
-
-  static const _margin = 8.0;
-  static const _bottomBarHeight = 48.0;
-  static const _SHRINKED_HEIGHT = kBottomNavigationBarHeight;
-  static const _shrinkedAspectRatio = 2.5;
-
-  final PlayerAnimationManager pam;
-  final ProgramDetailData data;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      const shrinkedBottom = _bottomBarHeight + _margin;
-      final shrinkedTop = constraints.maxHeight - (shrinkedBottom + _SHRINKED_HEIGHT);
-      return AnimatedBuilder(
-        animation: pam.animation,
-        builder: (context, child) {
-          final expandedRatio = pam.animation.value;
-          final top = shrinkedTop * (1 - expandedRatio);
-          final margin = (1 - expandedRatio) * _margin;
-          final bottom = (1 - expandedRatio) * shrinkedBottom + margin;
-          return Stack(
-            children: [
-              Positioned(
-                top: top,
-                left: margin,
-                right: margin,
-                bottom: bottom,
-                child: child,
-              ),
-            ],
-          );
-        },
-        child: GestureDetector(
-          onTap: pam.expand,
-          onVerticalDragUpdate: (details) {
-            final delta = -details.primaryDelta;
-            pam.addAnimationValue(delta / shrinkedTop);
-          },
-          onVerticalDragEnd: (details) {
-            final threshold = pam.status == PlayerStatus.shrinked ? 0.3 : 0.7;
-            pam.animation.value > threshold ? pam.expand() : pam.collapse();
-          },
-          child: Scaffold(
-            primary: false,
-            body: _ContentWidget(
-              data: data,
-              pam: pam,
-            ),
-          ),
+  Widget _animationBuilder(
+      BuildContext context, Widget child, double shrinkedTop) {
+    final expandedRatio = _pam.animation.value;
+    final top = shrinkedTop * (1 - expandedRatio);
+    final bottom = _BOTTOM_BAR_HEIGHT * (1 - expandedRatio);
+    return Stack(
+      //todo can remove?
+      children: [
+        Positioned(
+          top: top,
+          right: 0,
+          left: 0,
+          bottom: bottom,
+          child: child,
         ),
-      );
-    },);
-  }
-}
-
-class _ContentWidget extends HookWidget {
-  const _ContentWidget({
-    Key key,
-    @required this.pam,
-    @required this.data,
-  }) : super(key: key);
-
-  final ProgramDetailData data;
-  final PlayerAnimationManager pam;
-
-  @override
-  Widget build(BuildContext _) {
-    final panelController = useProvider(detailSNProvider).panelController;
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final aspectRatio = constraints.maxWidth / constraints.maxHeight;
-        if (aspectRatio > EpisodePlayer._shrinkedAspectRatio - 0.1)
-          return _VideoRow(pam: pam);
-
-        final headerH = constraints.maxWidth / Dimens.IMG_RATIO;
-        final listViewH = constraints.maxHeight - headerH;
-        return Column(
-          children: [
-            VideoHeader(
-              height: headerH,
-              programId: data.program.id,
-              onTap: () async => _playVideo(context, true),
-              onTapPreviewBtn: () async => _playVideo(context, false),
-            ),
-            Expanded(
-              child: FadeTransition(
-                opacity: pam.contentFadeAnimation,
-                child: SlidingUpPanel(
-                  minHeight: 0,
-                  maxHeight: listViewH,
-                  controller: panelController,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  panel: _BottomSheet(program: data.program),
-                  body: ListView.builder(
-                      itemCount: 6,
-                      padding: const EdgeInsets.only(bottom: 24),
-                      itemBuilder: (context, index) {
-                        switch (index) {
-                          case 0:
-                            return RowChannel(
-                              title: data.program.channel.name,
-                              channelId: data.program.channel.id,
-                            );
-                          case 1:
-                            return RowVideoTitle(text: data.program.title);
-                          case 2:
-                            return RowVideoTime(
-                              broadcastAt: data.program.broadcastAt,
-                              totalPlayTime: data.program.totalPlayTime,
-                            );
-                          case 3:
-                            return RowVideoTags(textList: data.program.tags);
-                          case 4:
-                            return RowFabs(program: data.program);
-                          case 5:
-                            return RowVideoDesc(text: data.program.detail);
-                          default:
-                            return const SizedBox.shrink();
-                        }
-                      }),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
+      ],
     );
   }
 
+  void _onVerticalDragUpdate(DragUpdateDetails details, double shrinkedTop) {
+    final delta = -details.primaryDelta;
+    _pam.addAnimationValue(delta / shrinkedTop);
+  }
+
+  void _onVerticalDragEnd(DragEndDetails details, double shrinkedTop) {
+    final threshold = _pam.status == PlayerStatus.shrinked ? 0.3 : 0.7;
+    _pam.animation.value > threshold ? _pam.expand() : _pam.collapse();
+  }
+}
+
+class _ExpandableWidget extends HookWidget {
+  const _ExpandableWidget({
+    Key key,
+    @required this.pam,
+  }) : super(key: key);
+
+  final PlayerAnimationManager pam;
+
+  ///todo is this Scaffold necessary?
+  @override
+  Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () => _onWillPop(context),
+        child: SafeArea(
+          child: Scaffold(
+              primary: false,
+              body: useProvider(
+                  detailSNProvider.state.select((it) => it.prgDataResult)).when(
+                loading: () => const CenterCircleProgress(),
+                preInitialized: () => const CenterCircleProgress(),
+                error: () => const PageError(),
+                success: _successWidget,
+              )),
+        ),
+      );
+
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>
       context.read(detailSNProvider).playVideo(false);
+
+  Future<bool> _onWillPop(BuildContext context) async {
+    final closed = await context.read(detailSNProvider).tryClosePanel();
+    if (!closed) return pam.collapse();
+    return false;
+  }
+
+  Widget _successWidget(ProgramDetailData programDetailData,
+          ChannelData channelData, PageSheetModel page) =>
+      LayoutBuilder(builder: (context, constraints) {
+        final aspectRatio = constraints.maxWidth / constraints.maxHeight;
+        if (aspectRatio > _ScreenDetailState._SHRINKED_ASPECT_RATIO - 0.1)
+          return _VideoRow(
+            data: programDetailData,
+            pam: pam,
+            height: constraints.maxHeight,
+          );
+
+        double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
+        final listViewH = constraints.maxHeight - headerH;
+        return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            switch (index) {
+              case 0:
+                return VideoHeader(
+                  height: headerH,
+                  programId: programDetailData.program.id,
+                  onTap: () async => _playVideo(context, true),
+                  onTapPreviewBtn: () async => _playVideo(context, false),
+                );
+              case 1:
+                return _PlayerBody(
+                  pam: pam,
+                  height: listViewH,
+                  data: programDetailData,
+                );
+              default:
+                throw Exception(index);
+            }
+          },
+          itemCount: 2,
+        );
+      });
 }
 
 class _BottomSheet extends HookWidget {
@@ -273,59 +237,130 @@ class _BottomSheet extends HookWidget {
       context.read(detailSNProvider).panelController.close();
 }
 
-class _VideoRow extends StatelessWidget {
+///todo migrate to functional_widget
+class _PlayerBody extends HookWidget {
+  const _PlayerBody({
+    @required this.pam,
+    @required this.height,
+    @required this.data,
+  });
+
+  final PlayerAnimationManager pam;
+  final double height;
+  final ProgramDetailData data;
+
+  @override
+  Widget build(BuildContext context) => height < 0
+      ? const SizedBox.shrink()
+      : SizedBox(
+          height: height,
+          child: FadeTransition(
+            opacity: pam.contentFadeAnimation,
+            child: SlidingUpPanel(
+              minHeight: 0,
+              maxHeight: height,
+              controller: useProvider(detailSNProvider).panelController,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              panel: _BottomSheet(program: data.program),
+              body: ListView.builder(
+                  itemCount: 6,
+                  padding: const EdgeInsets.only(bottom: 24),
+                  itemBuilder: (context, index) {
+                    switch (index) {
+                      case 0:
+                        return RowChannel(
+                          title: data.program.channel.name,
+                          channelId: data.program.channel.id,
+                        );
+                      case 1:
+                        return RowVideoTitle(text: data.program.title);
+                      case 2:
+                        return RowVideoTime(
+                          broadcastAt: data.program.broadcastAt,
+                          totalPlayTime: data.program.totalPlayTime,
+                        );
+                      case 3:
+                        return RowVideoTags(textList: data.program.tags);
+                      case 4:
+                        return RowFabs(program: data.program);
+                      case 5:
+                        return RowVideoDesc(text: data.program.detail);
+                      default:
+                        return const SizedBox.shrink();
+                    }
+                  }),
+            ),
+          ),
+        );
+}
+
+class _VideoRow extends HookWidget {
   const _VideoRow({
     Key key,
     @required this.pam,
+    @required this.height,
+    @required this.data,
   }) : super(key: key);
 
+  final double height;
+  final ProgramDetailData data;
   final PlayerAnimationManager pam;
+  static const double _VIDEO_PAD = 8;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
-    return Stack(
-      children: <Widget>[
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(
-                width: EpisodePlayer._SHRINKED_HEIGHT *
-                        EpisodePlayer._shrinkedAspectRatio +
-                    4.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'タイトル',
-                    maxLines: 1,
-                    style: textTheme.caption,
-                  ),
-                  Text(
-                    'チャンネル名',
-                    maxLines: 1,
-                    style: textTheme.overline,
-                  ),
-                ],
+  Widget build(BuildContext context) => Stack(
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(width: height * _ScreenDetailState._SHRINKED_ASPECT_RATIO + _VIDEO_PAD),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _text(true, data.program.title),
+                    _text(false, data.program.channel.name),
+                  ],
+                ),
               ),
-            ),
-            IconButton(
-              icon: Icon(Icons.play_arrow),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {},
-            )
-          ],
+              Center(
+                child: IconButton(
+                  icon: const Icon(Icons.play_arrow),
+                  onPressed: () {},
+                ),
+              ),
+              Center(
+                child: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => _onTapCloseBtn(context),
+                ),
+              )
+            ],
+          ),
+          _Video(pam: pam),
+        ],
+      );
+
+  void _onTapCloseBtn(BuildContext context) =>
+      context.read(pDetailId).state = null;
+
+  Widget _text(bool isTitle, String text) => Container(
+        padding: isTitle
+            ? const EdgeInsets.only(bottom: 3)
+            : const EdgeInsets.only(top: 3),
+        height: _ScreenDetailState._SHRINKED_HEIGHT / 2,
+        alignment: isTitle ? Alignment.bottomCenter : Alignment.topCenter,
+        child: Text(
+          text,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            color: isTitle ? Colors.white : Styles.colorTextSub,
+            fontSize: 13,
+            height: 1,
+          ),
         ),
-        _Video(pam: pam),
-      ],
-    );
-  }
+      );
 }
 
 class _Video extends HookWidget {
@@ -335,21 +370,19 @@ class _Video extends HookWidget {
   }) : super(key: key);
 
   static final _aspectTween = Tween<double>(
-    begin: EpisodePlayer._shrinkedAspectRatio,
-    end: 16 / 9,
+    begin: _ScreenDetailState._SHRINKED_ASPECT_RATIO,
+    end: Dimens.IMG_RATIO,
   );
 
   final PlayerAnimationManager pam;
 
   @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: pam.animation,
-      builder: (context, child) => AspectRatio(
-        aspectRatio: _aspectTween.evaluate(pam.animation),
-        child: child,
-      ),
-      child: const Placeholder(),
-    );
-  }
+  Widget build(BuildContext context) => AnimatedBuilder(
+        animation: pam.animation,
+        builder: (context, child) => AspectRatio(
+          aspectRatio: _aspectTween.evaluate(pam.animation),
+          child: child,
+        ),
+        child: const MinimizedPlayerView(),
+      );
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -20,7 +19,6 @@ import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_holder.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
-import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
@@ -177,10 +175,12 @@ class _ExpandableWidget extends HookWidget {
           ChannelData channelData, PageSheetModel page) =>
       LayoutBuilder(builder: (context, constraints) {
         final aspectRatio = constraints.maxWidth / constraints.maxHeight;
+
         if (aspectRatio > _ScreenDetailState._SHRINKED_ASPECT_RATIO - 0.1)
           return _VideoRow(
             data: programDetailData,
             pam: pam,
+            width: constraints.maxWidth,
             height: constraints.maxHeight,
           );
 
@@ -191,12 +191,17 @@ class _ExpandableWidget extends HookWidget {
           itemBuilder: (context, index) {
             switch (index) {
               case 0:
-                return VideoHeader(
-                  height: headerH,
-                  programId: programDetailData.program.id,
-                  onTap: () async => _playVideo(context, true),
-                  onTapPreviewBtn: () async => _playVideo(context, false),
-                );
+                return pam.animation.value == 1
+                    ? VideoHeader(
+                        height: headerH,
+                        programId: programDetailData.program.id,
+                        onTap: () async => _playVideo(context, true),
+                        onTapPreviewBtn: () async => _playVideo(context, false),
+                      )
+                    : SizedBox(
+                        height: headerH,
+                        child: const MinimizedPlayerView(),
+                      );
               case 1:
                 return _PlayerBody(
                   pam: pam,
@@ -299,52 +304,103 @@ class _VideoRow extends HookWidget {
     Key key,
     @required this.pam,
     @required this.height,
+    @required this.width,
     @required this.data,
   }) : super(key: key);
 
   final double height;
+  final double width;
   final ProgramDetailData data;
   final PlayerAnimationManager pam;
-  static const double _VIDEO_PAD = 8;
+  static const double _BUTTON_W = kMinInteractiveDimension;
+  static const double _LEFT_PAD = 8;
 
   @override
-  Widget build(BuildContext context) => Stack(
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(width: height * _ScreenDetailState._SHRINKED_ASPECT_RATIO + _VIDEO_PAD),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _text(true, data.program.title),
-                    _text(false, data.program.channel.name),
-                  ],
-                ),
+  Widget build(BuildContext context) {
+    final maxW = width -
+        (_ScreenDetailState._SHRINKED_HEIGHT *
+                _ScreenDetailState._SHRINKED_ASPECT_RATIO +
+            _LEFT_PAD);
+    final videoSpace =
+        height * _ScreenDetailState._SHRINKED_ASPECT_RATIO + _LEFT_PAD;
+    final currentW = width - videoSpace;
+    double spaceRatio = currentW <= 0 ? 0 : currentW / maxW;
+
+    return Stack(
+      children: <Widget>[
+        if (_BUTTON_W * 2 < currentW)
+          Container(
+            height: height,
+            padding: EdgeInsets.only(
+              left: videoSpace,
+              right: _BUTTON_W * 2 < currentW ? _BUTTON_W * 2 : 0,
+            ),
+            alignment: Alignment.center,
+            child: Opacity(
+              opacity: spaceRatio,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _text(
+                    isTitle: true,
+                    text: data.program.title,
+                  ),
+                  _text(
+                    isTitle: false,
+                    text: data.program.channel.name,
+                  ),
+                ],
               ),
-              Center(
-                child: IconButton(
-                  icon: const Icon(Icons.play_arrow),
-                  onPressed: () {},
-                ),
-              ),
-              Center(
-                child: IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () => _onTapCloseBtn(context),
-                ),
-              )
-            ],
+            ),
           ),
-          _Video(pam: pam),
-        ],
-      );
+        if (_BUTTON_W < currentW)
+          Positioned(
+            height: height,
+            right: _BUTTON_W * 2 < currentW ? _BUTTON_W : currentW - _BUTTON_W,
+            child: Opacity(
+              opacity: spaceRatio,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.play_arrow,
+                  color: Colors.white,
+                ),
+                onPressed: spaceRatio == 1 ? () {} : null,
+              ),
+            ),
+          ),
+        Positioned(
+          height: height,
+          right: _BUTTON_W < currentW ? 0 : currentW - _BUTTON_W,
+          child: Opacity(
+            opacity: spaceRatio,
+            child: Center(
+              child: IconButton(
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ),
+                onPressed:
+                    spaceRatio == 1 ? () => _onTapCloseBtn(context) : null,
+              ),
+            ),
+          ),
+        ),
+        _Video(
+          pam: pam,
+          height: height,
+        ),
+      ],
+    );
+  }
 
   void _onTapCloseBtn(BuildContext context) =>
       context.read(pDetailId).state = null;
 
-  Widget _text(bool isTitle, String text) => Container(
+  Widget _text({
+    @required bool isTitle,
+    @required String text,
+  }) =>
+      Container(
         padding: isTitle
             ? const EdgeInsets.only(bottom: 3)
             : const EdgeInsets.only(top: 3),
@@ -366,6 +422,7 @@ class _VideoRow extends HookWidget {
 class _Video extends HookWidget {
   const _Video({
     Key key,
+    @required this.height,
     @required this.pam,
   }) : super(key: key);
 
@@ -375,14 +432,15 @@ class _Video extends HookWidget {
   );
 
   final PlayerAnimationManager pam;
+  final double height;
 
   @override
-  Widget build(BuildContext context) => AnimatedBuilder(
-        animation: pam.animation,
-        builder: (context, child) => AspectRatio(
-          aspectRatio: _aspectTween.evaluate(pam.animation),
-          child: child,
-        ),
-        child: const MinimizedPlayerView(),
-      );
+  Widget build(BuildContext context) {
+    final aspectRatio = _aspectTween.evaluate(pam.animation);
+    return Positioned(
+      height: height,
+      width: height * aspectRatio,
+      child: const MinimizedPlayerView(),
+    );
+  }
 }

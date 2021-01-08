@@ -12,6 +12,7 @@ class GlobalAppState extends ChangeNotifier {
       list.firstWhere((it) => it is PathDataMainPageBase)
       as PathDataMainPageBase;
 
+  // todo change to ImmutableListView
   List<GlobalRoutePathBase> get list {
     if (_list.isEmpty) _list.add(const PathDataMainPageBase.dashboard());
     return _list;

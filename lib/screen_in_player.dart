@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/in_player_app_router_delegate.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -13,6 +14,11 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final scaffoldProvider =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+
+final _pHasPlayerBtmPadding = StateProvider.autoDispose<bool>((_) => true);
+
+final pPlayerBtmPadding = Provider.autoDispose<double>((ref) =>
+    ref.watch(_pHasPlayerBtmPadding).state ? kBottomNavigationBarHeight : 0);
 
 class ScreenInPlayer extends StatefulHookWidget {
   const ScreenInPlayer({
@@ -33,7 +39,8 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> {
   @override
   void initState() {
     super.initState();
-    _routerDelegate = InPlayerAppRouterDelegate(widget.appState);
+    _routerDelegate = InPlayerAppRouterDelegate(widget.appState)
+      ..addListener(_onChangeDelegate);
     context.read(scaffoldProvider).key = GlobalKey<ScaffoldState>();
   }
 
@@ -66,10 +73,20 @@ class _ScreenInPlayerState extends State<ScreenInPlayer> {
               routerDelegate: _routerDelegate,
               backButtonDispatcher: _backButtonDispatcher,
             ),
-            const ScreenDetail(),
+            const ScreenDetailWrapper(),
           ]),
         ),
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _routerDelegate.removeListener(_onChangeDelegate);
+  }
+
+  void _onChangeDelegate() =>
+      context.read(_pHasPlayerBtmPadding).state =
+          _routerDelegate.appState.last is PathDataMainPageBase;
 }

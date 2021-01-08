@@ -12,7 +12,7 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<PathDataMainPageBase>, OnPopPageMixin {
   ScreenMainRouterDelegate(GlobalAppState appState)
       : navigatorKey = GlobalKey<NavigatorState>() {
-    _appState = appState;
+    _appState = appState..addListener(notifyListeners);
   }
 
   @override
@@ -57,6 +57,5 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
   Future<void> swapPage(int index) async {
     final path = PathDataMainPageBase.fromIndex(index);
     _appState.push(path);
-    notifyListeners();
   }
 }

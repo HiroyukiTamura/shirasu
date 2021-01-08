@@ -20,7 +20,7 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
         OnPopPageMixin {
   InPlayerAppRouterDelegate(GlobalAppState appState)
       : navigatorKey = GlobalKey<NavigatorState>() {
-    _appState = appState;
+    _appState = appState..addListener(notifyListeners);
   }
 
   @override

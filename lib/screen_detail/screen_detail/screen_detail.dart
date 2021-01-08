@@ -19,6 +19,7 @@ import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_row.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_holder.dart';
+import 'package:shirasu/screen_in_player.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
@@ -49,17 +50,21 @@ final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
 
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
-class ScreenDetail extends StatefulHookWidget {
-  const ScreenDetail();
+@hwidget
+Widget screenDetailWrapper() => useProvider(pDetailId).state == null
+    ? const SizedBox.shrink()
+    : const _ScreenDetail();
+
+class _ScreenDetail extends StatefulHookWidget {
+  const _ScreenDetail();
 
   @override
   ScreenDetailState createState() => ScreenDetailState();
 }
 
-class ScreenDetailState extends State<ScreenDetail> {
+class ScreenDetailState extends State<_ScreenDetail> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
-  static const double _BOTTOM_BAR_HEIGHT = kBottomNavigationBarHeight;
   static const double SHRINKED_HEIGHT = 56;
   static const double SHRINKED_ASPECT_RATIO = 2.5;
 
@@ -72,27 +77,26 @@ class ScreenDetailState extends State<ScreenDetail> {
   @override
   Widget build(BuildContext context) {
     final pam = useProvider(pPlayerAnimationProvider).pam;
-    return useProvider(pDetailId).state == null
-        ? const SizedBox.shrink()
-        : LayoutBuilder(
-            builder: (context, constraints) {
-              final shrinkedTop = constraints.maxHeight -
-                  (_BOTTOM_BAR_HEIGHT + SHRINKED_HEIGHT);
-              return AnimatedBuilder(
-                animation: pam.animation,
-                builder: (context, child) =>
-                    _animationBuilder(context, child, shrinkedTop),
-                child: GestureDetector(
-                  onTap: pam.expand,
-                  onVerticalDragUpdate: (details) =>
-                      _onVerticalDragUpdate(context, details, shrinkedTop),
-                  onVerticalDragEnd: (details) =>
-                      _onVerticalDragEnd(context, details, shrinkedTop),
-                  child: const _ExpandableWidget(),
-                ),
-              );
-            },
-          );
+    final btmBarH = useProvider(pPlayerBtmPadding);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final shrinkedTop =
+            constraints.maxHeight - (btmBarH + SHRINKED_HEIGHT);
+        return AnimatedBuilder(
+          animation: pam.animation,
+          builder: (context, child) =>
+              _animationBuilder(context, child, shrinkedTop),
+          child: GestureDetector(
+            onTap: pam.expand,
+            onVerticalDragUpdate: (details) =>
+                _onVerticalDragUpdate(context, details, shrinkedTop),
+            onVerticalDragEnd: (details) =>
+                _onVerticalDragEnd(context, details, shrinkedTop),
+            child: const _ExpandableWidget(),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -112,7 +116,7 @@ class ScreenDetailState extends State<ScreenDetail> {
     final expandedRatio =
         context.read(pPlayerAnimationProvider).pam.animation.value;
     final top = shrinkedTop * (1 - expandedRatio);
-    final bottom = _BOTTOM_BAR_HEIGHT * (1 - expandedRatio);
+    final bottom = context.read(pPlayerBtmPadding) * (1 - expandedRatio);
     return Stack(
       //todo can remove?
       children: [
@@ -265,7 +269,6 @@ Widget _playerBodyWrapper({
     height < 0
         ? const SizedBox.shrink()
         : _PlayerBody(height: height, data: data);
-
 
 class _PlayerBody extends HookWidget {
   const _PlayerBody({

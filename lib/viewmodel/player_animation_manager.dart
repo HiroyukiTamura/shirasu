@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hooks_riverpod/all.dart';
 
 import '../util.dart';
 
@@ -7,24 +8,10 @@ enum PlayerStatus {
   EXPANDED,
 }
 
-class PlayerAnimationManagerHolder implements Disposable {
-  PlayerAnimationManager _pam;
-
-  PlayerAnimationManager get pam => _pam;
-
-  void init(TickerProvider vsync) => _pam = PlayerAnimationManager(vsync);
-
-  @override
-  void dispose() {
-    _pam?.dispose();
-    _pam = null;
-  }
-}
-
-// todo expandしきっていないときにタッチイベントが走らないようにするべき
 // TODO(mono): 完全に隠れた方のアニメーションを無効化したり(Visibility+α)
 class PlayerAnimationManager with Disposable {
-  PlayerAnimationManager(TickerProvider vsync)
+
+  PlayerAnimationManager._(TickerProvider vsync)
       : _animationController = AnimationController(
           duration: _DURATION,
           vsync: vsync,
@@ -41,6 +28,12 @@ class PlayerAnimationManager with Disposable {
       ),
     );
   }
+
+  static PlayerAnimationManager _instance;
+
+  static PlayerAnimationManager get instance => _instance;
+
+  static void init(TickerProvider vsync) => _instance = PlayerAnimationManager._(vsync);
 
   // TODO(mono): 200くらいが良い
   static const _DURATION = Duration(milliseconds: 500);
@@ -124,5 +117,8 @@ class PlayerAnimationManager with Disposable {
   }
 
   @override
-  void dispose() => _animationController.dispose();
+  void dispose() {
+    _animationController.dispose();
+    _instance = null;
+  }
 }

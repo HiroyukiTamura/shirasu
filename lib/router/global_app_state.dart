@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 
+// todo synchronize?
 class GlobalAppState extends ChangeNotifier {
   GlobalAppState();
 

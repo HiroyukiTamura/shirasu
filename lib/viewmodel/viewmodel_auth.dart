@@ -105,12 +105,9 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
           //todo handle error
         }
 
-      final delegate = _ref.read(appRouterProvider).delegate;
+      final delegate = _ref.read(pAppRouterDelegate);
       if (_success)
-        await _ref
-            .read(appRouterProvider)
-            .delegate
-            .popRoute(); // todo check current page is AuthScreen
+        await delegate.popRoute(); // todo check current page is AuthScreen
       else if (_hiveClient.maybeExpired && url == UrlUtil.URL_DASHBOARD) {
         // todo improve logic
         await _plugin.clearCache();

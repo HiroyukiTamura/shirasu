@@ -9,7 +9,8 @@ import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/router/app_router_asset.dart';
+import 'package:shirasu/router/app_route_information_parser.dart';
+import 'package:shirasu/router/on_pop_page_mixin.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/player_animation_manager.dart';
@@ -18,7 +19,20 @@ final snackBarMsgProvider =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
         (ref) => SnackBarMessageNotifier());
 
-final pPlayerAnimationProvider = Provider<PlayerAnimationManagerHolder>((_) => PlayerAnimationManagerHolder());
+final pAppRouterDelegate =
+    Provider<AppRouterDelegate>((_) => AppRouterDelegate());
+
+final pcnAppRouterDelegate =
+ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
+        (ref) => ref.watch(pAppRouterDelegate));
+
+final _pNavigationChange = StateProvider.autoDispose<GlobalRoutePathBase>(
+        (ref) => ref.watch(pcnAppRouterDelegate).appState.last);
+
+final _pPamCollapsing = StateProvider.autoDispose<void>((ref) {
+  ref.watch(_pNavigationChange).state;
+  PlayerAnimationManager.instance?.collapse();
+});
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,44 +55,39 @@ Future<void> main() async {
   runApp(ProviderScope(child: MyApp()));
 }
 
-final appRouterProvider = Provider<AppRouterAsset>((ref) => AppRouterAsset());
-
 class MyApp extends StatefulHookWidget {
   @override
   MyAppState createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProviderStateMixin {
+class MyAppState extends State<MyApp>
+    with WidgetsBindingObserver, TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    context.read(pPlayerAnimationProvider).init(this);
+    PlayerAnimationManager.init(this);
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    context.read(pPlayerAnimationProvider).pam.dispose();
+    PlayerAnimationManager.instance.dispose();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed && HiveAuthClient.instance().maybeExpired)
-      context
-          .read(appRouterProvider)
-          .delegate.pushPage(const GlobalRoutePath.auth());
+    if (state == AppLifecycleState.resumed &&
+        HiveAuthClient.instance().maybeExpired)
+      context.read(pAppRouterDelegate).pushPage(const GlobalRoutePath.auth());
   }
-
 
   // todo should be called on navigation listener
   @override
   void afterFirstLayout(BuildContext context) {
     if (HiveAuthClient.instance().maybeExpired)
-      context
-          .read(appRouterProvider)
-          .delegate.pushPage(const GlobalRoutePath.auth());
+      context.read(pAppRouterDelegate).pushPage(const GlobalRoutePath.auth());
   }
 
   @override
@@ -87,13 +96,14 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver, TickerProvide
     // if (isInitialLaunch)
     //   HiveClient.setInitialLaunchApp();
 
-    final router = useProvider(appRouterProvider);
+    final delegate = useProvider(pAppRouterDelegate);
+    useProvider(_pPamCollapsing);
 
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: Styles.theme,
-      routerDelegate: router.delegate,
-      routeInformationParser: router.parser,
+      routerDelegate: delegate,
+      routeInformationParser: AppRouteInformationParser.instance,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

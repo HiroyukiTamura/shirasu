@@ -5,6 +5,11 @@ import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 class AppRouteInformationParser
     extends RouteInformationParser<GlobalRoutePathBase> {
+
+  const AppRouteInformationParser._();
+
+  static const AppRouteInformationParser instance = AppRouteInformationParser._();
+
   @override
   Future<GlobalRoutePathBase> parseRouteInformation(
       RouteInformation routeInformation) async {

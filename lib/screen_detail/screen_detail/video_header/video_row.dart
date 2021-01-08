@@ -153,7 +153,7 @@ class _Video extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final animation = useProvider(pPlayerAnimationProvider).pam.animation;
+    final animation = PlayerAnimationManager.instance.animation;
     final aspectRatio = _aspectTween.evaluate(animation);
     return Positioned(
       height: height,

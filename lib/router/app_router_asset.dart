@@ -1,13 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shirasu/router/app_route_information_parser.dart';
-import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/global_app_state.dart';
-
-@immutable
-class AppRouterAsset {
-  final AppRouterDelegate delegate = AppRouterDelegate();
-  final AppRouteInformationParser parser = AppRouteInformationParser();
-}
 
 mixin OnPopPageMixin {
 

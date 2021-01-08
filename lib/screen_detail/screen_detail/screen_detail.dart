@@ -76,7 +76,7 @@ class ScreenDetailState extends State<_ScreenDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final pam = useProvider(pPlayerAnimationProvider).pam;
+    final pam = PlayerAnimationManager.instance;
     final btmBarH = useProvider(pPlayerBtmPadding);
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -89,9 +89,9 @@ class ScreenDetailState extends State<_ScreenDetail> {
           child: GestureDetector(
             onTap: pam.expand,
             onVerticalDragUpdate: (details) =>
-                _onVerticalDragUpdate(context, details, shrinkedTop),
+                _onVerticalDragUpdate(details, shrinkedTop),
             onVerticalDragEnd: (details) =>
-                _onVerticalDragEnd(context, details, shrinkedTop),
+                _onVerticalDragEnd(details, shrinkedTop),
             child: const _ExpandableWidget(),
           ),
         );
@@ -113,8 +113,7 @@ class ScreenDetailState extends State<_ScreenDetail> {
 
   Widget _animationBuilder(
       BuildContext context, Widget child, double shrinkedTop) {
-    final expandedRatio =
-        context.read(pPlayerAnimationProvider).pam.animation.value;
+    final expandedRatio = PlayerAnimationManager.instance.animation.value;
     final top = shrinkedTop * (1 - expandedRatio);
     final bottom = context.read(pPlayerBtmPadding) * (1 - expandedRatio);
     return Stack(
@@ -131,18 +130,13 @@ class ScreenDetailState extends State<_ScreenDetail> {
     );
   }
 
-  void _onVerticalDragUpdate(
-      BuildContext context, DragUpdateDetails details, double shrinkedTop) {
+  void _onVerticalDragUpdate(DragUpdateDetails details, double shrinkedTop) {
     final delta = -details.primaryDelta;
-    context
-        .read(pPlayerAnimationProvider)
-        .pam
-        .addAnimationValue(delta / shrinkedTop);
+    PlayerAnimationManager.instance.addAnimationValue(delta / shrinkedTop);
   }
 
-  void _onVerticalDragEnd(
-      BuildContext context, DragEndDetails details, double shrinkedTop) {
-    final pam = context.read(pPlayerAnimationProvider).pam;
+  void _onVerticalDragEnd(DragEndDetails details, double shrinkedTop) {
+    final pam = PlayerAnimationManager.instance;
     final threshold = pam.status == PlayerStatus.SHRINKED ? 0.3 : 0.7;
     pam.animation.value > threshold ? pam.expand() : pam.collapse();
   }
@@ -175,9 +169,8 @@ class _ExpandableWidget extends HookWidget {
     final closed = await context.read(detailSNProvider).tryClosePanel();
     if (closed) return false;
 
-    if (context.read(pPlayerAnimationProvider).pam?.status ==
-        PlayerStatus.EXPANDED) {
-      context.read(pPlayerAnimationProvider).pam.collapse();
+    if (PlayerAnimationManager.instance?.status == PlayerStatus.EXPANDED) {
+      PlayerAnimationManager.instance.collapse();
       return false;
     }
 
@@ -192,7 +185,7 @@ class _ExpandableWidget extends HookWidget {
 
   Widget _successWidget(ProgramDetailData programDetailData,
       ChannelData channelData, PageSheetModel page) {
-    final pam = useProvider(pPlayerAnimationProvider).pam;
+    final pam = PlayerAnimationManager.instance;
     return LayoutBuilder(builder: (context, constraints) {
       final aspectRatio = constraints.maxWidth / constraints.maxHeight;
 
@@ -281,8 +274,7 @@ class _PlayerBody extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final opacity =
-        useProvider(pPlayerAnimationProvider).pam.contentFadeAnimation;
+    final opacity = PlayerAnimationManager.instance.contentFadeAnimation;
     return SizedBox(
       height: height,
       child: FadeTransition(

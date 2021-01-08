@@ -92,7 +92,7 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
 Widget _mainBottomNavigationBar({
   @required ScreenMainRouterDelegate routerDelegate,
 }) {
-  final pam = useProvider(pPlayerAnimationProvider).pam;
+  final pam = PlayerAnimationManager.instance;
   return AnimatedBuilder(
       builder: (context, child) => Align(
         alignment: Alignment.topCenter,

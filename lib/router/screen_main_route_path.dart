@@ -19,6 +19,7 @@ abstract class GlobalRoutePathBase {
     @required Result Function(PageListTabPage initialPage) subscribing,
     @required Result Function() setting,
     @required Result Function() ossLicense,
+    @required Result Function() imgLicense,
     @required Result Function() auth,
   }) {
     if (routePath is GlobalRoutePath)
@@ -28,6 +29,7 @@ abstract class GlobalRoutePathBase {
         channel: channel,
         program: program,
         ossLicense: ossLicense,
+        imgLicense: imgLicense,
         auth: auth,
       );
     else if (routePath is PathDataMainPageBase)
@@ -49,6 +51,7 @@ abstract class GlobalRoutePathBase {
     @required Result Function(String programId) program,
     @required Result Function() mainPage,
     @required Result Function() ossLicense,
+    @required Result Function() imgLicense,
     @required Result Function() auth,
   }) {
     if (routePath is PathDataMainPageBase) return mainPage();
@@ -60,6 +63,7 @@ abstract class GlobalRoutePathBase {
         program: program,
         ossLicense: ossLicense,
         auth: auth,
+        imgLicense: imgLicense,
       );
     else
       throw UnsupportedError(
@@ -91,6 +95,8 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.program(String programId) = PathDataProgram;
 
   const factory GlobalRoutePath.ossLicense() = PathDataOssLicense;
+
+  const factory GlobalRoutePath.imgLicense() = PathDataImgLicense;
 
   const factory GlobalRoutePath.auth() = PathDataAuth;
 

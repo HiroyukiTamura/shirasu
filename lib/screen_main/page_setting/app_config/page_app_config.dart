@@ -14,58 +14,60 @@ const _textStyle = TextStyle(height: 1);
 
 @swidget
 Widget pageAppConfig(BuildContext context) => ListView(
-    children: [
-      // todo implement
-      Visibility(
-        visible: false,
-        child: ListTile(
-          leading: const Icon(
-            Icons.video_settings,
-            color: Colors.white,
+      children: [
+        // todo implement
+        Visibility(
+          visible: false,
+          child: _ListItem(
+            icon: Icons.video_settings,
+            title: Strings.ITEM_TITLE_MOVIE_QUALITY,
+            onTap: () {},
           ),
-          title: const Text(
-            Strings.ITEM_TITLE_MOVIE_QUALITY,
-            style: _textStyle,
-          ),
-          onTap: () async => context.pushPage(const GlobalRoutePath.ossLicense()),
         ),
+        // todo implement
+        Visibility(
+          visible: false,
+          child: _ListItem(
+            icon: Icons.video_settings,
+            title: Strings.ITEM_TITLE_MOVIE_QUALITY_MOBILE,
+            onTap: () {},
+          ),
+        ),
+        _ListItem(
+          icon: Icons.image,
+          title: Strings.ITEM_TITLE_IMAGE_LICENCE,
+          onTap: () async =>
+              context.pushPage(const GlobalRoutePath.imgLicense()),
+        ),
+        _ListItem(
+          icon: Icons.local_library,
+          title: Strings.ITEM_TITLE_OSS_LICENCE,
+          onTap: () async =>
+              context.pushPage(const GlobalRoutePath.ossLicense()),
+        ),
+        _ListItem(
+          icon: FontAwesomeIcons.github,
+          title: Strings.ITEM_TITLE_GITHUB,
+          onTap: () async => Util.launchUrl(context, UrlUtil.URL_GITHUB),
+        )
+      ],
+    );
+
+@swidget
+Widget _listItem(
+  BuildContext context, {
+  @required IconData icon,
+  @required String title,
+  @required VoidCallback onTap,
+}) =>
+    ListTile(
+      leading: Icon(
+        icon,
+        color: Colors.white,
       ),
-      // todo implement
-      Visibility(
-        visible: false,
-        child: ListTile(
-          leading: const Icon(
-            Icons.video_settings,
-            color: Colors.white,
-          ),
-          title: const Text(
-            Strings.ITEM_TITLE_MOVIE_QUALITY_MOBILE,
-            style: _textStyle,
-          ),
-          onTap: () async => context.pushPage(const GlobalRoutePath.ossLicense()),
-        ),
+      title: Text(
+        title,
+        style: _textStyle,
       ),
-      ListTile(
-        leading: const Icon(
-          Icons.local_library,
-          color: Colors.white,
-        ),
-        title: const Text(
-          Strings.ITEM_TITLE_OSS_LICENCE,
-          style: _textStyle,
-        ),
-        onTap: () async => context.pushPage(const GlobalRoutePath.ossLicense()),
-      ),
-      ListTile(
-        leading: const Icon(
-          FontAwesomeIcons.github,
-          color: Colors.white,
-        ),
-        title: const Text(
-          Strings.ITEM_TITLE_GITHUB,
-          style: _textStyle,
-        ),
-        onTap: () async => Util.launchUrl(context, UrlUtil.URL_GITHUB),
-      )
-    ],
-  );
+      onTap: onTap,
+    );

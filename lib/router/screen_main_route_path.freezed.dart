@@ -43,6 +43,11 @@ class _$GlobalRoutePathTearOff {
   }
 
 // ignore: unused_element
+  PathDataImgLicense imgLicense() {
+    return const PathDataImgLicense();
+  }
+
+// ignore: unused_element
   PathDataAuth auth() {
     return const PathDataAuth();
   }
@@ -61,6 +66,7 @@ mixin _$GlobalRoutePath {
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
+    @required TResult imgLicense(),
     @required TResult auth(),
   });
   @optionalTypeArgs
@@ -70,6 +76,7 @@ mixin _$GlobalRoutePath {
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
+    TResult imgLicense(),
     TResult auth(),
     @required TResult orElse(),
   });
@@ -80,6 +87,7 @@ mixin _$GlobalRoutePath {
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(PathDataOssLicense value),
+    @required TResult imgLicense(PathDataImgLicense value),
     @required TResult auth(PathDataAuth value),
   });
   @optionalTypeArgs
@@ -89,6 +97,7 @@ mixin _$GlobalRoutePath {
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(PathDataOssLicense value),
+    TResult imgLicense(PathDataImgLicense value),
     TResult auth(PathDataAuth value),
     @required TResult orElse(),
   });
@@ -155,6 +164,7 @@ class _$PathDataIntro implements PathDataIntro {
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
+    @required TResult imgLicense(),
     @required TResult auth(),
   }) {
     assert(intro != null);
@@ -162,6 +172,7 @@ class _$PathDataIntro implements PathDataIntro {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return intro();
   }
@@ -174,6 +185,7 @@ class _$PathDataIntro implements PathDataIntro {
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
+    TResult imgLicense(),
     TResult auth(),
     @required TResult orElse(),
   }) {
@@ -192,6 +204,7 @@ class _$PathDataIntro implements PathDataIntro {
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(PathDataOssLicense value),
+    @required TResult imgLicense(PathDataImgLicense value),
     @required TResult auth(PathDataAuth value),
   }) {
     assert(intro != null);
@@ -199,6 +212,7 @@ class _$PathDataIntro implements PathDataIntro {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return intro(this);
   }
@@ -211,6 +225,7 @@ class _$PathDataIntro implements PathDataIntro {
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(PathDataOssLicense value),
+    TResult imgLicense(PathDataImgLicense value),
     TResult auth(PathDataAuth value),
     @required TResult orElse(),
   }) {
@@ -270,6 +285,7 @@ class _$PathDataError implements PathDataError {
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
+    @required TResult imgLicense(),
     @required TResult auth(),
   }) {
     assert(intro != null);
@@ -277,6 +293,7 @@ class _$PathDataError implements PathDataError {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return error();
   }
@@ -289,6 +306,7 @@ class _$PathDataError implements PathDataError {
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
+    TResult imgLicense(),
     TResult auth(),
     @required TResult orElse(),
   }) {
@@ -307,6 +325,7 @@ class _$PathDataError implements PathDataError {
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(PathDataOssLicense value),
+    @required TResult imgLicense(PathDataImgLicense value),
     @required TResult auth(PathDataAuth value),
   }) {
     assert(intro != null);
@@ -314,6 +333,7 @@ class _$PathDataError implements PathDataError {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return error(this);
   }
@@ -326,6 +346,7 @@ class _$PathDataError implements PathDataError {
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(PathDataOssLicense value),
+    TResult imgLicense(PathDataImgLicense value),
     TResult auth(PathDataAuth value),
     @required TResult orElse(),
   }) {
@@ -407,6 +428,7 @@ class _$PathDataChannel implements PathDataChannel {
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
+    @required TResult imgLicense(),
     @required TResult auth(),
   }) {
     assert(intro != null);
@@ -414,6 +436,7 @@ class _$PathDataChannel implements PathDataChannel {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return channel(channelId);
   }
@@ -426,6 +449,7 @@ class _$PathDataChannel implements PathDataChannel {
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
+    TResult imgLicense(),
     TResult auth(),
     @required TResult orElse(),
   }) {
@@ -444,6 +468,7 @@ class _$PathDataChannel implements PathDataChannel {
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(PathDataOssLicense value),
+    @required TResult imgLicense(PathDataImgLicense value),
     @required TResult auth(PathDataAuth value),
   }) {
     assert(intro != null);
@@ -451,6 +476,7 @@ class _$PathDataChannel implements PathDataChannel {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return channel(this);
   }
@@ -463,6 +489,7 @@ class _$PathDataChannel implements PathDataChannel {
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(PathDataOssLicense value),
+    TResult imgLicense(PathDataImgLicense value),
     TResult auth(PathDataAuth value),
     @required TResult orElse(),
   }) {
@@ -547,6 +574,7 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
+    @required TResult imgLicense(),
     @required TResult auth(),
   }) {
     assert(intro != null);
@@ -554,6 +582,7 @@ class _$PathDataProgram implements PathDataProgram {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return program(programId);
   }
@@ -566,6 +595,7 @@ class _$PathDataProgram implements PathDataProgram {
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
+    TResult imgLicense(),
     TResult auth(),
     @required TResult orElse(),
   }) {
@@ -584,6 +614,7 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(PathDataOssLicense value),
+    @required TResult imgLicense(PathDataImgLicense value),
     @required TResult auth(PathDataAuth value),
   }) {
     assert(intro != null);
@@ -591,6 +622,7 @@ class _$PathDataProgram implements PathDataProgram {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return program(this);
   }
@@ -603,6 +635,7 @@ class _$PathDataProgram implements PathDataProgram {
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(PathDataOssLicense value),
+    TResult imgLicense(PathDataImgLicense value),
     TResult auth(PathDataAuth value),
     @required TResult orElse(),
   }) {
@@ -665,6 +698,7 @@ class _$PathDataOssLicense implements PathDataOssLicense {
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
+    @required TResult imgLicense(),
     @required TResult auth(),
   }) {
     assert(intro != null);
@@ -672,6 +706,7 @@ class _$PathDataOssLicense implements PathDataOssLicense {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return ossLicense();
   }
@@ -684,6 +719,7 @@ class _$PathDataOssLicense implements PathDataOssLicense {
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
+    TResult imgLicense(),
     TResult auth(),
     @required TResult orElse(),
   }) {
@@ -702,6 +738,7 @@ class _$PathDataOssLicense implements PathDataOssLicense {
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(PathDataOssLicense value),
+    @required TResult imgLicense(PathDataImgLicense value),
     @required TResult auth(PathDataAuth value),
   }) {
     assert(intro != null);
@@ -709,6 +746,7 @@ class _$PathDataOssLicense implements PathDataOssLicense {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return ossLicense(this);
   }
@@ -721,6 +759,7 @@ class _$PathDataOssLicense implements PathDataOssLicense {
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(PathDataOssLicense value),
+    TResult imgLicense(PathDataImgLicense value),
     TResult auth(PathDataAuth value),
     @required TResult orElse(),
   }) {
@@ -734,6 +773,127 @@ class _$PathDataOssLicense implements PathDataOssLicense {
 
 abstract class PathDataOssLicense implements GlobalRoutePath {
   const factory PathDataOssLicense() = _$PathDataOssLicense;
+}
+
+/// @nodoc
+abstract class $PathDataImgLicenseCopyWith<$Res> {
+  factory $PathDataImgLicenseCopyWith(
+          PathDataImgLicense value, $Res Function(PathDataImgLicense) then) =
+      _$PathDataImgLicenseCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PathDataImgLicenseCopyWithImpl<$Res>
+    extends _$GlobalRoutePathCopyWithImpl<$Res>
+    implements $PathDataImgLicenseCopyWith<$Res> {
+  _$PathDataImgLicenseCopyWithImpl(
+      PathDataImgLicense _value, $Res Function(PathDataImgLicense) _then)
+      : super(_value, (v) => _then(v as PathDataImgLicense));
+
+  @override
+  PathDataImgLicense get _value => super._value as PathDataImgLicense;
+}
+
+/// @nodoc
+class _$PathDataImgLicense implements PathDataImgLicense {
+  const _$PathDataImgLicense();
+
+  @override
+  String toString() {
+    return 'GlobalRoutePath.imgLicense()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is PathDataImgLicense);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult ossLicense(),
+    @required TResult imgLicense(),
+    @required TResult auth(),
+  }) {
+    assert(intro != null);
+    assert(error != null);
+    assert(channel != null);
+    assert(program != null);
+    assert(ossLicense != null);
+    assert(imgLicense != null);
+    assert(auth != null);
+    return imgLicense();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult ossLicense(),
+    TResult imgLicense(),
+    TResult auth(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (imgLicense != null) {
+      return imgLicense();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult intro(PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult ossLicense(PathDataOssLicense value),
+    @required TResult imgLicense(PathDataImgLicense value),
+    @required TResult auth(PathDataAuth value),
+  }) {
+    assert(intro != null);
+    assert(error != null);
+    assert(channel != null);
+    assert(program != null);
+    assert(ossLicense != null);
+    assert(imgLicense != null);
+    assert(auth != null);
+    return imgLicense(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult ossLicense(PathDataOssLicense value),
+    TResult imgLicense(PathDataImgLicense value),
+    TResult auth(PathDataAuth value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (imgLicense != null) {
+      return imgLicense(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PathDataImgLicense implements GlobalRoutePath {
+  const factory PathDataImgLicense() = _$PathDataImgLicense;
 }
 
 /// @nodoc
@@ -780,6 +940,7 @@ class _$PathDataAuth implements PathDataAuth {
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
+    @required TResult imgLicense(),
     @required TResult auth(),
   }) {
     assert(intro != null);
@@ -787,6 +948,7 @@ class _$PathDataAuth implements PathDataAuth {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return auth();
   }
@@ -799,6 +961,7 @@ class _$PathDataAuth implements PathDataAuth {
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
+    TResult imgLicense(),
     TResult auth(),
     @required TResult orElse(),
   }) {
@@ -817,6 +980,7 @@ class _$PathDataAuth implements PathDataAuth {
     @required TResult channel(PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(PathDataOssLicense value),
+    @required TResult imgLicense(PathDataImgLicense value),
     @required TResult auth(PathDataAuth value),
   }) {
     assert(intro != null);
@@ -824,6 +988,7 @@ class _$PathDataAuth implements PathDataAuth {
     assert(channel != null);
     assert(program != null);
     assert(ossLicense != null);
+    assert(imgLicense != null);
     assert(auth != null);
     return auth(this);
   }
@@ -836,6 +1001,7 @@ class _$PathDataAuth implements PathDataAuth {
     TResult channel(PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(PathDataOssLicense value),
+    TResult imgLicense(PathDataImgLicense value),
     TResult auth(PathDataAuth value),
     @required TResult orElse(),
   }) {

@@ -6,6 +6,7 @@ import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
+import 'package:shirasu/screen_image_lisence/screen_image_license.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/screen_oss_licence/screen_oss_licence.dart';
@@ -18,7 +19,7 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
         PopNavigatorRouterDelegateMixin<GlobalRoutePathBase>,
         OnPopPageMixin {
   InPlayerAppRouterDelegate(GlobalAppState appState)
-      :navigatorKey = GlobalKey<NavigatorState>() {
+      : navigatorKey = GlobalKey<NavigatorState>() {
     _appState = appState;
   }
 
@@ -49,9 +50,8 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             //todo
             ossLicense: () => const ScreenOssLicense(),
             auth: () => const ScreenAuth(),
-            mainPage: () => PageDashboardInMainScreen(
-              appState: _appState
-            ),
+            mainPage: () => PageDashboardInMainScreen(appState: _appState),
+            imgLicense: () => const ScreenImageLicense(),
           );
           final location = NavigationValueKeyHandler.getValueKey(pathData);
           return Tuple2(location, screen);

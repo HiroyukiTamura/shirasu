@@ -12,3 +12,22 @@ class PageAppConfig extends StatelessWidget {
   @override
   Widget build(BuildContext _context) => pageAppConfig(_context);
 }
+
+class _ListItem extends StatelessWidget {
+  const _ListItem(
+      {Key key,
+      @required this.icon,
+      @required this.title,
+      @required this.onTap})
+      : super(key: key);
+
+  final IconData icon;
+
+  final String title;
+
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext _context) =>
+      _listItem(_context, icon: icon, title: title, onTap: onTap);
+}

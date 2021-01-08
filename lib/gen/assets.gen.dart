@@ -59,6 +59,7 @@ class $AssetsSvgGen {
       const SvgGenImage('assets/svg/logo_official.svg');
   SvgGenImage get logoOfficialShadow =>
       const SvgGenImage('assets/svg/logo_official_shadow.svg');
+  SvgGenImage get roboto => const SvgGenImage('assets/svg/roboto.svg');
   SvgGenImage get undrawNotifyRe65on =>
       const SvgGenImage('assets/svg/undraw_Notify_re_65on.svg');
   SvgGenImage get undrawMyAppGrf2 =>

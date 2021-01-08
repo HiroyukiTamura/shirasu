@@ -62,6 +62,7 @@ class AppRouteInformationParser
         subscribing: (PageListTabPage initialPage) => 'subscribing/$initialPage',
         setting: () => 'setting',
         ossLicense: () => 'oss_license',
+        imgLicense: () => 'img_license',
         auth: () => 'auth',
       );
 }

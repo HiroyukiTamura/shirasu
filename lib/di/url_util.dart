@@ -16,6 +16,8 @@ class UrlUtil {
       'https://shirasu.io/top/kv_mix.a70089e9.jpg';
   static const URL_GITHUB = 'https://github.com/HiroyukTamura/shirasu';
   static const URL_DEFAULT_HANDOUT_THUMBNAIL = 'https://shirasu.io/static/img/defaultImage/default-handout-thumbnail.jpeg';
+  static const URL_IMG_LICENSE_ROBOTO = 'https://iconscout.com/icons/roboto';
+  static const URL_IMG_LICENSE_ICONS_MIND = 'https://iconscout.com/contributors/icons-mind';
 
   static String getThumbnailUrl(String itemId) =>
       p.join(_URL_BASE, 'public/programs', itemId, 'thumbnail');

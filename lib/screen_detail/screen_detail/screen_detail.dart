@@ -168,8 +168,24 @@ class _ExpandableWidget extends HookWidget {
 
   Future<bool> _onWillPop(BuildContext context) async {
     final closed = await context.read(detailSNProvider).tryClosePanel();
-    if (!closed) return context.read(pPlayerAnimationProvider).pam.collapse();
-    return false;
+    if (closed)
+      return false;
+
+    if (context.read(pPlayerAnimationProvider).pam?.status == PlayerStatus.expanded) {
+      context
+          .read(pPlayerAnimationProvider)
+          .pam
+          .collapse();
+      return false;
+    }
+
+    final detailIdState = context.read(pDetailId);
+    if (detailIdState.state != null) {
+      detailIdState.state = null;
+      return false;
+    }
+
+    return true;
   }
 
   Widget _successWidget(ProgramDetailData programDetailData,

@@ -22,6 +22,7 @@ class PlayerAnimationManagerHolder implements Disposable {
   }
 }
 
+// todo expandしきっていないときにタッチイベントが走らないようにするべき
 // TODO(mono): 完全に隠れた方のアニメーションを無効化したり(Visibility+α)
 class PlayerAnimationManager with Disposable {
   PlayerAnimationManager(TickerProvider vsync)
@@ -43,7 +44,7 @@ class PlayerAnimationManager with Disposable {
   }
 
   // TODO(mono): 200くらいが良い
-  static const _DURATION = Duration(milliseconds: 1000);
+  static const _DURATION = Duration(milliseconds: 500);
 
   static AnimationController createController(TickerProvider vsync) =>
       AnimationController(
@@ -102,9 +103,7 @@ class PlayerAnimationManager with Disposable {
     _resetAnimationIfNeeded();
   }
 
-  Future<bool> collapse() async {
-    if (_status == PlayerStatus.shrinked) return false;
-
+  Future<void> collapse() async {
     _status = PlayerStatus.shrinked;
     final tween = Tween<double>(
       begin: 0,
@@ -123,7 +122,6 @@ class PlayerAnimationManager with Disposable {
         .drive(tween);
     await _animationController.reverse();
     _resetAnimationIfNeeded();
-    return true;
   }
 
   @override

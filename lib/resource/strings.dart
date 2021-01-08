@@ -198,7 +198,6 @@ class Strings {
   static const String ITEM_TITLE_MOVIE_QUALITY_MOBILE = '画質 - モバイル回線時';
   static const String ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
   static const String ITEM_TITLE_IMAGE_LICENCE = '画像ライセンス';
-  static const String IMAGE_LICENSE = '<a href="https://iconscout.com/icons/roboto" target="_blank">Roboto</a> by <a href="https://iconscout.com/contributors/icons-mind" target="_blank">Icons Mind</a>';
   static const String ITEM_TITLE_GITHUB = 'GitHub';
 
 //endregion

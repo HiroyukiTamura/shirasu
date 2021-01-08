@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
@@ -27,7 +28,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/player_animation_manager.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-// part 'screen_detail.g.dart';
+part 'screen_detail.g.dart';
 
 final pDetailId = StateProvider.autoDispose<String>((_) => null);
 
@@ -72,26 +73,26 @@ class ScreenDetailState extends State<ScreenDetail> {
   Widget build(BuildContext context) {
     final pam = useProvider(pPlayerAnimationProvider).pam;
     return useProvider(pDetailId).state == null
-      ? const SizedBox.shrink()
-      : LayoutBuilder(
-          builder: (context, constraints) {
-            final shrinkedTop =
-                constraints.maxHeight - (_BOTTOM_BAR_HEIGHT + SHRINKED_HEIGHT);
-            return AnimatedBuilder(
-              animation: pam.animation,
-              builder: (context, child) =>
-                  _animationBuilder(context, child, shrinkedTop),
-              child: GestureDetector(
-                onTap: pam.expand,
-                onVerticalDragUpdate: (details) =>
-                    _onVerticalDragUpdate(context, details, shrinkedTop),
-                onVerticalDragEnd: (details) =>
-                    _onVerticalDragEnd(context, details, shrinkedTop),
-                child: const _ExpandableWidget(),
-              ),
-            );
-          },
-        );
+        ? const SizedBox.shrink()
+        : LayoutBuilder(
+            builder: (context, constraints) {
+              final shrinkedTop = constraints.maxHeight -
+                  (_BOTTOM_BAR_HEIGHT + SHRINKED_HEIGHT);
+              return AnimatedBuilder(
+                animation: pam.animation,
+                builder: (context, child) =>
+                    _animationBuilder(context, child, shrinkedTop),
+                child: GestureDetector(
+                  onTap: pam.expand,
+                  onVerticalDragUpdate: (details) =>
+                      _onVerticalDragUpdate(context, details, shrinkedTop),
+                  onVerticalDragEnd: (details) =>
+                      _onVerticalDragEnd(context, details, shrinkedTop),
+                  child: const _ExpandableWidget(),
+                ),
+              );
+            },
+          );
   }
 
   @override
@@ -138,7 +139,7 @@ class ScreenDetailState extends State<ScreenDetail> {
   void _onVerticalDragEnd(
       BuildContext context, DragEndDetails details, double shrinkedTop) {
     final pam = context.read(pPlayerAnimationProvider).pam;
-    final threshold = pam.status == PlayerStatus.shrinked ? 0.3 : 0.7;
+    final threshold = pam.status == PlayerStatus.SHRINKED ? 0.3 : 0.7;
     pam.animation.value > threshold ? pam.expand() : pam.collapse();
   }
 }
@@ -168,14 +169,11 @@ class _ExpandableWidget extends HookWidget {
 
   Future<bool> _onWillPop(BuildContext context) async {
     final closed = await context.read(detailSNProvider).tryClosePanel();
-    if (closed)
-      return false;
+    if (closed) return false;
 
-    if (context.read(pPlayerAnimationProvider).pam?.status == PlayerStatus.expanded) {
-      context
-          .read(pPlayerAnimationProvider)
-          .pam
-          .collapse();
+    if (context.read(pPlayerAnimationProvider).pam?.status ==
+        PlayerStatus.EXPANDED) {
+      context.read(pPlayerAnimationProvider).pam.collapse();
       return false;
     }
 
@@ -189,48 +187,48 @@ class _ExpandableWidget extends HookWidget {
   }
 
   Widget _successWidget(ProgramDetailData programDetailData,
-          ChannelData channelData, PageSheetModel page) {
+      ChannelData channelData, PageSheetModel page) {
     final pam = useProvider(pPlayerAnimationProvider).pam;
     return LayoutBuilder(builder: (context, constraints) {
-        final aspectRatio = constraints.maxWidth / constraints.maxHeight;
+      final aspectRatio = constraints.maxWidth / constraints.maxHeight;
 
-        if (aspectRatio > ScreenDetailState.SHRINKED_ASPECT_RATIO - 0.1)
-          return VideoRow(
-            data: programDetailData,
-            width: constraints.maxWidth,
-            height: constraints.maxHeight,
-          );
-
-        double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
-        final listViewH = constraints.maxHeight - headerH;
-        return ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            switch (index) {
-              case 0:
-                return pam.animation.value == 1
-                    ? VideoHeader(
-                        height: headerH,
-                        programId: programDetailData.program.id,
-                        onTap: () async => _playVideo(context, true),
-                        onTapPreviewBtn: () async => _playVideo(context, false),
-                      )
-                    : SizedBox(
-                        height: headerH,
-                        child: const MinimizedPlayerView(),
-                      );
-              case 1:
-                return _PlayerBody(
-                  height: listViewH,
-                  data: programDetailData,
-                );
-              default:
-                throw Exception(index);
-            }
-          },
-          itemCount: 2,
+      if (aspectRatio > ScreenDetailState.SHRINKED_ASPECT_RATIO - 0.1)
+        return VideoRow(
+          data: programDetailData,
+          width: constraints.maxWidth,
+          height: constraints.maxHeight,
         );
-      });
+
+      double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
+      final listViewH = constraints.maxHeight - headerH;
+      return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          switch (index) {
+            case 0:
+              return pam.animation.value == 1
+                  ? VideoHeader(
+                      height: headerH,
+                      programId: programDetailData.program.id,
+                      onTap: () async => _playVideo(context, true),
+                      onTapPreviewBtn: () async => _playVideo(context, false),
+                    )
+                  : SizedBox(
+                      height: headerH,
+                      child: const MinimizedPlayerView(),
+                    );
+            case 1:
+              return _PlayerBodyWrapper(
+                height: listViewH,
+                data: programDetailData,
+              );
+            default:
+              throw Exception(index);
+          }
+        },
+        itemCount: 2,
+      );
+    });
   }
 }
 
@@ -259,7 +257,16 @@ class _BottomSheet extends HookWidget {
       context.read(detailSNProvider).panelController.close();
 }
 
-///todo migrate to functional_widget
+@swidget
+Widget _playerBodyWrapper({
+  @required double height,
+  @required ProgramDetailData data,
+}) =>
+    height < 0
+        ? const SizedBox.shrink()
+        : _PlayerBody(height: height, data: data);
+
+
 class _PlayerBody extends HookWidget {
   const _PlayerBody({
     @required this.height,
@@ -270,46 +277,51 @@ class _PlayerBody extends HookWidget {
   final ProgramDetailData data;
 
   @override
-  Widget build(BuildContext context) => height < 0
-      ? const SizedBox.shrink()
-      : SizedBox(
-          height: height,
-          child: FadeTransition(
-            opacity: useProvider(pPlayerAnimationProvider).pam.contentFadeAnimation,
-            child: SlidingUpPanel(
-              minHeight: 0,
-              maxHeight: height,
-              controller: useProvider(detailSNProvider).panelController,
-              color: Theme.of(context).scaffoldBackgroundColor,
-              panel: _BottomSheet(program: data.program),
-              body: ListView.builder(
-                  itemCount: 6,
-                  padding: const EdgeInsets.only(bottom: 24),
-                  itemBuilder: (context, index) {
-                    switch (index) {
-                      case 0:
-                        return RowChannel(
-                          title: data.program.channel.name,
-                          channelId: data.program.channel.id,
-                        );
-                      case 1:
-                        return RowVideoTitle(text: data.program.title);
-                      case 2:
-                        return RowVideoTime(
-                          broadcastAt: data.program.broadcastAt,
-                          totalPlayTime: data.program.totalPlayTime,
-                        );
-                      case 3:
-                        return RowVideoTags(textList: data.program.tags);
-                      case 4:
-                        return RowFabs(program: data.program);
-                      case 5:
-                        return RowVideoDesc(text: data.program.detail);
-                      default:
-                        return const SizedBox.shrink();
-                    }
-                  }),
-            ),
+  Widget build(BuildContext context) {
+    final opacity =
+        useProvider(pPlayerAnimationProvider).pam.contentFadeAnimation;
+    return SizedBox(
+      height: height,
+      child: FadeTransition(
+        opacity: opacity,
+        child: IgnorePointer(
+          ignoring: opacity.value != 1,
+          child: SlidingUpPanel(
+            minHeight: 0,
+            maxHeight: height,
+            controller: useProvider(detailSNProvider).panelController,
+            color: Theme.of(context).scaffoldBackgroundColor,
+            panel: _BottomSheet(program: data.program),
+            body: ListView.builder(
+                itemCount: 6,
+                padding: const EdgeInsets.only(bottom: 24),
+                itemBuilder: (context, index) {
+                  switch (index) {
+                    case 0:
+                      return RowChannel(
+                        title: data.program.channel.name,
+                        channelId: data.program.channel.id,
+                      );
+                    case 1:
+                      return RowVideoTitle(text: data.program.title);
+                    case 2:
+                      return RowVideoTime(
+                        broadcastAt: data.program.broadcastAt,
+                        totalPlayTime: data.program.totalPlayTime,
+                      );
+                    case 3:
+                      return RowVideoTags(textList: data.program.tags);
+                    case 4:
+                      return RowFabs(program: data.program);
+                    case 5:
+                      return RowVideoDesc(text: data.program.detail);
+                    default:
+                      return const SizedBox.shrink();
+                  }
+                }),
           ),
-        );
+        ),
+      ),
+    );
+  }
 }

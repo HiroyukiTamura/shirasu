@@ -49,11 +49,9 @@ class VideoRow extends HookWidget {
               left: videoSpace,
               right: _kBtnWidth * 2 < currentW ? _kBtnWidth * 2 : 0,
             ),
-            alignment: Alignment.center,
             child: Opacity(
               opacity: spaceRatio,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _Text(
                     isTitle: true,
@@ -127,7 +125,7 @@ Widget _text({
           ? const EdgeInsets.only(bottom: 3)
           : const EdgeInsets.only(top: 3),
       height: ScreenDetailState.SHRINKED_HEIGHT / 2,
-      alignment: isTitle ? Alignment.bottomCenter : Alignment.topCenter,
+      alignment: isTitle ? Alignment.bottomLeft : Alignment.topLeft,
       child: Text(
         text,
         maxLines: 1,

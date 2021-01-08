@@ -67,7 +67,7 @@ class ItemTable extends StatelessWidget {
 
     return ItemPadding(
       child: Padding(
-        padding: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.only(top: 24),
         child: Table(
           defaultColumnWidth: const IntrinsicColumnWidth(),
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,

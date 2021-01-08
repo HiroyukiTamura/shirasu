@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../util.dart';
 
-//todo rename
 enum PlayerStatus {
-  shrinked,
-  expanded,
+  SHRINKED,
+  EXPANDED,
 }
 
 class PlayerAnimationManagerHolder implements Disposable {
@@ -63,7 +62,7 @@ class PlayerAnimationManager with Disposable {
 
   Animation<double> get contentFadeAnimation => _contentFadeAnimation;
 
-  PlayerStatus _status = PlayerStatus.shrinked;
+  PlayerStatus _status = PlayerStatus.SHRINKED;
 
   PlayerStatus get status => _status;
 
@@ -79,7 +78,7 @@ class PlayerAnimationManager with Disposable {
   }
 
   Future<void> expand() async {
-    _status = PlayerStatus.expanded;
+    _status = PlayerStatus.EXPANDED;
 
     // その地点から良い感じのアニメーションカーブをかけるためのケア(shrink()も同様)
     // https://twitter.com/_mono/status/1226426629800390659
@@ -104,7 +103,7 @@ class PlayerAnimationManager with Disposable {
   }
 
   Future<void> collapse() async {
-    _status = PlayerStatus.shrinked;
+    _status = PlayerStatus.SHRINKED;
     final tween = Tween<double>(
       begin: 0,
       end: _animationController.value,

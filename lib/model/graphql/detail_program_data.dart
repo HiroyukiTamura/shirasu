@@ -6,6 +6,7 @@ import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 import 'package:shirasu/model/graphql/mixins/product_type.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/extension.dart';
+import 'package:dartx/dartx.dart';
 
 part 'detail_program_data.freezed.dart';
 
@@ -65,8 +66,17 @@ abstract class ProgramDetail
         (it) => it.productTypeStrict == ProductType.PROGRAM,
       );
 
+  DetailPrgItem get lastArchivedExtensionPrgItem => videos.items
+      .where((it) => it.isExtension && it.videoTypeStrict == VideoType.ARCHIVED)
+      .sortedBy((it) => it.extensionIndex)
+      .lastOrNull;
+
+  DetailPrgItem get nowLivePrgItem => videos.items.firstOrNullWhere((it) =>
+      it.videoTypeStrict == VideoType.LIVE &&
+      it.mediaStatusStrict != MediaStatus.ENDED);
+
   // todo detect logic for one time plan user who don't purchased extension
-  bool get isExtensionAvailable =>
+  bool get isAllExtensionAvailable =>
       viewerPlanTypeStrict == PlanType.SUBSCRIPTION &&
       !isExtensionChargedToSubscribers;
 }
@@ -161,6 +171,14 @@ abstract class DetailPrgItem
   const DetailPrgItem._();
 
   bool get isFree => id.endsWith(':free');
+
+  bool get isExtension => RegExp(r'/:ext\.\d+$/').hasMatch(id);
+
+  /// must ensure [isExtension] == true
+  int get extensionIndex {
+    assert(isExtension);
+    return int.parse(RegExp(r'\d+$/').stringMatch(id));
+  }
 
   // todo converting VideoType
   String get urlAvailable {

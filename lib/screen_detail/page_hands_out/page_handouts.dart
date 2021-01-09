@@ -51,7 +51,7 @@ class _ScreenHandsOutInner extends HookWidget {
                 DateFormat('yyyy.MM.dd HH:mm').format(handout.createdAt);
             // todo ripple effect is not shown
             final isExtensionOnly = handout.extensionId != null;
-            final enabled = program.isExtensionAvailable && isExtensionOnly;
+            final enabled = program.isAllExtensionAvailable && isExtensionOnly;//todo is it correct logic?
             return ListTile(
               enabled: enabled,
               leading: AspectRatio(

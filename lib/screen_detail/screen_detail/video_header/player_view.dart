@@ -5,10 +5,12 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'player_view.g.dart';
 
-@swidget
+@hwidget
 Widget playerView({
   @required PlayOutState playOutState,
 }) {

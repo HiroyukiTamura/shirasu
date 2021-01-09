@@ -56,24 +56,21 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   DetailPrgItem _findAvailableVideoData() {
     final v = state.prgDataResult;
     if (v is StateSuccess) {
-      final archivedAt = v.programDetailData.program.archivedAt;
+      final program = v.programDetailData.program;
+      final archivedAt = program.archivedAt;
 
       //todo shouldn't written in DetailProgramData?
-      DetailPrgItem detailPrgItem;
-      if (archivedAt?.isBefore(DateTime.now()) == true)
-        detailPrgItem =
-            v.programDetailData.program.videos.items.firstWhereOrNull(
-          (it) => it.videoTypeStrict == VideoType.ARCHIVED,
-        );
+      DetailPrgItem detailPrgItem;//todo more logic
+      if (archivedAt?.isBefore(DateTime.now()) == true) {
+        if (program.isAllExtensionAvailable)
+          detailPrgItem = program.lastArchivedExtensionPrgItem;
+        else {
+          // todo implement
+          throw UnimplementedError();
+        }
+      }
 
-      detailPrgItem ??=
-          v.programDetailData.program.videos.items.firstWhereOrNull(
-        (it) =>
-            it.videoTypeStrict == VideoType.LIVE &&
-            it.mediaStatusStrict != MediaStatus.ENDED,
-      );
-
-      return detailPrgItem;
+      return detailPrgItem ?? program.nowLivePrgItem;
     } else
       return null;
   }
@@ -105,8 +102,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       print(e); //todo handle error
     }
 
-    if (cookie != null)
-      setState(state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie));
+    if (cookie != null && mounted)
+      state = state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie);
   }
 
   Future<String> queryHandOutUrl(String handoutId) async {

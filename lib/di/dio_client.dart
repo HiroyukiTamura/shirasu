@@ -13,7 +13,6 @@ class DioClient {
   static const _URL_SIGNED_COOKIE =
       'https://video.shirasu.io/get-signed-cookie';
 
-  //todo rename programId => videoId
   Future<String> getSignedCookie(
       String videoId, VideoType videoType, String auth) async {
     final response = await _dio.get<Map<String, dynamic>>(_URL_SIGNED_COOKIE,

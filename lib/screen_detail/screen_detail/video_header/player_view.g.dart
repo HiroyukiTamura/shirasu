@@ -6,7 +6,7 @@ part of 'player_view.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class PlayerView extends StatelessWidget {
+class PlayerView extends HookWidget {
   const PlayerView({Key key, @required this.playOutState}) : super(key: key);
 
   final PlayOutState playOutState;

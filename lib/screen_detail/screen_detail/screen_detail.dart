@@ -156,7 +156,7 @@ class _ExpandableWidget extends HookWidget {
       );
 
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>
-      context.read(detailSNProvider).playVideo(false);
+      context.read(detailSNProvider).playVideo(isPreview);
 
   Widget _successWidget(ProgramDetailData programDetailData,
       ChannelData channelData, PageSheetModel page) {
@@ -182,8 +182,8 @@ class _ExpandableWidget extends HookWidget {
                   ? VideoHeader(
                       height: headerH,
                       programId: programDetailData.program.id,
-                      onTap: () async => _playVideo(context, true),
-                      onTapPreviewBtn: () async => _playVideo(context, false),
+                      onTap: () async => _playVideo(context, false),
+                      onTapPreviewBtn: () async => _playVideo(context, true),
                     )
                   : SizedBox(
                       height: headerH,

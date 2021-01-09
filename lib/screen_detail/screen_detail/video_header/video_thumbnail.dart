@@ -63,7 +63,7 @@ class VideoThumbnail extends HookWidget {
     if (isPurchased)
       return isWaiting
           ? const _WaitingText()
-          : _PlayBtn(onTap: onTapPreviewBtn);
+          : _PlayBtn(onTap: onTap);
 
     return _HoverBackDrop(
       opacity: .7,
@@ -90,7 +90,7 @@ class VideoThumbnail extends HookWidget {
     );
   }
 
-  /// todo implement
+  /// todo extract
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
     final result =
         context.read(detailSNProvider).state.prgDataResult as StateSuccess;

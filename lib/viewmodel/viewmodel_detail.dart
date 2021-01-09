@@ -29,6 +29,35 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   final String id;
   final String channelId;
 
+  DetailPrgItem get _previewArchivedVideoData {
+    final v = state.prgDataResult;
+    if (v is StateSuccess)
+      return v.programDetailData.program.previewPrgItem;
+    else
+      return null;
+  }
+
+  DetailPrgItem get _availableVideoData {
+    final v = state.prgDataResult;
+    if (v is StateSuccess) {
+      final program = v.programDetailData.program;
+
+      //todo shouldn't written in DetailProgramData?
+      DetailPrgItem detailPrgItem;//todo more logic
+      if (program.archivedAt?.isBefore(DateTime.now()) == true) {
+        if (program.isAllExtensionAvailable)
+          detailPrgItem = program.lastArchivedExtensionPrgItem;
+        else {
+          // todo implement
+          throw UnimplementedError();
+        }
+      }
+
+      return detailPrgItem ?? program.nowLivePrgItem;
+    } else
+      return null;
+  }
+
   @override
   Future<void> initialize() async {
     if (state.prgDataResult is StateSuccess) return;
@@ -54,42 +83,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     setState(newState);
   }
 
-  DetailPrgItem _findAvailableVideoData() {
-    final v = state.prgDataResult;
-    if (v is StateSuccess) {
-      final program = v.programDetailData.program;
-      final archivedAt = program.archivedAt;
-
-      //todo shouldn't written in DetailProgramData?
-      DetailPrgItem detailPrgItem;//todo more logic
-      if (archivedAt?.isBefore(DateTime.now()) == true) {
-        if (program.isAllExtensionAvailable)
-          detailPrgItem = program.lastArchivedExtensionPrgItem;
-        else {
-          // todo implement
-          throw UnimplementedError();
-        }
-      }
-
-      return detailPrgItem ?? program.nowLivePrgItem;
-    } else
-      return null;
-  }
-
-  DetailPrgItem _findPreviewArchivedVideoData() {
-    final v = state.prgDataResult;
-    if (v is StateSuccess)
-      //todo shouldn't written in DetailProgramData?
-      return v.programDetailData.program.videos.items.firstOrNullWhere(
-        (it) => it.videoTypeStrict == VideoType.ARCHIVED && it.isFree,
-      );
-    else
-      return null;
-  }
-
   Future<void> playVideo(bool preview) async {
     final prg =
-        preview ? _findPreviewArchivedVideoData() : _findAvailableVideoData();
+        preview ? _previewArchivedVideoData : _availableVideoData;
     if (prg == null) return; // todo handle error
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);

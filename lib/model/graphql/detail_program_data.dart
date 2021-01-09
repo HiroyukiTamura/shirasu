@@ -62,7 +62,7 @@ abstract class ProgramDetail
 
   const ProgramDetail._();
 
-  OnetimePlan get onetimePlaneMain => onetimePlans.firstOrNullWhere(
+  OnetimePlan get onetimePlanMain => onetimePlans.firstOrNullWhere(
         (it) => it.productTypeStrict == ProductType.PROGRAM,
       );
 
@@ -74,6 +74,9 @@ abstract class ProgramDetail
   DetailPrgItem get nowLivePrgItem => videos.items.firstOrNullWhere((it) =>
       it.videoTypeStrict == VideoType.LIVE &&
       it.mediaStatusStrict != MediaStatus.ENDED);
+
+  DetailPrgItem get previewPrgItem => videos.items.firstOrNullWhere(
+      (it) => it.isFree && it.videoTypeStrict == VideoType.ARCHIVED);
 
   // todo detect logic for one time plan user who don't purchased extension
   bool get isAllExtensionAvailable =>
@@ -172,12 +175,12 @@ abstract class DetailPrgItem
 
   bool get isFree => id.endsWith(':free');
 
-  bool get isExtension => RegExp(r'/:ext\.\d+$/').hasMatch(id);
+  bool get isExtension => RegExp(r':ext\.\d+$').hasMatch(id);
 
   /// must ensure [isExtension] == true
   int get extensionIndex {
     assert(isExtension);
-    return int.parse(RegExp(r'\d+$/').stringMatch(id));
+    return int.parse(RegExp(r'\d+$').stringMatch(id));
   }
 
   // todo converting VideoType

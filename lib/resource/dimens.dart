@@ -17,4 +17,7 @@ class Dimens {
   /// @see assets\undraw_warning_cyit.svg
   static const double ERROR_WIDGET_RATIO = 832.63 / 1032.24;
   static const double HANDOUT_THUMBNAIL_RATIO = 16/9;
+
+  static const double VIDEO_PLAY_BTN_ICON_SIZE = 60;
+  static const double VIDEO_SEEK_BTN_ICON_SIZE = 40;
 }

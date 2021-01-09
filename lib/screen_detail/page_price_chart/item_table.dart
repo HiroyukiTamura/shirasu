@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:quiver/iterables.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
@@ -8,8 +7,6 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
 import 'package:shirasu/util.dart';
-import 'package:shirasu/extension.dart';
-import 'package:dartx/dartx.dart';
 
 class ItemTable extends StatelessWidget {
   const ItemTable({
@@ -37,8 +34,8 @@ class ItemTable extends StatelessWidget {
       )
     ];
 
-    final mainType = program.onetimePlaneMain;
-    if (program.onetimePlaneMain != null) {
+    final mainType = program.onetimePlanMain;
+    if (mainType != null) {
       final price = '${mainType.amountWithTax}${mainType.currencyAsSuffix}';
       final mainTypeRow = _tableRow(
         first: Strings.ARCHIVE_PRICE_TABLE_MAIN_TYPE,

@@ -32,6 +32,7 @@ dependencies:
   flutter_webview_plugin: ^0.3.11
   webview_flutter: ^1.0.7
   font_awesome_flutter: ^8.10.0
+  material_design_icons_flutter: 4.0.5755
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   introduction_screen: ^1.0.9

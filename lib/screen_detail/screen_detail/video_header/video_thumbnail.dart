@@ -10,13 +10,14 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/play_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'video_thumbnail.g.dart';
 
-const double _ICON_SIZE = 80;
+typedef OnTap = void Function(BuildContext context);
 
 class VideoThumbnail extends HookWidget {
   const VideoThumbnail({
@@ -45,48 +46,14 @@ class VideoThumbnail extends HookWidget {
           imageUrl: UrlUtil.getThumbnailUrl(program.id),
           errorWidget: Util.defaultPrgThumbnail,
         ),
-        _hoverWidget(context, program),
-      ],
-    );
-  }
-
-  Widget _hoverWidget(BuildContext context, ProgramDetail program) {
-    if (isLoading) return const CenterCircleProgress();
-
-    final isWaiting = DateTime.now().isBefore(program.broadcastAt);
-    final isPurchasable =
-        program.onetimePlans.any((it) => it.isPurchasable); // todo fix
-    final isPurchased =
-        program.viewerPlanTypeStrict != null; //todo need more logic
-    final canPreview = program.previewTime != 0;
-
-    if (isPurchased)
-      return isWaiting
-          ? const _WaitingText()
-          : _PlayBtn(onTap: onTap);
-
-    return _HoverBackDrop(
-      opacity: .7,
-      child: IntrinsicWidth(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (isPurchasable)
-              _HoverBtn(
-                label: Strings.PURCHASE_BTN_TEXT,
-                onPressed: () async => _onClickPurchaseBtn(context),
-              ),
-            if (isPurchasable && canPreview) const SizedBox(height: 16),
-            if (canPreview && isWaiting) const _PreviewExistMessage(),
-            if (canPreview && !isWaiting)
-              _HoverBtn(
-                label: Strings.PREVIEW_BTN_TEXT,
-                onPressed: onTapPreviewBtn,
-              ),
-          ],
+        _HoverWidget(
+          program: program,
+          isLoading: isLoading,
+          onClickPurchaseBtn: _onClickPurchaseBtn,
+          onTapPreviewBtn: onTapPreviewBtn,
+          onTap: onTap,
         ),
-      ),
+      ],
     );
   }
 
@@ -99,7 +66,8 @@ class VideoThumbnail extends HookWidget {
     await BtmSheetCommon.showUrlLauncherBtmSheet(
         context: context,
         url: UrlUtil.programId2Url(programId),
-        child: Column(//todo extract
+        child: Column(
+          //todo extract
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
@@ -141,28 +109,49 @@ class VideoThumbnail extends HookWidget {
 }
 
 @swidget
-Widget _playBtn({
-  @required GestureTapCallback onTap,
-}) =>
-    Center(
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          height: _ICON_SIZE,
-          width: _ICON_SIZE,
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(.5),
-            shape: BoxShape.circle,
-          ),
-          alignment: Alignment.center,
-          child: const Icon(
-            Icons.play_arrow,
-            size: _ICON_SIZE,
-            color: Colors.white,
-          ),
-        ),
+Widget _hoverWidget(
+  BuildContext context, {
+  @required ProgramDetail program,
+  @required bool isLoading,
+  @required VoidCallback onTap,
+  @required VoidCallback onTapPreviewBtn,
+  @required OnTap onClickPurchaseBtn,
+}) {
+  if (isLoading) return const CenterCircleProgress();
+
+  final isWaiting = DateTime.now().isBefore(program.broadcastAt);
+  final isPurchasable = program.onetimePlanMain != null;
+  final isPurchased =
+      program.viewerPlanTypeStrict != null; //todo need more logic
+  final canPreview = program.previewTime != 0;
+
+  if (isPurchased)
+    return isWaiting ? const _WaitingText() : PlayBtn(onTap: onTap);
+
+  return _HoverBackDrop(
+    opacity: .7,
+    child: IntrinsicWidth(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (isPurchasable)
+            _HoverBtn(
+              label: Strings.PURCHASE_BTN_TEXT,
+              onPressed: () => onClickPurchaseBtn(context),
+            ),
+          if (isPurchasable && canPreview) const SizedBox(height: 16),
+          if (canPreview && isWaiting) const _PreviewExistMessage(),
+          if (canPreview && !isWaiting)
+            _HoverBtn(
+              label: Strings.PREVIEW_BTN_TEXT,
+              onPressed: onTapPreviewBtn,
+            ),
+        ],
       ),
-    );
+    ),
+  );
+}
 
 @swidget
 Widget _previewExistMessage() => const Text(
@@ -183,38 +172,40 @@ Widget _waitingText() => const _HoverBackDrop(
 Widget _hoverBtn({
   @required String label,
   @required VoidCallback onPressed,
-}) => RaisedButton.icon(
-  onPressed: onPressed,
-  padding: const EdgeInsets.all(16),
-  shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(1000),
-      side: const BorderSide(color: Colors.white)),
-  color: Colors.black,
-  label: Padding(
-    padding: const EdgeInsets.only(right: 8),
-    child: Text(
-      label,
-      style: const TextStyle(
-        fontSize: 16,
+}) =>
+    RaisedButton.icon(
+      onPressed: onPressed,
+      padding: const EdgeInsets.all(16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(1000),
+        side: const BorderSide(color: Colors.white),
       ),
-    ),
-  ),
-  icon: const Icon(
-    Icons.play_arrow,
-    color: Colors.white,
-  ),
-);
-
+      color: Colors.black,
+      label: Padding(
+        padding: const EdgeInsets.only(right: 8),
+        child: Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+      ),
+      icon: const Icon(
+        Icons.play_arrow,
+        color: Colors.white,
+      ),
+    );
 
 @swidget
 Widget _hoverBackDrop({
   @required double opacity,
   @required Widget child,
-}) => SizedBox.expand(
-  child: Container(
-    padding: const EdgeInsets.all(16),
-    alignment: Alignment.center,
-    color: Colors.black.withOpacity(.7),
-    child: child,
-  ),
-);
+}) =>
+    SizedBox.expand(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        alignment: Alignment.center,
+        color: Colors.black.withOpacity(.7),
+        child: child,
+      ),
+    );

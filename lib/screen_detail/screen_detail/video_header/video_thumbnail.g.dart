@@ -6,13 +6,33 @@ part of 'video_thumbnail.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class _PlayBtn extends StatelessWidget {
-  const _PlayBtn({Key key, @required this.onTap}) : super(key: key);
+class _HoverWidget extends StatelessWidget {
+  const _HoverWidget(
+      {Key key,
+      @required this.program,
+      @required this.isLoading,
+      @required this.onTap,
+      @required this.onTapPreviewBtn,
+      @required this.onClickPurchaseBtn})
+      : super(key: key);
+
+  final ProgramDetail program;
+
+  final bool isLoading;
 
   final void Function() onTap;
 
+  final void Function() onTapPreviewBtn;
+
+  final void Function(BuildContext) onClickPurchaseBtn;
+
   @override
-  Widget build(BuildContext _context) => _playBtn(onTap: onTap);
+  Widget build(BuildContext _context) => _hoverWidget(_context,
+      program: program,
+      isLoading: isLoading,
+      onTap: onTap,
+      onTapPreviewBtn: onTapPreviewBtn,
+      onClickPurchaseBtn: onClickPurchaseBtn);
 }
 
 class _PreviewExistMessage extends StatelessWidget {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_view.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
@@ -46,7 +47,12 @@ class VideoHeader extends HookWidget {
         );
         break;
       case PlayerCommandedState.POST_PLAY:
-        child = PlayerView(playOutState: playOutState);
+        child = Stack(
+          children: [
+            PlayerView(playOutState: playOutState),
+            PlayerControllerView(),
+          ],
+        );
         break;
     }
     return SizedBox(

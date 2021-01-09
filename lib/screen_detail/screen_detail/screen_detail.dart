@@ -55,8 +55,6 @@ final _pBtmSheetExpanded = Provider.autoDispose<PageSheetModel>(
       ),
 );
 
-final videoProvider = Provider<VideoHolder>((ref) => VideoHolder());
-
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 @hwidget

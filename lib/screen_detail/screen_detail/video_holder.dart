@@ -1,12 +1,14 @@
-import 'package:flutter_playout/video.dart';
-import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_view.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
+final videoProvider = Provider<VideoHolder>((_) => VideoHolder._());
+
 class VideoHolder {
-  Video video;
+  VideoHolder._();
+
+  KeepAliveVideo widget;
 
   bool isEqualSource(PlayOutState state) =>
-      video?.cookie == state?.cookie &&
-      video?.isLiveStream == (state?.videoType == VideoType.LIVE) &&
-      video?.url == state?.hlsMediaUrl;
+      widget?.playOutState?.isEqualSource(state) == true;
 }

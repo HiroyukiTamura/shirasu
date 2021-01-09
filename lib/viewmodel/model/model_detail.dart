@@ -56,22 +56,23 @@ abstract class DetailModelState with _$DetailModelState {
   const factory DetailModelState.error() = StateError;
 }
 
-class PlayOutState {
-  const PlayOutState._({
-    @required this.commandedState,
-    @required this.playerState,
-    this.hlsMediaUrl,
-    this.videoType,
-    this.cookie,
-  });
+@freezed
+abstract class PlayOutState implements _$PlayOutState {
+  const factory PlayOutState({
+    @required PlayerCommandedState commandedState,
+    @required PlayerState playerState,
+    String hlsMediaUrl,
+    VideoType videoType,
+    String cookie,
+  }) = _PlayOutState;
 
-  factory PlayOutState.initial() => const PlayOutState._(
+  factory PlayOutState.initial() => const PlayOutState(
         commandedState: PlayerCommandedState.PRE_PLAY,
         playerState: PlayerState.PLAYING,
       );
 
   factory PlayOutState.initialize(String hlsMediaUrl, VideoType videoType) =>
-      PlayOutState._(
+      PlayOutState(
         commandedState: PlayerCommandedState.INITIALIZING,
         playerState: PlayerState.PLAYING,
         hlsMediaUrl: hlsMediaUrl,
@@ -80,7 +81,7 @@ class PlayOutState {
 
   factory PlayOutState.play(
           String hlsMediaUrl, VideoType videoType, String cookie) =>
-      PlayOutState._(
+      PlayOutState(
         commandedState: PlayerCommandedState.POST_PLAY,
         playerState: PlayerState.PLAYING,
         hlsMediaUrl: hlsMediaUrl,
@@ -88,11 +89,12 @@ class PlayOutState {
         cookie: cookie,
       );
 
-  final PlayerCommandedState commandedState;
-  final PlayerState playerState;
-  final String hlsMediaUrl;
-  final VideoType videoType;
-  final String cookie;
+  const PlayOutState._();
+
+  bool isEqualSource(PlayOutState state) =>
+      cookie == state?.cookie &&
+      videoType == VideoType.LIVE &&
+      hlsMediaUrl == state?.hlsMediaUrl;
 }
 
 enum PlayerCommandedState {

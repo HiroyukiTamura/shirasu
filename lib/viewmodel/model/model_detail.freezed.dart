@@ -50,6 +50,7 @@ abstract class $ModelDetailCopyWith<$Res> {
       bool isHandoutUrlRequesting});
 
   $DetailModelStateCopyWith<$Res> get prgDataResult;
+  $PlayOutStateCopyWith<$Res> get playOutState;
 }
 
 /// @nodoc
@@ -88,6 +89,16 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       return _then(_value.copyWith(prgDataResult: value));
     });
   }
+
+  @override
+  $PlayOutStateCopyWith<$Res> get playOutState {
+    if (_value.playOutState == null) {
+      return null;
+    }
+    return $PlayOutStateCopyWith<$Res>(_value.playOutState, (value) {
+      return _then(_value.copyWith(playOutState: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -104,6 +115,8 @@ abstract class _$ModelDetailCopyWith<$Res>
 
   @override
   $DetailModelStateCopyWith<$Res> get prgDataResult;
+  @override
+  $PlayOutStateCopyWith<$Res> get playOutState;
 }
 
 /// @nodoc
@@ -807,6 +820,221 @@ class _$StateError implements StateError {
 
 abstract class StateError implements DetailModelState {
   const factory StateError() = _$StateError;
+}
+
+/// @nodoc
+class _$PlayOutStateTearOff {
+  const _$PlayOutStateTearOff();
+
+// ignore: unused_element
+  _PlayOutState call(
+      {@required PlayerCommandedState commandedState,
+      @required PlayerState playerState,
+      String hlsMediaUrl,
+      VideoType videoType,
+      String cookie}) {
+    return _PlayOutState(
+      commandedState: commandedState,
+      playerState: playerState,
+      hlsMediaUrl: hlsMediaUrl,
+      videoType: videoType,
+      cookie: cookie,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $PlayOutState = _$PlayOutStateTearOff();
+
+/// @nodoc
+mixin _$PlayOutState {
+  PlayerCommandedState get commandedState;
+  PlayerState get playerState;
+  String get hlsMediaUrl;
+  VideoType get videoType;
+  String get cookie;
+
+  $PlayOutStateCopyWith<PlayOutState> get copyWith;
+}
+
+/// @nodoc
+abstract class $PlayOutStateCopyWith<$Res> {
+  factory $PlayOutStateCopyWith(
+          PlayOutState value, $Res Function(PlayOutState) then) =
+      _$PlayOutStateCopyWithImpl<$Res>;
+  $Res call(
+      {PlayerCommandedState commandedState,
+      PlayerState playerState,
+      String hlsMediaUrl,
+      VideoType videoType,
+      String cookie});
+}
+
+/// @nodoc
+class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
+  _$PlayOutStateCopyWithImpl(this._value, this._then);
+
+  final PlayOutState _value;
+  // ignore: unused_field
+  final $Res Function(PlayOutState) _then;
+
+  @override
+  $Res call({
+    Object commandedState = freezed,
+    Object playerState = freezed,
+    Object hlsMediaUrl = freezed,
+    Object videoType = freezed,
+    Object cookie = freezed,
+  }) {
+    return _then(_value.copyWith(
+      commandedState: commandedState == freezed
+          ? _value.commandedState
+          : commandedState as PlayerCommandedState,
+      playerState: playerState == freezed
+          ? _value.playerState
+          : playerState as PlayerState,
+      hlsMediaUrl:
+          hlsMediaUrl == freezed ? _value.hlsMediaUrl : hlsMediaUrl as String,
+      videoType:
+          videoType == freezed ? _value.videoType : videoType as VideoType,
+      cookie: cookie == freezed ? _value.cookie : cookie as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PlayOutStateCopyWith<$Res>
+    implements $PlayOutStateCopyWith<$Res> {
+  factory _$PlayOutStateCopyWith(
+          _PlayOutState value, $Res Function(_PlayOutState) then) =
+      __$PlayOutStateCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {PlayerCommandedState commandedState,
+      PlayerState playerState,
+      String hlsMediaUrl,
+      VideoType videoType,
+      String cookie});
+}
+
+/// @nodoc
+class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
+    implements _$PlayOutStateCopyWith<$Res> {
+  __$PlayOutStateCopyWithImpl(
+      _PlayOutState _value, $Res Function(_PlayOutState) _then)
+      : super(_value, (v) => _then(v as _PlayOutState));
+
+  @override
+  _PlayOutState get _value => super._value as _PlayOutState;
+
+  @override
+  $Res call({
+    Object commandedState = freezed,
+    Object playerState = freezed,
+    Object hlsMediaUrl = freezed,
+    Object videoType = freezed,
+    Object cookie = freezed,
+  }) {
+    return _then(_PlayOutState(
+      commandedState: commandedState == freezed
+          ? _value.commandedState
+          : commandedState as PlayerCommandedState,
+      playerState: playerState == freezed
+          ? _value.playerState
+          : playerState as PlayerState,
+      hlsMediaUrl:
+          hlsMediaUrl == freezed ? _value.hlsMediaUrl : hlsMediaUrl as String,
+      videoType:
+          videoType == freezed ? _value.videoType : videoType as VideoType,
+      cookie: cookie == freezed ? _value.cookie : cookie as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_PlayOutState extends _PlayOutState {
+  const _$_PlayOutState(
+      {@required this.commandedState,
+      @required this.playerState,
+      this.hlsMediaUrl,
+      this.videoType,
+      this.cookie})
+      : assert(commandedState != null),
+        assert(playerState != null),
+        super._();
+
+  @override
+  final PlayerCommandedState commandedState;
+  @override
+  final PlayerState playerState;
+  @override
+  final String hlsMediaUrl;
+  @override
+  final VideoType videoType;
+  @override
+  final String cookie;
+
+  @override
+  String toString() {
+    return 'PlayOutState(commandedState: $commandedState, playerState: $playerState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PlayOutState &&
+            (identical(other.commandedState, commandedState) ||
+                const DeepCollectionEquality()
+                    .equals(other.commandedState, commandedState)) &&
+            (identical(other.playerState, playerState) ||
+                const DeepCollectionEquality()
+                    .equals(other.playerState, playerState)) &&
+            (identical(other.hlsMediaUrl, hlsMediaUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.hlsMediaUrl, hlsMediaUrl)) &&
+            (identical(other.videoType, videoType) ||
+                const DeepCollectionEquality()
+                    .equals(other.videoType, videoType)) &&
+            (identical(other.cookie, cookie) ||
+                const DeepCollectionEquality().equals(other.cookie, cookie)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(commandedState) ^
+      const DeepCollectionEquality().hash(playerState) ^
+      const DeepCollectionEquality().hash(hlsMediaUrl) ^
+      const DeepCollectionEquality().hash(videoType) ^
+      const DeepCollectionEquality().hash(cookie);
+
+  @override
+  _$PlayOutStateCopyWith<_PlayOutState> get copyWith =>
+      __$PlayOutStateCopyWithImpl<_PlayOutState>(this, _$identity);
+}
+
+abstract class _PlayOutState extends PlayOutState {
+  const _PlayOutState._() : super._();
+  const factory _PlayOutState(
+      {@required PlayerCommandedState commandedState,
+      @required PlayerState playerState,
+      String hlsMediaUrl,
+      VideoType videoType,
+      String cookie}) = _$_PlayOutState;
+
+  @override
+  PlayerCommandedState get commandedState;
+  @override
+  PlayerState get playerState;
+  @override
+  String get hlsMediaUrl;
+  @override
+  VideoType get videoType;
+  @override
+  String get cookie;
+  @override
+  _$PlayOutStateCopyWith<_PlayOutState> get copyWith;
 }
 
 /// @nodoc

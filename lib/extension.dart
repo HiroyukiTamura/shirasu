@@ -6,11 +6,7 @@ import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/player_animation_manager.dart';
 
 extension IteratableX<E> on Iterable<E> {
-  List<E> toUnmodifiableList() => List.unmodifiable(this);
-
-  E firstWhereOrNull(bool Function(E) test) =>
-      firstWhere(test, orElse: () => null);
-
+  // todo send PR to dartX
   List<E> joinWith(E Function() separator) {
     final list = <E>[];
     for (int i = 0; i < length; i++) {

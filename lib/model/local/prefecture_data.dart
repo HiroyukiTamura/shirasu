@@ -11,6 +11,8 @@ abstract class PrefectureData with _$PrefectureData {
 
   factory PrefectureData.fromJson(Map<String, dynamic> json) =>
       _$PrefectureDataFromJson(json);
+
+
 }
 
 @freezed

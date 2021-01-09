@@ -15,6 +15,7 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/extension.dart';
 import 'package:riverpod/src/framework.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:dartx/dartx.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(this.id, this._ref)
@@ -79,7 +80,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final v = state.prgDataResult;
     if (v is StateSuccess)
       //todo shouldn't written in DetailProgramData?
-      return v.programDetailData.program.videos.items.firstWhereOrNull(
+      return v.programDetailData.program.videos.items.firstOrNullWhere(
         (it) => it.videoTypeStrict == VideoType.ARCHIVED && it.isFree,
       );
     else

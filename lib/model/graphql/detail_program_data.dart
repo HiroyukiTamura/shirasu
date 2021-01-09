@@ -62,7 +62,7 @@ abstract class ProgramDetail
 
   const ProgramDetail._();
 
-  OnetimePlan get onetimePlaneMain => onetimePlans.firstWhereOrNull(
+  OnetimePlan get onetimePlaneMain => onetimePlans.firstOrNullWhere(
         (it) => it.productTypeStrict == ProductType.PROGRAM,
       );
 

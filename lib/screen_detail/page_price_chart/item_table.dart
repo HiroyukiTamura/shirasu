@@ -9,6 +9,7 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/extension.dart';
+import 'package:dartx/dartx.dart';
 
 class ItemTable extends StatelessWidget {
   const ItemTable({
@@ -61,7 +62,7 @@ class ItemTable extends StatelessWidget {
             ? price
             : Strings.ARCHIVE_PRICE_TABLE_FREE,
       );
-    }).toUnmodifiableList();
+    }).toList();
 
     children.addAll(extensionRows);
 

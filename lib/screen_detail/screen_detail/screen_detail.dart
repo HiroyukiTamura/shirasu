@@ -7,6 +7,7 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_channel.dart';
@@ -19,7 +20,6 @@ import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_row.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_holder.dart';
-import 'package:shirasu/screen_in_player.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
@@ -30,6 +30,15 @@ import 'package:shirasu/viewmodel/player_animation_manager.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 part 'screen_detail.g.dart';
+
+final scaffoldProvider =
+    Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+
+final _pHasPlayerBtmPadding = StateProvider.autoDispose<bool>((ref) =>
+    ref.watch(pcnAppRouterDelegate).appState.last is PathDataMainPageBase);
+
+final pPlayerBtmPadding = Provider.autoDispose<double>((ref) =>
+    ref.watch(_pHasPlayerBtmPadding).state ? kBottomNavigationBarHeight : 0);
 
 final pDetailId = StateProvider.autoDispose<String>((_) => null);
 
@@ -80,8 +89,7 @@ class ScreenDetailState extends State<_ScreenDetail> {
     final btmBarH = useProvider(pPlayerBtmPadding);
     return LayoutBuilder(
       builder: (context, constraints) {
-        final shrinkedTop =
-            constraints.maxHeight - (btmBarH + SHRINKED_HEIGHT);
+        final shrinkedTop = constraints.maxHeight - (btmBarH + SHRINKED_HEIGHT);
         return AnimatedBuilder(
           animation: pam.animation,
           builder: (context, child) =>
@@ -97,18 +105,6 @@ class ScreenDetailState extends State<_ScreenDetail> {
         );
       },
     );
-  }
-
-  @override
-  void dispose() {
-    context.read(pDetailScaffold).key = null;
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    context.dependOnInheritedWidgetOfExactType();
   }
 
   Widget _animationBuilder(
@@ -137,7 +133,7 @@ class ScreenDetailState extends State<_ScreenDetail> {
 
   void _onVerticalDragEnd(DragEndDetails details, double shrinkedTop) {
     final pam = PlayerAnimationManager.instance;
-    final threshold = pam.status == PlayerStatus.SHRINKED ? 0.3 : 0.7;
+    final threshold = pam.status == PlayerStatus.SHRINKED ? 0.2 : 0.8;
     pam.animation.value > threshold ? pam.expand() : pam.collapse();
   }
 }
@@ -145,43 +141,22 @@ class ScreenDetailState extends State<_ScreenDetail> {
 class _ExpandableWidget extends HookWidget {
   const _ExpandableWidget({Key key}) : super(key: key);
 
-  ///todo is this Scaffold necessary?
   @override
-  Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () => _onWillPop(context),
-        child: SafeArea(
-          child: Scaffold(
-              primary: false,
-              body: useProvider(
-                  detailSNProvider.state.select((it) => it.prgDataResult)).when(
-                loading: () => const CenterCircleProgress(),
-                preInitialized: () => const CenterCircleProgress(),
-                error: () => const PageError(),
-                success: _successWidget,
-              )),
+  Widget build(BuildContext context) => SafeArea(
+        child: ColoredBox(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: useProvider(
+              detailSNProvider.state.select((it) => it.prgDataResult)).when(
+            loading: () => const CenterCircleProgress(),
+            preInitialized: () => const CenterCircleProgress(),
+            error: () => const PageError(),
+            success: _successWidget,
+          ),
         ),
       );
 
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>
       context.read(detailSNProvider).playVideo(false);
-
-  Future<bool> _onWillPop(BuildContext context) async {
-    final closed = await context.read(detailSNProvider).tryClosePanel();
-    if (closed) return false;
-
-    if (PlayerAnimationManager.instance?.status == PlayerStatus.EXPANDED) {
-      PlayerAnimationManager.instance.collapse();
-      return false;
-    }
-
-    final detailIdState = context.read(pDetailId);
-    if (detailIdState.state != null) {
-      detailIdState.state = null;
-      return false;
-    }
-
-    return true;
-  }
 
   Widget _successWidget(ProgramDetailData programDetailData,
       ChannelData channelData, PageSheetModel page) {

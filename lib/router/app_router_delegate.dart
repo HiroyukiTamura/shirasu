@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -8,38 +8,28 @@ import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_image_lisence/screen_image_license.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
+import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/screen_oss_licence/screen_oss_licence.dart';
-import 'package:shirasu/viewmodel/player_animation_manager.dart';
 import 'package:tuple/tuple.dart';
 
-class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
-    with
-        ChangeNotifier,
-        PopNavigatorRouterDelegateMixin<GlobalRoutePathBase>,
-        OnPopPageMixin {
-  InPlayerAppRouterDelegate(GlobalAppState appState)
-      : navigatorKey = GlobalKey<NavigatorState>() {
-    _appState = appState..addListener(notifyListeners);
+import 'on_pop_page_mixin.dart';
+
+class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
+    with ChangeNotifier, OnPopPageMixin<GlobalRoutePathBase>, PlayerPopRouteMixin<GlobalRoutePathBase> {
+  AppRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
+    appState.addListener(notifyListeners);
   }
 
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
-  GlobalAppState get appState => _appState;
-
-  set appState(GlobalAppState value) {
-    if (value == _appState) return;
-
-    _appState = value;
-    notifyListeners();
-  }
-
-  GlobalAppState _appState;
+  @override
+  final GlobalAppState appState = GlobalAppState();
 
   @override
   Widget build(BuildContext context) {
-    final pageList = _appState.list
+    final pageList = appState.list
         .map<Tuple2<String, Widget>>((pathData) {
           final screen = GlobalRoutePathBase.wrappedWhenRough(
             pathData,
@@ -50,7 +40,7 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             //todo
             ossLicense: () => const ScreenOssLicense(),
             auth: () => const ScreenAuth(),
-            mainPage: () => PageDashboardInMainScreen(appState: _appState),
+            mainPage: () => ScreenMain(appState: appState),
             imgLicense: () => const ScreenImageLicense(),
           );
           final location = NavigationValueKeyHandler.getValueKey(pathData);
@@ -66,6 +56,28 @@ class InPlayerAppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    appState.removeListener(notifyListeners);
+  }
+
+  @override
   Future<void> setNewRoutePath(GlobalRoutePathBase configuration) async =>
-      throw Exception("don't setNewRoutePath $configuration");
+      appState.push(configuration);
+
+  @override
+  Future<bool> popRoute() async => kickPopRoute(_popRouteAsDefault);
+
+  Future<void> pushPage(GlobalRoutePath path) => setNewRoutePath(path);
+
+  Future<void> swapPageInMainScreen(PathDataMainPageBase path) =>
+      setNewRoutePath(path);
+
+  /// copy of [PopNavigatorRouterDelegateMixin.popRoute]
+  Future<bool> _popRouteAsDefault() {
+    final NavigatorState navigator = navigatorKey?.currentState;
+    if (navigator == null)
+      return SynchronousFuture<bool>(false);
+    return navigator.maybePop();
+  }
 }

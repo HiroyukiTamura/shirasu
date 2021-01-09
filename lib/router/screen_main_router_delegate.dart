@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/router/app_router_asset.dart';
 import 'package:shirasu/router/no_animation_page.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_app_state.dart';
@@ -8,8 +7,13 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
+import 'on_pop_page_mixin.dart';
+
 class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<PathDataMainPageBase>, OnPopPageMixin {
+    with
+        ChangeNotifier,
+        OnPopPageMixin<PathDataMainPageBase>,
+        PlayerPopRouteMixin<PathDataMainPageBase> {
   ScreenMainRouterDelegate(GlobalAppState appState)
       : navigatorKey = GlobalKey<NavigatorState>() {
     _appState = appState..addListener(notifyListeners);
@@ -18,6 +22,7 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
+  @override
   GlobalAppState get appState => _appState;
   GlobalAppState _appState;
 
@@ -26,6 +31,12 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
 
     _appState = value;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _appState.removeListener(notifyListeners);
   }
 
   @override
@@ -58,4 +69,7 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
     final path = PathDataMainPageBase.fromIndex(index);
     _appState.push(path);
   }
+
+  @override
+  Future<bool> popRoute() => kickPopRoute(() async => false);
 }

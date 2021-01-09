@@ -8,6 +8,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/viewmodel/player_animation_manager.dart';
 
@@ -22,8 +23,8 @@ class ScaffoldKeyHolder {
   GlobalKey<ScaffoldState> key;
 }
 
-class PageDashboardInMainScreen extends StatefulHookWidget {
-  const PageDashboardInMainScreen({
+class ScreenMain extends StatefulHookWidget {
+  const ScreenMain({
     Key key,
     @required this.appState,
   }) : super(key: key);
@@ -31,11 +32,11 @@ class PageDashboardInMainScreen extends StatefulHookWidget {
   final GlobalAppState appState;
 
   @override
-  _PageDashboardInMainScreenState createState() =>
-      _PageDashboardInMainScreenState();
+  _ScreenMainState createState() =>
+      _ScreenMainState();
 }
 
-class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
+class _ScreenMainState extends State<ScreenMain> {
   ScreenMainRouterDelegate _routerDelegate;
   ChildBackButtonDispatcher _backButtonDispatcher;
 
@@ -48,13 +49,13 @@ class _PageDashboardInMainScreenState extends State<PageDashboardInMainScreen> {
 
   @override
   void dispose() {
-    context.read(screenMainScaffoldProvider).key = null;
-    _routerDelegate.dispose();
+    // context.read(screenMainScaffoldProvider).key = null;
+    _routerDelegate.dispose(); // todo is it necessary?
     super.dispose();
   }
 
   @override
-  void didUpdateWidget(covariant PageDashboardInMainScreen oldWidget) {
+  void didUpdateWidget(covariant ScreenMain oldWidget) {
     super.didUpdateWidget(oldWidget);
     _routerDelegate.appState = widget.appState;
   }
@@ -94,39 +95,39 @@ Widget _mainBottomNavigationBar({
 }) {
   final pam = PlayerAnimationManager.instance;
   return AnimatedBuilder(
-      builder: (context, child) => Align(
-        alignment: Alignment.topCenter,
-        heightFactor: 1 - pam.animation.value,
-        child: child,
-      ),
-      animation: pam.animation,
-      child: BottomNavigationBar(
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white.withOpacity(.6),
-        type: BottomNavigationBarType.fixed,
-        unselectedFontSize: 14,
-        onTap: (index) async => routerDelegate.swapPage(index),
-        currentIndex: routerDelegate.pageIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: Strings.NAV_ITEM_HOME,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.playlist_play_rounded),
-            label: Strings.NAV_ITEM_LIST,
-          ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.search),
-          //   label: Strings.NAV_ITEM_SEARCH,
-          // ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: Strings.NAV_ITEM_CONFIG,
-          ),
-        ],
-      ),
-    );
+    builder: (context, child) => Align(
+      alignment: Alignment.topCenter,
+      heightFactor: 1 - pam.animation.value,
+      child: child,
+    ),
+    animation: pam.animation,
+    child: BottomNavigationBar(
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white.withOpacity(.6),
+      type: BottomNavigationBarType.fixed,
+      unselectedFontSize: 14,
+      onTap: (index) async => routerDelegate.swapPage(index),
+      currentIndex: routerDelegate.pageIndex,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: Strings.NAV_ITEM_HOME,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.playlist_play_rounded),
+          label: Strings.NAV_ITEM_LIST,
+        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.search),
+        //   label: Strings.NAV_ITEM_SEARCH,
+        // ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: Strings.NAV_ITEM_CONFIG,
+        ),
+      ],
+    ),
+  );
 }
 
 class _Fab extends HookWidget {

@@ -10,8 +10,9 @@ import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
-import 'package:shirasu/router/on_pop_page_mixin.dart';
+import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/player_animation_manager.dart';
 
@@ -20,7 +21,7 @@ final snackBarMsgProvider =
         (ref) => SnackBarMessageNotifier());
 
 final pAppRouterDelegate =
-    Provider<AppRouterDelegate>((_) => AppRouterDelegate());
+    Provider<AppRouterDelegate>((ref) => AppRouterDelegate());
 
 final pcnAppRouterDelegate =
 ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
@@ -62,6 +63,7 @@ class MyApp extends StatefulHookWidget {
 
 class MyAppState extends State<MyApp>
     with WidgetsBindingObserver, TickerProviderStateMixin {
+
   @override
   void initState() {
     super.initState();
@@ -99,11 +101,21 @@ class MyAppState extends State<MyApp>
     final delegate = useProvider(pAppRouterDelegate);
     useProvider(_pPamCollapsing);
 
-    return MaterialApp.router(
+    return MaterialApp(
       title: 'Flutter Demo',
       theme: Styles.theme,
-      routerDelegate: delegate,
-      routeInformationParser: AppRouteInformationParser.instance,
+      home: SafeArea(
+        child: Scaffold(
+          body: Stack(children: [
+            Router(
+              backButtonDispatcher: RootBackButtonDispatcher(),
+              routerDelegate: delegate,
+              routeInformationParser: AppRouteInformationParser.instance,
+            ),
+            const ScreenDetailWrapper(),
+          ]),
+        ),
+      ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

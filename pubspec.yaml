@@ -58,6 +58,7 @@ dependencies:
   flutter_playout:
     git:
       url: https://github.com/HiroyukTamura/flutter_playout.git
+      ref: 4a444d75e7460f23c3df56473670c7610d4a7a7c
 
 dev_dependencies:
   flutter_test:

@@ -42,6 +42,7 @@ class _KeepAliveVideoState extends State<KeepAliveVideo>
       isLiveStream: widget.playOutState.videoType == VideoType.LIVE,
       url: widget.playOutState.hlsMediaUrl,
       cookie: widget.playOutState.cookie,
+      showControls: false,
       autoPlay: false,
     );
   }

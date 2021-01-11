@@ -6,16 +6,12 @@ import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/model/graphql/mixins/media_status.dart';
-import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:shirasu/extension.dart';
 import 'package:riverpod/src/framework.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:dartx/dartx.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(this.id, this._ref)

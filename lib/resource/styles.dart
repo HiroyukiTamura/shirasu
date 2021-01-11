@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/player_slider_track_shape.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view.dart';
 
 class Styles {
   const Styles._();
@@ -8,6 +11,7 @@ class Styles {
   static const COLOR_TEXT_BLUE_WHITE = Color(0xffd9f9ff);
   static const BACK_COLOR = Color(0xff181818);
   static final colorPriceWhite = Colors.white.withOpacity(.85);
+
   // static const TWITTER_COLOR = Color(0xff1DA1F2);
   // static const FACEBOOK_COLOR = Color(0xff4267B2);
   static const PRIMARY_COLOR = Color(0xff50e6ff);
@@ -44,5 +48,16 @@ class Styles {
       ),
       behavior: SnackBarBehavior.floating,
     ),
+    sliderTheme: ThemeData.dark().sliderTheme.copyWith(
+          inactiveTrackColor: Colors.white30,
+          trackHeight: 2,
+          trackShape: const PlayerSliderTrackShape(),
+          thumbShape: const RoundSliderThumbShape(
+            enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS,
+          ),
+          // activeTrackColor: PRIMARY_COLOR,
+          // activeTickMarkColor: PRIMARY_COLOR,
+          // thumbColor: PRIMARY_COLOR,
+        ),
   );
 }

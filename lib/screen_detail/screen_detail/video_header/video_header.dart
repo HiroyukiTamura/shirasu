@@ -24,8 +24,8 @@ class VideoHeader extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playOutState = useProvider(
-        detailSNProvider.state.select((it) => it.playOutState));
+    final playOutState =
+        useProvider(detailSNProvider.state.select((it) => it.playOutState));
     final result = useProvider(detailSNProvider).state.prgDataResult
         as StateSuccess; //we don't want rebuild here
 
@@ -49,7 +49,9 @@ class VideoHeader extends HookWidget {
       case PlayerCommandedState.POST_PLAY:
         child = Stack(
           children: [
-            PlayerView(playOutState: playOutState),
+            IgnorePointer(
+              child: PlayerView(playOutState: playOutState),
+            ),
             PlayerControllerView(),
           ],
         );

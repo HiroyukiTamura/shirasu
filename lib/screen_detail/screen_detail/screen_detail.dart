@@ -15,6 +15,7 @@ import 'package:shirasu/screen_detail/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_desc.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/minimized_player_view.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_header.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
@@ -171,32 +172,38 @@ class _ExpandableWidget extends HookWidget {
 
       double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
       final listViewH = constraints.maxHeight - headerH;
-      return ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return pam.animation.value == 1
-                  ? VideoHeader(
-                      height: headerH,
-                      programId: programDetailData.program.id,
-                      onTap: () async => _playVideo(context, false),
-                      onTapPreviewBtn: () async => _playVideo(context, true),
-                    )
-                  : SizedBox(
-                      height: headerH,
-                      child: const MinimizedPlayerView(),
-                    );
-            case 1:
-              return _PlayerBodyWrapper(
-                height: listViewH,
-                data: programDetailData,
-              );
-            default:
-              throw Exception(index);
-          }
-        },
-        itemCount: 2,
+      return Stack(
+        children: [
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              switch (index) {
+                case 0:
+                  return pam.animation.value == 1
+                      ? VideoHeader(
+                          height: headerH,
+                          programId: programDetailData.program.id,
+                          onTap: () async => _playVideo(context, false),
+                          onTapPreviewBtn: () async => _playVideo(context, true),
+                        )
+                      : SizedBox(
+                          height: headerH,
+                          child: const MinimizedPlayerView(),
+                        );
+                case 1:
+                  return _PlayerBodyWrapper(
+                    height: listViewH,
+                    data: programDetailData,
+                  );
+                default:
+                  throw Exception(index);
+              }
+            },
+            itemCount: 2,
+          ),
+          if (pam.animation.value == 1)
+            VideoSeekBar(topMargin: headerH - VideoSeekBar.HEIGHT/2,),
+        ],
       );
     });
   }

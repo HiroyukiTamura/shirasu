@@ -316,8 +316,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "4563d7114841398bb937232478c2a6ebf1788533"
+      ref: "4a444d75e7460f23c3df56473670c7610d4a7a7c"
+      resolved-ref: "4a444d75e7460f23c3df56473670c7610d4a7a7c"
       url: "https://github.com/HiroyukTamura/flutter_playout.git"
     source: git
     version: "1.0.42"

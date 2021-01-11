@@ -7,7 +7,7 @@ final pVideoViewModel = StateNotifierProvider.autoDispose<VideoViewModel>(
     (ref) => VideoViewModel());
 
 class VideoViewModel extends StateNotifier<VideoModel> {
-  VideoViewModel() : super(VideoModel(currentPosSec: 50, durationSec: 100));
+  VideoViewModel() : super(const VideoModel(currentPosSec: 50, durationSec: 100));
 
   void toggleVisibility() => state = state.copyWith(
       controllerVisibility: !state.controllerVisibility,
@@ -17,7 +17,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     //todo seek
   }
 
-  void seekTo(double sec) {
+  void seekTo(double sec, bool applyVideo) {
     state = state.copyWith(currentPosSec: sec);
 
     //todo implement

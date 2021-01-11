@@ -93,7 +93,7 @@ abstract class PlayOutState implements _$PlayOutState {
 
   bool isEqualSource(PlayOutState state) =>
       cookie == state?.cookie &&
-      videoType == VideoType.LIVE &&
+      videoType == state?.videoType &&
       hlsMediaUrl == state?.hlsMediaUrl;
 }
 

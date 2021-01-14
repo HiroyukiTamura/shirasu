@@ -74,7 +74,8 @@ class ScreenDetail extends HookWidget {
         final listViewH = constraints.maxHeight - headerH;
         return Stack(
           children: [
-            Column(
+            ListView(
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 VideoHeader(
                   height: headerH,

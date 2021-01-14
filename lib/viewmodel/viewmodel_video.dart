@@ -12,16 +12,19 @@ import 'model/model_detail.dart';
 
 part 'viewmodel_video.freezed.dart';
 
-final pPlayOutState = Provider.autoDispose.family<PlayOutState, String>(
+final _pPlayOutState = Provider.autoDispose.family<PlayOutState, String>(
     (ref, id) => ref.watch(detailSNProvider(id).state).playOutState);
 
+/// don't use this provider when [PlayOutState.commandedState] != [PlayerCommandedState.POST_PLAY]
 final pVideoViewModel =
     StateNotifierProvider.autoDispose.family<VideoViewModel, String>((ref, id) {
-  final state = ref.watch(pPlayOutState(id));
+  final state = ref.watch(_pPlayOutState(id));
   return VideoViewModel(state, id);
 });
 
 BetterPlayerController _createController(PlayOutState playOutState, String id) {
+  assert(playOutState.commandedState == PlayerCommandedState.POST_PLAY);
+
   final dataSource = BetterPlayerDataSource(
     BetterPlayerDataSourceType.network,
     playOutState.hlsMediaUrl,
@@ -52,11 +55,15 @@ BetterPlayerController _createController(PlayOutState playOutState, String id) {
   );
 }
 
+/// must not be used if [playOutState.commandedState] != [PlayerCommandedState.POST_PLAY]
 class VideoViewModel extends StateNotifier<VideoModel> {
   VideoViewModel(this.playOutState, String id)
-      : controller = _createController(playOutState, id),
+      : controller =
+            playOutState.commandedState == PlayerCommandedState.POST_PLAY
+                ? _createController(playOutState, id)
+                : null,
         super(const VideoModel()) {
-    controller.addEventsListener(_playerEventListener);
+    controller?.addEventsListener(_playerEventListener);
   }
 
   final PlayOutState playOutState;
@@ -65,13 +72,14 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    controller?.dispose();
   }
 
   void _playerEventListener(BetterPlayerEvent event) {
     switch (event.betterPlayerEventType) {
       case BetterPlayerEventType.initialized:
         final totalDuration = controller.videoPlayerController.value.duration;
+        debugPrint(totalDuration.inSeconds.toDouble().toString());
         state = state.copyWith(
           durationSec: totalDuration.inSeconds.toDouble(),
           isInitialized: true,
@@ -86,8 +94,12 @@ class VideoViewModel extends StateNotifier<VideoModel> {
         debugPrint(e);
         break;
       case BetterPlayerEventType.progress:
+        final progress = event.parameters['progress'] as Duration;
         final duration = event.parameters['duration'] as Duration;
-        state = state.copyWith(currentPosSec: duration.inSeconds.toDouble());
+        state = state.copyWith(
+          currentPosSec: duration.inSeconds.toDouble(),
+          durationSec: progress.inSeconds.toDouble(),
+        );
         break;
       case BetterPlayerEventType.play:
         state = state.copyWith(isPlaying: true);

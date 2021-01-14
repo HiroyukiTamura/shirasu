@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
 // part 'player_controller_view.g.dart';
@@ -19,68 +20,71 @@ class PlayerControllerView extends HookWidget {
   static const _SEC_DIFF = Duration(seconds: 30);
 
   @override
-  Widget build(BuildContext context) => Positioned.fill(
-        child: PlayerAnimOpacity(
-          id: programId,
-          child: GestureDetector(
-            onTap: () => _onTapBackDrop(context),
-            child: ColoredBox(
-              color: Colors.black.withOpacity(.5),
-              child: Stack(
-                overflow: Overflow.visible,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      //todo implement
-                      Visibility(
-                        visible: false,
-                        child: IconButton(
-                          color: Colors.white,
-                          icon: const Icon(MdiIcons.playSpeed),
-                          onPressed: () => _onTapPlaySpeedBtn(context),
-                        ),
-                      ),
-                      //todo implement
-                      Visibility(
-                        visible: false,
-                        child: IconButton(
-                          color: Colors.white,
-                          icon: const Icon(Icons.video_settings),
-                          onPressed: _onTapResolutionBtn,
-                        ),
-                      ),
-                      IconButton(
-                        color: Colors.white,
-                        icon: const Icon(Icons.fullscreen),
-                        onPressed: () => _onTapFullScreenBtn(context),
-                      ),
-                    ],
-                  ),
-                  Center(
-                    child: Row(
+  Widget build(BuildContext context) => VideoControllerVis(
+      id: programId,
+      child: Positioned.fill(
+          child: PlayerAnimOpacity(
+            id: programId,
+            child: GestureDetector(
+              onTap: () => _onTapBackDrop(context),
+              child: ColoredBox(
+                color: Colors.black.withOpacity(.5),
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        _SeekBtn(
-                          icon: Icons.replay_30,
-                          onTap: () => _onTapRewindBtn(context),
+                        //todo implement
+                        Visibility(
+                          visible: false,
+                          child: IconButton(
+                            color: Colors.white,
+                            icon: const Icon(MdiIcons.playSpeed),
+                            onPressed: () => _onTapPlaySpeedBtn(context),
+                          ),
                         ),
-                        _PlayOrPauseBtn(
-                          onTap: () => _onTapPlayToggleBtn(context),
-                          id: programId,
+                        //todo implement
+                        Visibility(
+                          visible: false,
+                          child: IconButton(
+                            color: Colors.white,
+                            icon: const Icon(Icons.video_settings),
+                            onPressed: _onTapResolutionBtn,
+                          ),
                         ),
-                        _SeekBtn(
-                          icon: Icons.forward_30,
-                          onTap: () => _onTapFastForwardBtn(context),
+                        IconButton(
+                          color: Colors.white,
+                          icon: const Icon(Icons.fullscreen),
+                          onPressed: () => _onTapFullScreenBtn(context),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    Center(
+                      child: Row(
+                        children: [
+                          _SeekBtn(
+                            icon: Icons.replay_30,
+                            onTap: () => _onTapRewindBtn(context),
+                          ),
+                          _PlayOrPauseBtn(
+                            onTap: () => _onTapPlayToggleBtn(context),
+                            id: programId,
+                          ),
+                          _SeekBtn(
+                            icon: Icons.forward_30,
+                            onTap: () => _onTapFastForwardBtn(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      );
+    );
 
   void _onTapPlayToggleBtn(BuildContext context) {}
 

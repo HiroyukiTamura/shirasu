@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
 part 'player_seekbar.g.dart';
@@ -35,22 +36,25 @@ class VideoSeekBar extends HookWidget {
   final double topMargin;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.only(top: topMargin),
-        child: PlayerAnimOpacity(
-          id: id,
-          child: SizedBox(
-            height: HEIGHT,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(width: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
-                _SeekBarInner(id: id),
-                Container(
-                  color: Theme.of(context).sliderTheme.inactiveTrackColor,
-                  height: Theme.of(context).sliderTheme.trackHeight,
-                )
-              ],
+  Widget build(BuildContext context) => VideoControllerVis(
+        id: id,
+        child: Padding(
+          padding: EdgeInsets.only(top: topMargin),
+          child: PlayerAnimOpacity(
+            id: id,
+            child: SizedBox(
+              height: HEIGHT,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(width: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
+                  _SeekBarInner(id: id),
+                  Container(
+                    color: Theme.of(context).sliderTheme.inactiveTrackColor,
+                    height: Theme.of(context).sliderTheme.trackHeight,
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -65,8 +69,8 @@ class _SeekBarInner extends HookWidget {
   @override
   Widget build(BuildContext context) => Expanded(
         child: Slider(
-          max:
-              useProvider(pVideoViewModel(id).state.select((it) => it.durationSec)),
+          max: useProvider(
+              pVideoViewModel(id).state.select((it) => it.durationSec)),
           value: useProvider(
               pVideoViewModel(id).state.select((it) => it.currentPosSec)),
           onChanged: (value) => _onChanged(context, value),

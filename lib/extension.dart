@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
-import 'package:shirasu/viewmodel/player_animation_manager.dart';
 
 extension IteratableX<E> on Iterable<E> {
   // todo send PR to dartX
@@ -26,10 +25,7 @@ extension BuildContextX on BuildContext {
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(pAppRouterDelegate).pushPage(path);
 
-  Future<void> pushProgramPage(String id) async {
-    read(pDetailId).state = id;
-    await PlayerAnimationManager.instance.expand();
-  }
+  Future<void> pushProgramPage(String id) async => read(pAppRouterDelegate).pushPage(GlobalRoutePath.program(id));
 
   Future<void> pushChannelPage(String id) async =>
       read(pAppRouterDelegate).pushPage(GlobalRoutePath.channel(id));

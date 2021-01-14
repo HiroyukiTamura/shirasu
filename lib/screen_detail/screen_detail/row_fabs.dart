@@ -59,10 +59,10 @@ class RowFabs extends StatelessWidget {
       );
 
   Future<void> _onClickPaymentBtn(BuildContext context) async =>
-      context.read(detailSNProvider).togglePage(const PageSheetModel.pricing());
+      context.read(detailSNProvider(program.id)).togglePage(const PageSheetModel.pricing());
 
   Future<void> _onClickHandoutsBtn(BuildContext context) async =>
-      context.read(detailSNProvider).togglePage(const PageSheetModel.handouts());
+      context.read(detailSNProvider(program.id)).togglePage(const PageSheetModel.handouts());
 }
 
 @swidget

@@ -7,12 +7,8 @@ part of 'screen_main.dart';
 // **************************************************************************
 
 class _MainBottomNavigationBar extends HookWidget {
-  const _MainBottomNavigationBar({Key key, @required this.routerDelegate})
-      : super(key: key);
-
-  final ScreenMainRouterDelegate routerDelegate;
+  const _MainBottomNavigationBar({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext _context) =>
-      _mainBottomNavigationBar(routerDelegate: routerDelegate);
+  Widget build(BuildContext _context) => _mainBottomNavigationBar(_context);
 }

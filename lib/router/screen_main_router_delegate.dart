@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/router/no_animation_page.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_app_state.dart';
@@ -14,34 +15,29 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
         ChangeNotifier,
         OnPopPageMixin<PathDataMainPageBase>,
         PlayerPopRouteMixin<PathDataMainPageBase> {
-  ScreenMainRouterDelegate(GlobalAppState appState)
+  ScreenMainRouterDelegate(this.ref)
       : navigatorKey = GlobalKey<NavigatorState>() {
-    _appState = appState..addListener(notifyListeners);
+    GlobalAppState.instance.addListener(notifyListeners);
   }
 
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
   @override
-  GlobalAppState get appState => _appState;
-  GlobalAppState _appState;
+  final ProviderReference ref;
 
-  set appState(GlobalAppState value) {
-    if (value == _appState) return;
-
-    _appState = value;
-    notifyListeners();
-  }
+  @override
+  GlobalAppState get appState => GlobalAppState.instance;
 
   @override
   void dispose() {
     super.dispose();
-    _appState.removeListener(notifyListeners);
+    appState.removeListener(notifyListeners);
   }
 
   @override
   Widget build(BuildContext context) {
-    final path = _appState.findLastMainPagePath;
+    final path = appState.findLastMainPagePath;
     final screen = path.when(
       dashboard: () => const PageDashboardInMainScreen(),
       subscribing: (PageListTabPage initialPage) =>
@@ -61,13 +57,13 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
   Future<void> setNewRoutePath(PathDataMainPageBase configuration) async =>
       throw Exception("don't setNewRoutePath $configuration");
 
-  int get pageIndex => _appState.findLastMainPagePath.pageIndex;
+  int get pageIndex => appState.findLastMainPagePath.pageIndex;
 
-  PathDataMainPageBase get page => _appState.findLastMainPagePath;
+  PathDataMainPageBase get page => appState.findLastMainPagePath;
 
   Future<void> swapPage(int index) async {
     final path = PathDataMainPageBase.fromIndex(index);
-    _appState.push(path);
+    appState.push(path);
   }
 
   @override

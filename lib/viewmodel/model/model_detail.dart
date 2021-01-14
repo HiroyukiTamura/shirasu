@@ -1,4 +1,3 @@
-import 'package:flutter_playout/player_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -60,7 +59,6 @@ abstract class DetailModelState with _$DetailModelState {
 abstract class PlayOutState implements _$PlayOutState {
   const factory PlayOutState({
     @required PlayerCommandedState commandedState,
-    @required PlayerState playerState,
     String hlsMediaUrl,
     VideoType videoType,
     String cookie,
@@ -68,13 +66,11 @@ abstract class PlayOutState implements _$PlayOutState {
 
   factory PlayOutState.initial() => const PlayOutState(
         commandedState: PlayerCommandedState.PRE_PLAY,
-        playerState: PlayerState.PLAYING,
       );
 
   factory PlayOutState.initialize(String hlsMediaUrl, VideoType videoType) =>
       PlayOutState(
         commandedState: PlayerCommandedState.INITIALIZING,
-        playerState: PlayerState.PLAYING,
         hlsMediaUrl: hlsMediaUrl,
         videoType: videoType,
       );
@@ -83,7 +79,6 @@ abstract class PlayOutState implements _$PlayOutState {
           String hlsMediaUrl, VideoType videoType, String cookie) =>
       PlayOutState(
         commandedState: PlayerCommandedState.POST_PLAY,
-        playerState: PlayerState.PLAYING,
         hlsMediaUrl: hlsMediaUrl,
         videoType: videoType,
         cookie: cookie,

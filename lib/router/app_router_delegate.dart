@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:riverpod/src/framework.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_image_lisence/screen_image_license.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
@@ -17,7 +19,7 @@ import 'on_pop_page_mixin.dart';
 
 class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
     with ChangeNotifier, OnPopPageMixin<GlobalRoutePathBase>, PlayerPopRouteMixin<GlobalRoutePathBase> {
-  AppRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
+  AppRouterDelegate(this.ref) : navigatorKey = GlobalKey<NavigatorState>() {
     appState.addListener(notifyListeners);
   }
 
@@ -25,7 +27,10 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
   final GlobalKey<NavigatorState> navigatorKey;
 
   @override
-  final GlobalAppState appState = GlobalAppState();
+  final GlobalAppState appState = GlobalAppState.instance;
+
+  @override
+  final ProviderReference ref;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +41,10 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             intro: () => ScreenIntro(),
             error: () => throw UnimplementedError(),
             channel: (channelId) => ScreenChannel(channelId: channelId),
-            program: (programId) => throw UnsupportedError('dont throw '),
-            //todo
+            program: (programId) => ScreenDetail(id: programId),
             ossLicense: () => const ScreenOssLicense(),
             auth: () => const ScreenAuth(),
-            mainPage: () => ScreenMain(appState: appState),
+            mainPage: () => const ScreenMain(),
             imgLicense: () => const ScreenImageLicense(),
           );
           final location = NavigationValueKeyHandler.getValueKey(pathData);

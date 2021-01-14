@@ -35,7 +35,7 @@ class VideoThumbnail extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = useProvider(detailSNProvider).state.prgDataResult
+    final result = useProvider(detailSNProvider(programId)).state.prgDataResult
         as StateSuccess; //we don't want rebuild here
 
     final program = result.programDetailData.program;
@@ -60,7 +60,7 @@ class VideoThumbnail extends HookWidget {
   /// todo extract
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
     final result =
-        context.read(detailSNProvider).state.prgDataResult as StateSuccess;
+        context.read(detailSNProvider(programId).state).prgDataResult as StateSuccess;
     final program = result.programDetailData.program;
     final subscriptionPlan = result.channelData.channel.subscriptionPlan;
     await BtmSheetCommon.showUrlLauncherBtmSheet(

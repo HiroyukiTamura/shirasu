@@ -14,14 +14,13 @@ import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
-import 'package:shirasu/viewmodel/player_animation_manager.dart';
 
 final snackBarMsgProvider =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
         (ref) => SnackBarMessageNotifier());
 
 final pAppRouterDelegate =
-    Provider<AppRouterDelegate>((ref) => AppRouterDelegate());
+    Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref));
 
 final pcnAppRouterDelegate =
 ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
@@ -29,11 +28,6 @@ ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
 
 final _pNavigationChange = StateProvider.autoDispose<GlobalRoutePathBase>(
         (ref) => ref.watch(pcnAppRouterDelegate).appState.last);
-
-final _pPamCollapsing = StateProvider.autoDispose<void>((ref) {
-  ref.watch(_pNavigationChange).state;
-  PlayerAnimationManager.instance?.collapse();
-});
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,14 +61,12 @@ class MyAppState extends State<MyApp>
   @override
   void initState() {
     super.initState();
-    PlayerAnimationManager.init(this);
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    PlayerAnimationManager.instance.dispose();
     super.dispose();
   }
 
@@ -99,7 +91,6 @@ class MyAppState extends State<MyApp>
     //   HiveClient.setInitialLaunchApp();
 
     final delegate = useProvider(pAppRouterDelegate);
-    useProvider(_pPamCollapsing);
 
     return MaterialApp(
       title: 'Flutter Demo',
@@ -112,7 +103,6 @@ class MyAppState extends State<MyApp>
               routerDelegate: delegate,
               routeInformationParser: AppRouteInformationParser.instance,
             ),
-            const ScreenDetailWrapper(),
           ]),
         ),
       ),

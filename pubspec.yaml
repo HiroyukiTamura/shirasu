@@ -55,10 +55,9 @@ dependencies:
   quiver: ^2.1.5
   sliding_up_panel: ^1.0.2
   dartx: ^0.5.0
-  flutter_playout:
-    git:
-      url: https://github.com/HiroyukTamura/flutter_playout.git
-      ref: 9d839213e9d8b2ddd64b76b270ca19c9b0a35176
+  better_player: ^0.0.45
+#  flutter_video_background:
+#    path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background/
 
 dev_dependencies:
   flutter_test:

@@ -41,7 +41,7 @@ class _ScreenHandsOutInner extends HookWidget {
 
   @override
   Widget build(BuildContext context) => useProvider(
-          detailSNProvider.state.select((it) => it.isHandoutUrlRequesting))
+          detailSNProvider(program.id).state.select((it) => it.isHandoutUrlRequesting))
       ? const CenterCircleProgress()
       : ListView.builder(
           itemCount: program.handouts.items.length,
@@ -99,7 +99,7 @@ class _ScreenHandsOutInner extends HookWidget {
           });
 
   Future<void> _onTapItem(BuildContext context, String handoutId) async {
-    final url = await context.read(detailSNProvider).queryHandOutUrl(handoutId);
+    final url = await context.read(detailSNProvider(program.id)).queryHandOutUrl(handoutId);
     if (url != null) Util.launchUrl(context, url);
   }
 }

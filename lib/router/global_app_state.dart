@@ -3,7 +3,9 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 
 // todo synchronize?
 class GlobalAppState extends ChangeNotifier {
-  GlobalAppState();
+  GlobalAppState._();
+
+  static final instance = GlobalAppState._();
 
   List<GlobalRoutePathBase> _list = [];
 

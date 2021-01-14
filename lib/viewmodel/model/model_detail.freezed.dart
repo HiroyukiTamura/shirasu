@@ -829,13 +829,11 @@ class _$PlayOutStateTearOff {
 // ignore: unused_element
   _PlayOutState call(
       {@required PlayerCommandedState commandedState,
-      @required PlayerState playerState,
       String hlsMediaUrl,
       VideoType videoType,
       String cookie}) {
     return _PlayOutState(
       commandedState: commandedState,
-      playerState: playerState,
       hlsMediaUrl: hlsMediaUrl,
       videoType: videoType,
       cookie: cookie,
@@ -850,7 +848,6 @@ const $PlayOutState = _$PlayOutStateTearOff();
 /// @nodoc
 mixin _$PlayOutState {
   PlayerCommandedState get commandedState;
-  PlayerState get playerState;
   String get hlsMediaUrl;
   VideoType get videoType;
   String get cookie;
@@ -865,7 +862,6 @@ abstract class $PlayOutStateCopyWith<$Res> {
       _$PlayOutStateCopyWithImpl<$Res>;
   $Res call(
       {PlayerCommandedState commandedState,
-      PlayerState playerState,
       String hlsMediaUrl,
       VideoType videoType,
       String cookie});
@@ -882,7 +878,6 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
   @override
   $Res call({
     Object commandedState = freezed,
-    Object playerState = freezed,
     Object hlsMediaUrl = freezed,
     Object videoType = freezed,
     Object cookie = freezed,
@@ -891,9 +886,6 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
       commandedState: commandedState == freezed
           ? _value.commandedState
           : commandedState as PlayerCommandedState,
-      playerState: playerState == freezed
-          ? _value.playerState
-          : playerState as PlayerState,
       hlsMediaUrl:
           hlsMediaUrl == freezed ? _value.hlsMediaUrl : hlsMediaUrl as String,
       videoType:
@@ -912,7 +904,6 @@ abstract class _$PlayOutStateCopyWith<$Res>
   @override
   $Res call(
       {PlayerCommandedState commandedState,
-      PlayerState playerState,
       String hlsMediaUrl,
       VideoType videoType,
       String cookie});
@@ -931,7 +922,6 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object commandedState = freezed,
-    Object playerState = freezed,
     Object hlsMediaUrl = freezed,
     Object videoType = freezed,
     Object cookie = freezed,
@@ -940,9 +930,6 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
       commandedState: commandedState == freezed
           ? _value.commandedState
           : commandedState as PlayerCommandedState,
-      playerState: playerState == freezed
-          ? _value.playerState
-          : playerState as PlayerState,
       hlsMediaUrl:
           hlsMediaUrl == freezed ? _value.hlsMediaUrl : hlsMediaUrl as String,
       videoType:
@@ -956,18 +943,14 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
 class _$_PlayOutState extends _PlayOutState {
   const _$_PlayOutState(
       {@required this.commandedState,
-      @required this.playerState,
       this.hlsMediaUrl,
       this.videoType,
       this.cookie})
       : assert(commandedState != null),
-        assert(playerState != null),
         super._();
 
   @override
   final PlayerCommandedState commandedState;
-  @override
-  final PlayerState playerState;
   @override
   final String hlsMediaUrl;
   @override
@@ -977,7 +960,7 @@ class _$_PlayOutState extends _PlayOutState {
 
   @override
   String toString() {
-    return 'PlayOutState(commandedState: $commandedState, playerState: $playerState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie)';
+    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie)';
   }
 
   @override
@@ -987,9 +970,6 @@ class _$_PlayOutState extends _PlayOutState {
             (identical(other.commandedState, commandedState) ||
                 const DeepCollectionEquality()
                     .equals(other.commandedState, commandedState)) &&
-            (identical(other.playerState, playerState) ||
-                const DeepCollectionEquality()
-                    .equals(other.playerState, playerState)) &&
             (identical(other.hlsMediaUrl, hlsMediaUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.hlsMediaUrl, hlsMediaUrl)) &&
@@ -1004,7 +984,6 @@ class _$_PlayOutState extends _PlayOutState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(commandedState) ^
-      const DeepCollectionEquality().hash(playerState) ^
       const DeepCollectionEquality().hash(hlsMediaUrl) ^
       const DeepCollectionEquality().hash(videoType) ^
       const DeepCollectionEquality().hash(cookie);
@@ -1018,15 +997,12 @@ abstract class _PlayOutState extends PlayOutState {
   const _PlayOutState._() : super._();
   const factory _PlayOutState(
       {@required PlayerCommandedState commandedState,
-      @required PlayerState playerState,
       String hlsMediaUrl,
       VideoType videoType,
       String cookie}) = _$_PlayOutState;
 
   @override
   PlayerCommandedState get commandedState;
-  @override
-  PlayerState get playerState;
   @override
   String get hlsMediaUrl;
   @override

@@ -7,10 +7,10 @@ part of 'player_view.dart';
 // **************************************************************************
 
 class PlayerView extends HookWidget {
-  const PlayerView({Key key, @required this.playOutState}) : super(key: key);
+  const PlayerView({Key key, @required this.programId}) : super(key: key);
 
-  final PlayOutState playOutState;
+  final String programId;
 
   @override
-  Widget build(BuildContext _context) => playerView(playOutState: playOutState);
+  Widget build(BuildContext _context) => playerView(programId: programId);
 }

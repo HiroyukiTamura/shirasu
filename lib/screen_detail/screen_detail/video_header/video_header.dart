@@ -1,7 +1,10 @@
+import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_view.dart';
@@ -24,10 +27,10 @@ class VideoHeader extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playOutState =
-        useProvider(detailSNProvider(programId).state.select((it) => it.playOutState));
+    final playOutState = useProvider(
+        detailSNProvider(programId).state.select((it) => it.playOutState));
     final result = useProvider(detailSNProvider(programId)).state.prgDataResult
-        as StateSuccess; //we don't want rebuild here
+    as StateSuccess; //we don't want rebuild here
 
     final program = result.programDetailData.program;
     Widget child;
@@ -47,14 +50,7 @@ class VideoHeader extends HookWidget {
         );
         break;
       case PlayerCommandedState.POST_PLAY:
-        child = Stack(
-          children: [
-            IgnorePointer(
-              child: PlayerView(playOutState: playOutState),
-            ),
-            PlayerControllerView(),
-          ],
-        );
+        child = PlayerView(programId: programId);
         break;
     }
     return SizedBox(

@@ -33,8 +33,8 @@ part 'screen_detail.g.dart';
 final scaffoldProvider =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
-final detailSNProvider =
-    StateNotifierProvider.autoDispose.family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id, ref));
+final detailSNProvider = StateNotifierProvider.autoDispose
+    .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id, ref));
 
 final _pBtmSheetExpanded = Provider.autoDispose.family<PageSheetModel, String>(
   (ref, id) => ref.watch(detailSNProvider(id).state).prgDataResult.maybeWhen(
@@ -46,7 +46,6 @@ final _pBtmSheetExpanded = Provider.autoDispose.family<PageSheetModel, String>(
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 class ScreenDetail extends HookWidget {
-
   const ScreenDetail({Key key, @required this.id}) : super(key: key);
 
   final String id;
@@ -69,30 +68,33 @@ class ScreenDetail extends HookWidget {
       context.read(detailSNProvider(id)).playVideo(isPreview);
 
   Widget _successWidget(ProgramDetailData programDetailData,
-      ChannelData channelData, PageSheetModel page) => LayoutBuilder(builder: (context, constraints) {
-
-      double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
-      final listViewH = constraints.maxHeight - headerH;
-      return Stack(
-        children: [
-          Column(
-            children: [
-              VideoHeader(
-                height: headerH,
-                programId: programDetailData.program.id,
-                onTap: () async => _playVideo(context, false),
-                onTapPreviewBtn: () async => _playVideo(context, true),
-              ),
-              _PlayerBodyWrapper(
-                height: listViewH,
-                data: programDetailData,
-              )
-            ],
-          ),
-          VideoSeekBar(topMargin: headerH - VideoSeekBar.HEIGHT/2,),
-        ],
-      );
-    });
+          ChannelData channelData, PageSheetModel page) =>
+      LayoutBuilder(builder: (context, constraints) {
+        double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
+        final listViewH = constraints.maxHeight - headerH;
+        return Stack(
+          children: [
+            Column(
+              children: [
+                VideoHeader(
+                  height: headerH,
+                  programId: programDetailData.program.id,
+                  onTap: () async => _playVideo(context, false),
+                  onTapPreviewBtn: () async => _playVideo(context, true),
+                ),
+                _PlayerBodyWrapper(
+                  height: listViewH,
+                  data: programDetailData,
+                )
+              ],
+            ),
+            VideoSeekBar(
+              id: id,
+              topMargin: headerH - VideoSeekBar.HEIGHT / 2,
+            ),
+          ],
+        );
+      });
 }
 
 class _BottomSheet extends HookWidget {
@@ -104,7 +106,8 @@ class _BottomSheet extends HookWidget {
   final ProgramDetail program;
 
   @override
-  Widget build(BuildContext context) => useProvider(_pBtmSheetExpanded(program.id)).when(
+  Widget build(BuildContext context) =>
+      useProvider(_pBtmSheetExpanded(program.id)).when(
         hidden: () => const SizedBox.shrink(),
         handouts: () => PageHandouts(
           program: program,
@@ -140,40 +143,41 @@ class _PlayerBody extends HookWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-      height: height,
-      child: SlidingUpPanel(
-        minHeight: 0,
-        maxHeight: height,
-        controller: useProvider(detailSNProvider(data.program.id)).panelController,
-        color: Theme.of(context).scaffoldBackgroundColor,
-        panel: _BottomSheet(program: data.program),
-        body: ListView.builder(
-            itemCount: 6,
-            padding: const EdgeInsets.only(bottom: 24),
-            itemBuilder: (context, index) {
-              switch (index) {
-                case 0:
-                  return RowChannel(
-                    title: data.program.channel.name,
-                    channelId: data.program.channel.id,
-                  );
-                case 1:
-                  return RowVideoTitle(text: data.program.title);
-                case 2:
-                  return RowVideoTime(
-                    broadcastAt: data.program.broadcastAt,
-                    totalPlayTime: data.program.totalPlayTime,
-                  );
-                case 3:
-                  return RowVideoTags(textList: data.program.tags);
-                case 4:
-                  return RowFabs(program: data.program);
-                case 5:
-                  return RowVideoDesc(text: data.program.detail);
-                default:
-                  return const SizedBox.shrink();
-              }
-            }),
-      ),
-    );
+        height: height,
+        child: SlidingUpPanel(
+          minHeight: 0,
+          maxHeight: height,
+          controller:
+              useProvider(detailSNProvider(data.program.id)).panelController,
+          color: Theme.of(context).scaffoldBackgroundColor,
+          panel: _BottomSheet(program: data.program),
+          body: ListView.builder(
+              itemCount: 6,
+              padding: const EdgeInsets.only(bottom: 24),
+              itemBuilder: (context, index) {
+                switch (index) {
+                  case 0:
+                    return RowChannel(
+                      title: data.program.channel.name,
+                      channelId: data.program.channel.id,
+                    );
+                  case 1:
+                    return RowVideoTitle(text: data.program.title);
+                  case 2:
+                    return RowVideoTime(
+                      broadcastAt: data.program.broadcastAt,
+                      totalPlayTime: data.program.totalPlayTime,
+                    );
+                  case 3:
+                    return RowVideoTags(textList: data.program.tags);
+                  case 4:
+                    return RowFabs(program: data.program);
+                  case 5:
+                    return RowVideoDesc(text: data.program.detail);
+                  default:
+                    return const SizedBox.shrink();
+                }
+              }),
+        ),
+      );
 }

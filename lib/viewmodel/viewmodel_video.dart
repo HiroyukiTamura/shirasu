@@ -7,6 +7,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view.dart';
+import 'package:shirasu/extension.dart';
 
 import 'model/model_detail.dart';
 
@@ -90,15 +91,12 @@ class VideoViewModel extends StateNotifier<VideoModel> {
         break;
       case BetterPlayerEventType.exception:
         //todo log error
-        final e = event.parameters['exception'] as String;
-        debugPrint(e);
+        debugPrint(event.exception);
         break;
       case BetterPlayerEventType.progress:
-        final progress = event.parameters['progress'] as Duration;
-        final duration = event.parameters['duration'] as Duration;
         state = state.copyWith(
-          currentPosSec: duration.inSeconds.toDouble(),
-          durationSec: progress.inSeconds.toDouble(),
+          currentPosSec: event.progress.inSeconds.toDouble(),
+          durationSec: event.duration.inSeconds.toDouble(),
         );
         break;
       case BetterPlayerEventType.play:

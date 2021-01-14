@@ -1,3 +1,4 @@
+import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/main.dart';
@@ -31,4 +32,13 @@ extension BuildContextX on BuildContext {
       read(pAppRouterDelegate).pushPage(GlobalRoutePath.channel(id));
 
   bool get isBigScreen => 600 < MediaQuery.of(this).size.width;
+}
+
+extension BetterPlayerEventX on BetterPlayerEvent {
+
+  String get exception => parameters['exception'] as String;
+
+  Duration get progress => parameters['progress'] as Duration;
+
+  Duration get duration => parameters['duration'] as Duration;
 }

@@ -13,15 +13,18 @@ part 'player_seekbar.g.dart';
 Widget playerAnimOpacity({
   @required Widget child,
   @required String id,
-}) =>
-    AnimatedOpacity(
-      opacity: useProvider(
-              pVideoViewModel(id).state.select((it) => it.controllerVisibility))
-          ? 1
-          : 0,
-      duration: const Duration(milliseconds: 500),
+}) {
+  final visible = useProvider(
+      pVideoViewModel(id).state.select((it) => it.controllerVisibility));
+  return AnimatedOpacity(
+    opacity: visible ? 1 : 0,
+    duration: const Duration(milliseconds: 500),
+    child: IgnorePointer(
+      ignoring: !visible,
       child: child,
-    );
+    ),
+  );
+}
 
 class VideoSeekBar extends HookWidget {
   const VideoSeekBar({

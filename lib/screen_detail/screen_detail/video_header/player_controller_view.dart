@@ -23,10 +23,11 @@ class PlayerControllerView extends HookWidget {
   Widget build(BuildContext context) => VideoControllerVis(
       id: programId,
       child: Positioned.fill(
-          child: PlayerAnimOpacity(
-            id: programId,
-            child: GestureDetector(
-              onTap: () => _onTapBackDrop(context),
+          child: GestureDetector(
+            onTap: () => _onTapBackDrop(context),
+            behavior: HitTestBehavior.translucent,
+            child: PlayerAnimOpacity(
+              id: programId,
               child: ColoredBox(
                 color: Colors.black.withOpacity(.5),
                 child: Stack(

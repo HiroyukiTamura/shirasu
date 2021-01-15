@@ -21,8 +21,8 @@ class PlayerControllerView extends HookWidget {
 
   @override
   Widget build(BuildContext context) => VideoControllerVis(
-      id: programId,
-      child: Positioned.fill(
+        id: programId,
+        child: Positioned.fill(
           child: GestureDetector(
             onTap: () => _onTapBackDrop(context),
             behavior: HitTestBehavior.translucent,
@@ -85,9 +85,10 @@ class PlayerControllerView extends HookWidget {
             ),
           ),
         ),
-    );
+      );
 
-  void _onTapPlayToggleBtn(BuildContext context) {}
+  Future<void> _onTapPlayToggleBtn(BuildContext context) async =>
+      context.read(pVideoViewModel(programId)).playOrPause();
 
   Future<void> _onTapFastForwardBtn(BuildContext context) async =>
       _seek(context, _SEC_DIFF);
@@ -123,13 +124,21 @@ class _PlayOrPauseBtn extends HookWidget {
     final isPlaying =
         useProvider(pVideoViewModel(id).state.select((it) => it.isPlaying));
     return Expanded(
-      child: IconButton(
-        iconSize: Dimens.VIDEO_PLAY_BTN_ICON_SIZE,
-        color: Colors.white,
-        icon: Icon(
-          isPlaying ? Icons.play_arrow : Icons.pause,
+      child: Center(
+        child: Material(
+          clipBehavior: Clip.antiAlias,
+          shape: const CircleBorder(),
+          color: Colors.transparent,
+          child: IconButton(
+            padding: const EdgeInsets.all(20),
+            iconSize: Dimens.VIDEO_PLAY_BTN_ICON_SIZE,
+            color: Colors.white,
+            icon: Icon(
+              isPlaying ? Icons.pause : Icons.play_arrow,
+            ),
+            onPressed: onTap,
+          ),
         ),
-        onPressed: onTap,
       ),
     );
   }
@@ -147,11 +156,19 @@ class _SeekBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Expanded(
-        child: IconButton(
-          color: Colors.white,
-          iconSize: Dimens.VIDEO_SEEK_BTN_ICON_SIZE,
-          icon: Icon(icon),
-          onPressed: onTap,
+        child: Center(
+          child: Material(
+            clipBehavior: Clip.antiAlias,
+            shape: const CircleBorder(),
+            color: Colors.transparent,
+            child: IconButton(
+              padding: const EdgeInsets.all(16),
+              color: Colors.white,
+              iconSize: Dimens.VIDEO_SEEK_BTN_ICON_SIZE,
+              icon: Icon(icon),
+              onPressed: onTap,
+            ),
+          ),
         ),
       );
 }

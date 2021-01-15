@@ -1,14 +1,20 @@
+import 'package:async/async.dart';
 import 'package:better_player/better_player.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
+import 'package:shirasu/viewmodel/controller_hide_timer.dart';
 
+import '../util.dart';
 import 'model/model_detail.dart';
 
 part 'viewmodel_video.freezed.dart';
@@ -44,9 +50,16 @@ BetterPlayerController _createController(PlayOutState playOutState, String id) {
         //todo implement
         return Container();
       },
-      controlsConfiguration: const BetterPlayerControlsConfiguration(
-        showControls: false,
-        loadingColor: Styles.PRIMARY_COLOR,
+      placeholder: VideoThumbnail(
+        isLoading: true,
+        programId: id,
+      ),
+      controlsConfiguration: BetterPlayerControlsConfiguration(
+        playerTheme: BetterPlayerTheme.custom,
+        customControlsBuilder: (controller) =>
+            PlayerControllerView(programId: id),
+        loadingColor:
+            Styles.PRIMARY_COLOR, //todo debug loading circle is not appear??
       ),
       //todo ugly access
       aspectRatio: Dimens.IMG_RATIO,
@@ -64,16 +77,24 @@ class VideoViewModel extends StateNotifier<VideoModel> {
                 ? _createController(playOutState, id)
                 : null,
         super(const VideoModel()) {
+    _hideTimer = ControllerHideTimer(_onTimerFinished);
     controller?.addEventsListener(_playerEventListener);
   }
 
   final PlayOutState playOutState;
   final BetterPlayerController controller;
+  ControllerHideTimer _hideTimer;
 
   @override
   void dispose() {
     super.dispose();
+    _hideTimer.cancel();
     controller?.dispose();
+  }
+
+  void _onTimerFinished() {
+    if (mounted && state.controllerVisibility)
+      state = state.copyWith(controllerVisibility: false);
   }
 
   void _playerEventListener(BetterPlayerEvent event) {
@@ -99,6 +120,12 @@ class VideoViewModel extends StateNotifier<VideoModel> {
           durationSec: event.duration.inSeconds.toDouble(),
         );
         break;
+      case BetterPlayerEventType.seekTo:
+      // todo show progress indicator while loading??
+        state = state.copyWith(
+          currentPosSec: event.duration.inSeconds.toDouble(),
+        );
+        break;
       case BetterPlayerEventType.play:
         state = state.copyWith(isPlaying: true);
         break;
@@ -117,30 +144,43 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   }
 
   void toggleVisibility() {
-    if (state.isInitialized)
-      state = state.copyWith(
-        controllerVisibility: !state.controllerVisibility,
-      );
+    if (!state.isInitialized) return;
+
+    final controllerVisibility = state.controllerVisibility;
+    controllerVisibility ? _hideTimer.cancel() : _hideTimer.renew();
+    state = state.copyWith(
+      controllerVisibility: !controllerVisibility,
+    );
   }
 
   Future<void> seek(Duration diff) async {
+    _hideTimer.renew();
+
     final duration = await controller.videoPlayerController.position;
-    await controller.videoPlayerController.seekTo(duration + diff);
+    await controller.seekTo(duration + diff);
   }
 
   Future<void> seekTo(double sec, bool applyController) async {
+    _hideTimer.renew();
+
     state = state.copyWith(currentPosSec: sec);
 
     if (applyController)
-      await controller.videoPlayerController
-          .seekTo(Duration(seconds: sec.toInt()));
+      await controller.seekTo(Duration(seconds: sec.toInt()));
   }
 
-  Future<void> play() async => controller.videoPlayerController.play();
+  Future<void> playOrPause() async {
+    _hideTimer.renew();
 
-  Future<void> pause() async => controller.videoPlayerController.pause();
+    return state.isPlaying
+        ? controller.pause()
+        : controller.play();
+  }
 
-  void toggleFullScreen() => controller.toggleFullScreen();
+  void toggleFullScreen() {
+    _hideTimer.renew();
+    controller.toggleFullScreen();
+  }
 }
 
 @freezed

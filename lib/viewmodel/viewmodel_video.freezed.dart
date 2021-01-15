@@ -15,8 +15,8 @@ class _$VideoModelTearOff {
 
 // ignore: unused_element
   _VideoModel call(
-      {double durationSec = 0,
-      double currentPosSec = 0,
+      {Duration durationSec = Duration.zero,
+      Duration currentPosSec = Duration.zero,
       bool isPlaying = false,
       bool controllerVisibility = false,
       bool isInitialized = false,
@@ -38,8 +38,8 @@ const $VideoModel = _$VideoModelTearOff();
 
 /// @nodoc
 mixin _$VideoModel {
-  double get durationSec;
-  double get currentPosSec;
+  Duration get durationSec;
+  Duration get currentPosSec;
   bool get isPlaying;
   bool get controllerVisibility;
   bool get isInitialized;
@@ -54,8 +54,8 @@ abstract class $VideoModelCopyWith<$Res> {
           VideoModel value, $Res Function(VideoModel) then) =
       _$VideoModelCopyWithImpl<$Res>;
   $Res call(
-      {double durationSec,
-      double currentPosSec,
+      {Duration durationSec,
+      Duration currentPosSec,
       bool isPlaying,
       bool controllerVisibility,
       bool isInitialized,
@@ -81,10 +81,10 @@ class _$VideoModelCopyWithImpl<$Res> implements $VideoModelCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       durationSec:
-          durationSec == freezed ? _value.durationSec : durationSec as double,
+          durationSec == freezed ? _value.durationSec : durationSec as Duration,
       currentPosSec: currentPosSec == freezed
           ? _value.currentPosSec
-          : currentPosSec as double,
+          : currentPosSec as Duration,
       isPlaying: isPlaying == freezed ? _value.isPlaying : isPlaying as bool,
       controllerVisibility: controllerVisibility == freezed
           ? _value.controllerVisibility
@@ -105,8 +105,8 @@ abstract class _$VideoModelCopyWith<$Res> implements $VideoModelCopyWith<$Res> {
       __$VideoModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {double durationSec,
-      double currentPosSec,
+      {Duration durationSec,
+      Duration currentPosSec,
       bool isPlaying,
       bool controllerVisibility,
       bool isInitialized,
@@ -134,10 +134,10 @@ class __$VideoModelCopyWithImpl<$Res> extends _$VideoModelCopyWithImpl<$Res>
   }) {
     return _then(_VideoModel(
       durationSec:
-          durationSec == freezed ? _value.durationSec : durationSec as double,
+          durationSec == freezed ? _value.durationSec : durationSec as Duration,
       currentPosSec: currentPosSec == freezed
           ? _value.currentPosSec
-          : currentPosSec as double,
+          : currentPosSec as Duration,
       isPlaying: isPlaying == freezed ? _value.isPlaying : isPlaying as bool,
       controllerVisibility: controllerVisibility == freezed
           ? _value.controllerVisibility
@@ -154,8 +154,8 @@ class __$VideoModelCopyWithImpl<$Res> extends _$VideoModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_VideoModel implements _VideoModel {
   const _$_VideoModel(
-      {this.durationSec = 0,
-      this.currentPosSec = 0,
+      {this.durationSec = Duration.zero,
+      this.currentPosSec = Duration.zero,
       this.isPlaying = false,
       this.controllerVisibility = false,
       this.isInitialized = false,
@@ -167,12 +167,12 @@ class _$_VideoModel implements _VideoModel {
         assert(isInitialized != null),
         assert(isFullScreen != null);
 
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: Duration.zero)
   @override
-  final double durationSec;
-  @JsonKey(defaultValue: 0)
+  final Duration durationSec;
+  @JsonKey(defaultValue: Duration.zero)
   @override
-  final double currentPosSec;
+  final Duration currentPosSec;
   @JsonKey(defaultValue: false)
   @override
   final bool isPlaying;
@@ -232,17 +232,17 @@ class _$_VideoModel implements _VideoModel {
 
 abstract class _VideoModel implements VideoModel {
   const factory _VideoModel(
-      {double durationSec,
-      double currentPosSec,
+      {Duration durationSec,
+      Duration currentPosSec,
       bool isPlaying,
       bool controllerVisibility,
       bool isInitialized,
       bool isFullScreen}) = _$_VideoModel;
 
   @override
-  double get durationSec;
+  Duration get durationSec;
   @override
-  double get currentPosSec;
+  Duration get currentPosSec;
   @override
   bool get isPlaying;
   @override

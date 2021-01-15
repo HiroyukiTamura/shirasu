@@ -48,17 +48,20 @@ class Util {
     await launch(url);
   }
 
-  static Image defaultPrgThumbnail(BuildContext context, String url, dynamic error) {
+  static Image defaultPrgThumbnail(
+      BuildContext context, String url, dynamic error) {
     onImageError(url: url, error: error);
     return Assets.png.defaultThumbnail.image();
   }
 
-  static Widget defaultChannelIcon(BuildContext context, String url, dynamic error) {
+  static Widget defaultChannelIcon(
+      BuildContext context, String url, dynamic error) {
     onImageError(url: url, error: error);
     return Assets.svg.defaultChannelIcon.supportWeb().toWidget();
   }
 
-  static Widget defaultHandoutThumbnail(BuildContext context, String url, dynamic error) {
+  static Widget defaultHandoutThumbnail(
+      BuildContext context, String url, dynamic error) {
     onImageError(url: url, error: error);
     return Assets.jpeg.defaultHandoutThumbnail.image();
   }
@@ -71,10 +74,20 @@ class Util {
 
   static String sec2Hms(int sec) {
     final duration = Duration(seconds: sec);
-    final dateTime = DateTime.fromMillisecondsSinceEpoch(0)
-        .toUtc()
-        .add(duration);
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(
+      duration.inMilliseconds,
+      isUtc: true,
+    );
     return DateFormat('hh:mm:ss').format(dateTime);
+  }
+
+  static String formatDurationStyled(Duration duration) {
+    final dateTime = DateTime.fromMicrosecondsSinceEpoch(
+        duration.inMicroseconds,
+        isUtc: true);
+    return duration.inHours == 0
+        ? DateFormat('mm:ss').format(dateTime)
+        : DateFormat('hh:mm:ss').format(dateTime);
   }
 }
 

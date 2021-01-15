@@ -73,17 +73,17 @@ class _SeekBarInner extends HookWidget {
   Widget build(BuildContext context) => Expanded(
         child: Slider(
           max: useProvider(
-              pVideoViewModel(id).state.select((it) => it.durationSec)),
+              pVideoViewModel(id).state.select((it) => it.durationSec)).inSeconds.toDouble(),
           value: useProvider(
-              pVideoViewModel(id).state.select((it) => it.currentPosSec)),
+              pVideoViewModel(id).state.select((it) => it.currentPosSec)).inSeconds.toDouble(),
           onChanged: (value) => _onChanged(context, value),
           onChangeEnd: (value) => _onChangedEnd(context, value),
         ),
       );
 
   void _onChanged(BuildContext context, double value) =>
-      context.read(pVideoViewModel(id)).seekTo(value, false);
+      context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), false);
 
   void _onChangedEnd(BuildContext context, double value) =>
-      context.read(pVideoViewModel(id)).seekTo(value, true);
+      context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), true);
 }

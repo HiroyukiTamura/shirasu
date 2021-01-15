@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:intl/intl.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
 // part 'player_controller_view.g.dart';
@@ -79,6 +81,7 @@ class PlayerControllerView extends HookWidget {
                         ],
                       ),
                     ),
+                    _TimeText(id: programId),
                   ],
                 ),
               ),
@@ -171,4 +174,32 @@ class _SeekBtn extends StatelessWidget {
           ),
         ),
       );
+}
+
+class _TimeText extends HookWidget {
+  const _TimeText({@required this.id});
+
+  final String id;
+
+  @override
+  Widget build(BuildContext context) {
+    final total =
+        useProvider(pVideoViewModel(id).state.select((it) => it.durationSec));
+    final current =
+        useProvider(pVideoViewModel(id).state.select((it) => it.currentPosSec));
+
+    if (total == Duration.zero || current == Duration.zero)
+      return const SizedBox.shrink();
+
+    final totalStr = Util.formatDurationStyled(total);
+    final currentStr = Util.formatDurationStyled(current);
+
+    return Container(
+      padding: const EdgeInsets.all(8),
+      alignment: Alignment.bottomLeft,
+      child: Text('$currentStr / $totalStr', style: const TextStyle(
+        fontSize: 12,
+      ),),
+    );
+  }
 }

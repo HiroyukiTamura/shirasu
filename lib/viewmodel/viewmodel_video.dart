@@ -101,9 +101,8 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     switch (event.betterPlayerEventType) {
       case BetterPlayerEventType.initialized:
         final totalDuration = controller.videoPlayerController.value.duration;
-        debugPrint(totalDuration.inSeconds.toDouble().toString());
         state = state.copyWith(
-          durationSec: totalDuration.inSeconds.toDouble(),
+          durationSec: totalDuration,
           isInitialized: true,
         );
         break;
@@ -116,14 +115,14 @@ class VideoViewModel extends StateNotifier<VideoModel> {
         break;
       case BetterPlayerEventType.progress:
         state = state.copyWith(
-          currentPosSec: event.progress.inSeconds.toDouble(),
-          durationSec: event.duration.inSeconds.toDouble(),
+          currentPosSec: event.progress,
+          durationSec: event.duration,
         );
         break;
       case BetterPlayerEventType.seekTo:
       // todo show progress indicator while loading??
         state = state.copyWith(
-          currentPosSec: event.duration.inSeconds.toDouble(),
+          currentPosSec: event.duration,
         );
         break;
       case BetterPlayerEventType.play:
@@ -160,13 +159,13 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     await controller.seekTo(duration + diff);
   }
 
-  Future<void> seekTo(double sec, bool applyController) async {
+  Future<void> seekTo(Duration duration, bool applyController) async {
     _hideTimer.renew();
 
-    state = state.copyWith(currentPosSec: sec);
+    state = state.copyWith(currentPosSec: duration);
 
     if (applyController)
-      await controller.seekTo(Duration(seconds: sec.toInt()));
+      await controller.seekTo(duration);
   }
 
   Future<void> playOrPause() async {
@@ -186,8 +185,8 @@ class VideoViewModel extends StateNotifier<VideoModel> {
 @freezed
 abstract class VideoModel with _$VideoModel {
   const factory VideoModel({
-    @Default(0) double durationSec,
-    @Default(0) double currentPosSec,
+    @Default(Duration.zero) Duration durationSec,
+    @Default(Duration.zero) Duration currentPosSec,
     @Default(false) bool isPlaying,
     @Default(false) bool controllerVisibility,
     @Default(false) bool isInitialized,

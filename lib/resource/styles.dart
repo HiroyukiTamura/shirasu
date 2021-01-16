@@ -50,14 +50,12 @@ class Styles {
     ),
     sliderTheme: ThemeData.dark().sliderTheme.copyWith(
           inactiveTrackColor: Colors.white30,
-          trackHeight: 2,
+          trackHeight: 3,
           trackShape: const PlayerSliderTrackShape(),
-          thumbShape: const RoundSliderThumbShape(
-            enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS,
-          ),
-          // activeTrackColor: PRIMARY_COLOR,
+          // overlayShape:
+          activeTrackColor: PRIMARY_COLOR,
           // activeTickMarkColor: PRIMARY_COLOR,
-          // thumbColor: PRIMARY_COLOR,
+          thumbColor: PRIMARY_COLOR,
         ),
   );
 }

@@ -42,7 +42,6 @@ BetterPlayerController _createController(PlayOutState playOutState, String id) {
   );
   return BetterPlayerController(
     BetterPlayerConfiguration(
-      overlay: PlayerControllerView(programId: id),
       autoPlay: true,
       autoDispose: false,
       autoDetectFullscreenDeviceOrientation: true,
@@ -81,6 +80,9 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     controller?.addEventsListener(_playerEventListener);
   }
 
+  static const SEC_FAST_SEEK_BY_BTN = Duration(seconds: 30);
+  static const SEC_FAST_SEEK_BY_DOUBLE_TAP = Duration(seconds: 10);
+
   final PlayOutState playOutState;
   final BetterPlayerController controller;
   ControllerHideTimer _hideTimer;
@@ -102,7 +104,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
       case BetterPlayerEventType.initialized:
         final totalDuration = controller.videoPlayerController.value.duration;
         state = state.copyWith(
-          durationSec: totalDuration,
+          totalDuration: totalDuration,
           isInitialized: true,
         );
         break;
@@ -114,15 +116,16 @@ class VideoViewModel extends StateNotifier<VideoModel> {
         debugPrint(event.exception);
         break;
       case BetterPlayerEventType.progress:
-        state = state.copyWith(
-          currentPosSec: event.progress,
-          durationSec: event.duration,
-        );
+        if (!state.isSeekBarDragging)
+          state = state.copyWith(
+            currentPos: event.progress,
+            totalDuration: event.duration,
+          );
         break;
       case BetterPlayerEventType.seekTo:
-      // todo show progress indicator while loading??
+        // todo show progress indicator while loading??
         state = state.copyWith(
-          currentPosSec: event.duration,
+          currentPos: event.duration,
         );
         break;
       case BetterPlayerEventType.play:
@@ -159,37 +162,45 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     await controller.seekTo(duration + diff);
   }
 
-  Future<void> seekTo(Duration duration, bool applyController) async {
+  Future<void> seekTo(
+      Duration duration, bool applyController, bool endDrag) async {
     _hideTimer.renew();
 
-    state = state.copyWith(currentPosSec: duration);
+    if (endDrag)
+      state = state.copyWith(
+        currentPos: duration,
+        isSeekBarDragging: false,
+      );
+    else
+      state = state.copyWith(currentPos: duration);
 
-    if (applyController)
-      await controller.seekTo(duration);
+    if (applyController) await controller.seekTo(duration);
   }
 
   Future<void> playOrPause() async {
     _hideTimer.renew();
 
-    return state.isPlaying
-        ? controller.pause()
-        : controller.play();
+    return state.isPlaying ? controller.pause() : controller.play();
   }
 
   void toggleFullScreen() {
     _hideTimer.renew();
     controller.toggleFullScreen();
   }
+
+  void setAsSeekBarDragging() =>
+      state = state.copyWith(isSeekBarDragging: true);
 }
 
 @freezed
 abstract class VideoModel with _$VideoModel {
   const factory VideoModel({
-    @Default(Duration.zero) Duration durationSec,
-    @Default(Duration.zero) Duration currentPosSec,
+    @Default(Duration.zero) Duration totalDuration,
+    @Default(Duration.zero) Duration currentPos,
     @Default(false) bool isPlaying,
     @Default(false) bool controllerVisibility,
     @Default(false) bool isInitialized,
     @Default(false) bool isFullScreen,
+    @Default(false) bool isSeekBarDragging,
   }) = _VideoModel;
 }

@@ -64,6 +64,7 @@ class VideoSeekBar extends HookWidget {
       );
 }
 
+/// we don't support [Slider.label] because we can't style it and there is no useful plugin.
 class _SeekBarInner extends HookWidget {
   const _SeekBarInner({@required this.id});
 
@@ -73,17 +74,17 @@ class _SeekBarInner extends HookWidget {
   Widget build(BuildContext context) => Expanded(
         child: Slider(
           max: useProvider(
-              pVideoViewModel(id).state.select((it) => it.durationSec)).inSeconds.toDouble(),
+              pVideoViewModel(id).state.select((it) => it.totalDuration)).inSeconds.toDouble(),
           value: useProvider(
-              pVideoViewModel(id).state.select((it) => it.currentPosSec)).inSeconds.toDouble(),
+              pVideoViewModel(id).state.select((it) => it.currentPos)).inSeconds.toDouble(),
           onChanged: (value) => _onChanged(context, value),
           onChangeEnd: (value) => _onChangedEnd(context, value),
         ),
       );
 
   void _onChanged(BuildContext context, double value) =>
-      context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), false);
+      context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), false, false);
 
   void _onChangedEnd(BuildContext context, double value) =>
-      context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), true);
+      context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), true, false);
 }

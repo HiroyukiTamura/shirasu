@@ -15,19 +15,21 @@ class _$VideoModelTearOff {
 
 // ignore: unused_element
   _VideoModel call(
-      {Duration durationSec = Duration.zero,
-      Duration currentPosSec = Duration.zero,
+      {Duration totalDuration = Duration.zero,
+      Duration currentPos = Duration.zero,
       bool isPlaying = false,
       bool controllerVisibility = false,
       bool isInitialized = false,
-      bool isFullScreen = false}) {
+      bool isFullScreen = false,
+      bool isSeekBarDragging = false}) {
     return _VideoModel(
-      durationSec: durationSec,
-      currentPosSec: currentPosSec,
+      totalDuration: totalDuration,
+      currentPos: currentPos,
       isPlaying: isPlaying,
       controllerVisibility: controllerVisibility,
       isInitialized: isInitialized,
       isFullScreen: isFullScreen,
+      isSeekBarDragging: isSeekBarDragging,
     );
   }
 }
@@ -38,12 +40,13 @@ const $VideoModel = _$VideoModelTearOff();
 
 /// @nodoc
 mixin _$VideoModel {
-  Duration get durationSec;
-  Duration get currentPosSec;
+  Duration get totalDuration;
+  Duration get currentPos;
   bool get isPlaying;
   bool get controllerVisibility;
   bool get isInitialized;
   bool get isFullScreen;
+  bool get isSeekBarDragging;
 
   $VideoModelCopyWith<VideoModel> get copyWith;
 }
@@ -54,12 +57,13 @@ abstract class $VideoModelCopyWith<$Res> {
           VideoModel value, $Res Function(VideoModel) then) =
       _$VideoModelCopyWithImpl<$Res>;
   $Res call(
-      {Duration durationSec,
-      Duration currentPosSec,
+      {Duration totalDuration,
+      Duration currentPos,
       bool isPlaying,
       bool controllerVisibility,
       bool isInitialized,
-      bool isFullScreen});
+      bool isFullScreen,
+      bool isSeekBarDragging});
 }
 
 /// @nodoc
@@ -72,19 +76,20 @@ class _$VideoModelCopyWithImpl<$Res> implements $VideoModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object durationSec = freezed,
-    Object currentPosSec = freezed,
+    Object totalDuration = freezed,
+    Object currentPos = freezed,
     Object isPlaying = freezed,
     Object controllerVisibility = freezed,
     Object isInitialized = freezed,
     Object isFullScreen = freezed,
+    Object isSeekBarDragging = freezed,
   }) {
     return _then(_value.copyWith(
-      durationSec:
-          durationSec == freezed ? _value.durationSec : durationSec as Duration,
-      currentPosSec: currentPosSec == freezed
-          ? _value.currentPosSec
-          : currentPosSec as Duration,
+      totalDuration: totalDuration == freezed
+          ? _value.totalDuration
+          : totalDuration as Duration,
+      currentPos:
+          currentPos == freezed ? _value.currentPos : currentPos as Duration,
       isPlaying: isPlaying == freezed ? _value.isPlaying : isPlaying as bool,
       controllerVisibility: controllerVisibility == freezed
           ? _value.controllerVisibility
@@ -94,6 +99,9 @@ class _$VideoModelCopyWithImpl<$Res> implements $VideoModelCopyWith<$Res> {
           : isInitialized as bool,
       isFullScreen:
           isFullScreen == freezed ? _value.isFullScreen : isFullScreen as bool,
+      isSeekBarDragging: isSeekBarDragging == freezed
+          ? _value.isSeekBarDragging
+          : isSeekBarDragging as bool,
     ));
   }
 }
@@ -105,12 +113,13 @@ abstract class _$VideoModelCopyWith<$Res> implements $VideoModelCopyWith<$Res> {
       __$VideoModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Duration durationSec,
-      Duration currentPosSec,
+      {Duration totalDuration,
+      Duration currentPos,
       bool isPlaying,
       bool controllerVisibility,
       bool isInitialized,
-      bool isFullScreen});
+      bool isFullScreen,
+      bool isSeekBarDragging});
 }
 
 /// @nodoc
@@ -125,19 +134,20 @@ class __$VideoModelCopyWithImpl<$Res> extends _$VideoModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object durationSec = freezed,
-    Object currentPosSec = freezed,
+    Object totalDuration = freezed,
+    Object currentPos = freezed,
     Object isPlaying = freezed,
     Object controllerVisibility = freezed,
     Object isInitialized = freezed,
     Object isFullScreen = freezed,
+    Object isSeekBarDragging = freezed,
   }) {
     return _then(_VideoModel(
-      durationSec:
-          durationSec == freezed ? _value.durationSec : durationSec as Duration,
-      currentPosSec: currentPosSec == freezed
-          ? _value.currentPosSec
-          : currentPosSec as Duration,
+      totalDuration: totalDuration == freezed
+          ? _value.totalDuration
+          : totalDuration as Duration,
+      currentPos:
+          currentPos == freezed ? _value.currentPos : currentPos as Duration,
       isPlaying: isPlaying == freezed ? _value.isPlaying : isPlaying as bool,
       controllerVisibility: controllerVisibility == freezed
           ? _value.controllerVisibility
@@ -147,6 +157,9 @@ class __$VideoModelCopyWithImpl<$Res> extends _$VideoModelCopyWithImpl<$Res>
           : isInitialized as bool,
       isFullScreen:
           isFullScreen == freezed ? _value.isFullScreen : isFullScreen as bool,
+      isSeekBarDragging: isSeekBarDragging == freezed
+          ? _value.isSeekBarDragging
+          : isSeekBarDragging as bool,
     ));
   }
 }
@@ -154,25 +167,27 @@ class __$VideoModelCopyWithImpl<$Res> extends _$VideoModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_VideoModel implements _VideoModel {
   const _$_VideoModel(
-      {this.durationSec = Duration.zero,
-      this.currentPosSec = Duration.zero,
+      {this.totalDuration = Duration.zero,
+      this.currentPos = Duration.zero,
       this.isPlaying = false,
       this.controllerVisibility = false,
       this.isInitialized = false,
-      this.isFullScreen = false})
-      : assert(durationSec != null),
-        assert(currentPosSec != null),
+      this.isFullScreen = false,
+      this.isSeekBarDragging = false})
+      : assert(totalDuration != null),
+        assert(currentPos != null),
         assert(isPlaying != null),
         assert(controllerVisibility != null),
         assert(isInitialized != null),
-        assert(isFullScreen != null);
+        assert(isFullScreen != null),
+        assert(isSeekBarDragging != null);
 
   @JsonKey(defaultValue: Duration.zero)
   @override
-  final Duration durationSec;
+  final Duration totalDuration;
   @JsonKey(defaultValue: Duration.zero)
   @override
-  final Duration currentPosSec;
+  final Duration currentPos;
   @JsonKey(defaultValue: false)
   @override
   final bool isPlaying;
@@ -185,22 +200,25 @@ class _$_VideoModel implements _VideoModel {
   @JsonKey(defaultValue: false)
   @override
   final bool isFullScreen;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isSeekBarDragging;
 
   @override
   String toString() {
-    return 'VideoModel(durationSec: $durationSec, currentPosSec: $currentPosSec, isPlaying: $isPlaying, controllerVisibility: $controllerVisibility, isInitialized: $isInitialized, isFullScreen: $isFullScreen)';
+    return 'VideoModel(totalDuration: $totalDuration, currentPos: $currentPos, isPlaying: $isPlaying, controllerVisibility: $controllerVisibility, isInitialized: $isInitialized, isFullScreen: $isFullScreen, isSeekBarDragging: $isSeekBarDragging)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _VideoModel &&
-            (identical(other.durationSec, durationSec) ||
+            (identical(other.totalDuration, totalDuration) ||
                 const DeepCollectionEquality()
-                    .equals(other.durationSec, durationSec)) &&
-            (identical(other.currentPosSec, currentPosSec) ||
+                    .equals(other.totalDuration, totalDuration)) &&
+            (identical(other.currentPos, currentPos) ||
                 const DeepCollectionEquality()
-                    .equals(other.currentPosSec, currentPosSec)) &&
+                    .equals(other.currentPos, currentPos)) &&
             (identical(other.isPlaying, isPlaying) ||
                 const DeepCollectionEquality()
                     .equals(other.isPlaying, isPlaying)) &&
@@ -212,18 +230,22 @@ class _$_VideoModel implements _VideoModel {
                     .equals(other.isInitialized, isInitialized)) &&
             (identical(other.isFullScreen, isFullScreen) ||
                 const DeepCollectionEquality()
-                    .equals(other.isFullScreen, isFullScreen)));
+                    .equals(other.isFullScreen, isFullScreen)) &&
+            (identical(other.isSeekBarDragging, isSeekBarDragging) ||
+                const DeepCollectionEquality()
+                    .equals(other.isSeekBarDragging, isSeekBarDragging)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(durationSec) ^
-      const DeepCollectionEquality().hash(currentPosSec) ^
+      const DeepCollectionEquality().hash(totalDuration) ^
+      const DeepCollectionEquality().hash(currentPos) ^
       const DeepCollectionEquality().hash(isPlaying) ^
       const DeepCollectionEquality().hash(controllerVisibility) ^
       const DeepCollectionEquality().hash(isInitialized) ^
-      const DeepCollectionEquality().hash(isFullScreen);
+      const DeepCollectionEquality().hash(isFullScreen) ^
+      const DeepCollectionEquality().hash(isSeekBarDragging);
 
   @override
   _$VideoModelCopyWith<_VideoModel> get copyWith =>
@@ -232,17 +254,18 @@ class _$_VideoModel implements _VideoModel {
 
 abstract class _VideoModel implements VideoModel {
   const factory _VideoModel(
-      {Duration durationSec,
-      Duration currentPosSec,
+      {Duration totalDuration,
+      Duration currentPos,
       bool isPlaying,
       bool controllerVisibility,
       bool isInitialized,
-      bool isFullScreen}) = _$_VideoModel;
+      bool isFullScreen,
+      bool isSeekBarDragging}) = _$_VideoModel;
 
   @override
-  Duration get durationSec;
+  Duration get totalDuration;
   @override
-  Duration get currentPosSec;
+  Duration get currentPos;
   @override
   bool get isPlaying;
   @override
@@ -251,6 +274,8 @@ abstract class _VideoModel implements VideoModel {
   bool get isInitialized;
   @override
   bool get isFullScreen;
+  @override
+  bool get isSeekBarDragging;
   @override
   _$VideoModelCopyWith<_VideoModel> get copyWith;
 }

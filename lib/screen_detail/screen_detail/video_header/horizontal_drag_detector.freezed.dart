@@ -107,8 +107,8 @@ class __$HorizontalDragDataHolderCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_HorizontalDragDataHolder implements _HorizontalDragDataHolder {
-  const _$_HorizontalDragDataHolder({this.data});
+class _$_HorizontalDragDataHolder extends _HorizontalDragDataHolder {
+  const _$_HorizontalDragDataHolder({this.data}) : super._();
 
   @override
   final HorizontalDragData data;
@@ -136,7 +136,8 @@ class _$_HorizontalDragDataHolder implements _HorizontalDragDataHolder {
           this, _$identity);
 }
 
-abstract class _HorizontalDragDataHolder implements HorizontalDragDataHolder {
+abstract class _HorizontalDragDataHolder extends HorizontalDragDataHolder {
+  const _HorizontalDragDataHolder._() : super._();
   const factory _HorizontalDragDataHolder({HorizontalDragData data}) =
       _$_HorizontalDragDataHolder;
 

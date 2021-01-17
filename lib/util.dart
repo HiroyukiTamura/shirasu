@@ -8,7 +8,7 @@ import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/ui_common/images.dart';
-import 'package:riverpod/src/framework.dart';
+import 'package:dartx/dartx.dart';
 
 class Util {
   const Util._();
@@ -88,6 +88,17 @@ class Util {
     return duration.inHours == 0
         ? DateFormat('mm:ss').format(dateTime)
         : DateFormat('hh:mm:ss').format(dateTime);
+  }
+
+  static String formatDurationHHMM(Duration duration, bool withPlusMinus) {
+    final dateTime = DateTime(2000).toUtc() + duration.abs();
+    final mmss = DateFormat('mm:ss').format(dateTime);
+
+    if (withPlusMinus) {
+      final prefix = duration.isNegative ? '-' : '+';
+      return '$prefix$mmss';
+    } else
+      return mmss;
   }
 }
 

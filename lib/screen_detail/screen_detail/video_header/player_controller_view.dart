@@ -11,9 +11,11 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
-import 'package:shirasu/ui_common/horizontal_drag_detector.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
+
+import 'horizontal_drag_detector.dart';
 
 part 'player_controller_view.g.dart';
 
@@ -29,7 +31,7 @@ class PlayerControllerView extends HookWidget {
         id: programId,
         child: HorizontalDragDetector(
           onDragEnd: (dragData) => _onDragEnd(context, dragData),
-          overlay: _DragOverlay(),
+          overlay: _DragOverlay(id: programId),
           child: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () => _onTapBgBtn(context),
@@ -134,10 +136,147 @@ class PlayerControllerView extends HookWidget {
   }
 }
 
-class _DragOverlay extends StatelessWidget {
+final _kPrvIsDragging =
+    Provider.autoDispose<bool>((ref) => ref.watch(kPrvDragVm.state).isDragging);
+
+class _DragOverlay extends StatefulWidget {
+  const _DragOverlay({
+    Key key,
+    @required this.id,
+  }) : super(key: key);
+
+  final String id;
+
+  @override
+  _DragOverlayState createState() => _DragOverlayState();
+}
+
+class _DragOverlayState extends State<_DragOverlay>
+    with SingleTickerProviderStateMixin {
+  static const _DURATION_R = Duration(milliseconds: 200);
+  AnimationController _ac;
+  Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _ac = AnimationController(
+      vsync: this,
+      duration: Duration.zero,
+      reverseDuration: _DURATION_R,
+    );
+    _animation = CurvedAnimation(
+      parent: _ac,
+      curve: Curves.linear,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _ac.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => ProviderListener(
+        onChange: _onChange,
+        provider: _kPrvIsDragging,
+        child: FadeTransition(
+          opacity: _animation,
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Colors.black.withOpacity(.5),
+            child: _DragOverlayContentWrapper(id: widget.id),
+          ),
+        ),
+      );
+
+  void _onChange(BuildContext context, bool isDragging) {
+    if (isDragging) {
+      if (_ac.status == AnimationStatus.completed ||
+          _ac.status == AnimationStatus.reverse) _ac.reset();
+      _ac.forward();
+    } else
+      _ac.reverse();
+  }
+}
+
+class _DragOverlayContentWrapper extends HookWidget {
+  const _DragOverlayContentWrapper({@required this.id});
+
+  final String id;
+
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    final isDragging =
+        useProvider(kPrvDragVm.state.select((it) => it.isDragging));
+    final currentPos = useProvider(pVideoViewModel(id)).state.currentPos;
+    return isDragging
+        ? _DragOverlayContent(
+            id: id,
+            videoPosWhenDragStart: currentPos,
+          )
+        : const SizedBox.shrink();
+  }
+}
+
+class _DragOverlayContent extends HookWidget {
+  const _DragOverlayContent({
+    Key key,
+    @required this.id,
+    @required this.videoPosWhenDragStart,
+  }) : super(key: key);
+
+  final String id;
+  final Duration videoPosWhenDragStart;
+
+  static const _FACTOR_DX2SEC = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    final data = useProvider(kPrvDragVm.state.select((it) => it?.data));
+
+    final dxDiff = (data.currentDx - data.startDx).toInt() * _FACTOR_DX2SEC;
+    Duration diffDuration = Duration(seconds: dxDiff);
+    final totalDuration =
+        useProvider(pVideoViewModel(id).state.select((it) => it.totalDuration));
+    final isInitialized =
+        useProvider(pVideoViewModel(id).state.select((it) => it.isInitialized));
+    if (totalDuration == Duration.zero || !isInitialized)
+      return const SizedBox.shrink();
+
+    Duration aimingPos = videoPosWhenDragStart + diffDuration;
+    if (totalDuration < aimingPos) {
+      aimingPos = totalDuration;
+      diffDuration = videoPosWhenDragStart - totalDuration;
+    } else if (aimingPos < Duration.zero) {
+      aimingPos = Duration.zero;
+      diffDuration = -videoPosWhenDragStart;
+    }
+
+    final diffText = Util.formatDurationHHMM(diffDuration, true);
+    final positionText = Util.formatDurationHHMM(aimingPos, false);
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            positionText,
+            style: const TextStyle(
+              fontSize: 30,
+            ),
+          ),
+          Text(
+            diffText,
+            style: const TextStyle(
+              fontSize: 20,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

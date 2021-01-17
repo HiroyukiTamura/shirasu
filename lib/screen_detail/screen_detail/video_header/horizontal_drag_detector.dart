@@ -31,14 +31,11 @@ class HorizontalDragDetector extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         child: Stack(
           children: [
-            _AnimatedOpacity(
+            _Visibility(
               showWhenDragging: false,
               child: child,
             ),
-            _AnimatedOpacity(
-              showWhenDragging: true,
-              child: overlay,
-            ),
+            overlay,
           ],
         ),
       );
@@ -58,8 +55,8 @@ class HorizontalDragDetector extends StatelessWidget {
   }
 }
 
-class _AnimatedOpacity extends HookWidget {
-  const _AnimatedOpacity({
+class _Visibility extends HookWidget {
+  const _Visibility({
     @required this.showWhenDragging,
     @required this.child,
   });
@@ -72,13 +69,9 @@ class _AnimatedOpacity extends HookWidget {
     final isDragging =
         useProvider(kPrvDragVm.state.select((it) => it.data != null));
     final visible = showWhenDragging ? isDragging : !isDragging;
-    return AnimatedOpacity(
-      duration: const Duration(milliseconds: 100),
-      opacity: visible ? 1 : 0,
-      child: IgnorePointer(
-        ignoring: !visible,
-        child: child,
-      ),
+    return Visibility(
+      visible: visible,
+      child: child,
     );
   }
 }
@@ -95,10 +88,14 @@ class _HorizontalDragState extends StateNotifier<HorizontalDragDataHolder> {
 }
 
 @freezed
-abstract class HorizontalDragDataHolder with _$HorizontalDragDataHolder {
+abstract class HorizontalDragDataHolder implements _$HorizontalDragDataHolder {
   const factory HorizontalDragDataHolder({
     HorizontalDragData data,
   }) = _HorizontalDragDataHolder;
+
+  const HorizontalDragDataHolder._();
+
+  bool get isDragging => data != null;
 }
 
 @freezed

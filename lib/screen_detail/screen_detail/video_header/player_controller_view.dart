@@ -11,6 +11,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
+import 'package:shirasu/ui_common/horizontal_drag_detector.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
@@ -26,68 +27,73 @@ class PlayerControllerView extends HookWidget {
   @override
   Widget build(BuildContext context) => VideoControllerVis(
         id: programId,
-        child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () => _onTapBgBtn(context),
-          child: DoubleTapPlayerView(
-            ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
-            rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
-            textBuilder: _buildTapLabel,
-            child: PlayerAnimOpacity(
-              id: programId,
-              child: ColoredBox(
-                color: Colors.black.withOpacity(.5),
-                child: Stack(
-                  overflow: Overflow.visible,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        //todo implement
-                        Visibility(
-                          visible: false,
-                          child: IconButton(
-                            color: Colors.white,
-                            icon: const Icon(MdiIcons.playSpeed),
-                            onPressed: () => _onTapBgBtn(context),
-                          ),
-                        ),
-                        //todo implement
-                        Visibility(
-                          visible: false,
-                          child: IconButton(
-                            color: Colors.white,
-                            icon: const Icon(Icons.video_settings),
-                            onPressed: _onTapResolutionBtn,
-                          ),
-                        ),
-                        IconButton(
-                          color: Colors.white,
-                          icon: const Icon(Icons.fullscreen),
-                          onPressed: () => _onTapFullScreenBtn(context),
-                        ),
-                      ],
-                    ),
-                    Center(
-                      child: Row(
+        child: HorizontalDragDetector(
+          onDragEnd: (dragData) => _onDragEnd(context, dragData),
+          overlay: _DragOverlay(),
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () => _onTapBgBtn(context),
+            child: DoubleTapPlayerView(
+              ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
+              rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
+              textBuilder: _buildTapLabel,
+              onDoubleTap: () => _onDoubleTap(context),
+              child: PlayerAnimOpacity(
+                id: programId,
+                child: ColoredBox(
+                  color: Colors.black.withOpacity(.5),
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          _SeekBtn(
-                            icon: Icons.replay_30,
-                            onTap: () => _onTapRewindBtn(context),
+                          //todo implement
+                          Visibility(
+                            visible: false,
+                            child: IconButton(
+                              color: Colors.white,
+                              icon: const Icon(MdiIcons.playSpeed),
+                              onPressed: () => _onTapBgBtn(context),
+                            ),
                           ),
-                          _PlayOrPauseBtn(
-                            onTap: () => _onTapPlayToggleBtn(context),
-                            id: programId,
+                          //todo implement
+                          Visibility(
+                            visible: false,
+                            child: IconButton(
+                              color: Colors.white,
+                              icon: const Icon(Icons.video_settings),
+                              onPressed: _onTapResolutionBtn,
+                            ),
                           ),
-                          _SeekBtn(
-                            icon: Icons.forward_30,
-                            onTap: () => _onTapFastForwardBtn(context),
+                          IconButton(
+                            color: Colors.white,
+                            icon: const Icon(Icons.fullscreen),
+                            onPressed: () => _onTapFullScreenBtn(context),
                           ),
                         ],
                       ),
-                    ),
-                    _TimeText(id: programId),
-                  ],
+                      Center(
+                        child: Row(
+                          children: [
+                            _SeekBtn(
+                              icon: Icons.replay_30,
+                              onTap: () => _onTapRewindBtn(context),
+                            ),
+                            _PlayOrPauseBtn(
+                              onTap: () => _onTapPlayToggleBtn(context),
+                              id: programId,
+                            ),
+                            _SeekBtn(
+                              icon: Icons.forward_30,
+                              onTap: () => _onTapFastForwardBtn(context),
+                            ),
+                          ],
+                        ),
+                      ),
+                      _TimeText(id: programId),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -115,10 +121,23 @@ class PlayerControllerView extends HookWidget {
   void _onTapBgBtn(BuildContext context) =>
       context.read(pVideoViewModel(programId)).toggleVisibility();
 
+  void _onDoubleTap(BuildContext context) =>
+      context.read(pVideoViewModel(programId)).hide();
+
+  void _onDragEnd(BuildContext context, HorizontalDragData data) =>
+      context.read(pVideoViewModel(programId)).hide();
+
   String _buildTapLabel(Lr lr, int tapCount) {
     final swapSec =
         tapCount * VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP.inSeconds;
     return '$swapSec${Strings.TIME_UNIT_SEC}';
+  }
+}
+
+class _DragOverlay extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Placeholder();
   }
 }
 

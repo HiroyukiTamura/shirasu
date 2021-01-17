@@ -271,8 +271,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "2309f329b3453e5e4b4be4eb05af9129f6ecdacf"
-      resolved-ref: "2309f329b3453e5e4b4be4eb05af9129f6ecdacf"
+      ref: "21eb646e9432a9ed7d650fc9d1f76f069a60b35c"
+      resolved-ref: "21eb646e9432a9ed7d650fc9d1f76f069a60b35c"
       url: "git@github.com:HiroyukTamura/double_tap_player_view.git"
     source: git
     version: "0.0.1"

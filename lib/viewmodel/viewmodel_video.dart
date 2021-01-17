@@ -140,6 +140,11 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     }
   }
 
+  void hide() {
+    _hideTimer.cancel();
+    _hideController();
+  }
+
   void toggleVisibility() {
     if (!state.isInitialized) return;
 

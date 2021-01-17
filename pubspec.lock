@@ -267,6 +267,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  double_tap_player_view:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "2309f329b3453e5e4b4be4eb05af9129f6ecdacf"
+      resolved-ref: "2309f329b3453e5e4b4be4eb05af9129f6ecdacf"
+      url: "git@github.com:HiroyukTamura/double_tap_player_view.git"
+    source: git
+    version: "0.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -360,7 +369,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -538,7 +547,7 @@ packages:
       name: hooks_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
   html:
     dependency: transitive
     description:
@@ -832,7 +841,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
   rxdart:
     dependency: transitive
     description:

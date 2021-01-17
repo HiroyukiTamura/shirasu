@@ -11,6 +11,7 @@ class Styles {
   static const COLOR_TEXT_BLUE_WHITE = Color(0xffd9f9ff);
   static const BACK_COLOR = Color(0xff181818);
   static final colorPriceWhite = Colors.white.withOpacity(.85);
+  static const COLOR_DOUBLE_TAP_BG = Colors.white24;
 
   // static const TWITTER_COLOR = Color(0xff1DA1F2);
   // static const FACEBOOK_COLOR = Color(0xff4267B2);
@@ -52,6 +53,7 @@ class Styles {
           inactiveTrackColor: Colors.white30,
           trackHeight: 3,
           trackShape: const PlayerSliderTrackShape(),
+          thumbShape: const RoundSliderThumbShape(enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
           // overlayShape:
           activeTrackColor: PRIMARY_COLOR,
           // activeTickMarkColor: PRIMARY_COLOR,

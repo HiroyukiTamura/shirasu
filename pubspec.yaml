@@ -40,7 +40,7 @@ dependencies:
   graphql_flutter: ^4.0.0-beta.5
   freezed_annotation: ^0.12.0
   json_annotation: ^3.1.0
-  hooks_riverpod: ^0.12.1
+  hooks_riverpod: ^0.12.2
   flutter_hooks: ^0.15.0
   intl:
   flutter_linkify: ^4.0.2
@@ -58,6 +58,10 @@ dependencies:
   better_player: ^0.0.45
   circular_reveal_animation: ^1.1.5
   flutter_custom_clippers: ^1.1.2
+  double_tap_player_view:
+    git:
+      url: git@github.com:HiroyukTamura/double_tap_player_view.git
+      ref: 2309f329b3453e5e4b4be4eb05af9129f6ecdacf
 #  flutter_video_background:
 #    path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background/
 

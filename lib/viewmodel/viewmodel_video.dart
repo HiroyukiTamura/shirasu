@@ -1,10 +1,7 @@
-import 'package:async/async.dart';
 import 'package:better_player/better_player.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -14,7 +11,6 @@ import 'package:shirasu/extension.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
 import 'package:shirasu/viewmodel/controller_hide_timer.dart';
 
-import '../util.dart';
 import 'model/model_detail.dart';
 
 part 'viewmodel_video.freezed.dart';
@@ -76,7 +72,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
                 ? _createController(playOutState, id)
                 : null,
         super(const VideoModel()) {
-    _hideTimer = ControllerHideTimer(_onTimerFinished);
+    _hideTimer = ControllerHideTimer(_hideController);
     controller?.addEventsListener(_playerEventListener);
   }
 
@@ -94,9 +90,8 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     controller?.dispose();
   }
 
-  void _onTimerFinished() {
-    if (mounted && state.controllerVisibility)
-      state = state.copyWith(controllerVisibility: false);
+  void _hideController() {
+    if (mounted) state = state.copyWith(controllerVisibility: false);
   }
 
   void _playerEventListener(BetterPlayerEvent event) {

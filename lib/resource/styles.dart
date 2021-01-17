@@ -12,6 +12,7 @@ class Styles {
   static const BACK_COLOR = Color(0xff181818);
   static final colorPriceWhite = Colors.white.withOpacity(.85);
   static const COLOR_DOUBLE_TAP_BG = Colors.white24;
+  static const VIDEO_SHADE = Colors.black45;
 
   // static const TWITTER_COLOR = Color(0xff1DA1F2);
   // static const FACEBOOK_COLOR = Color(0xff4267B2);

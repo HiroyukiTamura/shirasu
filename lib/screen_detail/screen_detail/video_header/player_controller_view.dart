@@ -1,4 +1,3 @@
-import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +11,9 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/util.dart';
-import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
+import 'drag_overlay.dart';
 import 'horizontal_drag_detector.dart';
 
 part 'player_controller_view.g.dart';
@@ -31,7 +30,7 @@ class PlayerControllerView extends HookWidget {
         id: programId,
         child: HorizontalDragDetector(
           onDragEnd: (dragData) => _onDragEnd(context, dragData),
-          overlay: _DragOverlay(id: programId),
+          overlay: DragOverlay(id: programId),
           child: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () => _onTapBgBtn(context),
@@ -136,177 +135,27 @@ class PlayerControllerView extends HookWidget {
   }
 }
 
-final _kPrvIsDragging =
-    Provider.autoDispose<bool>((ref) => ref.watch(kPrvDragVm.state).isDragging);
 
-class _DragOverlay extends StatefulWidget {
-  const _DragOverlay({
-    Key key,
-    @required this.id,
-  }) : super(key: key);
-
-  final String id;
-
-  @override
-  _DragOverlayState createState() => _DragOverlayState();
-}
-
-class _DragOverlayState extends State<_DragOverlay>
-    with SingleTickerProviderStateMixin {
-  static const _DURATION_R = Duration(milliseconds: 200);
-  AnimationController _ac;
-  Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _ac = AnimationController(
-      vsync: this,
-      duration: Duration.zero,
-      reverseDuration: _DURATION_R,
-    );
-    _animation = CurvedAnimation(
-      parent: _ac,
-      curve: Curves.linear,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _ac.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => ProviderListener(
-        onChange: _onChange,
-        provider: _kPrvIsDragging,
-        child: FadeTransition(
-          opacity: _animation,
-          child: Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Colors.black.withOpacity(.5),
-            child: _DragOverlayContentWrapper(id: widget.id),
-          ),
+@swidget
+Widget _playOrPauseBtn({
+  @required VoidCallback onTap,
+  @required String id,
+}) => Expanded(
+    child: Center(
+      child: Material(
+        clipBehavior: Clip.antiAlias,
+        shape: const CircleBorder(),
+        color: Colors.transparent,
+        child: IconButton(
+          padding: const EdgeInsets.all(20),
+          iconSize: Dimens.VIDEO_PLAY_BTN_ICON_SIZE,
+          color: Colors.white,
+          icon: _PlayOrPauseIcon(id: id),
+          onPressed: onTap,
         ),
-      );
-
-  void _onChange(BuildContext context, bool isDragging) {
-    if (isDragging) {
-      if (_ac.status == AnimationStatus.completed ||
-          _ac.status == AnimationStatus.reverse) _ac.reset();
-      _ac.forward();
-    } else
-      _ac.reverse();
-  }
-}
-
-class _DragOverlayContentWrapper extends HookWidget {
-  const _DragOverlayContentWrapper({@required this.id});
-
-  final String id;
-
-  @override
-  Widget build(BuildContext context) {
-    final isDragging =
-        useProvider(kPrvDragVm.state.select((it) => it.isDragging));
-    final currentPos = useProvider(pVideoViewModel(id)).state.currentPos;
-    return isDragging
-        ? _DragOverlayContent(
-            id: id,
-            videoPosWhenDragStart: currentPos,
-          )
-        : const SizedBox.shrink();
-  }
-}
-
-class _DragOverlayContent extends HookWidget {
-  const _DragOverlayContent({
-    Key key,
-    @required this.id,
-    @required this.videoPosWhenDragStart,
-  }) : super(key: key);
-
-  final String id;
-  final Duration videoPosWhenDragStart;
-
-  static const _FACTOR_DX2SEC = 1;
-
-  @override
-  Widget build(BuildContext context) {
-    final data = useProvider(kPrvDragVm.state.select((it) => it?.data));
-
-    final dxDiff = (data.currentDx - data.startDx).toInt() * _FACTOR_DX2SEC;
-    Duration diffDuration = Duration(seconds: dxDiff);
-    final totalDuration =
-        useProvider(pVideoViewModel(id).state.select((it) => it.totalDuration));
-    final isInitialized =
-        useProvider(pVideoViewModel(id).state.select((it) => it.isInitialized));
-    if (totalDuration == Duration.zero || !isInitialized)
-      return const SizedBox.shrink();
-
-    Duration aimingPos = videoPosWhenDragStart + diffDuration;
-    if (totalDuration < aimingPos) {
-      aimingPos = totalDuration;
-      diffDuration = videoPosWhenDragStart - totalDuration;
-    } else if (aimingPos < Duration.zero) {
-      aimingPos = Duration.zero;
-      diffDuration = -videoPosWhenDragStart;
-    }
-
-    final diffText = Util.formatDurationHHMM(diffDuration, true);
-    final positionText = Util.formatDurationHHMM(aimingPos, false);
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            positionText,
-            style: const TextStyle(
-              fontSize: 30,
-            ),
-          ),
-          Text(
-            diffText,
-            style: const TextStyle(
-              fontSize: 20,
-            ),
-          ),
-        ],
       ),
-    );
-  }
-}
-
-class _PlayOrPauseBtn extends StatelessWidget {
-  const _PlayOrPauseBtn({
-    @required this.id,
-    @required this.onTap,
-  });
-
-  final VoidCallback onTap;
-  final String id;
-
-  @override
-  Widget build(BuildContext context) => Expanded(
-        child: Center(
-          child: Material(
-            clipBehavior: Clip.antiAlias,
-            shape: const CircleBorder(),
-            color: Colors.transparent,
-            child: IconButton(
-              padding: const EdgeInsets.all(20),
-              iconSize: Dimens.VIDEO_PLAY_BTN_ICON_SIZE,
-              color: Colors.white,
-              icon: _PlayOrPauseIcon(id: id),
-              onPressed: onTap,
-            ),
-          ),
-        ),
-      );
-}
+    ),
+  );
 
 @hwidget
 Widget _playOrPauseIcon({@required String id}) {
@@ -317,70 +166,59 @@ Widget _playOrPauseIcon({@required String id}) {
   );
 }
 
-class _SeekBtn extends StatelessWidget {
-  const _SeekBtn({
-    Key key,
-    @required this.onTap,
-    @required this.icon,
-  }) : super(key: key);
+@swidget
+Widget _seekBtn({
+  @required IconData icon,
+  @required VoidCallback onTap,
+}) => Expanded(
+    child: Center(
+      child: Material(
+        clipBehavior: Clip.antiAlias,
+        shape: const CircleBorder(),
+        color: Colors.transparent,
+        child: IconButton(
+          padding: const EdgeInsets.all(16),
+          color: Colors.white,
+          iconSize: Dimens.VIDEO_SEEK_BTN_ICON_SIZE,
+          icon: Icon(icon),
+          onPressed: onTap,
+        ),
+      ),
+    ),
+  );
 
-  final VoidCallback onTap;
-  final IconData icon;
 
-  @override
-  Widget build(BuildContext context) => Expanded(
-        child: Center(
-          child: Material(
-            clipBehavior: Clip.antiAlias,
-            shape: const CircleBorder(),
-            color: Colors.transparent,
-            child: IconButton(
-              padding: const EdgeInsets.all(16),
-              color: Colors.white,
-              iconSize: Dimens.VIDEO_SEEK_BTN_ICON_SIZE,
-              icon: Icon(icon),
-              onPressed: onTap,
-            ),
+@hwidget
+Widget _timeText({@required String id}) {
+  final isSeekBarDragging = useProvider(
+      pVideoViewModel(id).state.select((it) => it.isSeekBarDragging));
+  final total =
+      useProvider(pVideoViewModel(id).state.select((it) => it.totalDuration));
+  final current =
+      useProvider(pVideoViewModel(id).state.select((it) => it.currentPos));
+
+  final totalStr = Util.formatDurationStyled(total);
+  final currentStr = Util.formatDurationStyled(current);
+
+  final invisible =
+      isSeekBarDragging || total == Duration.zero || current == Duration.zero;
+
+  /// immediately hide but show with animation
+  return AnimatedOpacity(
+    opacity: invisible ? 0 : 1,
+    duration: const Duration(milliseconds: 300),
+    child: Visibility(
+      visible: !invisible,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        alignment: Alignment.bottomLeft,
+        child: Text(
+          '$currentStr / $totalStr',
+          style: const TextStyle(
+            fontSize: 12,
           ),
         ),
-      );
-}
-
-class _TimeText extends HookWidget {
-  const _TimeText({@required this.id});
-
-  final String id;
-
-  @override
-  Widget build(BuildContext context) {
-    final isSeekBarDragging = useProvider(
-        pVideoViewModel(id).state.select((it) => it.isSeekBarDragging));
-    final total =
-        useProvider(pVideoViewModel(id).state.select((it) => it.totalDuration));
-    final current =
-        useProvider(pVideoViewModel(id).state.select((it) => it.currentPos));
-
-    final totalStr = Util.formatDurationStyled(total);
-    final currentStr = Util.formatDurationStyled(current);
-
-    final invisible =
-        isSeekBarDragging || total == Duration.zero || current == Duration.zero;
-
-    return AnimatedOpacity(
-      opacity: invisible ? 0 : 1,
-      duration: const Duration(milliseconds: 300),
-      child: invisible
-          ? const SizedBox.shrink()
-          : Container(
-              padding: const EdgeInsets.all(8),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                '$currentStr / $totalStr',
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
-              ),
-            ),
-    );
-  }
+      ),
+    ),
+  );
 }

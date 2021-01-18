@@ -14,9 +14,10 @@ import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
 import 'drag_overlay.dart';
-import 'horizontal_drag_detector.dart';
 
 part 'player_controller_view.g.dart';
+
+final kPrvDragStartDx = StateProvider.autoDispose<double>((ref) => 0);
 
 class PlayerControllerView extends HookWidget {
   const PlayerControllerView({
@@ -28,73 +29,80 @@ class PlayerControllerView extends HookWidget {
   @override
   Widget build(BuildContext context) => VideoControllerVis(
         id: programId,
-        child: HorizontalDragDetector(
-          onDragEnd: (dragData) => _onDragEnd(context, dragData),
-          overlay: DragOverlay(id: programId),
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () => _onTapBgBtn(context),
-            child: DoubleTapPlayerView(
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => _onTapBgBtn(context),
+          child: DoubleTapPlayerView(
+            doubleTapConfig: DoubleTapConfig.create(
               ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
               rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
-              textBuilder: _buildTapLabel,
+              labelBuilder: _buildTapLabel,
               onDoubleTap: () => _onDoubleTap(context),
-              child: PlayerAnimOpacity(
+            ),
+            swipeConfig: SwipeConfig.create(
+              onSwipeStart:(dx) => _clearStartDx(context, dx),
+              onSwipeCancel: () => _clearStartDx(context, 0),
+              onSwipeEnd: (data) => _onSwipeEnd(context),
+              overlayBuilder: (data) => DragOverlay(
                 id: programId,
-                child: ColoredBox(
-                  color: Colors.black.withOpacity(.5),
-                  child: Stack(
-                    overflow: Overflow.visible,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          //todo implement
-                          Visibility(
-                            visible: false,
-                            child: IconButton(
-                              color: Colors.white,
-                              icon: const Icon(MdiIcons.playSpeed),
-                              onPressed: () => _onTapBgBtn(context),
-                            ),
-                          ),
-                          //todo implement
-                          Visibility(
-                            visible: false,
-                            child: IconButton(
-                              color: Colors.white,
-                              icon: const Icon(Icons.video_settings),
-                              onPressed: _onTapResolutionBtn,
-                            ),
-                          ),
-                          IconButton(
+                data: data,
+              ),
+            ),
+            child: PlayerAnimOpacity(
+              id: programId,
+              child: ColoredBox(
+                color: Colors.black.withOpacity(.5),
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        //todo implement
+                        Visibility(
+                          visible: false,
+                          child: IconButton(
                             color: Colors.white,
-                            icon: const Icon(Icons.fullscreen),
-                            onPressed: () => _onTapFullScreenBtn(context),
+                            icon: const Icon(MdiIcons.playSpeed),
+                            onPressed: () => _onTapBgBtn(context),
+                          ),
+                        ),
+                        //todo implement
+                        Visibility(
+                          visible: false,
+                          child: IconButton(
+                            color: Colors.white,
+                            icon: const Icon(Icons.video_settings),
+                            onPressed: _onTapResolutionBtn,
+                          ),
+                        ),
+                        IconButton(
+                          color: Colors.white,
+                          icon: const Icon(Icons.fullscreen),
+                          onPressed: () => _onTapFullScreenBtn(context),
+                        ),
+                      ],
+                    ),
+                    Center(
+                      child: Row(
+                        children: [
+                          _SeekBtn(
+                            icon: Icons.replay_30,
+                            onTap: () => _onTapRewindBtn(context),
+                          ),
+                          _PlayOrPauseBtn(
+                            onTap: () => _onTapPlayToggleBtn(context),
+                            id: programId,
+                          ),
+                          _SeekBtn(
+                            icon: Icons.forward_30,
+                            onTap: () => _onTapFastForwardBtn(context),
                           ),
                         ],
                       ),
-                      Center(
-                        child: Row(
-                          children: [
-                            _SeekBtn(
-                              icon: Icons.replay_30,
-                              onTap: () => _onTapRewindBtn(context),
-                            ),
-                            _PlayOrPauseBtn(
-                              onTap: () => _onTapPlayToggleBtn(context),
-                              id: programId,
-                            ),
-                            _SeekBtn(
-                              icon: Icons.forward_30,
-                              onTap: () => _onTapFastForwardBtn(context),
-                            ),
-                          ],
-                        ),
-                      ),
-                      _TimeText(id: programId),
-                    ],
-                  ),
+                    ),
+                    _TimeText(id: programId),
+                  ],
                 ),
               ),
             ),
@@ -125,8 +133,12 @@ class PlayerControllerView extends HookWidget {
   void _onDoubleTap(BuildContext context) =>
       context.read(pVideoViewModel(programId)).hide();
 
-  void _onDragEnd(BuildContext context, HorizontalDragData data) =>
-      context.read(pVideoViewModel(programId)).hide();
+  void _onSwipeEnd(BuildContext context) {
+    _clearStartDx(context, 0);
+    context.read(pVideoViewModel(programId)).hide();
+  }
+
+  void _clearStartDx(BuildContext context, double dx) => context.read(kPrvDragStartDx).state = dx;
 
   String _buildTapLabel(Lr lr, int tapCount) {
     final swapSec =
@@ -135,27 +147,27 @@ class PlayerControllerView extends HookWidget {
   }
 }
 
-
 @swidget
 Widget _playOrPauseBtn({
   @required VoidCallback onTap,
   @required String id,
-}) => Expanded(
-    child: Center(
-      child: Material(
-        clipBehavior: Clip.antiAlias,
-        shape: const CircleBorder(),
-        color: Colors.transparent,
-        child: IconButton(
-          padding: const EdgeInsets.all(20),
-          iconSize: Dimens.VIDEO_PLAY_BTN_ICON_SIZE,
-          color: Colors.white,
-          icon: _PlayOrPauseIcon(id: id),
-          onPressed: onTap,
+}) =>
+    Expanded(
+      child: Center(
+        child: Material(
+          clipBehavior: Clip.antiAlias,
+          shape: const CircleBorder(),
+          color: Colors.transparent,
+          child: IconButton(
+            padding: const EdgeInsets.all(20),
+            iconSize: Dimens.VIDEO_PLAY_BTN_ICON_SIZE,
+            color: Colors.white,
+            icon: _PlayOrPauseIcon(id: id),
+            onPressed: onTap,
+          ),
         ),
       ),
-    ),
-  );
+    );
 
 @hwidget
 Widget _playOrPauseIcon({@required String id}) {
@@ -170,23 +182,23 @@ Widget _playOrPauseIcon({@required String id}) {
 Widget _seekBtn({
   @required IconData icon,
   @required VoidCallback onTap,
-}) => Expanded(
-    child: Center(
-      child: Material(
-        clipBehavior: Clip.antiAlias,
-        shape: const CircleBorder(),
-        color: Colors.transparent,
-        child: IconButton(
-          padding: const EdgeInsets.all(16),
-          color: Colors.white,
-          iconSize: Dimens.VIDEO_SEEK_BTN_ICON_SIZE,
-          icon: Icon(icon),
-          onPressed: onTap,
+}) =>
+    Expanded(
+      child: Center(
+        child: Material(
+          clipBehavior: Clip.antiAlias,
+          shape: const CircleBorder(),
+          color: Colors.transparent,
+          child: IconButton(
+            padding: const EdgeInsets.all(16),
+            color: Colors.white,
+            iconSize: Dimens.VIDEO_SEEK_BTN_ICON_SIZE,
+            icon: Icon(icon),
+            onPressed: onTap,
+          ),
         ),
       ),
-    ),
-  );
-
+    );
 
 @hwidget
 Widget _timeText({@required String id}) {

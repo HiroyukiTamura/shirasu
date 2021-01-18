@@ -270,12 +270,10 @@ packages:
   double_tap_player_view:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "21eb646e9432a9ed7d650fc9d1f76f069a60b35c"
-      resolved-ref: "21eb646e9432a9ed7d650fc9d1f76f069a60b35c"
-      url: "git@github.com:HiroyukTamura/double_tap_player_view.git"
-    source: git
-    version: "0.0.1"
+      name: double_tap_player_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   fake_async:
     dependency: transitive
     description:

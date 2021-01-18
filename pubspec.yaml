@@ -58,12 +58,7 @@ dependencies:
   better_player: ^0.0.45
   circular_reveal_animation: ^1.1.5
   flutter_custom_clippers: ^1.1.2
-  double_tap_player_view:
-    git:
-      url: git@github.com:HiroyukTamura/double_tap_player_view.git
-      ref: 21eb646e9432a9ed7d650fc9d1f76f069a60b35c
-#  flutter_video_background:
-#    path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background/
+  double_tap_player_view: ^1.0.1
 
 dev_dependencies:
   flutter_test:

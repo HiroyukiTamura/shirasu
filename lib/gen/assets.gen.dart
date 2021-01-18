@@ -28,6 +28,14 @@ class $AssetsJsonGen {
   String get prefecture => 'assets/json/prefecture.json';
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  String get fastForward => 'assets/lottie/fast_forward.json';
+  String get pausePlay => 'assets/lottie/pause_play.json';
+  String get rewind => 'assets/lottie/rewind.json';
+}
+
 class $AssetsPngGen {
   const $AssetsPngGen();
 
@@ -76,6 +84,7 @@ class Assets {
   static const $AssetsJpegGen jpeg = $AssetsJpegGen();
   static const $AssetsJsGen js = $AssetsJsGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsPngGen png = $AssetsPngGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
 }

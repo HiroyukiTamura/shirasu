@@ -59,6 +59,7 @@ dependencies:
   circular_reveal_animation: ^1.1.5
   flutter_custom_clippers: ^1.1.2
   double_tap_player_view: ^1.0.1
+  lottie: ^0.7.0+1
 
 dev_dependencies:
   flutter_test:
@@ -88,4 +89,5 @@ flutter:
     - assets/jpeg/
     - assets/svg/
     - assets/json/
+    - assets/lottie/
     - assets/js/

@@ -165,7 +165,7 @@ class __$VideoModelCopyWithImpl<$Res> extends _$VideoModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_VideoModel implements _VideoModel {
+class _$_VideoModel extends _VideoModel {
   const _$_VideoModel(
       {this.totalDuration = Duration.zero,
       this.currentPos = Duration.zero,
@@ -180,7 +180,8 @@ class _$_VideoModel implements _VideoModel {
         assert(controllerVisibility != null),
         assert(isInitialized != null),
         assert(isFullScreen != null),
-        assert(isSeekBarDragging != null);
+        assert(isSeekBarDragging != null),
+        super._();
 
   @JsonKey(defaultValue: Duration.zero)
   @override
@@ -252,7 +253,8 @@ class _$_VideoModel implements _VideoModel {
       __$VideoModelCopyWithImpl<_VideoModel>(this, _$identity);
 }
 
-abstract class _VideoModel implements VideoModel {
+abstract class _VideoModel extends VideoModel {
+  const _VideoModel._() : super._();
   const factory _VideoModel(
       {Duration totalDuration,
       Duration currentPos,

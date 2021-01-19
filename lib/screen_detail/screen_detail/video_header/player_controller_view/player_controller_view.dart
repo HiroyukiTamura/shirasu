@@ -2,10 +2,7 @@ import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:lottie/lottie.dart';
-import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
@@ -17,6 +14,7 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/video_controlle
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_top.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/extension.dart';
 
 // part 'player_controller_view.g.dart';
 
@@ -42,6 +40,9 @@ class PlayerControllerView extends HookWidget {
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () => _onTapBgBtn(context),
+          onDoubleTap: () {
+            // for not fire onTap event
+          },
           child: Stack(
             children: [
               DoubleTapPlayerView(
@@ -57,7 +58,7 @@ class PlayerControllerView extends HookWidget {
                 swipeConfig: SwipeConfig.create(
                   onSwipeStart: (dx) => _clearStartDx(context, dx),
                   onSwipeCancel: () => _clearStartDx(context, 0),
-                  onSwipeEnd: (data) => _onSwipeEnd(context),
+                  onSwipeEnd: (data) => _onSwipeEnd(context, data),
                   overlayBuilder: _dragOverlay,
                 ),
               ),
@@ -111,9 +112,13 @@ class PlayerControllerView extends HookWidget {
   void _onDoubleTap(BuildContext context, Lr lr) {
     context.read(pVideoViewModel(programId)).hide();
     context.read(_kSPrvDoubleTapEvent(lr)).state++;
+
+    final duration = lr == Lr.LEFT ? -VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP : VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP;
+    _seek(context, duration);
   }
 
-  void _onSwipeEnd(BuildContext context) {
+  void _onSwipeEnd(BuildContext context, SwipeData data) {
+    context.read(pVideoViewModel(programId)).seek(data.diffDuration);
     _clearStartDx(context, 0);
     context.read(pVideoViewModel(programId)).hide();
   }

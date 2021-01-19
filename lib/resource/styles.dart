@@ -50,7 +50,7 @@ class Styles {
       behavior: SnackBarBehavior.floating,
     ),
     sliderTheme: ThemeData.dark().sliderTheme.copyWith(
-          inactiveTrackColor: Colors.white30,
+          inactiveTrackColor: Colors.grey,
           trackHeight: 3,
           trackShape: const PlayerSliderTrackShape(),
           thumbShape: const RoundSliderThumbShape(enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS),

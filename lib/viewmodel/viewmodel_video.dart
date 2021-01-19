@@ -166,9 +166,6 @@ class VideoViewModel extends StateNotifier<VideoModel> {
       Duration duration, bool applyController, bool endDrag) async {
     _hideTimer.renew();
 
-    if (duration.isNegative)
-      duration = Duration.zero;
-
     if (endDrag)
       state = state.copyWith(
         currentPos: duration,
@@ -196,7 +193,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
 }
 
 @freezed
-abstract class VideoModel with _$VideoModel {
+abstract class VideoModel implements _$VideoModel {
   const factory VideoModel({
     @Default(Duration.zero) Duration totalDuration,
     @Default(Duration.zero) Duration currentPos,
@@ -206,4 +203,8 @@ abstract class VideoModel with _$VideoModel {
     @Default(false) bool isFullScreen,
     @Default(false) bool isSeekBarDragging,
   }) = _VideoModel;
+
+  const VideoModel._();
+
+  Duration get currentPosSafe => currentPos.isNegative ? Duration.zero : currentPos;
 }

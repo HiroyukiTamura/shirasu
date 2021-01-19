@@ -76,7 +76,7 @@ class _SeekBarInner extends HookWidget {
           max: useProvider(
               pVideoViewModel(id).state.select((it) => it.totalDuration)).inSeconds.toDouble(),
           value: useProvider(
-              pVideoViewModel(id).state.select((it) => it.currentPos)).inSeconds.toDouble(),
+              pVideoViewModel(id).state.select((it) => it.currentPosSafe)).inSeconds.toDouble(),
           onChanged: (value) => _onChanged(context, value),
           onChangeEnd: (value) => _onChangedEnd(context, value),
         ),

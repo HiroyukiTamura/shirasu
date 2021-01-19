@@ -6,16 +6,24 @@ part of 'play_or_pause_icon.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class PlayOrPauseIcon extends HookWidget {
-  const PlayOrPauseIcon(
-      {Key key, @required this.id, @required this.onTapPlayToggleBtn})
-      : super(key: key);
+class _PlayOrPauseIcon extends HookWidget {
+  const _PlayOrPauseIcon({Key key, @required this.id}) : super(key: key);
 
   final String id;
 
-  final void Function(BuildContext) onTapPlayToggleBtn;
+  @override
+  Widget build(BuildContext _context) => _playOrPauseIcon(id: id);
+}
+
+class PlayOrPauseBtn extends StatelessWidget {
+  const PlayOrPauseBtn({Key key, @required this.onTap, @required this.id})
+      : super(key: key);
+
+  final void Function(BuildContext) onTap;
+
+  final String id;
 
   @override
   Widget build(BuildContext _context) =>
-      playOrPauseIcon(id: id, onTapPlayToggleBtn: onTapPlayToggleBtn);
+      playOrPauseBtn(_context, onTap: onTap, id: id);
 }

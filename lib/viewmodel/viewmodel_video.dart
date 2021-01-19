@@ -166,6 +166,9 @@ class VideoViewModel extends StateNotifier<VideoModel> {
       Duration duration, bool applyController, bool endDrag) async {
     _hideTimer.renew();
 
+    if (duration.isNegative)
+      duration = Duration.zero;
+
     if (endDrag)
       state = state.copyWith(
         currentPos: duration,

@@ -19,11 +19,15 @@ class SeekBtn extends StatelessWidget {
       seekBtn(_context, lr: lr, onTap: onTap);
 }
 
-class _SeekIcon extends HookWidget {
-  const _SeekIcon({Key key, this.lr}) : super(key: key);
+class SeekIcon<T> extends HookWidget {
+  const SeekIcon({Key key, @required this.lr, @required this.provider})
+      : super(key: key);
 
   final Lr lr;
 
+  final ProviderBase<Object, T> provider;
+
   @override
-  Widget build(BuildContext _context) => _seekIcon(lr: lr);
+  Widget build(BuildContext _context) =>
+      seekIcon<T>(lr: lr, provider: provider);
 }

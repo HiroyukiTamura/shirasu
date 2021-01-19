@@ -2,19 +2,30 @@ import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:lottie/lottie.dart';
+import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/drag_overlay.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/row_center.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/seek_btn.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/time_text.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_top.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../drag_overlay.dart';
+// part 'player_controller_view.g.dart';
 
 final kPrvDragStartDx = StateProvider.autoDispose<double>((ref) => 0);
+
+final _kSPrvDoubleTapEvent =
+    StateProvider.autoDispose.family<int, Lr>((ref, lr) => 0);
+
+final _kPrvDoubleTapEvent = Provider.autoDispose.family<int, Lr>((ref, lr) => ref.watch(_kSPrvDoubleTapEvent(lr)).state);
 
 class PlayerControllerView extends HookWidget {
   const PlayerControllerView({
@@ -22,6 +33,8 @@ class PlayerControllerView extends HookWidget {
   });
 
   final String programId;
+
+  static const _SEEK_ICON_SIZE = Size.square(48);
 
   @override
   Widget build(BuildContext context) => VideoControllerVis(
@@ -36,7 +49,10 @@ class PlayerControllerView extends HookWidget {
                   ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
                   rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
                   labelBuilder: _buildTapLabel,
-                  onDoubleTap: () => _onDoubleTap(context),
+                  onDoubleTap: (lr) => _onDoubleTap(context, lr),
+                  iconLeft: _seekIcon(lr: Lr.LEFT),
+                  iconRight: _seekIcon(lr: Lr.RIGHT),
+                  expansionHoldingTime: const Duration(milliseconds: 400),
                 ),
                 swipeConfig: SwipeConfig.create(
                   onSwipeStart: (dx) => _clearStartDx(context, dx),
@@ -89,13 +105,13 @@ class PlayerControllerView extends HookWidget {
   void _onTapFullScreenBtn(BuildContext context) =>
       context.read(pVideoViewModel(programId)).toggleFullScreen();
 
-  void _onTapResolutionBtn() {}
-
   void _onTapBgBtn(BuildContext context) =>
       context.read(pVideoViewModel(programId)).toggleVisibility();
 
-  void _onDoubleTap(BuildContext context) =>
-      context.read(pVideoViewModel(programId)).hide();
+  void _onDoubleTap(BuildContext context, Lr lr) {
+    context.read(pVideoViewModel(programId)).hide();
+    context.read(_kSPrvDoubleTapEvent(lr)).state++;
+  }
 
   void _onSwipeEnd(BuildContext context) {
     _clearStartDx(context, 0);
@@ -115,4 +131,12 @@ class PlayerControllerView extends HookWidget {
         id: programId,
         data: data,
       );
+
+  Widget _seekIcon({@required Lr lr}) => SizedBox.fromSize(
+      size: _SEEK_ICON_SIZE,
+      child: SeekIcon<int>(
+        lr: lr,
+        provider: _kPrvDoubleTapEvent(lr),
+      ),
+    );
 }

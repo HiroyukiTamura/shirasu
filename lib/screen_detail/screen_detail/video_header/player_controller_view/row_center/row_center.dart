@@ -9,8 +9,7 @@ import '../../video_thumbnail.dart';
 part 'row_center.g.dart';
 
 @swidget
-Widget rowCenter({
-  BuildContext context,
+Widget rowCenter(BuildContext context, {
   @required String programId,
   @required OnTap onTapRewindBtn,
   @required OnTap onTapFastForwardBtn,
@@ -24,9 +23,9 @@ Widget rowCenter({
             lr: Lr.LEFT,
             onTap: () => onTapRewindBtn(context),
           ),
-          PlayOrPauseIcon(
+          PlayOrPauseBtn(
             id: programId,
-            onTapPlayToggleBtn: onTapPlayToggleBtn,
+            onTap: onTapPlayToggleBtn,
           ),
           SeekBtn(
             lr: Lr.RIGHT,

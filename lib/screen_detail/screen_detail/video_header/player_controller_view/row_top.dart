@@ -7,8 +7,7 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail
 part 'row_top.g.dart';
 
 @swidget
-Widget rowTop({
-  BuildContext context,
+Widget rowTop(BuildContext context, {
   @required OnTap onTapFullScreenBtn,
 }) => Row(
     mainAxisAlignment: MainAxisAlignment.end,

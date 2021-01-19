@@ -27,21 +27,27 @@ Widget seekBtn(
         padding: const EdgeInsets.all(16),
         color: Colors.white,
         iconSize: Dimens.VIDEO_SEEK_BTN_ICON_SIZE,
-        icon: _SeekIcon(lr: lr),
+        icon: SeekIcon(
+          lr: lr,
+          provider: _kPrvSeekBtnTapEventProvider(lr),
+        ),
         onPressed: () {
-          context.read(_kPrvSeekBtnTapEventProvider(Lr.LEFT)).state++;
+          context.read(_kPrvSeekBtnTapEventProvider(lr)).state++;
           onTap();
         },
       ),
     );
 
 @hwidget
-Widget _seekIcon({Lr lr}) {
+Widget seekIcon<T>({
+  @required Lr lr,
+  @required ProviderBase<Object, T> provider,
+}) {
   final ac = useAnimationController(
     duration: const Duration(seconds: 1),
   );
-  return ProviderListener(
-    provider: _kPrvSeekBtnTapEventProvider(Lr.LEFT),
+  return ProviderListener<T>(
+    provider: provider,
     onChange: (context, _) {
       if (ac.isCompleted) ac.reset();
       ac.forward();

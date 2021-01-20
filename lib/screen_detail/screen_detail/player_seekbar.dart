@@ -86,5 +86,5 @@ class _SeekBarInner extends HookWidget {
       context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), false, false);
 
   void _onChangedEnd(BuildContext context, double value) =>
-      context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), true, false);
+      context.read(pVideoViewModel(id)).seekTo(Duration(seconds: value.toInt()), true, true);
 }

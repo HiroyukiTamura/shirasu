@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_name">番組再生</string>
+    <string name="channel_desc">バックグラウンドで音声を再生する</string>
+    <string name="err_channel_name">エラー通知</string>
+    <string name="err_channel_desc">エラーを通知する</string>
+    <string name="err_ntf_title_timeout">タイムアウトしました</string>
+    <string name="err_ntf_title_oom">メモリが不足しています</string>
+    <string name="err_ntf_title_unknown">処理に失敗しました</string>
+</resources>

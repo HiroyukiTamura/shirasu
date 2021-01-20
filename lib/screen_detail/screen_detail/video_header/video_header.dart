@@ -26,7 +26,7 @@ class VideoHeader extends HookWidget {
     final playOutState = useProvider(
         detailSNProvider(programId).state.select((it) => it.playOutState));
     final result = useProvider(detailSNProvider(programId)).state.prgDataResult
-    as StateSuccess; //we don't want rebuild here
+        as StateSuccess; //we don't want rebuild here
 
     final program = result.programDetailData.program;
     Widget child;
@@ -46,7 +46,11 @@ class VideoHeader extends HookWidget {
         );
         break;
       case PlayerCommandedState.POST_PLAY:
-        child = PlayerView(programId: programId);
+        child = PlayerView(
+          programId: programId,
+          prgTitle: program.title,
+          channelTitle: program.channel.name,
+        );
         break;
     }
     return SizedBox(

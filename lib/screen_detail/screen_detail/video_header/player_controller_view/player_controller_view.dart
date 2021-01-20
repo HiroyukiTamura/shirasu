@@ -13,7 +13,6 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/player_controll
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_top.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/extension.dart';
 
 // part 'player_controller_view.g.dart';

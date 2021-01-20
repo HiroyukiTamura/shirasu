@@ -35,7 +35,6 @@ class MusicService : MediaBrowserServiceCompat() {
     private val audioNtfConfig = UampNotificationManager.Config(
             CHANNEL_ID,
             NTF_ID,
-            R.color.notification,
             R.string.channel_name,
             R.string.channel_desc,
             R.drawable.ntf_icon,

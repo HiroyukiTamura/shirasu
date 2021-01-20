@@ -18,3 +18,17 @@ class PlayerAnimOpacity extends HookWidget {
   Widget build(BuildContext _context) =>
       playerAnimOpacity(child: child, id: id);
 }
+
+class VideoSeekBarHoverStyle extends StatelessWidget {
+  const VideoSeekBarHoverStyle(
+      {Key key, @required this.id, @required this.topMargin})
+      : super(key: key);
+
+  final String id;
+
+  final double topMargin;
+
+  @override
+  Widget build(BuildContext _context) =>
+      videoSeekBarHoverStyle(_context, id: id, topMargin: topMargin);
+}

@@ -6,10 +6,10 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_bottom.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/drag_overlay.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/row_center.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/seek_btn.dart';
-import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/time_text.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_top.dart';
@@ -22,7 +22,8 @@ final kPrvDragStartDx = StateProvider.autoDispose<double>((ref) => 0);
 final _kSPrvDoubleTapEvent =
     StateProvider.autoDispose.family<int, Lr>((ref, lr) => 0);
 
-final _kPrvDoubleTapEvent = Provider.autoDispose.family<int, Lr>((ref, lr) => ref.watch(_kSPrvDoubleTapEvent(lr)).state);
+final _kPrvDoubleTapEvent = Provider.autoDispose
+    .family<int, Lr>((ref, lr) => ref.watch(_kSPrvDoubleTapEvent(lr)).state);
 
 class PlayerControllerView extends HookWidget {
   const PlayerControllerView({
@@ -34,58 +35,60 @@ class PlayerControllerView extends HookWidget {
   static const _SEEK_ICON_SIZE = Size.square(48);
 
   @override
-  Widget build(BuildContext context) => VideoControllerVis(
-        id: programId,
-        child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () => _onTapBgBtn(context),
-          onDoubleTap: () {
-            // for not fire onTap event
-          },
-          child: Stack(
-            children: [
-              DoubleTapPlayerView(
-                doubleTapConfig: DoubleTapConfig.create(
-                  ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
-                  rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
-                  labelBuilder: _buildTapLabel,
-                  onDoubleTap: (lr) => _onDoubleTap(context, lr),
-                  iconLeft: _seekIcon(lr: Lr.LEFT),
-                  iconRight: _seekIcon(lr: Lr.RIGHT),
-                  expansionHoldingTime: const Duration(milliseconds: 400),
-                ),
-                swipeConfig: SwipeConfig.create(
-                  onSwipeStart: (dx) => _clearStartDx(context, dx),
-                  onSwipeCancel: () => _clearStartDx(context, 0),
-                  onSwipeEnd: (data) => _onSwipeEnd(context, data),
-                  overlayBuilder: _dragOverlay,
-                ),
-              ),
-              PlayerAnimOpacity(
-                id: programId,
-                child: ColoredBox(
-                  color: Colors.black.withOpacity(.5),
-                  child: Stack(
-                    overflow: Overflow.visible,
-                    children: [
-                      RowTop(
-                        onTapFullScreenBtn: (context) =>
-                            _onTapFullScreenBtn(context),
-                      ),
-                      RowCenter(
-                        programId: programId,
-                        onTapRewindBtn: (context) => _onTapRewindBtn(context),
-                        onTapFastForwardBtn: (context) =>
-                            _onTapFastForwardBtn(context),
-                        onTapPlayToggleBtn: (context) =>
-                            _onTapPlayToggleBtn(context),
-                      ),
-                      TimeText(id: programId),
-                    ],
+  Widget build(BuildContext context) => SafeArea(
+        child: VideoControllerVis(
+          id: programId,
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () => _onTapBgBtn(context),
+            onDoubleTap: () {
+              // for not fire onTap event
+            },
+            child: Stack(
+              children: [
+                DoubleTapPlayerView(
+                  doubleTapConfig: DoubleTapConfig.create(
+                    ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
+                    rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
+                    labelBuilder: _buildTapLabel,
+                    onDoubleTap: (lr) => _onDoubleTap(context, lr),
+                    iconLeft: _seekIcon(lr: Lr.LEFT),
+                    iconRight: _seekIcon(lr: Lr.RIGHT),
+                    expansionHoldingTime: const Duration(milliseconds: 400),
+                  ),
+                  swipeConfig: SwipeConfig.create(
+                    onSwipeStart: (dx) => _clearStartDx(context, dx),
+                    onSwipeCancel: () => _clearStartDx(context, 0),
+                    onSwipeEnd: (data) => _onSwipeEnd(context, data),
+                    overlayBuilder: _dragOverlay,
                   ),
                 ),
-              )
-            ],
+                PlayerAnimOpacity(
+                  id: programId,
+                  child: ColoredBox(
+                    color: Colors.black.withOpacity(.5),
+                    child: Stack(
+                      overflow: Overflow.visible,
+                      children: [
+                        RowTop(
+                          onTapFullScreenBtn: (context) =>
+                              _onTapFullScreenBtn(context),
+                        ),
+                        RowCenter(
+                          programId: programId,
+                          onTapRewindBtn: (context) => _onTapRewindBtn(context),
+                          onTapFastForwardBtn: (context) =>
+                              _onTapFastForwardBtn(context),
+                          onTapPlayToggleBtn: (context) =>
+                              _onTapPlayToggleBtn(context),
+                        ),
+                        RowBottom(id: programId)
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       );
@@ -112,7 +115,9 @@ class PlayerControllerView extends HookWidget {
     context.read(pVideoViewModel(programId)).hide();
     context.read(_kSPrvDoubleTapEvent(lr)).state++;
 
-    final duration = lr == Lr.LEFT ? -VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP : VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP;
+    final duration = lr == Lr.LEFT
+        ? -VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP
+        : VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP;
     _seek(context, duration);
   }
 
@@ -137,10 +142,10 @@ class PlayerControllerView extends HookWidget {
       );
 
   Widget _seekIcon({@required Lr lr}) => SizedBox.fromSize(
-      size: _SEEK_ICON_SIZE,
-      child: SeekIcon<int>(
-        lr: lr,
-        provider: _kPrvDoubleTapEvent(lr),
-      ),
-    );
+        size: _SEEK_ICON_SIZE,
+        child: SeekIcon<int>(
+          lr: lr,
+          provider: _kPrvDoubleTapEvent(lr),
+        ),
+      );
 }

@@ -88,9 +88,9 @@ class ScreenDetail extends HookWidget {
                 )
               ],
             ),
-            VideoSeekBar(
+            VideoSeekBarHoverStyle(
               id: id,
-              topMargin: headerH - VideoSeekBar.HEIGHT / 2,
+              topMargin: headerH - Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H / 2,
             ),
           ],
         );

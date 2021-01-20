@@ -22,4 +22,6 @@ class Dimens {
   static const double VIDEO_SEEK_BTN_ICON_SIZE = 56;
   static const double VIDEO_SLIDER_THUMB_RADIUS = 6;
   static const double VIDEO_DOUBLE_TAP_IGNORE_FROM_CENTER = 64;
+
+  static const double VIDEO_SEEK_BAR_HOVER_STYLE_H = 36;
 }

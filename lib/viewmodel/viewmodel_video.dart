@@ -1,5 +1,6 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
@@ -40,15 +41,16 @@ BetterPlayerController _createController(PlayOutState playOutState, String id) {
     BetterPlayerConfiguration(
       autoPlay: true,
       autoDispose: false,
-      autoDetectFullscreenDeviceOrientation: true,
+      deviceOrientationsAfterFullScreen: const [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+      handleLifecycle: false,
+      fit: BoxFit.contain,
       errorBuilder: (context, errorMessage) {
         //todo implement
         return Container();
       },
-      placeholder: VideoThumbnail(
-        isLoading: true,
-        programId: id,
-      ),
       controlsConfiguration: BetterPlayerControlsConfiguration(
         playerTheme: BetterPlayerTheme.custom,
         customControlsBuilder: (controller) =>
@@ -182,6 +184,8 @@ class VideoViewModel extends StateNotifier<VideoModel> {
 
     return state.isPlaying ? controller.pause() : controller.play();
   }
+
+  Future<void> pauseProgrammatically() async => controller.pause();
 
   void toggleFullScreen() {
     _hideTimer.renew();

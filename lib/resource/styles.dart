@@ -24,7 +24,10 @@ class Styles {
   static const COLOR_2 = Color(0xffffa800);
   static final introDot = Colors.white.withOpacity(.8);
 
-  static final theme = ThemeData.dark().copyWith(
+  static final theme = _createTheme(const PlayerSliderTrackShape());
+  static final fullScreenTheme = _createTheme(null);
+
+  static ThemeData _createTheme(SliderTrackShape sliderTrackShape) => ThemeData.dark().copyWith(
     // This makes the visual density adapt to the platform that you run
     // the app on. For desktop platforms, the controls will be smaller and
     // closer together (more dense) than on mobile platforms.
@@ -50,14 +53,13 @@ class Styles {
       behavior: SnackBarBehavior.floating,
     ),
     sliderTheme: ThemeData.dark().sliderTheme.copyWith(
-          inactiveTrackColor: Colors.grey,
-          trackHeight: 3,
-          trackShape: const PlayerSliderTrackShape(),
-          thumbShape: const RoundSliderThumbShape(enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
-          // overlayShape:
-          activeTrackColor: PRIMARY_COLOR,
-          // activeTickMarkColor: PRIMARY_COLOR,
-          thumbColor: PRIMARY_COLOR,
-        ),
+      inactiveTrackColor: Colors.grey,
+      trackHeight: 3,
+      trackShape: sliderTrackShape,
+      thumbShape: const RoundSliderThumbShape(
+          enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
+      activeTrackColor: PRIMARY_COLOR,
+      thumbColor: PRIMARY_COLOR,
+    ),
   );
 }

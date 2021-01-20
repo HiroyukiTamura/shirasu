@@ -28,6 +28,9 @@ class PlayerView extends StatefulHookWidget {
 }
 
 class _PlayerViewState extends State<PlayerView> with WidgetsBindingObserver {
+  bool get isPlaying =>
+      context.read(pVideoViewModel(widget.programId).state).isPlaying;
+
   @override
   void initState() {
     super.initState();
@@ -57,31 +60,33 @@ class _PlayerViewState extends State<PlayerView> with WidgetsBindingObserver {
   }
 
   @override
-  Widget build(BuildContext context) => BetterPlayer(
-        controller: useProvider(pVideoViewModel(widget.programId)).controller,
-      );
+  Widget build(BuildContext context) => Stack(
+    children: [
+      const ColoredBox(color: Colors.black,),
+      BetterPlayer(
+            controller: useProvider(pVideoViewModel(widget.programId)).controller,
+          ),
+    ],
+  );
 
   Future<void> _stopPlayBackground() async {
-    final isPlaying =
-        context.read(pVideoViewModel(widget.programId).state).isPlaying;
     if (isPlaying) await NativeClient.stopBackGround();
   }
 
   Future<void> _startPlayBackground() async {
-    final isPlaying =
-        context.read(pVideoViewModel(widget.programId).state).isPlaying;
     if (!isPlaying) return;
 
-    final videoVm = context.read(pVideoViewModel(widget.programId));
+    await context.read(pVideoViewModel(widget.programId)).pauseProgrammatically();
+    final playOutState = context.read(pVideoViewModel(widget.programId)).playOutState;
     await NativeClient.startPlayBackGround(
-      url: videoVm.playOutState.hlsMediaUrl,
-      isLiveStream: videoVm.playOutState.videoType == VideoType.LIVE,
+      url: playOutState.hlsMediaUrl,
+      isLiveStream: playOutState.videoType == VideoType.LIVE,
       position: context
           .read(pVideoViewModel(widget.programId).state)
           .currentPosSafe
           .inMilliseconds,
       iconUrl: UrlUtil.getThumbnailUrl(widget.programId),
-      cookie: videoVm.playOutState.cookie,
+      cookie: playOutState.cookie,
       title: widget.prgTitle,
       subtitle: widget.channelTitle,
     );

@@ -68,33 +68,50 @@ class ScreenDetail extends HookWidget {
 
   Widget _successWidget(ProgramDetailData programDetailData,
           ChannelData channelData, PageSheetModel page) =>
-      LayoutBuilder(builder: (context, constraints) {
-        double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
-        final listViewH = constraints.maxHeight - headerH;
-        return Stack(
-          children: [
-            ListView(
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                VideoHeader(
-                  height: headerH,
+      LayoutBuilder(
+        builder: (context, constraints) => OrientationBuilder(
+          builder: (context, orientation) {
+            if (orientation == Orientation.portrait) {
+              double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
+              final listViewH = constraints.maxHeight - headerH;
+              return Stack(
+                children: [
+                  ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      VideoHeader(
+                        height: headerH,
+                        programId: programDetailData.program.id,
+                        onTap: () async => _playVideo(context, false),
+                        onTapPreviewBtn: () async => _playVideo(context, true),
+                      ),
+                      _PlayerBodyWrapper(
+                        height: listViewH,
+                        data: programDetailData,
+                      )
+                    ],
+                  ),
+                  VideoSeekBarHoverStyle(
+                    id: id,
+                    topMargin:
+                        headerH - Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H / 2,
+                  ),
+                ],
+              );
+            } else
+              return Container(
+                color: Colors.black,
+                alignment: Alignment.center,
+                child: VideoHeader(
+                  height: constraints.maxHeight,
                   programId: programDetailData.program.id,
                   onTap: () async => _playVideo(context, false),
                   onTapPreviewBtn: () async => _playVideo(context, true),
                 ),
-                _PlayerBodyWrapper(
-                  height: listViewH,
-                  data: programDetailData,
-                )
-              ],
-            ),
-            VideoSeekBarHoverStyle(
-              id: id,
-              topMargin: headerH - Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H / 2,
-            ),
-          ],
-        );
-      });
+              );
+          },
+        ),
+      );
 }
 
 class _BottomSheet extends HookWidget {

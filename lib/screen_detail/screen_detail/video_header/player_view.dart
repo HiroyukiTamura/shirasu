@@ -40,7 +40,6 @@ class _PlayerViewState extends State<PlayerView> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _startPlayBackground();
     super.dispose();
   }
 
@@ -61,23 +60,34 @@ class _PlayerViewState extends State<PlayerView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) => Stack(
-    children: [
-      const ColoredBox(color: Colors.black,),
-      BetterPlayer(
-            controller: useProvider(pVideoViewModel(widget.programId)).controller,
+        children: [
+          const ColoredBox(
+            color: Colors.black,
           ),
-    ],
-  );
+          BetterPlayer(
+            controller:
+                useProvider(pVideoViewModel(widget.programId)).controller,
+          ),
+        ],
+      );
 
   Future<void> _stopPlayBackground() async {
-    if (isPlaying) await NativeClient.stopBackGround();
+    if (!isPlaying) return;
+
+    await NativeClient.stopBackGround();
+    await context
+        .read(pVideoViewModel(widget.programId))
+        .playProgrammatically();
   }
 
   Future<void> _startPlayBackground() async {
     if (!isPlaying) return;
 
-    await context.read(pVideoViewModel(widget.programId)).pauseProgrammatically();
-    final playOutState = context.read(pVideoViewModel(widget.programId)).playOutState;
+    await context
+        .read(pVideoViewModel(widget.programId))
+        .pauseProgrammatically();
+    final playOutState =
+        context.read(pVideoViewModel(widget.programId)).playOutState;
     await NativeClient.startPlayBackGround(
       url: playOutState.hlsMediaUrl,
       isLiveStream: playOutState.videoType == VideoType.LIVE,

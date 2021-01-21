@@ -1,6 +1,5 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
@@ -9,9 +8,9 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
-import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
 import 'package:shirasu/viewmodel/controller_hide_timer.dart';
 
+import '../util.dart';
 import 'model/model_detail.dart';
 
 part 'viewmodel_video.freezed.dart';
@@ -37,14 +36,13 @@ BetterPlayerController _createController(PlayOutState playOutState, String id) {
       'Cookie': playOutState.cookie,
     },
   );
+  // todo send PR
+  // - hide thumbnail after initialized
+  // - background widget
   return BetterPlayerController(
     BetterPlayerConfiguration(
       autoPlay: true,
       autoDispose: false,
-      deviceOrientationsAfterFullScreen: const [
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ],
       handleLifecycle: false,
       fit: BoxFit.contain,
       errorBuilder: (context, errorMessage) {
@@ -99,6 +97,8 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   void _playerEventListener(BetterPlayerEvent event) {
     switch (event.betterPlayerEventType) {
       case BetterPlayerEventType.initialized:
+        if (!mounted) return;
+
         final totalDuration = controller.videoPlayerController.value.duration;
         state = state.copyWith(
           totalDuration: totalDuration,
@@ -113,7 +113,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
         debugPrint(event.exception);
         break;
       case BetterPlayerEventType.progress:
-        if (!state.isSeekBarDragging)
+        if (mounted && !state.isSeekBarDragging)
           state = state.copyWith(
             currentPos: event.progress,
             totalDuration: event.duration,
@@ -121,20 +121,24 @@ class VideoViewModel extends StateNotifier<VideoModel> {
         break;
       case BetterPlayerEventType.seekTo:
         // todo show progress indicator while loading??
-        state = state.copyWith(
-          currentPos: event.duration,
-        );
+        if (mounted)
+          state = state.copyWith(
+            currentPos: event.duration,
+          );
         break;
       case BetterPlayerEventType.play:
-        state = state.copyWith(isPlaying: true);
+        if (mounted) state = state.copyWith(isPlaying: true);
         break;
       case BetterPlayerEventType.pause:
-        state = state.copyWith(isPlaying: false);
+        if (mounted) state = state.copyWith(isPlaying: false);
         break;
       case BetterPlayerEventType.openFullscreen:
-        state = state.copyWith(isFullScreen: true);
+        if (mounted) state = state.copyWith(isFullScreen: true);
         break;
       case BetterPlayerEventType.hideFullscreen:
+        Util.forcePortraitScreen();
+        if (!mounted)
+          return;
         state = state.copyWith(isFullScreen: false);
         break;
       default:
@@ -157,6 +161,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     );
   }
 
+  /// must be [mounted] == true && [state.isInitialized] == true
   Future<void> seek(Duration diff) async {
     _hideTimer.renew();
 
@@ -164,6 +169,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     await controller.seekTo(duration + diff);
   }
 
+  /// must be [mounted] == true && [state.isInitialized] == true
   Future<void> seekTo(
       Duration duration, bool applyController, bool endDrag) async {
     _hideTimer.renew();
@@ -179,6 +185,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     if (applyController) await controller.seekTo(duration);
   }
 
+  /// must be [mounted] == true && [state.isInitialized] == true
   Future<void> playOrPause() async {
     _hideTimer.renew();
 
@@ -187,13 +194,12 @@ class VideoViewModel extends StateNotifier<VideoModel> {
 
   Future<void> pauseProgrammatically() async => controller.pause();
 
+  Future<void> playProgrammatically() async => controller.play();
+
   void toggleFullScreen() {
-    _hideTimer.renew();
+    hide();
     controller.toggleFullScreen();
   }
-
-  void setAsSeekBarDragging() =>
-      state = state.copyWith(isSeekBarDragging: true);
 }
 
 @freezed
@@ -210,5 +216,6 @@ abstract class VideoModel implements _$VideoModel {
 
   const VideoModel._();
 
-  Duration get currentPosSafe => currentPos.isNegative ? Duration.zero : currentPos;
+  Duration get currentPosSafe =>
+      currentPos.isNegative ? Duration.zero : currentPos;
 }

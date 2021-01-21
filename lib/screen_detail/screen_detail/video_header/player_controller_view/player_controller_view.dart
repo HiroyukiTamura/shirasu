@@ -11,6 +11,7 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/player_controll
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/row_center.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/seek_btn.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_top.dart';
 import 'package:shirasu/extension.dart';
@@ -105,8 +106,13 @@ class PlayerControllerView extends HookWidget {
   Future<void> _seek(BuildContext context, Duration diff) async =>
       context.read(pVideoViewModel(programId)).seek(diff);
 
-  void _onTapFullScreenBtn(BuildContext context) =>
+  void _onTapFullScreenBtn(BuildContext context) {
+    if (MediaQuery.of(context).orientation == Orientation.portrait ||
+        context.read(pVideoViewModel(programId).state).isFullScreen)
       context.read(pVideoViewModel(programId)).toggleFullScreen();
+    else
+      Util.forcePortraitScreen();
+  }
 
   void _onTapBgBtn(BuildContext context) =>
       context.read(pVideoViewModel(programId)).toggleVisibility();

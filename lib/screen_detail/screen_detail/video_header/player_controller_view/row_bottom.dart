@@ -33,13 +33,16 @@ Widget rowBottom({@required String id}) =>
         : _TimeText(id: id);
 
 @hwidget
-Widget _timeText({@required String id, EdgeInsets padding = const EdgeInsets.all(8)}) {
+Widget _timeText({
+  @required String id,
+  EdgeInsets padding = const EdgeInsets.all(8),
+}) {
   final isSeekBarDragging = useProvider(
       pVideoViewModel(id).state.select((it) => it.isSeekBarDragging));
   final total =
-  useProvider(pVideoViewModel(id).state.select((it) => it.totalDuration));
+      useProvider(pVideoViewModel(id).state.select((it) => it.totalDuration));
   final current =
-  useProvider(pVideoViewModel(id).state.select((it) => it.currentPos));
+      useProvider(pVideoViewModel(id).state.select((it) => it.currentPos));
 
   final totalStr = Util.formatDurationStyled(total);
   final currentStr = Util.formatDurationStyled(current);

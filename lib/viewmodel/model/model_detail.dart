@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -62,15 +63,19 @@ abstract class PlayOutState implements _$PlayOutState {
     String hlsMediaUrl,
     VideoType videoType,
     String cookie,
+    @Default(false) bool isPlaying,
+    @Default(Duration.zero) Duration currentPos,
+    @Default(Duration.zero) Duration totalDuration,
+    @Default(false) bool fullScreen,
   }) = _PlayOutState;
 
   factory PlayOutState.initial() => const PlayOutState(
-        commandedState: PlayerCommandedState.PRE_PLAY,
+        commandedState: PlayerCommandedState.prePlay(),
       );
 
   factory PlayOutState.initialize(String hlsMediaUrl, VideoType videoType) =>
       PlayOutState(
-        commandedState: PlayerCommandedState.INITIALIZING,
+        commandedState: const PlayerCommandedState.initializing(),
         hlsMediaUrl: hlsMediaUrl,
         videoType: videoType,
       );
@@ -78,10 +83,11 @@ abstract class PlayOutState implements _$PlayOutState {
   factory PlayOutState.play(
           String hlsMediaUrl, VideoType videoType, String cookie) =>
       PlayOutState(
-        commandedState: PlayerCommandedState.POST_PLAY,
+        commandedState: const PlayerCommandedState.postPlay(),
         hlsMediaUrl: hlsMediaUrl,
         videoType: videoType,
         cookie: cookie,
+        isPlaying: true,
       );
 
   const PlayOutState._();
@@ -90,19 +96,23 @@ abstract class PlayOutState implements _$PlayOutState {
       cookie == state?.cookie &&
       videoType == state?.videoType &&
       hlsMediaUrl == state?.hlsMediaUrl;
+
+  Duration get currentPosSafe =>
+      currentPos.isNegative ? Duration.zero : currentPos;
 }
 
-enum PlayerCommandedState {
-  PLAY_ERROR,
-  PRE_PLAY,
-  POST_PLAY,
-  INITIALIZING,
-  ERROR,
+@freezed
+abstract class PlayerCommandedState with _$PlayerCommandedState {
+  const factory PlayerCommandedState.playError() = PlayerCommandedStatePlayError;
+  const factory PlayerCommandedState.prePlay() = PlayerCommandedStatePrePlay;
+  const factory PlayerCommandedState.postPlay() = PlayerCommandedStatePostPlay;
+  const factory PlayerCommandedState.initializing() = PlayerCommandedStateInitializing;
+  const factory PlayerCommandedState.error() = PlayerCommandedStateError;
 }
 
 @freezed
 abstract class PageSheetModel with _$PageSheetModel {
-  const factory PageSheetModel.hidden() = PageSheetModelHidden;
+  const factory PageSheetModel.hidden() = _PageSheetModelHidden;
 
   const factory PageSheetModel.handouts() = PageSheetModelHandouts;
 

@@ -7,23 +7,24 @@ part of 'row_bottom.dart';
 // **************************************************************************
 
 class RowBottom extends HookWidget {
-  const RowBottom({Key key, @required this.id}) : super(key: key);
+  const RowBottom({Key key, @required this.conf}) : super(key: key);
 
-  final String id;
+  final VideoViewModelConf conf;
 
   @override
-  Widget build(BuildContext _context) => rowBottom(id: id);
+  Widget build(BuildContext _context) => rowBottom(conf: conf);
 }
 
 class _TimeText extends HookWidget {
   const _TimeText(
-      {Key key, @required this.id, this.padding = const EdgeInsets.all(8)})
+      {Key key, @required this.conf, this.padding = const EdgeInsets.all(8)})
       : super(key: key);
 
-  final String id;
+  final VideoViewModelConf conf;
 
   final EdgeInsets padding;
 
   @override
-  Widget build(BuildContext _context) => _timeText(id: id, padding: padding);
+  Widget build(BuildContext _context) =>
+      _timeText(conf: conf, padding: padding);
 }

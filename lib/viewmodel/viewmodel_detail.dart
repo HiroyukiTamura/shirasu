@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
 import 'package:shirasu/di/hive_client.dart';
@@ -10,7 +11,6 @@ import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:riverpod/src/framework.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
@@ -39,7 +39,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       final program = v.programDetailData.program;
 
       //todo shouldn't written in DetailProgramData?
-      DetailPrgItem detailPrgItem;//todo more logic
+      DetailPrgItem detailPrgItem; //todo more logic
       if (program.archivedAt?.isBefore(DateTime.now()) == true) {
         if (program.isAllExtensionAvailable)
           detailPrgItem = program.lastArchivedExtensionPrgItem;
@@ -80,8 +80,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   Future<void> playVideo(bool preview) async {
-    final prg =
-        preview ? _previewArchivedVideoData : _availableVideoData;
+    final prg = preview ? _previewArchivedVideoData : _availableVideoData;
     if (prg == null) return; // todo handle error
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
@@ -100,8 +99,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   Future<String> queryHandOutUrl(String handoutId) async {
-    if (state.isHandoutUrlRequesting)
-      return null;
+    if (state.isHandoutUrlRequesting) return null;
 
     state = state.copyWith(isHandoutUrlRequesting: true);
 
@@ -112,38 +110,87 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       print(e);
     }
 
-    if (!mounted)
-      return null;
+    if (!mounted) return null;
 
     if (url == null)
       _ref.read(snackBarMsgProvider).state = SnackMsg.UNKNOWN;
     else
-
-    state = state.copyWith(isHandoutUrlRequesting: false);
+      state = state.copyWith(isHandoutUrlRequesting: false);
 
     return url;
   }
 
   Future<void> togglePage(PageSheetModel pageSheet) async {
     final newOne = state.copyAsPageSheet(pageSheet);
-    if (newOne == null)
-      return;
+    if (newOne == null) return;
 
     state = newOne;
 
-    if (!panelController.isAttached)
-      return;
+    if (!panelController.isAttached) return;
 
-    if (pageSheet is PageSheetModelHidden)
+    if (pageSheet == const PageSheetModel.hidden())
       await panelController.close();
     else
       await panelController.open();
   }
 
   Future<bool> tryClosePanel() async {
-    if (panelController.isPanelClosed)
+    if (!panelController.isAttached || panelController.isPanelClosed)
       return false;
     await panelController.close();
     return true;
+  }
+
+  /// force update [state.playOutState.fullScreen]
+  void takePriorityAndSetTotalDuration({
+    @required bool fullScreen,
+    @required Duration totalDuration,
+  }) {
+    assert(!totalDuration.isNegative);
+
+    state = state.copyWith.playOutState(
+      totalDuration: totalDuration,
+      fullScreen: fullScreen,
+    );
+  }
+
+  void setCurrentPos({
+    @required bool fullScreen,
+    @required Duration currentPos,
+  }) {
+    assert(!currentPos.isNegative);
+
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        currentPos: currentPos,
+        fullScreen: fullScreen,
+      );
+  }
+
+  void setVideoDurations({
+    @required bool fullScreen,
+    @required Duration currentPos,
+    @required Duration totalDuration,
+  }) {
+    assert(!currentPos.isNegative);
+    assert(!totalDuration.isNegative);
+    assert(currentPos < totalDuration);
+
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        currentPos: currentPos,
+        totalDuration: totalDuration,
+        fullScreen: fullScreen,
+      );
+  }
+
+  void setVideoIsPlaying({
+    @required bool fullScreen,
+    @required bool isPlaying,
+  }) {
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        isPlaying: isPlaying,
+      );
   }
 }

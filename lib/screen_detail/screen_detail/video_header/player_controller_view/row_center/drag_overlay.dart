@@ -2,6 +2,7 @@ import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/extension.dart';
@@ -11,10 +12,13 @@ import '../player_controller_view.dart';
 // part 'drag_overlay.g.dart';
 
 class DragOverlay extends HookWidget {
-  const DragOverlay({Key key, @required this.id, @required this.data})
-      : super(key: key);
+  const DragOverlay({
+    Key key,
+    @required this.conf,
+    @required this.data,
+  }) : super(key: key);
 
-  final String id;
+  final VideoViewModelConf conf;
   final SwipeData data;
 
   @override
@@ -22,13 +26,15 @@ class DragOverlay extends HookWidget {
     useProvider(kPrvDragStartDx); //listen drag start
 
     Duration diffDuration = data.diffDuration;
-    final totalDuration =
-    useProvider(pVideoViewModel(id).state.select((it) => it.totalDuration));
+    final totalDuration = useProvider(detailSNProvider(conf.id)
+        .state
+        .select((it) => it.playOutState.totalDuration));
     final isInitialized =
-    useProvider(pVideoViewModel(id).state.select((it) => it.isInitialized));
+        useProvider(pVideoViewModel(conf).state.select((it) => it.isInitialized));
 
-    final videoPosWhenDragStart =
-        useProvider(pVideoViewModel(id)).state.currentPos;
+    final videoPosWhenDragStart = useProvider(detailSNProvider(conf.id)
+        .state
+        .select((it) => it.playOutState.currentPosSafe));
     if (totalDuration == Duration.zero || !isInitialized)
       return const SizedBox.shrink();
 

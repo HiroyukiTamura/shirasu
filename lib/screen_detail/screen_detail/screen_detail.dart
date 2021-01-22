@@ -3,9 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/di/native_client.dart';
+import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
@@ -25,6 +28,7 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 part 'screen_detail.g.dart';
@@ -44,17 +48,61 @@ final _pBtmSheetExpanded = Provider.autoDispose.family<PageSheetModel, String>(
 
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
-class ScreenDetail extends HookWidget {
+class ScreenDetail extends StatefulHookWidget {
   const ScreenDetail({Key key, @required this.id}) : super(key: key);
 
   final String id;
 
   @override
+  _ScreenDetailState createState() => _ScreenDetailState();
+}
+
+class _ScreenDetailState extends State<ScreenDetail>
+    with WidgetsBindingObserver {
+
+  // bool get isPlaying =>
+  //     context.read(pVideoViewModel(widget.id).state).isPlaying;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.dependOnInheritedWidgetOfExactType();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _stopPlayBackground();
+        break;
+      case AppLifecycleState.inactive:
+        _startPlayBackground(); //todo is it good??
+        break;
+      case AppLifecycleState.detached:
+      case AppLifecycleState.paused:
+        break;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) => SafeArea(
         child: ColoredBox(
           color: Theme.of(context).scaffoldBackgroundColor,
-          child: useProvider(
-              detailSNProvider(id).state.select((it) => it.prgDataResult)).when(
+          child: useProvider(detailSNProvider(widget.id)
+              .state
+              .select((it) => it.prgDataResult)).when(
             loading: () => const CenterCircleProgress(),
             preInitialized: () => const CenterCircleProgress(),
             error: () => const PageError(),
@@ -63,14 +111,47 @@ class ScreenDetail extends HookWidget {
         ),
       );
 
+  Future<void> _stopPlayBackground() async {
+    // if (!isPlaying) return;
+    //
+    // await NativeClient.stopBackGround();
+    // await context.read(pVideoViewModel(widget.id)).playProgrammatically();
+  }
+
+  Future<void> _startPlayBackground() async {
+    // if (!isPlaying) return;
+    //
+    // await context.read(pVideoViewModel(widget.id)).pauseProgrammatically();
+    //
+    // final prgDataResult =
+    //     context.read(detailSNProvider(widget.id).state).prgDataResult;
+    // if (prgDataResult is StateSuccess) {
+    //   final playOutState =
+    //       context.read(pVideoViewModel(widget.id)).playOutState;
+    //   await NativeClient.startPlayBackGround(
+    //     url: playOutState.hlsMediaUrl,
+    //     isLiveStream: playOutState.videoType == VideoType.LIVE,
+    //     position: context
+    //         .read(pVideoViewModel(widget.id).state)
+    //         .currentPosSafe
+    //         .inMilliseconds,
+    //     iconUrl: UrlUtil.getThumbnailUrl(widget.id),
+    //     cookie: playOutState.cookie,
+    //     title: prgDataResult.programDetailData.program.title,
+    //     subtitle: prgDataResult.channelData.channel.name,
+    //   );
+    // }
+  }
+
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>
-      context.read(detailSNProvider(id)).playVideo(isPreview);
+      context.read(detailSNProvider(widget.id)).playVideo(isPreview);
 
   Widget _successWidget(ProgramDetailData programDetailData,
           ChannelData channelData, PageSheetModel page) =>
       LayoutBuilder(
         builder: (context, constraints) => OrientationBuilder(
           builder: (context, orientation) {
+            final conf = VideoViewModelConf(widget.id, orientation == Orientation.landscape);
             if (orientation == Orientation.portrait) {
               double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
               final listViewH = constraints.maxHeight - headerH;
@@ -81,7 +162,7 @@ class ScreenDetail extends HookWidget {
                     children: [
                       VideoHeader(
                         height: headerH,
-                        programId: programDetailData.program.id,
+                        conf: conf,
                         onTap: () async => _playVideo(context, false),
                         onTapPreviewBtn: () async => _playVideo(context, true),
                       ),
@@ -92,7 +173,7 @@ class ScreenDetail extends HookWidget {
                     ],
                   ),
                   VideoSeekBarHoverStyle(
-                    id: id,
+                    conf: conf,
                     topMargin:
                         headerH - Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H / 2,
                   ),
@@ -104,7 +185,7 @@ class ScreenDetail extends HookWidget {
                 alignment: Alignment.center,
                 child: VideoHeader(
                   height: constraints.maxHeight,
-                  programId: programDetailData.program.id,
+                  conf: conf,
                   onTap: () async => _playVideo(context, false),
                   onTapPreviewBtn: () async => _playVideo(context, true),
                 ),

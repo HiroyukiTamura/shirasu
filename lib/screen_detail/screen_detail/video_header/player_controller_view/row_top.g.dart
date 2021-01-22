@@ -6,7 +6,7 @@ part of 'row_top.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class RowTop extends StatelessWidget {
+class RowTop extends HookWidget {
   const RowTop({Key key, @required this.onTapFullScreenBtn}) : super(key: key);
 
   final void Function(BuildContext) onTapFullScreenBtn;

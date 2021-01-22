@@ -11,7 +11,7 @@ import 'package:shirasu/resource/dimens.dart';
 part 'seek_btn.g.dart';
 
 final _kPrvSeekBtnTapEventProvider =
-    StateProvider.family<int, Lr>((ref, lr) => 0);
+    StateProvider.autoDispose.family<int, Lr>((ref, lr) => 0);
 
 @swidget
 Widget seekBtn(

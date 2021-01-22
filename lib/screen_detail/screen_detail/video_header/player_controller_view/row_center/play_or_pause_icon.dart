@@ -9,10 +9,12 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
+import '../../../screen_detail.dart';
+
 part 'play_or_pause_icon.g.dart';
 
 final _kPrvIsPlaying = Provider.autoDispose.family<bool, String>(
-    (ref, id) => ref.watch(pVideoViewModel(id).state).isPlaying);
+    (ref, id) => ref.watch(detailSNProvider(id).state).playOutState.isPlaying);
 
 @hwidget
 Widget _playOrPauseIcon({

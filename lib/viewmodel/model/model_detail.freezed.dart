@@ -831,12 +831,20 @@ class _$PlayOutStateTearOff {
       {@required PlayerCommandedState commandedState,
       String hlsMediaUrl,
       VideoType videoType,
-      String cookie}) {
+      String cookie,
+      bool isPlaying = false,
+      Duration currentPos = Duration.zero,
+      Duration totalDuration = Duration.zero,
+      bool fullScreen = false}) {
     return _PlayOutState(
       commandedState: commandedState,
       hlsMediaUrl: hlsMediaUrl,
       videoType: videoType,
       cookie: cookie,
+      isPlaying: isPlaying,
+      currentPos: currentPos,
+      totalDuration: totalDuration,
+      fullScreen: fullScreen,
     );
   }
 }
@@ -851,6 +859,10 @@ mixin _$PlayOutState {
   String get hlsMediaUrl;
   VideoType get videoType;
   String get cookie;
+  bool get isPlaying;
+  Duration get currentPos;
+  Duration get totalDuration;
+  bool get fullScreen;
 
   $PlayOutStateCopyWith<PlayOutState> get copyWith;
 }
@@ -864,7 +876,13 @@ abstract class $PlayOutStateCopyWith<$Res> {
       {PlayerCommandedState commandedState,
       String hlsMediaUrl,
       VideoType videoType,
-      String cookie});
+      String cookie,
+      bool isPlaying,
+      Duration currentPos,
+      Duration totalDuration,
+      bool fullScreen});
+
+  $PlayerCommandedStateCopyWith<$Res> get commandedState;
 }
 
 /// @nodoc
@@ -881,6 +899,10 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
     Object hlsMediaUrl = freezed,
     Object videoType = freezed,
     Object cookie = freezed,
+    Object isPlaying = freezed,
+    Object currentPos = freezed,
+    Object totalDuration = freezed,
+    Object fullScreen = freezed,
   }) {
     return _then(_value.copyWith(
       commandedState: commandedState == freezed
@@ -891,7 +913,25 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
       videoType:
           videoType == freezed ? _value.videoType : videoType as VideoType,
       cookie: cookie == freezed ? _value.cookie : cookie as String,
+      isPlaying: isPlaying == freezed ? _value.isPlaying : isPlaying as bool,
+      currentPos:
+          currentPos == freezed ? _value.currentPos : currentPos as Duration,
+      totalDuration: totalDuration == freezed
+          ? _value.totalDuration
+          : totalDuration as Duration,
+      fullScreen:
+          fullScreen == freezed ? _value.fullScreen : fullScreen as bool,
     ));
+  }
+
+  @override
+  $PlayerCommandedStateCopyWith<$Res> get commandedState {
+    if (_value.commandedState == null) {
+      return null;
+    }
+    return $PlayerCommandedStateCopyWith<$Res>(_value.commandedState, (value) {
+      return _then(_value.copyWith(commandedState: value));
+    });
   }
 }
 
@@ -906,7 +946,14 @@ abstract class _$PlayOutStateCopyWith<$Res>
       {PlayerCommandedState commandedState,
       String hlsMediaUrl,
       VideoType videoType,
-      String cookie});
+      String cookie,
+      bool isPlaying,
+      Duration currentPos,
+      Duration totalDuration,
+      bool fullScreen});
+
+  @override
+  $PlayerCommandedStateCopyWith<$Res> get commandedState;
 }
 
 /// @nodoc
@@ -925,6 +972,10 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
     Object hlsMediaUrl = freezed,
     Object videoType = freezed,
     Object cookie = freezed,
+    Object isPlaying = freezed,
+    Object currentPos = freezed,
+    Object totalDuration = freezed,
+    Object fullScreen = freezed,
   }) {
     return _then(_PlayOutState(
       commandedState: commandedState == freezed
@@ -935,6 +986,14 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
       videoType:
           videoType == freezed ? _value.videoType : videoType as VideoType,
       cookie: cookie == freezed ? _value.cookie : cookie as String,
+      isPlaying: isPlaying == freezed ? _value.isPlaying : isPlaying as bool,
+      currentPos:
+          currentPos == freezed ? _value.currentPos : currentPos as Duration,
+      totalDuration: totalDuration == freezed
+          ? _value.totalDuration
+          : totalDuration as Duration,
+      fullScreen:
+          fullScreen == freezed ? _value.fullScreen : fullScreen as bool,
     ));
   }
 }
@@ -945,8 +1004,16 @@ class _$_PlayOutState extends _PlayOutState {
       {@required this.commandedState,
       this.hlsMediaUrl,
       this.videoType,
-      this.cookie})
+      this.cookie,
+      this.isPlaying = false,
+      this.currentPos = Duration.zero,
+      this.totalDuration = Duration.zero,
+      this.fullScreen = false})
       : assert(commandedState != null),
+        assert(isPlaying != null),
+        assert(currentPos != null),
+        assert(totalDuration != null),
+        assert(fullScreen != null),
         super._();
 
   @override
@@ -957,10 +1024,22 @@ class _$_PlayOutState extends _PlayOutState {
   final VideoType videoType;
   @override
   final String cookie;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isPlaying;
+  @JsonKey(defaultValue: Duration.zero)
+  @override
+  final Duration currentPos;
+  @JsonKey(defaultValue: Duration.zero)
+  @override
+  final Duration totalDuration;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool fullScreen;
 
   @override
   String toString() {
-    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie)';
+    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie, isPlaying: $isPlaying, currentPos: $currentPos, totalDuration: $totalDuration, fullScreen: $fullScreen)';
   }
 
   @override
@@ -977,7 +1056,19 @@ class _$_PlayOutState extends _PlayOutState {
                 const DeepCollectionEquality()
                     .equals(other.videoType, videoType)) &&
             (identical(other.cookie, cookie) ||
-                const DeepCollectionEquality().equals(other.cookie, cookie)));
+                const DeepCollectionEquality().equals(other.cookie, cookie)) &&
+            (identical(other.isPlaying, isPlaying) ||
+                const DeepCollectionEquality()
+                    .equals(other.isPlaying, isPlaying)) &&
+            (identical(other.currentPos, currentPos) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentPos, currentPos)) &&
+            (identical(other.totalDuration, totalDuration) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalDuration, totalDuration)) &&
+            (identical(other.fullScreen, fullScreen) ||
+                const DeepCollectionEquality()
+                    .equals(other.fullScreen, fullScreen)));
   }
 
   @override
@@ -986,7 +1077,11 @@ class _$_PlayOutState extends _PlayOutState {
       const DeepCollectionEquality().hash(commandedState) ^
       const DeepCollectionEquality().hash(hlsMediaUrl) ^
       const DeepCollectionEquality().hash(videoType) ^
-      const DeepCollectionEquality().hash(cookie);
+      const DeepCollectionEquality().hash(cookie) ^
+      const DeepCollectionEquality().hash(isPlaying) ^
+      const DeepCollectionEquality().hash(currentPos) ^
+      const DeepCollectionEquality().hash(totalDuration) ^
+      const DeepCollectionEquality().hash(fullScreen);
 
   @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith =>
@@ -999,7 +1094,11 @@ abstract class _PlayOutState extends PlayOutState {
       {@required PlayerCommandedState commandedState,
       String hlsMediaUrl,
       VideoType videoType,
-      String cookie}) = _$_PlayOutState;
+      String cookie,
+      bool isPlaying,
+      Duration currentPos,
+      Duration totalDuration,
+      bool fullScreen}) = _$_PlayOutState;
 
   @override
   PlayerCommandedState get commandedState;
@@ -1010,7 +1109,666 @@ abstract class _PlayOutState extends PlayOutState {
   @override
   String get cookie;
   @override
+  bool get isPlaying;
+  @override
+  Duration get currentPos;
+  @override
+  Duration get totalDuration;
+  @override
+  bool get fullScreen;
+  @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith;
+}
+
+/// @nodoc
+class _$PlayerCommandedStateTearOff {
+  const _$PlayerCommandedStateTearOff();
+
+// ignore: unused_element
+  PlayerCommandedStatePlayError playError() {
+    return const PlayerCommandedStatePlayError();
+  }
+
+// ignore: unused_element
+  PlayerCommandedStatePrePlay prePlay() {
+    return const PlayerCommandedStatePrePlay();
+  }
+
+// ignore: unused_element
+  PlayerCommandedStatePostPlay postPlay() {
+    return const PlayerCommandedStatePostPlay();
+  }
+
+// ignore: unused_element
+  PlayerCommandedStateInitializing initializing() {
+    return const PlayerCommandedStateInitializing();
+  }
+
+// ignore: unused_element
+  PlayerCommandedStateError error() {
+    return const PlayerCommandedStateError();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $PlayerCommandedState = _$PlayerCommandedStateTearOff();
+
+/// @nodoc
+mixin _$PlayerCommandedState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult playError(),
+    @required TResult prePlay(),
+    @required TResult postPlay(),
+    @required TResult initializing(),
+    @required TResult error(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult playError(),
+    TResult prePlay(),
+    TResult postPlay(),
+    TResult initializing(),
+    TResult error(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult playError(PlayerCommandedStatePlayError value),
+    @required TResult prePlay(PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(PlayerCommandedStatePostPlay value),
+    @required TResult initializing(PlayerCommandedStateInitializing value),
+    @required TResult error(PlayerCommandedStateError value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult playError(PlayerCommandedStatePlayError value),
+    TResult prePlay(PlayerCommandedStatePrePlay value),
+    TResult postPlay(PlayerCommandedStatePostPlay value),
+    TResult initializing(PlayerCommandedStateInitializing value),
+    TResult error(PlayerCommandedStateError value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $PlayerCommandedStateCopyWith<$Res> {
+  factory $PlayerCommandedStateCopyWith(PlayerCommandedState value,
+          $Res Function(PlayerCommandedState) then) =
+      _$PlayerCommandedStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PlayerCommandedStateCopyWithImpl<$Res>
+    implements $PlayerCommandedStateCopyWith<$Res> {
+  _$PlayerCommandedStateCopyWithImpl(this._value, this._then);
+
+  final PlayerCommandedState _value;
+  // ignore: unused_field
+  final $Res Function(PlayerCommandedState) _then;
+}
+
+/// @nodoc
+abstract class $PlayerCommandedStatePlayErrorCopyWith<$Res> {
+  factory $PlayerCommandedStatePlayErrorCopyWith(
+          PlayerCommandedStatePlayError value,
+          $Res Function(PlayerCommandedStatePlayError) then) =
+      _$PlayerCommandedStatePlayErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PlayerCommandedStatePlayErrorCopyWithImpl<$Res>
+    extends _$PlayerCommandedStateCopyWithImpl<$Res>
+    implements $PlayerCommandedStatePlayErrorCopyWith<$Res> {
+  _$PlayerCommandedStatePlayErrorCopyWithImpl(
+      PlayerCommandedStatePlayError _value,
+      $Res Function(PlayerCommandedStatePlayError) _then)
+      : super(_value, (v) => _then(v as PlayerCommandedStatePlayError));
+
+  @override
+  PlayerCommandedStatePlayError get _value =>
+      super._value as PlayerCommandedStatePlayError;
+}
+
+/// @nodoc
+class _$PlayerCommandedStatePlayError implements PlayerCommandedStatePlayError {
+  const _$PlayerCommandedStatePlayError();
+
+  @override
+  String toString() {
+    return 'PlayerCommandedState.playError()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is PlayerCommandedStatePlayError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult playError(),
+    @required TResult prePlay(),
+    @required TResult postPlay(),
+    @required TResult initializing(),
+    @required TResult error(),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return playError();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult playError(),
+    TResult prePlay(),
+    TResult postPlay(),
+    TResult initializing(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (playError != null) {
+      return playError();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult playError(PlayerCommandedStatePlayError value),
+    @required TResult prePlay(PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(PlayerCommandedStatePostPlay value),
+    @required TResult initializing(PlayerCommandedStateInitializing value),
+    @required TResult error(PlayerCommandedStateError value),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return playError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult playError(PlayerCommandedStatePlayError value),
+    TResult prePlay(PlayerCommandedStatePrePlay value),
+    TResult postPlay(PlayerCommandedStatePostPlay value),
+    TResult initializing(PlayerCommandedStateInitializing value),
+    TResult error(PlayerCommandedStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (playError != null) {
+      return playError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlayerCommandedStatePlayError implements PlayerCommandedState {
+  const factory PlayerCommandedStatePlayError() =
+      _$PlayerCommandedStatePlayError;
+}
+
+/// @nodoc
+abstract class $PlayerCommandedStatePrePlayCopyWith<$Res> {
+  factory $PlayerCommandedStatePrePlayCopyWith(
+          PlayerCommandedStatePrePlay value,
+          $Res Function(PlayerCommandedStatePrePlay) then) =
+      _$PlayerCommandedStatePrePlayCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PlayerCommandedStatePrePlayCopyWithImpl<$Res>
+    extends _$PlayerCommandedStateCopyWithImpl<$Res>
+    implements $PlayerCommandedStatePrePlayCopyWith<$Res> {
+  _$PlayerCommandedStatePrePlayCopyWithImpl(PlayerCommandedStatePrePlay _value,
+      $Res Function(PlayerCommandedStatePrePlay) _then)
+      : super(_value, (v) => _then(v as PlayerCommandedStatePrePlay));
+
+  @override
+  PlayerCommandedStatePrePlay get _value =>
+      super._value as PlayerCommandedStatePrePlay;
+}
+
+/// @nodoc
+class _$PlayerCommandedStatePrePlay implements PlayerCommandedStatePrePlay {
+  const _$PlayerCommandedStatePrePlay();
+
+  @override
+  String toString() {
+    return 'PlayerCommandedState.prePlay()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is PlayerCommandedStatePrePlay);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult playError(),
+    @required TResult prePlay(),
+    @required TResult postPlay(),
+    @required TResult initializing(),
+    @required TResult error(),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return prePlay();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult playError(),
+    TResult prePlay(),
+    TResult postPlay(),
+    TResult initializing(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (prePlay != null) {
+      return prePlay();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult playError(PlayerCommandedStatePlayError value),
+    @required TResult prePlay(PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(PlayerCommandedStatePostPlay value),
+    @required TResult initializing(PlayerCommandedStateInitializing value),
+    @required TResult error(PlayerCommandedStateError value),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return prePlay(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult playError(PlayerCommandedStatePlayError value),
+    TResult prePlay(PlayerCommandedStatePrePlay value),
+    TResult postPlay(PlayerCommandedStatePostPlay value),
+    TResult initializing(PlayerCommandedStateInitializing value),
+    TResult error(PlayerCommandedStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (prePlay != null) {
+      return prePlay(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlayerCommandedStatePrePlay implements PlayerCommandedState {
+  const factory PlayerCommandedStatePrePlay() = _$PlayerCommandedStatePrePlay;
+}
+
+/// @nodoc
+abstract class $PlayerCommandedStatePostPlayCopyWith<$Res> {
+  factory $PlayerCommandedStatePostPlayCopyWith(
+          PlayerCommandedStatePostPlay value,
+          $Res Function(PlayerCommandedStatePostPlay) then) =
+      _$PlayerCommandedStatePostPlayCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PlayerCommandedStatePostPlayCopyWithImpl<$Res>
+    extends _$PlayerCommandedStateCopyWithImpl<$Res>
+    implements $PlayerCommandedStatePostPlayCopyWith<$Res> {
+  _$PlayerCommandedStatePostPlayCopyWithImpl(
+      PlayerCommandedStatePostPlay _value,
+      $Res Function(PlayerCommandedStatePostPlay) _then)
+      : super(_value, (v) => _then(v as PlayerCommandedStatePostPlay));
+
+  @override
+  PlayerCommandedStatePostPlay get _value =>
+      super._value as PlayerCommandedStatePostPlay;
+}
+
+/// @nodoc
+class _$PlayerCommandedStatePostPlay implements PlayerCommandedStatePostPlay {
+  const _$PlayerCommandedStatePostPlay();
+
+  @override
+  String toString() {
+    return 'PlayerCommandedState.postPlay()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is PlayerCommandedStatePostPlay);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult playError(),
+    @required TResult prePlay(),
+    @required TResult postPlay(),
+    @required TResult initializing(),
+    @required TResult error(),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return postPlay();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult playError(),
+    TResult prePlay(),
+    TResult postPlay(),
+    TResult initializing(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (postPlay != null) {
+      return postPlay();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult playError(PlayerCommandedStatePlayError value),
+    @required TResult prePlay(PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(PlayerCommandedStatePostPlay value),
+    @required TResult initializing(PlayerCommandedStateInitializing value),
+    @required TResult error(PlayerCommandedStateError value),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return postPlay(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult playError(PlayerCommandedStatePlayError value),
+    TResult prePlay(PlayerCommandedStatePrePlay value),
+    TResult postPlay(PlayerCommandedStatePostPlay value),
+    TResult initializing(PlayerCommandedStateInitializing value),
+    TResult error(PlayerCommandedStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (postPlay != null) {
+      return postPlay(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlayerCommandedStatePostPlay implements PlayerCommandedState {
+  const factory PlayerCommandedStatePostPlay() = _$PlayerCommandedStatePostPlay;
+}
+
+/// @nodoc
+abstract class $PlayerCommandedStateInitializingCopyWith<$Res> {
+  factory $PlayerCommandedStateInitializingCopyWith(
+          PlayerCommandedStateInitializing value,
+          $Res Function(PlayerCommandedStateInitializing) then) =
+      _$PlayerCommandedStateInitializingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PlayerCommandedStateInitializingCopyWithImpl<$Res>
+    extends _$PlayerCommandedStateCopyWithImpl<$Res>
+    implements $PlayerCommandedStateInitializingCopyWith<$Res> {
+  _$PlayerCommandedStateInitializingCopyWithImpl(
+      PlayerCommandedStateInitializing _value,
+      $Res Function(PlayerCommandedStateInitializing) _then)
+      : super(_value, (v) => _then(v as PlayerCommandedStateInitializing));
+
+  @override
+  PlayerCommandedStateInitializing get _value =>
+      super._value as PlayerCommandedStateInitializing;
+}
+
+/// @nodoc
+class _$PlayerCommandedStateInitializing
+    implements PlayerCommandedStateInitializing {
+  const _$PlayerCommandedStateInitializing();
+
+  @override
+  String toString() {
+    return 'PlayerCommandedState.initializing()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is PlayerCommandedStateInitializing);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult playError(),
+    @required TResult prePlay(),
+    @required TResult postPlay(),
+    @required TResult initializing(),
+    @required TResult error(),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return initializing();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult playError(),
+    TResult prePlay(),
+    TResult postPlay(),
+    TResult initializing(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (initializing != null) {
+      return initializing();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult playError(PlayerCommandedStatePlayError value),
+    @required TResult prePlay(PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(PlayerCommandedStatePostPlay value),
+    @required TResult initializing(PlayerCommandedStateInitializing value),
+    @required TResult error(PlayerCommandedStateError value),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return initializing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult playError(PlayerCommandedStatePlayError value),
+    TResult prePlay(PlayerCommandedStatePrePlay value),
+    TResult postPlay(PlayerCommandedStatePostPlay value),
+    TResult initializing(PlayerCommandedStateInitializing value),
+    TResult error(PlayerCommandedStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (initializing != null) {
+      return initializing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlayerCommandedStateInitializing
+    implements PlayerCommandedState {
+  const factory PlayerCommandedStateInitializing() =
+      _$PlayerCommandedStateInitializing;
+}
+
+/// @nodoc
+abstract class $PlayerCommandedStateErrorCopyWith<$Res> {
+  factory $PlayerCommandedStateErrorCopyWith(PlayerCommandedStateError value,
+          $Res Function(PlayerCommandedStateError) then) =
+      _$PlayerCommandedStateErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PlayerCommandedStateErrorCopyWithImpl<$Res>
+    extends _$PlayerCommandedStateCopyWithImpl<$Res>
+    implements $PlayerCommandedStateErrorCopyWith<$Res> {
+  _$PlayerCommandedStateErrorCopyWithImpl(PlayerCommandedStateError _value,
+      $Res Function(PlayerCommandedStateError) _then)
+      : super(_value, (v) => _then(v as PlayerCommandedStateError));
+
+  @override
+  PlayerCommandedStateError get _value =>
+      super._value as PlayerCommandedStateError;
+}
+
+/// @nodoc
+class _$PlayerCommandedStateError implements PlayerCommandedStateError {
+  const _$PlayerCommandedStateError();
+
+  @override
+  String toString() {
+    return 'PlayerCommandedState.error()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is PlayerCommandedStateError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult playError(),
+    @required TResult prePlay(),
+    @required TResult postPlay(),
+    @required TResult initializing(),
+    @required TResult error(),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return error();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult playError(),
+    TResult prePlay(),
+    TResult postPlay(),
+    TResult initializing(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult playError(PlayerCommandedStatePlayError value),
+    @required TResult prePlay(PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(PlayerCommandedStatePostPlay value),
+    @required TResult initializing(PlayerCommandedStateInitializing value),
+    @required TResult error(PlayerCommandedStateError value),
+  }) {
+    assert(playError != null);
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(initializing != null);
+    assert(error != null);
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult playError(PlayerCommandedStatePlayError value),
+    TResult prePlay(PlayerCommandedStatePrePlay value),
+    TResult postPlay(PlayerCommandedStatePostPlay value),
+    TResult initializing(PlayerCommandedStateInitializing value),
+    TResult error(PlayerCommandedStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlayerCommandedStateError implements PlayerCommandedState {
+  const factory PlayerCommandedStateError() = _$PlayerCommandedStateError;
 }
 
 /// @nodoc
@@ -1018,8 +1776,8 @@ class _$PageSheetModelTearOff {
   const _$PageSheetModelTearOff();
 
 // ignore: unused_element
-  PageSheetModelHidden hidden() {
-    return const PageSheetModelHidden();
+  _PageSheetModelHidden hidden() {
+    return const _PageSheetModelHidden();
   }
 
 // ignore: unused_element
@@ -1054,13 +1812,13 @@ mixin _$PageSheetModel {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult hidden(PageSheetModelHidden value),
+    @required TResult hidden(_PageSheetModelHidden value),
     @required TResult handouts(PageSheetModelHandouts value),
     @required TResult pricing(PageSheetModelPricing value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult hidden(PageSheetModelHidden value),
+    TResult hidden(_PageSheetModelHidden value),
     TResult handouts(PageSheetModelHandouts value),
     TResult pricing(PageSheetModelPricing value),
     @required TResult orElse(),
@@ -1085,27 +1843,27 @@ class _$PageSheetModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $PageSheetModelHiddenCopyWith<$Res> {
-  factory $PageSheetModelHiddenCopyWith(PageSheetModelHidden value,
-          $Res Function(PageSheetModelHidden) then) =
-      _$PageSheetModelHiddenCopyWithImpl<$Res>;
+abstract class _$PageSheetModelHiddenCopyWith<$Res> {
+  factory _$PageSheetModelHiddenCopyWith(_PageSheetModelHidden value,
+          $Res Function(_PageSheetModelHidden) then) =
+      __$PageSheetModelHiddenCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PageSheetModelHiddenCopyWithImpl<$Res>
+class __$PageSheetModelHiddenCopyWithImpl<$Res>
     extends _$PageSheetModelCopyWithImpl<$Res>
-    implements $PageSheetModelHiddenCopyWith<$Res> {
-  _$PageSheetModelHiddenCopyWithImpl(
-      PageSheetModelHidden _value, $Res Function(PageSheetModelHidden) _then)
-      : super(_value, (v) => _then(v as PageSheetModelHidden));
+    implements _$PageSheetModelHiddenCopyWith<$Res> {
+  __$PageSheetModelHiddenCopyWithImpl(
+      _PageSheetModelHidden _value, $Res Function(_PageSheetModelHidden) _then)
+      : super(_value, (v) => _then(v as _PageSheetModelHidden));
 
   @override
-  PageSheetModelHidden get _value => super._value as PageSheetModelHidden;
+  _PageSheetModelHidden get _value => super._value as _PageSheetModelHidden;
 }
 
 /// @nodoc
-class _$PageSheetModelHidden implements PageSheetModelHidden {
-  const _$PageSheetModelHidden();
+class _$_PageSheetModelHidden implements _PageSheetModelHidden {
+  const _$_PageSheetModelHidden();
 
   @override
   String toString() {
@@ -1114,7 +1872,7 @@ class _$PageSheetModelHidden implements PageSheetModelHidden {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PageSheetModelHidden);
+    return identical(this, other) || (other is _PageSheetModelHidden);
   }
 
   @override
@@ -1151,7 +1909,7 @@ class _$PageSheetModelHidden implements PageSheetModelHidden {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult hidden(PageSheetModelHidden value),
+    @required TResult hidden(_PageSheetModelHidden value),
     @required TResult handouts(PageSheetModelHandouts value),
     @required TResult pricing(PageSheetModelPricing value),
   }) {
@@ -1164,7 +1922,7 @@ class _$PageSheetModelHidden implements PageSheetModelHidden {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult hidden(PageSheetModelHidden value),
+    TResult hidden(_PageSheetModelHidden value),
     TResult handouts(PageSheetModelHandouts value),
     TResult pricing(PageSheetModelPricing value),
     @required TResult orElse(),
@@ -1177,8 +1935,8 @@ class _$PageSheetModelHidden implements PageSheetModelHidden {
   }
 }
 
-abstract class PageSheetModelHidden implements PageSheetModel {
-  const factory PageSheetModelHidden() = _$PageSheetModelHidden;
+abstract class _PageSheetModelHidden implements PageSheetModel {
+  const factory _PageSheetModelHidden() = _$_PageSheetModelHidden;
 }
 
 /// @nodoc
@@ -1248,7 +2006,7 @@ class _$PageSheetModelHandouts implements PageSheetModelHandouts {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult hidden(PageSheetModelHidden value),
+    @required TResult hidden(_PageSheetModelHidden value),
     @required TResult handouts(PageSheetModelHandouts value),
     @required TResult pricing(PageSheetModelPricing value),
   }) {
@@ -1261,7 +2019,7 @@ class _$PageSheetModelHandouts implements PageSheetModelHandouts {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult hidden(PageSheetModelHidden value),
+    TResult hidden(_PageSheetModelHidden value),
     TResult handouts(PageSheetModelHandouts value),
     TResult pricing(PageSheetModelPricing value),
     @required TResult orElse(),
@@ -1345,7 +2103,7 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult hidden(PageSheetModelHidden value),
+    @required TResult hidden(_PageSheetModelHidden value),
     @required TResult handouts(PageSheetModelHandouts value),
     @required TResult pricing(PageSheetModelPricing value),
   }) {
@@ -1358,7 +2116,7 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult hidden(PageSheetModelHidden value),
+    TResult hidden(_PageSheetModelHidden value),
     TResult handouts(PageSheetModelHandouts value),
     TResult pricing(PageSheetModelPricing value),
     @required TResult orElse(),

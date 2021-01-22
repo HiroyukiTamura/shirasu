@@ -1,3 +1,4 @@
+import 'package:better_player/better_player.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,74 +29,74 @@ final _kPrvDoubleTapEvent = Provider.autoDispose
 
 class PlayerControllerView extends HookWidget {
   const PlayerControllerView({
-    @required this.programId,
+    @required this.conf,
   });
 
-  final String programId;
+  final VideoViewModelConf conf;
 
   static const _SEEK_ICON_SIZE = Size.square(48);
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-        child: VideoControllerVis(
-          id: programId,
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () => _onTapBgBtn(context),
-            onDoubleTap: () {
-              // for not fire onTap event
-            },
-            child: Stack(
-              children: [
-                DoubleTapPlayerView(
-                  doubleTapConfig: DoubleTapConfig.create(
-                    ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
-                    rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
-                    labelBuilder: _buildTapLabel,
-                    onDoubleTap: (lr) => _onDoubleTap(context, lr),
-                    iconLeft: _seekIcon(lr: Lr.LEFT),
-                    iconRight: _seekIcon(lr: Lr.RIGHT),
-                    expansionHoldingTime: const Duration(milliseconds: 400),
-                  ),
-                  swipeConfig: SwipeConfig.create(
-                    onSwipeStart: (dx) => _clearStartDx(context, dx),
-                    onSwipeCancel: () => _clearStartDx(context, 0),
-                    onSwipeEnd: (data) => _onSwipeEnd(context, data),
-                    overlayBuilder: _dragOverlay,
+  Widget build(BuildContext context) => VideoControllerVis(
+        conf: conf,
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => _onTapBgBtn(context),
+          onDoubleTap: () {
+            // for not fire onTap event
+          },
+          child: Stack(
+            children: [
+              DoubleTapPlayerView(
+                doubleTapConfig: DoubleTapConfig.create(
+                  ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
+                  rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
+                  labelBuilder: _buildTapLabel,
+                  onDoubleTap: (lr) => _onDoubleTap(context, lr),
+                  iconLeft: _seekIcon(lr: Lr.LEFT),
+                  iconRight: _seekIcon(lr: Lr.RIGHT),
+                  expansionHoldingTime: const Duration(milliseconds: 400),
+                ),
+                swipeConfig: SwipeConfig.create(
+                  onSwipeStart: (dx) => _clearStartDx(context, dx),
+                  onSwipeCancel: () => _clearStartDx(context, 0),
+                  onSwipeEnd: (data) => _onSwipeEnd(context, data),
+                  overlayBuilder: _dragOverlay,
+                ),
+              ),
+              PlayerAnimOpacity(
+                conf: conf,
+                child: ColoredBox(
+                  color: Colors.black.withOpacity(.5),
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      RowTop(
+                        onTapFullScreenBtn: (context) =>
+                            _onTapFullScreenBtn(context),
+                      ),
+                      RowCenter(
+                        id: conf.id,
+                        onTapRewindBtn: (context) => _onTapRewindBtn(context),
+                        onTapFastForwardBtn: (context) =>
+                            _onTapFastForwardBtn(context),
+                        onTapPlayToggleBtn: (context) =>
+                            _onTapPlayToggleBtn(context),
+                      ),
+                      RowBottom(
+                        conf: conf,
+                      )
+                    ],
                   ),
                 ),
-                PlayerAnimOpacity(
-                  id: programId,
-                  child: ColoredBox(
-                    color: Colors.black.withOpacity(.5),
-                    child: Stack(
-                      overflow: Overflow.visible,
-                      children: [
-                        RowTop(
-                          onTapFullScreenBtn: (context) =>
-                              _onTapFullScreenBtn(context),
-                        ),
-                        RowCenter(
-                          programId: programId,
-                          onTapRewindBtn: (context) => _onTapRewindBtn(context),
-                          onTapFastForwardBtn: (context) =>
-                              _onTapFastForwardBtn(context),
-                          onTapPlayToggleBtn: (context) =>
-                              _onTapPlayToggleBtn(context),
-                        ),
-                        RowBottom(id: programId)
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       );
 
   Future<void> _onTapPlayToggleBtn(BuildContext context) async =>
-      context.read(pVideoViewModel(programId)).playOrPause();
+      context.read(pVideoViewModel(conf)).playOrPause();
 
   Future<void> _onTapFastForwardBtn(BuildContext context) async =>
       _seek(context, VideoViewModel.SEC_FAST_SEEK_BY_BTN);
@@ -104,21 +105,16 @@ class PlayerControllerView extends HookWidget {
       _seek(context, -VideoViewModel.SEC_FAST_SEEK_BY_BTN);
 
   Future<void> _seek(BuildContext context, Duration diff) async =>
-      context.read(pVideoViewModel(programId)).seek(diff);
+      context.read(pVideoViewModel(conf)).seek(diff);
 
-  void _onTapFullScreenBtn(BuildContext context) {
-    if (MediaQuery.of(context).orientation == Orientation.portrait ||
-        context.read(pVideoViewModel(programId).state).isFullScreen)
-      context.read(pVideoViewModel(programId)).toggleFullScreen();
-    else
-      Util.forcePortraitScreen();
-  }
+  Future<void> _onTapFullScreenBtn(BuildContext context) async =>
+      context.toggleScreenOrientation();
 
   void _onTapBgBtn(BuildContext context) =>
-      context.read(pVideoViewModel(programId)).toggleVisibility();
+      context.read(pVideoViewModel(conf)).toggleVisibility();
 
   void _onDoubleTap(BuildContext context, Lr lr) {
-    context.read(pVideoViewModel(programId)).hide();
+    context.read(pVideoViewModel(conf)).hide();
     context.read(_kSPrvDoubleTapEvent(lr)).state++;
 
     final duration = lr == Lr.LEFT
@@ -128,9 +124,9 @@ class PlayerControllerView extends HookWidget {
   }
 
   void _onSwipeEnd(BuildContext context, SwipeData data) {
-    context.read(pVideoViewModel(programId)).seek(data.diffDuration);
+    context.read(pVideoViewModel(conf)).seek(data.diffDuration);
     _clearStartDx(context, 0);
-    context.read(pVideoViewModel(programId)).hide();
+    context.read(pVideoViewModel(conf)).hide();
   }
 
   void _clearStartDx(BuildContext context, double dx) =>
@@ -143,7 +139,7 @@ class PlayerControllerView extends HookWidget {
   }
 
   Widget _dragOverlay(SwipeData data) => DragOverlay(
-        id: programId,
+        conf: conf,
         data: data,
       );
 

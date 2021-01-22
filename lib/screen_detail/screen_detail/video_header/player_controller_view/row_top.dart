@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'row_top.g.dart';
 
-@swidget
+@hwidget
 Widget rowTop(BuildContext context, {
   @required OnTap onTapFullScreenBtn,
 }) => Row(

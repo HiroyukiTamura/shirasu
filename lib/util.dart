@@ -101,20 +101,6 @@ class Util {
     } else
       return mmss;
   }
-
-
-  static Future<void> forcePortraitScreen() async {
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-  }
 }
 
 mixin Disposable {

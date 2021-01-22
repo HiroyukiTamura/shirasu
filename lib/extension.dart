@@ -1,6 +1,7 @@
 import 'package:better_player/better_player.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -24,6 +25,19 @@ extension IntX on int {
 }
 
 extension BuildContextX on BuildContext {
+
+  static const _PORTRAIT_ORIENTATIONS = [
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ];
+
+  static const _LANDSCAPE_ORIENTATIONS = [
+    DeviceOrientation.landscapeRight,
+    DeviceOrientation.landscapeLeft,
+  ];
+
+  static final _anyOrientations = _PORTRAIT_ORIENTATIONS + _LANDSCAPE_ORIENTATIONS;
+
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(pAppRouterDelegate).pushPage(path);
 
@@ -32,7 +46,19 @@ extension BuildContextX on BuildContext {
   Future<void> pushChannelPage(String id) async =>
       read(pAppRouterDelegate).pushPage(GlobalRoutePath.channel(id));
 
+  // todo extract dimen
   bool get isBigScreen => 600 < MediaQuery.of(this).size.width;
+
+  Future<void> toggleScreenOrientation() async {
+
+    final isPortrait = MediaQuery
+        .of(this)
+        .orientation == Orientation.portrait;
+
+    final orientations = isPortrait ? _LANDSCAPE_ORIENTATIONS : _PORTRAIT_ORIENTATIONS;
+    await SystemChrome.setPreferredOrientations(orientations);
+    await SystemChrome.setPreferredOrientations(_anyOrientations);
+  }
 }
 
 extension BetterPlayerEventX on BetterPlayerEvent {

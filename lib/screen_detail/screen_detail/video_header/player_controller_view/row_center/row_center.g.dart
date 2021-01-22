@@ -9,13 +9,13 @@ part of 'row_center.dart';
 class RowCenter extends StatelessWidget {
   const RowCenter(
       {Key key,
-      @required this.id,
+      @required this.conf,
       @required this.onTapRewindBtn,
       @required this.onTapFastForwardBtn,
       @required this.onTapPlayToggleBtn})
       : super(key: key);
 
-  final String id;
+  final VideoViewModelConf conf;
 
   final void Function(BuildContext) onTapRewindBtn;
 
@@ -25,7 +25,7 @@ class RowCenter extends StatelessWidget {
 
   @override
   Widget build(BuildContext _context) => rowCenter(_context,
-      id: id,
+      conf: conf,
       onTapRewindBtn: onTapRewindBtn,
       onTapFastForwardBtn: onTapFastForwardBtn,
       onTapPlayToggleBtn: onTapPlayToggleBtn);

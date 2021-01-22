@@ -2,6 +2,8 @@ import 'package:better_player/better_player.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -35,66 +37,73 @@ class PlayerControllerView extends HookWidget {
   final VideoViewModelConf conf;
 
   static const _SEEK_ICON_SIZE = Size.square(48);
+  static const double _FULLSCREEN_PADDING = 24;
+
+  static double getFullScreenPadding(bool fullscreen) =>
+      fullscreen ? _FULLSCREEN_PADDING : 0;
 
   @override
   Widget build(BuildContext context) => VideoControllerVis(
-        conf: conf,
-        child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () => _onTapBgBtn(context),
-          onDoubleTap: () {
-            // for not fire onTap event
-          },
-          child: Stack(
-            children: [
-              DoubleTapPlayerView(
-                doubleTapConfig: DoubleTapConfig.create(
-                  ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
-                  rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
-                  labelBuilder: _buildTapLabel,
-                  onDoubleTap: (lr) => _onDoubleTap(context, lr),
-                  iconLeft: _seekIcon(lr: Lr.LEFT),
-                  iconRight: _seekIcon(lr: Lr.RIGHT),
-                  expansionHoldingTime: const Duration(milliseconds: 400),
+      conf: conf,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => _onTapBgBtn(context),
+        onDoubleTap: () {
+          // for not fire onTap event
+        },
+        child: Stack(
+          children: [
+            DoubleTapPlayerView(
+              doubleTapConfig: DoubleTapConfig.create(
+                ovalColor: Styles.COLOR_DOUBLE_TAP_BG,
+                rippleColor: Styles.COLOR_DOUBLE_TAP_BG,
+                labelBuilder: _buildTapLabel,
+                onDoubleTap: (lr) => _onDoubleTap(context, lr),
+                iconLeft: _seekIcon(lr: Lr.LEFT),
+                iconRight: _seekIcon(lr: Lr.RIGHT),
+                expansionHoldingTime: const Duration(milliseconds: 400),
+              ),
+              swipeConfig: SwipeConfig.create(
+                onSwipeStart: (dx) => _clearStartDx(context, dx),
+                onSwipeCancel: () => _clearStartDx(context, 0),
+                onSwipeEnd: (data) => _onSwipeEnd(context, data),
+                overlayBuilder: _dragOverlay,
+              ),
+            ),
+            PlayerAnimOpacity(
+              conf: conf,
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: getFullScreenPadding(conf.fullScreen),
                 ),
-                swipeConfig: SwipeConfig.create(
-                  onSwipeStart: (dx) => _clearStartDx(context, dx),
-                  onSwipeCancel: () => _clearStartDx(context, 0),
-                  onSwipeEnd: (data) => _onSwipeEnd(context, data),
-                  overlayBuilder: _dragOverlay,
+                color: Colors.black.withOpacity(.5),
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: [
+                    RowTop(
+                      onTapFullScreenBtn: (context) =>
+                          _onTapFullScreenBtn(context),
+                      conf: conf,
+                    ),
+                    RowCenter(
+                      conf: conf,
+                      onTapRewindBtn: (context) => _onTapRewindBtn(context),
+                      onTapFastForwardBtn: (context) =>
+                          _onTapFastForwardBtn(context),
+                      onTapPlayToggleBtn: (context) =>
+                          _onTapPlayToggleBtn(context),
+                    ),
+                    RowBottom(
+                      conf: conf,
+                    )
+                  ],
                 ),
               ),
-              PlayerAnimOpacity(
-                conf: conf,
-                child: ColoredBox(
-                  color: Colors.black.withOpacity(.5),
-                  child: Stack(
-                    overflow: Overflow.visible,
-                    children: [
-                      RowTop(
-                        onTapFullScreenBtn: (context) =>
-                            _onTapFullScreenBtn(context),
-                        conf: conf,
-                      ),
-                      RowCenter(
-                        id: conf.id,
-                        onTapRewindBtn: (context) => _onTapRewindBtn(context),
-                        onTapFastForwardBtn: (context) =>
-                            _onTapFastForwardBtn(context),
-                        onTapPlayToggleBtn: (context) =>
-                            _onTapPlayToggleBtn(context),
-                      ),
-                      RowBottom(
-                        conf: conf,
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
-      );
+      ),
+    );
 
   Future<void> _onTapPlayToggleBtn(BuildContext context) async =>
       context.read(pVideoViewModel(conf)).playOrPause();

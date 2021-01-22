@@ -4,6 +4,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -22,15 +23,14 @@ Widget rowBottom({
             children: [
               _TimeText(
                 conf: conf,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
+                padding: EdgeInsets.symmetric(
+                  horizontal: PlayerControllerView.getFullScreenPadding(true),
                 ),
               ),
               Theme(
                 data: Styles.fullScreenTheme,
                 child: VideoSeekBar(conf: conf,),
               ),
-              const SizedBox(height: 16),
             ],
           )
         : _TimeText(conf: conf);

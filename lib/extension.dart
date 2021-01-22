@@ -49,24 +49,23 @@ extension BuildContextX on BuildContext {
   bool get isBigScreen => 600 < MediaQuery.of(this).size.width;
 
   Future<void> toggleFullScreenMode() async {
-
-    if (GlobalState.instance.isInFullScreenOperation)
-      return;
+    if (GlobalState.instance.isInFullScreenOperation) return;
 
     GlobalState.instance.isInFullScreenOperation = true;
     try {
-      final isPortrait = MediaQuery.of(this).orientation == Orientation.portrait;
+      final isPortrait =
+          MediaQuery.of(this).orientation == Orientation.portrait;
 
       final orientations =
-              isPortrait ? _LANDSCAPE_ORIENTATIONS : _PORTRAIT_ORIENTATIONS;
+          isPortrait ? _LANDSCAPE_ORIENTATIONS : _PORTRAIT_ORIENTATIONS;
       await SystemChrome.setPreferredOrientations(orientations);
       await Future.delayed(
-              const Duration(milliseconds: 300)); // needs for BetterPlayer plugin
+          const Duration(milliseconds: 300)); // needs for BetterPlayer plugin
       await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
       if (isPortrait)
-            await SystemChrome.setEnabledSystemUIOverlays([]);
-          else
-            await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+        await SystemChrome.setEnabledSystemUIOverlays([]);
+      else
+        await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     } catch (e) {
       print(e);
     } finally {

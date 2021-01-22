@@ -80,8 +80,7 @@ abstract class ProgramDetail
 
   // todo detect logic for one time plan user who don't purchased extension
   bool get isAllExtensionAvailable =>
-      viewerPlanTypeStrict == PlanType.SUBSCRIPTION &&
-      !isExtensionChargedToSubscribers;
+      viewerPlanTypeStrict == PlanType.SUBSCRIPTION && isExtensionChargedToSubscribers != true;
 }
 
 @freezed

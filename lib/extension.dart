@@ -3,6 +3,7 @@ import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
@@ -25,7 +26,6 @@ extension IntX on int {
 }
 
 extension BuildContextX on BuildContext {
-
   static const _PORTRAIT_ORIENTATIONS = [
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -36,12 +36,11 @@ extension BuildContextX on BuildContext {
     DeviceOrientation.landscapeLeft,
   ];
 
-  static final _anyOrientations = _PORTRAIT_ORIENTATIONS + _LANDSCAPE_ORIENTATIONS;
-
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(pAppRouterDelegate).pushPage(path);
 
-  Future<void> pushProgramPage(String id) async => read(pAppRouterDelegate).pushPage(GlobalRoutePath.program(id));
+  Future<void> pushProgramPage(String id) async =>
+      read(pAppRouterDelegate).pushPage(GlobalRoutePath.program(id));
 
   Future<void> pushChannelPage(String id) async =>
       read(pAppRouterDelegate).pushPage(GlobalRoutePath.channel(id));
@@ -49,20 +48,34 @@ extension BuildContextX on BuildContext {
   // todo extract dimen
   bool get isBigScreen => 600 < MediaQuery.of(this).size.width;
 
-  Future<void> toggleScreenOrientation() async {
+  Future<void> toggleFullScreenMode() async {
 
-    final isPortrait = MediaQuery
-        .of(this)
-        .orientation == Orientation.portrait;
+    if (GlobalState.instance.isInFullScreenOperation)
+      return;
 
-    final orientations = isPortrait ? _LANDSCAPE_ORIENTATIONS : _PORTRAIT_ORIENTATIONS;
-    await SystemChrome.setPreferredOrientations(orientations);
-    await SystemChrome.setPreferredOrientations(_anyOrientations);
+    GlobalState.instance.isInFullScreenOperation = true;
+    try {
+      final isPortrait = MediaQuery.of(this).orientation == Orientation.portrait;
+
+      final orientations =
+              isPortrait ? _LANDSCAPE_ORIENTATIONS : _PORTRAIT_ORIENTATIONS;
+      await SystemChrome.setPreferredOrientations(orientations);
+      await Future.delayed(
+              const Duration(milliseconds: 300)); // needs for BetterPlayer plugin
+      await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+      if (isPortrait)
+            await SystemChrome.setEnabledSystemUIOverlays([]);
+          else
+            await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    } catch (e) {
+      print(e);
+    } finally {
+      GlobalState.instance.isInFullScreenOperation = false;
+    }
   }
 }
 
 extension BetterPlayerEventX on BetterPlayerEvent {
-
   String get exception => parameters['exception'] as String;
 
   Duration get progress => parameters['progress'] as Duration;
@@ -71,12 +84,10 @@ extension BetterPlayerEventX on BetterPlayerEvent {
 }
 
 extension SwipeDataX on SwipeData {
-
   static const double _FACTOR_DX2SEC = 1;
 
   Duration get diffDuration {
     final sec = (currentDx - startDx) * _FACTOR_DX2SEC;
     return Duration(seconds: sec.toInt());
   }
-
 }

@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/viewmodel/controller_hide_timer.dart';
@@ -37,8 +39,12 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   final VideoViewModelConf _conf;
   ControllerHideTimer _hideTimer;
 
-  set controller(BetterPlayerController value) {
-    _controller = value..addEventsListener(_playerEventListener);
+  void ensureController() {
+    if (_controller != null)
+      return;
+
+    final playOutState = _viewModelDetail.state.playOutState;
+    _controller = _createController(playOutState, _conf.id)..addEventsListener(_playerEventListener);
   }
 
   BetterPlayerController get controller => _controller;
@@ -49,6 +55,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   void dispose() {
     super.dispose();
     _hideTimer.cancel();
+    // _controller?.removeEventsListener(_playerEventListener);
     _controller?.dispose();
   }
 
@@ -116,7 +123,7 @@ class VideoViewModel extends StateNotifier<VideoModel> {
         currentPos: event.duration,
         fullScreen: _conf.fullScreen,
       );
-      state = state.copyWith(currentPos: event.progress);
+      state = state.copyWith(currentPos: event.duration);
     }
   }
 
@@ -179,9 +186,45 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     return _controller.isPlaying() ? controller.pause() : controller.play();
   }
 
-  Future<void> pauseProgrammatically() async => controller.pause();
+  // Future<void> pauseProgrammatically() async => controller.pause();
+  //
+  // Future<void> playProgrammatically() async => controller.play();
 
-  Future<void> playProgrammatically() async => controller.play();
+  static BetterPlayerController _createController(
+      PlayOutState playOutState, String id) {
+    assert(
+        playOutState.commandedState == const PlayerCommandedState.postPlay());
+
+    final dataSource = BetterPlayerDataSource(
+      BetterPlayerDataSourceType.network,
+      playOutState.hlsMediaUrl,
+      liveStream: playOutState.videoType == VideoType.LIVE,
+      headers: {
+        'Cookie': playOutState.cookie,
+      },
+    );
+
+    return BetterPlayerController(
+      BetterPlayerConfiguration(
+        autoPlay: playOutState.isPlaying,
+        handleLifecycle: false,
+        //todo why not true??
+        fit: BoxFit.contain,
+        errorBuilder: (context, errorMessage) {
+          //todo implement
+          return Container();
+        },
+        startAt: playOutState.currentPos,
+        controlsConfiguration: const BetterPlayerControlsConfiguration(
+          showControls: false,
+        ),
+        //todo ugly access
+        aspectRatio: Dimens.IMG_RATIO,
+        fullScreenAspectRatio: Dimens.IMG_RATIO,
+      ),
+      betterPlayerDataSource: dataSource,
+    );
+  }
 }
 
 @freezed

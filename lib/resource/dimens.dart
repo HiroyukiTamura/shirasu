@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 @immutable
 class Dimens {
@@ -24,4 +25,8 @@ class Dimens {
   static const double VIDEO_DOUBLE_TAP_IGNORE_FROM_CENTER = 64;
 
   static const double VIDEO_SEEK_BAR_HOVER_STYLE_H = 36;
+
+  /// same as default value of [IconButton.iconSize]
+  static const double VIDEO_FULLSCREEN_BTN_SIZE = 24;
+  static const double VIDEO_FULLSCREEN_BTN_SIZE_BIG = 36;
 }

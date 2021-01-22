@@ -74,6 +74,7 @@ class PlayerControllerView extends HookWidget {
                       RowTop(
                         onTapFullScreenBtn: (context) =>
                             _onTapFullScreenBtn(context),
+                        conf: conf,
                       ),
                       RowCenter(
                         id: conf.id,
@@ -108,7 +109,7 @@ class PlayerControllerView extends HookWidget {
       context.read(pVideoViewModel(conf)).seek(diff);
 
   Future<void> _onTapFullScreenBtn(BuildContext context) async =>
-      context.toggleScreenOrientation();
+      context.toggleFullScreenMode();
 
   void _onTapBgBtn(BuildContext context) =>
       context.read(pVideoViewModel(conf)).toggleVisibility();

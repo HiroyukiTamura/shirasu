@@ -40,21 +40,31 @@ Widget _playOrPauseIcon({
   );
 }
 
-@swidget
+@hwidget
 Widget playOrPauseBtn(
   BuildContext context, {
   @required OnTap onTap,
   @required String id,
-}) =>
-    Material(
-      clipBehavior: Clip.antiAlias,
-      shape: const CircleBorder(),
-      color: Colors.transparent,
-      child: IconButton(
-        padding: const EdgeInsets.all(20),
-        iconSize: Dimens.VIDEO_PLAY_BTN_ICON_SIZE,
-        color: Colors.white,
-        icon: _PlayOrPauseIcon(id: id),
-        onPressed: () => onTap(context),
+}) {
+  final isBuffering = useProvider(
+      detailSNProvider(id).state.select((it) => it.playOutState.isBuffering));
+  return Container(
+    width: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
+    alignment: Alignment.center,
+    child: Visibility(
+      visible: !isBuffering,
+      child: Material(
+        clipBehavior: Clip.antiAlias,
+        shape: const CircleBorder(),
+        color: Colors.transparent,
+        child: IconButton(
+          padding: const EdgeInsets.all(20),
+          iconSize: Dimens.VIDEO_PLAY_BTN_ICON_SIZE,
+          color: Colors.white,
+          icon: _PlayOrPauseIcon(id: id),
+          onPressed: () => onTap(context),
+        ),
       ),
-    );
+    ),
+  );
+}

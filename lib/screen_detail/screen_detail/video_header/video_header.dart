@@ -6,6 +6,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_view.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
+import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
@@ -43,7 +44,9 @@ class VideoHeader extends HookWidget {
           PlayerView(
             conf: conf,
           ),
-          _PlayerViewPlaceHolder(id: conf.id,),
+          _PlayerViewPlaceHolder(
+            id: conf.id,
+          ),
         ],
       ),
       initializing: () => LoadingThumbnail(id: conf.id),
@@ -56,27 +59,55 @@ class VideoHeader extends HookWidget {
   }
 }
 
-
 class _PlayerViewPlaceHolder extends HookWidget {
-
   const _PlayerViewPlaceHolder({Key key, @required this.id}) : super(key: key);
 
   final String id;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => useProvider(detailSNProvider(id)
+          .state
+          .select((it) => it.playOutState.videoPlayerState)).when(
+        error: (msg) => Container(), // todo implement
+        preInitialized: () => LoadingThumbnail(id: id),
+        finish: () => const SizedBox.shrink(), //todo fixme
+        ready: () => _BufferingIndicator(id: id),
+      );
+}
 
-    final isVideoInitialized = useProvider(detailSNProvider(id)
-        .state
-        .select((it) => it.playOutState.isVideoControllerInitialized));
+class _BufferingIndicator extends HookWidget {
+  const _BufferingIndicator({
+    Key key,
+    @required this.id,
+  }) : super(key: key);
+
+  final String id;
+
+  @override
+  Widget build(BuildContext context) {
+    final isBuffering = useProvider(
+        detailSNProvider(id).state.select((it) => it.playOutState.isBuffering));
 
     return Visibility(
-      visible: !isVideoInitialized,
-      child: LoadingThumbnail(id: id),
+      visible: isBuffering,
+      child: Center(
+        child: SizedBox(
+          width: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
+          height: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              accentColor: Colors.white,
+            ),
+            child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 100),
+                opacity: isBuffering ? 1 : 0,
+                child: const CenterCircleProgress()),
+          ),
+        ),
+      ),
     );
   }
 }
-
 
 enum HoverBtnType {
   NOTHING,

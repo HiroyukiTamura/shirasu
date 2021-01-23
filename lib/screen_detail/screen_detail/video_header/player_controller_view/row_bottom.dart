@@ -41,7 +41,7 @@ Widget _timeText({
   EdgeInsets padding = const EdgeInsets.all(8),
 }) {
   final isSeekBarDragging = useProvider(
-      pVideoViewModel(conf).state.select((it) => it.isSeekBarDragging));
+      detailSNProvider(conf.id).state.select((it) => it.playOutState.isSeekBarDragging));
   final total =
       useProvider(detailSNProvider(conf.id).state.select((it) => it.playOutState.totalDuration));
   final current =

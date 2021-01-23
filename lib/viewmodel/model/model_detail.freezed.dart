@@ -834,12 +834,16 @@ class _$PlayOutStateTearOff {
       String cookie,
       bool isPlaying = false,
       Duration currentPos = Duration.zero,
+      Duration currentPosForUi = Duration.zero,
       Duration totalDuration = Duration.zero,
+      bool controllerVisibility = false,
+      bool isSeekBarDragging = false,
       bool fullScreen = false,
-      bool isVideoControllerInitialized = false,
-      LastControllerCommand lastControllerCommand =
-          const LastControllerCommand.initial(),
-      Duration currentPosForUi = Duration.zero}) {
+      bool isBuffering = false,
+      VideoPlayerState videoPlayerState =
+          const VideoPlayerState.preInitialized(),
+      LastControllerCommandHolder lastControllerCommandHolder =
+          const LastControllerCommandHolder()}) {
     return _PlayOutState(
       commandedState: commandedState,
       hlsMediaUrl: hlsMediaUrl,
@@ -847,11 +851,14 @@ class _$PlayOutStateTearOff {
       cookie: cookie,
       isPlaying: isPlaying,
       currentPos: currentPos,
-      totalDuration: totalDuration,
-      fullScreen: fullScreen,
-      isVideoControllerInitialized: isVideoControllerInitialized,
-      lastControllerCommand: lastControllerCommand,
       currentPosForUi: currentPosForUi,
+      totalDuration: totalDuration,
+      controllerVisibility: controllerVisibility,
+      isSeekBarDragging: isSeekBarDragging,
+      fullScreen: fullScreen,
+      isBuffering: isBuffering,
+      videoPlayerState: videoPlayerState,
+      lastControllerCommandHolder: lastControllerCommandHolder,
     );
   }
 }
@@ -868,11 +875,14 @@ mixin _$PlayOutState {
   String get cookie;
   bool get isPlaying;
   Duration get currentPos;
-  Duration get totalDuration;
-  bool get fullScreen;
-  bool get isVideoControllerInitialized;
-  LastControllerCommand get lastControllerCommand;
   Duration get currentPosForUi;
+  Duration get totalDuration;
+  bool get controllerVisibility;
+  bool get isSeekBarDragging;
+  bool get fullScreen;
+  bool get isBuffering;
+  VideoPlayerState get videoPlayerState;
+  LastControllerCommandHolder get lastControllerCommandHolder;
 
   $PlayOutStateCopyWith<PlayOutState> get copyWith;
 }
@@ -889,14 +899,18 @@ abstract class $PlayOutStateCopyWith<$Res> {
       String cookie,
       bool isPlaying,
       Duration currentPos,
+      Duration currentPosForUi,
       Duration totalDuration,
+      bool controllerVisibility,
+      bool isSeekBarDragging,
       bool fullScreen,
-      bool isVideoControllerInitialized,
-      LastControllerCommand lastControllerCommand,
-      Duration currentPosForUi});
+      bool isBuffering,
+      VideoPlayerState videoPlayerState,
+      LastControllerCommandHolder lastControllerCommandHolder});
 
   $PlayerCommandedStateCopyWith<$Res> get commandedState;
-  $LastControllerCommandCopyWith<$Res> get lastControllerCommand;
+  $VideoPlayerStateCopyWith<$Res> get videoPlayerState;
+  $LastControllerCommandHolderCopyWith<$Res> get lastControllerCommandHolder;
 }
 
 /// @nodoc
@@ -915,11 +929,14 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
     Object cookie = freezed,
     Object isPlaying = freezed,
     Object currentPos = freezed,
-    Object totalDuration = freezed,
-    Object fullScreen = freezed,
-    Object isVideoControllerInitialized = freezed,
-    Object lastControllerCommand = freezed,
     Object currentPosForUi = freezed,
+    Object totalDuration = freezed,
+    Object controllerVisibility = freezed,
+    Object isSeekBarDragging = freezed,
+    Object fullScreen = freezed,
+    Object isBuffering = freezed,
+    Object videoPlayerState = freezed,
+    Object lastControllerCommandHolder = freezed,
   }) {
     return _then(_value.copyWith(
       commandedState: commandedState == freezed
@@ -933,20 +950,28 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
       isPlaying: isPlaying == freezed ? _value.isPlaying : isPlaying as bool,
       currentPos:
           currentPos == freezed ? _value.currentPos : currentPos as Duration,
-      totalDuration: totalDuration == freezed
-          ? _value.totalDuration
-          : totalDuration as Duration,
-      fullScreen:
-          fullScreen == freezed ? _value.fullScreen : fullScreen as bool,
-      isVideoControllerInitialized: isVideoControllerInitialized == freezed
-          ? _value.isVideoControllerInitialized
-          : isVideoControllerInitialized as bool,
-      lastControllerCommand: lastControllerCommand == freezed
-          ? _value.lastControllerCommand
-          : lastControllerCommand as LastControllerCommand,
       currentPosForUi: currentPosForUi == freezed
           ? _value.currentPosForUi
           : currentPosForUi as Duration,
+      totalDuration: totalDuration == freezed
+          ? _value.totalDuration
+          : totalDuration as Duration,
+      controllerVisibility: controllerVisibility == freezed
+          ? _value.controllerVisibility
+          : controllerVisibility as bool,
+      isSeekBarDragging: isSeekBarDragging == freezed
+          ? _value.isSeekBarDragging
+          : isSeekBarDragging as bool,
+      fullScreen:
+          fullScreen == freezed ? _value.fullScreen : fullScreen as bool,
+      isBuffering:
+          isBuffering == freezed ? _value.isBuffering : isBuffering as bool,
+      videoPlayerState: videoPlayerState == freezed
+          ? _value.videoPlayerState
+          : videoPlayerState as VideoPlayerState,
+      lastControllerCommandHolder: lastControllerCommandHolder == freezed
+          ? _value.lastControllerCommandHolder
+          : lastControllerCommandHolder as LastControllerCommandHolder,
     ));
   }
 
@@ -961,13 +986,23 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
   }
 
   @override
-  $LastControllerCommandCopyWith<$Res> get lastControllerCommand {
-    if (_value.lastControllerCommand == null) {
+  $VideoPlayerStateCopyWith<$Res> get videoPlayerState {
+    if (_value.videoPlayerState == null) {
       return null;
     }
-    return $LastControllerCommandCopyWith<$Res>(_value.lastControllerCommand,
-        (value) {
-      return _then(_value.copyWith(lastControllerCommand: value));
+    return $VideoPlayerStateCopyWith<$Res>(_value.videoPlayerState, (value) {
+      return _then(_value.copyWith(videoPlayerState: value));
+    });
+  }
+
+  @override
+  $LastControllerCommandHolderCopyWith<$Res> get lastControllerCommandHolder {
+    if (_value.lastControllerCommandHolder == null) {
+      return null;
+    }
+    return $LastControllerCommandHolderCopyWith<$Res>(
+        _value.lastControllerCommandHolder, (value) {
+      return _then(_value.copyWith(lastControllerCommandHolder: value));
     });
   }
 }
@@ -986,16 +1021,21 @@ abstract class _$PlayOutStateCopyWith<$Res>
       String cookie,
       bool isPlaying,
       Duration currentPos,
+      Duration currentPosForUi,
       Duration totalDuration,
+      bool controllerVisibility,
+      bool isSeekBarDragging,
       bool fullScreen,
-      bool isVideoControllerInitialized,
-      LastControllerCommand lastControllerCommand,
-      Duration currentPosForUi});
+      bool isBuffering,
+      VideoPlayerState videoPlayerState,
+      LastControllerCommandHolder lastControllerCommandHolder});
 
   @override
   $PlayerCommandedStateCopyWith<$Res> get commandedState;
   @override
-  $LastControllerCommandCopyWith<$Res> get lastControllerCommand;
+  $VideoPlayerStateCopyWith<$Res> get videoPlayerState;
+  @override
+  $LastControllerCommandHolderCopyWith<$Res> get lastControllerCommandHolder;
 }
 
 /// @nodoc
@@ -1016,11 +1056,14 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
     Object cookie = freezed,
     Object isPlaying = freezed,
     Object currentPos = freezed,
-    Object totalDuration = freezed,
-    Object fullScreen = freezed,
-    Object isVideoControllerInitialized = freezed,
-    Object lastControllerCommand = freezed,
     Object currentPosForUi = freezed,
+    Object totalDuration = freezed,
+    Object controllerVisibility = freezed,
+    Object isSeekBarDragging = freezed,
+    Object fullScreen = freezed,
+    Object isBuffering = freezed,
+    Object videoPlayerState = freezed,
+    Object lastControllerCommandHolder = freezed,
   }) {
     return _then(_PlayOutState(
       commandedState: commandedState == freezed
@@ -1034,20 +1077,28 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
       isPlaying: isPlaying == freezed ? _value.isPlaying : isPlaying as bool,
       currentPos:
           currentPos == freezed ? _value.currentPos : currentPos as Duration,
-      totalDuration: totalDuration == freezed
-          ? _value.totalDuration
-          : totalDuration as Duration,
-      fullScreen:
-          fullScreen == freezed ? _value.fullScreen : fullScreen as bool,
-      isVideoControllerInitialized: isVideoControllerInitialized == freezed
-          ? _value.isVideoControllerInitialized
-          : isVideoControllerInitialized as bool,
-      lastControllerCommand: lastControllerCommand == freezed
-          ? _value.lastControllerCommand
-          : lastControllerCommand as LastControllerCommand,
       currentPosForUi: currentPosForUi == freezed
           ? _value.currentPosForUi
           : currentPosForUi as Duration,
+      totalDuration: totalDuration == freezed
+          ? _value.totalDuration
+          : totalDuration as Duration,
+      controllerVisibility: controllerVisibility == freezed
+          ? _value.controllerVisibility
+          : controllerVisibility as bool,
+      isSeekBarDragging: isSeekBarDragging == freezed
+          ? _value.isSeekBarDragging
+          : isSeekBarDragging as bool,
+      fullScreen:
+          fullScreen == freezed ? _value.fullScreen : fullScreen as bool,
+      isBuffering:
+          isBuffering == freezed ? _value.isBuffering : isBuffering as bool,
+      videoPlayerState: videoPlayerState == freezed
+          ? _value.videoPlayerState
+          : videoPlayerState as VideoPlayerState,
+      lastControllerCommandHolder: lastControllerCommandHolder == freezed
+          ? _value.lastControllerCommandHolder
+          : lastControllerCommandHolder as LastControllerCommandHolder,
     ));
   }
 }
@@ -1061,19 +1112,25 @@ class _$_PlayOutState extends _PlayOutState {
       this.cookie,
       this.isPlaying = false,
       this.currentPos = Duration.zero,
+      this.currentPosForUi = Duration.zero,
       this.totalDuration = Duration.zero,
+      this.controllerVisibility = false,
+      this.isSeekBarDragging = false,
       this.fullScreen = false,
-      this.isVideoControllerInitialized = false,
-      this.lastControllerCommand = const LastControllerCommand.initial(),
-      this.currentPosForUi = Duration.zero})
+      this.isBuffering = false,
+      this.videoPlayerState = const VideoPlayerState.preInitialized(),
+      this.lastControllerCommandHolder = const LastControllerCommandHolder()})
       : assert(commandedState != null),
         assert(isPlaying != null),
         assert(currentPos != null),
-        assert(totalDuration != null),
-        assert(fullScreen != null),
-        assert(isVideoControllerInitialized != null),
-        assert(lastControllerCommand != null),
         assert(currentPosForUi != null),
+        assert(totalDuration != null),
+        assert(controllerVisibility != null),
+        assert(isSeekBarDragging != null),
+        assert(fullScreen != null),
+        assert(isBuffering != null),
+        assert(videoPlayerState != null),
+        assert(lastControllerCommandHolder != null),
         super._();
 
   @override
@@ -1092,23 +1149,32 @@ class _$_PlayOutState extends _PlayOutState {
   final Duration currentPos;
   @JsonKey(defaultValue: Duration.zero)
   @override
+  final Duration currentPosForUi;
+  @JsonKey(defaultValue: Duration.zero)
+  @override
   final Duration totalDuration;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool controllerVisibility;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isSeekBarDragging;
   @JsonKey(defaultValue: false)
   @override
   final bool fullScreen;
   @JsonKey(defaultValue: false)
   @override
-  final bool isVideoControllerInitialized;
-  @JsonKey(defaultValue: const LastControllerCommand.initial())
+  final bool isBuffering;
+  @JsonKey(defaultValue: const VideoPlayerState.preInitialized())
   @override
-  final LastControllerCommand lastControllerCommand;
-  @JsonKey(defaultValue: Duration.zero)
+  final VideoPlayerState videoPlayerState;
+  @JsonKey(defaultValue: const LastControllerCommandHolder())
   @override
-  final Duration currentPosForUi;
+  final LastControllerCommandHolder lastControllerCommandHolder;
 
   @override
   String toString() {
-    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie, isPlaying: $isPlaying, currentPos: $currentPos, totalDuration: $totalDuration, fullScreen: $fullScreen, isVideoControllerInitialized: $isVideoControllerInitialized, lastControllerCommand: $lastControllerCommand, currentPosForUi: $currentPosForUi)';
+    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie, isPlaying: $isPlaying, currentPos: $currentPos, currentPosForUi: $currentPosForUi, totalDuration: $totalDuration, controllerVisibility: $controllerVisibility, isSeekBarDragging: $isSeekBarDragging, fullScreen: $fullScreen, isBuffering: $isBuffering, videoPlayerState: $videoPlayerState, lastControllerCommandHolder: $lastControllerCommandHolder)';
   }
 
   @override
@@ -1132,23 +1198,32 @@ class _$_PlayOutState extends _PlayOutState {
             (identical(other.currentPos, currentPos) ||
                 const DeepCollectionEquality()
                     .equals(other.currentPos, currentPos)) &&
+            (identical(other.currentPosForUi, currentPosForUi) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentPosForUi, currentPosForUi)) &&
             (identical(other.totalDuration, totalDuration) ||
                 const DeepCollectionEquality()
                     .equals(other.totalDuration, totalDuration)) &&
+            (identical(other.controllerVisibility, controllerVisibility) ||
+                const DeepCollectionEquality().equals(
+                    other.controllerVisibility, controllerVisibility)) &&
+            (identical(other.isSeekBarDragging, isSeekBarDragging) ||
+                const DeepCollectionEquality()
+                    .equals(other.isSeekBarDragging, isSeekBarDragging)) &&
             (identical(other.fullScreen, fullScreen) ||
                 const DeepCollectionEquality()
                     .equals(other.fullScreen, fullScreen)) &&
-            (identical(other.isVideoControllerInitialized,
-                    isVideoControllerInitialized) ||
-                const DeepCollectionEquality().equals(
-                    other.isVideoControllerInitialized,
-                    isVideoControllerInitialized)) &&
-            (identical(other.lastControllerCommand, lastControllerCommand) ||
-                const DeepCollectionEquality().equals(
-                    other.lastControllerCommand, lastControllerCommand)) &&
-            (identical(other.currentPosForUi, currentPosForUi) ||
+            (identical(other.isBuffering, isBuffering) ||
                 const DeepCollectionEquality()
-                    .equals(other.currentPosForUi, currentPosForUi)));
+                    .equals(other.isBuffering, isBuffering)) &&
+            (identical(other.videoPlayerState, videoPlayerState) ||
+                const DeepCollectionEquality()
+                    .equals(other.videoPlayerState, videoPlayerState)) &&
+            (identical(other.lastControllerCommandHolder,
+                    lastControllerCommandHolder) ||
+                const DeepCollectionEquality().equals(
+                    other.lastControllerCommandHolder,
+                    lastControllerCommandHolder)));
   }
 
   @override
@@ -1160,11 +1235,14 @@ class _$_PlayOutState extends _PlayOutState {
       const DeepCollectionEquality().hash(cookie) ^
       const DeepCollectionEquality().hash(isPlaying) ^
       const DeepCollectionEquality().hash(currentPos) ^
+      const DeepCollectionEquality().hash(currentPosForUi) ^
       const DeepCollectionEquality().hash(totalDuration) ^
+      const DeepCollectionEquality().hash(controllerVisibility) ^
+      const DeepCollectionEquality().hash(isSeekBarDragging) ^
       const DeepCollectionEquality().hash(fullScreen) ^
-      const DeepCollectionEquality().hash(isVideoControllerInitialized) ^
-      const DeepCollectionEquality().hash(lastControllerCommand) ^
-      const DeepCollectionEquality().hash(currentPosForUi);
+      const DeepCollectionEquality().hash(isBuffering) ^
+      const DeepCollectionEquality().hash(videoPlayerState) ^
+      const DeepCollectionEquality().hash(lastControllerCommandHolder);
 
   @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith =>
@@ -1174,17 +1252,21 @@ class _$_PlayOutState extends _PlayOutState {
 abstract class _PlayOutState extends PlayOutState {
   const _PlayOutState._() : super._();
   const factory _PlayOutState(
-      {@required PlayerCommandedState commandedState,
-      String hlsMediaUrl,
-      VideoType videoType,
-      String cookie,
-      bool isPlaying,
-      Duration currentPos,
-      Duration totalDuration,
-      bool fullScreen,
-      bool isVideoControllerInitialized,
-      LastControllerCommand lastControllerCommand,
-      Duration currentPosForUi}) = _$_PlayOutState;
+          {@required PlayerCommandedState commandedState,
+          String hlsMediaUrl,
+          VideoType videoType,
+          String cookie,
+          bool isPlaying,
+          Duration currentPos,
+          Duration currentPosForUi,
+          Duration totalDuration,
+          bool controllerVisibility,
+          bool isSeekBarDragging,
+          bool fullScreen,
+          bool isBuffering,
+          VideoPlayerState videoPlayerState,
+          LastControllerCommandHolder lastControllerCommandHolder}) =
+      _$_PlayOutState;
 
   @override
   PlayerCommandedState get commandedState;
@@ -1199,15 +1281,21 @@ abstract class _PlayOutState extends PlayOutState {
   @override
   Duration get currentPos;
   @override
+  Duration get currentPosForUi;
+  @override
   Duration get totalDuration;
+  @override
+  bool get controllerVisibility;
+  @override
+  bool get isSeekBarDragging;
   @override
   bool get fullScreen;
   @override
-  bool get isVideoControllerInitialized;
+  bool get isBuffering;
   @override
-  LastControllerCommand get lastControllerCommand;
+  VideoPlayerState get videoPlayerState;
   @override
-  Duration get currentPosForUi;
+  LastControllerCommandHolder get lastControllerCommandHolder;
   @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith;
 }
@@ -2226,6 +2314,180 @@ abstract class PageSheetModelPricing implements PageSheetModel {
 }
 
 /// @nodoc
+class _$LastControllerCommandHolderTearOff {
+  const _$LastControllerCommandHolderTearOff();
+
+// ignore: unused_element
+  _LastControllerCommandHolder call(
+      {LastControllerCommand command = const LastControllerCommand.initial(),
+      String commandKey = ''}) {
+    return _LastControllerCommandHolder(
+      command: command,
+      commandKey: commandKey,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $LastControllerCommandHolder = _$LastControllerCommandHolderTearOff();
+
+/// @nodoc
+mixin _$LastControllerCommandHolder {
+  LastControllerCommand get command;
+  String get commandKey;
+
+  $LastControllerCommandHolderCopyWith<LastControllerCommandHolder>
+      get copyWith;
+}
+
+/// @nodoc
+abstract class $LastControllerCommandHolderCopyWith<$Res> {
+  factory $LastControllerCommandHolderCopyWith(
+          LastControllerCommandHolder value,
+          $Res Function(LastControllerCommandHolder) then) =
+      _$LastControllerCommandHolderCopyWithImpl<$Res>;
+  $Res call({LastControllerCommand command, String commandKey});
+
+  $LastControllerCommandCopyWith<$Res> get command;
+}
+
+/// @nodoc
+class _$LastControllerCommandHolderCopyWithImpl<$Res>
+    implements $LastControllerCommandHolderCopyWith<$Res> {
+  _$LastControllerCommandHolderCopyWithImpl(this._value, this._then);
+
+  final LastControllerCommandHolder _value;
+  // ignore: unused_field
+  final $Res Function(LastControllerCommandHolder) _then;
+
+  @override
+  $Res call({
+    Object command = freezed,
+    Object commandKey = freezed,
+  }) {
+    return _then(_value.copyWith(
+      command: command == freezed
+          ? _value.command
+          : command as LastControllerCommand,
+      commandKey:
+          commandKey == freezed ? _value.commandKey : commandKey as String,
+    ));
+  }
+
+  @override
+  $LastControllerCommandCopyWith<$Res> get command {
+    if (_value.command == null) {
+      return null;
+    }
+    return $LastControllerCommandCopyWith<$Res>(_value.command, (value) {
+      return _then(_value.copyWith(command: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$LastControllerCommandHolderCopyWith<$Res>
+    implements $LastControllerCommandHolderCopyWith<$Res> {
+  factory _$LastControllerCommandHolderCopyWith(
+          _LastControllerCommandHolder value,
+          $Res Function(_LastControllerCommandHolder) then) =
+      __$LastControllerCommandHolderCopyWithImpl<$Res>;
+  @override
+  $Res call({LastControllerCommand command, String commandKey});
+
+  @override
+  $LastControllerCommandCopyWith<$Res> get command;
+}
+
+/// @nodoc
+class __$LastControllerCommandHolderCopyWithImpl<$Res>
+    extends _$LastControllerCommandHolderCopyWithImpl<$Res>
+    implements _$LastControllerCommandHolderCopyWith<$Res> {
+  __$LastControllerCommandHolderCopyWithImpl(
+      _LastControllerCommandHolder _value,
+      $Res Function(_LastControllerCommandHolder) _then)
+      : super(_value, (v) => _then(v as _LastControllerCommandHolder));
+
+  @override
+  _LastControllerCommandHolder get _value =>
+      super._value as _LastControllerCommandHolder;
+
+  @override
+  $Res call({
+    Object command = freezed,
+    Object commandKey = freezed,
+  }) {
+    return _then(_LastControllerCommandHolder(
+      command: command == freezed
+          ? _value.command
+          : command as LastControllerCommand,
+      commandKey:
+          commandKey == freezed ? _value.commandKey : commandKey as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_LastControllerCommandHolder implements _LastControllerCommandHolder {
+  const _$_LastControllerCommandHolder(
+      {this.command = const LastControllerCommand.initial(),
+      this.commandKey = ''})
+      : assert(command != null),
+        assert(commandKey != null);
+
+  @JsonKey(defaultValue: const LastControllerCommand.initial())
+  @override
+  final LastControllerCommand command;
+  @JsonKey(defaultValue: '')
+  @override
+  final String commandKey;
+
+  @override
+  String toString() {
+    return 'LastControllerCommandHolder(command: $command, commandKey: $commandKey)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _LastControllerCommandHolder &&
+            (identical(other.command, command) ||
+                const DeepCollectionEquality()
+                    .equals(other.command, command)) &&
+            (identical(other.commandKey, commandKey) ||
+                const DeepCollectionEquality()
+                    .equals(other.commandKey, commandKey)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(command) ^
+      const DeepCollectionEquality().hash(commandKey);
+
+  @override
+  _$LastControllerCommandHolderCopyWith<_LastControllerCommandHolder>
+      get copyWith => __$LastControllerCommandHolderCopyWithImpl<
+          _LastControllerCommandHolder>(this, _$identity);
+}
+
+abstract class _LastControllerCommandHolder
+    implements LastControllerCommandHolder {
+  const factory _LastControllerCommandHolder(
+      {LastControllerCommand command,
+      String commandKey}) = _$_LastControllerCommandHolder;
+
+  @override
+  LastControllerCommand get command;
+  @override
+  String get commandKey;
+  @override
+  _$LastControllerCommandHolderCopyWith<_LastControllerCommandHolder>
+      get copyWith;
+}
+
+/// @nodoc
 class _$LastControllerCommandTearOff {
   const _$LastControllerCommandTearOff();
 
@@ -3087,4 +3349,528 @@ abstract class _LastControllerCommandPlayOrPause
     implements LastControllerCommand {
   const factory _LastControllerCommandPlayOrPause() =
       _$_LastControllerCommandPlayOrPause;
+}
+
+/// @nodoc
+class _$VideoPlayerStateTearOff {
+  const _$VideoPlayerStateTearOff();
+
+// ignore: unused_element
+  _VideoPlayerStatePreInitialized preInitialized() {
+    return const _VideoPlayerStatePreInitialized();
+  }
+
+// ignore: unused_element
+  _VideoPlayerStateReady ready() {
+    return const _VideoPlayerStateReady();
+  }
+
+// ignore: unused_element
+  _VideoPlayerStateError error(String msg) {
+    return _VideoPlayerStateError(
+      msg,
+    );
+  }
+
+// ignore: unused_element
+  _VideoPlayerStateFinish finish() {
+    return const _VideoPlayerStateFinish();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $VideoPlayerState = _$VideoPlayerStateTearOff();
+
+/// @nodoc
+mixin _$VideoPlayerState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult ready(),
+    @required TResult error(String msg),
+    @required TResult finish(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult ready(),
+    TResult error(String msg),
+    TResult finish(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    @required TResult ready(_VideoPlayerStateReady value),
+    @required TResult error(_VideoPlayerStateError value),
+    @required TResult finish(_VideoPlayerStateFinish value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    TResult ready(_VideoPlayerStateReady value),
+    TResult error(_VideoPlayerStateError value),
+    TResult finish(_VideoPlayerStateFinish value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $VideoPlayerStateCopyWith<$Res> {
+  factory $VideoPlayerStateCopyWith(
+          VideoPlayerState value, $Res Function(VideoPlayerState) then) =
+      _$VideoPlayerStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$VideoPlayerStateCopyWithImpl<$Res>
+    implements $VideoPlayerStateCopyWith<$Res> {
+  _$VideoPlayerStateCopyWithImpl(this._value, this._then);
+
+  final VideoPlayerState _value;
+  // ignore: unused_field
+  final $Res Function(VideoPlayerState) _then;
+}
+
+/// @nodoc
+abstract class _$VideoPlayerStatePreInitializedCopyWith<$Res> {
+  factory _$VideoPlayerStatePreInitializedCopyWith(
+          _VideoPlayerStatePreInitialized value,
+          $Res Function(_VideoPlayerStatePreInitialized) then) =
+      __$VideoPlayerStatePreInitializedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$VideoPlayerStatePreInitializedCopyWithImpl<$Res>
+    extends _$VideoPlayerStateCopyWithImpl<$Res>
+    implements _$VideoPlayerStatePreInitializedCopyWith<$Res> {
+  __$VideoPlayerStatePreInitializedCopyWithImpl(
+      _VideoPlayerStatePreInitialized _value,
+      $Res Function(_VideoPlayerStatePreInitialized) _then)
+      : super(_value, (v) => _then(v as _VideoPlayerStatePreInitialized));
+
+  @override
+  _VideoPlayerStatePreInitialized get _value =>
+      super._value as _VideoPlayerStatePreInitialized;
+}
+
+/// @nodoc
+class _$_VideoPlayerStatePreInitialized
+    implements _VideoPlayerStatePreInitialized {
+  const _$_VideoPlayerStatePreInitialized();
+
+  @override
+  String toString() {
+    return 'VideoPlayerState.preInitialized()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _VideoPlayerStatePreInitialized);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult ready(),
+    @required TResult error(String msg),
+    @required TResult finish(),
+  }) {
+    assert(preInitialized != null);
+    assert(ready != null);
+    assert(error != null);
+    assert(finish != null);
+    return preInitialized();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult ready(),
+    TResult error(String msg),
+    TResult finish(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (preInitialized != null) {
+      return preInitialized();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    @required TResult ready(_VideoPlayerStateReady value),
+    @required TResult error(_VideoPlayerStateError value),
+    @required TResult finish(_VideoPlayerStateFinish value),
+  }) {
+    assert(preInitialized != null);
+    assert(ready != null);
+    assert(error != null);
+    assert(finish != null);
+    return preInitialized(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    TResult ready(_VideoPlayerStateReady value),
+    TResult error(_VideoPlayerStateError value),
+    TResult finish(_VideoPlayerStateFinish value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (preInitialized != null) {
+      return preInitialized(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _VideoPlayerStatePreInitialized implements VideoPlayerState {
+  const factory _VideoPlayerStatePreInitialized() =
+      _$_VideoPlayerStatePreInitialized;
+}
+
+/// @nodoc
+abstract class _$VideoPlayerStateReadyCopyWith<$Res> {
+  factory _$VideoPlayerStateReadyCopyWith(_VideoPlayerStateReady value,
+          $Res Function(_VideoPlayerStateReady) then) =
+      __$VideoPlayerStateReadyCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$VideoPlayerStateReadyCopyWithImpl<$Res>
+    extends _$VideoPlayerStateCopyWithImpl<$Res>
+    implements _$VideoPlayerStateReadyCopyWith<$Res> {
+  __$VideoPlayerStateReadyCopyWithImpl(_VideoPlayerStateReady _value,
+      $Res Function(_VideoPlayerStateReady) _then)
+      : super(_value, (v) => _then(v as _VideoPlayerStateReady));
+
+  @override
+  _VideoPlayerStateReady get _value => super._value as _VideoPlayerStateReady;
+}
+
+/// @nodoc
+class _$_VideoPlayerStateReady implements _VideoPlayerStateReady {
+  const _$_VideoPlayerStateReady();
+
+  @override
+  String toString() {
+    return 'VideoPlayerState.ready()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _VideoPlayerStateReady);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult ready(),
+    @required TResult error(String msg),
+    @required TResult finish(),
+  }) {
+    assert(preInitialized != null);
+    assert(ready != null);
+    assert(error != null);
+    assert(finish != null);
+    return ready();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult ready(),
+    TResult error(String msg),
+    TResult finish(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (ready != null) {
+      return ready();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    @required TResult ready(_VideoPlayerStateReady value),
+    @required TResult error(_VideoPlayerStateError value),
+    @required TResult finish(_VideoPlayerStateFinish value),
+  }) {
+    assert(preInitialized != null);
+    assert(ready != null);
+    assert(error != null);
+    assert(finish != null);
+    return ready(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    TResult ready(_VideoPlayerStateReady value),
+    TResult error(_VideoPlayerStateError value),
+    TResult finish(_VideoPlayerStateFinish value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (ready != null) {
+      return ready(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _VideoPlayerStateReady implements VideoPlayerState {
+  const factory _VideoPlayerStateReady() = _$_VideoPlayerStateReady;
+}
+
+/// @nodoc
+abstract class _$VideoPlayerStateErrorCopyWith<$Res> {
+  factory _$VideoPlayerStateErrorCopyWith(_VideoPlayerStateError value,
+          $Res Function(_VideoPlayerStateError) then) =
+      __$VideoPlayerStateErrorCopyWithImpl<$Res>;
+  $Res call({String msg});
+}
+
+/// @nodoc
+class __$VideoPlayerStateErrorCopyWithImpl<$Res>
+    extends _$VideoPlayerStateCopyWithImpl<$Res>
+    implements _$VideoPlayerStateErrorCopyWith<$Res> {
+  __$VideoPlayerStateErrorCopyWithImpl(_VideoPlayerStateError _value,
+      $Res Function(_VideoPlayerStateError) _then)
+      : super(_value, (v) => _then(v as _VideoPlayerStateError));
+
+  @override
+  _VideoPlayerStateError get _value => super._value as _VideoPlayerStateError;
+
+  @override
+  $Res call({
+    Object msg = freezed,
+  }) {
+    return _then(_VideoPlayerStateError(
+      msg == freezed ? _value.msg : msg as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_VideoPlayerStateError implements _VideoPlayerStateError {
+  const _$_VideoPlayerStateError(this.msg) : assert(msg != null);
+
+  @override
+  final String msg;
+
+  @override
+  String toString() {
+    return 'VideoPlayerState.error(msg: $msg)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _VideoPlayerStateError &&
+            (identical(other.msg, msg) ||
+                const DeepCollectionEquality().equals(other.msg, msg)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(msg);
+
+  @override
+  _$VideoPlayerStateErrorCopyWith<_VideoPlayerStateError> get copyWith =>
+      __$VideoPlayerStateErrorCopyWithImpl<_VideoPlayerStateError>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult ready(),
+    @required TResult error(String msg),
+    @required TResult finish(),
+  }) {
+    assert(preInitialized != null);
+    assert(ready != null);
+    assert(error != null);
+    assert(finish != null);
+    return error(msg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult ready(),
+    TResult error(String msg),
+    TResult finish(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(msg);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    @required TResult ready(_VideoPlayerStateReady value),
+    @required TResult error(_VideoPlayerStateError value),
+    @required TResult finish(_VideoPlayerStateFinish value),
+  }) {
+    assert(preInitialized != null);
+    assert(ready != null);
+    assert(error != null);
+    assert(finish != null);
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    TResult ready(_VideoPlayerStateReady value),
+    TResult error(_VideoPlayerStateError value),
+    TResult finish(_VideoPlayerStateFinish value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _VideoPlayerStateError implements VideoPlayerState {
+  const factory _VideoPlayerStateError(String msg) = _$_VideoPlayerStateError;
+
+  String get msg;
+  _$VideoPlayerStateErrorCopyWith<_VideoPlayerStateError> get copyWith;
+}
+
+/// @nodoc
+abstract class _$VideoPlayerStateFinishCopyWith<$Res> {
+  factory _$VideoPlayerStateFinishCopyWith(_VideoPlayerStateFinish value,
+          $Res Function(_VideoPlayerStateFinish) then) =
+      __$VideoPlayerStateFinishCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$VideoPlayerStateFinishCopyWithImpl<$Res>
+    extends _$VideoPlayerStateCopyWithImpl<$Res>
+    implements _$VideoPlayerStateFinishCopyWith<$Res> {
+  __$VideoPlayerStateFinishCopyWithImpl(_VideoPlayerStateFinish _value,
+      $Res Function(_VideoPlayerStateFinish) _then)
+      : super(_value, (v) => _then(v as _VideoPlayerStateFinish));
+
+  @override
+  _VideoPlayerStateFinish get _value => super._value as _VideoPlayerStateFinish;
+}
+
+/// @nodoc
+class _$_VideoPlayerStateFinish implements _VideoPlayerStateFinish {
+  const _$_VideoPlayerStateFinish();
+
+  @override
+  String toString() {
+    return 'VideoPlayerState.finish()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _VideoPlayerStateFinish);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult preInitialized(),
+    @required TResult ready(),
+    @required TResult error(String msg),
+    @required TResult finish(),
+  }) {
+    assert(preInitialized != null);
+    assert(ready != null);
+    assert(error != null);
+    assert(finish != null);
+    return finish();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult preInitialized(),
+    TResult ready(),
+    TResult error(String msg),
+    TResult finish(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (finish != null) {
+      return finish();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    @required TResult ready(_VideoPlayerStateReady value),
+    @required TResult error(_VideoPlayerStateError value),
+    @required TResult finish(_VideoPlayerStateFinish value),
+  }) {
+    assert(preInitialized != null);
+    assert(ready != null);
+    assert(error != null);
+    assert(finish != null);
+    return finish(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult preInitialized(_VideoPlayerStatePreInitialized value),
+    TResult ready(_VideoPlayerStateReady value),
+    TResult error(_VideoPlayerStateError value),
+    TResult finish(_VideoPlayerStateFinish value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (finish != null) {
+      return finish(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _VideoPlayerStateFinish implements VideoPlayerState {
+  const factory _VideoPlayerStateFinish() = _$_VideoPlayerStateFinish;
 }

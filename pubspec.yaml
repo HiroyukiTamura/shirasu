@@ -60,6 +60,7 @@ dependencies:
   flutter_custom_clippers: ^1.1.2
   double_tap_player_view: ^1.0.6
   lottie: ^0.7.0+1
+  uuid: ^2.2.2
   flutter_video_background:
     path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background
 

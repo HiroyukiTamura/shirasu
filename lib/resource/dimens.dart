@@ -29,4 +29,6 @@ class Dimens {
   /// same as default value of [IconButton.iconSize]
   static const double VIDEO_FULLSCREEN_BTN_SIZE = 24;
   static const double VIDEO_FULLSCREEN_BTN_SIZE_BIG = 36;
+
+  static const double VIDEO_PLAY_PAUSE_BTN_W = 108;
 }

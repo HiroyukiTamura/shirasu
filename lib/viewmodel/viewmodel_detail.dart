@@ -15,11 +15,19 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:uuid/uuid.dart';
+
+import 'controller_hide_timer.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(this.id, this._ref)
       : channelId = UrlUtil.programId2channelId(id),
-        super(ModelDetail.initial());
+        super(ModelDetail.initial()) {
+    _hideTimer = ControllerHideTimer(_hideController);
+  }
+
+  static const SEC_FAST_SEEK_BY_BTN = Duration(seconds: 30);
+  static const SEC_FAST_SEEK_BY_DOUBLE_TAP = Duration(seconds: 10);
 
   final _apiClient = ApiClient.instance();
   final _dioClient = DioClient();
@@ -27,6 +35,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   final AutoDisposeProviderReference _ref;
   final String id;
   final String channelId;
+
+  ControllerHideTimer _hideTimer;
 
   DetailPrgItem get _previewArchivedVideoData {
     final v = state.prgDataResult;
@@ -150,7 +160,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }) =>
       state = state.copyWith.playOutState(
         fullScreen: fullScreen,
-        isVideoControllerInitialized: false,
+        videoPlayerState: const VideoPlayerState.preInitialized(),
       );
 
   void setAsVideoControllerInitialized({
@@ -163,7 +173,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       state = state.copyWith.playOutState(
         fullScreen: fullScreen,
         totalDuration: totalDuration,
-        isVideoControllerInitialized: true,
+        videoPlayerState: const VideoPlayerState.ready(),
       );
   }
 
@@ -176,14 +186,16 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     if (fullScreen != state.playOutState.fullScreen) return;
 
-    state = applyCurrentPosUi ? state.copyWith.playOutState(
-      currentPos: currentPos,
-      currentPosForUi: currentPos,
-      fullScreen: fullScreen,
-    ) : state.copyWith.playOutState(
-      currentPos: currentPos,
-      fullScreen: fullScreen,
-    );
+    state = applyCurrentPosUi
+        ? state.copyWith.playOutState(
+            currentPos: currentPos,
+            currentPosForUi: currentPos,
+            fullScreen: fullScreen,
+          )
+        : state.copyWith.playOutState(
+            currentPos: currentPos,
+            fullScreen: fullScreen,
+          );
   }
 
   void setVideoDurations({
@@ -222,8 +234,97 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       );
   }
 
-  void commandVideoController(LastControllerCommand command) =>
+  /// allow commands any time though [videoPlayerState] is not ready
+  void commandVideoController({
+    @required bool fullScreen,
+    @required LastControllerCommand command,
+  }) {
+    if (fullScreen == state.playOutState.fullScreen)
       state = state.copyWith.playOutState(
-        lastControllerCommand: command,
+        lastControllerCommandHolder: LastControllerCommandHolder.create(command),
       );
+  }
+
+  void updateVideoPlayerState({
+    @required bool fullScreen,
+    @required VideoPlayerState videoPlayerState,
+  }) =>
+      state = state.copyWith.playOutState(
+        videoPlayerState: videoPlayerState,
+      );
+
+  void _hideController() {
+    if (mounted)
+      state = state.copyWith.playOutState(controllerVisibility: false);
+  }
+
+  void hide() {
+    _hideTimer.cancel();
+    _hideController();
+  }
+
+  void toggleVisibility() {
+    if (state.playOutState.videoPlayerState != const VideoPlayerState.ready())
+      return;
+
+    final controllerVisibility = state.playOutState.controllerVisibility;
+    controllerVisibility ? _hideTimer.cancel() : _hideTimer.renew();
+    state = state.copyWith.playOutState(
+      controllerVisibility: !controllerVisibility,
+    );
+  }
+
+  /// must be [mounted] == true && [state.isInitialized] == true
+  void seek(bool fullScreen, Duration diff) {
+    if (fullScreen == state.playOutState.fullScreen) {
+      commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seek(diff),
+      );
+      _hideTimer.renew();
+    }
+  }
+
+  /// must be [mounted] == true && [state.isInitialized] == true
+  void seekToWithSlider(
+      bool fullScreen, Duration duration, bool applyController, bool endDrag) {
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    _hideTimer.renew();
+
+    if (endDrag) {
+      state = state.copyWith.playOutState(
+        isSeekBarDragging: false,
+      );
+    }
+    setCurrentPos(
+      fullScreen: fullScreen,
+      currentPos: duration,
+      applyCurrentPosUi: true,
+    );
+    if (applyController)
+      commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seekTo(duration),
+      );
+  }
+
+  void playOrPause(bool fullScreen) {
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    _hideTimer.renew();
+    commandVideoController(
+      fullScreen: fullScreen,
+      command: const LastControllerCommand.playOrPause(),
+    );
+  }
+
+  void updateIsisBuffering({
+    @required bool fullScreen,
+    @required bool isBuffering,
+  }) {
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    state = state.copyWith.playOutState(isBuffering: isBuffering);
+  }
 }

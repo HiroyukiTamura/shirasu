@@ -15,7 +15,7 @@ class _PlayOrPauseIcon extends HookWidget {
   Widget build(BuildContext _context) => _playOrPauseIcon(id: id);
 }
 
-class PlayOrPauseBtn extends StatelessWidget {
+class PlayOrPauseBtn extends HookWidget {
   const PlayOrPauseBtn({Key key, @required this.onTap, @required this.id})
       : super(key: key);
 

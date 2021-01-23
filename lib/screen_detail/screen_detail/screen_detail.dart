@@ -43,7 +43,7 @@ final kPrvVideoControllerReady =
     Provider.family.autoDispose<bool, String>((ref, id) {
   final playOutState = ref.watch(detailSNProvider(id).state).playOutState;
   return playOutState.commandedState == const PlayerCommandedState.postPlay() &&
-      playOutState.isVideoControllerInitialized;
+      playOutState.videoPlayerState == const VideoPlayerState.ready();
 });
 
 final _pBtmSheetExpanded = Provider.autoDispose.family<PageSheetModel, String>(

@@ -18,7 +18,7 @@ Widget playerAnimOpacity({
   @required VideoViewModelConf conf,
 }) {
   final visible = useProvider(
-      pVideoViewModel(conf).state.select((it) => it.controllerVisibility));
+      detailSNProvider(conf.id).state.select((it) => it.playOutState.controllerVisibility));
   return AnimatedOpacity(
     opacity: visible ? 1 : 0,
     duration: const Duration(milliseconds: 500),
@@ -90,10 +90,10 @@ class VideoSeekBar extends HookWidget {
   }
 
   void _onChanged(BuildContext context, double value) => context
-      .read(pVideoViewModel(conf))
-      .seekToWithSlider(Duration(seconds: value.toInt()), false, false);
+      .read(detailSNProvider(conf.id))
+      .seekToWithSlider(conf.fullScreen, Duration(seconds: value.toInt()), false, false);
 
   void _onChangedEnd(BuildContext context, double value) => context
-      .read(pVideoViewModel(conf))
-      .seekToWithSlider(Duration(seconds: value.toInt()), true, true);
+      .read(detailSNProvider(conf.id))
+      .seekToWithSlider(conf.fullScreen, Duration(seconds: value.toInt()), true, true);
 }

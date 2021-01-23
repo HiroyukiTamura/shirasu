@@ -17,6 +17,7 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/player_controll
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
+import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_top.dart';
 import 'package:shirasu/extension.dart';
@@ -108,37 +109,37 @@ class PlayerControllerView extends HookWidget {
       );
 
   void _onTapPlayToggleBtn(BuildContext context) =>
-      context.read(pVideoViewModel(conf)).playOrPause();
+      context.read(detailSNProvider(conf.id)).playOrPause(conf.fullScreen);
 
   void _onTapFastForwardBtn(BuildContext context) =>
-      _seek(context, VideoViewModel.SEC_FAST_SEEK_BY_BTN);
+      _seek(context, ViewModelDetail.SEC_FAST_SEEK_BY_BTN);
 
   void _onTapRewindBtn(BuildContext context) =>
-      _seek(context, -VideoViewModel.SEC_FAST_SEEK_BY_BTN);
+      _seek(context, -ViewModelDetail.SEC_FAST_SEEK_BY_BTN);
 
   void _seek(BuildContext context, Duration diff) =>
-      context.read(pVideoViewModel(conf)).seek(diff);
+      context.read(detailSNProvider(conf.id)).seek(conf.fullScreen, diff);
 
   Future<void> _onTapFullScreenBtn(BuildContext context) async =>
       context.toggleFullScreenMode();
 
   void _onTapBgBtn(BuildContext context) =>
-      context.read(pVideoViewModel(conf)).toggleVisibility();
+      context.read(detailSNProvider(conf.id)).toggleVisibility();
 
   void _onDoubleTap(BuildContext context, Lr lr) {
-    context.read(pVideoViewModel(conf)).hide();
+    context.read(detailSNProvider(conf.id)).hide();
     context.read(_kSPrvDoubleTapEvent(lr)).state++;
 
     final duration = lr == Lr.LEFT
-        ? -VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP
-        : VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP;
+        ? -ViewModelDetail.SEC_FAST_SEEK_BY_DOUBLE_TAP
+        : ViewModelDetail.SEC_FAST_SEEK_BY_DOUBLE_TAP;
     _seek(context, duration);
   }
 
   void _onSwipeEnd(BuildContext context, SwipeData data) {
     _seek(context, data.diffDuration);
     _clearStartDx(context, 0);
-    context.read(pVideoViewModel(conf)).hide();
+    context.read(detailSNProvider(conf.id)).hide();
   }
 
   void _clearStartDx(BuildContext context, double dx) =>
@@ -146,7 +147,7 @@ class PlayerControllerView extends HookWidget {
 
   String _buildTapLabel(Lr lr, int tapCount) {
     final swapSec =
-        tapCount * VideoViewModel.SEC_FAST_SEEK_BY_DOUBLE_TAP.inSeconds;
+        tapCount * ViewModelDetail.SEC_FAST_SEEK_BY_DOUBLE_TAP.inSeconds;
     return '$swapSec${Strings.TIME_UNIT_SEC}';
   }
 

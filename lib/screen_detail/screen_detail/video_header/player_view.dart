@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
-import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
@@ -17,11 +16,13 @@ import '../screen_detail.dart';
 
 // part 'player_view.g.dart';
 
-final _kPrvVideoCommand = Provider.autoDispose
-    .family<LastControllerCommand, String>((ref, id) => ref
-        .watch(detailSNProvider(id).state)
-        .playOutState
-        .lastControllerCommand);
+final _kPrvVideoCommand =
+    Provider.autoDispose.family<LastControllerCommandHolder, String>(
+  (ref, id) => ref
+      .watch(detailSNProvider(id).state)
+      .playOutState
+      .lastControllerCommandHolder
+);
 
 class PlayerView extends StatefulHookWidget {
   const PlayerView({Key key, this.conf}) : super(key: key);
@@ -45,13 +46,6 @@ class _PlayerViewState extends State<PlayerView>
       ..addEventsListener(_playerEventListener);
     _dataSource = _createDataSource(playOutSource);
   }
-
-  // @override
-  // void didUpdateWidget(covariant PlayerView oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   // _controller = _createController(_playOutState, widget.conf.id);
-  //   _viewModel.ensureController(_controller);
-  // }
 
   @override
   void dispose() {
@@ -84,11 +78,15 @@ class _PlayerViewState extends State<PlayerView>
       );
 
   @override
-  void afterFirstLayout(BuildContext context) =>
-      _controller.setupDataSource(_dataSource);
+  void afterFirstLayout(BuildContext context) {
+    _controller.setupDataSource(_dataSource).then((value) {
+      if (mounted)
+        _controller.videoPlayerController.addListener(_rawVideoPlayerListener);
+    });
+  }
 
-  void _onPlayerCommanded(BuildContext context, LastControllerCommand command) {
-    command.when(
+  void _onPlayerCommanded(BuildContext context, LastControllerCommandHolder holder) {
+    holder.command.when(
       play: () async {
         if (_controller.videoPlayerController.value.initialized)
           await _controller.play();
@@ -130,11 +128,10 @@ class _PlayerViewState extends State<PlayerView>
         _onInitializedEvent();
         break;
       case BetterPlayerEventType.finished:
-        //todo handle error
+        _onFinish();
         break;
       case BetterPlayerEventType.exception:
-        //todo log error
-        debugPrint(event.exception);
+        _onException(event.exception);
         break;
       case BetterPlayerEventType.progress:
         _onProgressEvent(event);
@@ -158,14 +155,11 @@ class _PlayerViewState extends State<PlayerView>
     }
   }
 
-  void _onInitializedEvent() {
-    if (!mounted) return;
-
-    _getViewModelDetail(context).setAsVideoControllerInitialized(
-      totalDuration: _controller.videoPlayerController.value.duration,
-      fullScreen: widget.conf.fullScreen,
-    );
-  }
+  void _onInitializedEvent() =>
+      _getViewModelDetail(context).setAsVideoControllerInitialized(
+        totalDuration: _controller.videoPlayerController.value.duration,
+        fullScreen: widget.conf.fullScreen,
+      );
 
   void _onProgressEvent(BetterPlayerEvent event) =>
       _getViewModelDetail(context).setVideoDurations(
@@ -188,7 +182,25 @@ class _PlayerViewState extends State<PlayerView>
         isPlaying: play,
       );
 
+  void _onException(String exception) =>
+      _getViewModelDetail(context).updateVideoPlayerState(
+        fullScreen: widget.conf.fullScreen,
+        videoPlayerState: VideoPlayerState.error(exception),
+      );
+
+  void _onFinish() => _getViewModelDetail(context).updateVideoPlayerState(
+        fullScreen: widget.conf.fullScreen,
+        videoPlayerState: const VideoPlayerState.finish(),
+      );
+
   // endregion
+
+  // todo send issue to BetterPlayer repository
+  void _rawVideoPlayerListener() =>
+      _getViewModelDetail(context).updateIsisBuffering(
+        fullScreen: widget.conf.fullScreen,
+        isBuffering: _controller.isBuffering(),
+      );
 
   static BetterPlayerController _createController(
       PlayOutState playOutState, String id) {
@@ -226,9 +238,6 @@ class _PlayerViewState extends State<PlayerView>
         },
       );
 
-  VideoViewModel _getViewModel(BuildContext context) =>
-      context.read(pVideoViewModel(widget.conf));
-
   ViewModelDetail _getViewModelDetail(BuildContext context) =>
       context.read(detailSNProvider(widget.conf.id));
 
@@ -236,5 +245,5 @@ class _PlayerViewState extends State<PlayerView>
       context.read(detailSNProvider(widget.conf.id).state).playOutState;
 
   bool _isSeekBarDragging(BuildContext context) =>
-      context.read(pVideoViewModel(widget.conf).state).isSeekBarDragging;
+      _getPlayOutState(context).isSeekBarDragging;
 }

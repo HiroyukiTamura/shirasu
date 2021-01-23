@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:uuid/uuid.dart';
 
 part 'model_detail.freezed.dart';
 
@@ -65,12 +66,16 @@ abstract class PlayOutState implements _$PlayOutState {
     String cookie,
     @Default(false) bool isPlaying,
     @Default(Duration.zero) Duration currentPos,
-    @Default(Duration.zero) Duration totalDuration,
-    @Default(false) bool fullScreen,
-    @Default(false) bool isVideoControllerInitialized,
-    @Default(LastControllerCommand.initial())
-        LastControllerCommand lastControllerCommand,
     @Default(Duration.zero) Duration currentPosForUi,
+    @Default(Duration.zero) Duration totalDuration,
+    @Default(false) bool controllerVisibility,
+    @Default(false) bool isSeekBarDragging,
+    @Default(false) bool fullScreen,
+    @Default(false) bool isBuffering,
+    @Default(VideoPlayerState.preInitialized())
+        VideoPlayerState videoPlayerState,
+    @Default(LastControllerCommandHolder())
+        LastControllerCommandHolder lastControllerCommandHolder,
   }) = _PlayOutState;
 
   factory PlayOutState.initial() => const PlayOutState(
@@ -130,6 +135,17 @@ abstract class PageSheetModel with _$PageSheetModel {
 }
 
 @freezed
+abstract class LastControllerCommandHolder with _$LastControllerCommandHolder {
+  const factory LastControllerCommandHolder({
+    @Default(LastControllerCommand.initial()) LastControllerCommand command,
+    @Default('') String commandKey,
+  }) = _LastControllerCommandHolder;
+
+  factory LastControllerCommandHolder.create(LastControllerCommand command) =>
+      LastControllerCommandHolder(commandKey: Uuid().v4(), command: command);
+}
+
+@freezed
 abstract class LastControllerCommand with _$LastControllerCommand {
   const factory LastControllerCommand.initial() = _LastControllerCommandInitial;
 
@@ -145,4 +161,16 @@ abstract class LastControllerCommand with _$LastControllerCommand {
 
   const factory LastControllerCommand.playOrPause() =
       _LastControllerCommandPlayOrPause;
+}
+
+@freezed
+abstract class VideoPlayerState with _$VideoPlayerState {
+  const factory VideoPlayerState.preInitialized() =
+      _VideoPlayerStatePreInitialized;
+
+  const factory VideoPlayerState.ready() = _VideoPlayerStateReady;
+
+  const factory VideoPlayerState.error(String msg) = _VideoPlayerStateError;
+
+  const factory VideoPlayerState.finish() = _VideoPlayerStateFinish;
 }

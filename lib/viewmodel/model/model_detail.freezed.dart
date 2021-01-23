@@ -835,7 +835,10 @@ class _$PlayOutStateTearOff {
       bool isPlaying = false,
       Duration currentPos = Duration.zero,
       Duration totalDuration = Duration.zero,
-      bool fullScreen = false}) {
+      bool fullScreen = false,
+      bool isVideoControllerInitialized = false,
+      LastControllerCommand lastControllerCommand =
+          const LastControllerCommand.initial()}) {
     return _PlayOutState(
       commandedState: commandedState,
       hlsMediaUrl: hlsMediaUrl,
@@ -845,6 +848,8 @@ class _$PlayOutStateTearOff {
       currentPos: currentPos,
       totalDuration: totalDuration,
       fullScreen: fullScreen,
+      isVideoControllerInitialized: isVideoControllerInitialized,
+      lastControllerCommand: lastControllerCommand,
     );
   }
 }
@@ -863,6 +868,8 @@ mixin _$PlayOutState {
   Duration get currentPos;
   Duration get totalDuration;
   bool get fullScreen;
+  bool get isVideoControllerInitialized;
+  LastControllerCommand get lastControllerCommand;
 
   $PlayOutStateCopyWith<PlayOutState> get copyWith;
 }
@@ -880,9 +887,12 @@ abstract class $PlayOutStateCopyWith<$Res> {
       bool isPlaying,
       Duration currentPos,
       Duration totalDuration,
-      bool fullScreen});
+      bool fullScreen,
+      bool isVideoControllerInitialized,
+      LastControllerCommand lastControllerCommand});
 
   $PlayerCommandedStateCopyWith<$Res> get commandedState;
+  $LastControllerCommandCopyWith<$Res> get lastControllerCommand;
 }
 
 /// @nodoc
@@ -903,6 +913,8 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
     Object currentPos = freezed,
     Object totalDuration = freezed,
     Object fullScreen = freezed,
+    Object isVideoControllerInitialized = freezed,
+    Object lastControllerCommand = freezed,
   }) {
     return _then(_value.copyWith(
       commandedState: commandedState == freezed
@@ -921,6 +933,12 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
           : totalDuration as Duration,
       fullScreen:
           fullScreen == freezed ? _value.fullScreen : fullScreen as bool,
+      isVideoControllerInitialized: isVideoControllerInitialized == freezed
+          ? _value.isVideoControllerInitialized
+          : isVideoControllerInitialized as bool,
+      lastControllerCommand: lastControllerCommand == freezed
+          ? _value.lastControllerCommand
+          : lastControllerCommand as LastControllerCommand,
     ));
   }
 
@@ -931,6 +949,17 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
     }
     return $PlayerCommandedStateCopyWith<$Res>(_value.commandedState, (value) {
       return _then(_value.copyWith(commandedState: value));
+    });
+  }
+
+  @override
+  $LastControllerCommandCopyWith<$Res> get lastControllerCommand {
+    if (_value.lastControllerCommand == null) {
+      return null;
+    }
+    return $LastControllerCommandCopyWith<$Res>(_value.lastControllerCommand,
+        (value) {
+      return _then(_value.copyWith(lastControllerCommand: value));
     });
   }
 }
@@ -950,10 +979,14 @@ abstract class _$PlayOutStateCopyWith<$Res>
       bool isPlaying,
       Duration currentPos,
       Duration totalDuration,
-      bool fullScreen});
+      bool fullScreen,
+      bool isVideoControllerInitialized,
+      LastControllerCommand lastControllerCommand});
 
   @override
   $PlayerCommandedStateCopyWith<$Res> get commandedState;
+  @override
+  $LastControllerCommandCopyWith<$Res> get lastControllerCommand;
 }
 
 /// @nodoc
@@ -976,6 +1009,8 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
     Object currentPos = freezed,
     Object totalDuration = freezed,
     Object fullScreen = freezed,
+    Object isVideoControllerInitialized = freezed,
+    Object lastControllerCommand = freezed,
   }) {
     return _then(_PlayOutState(
       commandedState: commandedState == freezed
@@ -994,6 +1029,12 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
           : totalDuration as Duration,
       fullScreen:
           fullScreen == freezed ? _value.fullScreen : fullScreen as bool,
+      isVideoControllerInitialized: isVideoControllerInitialized == freezed
+          ? _value.isVideoControllerInitialized
+          : isVideoControllerInitialized as bool,
+      lastControllerCommand: lastControllerCommand == freezed
+          ? _value.lastControllerCommand
+          : lastControllerCommand as LastControllerCommand,
     ));
   }
 }
@@ -1008,12 +1049,16 @@ class _$_PlayOutState extends _PlayOutState {
       this.isPlaying = false,
       this.currentPos = Duration.zero,
       this.totalDuration = Duration.zero,
-      this.fullScreen = false})
+      this.fullScreen = false,
+      this.isVideoControllerInitialized = false,
+      this.lastControllerCommand = const LastControllerCommand.initial()})
       : assert(commandedState != null),
         assert(isPlaying != null),
         assert(currentPos != null),
         assert(totalDuration != null),
         assert(fullScreen != null),
+        assert(isVideoControllerInitialized != null),
+        assert(lastControllerCommand != null),
         super._();
 
   @override
@@ -1036,10 +1081,16 @@ class _$_PlayOutState extends _PlayOutState {
   @JsonKey(defaultValue: false)
   @override
   final bool fullScreen;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isVideoControllerInitialized;
+  @JsonKey(defaultValue: const LastControllerCommand.initial())
+  @override
+  final LastControllerCommand lastControllerCommand;
 
   @override
   String toString() {
-    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie, isPlaying: $isPlaying, currentPos: $currentPos, totalDuration: $totalDuration, fullScreen: $fullScreen)';
+    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie, isPlaying: $isPlaying, currentPos: $currentPos, totalDuration: $totalDuration, fullScreen: $fullScreen, isVideoControllerInitialized: $isVideoControllerInitialized, lastControllerCommand: $lastControllerCommand)';
   }
 
   @override
@@ -1068,7 +1119,15 @@ class _$_PlayOutState extends _PlayOutState {
                     .equals(other.totalDuration, totalDuration)) &&
             (identical(other.fullScreen, fullScreen) ||
                 const DeepCollectionEquality()
-                    .equals(other.fullScreen, fullScreen)));
+                    .equals(other.fullScreen, fullScreen)) &&
+            (identical(other.isVideoControllerInitialized,
+                    isVideoControllerInitialized) ||
+                const DeepCollectionEquality().equals(
+                    other.isVideoControllerInitialized,
+                    isVideoControllerInitialized)) &&
+            (identical(other.lastControllerCommand, lastControllerCommand) ||
+                const DeepCollectionEquality().equals(
+                    other.lastControllerCommand, lastControllerCommand)));
   }
 
   @override
@@ -1081,7 +1140,9 @@ class _$_PlayOutState extends _PlayOutState {
       const DeepCollectionEquality().hash(isPlaying) ^
       const DeepCollectionEquality().hash(currentPos) ^
       const DeepCollectionEquality().hash(totalDuration) ^
-      const DeepCollectionEquality().hash(fullScreen);
+      const DeepCollectionEquality().hash(fullScreen) ^
+      const DeepCollectionEquality().hash(isVideoControllerInitialized) ^
+      const DeepCollectionEquality().hash(lastControllerCommand);
 
   @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith =>
@@ -1098,7 +1159,9 @@ abstract class _PlayOutState extends PlayOutState {
       bool isPlaying,
       Duration currentPos,
       Duration totalDuration,
-      bool fullScreen}) = _$_PlayOutState;
+      bool fullScreen,
+      bool isVideoControllerInitialized,
+      LastControllerCommand lastControllerCommand}) = _$_PlayOutState;
 
   @override
   PlayerCommandedState get commandedState;
@@ -1116,6 +1179,10 @@ abstract class _PlayOutState extends PlayOutState {
   Duration get totalDuration;
   @override
   bool get fullScreen;
+  @override
+  bool get isVideoControllerInitialized;
+  @override
+  LastControllerCommand get lastControllerCommand;
   @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith;
 }
@@ -2131,4 +2198,868 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
 
 abstract class PageSheetModelPricing implements PageSheetModel {
   const factory PageSheetModelPricing() = _$PageSheetModelPricing;
+}
+
+/// @nodoc
+class _$LastControllerCommandTearOff {
+  const _$LastControllerCommandTearOff();
+
+// ignore: unused_element
+  _LastControllerCommandInitial initial() {
+    return const _LastControllerCommandInitial();
+  }
+
+// ignore: unused_element
+  _LastControllerCommandPlay play() {
+    return const _LastControllerCommandPlay();
+  }
+
+// ignore: unused_element
+  _LastControllerCommandPause pause() {
+    return const _LastControllerCommandPause();
+  }
+
+// ignore: unused_element
+  _LastControllerCommandSeek seek(Duration diff) {
+    return _LastControllerCommandSeek(
+      diff,
+    );
+  }
+
+// ignore: unused_element
+  _LastControllerCommandSeekTo seekTo(Duration diff) {
+    return _LastControllerCommandSeekTo(
+      diff,
+    );
+  }
+
+// ignore: unused_element
+  _LastControllerCommandPlayOrPause playOrPause() {
+    return const _LastControllerCommandPlayOrPause();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $LastControllerCommand = _$LastControllerCommandTearOff();
+
+/// @nodoc
+mixin _$LastControllerCommand {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult play(),
+    @required TResult pause(),
+    @required TResult seek(Duration diff),
+    @required TResult seekTo(Duration diff),
+    @required TResult playOrPause(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult play(),
+    TResult pause(),
+    TResult seek(Duration diff),
+    TResult seekTo(Duration diff),
+    TResult playOrPause(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_LastControllerCommandInitial value),
+    @required TResult play(_LastControllerCommandPlay value),
+    @required TResult pause(_LastControllerCommandPause value),
+    @required TResult seek(_LastControllerCommandSeek value),
+    @required TResult seekTo(_LastControllerCommandSeekTo value),
+    @required TResult playOrPause(_LastControllerCommandPlayOrPause value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_LastControllerCommandInitial value),
+    TResult play(_LastControllerCommandPlay value),
+    TResult pause(_LastControllerCommandPause value),
+    TResult seek(_LastControllerCommandSeek value),
+    TResult seekTo(_LastControllerCommandSeekTo value),
+    TResult playOrPause(_LastControllerCommandPlayOrPause value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $LastControllerCommandCopyWith<$Res> {
+  factory $LastControllerCommandCopyWith(LastControllerCommand value,
+          $Res Function(LastControllerCommand) then) =
+      _$LastControllerCommandCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$LastControllerCommandCopyWithImpl<$Res>
+    implements $LastControllerCommandCopyWith<$Res> {
+  _$LastControllerCommandCopyWithImpl(this._value, this._then);
+
+  final LastControllerCommand _value;
+  // ignore: unused_field
+  final $Res Function(LastControllerCommand) _then;
+}
+
+/// @nodoc
+abstract class _$LastControllerCommandInitialCopyWith<$Res> {
+  factory _$LastControllerCommandInitialCopyWith(
+          _LastControllerCommandInitial value,
+          $Res Function(_LastControllerCommandInitial) then) =
+      __$LastControllerCommandInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LastControllerCommandInitialCopyWithImpl<$Res>
+    extends _$LastControllerCommandCopyWithImpl<$Res>
+    implements _$LastControllerCommandInitialCopyWith<$Res> {
+  __$LastControllerCommandInitialCopyWithImpl(
+      _LastControllerCommandInitial _value,
+      $Res Function(_LastControllerCommandInitial) _then)
+      : super(_value, (v) => _then(v as _LastControllerCommandInitial));
+
+  @override
+  _LastControllerCommandInitial get _value =>
+      super._value as _LastControllerCommandInitial;
+}
+
+/// @nodoc
+class _$_LastControllerCommandInitial implements _LastControllerCommandInitial {
+  const _$_LastControllerCommandInitial();
+
+  @override
+  String toString() {
+    return 'LastControllerCommand.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _LastControllerCommandInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult play(),
+    @required TResult pause(),
+    @required TResult seek(Duration diff),
+    @required TResult seekTo(Duration diff),
+    @required TResult playOrPause(),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult play(),
+    TResult pause(),
+    TResult seek(Duration diff),
+    TResult seekTo(Duration diff),
+    TResult playOrPause(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_LastControllerCommandInitial value),
+    @required TResult play(_LastControllerCommandPlay value),
+    @required TResult pause(_LastControllerCommandPause value),
+    @required TResult seek(_LastControllerCommandSeek value),
+    @required TResult seekTo(_LastControllerCommandSeekTo value),
+    @required TResult playOrPause(_LastControllerCommandPlayOrPause value),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_LastControllerCommandInitial value),
+    TResult play(_LastControllerCommandPlay value),
+    TResult pause(_LastControllerCommandPause value),
+    TResult seek(_LastControllerCommandSeek value),
+    TResult seekTo(_LastControllerCommandSeekTo value),
+    TResult playOrPause(_LastControllerCommandPlayOrPause value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LastControllerCommandInitial implements LastControllerCommand {
+  const factory _LastControllerCommandInitial() =
+      _$_LastControllerCommandInitial;
+}
+
+/// @nodoc
+abstract class _$LastControllerCommandPlayCopyWith<$Res> {
+  factory _$LastControllerCommandPlayCopyWith(_LastControllerCommandPlay value,
+          $Res Function(_LastControllerCommandPlay) then) =
+      __$LastControllerCommandPlayCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LastControllerCommandPlayCopyWithImpl<$Res>
+    extends _$LastControllerCommandCopyWithImpl<$Res>
+    implements _$LastControllerCommandPlayCopyWith<$Res> {
+  __$LastControllerCommandPlayCopyWithImpl(_LastControllerCommandPlay _value,
+      $Res Function(_LastControllerCommandPlay) _then)
+      : super(_value, (v) => _then(v as _LastControllerCommandPlay));
+
+  @override
+  _LastControllerCommandPlay get _value =>
+      super._value as _LastControllerCommandPlay;
+}
+
+/// @nodoc
+class _$_LastControllerCommandPlay implements _LastControllerCommandPlay {
+  const _$_LastControllerCommandPlay();
+
+  @override
+  String toString() {
+    return 'LastControllerCommand.play()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _LastControllerCommandPlay);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult play(),
+    @required TResult pause(),
+    @required TResult seek(Duration diff),
+    @required TResult seekTo(Duration diff),
+    @required TResult playOrPause(),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return play();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult play(),
+    TResult pause(),
+    TResult seek(Duration diff),
+    TResult seekTo(Duration diff),
+    TResult playOrPause(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (play != null) {
+      return play();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_LastControllerCommandInitial value),
+    @required TResult play(_LastControllerCommandPlay value),
+    @required TResult pause(_LastControllerCommandPause value),
+    @required TResult seek(_LastControllerCommandSeek value),
+    @required TResult seekTo(_LastControllerCommandSeekTo value),
+    @required TResult playOrPause(_LastControllerCommandPlayOrPause value),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return play(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_LastControllerCommandInitial value),
+    TResult play(_LastControllerCommandPlay value),
+    TResult pause(_LastControllerCommandPause value),
+    TResult seek(_LastControllerCommandSeek value),
+    TResult seekTo(_LastControllerCommandSeekTo value),
+    TResult playOrPause(_LastControllerCommandPlayOrPause value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (play != null) {
+      return play(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LastControllerCommandPlay implements LastControllerCommand {
+  const factory _LastControllerCommandPlay() = _$_LastControllerCommandPlay;
+}
+
+/// @nodoc
+abstract class _$LastControllerCommandPauseCopyWith<$Res> {
+  factory _$LastControllerCommandPauseCopyWith(
+          _LastControllerCommandPause value,
+          $Res Function(_LastControllerCommandPause) then) =
+      __$LastControllerCommandPauseCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LastControllerCommandPauseCopyWithImpl<$Res>
+    extends _$LastControllerCommandCopyWithImpl<$Res>
+    implements _$LastControllerCommandPauseCopyWith<$Res> {
+  __$LastControllerCommandPauseCopyWithImpl(_LastControllerCommandPause _value,
+      $Res Function(_LastControllerCommandPause) _then)
+      : super(_value, (v) => _then(v as _LastControllerCommandPause));
+
+  @override
+  _LastControllerCommandPause get _value =>
+      super._value as _LastControllerCommandPause;
+}
+
+/// @nodoc
+class _$_LastControllerCommandPause implements _LastControllerCommandPause {
+  const _$_LastControllerCommandPause();
+
+  @override
+  String toString() {
+    return 'LastControllerCommand.pause()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _LastControllerCommandPause);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult play(),
+    @required TResult pause(),
+    @required TResult seek(Duration diff),
+    @required TResult seekTo(Duration diff),
+    @required TResult playOrPause(),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return pause();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult play(),
+    TResult pause(),
+    TResult seek(Duration diff),
+    TResult seekTo(Duration diff),
+    TResult playOrPause(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (pause != null) {
+      return pause();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_LastControllerCommandInitial value),
+    @required TResult play(_LastControllerCommandPlay value),
+    @required TResult pause(_LastControllerCommandPause value),
+    @required TResult seek(_LastControllerCommandSeek value),
+    @required TResult seekTo(_LastControllerCommandSeekTo value),
+    @required TResult playOrPause(_LastControllerCommandPlayOrPause value),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return pause(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_LastControllerCommandInitial value),
+    TResult play(_LastControllerCommandPlay value),
+    TResult pause(_LastControllerCommandPause value),
+    TResult seek(_LastControllerCommandSeek value),
+    TResult seekTo(_LastControllerCommandSeekTo value),
+    TResult playOrPause(_LastControllerCommandPlayOrPause value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (pause != null) {
+      return pause(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LastControllerCommandPause implements LastControllerCommand {
+  const factory _LastControllerCommandPause() = _$_LastControllerCommandPause;
+}
+
+/// @nodoc
+abstract class _$LastControllerCommandSeekCopyWith<$Res> {
+  factory _$LastControllerCommandSeekCopyWith(_LastControllerCommandSeek value,
+          $Res Function(_LastControllerCommandSeek) then) =
+      __$LastControllerCommandSeekCopyWithImpl<$Res>;
+  $Res call({Duration diff});
+}
+
+/// @nodoc
+class __$LastControllerCommandSeekCopyWithImpl<$Res>
+    extends _$LastControllerCommandCopyWithImpl<$Res>
+    implements _$LastControllerCommandSeekCopyWith<$Res> {
+  __$LastControllerCommandSeekCopyWithImpl(_LastControllerCommandSeek _value,
+      $Res Function(_LastControllerCommandSeek) _then)
+      : super(_value, (v) => _then(v as _LastControllerCommandSeek));
+
+  @override
+  _LastControllerCommandSeek get _value =>
+      super._value as _LastControllerCommandSeek;
+
+  @override
+  $Res call({
+    Object diff = freezed,
+  }) {
+    return _then(_LastControllerCommandSeek(
+      diff == freezed ? _value.diff : diff as Duration,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_LastControllerCommandSeek implements _LastControllerCommandSeek {
+  const _$_LastControllerCommandSeek(this.diff) : assert(diff != null);
+
+  @override
+  final Duration diff;
+
+  @override
+  String toString() {
+    return 'LastControllerCommand.seek(diff: $diff)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _LastControllerCommandSeek &&
+            (identical(other.diff, diff) ||
+                const DeepCollectionEquality().equals(other.diff, diff)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(diff);
+
+  @override
+  _$LastControllerCommandSeekCopyWith<_LastControllerCommandSeek>
+      get copyWith =>
+          __$LastControllerCommandSeekCopyWithImpl<_LastControllerCommandSeek>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult play(),
+    @required TResult pause(),
+    @required TResult seek(Duration diff),
+    @required TResult seekTo(Duration diff),
+    @required TResult playOrPause(),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return seek(diff);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult play(),
+    TResult pause(),
+    TResult seek(Duration diff),
+    TResult seekTo(Duration diff),
+    TResult playOrPause(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (seek != null) {
+      return seek(diff);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_LastControllerCommandInitial value),
+    @required TResult play(_LastControllerCommandPlay value),
+    @required TResult pause(_LastControllerCommandPause value),
+    @required TResult seek(_LastControllerCommandSeek value),
+    @required TResult seekTo(_LastControllerCommandSeekTo value),
+    @required TResult playOrPause(_LastControllerCommandPlayOrPause value),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return seek(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_LastControllerCommandInitial value),
+    TResult play(_LastControllerCommandPlay value),
+    TResult pause(_LastControllerCommandPause value),
+    TResult seek(_LastControllerCommandSeek value),
+    TResult seekTo(_LastControllerCommandSeekTo value),
+    TResult playOrPause(_LastControllerCommandPlayOrPause value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (seek != null) {
+      return seek(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LastControllerCommandSeek implements LastControllerCommand {
+  const factory _LastControllerCommandSeek(Duration diff) =
+      _$_LastControllerCommandSeek;
+
+  Duration get diff;
+  _$LastControllerCommandSeekCopyWith<_LastControllerCommandSeek> get copyWith;
+}
+
+/// @nodoc
+abstract class _$LastControllerCommandSeekToCopyWith<$Res> {
+  factory _$LastControllerCommandSeekToCopyWith(
+          _LastControllerCommandSeekTo value,
+          $Res Function(_LastControllerCommandSeekTo) then) =
+      __$LastControllerCommandSeekToCopyWithImpl<$Res>;
+  $Res call({Duration diff});
+}
+
+/// @nodoc
+class __$LastControllerCommandSeekToCopyWithImpl<$Res>
+    extends _$LastControllerCommandCopyWithImpl<$Res>
+    implements _$LastControllerCommandSeekToCopyWith<$Res> {
+  __$LastControllerCommandSeekToCopyWithImpl(
+      _LastControllerCommandSeekTo _value,
+      $Res Function(_LastControllerCommandSeekTo) _then)
+      : super(_value, (v) => _then(v as _LastControllerCommandSeekTo));
+
+  @override
+  _LastControllerCommandSeekTo get _value =>
+      super._value as _LastControllerCommandSeekTo;
+
+  @override
+  $Res call({
+    Object diff = freezed,
+  }) {
+    return _then(_LastControllerCommandSeekTo(
+      diff == freezed ? _value.diff : diff as Duration,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_LastControllerCommandSeekTo implements _LastControllerCommandSeekTo {
+  const _$_LastControllerCommandSeekTo(this.diff) : assert(diff != null);
+
+  @override
+  final Duration diff;
+
+  @override
+  String toString() {
+    return 'LastControllerCommand.seekTo(diff: $diff)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _LastControllerCommandSeekTo &&
+            (identical(other.diff, diff) ||
+                const DeepCollectionEquality().equals(other.diff, diff)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(diff);
+
+  @override
+  _$LastControllerCommandSeekToCopyWith<_LastControllerCommandSeekTo>
+      get copyWith => __$LastControllerCommandSeekToCopyWithImpl<
+          _LastControllerCommandSeekTo>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult play(),
+    @required TResult pause(),
+    @required TResult seek(Duration diff),
+    @required TResult seekTo(Duration diff),
+    @required TResult playOrPause(),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return seekTo(diff);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult play(),
+    TResult pause(),
+    TResult seek(Duration diff),
+    TResult seekTo(Duration diff),
+    TResult playOrPause(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (seekTo != null) {
+      return seekTo(diff);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_LastControllerCommandInitial value),
+    @required TResult play(_LastControllerCommandPlay value),
+    @required TResult pause(_LastControllerCommandPause value),
+    @required TResult seek(_LastControllerCommandSeek value),
+    @required TResult seekTo(_LastControllerCommandSeekTo value),
+    @required TResult playOrPause(_LastControllerCommandPlayOrPause value),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return seekTo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_LastControllerCommandInitial value),
+    TResult play(_LastControllerCommandPlay value),
+    TResult pause(_LastControllerCommandPause value),
+    TResult seek(_LastControllerCommandSeek value),
+    TResult seekTo(_LastControllerCommandSeekTo value),
+    TResult playOrPause(_LastControllerCommandPlayOrPause value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (seekTo != null) {
+      return seekTo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LastControllerCommandSeekTo implements LastControllerCommand {
+  const factory _LastControllerCommandSeekTo(Duration diff) =
+      _$_LastControllerCommandSeekTo;
+
+  Duration get diff;
+  _$LastControllerCommandSeekToCopyWith<_LastControllerCommandSeekTo>
+      get copyWith;
+}
+
+/// @nodoc
+abstract class _$LastControllerCommandPlayOrPauseCopyWith<$Res> {
+  factory _$LastControllerCommandPlayOrPauseCopyWith(
+          _LastControllerCommandPlayOrPause value,
+          $Res Function(_LastControllerCommandPlayOrPause) then) =
+      __$LastControllerCommandPlayOrPauseCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LastControllerCommandPlayOrPauseCopyWithImpl<$Res>
+    extends _$LastControllerCommandCopyWithImpl<$Res>
+    implements _$LastControllerCommandPlayOrPauseCopyWith<$Res> {
+  __$LastControllerCommandPlayOrPauseCopyWithImpl(
+      _LastControllerCommandPlayOrPause _value,
+      $Res Function(_LastControllerCommandPlayOrPause) _then)
+      : super(_value, (v) => _then(v as _LastControllerCommandPlayOrPause));
+
+  @override
+  _LastControllerCommandPlayOrPause get _value =>
+      super._value as _LastControllerCommandPlayOrPause;
+}
+
+/// @nodoc
+class _$_LastControllerCommandPlayOrPause
+    implements _LastControllerCommandPlayOrPause {
+  const _$_LastControllerCommandPlayOrPause();
+
+  @override
+  String toString() {
+    return 'LastControllerCommand.playOrPause()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _LastControllerCommandPlayOrPause);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult play(),
+    @required TResult pause(),
+    @required TResult seek(Duration diff),
+    @required TResult seekTo(Duration diff),
+    @required TResult playOrPause(),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return playOrPause();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult play(),
+    TResult pause(),
+    TResult seek(Duration diff),
+    TResult seekTo(Duration diff),
+    TResult playOrPause(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (playOrPause != null) {
+      return playOrPause();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_LastControllerCommandInitial value),
+    @required TResult play(_LastControllerCommandPlay value),
+    @required TResult pause(_LastControllerCommandPause value),
+    @required TResult seek(_LastControllerCommandSeek value),
+    @required TResult seekTo(_LastControllerCommandSeekTo value),
+    @required TResult playOrPause(_LastControllerCommandPlayOrPause value),
+  }) {
+    assert(initial != null);
+    assert(play != null);
+    assert(pause != null);
+    assert(seek != null);
+    assert(seekTo != null);
+    assert(playOrPause != null);
+    return playOrPause(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_LastControllerCommandInitial value),
+    TResult play(_LastControllerCommandPlay value),
+    TResult pause(_LastControllerCommandPause value),
+    TResult seek(_LastControllerCommandSeek value),
+    TResult seekTo(_LastControllerCommandSeekTo value),
+    TResult playOrPause(_LastControllerCommandPlayOrPause value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (playOrPause != null) {
+      return playOrPause(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LastControllerCommandPlayOrPause
+    implements LastControllerCommand {
+  const factory _LastControllerCommandPlayOrPause() =
+      _$_LastControllerCommandPlayOrPause;
 }

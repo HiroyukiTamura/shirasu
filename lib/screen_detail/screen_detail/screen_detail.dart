@@ -39,6 +39,13 @@ final scaffoldProvider =
 final detailSNProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id, ref));
 
+final kPrvVideoControllerReady =
+    Provider.family.autoDispose<bool, String>((ref, id) {
+  final playOutState = ref.watch(detailSNProvider(id).state).playOutState;
+  return playOutState.commandedState == const PlayerCommandedState.postPlay() &&
+      playOutState.isVideoControllerInitialized;
+});
+
 final _pBtmSheetExpanded = Provider.autoDispose.family<PageSheetModel, String>(
   (ref, id) => ref.watch(detailSNProvider(id).state).prgDataResult.maybeWhen(
         success: (programDetail, channelData, page) => page,
@@ -59,7 +66,6 @@ class ScreenDetail extends StatefulHookWidget {
 
 class _ScreenDetailState extends State<ScreenDetail>
     with WidgetsBindingObserver {
-
   // bool get isPlaying =>
   //     context.read(pVideoViewModel(widget.id).state).isPlaying;
 
@@ -148,50 +154,49 @@ class _ScreenDetailState extends State<ScreenDetail>
 
   Widget _successWidget(ProgramDetailData programDetailData,
           ChannelData channelData, PageSheetModel page) =>
-      LayoutBuilder(
-        builder: (context, constraints) => OrientationBuilder(
-          builder: (context, orientation) {
-            final conf = VideoViewModelConf(widget.id, orientation == Orientation.landscape);
-            if (orientation == Orientation.portrait) {
-              double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
-              final listViewH = constraints.maxHeight - headerH;
-              return Stack(
-                children: [
-                  ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      VideoHeader(
-                        height: headerH,
-                        conf: conf,
-                        onTap: () async => _playVideo(context, false),
-                        onTapPreviewBtn: () async => _playVideo(context, true),
-                      ),
-                      _PlayerBodyWrapper(
-                        height: listViewH,
-                        data: programDetailData,
-                      )
-                    ],
-                  ),
-                  VideoSeekBarHoverStyle(
-                    conf: conf,
-                    topMargin:
-                        headerH - Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H / 2,
-                  ),
-                ],
-              );
-            } else
-              return Container(
-                color: Colors.black,
-                alignment: Alignment.center,
-                child: VideoHeader(
-                  height: constraints.maxHeight,
-                  conf: conf,
-                  onTap: () async => _playVideo(context, false),
-                  onTapPreviewBtn: () async => _playVideo(context, true),
+      OrientationBuilder(
+        builder: (context, orientation) =>
+            LayoutBuilder(builder: (context, constraints) {
+          final conf = VideoViewModelConf(
+              widget.id, orientation == Orientation.landscape);
+          if (orientation == Orientation.portrait) {
+            double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
+            final listViewH = constraints.maxHeight - headerH;
+            return Stack(
+              children: [
+                ListView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    VideoHeader(
+                      height: headerH,
+                      conf: conf,
+                      onTap: () async => _playVideo(context, false),
+                      onTapPreviewBtn: () async => _playVideo(context, true),
+                    ),
+                    _PlayerBodyWrapper(
+                      height: listViewH,
+                      data: programDetailData,
+                    )
+                  ],
                 ),
-              );
-          },
-        ),
+                VideoSeekBarHoverStyle(
+                  conf: conf,
+                  topMargin: headerH - Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H / 2,
+                ),
+              ],
+            );
+          } else
+            return Container(
+              color: Colors.black,
+              alignment: Alignment.center,
+              child: VideoHeader(
+                height: constraints.maxHeight,
+                conf: conf,
+                onTap: () async => _playVideo(context, false),
+                onTapPreviewBtn: () async => _playVideo(context, true),
+              ),
+            );
+        }),
       );
 }
 

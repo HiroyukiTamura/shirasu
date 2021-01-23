@@ -67,6 +67,8 @@ abstract class PlayOutState implements _$PlayOutState {
     @Default(Duration.zero) Duration currentPos,
     @Default(Duration.zero) Duration totalDuration,
     @Default(false) bool fullScreen,
+    @Default(false) bool isVideoControllerInitialized,
+    @Default(LastControllerCommand.initial()) LastControllerCommand lastControllerCommand,
   }) = _PlayOutState;
 
   factory PlayOutState.initial() => const PlayOutState(
@@ -117,4 +119,19 @@ abstract class PageSheetModel with _$PageSheetModel {
   const factory PageSheetModel.handouts() = PageSheetModelHandouts;
 
   const factory PageSheetModel.pricing() = PageSheetModelPricing;
+}
+
+@freezed
+abstract class LastControllerCommand with _$LastControllerCommand {
+  const factory LastControllerCommand.initial() = _LastControllerCommandInitial;
+
+  const factory LastControllerCommand.play() = _LastControllerCommandPlay;
+
+  const factory LastControllerCommand.pause() = _LastControllerCommandPause;
+
+  const factory LastControllerCommand.seek(Duration diff) = _LastControllerCommandSeek;
+
+  const factory LastControllerCommand.seekTo(Duration diff) = _LastControllerCommandSeekTo;
+
+  const factory LastControllerCommand.playOrPause() = _LastControllerCommandPlayOrPause;
 }

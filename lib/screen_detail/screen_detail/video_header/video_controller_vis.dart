@@ -9,21 +9,11 @@ import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
 part 'video_controller_vis.g.dart';
 
-final _pVisibility =
-    Provider.family.autoDispose<bool, VideoViewModelConf>((ref, conf) {
-  final detailModel = ref.watch(detailSNProvider(conf.id).state);
-  final videoModel = ref.watch(pVideoViewModel(conf).state);
-  return detailModel.playOutState.commandedState ==
-          const PlayerCommandedState.postPlay() &&
-      videoModel.isInitialized;
-});
-
 @hwidget
 Widget videoControllerVis({
   @required VideoViewModelConf conf,
   @required Widget child,
-}) =>
-    Visibility(
-      visible: useProvider(_pVisibility(conf)),
+}) => Visibility(
+      visible: useProvider(kPrvVideoControllerReady(conf.id)),
       child: child,
     );

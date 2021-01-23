@@ -23,20 +23,19 @@ class DragOverlay extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    useProvider(kPrvDragStartDx); //listen drag start
+    useProvider(kPrvDragStartDx); //listen drag start fixme??
 
     Duration diffDuration = data.diffDuration;
-    final totalDuration = useProvider(detailSNProvider(conf.id)
-        .state
-        .select((it) => it.playOutState.totalDuration));
-    final isInitialized =
-        useProvider(pVideoViewModel(conf).state.select((it) => it.isInitialized));
 
     final videoPosWhenDragStart = useProvider(detailSNProvider(conf.id)
         .state
         .select((it) => it.playOutState.currentPosSafe));
-    if (totalDuration == Duration.zero || !isInitialized)
-      return const SizedBox.shrink();
+    final videoReady = useProvider(kPrvVideoControllerReady(conf.id));
+    if (!videoReady) return const SizedBox.shrink();
+
+    final totalDuration = useProvider(detailSNProvider(conf.id)
+        .state
+        .select((it) => it.playOutState.totalDuration));
 
     Duration aimingPos = videoPosWhenDragStart + diffDuration;
     if (totalDuration < aimingPos) {

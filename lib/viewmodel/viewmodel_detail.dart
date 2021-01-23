@@ -1,3 +1,4 @@
+import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/di/api_client.dart';
@@ -7,6 +8,8 @@ import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
@@ -142,16 +145,26 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   /// force update [state.playOutState.fullScreen]
-  void takePriorityAndSetTotalDuration({
+  void takePriority({
+    @required bool fullScreen,
+  }) =>
+      state = state.copyWith.playOutState(
+        fullScreen: fullScreen,
+        isVideoControllerInitialized: false,
+      );
+
+  void setAsVideoControllerInitialized({
     @required bool fullScreen,
     @required Duration totalDuration,
   }) {
     assert(!totalDuration.isNegative);
 
-    state = state.copyWith.playOutState(
-      totalDuration: totalDuration,
-      fullScreen: fullScreen,
-    );
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        fullScreen: fullScreen,
+        totalDuration: totalDuration,
+        isVideoControllerInitialized: true,
+      );
   }
 
   void setCurrentPos({
@@ -193,4 +206,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         isPlaying: isPlaying,
       );
   }
+
+  void commandVideoController(LastControllerCommand command) =>
+      state = state.copyWith.playOutState(
+        lastControllerCommand: command,
+      );
 }

@@ -26,6 +26,7 @@ class VideoViewModelConf {
   final bool fullScreen;
 }
 
+/// todo merge to DetailViewModel?
 class VideoViewModel extends StateNotifier<VideoModel> {
   VideoViewModel(this._read, this._conf) : super(const VideoModel()) {
     _hideTimer = ControllerHideTimer(_hideController);
@@ -34,20 +35,9 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   static const SEC_FAST_SEEK_BY_BTN = Duration(seconds: 30);
   static const SEC_FAST_SEEK_BY_DOUBLE_TAP = Duration(seconds: 10);
 
-  BetterPlayerController _controller;
   final Reader _read;
   final VideoViewModelConf _conf;
   ControllerHideTimer _hideTimer;
-
-  void ensureController() {
-    if (_controller != null)
-      return;
-
-    final playOutState = _viewModelDetail.state.playOutState;
-    _controller = _createController(playOutState, _conf.id)..addEventsListener(_playerEventListener);
-  }
-
-  BetterPlayerController get controller => _controller;
 
   ViewModelDetail get _viewModelDetail => _read(detailSNProvider(_conf.id));
 
@@ -55,87 +45,8 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   void dispose() {
     super.dispose();
     _hideTimer.cancel();
-    // _controller?.removeEventsListener(_playerEventListener);
-    _controller?.dispose();
+    // _controller?.dispose();
   }
-
-  // region PlayerEventListener
-  void _playerEventListener(BetterPlayerEvent event) {
-    switch (event.betterPlayerEventType) {
-      case BetterPlayerEventType.initialized:
-        _onInitializedEvent();
-        break;
-      case BetterPlayerEventType.finished:
-        //todo handle error
-        break;
-      case BetterPlayerEventType.exception:
-        //todo log error
-        debugPrint(event.exception);
-        break;
-      case BetterPlayerEventType.progress:
-        _onProgressEvent(event);
-        break;
-      case BetterPlayerEventType.seekTo:
-        // todo show progress indicator while loading??
-        _onSeekEvent(event);
-        break;
-      case BetterPlayerEventType.play:
-        _onPlayPauseEvent(true);
-        break;
-      case BetterPlayerEventType.pause:
-        _onPlayPauseEvent(false);
-        break;
-      case BetterPlayerEventType.openFullscreen:
-      case BetterPlayerEventType.hideFullscreen:
-        throw Exception("don't rotate screen");
-        break;
-      default:
-        break;
-    }
-  }
-
-  void _onInitializedEvent() {
-    if (!mounted) return;
-
-    state = state.copyWith(
-      isInitialized: true,
-    );
-    _viewModelDetail.takePriorityAndSetTotalDuration(
-      totalDuration: controller.videoPlayerController.value.duration,
-      fullScreen: _conf.fullScreen,
-    );
-  }
-
-  void _onProgressEvent(BetterPlayerEvent event) {
-    if (mounted && !state.isSeekBarDragging) {
-      state = state.copyWith(currentPos: event.progress);
-      _viewModelDetail.setVideoDurations(
-        currentPos: event.progress,
-        totalDuration: event.duration,
-        fullScreen: _conf.fullScreen,
-      );
-    }
-  }
-
-  void _onSeekEvent(BetterPlayerEvent event) {
-    if (mounted) {
-      _viewModelDetail.setCurrentPos(
-        currentPos: event.duration,
-        fullScreen: _conf.fullScreen,
-      );
-      state = state.copyWith(currentPos: event.duration);
-    }
-  }
-
-  void _onPlayPauseEvent(bool play) {
-    if (mounted)
-      _viewModelDetail.setVideoIsPlaying(
-        fullScreen: _conf.fullScreen,
-        isPlaying: play,
-      );
-  }
-
-  // endregion
 
   void _hideController() {
     if (mounted) state = state.copyWith(controllerVisibility: false);
@@ -147,7 +58,8 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   }
 
   void toggleVisibility() {
-    if (!state.isInitialized) return;
+    if (!_viewModelDetail.state.playOutState.isVideoControllerInitialized)
+      return;
 
     final controllerVisibility = state.controllerVisibility;
     controllerVisibility ? _hideTimer.cancel() : _hideTimer.renew();
@@ -159,9 +71,8 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   /// must be [mounted] == true && [state.isInitialized] == true
   Future<void> seek(Duration diff) async {
     _hideTimer.renew();
-
-    final duration = await controller.videoPlayerController.position;
-    await controller.seekTo(duration + diff);
+    _viewModelDetail
+        .commandVideoController(LastControllerCommand.seek(diff));
   }
 
   /// must be [mounted] == true && [state.isInitialized] == true
@@ -176,55 +87,20 @@ class VideoViewModel extends StateNotifier<VideoModel> {
     } else
       state = state.copyWith(currentPos: duration);
 
-    if (applyController) await controller.seekTo(duration);
+    if (applyController)
+      _viewModelDetail
+          .commandVideoController(LastControllerCommand.seekTo(duration));
   }
 
-  /// must be [mounted] == true && [state.isInitialized] == true
-  Future<void> playOrPause() async {
+  void playOrPause() {
     _hideTimer.renew();
-
-    return _controller.isPlaying() ? controller.pause() : controller.play();
+    _viewModelDetail
+        .commandVideoController(const LastControllerCommand.playOrPause());
   }
 
-  // Future<void> pauseProgrammatically() async => controller.pause();
-  //
-  // Future<void> playProgrammatically() async => controller.play();
-
-  static BetterPlayerController _createController(
-      PlayOutState playOutState, String id) {
-    assert(
-        playOutState.commandedState == const PlayerCommandedState.postPlay());
-
-    final dataSource = BetterPlayerDataSource(
-      BetterPlayerDataSourceType.network,
-      playOutState.hlsMediaUrl,
-      liveStream: playOutState.videoType == VideoType.LIVE,
-      headers: {
-        'Cookie': playOutState.cookie,
-      },
-    );
-
-    return BetterPlayerController(
-      BetterPlayerConfiguration(
-        autoPlay: playOutState.isPlaying,
-        handleLifecycle: false,
-        //todo why not true??
-        fit: BoxFit.contain,
-        errorBuilder: (context, errorMessage) {
-          //todo implement
-          return Container();
-        },
-        startAt: playOutState.currentPos,
-        controlsConfiguration: const BetterPlayerControlsConfiguration(
-          showControls: false,
-        ),
-        //todo ugly access
-        aspectRatio: Dimens.IMG_RATIO,
-        fullScreenAspectRatio: Dimens.IMG_RATIO,
-      ),
-      betterPlayerDataSource: dataSource,
-    );
-  }
+// Future<void> pauseProgrammatically() async => controller.pause();
+//
+// Future<void> playProgrammatically() async => controller.play();
 }
 
 @freezed
@@ -232,7 +108,6 @@ abstract class VideoModel implements _$VideoModel {
   const factory VideoModel({
     @Default(Duration.zero) Duration currentPos,
     @Default(false) bool controllerVisibility,
-    @Default(false) bool isInitialized,
     @Default(false) bool isSeekBarDragging,
   }) = _VideoModel;
 

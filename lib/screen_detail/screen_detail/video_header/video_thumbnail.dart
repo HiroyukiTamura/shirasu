@@ -19,11 +19,22 @@ part 'video_thumbnail.g.dart';
 
 typedef OnTap = void Function(BuildContext context);
 
+@swidget
+Widget loadingThumbnail({@required String id}) => Stack(
+      children: [
+        CachedNetworkImage(
+          fit: BoxFit.cover,
+          imageUrl: UrlUtil.getThumbnailUrl(id),
+          errorWidget: Util.defaultPrgThumbnail,
+        ),
+        const CenterCircleProgress(),
+      ],
+    );
+
 class VideoThumbnail extends HookWidget {
   const VideoThumbnail({
     Key key,
     @required this.programId,
-    @required this.isLoading,
     this.onTap,
     this.onTapPreviewBtn,
   }) : super(key: key);
@@ -31,7 +42,6 @@ class VideoThumbnail extends HookWidget {
   final VoidCallback onTap;
   final VoidCallback onTapPreviewBtn;
   final String programId;
-  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +58,6 @@ class VideoThumbnail extends HookWidget {
         ),
         _HoverWidget(
           program: program,
-          isLoading: isLoading,
           onClickPurchaseBtn: _onClickPurchaseBtn,
           onTapPreviewBtn: onTapPreviewBtn,
           onTap: onTap,
@@ -59,8 +68,8 @@ class VideoThumbnail extends HookWidget {
 
   /// todo extract
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    final result =
-        context.read(detailSNProvider(programId).state).prgDataResult as StateSuccess;
+    final result = context.read(detailSNProvider(programId).state).prgDataResult
+        as StateSuccess;
     final program = result.programDetailData.program;
     final subscriptionPlan = result.channelData.channel.subscriptionPlan;
     await BtmSheetCommon.showUrlLauncherBtmSheet(
@@ -112,12 +121,10 @@ class VideoThumbnail extends HookWidget {
 Widget _hoverWidget(
   BuildContext context, {
   @required ProgramDetail program,
-  @required bool isLoading,
   @required VoidCallback onTap,
   @required VoidCallback onTapPreviewBtn,
   @required OnTap onClickPurchaseBtn,
 }) {
-  if (isLoading) return const CenterCircleProgress();
 
   final isWaiting = DateTime.now().isBefore(program.broadcastAt);
   final isPurchasable = program.onetimePlanMain != null;

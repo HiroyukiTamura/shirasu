@@ -30,8 +30,7 @@ Widget playerAnimOpacity({
 }
 
 @swidget
-Widget videoSeekBarHoverStyle(
-  BuildContext context, {
+Widget videoSeekBarHoverStyle(BuildContext context, {
   @required VideoViewModelConf conf,
   @required double topMargin,
 }) =>
@@ -51,8 +50,14 @@ Widget videoSeekBarHoverStyle(
                   child: VideoSeekBar(conf: conf),
                 ),
                 Container(
-                  color: Theme.of(context).sliderTheme.inactiveTrackColor,
-                  height: Theme.of(context).sliderTheme.trackHeight,
+                  color: Theme
+                      .of(context)
+                      .sliderTheme
+                      .inactiveTrackColor,
+                  height: Theme
+                      .of(context)
+                      .sliderTheme
+                      .trackHeight,
                 )
               ],
             ),

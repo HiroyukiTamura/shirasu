@@ -37,15 +37,16 @@ class VideoHeader extends HookWidget {
         programId: program.id,
         onTap: onTap,
         onTapPreviewBtn: onTapPreviewBtn,
-        isLoading: false,
       ),
-      postPlay: () => PlayerView(
-        conf: conf,
+      postPlay: () => Stack(
+        children: [
+          PlayerView(
+            conf: conf,
+          ),
+          _PlayerViewPlaceHolder(id: conf.id,),
+        ],
       ),
-      initializing: () => VideoThumbnail(
-        programId: program.id,
-        isLoading: true,
-      ),
+      initializing: () => LoadingThumbnail(id: conf.id),
       error: () => throw UnimplementedError(),
     );
     return SizedBox(
@@ -54,6 +55,28 @@ class VideoHeader extends HookWidget {
     );
   }
 }
+
+
+class _PlayerViewPlaceHolder extends HookWidget {
+
+  const _PlayerViewPlaceHolder({Key key, @required this.id}) : super(key: key);
+
+  final String id;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final isVideoInitialized = useProvider(detailSNProvider(id)
+        .state
+        .select((it) => it.playOutState.isVideoControllerInitialized));
+
+    return Visibility(
+      visible: !isVideoInitialized,
+      child: LoadingThumbnail(id: id),
+    );
+  }
+}
+
 
 enum HoverBtnType {
   NOTHING,

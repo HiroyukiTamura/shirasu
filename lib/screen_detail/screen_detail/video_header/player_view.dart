@@ -32,7 +32,8 @@ class PlayerView extends StatefulHookWidget {
   _PlayerViewState createState() => _PlayerViewState();
 }
 
-class _PlayerViewState extends State<PlayerView> with AfterLayoutMixin<PlayerView> {
+class _PlayerViewState extends State<PlayerView>
+    with AfterLayoutMixin<PlayerView> {
   BetterPlayerController _controller;
   BetterPlayerDataSource _dataSource;
 
@@ -83,7 +84,8 @@ class _PlayerViewState extends State<PlayerView> with AfterLayoutMixin<PlayerVie
       );
 
   @override
-  void afterFirstLayout(BuildContext context) => _controller.setupDataSource(_dataSource);
+  void afterFirstLayout(BuildContext context) =>
+      _controller.setupDataSource(_dataSource);
 
   void _onPlayerCommanded(BuildContext context, LastControllerCommand command) {
     command.when(
@@ -99,8 +101,7 @@ class _PlayerViewState extends State<PlayerView> with AfterLayoutMixin<PlayerVie
         if (!_controller.videoPlayerController.value.initialized) return;
 
         final position = await _controller.videoPlayerController.position;
-        if (position == null)
-          return;
+        if (position == null) return;
         Duration seekTo = position + diff;
         _controller.seekTo(seekTo);
       },
@@ -166,31 +167,20 @@ class _PlayerViewState extends State<PlayerView> with AfterLayoutMixin<PlayerVie
     );
   }
 
-  void _onProgressEvent(BetterPlayerEvent event) {
-    // final isSeekBarDragging = context.read(pVideoViewModel(widget.conf).state).isSeekBarDragging;
-    // if (!isSeekBarDragging) {
-    //   state = state.copyWith(currentPos: event.progress);
-    //   _viewModelDetail.setVideoDurations(
-    //     currentPos: event.progress,
-    //     totalDuration: event.duration,
-    //     fullScreen: widget.conf.fullScreen,
-    //   );
-    // }
+  void _onProgressEvent(BetterPlayerEvent event) =>
+      _getViewModelDetail(context).setVideoDurations(
+        currentPos: event.progress,
+        totalDuration: event.duration,
+        fullScreen: widget.conf.fullScreen,
+        applyCurrentPosUi: !_isSeekBarDragging(context),
+      );
 
-    _getViewModelDetail(context).setVideoDurations(
-      currentPos: event.progress,
-      totalDuration: event.duration,
-      fullScreen: widget.conf.fullScreen,
-    );
-  }
-
-  void _onSeekEvent(BetterPlayerEvent event) {
-    _getViewModelDetail(context).setCurrentPos(
-      currentPos: event.duration,
-      fullScreen: widget.conf.fullScreen,
-    );
-    // state = state.copyWith(currentPos: event.duration);
-  }
+  void _onSeekEvent(BetterPlayerEvent event) =>
+      _getViewModelDetail(context).setCurrentPos(
+        currentPos: event.duration,
+        fullScreen: widget.conf.fullScreen,
+        applyCurrentPosUi: !_isSeekBarDragging(context),
+      );
 
   void _onPlayPauseEvent(bool play) =>
       _getViewModelDetail(context).setVideoIsPlaying(
@@ -226,14 +216,15 @@ class _PlayerViewState extends State<PlayerView> with AfterLayoutMixin<PlayerVie
     );
   }
 
-  static BetterPlayerDataSource _createDataSource(PlayOutState playOutState) => BetterPlayerDataSource(
-      BetterPlayerDataSourceType.network,
-      playOutState.hlsMediaUrl,
-      liveStream: playOutState.videoType == VideoType.LIVE,
-      headers: {
-        'Cookie': playOutState.cookie,
-      },
-    );
+  static BetterPlayerDataSource _createDataSource(PlayOutState playOutState) =>
+      BetterPlayerDataSource(
+        BetterPlayerDataSourceType.network,
+        playOutState.hlsMediaUrl,
+        liveStream: playOutState.videoType == VideoType.LIVE,
+        headers: {
+          'Cookie': playOutState.cookie,
+        },
+      );
 
   VideoViewModel _getViewModel(BuildContext context) =>
       context.read(pVideoViewModel(widget.conf));
@@ -243,4 +234,7 @@ class _PlayerViewState extends State<PlayerView> with AfterLayoutMixin<PlayerVie
 
   PlayOutState _getPlayOutState(BuildContext context) =>
       context.read(detailSNProvider(widget.conf.id).state).playOutState;
+
+  bool _isSeekBarDragging(BuildContext context) =>
+      context.read(pVideoViewModel(widget.conf).state).isSeekBarDragging;
 }

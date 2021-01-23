@@ -15,11 +15,8 @@ class _$VideoModelTearOff {
 
 // ignore: unused_element
   _VideoModel call(
-      {Duration currentPos = Duration.zero,
-      bool controllerVisibility = false,
-      bool isSeekBarDragging = false}) {
+      {bool controllerVisibility = false, bool isSeekBarDragging = false}) {
     return _VideoModel(
-      currentPos: currentPos,
       controllerVisibility: controllerVisibility,
       isSeekBarDragging: isSeekBarDragging,
     );
@@ -32,7 +29,6 @@ const $VideoModel = _$VideoModelTearOff();
 
 /// @nodoc
 mixin _$VideoModel {
-  Duration get currentPos;
   bool get controllerVisibility;
   bool get isSeekBarDragging;
 
@@ -44,8 +40,7 @@ abstract class $VideoModelCopyWith<$Res> {
   factory $VideoModelCopyWith(
           VideoModel value, $Res Function(VideoModel) then) =
       _$VideoModelCopyWithImpl<$Res>;
-  $Res call(
-      {Duration currentPos, bool controllerVisibility, bool isSeekBarDragging});
+  $Res call({bool controllerVisibility, bool isSeekBarDragging});
 }
 
 /// @nodoc
@@ -58,13 +53,10 @@ class _$VideoModelCopyWithImpl<$Res> implements $VideoModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object currentPos = freezed,
     Object controllerVisibility = freezed,
     Object isSeekBarDragging = freezed,
   }) {
     return _then(_value.copyWith(
-      currentPos:
-          currentPos == freezed ? _value.currentPos : currentPos as Duration,
       controllerVisibility: controllerVisibility == freezed
           ? _value.controllerVisibility
           : controllerVisibility as bool,
@@ -81,8 +73,7 @@ abstract class _$VideoModelCopyWith<$Res> implements $VideoModelCopyWith<$Res> {
           _VideoModel value, $Res Function(_VideoModel) then) =
       __$VideoModelCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {Duration currentPos, bool controllerVisibility, bool isSeekBarDragging});
+  $Res call({bool controllerVisibility, bool isSeekBarDragging});
 }
 
 /// @nodoc
@@ -97,13 +88,10 @@ class __$VideoModelCopyWithImpl<$Res> extends _$VideoModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object currentPos = freezed,
     Object controllerVisibility = freezed,
     Object isSeekBarDragging = freezed,
   }) {
     return _then(_VideoModel(
-      currentPos:
-          currentPos == freezed ? _value.currentPos : currentPos as Duration,
       controllerVisibility: controllerVisibility == freezed
           ? _value.controllerVisibility
           : controllerVisibility as bool,
@@ -117,17 +105,11 @@ class __$VideoModelCopyWithImpl<$Res> extends _$VideoModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_VideoModel extends _VideoModel {
   const _$_VideoModel(
-      {this.currentPos = Duration.zero,
-      this.controllerVisibility = false,
-      this.isSeekBarDragging = false})
-      : assert(currentPos != null),
-        assert(controllerVisibility != null),
+      {this.controllerVisibility = false, this.isSeekBarDragging = false})
+      : assert(controllerVisibility != null),
         assert(isSeekBarDragging != null),
         super._();
 
-  @JsonKey(defaultValue: Duration.zero)
-  @override
-  final Duration currentPos;
   @JsonKey(defaultValue: false)
   @override
   final bool controllerVisibility;
@@ -137,16 +119,13 @@ class _$_VideoModel extends _VideoModel {
 
   @override
   String toString() {
-    return 'VideoModel(currentPos: $currentPos, controllerVisibility: $controllerVisibility, isSeekBarDragging: $isSeekBarDragging)';
+    return 'VideoModel(controllerVisibility: $controllerVisibility, isSeekBarDragging: $isSeekBarDragging)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _VideoModel &&
-            (identical(other.currentPos, currentPos) ||
-                const DeepCollectionEquality()
-                    .equals(other.currentPos, currentPos)) &&
             (identical(other.controllerVisibility, controllerVisibility) ||
                 const DeepCollectionEquality().equals(
                     other.controllerVisibility, controllerVisibility)) &&
@@ -158,7 +137,6 @@ class _$_VideoModel extends _VideoModel {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(currentPos) ^
       const DeepCollectionEquality().hash(controllerVisibility) ^
       const DeepCollectionEquality().hash(isSeekBarDragging);
 
@@ -170,12 +148,8 @@ class _$_VideoModel extends _VideoModel {
 abstract class _VideoModel extends VideoModel {
   const _VideoModel._() : super._();
   const factory _VideoModel(
-      {Duration currentPos,
-      bool controllerVisibility,
-      bool isSeekBarDragging}) = _$_VideoModel;
+      {bool controllerVisibility, bool isSeekBarDragging}) = _$_VideoModel;
 
-  @override
-  Duration get currentPos;
   @override
   bool get controllerVisibility;
   @override

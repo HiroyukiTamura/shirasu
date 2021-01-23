@@ -79,7 +79,7 @@ class VideoSeekBar extends HookWidget {
         .select((it) => it.playOutState.totalDuration)).inSeconds.toDouble();
     final value = useProvider(detailSNProvider(conf.id)
         .state
-        .select((it) => it.playOutState.currentPosSafe)).inSeconds.toDouble();
+        .select((it) => it.playOutState.currentPosForUiSafe)).inSeconds.toDouble();
 
     return Slider(
       max: max,
@@ -91,9 +91,9 @@ class VideoSeekBar extends HookWidget {
 
   void _onChanged(BuildContext context, double value) => context
       .read(pVideoViewModel(conf))
-      .seekTo(Duration(seconds: value.toInt()), false, false);
+      .seekToWithSlider(Duration(seconds: value.toInt()), false, false);
 
   void _onChangedEnd(BuildContext context, double value) => context
       .read(pVideoViewModel(conf))
-      .seekTo(Duration(seconds: value.toInt()), true, true);
+      .seekToWithSlider(Duration(seconds: value.toInt()), true, true);
 }

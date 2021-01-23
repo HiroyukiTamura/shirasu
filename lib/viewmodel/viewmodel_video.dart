@@ -71,12 +71,11 @@ class VideoViewModel extends StateNotifier<VideoModel> {
   /// must be [mounted] == true && [state.isInitialized] == true
   Future<void> seek(Duration diff) async {
     _hideTimer.renew();
-    _viewModelDetail
-        .commandVideoController(LastControllerCommand.seek(diff));
+    _viewModelDetail.commandVideoController(LastControllerCommand.seek(diff));
   }
 
   /// must be [mounted] == true && [state.isInitialized] == true
-  Future<void> seekTo(
+  Future<void> seekToWithSlider(
       Duration duration, bool applyController, bool endDrag) async {
     _hideTimer.renew();
 
@@ -84,9 +83,12 @@ class VideoViewModel extends StateNotifier<VideoModel> {
       state = state.copyWith(
         isSeekBarDragging: false,
       );
-    } else
-      state = state.copyWith(currentPos: duration);
-
+    }
+    _viewModelDetail.setCurrentPos(
+      fullScreen: _conf.fullScreen,
+      currentPos: duration,
+      applyCurrentPosUi: true,
+    );
     if (applyController)
       _viewModelDetail
           .commandVideoController(LastControllerCommand.seekTo(duration));
@@ -106,13 +108,9 @@ class VideoViewModel extends StateNotifier<VideoModel> {
 @freezed
 abstract class VideoModel implements _$VideoModel {
   const factory VideoModel({
-    @Default(Duration.zero) Duration currentPos,
     @Default(false) bool controllerVisibility,
     @Default(false) bool isSeekBarDragging,
   }) = _VideoModel;
 
   const VideoModel._();
-
-  Duration get currentPosSafe =>
-      currentPos.isNegative ? Duration.zero : currentPos;
 }

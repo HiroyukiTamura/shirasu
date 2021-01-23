@@ -170,31 +170,46 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   void setCurrentPos({
     @required bool fullScreen,
     @required Duration currentPos,
+    @required bool applyCurrentPosUi,
   }) {
     assert(!currentPos.isNegative);
 
-    if (fullScreen == state.playOutState.fullScreen)
-      state = state.copyWith.playOutState(
-        currentPos: currentPos,
-        fullScreen: fullScreen,
-      );
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    state = applyCurrentPosUi ? state.copyWith.playOutState(
+      currentPos: currentPos,
+      currentPosForUi: currentPos,
+      fullScreen: fullScreen,
+    ) : state.copyWith.playOutState(
+      currentPos: currentPos,
+      fullScreen: fullScreen,
+    );
   }
 
   void setVideoDurations({
     @required bool fullScreen,
     @required Duration currentPos,
     @required Duration totalDuration,
+    @required bool applyCurrentPosUi,
   }) {
     assert(!currentPos.isNegative);
     assert(!totalDuration.isNegative);
     assert(currentPos < totalDuration);
 
-    if (fullScreen == state.playOutState.fullScreen)
-      state = state.copyWith.playOutState(
-        currentPos: currentPos,
-        totalDuration: totalDuration,
-        fullScreen: fullScreen,
-      );
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    state = applyCurrentPosUi
+        ? state.copyWith.playOutState(
+            currentPos: currentPos,
+            currentPosForUi: currentPos,
+            totalDuration: totalDuration,
+            fullScreen: fullScreen,
+          )
+        : state.copyWith.playOutState(
+            currentPos: currentPos,
+            totalDuration: totalDuration,
+            fullScreen: fullScreen,
+          );
   }
 
   void setVideoIsPlaying({

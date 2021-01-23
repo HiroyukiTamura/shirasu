@@ -68,7 +68,9 @@ abstract class PlayOutState implements _$PlayOutState {
     @Default(Duration.zero) Duration totalDuration,
     @Default(false) bool fullScreen,
     @Default(false) bool isVideoControllerInitialized,
-    @Default(LastControllerCommand.initial()) LastControllerCommand lastControllerCommand,
+    @Default(LastControllerCommand.initial())
+        LastControllerCommand lastControllerCommand,
+    @Default(Duration.zero) Duration currentPosForUi,
   }) = _PlayOutState;
 
   factory PlayOutState.initial() => const PlayOutState(
@@ -99,16 +101,22 @@ abstract class PlayOutState implements _$PlayOutState {
       videoType == state?.videoType &&
       hlsMediaUrl == state?.hlsMediaUrl;
 
-  Duration get currentPosSafe =>
-      currentPos.isNegative ? Duration.zero : currentPos;
+  Duration get currentPosForUiSafe =>
+      currentPosForUi.isNegative ? Duration.zero : currentPos;
 }
 
 @freezed
 abstract class PlayerCommandedState with _$PlayerCommandedState {
-  const factory PlayerCommandedState.playError() = PlayerCommandedStatePlayError;
+  const factory PlayerCommandedState.playError() =
+      PlayerCommandedStatePlayError;
+
   const factory PlayerCommandedState.prePlay() = PlayerCommandedStatePrePlay;
+
   const factory PlayerCommandedState.postPlay() = PlayerCommandedStatePostPlay;
-  const factory PlayerCommandedState.initializing() = PlayerCommandedStateInitializing;
+
+  const factory PlayerCommandedState.initializing() =
+      PlayerCommandedStateInitializing;
+
   const factory PlayerCommandedState.error() = PlayerCommandedStateError;
 }
 
@@ -129,9 +137,12 @@ abstract class LastControllerCommand with _$LastControllerCommand {
 
   const factory LastControllerCommand.pause() = _LastControllerCommandPause;
 
-  const factory LastControllerCommand.seek(Duration diff) = _LastControllerCommandSeek;
+  const factory LastControllerCommand.seek(Duration diff) =
+      _LastControllerCommandSeek;
 
-  const factory LastControllerCommand.seekTo(Duration diff) = _LastControllerCommandSeekTo;
+  const factory LastControllerCommand.seekTo(Duration diff) =
+      _LastControllerCommandSeekTo;
 
-  const factory LastControllerCommand.playOrPause() = _LastControllerCommandPlayOrPause;
+  const factory LastControllerCommand.playOrPause() =
+      _LastControllerCommandPlayOrPause;
 }

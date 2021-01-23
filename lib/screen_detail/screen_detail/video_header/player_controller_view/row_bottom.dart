@@ -45,7 +45,7 @@ Widget _timeText({
   final total =
       useProvider(detailSNProvider(conf.id).state.select((it) => it.playOutState.totalDuration));
   final current =
-      useProvider(pVideoViewModel(conf).state.select((it) => it.currentPos));
+      useProvider(detailSNProvider(conf.id).state.select((it) => it.playOutState.currentPosForUi));
 
   final totalStr = Util.formatDurationStyled(total);
   final currentStr = Util.formatDurationStyled(current);

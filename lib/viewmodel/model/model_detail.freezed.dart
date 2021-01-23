@@ -838,7 +838,8 @@ class _$PlayOutStateTearOff {
       bool fullScreen = false,
       bool isVideoControllerInitialized = false,
       LastControllerCommand lastControllerCommand =
-          const LastControllerCommand.initial()}) {
+          const LastControllerCommand.initial(),
+      Duration currentPosForUi = Duration.zero}) {
     return _PlayOutState(
       commandedState: commandedState,
       hlsMediaUrl: hlsMediaUrl,
@@ -850,6 +851,7 @@ class _$PlayOutStateTearOff {
       fullScreen: fullScreen,
       isVideoControllerInitialized: isVideoControllerInitialized,
       lastControllerCommand: lastControllerCommand,
+      currentPosForUi: currentPosForUi,
     );
   }
 }
@@ -870,6 +872,7 @@ mixin _$PlayOutState {
   bool get fullScreen;
   bool get isVideoControllerInitialized;
   LastControllerCommand get lastControllerCommand;
+  Duration get currentPosForUi;
 
   $PlayOutStateCopyWith<PlayOutState> get copyWith;
 }
@@ -889,7 +892,8 @@ abstract class $PlayOutStateCopyWith<$Res> {
       Duration totalDuration,
       bool fullScreen,
       bool isVideoControllerInitialized,
-      LastControllerCommand lastControllerCommand});
+      LastControllerCommand lastControllerCommand,
+      Duration currentPosForUi});
 
   $PlayerCommandedStateCopyWith<$Res> get commandedState;
   $LastControllerCommandCopyWith<$Res> get lastControllerCommand;
@@ -915,6 +919,7 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
     Object fullScreen = freezed,
     Object isVideoControllerInitialized = freezed,
     Object lastControllerCommand = freezed,
+    Object currentPosForUi = freezed,
   }) {
     return _then(_value.copyWith(
       commandedState: commandedState == freezed
@@ -939,6 +944,9 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
       lastControllerCommand: lastControllerCommand == freezed
           ? _value.lastControllerCommand
           : lastControllerCommand as LastControllerCommand,
+      currentPosForUi: currentPosForUi == freezed
+          ? _value.currentPosForUi
+          : currentPosForUi as Duration,
     ));
   }
 
@@ -981,7 +989,8 @@ abstract class _$PlayOutStateCopyWith<$Res>
       Duration totalDuration,
       bool fullScreen,
       bool isVideoControllerInitialized,
-      LastControllerCommand lastControllerCommand});
+      LastControllerCommand lastControllerCommand,
+      Duration currentPosForUi});
 
   @override
   $PlayerCommandedStateCopyWith<$Res> get commandedState;
@@ -1011,6 +1020,7 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
     Object fullScreen = freezed,
     Object isVideoControllerInitialized = freezed,
     Object lastControllerCommand = freezed,
+    Object currentPosForUi = freezed,
   }) {
     return _then(_PlayOutState(
       commandedState: commandedState == freezed
@@ -1035,6 +1045,9 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
       lastControllerCommand: lastControllerCommand == freezed
           ? _value.lastControllerCommand
           : lastControllerCommand as LastControllerCommand,
+      currentPosForUi: currentPosForUi == freezed
+          ? _value.currentPosForUi
+          : currentPosForUi as Duration,
     ));
   }
 }
@@ -1051,7 +1064,8 @@ class _$_PlayOutState extends _PlayOutState {
       this.totalDuration = Duration.zero,
       this.fullScreen = false,
       this.isVideoControllerInitialized = false,
-      this.lastControllerCommand = const LastControllerCommand.initial()})
+      this.lastControllerCommand = const LastControllerCommand.initial(),
+      this.currentPosForUi = Duration.zero})
       : assert(commandedState != null),
         assert(isPlaying != null),
         assert(currentPos != null),
@@ -1059,6 +1073,7 @@ class _$_PlayOutState extends _PlayOutState {
         assert(fullScreen != null),
         assert(isVideoControllerInitialized != null),
         assert(lastControllerCommand != null),
+        assert(currentPosForUi != null),
         super._();
 
   @override
@@ -1087,10 +1102,13 @@ class _$_PlayOutState extends _PlayOutState {
   @JsonKey(defaultValue: const LastControllerCommand.initial())
   @override
   final LastControllerCommand lastControllerCommand;
+  @JsonKey(defaultValue: Duration.zero)
+  @override
+  final Duration currentPosForUi;
 
   @override
   String toString() {
-    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie, isPlaying: $isPlaying, currentPos: $currentPos, totalDuration: $totalDuration, fullScreen: $fullScreen, isVideoControllerInitialized: $isVideoControllerInitialized, lastControllerCommand: $lastControllerCommand)';
+    return 'PlayOutState(commandedState: $commandedState, hlsMediaUrl: $hlsMediaUrl, videoType: $videoType, cookie: $cookie, isPlaying: $isPlaying, currentPos: $currentPos, totalDuration: $totalDuration, fullScreen: $fullScreen, isVideoControllerInitialized: $isVideoControllerInitialized, lastControllerCommand: $lastControllerCommand, currentPosForUi: $currentPosForUi)';
   }
 
   @override
@@ -1127,7 +1145,10 @@ class _$_PlayOutState extends _PlayOutState {
                     isVideoControllerInitialized)) &&
             (identical(other.lastControllerCommand, lastControllerCommand) ||
                 const DeepCollectionEquality().equals(
-                    other.lastControllerCommand, lastControllerCommand)));
+                    other.lastControllerCommand, lastControllerCommand)) &&
+            (identical(other.currentPosForUi, currentPosForUi) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentPosForUi, currentPosForUi)));
   }
 
   @override
@@ -1142,7 +1163,8 @@ class _$_PlayOutState extends _PlayOutState {
       const DeepCollectionEquality().hash(totalDuration) ^
       const DeepCollectionEquality().hash(fullScreen) ^
       const DeepCollectionEquality().hash(isVideoControllerInitialized) ^
-      const DeepCollectionEquality().hash(lastControllerCommand);
+      const DeepCollectionEquality().hash(lastControllerCommand) ^
+      const DeepCollectionEquality().hash(currentPosForUi);
 
   @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith =>
@@ -1161,7 +1183,8 @@ abstract class _PlayOutState extends PlayOutState {
       Duration totalDuration,
       bool fullScreen,
       bool isVideoControllerInitialized,
-      LastControllerCommand lastControllerCommand}) = _$_PlayOutState;
+      LastControllerCommand lastControllerCommand,
+      Duration currentPosForUi}) = _$_PlayOutState;
 
   @override
   PlayerCommandedState get commandedState;
@@ -1183,6 +1206,8 @@ abstract class _PlayOutState extends PlayOutState {
   bool get isVideoControllerInitialized;
   @override
   LastControllerCommand get lastControllerCommand;
+  @override
+  Duration get currentPosForUi;
   @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith;
 }

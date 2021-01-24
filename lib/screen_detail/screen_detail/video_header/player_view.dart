@@ -79,9 +79,10 @@ class _PlayerViewState extends State<PlayerView>
 
   @override
   void afterFirstLayout(BuildContext context) {
+    _getViewModelDetail(context).takePriority(fullScreen: widget.conf.fullScreen);
     _controller.setupDataSource(_dataSource).then((value) {
       if (mounted)
-        _controller.videoPlayerController.addListener(_rawVideoPlayerListener);
+        _controller.videoPlayerController.addListener(() => _rawVideoPlayerListener(context));
     });
   }
 
@@ -196,7 +197,7 @@ class _PlayerViewState extends State<PlayerView>
   // endregion
 
   // todo send issue to BetterPlayer repository
-  void _rawVideoPlayerListener() =>
+  void _rawVideoPlayerListener(BuildContext context) =>
       _getViewModelDetail(context).updateIsisBuffering(
         fullScreen: widget.conf.fullScreen,
         isBuffering: _controller.isBuffering(),

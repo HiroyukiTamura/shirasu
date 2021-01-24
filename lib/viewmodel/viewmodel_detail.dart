@@ -292,11 +292,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     _hideTimer.renew();
 
-    if (endDrag) {
-      state = state.copyWith.playOutState(
-        isSeekBarDragging: false,
-      );
-    }
+    state = state.copyWith.playOutState(
+      isSeekBarDragging: !endDrag,
+    );
     setCurrentPos(
       fullScreen: fullScreen,
       currentPos: duration,

@@ -26,10 +26,6 @@ extension IntX on int {
 }
 
 extension BuildContextX on BuildContext {
-  static const _PORTRAIT_ORIENTATIONS = [
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ];
 
   static const _LANDSCAPE_ORIENTATIONS = [
     DeviceOrientation.landscapeRight,
@@ -57,15 +53,13 @@ extension BuildContextX on BuildContext {
           MediaQuery.of(this).orientation == Orientation.portrait;
 
       final orientations =
-          isPortrait ? _LANDSCAPE_ORIENTATIONS : _PORTRAIT_ORIENTATIONS;
+          isPortrait ? _LANDSCAPE_ORIENTATIONS : DeviceOrientation.values;
       await SystemChrome.setPreferredOrientations(orientations);
-      await Future.delayed(
-          const Duration(milliseconds: 300)); // needs for BetterPlayer plugin
-      await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
       if (isPortrait)
         await SystemChrome.setEnabledSystemUIOverlays([]);
       else
         await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+
     } catch (e) {
       print(e);
     } finally {

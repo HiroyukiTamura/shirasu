@@ -154,50 +154,48 @@ class _ScreenDetailState extends State<ScreenDetail>
 
   Widget _successWidget(ProgramDetailData programDetailData,
           ChannelData channelData, PageSheetModel page) =>
-      OrientationBuilder(
-        builder: (context, orientation) =>
-            LayoutBuilder(builder: (context, constraints) {
-          final conf = VideoViewModelConf(
-              widget.id, orientation == Orientation.landscape);
-          if (orientation == Orientation.portrait) {
-            double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
-            final listViewH = constraints.maxHeight - headerH;
-            return Stack(
-              children: [
-                ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    VideoHeader(
-                      height: headerH,
-                      conf: conf,
-                      onTap: () async => _playVideo(context, false),
-                      onTapPreviewBtn: () async => _playVideo(context, true),
-                    ),
-                    _PlayerBodyWrapper(
-                      height: listViewH,
-                      data: programDetailData,
-                    )
-                  ],
-                ),
-                VideoSeekBarHoverStyle(
-                  conf: conf,
-                  topMargin: headerH - Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H / 2,
-                ),
-              ],
-            );
-          } else
-            return Container(
-              color: Colors.black,
-              alignment: Alignment.center,
-              child: VideoHeader(
-                height: constraints.maxHeight,
-                conf: conf,
-                onTap: () async => _playVideo(context, false),
-                onTapPreviewBtn: () async => _playVideo(context, true),
+      LayoutBuilder(builder: (context, constraints) {
+        final orientation = MediaQuery.of(context).orientation;
+        final conf =
+            VideoViewModelConf(widget.id, orientation == Orientation.landscape);
+        if (orientation == Orientation.portrait) {
+          double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
+          final listViewH = constraints.maxHeight - headerH;
+          return Stack(
+            children: [
+              ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  VideoHeader(
+                    height: headerH,
+                    conf: conf,
+                    onTap: () async => _playVideo(context, false),
+                    onTapPreviewBtn: () async => _playVideo(context, true),
+                  ),
+                  _PlayerBodyWrapper(
+                    height: listViewH,
+                    data: programDetailData,
+                  )
+                ],
               ),
-            );
-        }),
-      );
+              VideoSeekBarHoverStyle(
+                conf: conf,
+                topMargin: headerH - Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H / 2,
+              ),
+            ],
+          );
+        } else
+          return Container(
+            color: Colors.black,
+            alignment: Alignment.center,
+            child: VideoHeader(
+              height: constraints.maxHeight,
+              conf: conf,
+              onTap: () async => _playVideo(context, false),
+              onTapPreviewBtn: () async => _playVideo(context, true),
+            ),
+          );
+      });
 }
 
 class _BottomSheet extends HookWidget {

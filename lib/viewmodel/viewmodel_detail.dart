@@ -1,4 +1,3 @@
-import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/di/api_client.dart';
@@ -8,14 +7,12 @@ import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/model/graphql/mixins/video_type.dart';
-import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:uuid/uuid.dart';
 
 import 'controller_hide_timer.dart';
 
@@ -133,6 +130,93 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     return url;
   }
 
+  Future<void> initComments(Duration currentPos) async {
+    try {
+      final commentPre = await ApiClient.instance().queryComment(
+        programId: id,
+        beginTime: Duration.zero,
+        endTime: currentPos,
+        sortDirection: SortDirection.DESC,
+      );
+      final commentPost = await ApiClient.instance().queryComment(
+        programId: id,
+        beginTime: currentPos,
+        endTime: currentPos + const Duration(minutes: 15),
+        sortDirection: SortDirection.ASC,
+      );
+      if (!mounted)
+        state = state.copyWith.commentHolder(
+          commentsPre: commentPre,
+          commentsPost: commentPost,
+          state: const CommentsState.success(),
+        );
+    } catch (e) {
+      print(e);
+      if (!mounted)
+        state = state.copyWith.commentHolder(
+          state: const CommentsState.error(),
+        );
+    }
+  }
+
+  Future<void> loadMorePostComment(Duration currentPos) async {
+    state = state.copyWith.commentHolder(
+      state: const CommentsState.loadingMore(),
+    );
+
+    try {
+      final appendee = await ApiClient.instance().queryComment(
+        programId: id,
+        beginTime: currentPos,
+        endTime: currentPos + const Duration(minutes: 15),
+        sortDirection: SortDirection.ASC,
+      );
+      if (!mounted)
+        state = state.copyWith.commentHolder(
+          commentsPre: state.commentHolder.commentsPost.copyWith(
+            items: state.commentHolder.commentsPost.items + appendee.items,//todo sort
+            nextToken: appendee.nextToken,
+          ),
+          state: const CommentsState.success(),
+        );
+    } catch (e) {
+      print(e);
+      if (!mounted)
+        state = state.copyWith.commentHolder(
+          state: const CommentsState.error(),
+        );
+    }
+  }
+
+  Future<void> loadMorePreComment(Duration currentPos) async {
+    state = state.copyWith.commentHolder(
+      state: const CommentsState.loadingMore(),
+    );
+
+    try {
+      final appendee = await ApiClient.instance().queryComment(
+        programId: id,
+        beginTime: Duration.zero,
+        endTime: currentPos,
+        sortDirection: SortDirection.DESC,
+      );
+      if (!mounted)
+        state = state.copyWith.commentHolder(
+          commentsPre: state.commentHolder.commentsPre.copyWith(
+            items: state.commentHolder.commentsPre.items + appendee.items,//todo sort
+            nextToken: appendee.nextToken,
+          ),
+          state: const CommentsState.success(),
+        );
+    } catch (e) {
+      print(e);
+      if (!mounted)
+        state = state.copyWith.commentHolder(
+          state: const CommentsState.error(),
+        );
+    }
+  }
+
   Future<void> togglePage(PageSheetModel pageSheet) async {
     final newOne = state.copyAsPageSheet(pageSheet);
     if (newOne == null) return;
@@ -241,7 +325,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }) {
     if (fullScreen == state.playOutState.fullScreen)
       state = state.copyWith.playOutState(
-        lastControllerCommandHolder: LastControllerCommandHolder.create(command),
+        lastControllerCommandHolder:
+            LastControllerCommandHolder.create(command),
       );
   }
 

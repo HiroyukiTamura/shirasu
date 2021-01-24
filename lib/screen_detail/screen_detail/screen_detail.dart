@@ -11,6 +11,8 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
+import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
@@ -218,6 +220,7 @@ class _BottomSheet extends HookWidget {
           program: program,
           onClearClicked: _onClearClicked,
         ),
+        comment: () => PageComment(id: program.id),
       );
 
   Future<void> _onClearClicked(BuildContext context) async =>

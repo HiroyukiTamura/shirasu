@@ -5,9 +5,12 @@ import 'package:shirasu/di/graghql_query.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
-import 'package:shirasu/model/graphql/detail_program_data.dart' show ProgramDetailData;
+import 'package:shirasu/model/graphql/detail_program_data.dart'
+    show ProgramDetailData;
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
+import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
@@ -16,8 +19,7 @@ import 'package:shirasu/model/graphql/watch_history_data.dart';
 /// todo handle timeout
 @immutable
 class ApiClient {
-
-  ApiClient._(): _graphQlClient = _createClient(Client());
+  ApiClient._() : _graphQlClient = _createClient(Client());
 
   factory ApiClient.instance() => _instance ??= ApiClient._();
 
@@ -80,9 +82,9 @@ class ApiClient {
   }
 
   Future<QueryResult> _mutate(
-      String query, {
-        Map<String, dynamic> variables,
-      }) async {
+    String query, {
+    Map<String, dynamic> variables,
+  }) async {
     final result = await _graphQlClient.mutate(MutationOptions(
       document: gql(query),
       variables: variables ?? {},
@@ -124,13 +126,14 @@ class ApiClient {
     return ProgramDetailData.fromJson(result.data);
   }
 
-  Future<ChannelData> queryChannelData(String channelId, {String nextToken}) async {
+  Future<ChannelData> queryChannelData(String channelId,
+      {String nextToken}) async {
     final variables = {
       'id': channelId,
-      if (nextToken != null)
-        'nextToken': nextToken
+      if (nextToken != null) 'nextToken': nextToken
     };
-    final result = await _query(GraphqlQuery.QUERY_CHANNEL, variables: variables);
+    final result =
+        await _query(GraphqlQuery.QUERY_CHANNEL, variables: variables);
     return ChannelData.fromJson(result.data);
   }
 
@@ -160,7 +163,7 @@ class ApiClient {
     return UserWithAttributeData.fromJson(result.data);
   }
 
-  Future<String> queryHandOutUrl (String programId, String handoutId) async {
+  Future<String> queryHandOutUrl(String programId, String handoutId) async {
     final result = await _mutate(
       GraphqlQuery.QUERY_HAND_OUT_URL,
       variables: {
@@ -169,5 +172,26 @@ class ApiClient {
       },
     );
     return result.data['getSignedUrl'] as String;
+  }
+
+  Future<Comments> queryComment({
+    @required String programId,
+    String nextToken,
+    @required Duration beginTime,
+    @required Duration endTime,
+    @required SortDirection sortDirection,
+  }) async {
+    Map<String, String> variables = {
+      'programId': programId,
+      'beginTime': beginTime.inMilliseconds.toString(),
+      'endTime': endTime.inMilliseconds.toString(),
+      'sortDirection': sortDirection.value,
+    };
+    if (nextToken != null)
+      variables['nextToken'] = nextToken;
+
+    final result =
+        await _query(GraphqlQuery.QUERY_COMMENTS, variables: variables);
+    return Comments.fromJson(result.data);
   }
 }

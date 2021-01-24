@@ -32,13 +32,19 @@ class RowFabs extends StatelessWidget {
           children: [
             // const _Fab(icon: Icons.comment),
             _Fab(
+              icon: Icons.comment,
+              onPressed: () => _onClickCommentPBtn(context),
+            ),
+            _Fab(
               icon: Icons.credit_card,
               onPressed: () => _onClickPaymentBtn(context),
             ),
             if (program.handouts.items.isNotEmpty)
-              _Fab(icon: Icons.text_snippet,
-                onPressed: () => _onClickHandoutsBtn(context),),
-            const _Fab(icon: Icons.alarm_add),
+              _Fab(
+                icon: Icons.text_snippet,
+                onPressed: () => _onClickHandoutsBtn(context),
+              ),
+            // const _Fab(icon: Icons.alarm_add),
             _Fab(
               icon: Icons.share,
               onPressed: () => _onClickShareBtn(context),
@@ -58,11 +64,17 @@ class RowFabs extends StatelessWidget {
         ),
       );
 
-  Future<void> _onClickPaymentBtn(BuildContext context) async =>
-      context.read(detailSNProvider(program.id)).togglePage(const PageSheetModel.pricing());
+  Future<void> _onClickCommentPBtn(BuildContext context) async => context
+      .read(detailSNProvider(program.id))
+      .togglePage(const PageSheetModel.comment());
 
-  Future<void> _onClickHandoutsBtn(BuildContext context) async =>
-      context.read(detailSNProvider(program.id)).togglePage(const PageSheetModel.handouts());
+  Future<void> _onClickPaymentBtn(BuildContext context) async => context
+      .read(detailSNProvider(program.id))
+      .togglePage(const PageSheetModel.pricing());
+
+  Future<void> _onClickHandoutsBtn(BuildContext context) async => context
+      .read(detailSNProvider(program.id))
+      .togglePage(const PageSheetModel.handouts());
 }
 
 @swidget

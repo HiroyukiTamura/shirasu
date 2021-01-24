@@ -17,11 +17,13 @@ class _$ModelDetailTearOff {
   _ModelDetail call(
       {@required DetailModelState prgDataResult,
       @required PlayOutState playOutState,
-      @required bool isHandoutUrlRequesting}) {
+      @required bool isHandoutUrlRequesting,
+      @required CommentHolder commentHolder}) {
     return _ModelDetail(
       prgDataResult: prgDataResult,
       playOutState: playOutState,
       isHandoutUrlRequesting: isHandoutUrlRequesting,
+      commentHolder: commentHolder,
     );
   }
 }
@@ -35,6 +37,7 @@ mixin _$ModelDetail {
   DetailModelState get prgDataResult;
   PlayOutState get playOutState;
   bool get isHandoutUrlRequesting;
+  CommentHolder get commentHolder;
 
   $ModelDetailCopyWith<ModelDetail> get copyWith;
 }
@@ -47,10 +50,12 @@ abstract class $ModelDetailCopyWith<$Res> {
   $Res call(
       {DetailModelState prgDataResult,
       PlayOutState playOutState,
-      bool isHandoutUrlRequesting});
+      bool isHandoutUrlRequesting,
+      CommentHolder commentHolder});
 
   $DetailModelStateCopyWith<$Res> get prgDataResult;
   $PlayOutStateCopyWith<$Res> get playOutState;
+  $CommentHolderCopyWith<$Res> get commentHolder;
 }
 
 /// @nodoc
@@ -66,6 +71,7 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
     Object prgDataResult = freezed,
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
+    Object commentHolder = freezed,
   }) {
     return _then(_value.copyWith(
       prgDataResult: prgDataResult == freezed
@@ -77,6 +83,9 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       isHandoutUrlRequesting: isHandoutUrlRequesting == freezed
           ? _value.isHandoutUrlRequesting
           : isHandoutUrlRequesting as bool,
+      commentHolder: commentHolder == freezed
+          ? _value.commentHolder
+          : commentHolder as CommentHolder,
     ));
   }
 
@@ -99,6 +108,16 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       return _then(_value.copyWith(playOutState: value));
     });
   }
+
+  @override
+  $CommentHolderCopyWith<$Res> get commentHolder {
+    if (_value.commentHolder == null) {
+      return null;
+    }
+    return $CommentHolderCopyWith<$Res>(_value.commentHolder, (value) {
+      return _then(_value.copyWith(commentHolder: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -111,12 +130,15 @@ abstract class _$ModelDetailCopyWith<$Res>
   $Res call(
       {DetailModelState prgDataResult,
       PlayOutState playOutState,
-      bool isHandoutUrlRequesting});
+      bool isHandoutUrlRequesting,
+      CommentHolder commentHolder});
 
   @override
   $DetailModelStateCopyWith<$Res> get prgDataResult;
   @override
   $PlayOutStateCopyWith<$Res> get playOutState;
+  @override
+  $CommentHolderCopyWith<$Res> get commentHolder;
 }
 
 /// @nodoc
@@ -134,6 +156,7 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
     Object prgDataResult = freezed,
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
+    Object commentHolder = freezed,
   }) {
     return _then(_ModelDetail(
       prgDataResult: prgDataResult == freezed
@@ -145,6 +168,9 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
       isHandoutUrlRequesting: isHandoutUrlRequesting == freezed
           ? _value.isHandoutUrlRequesting
           : isHandoutUrlRequesting as bool,
+      commentHolder: commentHolder == freezed
+          ? _value.commentHolder
+          : commentHolder as CommentHolder,
     ));
   }
 }
@@ -154,10 +180,12 @@ class _$_ModelDetail extends _ModelDetail {
   const _$_ModelDetail(
       {@required this.prgDataResult,
       @required this.playOutState,
-      @required this.isHandoutUrlRequesting})
+      @required this.isHandoutUrlRequesting,
+      @required this.commentHolder})
       : assert(prgDataResult != null),
         assert(playOutState != null),
         assert(isHandoutUrlRequesting != null),
+        assert(commentHolder != null),
         super._();
 
   @override
@@ -166,10 +194,12 @@ class _$_ModelDetail extends _ModelDetail {
   final PlayOutState playOutState;
   @override
   final bool isHandoutUrlRequesting;
+  @override
+  final CommentHolder commentHolder;
 
   @override
   String toString() {
-    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting)';
+    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, commentHolder: $commentHolder)';
   }
 
   @override
@@ -184,7 +214,10 @@ class _$_ModelDetail extends _ModelDetail {
                     .equals(other.playOutState, playOutState)) &&
             (identical(other.isHandoutUrlRequesting, isHandoutUrlRequesting) ||
                 const DeepCollectionEquality().equals(
-                    other.isHandoutUrlRequesting, isHandoutUrlRequesting)));
+                    other.isHandoutUrlRequesting, isHandoutUrlRequesting)) &&
+            (identical(other.commentHolder, commentHolder) ||
+                const DeepCollectionEquality()
+                    .equals(other.commentHolder, commentHolder)));
   }
 
   @override
@@ -192,7 +225,8 @@ class _$_ModelDetail extends _ModelDetail {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(prgDataResult) ^
       const DeepCollectionEquality().hash(playOutState) ^
-      const DeepCollectionEquality().hash(isHandoutUrlRequesting);
+      const DeepCollectionEquality().hash(isHandoutUrlRequesting) ^
+      const DeepCollectionEquality().hash(commentHolder);
 
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith =>
@@ -204,7 +238,8 @@ abstract class _ModelDetail extends ModelDetail {
   const factory _ModelDetail(
       {@required DetailModelState prgDataResult,
       @required PlayOutState playOutState,
-      @required bool isHandoutUrlRequesting}) = _$_ModelDetail;
+      @required bool isHandoutUrlRequesting,
+      @required CommentHolder commentHolder}) = _$_ModelDetail;
 
   @override
   DetailModelState get prgDataResult;
@@ -212,6 +247,8 @@ abstract class _ModelDetail extends ModelDetail {
   PlayOutState get playOutState;
   @override
   bool get isHandoutUrlRequesting;
+  @override
+  CommentHolder get commentHolder;
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith;
 }
@@ -1961,13 +1998,18 @@ class _$PageSheetModelTearOff {
   }
 
 // ignore: unused_element
-  PageSheetModelHandouts handouts() {
-    return const PageSheetModelHandouts();
+  _PageSheetModelHandouts handouts() {
+    return const _PageSheetModelHandouts();
   }
 
 // ignore: unused_element
-  PageSheetModelPricing pricing() {
-    return const PageSheetModelPricing();
+  _PageSheetModelPricing pricing() {
+    return const _PageSheetModelPricing();
+  }
+
+// ignore: unused_element
+  _PageSheetModelComment comment() {
+    return const _PageSheetModelComment();
   }
 }
 
@@ -1982,25 +2024,29 @@ mixin _$PageSheetModel {
     @required TResult hidden(),
     @required TResult handouts(),
     @required TResult pricing(),
+    @required TResult comment(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult hidden(),
     TResult handouts(),
     TResult pricing(),
+    TResult comment(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult hidden(_PageSheetModelHidden value),
-    @required TResult handouts(PageSheetModelHandouts value),
-    @required TResult pricing(PageSheetModelPricing value),
+    @required TResult handouts(_PageSheetModelHandouts value),
+    @required TResult pricing(_PageSheetModelPricing value),
+    @required TResult comment(_PageSheetModelComment value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult hidden(_PageSheetModelHidden value),
-    TResult handouts(PageSheetModelHandouts value),
-    TResult pricing(PageSheetModelPricing value),
+    TResult handouts(_PageSheetModelHandouts value),
+    TResult pricing(_PageSheetModelPricing value),
+    TResult comment(_PageSheetModelComment value),
     @required TResult orElse(),
   });
 }
@@ -2064,10 +2110,12 @@ class _$_PageSheetModelHidden implements _PageSheetModelHidden {
     @required TResult hidden(),
     @required TResult handouts(),
     @required TResult pricing(),
+    @required TResult comment(),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
+    assert(comment != null);
     return hidden();
   }
 
@@ -2077,6 +2125,7 @@ class _$_PageSheetModelHidden implements _PageSheetModelHidden {
     TResult hidden(),
     TResult handouts(),
     TResult pricing(),
+    TResult comment(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2090,12 +2139,14 @@ class _$_PageSheetModelHidden implements _PageSheetModelHidden {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult hidden(_PageSheetModelHidden value),
-    @required TResult handouts(PageSheetModelHandouts value),
-    @required TResult pricing(PageSheetModelPricing value),
+    @required TResult handouts(_PageSheetModelHandouts value),
+    @required TResult pricing(_PageSheetModelPricing value),
+    @required TResult comment(_PageSheetModelComment value),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
+    assert(comment != null);
     return hidden(this);
   }
 
@@ -2103,8 +2154,9 @@ class _$_PageSheetModelHidden implements _PageSheetModelHidden {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult hidden(_PageSheetModelHidden value),
-    TResult handouts(PageSheetModelHandouts value),
-    TResult pricing(PageSheetModelPricing value),
+    TResult handouts(_PageSheetModelHandouts value),
+    TResult pricing(_PageSheetModelPricing value),
+    TResult comment(_PageSheetModelComment value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2120,27 +2172,27 @@ abstract class _PageSheetModelHidden implements PageSheetModel {
 }
 
 /// @nodoc
-abstract class $PageSheetModelHandoutsCopyWith<$Res> {
-  factory $PageSheetModelHandoutsCopyWith(PageSheetModelHandouts value,
-          $Res Function(PageSheetModelHandouts) then) =
-      _$PageSheetModelHandoutsCopyWithImpl<$Res>;
+abstract class _$PageSheetModelHandoutsCopyWith<$Res> {
+  factory _$PageSheetModelHandoutsCopyWith(_PageSheetModelHandouts value,
+          $Res Function(_PageSheetModelHandouts) then) =
+      __$PageSheetModelHandoutsCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PageSheetModelHandoutsCopyWithImpl<$Res>
+class __$PageSheetModelHandoutsCopyWithImpl<$Res>
     extends _$PageSheetModelCopyWithImpl<$Res>
-    implements $PageSheetModelHandoutsCopyWith<$Res> {
-  _$PageSheetModelHandoutsCopyWithImpl(PageSheetModelHandouts _value,
-      $Res Function(PageSheetModelHandouts) _then)
-      : super(_value, (v) => _then(v as PageSheetModelHandouts));
+    implements _$PageSheetModelHandoutsCopyWith<$Res> {
+  __$PageSheetModelHandoutsCopyWithImpl(_PageSheetModelHandouts _value,
+      $Res Function(_PageSheetModelHandouts) _then)
+      : super(_value, (v) => _then(v as _PageSheetModelHandouts));
 
   @override
-  PageSheetModelHandouts get _value => super._value as PageSheetModelHandouts;
+  _PageSheetModelHandouts get _value => super._value as _PageSheetModelHandouts;
 }
 
 /// @nodoc
-class _$PageSheetModelHandouts implements PageSheetModelHandouts {
-  const _$PageSheetModelHandouts();
+class _$_PageSheetModelHandouts implements _PageSheetModelHandouts {
+  const _$_PageSheetModelHandouts();
 
   @override
   String toString() {
@@ -2149,7 +2201,7 @@ class _$PageSheetModelHandouts implements PageSheetModelHandouts {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PageSheetModelHandouts);
+    return identical(this, other) || (other is _PageSheetModelHandouts);
   }
 
   @override
@@ -2161,10 +2213,12 @@ class _$PageSheetModelHandouts implements PageSheetModelHandouts {
     @required TResult hidden(),
     @required TResult handouts(),
     @required TResult pricing(),
+    @required TResult comment(),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
+    assert(comment != null);
     return handouts();
   }
 
@@ -2174,6 +2228,7 @@ class _$PageSheetModelHandouts implements PageSheetModelHandouts {
     TResult hidden(),
     TResult handouts(),
     TResult pricing(),
+    TResult comment(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2187,12 +2242,14 @@ class _$PageSheetModelHandouts implements PageSheetModelHandouts {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult hidden(_PageSheetModelHidden value),
-    @required TResult handouts(PageSheetModelHandouts value),
-    @required TResult pricing(PageSheetModelPricing value),
+    @required TResult handouts(_PageSheetModelHandouts value),
+    @required TResult pricing(_PageSheetModelPricing value),
+    @required TResult comment(_PageSheetModelComment value),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
+    assert(comment != null);
     return handouts(this);
   }
 
@@ -2200,8 +2257,9 @@ class _$PageSheetModelHandouts implements PageSheetModelHandouts {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult hidden(_PageSheetModelHidden value),
-    TResult handouts(PageSheetModelHandouts value),
-    TResult pricing(PageSheetModelPricing value),
+    TResult handouts(_PageSheetModelHandouts value),
+    TResult pricing(_PageSheetModelPricing value),
+    TResult comment(_PageSheetModelComment value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2212,32 +2270,32 @@ class _$PageSheetModelHandouts implements PageSheetModelHandouts {
   }
 }
 
-abstract class PageSheetModelHandouts implements PageSheetModel {
-  const factory PageSheetModelHandouts() = _$PageSheetModelHandouts;
+abstract class _PageSheetModelHandouts implements PageSheetModel {
+  const factory _PageSheetModelHandouts() = _$_PageSheetModelHandouts;
 }
 
 /// @nodoc
-abstract class $PageSheetModelPricingCopyWith<$Res> {
-  factory $PageSheetModelPricingCopyWith(PageSheetModelPricing value,
-          $Res Function(PageSheetModelPricing) then) =
-      _$PageSheetModelPricingCopyWithImpl<$Res>;
+abstract class _$PageSheetModelPricingCopyWith<$Res> {
+  factory _$PageSheetModelPricingCopyWith(_PageSheetModelPricing value,
+          $Res Function(_PageSheetModelPricing) then) =
+      __$PageSheetModelPricingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PageSheetModelPricingCopyWithImpl<$Res>
+class __$PageSheetModelPricingCopyWithImpl<$Res>
     extends _$PageSheetModelCopyWithImpl<$Res>
-    implements $PageSheetModelPricingCopyWith<$Res> {
-  _$PageSheetModelPricingCopyWithImpl(
-      PageSheetModelPricing _value, $Res Function(PageSheetModelPricing) _then)
-      : super(_value, (v) => _then(v as PageSheetModelPricing));
+    implements _$PageSheetModelPricingCopyWith<$Res> {
+  __$PageSheetModelPricingCopyWithImpl(_PageSheetModelPricing _value,
+      $Res Function(_PageSheetModelPricing) _then)
+      : super(_value, (v) => _then(v as _PageSheetModelPricing));
 
   @override
-  PageSheetModelPricing get _value => super._value as PageSheetModelPricing;
+  _PageSheetModelPricing get _value => super._value as _PageSheetModelPricing;
 }
 
 /// @nodoc
-class _$PageSheetModelPricing implements PageSheetModelPricing {
-  const _$PageSheetModelPricing();
+class _$_PageSheetModelPricing implements _PageSheetModelPricing {
+  const _$_PageSheetModelPricing();
 
   @override
   String toString() {
@@ -2246,7 +2304,7 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PageSheetModelPricing);
+    return identical(this, other) || (other is _PageSheetModelPricing);
   }
 
   @override
@@ -2258,10 +2316,12 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
     @required TResult hidden(),
     @required TResult handouts(),
     @required TResult pricing(),
+    @required TResult comment(),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
+    assert(comment != null);
     return pricing();
   }
 
@@ -2271,6 +2331,7 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
     TResult hidden(),
     TResult handouts(),
     TResult pricing(),
+    TResult comment(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2284,12 +2345,14 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult hidden(_PageSheetModelHidden value),
-    @required TResult handouts(PageSheetModelHandouts value),
-    @required TResult pricing(PageSheetModelPricing value),
+    @required TResult handouts(_PageSheetModelHandouts value),
+    @required TResult pricing(_PageSheetModelPricing value),
+    @required TResult comment(_PageSheetModelComment value),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
+    assert(comment != null);
     return pricing(this);
   }
 
@@ -2297,8 +2360,9 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult hidden(_PageSheetModelHidden value),
-    TResult handouts(PageSheetModelHandouts value),
-    TResult pricing(PageSheetModelPricing value),
+    TResult handouts(_PageSheetModelHandouts value),
+    TResult pricing(_PageSheetModelPricing value),
+    TResult comment(_PageSheetModelComment value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2309,8 +2373,111 @@ class _$PageSheetModelPricing implements PageSheetModelPricing {
   }
 }
 
-abstract class PageSheetModelPricing implements PageSheetModel {
-  const factory PageSheetModelPricing() = _$PageSheetModelPricing;
+abstract class _PageSheetModelPricing implements PageSheetModel {
+  const factory _PageSheetModelPricing() = _$_PageSheetModelPricing;
+}
+
+/// @nodoc
+abstract class _$PageSheetModelCommentCopyWith<$Res> {
+  factory _$PageSheetModelCommentCopyWith(_PageSheetModelComment value,
+          $Res Function(_PageSheetModelComment) then) =
+      __$PageSheetModelCommentCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PageSheetModelCommentCopyWithImpl<$Res>
+    extends _$PageSheetModelCopyWithImpl<$Res>
+    implements _$PageSheetModelCommentCopyWith<$Res> {
+  __$PageSheetModelCommentCopyWithImpl(_PageSheetModelComment _value,
+      $Res Function(_PageSheetModelComment) _then)
+      : super(_value, (v) => _then(v as _PageSheetModelComment));
+
+  @override
+  _PageSheetModelComment get _value => super._value as _PageSheetModelComment;
+}
+
+/// @nodoc
+class _$_PageSheetModelComment implements _PageSheetModelComment {
+  const _$_PageSheetModelComment();
+
+  @override
+  String toString() {
+    return 'PageSheetModel.comment()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PageSheetModelComment);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult hidden(),
+    @required TResult handouts(),
+    @required TResult pricing(),
+    @required TResult comment(),
+  }) {
+    assert(hidden != null);
+    assert(handouts != null);
+    assert(pricing != null);
+    assert(comment != null);
+    return comment();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult hidden(),
+    TResult handouts(),
+    TResult pricing(),
+    TResult comment(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (comment != null) {
+      return comment();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult hidden(_PageSheetModelHidden value),
+    @required TResult handouts(_PageSheetModelHandouts value),
+    @required TResult pricing(_PageSheetModelPricing value),
+    @required TResult comment(_PageSheetModelComment value),
+  }) {
+    assert(hidden != null);
+    assert(handouts != null);
+    assert(pricing != null);
+    assert(comment != null);
+    return comment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult hidden(_PageSheetModelHidden value),
+    TResult handouts(_PageSheetModelHandouts value),
+    TResult pricing(_PageSheetModelPricing value),
+    TResult comment(_PageSheetModelComment value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (comment != null) {
+      return comment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PageSheetModelComment implements PageSheetModel {
+  const factory _PageSheetModelComment() = _$_PageSheetModelComment;
 }
 
 /// @nodoc
@@ -3873,4 +4040,703 @@ class _$_VideoPlayerStateFinish implements _VideoPlayerStateFinish {
 
 abstract class _VideoPlayerStateFinish implements VideoPlayerState {
   const factory _VideoPlayerStateFinish() = _$_VideoPlayerStateFinish;
+}
+
+/// @nodoc
+class _$CommentHolderTearOff {
+  const _$CommentHolderTearOff();
+
+// ignore: unused_element
+  _CommentHolder call(
+      {Comments commentsPre,
+      Comments commentsPost,
+      CommentsState state = const CommentsState.loading()}) {
+    return _CommentHolder(
+      commentsPre: commentsPre,
+      commentsPost: commentsPost,
+      state: state,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $CommentHolder = _$CommentHolderTearOff();
+
+/// @nodoc
+mixin _$CommentHolder {
+  Comments get commentsPre;
+  Comments get commentsPost;
+  CommentsState get state;
+
+  $CommentHolderCopyWith<CommentHolder> get copyWith;
+}
+
+/// @nodoc
+abstract class $CommentHolderCopyWith<$Res> {
+  factory $CommentHolderCopyWith(
+          CommentHolder value, $Res Function(CommentHolder) then) =
+      _$CommentHolderCopyWithImpl<$Res>;
+  $Res call({Comments commentsPre, Comments commentsPost, CommentsState state});
+
+  $CommentsCopyWith<$Res> get commentsPre;
+  $CommentsCopyWith<$Res> get commentsPost;
+  $CommentsStateCopyWith<$Res> get state;
+}
+
+/// @nodoc
+class _$CommentHolderCopyWithImpl<$Res>
+    implements $CommentHolderCopyWith<$Res> {
+  _$CommentHolderCopyWithImpl(this._value, this._then);
+
+  final CommentHolder _value;
+  // ignore: unused_field
+  final $Res Function(CommentHolder) _then;
+
+  @override
+  $Res call({
+    Object commentsPre = freezed,
+    Object commentsPost = freezed,
+    Object state = freezed,
+  }) {
+    return _then(_value.copyWith(
+      commentsPre:
+          commentsPre == freezed ? _value.commentsPre : commentsPre as Comments,
+      commentsPost: commentsPost == freezed
+          ? _value.commentsPost
+          : commentsPost as Comments,
+      state: state == freezed ? _value.state : state as CommentsState,
+    ));
+  }
+
+  @override
+  $CommentsCopyWith<$Res> get commentsPre {
+    if (_value.commentsPre == null) {
+      return null;
+    }
+    return $CommentsCopyWith<$Res>(_value.commentsPre, (value) {
+      return _then(_value.copyWith(commentsPre: value));
+    });
+  }
+
+  @override
+  $CommentsCopyWith<$Res> get commentsPost {
+    if (_value.commentsPost == null) {
+      return null;
+    }
+    return $CommentsCopyWith<$Res>(_value.commentsPost, (value) {
+      return _then(_value.copyWith(commentsPost: value));
+    });
+  }
+
+  @override
+  $CommentsStateCopyWith<$Res> get state {
+    if (_value.state == null) {
+      return null;
+    }
+    return $CommentsStateCopyWith<$Res>(_value.state, (value) {
+      return _then(_value.copyWith(state: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$CommentHolderCopyWith<$Res>
+    implements $CommentHolderCopyWith<$Res> {
+  factory _$CommentHolderCopyWith(
+          _CommentHolder value, $Res Function(_CommentHolder) then) =
+      __$CommentHolderCopyWithImpl<$Res>;
+  @override
+  $Res call({Comments commentsPre, Comments commentsPost, CommentsState state});
+
+  @override
+  $CommentsCopyWith<$Res> get commentsPre;
+  @override
+  $CommentsCopyWith<$Res> get commentsPost;
+  @override
+  $CommentsStateCopyWith<$Res> get state;
+}
+
+/// @nodoc
+class __$CommentHolderCopyWithImpl<$Res>
+    extends _$CommentHolderCopyWithImpl<$Res>
+    implements _$CommentHolderCopyWith<$Res> {
+  __$CommentHolderCopyWithImpl(
+      _CommentHolder _value, $Res Function(_CommentHolder) _then)
+      : super(_value, (v) => _then(v as _CommentHolder));
+
+  @override
+  _CommentHolder get _value => super._value as _CommentHolder;
+
+  @override
+  $Res call({
+    Object commentsPre = freezed,
+    Object commentsPost = freezed,
+    Object state = freezed,
+  }) {
+    return _then(_CommentHolder(
+      commentsPre:
+          commentsPre == freezed ? _value.commentsPre : commentsPre as Comments,
+      commentsPost: commentsPost == freezed
+          ? _value.commentsPost
+          : commentsPost as Comments,
+      state: state == freezed ? _value.state : state as CommentsState,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_CommentHolder implements _CommentHolder {
+  const _$_CommentHolder(
+      {this.commentsPre,
+      this.commentsPost,
+      this.state = const CommentsState.loading()})
+      : assert(state != null);
+
+  @override
+  final Comments commentsPre;
+  @override
+  final Comments commentsPost;
+  @JsonKey(defaultValue: const CommentsState.loading())
+  @override
+  final CommentsState state;
+
+  @override
+  String toString() {
+    return 'CommentHolder(commentsPre: $commentsPre, commentsPost: $commentsPost, state: $state)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CommentHolder &&
+            (identical(other.commentsPre, commentsPre) ||
+                const DeepCollectionEquality()
+                    .equals(other.commentsPre, commentsPre)) &&
+            (identical(other.commentsPost, commentsPost) ||
+                const DeepCollectionEquality()
+                    .equals(other.commentsPost, commentsPost)) &&
+            (identical(other.state, state) ||
+                const DeepCollectionEquality().equals(other.state, state)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(commentsPre) ^
+      const DeepCollectionEquality().hash(commentsPost) ^
+      const DeepCollectionEquality().hash(state);
+
+  @override
+  _$CommentHolderCopyWith<_CommentHolder> get copyWith =>
+      __$CommentHolderCopyWithImpl<_CommentHolder>(this, _$identity);
+}
+
+abstract class _CommentHolder implements CommentHolder {
+  const factory _CommentHolder(
+      {Comments commentsPre,
+      Comments commentsPost,
+      CommentsState state}) = _$_CommentHolder;
+
+  @override
+  Comments get commentsPre;
+  @override
+  Comments get commentsPost;
+  @override
+  CommentsState get state;
+  @override
+  _$CommentHolderCopyWith<_CommentHolder> get copyWith;
+}
+
+/// @nodoc
+class _$CommentsStateTearOff {
+  const _$CommentsStateTearOff();
+
+// ignore: unused_element
+  _CommentsStateSuccess success() {
+    return const _CommentsStateSuccess();
+  }
+
+// ignore: unused_element
+  _CommentsStateLoading loading() {
+    return const _CommentsStateLoading();
+  }
+
+// ignore: unused_element
+  _CommentsStateLoadingMore loadingMore() {
+    return const _CommentsStateLoadingMore();
+  }
+
+// ignore: unused_element
+  _CommentsStateError error() {
+    return const _CommentsStateError();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $CommentsState = _$CommentsStateTearOff();
+
+/// @nodoc
+mixin _$CommentsState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult success(),
+    @required TResult loading(),
+    @required TResult loadingMore(),
+    @required TResult error(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult success(),
+    TResult loading(),
+    TResult loadingMore(),
+    TResult error(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult success(_CommentsStateSuccess value),
+    @required TResult loading(_CommentsStateLoading value),
+    @required TResult loadingMore(_CommentsStateLoadingMore value),
+    @required TResult error(_CommentsStateError value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult success(_CommentsStateSuccess value),
+    TResult loading(_CommentsStateLoading value),
+    TResult loadingMore(_CommentsStateLoadingMore value),
+    TResult error(_CommentsStateError value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $CommentsStateCopyWith<$Res> {
+  factory $CommentsStateCopyWith(
+          CommentsState value, $Res Function(CommentsState) then) =
+      _$CommentsStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CommentsStateCopyWithImpl<$Res>
+    implements $CommentsStateCopyWith<$Res> {
+  _$CommentsStateCopyWithImpl(this._value, this._then);
+
+  final CommentsState _value;
+  // ignore: unused_field
+  final $Res Function(CommentsState) _then;
+}
+
+/// @nodoc
+abstract class _$CommentsStateSuccessCopyWith<$Res> {
+  factory _$CommentsStateSuccessCopyWith(_CommentsStateSuccess value,
+          $Res Function(_CommentsStateSuccess) then) =
+      __$CommentsStateSuccessCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$CommentsStateSuccessCopyWithImpl<$Res>
+    extends _$CommentsStateCopyWithImpl<$Res>
+    implements _$CommentsStateSuccessCopyWith<$Res> {
+  __$CommentsStateSuccessCopyWithImpl(
+      _CommentsStateSuccess _value, $Res Function(_CommentsStateSuccess) _then)
+      : super(_value, (v) => _then(v as _CommentsStateSuccess));
+
+  @override
+  _CommentsStateSuccess get _value => super._value as _CommentsStateSuccess;
+}
+
+/// @nodoc
+class _$_CommentsStateSuccess implements _CommentsStateSuccess {
+  const _$_CommentsStateSuccess();
+
+  @override
+  String toString() {
+    return 'CommentsState.success()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _CommentsStateSuccess);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult success(),
+    @required TResult loading(),
+    @required TResult loadingMore(),
+    @required TResult error(),
+  }) {
+    assert(success != null);
+    assert(loading != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return success();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult success(),
+    TResult loading(),
+    TResult loadingMore(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (success != null) {
+      return success();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult success(_CommentsStateSuccess value),
+    @required TResult loading(_CommentsStateLoading value),
+    @required TResult loadingMore(_CommentsStateLoadingMore value),
+    @required TResult error(_CommentsStateError value),
+  }) {
+    assert(success != null);
+    assert(loading != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult success(_CommentsStateSuccess value),
+    TResult loading(_CommentsStateLoading value),
+    TResult loadingMore(_CommentsStateLoadingMore value),
+    TResult error(_CommentsStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CommentsStateSuccess implements CommentsState {
+  const factory _CommentsStateSuccess() = _$_CommentsStateSuccess;
+}
+
+/// @nodoc
+abstract class _$CommentsStateLoadingCopyWith<$Res> {
+  factory _$CommentsStateLoadingCopyWith(_CommentsStateLoading value,
+          $Res Function(_CommentsStateLoading) then) =
+      __$CommentsStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$CommentsStateLoadingCopyWithImpl<$Res>
+    extends _$CommentsStateCopyWithImpl<$Res>
+    implements _$CommentsStateLoadingCopyWith<$Res> {
+  __$CommentsStateLoadingCopyWithImpl(
+      _CommentsStateLoading _value, $Res Function(_CommentsStateLoading) _then)
+      : super(_value, (v) => _then(v as _CommentsStateLoading));
+
+  @override
+  _CommentsStateLoading get _value => super._value as _CommentsStateLoading;
+}
+
+/// @nodoc
+class _$_CommentsStateLoading implements _CommentsStateLoading {
+  const _$_CommentsStateLoading();
+
+  @override
+  String toString() {
+    return 'CommentsState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _CommentsStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult success(),
+    @required TResult loading(),
+    @required TResult loadingMore(),
+    @required TResult error(),
+  }) {
+    assert(success != null);
+    assert(loading != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult success(),
+    TResult loading(),
+    TResult loadingMore(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult success(_CommentsStateSuccess value),
+    @required TResult loading(_CommentsStateLoading value),
+    @required TResult loadingMore(_CommentsStateLoadingMore value),
+    @required TResult error(_CommentsStateError value),
+  }) {
+    assert(success != null);
+    assert(loading != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult success(_CommentsStateSuccess value),
+    TResult loading(_CommentsStateLoading value),
+    TResult loadingMore(_CommentsStateLoadingMore value),
+    TResult error(_CommentsStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CommentsStateLoading implements CommentsState {
+  const factory _CommentsStateLoading() = _$_CommentsStateLoading;
+}
+
+/// @nodoc
+abstract class _$CommentsStateLoadingMoreCopyWith<$Res> {
+  factory _$CommentsStateLoadingMoreCopyWith(_CommentsStateLoadingMore value,
+          $Res Function(_CommentsStateLoadingMore) then) =
+      __$CommentsStateLoadingMoreCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$CommentsStateLoadingMoreCopyWithImpl<$Res>
+    extends _$CommentsStateCopyWithImpl<$Res>
+    implements _$CommentsStateLoadingMoreCopyWith<$Res> {
+  __$CommentsStateLoadingMoreCopyWithImpl(_CommentsStateLoadingMore _value,
+      $Res Function(_CommentsStateLoadingMore) _then)
+      : super(_value, (v) => _then(v as _CommentsStateLoadingMore));
+
+  @override
+  _CommentsStateLoadingMore get _value =>
+      super._value as _CommentsStateLoadingMore;
+}
+
+/// @nodoc
+class _$_CommentsStateLoadingMore implements _CommentsStateLoadingMore {
+  const _$_CommentsStateLoadingMore();
+
+  @override
+  String toString() {
+    return 'CommentsState.loadingMore()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _CommentsStateLoadingMore);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult success(),
+    @required TResult loading(),
+    @required TResult loadingMore(),
+    @required TResult error(),
+  }) {
+    assert(success != null);
+    assert(loading != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return loadingMore();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult success(),
+    TResult loading(),
+    TResult loadingMore(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (loadingMore != null) {
+      return loadingMore();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult success(_CommentsStateSuccess value),
+    @required TResult loading(_CommentsStateLoading value),
+    @required TResult loadingMore(_CommentsStateLoadingMore value),
+    @required TResult error(_CommentsStateError value),
+  }) {
+    assert(success != null);
+    assert(loading != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return loadingMore(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult success(_CommentsStateSuccess value),
+    TResult loading(_CommentsStateLoading value),
+    TResult loadingMore(_CommentsStateLoadingMore value),
+    TResult error(_CommentsStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (loadingMore != null) {
+      return loadingMore(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CommentsStateLoadingMore implements CommentsState {
+  const factory _CommentsStateLoadingMore() = _$_CommentsStateLoadingMore;
+}
+
+/// @nodoc
+abstract class _$CommentsStateErrorCopyWith<$Res> {
+  factory _$CommentsStateErrorCopyWith(
+          _CommentsStateError value, $Res Function(_CommentsStateError) then) =
+      __$CommentsStateErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$CommentsStateErrorCopyWithImpl<$Res>
+    extends _$CommentsStateCopyWithImpl<$Res>
+    implements _$CommentsStateErrorCopyWith<$Res> {
+  __$CommentsStateErrorCopyWithImpl(
+      _CommentsStateError _value, $Res Function(_CommentsStateError) _then)
+      : super(_value, (v) => _then(v as _CommentsStateError));
+
+  @override
+  _CommentsStateError get _value => super._value as _CommentsStateError;
+}
+
+/// @nodoc
+class _$_CommentsStateError implements _CommentsStateError {
+  const _$_CommentsStateError();
+
+  @override
+  String toString() {
+    return 'CommentsState.error()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _CommentsStateError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult success(),
+    @required TResult loading(),
+    @required TResult loadingMore(),
+    @required TResult error(),
+  }) {
+    assert(success != null);
+    assert(loading != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return error();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult success(),
+    TResult loading(),
+    TResult loadingMore(),
+    TResult error(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult success(_CommentsStateSuccess value),
+    @required TResult loading(_CommentsStateLoading value),
+    @required TResult loadingMore(_CommentsStateLoadingMore value),
+    @required TResult error(_CommentsStateError value),
+  }) {
+    assert(success != null);
+    assert(loading != null);
+    assert(loadingMore != null);
+    assert(error != null);
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult success(_CommentsStateSuccess value),
+    TResult loading(_CommentsStateLoading value),
+    TResult loadingMore(_CommentsStateLoadingMore value),
+    TResult error(_CommentsStateError value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CommentsStateError implements CommentsState {
+  const factory _CommentsStateError() = _$_CommentsStateError;
 }

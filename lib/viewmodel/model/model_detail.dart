@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,6 +14,7 @@ abstract class ModelDetail implements _$ModelDetail {
     @required DetailModelState prgDataResult,
     @required PlayOutState playOutState,
     @required bool isHandoutUrlRequesting,
+    @required CommentHolder commentHolder,
   }) = _ModelDetail;
 
   const ModelDetail._();
@@ -21,6 +23,7 @@ abstract class ModelDetail implements _$ModelDetail {
         prgDataResult: const DetailModelState.preInitialized(),
         playOutState: PlayOutState.initial(),
         isHandoutUrlRequesting: false,
+        commentHolder: const CommentHolder(),
       );
 
   ModelDetail copyAsInitialize(String urlAvailable, VideoType videoType) =>
@@ -129,9 +132,11 @@ abstract class PlayerCommandedState with _$PlayerCommandedState {
 abstract class PageSheetModel with _$PageSheetModel {
   const factory PageSheetModel.hidden() = _PageSheetModelHidden;
 
-  const factory PageSheetModel.handouts() = PageSheetModelHandouts;
+  const factory PageSheetModel.handouts() = _PageSheetModelHandouts;
 
-  const factory PageSheetModel.pricing() = PageSheetModelPricing;
+  const factory PageSheetModel.pricing() = _PageSheetModelPricing;
+
+  const factory PageSheetModel.comment() = _PageSheetModelComment;
 }
 
 @freezed
@@ -173,4 +178,24 @@ abstract class VideoPlayerState with _$VideoPlayerState {
   const factory VideoPlayerState.error(String msg) = _VideoPlayerStateError;
 
   const factory VideoPlayerState.finish() = _VideoPlayerStateFinish;
+}
+
+@freezed
+abstract class CommentHolder with _$CommentHolder {
+  const factory CommentHolder({
+    Comments commentsPre,
+    Comments commentsPost,
+    @Default(CommentsState.loading()) CommentsState state,
+  }) = _CommentHolder;
+}
+
+@freezed
+abstract class CommentsState with _$CommentsState {
+  const factory CommentsState.success() = _CommentsStateSuccess;
+
+  const factory CommentsState.loading() = _CommentsStateLoading;
+
+  const factory CommentsState.loadingMore() = _CommentsStateLoadingMore;
+
+  const factory CommentsState.error() = _CommentsStateError;
 }

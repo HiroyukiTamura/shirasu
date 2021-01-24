@@ -500,4 +500,44 @@ mutation GetSignedUrl(
         filename: $filename
     )
 }''';
+
+  static const String QUERY_COMMENTS = r'''
+query ListCommentsByProgram(
+    $programId: ID!
+    $beginTime: Int!
+    $endTime: Int!
+    $includeNG: Boolean
+    $sortDirection: ModelSortDirection
+    $nextToken: String
+) {
+    comments: listCommentsByProgram(
+        programId: $programId
+        commentTimeRange: [$beginTime, $endTime]
+        includeNG: $includeNG
+        sortDirection: $sortDirection
+        nextToken: $nextToken
+    ) {
+        items {
+            ...UseProgramCommentData
+            __typename
+        }
+        nextToken
+        __typename
+    }
+}
+
+fragment UseProgramCommentData on Comment {
+    id
+    text
+    commentTime
+    userId
+    user {
+        id
+        name
+        icon
+        __typename
+    }
+    __typename
+}
+''';
 }

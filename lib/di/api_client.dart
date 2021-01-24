@@ -4,14 +4,14 @@ import 'package:http/http.dart';
 import 'package:shirasu/di/graghql_query.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/model/channel_data.dart';
-import 'package:shirasu/model/detail_program_data.dart' show ProgramDetailData;
-import 'package:shirasu/model/featured_programs_data.dart';
-import 'package:shirasu/model/new_programs_data.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/detail_program_data.dart' show ProgramDetailData;
+import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
-import 'package:shirasu/model/viewer.dart';
-import 'package:shirasu/model/watch_history_data.dart';
+import 'package:shirasu/model/graphql/viewer.dart';
+import 'package:shirasu/model/graphql/watch_history_data.dart';
 
 /// todo handle timeout
 @immutable
@@ -124,10 +124,13 @@ class ApiClient {
     return ProgramDetailData.fromJson(result.data);
   }
 
-  Future<ChannelData> queryChannelData(String channelId) async {
-    final result = await _query(GraphqlQuery.QUERY_CHANNEL, variables: {
+  Future<ChannelData> queryChannelData(String channelId, {String nextToken}) async {
+    final variables = {
       'id': channelId,
-    });
+      if (nextToken != null)
+        'nextToken': nextToken
+    };
+    final result = await _query(GraphqlQuery.QUERY_CHANNEL, variables: variables);
     return ChannelData.fromJson(result.data);
   }
 
@@ -155,5 +158,16 @@ class ApiClient {
       variables: variable.toJson(),
     );
     return UserWithAttributeData.fromJson(result.data);
+  }
+
+  Future<String> queryHandOutUrl (String programId, String handoutId) async {
+    final result = await _mutate(
+      GraphqlQuery.QUERY_HAND_OUT_URL,
+      variables: {
+        'key': 'private/programs/$programId/handouts/$handoutId',
+        'operation': 'getObject',
+      },
+    );
+    return result.data['getSignedUrl'] as String;
   }
 }

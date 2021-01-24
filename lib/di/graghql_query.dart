@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-@immutable
+/// todo remove `QUERY` suffix
 class GraphqlQuery {
   const GraphqlQuery._();
 
@@ -238,7 +238,7 @@ fragment UserPageVideoData on Video {
   ''';
 
   static const QUERY_CHANNEL = r'''
-query GetChannel($id: ID!) {
+query GetChannel($id: ID!, $nextToken: String) {
     channel: getChannel(id: $id) {
         ...UserChannelPageChannelData
         subscriptionPlan {
@@ -249,7 +249,12 @@ query GetChannel($id: ID!) {
             }
             __typename
         }
-        programs(filter: { release: { eq: true } }, sortDirection: DESC, limit: 12) {
+        programs(
+            filter: { release: { eq: true } }
+            sortDirection: DESC
+            limit: 20
+            nextToken: $nextToken
+        ) {
             items {
                 ...UserChannelPageProgramData
                 __typename
@@ -263,7 +268,7 @@ query GetChannel($id: ID!) {
             limit: 5
         ) {
             items {
-                ...TenantChannelAnnouncementsChannelAnnouncementData
+                ...UserChannelPageChannelAnnouncementData
                 __typename
             }
             nextToken
@@ -299,7 +304,7 @@ fragment UserChannelPageProgramData on Program {
     viewerPlanType
     __typename
 }
-fragment TenantChannelAnnouncementsChannelAnnouncementData on ChannelAnnouncement {
+fragment UserChannelPageChannelAnnouncementData on ChannelAnnouncement {
     id
     isOpen
     isSubscriberOnly
@@ -478,4 +483,21 @@ mutation UpdateUserWithAttribute($input: UpdateUserWithAttributeInput) {
     }
 }
   ''';
+
+  static const String QUERY_HAND_OUT_URL = r'''
+mutation GetSignedUrl(
+    $operation: S3Operation!
+    $key: String!
+    $contentType: String
+    $contentLength: Int
+    $filename: String
+) {
+    getSignedUrl(
+        operation: $operation
+        key: $key
+        contentType: $contentType
+        contentLength: $contentLength
+        filename: $filename
+    )
+}''';
 }

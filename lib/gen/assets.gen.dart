@@ -7,6 +7,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsJpegGen {
+  const $AssetsJpegGen();
+
+  AssetGenImage get defaultHandoutThumbnail =>
+      const AssetGenImage('assets/jpeg/default-handout-thumbnail.jpeg');
+}
+
 class $AssetsJsGen {
   const $AssetsJsGen();
 
@@ -21,9 +28,18 @@ class $AssetsJsonGen {
   String get prefecture => 'assets/json/prefecture.json';
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  String get fastForward => 'assets/lottie/fast_forward.json';
+  String get pausePlay => 'assets/lottie/pause_play.json';
+  String get rewind => 'assets/lottie/rewind.json';
+}
+
 class $AssetsPngGen {
   const $AssetsPngGen();
 
+  AssetGenImage get appLogo => const AssetGenImage('assets/png/app_logo.png');
   AssetGenImage get defaultChannel =>
       const AssetGenImage('assets/png/default_channel.png');
   AssetGenImage get defaultThumbnail =>
@@ -51,6 +67,7 @@ class $AssetsSvgGen {
       const SvgGenImage('assets/svg/logo_official.svg');
   SvgGenImage get logoOfficialShadow =>
       const SvgGenImage('assets/svg/logo_official_shadow.svg');
+  SvgGenImage get roboto => const SvgGenImage('assets/svg/roboto.svg');
   SvgGenImage get undrawNotifyRe65on =>
       const SvgGenImage('assets/svg/undraw_Notify_re_65on.svg');
   SvgGenImage get undrawMyAppGrf2 =>
@@ -64,8 +81,10 @@ class $AssetsSvgGen {
 class Assets {
   Assets._();
 
+  static const $AssetsJpegGen jpeg = $AssetsJpegGen();
   static const $AssetsJsGen js = $AssetsJsGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsPngGen png = $AssetsPngGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
 }

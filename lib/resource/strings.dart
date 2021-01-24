@@ -80,11 +80,13 @@ class Strings {
 
   static const String MONTHLY = '月額';
   static const String SUBSCRIBED = 'チャンネル購読済み';
+  static const String SUBSCRIBE_SUFFIX = 'で購読する';
 
   //region ScreenDetail
   static const String WAIT_FOR_START = '放送開始までお待ちください';
   static const String PURCHASE_BTN_TEXT = 'この番組を視聴する';
   static const String PREVIEW_BTN_TEXT = '冒頭を無料で見る';
+  static const String TIME_UNIT_SEC = '秒';
 
 //endregion
 
@@ -93,7 +95,7 @@ class Strings {
   static const String TAB_SUBSCRIBING = '購読中';
   static const String TAB_WATCH_HISTORY = '視聴履歴';
   static const String WATCH_HISTORY_EMPTY_MSG = '動画を視聴すると、履歴がこの画面に表示されます。';
-  static const String SUBSCRIBING_EMPTY_MSG = '動画を視聴すると、履歴がこの画面に表示されます。';
+  static const String SUBSCRIBING_EMPTY_MSG = '動画を購読すると、番組一覧がこの画面に表示されます。';
 
 //endregion
 
@@ -193,7 +195,11 @@ class Strings {
   static const String TAB_USER_INFO = 'アカウント';
   static const String TAB_APP_CONFIG = 'アプリ設定';
 
+  static const String ITEM_TITLE_MOVIE_QUALITY = '画質 - Wifi回線時';
+  static const String ITEM_TITLE_MOVIE_QUALITY_MOBILE = '画質 - モバイル回線時';
   static const String ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
+  static const String ITEM_TITLE_IMAGE_LICENCE = '画像ライセンス';
+  static const String ITEM_TITLE_GITHUB = 'GitHub';
 
 //endregion
 
@@ -211,11 +217,61 @@ class Strings {
 //endregion
 
 //region bottom sheet
-  static const String BTM_SHEET_MSG_CREDIT_CARD = '決済に関わる重要な操作は本アプリでは対応していません。\n公式Webページ上で行ってください。';
+  static const String BTM_SHEET_MSG_CREDIT_CARD =
+      '決済に関わる重要な操作は、本アプリでは対応していません。\n公式Webページ上で行ってください。';
   static const String SUFFIX_PURCHASE_ONE_TIME = 'で番組を購入';
   static const String SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL = 'でチャンネルを購読';
   static const String BTM_SHEET_OR = 'または';
   static const String BTM_SHEET_MSG_PAYMENT_PREFIX = 'この番組を視聴するには';
-  static const String BTM_SHEET_MSG_PAYMENT = 'する必要があります。なお、決済に関わる重要な操作は本アプリでは対応していません。公式Webページ上で行ってください。';
+  static const String BTM_SHEET_MSG_PAYMENT =
+      'する必要があります。なお、決済に関わる重要な操作は本アプリでは対応していません。公式Webページ上で行ってください。';
+
+  static const String SHARE_TWITTER = 'twitterで共有';
+  static const String SHARE_FACEBOOK = 'facebookで共有';
+  static const String COPY_URL = 'URLをコピー';
+
+//endregion
+
+//region license
+  static const String LICENSE_LEGAL_APP = '''Except where otherwise noted,
+ all of this app is licensed under CC BY-NC-SA 4.0 license''';
+
+//endregion
+
+//region screen_price_chart
+  /// ref: users.pages.Program.components.ArchivePriceTable.title
+  static const String ARCHIVE_PRICE_TABLE_TITLE = '番組価格';
+
+  /// ref: users.pages.Program.components.ArchivePriceTable.note
+  static const String ARCHIVE_PRICE_TABLE_NOTE = '''※表記は全て「税込」となります
+※延長は直前の本編あるいは延長を購入していないと視聴することができません。
+※延長1回目の購入は本編の購入のあと、延長2回目の購入は1回目までの購入のあととなります。''';
+
+  /// ref: users.pages.Program.components.ArchivePriceTable.extension
+  static const String ARCHIVE_PRICE_TABLE_NOTE_EXTENSION = '延長';
+
+  static const String ARCHIVE_PRICE_TABLE_NOTE_EXTENSION_SUFFIX = '回';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.free"
+  static const String ARCHIVE_PRICE_TABLE_FREE = '無料';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.mainType"
+  static const String ARCHIVE_PRICE_TABLE_MAIN_TYPE = '本編';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.headerLabelDuration"
+  static const String ARCHIVE_PRICE_TABLE_HEADER_LABEL_DURATION = '放送時間';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.headerLabelGuest"
+  static const String ARCHIVE_PRICE_TABLE_HEADER_LABEL_GUEST = '非会員';
+
+  /// ref: "users.pages.Program.components.ArchivePriceTable.headerLabelSubscriber"
+  static const String ARCHIVE_PRICE_TABLE_HEADER_LABEL_SUBSCRIBER = '会員';
+
+  /// ref: "users.pages.Program.components.SPProgramTabHeader.handouts"
+  static const String HEADER_HANDOUTS = '関連資料';
+
+  /// ref: "atomic.molecules.HandoutList.extensionPurchaserOnly"
+  static const String EXTENSION_PURCHASER_ONLY = '延長購入者のみ';
+
 //endregion
 }

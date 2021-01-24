@@ -1,80 +1,113 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/channel_data.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
-import 'package:shirasu/ui_common/stacked_inkwell.dart';
-import 'package:flutter_riverpod/all.dart';
+import 'package:shirasu/screen_channel/screen_channel.dart';
+import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
+import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/movie_list_item.dart';
+import 'package:shirasu/extension.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/viewmodel/model/model_channel.dart';
 
-class PageMovieList extends StatelessWidget {
+part 'page_movie_list.g.dart';
+
+class PageMovieList extends HookWidget {
   const PageMovieList({
     Key key,
-    @required this.channelPrograms,
+    @required this.channelId,
+    @required this.onTapItem,
   }) : super(key: key);
 
-  static const double _TILE_HEIGHT = 72;
-  static const _THUMBNAIL_WIDTH = _TILE_HEIGHT * Dimens.IMG_RATIO;
-
-  final ChannelPrograms channelPrograms;
+  final OnTapItem onTapItem;
+  final String channelId;
 
   @override
-  Widget build(BuildContext context) => ListView.builder(
-      padding: const EdgeInsets.symmetric(
-          vertical: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN),
-      itemCount: channelPrograms.items.length,
-      itemBuilder: (context, i) {
-        final program = channelPrograms.items[i];
-        return StackedInkWell(
-          onTap: () async => context
-              .read(appRouterProvider)
-              .delegate
-              .pushPage(GlobalRoutePath.program(program.id)),
-          //todo extract to router util
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-            child: Container(
-              height: _TILE_HEIGHT,
-              child: Row(
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: UrlUtil.getThumbnailUrl(program.id),
-                    width: _THUMBNAIL_WIDTH,
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          program.title,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: TextStyles.LIST_MOVIE_TITLE,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          DateFormat('yyyy/MM/dd HH:mm')
-                              .format(program.broadcastAt),
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Styles.colorTextSub,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
+  Widget build(BuildContext context) {
+    final sc = useScrollController();
+    final loading = useProvider(
+        channelProvider(channelId).state.select((it) => it.loading));
+    final result = useProvider(channelProvider(channelId)).state.result;
+
+    if (result is Success) {
+      final showLoadingIndicator =
+          result.channelData.channel.programs.nextToken != null;
+      final listView = _ListView(
+        sc: sc,
+        channelPrograms: result.channelData.channel.programs,
+        showLoadingIndicator: showLoadingIndicator,
+      );
+      return _WrappedNotificationListener(
+        sc: sc,
+        channelId: channelId,
+        enabled: !loading,
+        child: listView,
+      );
+    } else
+      return const SizedBox.shrink();
+  }
+}
+
+@hwidget
+Widget _wrappedNotificationListener(
+  BuildContext context, {
+  @required String channelId,
+  @required ScrollController sc,
+  @required Widget child,
+  @required bool enabled,
+}) =>
+    NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (enabled &&
+            notification is UserScrollNotification &&
+            notification.direction == ScrollDirection.idle &&
+            sc.position.maxScrollExtent -
+                    (Dimens.CIRCULAR_HEIGHT +
+                        Dimens.CHANNEL_PAGE_VERTICAL_MARGIN) <
+                sc.offset) {
+          context.read(channelProvider(channelId)).loadMorePrograms();
+          return true;
+        }
+
+        return false;
+      },
+      child: child,
+    );
+
+@hwidget
+Widget _listView({
+  @required ScrollController sc,
+  @required ChannelPrograms channelPrograms,
+  @required bool showLoadingIndicator,
+}) {
+  int itemCount = channelPrograms.items.length;
+  if (showLoadingIndicator) itemCount++;
+
+  return ListView.builder(
+    controller: sc,
+    shrinkWrap: true,
+    key: ObjectKey(channelPrograms.items.first.hashCode),
+    padding: const EdgeInsets.only(
+      top: Dimens.CHANNEL_PAGE_VERTICAL_MARGIN,
+      bottom: MovieListItemBase.PADDING,
+    ),
+    itemBuilder: (context, i) {
+      if (showLoadingIndicator && i == itemCount - 1)
+        return const Padding(
+          padding: EdgeInsets.all(Dimens.CHANNEL_PAGE_VERTICAL_MARGIN),
+          child: CenterCircleProgress(),
         );
-      });
+      else {
+        final program = channelPrograms.items[i];
+        return MovieListItem(
+          program: program,
+          onTap: () async => context.pushProgramPage(program.id),
+        );
+      }
+    },
+    itemCount: itemCount,
+  );
 }

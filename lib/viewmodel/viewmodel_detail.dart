@@ -1,31 +1,71 @@
+import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_playout/player_state.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:http/http.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/dio_client.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/model/channel_data.dart';
-import 'package:shirasu/model/detail_program_data.dart';
-import 'package:shirasu/model/media_status.dart';
-import 'package:shirasu/model/video_type.dart';
+import 'package:shirasu/main.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:shirasu/viewmodel/model_detail.dart';
-import 'package:shirasu/extension.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:uuid/uuid.dart';
 
-part 'viewmodel_detail.freezed.dart';
+import 'controller_hide_timer.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
-  ViewModelDetail(this.id)
+  ViewModelDetail(this.id, this._ref)
       : channelId = UrlUtil.programId2channelId(id),
-        super(ModelDetail.initial());
+        super(ModelDetail.initial()) {
+    _hideTimer = ControllerHideTimer(_hideController);
+  }
+
+  static const SEC_FAST_SEEK_BY_BTN = Duration(seconds: 30);
+  static const SEC_FAST_SEEK_BY_DOUBLE_TAP = Duration(seconds: 10);
 
   final _apiClient = ApiClient.instance();
   final _dioClient = DioClient();
+  final panelController = PanelController();
+  final AutoDisposeProviderReference _ref;
   final String id;
   final String channelId;
+
+  ControllerHideTimer _hideTimer;
+
+  DetailPrgItem get _previewArchivedVideoData {
+    final v = state.prgDataResult;
+    if (v is StateSuccess)
+      return v.programDetailData.program.previewPrgItem;
+    else
+      return null;
+  }
+
+  DetailPrgItem get _availableVideoData {
+    final v = state.prgDataResult;
+    if (v is StateSuccess) {
+      final program = v.programDetailData.program;
+
+      //todo shouldn't written in DetailProgramData?
+      DetailPrgItem detailPrgItem; //todo more logic
+      if (program.archivedAt?.isBefore(DateTime.now()) == true) {
+        if (program.isAllExtensionAvailable)
+          detailPrgItem = program.lastArchivedExtensionPrgItem;
+        else {
+          // todo implement
+          throw UnimplementedError();
+        }
+      }
+
+      return detailPrgItem ?? program.nowLivePrgItem;
+    } else
+      return null;
+  }
 
   @override
   Future<void> initialize() async {
@@ -39,7 +79,12 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           () async => _apiClient.queryChannelData(channelId));
 
       newState = state.copyWith(
-          prgDataResult: DetailModelState.success(data.item1, data.item2));
+        prgDataResult: DetailModelState.success(
+          programDetailData: data.item1,
+          channelData: data.item2,
+          page: const PageSheetModel.hidden(),
+        ),
+      );
     } catch (e) {
       print(e);
       newState = state.copyWith(prgDataResult: const DetailModelState.error());
@@ -47,44 +92,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     setState(newState);
   }
 
-  DetailPrgItem _findAvailableVideoData() {
-    final v = state.prgDataResult;
-    if (v is StateSuccess) {
-      final archivedAt = v.programDetailData.program.archivedAt;
-
-      //todo shouldn't written in DetailProgramData?
-      DetailPrgItem detailPrgItem;
-      if (archivedAt?.isBefore(DateTime.now()) == true)
-        detailPrgItem =
-            v.programDetailData.program.videos.items.firstWhereOrNull(
-          (it) => it.videoTypeStrict == VideoType.ARCHIVED,
-        );
-
-      detailPrgItem ??=
-          v.programDetailData.program.videos.items.firstWhereOrNull(
-        (it) =>
-            it.videoTypeStrict == VideoType.LIVE &&
-            it.mediaStatusStrict != MediaStatus.ENDED,
-      );
-
-      return detailPrgItem;
-    } else
-      return null;
-  }
-
-  DetailPrgItem _findPreviewArchivedVideoData() {
-    final v = state.prgDataResult;
-    if (v is StateSuccess)
-      //todo shouldn't written in DetailProgramData?
-      return v.programDetailData.program.videos.items.firstWhereOrNull(
-        (it) => it.videoTypeStrict == VideoType.ARCHIVED && it.isFree,
-      );
-    else
-      return null;
-  }
-
   Future<void> playVideo(bool preview) async {
-    final prg = preview ? _findPreviewArchivedVideoData() : _findAvailableVideoData();
+    final prg = preview ? _previewArchivedVideoData : _availableVideoData;
     if (prg == null) return; // todo handle error
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
@@ -98,67 +107,222 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       print(e); //todo handle error
     }
 
-    if (cookie != null)
-      setState(state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie));
+    if (cookie != null && mounted)
+      state = state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie);
   }
-}
 
-@freezed
-abstract class DetailModelState with _$DetailModelState {
-  const factory DetailModelState.preInitialized() = PreInitialized;
+  Future<String> queryHandOutUrl(String handoutId) async {
+    if (state.isHandoutUrlRequesting) return null;
 
-  const factory DetailModelState.loading() = StateLoading;
+    state = state.copyWith(isHandoutUrlRequesting: true);
 
-  const factory DetailModelState.success(
-          ProgramDetailData programDetailData, ChannelData channelData) =
-      StateSuccess;
+    String url;
+    try {
+      url = await _apiClient.queryHandOutUrl(id, handoutId);
+    } catch (e) {
+      print(e);
+    }
 
-  const factory DetailModelState.error() = StateError;
-}
+    if (!mounted) return null;
 
-class PlayOutState {
-  const PlayOutState._({
-    @required this.commandedState,
-    @required this.playerState,
-    this.hlsMediaUrl,
-    this.videoType,
-    this.cookie,
-  });
+    if (url == null)
+      _ref.read(snackBarMsgProvider).state = SnackMsg.UNKNOWN;
+    else
+      state = state.copyWith(isHandoutUrlRequesting: false);
 
-  factory PlayOutState.initial() => const PlayOutState._(
-        commandedState: PlayerCommandedState.PRE_PLAY,
-        playerState: PlayerState.PLAYING,
+    return url;
+  }
+
+  Future<void> togglePage(PageSheetModel pageSheet) async {
+    final newOne = state.copyAsPageSheet(pageSheet);
+    if (newOne == null) return;
+
+    state = newOne;
+
+    if (!panelController.isAttached) return;
+
+    if (pageSheet == const PageSheetModel.hidden())
+      await panelController.close();
+    else
+      await panelController.open();
+  }
+
+  Future<bool> tryClosePanel() async {
+    if (!panelController.isAttached || panelController.isPanelClosed)
+      return false;
+    await panelController.close();
+    return true;
+  }
+
+  /// force update [state.playOutState.fullScreen]
+  void takePriority({
+    @required bool fullScreen,
+  }) =>
+      state = state.copyWith.playOutState(
+        fullScreen: fullScreen,
+        videoPlayerState: const VideoPlayerState.preInitialized(),
       );
 
-  factory PlayOutState.initialize(String hlsMediaUrl, VideoType videoType) =>
-      PlayOutState._(
-        commandedState: PlayerCommandedState.INITIALIZING,
-        playerState: PlayerState.PLAYING,
-        hlsMediaUrl: hlsMediaUrl,
-        videoType: videoType,
+  void setAsVideoControllerInitialized({
+    @required bool fullScreen,
+    @required Duration totalDuration,
+  }) {
+    assert(!totalDuration.isNegative);
+
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        fullScreen: fullScreen,
+        totalDuration: totalDuration,
+        videoPlayerState: const VideoPlayerState.ready(),
+      );
+  }
+
+  void setCurrentPos({
+    @required bool fullScreen,
+    @required Duration currentPos,
+    @required bool applyCurrentPosUi,
+  }) {
+    assert(!currentPos.isNegative);
+
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    state = applyCurrentPosUi
+        ? state.copyWith.playOutState(
+            currentPos: currentPos,
+            currentPosForUi: currentPos,
+            fullScreen: fullScreen,
+          )
+        : state.copyWith.playOutState(
+            currentPos: currentPos,
+            fullScreen: fullScreen,
+          );
+  }
+
+  void setVideoDurations({
+    @required bool fullScreen,
+    @required Duration currentPos,
+    @required Duration totalDuration,
+    @required bool applyCurrentPosUi,
+  }) {
+    assert(!currentPos.isNegative);
+    assert(!totalDuration.isNegative);
+    assert(currentPos < totalDuration);
+
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    state = applyCurrentPosUi
+        ? state.copyWith.playOutState(
+            currentPos: currentPos,
+            currentPosForUi: currentPos,
+            totalDuration: totalDuration,
+            fullScreen: fullScreen,
+          )
+        : state.copyWith.playOutState(
+            currentPos: currentPos,
+            totalDuration: totalDuration,
+            fullScreen: fullScreen,
+          );
+  }
+
+  void setVideoIsPlaying({
+    @required bool fullScreen,
+    @required bool isPlaying,
+  }) {
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        isPlaying: isPlaying,
+      );
+  }
+
+  /// allow commands any time though [videoPlayerState] is not ready
+  void commandVideoController({
+    @required bool fullScreen,
+    @required LastControllerCommand command,
+  }) {
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        lastControllerCommandHolder: LastControllerCommandHolder.create(command),
+      );
+  }
+
+  void updateVideoPlayerState({
+    @required bool fullScreen,
+    @required VideoPlayerState videoPlayerState,
+  }) =>
+      state = state.copyWith.playOutState(
+        videoPlayerState: videoPlayerState,
       );
 
-  factory PlayOutState.play(
-          String hlsMediaUrl, VideoType videoType, String cookie) =>
-      PlayOutState._(
-        commandedState: PlayerCommandedState.POST_PLAY,
-        playerState: PlayerState.PLAYING,
-        hlsMediaUrl: hlsMediaUrl,
-        videoType: videoType,
-        cookie: cookie,
+  void _hideController() {
+    if (mounted)
+      state = state.copyWith.playOutState(controllerVisibility: false);
+  }
+
+  void hide() {
+    _hideTimer.cancel();
+    _hideController();
+  }
+
+  void toggleVisibility() {
+    if (state.playOutState.videoPlayerState != const VideoPlayerState.ready())
+      return;
+
+    final controllerVisibility = state.playOutState.controllerVisibility;
+    controllerVisibility ? _hideTimer.cancel() : _hideTimer.renew();
+    state = state.copyWith.playOutState(
+      controllerVisibility: !controllerVisibility,
+    );
+  }
+
+  /// must be [mounted] == true && [state.isInitialized] == true
+  void seek(bool fullScreen, Duration diff) {
+    if (fullScreen == state.playOutState.fullScreen) {
+      commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seek(diff),
       );
+      _hideTimer.renew();
+    }
+  }
 
-  final PlayerCommandedState commandedState;
-  final PlayerState playerState;
-  final String hlsMediaUrl;
-  final VideoType videoType;
-  final String cookie;
-}
+  /// must be [mounted] == true && [state.isInitialized] == true
+  void seekToWithSlider(
+      bool fullScreen, Duration duration, bool applyController, bool endDrag) {
+    if (fullScreen != state.playOutState.fullScreen) return;
 
-enum PlayerCommandedState {
-  PLAY_ERROR,
-  PRE_PLAY,
-  POST_PLAY,
-  INITIALIZING,
-  ERROR,
+    _hideTimer.renew();
+
+    state = state.copyWith.playOutState(
+      isSeekBarDragging: !endDrag,
+    );
+    setCurrentPos(
+      fullScreen: fullScreen,
+      currentPos: duration,
+      applyCurrentPosUi: true,
+    );
+    if (applyController)
+      commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seekTo(duration),
+      );
+  }
+
+  void playOrPause(bool fullScreen) {
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    _hideTimer.renew();
+    commandVideoController(
+      fullScreen: fullScreen,
+      command: const LastControllerCommand.playOrPause(),
+    );
+  }
+
+  void updateIsisBuffering({
+    @required bool fullScreen,
+    @required bool isBuffering,
+  }) {
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    state = state.copyWith.playOutState(isBuffering: isBuffering);
+  }
 }

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/player_slider_track_shape.dart';
 
-@immutable
 class Styles {
   const Styles._();
 
   static final colorTextSub = Colors.white.withOpacity(.7);
+  static const COLOR_TEXT_BLUE_WHITE = Color(0xffd9f9ff);
   static const BACK_COLOR = Color(0xff181818);
+  static final colorPriceWhite = Colors.white.withOpacity(.85);
+  static const COLOR_DOUBLE_TAP_BG = Colors.white24;
+  static const VIDEO_SHADE = Colors.black45;
+
+  // static const TWITTER_COLOR = Color(0xff1DA1F2);
+  // static const FACEBOOK_COLOR = Color(0xff4267B2);
   static const PRIMARY_COLOR = Color(0xff50e6ff);
   static const PRIMARY_COLOR_DARK = Color(0xff0078D4);
   static const ACCENT_COLOR_DARK = Color(0xffd45c00);
@@ -16,7 +24,10 @@ class Styles {
   static const COLOR_2 = Color(0xffffa800);
   static final introDot = Colors.white.withOpacity(.8);
 
-  static final theme = ThemeData.dark().copyWith(
+  static final theme = _createTheme(const PlayerSliderTrackShape());
+  static final fullScreenTheme = _createTheme(null);
+
+  static ThemeData _createTheme(SliderTrackShape sliderTrackShape) => ThemeData.dark().copyWith(
     // This makes the visual density adapt to the platform that you run
     // the app on. For desktop platforms, the controls will be smaller and
     // closer together (more dense) than on mobile platforms.
@@ -40,6 +51,15 @@ class Styles {
         color: Colors.white,
       ),
       behavior: SnackBarBehavior.floating,
+    ),
+    sliderTheme: ThemeData.dark().sliderTheme.copyWith(
+      inactiveTrackColor: Colors.grey,
+      trackHeight: 3,
+      trackShape: sliderTrackShape,
+      thumbShape: const RoundSliderThumbShape(
+          enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
+      activeTrackColor: PRIMARY_COLOR,
+      thumbColor: PRIMARY_COLOR,
     ),
   );
 }

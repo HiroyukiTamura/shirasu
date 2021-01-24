@@ -57,10 +57,9 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
           oldState.apiData.newProgramsDataList?.last?.newPrograms?.nextToken;
       if (nextToken == null) return;
 
-      // we don't check if Disposed
-      state = oldState.copyAsLoadMore();
-
       try {
+        state = oldState.copyAsLoadMore();
+
         final newProgramsData = await _apiClient.queryNewProgramsList(
           nextToken: nextToken,
         );
@@ -69,32 +68,36 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
         trySetState(oldState.copyAsSuccess(oldState.apiData));
 
         if (newProgramsData.newPrograms.items.isEmpty)
-          _msgNotifier.notifyErrorMsg(ErrorMsg.NO_MORE_ITEM);
+          _msgNotifier.notifyMsg(SnackMsg.NO_MORE_ITEM);
       } catch (e) {
         debugPrint(e.toString());
         trySetState(DashboardModel.error());
-        _msgNotifier.notifyErrorMsg(ErrorMsg.UNKNOWN);
+        _msgNotifier.notifyMsg(SnackMsg.UNKNOWN);
       }
     }
   }
 
   void updateScrollOffset(double offset) {
     final s = state;
-    if (s.state is StateSuccess) trySetState(s.copyWith(offset: offset));
+    if (s.state is StateSuccess && isMounted)
+      state = s.copyWith(offset: offset);
   }
 
   void updateBillboardHeaderPage(int page) {
     final s = state;
-    if (s.state is StateSuccess) trySetState(s.copyWith(billboardHeaderPage: page));
+    if (s.state is StateSuccess && isMounted)
+      state = s.copyWith(billboardHeaderPage: page);
   }
 
   void updateChannelOffset(double offset) {
     final s = state;
-    if (s.state is StateSuccess) trySetState(s.copyWith(channelHorizontalOffset: offset));
+    if (s.state is StateSuccess && isMounted)
+      state = s.copyWith(channelHorizontalOffset: offset);
   }
 
   void updateSubscribingCarouselOffset(double offset) {
     final s = state;
-    if (s.state is StateSuccess) trySetState(s.copyWith(subscribingChannelOffset: offset));
+    if (s.state is StateSuccess && isMounted)
+      state = s.copyWith(subscribingChannelOffset: offset);
   }
 }

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
-import 'package:shirasu/model/video_type.dart';
 
 /// todo singleton
 ///
@@ -13,7 +13,6 @@ class DioClient {
   static const _URL_SIGNED_COOKIE =
       'https://video.shirasu.io/get-signed-cookie';
 
-  //todo rename programId => videoId
   Future<String> getSignedCookie(
       String videoId, VideoType videoType, String auth) async {
     final response = await _dio.get<Map<String, dynamic>>(_URL_SIGNED_COOKIE,

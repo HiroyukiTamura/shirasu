@@ -110,11 +110,12 @@ class TextStyles {
   static const PURCHASE_BTN = TextStyle(
     fontSize: 12,
     color: Colors.white,
+    height: 1,
   );
 
   static const PURCHASED_BANNER = TextStyle(
-    fontSize: 14,
     color: Colors.white,
+    height: 1,
   );
 
   static const LIST_MOVIE_TITLE = TextStyle(

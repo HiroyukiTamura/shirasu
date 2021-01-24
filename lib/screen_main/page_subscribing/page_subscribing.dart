@@ -6,14 +6,14 @@ import 'package:shirasu/screen_main/page_subscribing/watch_history_widget.dart';
 import 'package:shirasu/screen_main/page_subscribing/subscribing_widget.dart';
 import 'package:shirasu/ui_common/material_tab_view.dart';
 
-class PageSubscribingInMainScreen extends HookWidget {
-  PageSubscribingInMainScreen({
-    @required SubscribingTabPage initialPage,
+class PageListInMainScreen extends HookWidget {
+  PageListInMainScreen({
+    @required PageListTabPage initialPage,
     Key key,
   })  : initialIndex = initialPage.index,
         super(key: key);
 
-  static const PAGE_INDEX_DEFAULT = SubscribingTabPage.SUBSCRIBING;
+  static const PAGE_INDEX_DEFAULT = PageListTabPage.SUBSCRIBING;
   final int initialIndex;
 
   @override
@@ -30,4 +30,4 @@ class PageSubscribingInMainScreen extends HookWidget {
       );
 }
 
-enum SubscribingTabPage { SUBSCRIBING, WATCH_HISTORY }
+enum PageListTabPage { SUBSCRIBING, WATCH_HISTORY }

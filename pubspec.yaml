@@ -32,6 +32,7 @@ dependencies:
   flutter_webview_plugin: ^0.3.11
   webview_flutter: ^1.0.7
   font_awesome_flutter: ^8.10.0
+  material_design_icons_flutter: 4.0.5755
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   introduction_screen: ^1.0.9
@@ -39,7 +40,7 @@ dependencies:
   graphql_flutter: ^4.0.0-beta.5
   freezed_annotation: ^0.12.0
   json_annotation: ^3.1.0
-  hooks_riverpod: ^0.12.1
+  hooks_riverpod: ^0.12.2
   flutter_hooks: ^0.15.0
   intl:
   flutter_linkify: ^4.0.2
@@ -51,10 +52,17 @@ dependencies:
   synchronized: ^2.2.0+2
   after_layout: ^1.0.7+2
   functional_widget_annotation: ^0.8.0
-  flutter_playout:
-    git:
-      url: https://github.com/HiroyukTamura/flutter_playout.git
-
+  quiver: ^2.1.5
+  sliding_up_panel: ^1.0.2
+  dartx: ^0.5.0
+  better_player: ^0.0.45
+  circular_reveal_animation: ^1.1.5
+  flutter_custom_clippers: ^1.1.2
+  double_tap_player_view: ^1.0.6
+  lottie: ^0.7.0+1
+  uuid: ^2.2.2
+  flutter_video_background:
+    path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background
 
 dev_dependencies:
   flutter_test:
@@ -65,52 +73,24 @@ dev_dependencies:
   freezed: ^0.12.2
   json_serializable: ^3.5.0
   functional_widget: ^0.8.1
+  flutter_launcher_icons: "^0.8.0" # needs quotes @see https://github.com/fluttercommunity/flutter_launcher_icons/issues/220
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/png/app_logo.png"
 
 
 flutter_gen:
   integrations:
     flutter_svg: true
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/png/
+    - assets/jpeg/
     - assets/svg/
     - assets/json/
+    - assets/lottie/
     - assets/js/
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

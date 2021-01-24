@@ -1,49 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/viewer.dart';
+import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_item_user_name.dart';
 import 'package:shirasu/screen_main/page_setting/app_config/page_app_config.dart';
-import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_birthdate.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_job.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_load_more.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_location.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_title.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_subscribed_channel.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_top.dart';
+import 'package:shirasu/screen_main/page_setting/account/email_status_label.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_birthdate.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_job.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_load_more.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_location.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_title.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_payment_method.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_invoice_history.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_seem.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_subscribed_channel.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_top.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/material_tab_view.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
-import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/extension.dart';
+
+part 'page_setting.g.dart';
 
 final settingViewModelSProvider =
     StateNotifierProvider.autoDispose<ViewModelSetting>(
         (ref) => ViewModelSetting(ref));
 
-class PageSettingInMainScreen extends StatelessWidget {
-  const PageSettingInMainScreen({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => MaterialTabView(
-        tabs: const [
-          Tab(text: Strings.TAB_USER_INFO),
-          Tab(text: Strings.TAB_APP_CONFIG)
-        ],
-        pages: const [PageUserInfo(), PageAppConfig()],
-      );
-}
+@swidget
+Widget pageSettingInMainScreen() => const MaterialTabView(
+      tabs: [
+        Tab(text: Strings.TAB_USER_INFO),
+        Tab(text: Strings.TAB_APP_CONFIG)
+      ],
+      pages: [PageUserInfo(), PageAppConfig()],
+    );
 
 class PageUserInfo extends HookWidget {
   const PageUserInfo({Key key}) : super(key: key);
@@ -62,11 +59,7 @@ class PageUserInfo extends HookWidget {
             final threshHolds = _Thresholds();
 
             if (i <= threshHolds.threshold)
-              return _genListItemAboveCreditCard(
-                context,
-                data,
-                i,
-              );
+              return _genListItemAboveCreditCard(context, data, i);
 
             threshHolds.swap(data.viewer.paymentMethods.length);
 
@@ -159,10 +152,7 @@ class PageUserInfo extends HookWidget {
                   data.viewerUser.watchHistories.items[index].program;
               return MovieListItem(
                 program: program,
-                onTap: () async => context
-                    .read(appRouterProvider)
-                    .delegate
-                    .pushPage(GlobalRoutePath.program(program.id)),
+                onTap: () async => context.pushProgramPage(program.id),
               );
             }
 
@@ -190,38 +180,6 @@ class PageUserInfo extends HookWidget {
         onTap: onTap,
       );
 
-  static Widget listItemUserName(User user) {
-    String userName =
-        '${user.httpsShirasuIoUserAttribute.familyName} ${user.httpsShirasuIoUserAttribute.givenName}';
-    if (user.httpsShirasuIoUserAttribute.familyNameReading != null &&
-        user.httpsShirasuIoUserAttribute.givenNameReading != null)
-      userName +=
-          '(${user.httpsShirasuIoUserAttribute.familyNameReading} ${user.httpsShirasuIoUserAttribute.givenNameReading})';
-
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(
-          horizontal: Dimens.SETTING_OUTER_MARGIN, vertical: 8),
-      title: const Text(Strings.FULL_NAME_LABEL),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            userName,
-            style: TextStyles.SETTING_SUBTITLE,
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            Strings.FULL_NAME_NOTICE,
-            style: TextStyle(
-              height: 1.3,
-              fontSize: 13,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
   static Widget _genListItemAboveCreditCard(
     BuildContext context,
     Viewer viewer,
@@ -230,9 +188,11 @@ class PageUserInfo extends HookWidget {
     switch (index) {
       case 0:
         return ListTileTop(
-            iconUrl: viewer.viewerUser.icon, userName: viewer.viewerUser.name);
+          iconUrl: viewer.viewerUser.icon,
+          userName: viewer.viewerUser.name,
+        );
       case 1:
-        return listItemUserName(ViewModelSetting.dummyUser);
+        return ListItemUserName(user: ViewModelSetting.dummyUser);
       case 2:
         return ListItemEmail(
           user: ViewModelSetting.dummyUser,
@@ -242,7 +202,7 @@ class PageUserInfo extends HookWidget {
       case 4:
         return const ListTileJob();
       case 5:
-        return ListTileLocation();
+        return const ListTileLocation();
       case 6:
         return const ListTileSeem(
           paddingBtm: false,

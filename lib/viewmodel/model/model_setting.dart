@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/model/viewer.dart';
+import 'package:shirasu/model/graphql/viewer.dart';
 
 part 'model_setting.freezed.dart';
 

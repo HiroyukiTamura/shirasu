@@ -64,13 +64,15 @@ class BtmSheetCommon extends StatelessWidget {
       context: context
           .read(screenMainScaffoldProvider)
           .key
-          .currentContext, //show BottomSheet over BottomNavigationBar
+          ?.currentContext, //show BottomSheet over BottomNavigationBar
       builder: (context) => BtmSheetCommon(
         positiveBtnString: Strings.OPEN_WEB,
         child: child,
       ),
     );
 
-    if (result == true) await Util.launchUrl(context, url);
+    if (result == true)
+      await Util.launchUrl(context, url);
+    Navigator.pop(context);
   }
 }

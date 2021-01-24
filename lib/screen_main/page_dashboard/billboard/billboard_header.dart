@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/model/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_content.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_multi_card_view.dart';

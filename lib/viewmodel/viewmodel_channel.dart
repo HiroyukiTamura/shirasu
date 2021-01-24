@@ -1,42 +1,75 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:http/http.dart';
 import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/model/channel_data.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:riverpod/src/framework.dart';
 
-part 'viewmodel_channel.freezed.dart';
+import '../main.dart';
+import 'model/model_channel.dart';
 
-class ViewModelChannel extends ViewModelBase<ChannelDataResult> {
-  ViewModelChannel(this._channelId) : super(const PreInitialized());
+class ViewModelChannel extends ViewModelBase<ChannelModel> {
+  ViewModelChannel(this._ref, this._channelId)
+      : super(
+          const ChannelModel(
+            result: PreInitialized(),
+            loading: false,
+          ),
+        );
 
+  final AutoDisposeProviderReference _ref;
   final _apiClient = ApiClient.instance();
   final String _channelId;
+
+  SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 
   int tabIndex = 0;
 
   @override
   Future<void> initialize() async {
-    if (!(state is PreInitialized))
-      return;
+    if (!(state.result is PreInitialized)) return;
 
     try {
-      state = const ChannelDataResult.loading();
+      state = const ChannelModel(
+          result: ChannelDataResult.loading(), loading: false);
       final data = await _apiClient.queryChannelData(_channelId);
-      setState(ChannelDataResult.success(data));
+      setState(ChannelModel(
+          result: ChannelDataResult.success(data), loading: false));
     } catch (e) {
       print(e);
-      setState(const ChannelDataResult.error());
+      setState(const ChannelModel(
+          result: ChannelDataResult.error(), loading: false));
     }
   }
-}
 
-@freezed
-abstract class ChannelDataResult with _$ChannelDataResult {
-  const factory ChannelDataResult.preInitialized() = PreInitialized;
-  const factory ChannelDataResult.loading() = Loading;
-  const factory ChannelDataResult.success(ChannelData channelData) = Success;
-  const factory ChannelDataResult.error() = Error;
+  Future<void> loadMorePrograms() async {
+    final oldResult = state.result;
+    if (oldResult is Success) {
+      final nextToken = oldResult.channelData.channel.programs.nextToken;
+      if (nextToken == null) return;
+
+      // we don't check if Disposed
+      state = state.copyWith(loading: true);
+
+      try {
+        final newOne = await _apiClient.queryChannelData(
+          _channelId,
+          nextToken: nextToken,
+        );
+
+        state = state.copyWithAdditionalPrograms(newOne.channel.programs);
+
+        if (newOne.channel.programs.items.isEmpty)
+          _msgNotifier.notifyMsg(SnackMsg.NO_MORE_ITEM);
+
+        return;
+      } catch (e) {
+        debugPrint(e.toString());
+        if (mounted) {
+          state = state.copyWith(loading: false);
+          _msgNotifier.notifyMsg(SnackMsg.UNKNOWN);
+        }
+      }
+    }
+  }
 }

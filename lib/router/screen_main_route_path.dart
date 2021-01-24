@@ -16,9 +16,10 @@ abstract class GlobalRoutePathBase {
     @required Result Function(String channelId) channel,
     @required Result Function(String programId) program,
     @required Result Function() dashboard,
-    @required Result Function(SubscribingTabPage initialPage) subscribing,
+    @required Result Function(PageListTabPage initialPage) subscribing,
     @required Result Function() setting,
     @required Result Function() ossLicense,
+    @required Result Function() imgLicense,
     @required Result Function() auth,
   }) {
     if (routePath is GlobalRoutePath)
@@ -28,6 +29,7 @@ abstract class GlobalRoutePathBase {
         channel: channel,
         program: program,
         ossLicense: ossLicense,
+        imgLicense: imgLicense,
         auth: auth,
       );
     else if (routePath is PathDataMainPageBase)
@@ -42,17 +44,17 @@ abstract class GlobalRoutePathBase {
   }
 
   static Result wrappedWhenRough<Result extends Object>(
-      GlobalRoutePathBase routePath, {
-        @required Result Function() intro,
-        @required Result Function() error,
-        @required Result Function(String channelId) channel,
-        @required Result Function(String programId) program,
-        @required Result Function() mainPage,
-        @required Result Function() ossLicense,
-        @required Result Function() auth,
-      }) {
-    if (routePath is PathDataMainPageBase)
-      return mainPage();
+    GlobalRoutePathBase routePath, {
+    @required Result Function() intro,
+    @required Result Function() error,
+    @required Result Function(String channelId) channel,
+    @required Result Function(String programId) program,
+    @required Result Function() mainPage,
+    @required Result Function() ossLicense,
+    @required Result Function() imgLicense,
+    @required Result Function() auth,
+  }) {
+    if (routePath is PathDataMainPageBase) return mainPage();
     if (routePath is GlobalRoutePath)
       return routePath.when(
         intro: intro,
@@ -61,6 +63,7 @@ abstract class GlobalRoutePathBase {
         program: program,
         ossLicense: ossLicense,
         auth: auth,
+        imgLicense: imgLicense,
       );
     else
       throw UnsupportedError(
@@ -68,12 +71,11 @@ abstract class GlobalRoutePathBase {
   }
 
   static Result wrappedWhenType<Result extends Object>(
-      GlobalRoutePathBase routePath, {
-        @required Result Function() pathDataMainPageBase,
-        @required Result Function() globalRoutePath,
-      }) {
-    if (routePath is PathDataMainPageBase)
-      return pathDataMainPageBase();
+    GlobalRoutePathBase routePath, {
+    @required Result Function() pathDataMainPageBase,
+    @required Result Function() globalRoutePath,
+  }) {
+    if (routePath is PathDataMainPageBase) return pathDataMainPageBase();
     if (routePath is GlobalRoutePath)
       return globalRoutePath();
     else
@@ -94,6 +96,8 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
 
   const factory GlobalRoutePath.ossLicense() = PathDataOssLicense;
 
+  const factory GlobalRoutePath.imgLicense() = PathDataImgLicense;
+
   const factory GlobalRoutePath.auth() = PathDataAuth;
 
   factory GlobalRoutePath.buildProgram({
@@ -109,7 +113,7 @@ abstract class PathDataMainPageBase
     implements _$PathDataMainPageBase, GlobalRoutePathBase {
   const factory PathDataMainPageBase.dashboard() = PathDataMainPageDashBoard;
 
-  const factory PathDataMainPageBase.subscribing(SubscribingTabPage index) =
+  const factory PathDataMainPageBase.subscribing(PageListTabPage index) =
       PathDataMainPageSubscribing;
 
   const factory PathDataMainPageBase.setting() = PathDataMainPageSetting;
@@ -120,7 +124,7 @@ abstract class PathDataMainPageBase
         return const PathDataMainPageBase.dashboard();
       case 1:
         return const PathDataMainPageBase.subscribing(
-            PageSubscribingInMainScreen.PAGE_INDEX_DEFAULT);
+            PageListInMainScreen.PAGE_INDEX_DEFAULT);
       case 2:
         return const PathDataMainPageBase.setting();
       default:
@@ -132,6 +136,6 @@ abstract class PathDataMainPageBase
 
   int get pageIndex => when(
       dashboard: () => 0,
-      subscribing: (SubscribingTabPage initialPage) => 1,
+      subscribing: (PageListTabPage initialPage) => 1,
       setting: () => 2);
 }

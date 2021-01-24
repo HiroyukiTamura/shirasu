@@ -3,11 +3,12 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/model/auth_data.dart';
-import 'package:shirasu/model/country_data.dart';
-import 'package:shirasu/model/prefecture_data.dart';
+import 'package:shirasu/model/local/country_data.dart';
+import 'package:shirasu/model/local/prefecture_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'package:shirasu/extension.dart';
+import 'package:dartx/dartx.dart';
 
 class LocalJsonClient {
   factory LocalJsonClient.instance() => _instance ??= LocalJsonClient._();
@@ -48,7 +49,7 @@ class LocalJsonClient {
   Future<String> getPrefectureName(String prefectureCode) async {
     final data = await getPrefectureData();
     return data.prefecture
-        .firstWhereOrNull((it) => it.code == prefectureCode)
+        .firstOrNullWhere((it) => it.code == prefectureCode)
         ?.name;
   }
 

@@ -1,0 +1,15 @@
+mutation GetSignedUrl(
+    $operation: S3Operation!
+    $key: String!
+    $contentType: String
+    $contentLength: Int
+    $filename: String
+) {
+    getSignedUrl(
+        operation: $operation
+        key: $key
+        contentType: $contentType
+        contentLength: $contentLength
+        filename: $filename
+    )
+}

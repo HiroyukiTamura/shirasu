@@ -44,9 +44,14 @@ class HiveAuthClient extends HiveClient<HiveAuthData> {
   }
 }
 
-final kPrvHivePrefEvent = StreamProvider.autoDispose<double>((ref) => Hive.box<dynamic>(HivePrefectureClient.NAME)
-      .watch(key: HivePrefectureClient.KEY_INITIAL_LAUNCH_APP)
+final kPrvHivePlaySpeedUpdate = StreamProvider.autoDispose<double>((ref) => Hive.box<dynamic>(HivePrefectureClient.NAME)
+      .watch(key: HivePrefectureClient.KEY_PLAY_SPEED)
       .map((event) => event.value as double));
+
+@Deprecated('currently not implemented')
+final kPrvHiveResolutionUpdate = StreamProvider.autoDispose<double>((ref) => Hive.box<dynamic>(HivePrefectureClient.NAME)
+    .watch(key: HivePrefectureClient.KEY_RESOLUTION)
+    .map((event) => event.value as double));
 
 class HivePrefectureClient extends HiveClient<dynamic> {
 
@@ -56,21 +61,34 @@ class HivePrefectureClient extends HiveClient<dynamic> {
       _instance ??= HivePrefectureClient._();
 
   static const NAME = 'PREFERENCE';
-  static const KEY_INITIAL_LAUNCH_APP = 'INITIAL_LAUNCH_APP';
-  static const _KEY_PLAY_SPEED = 'PLAY_SPEED';
+  static const _KEY_INITIAL_LAUNCH_APP = 'INITIAL_LAUNCH_APP';
+  static const KEY_PLAY_SPEED = 'PLAY_SPEED';
+  static const KEY_RESOLUTION = 'RESOLUTION';
+  static const List<double> PLAY_SPEED = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+  static const List<int> RESOLUTIONS = [480, 720, 1080];
   static HivePrefectureClient _instance;
 
   bool get isInitialLaunchApp =>
-      Hive.box<dynamic>(boxName).get(KEY_INITIAL_LAUNCH_APP, defaultValue: true) as bool;
+      Hive.box<dynamic>(boxName).get(_KEY_INITIAL_LAUNCH_APP, defaultValue: true) as bool;
 
   double get playSpeed =>
-      Hive.box<dynamic>(boxName).get(_KEY_PLAY_SPEED, defaultValue: 1.0) as double;
+      Hive.box<dynamic>(boxName).get(KEY_PLAY_SPEED, defaultValue: 1.0) as double;
+
+  @Deprecated('currently not implemented')
+  int get resolution =>
+      Hive.box<dynamic>(boxName).get(KEY_RESOLUTION, defaultValue: 720) as int;
 
   Future<void> setPlaySpeed(double value) async {
-    assert(Util.PLAY_SPEED.contains(value));
-    await Hive.box<dynamic>(boxName).put(KEY_INITIAL_LAUNCH_APP, value);
+    assert(PLAY_SPEED.contains(value));
+    await Hive.box<dynamic>(boxName).put(KEY_PLAY_SPEED, value);
+  }
+
+  @Deprecated('currently not implemented')
+  Future<void> setResolution(int value) async {
+    assert(RESOLUTIONS.contains(value));
+    await Hive.box<dynamic>(boxName).put(KEY_RESOLUTION, value);
   }
 
   Future<void> setInitialLaunchApp() async =>
-      Hive.box<dynamic>(boxName).put(KEY_INITIAL_LAUNCH_APP, false);
+      Hive.box<dynamic>(boxName).put(_KEY_INITIAL_LAUNCH_APP, false);
 }

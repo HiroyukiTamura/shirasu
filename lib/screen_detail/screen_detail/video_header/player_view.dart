@@ -64,7 +64,7 @@ class _PlayerViewState extends State<PlayerView>
                   provider: _kPrvVideoCommand(widget.conf.id),
                   onChange: _onPlayerCommanded,
                   child: ProviderListener(
-                    provider: kPrvHivePrefEvent,
+                    provider: kPrvHivePlaySpeedUpdate,
                     onChange: _onHiveUpdate,
                     child: BetterPlayer(
                       controller: _controller,

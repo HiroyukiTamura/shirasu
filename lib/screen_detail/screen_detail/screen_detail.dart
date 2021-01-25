@@ -18,7 +18,7 @@ import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
-import 'package:shirasu/screen_detail/screen_detail/btm_sheet_play_speed.dart';
+import 'package:shirasu/screen_detail/screen_detail/btm_sheet/btm_sheet_play_speed.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_fabs.dart';
@@ -108,17 +108,11 @@ class _ScreenDetailState extends State<ScreenDetail>
     }
   }
 
+
+  /// not implement [BtmSheetResolution]
   @override
   Widget build(BuildContext context) => BtmSheetPlaySpeed(
       id: widget.id,
-      onTap: (double playSpeed) async {
-        _clearModal(context);
-        await HivePrefectureClient.instance().setPlaySpeed(playSpeed);
-      },
-      visible: useProvider(detailSNProvider(widget.id)
-          .state
-          .select((it) => it.portalState == const PortalState.playSpeed())),
-      onTapBackDrop: () => _clearModal(context),
       child: SafeArea(
         child: ColoredBox(
           color: Theme.of(context).scaffoldBackgroundColor,
@@ -133,9 +127,6 @@ class _ScreenDetailState extends State<ScreenDetail>
         ),
       ),
     );
-
-  void _clearModal(BuildContext context) =>
-      context.read(detailSNProvider(widget.id)).clearModal();
 
   Future<void> _stopPlayBackground() async {
     // if (!isPlaying) return;

@@ -207,4 +207,6 @@ abstract class PortalState with _$PortalState {
   const factory PortalState.none() = _PortalStateNone;
 
   const factory PortalState.playSpeed() = _PortalStatePlaySpeed;
+
+  const factory PortalState.resolution() = _PortalStateResolution;
 }

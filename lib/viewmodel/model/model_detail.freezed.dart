@@ -4791,6 +4791,11 @@ class _$PortalStateTearOff {
   _PortalStatePlaySpeed playSpeed() {
     return const _PortalStatePlaySpeed();
   }
+
+// ignore: unused_element
+  _PortalStateResolution resolution() {
+    return const _PortalStateResolution();
+  }
 }
 
 /// @nodoc
@@ -4803,22 +4808,26 @@ mixin _$PortalState {
   TResult when<TResult extends Object>({
     @required TResult none(),
     @required TResult playSpeed(),
+    @required TResult resolution(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult none(),
     TResult playSpeed(),
+    TResult resolution(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult none(_PortalStateNone value),
     @required TResult playSpeed(_PortalStatePlaySpeed value),
+    @required TResult resolution(_PortalStateResolution value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult none(_PortalStateNone value),
     TResult playSpeed(_PortalStatePlaySpeed value),
+    TResult resolution(_PortalStateResolution value),
     @required TResult orElse(),
   });
 }
@@ -4880,9 +4889,11 @@ class _$_PortalStateNone implements _PortalStateNone {
   TResult when<TResult extends Object>({
     @required TResult none(),
     @required TResult playSpeed(),
+    @required TResult resolution(),
   }) {
     assert(none != null);
     assert(playSpeed != null);
+    assert(resolution != null);
     return none();
   }
 
@@ -4891,6 +4902,7 @@ class _$_PortalStateNone implements _PortalStateNone {
   TResult maybeWhen<TResult extends Object>({
     TResult none(),
     TResult playSpeed(),
+    TResult resolution(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4905,9 +4917,11 @@ class _$_PortalStateNone implements _PortalStateNone {
   TResult map<TResult extends Object>({
     @required TResult none(_PortalStateNone value),
     @required TResult playSpeed(_PortalStatePlaySpeed value),
+    @required TResult resolution(_PortalStateResolution value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
+    assert(resolution != null);
     return none(this);
   }
 
@@ -4916,6 +4930,7 @@ class _$_PortalStateNone implements _PortalStateNone {
   TResult maybeMap<TResult extends Object>({
     TResult none(_PortalStateNone value),
     TResult playSpeed(_PortalStatePlaySpeed value),
+    TResult resolution(_PortalStateResolution value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4971,9 +4986,11 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
   TResult when<TResult extends Object>({
     @required TResult none(),
     @required TResult playSpeed(),
+    @required TResult resolution(),
   }) {
     assert(none != null);
     assert(playSpeed != null);
+    assert(resolution != null);
     return playSpeed();
   }
 
@@ -4982,6 +4999,7 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
   TResult maybeWhen<TResult extends Object>({
     TResult none(),
     TResult playSpeed(),
+    TResult resolution(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4996,9 +5014,11 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
   TResult map<TResult extends Object>({
     @required TResult none(_PortalStateNone value),
     @required TResult playSpeed(_PortalStatePlaySpeed value),
+    @required TResult resolution(_PortalStateResolution value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
+    assert(resolution != null);
     return playSpeed(this);
   }
 
@@ -5007,6 +5027,7 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
   TResult maybeMap<TResult extends Object>({
     TResult none(_PortalStateNone value),
     TResult playSpeed(_PortalStatePlaySpeed value),
+    TResult resolution(_PortalStateResolution value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5019,4 +5040,101 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
 
 abstract class _PortalStatePlaySpeed implements PortalState {
   const factory _PortalStatePlaySpeed() = _$_PortalStatePlaySpeed;
+}
+
+/// @nodoc
+abstract class _$PortalStateResolutionCopyWith<$Res> {
+  factory _$PortalStateResolutionCopyWith(_PortalStateResolution value,
+          $Res Function(_PortalStateResolution) then) =
+      __$PortalStateResolutionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PortalStateResolutionCopyWithImpl<$Res>
+    extends _$PortalStateCopyWithImpl<$Res>
+    implements _$PortalStateResolutionCopyWith<$Res> {
+  __$PortalStateResolutionCopyWithImpl(_PortalStateResolution _value,
+      $Res Function(_PortalStateResolution) _then)
+      : super(_value, (v) => _then(v as _PortalStateResolution));
+
+  @override
+  _PortalStateResolution get _value => super._value as _PortalStateResolution;
+}
+
+/// @nodoc
+class _$_PortalStateResolution implements _PortalStateResolution {
+  const _$_PortalStateResolution();
+
+  @override
+  String toString() {
+    return 'PortalState.resolution()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PortalStateResolution);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+    @required TResult resolution(),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    return resolution();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    TResult resolution(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (resolution != null) {
+      return resolution();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_PortalStateNone value),
+    @required TResult playSpeed(_PortalStatePlaySpeed value),
+    @required TResult resolution(_PortalStateResolution value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    return resolution(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_PortalStateNone value),
+    TResult playSpeed(_PortalStatePlaySpeed value),
+    TResult resolution(_PortalStateResolution value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (resolution != null) {
+      return resolution(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PortalStateResolution implements PortalState {
+  const factory _PortalStateResolution() = _$_PortalStateResolution;
 }

@@ -18,12 +18,14 @@ class _$ModelDetailTearOff {
       {@required DetailModelState prgDataResult,
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
-      @required CommentHolder commentHolder}) {
+      @required CommentHolder commentHolder,
+      @required PortalState portalState}) {
     return _ModelDetail(
       prgDataResult: prgDataResult,
       playOutState: playOutState,
       isHandoutUrlRequesting: isHandoutUrlRequesting,
       commentHolder: commentHolder,
+      portalState: portalState,
     );
   }
 }
@@ -38,6 +40,7 @@ mixin _$ModelDetail {
   PlayOutState get playOutState;
   bool get isHandoutUrlRequesting;
   CommentHolder get commentHolder;
+  PortalState get portalState;
 
   $ModelDetailCopyWith<ModelDetail> get copyWith;
 }
@@ -51,11 +54,13 @@ abstract class $ModelDetailCopyWith<$Res> {
       {DetailModelState prgDataResult,
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
-      CommentHolder commentHolder});
+      CommentHolder commentHolder,
+      PortalState portalState});
 
   $DetailModelStateCopyWith<$Res> get prgDataResult;
   $PlayOutStateCopyWith<$Res> get playOutState;
   $CommentHolderCopyWith<$Res> get commentHolder;
+  $PortalStateCopyWith<$Res> get portalState;
 }
 
 /// @nodoc
@@ -72,6 +77,7 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
     Object commentHolder = freezed,
+    Object portalState = freezed,
   }) {
     return _then(_value.copyWith(
       prgDataResult: prgDataResult == freezed
@@ -86,6 +92,9 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
           : commentHolder as CommentHolder,
+      portalState: portalState == freezed
+          ? _value.portalState
+          : portalState as PortalState,
     ));
   }
 
@@ -118,6 +127,16 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       return _then(_value.copyWith(commentHolder: value));
     });
   }
+
+  @override
+  $PortalStateCopyWith<$Res> get portalState {
+    if (_value.portalState == null) {
+      return null;
+    }
+    return $PortalStateCopyWith<$Res>(_value.portalState, (value) {
+      return _then(_value.copyWith(portalState: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -131,7 +150,8 @@ abstract class _$ModelDetailCopyWith<$Res>
       {DetailModelState prgDataResult,
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
-      CommentHolder commentHolder});
+      CommentHolder commentHolder,
+      PortalState portalState});
 
   @override
   $DetailModelStateCopyWith<$Res> get prgDataResult;
@@ -139,6 +159,8 @@ abstract class _$ModelDetailCopyWith<$Res>
   $PlayOutStateCopyWith<$Res> get playOutState;
   @override
   $CommentHolderCopyWith<$Res> get commentHolder;
+  @override
+  $PortalStateCopyWith<$Res> get portalState;
 }
 
 /// @nodoc
@@ -157,6 +179,7 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
     Object commentHolder = freezed,
+    Object portalState = freezed,
   }) {
     return _then(_ModelDetail(
       prgDataResult: prgDataResult == freezed
@@ -171,6 +194,9 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
           : commentHolder as CommentHolder,
+      portalState: portalState == freezed
+          ? _value.portalState
+          : portalState as PortalState,
     ));
   }
 }
@@ -181,11 +207,13 @@ class _$_ModelDetail extends _ModelDetail {
       {@required this.prgDataResult,
       @required this.playOutState,
       @required this.isHandoutUrlRequesting,
-      @required this.commentHolder})
+      @required this.commentHolder,
+      @required this.portalState})
       : assert(prgDataResult != null),
         assert(playOutState != null),
         assert(isHandoutUrlRequesting != null),
         assert(commentHolder != null),
+        assert(portalState != null),
         super._();
 
   @override
@@ -196,10 +224,12 @@ class _$_ModelDetail extends _ModelDetail {
   final bool isHandoutUrlRequesting;
   @override
   final CommentHolder commentHolder;
+  @override
+  final PortalState portalState;
 
   @override
   String toString() {
-    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, commentHolder: $commentHolder)';
+    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, commentHolder: $commentHolder, portalState: $portalState)';
   }
 
   @override
@@ -217,7 +247,10 @@ class _$_ModelDetail extends _ModelDetail {
                     other.isHandoutUrlRequesting, isHandoutUrlRequesting)) &&
             (identical(other.commentHolder, commentHolder) ||
                 const DeepCollectionEquality()
-                    .equals(other.commentHolder, commentHolder)));
+                    .equals(other.commentHolder, commentHolder)) &&
+            (identical(other.portalState, portalState) ||
+                const DeepCollectionEquality()
+                    .equals(other.portalState, portalState)));
   }
 
   @override
@@ -226,7 +259,8 @@ class _$_ModelDetail extends _ModelDetail {
       const DeepCollectionEquality().hash(prgDataResult) ^
       const DeepCollectionEquality().hash(playOutState) ^
       const DeepCollectionEquality().hash(isHandoutUrlRequesting) ^
-      const DeepCollectionEquality().hash(commentHolder);
+      const DeepCollectionEquality().hash(commentHolder) ^
+      const DeepCollectionEquality().hash(portalState);
 
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith =>
@@ -239,7 +273,8 @@ abstract class _ModelDetail extends ModelDetail {
       {@required DetailModelState prgDataResult,
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
-      @required CommentHolder commentHolder}) = _$_ModelDetail;
+      @required CommentHolder commentHolder,
+      @required PortalState portalState}) = _$_ModelDetail;
 
   @override
   DetailModelState get prgDataResult;
@@ -249,6 +284,8 @@ abstract class _ModelDetail extends ModelDetail {
   bool get isHandoutUrlRequesting;
   @override
   CommentHolder get commentHolder;
+  @override
+  PortalState get portalState;
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith;
 }
@@ -4739,4 +4776,247 @@ class _$_CommentsStateError implements _CommentsStateError {
 
 abstract class _CommentsStateError implements CommentsState {
   const factory _CommentsStateError() = _$_CommentsStateError;
+}
+
+/// @nodoc
+class _$PortalStateTearOff {
+  const _$PortalStateTearOff();
+
+// ignore: unused_element
+  _PortalStateNone none() {
+    return const _PortalStateNone();
+  }
+
+// ignore: unused_element
+  _PortalStatePlaySpeed playSpeed() {
+    return const _PortalStatePlaySpeed();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $PortalState = _$PortalStateTearOff();
+
+/// @nodoc
+mixin _$PortalState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_PortalStateNone value),
+    @required TResult playSpeed(_PortalStatePlaySpeed value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_PortalStateNone value),
+    TResult playSpeed(_PortalStatePlaySpeed value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $PortalStateCopyWith<$Res> {
+  factory $PortalStateCopyWith(
+          PortalState value, $Res Function(PortalState) then) =
+      _$PortalStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PortalStateCopyWithImpl<$Res> implements $PortalStateCopyWith<$Res> {
+  _$PortalStateCopyWithImpl(this._value, this._then);
+
+  final PortalState _value;
+  // ignore: unused_field
+  final $Res Function(PortalState) _then;
+}
+
+/// @nodoc
+abstract class _$PortalStateNoneCopyWith<$Res> {
+  factory _$PortalStateNoneCopyWith(
+          _PortalStateNone value, $Res Function(_PortalStateNone) then) =
+      __$PortalStateNoneCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PortalStateNoneCopyWithImpl<$Res>
+    extends _$PortalStateCopyWithImpl<$Res>
+    implements _$PortalStateNoneCopyWith<$Res> {
+  __$PortalStateNoneCopyWithImpl(
+      _PortalStateNone _value, $Res Function(_PortalStateNone) _then)
+      : super(_value, (v) => _then(v as _PortalStateNone));
+
+  @override
+  _PortalStateNone get _value => super._value as _PortalStateNone;
+}
+
+/// @nodoc
+class _$_PortalStateNone implements _PortalStateNone {
+  const _$_PortalStateNone();
+
+  @override
+  String toString() {
+    return 'PortalState.none()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PortalStateNone);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    return none();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (none != null) {
+      return none();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_PortalStateNone value),
+    @required TResult playSpeed(_PortalStatePlaySpeed value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    return none(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_PortalStateNone value),
+    TResult playSpeed(_PortalStatePlaySpeed value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (none != null) {
+      return none(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PortalStateNone implements PortalState {
+  const factory _PortalStateNone() = _$_PortalStateNone;
+}
+
+/// @nodoc
+abstract class _$PortalStatePlaySpeedCopyWith<$Res> {
+  factory _$PortalStatePlaySpeedCopyWith(_PortalStatePlaySpeed value,
+          $Res Function(_PortalStatePlaySpeed) then) =
+      __$PortalStatePlaySpeedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PortalStatePlaySpeedCopyWithImpl<$Res>
+    extends _$PortalStateCopyWithImpl<$Res>
+    implements _$PortalStatePlaySpeedCopyWith<$Res> {
+  __$PortalStatePlaySpeedCopyWithImpl(
+      _PortalStatePlaySpeed _value, $Res Function(_PortalStatePlaySpeed) _then)
+      : super(_value, (v) => _then(v as _PortalStatePlaySpeed));
+
+  @override
+  _PortalStatePlaySpeed get _value => super._value as _PortalStatePlaySpeed;
+}
+
+/// @nodoc
+class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
+  const _$_PortalStatePlaySpeed();
+
+  @override
+  String toString() {
+    return 'PortalState.playSpeed()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PortalStatePlaySpeed);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    return playSpeed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (playSpeed != null) {
+      return playSpeed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_PortalStateNone value),
+    @required TResult playSpeed(_PortalStatePlaySpeed value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    return playSpeed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_PortalStateNone value),
+    TResult playSpeed(_PortalStatePlaySpeed value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (playSpeed != null) {
+      return playSpeed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PortalStatePlaySpeed implements PortalState {
+  const factory _PortalStatePlaySpeed() = _$_PortalStatePlaySpeed;
 }

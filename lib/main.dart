@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -23,11 +24,11 @@ final pAppRouterDelegate =
     Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref));
 
 final pcnAppRouterDelegate =
-ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
+    ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
         (ref) => ref.watch(pAppRouterDelegate));
 
 final _pNavigationChange = StateProvider.autoDispose<GlobalRoutePathBase>(
-        (ref) => ref.watch(pcnAppRouterDelegate).appState.last);
+    (ref) => ref.watch(pcnAppRouterDelegate).appState.last);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +48,13 @@ Future<void> main() async {
   await HivePrefectureClient.instance().init();
   await ApiClient.openHiveStore();
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      child: Portal(
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatefulHookWidget {
@@ -57,7 +64,6 @@ class MyApp extends StatefulHookWidget {
 
 class MyAppState extends State<MyApp>
     with WidgetsBindingObserver, TickerProviderStateMixin {
-
   @override
   void initState() {
     super.initState();

@@ -16,6 +16,8 @@ class Util {
 
   static const JP_TAX_RATIO = 0.1;
 
+  static const List<double> PLAY_SPEED = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+
   static String convert2SnackText(SnackMsg msg) {
     switch (msg) {
       case SnackMsg.UNKNOWN:

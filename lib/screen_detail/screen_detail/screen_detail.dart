@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/di/native_client.dart';
 import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/dialog/portal_animated_modal_barrier.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -15,6 +18,7 @@ import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
+import 'package:shirasu/screen_detail/screen_detail/btm_sheet_play_speed.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_fabs.dart';
@@ -105,7 +109,17 @@ class _ScreenDetailState extends State<ScreenDetail>
   }
 
   @override
-  Widget build(BuildContext context) => SafeArea(
+  Widget build(BuildContext context) => BtmSheetPlaySpeed(
+      id: widget.id,
+      onTap: (double playSpeed) async {
+        _clearModal(context);
+        await HivePrefectureClient.instance().setPlaySpeed(playSpeed);
+      },
+      visible: useProvider(detailSNProvider(widget.id)
+          .state
+          .select((it) => it.portalState == const PortalState.playSpeed())),
+      onTapBackDrop: () => _clearModal(context),
+      child: SafeArea(
         child: ColoredBox(
           color: Theme.of(context).scaffoldBackgroundColor,
           child: useProvider(detailSNProvider(widget.id)
@@ -117,7 +131,11 @@ class _ScreenDetailState extends State<ScreenDetail>
             success: _successWidget,
           ),
         ),
-      );
+      ),
+    );
+
+  void _clearModal(BuildContext context) =>
+      context.read(detailSNProvider(widget.id)).clearModal();
 
   Future<void> _stopPlayBackground() async {
     // if (!isPlaying) return;

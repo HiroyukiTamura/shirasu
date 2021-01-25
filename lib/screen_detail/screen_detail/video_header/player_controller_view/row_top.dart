@@ -17,6 +17,7 @@ part 'row_top.g.dart';
 Widget rowTop(
   BuildContext context, {
   @required OnTap onTapFullScreenBtn,
+  @required OnTap onTapSpeedBtn,
   @required VideoViewModelConf conf,
 }) {
   final prgDataResult = useProvider(detailSNProvider(conf.id))
@@ -45,14 +46,10 @@ Widget rowTop(
               ),
             ),
           ),
-        //todo implement
-        Visibility(
-          visible: false,
-          child: IconButton(
-            color: Colors.white,
-            icon: const Icon(MdiIcons.playSpeed),
-            onPressed: () {},
-          ),
+        _IconButton(
+          icon: MdiIcons.playSpeed,
+          onPressed: onTapSpeedBtn,
+          fullScreen: conf.fullScreen,
         ),
         //todo implement
         Visibility(
@@ -63,15 +60,28 @@ Widget rowTop(
             onPressed: () {},
           ),
         ),
-        IconButton(
-          iconSize: conf.fullScreen
-              ? Dimens.VIDEO_FULLSCREEN_BTN_SIZE_BIG
-              : Dimens.VIDEO_FULLSCREEN_BTN_SIZE,
-          color: Colors.white,
-          icon: const Icon(Icons.fullscreen),
-          onPressed: () => onTapFullScreenBtn(context),
+        _IconButton(
+          icon: Icons.fullscreen,
+          onPressed: onTapFullScreenBtn,
+          fullScreen: conf.fullScreen,
         ),
       ],
     ),
   );
 }
+
+@swidget
+Widget _iconButton(
+  BuildContext context, {
+  @required IconData icon,
+  @required bool fullScreen,
+  @required OnTap onPressed,
+}) =>
+    IconButton(
+      iconSize: fullScreen
+          ? Dimens.VIDEO_FULLSCREEN_BTN_SIZE_BIG
+          : Dimens.VIDEO_FULLSCREEN_BTN_SIZE,
+      color: Colors.white,
+      icon: Icon(icon),
+      onPressed: () => onPressed(context),
+    );

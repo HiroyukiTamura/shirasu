@@ -15,6 +15,7 @@ abstract class ModelDetail implements _$ModelDetail {
     @required PlayOutState playOutState,
     @required bool isHandoutUrlRequesting,
     @required CommentHolder commentHolder,
+    @required PortalState portalState,
   }) = _ModelDetail;
 
   const ModelDetail._();
@@ -24,6 +25,7 @@ abstract class ModelDetail implements _$ModelDetail {
         playOutState: PlayOutState.initial(),
         isHandoutUrlRequesting: false,
         commentHolder: const CommentHolder(),
+        portalState: const PortalState.none(),
       );
 
   ModelDetail copyAsInitialize(String urlAvailable, VideoType videoType) =>
@@ -198,4 +200,11 @@ abstract class CommentsState with _$CommentsState {
   const factory CommentsState.loadingMore() = _CommentsStateLoadingMore;
 
   const factory CommentsState.error() = _CommentsStateError;
+}
+
+@freezed
+abstract class PortalState with _$PortalState {
+  const factory PortalState.none() = _PortalStateNone;
+
+  const factory PortalState.playSpeed() = _PortalStatePlaySpeed;
 }

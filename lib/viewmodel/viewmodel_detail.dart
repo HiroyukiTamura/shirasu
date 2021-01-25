@@ -174,7 +174,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       if (!mounted)
         state = state.copyWith.commentHolder(
           commentsPre: state.commentHolder.commentsPost.copyWith(
-            items: state.commentHolder.commentsPost.items + appendee.items,//todo sort
+            items: state.commentHolder.commentsPost.items + appendee.items,
+            //todo sort
             nextToken: appendee.nextToken,
           ),
           state: const CommentsState.success(),
@@ -203,7 +204,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       if (!mounted)
         state = state.copyWith.commentHolder(
           commentsPre: state.commentHolder.commentsPre.copyWith(
-            items: state.commentHolder.commentsPre.items + appendee.items,//todo sort
+            items: state.commentHolder.commentsPre.items + appendee.items,
+            //todo sort
             nextToken: appendee.nextToken,
           ),
           state: const CommentsState.success(),
@@ -410,4 +412,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyWith.playOutState(isBuffering: isBuffering);
   }
+
+  void commandModal(PortalState portalState) =>
+      state = state.copyWith(portalState: portalState);
+
+  void clearModal() => state = state.copyWith(portalState: const PortalState.none());
 }

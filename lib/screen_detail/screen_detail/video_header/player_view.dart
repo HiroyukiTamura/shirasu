@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
@@ -16,13 +17,11 @@ import '../screen_detail.dart';
 
 // part 'player_view.g.dart';
 
-final _kPrvVideoCommand =
-    Provider.autoDispose.family<LastControllerCommandHolder, String>(
-  (ref, id) => ref
-      .watch(detailSNProvider(id).state)
-      .playOutState
-      .lastControllerCommandHolder
-);
+final _kPrvVideoCommand = Provider.autoDispose
+    .family<LastControllerCommandHolder, String>((ref, id) => ref
+        .watch(detailSNProvider(id).state)
+        .playOutState
+        .lastControllerCommandHolder);
 
 class PlayerView extends StatefulHookWidget {
   const PlayerView({Key key, this.conf}) : super(key: key);
@@ -64,8 +63,12 @@ class _PlayerViewState extends State<PlayerView>
                 child: ProviderListener(
                   provider: _kPrvVideoCommand(widget.conf.id),
                   onChange: _onPlayerCommanded,
-                  child: BetterPlayer(
-                    controller: _controller,
+                  child: ProviderListener(
+                    provider: kPrvHivePrefEvent,
+                    onChange: _onHiveUpdate,
+                    child: BetterPlayer(
+                      controller: _controller,
+                    ),
                   ),
                 ),
               ),
@@ -79,14 +82,25 @@ class _PlayerViewState extends State<PlayerView>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    _getViewModelDetail(context).takePriority(fullScreen: widget.conf.fullScreen);
+    _getViewModelDetail(context)
+        .takePriority(fullScreen: widget.conf.fullScreen);
     _controller.setupDataSource(_dataSource).then((value) {
       if (mounted)
-        _controller.videoPlayerController.addListener(() => _rawVideoPlayerListener(context));
+        _controller.videoPlayerController
+            .addListener(() => _rawVideoPlayerListener(context));
     });
   }
 
-  void _onPlayerCommanded(BuildContext context, LastControllerCommandHolder holder) {
+  void _onHiveUpdate(BuildContext context, AsyncValue<double> value) =>
+      value.whenData(
+        (playSpeed) async {
+          if (_controller.videoPlayerController.value.initialized)
+            await _controller.setSpeed(playSpeed);
+        },
+      );
+
+  void _onPlayerCommanded(
+      BuildContext context, LastControllerCommandHolder holder) {
     holder.command.when(
       play: () async {
         if (_controller.videoPlayerController.value.initialized)
@@ -156,11 +170,14 @@ class _PlayerViewState extends State<PlayerView>
     }
   }
 
-  void _onInitializedEvent() =>
-      _getViewModelDetail(context).setAsVideoControllerInitialized(
+  void _onInitializedEvent() {
+    _getViewModelDetail(context).setAsVideoControllerInitialized(
         totalDuration: _controller.videoPlayerController.value.duration,
         fullScreen: widget.conf.fullScreen,
       );
+    if (_controller.videoPlayerController.value.initialized)
+      _controller.setSpeed(HivePrefectureClient.instance().playSpeed);
+  }
 
   void _onProgressEvent(BetterPlayerEvent event) =>
       _getViewModelDetail(context).setVideoDurations(

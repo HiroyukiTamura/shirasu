@@ -13,6 +13,8 @@ class Styles {
   static const COLOR_DOUBLE_TAP_BG = Colors.white24;
   static const VIDEO_SHADE = Colors.black45;
 
+  static const MODAL_BG = Colors.black54;
+
   // static const TWITTER_COLOR = Color(0xff1DA1F2);
   // static const FACEBOOK_COLOR = Color(0xff4267B2);
   static const PRIMARY_COLOR = Color(0xff50e6ff);

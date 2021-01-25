@@ -61,6 +61,7 @@ dependencies:
   double_tap_player_view: ^1.0.6
   lottie: ^0.7.0+1
   uuid: ^2.2.2
+  flutter_portal: ^0.3.0
   flutter_video_background:
     path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background
 

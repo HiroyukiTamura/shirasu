@@ -1,3 +1,4 @@
+import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/di/api_client.dart';
@@ -15,11 +16,12 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'controller_hide_timer.dart';
+import 'model/model_detail.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(this.id, this._ref)
       : channelId = UrlUtil.programId2channelId(id),
-        super(ModelDetail.initial()) {
+        super(ModelDetail.initial(true)) {
     _hideTimer = ControllerHideTimer(_hideController);
   }
 
@@ -87,6 +89,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       newState = state.copyWith(prgDataResult: const DetailModelState.error());
     }
     setState(newState);
+
+    await _initComments(Duration.zero);
   }
 
   Future<void> playVideo(bool preview) async {
@@ -130,93 +134,97 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     return url;
   }
 
-  Future<void> initComments(Duration currentPos) async {
-    try {
-      final commentPre = await ApiClient.instance().queryComment(
-        programId: id,
+  Future<void> _initComments(Duration currentPos) async {
+    if (mounted) await loadMorePreComment(currentPos, true);
+    if (mounted) await loadMorePostComment(currentPos, true);
+    if (mounted)
+      state = state.copyWith.commentHolder(
+        isRenewing: false,
+      );
+  }
+
+  Future<void> loadMorePostComment(Duration currentPos, bool forceRun) async =>
+      _loadMoreComment(
+        beginTime: currentPos,
+        endTime: 1.days,
+        sortDirection: SortDirection.ASC,
+        loadingState: LoadingState.FUTURE,
+        forceRun: forceRun,
+      );
+
+  Future<void> loadMorePreComment(Duration currentPos, bool forceRun) async =>
+      _loadMoreComment(
         beginTime: Duration.zero,
         endTime: currentPos,
         sortDirection: SortDirection.DESC,
+        loadingState: LoadingState.PAST,
+        forceRun: forceRun,
       );
-      final commentPost = await ApiClient.instance().queryComment(
+
+  /// todo synchronous??
+  Future<void> _loadMoreComment({
+    @required Duration beginTime,
+    @required Duration endTime,
+    @required SortDirection sortDirection,
+    @required LoadingState loadingState,
+    @required bool forceRun,
+  }) async {
+    final shouldRun = _shouldLoadMoreComment(
+      beginTime: beginTime,
+      endTime: endTime,
+      forceRun: forceRun,
+    );
+    if (!shouldRun)
+      return;
+
+    state = state.copyWith
+        .commentHolder(state: CommentsState.loadingMore(loadingState));
+
+    final pageNationKey = state.commentHolder.pageNationKey;
+
+    try {
+      final object = await ApiClient.instance().queryComment(
         programId: id,
-        beginTime: currentPos,
-        endTime: currentPos + const Duration(minutes: 15),
-        sortDirection: SortDirection.ASC,
+        beginTime: beginTime,
+        endTime: endTime,
+        sortDirection: sortDirection,
       );
-      if (!mounted)
-        state = state.copyWith.commentHolder(
-          commentsPre: commentPre,
-          commentsPost: commentPost,
-          state: const CommentsState.success(),
+      if (mounted && pageNationKey == state.commentHolder.pageNationKey)
+        state = state.copyWith(
+          commentHolder: state.commentHolder
+              .copyAsAddSingleCommentHolder(object, loadingState),
         );
     } catch (e) {
       print(e);
-      if (!mounted)
+      if (mounted && pageNationKey == state.commentHolder.pageNationKey)
         state = state.copyWith.commentHolder(
           state: const CommentsState.error(),
         );
     }
   }
 
-  Future<void> loadMorePostComment(Duration currentPos) async {
-    state = state.copyWith.commentHolder(
-      state: const CommentsState.loadingMore(),
-    );
+  bool _shouldLoadMoreComment({
+    @required Duration beginTime,
+    @required Duration endTime,
+    @required bool forceRun,
+  }) {
+    if (beginTime == endTime) return false;
 
-    try {
-      final appendee = await ApiClient.instance().queryComment(
-        programId: id,
-        beginTime: currentPos,
-        endTime: currentPos + const Duration(minutes: 15),
-        sortDirection: SortDirection.ASC,
-      );
-      if (!mounted)
-        state = state.copyWith.commentHolder(
-          commentsPre: state.commentHolder.commentsPost.copyWith(
-            items: state.commentHolder.commentsPost.items + appendee.items,
-            //todo sort
-            nextToken: appendee.nextToken,
-          ),
-          state: const CommentsState.success(),
-        );
-    } catch (e) {
-      print(e);
-      if (!mounted)
-        state = state.copyWith.commentHolder(
-          state: const CommentsState.error(),
-        );
-    }
+    if (!forceRun && state.commentHolder.isRenewing) return false;
+
+    final commentState = state.commentHolder.state;
+
+    if ((commentState is CommentsStateLoadingMore) ||
+        commentState is CommentsStateErr) return false;
+
+    return true;
   }
 
-  Future<void> loadMorePreComment(Duration currentPos) async {
-    state = state.copyWith.commentHolder(
-      state: const CommentsState.loadingMore(),
-    );
+  Future<void> renewAllComment(Duration currentPos) async {
+    if (state.commentHolder.isRenewing) return;
 
-    try {
-      final appendee = await ApiClient.instance().queryComment(
-        programId: id,
-        beginTime: Duration.zero,
-        endTime: currentPos,
-        sortDirection: SortDirection.DESC,
-      );
-      if (!mounted)
-        state = state.copyWith.commentHolder(
-          commentsPre: state.commentHolder.commentsPre.copyWith(
-            items: state.commentHolder.commentsPre.items + appendee.items,
-            //todo sort
-            nextToken: appendee.nextToken,
-          ),
-          state: const CommentsState.success(),
-        );
-    } catch (e) {
-      print(e);
-      if (!mounted)
-        state = state.copyWith.commentHolder(
-          state: const CommentsState.error(),
-        );
-    }
+    state = state.copyWith(commentHolder: CommentsHolder.initial(false));
+    await _initComments(currentPos);
   }
 
   Future<void> togglePage(PageSheetModel pageSheet) async {
@@ -416,5 +424,6 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   void commandModal(PortalState portalState) =>
       state = state.copyWith(portalState: portalState);
 
-  void clearModal() => state = state.copyWith(portalState: const PortalState.none());
+  void clearModal() =>
+      state = state.copyWith(portalState: const PortalState.none());
 }

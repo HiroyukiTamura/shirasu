@@ -181,6 +181,7 @@ class _$CommentsTearOff {
 // ignore: unused_element
   _Comments call(
       {@required
+      @Deprecated('use [itemsSorted]')
           List<CommentItem> items,
       String nextToken,
       @required
@@ -206,6 +207,7 @@ const $Comments = _$CommentsTearOff();
 
 /// @nodoc
 mixin _$Comments {
+  @Deprecated('use [itemsSorted]')
   List<CommentItem> get items;
   String get nextToken;
   @JsonKey(name: '__typename')
@@ -221,7 +223,8 @@ abstract class $CommentsCopyWith<$Res> {
   factory $CommentsCopyWith(Comments value, $Res Function(Comments) then) =
       _$CommentsCopyWithImpl<$Res>;
   $Res call(
-      {List<CommentItem> items,
+      {@Deprecated('use [itemsSorted]')
+          List<CommentItem> items,
       String nextToken,
       @JsonKey(name: '__typename')
       @Assert('typename == "ModelCommentConnection"')
@@ -256,7 +259,8 @@ abstract class _$CommentsCopyWith<$Res> implements $CommentsCopyWith<$Res> {
       __$CommentsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<CommentItem> items,
+      {@Deprecated('use [itemsSorted]')
+          List<CommentItem> items,
       String nextToken,
       @JsonKey(name: '__typename')
       @Assert('typename == "ModelCommentConnection"')
@@ -289,9 +293,10 @@ class __$CommentsCopyWithImpl<$Res> extends _$CommentsCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Comments implements _Comments {
+class _$_Comments extends _Comments {
   const _$_Comments(
       {@required
+      @Deprecated('use [itemsSorted]')
           this.items,
       this.nextToken,
       @required
@@ -299,12 +304,14 @@ class _$_Comments implements _Comments {
       @Assert('typename == "ModelCommentConnection"')
           this.typename})
       : assert(items != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_Comments.fromJson(Map<String, dynamic> json) =>
       _$_$_CommentsFromJson(json);
 
   @override
+  @Deprecated('use [itemsSorted]')
   final List<CommentItem> items;
   @override
   final String nextToken;
@@ -349,9 +356,11 @@ class _$_Comments implements _Comments {
   }
 }
 
-abstract class _Comments implements Comments {
+abstract class _Comments extends Comments {
+  const _Comments._() : super._();
   const factory _Comments(
       {@required
+      @Deprecated('use [itemsSorted]')
           List<CommentItem> items,
       String nextToken,
       @required
@@ -362,6 +371,7 @@ abstract class _Comments implements Comments {
   factory _Comments.fromJson(Map<String, dynamic> json) = _$_Comments.fromJson;
 
   @override
+  @Deprecated('use [itemsSorted]')
   List<CommentItem> get items;
   @override
   String get nextToken;
@@ -388,6 +398,7 @@ class _$CommentItemTearOff {
       @required
           String text,
       @required
+      @Deprecated('use [commentTime]')
           int commentTime,
       @required
           String userId,
@@ -421,6 +432,7 @@ const $CommentItem = _$CommentItemTearOff();
 mixin _$CommentItem {
   String get id;
   String get text;
+  @Deprecated('use [commentTime]')
   int get commentTime;
   String get userId;
   User get user;
@@ -440,7 +452,8 @@ abstract class $CommentItemCopyWith<$Res> {
   $Res call(
       {String id,
       String text,
-      int commentTime,
+      @Deprecated('use [commentTime]')
+          int commentTime,
       String userId,
       User user,
       @JsonKey(name: '__typename')
@@ -499,7 +512,8 @@ abstract class _$CommentItemCopyWith<$Res>
   $Res call(
       {String id,
       String text,
-      int commentTime,
+      @Deprecated('use [commentTime]')
+          int commentTime,
       String userId,
       User user,
       @JsonKey(name: '__typename')
@@ -544,13 +558,14 @@ class __$CommentItemCopyWithImpl<$Res> extends _$CommentItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_CommentItem implements _CommentItem {
+class _$_CommentItem extends _CommentItem {
   const _$_CommentItem(
       {@required
           this.id,
       @required
           this.text,
       @required
+      @Deprecated('use [commentTime]')
           this.commentTime,
       @required
           this.userId,
@@ -565,7 +580,8 @@ class _$_CommentItem implements _CommentItem {
         assert(commentTime != null),
         assert(userId != null),
         assert(user != null),
-        assert(typename != null);
+        assert(typename != null),
+        super._();
 
   factory _$_CommentItem.fromJson(Map<String, dynamic> json) =>
       _$_$_CommentItemFromJson(json);
@@ -575,6 +591,7 @@ class _$_CommentItem implements _CommentItem {
   @override
   final String text;
   @override
+  @Deprecated('use [commentTime]')
   final int commentTime;
   @override
   final String userId;
@@ -630,13 +647,15 @@ class _$_CommentItem implements _CommentItem {
   }
 }
 
-abstract class _CommentItem implements CommentItem {
+abstract class _CommentItem extends CommentItem {
+  const _CommentItem._() : super._();
   const factory _CommentItem(
       {@required
           String id,
       @required
           String text,
       @required
+      @Deprecated('use [commentTime]')
           int commentTime,
       @required
           String userId,
@@ -655,6 +674,7 @@ abstract class _CommentItem implements CommentItem {
   @override
   String get text;
   @override
+  @Deprecated('use [commentTime]')
   int get commentTime;
   @override
   String get userId;

@@ -15,6 +15,7 @@ import 'package:shirasu/model/update_user_with_attr_variable.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 /// todo handle timeout
 @immutable
@@ -187,11 +188,10 @@ class ApiClient {
       'endTime': endTime.inMilliseconds.toString(),
       'sortDirection': sortDirection.value,
     };
-    if (nextToken != null)
-      variables['nextToken'] = nextToken;
+    if (nextToken != null) variables['nextToken'] = nextToken;
 
     final result =
         await _query(GraphqlQuery.QUERY_COMMENTS, variables: variables);
-    return Comments.fromJson(result.data);
+    return ListCommentsByProgram.fromJson(result.data).comments;
   }
 }

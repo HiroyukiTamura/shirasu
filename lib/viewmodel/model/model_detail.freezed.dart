@@ -18,7 +18,7 @@ class _$ModelDetailTearOff {
       {@required DetailModelState prgDataResult,
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
-      @required CommentHolder commentHolder,
+      @required CommentsHolder commentHolder,
       @required PortalState portalState}) {
     return _ModelDetail(
       prgDataResult: prgDataResult,
@@ -39,7 +39,7 @@ mixin _$ModelDetail {
   DetailModelState get prgDataResult;
   PlayOutState get playOutState;
   bool get isHandoutUrlRequesting;
-  CommentHolder get commentHolder;
+  CommentsHolder get commentHolder;
   PortalState get portalState;
 
   $ModelDetailCopyWith<ModelDetail> get copyWith;
@@ -54,12 +54,12 @@ abstract class $ModelDetailCopyWith<$Res> {
       {DetailModelState prgDataResult,
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
-      CommentHolder commentHolder,
+      CommentsHolder commentHolder,
       PortalState portalState});
 
   $DetailModelStateCopyWith<$Res> get prgDataResult;
   $PlayOutStateCopyWith<$Res> get playOutState;
-  $CommentHolderCopyWith<$Res> get commentHolder;
+  $CommentsHolderCopyWith<$Res> get commentHolder;
   $PortalStateCopyWith<$Res> get portalState;
 }
 
@@ -91,7 +91,7 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
           : isHandoutUrlRequesting as bool,
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
-          : commentHolder as CommentHolder,
+          : commentHolder as CommentsHolder,
       portalState: portalState == freezed
           ? _value.portalState
           : portalState as PortalState,
@@ -119,11 +119,11 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
   }
 
   @override
-  $CommentHolderCopyWith<$Res> get commentHolder {
+  $CommentsHolderCopyWith<$Res> get commentHolder {
     if (_value.commentHolder == null) {
       return null;
     }
-    return $CommentHolderCopyWith<$Res>(_value.commentHolder, (value) {
+    return $CommentsHolderCopyWith<$Res>(_value.commentHolder, (value) {
       return _then(_value.copyWith(commentHolder: value));
     });
   }
@@ -150,7 +150,7 @@ abstract class _$ModelDetailCopyWith<$Res>
       {DetailModelState prgDataResult,
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
-      CommentHolder commentHolder,
+      CommentsHolder commentHolder,
       PortalState portalState});
 
   @override
@@ -158,7 +158,7 @@ abstract class _$ModelDetailCopyWith<$Res>
   @override
   $PlayOutStateCopyWith<$Res> get playOutState;
   @override
-  $CommentHolderCopyWith<$Res> get commentHolder;
+  $CommentsHolderCopyWith<$Res> get commentHolder;
   @override
   $PortalStateCopyWith<$Res> get portalState;
 }
@@ -193,13 +193,15 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
           : isHandoutUrlRequesting as bool,
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
-          : commentHolder as CommentHolder,
+          : commentHolder as CommentsHolder,
       portalState: portalState == freezed
           ? _value.portalState
           : portalState as PortalState,
     ));
   }
 }
+
+@protected
 
 /// @nodoc
 class _$_ModelDetail extends _ModelDetail {
@@ -223,7 +225,7 @@ class _$_ModelDetail extends _ModelDetail {
   @override
   final bool isHandoutUrlRequesting;
   @override
-  final CommentHolder commentHolder;
+  final CommentsHolder commentHolder;
   @override
   final PortalState portalState;
 
@@ -273,7 +275,7 @@ abstract class _ModelDetail extends ModelDetail {
       {@required DetailModelState prgDataResult,
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
-      @required CommentHolder commentHolder,
+      @required CommentsHolder commentHolder,
       @required PortalState portalState}) = _$_ModelDetail;
 
   @override
@@ -283,7 +285,7 @@ abstract class _ModelDetail extends ModelDetail {
   @override
   bool get isHandoutUrlRequesting;
   @override
-  CommentHolder get commentHolder;
+  CommentsHolder get commentHolder;
   @override
   PortalState get portalState;
   @override
@@ -1176,6 +1178,8 @@ class __$PlayOutStateCopyWithImpl<$Res> extends _$PlayOutStateCopyWithImpl<$Res>
     ));
   }
 }
+
+@protected
 
 /// @nodoc
 class _$_PlayOutState extends _PlayOutState {
@@ -2632,6 +2636,8 @@ class __$LastControllerCommandHolderCopyWithImpl<$Res>
   }
 }
 
+@protected
+
 /// @nodoc
 class _$_LastControllerCommandHolder implements _LastControllerCommandHolder {
   const _$_LastControllerCommandHolder(
@@ -4080,17 +4086,23 @@ abstract class _VideoPlayerStateFinish implements VideoPlayerState {
 }
 
 /// @nodoc
-class _$CommentHolderTearOff {
-  const _$CommentHolderTearOff();
+class _$CommentsHolderTearOff {
+  const _$CommentsHolderTearOff();
 
 // ignore: unused_element
-  _CommentHolder call(
-      {Comments commentsPre,
-      Comments commentsPost,
-      CommentsState state = const CommentsState.loading()}) {
-    return _CommentHolder(
-      commentsPre: commentsPre,
-      commentsPost: commentsPost,
+  _CommentsHolder call(
+      {@required @Deprecated('use [commentsSorted]') List<CommentItem> comments,
+      @required String pageNationKey,
+      @required bool loadedMostPastComment,
+      @required bool isRenewing,
+      @required bool loadedMostFutureComment,
+      @required CommentsState state}) {
+    return _CommentsHolder(
+      comments: comments,
+      pageNationKey: pageNationKey,
+      loadedMostPastComment: loadedMostPastComment,
+      isRenewing: isRenewing,
+      loadedMostFutureComment: loadedMostFutureComment,
       state: state,
     );
   }
@@ -4098,72 +4110,71 @@ class _$CommentHolderTearOff {
 
 /// @nodoc
 // ignore: unused_element
-const $CommentHolder = _$CommentHolderTearOff();
+const $CommentsHolder = _$CommentsHolderTearOff();
 
 /// @nodoc
-mixin _$CommentHolder {
-  Comments get commentsPre;
-  Comments get commentsPost;
+mixin _$CommentsHolder {
+  @Deprecated('use [commentsSorted]')
+  List<CommentItem> get comments;
+  String get pageNationKey;
+  bool get loadedMostPastComment;
+  bool get isRenewing;
+  bool get loadedMostFutureComment;
   CommentsState get state;
 
-  $CommentHolderCopyWith<CommentHolder> get copyWith;
+  $CommentsHolderCopyWith<CommentsHolder> get copyWith;
 }
 
 /// @nodoc
-abstract class $CommentHolderCopyWith<$Res> {
-  factory $CommentHolderCopyWith(
-          CommentHolder value, $Res Function(CommentHolder) then) =
-      _$CommentHolderCopyWithImpl<$Res>;
-  $Res call({Comments commentsPre, Comments commentsPost, CommentsState state});
+abstract class $CommentsHolderCopyWith<$Res> {
+  factory $CommentsHolderCopyWith(
+          CommentsHolder value, $Res Function(CommentsHolder) then) =
+      _$CommentsHolderCopyWithImpl<$Res>;
+  $Res call(
+      {@Deprecated('use [commentsSorted]') List<CommentItem> comments,
+      String pageNationKey,
+      bool loadedMostPastComment,
+      bool isRenewing,
+      bool loadedMostFutureComment,
+      CommentsState state});
 
-  $CommentsCopyWith<$Res> get commentsPre;
-  $CommentsCopyWith<$Res> get commentsPost;
   $CommentsStateCopyWith<$Res> get state;
 }
 
 /// @nodoc
-class _$CommentHolderCopyWithImpl<$Res>
-    implements $CommentHolderCopyWith<$Res> {
-  _$CommentHolderCopyWithImpl(this._value, this._then);
+class _$CommentsHolderCopyWithImpl<$Res>
+    implements $CommentsHolderCopyWith<$Res> {
+  _$CommentsHolderCopyWithImpl(this._value, this._then);
 
-  final CommentHolder _value;
+  final CommentsHolder _value;
   // ignore: unused_field
-  final $Res Function(CommentHolder) _then;
+  final $Res Function(CommentsHolder) _then;
 
   @override
   $Res call({
-    Object commentsPre = freezed,
-    Object commentsPost = freezed,
+    Object comments = freezed,
+    Object pageNationKey = freezed,
+    Object loadedMostPastComment = freezed,
+    Object isRenewing = freezed,
+    Object loadedMostFutureComment = freezed,
     Object state = freezed,
   }) {
     return _then(_value.copyWith(
-      commentsPre:
-          commentsPre == freezed ? _value.commentsPre : commentsPre as Comments,
-      commentsPost: commentsPost == freezed
-          ? _value.commentsPost
-          : commentsPost as Comments,
+      comments:
+          comments == freezed ? _value.comments : comments as List<CommentItem>,
+      pageNationKey: pageNationKey == freezed
+          ? _value.pageNationKey
+          : pageNationKey as String,
+      loadedMostPastComment: loadedMostPastComment == freezed
+          ? _value.loadedMostPastComment
+          : loadedMostPastComment as bool,
+      isRenewing:
+          isRenewing == freezed ? _value.isRenewing : isRenewing as bool,
+      loadedMostFutureComment: loadedMostFutureComment == freezed
+          ? _value.loadedMostFutureComment
+          : loadedMostFutureComment as bool,
       state: state == freezed ? _value.state : state as CommentsState,
     ));
-  }
-
-  @override
-  $CommentsCopyWith<$Res> get commentsPre {
-    if (_value.commentsPre == null) {
-      return null;
-    }
-    return $CommentsCopyWith<$Res>(_value.commentsPre, (value) {
-      return _then(_value.copyWith(commentsPre: value));
-    });
-  }
-
-  @override
-  $CommentsCopyWith<$Res> get commentsPost {
-    if (_value.commentsPost == null) {
-      return null;
-    }
-    return $CommentsCopyWith<$Res>(_value.commentsPost, (value) {
-      return _then(_value.copyWith(commentsPost: value));
-    });
   }
 
   @override
@@ -4178,81 +4189,121 @@ class _$CommentHolderCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$CommentHolderCopyWith<$Res>
-    implements $CommentHolderCopyWith<$Res> {
-  factory _$CommentHolderCopyWith(
-          _CommentHolder value, $Res Function(_CommentHolder) then) =
-      __$CommentHolderCopyWithImpl<$Res>;
+abstract class _$CommentsHolderCopyWith<$Res>
+    implements $CommentsHolderCopyWith<$Res> {
+  factory _$CommentsHolderCopyWith(
+          _CommentsHolder value, $Res Function(_CommentsHolder) then) =
+      __$CommentsHolderCopyWithImpl<$Res>;
   @override
-  $Res call({Comments commentsPre, Comments commentsPost, CommentsState state});
+  $Res call(
+      {@Deprecated('use [commentsSorted]') List<CommentItem> comments,
+      String pageNationKey,
+      bool loadedMostPastComment,
+      bool isRenewing,
+      bool loadedMostFutureComment,
+      CommentsState state});
 
-  @override
-  $CommentsCopyWith<$Res> get commentsPre;
-  @override
-  $CommentsCopyWith<$Res> get commentsPost;
   @override
   $CommentsStateCopyWith<$Res> get state;
 }
 
 /// @nodoc
-class __$CommentHolderCopyWithImpl<$Res>
-    extends _$CommentHolderCopyWithImpl<$Res>
-    implements _$CommentHolderCopyWith<$Res> {
-  __$CommentHolderCopyWithImpl(
-      _CommentHolder _value, $Res Function(_CommentHolder) _then)
-      : super(_value, (v) => _then(v as _CommentHolder));
+class __$CommentsHolderCopyWithImpl<$Res>
+    extends _$CommentsHolderCopyWithImpl<$Res>
+    implements _$CommentsHolderCopyWith<$Res> {
+  __$CommentsHolderCopyWithImpl(
+      _CommentsHolder _value, $Res Function(_CommentsHolder) _then)
+      : super(_value, (v) => _then(v as _CommentsHolder));
 
   @override
-  _CommentHolder get _value => super._value as _CommentHolder;
+  _CommentsHolder get _value => super._value as _CommentsHolder;
 
   @override
   $Res call({
-    Object commentsPre = freezed,
-    Object commentsPost = freezed,
+    Object comments = freezed,
+    Object pageNationKey = freezed,
+    Object loadedMostPastComment = freezed,
+    Object isRenewing = freezed,
+    Object loadedMostFutureComment = freezed,
     Object state = freezed,
   }) {
-    return _then(_CommentHolder(
-      commentsPre:
-          commentsPre == freezed ? _value.commentsPre : commentsPre as Comments,
-      commentsPost: commentsPost == freezed
-          ? _value.commentsPost
-          : commentsPost as Comments,
+    return _then(_CommentsHolder(
+      comments:
+          comments == freezed ? _value.comments : comments as List<CommentItem>,
+      pageNationKey: pageNationKey == freezed
+          ? _value.pageNationKey
+          : pageNationKey as String,
+      loadedMostPastComment: loadedMostPastComment == freezed
+          ? _value.loadedMostPastComment
+          : loadedMostPastComment as bool,
+      isRenewing:
+          isRenewing == freezed ? _value.isRenewing : isRenewing as bool,
+      loadedMostFutureComment: loadedMostFutureComment == freezed
+          ? _value.loadedMostFutureComment
+          : loadedMostFutureComment as bool,
       state: state == freezed ? _value.state : state as CommentsState,
     ));
   }
 }
 
+@protected
+
 /// @nodoc
-class _$_CommentHolder implements _CommentHolder {
-  const _$_CommentHolder(
-      {this.commentsPre,
-      this.commentsPost,
-      this.state = const CommentsState.loading()})
-      : assert(state != null);
+class _$_CommentsHolder extends _CommentsHolder {
+  const _$_CommentsHolder(
+      {@required @Deprecated('use [commentsSorted]') this.comments,
+      @required this.pageNationKey,
+      @required this.loadedMostPastComment,
+      @required this.isRenewing,
+      @required this.loadedMostFutureComment,
+      @required this.state})
+      : assert(comments != null),
+        assert(pageNationKey != null),
+        assert(loadedMostPastComment != null),
+        assert(isRenewing != null),
+        assert(loadedMostFutureComment != null),
+        assert(state != null),
+        super._();
 
   @override
-  final Comments commentsPre;
+  @Deprecated('use [commentsSorted]')
+  final List<CommentItem> comments;
   @override
-  final Comments commentsPost;
-  @JsonKey(defaultValue: const CommentsState.loading())
+  final String pageNationKey;
+  @override
+  final bool loadedMostPastComment;
+  @override
+  final bool isRenewing;
+  @override
+  final bool loadedMostFutureComment;
   @override
   final CommentsState state;
 
   @override
   String toString() {
-    return 'CommentHolder(commentsPre: $commentsPre, commentsPost: $commentsPost, state: $state)';
+    return 'CommentsHolder(comments: $comments, pageNationKey: $pageNationKey, loadedMostPastComment: $loadedMostPastComment, isRenewing: $isRenewing, loadedMostFutureComment: $loadedMostFutureComment, state: $state)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _CommentHolder &&
-            (identical(other.commentsPre, commentsPre) ||
+        (other is _CommentsHolder &&
+            (identical(other.comments, comments) ||
                 const DeepCollectionEquality()
-                    .equals(other.commentsPre, commentsPre)) &&
-            (identical(other.commentsPost, commentsPost) ||
+                    .equals(other.comments, comments)) &&
+            (identical(other.pageNationKey, pageNationKey) ||
                 const DeepCollectionEquality()
-                    .equals(other.commentsPost, commentsPost)) &&
+                    .equals(other.pageNationKey, pageNationKey)) &&
+            (identical(other.loadedMostPastComment, loadedMostPastComment) ||
+                const DeepCollectionEquality().equals(
+                    other.loadedMostPastComment, loadedMostPastComment)) &&
+            (identical(other.isRenewing, isRenewing) ||
+                const DeepCollectionEquality()
+                    .equals(other.isRenewing, isRenewing)) &&
+            (identical(
+                    other.loadedMostFutureComment, loadedMostFutureComment) ||
+                const DeepCollectionEquality().equals(
+                    other.loadedMostFutureComment, loadedMostFutureComment)) &&
             (identical(other.state, state) ||
                 const DeepCollectionEquality().equals(other.state, state)));
   }
@@ -4260,29 +4311,43 @@ class _$_CommentHolder implements _CommentHolder {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(commentsPre) ^
-      const DeepCollectionEquality().hash(commentsPost) ^
+      const DeepCollectionEquality().hash(comments) ^
+      const DeepCollectionEquality().hash(pageNationKey) ^
+      const DeepCollectionEquality().hash(loadedMostPastComment) ^
+      const DeepCollectionEquality().hash(isRenewing) ^
+      const DeepCollectionEquality().hash(loadedMostFutureComment) ^
       const DeepCollectionEquality().hash(state);
 
   @override
-  _$CommentHolderCopyWith<_CommentHolder> get copyWith =>
-      __$CommentHolderCopyWithImpl<_CommentHolder>(this, _$identity);
+  _$CommentsHolderCopyWith<_CommentsHolder> get copyWith =>
+      __$CommentsHolderCopyWithImpl<_CommentsHolder>(this, _$identity);
 }
 
-abstract class _CommentHolder implements CommentHolder {
-  const factory _CommentHolder(
-      {Comments commentsPre,
-      Comments commentsPost,
-      CommentsState state}) = _$_CommentHolder;
+abstract class _CommentsHolder extends CommentsHolder {
+  const _CommentsHolder._() : super._();
+  const factory _CommentsHolder(
+      {@required @Deprecated('use [commentsSorted]') List<CommentItem> comments,
+      @required String pageNationKey,
+      @required bool loadedMostPastComment,
+      @required bool isRenewing,
+      @required bool loadedMostFutureComment,
+      @required CommentsState state}) = _$_CommentsHolder;
 
   @override
-  Comments get commentsPre;
+  @Deprecated('use [commentsSorted]')
+  List<CommentItem> get comments;
   @override
-  Comments get commentsPost;
+  String get pageNationKey;
+  @override
+  bool get loadedMostPastComment;
+  @override
+  bool get isRenewing;
+  @override
+  bool get loadedMostFutureComment;
   @override
   CommentsState get state;
   @override
-  _$CommentHolderCopyWith<_CommentHolder> get copyWith;
+  _$CommentsHolderCopyWith<_CommentsHolder> get copyWith;
 }
 
 /// @nodoc
@@ -4300,13 +4365,15 @@ class _$CommentsStateTearOff {
   }
 
 // ignore: unused_element
-  _CommentsStateLoadingMore loadingMore() {
-    return const _CommentsStateLoadingMore();
+  CommentsStateLoadingMore loadingMore(LoadingState loadingState) {
+    return CommentsStateLoadingMore(
+      loadingState,
+    );
   }
 
 // ignore: unused_element
-  _CommentsStateError error() {
-    return const _CommentsStateError();
+  CommentsStateErr error() {
+    return const CommentsStateErr();
   }
 }
 
@@ -4320,14 +4387,14 @@ mixin _$CommentsState {
   TResult when<TResult extends Object>({
     @required TResult success(),
     @required TResult loading(),
-    @required TResult loadingMore(),
+    @required TResult loadingMore(LoadingState loadingState),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult success(),
     TResult loading(),
-    TResult loadingMore(),
+    TResult loadingMore(LoadingState loadingState),
     TResult error(),
     @required TResult orElse(),
   });
@@ -4335,15 +4402,15 @@ mixin _$CommentsState {
   TResult map<TResult extends Object>({
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
-    @required TResult loadingMore(_CommentsStateLoadingMore value),
-    @required TResult error(_CommentsStateError value),
+    @required TResult loadingMore(CommentsStateLoadingMore value),
+    @required TResult error(CommentsStateErr value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
-    TResult loadingMore(_CommentsStateLoadingMore value),
-    TResult error(_CommentsStateError value),
+    TResult loadingMore(CommentsStateLoadingMore value),
+    TResult error(CommentsStateErr value),
     @required TResult orElse(),
   });
 }
@@ -4406,7 +4473,7 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
   TResult when<TResult extends Object>({
     @required TResult success(),
     @required TResult loading(),
-    @required TResult loadingMore(),
+    @required TResult loadingMore(LoadingState loadingState),
     @required TResult error(),
   }) {
     assert(success != null);
@@ -4421,7 +4488,7 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult success(),
     TResult loading(),
-    TResult loadingMore(),
+    TResult loadingMore(LoadingState loadingState),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -4437,8 +4504,8 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
   TResult map<TResult extends Object>({
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
-    @required TResult loadingMore(_CommentsStateLoadingMore value),
-    @required TResult error(_CommentsStateError value),
+    @required TResult loadingMore(CommentsStateLoadingMore value),
+    @required TResult error(CommentsStateErr value),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4452,8 +4519,8 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
   TResult maybeMap<TResult extends Object>({
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
-    TResult loadingMore(_CommentsStateLoadingMore value),
-    TResult error(_CommentsStateError value),
+    TResult loadingMore(CommentsStateLoadingMore value),
+    TResult error(CommentsStateErr value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4509,7 +4576,7 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
   TResult when<TResult extends Object>({
     @required TResult success(),
     @required TResult loading(),
-    @required TResult loadingMore(),
+    @required TResult loadingMore(LoadingState loadingState),
     @required TResult error(),
   }) {
     assert(success != null);
@@ -4524,7 +4591,7 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
   TResult maybeWhen<TResult extends Object>({
     TResult success(),
     TResult loading(),
-    TResult loadingMore(),
+    TResult loadingMore(LoadingState loadingState),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -4540,8 +4607,8 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
   TResult map<TResult extends Object>({
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
-    @required TResult loadingMore(_CommentsStateLoadingMore value),
-    @required TResult error(_CommentsStateError value),
+    @required TResult loadingMore(CommentsStateLoadingMore value),
+    @required TResult error(CommentsStateErr value),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4555,8 +4622,8 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
   TResult maybeMap<TResult extends Object>({
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
-    TResult loadingMore(_CommentsStateLoadingMore value),
-    TResult error(_CommentsStateError value),
+    TResult loadingMore(CommentsStateLoadingMore value),
+    TResult error(CommentsStateErr value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4572,55 +4639,81 @@ abstract class _CommentsStateLoading implements CommentsState {
 }
 
 /// @nodoc
-abstract class _$CommentsStateLoadingMoreCopyWith<$Res> {
-  factory _$CommentsStateLoadingMoreCopyWith(_CommentsStateLoadingMore value,
-          $Res Function(_CommentsStateLoadingMore) then) =
-      __$CommentsStateLoadingMoreCopyWithImpl<$Res>;
+abstract class $CommentsStateLoadingMoreCopyWith<$Res> {
+  factory $CommentsStateLoadingMoreCopyWith(CommentsStateLoadingMore value,
+          $Res Function(CommentsStateLoadingMore) then) =
+      _$CommentsStateLoadingMoreCopyWithImpl<$Res>;
+  $Res call({LoadingState loadingState});
 }
 
 /// @nodoc
-class __$CommentsStateLoadingMoreCopyWithImpl<$Res>
+class _$CommentsStateLoadingMoreCopyWithImpl<$Res>
     extends _$CommentsStateCopyWithImpl<$Res>
-    implements _$CommentsStateLoadingMoreCopyWith<$Res> {
-  __$CommentsStateLoadingMoreCopyWithImpl(_CommentsStateLoadingMore _value,
-      $Res Function(_CommentsStateLoadingMore) _then)
-      : super(_value, (v) => _then(v as _CommentsStateLoadingMore));
+    implements $CommentsStateLoadingMoreCopyWith<$Res> {
+  _$CommentsStateLoadingMoreCopyWithImpl(CommentsStateLoadingMore _value,
+      $Res Function(CommentsStateLoadingMore) _then)
+      : super(_value, (v) => _then(v as CommentsStateLoadingMore));
 
   @override
-  _CommentsStateLoadingMore get _value =>
-      super._value as _CommentsStateLoadingMore;
+  CommentsStateLoadingMore get _value =>
+      super._value as CommentsStateLoadingMore;
+
+  @override
+  $Res call({
+    Object loadingState = freezed,
+  }) {
+    return _then(CommentsStateLoadingMore(
+      loadingState == freezed
+          ? _value.loadingState
+          : loadingState as LoadingState,
+    ));
+  }
 }
 
 /// @nodoc
-class _$_CommentsStateLoadingMore implements _CommentsStateLoadingMore {
-  const _$_CommentsStateLoadingMore();
+class _$CommentsStateLoadingMore implements CommentsStateLoadingMore {
+  const _$CommentsStateLoadingMore(this.loadingState)
+      : assert(loadingState != null);
+
+  @override
+  final LoadingState loadingState;
 
   @override
   String toString() {
-    return 'CommentsState.loadingMore()';
+    return 'CommentsState.loadingMore(loadingState: $loadingState)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _CommentsStateLoadingMore);
+    return identical(this, other) ||
+        (other is CommentsStateLoadingMore &&
+            (identical(other.loadingState, loadingState) ||
+                const DeepCollectionEquality()
+                    .equals(other.loadingState, loadingState)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(loadingState);
+
+  @override
+  $CommentsStateLoadingMoreCopyWith<CommentsStateLoadingMore> get copyWith =>
+      _$CommentsStateLoadingMoreCopyWithImpl<CommentsStateLoadingMore>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult success(),
     @required TResult loading(),
-    @required TResult loadingMore(),
+    @required TResult loadingMore(LoadingState loadingState),
     @required TResult error(),
   }) {
     assert(success != null);
     assert(loading != null);
     assert(loadingMore != null);
     assert(error != null);
-    return loadingMore();
+    return loadingMore(loadingState);
   }
 
   @override
@@ -4628,13 +4721,13 @@ class _$_CommentsStateLoadingMore implements _CommentsStateLoadingMore {
   TResult maybeWhen<TResult extends Object>({
     TResult success(),
     TResult loading(),
-    TResult loadingMore(),
+    TResult loadingMore(LoadingState loadingState),
     TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loadingMore != null) {
-      return loadingMore();
+      return loadingMore(loadingState);
     }
     return orElse();
   }
@@ -4644,8 +4737,8 @@ class _$_CommentsStateLoadingMore implements _CommentsStateLoadingMore {
   TResult map<TResult extends Object>({
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
-    @required TResult loadingMore(_CommentsStateLoadingMore value),
-    @required TResult error(_CommentsStateError value),
+    @required TResult loadingMore(CommentsStateLoadingMore value),
+    @required TResult error(CommentsStateErr value),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4659,8 +4752,8 @@ class _$_CommentsStateLoadingMore implements _CommentsStateLoadingMore {
   TResult maybeMap<TResult extends Object>({
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
-    TResult loadingMore(_CommentsStateLoadingMore value),
-    TResult error(_CommentsStateError value),
+    TResult loadingMore(CommentsStateLoadingMore value),
+    TResult error(CommentsStateErr value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4671,32 +4764,36 @@ class _$_CommentsStateLoadingMore implements _CommentsStateLoadingMore {
   }
 }
 
-abstract class _CommentsStateLoadingMore implements CommentsState {
-  const factory _CommentsStateLoadingMore() = _$_CommentsStateLoadingMore;
+abstract class CommentsStateLoadingMore implements CommentsState {
+  const factory CommentsStateLoadingMore(LoadingState loadingState) =
+      _$CommentsStateLoadingMore;
+
+  LoadingState get loadingState;
+  $CommentsStateLoadingMoreCopyWith<CommentsStateLoadingMore> get copyWith;
 }
 
 /// @nodoc
-abstract class _$CommentsStateErrorCopyWith<$Res> {
-  factory _$CommentsStateErrorCopyWith(
-          _CommentsStateError value, $Res Function(_CommentsStateError) then) =
-      __$CommentsStateErrorCopyWithImpl<$Res>;
+abstract class $CommentsStateErrCopyWith<$Res> {
+  factory $CommentsStateErrCopyWith(
+          CommentsStateErr value, $Res Function(CommentsStateErr) then) =
+      _$CommentsStateErrCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$CommentsStateErrorCopyWithImpl<$Res>
+class _$CommentsStateErrCopyWithImpl<$Res>
     extends _$CommentsStateCopyWithImpl<$Res>
-    implements _$CommentsStateErrorCopyWith<$Res> {
-  __$CommentsStateErrorCopyWithImpl(
-      _CommentsStateError _value, $Res Function(_CommentsStateError) _then)
-      : super(_value, (v) => _then(v as _CommentsStateError));
+    implements $CommentsStateErrCopyWith<$Res> {
+  _$CommentsStateErrCopyWithImpl(
+      CommentsStateErr _value, $Res Function(CommentsStateErr) _then)
+      : super(_value, (v) => _then(v as CommentsStateErr));
 
   @override
-  _CommentsStateError get _value => super._value as _CommentsStateError;
+  CommentsStateErr get _value => super._value as CommentsStateErr;
 }
 
 /// @nodoc
-class _$_CommentsStateError implements _CommentsStateError {
-  const _$_CommentsStateError();
+class _$CommentsStateErr implements CommentsStateErr {
+  const _$CommentsStateErr();
 
   @override
   String toString() {
@@ -4705,7 +4802,7 @@ class _$_CommentsStateError implements _CommentsStateError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _CommentsStateError);
+    return identical(this, other) || (other is CommentsStateErr);
   }
 
   @override
@@ -4716,7 +4813,7 @@ class _$_CommentsStateError implements _CommentsStateError {
   TResult when<TResult extends Object>({
     @required TResult success(),
     @required TResult loading(),
-    @required TResult loadingMore(),
+    @required TResult loadingMore(LoadingState loadingState),
     @required TResult error(),
   }) {
     assert(success != null);
@@ -4731,7 +4828,7 @@ class _$_CommentsStateError implements _CommentsStateError {
   TResult maybeWhen<TResult extends Object>({
     TResult success(),
     TResult loading(),
-    TResult loadingMore(),
+    TResult loadingMore(LoadingState loadingState),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -4747,8 +4844,8 @@ class _$_CommentsStateError implements _CommentsStateError {
   TResult map<TResult extends Object>({
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
-    @required TResult loadingMore(_CommentsStateLoadingMore value),
-    @required TResult error(_CommentsStateError value),
+    @required TResult loadingMore(CommentsStateLoadingMore value),
+    @required TResult error(CommentsStateErr value),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4762,8 +4859,8 @@ class _$_CommentsStateError implements _CommentsStateError {
   TResult maybeMap<TResult extends Object>({
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
-    TResult loadingMore(_CommentsStateLoadingMore value),
-    TResult error(_CommentsStateError value),
+    TResult loadingMore(CommentsStateLoadingMore value),
+    TResult error(CommentsStateErr value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4774,8 +4871,8 @@ class _$_CommentsStateError implements _CommentsStateError {
   }
 }
 
-abstract class _CommentsStateError implements CommentsState {
-  const factory _CommentsStateError() = _$_CommentsStateError;
+abstract class CommentsStateErr implements CommentsState {
+  const factory CommentsStateErr() = _$CommentsStateErr;
 }
 
 /// @nodoc

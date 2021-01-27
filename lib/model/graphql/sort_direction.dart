@@ -6,9 +6,9 @@ extension SortDirectionX on SortDirection {
   String get value {
     switch(this) {
       case SortDirection.ASC:
-        return 'asc';
+        return 'ASC';
       case SortDirection.DESC:
-        return 'desc';
+        return 'DESC';
       default:
         throw ArgumentError();
     }

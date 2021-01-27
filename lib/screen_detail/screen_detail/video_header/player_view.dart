@@ -48,8 +48,9 @@ class _PlayerViewState extends State<PlayerView>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller.videoPlayerController.removeListener(_rawVideoPlayerListener);//must invoke
     super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -87,7 +88,7 @@ class _PlayerViewState extends State<PlayerView>
     _controller.setupDataSource(_dataSource).then((value) {
       if (mounted)
         _controller.videoPlayerController
-            .addListener(() => _rawVideoPlayerListener(context));
+            .addListener(_rawVideoPlayerListener);
     });
   }
 
@@ -113,16 +114,17 @@ class _PlayerViewState extends State<PlayerView>
       seek: (diff) async {
         if (!_controller.videoPlayerController.value.initialized) return;
 
-        final position = await _controller.videoPlayerController.position;
-        if (position == null) return;
-        Duration seekTo = position + diff;
-        _controller.seekTo(seekTo);
+        Duration position = await _controller.videoPlayerController.position;
+        if (position == null || !mounted) return;
+        position += diff;
+        await _controller.seekTo(position);
       },
-      seekTo: (position) {
+      seekTo: (position) async {
         if (!_controller.videoPlayerController.value.initialized) return;
 
         final duration = _controller.videoPlayerController.value.duration;
-        if (duration != null) _controller.seekTo(position);
+        if (duration != null)
+          await _controller.seekTo(position);
       },
       playOrPause: () async {
         if (_controller.videoPlayerController.value.initialized)
@@ -138,6 +140,9 @@ class _PlayerViewState extends State<PlayerView>
 
   // region PlayerEventListener
   void _playerEventListener(BetterPlayerEvent event) {
+    if (!mounted)
+      return;
+
     switch (event.betterPlayerEventType) {
       case BetterPlayerEventType.initialized:
         _onInitializedEvent();
@@ -214,7 +219,7 @@ class _PlayerViewState extends State<PlayerView>
   // endregion
 
   // todo send issue to BetterPlayer repository
-  void _rawVideoPlayerListener(BuildContext context) =>
+  void _rawVideoPlayerListener() =>
       _getViewModelDetail(context).updateIsisBuffering(
         fullScreen: widget.conf.fullScreen,
         isBuffering: _controller.isBuffering(),

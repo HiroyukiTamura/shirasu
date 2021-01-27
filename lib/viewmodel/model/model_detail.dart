@@ -5,26 +5,28 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:uuid/uuid.dart';
+import 'package:dartx/dartx.dart';
 
 part 'model_detail.freezed.dart';
 
 @freezed
 abstract class ModelDetail implements _$ModelDetail {
+  @protected
   const factory ModelDetail({
     @required DetailModelState prgDataResult,
     @required PlayOutState playOutState,
     @required bool isHandoutUrlRequesting,
-    @required CommentHolder commentHolder,
+    @required CommentsHolder commentHolder,
     @required PortalState portalState,
   }) = _ModelDetail;
 
   const ModelDetail._();
 
-  factory ModelDetail.initial() => ModelDetail(
+  factory ModelDetail.initial(bool playFromStart) => ModelDetail(
         prgDataResult: const DetailModelState.preInitialized(),
         playOutState: PlayOutState.initial(),
         isHandoutUrlRequesting: false,
-        commentHolder: const CommentHolder(),
+        commentHolder: CommentsHolder.initial(playFromStart),
         portalState: const PortalState.none(),
       );
 
@@ -64,6 +66,7 @@ abstract class DetailModelState with _$DetailModelState {
 
 @freezed
 abstract class PlayOutState implements _$PlayOutState {
+  @protected
   const factory PlayOutState({
     @required PlayerCommandedState commandedState,
     String hlsMediaUrl,
@@ -143,6 +146,7 @@ abstract class PageSheetModel with _$PageSheetModel {
 
 @freezed
 abstract class LastControllerCommandHolder with _$LastControllerCommandHolder {
+  @protected
   const factory LastControllerCommandHolder({
     @Default(LastControllerCommand.initial()) LastControllerCommand command,
     @Default('') String commandKey,
@@ -182,13 +186,109 @@ abstract class VideoPlayerState with _$VideoPlayerState {
   const factory VideoPlayerState.finish() = _VideoPlayerStateFinish;
 }
 
+/// count of [comments] must be under [_COMMENT_ITEM_LIMIT].
 @freezed
-abstract class CommentHolder with _$CommentHolder {
-  const factory CommentHolder({
-    Comments commentsPre,
-    Comments commentsPost,
-    @Default(CommentsState.loading()) CommentsState state,
-  }) = _CommentHolder;
+abstract class CommentsHolder implements _$CommentsHolder {
+  @protected
+  const factory CommentsHolder({
+    @Deprecated('use [commentsSorted]') @required List<CommentItem> comments,
+    @required String pageNationKey,
+    @required bool loadedMostPastComment,
+    @required bool isRenewing,
+    @required bool loadedMostFutureComment,
+    @required CommentsState state,
+  }) = _CommentsHolder;
+
+  const CommentsHolder._();
+
+  /// [playFromStart] : video starts playing at [Duration.zero] or not
+  factory CommentsHolder.initial(bool playFromStart) => CommentsHolder(
+        // ignore: deprecated_member_use_from_same_package
+        comments: <CommentItem>[].toUnmodifiable(),
+        pageNationKey: Uuid().v4(),
+        loadedMostPastComment: playFromStart,
+        loadedMostFutureComment: false,
+        state: const CommentsState.loading(),
+        isRenewing: true,
+      );
+
+  static const _COMMENT_ITEM_LIMIT = 500;
+
+  // ignore: deprecated_member_use_from_same_package
+  List<CommentItem> get _commentSorted => comments
+      .sortedByDescending((it) => it.commentTimeDuration)
+      .toUnmodifiable();
+
+  Duration get mostPastCommentTime =>
+      _commentSorted.lastOrNull?.commentTimeDuration;
+
+  Duration get mostFutureCommentTime =>
+      _commentSorted.firstOrNull?.commentTimeDuration;
+
+  List<CommentItem> getCommentItemsBefore(Duration duration) => _commentSorted
+      .filter((it) => it.commentTimeDuration < duration)
+      .toUnmodifiable();
+
+  List<CommentItem> getCommentItemsAfter(Duration duration) => _commentSorted
+      .filter((it) => duration < it.commentTimeDuration)
+      .toUnmodifiable();
+
+  CommentsHolder copyAsAddSingleCommentHolder(
+    Comments newComments,
+    LoadingState loadingState,
+  ) {
+    final list = _regenerateCommentList(newComments, loadingState);
+
+    if (newComments.nextToken == null)
+      switch (loadingState) {
+        case LoadingState.FUTURE:
+          return copyWith(
+            comments: list,
+            loadedMostFutureComment: true,
+            state: const CommentsState.success(),
+          );
+        case LoadingState.PAST:
+          return copyWith(
+            comments: list,
+            loadedMostPastComment: true,
+            state: const CommentsState.success(),
+          );
+        default:
+          throw ArgumentError(loadingState);
+      }
+    return copyWith(
+      comments: list,
+      state: const CommentsState.success(),
+    );
+  }
+
+  List<CommentItem> _regenerateCommentList(
+    Comments newComments,
+    LoadingState loadingState,
+  ) {
+    final raw = [..._commentSorted, ...newComments.itemsSorted];
+    final rawLen = raw.length;
+    final distincted = raw.distinct().length;
+
+    if (rawLen != distincted)
+      debugPrint('----------- $rawLen -------------- $distincted ------------');
+
+    Iterable<CommentItem> itr = [..._commentSorted, ...newComments.itemsSorted]
+        .distinct()
+        .sortedByDescending((it) => it.commentTimeDuration);
+    if (_COMMENT_ITEM_LIMIT < itr.length)
+      switch (loadingState) {
+        case LoadingState.FUTURE:
+          itr = itr.take(_COMMENT_ITEM_LIMIT);
+          break;
+        case LoadingState.PAST:
+          itr = itr.takeLast(_COMMENT_ITEM_LIMIT);
+          break;
+        default:
+          throw ArgumentError(loadingState);
+      }
+    return itr.toUnmodifiable();
+  }
 }
 
 @freezed
@@ -197,9 +297,10 @@ abstract class CommentsState with _$CommentsState {
 
   const factory CommentsState.loading() = _CommentsStateLoading;
 
-  const factory CommentsState.loadingMore() = _CommentsStateLoadingMore;
+  const factory CommentsState.loadingMore(LoadingState loadingState) =
+      CommentsStateLoadingMore;
 
-  const factory CommentsState.error() = _CommentsStateError;
+  const factory CommentsState.error() = CommentsStateErr;
 }
 
 @freezed
@@ -210,3 +311,5 @@ abstract class PortalState with _$PortalState {
 
   const factory PortalState.resolution() = _PortalStateResolution;
 }
+
+enum LoadingState { FUTURE, PAST }

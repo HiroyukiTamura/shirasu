@@ -69,8 +69,8 @@ class Util {
 
   static void onImageError({String url, dynamic error, StackTrace stackTrace}) {
     // todo log error
-    debugPrintStack(stackTrace: stackTrace);
-    debugPrint(error.toString());
+    // debugPrintStack(stackTrace: stackTrace);
+    // debugPrint(error.toString());
   }
 
   static String sec2Hms(int sec) {

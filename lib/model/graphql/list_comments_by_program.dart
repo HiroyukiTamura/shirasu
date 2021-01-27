@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
+import 'package:dartx/dartx.dart';
 
 part 'list_comments_by_program.freezed.dart';
 
@@ -17,9 +18,8 @@ abstract class ListCommentsByProgram with _$ListCommentsByProgram {
 
 @freezed
 abstract class Comments with _$Comments implements BaseModelCommentConnection {
-
   const factory Comments({
-    @required List<CommentItem> items,
+    @Deprecated('use [itemsSorted]') @required List<CommentItem> items,
     String nextToken,
     @required
     @JsonKey(name: '__typename')
@@ -29,15 +29,20 @@ abstract class Comments with _$Comments implements BaseModelCommentConnection {
 
   factory Comments.fromJson(Map<String, dynamic> json) =>
       _$CommentsFromJson(json);
+
+  const Comments._();
+
+  List<CommentItem> get itemsSorted =>
+      // ignore: deprecated_member_use_from_same_package
+      items.sortedByDescending((it) => it.commentTimeDuration);
 }
 
 @freezed
 abstract class CommentItem with _$CommentItem implements BaseComment {
-
   const factory CommentItem({
     @required String id,
     @required String text,
-    @required int commentTime,
+    @Deprecated('use [commentTime]') @required int commentTime,
     @required String userId,
     @required User user,
     @required
@@ -48,11 +53,14 @@ abstract class CommentItem with _$CommentItem implements BaseComment {
 
   factory CommentItem.fromJson(Map<String, dynamic> json) =>
       _$CommentItemFromJson(json);
+
+  const CommentItem._();
+
+  Duration get commentTimeDuration => commentTime.milliseconds;
 }
 
 @freezed
 abstract class User with _$User implements BaseUser {
-
   const factory User({
     @required String id,
     @required String name,

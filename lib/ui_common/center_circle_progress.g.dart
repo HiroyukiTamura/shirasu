@@ -7,8 +7,11 @@ part of 'center_circle_progress.dart';
 // **************************************************************************
 
 class CenterCircleProgress extends StatelessWidget {
-  const CenterCircleProgress({Key key}) : super(key: key);
+  const CenterCircleProgress({Key key, this.padding = EdgeInsets.zero})
+      : super(key: key);
+
+  final EdgeInsets padding;
 
   @override
-  Widget build(BuildContext _context) => centerCircleProgress();
+  Widget build(BuildContext _context) => centerCircleProgress(padding: padding);
 }

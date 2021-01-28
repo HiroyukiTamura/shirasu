@@ -70,7 +70,7 @@ class TextBtnBtmSheet extends StatelessWidget {
 
   final String text;
 
-  final FutureOr<void> Function() onTap;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext _context) => textBtnBtmSheet(

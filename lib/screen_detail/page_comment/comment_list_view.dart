@@ -25,7 +25,9 @@ class CommentListView extends HookWidget {
   }) : super(key: key);
 
   final String id;
-  static const _LOAD_MORE_OFFSET = Dimens.MIN_CIRCULAR_PROGRESS_INDICATOR_H;
+  static const double _LOAD_MORE_CIRCLE_PROGRESS_PAD_V = 8;
+  static const _LOAD_MORE_OFFSET = Dimens.MIN_CIRCULAR_PROGRESS_INDICATOR_H +
+      _LOAD_MORE_CIRCLE_PROGRESS_PAD_V * 2;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,11 @@ class CommentListView extends HookWidget {
       itemCount: itemCount,
       itemBuilder: (context, index) {
         if (data.showBottomProgressIndicator && index == itemCount - 1)
-          return const CenterCircleProgress();//todo padding
+          return const CenterCircleProgress(
+            padding: EdgeInsets.symmetric(
+              vertical: _LOAD_MORE_CIRCLE_PROGRESS_PAD_V,
+            ),
+          );
 
         final item = items[index];
         return ListTile(
@@ -72,9 +78,8 @@ class CommentListView extends HookWidget {
     final viewModel = context.read(detailSNProvider(id));
     final state = context.read(detailSNProvider(id).state);
 
-    final showBtmProgressIndicator = context
-        .read(kPrvPageUiData(id).state)
-        .showBottomProgressIndicator;
+    final showBtmProgressIndicator =
+        context.read(kPrvPageUiData(id).state).showBottomProgressIndicator;
 
     final followTimeLineMode = state.commentHolder.followTimeLineMode ==
         const FollowTimeLineMode.follow();
@@ -90,9 +95,7 @@ class CommentListView extends HookWidget {
     } else if (showBtmProgressIndicator) {
       if (controller.position.maxScrollExtent - controller.offset <
           _LOAD_MORE_OFFSET) {
-        final mostPastCommentTime = state
-            .commentHolder
-            .mostPastCommentTime;
+        final mostPastCommentTime = state.commentHolder.mostPastCommentTime;
         if (mostPastCommentTime != null)
           viewModel.loadMorePreComment(
               mostPastCommentTime - 1.milliseconds, false);

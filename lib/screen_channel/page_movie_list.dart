@@ -96,9 +96,8 @@ Widget _listView({
     ),
     itemBuilder: (context, i) {
       if (showLoadingIndicator && i == itemCount - 1)
-        return const Padding(
+        return const CenterCircleProgress(
           padding: EdgeInsets.all(Dimens.CHANNEL_PAGE_VERTICAL_MARGIN),
-          child: CenterCircleProgress(),
         );
       else {
         final program = channelPrograms.items[i];

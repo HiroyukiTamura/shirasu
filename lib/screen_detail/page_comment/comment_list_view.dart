@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/page_comment/provider_page_comment.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
@@ -42,27 +44,34 @@ class CommentListView extends HookWidget {
     int itemCount = items.length;
     if (data.showBottomProgressIndicator) itemCount++;
 
-    return ListView.builder(
-      controller: controller,
-      itemCount: itemCount,
-      itemBuilder: (context, index) {
-        if (data.showBottomProgressIndicator && index == itemCount - 1)
-          return const CenterCircleProgress(
-            padding: EdgeInsets.symmetric(
-              vertical: _LOAD_MORE_CIRCLE_PROGRESS_PAD_V,
-            ),
-          );
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            controller: controller,
+            itemCount: itemCount,
+            itemBuilder: (context, index) {
+              if (data.showBottomProgressIndicator && index == itemCount - 1)
+                return const CenterCircleProgress(
+                  padding: EdgeInsets.symmetric(
+                    vertical: _LOAD_MORE_CIRCLE_PROGRESS_PAD_V,
+                  ),
+                );
 
-        final item = items[index];
-        return ListTile(
-          onTap: () => _onTap(context, item),
-          dense: true,
-          leading: _Leading(item: item),
-          title: Text(item.text),
-          subtitle: Text(item.user.name),
-          trailing: _Trailing(item: item),
-        );
-      },
+              final item = items[index];
+              return ListTile(
+                onTap: () => _onTap(context, item),
+                dense: true,
+                leading: _Leading(item: item),
+                title: Text(item.text),
+                subtitle: Text(item.user.name),
+                trailing: _Trailing(item: item),
+              );
+            },
+          ),
+        ),
+        _CommentBtmBar(id: id)
+      ],
     );
   }
 
@@ -107,6 +116,56 @@ class CommentListView extends HookWidget {
     final command = PortalState.commentSelect(item.commentTimeDuration);
     context.read(detailSNProvider(id)).commandModal(command);
   }
+}
+
+class _CommentBtmBar extends HookWidget {
+  const _CommentBtmBar({@required this.id});
+
+  final String id;
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = useTextEditingController();
+    return Visibility(
+        visible: useProvider(detailSNProvider(id).state.select((it) =>
+            it.commentHolder.followTimeLineMode ==
+            const FollowTimeLineMode.follow())),//todo more logic
+        child: BottomAppBar(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16,),
+            child: TextField(
+              controller: controller,
+              maxLength: 150,
+              maxLines: null,
+              textInputAction: TextInputAction.send,
+              buildCounter: (context, {int currentLength, bool isFocused, int maxLength}) => null,
+              style: const TextStyle(
+                height: 1.3,
+              ),
+              decoration: InputDecoration(
+                hintText: Strings.COMMENT_TEXT_FILED_HINT,
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.send),
+                  color: Colors.white,
+                  onPressed: () => _onPressed(controller.text),
+                ),
+                hintStyle: const TextStyle(
+                  height: 1,
+                )
+              ),
+            ),
+          ),
+        ),
+      );
+  }
+
+  void _onPressed(String text) {}
 }
 
 @swidget

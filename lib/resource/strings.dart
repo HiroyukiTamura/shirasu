@@ -88,6 +88,7 @@ class Strings {
   static const String PREVIEW_BTN_TEXT = '冒頭を無料で見る';
   static const String TIME_UNIT_SEC = '秒';
   static const String BTM_SHEET_COMMENT_LABEL = 'このコメントが投稿された時間に移動';
+  static const String COMMENT_TEXT_FILED_HINT = 'コメント入力';
 
 //endregion
 

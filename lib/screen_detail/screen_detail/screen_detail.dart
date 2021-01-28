@@ -133,18 +133,19 @@ class _ScreenDetailState extends State<ScreenDetail>
         ),
       );
 
+  //todo hide fab if btm sheet shown
   Widget _fab() {
-    final vis = useProvider(_kPrvFabVisibility(widget.id));
     final context = useContext();
-    return vis
-        ? FloatingActionButton(
-            onPressed: () => _onTapFab(context),
-            child: const Icon(
-              Icons.sync,
-              color: Colors.white,
-            ),
-          )
-        : null;
+    return Visibility(
+      visible: useProvider(_kPrvFabVisibility(widget.id)),
+      child: FloatingActionButton(
+        onPressed: () => _onTapFab(context),
+        child: const Icon(
+          Icons.sync,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   void _onTapFab(BuildContext context) => context

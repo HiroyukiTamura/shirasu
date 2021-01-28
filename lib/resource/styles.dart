@@ -38,6 +38,7 @@ class Styles {
     primaryColorBrightness: Brightness.dark,
     primaryColor: PRIMARY_COLOR,
     accentColor: PRIMARY_COLOR,
+    cursorColor: Colors.white,
     scaffoldBackgroundColor: BACK_COLOR,
     appBarTheme: const AppBarTheme(color: Colors.black),
     textTheme: GoogleFonts.latoTextTheme(

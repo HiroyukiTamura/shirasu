@@ -27,6 +27,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   static const SEC_FAST_SEEK_BY_BTN = Duration(seconds: 30);
   static const SEC_FAST_SEEK_BY_DOUBLE_TAP = Duration(seconds: 10);
+  static const COMMENT_PREFETCH_OFFSET = 100;
+  static const COMMENT_MAX_ITEM_COUNT = 500;
 
   final _apiClient = ApiClient.instance();
   final _dioClient = DioClient();
@@ -143,6 +145,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       );
   }
 
+  ///todo rename
   Future<void> loadMorePostComment(Duration currentPos, bool forceRun) async =>
       _loadMoreComment(
         beginTime: currentPos,
@@ -152,6 +155,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         forceRun: forceRun,
       );
 
+  ///todo rename
   Future<void> loadMorePreComment(Duration currentPos, bool forceRun) async =>
       _loadMoreComment(
         beginTime: Duration.zero,
@@ -174,8 +178,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       endTime: endTime,
       forceRun: forceRun,
     );
-    if (!shouldRun)
-      return;
+    if (!shouldRun) return;
 
     state = state.copyWith
         .commentHolder(state: CommentsState.loadingMore(loadingState));
@@ -203,6 +206,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     }
   }
 
+  void notifyFollowTimeLineMode(FollowTimeLineMode followTimeLineMode) =>
+      state = state.copyWith.commentHolder(
+        followTimeLineMode: followTimeLineMode,
+      );
+
   bool _shouldLoadMoreComment({
     @required Duration beginTime,
     @required Duration endTime,
@@ -227,24 +235,24 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     await _initComments(currentPos);
   }
 
-  Future<void> togglePage(PageSheetModel pageSheet) async {
+  Future<bool> togglePage(PageSheetModel pageSheet) async {
+    if (!mounted) return false;
+
     final newOne = state.copyAsPageSheet(pageSheet);
-    if (newOne == null) return;
+    if (newOne == null) return false;
 
     state = newOne;
 
-    if (!panelController.isAttached) return;
+    if (!panelController.isAttached) return false;
 
-    if (pageSheet == const PageSheetModel.hidden())
-      await panelController.close();
-    else
+    if (pageSheet == const PageSheetModel.hidden()) {
+      if (panelController.isPanelClosed)
+        return false;
+      else
+        await panelController.close();
+    } else
       await panelController.open();
-  }
 
-  Future<bool> tryClosePanel() async {
-    if (!panelController.isAttached || panelController.isPanelClosed)
-      return false;
-    await panelController.close();
     return true;
   }
 

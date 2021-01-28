@@ -4096,7 +4096,8 @@ class _$CommentsHolderTearOff {
       @required bool loadedMostPastComment,
       @required bool isRenewing,
       @required bool loadedMostFutureComment,
-      @required CommentsState state}) {
+      @required CommentsState state,
+      @required FollowTimeLineMode followTimeLineMode}) {
     return _CommentsHolder(
       comments: comments,
       pageNationKey: pageNationKey,
@@ -4104,6 +4105,7 @@ class _$CommentsHolderTearOff {
       isRenewing: isRenewing,
       loadedMostFutureComment: loadedMostFutureComment,
       state: state,
+      followTimeLineMode: followTimeLineMode,
     );
   }
 }
@@ -4121,6 +4123,7 @@ mixin _$CommentsHolder {
   bool get isRenewing;
   bool get loadedMostFutureComment;
   CommentsState get state;
+  FollowTimeLineMode get followTimeLineMode;
 
   $CommentsHolderCopyWith<CommentsHolder> get copyWith;
 }
@@ -4136,9 +4139,11 @@ abstract class $CommentsHolderCopyWith<$Res> {
       bool loadedMostPastComment,
       bool isRenewing,
       bool loadedMostFutureComment,
-      CommentsState state});
+      CommentsState state,
+      FollowTimeLineMode followTimeLineMode});
 
   $CommentsStateCopyWith<$Res> get state;
+  $FollowTimeLineModeCopyWith<$Res> get followTimeLineMode;
 }
 
 /// @nodoc
@@ -4158,6 +4163,7 @@ class _$CommentsHolderCopyWithImpl<$Res>
     Object isRenewing = freezed,
     Object loadedMostFutureComment = freezed,
     Object state = freezed,
+    Object followTimeLineMode = freezed,
   }) {
     return _then(_value.copyWith(
       comments:
@@ -4174,6 +4180,9 @@ class _$CommentsHolderCopyWithImpl<$Res>
           ? _value.loadedMostFutureComment
           : loadedMostFutureComment as bool,
       state: state == freezed ? _value.state : state as CommentsState,
+      followTimeLineMode: followTimeLineMode == freezed
+          ? _value.followTimeLineMode
+          : followTimeLineMode as FollowTimeLineMode,
     ));
   }
 
@@ -4184,6 +4193,17 @@ class _$CommentsHolderCopyWithImpl<$Res>
     }
     return $CommentsStateCopyWith<$Res>(_value.state, (value) {
       return _then(_value.copyWith(state: value));
+    });
+  }
+
+  @override
+  $FollowTimeLineModeCopyWith<$Res> get followTimeLineMode {
+    if (_value.followTimeLineMode == null) {
+      return null;
+    }
+    return $FollowTimeLineModeCopyWith<$Res>(_value.followTimeLineMode,
+        (value) {
+      return _then(_value.copyWith(followTimeLineMode: value));
     });
   }
 }
@@ -4201,10 +4221,13 @@ abstract class _$CommentsHolderCopyWith<$Res>
       bool loadedMostPastComment,
       bool isRenewing,
       bool loadedMostFutureComment,
-      CommentsState state});
+      CommentsState state,
+      FollowTimeLineMode followTimeLineMode});
 
   @override
   $CommentsStateCopyWith<$Res> get state;
+  @override
+  $FollowTimeLineModeCopyWith<$Res> get followTimeLineMode;
 }
 
 /// @nodoc
@@ -4226,6 +4249,7 @@ class __$CommentsHolderCopyWithImpl<$Res>
     Object isRenewing = freezed,
     Object loadedMostFutureComment = freezed,
     Object state = freezed,
+    Object followTimeLineMode = freezed,
   }) {
     return _then(_CommentsHolder(
       comments:
@@ -4242,6 +4266,9 @@ class __$CommentsHolderCopyWithImpl<$Res>
           ? _value.loadedMostFutureComment
           : loadedMostFutureComment as bool,
       state: state == freezed ? _value.state : state as CommentsState,
+      followTimeLineMode: followTimeLineMode == freezed
+          ? _value.followTimeLineMode
+          : followTimeLineMode as FollowTimeLineMode,
     ));
   }
 }
@@ -4256,13 +4283,15 @@ class _$_CommentsHolder extends _CommentsHolder {
       @required this.loadedMostPastComment,
       @required this.isRenewing,
       @required this.loadedMostFutureComment,
-      @required this.state})
+      @required this.state,
+      @required this.followTimeLineMode})
       : assert(comments != null),
         assert(pageNationKey != null),
         assert(loadedMostPastComment != null),
         assert(isRenewing != null),
         assert(loadedMostFutureComment != null),
         assert(state != null),
+        assert(followTimeLineMode != null),
         super._();
 
   @override
@@ -4278,10 +4307,12 @@ class _$_CommentsHolder extends _CommentsHolder {
   final bool loadedMostFutureComment;
   @override
   final CommentsState state;
+  @override
+  final FollowTimeLineMode followTimeLineMode;
 
   @override
   String toString() {
-    return 'CommentsHolder(comments: $comments, pageNationKey: $pageNationKey, loadedMostPastComment: $loadedMostPastComment, isRenewing: $isRenewing, loadedMostFutureComment: $loadedMostFutureComment, state: $state)';
+    return 'CommentsHolder(comments: $comments, pageNationKey: $pageNationKey, loadedMostPastComment: $loadedMostPastComment, isRenewing: $isRenewing, loadedMostFutureComment: $loadedMostFutureComment, state: $state, followTimeLineMode: $followTimeLineMode)';
   }
 
   @override
@@ -4305,7 +4336,10 @@ class _$_CommentsHolder extends _CommentsHolder {
                 const DeepCollectionEquality().equals(
                     other.loadedMostFutureComment, loadedMostFutureComment)) &&
             (identical(other.state, state) ||
-                const DeepCollectionEquality().equals(other.state, state)));
+                const DeepCollectionEquality().equals(other.state, state)) &&
+            (identical(other.followTimeLineMode, followTimeLineMode) ||
+                const DeepCollectionEquality()
+                    .equals(other.followTimeLineMode, followTimeLineMode)));
   }
 
   @override
@@ -4316,7 +4350,8 @@ class _$_CommentsHolder extends _CommentsHolder {
       const DeepCollectionEquality().hash(loadedMostPastComment) ^
       const DeepCollectionEquality().hash(isRenewing) ^
       const DeepCollectionEquality().hash(loadedMostFutureComment) ^
-      const DeepCollectionEquality().hash(state);
+      const DeepCollectionEquality().hash(state) ^
+      const DeepCollectionEquality().hash(followTimeLineMode);
 
   @override
   _$CommentsHolderCopyWith<_CommentsHolder> get copyWith =>
@@ -4331,7 +4366,8 @@ abstract class _CommentsHolder extends CommentsHolder {
       @required bool loadedMostPastComment,
       @required bool isRenewing,
       @required bool loadedMostFutureComment,
-      @required CommentsState state}) = _$_CommentsHolder;
+      @required CommentsState state,
+      @required FollowTimeLineMode followTimeLineMode}) = _$_CommentsHolder;
 
   @override
   @Deprecated('use [commentsSorted]')
@@ -4346,6 +4382,8 @@ abstract class _CommentsHolder extends CommentsHolder {
   bool get loadedMostFutureComment;
   @override
   CommentsState get state;
+  @override
+  FollowTimeLineMode get followTimeLineMode;
   @override
   _$CommentsHolderCopyWith<_CommentsHolder> get copyWith;
 }
@@ -5234,4 +5272,278 @@ class _$_PortalStateResolution implements _PortalStateResolution {
 
 abstract class _PortalStateResolution implements PortalState {
   const factory _PortalStateResolution() = _$_PortalStateResolution;
+}
+
+/// @nodoc
+class _$FollowTimeLineModeTearOff {
+  const _$FollowTimeLineModeTearOff();
+
+// ignore: unused_element
+  FollowTimeLineModeNone notFollow(Duration futurePos) {
+    return FollowTimeLineModeNone(
+      futurePos,
+    );
+  }
+
+// ignore: unused_element
+  _FollowTimeLineModeFollow follow() {
+    return const _FollowTimeLineModeFollow();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $FollowTimeLineMode = _$FollowTimeLineModeTearOff();
+
+/// @nodoc
+mixin _$FollowTimeLineMode {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult notFollow(Duration futurePos),
+    @required TResult follow(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult notFollow(Duration futurePos),
+    TResult follow(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult notFollow(FollowTimeLineModeNone value),
+    @required TResult follow(_FollowTimeLineModeFollow value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult notFollow(FollowTimeLineModeNone value),
+    TResult follow(_FollowTimeLineModeFollow value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $FollowTimeLineModeCopyWith<$Res> {
+  factory $FollowTimeLineModeCopyWith(
+          FollowTimeLineMode value, $Res Function(FollowTimeLineMode) then) =
+      _$FollowTimeLineModeCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$FollowTimeLineModeCopyWithImpl<$Res>
+    implements $FollowTimeLineModeCopyWith<$Res> {
+  _$FollowTimeLineModeCopyWithImpl(this._value, this._then);
+
+  final FollowTimeLineMode _value;
+  // ignore: unused_field
+  final $Res Function(FollowTimeLineMode) _then;
+}
+
+/// @nodoc
+abstract class $FollowTimeLineModeNoneCopyWith<$Res> {
+  factory $FollowTimeLineModeNoneCopyWith(FollowTimeLineModeNone value,
+          $Res Function(FollowTimeLineModeNone) then) =
+      _$FollowTimeLineModeNoneCopyWithImpl<$Res>;
+  $Res call({Duration futurePos});
+}
+
+/// @nodoc
+class _$FollowTimeLineModeNoneCopyWithImpl<$Res>
+    extends _$FollowTimeLineModeCopyWithImpl<$Res>
+    implements $FollowTimeLineModeNoneCopyWith<$Res> {
+  _$FollowTimeLineModeNoneCopyWithImpl(FollowTimeLineModeNone _value,
+      $Res Function(FollowTimeLineModeNone) _then)
+      : super(_value, (v) => _then(v as FollowTimeLineModeNone));
+
+  @override
+  FollowTimeLineModeNone get _value => super._value as FollowTimeLineModeNone;
+
+  @override
+  $Res call({
+    Object futurePos = freezed,
+  }) {
+    return _then(FollowTimeLineModeNone(
+      futurePos == freezed ? _value.futurePos : futurePos as Duration,
+    ));
+  }
+}
+
+/// @nodoc
+class _$FollowTimeLineModeNone implements FollowTimeLineModeNone {
+  const _$FollowTimeLineModeNone(this.futurePos) : assert(futurePos != null);
+
+  @override
+  final Duration futurePos;
+
+  @override
+  String toString() {
+    return 'FollowTimeLineMode.notFollow(futurePos: $futurePos)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is FollowTimeLineModeNone &&
+            (identical(other.futurePos, futurePos) ||
+                const DeepCollectionEquality()
+                    .equals(other.futurePos, futurePos)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(futurePos);
+
+  @override
+  $FollowTimeLineModeNoneCopyWith<FollowTimeLineModeNone> get copyWith =>
+      _$FollowTimeLineModeNoneCopyWithImpl<FollowTimeLineModeNone>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult notFollow(Duration futurePos),
+    @required TResult follow(),
+  }) {
+    assert(notFollow != null);
+    assert(follow != null);
+    return notFollow(futurePos);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult notFollow(Duration futurePos),
+    TResult follow(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (notFollow != null) {
+      return notFollow(futurePos);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult notFollow(FollowTimeLineModeNone value),
+    @required TResult follow(_FollowTimeLineModeFollow value),
+  }) {
+    assert(notFollow != null);
+    assert(follow != null);
+    return notFollow(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult notFollow(FollowTimeLineModeNone value),
+    TResult follow(_FollowTimeLineModeFollow value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (notFollow != null) {
+      return notFollow(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FollowTimeLineModeNone implements FollowTimeLineMode {
+  const factory FollowTimeLineModeNone(Duration futurePos) =
+      _$FollowTimeLineModeNone;
+
+  Duration get futurePos;
+  $FollowTimeLineModeNoneCopyWith<FollowTimeLineModeNone> get copyWith;
+}
+
+/// @nodoc
+abstract class _$FollowTimeLineModeFollowCopyWith<$Res> {
+  factory _$FollowTimeLineModeFollowCopyWith(_FollowTimeLineModeFollow value,
+          $Res Function(_FollowTimeLineModeFollow) then) =
+      __$FollowTimeLineModeFollowCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$FollowTimeLineModeFollowCopyWithImpl<$Res>
+    extends _$FollowTimeLineModeCopyWithImpl<$Res>
+    implements _$FollowTimeLineModeFollowCopyWith<$Res> {
+  __$FollowTimeLineModeFollowCopyWithImpl(_FollowTimeLineModeFollow _value,
+      $Res Function(_FollowTimeLineModeFollow) _then)
+      : super(_value, (v) => _then(v as _FollowTimeLineModeFollow));
+
+  @override
+  _FollowTimeLineModeFollow get _value =>
+      super._value as _FollowTimeLineModeFollow;
+}
+
+/// @nodoc
+class _$_FollowTimeLineModeFollow implements _FollowTimeLineModeFollow {
+  const _$_FollowTimeLineModeFollow();
+
+  @override
+  String toString() {
+    return 'FollowTimeLineMode.follow()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _FollowTimeLineModeFollow);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult notFollow(Duration futurePos),
+    @required TResult follow(),
+  }) {
+    assert(notFollow != null);
+    assert(follow != null);
+    return follow();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult notFollow(Duration futurePos),
+    TResult follow(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (follow != null) {
+      return follow();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult notFollow(FollowTimeLineModeNone value),
+    @required TResult follow(_FollowTimeLineModeFollow value),
+  }) {
+    assert(notFollow != null);
+    assert(follow != null);
+    return follow(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult notFollow(FollowTimeLineModeNone value),
+    TResult follow(_FollowTimeLineModeFollow value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (follow != null) {
+      return follow(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FollowTimeLineModeFollow implements FollowTimeLineMode {
+  const factory _FollowTimeLineModeFollow() = _$_FollowTimeLineModeFollow;
 }

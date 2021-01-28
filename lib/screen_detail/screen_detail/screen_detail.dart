@@ -59,6 +59,18 @@ final _pBtmSheetExpanded = Provider.autoDispose.family<PageSheetModel, String>(
       ),
 );
 
+final _kPrvFabVisibility = Provider.family.autoDispose<bool, String>((ref, id) {
+  final viewModel = ref.watch(detailSNProvider(id).state);
+  final isNotFollowTimeLineMode =
+      viewModel.commentHolder.followTimeLineMode is FollowTimeLineModeNone;
+  final prgDataResult = viewModel.prgDataResult;
+  // ignore: avoid_bool_literals_in_conditional_expressions
+  final isCommentShown = prgDataResult is StateSuccess
+      ? prgDataResult.page == const PageSheetModel.comment()
+      : false;
+  return isCommentShown && isNotFollowTimeLineMode;
+});
+
 final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 class ScreenDetail extends StatefulHookWidget {
@@ -108,25 +120,42 @@ class _ScreenDetailState extends State<ScreenDetail>
     }
   }
 
-
   /// not implement [BtmSheetResolution]
   @override
-  Widget build(BuildContext context) => BtmSheetPlaySpeed(
-      id: widget.id,
-      child: SafeArea(
-        child: ColoredBox(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          child: useProvider(detailSNProvider(widget.id)
-              .state
-              .select((it) => it.prgDataResult)).when(
-            loading: () => const CenterCircleProgress(),
-            preInitialized: () => const CenterCircleProgress(),
-            error: () => const PageError(),
-            success: _successWidget,
+  Widget build(BuildContext context) => SafeArea(
+        child: Scaffold(
+          body: BtmSheetPlaySpeed(
+            id: widget.id,
+            child: useProvider(detailSNProvider(widget.id)
+                .state
+                .select((it) => it.prgDataResult)).when(
+              loading: () => const CenterCircleProgress(),
+              preInitialized: () => const CenterCircleProgress(),
+              error: () => const PageError(),
+              success: _successWidget,
+            ),
           ),
+          floatingActionButton: _fab(),
         ),
-      ),
-    );
+      );
+
+  Widget _fab() {
+    final vis = useProvider(_kPrvFabVisibility(widget.id));
+    final context = useContext();
+    return vis
+        ? FloatingActionButton(
+            onPressed: () => _onTapFab(context),
+            child: const Icon(
+              Icons.sync,
+              color: Colors.white,
+            ),
+          )
+        : null;
+  }
+
+  void _onTapFab(BuildContext context) => context
+      .read(detailSNProvider(widget.id))
+      .notifyFollowTimeLineMode(const FollowTimeLineMode.follow());
 
   Future<void> _stopPlayBackground() async {
     // if (!isPlaying) return;
@@ -232,8 +261,9 @@ class _BottomSheet extends HookWidget {
         comment: () => PageComment(id: program.id),
       );
 
-  Future<void> _onClearClicked(BuildContext context) async =>
-      context.read(detailSNProvider(program.id)).panelController.close();
+  Future<void> _onClearClicked(BuildContext context) async => context
+      .read(detailSNProvider(program.id))
+      .togglePage(const PageSheetModel.hidden());
 }
 
 @swidget

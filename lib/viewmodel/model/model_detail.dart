@@ -7,6 +7,8 @@ import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dartx/dartx.dart';
 
+import '../viewmodel_detail.dart';
+
 part 'model_detail.freezed.dart';
 
 @freezed
@@ -197,6 +199,7 @@ abstract class CommentsHolder implements _$CommentsHolder {
     @required bool isRenewing,
     @required bool loadedMostFutureComment,
     @required CommentsState state,
+    @required FollowTimeLineMode followTimeLineMode,
   }) = _CommentsHolder;
 
   const CommentsHolder._();
@@ -210,26 +213,25 @@ abstract class CommentsHolder implements _$CommentsHolder {
         loadedMostFutureComment: false,
         state: const CommentsState.loading(),
         isRenewing: true,
+        followTimeLineMode: const FollowTimeLineMode.follow(),
       );
 
-  static const _COMMENT_ITEM_LIMIT = 500;
-
   // ignore: deprecated_member_use_from_same_package
-  List<CommentItem> get _commentSorted => comments
+  List<CommentItem> get commentSorted => comments
       .sortedByDescending((it) => it.commentTimeDuration)
       .toUnmodifiable();
 
   Duration get mostPastCommentTime =>
-      _commentSorted.lastOrNull?.commentTimeDuration;
+      commentSorted.lastOrNull?.commentTimeDuration;
 
   Duration get mostFutureCommentTime =>
-      _commentSorted.firstOrNull?.commentTimeDuration;
+      commentSorted.firstOrNull?.commentTimeDuration;
 
-  List<CommentItem> getCommentItemsBefore(Duration duration) => _commentSorted
+  List<CommentItem> getCommentItemsBefore(Duration duration) => commentSorted
       .filter((it) => it.commentTimeDuration < duration)
       .toUnmodifiable();
 
-  List<CommentItem> getCommentItemsAfter(Duration duration) => _commentSorted
+  List<CommentItem> getCommentItemsAfter(Duration duration) => commentSorted
       .filter((it) => duration < it.commentTimeDuration)
       .toUnmodifiable();
 
@@ -266,23 +268,23 @@ abstract class CommentsHolder implements _$CommentsHolder {
     Comments newComments,
     LoadingState loadingState,
   ) {
-    final raw = [..._commentSorted, ...newComments.itemsSorted];
+    final raw = [...commentSorted, ...newComments.itemsSorted];
     final rawLen = raw.length;
     final distincted = raw.distinct().length;
 
     if (rawLen != distincted)
       debugPrint('----------- $rawLen -------------- $distincted ------------');
 
-    Iterable<CommentItem> itr = [..._commentSorted, ...newComments.itemsSorted]
+    Iterable<CommentItem> itr = [...commentSorted, ...newComments.itemsSorted]
         .distinct()
         .sortedByDescending((it) => it.commentTimeDuration);
-    if (_COMMENT_ITEM_LIMIT < itr.length)
+    if (ViewModelDetail.COMMENT_MAX_ITEM_COUNT < itr.length)
       switch (loadingState) {
-        case LoadingState.FUTURE:
-          itr = itr.take(_COMMENT_ITEM_LIMIT);
+        case LoadingState.FUTURE://todo freezed
+          itr = itr.take(ViewModelDetail.COMMENT_MAX_ITEM_COUNT);
           break;
         case LoadingState.PAST:
-          itr = itr.takeLast(_COMMENT_ITEM_LIMIT);
+          itr = itr.takeLast(ViewModelDetail.COMMENT_MAX_ITEM_COUNT);
           break;
         default:
           throw ArgumentError(loadingState);
@@ -310,6 +312,14 @@ abstract class PortalState with _$PortalState {
   const factory PortalState.playSpeed() = _PortalStatePlaySpeed;
 
   const factory PortalState.resolution() = _PortalStateResolution;
+}
+
+@freezed
+abstract class FollowTimeLineMode with _$FollowTimeLineMode {
+
+  const factory FollowTimeLineMode.notFollow(Duration futurePos) = FollowTimeLineModeNone;
+
+  const factory FollowTimeLineMode.follow() = _FollowTimeLineModeFollow;
 }
 
 enum LoadingState { FUTURE, PAST }

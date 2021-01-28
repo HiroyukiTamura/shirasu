@@ -31,4 +31,6 @@ class Dimens {
   static const double VIDEO_FULLSCREEN_BTN_SIZE_BIG = 36;
 
   static const double VIDEO_PLAY_PAUSE_BTN_W = 108;
+  // ref: CircularProgressIndicator._kMinCircularProgressIndicatorSize
+  static const double MIN_CIRCULAR_PROGRESS_INDICATOR_H = 36;
 }

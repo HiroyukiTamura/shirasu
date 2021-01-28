@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
@@ -92,6 +94,34 @@ Widget listBtmSheet<T>({
           onTap: onTap,
           textBuilder: textBuilder,
           isSelected: isSelected,
+        ),
+        child: child,
+      ),
+    );
+
+@swidget
+Widget textBtnBtmSheet({
+  @required VoidCallback onTapBackDrop,
+  @required bool visible,
+  @required Widget child,
+  @required String text,
+  @required VoidCallback onTap,
+}) =>
+    PortalAnimatedModalBarrier(
+      onClose: onTapBackDrop,
+      visible: visible,
+      child: BtmSheet(
+        visible: visible,
+        btmSheetContent: ListTile(
+          leading: const Icon(Icons.access_time),
+          title: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 14,
+              height: 1,
+            ),
+          ),
+          onTap: onTap,
         ),
         child: child,
       ),

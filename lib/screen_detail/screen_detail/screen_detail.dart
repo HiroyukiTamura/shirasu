@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/di/hive_client.dart';
-import 'package:shirasu/di/native_client.dart';
-import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/dialog/portal_animated_modal_barrier.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
@@ -27,7 +19,6 @@ import 'package:shirasu/screen_detail/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_header.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
-import 'package:shirasu/screen_detail/screen_detail/video_holder.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
@@ -124,15 +115,18 @@ class _ScreenDetailState extends State<ScreenDetail>
   @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-          body: BtmSheetPlaySpeed(
+          body: BtmSheetComment(
             id: widget.id,
-            child: useProvider(detailSNProvider(widget.id)
-                .state
-                .select((it) => it.prgDataResult)).when(
-              loading: () => const CenterCircleProgress(),
-              preInitialized: () => const CenterCircleProgress(),
-              error: () => const PageError(),
-              success: _successWidget,
+            child: BtmSheetPlaySpeed(
+              id: widget.id,
+              child: useProvider(detailSNProvider(widget.id)
+                  .state
+                  .select((it) => it.prgDataResult)).when(
+                loading: () => const CenterCircleProgress(),
+                preInitialized: () => const CenterCircleProgress(),
+                error: () => const PageError(),
+                success: _successWidget,
+              ),
             ),
           ),
           floatingActionButton: _fab(),

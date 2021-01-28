@@ -51,3 +51,32 @@ class ListBtmSheet<T> extends StatelessWidget {
       child: child,
       isSelected: isSelected);
 }
+
+class TextBtnBtmSheet extends StatelessWidget {
+  const TextBtnBtmSheet(
+      {Key key,
+      @required this.onTapBackDrop,
+      @required this.visible,
+      @required this.child,
+      @required this.text,
+      @required this.onTap})
+      : super(key: key);
+
+  final void Function() onTapBackDrop;
+
+  final bool visible;
+
+  final Widget child;
+
+  final String text;
+
+  final FutureOr<void> Function() onTap;
+
+  @override
+  Widget build(BuildContext _context) => textBtnBtmSheet(
+      onTapBackDrop: onTapBackDrop,
+      visible: visible,
+      child: child,
+      text: text,
+      onTap: onTap);
+}

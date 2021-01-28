@@ -389,6 +389,17 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   /// must be [mounted] == true && [state.isInitialized] == true
+  void seekToWithBtmSheet(bool fullScreen, Duration duration) {
+    if (fullScreen == state.playOutState.fullScreen) {
+      commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seekTo(duration),
+      );
+      _hideTimer.renew();
+    }
+  }
+
+  /// must be [mounted] == true && [state.isInitialized] == true
   void seekToWithSlider(
       bool fullScreen, Duration duration, bool applyController, bool endDrag) {
     if (fullScreen != state.playOutState.fullScreen) return;

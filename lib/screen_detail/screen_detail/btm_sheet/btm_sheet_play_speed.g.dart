@@ -19,6 +19,19 @@ class BtmSheetPlaySpeed extends HookWidget {
       btmSheetPlaySpeed(_context, id: id, child: child);
 }
 
+class BtmSheetComment extends HookWidget {
+  const BtmSheetComment({Key key, @required this.id, @required this.child})
+      : super(key: key);
+
+  final String id;
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext _context) =>
+      btmSheetComment(_context, id: id, child: child);
+}
+
 class BtmSheetResolution extends HookWidget {
   const BtmSheetResolution({Key key, @required this.id, @required this.child})
       : super(key: key);

@@ -4931,6 +4931,13 @@ class _$PortalStateTearOff {
   _PortalStateResolution resolution() {
     return const _PortalStateResolution();
   }
+
+// ignore: unused_element
+  PortalStateCommentSelect commentSelect(Duration position) {
+    return PortalStateCommentSelect(
+      position,
+    );
+  }
 }
 
 /// @nodoc
@@ -4944,12 +4951,14 @@ mixin _$PortalState {
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult commentSelect(Duration position),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult commentSelect(Duration position),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -4957,12 +4966,14 @@ mixin _$PortalState {
     @required TResult none(_PortalStateNone value),
     @required TResult playSpeed(_PortalStatePlaySpeed value),
     @required TResult resolution(_PortalStateResolution value),
+    @required TResult commentSelect(PortalStateCommentSelect value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult none(_PortalStateNone value),
     TResult playSpeed(_PortalStatePlaySpeed value),
     TResult resolution(_PortalStateResolution value),
+    TResult commentSelect(PortalStateCommentSelect value),
     @required TResult orElse(),
   });
 }
@@ -5025,10 +5036,12 @@ class _$_PortalStateNone implements _PortalStateNone {
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult commentSelect(Duration position),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(commentSelect != null);
     return none();
   }
 
@@ -5038,6 +5051,7 @@ class _$_PortalStateNone implements _PortalStateNone {
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult commentSelect(Duration position),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5053,10 +5067,12 @@ class _$_PortalStateNone implements _PortalStateNone {
     @required TResult none(_PortalStateNone value),
     @required TResult playSpeed(_PortalStatePlaySpeed value),
     @required TResult resolution(_PortalStateResolution value),
+    @required TResult commentSelect(PortalStateCommentSelect value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(commentSelect != null);
     return none(this);
   }
 
@@ -5066,6 +5082,7 @@ class _$_PortalStateNone implements _PortalStateNone {
     TResult none(_PortalStateNone value),
     TResult playSpeed(_PortalStatePlaySpeed value),
     TResult resolution(_PortalStateResolution value),
+    TResult commentSelect(PortalStateCommentSelect value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5122,10 +5139,12 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult commentSelect(Duration position),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(commentSelect != null);
     return playSpeed();
   }
 
@@ -5135,6 +5154,7 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult commentSelect(Duration position),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5150,10 +5170,12 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
     @required TResult none(_PortalStateNone value),
     @required TResult playSpeed(_PortalStatePlaySpeed value),
     @required TResult resolution(_PortalStateResolution value),
+    @required TResult commentSelect(PortalStateCommentSelect value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(commentSelect != null);
     return playSpeed(this);
   }
 
@@ -5163,6 +5185,7 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
     TResult none(_PortalStateNone value),
     TResult playSpeed(_PortalStatePlaySpeed value),
     TResult resolution(_PortalStateResolution value),
+    TResult commentSelect(PortalStateCommentSelect value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5219,10 +5242,12 @@ class _$_PortalStateResolution implements _PortalStateResolution {
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult commentSelect(Duration position),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(commentSelect != null);
     return resolution();
   }
 
@@ -5232,6 +5257,7 @@ class _$_PortalStateResolution implements _PortalStateResolution {
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult commentSelect(Duration position),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5247,10 +5273,12 @@ class _$_PortalStateResolution implements _PortalStateResolution {
     @required TResult none(_PortalStateNone value),
     @required TResult playSpeed(_PortalStatePlaySpeed value),
     @required TResult resolution(_PortalStateResolution value),
+    @required TResult commentSelect(PortalStateCommentSelect value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(commentSelect != null);
     return resolution(this);
   }
 
@@ -5260,6 +5288,7 @@ class _$_PortalStateResolution implements _PortalStateResolution {
     TResult none(_PortalStateNone value),
     TResult playSpeed(_PortalStatePlaySpeed value),
     TResult resolution(_PortalStateResolution value),
+    TResult commentSelect(PortalStateCommentSelect value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5272,6 +5301,137 @@ class _$_PortalStateResolution implements _PortalStateResolution {
 
 abstract class _PortalStateResolution implements PortalState {
   const factory _PortalStateResolution() = _$_PortalStateResolution;
+}
+
+/// @nodoc
+abstract class $PortalStateCommentSelectCopyWith<$Res> {
+  factory $PortalStateCommentSelectCopyWith(PortalStateCommentSelect value,
+          $Res Function(PortalStateCommentSelect) then) =
+      _$PortalStateCommentSelectCopyWithImpl<$Res>;
+  $Res call({Duration position});
+}
+
+/// @nodoc
+class _$PortalStateCommentSelectCopyWithImpl<$Res>
+    extends _$PortalStateCopyWithImpl<$Res>
+    implements $PortalStateCommentSelectCopyWith<$Res> {
+  _$PortalStateCommentSelectCopyWithImpl(PortalStateCommentSelect _value,
+      $Res Function(PortalStateCommentSelect) _then)
+      : super(_value, (v) => _then(v as PortalStateCommentSelect));
+
+  @override
+  PortalStateCommentSelect get _value =>
+      super._value as PortalStateCommentSelect;
+
+  @override
+  $Res call({
+    Object position = freezed,
+  }) {
+    return _then(PortalStateCommentSelect(
+      position == freezed ? _value.position : position as Duration,
+    ));
+  }
+}
+
+/// @nodoc
+class _$PortalStateCommentSelect implements PortalStateCommentSelect {
+  const _$PortalStateCommentSelect(this.position) : assert(position != null);
+
+  @override
+  final Duration position;
+
+  @override
+  String toString() {
+    return 'PortalState.commentSelect(position: $position)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is PortalStateCommentSelect &&
+            (identical(other.position, position) ||
+                const DeepCollectionEquality()
+                    .equals(other.position, position)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(position);
+
+  @override
+  $PortalStateCommentSelectCopyWith<PortalStateCommentSelect> get copyWith =>
+      _$PortalStateCommentSelectCopyWithImpl<PortalStateCommentSelect>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+    @required TResult resolution(),
+    @required TResult commentSelect(Duration position),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(commentSelect != null);
+    return commentSelect(position);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    TResult resolution(),
+    TResult commentSelect(Duration position),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (commentSelect != null) {
+      return commentSelect(position);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_PortalStateNone value),
+    @required TResult playSpeed(_PortalStatePlaySpeed value),
+    @required TResult resolution(_PortalStateResolution value),
+    @required TResult commentSelect(PortalStateCommentSelect value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(commentSelect != null);
+    return commentSelect(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_PortalStateNone value),
+    TResult playSpeed(_PortalStatePlaySpeed value),
+    TResult resolution(_PortalStateResolution value),
+    TResult commentSelect(PortalStateCommentSelect value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (commentSelect != null) {
+      return commentSelect(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortalStateCommentSelect implements PortalState {
+  const factory PortalStateCommentSelect(Duration position) =
+      _$PortalStateCommentSelect;
+
+  Duration get position;
+  $PortalStateCommentSelectCopyWith<PortalStateCommentSelect> get copyWith;
 }
 
 /// @nodoc

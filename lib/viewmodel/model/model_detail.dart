@@ -312,6 +312,8 @@ abstract class PortalState with _$PortalState {
   const factory PortalState.playSpeed() = _PortalStatePlaySpeed;
 
   const factory PortalState.resolution() = _PortalStateResolution;
+
+  const factory PortalState.commentSelect(Duration position) = PortalStateCommentSelect;
 }
 
 @freezed

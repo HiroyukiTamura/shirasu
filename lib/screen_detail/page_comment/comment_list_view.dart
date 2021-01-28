@@ -49,6 +49,7 @@ class CommentListView extends HookWidget {
 
         final item = items[index];
         return ListTile(
+          onTap: () => _onTap(context, item),
           dense: true,
           leading: _Leading(item: item),
           title: Text(item.text),
@@ -97,6 +98,11 @@ class CommentListView extends HookWidget {
               mostPastCommentTime - 1.milliseconds, false);
       }
     }
+  }
+
+  void _onTap(BuildContext context, CommentItem item) {
+    final command = PortalState.commentSelect(item.commentTimeDuration);
+    context.read(detailSNProvider(id)).commandModal(command);
   }
 }
 

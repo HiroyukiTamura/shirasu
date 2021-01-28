@@ -87,6 +87,7 @@ class Strings {
   static const String PURCHASE_BTN_TEXT = 'この番組を視聴する';
   static const String PREVIEW_BTN_TEXT = '冒頭を無料で見る';
   static const String TIME_UNIT_SEC = '秒';
+  static const String BTM_SHEET_COMMENT_LABEL = 'このコメントが投稿された時間に移動';
 
 //endregion
 

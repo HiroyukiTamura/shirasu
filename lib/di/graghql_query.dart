@@ -540,4 +540,26 @@ fragment UseProgramCommentData on Comment {
     __typename
 }
 ''';
+
+  static const QUERY_POST_COMMENT = r'''
+mutation PostComment($input: PostCommentInput!) {
+  comment: postComment(input: $input) {
+    ...UseProgramCommentData
+    __typename
+  }
+}
+fragment UseProgramCommentData on Comment {
+  id
+  text
+  commentTime
+  userId
+  user {
+    id
+    name
+    icon
+    __typename
+  }
+  __typename
+}
+''';
 }

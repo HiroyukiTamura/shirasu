@@ -194,4 +194,20 @@ class ApiClient {
         await _query(GraphqlQuery.QUERY_COMMENTS, variables: variables);
     return ListCommentsByProgram.fromJson(result.data).comments;
   }
+
+  Future<CommentItem> postComment({
+    @required Duration commentTime,
+    @required String programId,
+    @required String text,
+  }) async {
+    final variables = {
+      'commentTime': commentTime.inMilliseconds,
+      'programId': programId,
+      'text': text,
+    };
+
+    final result =
+        await _query(GraphqlQuery.QUERY_POST_COMMENT, variables: variables);
+    return CommentItem.fromJson(result.data);
+  }
 }

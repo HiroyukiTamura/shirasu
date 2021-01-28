@@ -15,6 +15,7 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:dartx/dartx.dart';
+import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 
 import '../../util.dart';
 
@@ -127,45 +128,53 @@ class _CommentBtmBar extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useTextEditingController();
     return Visibility(
-        visible: useProvider(detailSNProvider(id).state.select((it) =>
-            it.commentHolder.followTimeLineMode ==
-            const FollowTimeLineMode.follow())),//todo more logic
-        child: BottomAppBar(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16,),
-            child: TextField(
-              controller: controller,
-              maxLength: 150,
-              maxLines: null,
-              textInputAction: TextInputAction.send,
-              buildCounter: (context, {int currentLength, bool isFocused, int maxLength}) => null,
-              style: const TextStyle(
-                height: 1.3,
+      visible: useProvider(detailSNProvider(id).state.select((it) =>
+          it.commentHolder.followTimeLineMode ==
+          const FollowTimeLineMode.follow())), //todo more logic
+      child: BottomAppBar(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: TextField(
+            controller: controller,
+            maxLength: ViewModelDetail.COMMENT_MAX_LETTER_LEN,
+            maxLines: null,
+            textInputAction: TextInputAction.send,
+            buildCounter: (context,
+                    {int currentLength, bool isFocused, int maxLength}) =>
+                null,
+            style: const TextStyle(
+              height: 1.3,
+            ),
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(
+                  ViewModelDetail.COMMENT_MAX_LETTER_LEN)
+            ],
+            onSubmitted: (text) => _onPressed(context, text),
+            decoration: InputDecoration(
+              hintText: Strings.COMMENT_TEXT_FILED_HINT,
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.send),
+                color: Colors.white,
+                onPressed: () async => _onPressed(context, controller.text),
               ),
-              decoration: InputDecoration(
-                hintText: Strings.COMMENT_TEXT_FILED_HINT,
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                focusedErrorBorder: InputBorder.none,
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.send),
-                  color: Colors.white,
-                  onPressed: () => _onPressed(controller.text),
-                ),
-                hintStyle: const TextStyle(
-                  height: 1,
-                )
+              hintStyle: const TextStyle(
+                height: 1,
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 
-  void _onPressed(String text) {}
+  Future<void> _onPressed(BuildContext context, String text) async =>
+      context.read(detailSNProvider(id)).postComment(text);
 }
 
 @swidget

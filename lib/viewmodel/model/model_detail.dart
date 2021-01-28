@@ -188,6 +188,7 @@ abstract class VideoPlayerState with _$VideoPlayerState {
   const factory VideoPlayerState.finish() = _VideoPlayerStateFinish;
 }
 
+// ignore: deprecated_member_use_from_same_package
 /// count of [comments] must be under [_COMMENT_ITEM_LIMIT].
 @freezed
 abstract class CommentsHolder implements _$CommentsHolder {
@@ -200,6 +201,7 @@ abstract class CommentsHolder implements _$CommentsHolder {
     @required bool loadedMostFutureComment,
     @required CommentsState state,
     @required FollowTimeLineMode followTimeLineMode,
+    @required List<CommentItem> userPostedComment,
   }) = _CommentsHolder;
 
   const CommentsHolder._();
@@ -214,24 +216,25 @@ abstract class CommentsHolder implements _$CommentsHolder {
         state: const CommentsState.loading(),
         isRenewing: true,
         followTimeLineMode: const FollowTimeLineMode.follow(),
+        userPostedComment: [],
       );
 
   // ignore: deprecated_member_use_from_same_package
-  List<CommentItem> get commentSorted => comments
+  List<CommentItem> _commentSorted(bool includeUserPosted) => (comments + userPostedComment)
       .sortedByDescending((it) => it.commentTimeDuration)
       .toUnmodifiable();
 
   Duration get mostPastCommentTime =>
-      commentSorted.lastOrNull?.commentTimeDuration;
+      _commentSorted(true).lastOrNull?.commentTimeDuration;
 
   Duration get mostFutureCommentTime =>
-      commentSorted.firstOrNull?.commentTimeDuration;
+      _commentSorted(true).firstOrNull?.commentTimeDuration;
 
-  List<CommentItem> getCommentItemsBefore(Duration duration) => commentSorted
+  List<CommentItem> getCommentItemsBefore(Duration duration) => _commentSorted(true)
       .filter((it) => it.commentTimeDuration < duration)
       .toUnmodifiable();
 
-  List<CommentItem> getCommentItemsAfter(Duration duration) => commentSorted
+  List<CommentItem> getCommentItemsAfter(Duration duration) => _commentSorted(true)
       .filter((it) => duration < it.commentTimeDuration)
       .toUnmodifiable();
 
@@ -264,23 +267,27 @@ abstract class CommentsHolder implements _$CommentsHolder {
     );
   }
 
+  CommentsHolder copyAsAddUserComment(CommentItem item) => copyWith(
+    userPostedComment: userPostedComment + [item],
+  );
+
   List<CommentItem> _regenerateCommentList(
     Comments newComments,
     LoadingState loadingState,
   ) {
-    final raw = [...commentSorted, ...newComments.itemsSorted];
+    final raw = _commentSorted(false) + newComments.itemsSorted;
     final rawLen = raw.length;
     final distincted = raw.distinct().length;
 
     if (rawLen != distincted)
       debugPrint('----------- $rawLen -------------- $distincted ------------');
 
-    Iterable<CommentItem> itr = [...commentSorted, ...newComments.itemsSorted]
+    Iterable<CommentItem> itr = raw
         .distinct()
         .sortedByDescending((it) => it.commentTimeDuration);
     if (ViewModelDetail.COMMENT_MAX_ITEM_COUNT < itr.length)
       switch (loadingState) {
-        case LoadingState.FUTURE://todo freezed
+        case LoadingState.FUTURE: //todo freezed
           itr = itr.take(ViewModelDetail.COMMENT_MAX_ITEM_COUNT);
           break;
         case LoadingState.PAST:
@@ -313,13 +320,14 @@ abstract class PortalState with _$PortalState {
 
   const factory PortalState.resolution() = _PortalStateResolution;
 
-  const factory PortalState.commentSelect(Duration position) = PortalStateCommentSelect;
+  const factory PortalState.commentSelect(Duration position) =
+      PortalStateCommentSelect;
 }
 
 @freezed
 abstract class FollowTimeLineMode with _$FollowTimeLineMode {
-
-  const factory FollowTimeLineMode.notFollow(Duration futurePos) = FollowTimeLineModeNone;
+  const factory FollowTimeLineMode.notFollow(Duration futurePos) =
+      FollowTimeLineModeNone;
 
   const factory FollowTimeLineMode.follow() = _FollowTimeLineModeFollow;
 }

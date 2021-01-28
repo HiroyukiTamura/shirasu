@@ -4097,7 +4097,8 @@ class _$CommentsHolderTearOff {
       @required bool isRenewing,
       @required bool loadedMostFutureComment,
       @required CommentsState state,
-      @required FollowTimeLineMode followTimeLineMode}) {
+      @required FollowTimeLineMode followTimeLineMode,
+      @required List<CommentItem> userPostedComment}) {
     return _CommentsHolder(
       comments: comments,
       pageNationKey: pageNationKey,
@@ -4106,6 +4107,7 @@ class _$CommentsHolderTearOff {
       loadedMostFutureComment: loadedMostFutureComment,
       state: state,
       followTimeLineMode: followTimeLineMode,
+      userPostedComment: userPostedComment,
     );
   }
 }
@@ -4124,6 +4126,7 @@ mixin _$CommentsHolder {
   bool get loadedMostFutureComment;
   CommentsState get state;
   FollowTimeLineMode get followTimeLineMode;
+  List<CommentItem> get userPostedComment;
 
   $CommentsHolderCopyWith<CommentsHolder> get copyWith;
 }
@@ -4140,7 +4143,8 @@ abstract class $CommentsHolderCopyWith<$Res> {
       bool isRenewing,
       bool loadedMostFutureComment,
       CommentsState state,
-      FollowTimeLineMode followTimeLineMode});
+      FollowTimeLineMode followTimeLineMode,
+      List<CommentItem> userPostedComment});
 
   $CommentsStateCopyWith<$Res> get state;
   $FollowTimeLineModeCopyWith<$Res> get followTimeLineMode;
@@ -4164,6 +4168,7 @@ class _$CommentsHolderCopyWithImpl<$Res>
     Object loadedMostFutureComment = freezed,
     Object state = freezed,
     Object followTimeLineMode = freezed,
+    Object userPostedComment = freezed,
   }) {
     return _then(_value.copyWith(
       comments:
@@ -4183,6 +4188,9 @@ class _$CommentsHolderCopyWithImpl<$Res>
       followTimeLineMode: followTimeLineMode == freezed
           ? _value.followTimeLineMode
           : followTimeLineMode as FollowTimeLineMode,
+      userPostedComment: userPostedComment == freezed
+          ? _value.userPostedComment
+          : userPostedComment as List<CommentItem>,
     ));
   }
 
@@ -4222,7 +4230,8 @@ abstract class _$CommentsHolderCopyWith<$Res>
       bool isRenewing,
       bool loadedMostFutureComment,
       CommentsState state,
-      FollowTimeLineMode followTimeLineMode});
+      FollowTimeLineMode followTimeLineMode,
+      List<CommentItem> userPostedComment});
 
   @override
   $CommentsStateCopyWith<$Res> get state;
@@ -4250,6 +4259,7 @@ class __$CommentsHolderCopyWithImpl<$Res>
     Object loadedMostFutureComment = freezed,
     Object state = freezed,
     Object followTimeLineMode = freezed,
+    Object userPostedComment = freezed,
   }) {
     return _then(_CommentsHolder(
       comments:
@@ -4269,6 +4279,9 @@ class __$CommentsHolderCopyWithImpl<$Res>
       followTimeLineMode: followTimeLineMode == freezed
           ? _value.followTimeLineMode
           : followTimeLineMode as FollowTimeLineMode,
+      userPostedComment: userPostedComment == freezed
+          ? _value.userPostedComment
+          : userPostedComment as List<CommentItem>,
     ));
   }
 }
@@ -4284,7 +4297,8 @@ class _$_CommentsHolder extends _CommentsHolder {
       @required this.isRenewing,
       @required this.loadedMostFutureComment,
       @required this.state,
-      @required this.followTimeLineMode})
+      @required this.followTimeLineMode,
+      @required this.userPostedComment})
       : assert(comments != null),
         assert(pageNationKey != null),
         assert(loadedMostPastComment != null),
@@ -4292,6 +4306,7 @@ class _$_CommentsHolder extends _CommentsHolder {
         assert(loadedMostFutureComment != null),
         assert(state != null),
         assert(followTimeLineMode != null),
+        assert(userPostedComment != null),
         super._();
 
   @override
@@ -4309,10 +4324,12 @@ class _$_CommentsHolder extends _CommentsHolder {
   final CommentsState state;
   @override
   final FollowTimeLineMode followTimeLineMode;
+  @override
+  final List<CommentItem> userPostedComment;
 
   @override
   String toString() {
-    return 'CommentsHolder(comments: $comments, pageNationKey: $pageNationKey, loadedMostPastComment: $loadedMostPastComment, isRenewing: $isRenewing, loadedMostFutureComment: $loadedMostFutureComment, state: $state, followTimeLineMode: $followTimeLineMode)';
+    return 'CommentsHolder(comments: $comments, pageNationKey: $pageNationKey, loadedMostPastComment: $loadedMostPastComment, isRenewing: $isRenewing, loadedMostFutureComment: $loadedMostFutureComment, state: $state, followTimeLineMode: $followTimeLineMode, userPostedComment: $userPostedComment)';
   }
 
   @override
@@ -4339,7 +4356,10 @@ class _$_CommentsHolder extends _CommentsHolder {
                 const DeepCollectionEquality().equals(other.state, state)) &&
             (identical(other.followTimeLineMode, followTimeLineMode) ||
                 const DeepCollectionEquality()
-                    .equals(other.followTimeLineMode, followTimeLineMode)));
+                    .equals(other.followTimeLineMode, followTimeLineMode)) &&
+            (identical(other.userPostedComment, userPostedComment) ||
+                const DeepCollectionEquality()
+                    .equals(other.userPostedComment, userPostedComment)));
   }
 
   @override
@@ -4351,7 +4371,8 @@ class _$_CommentsHolder extends _CommentsHolder {
       const DeepCollectionEquality().hash(isRenewing) ^
       const DeepCollectionEquality().hash(loadedMostFutureComment) ^
       const DeepCollectionEquality().hash(state) ^
-      const DeepCollectionEquality().hash(followTimeLineMode);
+      const DeepCollectionEquality().hash(followTimeLineMode) ^
+      const DeepCollectionEquality().hash(userPostedComment);
 
   @override
   _$CommentsHolderCopyWith<_CommentsHolder> get copyWith =>
@@ -4367,7 +4388,8 @@ abstract class _CommentsHolder extends CommentsHolder {
       @required bool isRenewing,
       @required bool loadedMostFutureComment,
       @required CommentsState state,
-      @required FollowTimeLineMode followTimeLineMode}) = _$_CommentsHolder;
+      @required FollowTimeLineMode followTimeLineMode,
+      @required List<CommentItem> userPostedComment}) = _$_CommentsHolder;
 
   @override
   @Deprecated('use [commentsSorted]')
@@ -4384,6 +4406,8 @@ abstract class _CommentsHolder extends CommentsHolder {
   CommentsState get state;
   @override
   FollowTimeLineMode get followTimeLineMode;
+  @override
+  List<CommentItem> get userPostedComment;
   @override
   _$CommentsHolderCopyWith<_CommentsHolder> get copyWith;
 }

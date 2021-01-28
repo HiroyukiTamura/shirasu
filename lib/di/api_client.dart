@@ -10,6 +10,7 @@ import 'package:shirasu/model/graphql/detail_program_data.dart'
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
+import 'package:shirasu/model/graphql/posted_comment.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
@@ -17,7 +18,10 @@ import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
+import '../util.dart';
+
 /// todo handle timeout
+/// todo operation name?
 @immutable
 class ApiClient {
   ApiClient._() : _graphQlClient = _createClient(Client());
@@ -65,10 +69,12 @@ class ApiClient {
   Future<QueryResult> _query(
     String query, {
     Map<String, dynamic> variables,
+    String operationName,
   }) async {
     final result = await _graphQlClient.query(QueryOptions(
       document: gql(query),
       variables: variables ?? {},
+      operationName: operationName,
     ));
 
     if (result.hasException) {
@@ -85,10 +91,12 @@ class ApiClient {
   Future<QueryResult> _mutate(
     String query, {
     Map<String, dynamic> variables,
+    String operationName,
   }) async {
     final result = await _graphQlClient.mutate(MutationOptions(
       document: gql(query),
       variables: variables ?? {},
+      operationName: operationName,
     ));
 
     if (result.hasException) {
@@ -200,14 +208,20 @@ class ApiClient {
     @required String programId,
     @required String text,
   }) async {
+    Util.require(!commentTime.isNegative);
     final variables = {
-      'commentTime': commentTime.inMilliseconds,
-      'programId': programId,
-      'text': text,
+      'input': {
+        'commentTime': commentTime.inMilliseconds,
+        'programId': programId,
+        'text': text,
+      }
     };
 
-    final result =
-        await _query(GraphqlQuery.QUERY_POST_COMMENT, variables: variables);
-    return CommentItem.fromJson(result.data);
+    final result = await _mutate(
+      GraphqlQuery.QUERY_POST_COMMENT,
+      variables: variables,
+      operationName: 'PostComment',
+    );
+    return PostedComment.fromJson(result.data).comment;
   }
 }

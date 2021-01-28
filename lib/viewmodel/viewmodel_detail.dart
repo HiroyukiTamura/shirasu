@@ -8,6 +8,7 @@ import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
@@ -29,6 +30,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   static const SEC_FAST_SEEK_BY_DOUBLE_TAP = Duration(seconds: 10);
   static const COMMENT_PREFETCH_OFFSET = 100;
   static const COMMENT_MAX_ITEM_COUNT = 500;
+  static const COMMENT_MAX_LETTER_LEN = 150;
 
   final _apiClient = ApiClient.instance();
   final _dioClient = DioClient();
@@ -233,6 +235,29 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyWith(commentHolder: CommentsHolder.initial(false));
     await _initComments(currentPos);
+  }
+
+  Future<void> postComment(String text) async {
+    if (state.playOutState.currentPos < Duration.zero)
+      return;
+
+    CommentItem posted;
+    try {
+      Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
+      posted = await _apiClient.postComment(
+        commentTime: state.playOutState.currentPos,
+        programId: id,
+        text: text,
+      );
+    } catch (e) {
+      print(e);
+      //todo handle error
+    }
+
+    if (mounted && posted != null && !state.commentHolder.isRenewing)
+      state = state.copyWith(
+        commentHolder: state.commentHolder.copyAsAddUserComment(posted),
+      );
   }
 
   Future<bool> togglePage(PageSheetModel pageSheet) async {

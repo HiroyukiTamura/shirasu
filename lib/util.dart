@@ -101,6 +101,11 @@ class Util {
     } else
       return mmss;
   }
+
+  static void require(bool check, [String message]) {
+    if (!check)
+      throw ArgumentError(message);
+  }
 }
 
 mixin Disposable {

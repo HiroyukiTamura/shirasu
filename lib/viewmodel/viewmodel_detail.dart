@@ -11,19 +11,20 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/util/single_timer.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:shirasu/portal/portal_snack_bar.dart';
 
-import 'controller_hide_timer.dart';
 import 'model/model_detail.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
-  ViewModelDetail(this.id, this._ref)
+  ViewModelDetail(this.id, this._reader)
       : channelId = UrlUtil.programId2channelId(id),
         super(ModelDetail.initial(true)) {
-    _hideTimer = ControllerHideTimer(_hideController);
+    _hideTimer = SingleTimer(_hideController, const Duration(seconds: 2));
   }
 
   static const SEC_FAST_SEEK_BY_BTN = Duration(seconds: 30);
@@ -35,11 +36,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   final _apiClient = ApiClient.instance();
   final _dioClient = DioClient();
   final panelController = PanelController();
-  final AutoDisposeProviderReference _ref;
+  final Reader _reader;
   final String id;
   final String channelId;
 
-  ControllerHideTimer _hideTimer;
+  SingleTimer _hideTimer;
+
+  GlobalPortalAdapter get _globalPortalAdapter => _reader(kPrvGlobalPortal);
 
   DetailPrgItem get _previewArchivedVideoData {
     final v = state.prgDataResult;
@@ -131,7 +134,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (!mounted) return null;
 
     if (url == null)
-      _ref.read(snackBarMsgProvider).state = SnackMsg.UNKNOWN;
+      _reader(snackBarMsgProvider).state = SnackMsg.UNKNOWN;
     else
       state = state.copyWith(isHandoutUrlRequesting: false);
 
@@ -238,11 +241,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   Future<void> postComment(String text) async {
-    if (state.playOutState.currentPos < Duration.zero)
-      return;
+    if (state.playOutState.currentPos < Duration.zero) return;
 
     CommentItem posted;
     try {
+      throw Exception('dummy error'); //fixme
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
       posted = await _apiClient.postComment(
         commentTime: state.playOutState.currentPos,
@@ -251,6 +254,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       );
     } catch (e) {
       print(e);
+      _globalPortalAdapter.notifyCommand(
+        const GlobalPortalCommand.snackBar(SnackMsg.UNKNOWN),
+      );
       //todo handle error
     }
 

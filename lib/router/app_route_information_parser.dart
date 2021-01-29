@@ -5,10 +5,10 @@ import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 class AppRouteInformationParser
     extends RouteInformationParser<GlobalRoutePathBase> {
-
   const AppRouteInformationParser._();
 
-  static const AppRouteInformationParser instance = AppRouteInformationParser._();
+  static const AppRouteInformationParser instance =
+      AppRouteInformationParser._();
 
   @override
   Future<GlobalRoutePathBase> parseRouteInformation(
@@ -57,14 +57,14 @@ class AppRouteInformationParser
       RouteInformation(location: restoreLocation(configuration));
 
   static String restoreLocation(GlobalRoutePathBase configuration) =>
-      GlobalRoutePathBase.wrappedWhen(
-        configuration,
+      configuration.wrappedWhen(
         intro: () => 'intro',
         error: () => 'error',
         channel: (channelId) => '/c/$channelId',
         program: (programId) => UrlUtil.programId2UrlSegment(programId),
         dashboard: () => 'dashboard',
-        subscribing: (PageListTabPage initialPage) => 'subscribing/$initialPage',
+        subscribing: (PageListTabPage initialPage) =>
+            'subscribing/$initialPage',
         setting: () => 'setting',
         ossLicense: () => 'oss_license',
         imgLicense: () => 'img_license',

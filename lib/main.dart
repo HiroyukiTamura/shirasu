@@ -9,6 +9,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/portal/president_entry.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
@@ -27,8 +28,7 @@ final pcnAppRouterDelegate =
     ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
         (ref) => ref.watch(pAppRouterDelegate));
 
-final _pNavigationChange = StateProvider.autoDispose<GlobalRoutePathBase>(
-    (ref) => ref.watch(pcnAppRouterDelegate).appState.last);
+final GlobalKey<MyAppState> myAppStateKey = GlobalKey<MyAppState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +64,7 @@ class MyApp extends StatefulHookWidget {
 
 class MyAppState extends State<MyApp>
     with WidgetsBindingObserver, TickerProviderStateMixin {
+
   @override
   void initState() {
     super.initState();
@@ -102,14 +103,15 @@ class MyAppState extends State<MyApp>
       title: 'Flutter Demo',
       theme: Styles.theme,
       home: SafeArea(
-        child: Scaffold(
-          body: Stack(children: [
-            Router(
+        child: PresidentEntry(
+          child: Scaffold(
+            key: myAppStateKey,
+            body: Router(
               backButtonDispatcher: RootBackButtonDispatcher(),
               routerDelegate: delegate,
               routeInformationParser: AppRouteInformationParser.instance,
             ),
-          ]),
+          ),
         ),
       ),
       localizationsDelegates: const [

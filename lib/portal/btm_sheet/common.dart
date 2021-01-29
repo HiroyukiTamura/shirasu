@@ -1,11 +1,9 @@
-import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/dialog/btm_sheet.dart';
-import 'package:shirasu/dialog/portal_animated_modal_barrier.dart';
+import 'package:shirasu/portal/slide_in_from_btm.dart';
+import 'package:shirasu/portal/btm_sheet/portal_animated_modal_barrier.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -26,8 +24,8 @@ Widget _heading({
       ),
     );
 
-class _BtmSheetContent<T> extends StatelessWidget {
-  const _BtmSheetContent({
+class ListBtmSheetContent<T> extends StatelessWidget {
+  const ListBtmSheetContent({
     Key key,
     @required this.items,
     @required this.onTap,
@@ -75,54 +73,61 @@ class _BtmSheetContent<T> extends StatelessWidget {
 }
 
 @swidget
-Widget listBtmSheet<T>({
-  @required List<T> items,
-  @required String Function(T item) textBuilder,
+Widget modal({
+  @required VoidCallback onClose,
   @required bool visible,
-  @required VoidCallback onTapBackDrop,
-  @required void Function(T item) onTap,
+  @required Widget btmSheetContent,
   @required Widget child,
-  @required bool Function(T item) isSelected,
 }) =>
     PortalAnimatedModalBarrier(
-      onClose: onTapBackDrop,
+      onClose: onClose,
       visible: visible,
-      child: BtmSheet(
+      child: SlideInFromBtm(
         visible: visible,
-        btmSheetContent: _BtmSheetContent<T>(
-          items: items,
-          onTap: onTap,
-          textBuilder: textBuilder,
-          isSelected: isSelected,
-        ),
+        btmSheetContent: btmSheetContent,
+        duration: PortalAnimatedModalBarrier.DURATION,
         child: child,
       ),
     );
 
+// @swidget
+// Widget listBtmSheet<T>({
+//   @required List<T> items,
+//   @required String Function(T item) textBuilder,
+//   @required bool visible,
+//   @required VoidCallback onTapBackDrop,
+//   @required void Function(T item) onTap,
+//   @required Widget child,
+//   @required bool Function(T item) isSelected,
+// }) =>
+//     PortalAnimatedModalBarrier(
+//       onClose: onTapBackDrop,
+//       visible: visible,
+//       child: BtmSheet(
+//         visible: visible,
+//         btmSheetContent: _BtmSheetContent<T>(
+//           items: items,
+//           onTap: onTap,
+//           textBuilder: textBuilder,
+//           isSelected: isSelected,
+//         ),
+//         child: child,
+//       ),
+//     );
+
 @swidget
-Widget textBtnBtmSheet({
-  @required VoidCallback onTapBackDrop,
-  @required bool visible,
-  @required Widget child,
+Widget textBtmSheetContent({
   @required String text,
   @required VoidCallback onTap,
 }) =>
-    PortalAnimatedModalBarrier(
-      onClose: onTapBackDrop,
-      visible: visible,
-      child: BtmSheet(
-        visible: visible,
-        btmSheetContent: ListTile(
-          leading: const Icon(Icons.access_time),
-          title: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 14,
-              height: 1,
-            ),
-          ),
-          onTap: onTap,
+    ListTile(
+      leading: const Icon(Icons.access_time),
+      title: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 14,
+          height: 1,
         ),
-        child: child,
       ),
+      onTap: onTap,
     );

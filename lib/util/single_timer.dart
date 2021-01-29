@@ -1,36 +1,34 @@
 import 'package:async/async.dart';
 import 'package:dio/dio.dart';
 
-class ControllerHideTimer {
-  ControllerHideTimer(this.onFinish);
+class SingleTimer {
+  SingleTimer(this.onFinish, this.duration);
 
-  _SingleTimer _timer;
+  _Timer _timer;
 
+  final Duration duration;
   final VoidCallback onFinish;
 
   void renew() {
     _timer?.cancel();
-    _timer = _SingleTimer(onFinish);
+    _timer = _Timer(onFinish, duration);
   }
 
   void cancel() => _timer?.cancel();
 }
 
-class _SingleTimer {
-  _SingleTimer(this.onFinish) {
+class _Timer {
+  _Timer(this.onFinish, this.duration) {
     _start();
   }
 
   CancelableOperation _operation;
   final VoidCallback onFinish;
+  final Duration duration;
 
-  static const Duration _DURATION = Duration(seconds: 2);
-
-  void _start() {
-    _operation = CancelableOperation.fromFuture(
-      Future.delayed(_DURATION, _computation),
-    );
-  }
+  void _start() => _operation = CancelableOperation.fromFuture(
+    Future.delayed(duration, _computation),
+  );
 
   void cancel() => _operation.cancel();
 

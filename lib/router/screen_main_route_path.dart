@@ -8,9 +8,10 @@ part 'screen_main_route_path.freezed.dart';
 @immutable
 abstract class GlobalRoutePathBase {
   const factory GlobalRoutePathBase.redirect2Root() = PathDataMainPageDashBoard;
+}
 
-  static Result wrappedWhen<Result extends Object>(
-    GlobalRoutePathBase routePath, {
+extension GlobalRoutePathBaseX on GlobalRoutePathBase {
+  Result wrappedWhen<Result extends Object>({
     @required Result Function() intro,
     @required Result Function() error,
     @required Result Function(String channelId) channel,
@@ -22,8 +23,8 @@ abstract class GlobalRoutePathBase {
     @required Result Function() imgLicense,
     @required Result Function() auth,
   }) {
-    if (routePath is GlobalRoutePath)
-      return routePath.when(
+    if (this is GlobalRoutePath)
+      return (this as GlobalRoutePath).when(
         intro: intro,
         error: error,
         channel: channel,
@@ -32,19 +33,17 @@ abstract class GlobalRoutePathBase {
         imgLicense: imgLicense,
         auth: auth,
       );
-    else if (routePath is PathDataMainPageBase)
-      return routePath.when(
+    else if (this is PathDataMainPageBase)
+      return (this as PathDataMainPageBase).when(
         dashboard: dashboard,
         subscribing: subscribing,
         setting: setting,
       );
     else
-      throw UnsupportedError(
-          'unexpected routePath type: ${routePath.runtimeType}');
+      throw UnsupportedError('unexpected routePath type: $runtimeType');
   }
 
-  static Result wrappedWhenRough<Result extends Object>(
-    GlobalRoutePathBase routePath, {
+  Result wrappedWhenRough<Result extends Object>({
     @required Result Function() intro,
     @required Result Function() error,
     @required Result Function(String channelId) channel,
@@ -54,9 +53,9 @@ abstract class GlobalRoutePathBase {
     @required Result Function() imgLicense,
     @required Result Function() auth,
   }) {
-    if (routePath is PathDataMainPageBase) return mainPage();
-    if (routePath is GlobalRoutePath)
-      return routePath.when(
+    if (this is PathDataMainPageBase) return mainPage();
+    if (this is GlobalRoutePath)
+      return (this as GlobalRoutePath).when(
         intro: intro,
         error: error,
         channel: channel,
@@ -66,23 +65,22 @@ abstract class GlobalRoutePathBase {
         imgLicense: imgLicense,
       );
     else
-      throw UnsupportedError(
-          'unexpected routePath type: ${routePath.runtimeType}');
+      throw UnsupportedError('unexpected routePath type: $runtimeType');
   }
 
-  static Result wrappedWhenType<Result extends Object>(
-    GlobalRoutePathBase routePath, {
+  Result wrappedWhenType<Result extends Object>({
     @required Result Function() pathDataMainPageBase,
     @required Result Function() globalRoutePath,
   }) {
-    if (routePath is PathDataMainPageBase) return pathDataMainPageBase();
-    if (routePath is GlobalRoutePath)
+    if (this is PathDataMainPageBase) return pathDataMainPageBase();
+    if (this is GlobalRoutePath)
       return globalRoutePath();
     else
       throw UnsupportedError(
-          'unexpected routePath type: ${routePath.runtimeType}');
+          'unexpected routePath type: $runtimeType');
   }
 }
+
 
 @freezed
 abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {

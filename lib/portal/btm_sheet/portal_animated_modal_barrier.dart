@@ -36,28 +36,3 @@ class PortalAnimatedModalBarrier extends StatelessWidget {
       child: child,
     );
 }
-
-///
-/// @see [ModalBarrier]
-@swidget
-Widget portalAnimatedModalBarrier({
-  @required Widget child,
-  @required VoidCallback onClose,
-  @required bool visible,
-}) =>
-    PortalEntry(
-      visible: visible,
-      closeDuration: kThemeAnimationDuration,
-      portal: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: onClose,
-        child: AnimatedOpacity(
-          opacity: visible ? 1 : 0,
-          duration: kThemeAnimationDuration,
-          child: const ColoredBox(
-            color: Styles.MODAL_BG,
-          ),
-        ),
-      ),
-      child: child,
-    );

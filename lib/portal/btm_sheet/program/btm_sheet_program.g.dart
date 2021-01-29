@@ -1,10 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'btm_sheet_play_speed.dart';
+part of 'btm_sheet_program.dart';
 
 // **************************************************************************
 // FunctionalWidgetGenerator
 // **************************************************************************
+
+class ModalForProgramPage extends StatelessWidget {
+  const ModalForProgramPage({Key key, @required this.id, @required this.child})
+      : super(key: key);
+
+  final String id;
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext _context) =>
+      modalForProgramPage(_context, id: id, child: child);
+}
 
 class BtmSheetPlaySpeed extends HookWidget {
   const BtmSheetPlaySpeed({Key key, @required this.id, @required this.child})
@@ -30,17 +43,4 @@ class BtmSheetComment extends HookWidget {
   @override
   Widget build(BuildContext _context) =>
       btmSheetComment(_context, id: id, child: child);
-}
-
-class BtmSheetResolution extends HookWidget {
-  const BtmSheetResolution({Key key, @required this.id, @required this.child})
-      : super(key: key);
-
-  final String id;
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext _context) =>
-      btmSheetResolution(_context, id: id, child: child);
 }

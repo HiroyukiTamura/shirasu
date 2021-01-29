@@ -7,10 +7,8 @@ import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
-import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
-import 'package:shirasu/screen_detail/screen_detail/btm_sheet/btm_sheet_play_speed.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_fabs.dart';
@@ -34,7 +32,8 @@ final scaffoldProvider =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
 final detailSNProvider = StateNotifierProvider.autoDispose
-    .family<ViewModelDetail, String>((ref, id) => ViewModelDetail(id, ref));
+    .family<ViewModelDetail, String>(
+        (ref, id) => ViewModelDetail(id, ref.read));
 
 final kPrvVideoControllerReady =
     Provider.family.autoDispose<bool, String>((ref, id) {
@@ -115,19 +114,14 @@ class _ScreenDetailState extends State<ScreenDetail>
   @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-          body: BtmSheetComment(
-            id: widget.id,
-            child: BtmSheetPlaySpeed(
-              id: widget.id,
-              child: useProvider(detailSNProvider(widget.id)
-                  .state
-                  .select((it) => it.prgDataResult)).when(
-                loading: () => const CenterCircleProgress(),
-                preInitialized: () => const CenterCircleProgress(),
-                error: () => const PageError(),
-                success: _successWidget,
-              ),
-            ),
+          primary: false,
+          body: useProvider(detailSNProvider(widget.id)
+              .state
+              .select((it) => it.prgDataResult)).when(
+            loading: () => const CenterCircleProgress(),
+            preInitialized: () => const CenterCircleProgress(),
+            error: () => const PageError(),
+            success: _successWidget,
           ),
           floatingActionButton: _fab(),
         ),

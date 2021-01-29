@@ -36,8 +36,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
   Widget build(BuildContext context) {
     final pageList = appState.list
         .map<Tuple2<String, Widget>>((pathData) {
-          final screen = GlobalRoutePathBase.wrappedWhenRough(
-            pathData,
+          final screen = pathData.wrappedWhenRough(
             intro: () => ScreenIntro(),
             error: () => throw UnimplementedError(),
             channel: (channelId) => ScreenChannel(channelId: channelId),

@@ -7,10 +7,14 @@ part of 'portal_snack_bar.dart';
 // **************************************************************************
 
 class PortalSnackBar extends HookWidget {
-  const PortalSnackBar({Key key, @required this.child}) : super(key: key);
+  const PortalSnackBar({Key key, @required this.rootKey, @required this.child})
+      : super(key: key);
+
+  final GlobalKey<MyAppState> rootKey;
 
   final Widget child;
 
   @override
-  Widget build(BuildContext _context) => portalSnackBar(_context, child: child);
+  Widget build(BuildContext _context) =>
+      portalSnackBar(_context, rootKey: rootKey, child: child);
 }

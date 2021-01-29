@@ -15,10 +15,12 @@ final _kPrvNavigationChange = Provider.autoDispose<GlobalRoutePathBase>(
     (ref) => ref.watch(pcnAppRouterDelegate).appState.last);
 
 @hwidget
-Widget presidentEntry({
+Widget presidentEntry(Key key, {
+  @required GlobalKey<MyAppState> rootKey,
   @required Widget child,
 }) =>
     PortalSnackBar(
+      rootKey: rootKey,
       child: useProvider(_kPrvNavigationChange).wrappedWhen(
         intro: () => child,
         error: () => child,

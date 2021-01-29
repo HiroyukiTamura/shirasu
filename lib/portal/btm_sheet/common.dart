@@ -7,6 +7,8 @@ import 'package:shirasu/portal/btm_sheet/portal_animated_modal_barrier.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../main.dart';
+
 part 'common.g.dart';
 
 @hwidget
@@ -78,6 +80,7 @@ Widget modal({
   @required bool visible,
   @required Widget btmSheetContent,
   @required Widget child,
+  @required GlobalKey<MyAppState> rootKey,
 }) =>
     PortalAnimatedModalBarrier(
       onClose: onClose,
@@ -86,6 +89,7 @@ Widget modal({
         visible: visible,
         btmSheetContent: btmSheetContent,
         duration: PortalAnimatedModalBarrier.DURATION,
+        rootKey: rootKey,
         child: child,
       ),
     );

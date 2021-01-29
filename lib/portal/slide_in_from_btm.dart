@@ -22,13 +22,14 @@ Widget slideInFromBtm({
   @required bool visible,
   @required Duration duration,
   @required Widget btmSheetContent,
+  @required GlobalKey<MyAppState> rootKey,
 }) =>
     LayoutBuilder(
-      builder: (context, constraints) => PortalEntry(
+      builder: (context, _) => PortalEntry(
         closeDuration: duration,
         visible: visible,
         portal: Padding(
-          padding: MediaQuery.of(myAppStateKey.currentState.context).padding,
+          padding: MediaQuery.of(rootKey.currentContext).padding,
           child: TweenAnimationBuilder<Offset>(
             duration: duration,
             curve: Curves.easeOut,

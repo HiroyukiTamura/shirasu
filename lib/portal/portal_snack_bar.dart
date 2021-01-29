@@ -9,6 +9,8 @@ import 'package:shirasu/util/single_timer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
+import '../main.dart';
+
 part 'portal_snack_bar.g.dart';
 
 part 'portal_snack_bar.freezed.dart';
@@ -28,7 +30,6 @@ abstract class GlobalPortalCommand with _$GlobalPortalCommand {
 }
 
 class GlobalPortalAdapter extends StateNotifier<GlobalPortalCommand> {
-
   GlobalPortalAdapter() : super(const GlobalPortalCommand.none()) {
     _timer = SingleTimer(
       _onFinish,
@@ -64,11 +65,13 @@ class GlobalPortalAdapter extends StateNotifier<GlobalPortalCommand> {
 @hwidget
 Widget portalSnackBar(
   BuildContext context, {
+  @required GlobalKey<MyAppState> rootKey,
   @required Widget child,
 }) {
   final visible =
       useProvider(kPrvGlobalPortal.state) != const GlobalPortalCommand.none();
   return SlideInFromBtm(
+    rootKey: rootKey,
     duration: _kDuration,
     visible: visible,
     btmSheetContent: AnimatedOpacity(
@@ -86,8 +89,13 @@ Widget portalSnackBar(
             // ref: [SnackBar.shape]
             child: Row(
               children: [
-                Icon(Icons.error, color: Theme.of(context).accentColor,),
-                const SizedBox(width: 24,),
+                Icon(
+                  Icons.error,
+                  color: Theme.of(context).accentColor,
+                ),
+                const SizedBox(
+                  width: 24,
+                ),
                 Text(
                   useProvider(kPrvGlobalPortal).lastText ?? '',
                   style: TextStyle(

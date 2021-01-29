@@ -12,7 +12,8 @@ class SlideInFromBtm extends StatelessWidget {
       @required this.child,
       @required this.visible,
       @required this.duration,
-      @required this.btmSheetContent})
+      @required this.btmSheetContent,
+      @required this.rootKey})
       : super(key: key);
 
   final Widget child;
@@ -23,10 +24,13 @@ class SlideInFromBtm extends StatelessWidget {
 
   final Widget btmSheetContent;
 
+  final GlobalKey<MyAppState> rootKey;
+
   @override
   Widget build(BuildContext _context) => slideInFromBtm(
       child: child,
       visible: visible,
       duration: duration,
-      btmSheetContent: btmSheetContent);
+      btmSheetContent: btmSheetContent,
+      rootKey: rootKey);
 }

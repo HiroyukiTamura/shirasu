@@ -7,10 +7,14 @@ part of 'president_entry.dart';
 // **************************************************************************
 
 class PresidentEntry extends HookWidget {
-  const PresidentEntry({Key key, @required this.child}) : super(key: key);
+  const PresidentEntry({Key key, @required this.rootKey, @required this.child})
+      : super(key: key);
+
+  final GlobalKey<MyAppState> rootKey;
 
   final Widget child;
 
   @override
-  Widget build(BuildContext _context) => presidentEntry(child: child);
+  Widget build(BuildContext _context) =>
+      presidentEntry(key, rootKey: rootKey, child: child);
 }

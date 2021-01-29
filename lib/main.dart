@@ -28,8 +28,6 @@ final pcnAppRouterDelegate =
     ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
         (ref) => ref.watch(pAppRouterDelegate));
 
-final GlobalKey<MyAppState> myAppStateKey = GlobalKey<MyAppState>();
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -64,6 +62,7 @@ class MyApp extends StatefulHookWidget {
 
 class MyAppState extends State<MyApp>
     with WidgetsBindingObserver, TickerProviderStateMixin {
+  final GlobalKey<MyAppState> _myAppStateKey = GlobalKey<MyAppState>();
 
   @override
   void initState() {
@@ -102,18 +101,23 @@ class MyAppState extends State<MyApp>
     return MaterialApp(
       title: 'Flutter Demo',
       theme: Styles.theme,
-      home: SafeArea(
-        child: PresidentEntry(
-          child: Scaffold(
-            key: myAppStateKey,
-            body: Router(
-              backButtonDispatcher: RootBackButtonDispatcher(),
-              routerDelegate: delegate,
-              routeInformationParser: AppRouteInformationParser.instance,
-            ),
-          ),
-        ),
-      ),
+      home: LayoutBuilder(
+          builder: (context, constraints) => SizedBox(
+                key: _myAppStateKey,
+                child: SafeArea(
+                  child: PresidentEntry(
+                    rootKey: _myAppStateKey,
+                    child: Scaffold(
+                      body: Router(
+                        backButtonDispatcher: RootBackButtonDispatcher(),
+                        routerDelegate: delegate,
+                        routeInformationParser:
+                            AppRouteInformationParser.instance,
+                      ),
+                    ),
+                  ),
+                ),
+              )),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

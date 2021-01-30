@@ -9,12 +9,10 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/api_client.dart';
 import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
-import 'package:shirasu/portal/president_entry.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
-import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 final snackBarMsgProvider =
@@ -101,23 +99,15 @@ class MyAppState extends State<MyApp>
     return MaterialApp(
       title: 'Flutter Demo',
       theme: Styles.theme,
-      home: LayoutBuilder(
-          builder: (context, constraints) => SizedBox(
-                key: _myAppStateKey,
-                child: SafeArea(
-                  child: PresidentEntry(
-                    rootKey: _myAppStateKey,
-                    child: Scaffold(
-                      body: Router(
-                        backButtonDispatcher: RootBackButtonDispatcher(),
-                        routerDelegate: delegate,
-                        routeInformationParser:
-                            AppRouteInformationParser.instance,
-                      ),
-                    ),
-                  ),
-                ),
-              )),
+      home: SafeArea(
+        child: Scaffold(
+          body: Router(
+            backButtonDispatcher: RootBackButtonDispatcher(),
+            routerDelegate: delegate,
+            routeInformationParser: AppRouteInformationParser.instance,
+          ),
+        ),
+      ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

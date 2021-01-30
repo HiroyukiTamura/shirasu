@@ -42,7 +42,7 @@ class Util {
 
   static Future<void> launchUrl(BuildContext context, String url) async {
     if (!await canLaunch(url)) {
-      context.read(snackBarMsgProvider).notifyMsg(SnackMsg.CANT_OPEN_URL);
+      context.read(snackBarMsgProvider).notifyMsg(SnackMsg.CANT_OPEN_URL, false);
       return;
     }
 

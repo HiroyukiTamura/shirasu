@@ -60,14 +60,14 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         state = state.copyWithAdditionalPrograms(newOne.channel.programs);
 
         if (newOne.channel.programs.items.isEmpty)
-          _msgNotifier.notifyMsg(SnackMsg.NO_MORE_ITEM);
+          _msgNotifier.notifyMsg(SnackMsg.NO_MORE_ITEM, false);
 
         return;
       } catch (e) {
         debugPrint(e.toString());
         if (mounted) {
           state = state.copyWith(loading: false);
-          _msgNotifier.notifyMsg(SnackMsg.UNKNOWN);
+          _msgNotifier.notifyMsg(SnackMsg.UNKNOWN, false);
         }
       }
     }

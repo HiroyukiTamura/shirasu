@@ -33,4 +33,7 @@ class Dimens {
   static const double VIDEO_PLAY_PAUSE_BTN_W = 108;
   // ref: CircularProgressIndicator._kMinCircularProgressIndicatorSize
   static const double MIN_CIRCULAR_PROGRESS_INDICATOR_H = 36;
+
+  /// ref: [SnackBar.margin]
+  static const EdgeInsets SNACK_BAR_DEFAULT_MARGIN = EdgeInsets.fromLTRB(15, 5, 15, 10);
 }

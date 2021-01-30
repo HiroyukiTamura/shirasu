@@ -1,17 +1,24 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:uuid/uuid.dart';
 
 //todo debug
-class SnackBarMessageNotifier extends StateNotifier<SnackMsg> {
+class SnackBarMessageNotifier extends StateNotifier<SnackMsgEvent> {
   SnackBarMessageNotifier() : super(null);
 
-  void notifyMsg(SnackMsg snackMsg) {
+  void notifyMsg(SnackMsg snackMsg, bool btmAppBarMargin) {
     debugPrint(state.toString());
-    state = snackMsg;
+    state = SnackMsgEvent(snackMsg, btmAppBarMargin);
   }
+}
 
-  void clear() => state = null;
+class SnackMsgEvent {
+  SnackMsgEvent(this.snackMsg, this.btmAppBarMargin);
+
+  final bool btmAppBarMargin;
+  final SnackMsg snackMsg;
+  final String _eventKey = Uuid().v4(); // ignore: unused_field
 }
 
 enum SnackMsg {

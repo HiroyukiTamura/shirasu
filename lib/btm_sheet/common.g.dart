@@ -15,31 +15,6 @@ class _Heading extends HookWidget {
   Widget build(BuildContext _context) => _heading(isSelected: isSelected);
 }
 
-class Modal extends StatelessWidget {
-  const Modal(
-      {Key key,
-      @required this.onClose,
-      @required this.visible,
-      @required this.btmSheetContent,
-      @required this.child})
-      : super(key: key);
-
-  final void Function() onClose;
-
-  final bool visible;
-
-  final Widget btmSheetContent;
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext _context) => modal(
-      onClose: onClose,
-      visible: visible,
-      btmSheetContent: btmSheetContent,
-      child: child);
-}
-
 class TextBtmSheetContent extends StatelessWidget {
   const TextBtmSheetContent(
       {Key key, @required this.text, @required this.onTap})

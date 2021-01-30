@@ -2,12 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:shirasu/portal/slide_in_from_btm.dart';
-import 'package:shirasu/portal/btm_sheet/portal_animated_modal_barrier.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../main.dart';
+import '../main.dart';
 
 part 'common.g.dart';
 
@@ -73,26 +71,6 @@ class ListBtmSheetContent<T> extends StatelessWidget {
         ),
       );
 }
-
-@swidget
-Widget modal({
-  @required VoidCallback onClose,
-  @required bool visible,
-  @required Widget btmSheetContent,
-  @required Widget child,
-  @required GlobalKey<MyAppState> rootKey,
-}) =>
-    PortalAnimatedModalBarrier(
-      onClose: onClose,
-      visible: visible,
-      child: SlideInFromBtm(
-        visible: visible,
-        btmSheetContent: btmSheetContent,
-        duration: PortalAnimatedModalBarrier.DURATION,
-        rootKey: rootKey,
-        child: child,
-      ),
-    );
 
 // @swidget
 // Widget listBtmSheet<T>({

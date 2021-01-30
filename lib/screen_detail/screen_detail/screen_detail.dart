@@ -3,9 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/btm_sheet/common.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
@@ -19,17 +23,35 @@ import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../util.dart';
+
 part 'screen_detail.g.dart';
 
-final scaffoldProvider =
-    Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+final kPrvDetailSnackBarMsgNotifier =
+    StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
+        (ref) => SnackBarMessageNotifier());
+
+final _kPrvDetailSnackMsg =
+    Provider.autoDispose.family<SnackData, String>((ref, id) {
+  final snackMsgEvent = ref.watch(kPrvDetailSnackBarMsgNotifier.state);
+  EdgeInsets margin = Dimens.SNACK_BAR_DEFAULT_MARGIN;
+  if (snackMsgEvent.btmAppBarMargin)
+    margin += const EdgeInsets.only(bottom: CommentBtmBar.HEIGHT + 10);
+
+  return SnackData(snackMsgEvent.snackMsg, margin);
+});
+
+final _btmSheetEventProvider = Provider.family.autoDispose<PortalState, String>(
+    (ref, id) => ref.watch(detailSNProvider(id).state).portalState);
 
 final detailSNProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>(
@@ -113,17 +135,24 @@ class _ScreenDetailState extends State<ScreenDetail>
   /// not implement [BtmSheetResolution]
   @override
   Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-          primary: false,
-          body: useProvider(detailSNProvider(widget.id)
-              .state
-              .select((it) => it.prgDataResult)).when(
-            loading: () => const CenterCircleProgress(),
-            preInitialized: () => const CenterCircleProgress(),
-            error: () => const PageError(),
-            success: _successWidget,
+        child: SnackEventListener(
+          provider: _kPrvDetailSnackMsg(widget.id),
+          child: ProviderListener<PortalState>(
+            provider: _btmSheetEventProvider(widget.id),
+            onChange: _onChangeBtmSheet,
+            child: Scaffold(
+              primary: false,
+              body: useProvider(detailSNProvider(widget.id)
+                  .state
+                  .select((it) => it.prgDataResult)).when(
+                loading: () => const CenterCircleProgress(),
+                preInitialized: () => const CenterCircleProgress(),
+                error: () => const PageError(),
+                success: _successWidget,
+              ),
+              floatingActionButton: _fab(),
+            ),
           ),
-          floatingActionButton: _fab(),
         ),
       );
 
@@ -141,6 +170,66 @@ class _ScreenDetailState extends State<ScreenDetail>
       ),
     );
   }
+
+  void _onChangeBtmSheet(BuildContext context, PortalState portalState) {
+    portalState.when(
+      none: () {
+        // do nothing
+      },
+      playSpeed: () async => _showBtmSheet(
+        context,
+        (context) => _btmSheetPlaySpeed(context),
+      ),
+      resolution: () => throw UnimplementedError(),
+      commentSelect: (position) async => _showBtmSheet(
+        context,
+        (context) => _btmSheetCommentSelected(context, position),
+      ),
+    );
+  }
+
+  Future<void> _showBtmSheet(
+      BuildContext context, WidgetBuilder builder) async {
+    await showModalBottomSheet<void>(
+      builder: builder,
+      context: context,
+    );
+    context.read(detailSNProvider(widget.id)).clearModal();
+  }
+
+  // todo extract to widget
+  Widget _btmSheetPlaySpeed(BuildContext context) =>
+      ListBtmSheetContent<double>(
+        items: HivePrefectureClient.PLAY_SPEED,
+        textBuilder: (speed) {
+          final string = speed.truncate() == speed
+              ? speed.toStringAsFixed(1)
+              : speed.toString();
+          return 'x$string';
+        },
+        isSelected: (speed) {
+          final currentSpeed =
+              useProvider(kPrvHivePlaySpeedUpdate).data?.value ??
+                  HivePrefectureClient.instance().playSpeed;
+          return speed == currentSpeed;
+        },
+        onTap: (speed) {
+          HivePrefectureClient.instance().setPlaySpeed(speed);
+          Navigator.of(context).pop();
+        },
+      );
+
+  // todo extract to widget
+  Widget _btmSheetCommentSelected(BuildContext context, Duration position) =>
+      TextBtmSheetContent(
+        text: Strings.BTM_SHEET_COMMENT_LABEL,
+        onTap: () {
+          context
+              .read(detailSNProvider(widget.id))
+              .seekToWithBtmSheet(false, position);
+          Navigator.of(context).pop();
+        },
+      );
 
   void _onTapFab(BuildContext context) => context
       .read(detailSNProvider(widget.id))

@@ -7,18 +7,32 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 
 part 'msg_ntf_listener.g.dart';
 
-@swidget
-Widget msgNtfListener({@required Widget child}) => ProviderListener<SnackBarMessageNotifier>(
-    onChange: (context, viewModel) {
-      if (viewModel.state == null) return;
+class SnackData {
+  const SnackData(this.snackMsg, this.margin);
 
-      final text = Util.convert2SnackText(viewModel.state);
-      final snackBar = SnackBar(content: Text(text));
-      Scaffold.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(snackBar);
-      viewModel.clear();
-    },
-    provider: snackBarMsgProvider,
-    child: child,
-  );
+  final SnackMsg snackMsg;
+  final EdgeInsets margin;
+}
+
+@swidget
+Widget snackEventListener({
+  @required Widget child,
+  @required ProviderBase<Object, SnackData> provider,
+}) =>
+    ProviderListener<SnackData>(
+      onChange: (context, data) {
+        if (data.snackMsg == null) return;
+
+        final text = Util.convert2SnackText(data.snackMsg);
+        final snackBar = SnackBar(
+          content: Text(text),
+          margin: data.margin,
+          behavior: SnackBarBehavior.floating,
+        );
+        Scaffold.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
+      },
+      provider: provider,
+      child: child,
+    );

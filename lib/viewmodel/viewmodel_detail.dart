@@ -10,13 +10,13 @@ import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/single_timer.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:shirasu/portal/portal_snack_bar.dart';
 
 import 'model/model_detail.dart';
 
@@ -42,7 +42,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   SingleTimer _hideTimer;
 
-  GlobalPortalAdapter get _globalPortalAdapter => _reader(kPrvGlobalPortal);
+  SnackBarMessageNotifier get _snackBarMsgNotifier => _reader(kPrvDetailSnackBarMsgNotifier);
 
   DetailPrgItem get _previewArchivedVideoData {
     final v = state.prgDataResult;
@@ -134,7 +134,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (!mounted) return null;
 
     if (url == null)
-      _reader(snackBarMsgProvider).state = SnackMsg.UNKNOWN;
+      _commandSnackBar(SnackMsg.UNKNOWN);
     else
       state = state.copyWith(isHandoutUrlRequesting: false);
 
@@ -244,8 +244,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (state.playOutState.currentPos < Duration.zero) return;
 
     CommentItem posted;
+    //todo show error if text is empty
     try {
-      throw Exception('dummy error'); //fixme
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
       posted = await _apiClient.postComment(
         commentTime: state.playOutState.currentPos,
@@ -254,10 +254,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       );
     } catch (e) {
       print(e);
-      _globalPortalAdapter.notifyCommand(
-        const GlobalPortalCommand.snackBar(SnackMsg.UNKNOWN),
-      );
-      //todo handle error
+      _commandSnackBar(SnackMsg.UNKNOWN);
     }
 
     if (mounted && posted != null && !state.commentHolder.isRenewing)
@@ -476,4 +473,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   void clearModal() =>
       state = state.copyWith(portalState: const PortalState.none());
+
+  void _commandSnackBar(SnackMsg snackMsg) {
+    final prgDataResult = state.prgDataResult;
+    final isCommentAppBarShown = prgDataResult is StateSuccess &&
+        prgDataResult.page == const PageSheetModel.comment() &&
+        state.commentHolder.followTimeLineMode ==
+            const FollowTimeLineMode.follow();
+    _snackBarMsgNotifier.notifyMsg(snackMsg, isCommentAppBarShown);
+  }
 }

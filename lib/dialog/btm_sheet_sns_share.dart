@@ -108,7 +108,7 @@ Widget _tileUrl(
         }
         Navigator.of(context).pop();
         final msg = err ? SnackMsg.UNKNOWN : SnackMsg.URL_COPIED;
-        context.read(snackBarMsgProvider).notifyMsg(msg);
+        context.read(snackBarMsgProvider).notifyMsg(msg, false);
       },
       title: Strings.COPY_URL,
       icon: Icons.copy,

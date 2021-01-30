@@ -6,11 +6,16 @@ part of 'msg_ntf_listener.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class MsgNtfListener extends StatelessWidget {
-  const MsgNtfListener({Key key, @required this.child}) : super(key: key);
+class SnackEventListener extends StatelessWidget {
+  const SnackEventListener(
+      {Key key, @required this.child, @required this.provider})
+      : super(key: key);
 
   final Widget child;
 
+  final ProviderBase<Object, SnackData> provider;
+
   @override
-  Widget build(BuildContext _context) => msgNtfListener(child: child);
+  Widget build(BuildContext _context) =>
+      snackEventListener(child: child, provider: provider);
 }

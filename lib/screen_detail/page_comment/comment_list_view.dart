@@ -71,7 +71,7 @@ class CommentListView extends HookWidget {
             },
           ),
         ),
-        _CommentBtmBar(id: id)
+        CommentBtmBar(id: id)
       ],
     );
   }
@@ -119,10 +119,13 @@ class CommentListView extends HookWidget {
   }
 }
 
-class _CommentBtmBar extends HookWidget {
-  const _CommentBtmBar({@required this.id});
+class CommentBtmBar extends HookWidget {
+  const CommentBtmBar({@required this.id});
 
   final String id;
+  
+  /// ref: [IconButton.iconSize] (24) + [IconButton.padding] (8) *2
+  static const double HEIGHT = 40;
 
   @override
   Widget build(BuildContext context) {

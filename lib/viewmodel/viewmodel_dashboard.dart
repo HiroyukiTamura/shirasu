@@ -68,11 +68,11 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
         trySetState(oldState.copyAsSuccess(oldState.apiData));
 
         if (newProgramsData.newPrograms.items.isEmpty)
-          _msgNotifier.notifyMsg(SnackMsg.NO_MORE_ITEM);
+          _msgNotifier.notifyMsg(SnackMsg.NO_MORE_ITEM, false);
       } catch (e) {
         debugPrint(e.toString());
         trySetState(DashboardModel.error());
-        _msgNotifier.notifyMsg(SnackMsg.UNKNOWN);
+        _msgNotifier.notifyMsg(SnackMsg.UNKNOWN, false);
       }
     }
   }

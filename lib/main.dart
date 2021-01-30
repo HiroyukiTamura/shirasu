@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -45,11 +44,7 @@ Future<void> main() async {
   await ApiClient.openHiveStore();
 
   runApp(
-    ProviderScope(
-      child: Portal(
-        child: MyApp(),
-      ),
-    ),
+    ProviderScope(child: MyApp()),
   );
 }
 

@@ -14,7 +14,8 @@ part 'screen_main.g.dart';
 final screenMainScaffoldProvider =
     Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
 
-final _pRouterDelegate = Provider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref));
+final _pRouterDelegate =
+    Provider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref));
 
 class ScaffoldKeyHolder {
   ScaffoldKeyHolder();
@@ -28,8 +29,7 @@ class ScreenMain extends StatefulHookWidget {
   }) : super(key: key);
 
   @override
-  _ScreenMainState createState() =>
-      _ScreenMainState();
+  _ScreenMainState createState() => _ScreenMainState();
 }
 
 class _ScreenMainState extends State<ScreenMain> {
@@ -69,44 +69,40 @@ class _ScreenMainState extends State<ScreenMain> {
           routerDelegate: useProvider(_pRouterDelegate),
           backButtonDispatcher: _backButtonDispatcher,
         ),
-        floatingActionButton: _Fab(),
-        bottomNavigationBar:
-            _MainBottomNavigationBar(),
+        floatingActionButton: const _Fab(),
+        bottomNavigationBar: const _MainBottomNavigationBar(),
       ),
     );
   }
 }
 
 @hwidget
-Widget _mainBottomNavigationBar(BuildContext context) {
-
-  return BottomNavigationBar(
-    selectedItemColor: Colors.white,
-    unselectedItemColor: Colors.white.withOpacity(.6),
-    type: BottomNavigationBarType.fixed,
-    unselectedFontSize: 14,
-    onTap: (index) async => context.read(_pRouterDelegate).swapPage(index),
-    currentIndex: useProvider(_pRouterDelegate).pageIndex,
-    items: const [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: Strings.NAV_ITEM_HOME,
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.playlist_play_rounded),
-        label: Strings.NAV_ITEM_LIST,
-      ),
-      // BottomNavigationBarItem(
-      //   icon: Icon(Icons.search),
-      //   label: Strings.NAV_ITEM_SEARCH,
-      // ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.settings),
-        label: Strings.NAV_ITEM_CONFIG,
-      ),
-    ],
-  );
-}
+Widget _mainBottomNavigationBar(BuildContext context) => BottomNavigationBar(
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white.withOpacity(.6),
+      type: BottomNavigationBarType.fixed,
+      unselectedFontSize: 14,
+      onTap: (index) async => context.read(_pRouterDelegate).swapPage(index),
+      currentIndex: useProvider(_pRouterDelegate).pageIndex,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: Strings.NAV_ITEM_HOME,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.playlist_play_rounded),
+          label: Strings.NAV_ITEM_LIST,
+        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.search),
+        //   label: Strings.NAV_ITEM_SEARCH,
+        // ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: Strings.NAV_ITEM_CONFIG,
+        ),
+      ],
+    );
 
 class _Fab extends HookWidget {
   const _Fab({
@@ -123,8 +119,7 @@ class _Fab extends HookWidget {
   Widget build(BuildContext context) {
     final page = useProvider(_pRouterDelegate.select((it) => it.page));
 
-    if (!(page is PathDataMainPageSetting))
-      return const SizedBox.shrink();
+    if (!(page is PathDataMainPageSetting)) return const SizedBox.shrink();
 
     final isEdited = useProvider(settingViewModelSProvider.state
         .select((it) => it.editedUserInfo.isEdited));

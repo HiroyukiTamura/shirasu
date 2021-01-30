@@ -3,12 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/di/hive_client.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/btm_sheet/common.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
@@ -32,7 +29,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../../util.dart';
+import 'btm_sheet.dart';
 
 part 'screen_detail.g.dart';
 
@@ -49,9 +46,6 @@ final _kPrvDetailSnackMsg =
 
   return SnackData(snackMsgEvent.snackMsg, margin);
 });
-
-final _btmSheetEventProvider = Provider.family.autoDispose<PortalState, String>(
-    (ref, id) => ref.watch(detailSNProvider(id).state).portalState);
 
 final detailSNProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>(
@@ -96,8 +90,6 @@ class ScreenDetail extends StatefulHookWidget {
 
 class _ScreenDetailState extends State<ScreenDetail>
     with WidgetsBindingObserver {
-  // bool get isPlaying =>
-  //     context.read(pVideoViewModel(widget.id).state).isPlaying;
 
   @override
   void initState() {
@@ -137,9 +129,8 @@ class _ScreenDetailState extends State<ScreenDetail>
   Widget build(BuildContext context) => SafeArea(
         child: SnackEventListener(
           provider: _kPrvDetailSnackMsg(widget.id),
-          child: ProviderListener<PortalState>(
-            provider: _btmSheetEventProvider(widget.id),
-            onChange: _onChangeBtmSheet,
+          child: BtmSheetEventListener(
+            id: widget.id,
             child: Scaffold(
               primary: false,
               body: useProvider(detailSNProvider(widget.id)
@@ -170,66 +161,6 @@ class _ScreenDetailState extends State<ScreenDetail>
       ),
     );
   }
-
-  void _onChangeBtmSheet(BuildContext context, PortalState portalState) {
-    portalState.when(
-      none: () {
-        // do nothing
-      },
-      playSpeed: () async => _showBtmSheet(
-        context,
-        (context) => _btmSheetPlaySpeed(context),
-      ),
-      resolution: () => throw UnimplementedError(),
-      commentSelect: (position) async => _showBtmSheet(
-        context,
-        (context) => _btmSheetCommentSelected(context, position),
-      ),
-    );
-  }
-
-  Future<void> _showBtmSheet(
-      BuildContext context, WidgetBuilder builder) async {
-    await showModalBottomSheet<void>(
-      builder: builder,
-      context: context,
-    );
-    context.read(detailSNProvider(widget.id)).clearModal();
-  }
-
-  // todo extract to widget
-  Widget _btmSheetPlaySpeed(BuildContext context) =>
-      ListBtmSheetContent<double>(
-        items: HivePrefectureClient.PLAY_SPEED,
-        textBuilder: (speed) {
-          final string = speed.truncate() == speed
-              ? speed.toStringAsFixed(1)
-              : speed.toString();
-          return 'x$string';
-        },
-        isSelected: (speed) {
-          final currentSpeed =
-              useProvider(kPrvHivePlaySpeedUpdate).data?.value ??
-                  HivePrefectureClient.instance().playSpeed;
-          return speed == currentSpeed;
-        },
-        onTap: (speed) {
-          HivePrefectureClient.instance().setPlaySpeed(speed);
-          Navigator.of(context).pop();
-        },
-      );
-
-  // todo extract to widget
-  Widget _btmSheetCommentSelected(BuildContext context, Duration position) =>
-      TextBtmSheetContent(
-        text: Strings.BTM_SHEET_COMMENT_LABEL,
-        onTap: () {
-          context
-              .read(detailSNProvider(widget.id))
-              .seekToWithBtmSheet(false, position);
-          Navigator.of(context).pop();
-        },
-      );
 
   void _onTapFab(BuildContext context) => context
       .read(detailSNProvider(widget.id))
@@ -316,8 +247,8 @@ class _ScreenDetailState extends State<ScreenDetail>
       });
 }
 
-class _BottomSheet extends HookWidget {
-  const _BottomSheet({
+class _BottomPanel extends HookWidget {
+  const _BottomPanel({
     Key key,
     @required this.program,
   }) : super(key: key);
@@ -371,7 +302,7 @@ class _PlayerBody extends HookWidget {
           controller:
               useProvider(detailSNProvider(data.program.id)).panelController,
           color: Theme.of(context).scaffoldBackgroundColor,
-          panel: _BottomSheet(program: data.program),
+          panel: _BottomPanel(program: data.program),
           body: ListView.builder(
               itemCount: 6,
               padding: const EdgeInsets.only(bottom: 24),

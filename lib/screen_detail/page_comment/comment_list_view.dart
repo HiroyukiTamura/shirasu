@@ -48,34 +48,37 @@ class CommentListView extends HookWidget {
     int itemCount = items.length;
     if (data.showBottomProgressIndicator) itemCount++;
 
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            controller: controller,
-            itemCount: itemCount,
-            itemBuilder: (context, index) {
-              if (data.showBottomProgressIndicator && index == itemCount - 1)
-                return const CenterCircleProgress(
-                  padding: EdgeInsets.symmetric(
-                    vertical: _LOAD_MORE_CIRCLE_PROGRESS_PAD_V,
-                  ),
-                );
+    return Material(
+      color: Colors.transparent,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              controller: controller,
+              itemCount: itemCount,
+              itemBuilder: (context, index) {
+                if (data.showBottomProgressIndicator && index == itemCount - 1)
+                  return const CenterCircleProgress(
+                    padding: EdgeInsets.symmetric(
+                      vertical: _LOAD_MORE_CIRCLE_PROGRESS_PAD_V,
+                    ),
+                  );
 
-              final item = items[index];
-              return ListTile(
-                onTap: () => _onTap(context, item),
-                dense: true,
-                leading: _Leading(item: item),
-                title: Text(item.text),
-                subtitle: Text(item.user.name),
-                trailing: _Trailing(item: item),
-              );
-            },
+                final item = items[index];
+                return ListTile(
+                  onTap: () => _onTap(context, item),
+                  dense: true,
+                  leading: _Leading(item: item),
+                  title: Text(item.text),
+                  subtitle: Text(item.user.name),
+                  trailing: _Trailing(item: item),
+                );
+              },
+            ),
           ),
-        ),
-        CommentBtmBar(id: id)
-      ],
+          CommentBtmBar(id: id)
+        ],
+      ),
     );
   }
 

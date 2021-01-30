@@ -241,10 +241,12 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   Future<void> postComment(String text) async {
+    if (text.isNullOrEmpty)
+      return;
+
     if (state.playOutState.currentPos < Duration.zero) return;
 
     CommentItem posted;
-    //todo show error if text is empty
     try {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
       posted = await _apiClient.postComment(

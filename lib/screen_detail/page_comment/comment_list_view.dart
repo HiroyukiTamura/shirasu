@@ -21,6 +21,9 @@ import '../../util.dart';
 
 part 'comment_list_view.g.dart';
 
+final _kPrvTextController = Provider.autoDispose<TextEditingController>(
+    (ref) => TextEditingController());
+
 class CommentListView extends HookWidget {
   const CommentListView({
     Key key,
@@ -123,61 +126,71 @@ class CommentBtmBar extends HookWidget {
   const CommentBtmBar({@required this.id});
 
   final String id;
-  
+
   /// ref: [IconButton.iconSize] (24) + [IconButton.padding] (8) *2
   static const double HEIGHT = 40;
 
   @override
-  Widget build(BuildContext context) {
-    final controller = useTextEditingController();
-    return Visibility(
-      visible: useProvider(detailSNProvider(id).state.select((it) =>
-          it.commentHolder.followTimeLineMode ==
-          const FollowTimeLineMode.follow())), //todo more logic
-      child: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: TextField(
-            controller: controller,
-            maxLength: ViewModelDetail.COMMENT_MAX_LETTER_LEN,
-            maxLines: null,
-            textInputAction: TextInputAction.send,
-            buildCounter: (context,
-                    {int currentLength, bool isFocused, int maxLength}) =>
-                null,
-            style: const TextStyle(
-              height: 1.3,
-            ),
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(
-                  ViewModelDetail.COMMENT_MAX_LETTER_LEN)
-            ],
-            onSubmitted: (text) => _onPressed(context, text),
-            decoration: InputDecoration(
-              hintText: Strings.COMMENT_TEXT_FILED_HINT,
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
-              focusedErrorBorder: InputBorder.none,
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.send),
-                color: Colors.white,
-                onPressed: () async => _onPressed(context, controller.text),
+  Widget build(BuildContext context) => Visibility(
+        visible: useProvider(detailSNProvider(id).state.select((it) =>
+            it.commentHolder.followTimeLineMode ==
+            const FollowTimeLineMode.follow())), //todo more logic
+        child: BottomAppBar(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: TextField(
+              controller: useProvider(_kPrvTextController),
+              maxLength: ViewModelDetail.COMMENT_MAX_LETTER_LEN,
+              maxLines: null,
+              textInputAction: TextInputAction.send,
+              buildCounter: (context,
+                      {int currentLength, bool isFocused, int maxLength}) =>
+                  null,
+              style: const TextStyle(
+                height: 1.3,
               ),
-              hintStyle: const TextStyle(
-                height: 1,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(
+                    ViewModelDetail.COMMENT_MAX_LETTER_LEN)
+              ],
+              onSubmitted: (text) => _onPressed(context, text),
+              decoration: InputDecoration(
+                hintText: Strings.COMMENT_TEXT_FILED_HINT,
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
+                suffixIcon: _SuffixBtn(id: id, onPressed: _onPressed),
+                hintStyle: const TextStyle(
+                  height: 1,
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 
   Future<void> _onPressed(BuildContext context, String text) async =>
       context.read(detailSNProvider(id)).postComment(text);
+}
+
+/// disable [IconButton] if text is empty
+@hwidget
+Widget _suffixBtn(
+  BuildContext context, {
+  @required String id,
+  @required Future<void> onPressed(BuildContext context, String text),
+}) {
+  final text = useProvider(_kPrvTextController).text;
+  return IconButton(
+    icon: const Icon(Icons.send),
+    color: Colors.white,
+    onPressed: text.isNullOrEmpty
+        ? null
+        : () => onPressed(context, text),
+  );
 }
 
 @swidget

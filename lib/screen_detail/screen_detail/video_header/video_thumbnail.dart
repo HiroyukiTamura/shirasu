@@ -5,8 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/dialog/btm_sheet_common.dart';
-import 'package:shirasu/dialog/video_payment_btm_sheet.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
+import 'package:shirasu/btm_sheet/video_payment_btm_sheet.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -76,7 +76,7 @@ class VideoThumbnail extends HookWidget {
       context: context,
       url: UrlUtil.programId2Url(programId),
       child: VideoPaymentBtmSheet(result: result),
-      snackCallback: (SnackMsg msg) => context
+      snackCallback: (msg) => context
           .read(detailSNProvider(programId))
           .commandSnackBar(const SnackMsg.unknown()),
     );

@@ -28,7 +28,7 @@ class Util {
   }
 
   static Future<void> launchUrl(BuildContext context, String url, VoidCallback onUrlInvalid) async {
-    if (await canLaunch(url)) {//todo fixme
+    if (!await canLaunch(url)) {
       onUrlInvalid();
       return;
     }

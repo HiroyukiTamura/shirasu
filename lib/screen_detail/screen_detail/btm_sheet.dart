@@ -4,7 +4,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/btm_sheet/common.dart';
 import 'package:shirasu/di/hive_client.dart';
-import 'package:shirasu/dialog/btm_sheet_sns_share.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

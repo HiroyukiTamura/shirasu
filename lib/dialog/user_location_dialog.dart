@@ -20,6 +20,7 @@ class MsgUserLocation {
   final String prefectureCode;
 }
 
+//todo migrate to functional_widget
 class UserLocationDialog extends HookWidget {
 
   const UserLocationDialog();

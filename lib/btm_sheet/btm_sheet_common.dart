@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/dialog/btm_sheet_sns_share.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
@@ -72,6 +72,5 @@ class BtmSheetCommon extends StatelessWidget {
     );
     if (result == true)
       await Util.launchUrl(context, url, () => snackCallback(const SnackMsg.unknown()));
-    Navigator.pop(context);
   }
 }

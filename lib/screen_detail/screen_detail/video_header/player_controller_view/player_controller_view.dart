@@ -125,7 +125,7 @@ class PlayerControllerView extends HookWidget {
       context.toggleFullScreenMode();
 
   Future<void> _onTapSpeedBtn(BuildContext context) async =>
-      context.read(detailSNProvider(conf.id)).commandModal(const PortalState.playSpeed());
+      context.read(detailSNProvider(conf.id)).commandModal(const BtmSheetState.playSpeed());
 
   void _onTapBgBtn(BuildContext context) =>
       context.read(detailSNProvider(conf.id)).toggleVisibility();

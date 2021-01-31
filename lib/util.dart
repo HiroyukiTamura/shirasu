@@ -16,19 +16,6 @@ class Util {
 
   static const JP_TAX_RATIO = 0.1;
 
-  static String convert2SnackText(SnackMsg msg) {
-    switch (msg) {
-      case SnackMsg.UNKNOWN:
-        return Strings.SNACK_ERR;
-      case SnackMsg.NO_MORE_ITEM:
-        return Strings.SNACK_NO_MORE_ITEM;
-      case SnackMsg.CANT_OPEN_URL:
-        return Strings.SNACK_CANT_OPEN_URL;
-      default:
-        throw UnsupportedError('unexpected error');
-    }
-  }
-
   static Future<Tuple2<T, S>> wait2<T, S>(
       Future<T> Function() predicate1, Future<S> Function() predicate2) async {
     T t;
@@ -42,7 +29,7 @@ class Util {
 
   static Future<void> launchUrl(BuildContext context, String url) async {
     if (!await canLaunch(url)) {
-      context.read(snackBarMsgProvider).notifyMsg(SnackMsg.CANT_OPEN_URL, false);
+      context.read(snackBarMsgProvider).notifyMsg(const SnackMsg.cantOpenUrl(), false);
       return;
     }
 

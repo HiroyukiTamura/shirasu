@@ -19,13 +19,13 @@ class _$ModelDetailTearOff {
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
       @required CommentsHolder commentHolder,
-      @required PortalState portalState}) {
+      @required BtmSheetState btmSheetState}) {
     return _ModelDetail(
       prgDataResult: prgDataResult,
       playOutState: playOutState,
       isHandoutUrlRequesting: isHandoutUrlRequesting,
       commentHolder: commentHolder,
-      portalState: portalState,
+      btmSheetState: btmSheetState,
     );
   }
 }
@@ -40,7 +40,7 @@ mixin _$ModelDetail {
   PlayOutState get playOutState;
   bool get isHandoutUrlRequesting;
   CommentsHolder get commentHolder;
-  PortalState get portalState;
+  BtmSheetState get btmSheetState;
 
   $ModelDetailCopyWith<ModelDetail> get copyWith;
 }
@@ -55,12 +55,12 @@ abstract class $ModelDetailCopyWith<$Res> {
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
       CommentsHolder commentHolder,
-      PortalState portalState});
+      BtmSheetState btmSheetState});
 
   $DetailModelStateCopyWith<$Res> get prgDataResult;
   $PlayOutStateCopyWith<$Res> get playOutState;
   $CommentsHolderCopyWith<$Res> get commentHolder;
-  $PortalStateCopyWith<$Res> get portalState;
+  $BtmSheetStateCopyWith<$Res> get btmSheetState;
 }
 
 /// @nodoc
@@ -77,7 +77,7 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
     Object commentHolder = freezed,
-    Object portalState = freezed,
+    Object btmSheetState = freezed,
   }) {
     return _then(_value.copyWith(
       prgDataResult: prgDataResult == freezed
@@ -92,9 +92,9 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
           : commentHolder as CommentsHolder,
-      portalState: portalState == freezed
-          ? _value.portalState
-          : portalState as PortalState,
+      btmSheetState: btmSheetState == freezed
+          ? _value.btmSheetState
+          : btmSheetState as BtmSheetState,
     ));
   }
 
@@ -129,12 +129,12 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
   }
 
   @override
-  $PortalStateCopyWith<$Res> get portalState {
-    if (_value.portalState == null) {
+  $BtmSheetStateCopyWith<$Res> get btmSheetState {
+    if (_value.btmSheetState == null) {
       return null;
     }
-    return $PortalStateCopyWith<$Res>(_value.portalState, (value) {
-      return _then(_value.copyWith(portalState: value));
+    return $BtmSheetStateCopyWith<$Res>(_value.btmSheetState, (value) {
+      return _then(_value.copyWith(btmSheetState: value));
     });
   }
 }
@@ -151,7 +151,7 @@ abstract class _$ModelDetailCopyWith<$Res>
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
       CommentsHolder commentHolder,
-      PortalState portalState});
+      BtmSheetState btmSheetState});
 
   @override
   $DetailModelStateCopyWith<$Res> get prgDataResult;
@@ -160,7 +160,7 @@ abstract class _$ModelDetailCopyWith<$Res>
   @override
   $CommentsHolderCopyWith<$Res> get commentHolder;
   @override
-  $PortalStateCopyWith<$Res> get portalState;
+  $BtmSheetStateCopyWith<$Res> get btmSheetState;
 }
 
 /// @nodoc
@@ -179,7 +179,7 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
     Object commentHolder = freezed,
-    Object portalState = freezed,
+    Object btmSheetState = freezed,
   }) {
     return _then(_ModelDetail(
       prgDataResult: prgDataResult == freezed
@@ -194,9 +194,9 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
           : commentHolder as CommentsHolder,
-      portalState: portalState == freezed
-          ? _value.portalState
-          : portalState as PortalState,
+      btmSheetState: btmSheetState == freezed
+          ? _value.btmSheetState
+          : btmSheetState as BtmSheetState,
     ));
   }
 }
@@ -210,12 +210,12 @@ class _$_ModelDetail extends _ModelDetail {
       @required this.playOutState,
       @required this.isHandoutUrlRequesting,
       @required this.commentHolder,
-      @required this.portalState})
+      @required this.btmSheetState})
       : assert(prgDataResult != null),
         assert(playOutState != null),
         assert(isHandoutUrlRequesting != null),
         assert(commentHolder != null),
-        assert(portalState != null),
+        assert(btmSheetState != null),
         super._();
 
   @override
@@ -227,11 +227,11 @@ class _$_ModelDetail extends _ModelDetail {
   @override
   final CommentsHolder commentHolder;
   @override
-  final PortalState portalState;
+  final BtmSheetState btmSheetState;
 
   @override
   String toString() {
-    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, commentHolder: $commentHolder, portalState: $portalState)';
+    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, commentHolder: $commentHolder, btmSheetState: $btmSheetState)';
   }
 
   @override
@@ -250,9 +250,9 @@ class _$_ModelDetail extends _ModelDetail {
             (identical(other.commentHolder, commentHolder) ||
                 const DeepCollectionEquality()
                     .equals(other.commentHolder, commentHolder)) &&
-            (identical(other.portalState, portalState) ||
+            (identical(other.btmSheetState, btmSheetState) ||
                 const DeepCollectionEquality()
-                    .equals(other.portalState, portalState)));
+                    .equals(other.btmSheetState, btmSheetState)));
   }
 
   @override
@@ -262,7 +262,7 @@ class _$_ModelDetail extends _ModelDetail {
       const DeepCollectionEquality().hash(playOutState) ^
       const DeepCollectionEquality().hash(isHandoutUrlRequesting) ^
       const DeepCollectionEquality().hash(commentHolder) ^
-      const DeepCollectionEquality().hash(portalState);
+      const DeepCollectionEquality().hash(btmSheetState);
 
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith =>
@@ -276,7 +276,7 @@ abstract class _ModelDetail extends ModelDetail {
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
       @required CommentsHolder commentHolder,
-      @required PortalState portalState}) = _$_ModelDetail;
+      @required BtmSheetState btmSheetState}) = _$_ModelDetail;
 
   @override
   DetailModelState get prgDataResult;
@@ -287,7 +287,7 @@ abstract class _ModelDetail extends ModelDetail {
   @override
   CommentsHolder get commentHolder;
   @override
-  PortalState get portalState;
+  BtmSheetState get btmSheetState;
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith;
 }
@@ -4938,27 +4938,34 @@ abstract class CommentsStateErr implements CommentsState {
 }
 
 /// @nodoc
-class _$PortalStateTearOff {
-  const _$PortalStateTearOff();
+class _$BtmSheetStateTearOff {
+  const _$BtmSheetStateTearOff();
 
 // ignore: unused_element
-  _PortalStateNone none() {
-    return const _PortalStateNone();
+  _BtmSheetStateNone none() {
+    return const _BtmSheetStateNone();
   }
 
 // ignore: unused_element
-  _PortalStatePlaySpeed playSpeed() {
-    return const _PortalStatePlaySpeed();
+  _BtmSheetStatePlaySpeed playSpeed() {
+    return const _BtmSheetStatePlaySpeed();
   }
 
 // ignore: unused_element
-  _PortalStateResolution resolution() {
-    return const _PortalStateResolution();
+  _BtmSheetStateResolution resolution() {
+    return const _BtmSheetStateResolution();
   }
 
 // ignore: unused_element
-  PortalStateCommentSelect commentSelect(Duration position) {
-    return PortalStateCommentSelect(
+  _BtmSheetStateShare share(ShareUrl shareUrl) {
+    return _BtmSheetStateShare(
+      shareUrl,
+    );
+  }
+
+// ignore: unused_element
+  BtmSheetStateCommentSelect commentSelect(Duration position) {
+    return BtmSheetStateCommentSelect(
       position,
     );
   }
@@ -4966,15 +4973,16 @@ class _$PortalStateTearOff {
 
 /// @nodoc
 // ignore: unused_element
-const $PortalState = _$PortalStateTearOff();
+const $BtmSheetState = _$BtmSheetStateTearOff();
 
 /// @nodoc
-mixin _$PortalState {
+mixin _$BtmSheetState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
   });
   @optionalTypeArgs
@@ -4982,73 +4990,77 @@ mixin _$PortalState {
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult none(_PortalStateNone value),
-    @required TResult playSpeed(_PortalStatePlaySpeed value),
-    @required TResult resolution(_PortalStateResolution value),
-    @required TResult commentSelect(PortalStateCommentSelect value),
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult none(_PortalStateNone value),
-    TResult playSpeed(_PortalStatePlaySpeed value),
-    TResult resolution(_PortalStateResolution value),
-    TResult commentSelect(PortalStateCommentSelect value),
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult orElse(),
   });
 }
 
 /// @nodoc
-abstract class $PortalStateCopyWith<$Res> {
-  factory $PortalStateCopyWith(
-          PortalState value, $Res Function(PortalState) then) =
-      _$PortalStateCopyWithImpl<$Res>;
+abstract class $BtmSheetStateCopyWith<$Res> {
+  factory $BtmSheetStateCopyWith(
+          BtmSheetState value, $Res Function(BtmSheetState) then) =
+      _$BtmSheetStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PortalStateCopyWithImpl<$Res> implements $PortalStateCopyWith<$Res> {
-  _$PortalStateCopyWithImpl(this._value, this._then);
+class _$BtmSheetStateCopyWithImpl<$Res>
+    implements $BtmSheetStateCopyWith<$Res> {
+  _$BtmSheetStateCopyWithImpl(this._value, this._then);
 
-  final PortalState _value;
+  final BtmSheetState _value;
   // ignore: unused_field
-  final $Res Function(PortalState) _then;
+  final $Res Function(BtmSheetState) _then;
 }
 
 /// @nodoc
-abstract class _$PortalStateNoneCopyWith<$Res> {
-  factory _$PortalStateNoneCopyWith(
-          _PortalStateNone value, $Res Function(_PortalStateNone) then) =
-      __$PortalStateNoneCopyWithImpl<$Res>;
+abstract class _$BtmSheetStateNoneCopyWith<$Res> {
+  factory _$BtmSheetStateNoneCopyWith(
+          _BtmSheetStateNone value, $Res Function(_BtmSheetStateNone) then) =
+      __$BtmSheetStateNoneCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$PortalStateNoneCopyWithImpl<$Res>
-    extends _$PortalStateCopyWithImpl<$Res>
-    implements _$PortalStateNoneCopyWith<$Res> {
-  __$PortalStateNoneCopyWithImpl(
-      _PortalStateNone _value, $Res Function(_PortalStateNone) _then)
-      : super(_value, (v) => _then(v as _PortalStateNone));
+class __$BtmSheetStateNoneCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements _$BtmSheetStateNoneCopyWith<$Res> {
+  __$BtmSheetStateNoneCopyWithImpl(
+      _BtmSheetStateNone _value, $Res Function(_BtmSheetStateNone) _then)
+      : super(_value, (v) => _then(v as _BtmSheetStateNone));
 
   @override
-  _PortalStateNone get _value => super._value as _PortalStateNone;
+  _BtmSheetStateNone get _value => super._value as _BtmSheetStateNone;
 }
 
 /// @nodoc
-class _$_PortalStateNone implements _PortalStateNone {
-  const _$_PortalStateNone();
+class _$_BtmSheetStateNone implements _BtmSheetStateNone {
+  const _$_BtmSheetStateNone();
 
   @override
   String toString() {
-    return 'PortalState.none()';
+    return 'BtmSheetState.none()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PortalStateNone);
+    return identical(this, other) || (other is _BtmSheetStateNone);
   }
 
   @override
@@ -5060,11 +5072,13 @@ class _$_PortalStateNone implements _PortalStateNone {
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(share != null);
     assert(commentSelect != null);
     return none();
   }
@@ -5075,6 +5089,7 @@ class _$_PortalStateNone implements _PortalStateNone {
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     @required TResult orElse(),
   }) {
@@ -5088,14 +5103,16 @@ class _$_PortalStateNone implements _PortalStateNone {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult none(_PortalStateNone value),
-    @required TResult playSpeed(_PortalStatePlaySpeed value),
-    @required TResult resolution(_PortalStateResolution value),
-    @required TResult commentSelect(PortalStateCommentSelect value),
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(share != null);
     assert(commentSelect != null);
     return none(this);
   }
@@ -5103,10 +5120,11 @@ class _$_PortalStateNone implements _PortalStateNone {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult none(_PortalStateNone value),
-    TResult playSpeed(_PortalStatePlaySpeed value),
-    TResult resolution(_PortalStateResolution value),
-    TResult commentSelect(PortalStateCommentSelect value),
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5117,41 +5135,41 @@ class _$_PortalStateNone implements _PortalStateNone {
   }
 }
 
-abstract class _PortalStateNone implements PortalState {
-  const factory _PortalStateNone() = _$_PortalStateNone;
+abstract class _BtmSheetStateNone implements BtmSheetState {
+  const factory _BtmSheetStateNone() = _$_BtmSheetStateNone;
 }
 
 /// @nodoc
-abstract class _$PortalStatePlaySpeedCopyWith<$Res> {
-  factory _$PortalStatePlaySpeedCopyWith(_PortalStatePlaySpeed value,
-          $Res Function(_PortalStatePlaySpeed) then) =
-      __$PortalStatePlaySpeedCopyWithImpl<$Res>;
+abstract class _$BtmSheetStatePlaySpeedCopyWith<$Res> {
+  factory _$BtmSheetStatePlaySpeedCopyWith(_BtmSheetStatePlaySpeed value,
+          $Res Function(_BtmSheetStatePlaySpeed) then) =
+      __$BtmSheetStatePlaySpeedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$PortalStatePlaySpeedCopyWithImpl<$Res>
-    extends _$PortalStateCopyWithImpl<$Res>
-    implements _$PortalStatePlaySpeedCopyWith<$Res> {
-  __$PortalStatePlaySpeedCopyWithImpl(
-      _PortalStatePlaySpeed _value, $Res Function(_PortalStatePlaySpeed) _then)
-      : super(_value, (v) => _then(v as _PortalStatePlaySpeed));
+class __$BtmSheetStatePlaySpeedCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements _$BtmSheetStatePlaySpeedCopyWith<$Res> {
+  __$BtmSheetStatePlaySpeedCopyWithImpl(_BtmSheetStatePlaySpeed _value,
+      $Res Function(_BtmSheetStatePlaySpeed) _then)
+      : super(_value, (v) => _then(v as _BtmSheetStatePlaySpeed));
 
   @override
-  _PortalStatePlaySpeed get _value => super._value as _PortalStatePlaySpeed;
+  _BtmSheetStatePlaySpeed get _value => super._value as _BtmSheetStatePlaySpeed;
 }
 
 /// @nodoc
-class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
-  const _$_PortalStatePlaySpeed();
+class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
+  const _$_BtmSheetStatePlaySpeed();
 
   @override
   String toString() {
-    return 'PortalState.playSpeed()';
+    return 'BtmSheetState.playSpeed()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PortalStatePlaySpeed);
+    return identical(this, other) || (other is _BtmSheetStatePlaySpeed);
   }
 
   @override
@@ -5163,11 +5181,13 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(share != null);
     assert(commentSelect != null);
     return playSpeed();
   }
@@ -5178,6 +5198,7 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     @required TResult orElse(),
   }) {
@@ -5191,14 +5212,16 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult none(_PortalStateNone value),
-    @required TResult playSpeed(_PortalStatePlaySpeed value),
-    @required TResult resolution(_PortalStateResolution value),
-    @required TResult commentSelect(PortalStateCommentSelect value),
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(share != null);
     assert(commentSelect != null);
     return playSpeed(this);
   }
@@ -5206,10 +5229,11 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult none(_PortalStateNone value),
-    TResult playSpeed(_PortalStatePlaySpeed value),
-    TResult resolution(_PortalStateResolution value),
-    TResult commentSelect(PortalStateCommentSelect value),
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5220,41 +5244,42 @@ class _$_PortalStatePlaySpeed implements _PortalStatePlaySpeed {
   }
 }
 
-abstract class _PortalStatePlaySpeed implements PortalState {
-  const factory _PortalStatePlaySpeed() = _$_PortalStatePlaySpeed;
+abstract class _BtmSheetStatePlaySpeed implements BtmSheetState {
+  const factory _BtmSheetStatePlaySpeed() = _$_BtmSheetStatePlaySpeed;
 }
 
 /// @nodoc
-abstract class _$PortalStateResolutionCopyWith<$Res> {
-  factory _$PortalStateResolutionCopyWith(_PortalStateResolution value,
-          $Res Function(_PortalStateResolution) then) =
-      __$PortalStateResolutionCopyWithImpl<$Res>;
+abstract class _$BtmSheetStateResolutionCopyWith<$Res> {
+  factory _$BtmSheetStateResolutionCopyWith(_BtmSheetStateResolution value,
+          $Res Function(_BtmSheetStateResolution) then) =
+      __$BtmSheetStateResolutionCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$PortalStateResolutionCopyWithImpl<$Res>
-    extends _$PortalStateCopyWithImpl<$Res>
-    implements _$PortalStateResolutionCopyWith<$Res> {
-  __$PortalStateResolutionCopyWithImpl(_PortalStateResolution _value,
-      $Res Function(_PortalStateResolution) _then)
-      : super(_value, (v) => _then(v as _PortalStateResolution));
+class __$BtmSheetStateResolutionCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements _$BtmSheetStateResolutionCopyWith<$Res> {
+  __$BtmSheetStateResolutionCopyWithImpl(_BtmSheetStateResolution _value,
+      $Res Function(_BtmSheetStateResolution) _then)
+      : super(_value, (v) => _then(v as _BtmSheetStateResolution));
 
   @override
-  _PortalStateResolution get _value => super._value as _PortalStateResolution;
+  _BtmSheetStateResolution get _value =>
+      super._value as _BtmSheetStateResolution;
 }
 
 /// @nodoc
-class _$_PortalStateResolution implements _PortalStateResolution {
-  const _$_PortalStateResolution();
+class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
+  const _$_BtmSheetStateResolution();
 
   @override
   String toString() {
-    return 'PortalState.resolution()';
+    return 'BtmSheetState.resolution()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PortalStateResolution);
+    return identical(this, other) || (other is _BtmSheetStateResolution);
   }
 
   @override
@@ -5266,11 +5291,13 @@ class _$_PortalStateResolution implements _PortalStateResolution {
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(share != null);
     assert(commentSelect != null);
     return resolution();
   }
@@ -5281,6 +5308,7 @@ class _$_PortalStateResolution implements _PortalStateResolution {
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     @required TResult orElse(),
   }) {
@@ -5294,14 +5322,16 @@ class _$_PortalStateResolution implements _PortalStateResolution {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult none(_PortalStateNone value),
-    @required TResult playSpeed(_PortalStatePlaySpeed value),
-    @required TResult resolution(_PortalStateResolution value),
-    @required TResult commentSelect(PortalStateCommentSelect value),
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(share != null);
     assert(commentSelect != null);
     return resolution(this);
   }
@@ -5309,10 +5339,11 @@ class _$_PortalStateResolution implements _PortalStateResolution {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult none(_PortalStateNone value),
-    TResult playSpeed(_PortalStatePlaySpeed value),
-    TResult resolution(_PortalStateResolution value),
-    TResult commentSelect(PortalStateCommentSelect value),
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5323,56 +5354,190 @@ class _$_PortalStateResolution implements _PortalStateResolution {
   }
 }
 
-abstract class _PortalStateResolution implements PortalState {
-  const factory _PortalStateResolution() = _$_PortalStateResolution;
+abstract class _BtmSheetStateResolution implements BtmSheetState {
+  const factory _BtmSheetStateResolution() = _$_BtmSheetStateResolution;
 }
 
 /// @nodoc
-abstract class $PortalStateCommentSelectCopyWith<$Res> {
-  factory $PortalStateCommentSelectCopyWith(PortalStateCommentSelect value,
-          $Res Function(PortalStateCommentSelect) then) =
-      _$PortalStateCommentSelectCopyWithImpl<$Res>;
+abstract class _$BtmSheetStateShareCopyWith<$Res> {
+  factory _$BtmSheetStateShareCopyWith(
+          _BtmSheetStateShare value, $Res Function(_BtmSheetStateShare) then) =
+      __$BtmSheetStateShareCopyWithImpl<$Res>;
+  $Res call({ShareUrl shareUrl});
+}
+
+/// @nodoc
+class __$BtmSheetStateShareCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements _$BtmSheetStateShareCopyWith<$Res> {
+  __$BtmSheetStateShareCopyWithImpl(
+      _BtmSheetStateShare _value, $Res Function(_BtmSheetStateShare) _then)
+      : super(_value, (v) => _then(v as _BtmSheetStateShare));
+
+  @override
+  _BtmSheetStateShare get _value => super._value as _BtmSheetStateShare;
+
+  @override
+  $Res call({
+    Object shareUrl = freezed,
+  }) {
+    return _then(_BtmSheetStateShare(
+      shareUrl == freezed ? _value.shareUrl : shareUrl as ShareUrl,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_BtmSheetStateShare implements _BtmSheetStateShare {
+  const _$_BtmSheetStateShare(this.shareUrl) : assert(shareUrl != null);
+
+  @override
+  final ShareUrl shareUrl;
+
+  @override
+  String toString() {
+    return 'BtmSheetState.share(shareUrl: $shareUrl)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _BtmSheetStateShare &&
+            (identical(other.shareUrl, shareUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.shareUrl, shareUrl)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(shareUrl);
+
+  @override
+  _$BtmSheetStateShareCopyWith<_BtmSheetStateShare> get copyWith =>
+      __$BtmSheetStateShareCopyWithImpl<_BtmSheetStateShare>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+    @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
+    @required TResult commentSelect(Duration position),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    return share(shareUrl);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    TResult resolution(),
+    TResult share(ShareUrl shareUrl),
+    TResult commentSelect(Duration position),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (share != null) {
+      return share(shareUrl);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    return share(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (share != null) {
+      return share(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BtmSheetStateShare implements BtmSheetState {
+  const factory _BtmSheetStateShare(ShareUrl shareUrl) = _$_BtmSheetStateShare;
+
+  ShareUrl get shareUrl;
+  _$BtmSheetStateShareCopyWith<_BtmSheetStateShare> get copyWith;
+}
+
+/// @nodoc
+abstract class $BtmSheetStateCommentSelectCopyWith<$Res> {
+  factory $BtmSheetStateCommentSelectCopyWith(BtmSheetStateCommentSelect value,
+          $Res Function(BtmSheetStateCommentSelect) then) =
+      _$BtmSheetStateCommentSelectCopyWithImpl<$Res>;
   $Res call({Duration position});
 }
 
 /// @nodoc
-class _$PortalStateCommentSelectCopyWithImpl<$Res>
-    extends _$PortalStateCopyWithImpl<$Res>
-    implements $PortalStateCommentSelectCopyWith<$Res> {
-  _$PortalStateCommentSelectCopyWithImpl(PortalStateCommentSelect _value,
-      $Res Function(PortalStateCommentSelect) _then)
-      : super(_value, (v) => _then(v as PortalStateCommentSelect));
+class _$BtmSheetStateCommentSelectCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements $BtmSheetStateCommentSelectCopyWith<$Res> {
+  _$BtmSheetStateCommentSelectCopyWithImpl(BtmSheetStateCommentSelect _value,
+      $Res Function(BtmSheetStateCommentSelect) _then)
+      : super(_value, (v) => _then(v as BtmSheetStateCommentSelect));
 
   @override
-  PortalStateCommentSelect get _value =>
-      super._value as PortalStateCommentSelect;
+  BtmSheetStateCommentSelect get _value =>
+      super._value as BtmSheetStateCommentSelect;
 
   @override
   $Res call({
     Object position = freezed,
   }) {
-    return _then(PortalStateCommentSelect(
+    return _then(BtmSheetStateCommentSelect(
       position == freezed ? _value.position : position as Duration,
     ));
   }
 }
 
 /// @nodoc
-class _$PortalStateCommentSelect implements PortalStateCommentSelect {
-  const _$PortalStateCommentSelect(this.position) : assert(position != null);
+class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
+  const _$BtmSheetStateCommentSelect(this.position) : assert(position != null);
 
   @override
   final Duration position;
 
   @override
   String toString() {
-    return 'PortalState.commentSelect(position: $position)';
+    return 'BtmSheetState.commentSelect(position: $position)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is PortalStateCommentSelect &&
+        (other is BtmSheetStateCommentSelect &&
             (identical(other.position, position) ||
                 const DeepCollectionEquality()
                     .equals(other.position, position)));
@@ -5383,9 +5548,10 @@ class _$PortalStateCommentSelect implements PortalStateCommentSelect {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(position);
 
   @override
-  $PortalStateCommentSelectCopyWith<PortalStateCommentSelect> get copyWith =>
-      _$PortalStateCommentSelectCopyWithImpl<PortalStateCommentSelect>(
-          this, _$identity);
+  $BtmSheetStateCommentSelectCopyWith<BtmSheetStateCommentSelect>
+      get copyWith =>
+          _$BtmSheetStateCommentSelectCopyWithImpl<BtmSheetStateCommentSelect>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5393,11 +5559,13 @@ class _$PortalStateCommentSelect implements PortalStateCommentSelect {
     @required TResult none(),
     @required TResult playSpeed(),
     @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(share != null);
     assert(commentSelect != null);
     return commentSelect(position);
   }
@@ -5408,6 +5576,7 @@ class _$PortalStateCommentSelect implements PortalStateCommentSelect {
     TResult none(),
     TResult playSpeed(),
     TResult resolution(),
+    TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     @required TResult orElse(),
   }) {
@@ -5421,14 +5590,16 @@ class _$PortalStateCommentSelect implements PortalStateCommentSelect {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult none(_PortalStateNone value),
-    @required TResult playSpeed(_PortalStatePlaySpeed value),
-    @required TResult resolution(_PortalStateResolution value),
-    @required TResult commentSelect(PortalStateCommentSelect value),
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
+    assert(share != null);
     assert(commentSelect != null);
     return commentSelect(this);
   }
@@ -5436,10 +5607,11 @@ class _$PortalStateCommentSelect implements PortalStateCommentSelect {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult none(_PortalStateNone value),
-    TResult playSpeed(_PortalStatePlaySpeed value),
-    TResult resolution(_PortalStateResolution value),
-    TResult commentSelect(PortalStateCommentSelect value),
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5450,12 +5622,12 @@ class _$PortalStateCommentSelect implements PortalStateCommentSelect {
   }
 }
 
-abstract class PortalStateCommentSelect implements PortalState {
-  const factory PortalStateCommentSelect(Duration position) =
-      _$PortalStateCommentSelect;
+abstract class BtmSheetStateCommentSelect implements BtmSheetState {
+  const factory BtmSheetStateCommentSelect(Duration position) =
+      _$BtmSheetStateCommentSelect;
 
   Duration get position;
-  $PortalStateCommentSelectCopyWith<PortalStateCommentSelect> get copyWith;
+  $BtmSheetStateCommentSelectCopyWith<BtmSheetStateCommentSelect> get copyWith;
 }
 
 /// @nodoc

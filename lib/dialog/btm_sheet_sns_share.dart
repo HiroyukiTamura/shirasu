@@ -8,24 +8,31 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'btm_sheet_sns_share.g.dart';
 
 const double _LIST_TILE_HEIGHT = 56;
 const double _PAD_V = 16;
 
+typedef SnackCallback = void Function(SnackMsg msg);
+
 /// todo deep link for this app
 @swidget
 Widget btmSheetSnsShare({
-  @required String urlTwitter,
-  @required String urlFaceBook,
-  @required String url,
+  @required ShareUrl shareUrl,
+  @required SnackCallback snackCallback,
 }) {
-  assert(url != null);
+  assert(shareUrl.url != null);
   final children = [
-    if (urlTwitter != null) _TileTwitter(urlTwitter: urlTwitter),
-    if (urlFaceBook != null) _TileFacebook(urlFaceBook: urlFaceBook),
-    _TileUrl(url: url),
+    if (shareUrl.urlTwitter != null)
+      _TileTwitter(urlTwitter: shareUrl.urlTwitter),
+    if (shareUrl.urlFaceBook != null)
+      _TileFacebook(urlFaceBook: shareUrl.urlFaceBook),
+    _TileUrl(
+      url: shareUrl.url,
+      snackCallback: snackCallback,
+    )
   ];
   return SizedBox(
     height: _LIST_TILE_HEIGHT * children.length + _PAD_V * 2,
@@ -70,12 +77,12 @@ Widget _tileTwitter(
   @required String urlTwitter,
 }) =>
     _ListTile(
-        onTap: () async {
-          await Util.launchUrl(context, urlTwitter);
-          Navigator.of(context).pop();
-        },
-        title: Strings.SHARE_TWITTER,
-        icon: FontAwesomeIcons.twitter,
+      onTap: () async {
+        Navigator.of(context).pop();
+        await Util.launchUrl(context, urlTwitter);
+      },
+      title: Strings.SHARE_TWITTER,
+      icon: FontAwesomeIcons.twitter,
     );
 
 @swidget
@@ -85,8 +92,8 @@ Widget _tileFacebook(
 }) =>
     _ListTile(
       onTap: () async {
-        await Util.launchUrl(context, urlFaceBook);
         Navigator.of(context).pop();
+        await Util.launchUrl(context, urlFaceBook);
       },
       title: Strings.SHARE_FACEBOOK,
       icon: FontAwesomeIcons.facebook,
@@ -96,6 +103,7 @@ Widget _tileFacebook(
 Widget _tileUrl(
   BuildContext context, {
   @required String url,
+  @required SnackCallback snackCallback,
 }) =>
     _ListTile(
       onTap: () async {
@@ -107,8 +115,8 @@ Widget _tileUrl(
           err = true;
         }
         Navigator.of(context).pop();
-        final msg = err ? SnackMsg.UNKNOWN : SnackMsg.URL_COPIED;
-        context.read(snackBarMsgProvider).notifyMsg(msg, false);
+        final msg = err ? const SnackMsg.unknown() : const SnackMsg.urlCopied();
+        snackCallback(msg);
       },
       title: Strings.COPY_URL,
       icon: Icons.copy,

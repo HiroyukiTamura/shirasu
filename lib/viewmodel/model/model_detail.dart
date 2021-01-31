@@ -19,7 +19,7 @@ abstract class ModelDetail implements _$ModelDetail {
     @required PlayOutState playOutState,
     @required bool isHandoutUrlRequesting,
     @required CommentsHolder commentHolder,
-    @required PortalState portalState,
+    @required BtmSheetState btmSheetState,
   }) = _ModelDetail;
 
   const ModelDetail._();
@@ -29,7 +29,7 @@ abstract class ModelDetail implements _$ModelDetail {
         playOutState: PlayOutState.initial(),
         isHandoutUrlRequesting: false,
         commentHolder: CommentsHolder.initial(playFromStart),
-        portalState: const PortalState.none(),
+        btmSheetState: const BtmSheetState.none(),
       );
 
   ModelDetail copyAsInitialize(String urlAvailable, VideoType videoType) =>
@@ -220,9 +220,10 @@ abstract class CommentsHolder implements _$CommentsHolder {
       );
 
   // ignore: deprecated_member_use_from_same_package
-  List<CommentItem> _commentSorted(bool includeUserPosted) => (comments + userPostedComment)
-      .sortedByDescending((it) => it.commentTimeDuration)
-      .toUnmodifiable();
+  List<CommentItem> _commentSorted(bool includeUserPosted) =>
+      (comments + userPostedComment)
+          .sortedByDescending((it) => it.commentTimeDuration)
+          .toUnmodifiable();
 
   Duration get mostPastCommentTime =>
       _commentSorted(true).lastOrNull?.commentTimeDuration;
@@ -230,13 +231,15 @@ abstract class CommentsHolder implements _$CommentsHolder {
   Duration get mostFutureCommentTime =>
       _commentSorted(true).firstOrNull?.commentTimeDuration;
 
-  List<CommentItem> getCommentItemsBefore(Duration duration) => _commentSorted(true)
-      .filter((it) => it.commentTimeDuration < duration)
-      .toUnmodifiable();
+  List<CommentItem> getCommentItemsBefore(Duration duration) =>
+      _commentSorted(true)
+          .filter((it) => it.commentTimeDuration < duration)
+          .toUnmodifiable();
 
-  List<CommentItem> getCommentItemsAfter(Duration duration) => _commentSorted(true)
-      .filter((it) => duration < it.commentTimeDuration)
-      .toUnmodifiable();
+  List<CommentItem> getCommentItemsAfter(Duration duration) =>
+      _commentSorted(true)
+          .filter((it) => duration < it.commentTimeDuration)
+          .toUnmodifiable();
 
   CommentsHolder copyAsAddSingleCommentHolder(
     Comments newComments,
@@ -268,8 +271,8 @@ abstract class CommentsHolder implements _$CommentsHolder {
   }
 
   CommentsHolder copyAsAddUserComment(CommentItem item) => copyWith(
-    userPostedComment: userPostedComment + [item],
-  );
+        userPostedComment: userPostedComment + [item],
+      );
 
   List<CommentItem> _regenerateCommentList(
     Comments newComments,
@@ -282,9 +285,8 @@ abstract class CommentsHolder implements _$CommentsHolder {
     if (rawLen != distincted)
       debugPrint('----------- $rawLen -------------- $distincted ------------');
 
-    Iterable<CommentItem> itr = raw
-        .distinct()
-        .sortedByDescending((it) => it.commentTimeDuration);
+    Iterable<CommentItem> itr =
+        raw.distinct().sortedByDescending((it) => it.commentTimeDuration);
     if (ViewModelDetail.COMMENT_MAX_ITEM_COUNT < itr.length)
       switch (loadingState) {
         case LoadingState.FUTURE: //todo freezed
@@ -313,15 +315,17 @@ abstract class CommentsState with _$CommentsState {
 }
 
 @freezed
-abstract class PortalState with _$PortalState {
-  const factory PortalState.none() = _PortalStateNone;
+abstract class BtmSheetState with _$BtmSheetState {
+  const factory BtmSheetState.none() = _BtmSheetStateNone;
 
-  const factory PortalState.playSpeed() = _PortalStatePlaySpeed;
+  const factory BtmSheetState.playSpeed() = _BtmSheetStatePlaySpeed;
 
-  const factory PortalState.resolution() = _PortalStateResolution;
+  const factory BtmSheetState.resolution() = _BtmSheetStateResolution;
 
-  const factory PortalState.commentSelect(Duration position) =
-      PortalStateCommentSelect;
+  const factory BtmSheetState.share(ShareUrl shareUrl) = _BtmSheetStateShare;
+
+  const factory BtmSheetState.commentSelect(Duration position) =
+      BtmSheetStateCommentSelect;
 }
 
 @freezed
@@ -330,6 +334,18 @@ abstract class FollowTimeLineMode with _$FollowTimeLineMode {
       FollowTimeLineModeNone;
 
   const factory FollowTimeLineMode.follow() = _FollowTimeLineModeFollow;
+}
+
+class ShareUrl {
+  const ShareUrl({
+    @required this.urlTwitter,
+    @required this.urlFaceBook,
+    @required this.url,
+  });
+
+  final String urlTwitter;
+  final String urlFaceBook;
+  final String url;
 }
 
 enum LoadingState { FUTURE, PAST }

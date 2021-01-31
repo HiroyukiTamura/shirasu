@@ -23,9 +23,8 @@ Widget snackEventListener({
       onChange: (context, data) {
         if (data.snackMsg == null) return;
 
-        final text = Util.convert2SnackText(data.snackMsg);
         final snackBar = SnackBar(
-          content: Text(text),
+          content: Text(data.snackMsg.value),
           margin: data.margin,
           behavior: SnackBarBehavior.floating,
         );

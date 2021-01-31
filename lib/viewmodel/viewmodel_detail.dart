@@ -134,7 +134,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (!mounted) return null;
 
     if (url == null)
-      _commandSnackBar(SnackMsg.UNKNOWN);
+      commandSnackBar(const SnackMsg.unknown());
     else
       state = state.copyWith(isHandoutUrlRequesting: false);
 
@@ -256,7 +256,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       );
     } catch (e) {
       print(e);
-      _commandSnackBar(SnackMsg.UNKNOWN);
+      commandSnackBar(const SnackMsg.unknown());
     }
 
     if (mounted && posted != null && !state.commentHolder.isRenewing)
@@ -470,13 +470,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith.playOutState(isBuffering: isBuffering);
   }
 
-  void commandModal(PortalState portalState) =>
-      state = state.copyWith(portalState: portalState);
+  void commandModal(BtmSheetState btmSheetState) =>
+      state = state.copyWith(btmSheetState: btmSheetState);
 
   void clearModal() =>
-      state = state.copyWith(portalState: const PortalState.none());
+      state = state.copyWith(btmSheetState: const BtmSheetState.none());
 
-  void _commandSnackBar(SnackMsg snackMsg) {
+  void commandSnackBar(SnackMsg snackMsg) {
     final prgDataResult = state.prgDataResult;
     final isCommentAppBarShown = prgDataResult is StateSuccess &&
         prgDataResult.page == const PageSheetModel.comment() &&

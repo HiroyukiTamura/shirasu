@@ -4,15 +4,17 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/btm_sheet/common.dart';
 import 'package:shirasu/di/hive_client.dart';
+import 'package:shirasu/dialog/btm_sheet_sns_share.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'btm_sheet.g.dart';
 
-final _kPrvBtmSheetEvent = Provider.family.autoDispose<PortalState, String>(
-    (ref, id) => ref.watch(detailSNProvider(id).state).portalState);
+final _kPrvBtmSheetEvent = Provider.family.autoDispose<BtmSheetState, String>(
+    (ref, id) => ref.watch(detailSNProvider(id).state).btmSheetState);
 
 class BtmSheetEventListener extends StatelessWidget {
   const BtmSheetEventListener({
@@ -25,13 +27,13 @@ class BtmSheetEventListener extends StatelessWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context) => ProviderListener<PortalState>(
+  Widget build(BuildContext context) => ProviderListener<BtmSheetState>(
         provider: _kPrvBtmSheetEvent(id),
         onChange: _onChangeBtmSheet,
         child: child,
       );
 
-  void _onChangeBtmSheet(BuildContext context, PortalState portalState) {
+  void _onChangeBtmSheet(BuildContext context, BtmSheetState portalState) {
     portalState.when(
       none: () {
         // do nothing
@@ -46,6 +48,14 @@ class BtmSheetEventListener extends StatelessWidget {
         (context) => BtmSheetCommentSelected(
           position: position,
           id: id,
+        ),
+      ),
+      share: (shareUrl) async => _showBtmSheet(
+        context,
+        (context) => BtmSheetSnsShare(
+          shareUrl: shareUrl,
+          snackCallback: (snackMsg) =>
+              context.read(detailSNProvider(id)).commandSnackBar(snackMsg),
         ),
       ),
     );

@@ -22,6 +22,13 @@ class RowFabs extends StatelessWidget {
   static const double _PADDING_V = 36;
   final ProgramDetail program;
 
+  ShareUrl get shareUrl => ShareUrl(
+        url: UrlUtil.programId2Url(program.id),
+        urlTwitter:
+            UrlUtil.programId2TwitterUrl(program.title, program.id).toString(),
+        urlFaceBook: UrlUtil.programId2FaceBookUrl(program.id).toString(),
+      );
+
   /// todo implement
   @override
   Widget build(BuildContext context) => basePadding(
@@ -53,16 +60,9 @@ class RowFabs extends StatelessWidget {
         ),
       );
 
-  Future<void> _onClickShareBtn(BuildContext context) async =>
-      showModalBottomSheet<void>(
-        context: context.read(pDetailScaffold).key?.currentContext,
-        builder: (context) => BtmSheetSnsShare(
-          url: UrlUtil.programId2Url(program.id),
-          urlTwitter: UrlUtil.programId2TwitterUrl(program.title, program.id)
-              .toString(),
-          urlFaceBook: UrlUtil.programId2FaceBookUrl(program.id).toString(),
-        ),
-      );
+  void _onClickShareBtn(BuildContext context) => context
+      .read(detailSNProvider(program.id))
+      .commandModal(BtmSheetState.share(shareUrl));
 
   Future<void> _onClickCommentPBtn(BuildContext context) async => context
       .read(detailSNProvider(program.id))

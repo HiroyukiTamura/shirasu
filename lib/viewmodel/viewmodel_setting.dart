@@ -105,7 +105,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     } catch (e) {
       print(e);
-      _msgNotifier.notifyMsg(SnackMsg.UNKNOWN, false);
+      _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
     }
 
     if (mounted)

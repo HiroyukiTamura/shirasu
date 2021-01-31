@@ -1,9 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:uuid/uuid.dart';
 
-//todo debug
+part 'message_notifier.freezed.dart';
+
 class SnackBarMessageNotifier extends StateNotifier<SnackMsgEvent> {
   SnackBarMessageNotifier() : super(null);
 
@@ -21,6 +24,22 @@ class SnackMsgEvent {
   final String _eventKey = Uuid().v4(); // ignore: unused_field
 }
 
-enum SnackMsg {
-  UNKNOWN, NO_MORE_ITEM, CANT_OPEN_URL, URL_COPIED,
+@freezed
+abstract class SnackMsg with _$SnackMsg {
+  const factory SnackMsg.unknown() = _SnackMsgUnknownErr;
+
+  const factory SnackMsg.noMoreItem() = _SnackMsgNoMoreItem;
+
+  const factory SnackMsg.cantOpenUrl() = _SnackMsgCantOpenurl;
+
+  const factory SnackMsg.urlCopied() = _SnackMsgUrlCopied;
+
+  const SnackMsg._();
+
+  String get value => when(
+        unknown: () => Strings.SNACK_ERR,
+        noMoreItem: () => Strings.SNACK_NO_MORE_ITEM,
+        cantOpenUrl: () => Strings.SNACK_CANT_OPEN_URL,
+        urlCopied: () => Strings.SNACK_URL_COPIED,
+      );
 }

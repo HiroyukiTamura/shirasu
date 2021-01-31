@@ -10,24 +10,18 @@ part of 'btm_sheet_sns_share.dart';
 class BtmSheetSnsShare extends StatelessWidget {
   /// todo deep link for this app
   const BtmSheetSnsShare(
-      {Key key,
-      @required this.urlTwitter,
-      @required this.urlFaceBook,
-      @required this.url})
+      {Key key, @required this.shareUrl, @required this.snackCallback})
       : super(key: key);
 
   /// todo deep link for this app
-  final String urlTwitter;
+  final ShareUrl shareUrl;
 
   /// todo deep link for this app
-  final String urlFaceBook;
-
-  /// todo deep link for this app
-  final String url;
+  final void Function(SnackMsg) snackCallback;
 
   @override
-  Widget build(BuildContext _context) => btmSheetSnsShare(
-      urlTwitter: urlTwitter, urlFaceBook: urlFaceBook, url: url);
+  Widget build(BuildContext _context) =>
+      btmSheetSnsShare(shareUrl: shareUrl, snackCallback: snackCallback);
 }
 
 class _TileTwitter extends StatelessWidget {
@@ -51,10 +45,14 @@ class _TileFacebook extends StatelessWidget {
 }
 
 class _TileUrl extends StatelessWidget {
-  const _TileUrl({Key key, @required this.url}) : super(key: key);
+  const _TileUrl({Key key, @required this.url, @required this.snackCallback})
+      : super(key: key);
 
   final String url;
 
+  final void Function(SnackMsg) snackCallback;
+
   @override
-  Widget build(BuildContext _context) => _tileUrl(_context, url: url);
+  Widget build(BuildContext _context) =>
+      _tileUrl(_context, url: url, snackCallback: snackCallback);
 }

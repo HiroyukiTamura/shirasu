@@ -120,7 +120,7 @@ class CommentListView extends HookWidget {
   }
 
   void _onTap(BuildContext context, CommentItem item) {
-    final command = PortalState.commentSelect(item.commentTimeDuration);
+    final command = BtmSheetState.commentSelect(item.commentTimeDuration);
     context.read(detailSNProvider(id)).commandModal(command);
   }
 }

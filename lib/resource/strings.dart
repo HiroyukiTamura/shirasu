@@ -47,6 +47,7 @@ class Strings {
 
   static const String SNACK_ERR = '処理に失敗しました';
   static const String SNACK_CANT_OPEN_URL = 'Webページを開けません';
+  static const String SNACK_URL_COPIED = 'urlをコピーしました';
 
   //endregion
 

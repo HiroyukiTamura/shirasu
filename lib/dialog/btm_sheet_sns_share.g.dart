@@ -25,23 +25,31 @@ class BtmSheetSnsShare extends StatelessWidget {
 }
 
 class _TileTwitter extends StatelessWidget {
-  const _TileTwitter({Key key, @required this.urlTwitter}) : super(key: key);
+  const _TileTwitter(
+      {Key key, @required this.urlTwitter, @required this.onUrlInvalid})
+      : super(key: key);
 
   final String urlTwitter;
 
+  final void Function() onUrlInvalid;
+
   @override
-  Widget build(BuildContext _context) =>
-      _tileTwitter(_context, urlTwitter: urlTwitter);
+  Widget build(BuildContext _context) => _tileTwitter(_context,
+      urlTwitter: urlTwitter, onUrlInvalid: onUrlInvalid);
 }
 
 class _TileFacebook extends StatelessWidget {
-  const _TileFacebook({Key key, @required this.urlFaceBook}) : super(key: key);
+  const _TileFacebook(
+      {Key key, @required this.urlFaceBook, @required this.onUrlInvalid})
+      : super(key: key);
 
   final String urlFaceBook;
 
+  final void Function() onUrlInvalid;
+
   @override
-  Widget build(BuildContext _context) =>
-      _tileFacebook(_context, urlFaceBook: urlFaceBook);
+  Widget build(BuildContext _context) => _tileFacebook(_context,
+      urlFaceBook: urlFaceBook, onUrlInvalid: onUrlInvalid);
 }
 
 class _TileUrl extends StatelessWidget {

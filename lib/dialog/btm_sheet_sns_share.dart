@@ -26,9 +26,15 @@ Widget btmSheetSnsShare({
   assert(shareUrl.url != null);
   final children = [
     if (shareUrl.urlTwitter != null)
-      _TileTwitter(urlTwitter: shareUrl.urlTwitter),
+      _TileTwitter(
+        urlTwitter: shareUrl.urlTwitter,
+        onUrlInvalid: () => snackCallback(const SnackMsg.cantOpenUrl()),
+      ),
     if (shareUrl.urlFaceBook != null)
-      _TileFacebook(urlFaceBook: shareUrl.urlFaceBook),
+      _TileFacebook(
+        urlFaceBook: shareUrl.urlFaceBook,
+        onUrlInvalid: () => snackCallback(const SnackMsg.cantOpenUrl()),
+      ),
     _TileUrl(
       url: shareUrl.url,
       snackCallback: snackCallback,
@@ -75,11 +81,12 @@ class _ListTile extends StatelessWidget {
 Widget _tileTwitter(
   BuildContext context, {
   @required String urlTwitter,
+  @required VoidCallback onUrlInvalid,
 }) =>
     _ListTile(
       onTap: () async {
         Navigator.of(context).pop();
-        await Util.launchUrl(context, urlTwitter);
+        await Util.launchUrl(context, urlTwitter, onUrlInvalid);
       },
       title: Strings.SHARE_TWITTER,
       icon: FontAwesomeIcons.twitter,
@@ -89,11 +96,12 @@ Widget _tileTwitter(
 Widget _tileFacebook(
   BuildContext context, {
   @required String urlFaceBook,
+  @required VoidCallback onUrlInvalid,
 }) =>
     _ListTile(
       onTap: () async {
         Navigator.of(context).pop();
-        await Util.launchUrl(context, urlFaceBook);
+        await Util.launchUrl(context, urlFaceBook, onUrlInvalid);
       },
       title: Strings.SHARE_FACEBOOK,
       icon: FontAwesomeIcons.facebook,

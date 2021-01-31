@@ -48,7 +48,9 @@ Widget pageAppConfig(BuildContext context) => ListView(
         _ListItem(
           icon: FontAwesomeIcons.github,
           title: Strings.ITEM_TITLE_GITHUB,
-          onTap: () async => Util.launchUrl(context, UrlUtil.URL_GITHUB),
+          onTap: () async => Util.launchUrl(context, UrlUtil.URL_GITHUB, () {
+            throw UnimplementedError();//todo
+          }),
         )
       ],
     );

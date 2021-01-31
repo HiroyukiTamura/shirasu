@@ -59,8 +59,14 @@ class _ListTileRobot extends StatelessWidget {
   }
 
   Future<void> _onTapRoboto(BuildContext context) async =>
-      Util.launchUrl(context, UrlUtil.URL_IMG_LICENSE_ROBOTO);
+      Util.launchUrl(context, UrlUtil.URL_IMG_LICENSE_ROBOTO, () {
+        //todo
+        throw UnimplementedError();
+      });
 
   Future<void> _onTapIconsMind(BuildContext context) async =>
-      Util.launchUrl(context, UrlUtil.URL_IMG_LICENSE_ICONS_MIND);
+      Util.launchUrl(context, UrlUtil.URL_IMG_LICENSE_ICONS_MIND, () {
+        //todo
+        throw UnimplementedError();
+      });
 }

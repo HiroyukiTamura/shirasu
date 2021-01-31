@@ -27,9 +27,9 @@ class Util {
     return Tuple2(t, s);
   }
 
-  static Future<void> launchUrl(BuildContext context, String url) async {
+  static Future<void> launchUrl(BuildContext context, String url, VoidCallback onUrlInvalid) async {
     if (!await canLaunch(url)) {
-      context.read(snackBarMsgProvider).notifyMsg(const SnackMsg.cantOpenUrl(), false);
+      onUrlInvalid();
       return;
     }
 

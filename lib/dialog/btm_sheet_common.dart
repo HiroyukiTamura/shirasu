@@ -72,7 +72,10 @@ class BtmSheetCommon extends StatelessWidget {
     );
 
     if (result == true)
-      await Util.launchUrl(context, url);
+      await Util.launchUrl(context, url, () {
+        //todo
+        throw UnimplementedError();
+      });
     Navigator.pop(context);
   }
 }

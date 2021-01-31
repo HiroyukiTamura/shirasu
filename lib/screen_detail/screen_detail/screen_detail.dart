@@ -90,7 +90,6 @@ class ScreenDetail extends StatefulHookWidget {
 
 class _ScreenDetailState extends State<ScreenDetail>
     with WidgetsBindingObserver {
-
   @override
   void initState() {
     super.initState();
@@ -325,7 +324,10 @@ class _PlayerBody extends HookWidget {
                   case 4:
                     return RowFabs(program: data.program);
                   case 5:
-                    return RowVideoDesc(text: data.program.detail);
+                    return RowVideoDesc(
+                      text: data.program.detail,
+                      id: data.program.id,
+                    );
                   default:
                     return const SizedBox.shrink();
                 }

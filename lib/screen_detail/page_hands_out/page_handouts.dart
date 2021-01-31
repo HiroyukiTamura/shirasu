@@ -15,6 +15,7 @@ import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 
 part 'page_handouts.g.dart';
 
@@ -22,13 +23,14 @@ part 'page_handouts.g.dart';
 Widget pageHandouts({
   @required OnClearClicked onClearClicked,
   @required ProgramDetail program,
-}) => DraggableSheet(
-    heading: Strings.HEADER_HANDOUTS,
-    onClearClicked: onClearClicked,
-    child: _ScreenHandsOutInner(
-      program: program,
-    ),
-  );
+}) =>
+    DraggableSheet(
+      heading: Strings.HEADER_HANDOUTS,
+      onClearClicked: onClearClicked,
+      child: _ScreenHandsOutInner(
+        program: program,
+      ),
+    );
 
 class _ScreenHandsOutInner extends HookWidget {
   _ScreenHandsOutInner({
@@ -40,8 +42,9 @@ class _ScreenHandsOutInner extends HookWidget {
   final ProgramDetail program;
 
   @override
-  Widget build(BuildContext context) => useProvider(
-          detailSNProvider(program.id).state.select((it) => it.isHandoutUrlRequesting))
+  Widget build(BuildContext context) => useProvider(detailSNProvider(program.id)
+          .state
+          .select((it) => it.isHandoutUrlRequesting))
       ? const CenterCircleProgress()
       : ListView.builder(
           itemCount: program.handouts.items.length,
@@ -51,7 +54,8 @@ class _ScreenHandsOutInner extends HookWidget {
                 DateFormat('yyyy.MM.dd HH:mm').format(handout.createdAt);
             // todo ripple effect is not shown
             final isExtensionOnly = handout.extensionId != null;
-            final enabled = program.isAllExtensionAvailable && isExtensionOnly;//todo is it correct logic?
+            final enabled = program.isAllExtensionAvailable &&
+                isExtensionOnly; //todo is it correct logic?
             return ListTile(
               enabled: enabled,
               leading: AspectRatio(
@@ -99,7 +103,15 @@ class _ScreenHandsOutInner extends HookWidget {
           });
 
   Future<void> _onTapItem(BuildContext context, String handoutId) async {
-    final url = await context.read(detailSNProvider(program.id)).queryHandOutUrl(handoutId);
-    if (url != null) Util.launchUrl(context, url);
+    final url = await context
+        .read(detailSNProvider(program.id))
+        .queryHandOutUrl(handoutId);
+    if (url != null)
+      Util.launchUrl(
+          context,
+          url,
+          () => context
+              .read(detailSNProvider(program.id))
+              .commandSnackBar(const SnackMsg.unknown()));
   }
 }

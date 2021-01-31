@@ -40,7 +40,7 @@ class RowFabs extends StatelessWidget {
             // const _Fab(icon: Icons.comment),
             _Fab(
               icon: Icons.comment,
-              onPressed: () => _onClickCommentPBtn(context),
+              onPressed: () => _onClickCommentBtn(context),
             ),
             _Fab(
               icon: Icons.credit_card,
@@ -64,7 +64,7 @@ class RowFabs extends StatelessWidget {
       .read(detailSNProvider(program.id))
       .commandModal(BtmSheetState.share(shareUrl));
 
-  Future<void> _onClickCommentPBtn(BuildContext context) async => context
+  Future<void> _onClickCommentBtn(BuildContext context) async => context
       .read(detailSNProvider(program.id))
       .togglePage(const PageSheetModel.comment());
 

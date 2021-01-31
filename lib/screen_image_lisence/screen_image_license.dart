@@ -12,12 +12,12 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 
 part 'screen_image_license.g.dart';
 
-final _kPrvDetailSnackBarMsgNotifier =
+final _kPrvSnackBarMsgNotifier =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
         (ref) => SnackBarMessageNotifier());
 
-final _kPrvDetailSnackMsg = Provider.autoDispose<SnackData>((ref) {
-  final state = ref.watch(_kPrvDetailSnackBarMsgNotifier.state);
+final _kPrvSnackMsg = Provider.autoDispose<SnackData>((ref) {
+  final state = ref.watch(_kPrvSnackBarMsgNotifier.state);
   return SnackData(
     state.snackMsg,
     Dimens.SNACK_BAR_DEFAULT_MARGIN,
@@ -31,7 +31,7 @@ Widget screenImageLicense() => SafeArea(
           title: const Text(Strings.ITEM_TITLE_IMAGE_LICENCE),
         ),
         body: SnackEventListener(
-          provider: _kPrvDetailSnackMsg,
+          provider: _kPrvSnackMsg,
           child: ListView(
             children: const [
               _ListTileRobot(),
@@ -86,7 +86,7 @@ class _ListTileRobot extends StatelessWidget {
               context,
               url,
               () => context
-                  .read(_kPrvDetailSnackBarMsgNotifier)
+                  .read(_kPrvSnackBarMsgNotifier)
                   .notifyMsg(const SnackMsg.unknown(), false),
             ),
     );

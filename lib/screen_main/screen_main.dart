@@ -3,16 +3,28 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 
 part 'screen_main.g.dart';
 
-final screenMainScaffoldProvider =
-    Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
+final kPrvMainSnackBarMsgNotifier =
+StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
+        (ref) => SnackBarMessageNotifier());
+
+final _kPrvMainSnackMsg = Provider.autoDispose<SnackData>((ref) {
+  final state = ref.watch(kPrvMainSnackBarMsgNotifier.state);
+  return SnackData(
+    state.snackMsg,
+    Dimens.SNACK_BAR_DEFAULT_MARGIN,
+  );
+});
 
 final _pRouterDelegate =
     Provider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref));
@@ -35,12 +47,6 @@ class ScreenMain extends StatefulHookWidget {
 class _ScreenMainState extends State<ScreenMain> {
   ChildBackButtonDispatcher _backButtonDispatcher;
 
-  @override
-  void initState() {
-    super.initState();
-    context.read(screenMainScaffoldProvider).key = GlobalKey<ScaffoldState>();
-  }
-
   // @override
   // void dispose() {
   //   // context.read(screenMainScaffoldProvider).key = null;
@@ -62,12 +68,13 @@ class _ScreenMainState extends State<ScreenMain> {
     _backButtonDispatcher.takePriority();
 
     return SafeArea(
-      // nest Scaffold because of it displays BottomSheet above BottomNavigationBar
       child: Scaffold(
-        key: useProvider(screenMainScaffoldProvider).key,
-        body: Router(
-          routerDelegate: useProvider(_pRouterDelegate),
-          backButtonDispatcher: _backButtonDispatcher,
+        body: SnackEventListener(
+          provider: _kPrvMainSnackMsg,
+          child: Router(
+            routerDelegate: useProvider(_pRouterDelegate),
+            backButtonDispatcher: _backButtonDispatcher,
+          ),
         ),
         floatingActionButton: const _Fab(),
         bottomNavigationBar: const _MainBottomNavigationBar(),

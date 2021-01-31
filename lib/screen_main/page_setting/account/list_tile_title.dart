@@ -5,6 +5,9 @@ import 'package:shirasu/dialog/btm_sheet_common.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/account/list_tile_seem.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ListTileTitle extends StatelessWidget {
   const ListTileTitle({
@@ -56,7 +59,10 @@ class ListTileTitle extends StatelessWidget {
     );
 
     return isCreditCard
-        ? InkWell(onTap: () async => _onTapCreditCard(context), child: content)
+        ? InkWell(
+            onTap: () async => _onTapCreditCard(context),
+            child: content,
+          )
         : content;
   }
 
@@ -65,5 +71,7 @@ class ListTileTitle extends StatelessWidget {
         context: context,
         url: UrlUtil.URL_ACCOUNT,
         child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
+        snackCallback: (msg) =>
+            context.read(kPrvMainSnackBarMsgNotifier).notifyMsg(msg, false),
       );
 }

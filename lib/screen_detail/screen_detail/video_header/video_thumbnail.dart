@@ -6,6 +6,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/di/url_util.dart';
 import 'package:shirasu/dialog/btm_sheet_common.dart';
+import 'package:shirasu/dialog/video_payment_btm_sheet.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -13,6 +14,7 @@ import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/play_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'video_thumbnail.g.dart';
@@ -70,50 +72,14 @@ class VideoThumbnail extends HookWidget {
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
     final result = context.read(detailSNProvider(programId).state).prgDataResult
         as StateSuccess;
-    final program = result.programDetailData.program;
-    final subscriptionPlan = result.channelData.channel.subscriptionPlan;
     await BtmSheetCommon.showUrlLauncherBtmSheet(
-        context: context,
-        url: UrlUtil.programId2Url(programId),
-        child: Column(
-          //todo extract
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              Strings.BTM_SHEET_MSG_PAYMENT_PREFIX,
-              style: TextStyle(height: 1.3),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...program.onetimePlans.map(
-                    (it) => Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        '・ ${it.amountWithTax}${it.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_ONE_TIME}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    '・ ${subscriptionPlan.amountWithTax}${subscriptionPlan.currencyAsSuffix}${Strings.SUFFIX_PURCHASE_SUBSCRIBE_CHANNEL}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Text(
-              Strings.BTM_SHEET_MSG_PAYMENT,
-              style: TextStyle(height: 1.3),
-            ),
-          ],
-        ));
+      context: context,
+      url: UrlUtil.programId2Url(programId),
+      child: VideoPaymentBtmSheet(result: result),
+      snackCallback: (SnackMsg msg) => context
+          .read(detailSNProvider(programId))
+          .commandSnackBar(const SnackMsg.unknown()),
+    );
   }
 }
 
@@ -125,7 +91,6 @@ Widget _hoverWidget(
   @required VoidCallback onTapPreviewBtn,
   @required OnTap onClickPurchaseBtn,
 }) {
-
   final isWaiting = DateTime.now().isBefore(program.broadcastAt);
   final isPurchasable = program.onetimePlanMain != null;
   final isPurchased =

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shirasu/dialog/btm_sheet_sns_share.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 
 class BtmSheetCommon extends StatelessWidget {
   const BtmSheetCommon({
@@ -59,23 +61,17 @@ class BtmSheetCommon extends StatelessWidget {
     @required String url,
     String positiveBtnString = Strings.OPEN_WEB,
     @required Widget child,
+    @required SnackCallback snackCallback,
   }) async {
     final result = await showModalBottomSheet<bool>(
-      context: context
-          .read(screenMainScaffoldProvider)
-          .key
-          ?.currentContext, //show BottomSheet over BottomNavigationBar
       builder: (context) => BtmSheetCommon(
         positiveBtnString: Strings.OPEN_WEB,
         child: child,
       ),
+      context: context,
     );
-
     if (result == true)
-      await Util.launchUrl(context, url, () {
-        //todo
-        throw UnimplementedError();
-      });
+      await Util.launchUrl(context, url, () => snackCallback(const SnackMsg.unknown()));
     Navigator.pop(context);
   }
 }

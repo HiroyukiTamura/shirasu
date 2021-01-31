@@ -20,6 +20,7 @@ import 'package:shirasu/screen_detail/screen_detail/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/extension.dart';
@@ -181,5 +182,8 @@ class _Content extends HookWidget {
         context: context,
         url: UrlUtil.channelId2Url(channelData.channel.id),
         child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
+        snackCallback: (SnackMsg msg) {
+          //todo implement
+        },
       );
 }

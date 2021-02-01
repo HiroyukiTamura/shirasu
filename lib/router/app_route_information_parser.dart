@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 

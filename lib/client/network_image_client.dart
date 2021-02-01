@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/client/url_util.dart';
 
 class NetworkImageClient{
 

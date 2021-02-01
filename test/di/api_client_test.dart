@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
-import 'package:shirasu/di/api_client.dart';
+import 'package:shirasu/client/api_client.dart';
 
 void main() {
 

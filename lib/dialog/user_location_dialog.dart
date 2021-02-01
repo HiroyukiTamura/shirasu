@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/di/local_json_client.dart';
+import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_user_location_dialog.dart';
 import 'package:shirasu/extension.dart';

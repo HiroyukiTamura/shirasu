@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';

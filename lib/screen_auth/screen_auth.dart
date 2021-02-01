@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/di/local_json_client.dart';
+import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/model/local/country_data.dart';
 import 'package:shirasu/model/local/prefecture_data.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';

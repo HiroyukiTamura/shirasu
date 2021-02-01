@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart';
-import 'package:shirasu/di/graghql_query.dart';
-import 'package:shirasu/di/hive_client.dart';
-import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/client/graghql_query.dart';
+import 'package:shirasu/client/hive_client.dart';
+import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart'
     show ProgramDetailData;

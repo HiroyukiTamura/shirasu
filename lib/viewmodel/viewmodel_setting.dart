@@ -1,7 +1,7 @@
 import 'package:async/async.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/di/local_json_client.dart';
+import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart'

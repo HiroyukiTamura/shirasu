@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:riverpod/src/framework.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/di/network_image_client.dart';
+import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/network_image_client.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';

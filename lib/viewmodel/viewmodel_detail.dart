@@ -1,10 +1,10 @@
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/di/dio_client.dart';
-import 'package:shirasu/di/hive_client.dart';
-import 'package:shirasu/di/url_util.dart';
+import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/dio_client.dart';
+import 'package:shirasu/client/hive_client.dart';
+import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';

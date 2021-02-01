@@ -1,14 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/extension.dart';
 
 part 'auth_data.g.dart';
 
+/// todo freezed
 /// todo reindex [HiveField]
 /// hive model for [AuthData]
 @HiveType(typeId: 0)
 class HiveAuthData extends HiveObject {
   /// don't use default constrictor manually
+  @protected
   HiveAuthData({
     @required this.body,
     @required this.expiresAt,
@@ -29,6 +32,7 @@ class HiveAuthData extends HiveObject {
 @HiveType(typeId: 1)
 class HiveBody extends HiveObject {
   /// don't use default constrictor manually
+  @protected
   HiveBody({
     @required this.clientId,
     @required this.accessToken,
@@ -77,6 +81,7 @@ class HiveBody extends HiveObject {
 @HiveType(typeId: 2)
 class HiveDecodedToken extends HiveObject {
   /// don't use default constrictor manually
+  @protected
   HiveDecodedToken({
     @required this.encoded,
     @required this.header,
@@ -84,8 +89,7 @@ class HiveDecodedToken extends HiveObject {
     @required this.user,
   });
 
-  factory HiveDecodedToken.parse(DecodedToken decodedToken) =>
-      HiveDecodedToken(
+  factory HiveDecodedToken.parse(DecodedToken decodedToken) => HiveDecodedToken(
         encoded: HiveEncoded.parse(decodedToken.encoded),
         header: HiveHeader.parse(decodedToken.header),
         claims: HiveClaims.parse(decodedToken.claims),
@@ -106,13 +110,14 @@ class HiveDecodedToken extends HiveObject {
 @HiveType(typeId: 3)
 class HiveClaims extends HiveObject {
   /// don't use default constrictor manually
+  @protected
   HiveClaims({
     @required this.raw,
-    @required this.httpsShirasuIoRoles,
+    @required this.rawHttpsShirasuIoRoles,
     @required this.httpsShirasuIoUserAttribute,
     @required this.httpsShirasuIoCustomerId,
-    @required this.httpsShirasuIoDistributeds,
-    @required this.httpsShirasuIoTenants,
+    @required this.rawHttpsShirasuIoDistributeds,
+    @required this.rawHttpsShirasuIoTenants,
     // @required this.givenName,
     // @required this.familyName,
     @required this.nickname,
@@ -132,12 +137,12 @@ class HiveClaims extends HiveObject {
 
   factory HiveClaims.parse(Claims claims) => HiveClaims(
         raw: claims.raw,
-        httpsShirasuIoRoles: claims.httpsShirasuIoRoles,
+        rawHttpsShirasuIoRoles: claims.httpsShirasuIoRoles,
         httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
             claims.httpsShirasuIoUserAttribute),
         httpsShirasuIoCustomerId: claims.httpsShirasuIoCustomerId,
-        httpsShirasuIoDistributeds: claims.httpsShirasuIoDistributeds,
-        httpsShirasuIoTenants: claims.httpsShirasuIoTenants,
+        rawHttpsShirasuIoDistributeds: claims.httpsShirasuIoDistributeds,
+        rawHttpsShirasuIoTenants: claims.httpsShirasuIoTenants,
         // givenName: claims.givenName,
         // familyName: claims.familyName,
         nickname: claims.nickname,
@@ -158,15 +163,19 @@ class HiveClaims extends HiveObject {
   @HiveField(15)
   String raw;
   @HiveField(16)
-  List<String> httpsShirasuIoRoles;
+  @protected
+  List<String> rawHttpsShirasuIoRoles;
   @HiveField(17)
   HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
   @HiveField(18)
   String httpsShirasuIoCustomerId;
   @HiveField(19)
-  List<dynamic> httpsShirasuIoDistributeds;
+  @protected
+  List<dynamic> rawHttpsShirasuIoDistributeds;
   @HiveField(20)
-  List<dynamic> httpsShirasuIoTenants;
+  @protected
+  List<dynamic> rawHttpsShirasuIoTenants;
+
   // @HiveField(21)
   // String givenName;
   // @HiveField(22)
@@ -177,6 +186,7 @@ class HiveClaims extends HiveObject {
   String name;
   @HiveField(25)
   String picture;
+
   // @HiveField(26)
   // String locale;
   @HiveField(27)
@@ -195,14 +205,25 @@ class HiveClaims extends HiveObject {
   int iat;
   @HiveField(34)
   int exp;
+
   // @HiveField(35)
   // String nonce;
+
+  UnmodifiableListView<String> get httpsShirasuIoRoles =>
+      rawHttpsShirasuIoRoles.toUnmodifiable();
+
+  UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds =>
+      rawHttpsShirasuIoDistributeds.toUnmodifiable();
+
+  UnmodifiableListView<dynamic> get httpsShirasuIoTenants =>
+      rawHttpsShirasuIoTenants.toUnmodifiable();
 }
 
 /// hive model for [HttpsShirasuIoUserAttribute]
 @HiveType(typeId: 4)
 class HiveHttpsShirasuIoUserAttribute extends HiveObject {
   /// don't use default constrictor manually
+  @protected
   HiveHttpsShirasuIoUserAttribute({
     @required this.birthDate,
     @required this.job,
@@ -249,6 +270,7 @@ class HiveHttpsShirasuIoUserAttribute extends HiveObject {
 @HiveType(typeId: 5)
 class HiveEncoded extends HiveObject {
   /// don't use default constrictor manually
+  @protected
   HiveEncoded({
     @required this.header,
     @required this.payload,
@@ -273,6 +295,7 @@ class HiveEncoded extends HiveObject {
 @HiveType(typeId: 6)
 class HiveHeader extends HiveObject {
   /// don't use default constrictor manually
+  @protected
   HiveHeader({
     @required this.alg,
     @required this.typ,
@@ -296,13 +319,14 @@ class HiveHeader extends HiveObject {
 /// hive model for [User]
 @HiveType(typeId: 7)
 class HiveUser extends HiveObject {
-  /// don't use default constrictor manually
+
+  @protected
   HiveUser({
-    @required this.httpsShirasuIoRoles,
+    @required this.rawHttpsShirasuIoRoles,
     @required this.httpsShirasuIoUserAttribute,
     @required this.httpsShirasuIoCustomerId,
-    @required this.httpsShirasuIoDistributeds,
-    @required this.httpsShirasuIoTenants,
+    @required this.rawHttpsShirasuIoDistributeds,
+    @required this.rawHttpsShirasuIoTenants,
     // @required this.givenName,
     // @required this.familyName,
     @required this.nickname,
@@ -316,31 +340,35 @@ class HiveUser extends HiveObject {
   });
 
   factory HiveUser.parse(User user) => HiveUser(
-      httpsShirasuIoRoles: user.httpsShirasuIoRoles,
-      httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
-          user.httpsShirasuIoUserAttribute),
-      httpsShirasuIoCustomerId: user.httpsShirasuIoCustomerId,
-      httpsShirasuIoDistributeds: user.httpsShirasuIoDistributeds,
-      httpsShirasuIoTenants: user.httpsShirasuIoTenants,
-      nickname: user.nickname,
-      name: user.name,
-      picture: user.picture,
-      updatedAt: user.updatedAt,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      sub: user.sub,
-    );
+        rawHttpsShirasuIoRoles: user.httpsShirasuIoRoles,
+        httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
+            user.httpsShirasuIoUserAttribute),
+        httpsShirasuIoCustomerId: user.httpsShirasuIoCustomerId,
+        rawHttpsShirasuIoDistributeds: user.httpsShirasuIoDistributeds,
+        rawHttpsShirasuIoTenants: user.httpsShirasuIoTenants,
+        nickname: user.nickname,
+        name: user.name,
+        picture: user.picture,
+        updatedAt: user.updatedAt,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        sub: user.sub,
+      );
 
   @HiveField(49)
-  List<String> httpsShirasuIoRoles;
+  @protected
+  List<String> rawHttpsShirasuIoRoles;
   @HiveField(50)
   HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
   @HiveField(51)
   String httpsShirasuIoCustomerId;
+  @protected
   @HiveField(52)
-  List<dynamic> httpsShirasuIoDistributeds;
+  List<dynamic> rawHttpsShirasuIoDistributeds;
+  @protected
   @HiveField(53)
-  List<dynamic> httpsShirasuIoTenants;
+  List<dynamic> rawHttpsShirasuIoTenants;
+
   // @HiveField(54)
   // String givenName;
   // @HiveField(55)
@@ -351,6 +379,7 @@ class HiveUser extends HiveObject {
   String name;
   @HiveField(58)
   String picture;
+
   // @HiveField(59)
   // String locale;
   @HiveField(60)
@@ -361,4 +390,14 @@ class HiveUser extends HiveObject {
   bool emailVerified;
   @HiveField(63)
   String sub;
+
+  //todo duplicate
+  UnmodifiableListView<String> get httpsShirasuIoRoles =>
+      rawHttpsShirasuIoRoles.toUnmodifiable();
+
+  UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds =>
+      rawHttpsShirasuIoDistributeds.toUnmodifiable();
+
+  UnmodifiableListView<dynamic> get httpsShirasuIoTenants =>
+      rawHttpsShirasuIoTenants.toUnmodifiable();
 }

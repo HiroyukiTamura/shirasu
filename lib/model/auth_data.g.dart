@@ -77,7 +77,7 @@ Map<String, dynamic> _$_$_DecodedTokenToJson(_$_DecodedToken instance) =>
 _$_Claims _$_$_ClaimsFromJson(Map<String, dynamic> json) {
   return _$_Claims(
     raw: json['__raw'] as String,
-    httpsShirasuIoRoles: (json['https://shirasu.io/roles'] as List)
+    rawHttpsShirasuIoRoles: (json['https://shirasu.io/roles'] as List)
         ?.map((e) => e as String)
         ?.toList(),
     httpsShirasuIoUserAttribute: json['https://shirasu.io/userAttribute'] ==
@@ -86,8 +86,9 @@ _$_Claims _$_$_ClaimsFromJson(Map<String, dynamic> json) {
         : HttpsShirasuIoUserAttribute.fromJson(
             json['https://shirasu.io/userAttribute'] as Map<String, dynamic>),
     httpsShirasuIoCustomerId: json['https://shirasu.io/customerId'] as String,
-    httpsShirasuIoDistributeds: json['https://shirasu.io/distributeds'] as List,
-    httpsShirasuIoTenants: json['https://shirasu.io/tenants'] as List,
+    rawHttpsShirasuIoDistributeds:
+        json['https://shirasu.io/distributeds'] as List,
+    rawHttpsShirasuIoTenants: json['https://shirasu.io/tenants'] as List,
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
@@ -106,11 +107,11 @@ _$_Claims _$_$_ClaimsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_ClaimsToJson(_$_Claims instance) => <String, dynamic>{
       '__raw': instance.raw,
-      'https://shirasu.io/roles': instance.httpsShirasuIoRoles,
+      'https://shirasu.io/roles': instance.rawHttpsShirasuIoRoles,
       'https://shirasu.io/userAttribute': instance.httpsShirasuIoUserAttribute,
       'https://shirasu.io/customerId': instance.httpsShirasuIoCustomerId,
-      'https://shirasu.io/distributeds': instance.httpsShirasuIoDistributeds,
-      'https://shirasu.io/tenants': instance.httpsShirasuIoTenants,
+      'https://shirasu.io/distributeds': instance.rawHttpsShirasuIoDistributeds,
+      'https://shirasu.io/tenants': instance.rawHttpsShirasuIoTenants,
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,
@@ -184,7 +185,7 @@ Map<String, dynamic> _$_$_HeaderToJson(_$_Header instance) => <String, dynamic>{
 
 _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
   return _$_User(
-    httpsShirasuIoRoles: (json['https://shirasu.io/roles'] as List)
+    rawHttpsShirasuIoRoles: (json['https://shirasu.io/roles'] as List)
         ?.map((e) => e as String)
         ?.toList(),
     httpsShirasuIoUserAttribute: json['https://shirasu.io/userAttribute'] ==
@@ -193,8 +194,9 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
         : HttpsShirasuIoUserAttribute.fromJson(
             json['https://shirasu.io/userAttribute'] as Map<String, dynamic>),
     httpsShirasuIoCustomerId: json['https://shirasu.io/customerId'] as String,
-    httpsShirasuIoDistributeds: json['https://shirasu.io/distributeds'] as List,
-    httpsShirasuIoTenants: json['https://shirasu.io/tenants'] as List,
+    rawHttpsShirasuIoDistributeds:
+        json['https://shirasu.io/distributeds'] as List,
+    rawHttpsShirasuIoTenants: json['https://shirasu.io/tenants'] as List,
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
@@ -208,11 +210,11 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
-      'https://shirasu.io/roles': instance.httpsShirasuIoRoles,
+      'https://shirasu.io/roles': instance.rawHttpsShirasuIoRoles,
       'https://shirasu.io/userAttribute': instance.httpsShirasuIoUserAttribute,
       'https://shirasu.io/customerId': instance.httpsShirasuIoCustomerId,
-      'https://shirasu.io/distributeds': instance.httpsShirasuIoDistributeds,
-      'https://shirasu.io/tenants': instance.httpsShirasuIoTenants,
+      'https://shirasu.io/distributeds': instance.rawHttpsShirasuIoDistributeds,
+      'https://shirasu.io/tenants': instance.rawHttpsShirasuIoTenants,
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,

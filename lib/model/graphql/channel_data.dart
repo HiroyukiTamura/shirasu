@@ -45,7 +45,7 @@ abstract class Announcements
     implements BaseModelChannelAnnouncementConnection {
   @Assert('typename == "ModelChannelAnnouncementConnection"')
   const factory Announcements({
-    @required @JsonKey(name: 'items') List<AnnouncementsItem> rawItems,
+    @required @JsonKey(name: 'items') @protected List<AnnouncementsItem> rawItems,
     String nextToken,
     @required @JsonKey(name: '__typename') String typename,
   }) = _Announcements;
@@ -118,7 +118,8 @@ abstract class ProgramsItem
     @required String title,
     @required DateTime broadcastAt,
     @required int totalPlayTime,
-    @Deprecated("don't use!") String viewerPlanType,
+    //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
+    @Deprecated("do not use!") String viewerPlanType,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramsItem;
 

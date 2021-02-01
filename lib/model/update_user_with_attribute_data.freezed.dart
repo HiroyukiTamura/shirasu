@@ -189,14 +189,9 @@ class _$UserWithAttributeTearOff {
 
 // ignore: unused_element
   _UserWithAttribute call(
-      {@required
-          User user,
-      @required
-          UserAttribute attr,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserWithAttribute"')
-          String typename}) {
+      {@required User user,
+      @required UserAttribute attr,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _UserWithAttribute(
       user: user,
       attr: attr,
@@ -219,7 +214,6 @@ mixin _$UserWithAttribute {
   User get user;
   UserAttribute get attr;
   @JsonKey(name: '__typename')
-  @Assert('typename == "UserWithAttribute"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -234,9 +228,7 @@ abstract class $UserWithAttributeCopyWith<$Res> {
   $Res call(
       {User user,
       UserAttribute attr,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserWithAttribute"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   $UserCopyWith<$Res> get user;
   $UserAttributeCopyWith<$Res> get attr;
@@ -295,9 +287,7 @@ abstract class _$UserWithAttributeCopyWith<$Res>
   $Res call(
       {User user,
       UserAttribute attr,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserWithAttribute"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -335,17 +325,13 @@ class __$UserWithAttributeCopyWithImpl<$Res>
 /// @nodoc
 class _$_UserWithAttribute implements _UserWithAttribute {
   const _$_UserWithAttribute(
-      {@required
-          this.user,
-      @required
-          this.attr,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserWithAttribute"')
-          this.typename})
+      {@required this.user,
+      @required this.attr,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(user != null),
         assert(attr != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "UserWithAttribute");
 
   factory _$_UserWithAttribute.fromJson(Map<String, dynamic> json) =>
       _$_$_UserWithAttributeFromJson(json);
@@ -356,7 +342,6 @@ class _$_UserWithAttribute implements _UserWithAttribute {
   final UserAttribute attr;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "UserWithAttribute"')
   final String typename;
 
   @override
@@ -396,14 +381,10 @@ class _$_UserWithAttribute implements _UserWithAttribute {
 
 abstract class _UserWithAttribute implements UserWithAttribute {
   const factory _UserWithAttribute(
-      {@required
-          User user,
-      @required
-          UserAttribute attr,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserWithAttribute"')
-          String typename}) = _$_UserWithAttribute;
+          {@required User user,
+          @required UserAttribute attr,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_UserWithAttribute;
 
   factory _UserWithAttribute.fromJson(Map<String, dynamic> json) =
       _$_UserWithAttribute.fromJson;
@@ -414,7 +395,6 @@ abstract class _UserWithAttribute implements UserWithAttribute {
   UserAttribute get attr;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "UserWithAttribute"')
   String get typename;
   @override
   _$UserWithAttributeCopyWith<_UserWithAttribute> get copyWith;
@@ -430,26 +410,15 @@ class _$UserAttributeTearOff {
 
 // ignore: unused_element
   _UserAttribute call(
-      {@required
-          String id,
-      @required
-          String email,
-      @required
-          DateTime birthDate,
-      @required
-          String job,
-      @required
-          String country,
-      @required
-          int prefecture,
-      @required
-          DateTime createdAt,
-      @required
-          DateTime updatedAt,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserAttribute"')
-          String typename}) {
+      {@required String id,
+      @required String email,
+      @required DateTime birthDate,
+      @required String job,
+      @required String country,
+      @required int prefecture,
+      @required DateTime createdAt,
+      @required DateTime updatedAt,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _UserAttribute(
       id: id,
       email: email,
@@ -484,7 +453,6 @@ mixin _$UserAttribute {
   DateTime get createdAt;
   DateTime get updatedAt;
   @JsonKey(name: '__typename')
-  @Assert('typename == "UserAttribute"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -505,9 +473,7 @@ abstract class $UserAttributeCopyWith<$Res> {
       int prefecture,
       DateTime createdAt,
       DateTime updatedAt,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserAttribute"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -564,9 +530,7 @@ abstract class _$UserAttributeCopyWith<$Res>
       int prefecture,
       DateTime createdAt,
       DateTime updatedAt,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserAttribute"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -614,26 +578,15 @@ class __$UserAttributeCopyWithImpl<$Res>
 /// @nodoc
 class _$_UserAttribute implements _UserAttribute {
   const _$_UserAttribute(
-      {@required
-          this.id,
-      @required
-          this.email,
-      @required
-          this.birthDate,
-      @required
-          this.job,
-      @required
-          this.country,
-      @required
-          this.prefecture,
-      @required
-          this.createdAt,
-      @required
-          this.updatedAt,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserAttribute"')
-          this.typename})
+      {@required this.id,
+      @required this.email,
+      @required this.birthDate,
+      @required this.job,
+      @required this.country,
+      @required this.prefecture,
+      @required this.createdAt,
+      @required this.updatedAt,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(email != null),
         assert(birthDate != null),
@@ -642,7 +595,8 @@ class _$_UserAttribute implements _UserAttribute {
         assert(prefecture != null),
         assert(createdAt != null),
         assert(updatedAt != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "UserAttribute");
 
   factory _$_UserAttribute.fromJson(Map<String, dynamic> json) =>
       _$_$_UserAttributeFromJson(json);
@@ -665,7 +619,6 @@ class _$_UserAttribute implements _UserAttribute {
   final DateTime updatedAt;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "UserAttribute"')
   final String typename;
 
   @override
@@ -728,26 +681,16 @@ class _$_UserAttribute implements _UserAttribute {
 
 abstract class _UserAttribute implements UserAttribute {
   const factory _UserAttribute(
-      {@required
-          String id,
-      @required
-          String email,
-      @required
-          DateTime birthDate,
-      @required
-          String job,
-      @required
-          String country,
-      @required
-          int prefecture,
-      @required
-          DateTime createdAt,
-      @required
-          DateTime updatedAt,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "UserAttribute"')
-          String typename}) = _$_UserAttribute;
+          {@required String id,
+          @required String email,
+          @required DateTime birthDate,
+          @required String job,
+          @required String country,
+          @required int prefecture,
+          @required DateTime createdAt,
+          @required DateTime updatedAt,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_UserAttribute;
 
   factory _UserAttribute.fromJson(Map<String, dynamic> json) =
       _$_UserAttribute.fromJson;
@@ -770,7 +713,6 @@ abstract class _UserAttribute implements UserAttribute {
   DateTime get updatedAt;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "UserAttribute"')
   String get typename;
   @override
   _$UserAttributeCopyWith<_UserAttribute> get copyWith;
@@ -786,28 +728,20 @@ class _$UserTearOff {
 
 // ignore: unused_element
   _User call(
-      {@required
-          String id,
-      @required
-          String name,
+      {@required String id,
+      @required String name,
       String icon,
-      @required
-          DateTime createdAt,
-      @required
-          DateTime updatedAt,
-      @required
-          List<String> roles,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename}) {
+      @required DateTime createdAt,
+      @required DateTime updatedAt,
+      @required @JsonKey(name: 'roles') @protected List<String> rawRoles,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _User(
       id: id,
       name: name,
       icon: icon,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      roles: roles,
+      rawRoles: rawRoles,
       typename: typename,
     );
   }
@@ -829,11 +763,12 @@ mixin _$User {
   String get icon;
   DateTime get createdAt;
   DateTime get updatedAt;
-  List<String> get roles; // @required Comments tenants, not implemented yet
+  @JsonKey(name: 'roles')
+  @protected
+  List<String> get rawRoles; // @required Comments tenants, not implemented yet
 // @required Comments comments, not implemented yet
 // @required Comments reviews, not implemented yet
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -850,10 +785,8 @@ abstract class $UserCopyWith<$Res> {
       String icon,
       DateTime createdAt,
       DateTime updatedAt,
-      List<String> roles,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename});
+      @JsonKey(name: 'roles') @protected List<String> rawRoles,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -871,7 +804,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object icon = freezed,
     Object createdAt = freezed,
     Object updatedAt = freezed,
-    Object roles = freezed,
+    Object rawRoles = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
@@ -882,7 +815,8 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           createdAt == freezed ? _value.createdAt : createdAt as DateTime,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
-      roles: roles == freezed ? _value.roles : roles as List<String>,
+      rawRoles:
+          rawRoles == freezed ? _value.rawRoles : rawRoles as List<String>,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -899,10 +833,8 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String icon,
       DateTime createdAt,
       DateTime updatedAt,
-      List<String> roles,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename});
+      @JsonKey(name: 'roles') @protected List<String> rawRoles,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -921,7 +853,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object icon = freezed,
     Object createdAt = freezed,
     Object updatedAt = freezed,
-    Object roles = freezed,
+    Object rawRoles = freezed,
     Object typename = freezed,
   }) {
     return _then(_User(
@@ -932,7 +864,8 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           createdAt == freezed ? _value.createdAt : createdAt as DateTime,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
-      roles: roles == freezed ? _value.roles : roles as List<String>,
+      rawRoles:
+          rawRoles == freezed ? _value.rawRoles : rawRoles as List<String>,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -941,29 +874,23 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_User implements _User {
+class _$_User extends _User {
   const _$_User(
-      {@required
-          this.id,
-      @required
-          this.name,
+      {@required this.id,
+      @required this.name,
       this.icon,
-      @required
-          this.createdAt,
-      @required
-          this.updatedAt,
-      @required
-          this.roles,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          this.typename})
+      @required this.createdAt,
+      @required this.updatedAt,
+      @required @JsonKey(name: 'roles') @protected this.rawRoles,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(name != null),
         assert(createdAt != null),
         assert(updatedAt != null),
-        assert(roles != null),
-        assert(typename != null);
+        assert(rawRoles != null),
+        assert(typename != null),
+        assert(typename == "User"),
+        super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -979,17 +906,18 @@ class _$_User implements _User {
   @override
   final DateTime updatedAt;
   @override
-  final List<String> roles;
+  @JsonKey(name: 'roles')
+  @protected
+  final List<String> rawRoles;
   @override // @required Comments tenants, not implemented yet
 // @required Comments comments, not implemented yet
 // @required Comments reviews, not implemented yet
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   final String typename;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, icon: $icon, createdAt: $createdAt, updatedAt: $updatedAt, roles: $roles, typename: $typename)';
+    return 'User(id: $id, name: $name, icon: $icon, createdAt: $createdAt, updatedAt: $updatedAt, rawRoles: $rawRoles, typename: $typename)';
   }
 
   @override
@@ -1008,8 +936,9 @@ class _$_User implements _User {
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
                     .equals(other.updatedAt, updatedAt)) &&
-            (identical(other.roles, roles) ||
-                const DeepCollectionEquality().equals(other.roles, roles)) &&
+            (identical(other.rawRoles, rawRoles) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawRoles, rawRoles)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -1023,7 +952,7 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
-      const DeepCollectionEquality().hash(roles) ^
+      const DeepCollectionEquality().hash(rawRoles) ^
       const DeepCollectionEquality().hash(typename);
 
   @override
@@ -1036,23 +965,16 @@ class _$_User implements _User {
   }
 }
 
-abstract class _User implements User {
+abstract class _User extends User {
+  const _User._() : super._();
   const factory _User(
-      {@required
-          String id,
-      @required
-          String name,
+      {@required String id,
+      @required String name,
       String icon,
-      @required
-          DateTime createdAt,
-      @required
-          DateTime updatedAt,
-      @required
-          List<String> roles,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename}) = _$_User;
+      @required DateTime createdAt,
+      @required DateTime updatedAt,
+      @required @JsonKey(name: 'roles') @protected List<String> rawRoles,
+      @required @JsonKey(name: '__typename') String typename}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -1067,12 +989,13 @@ abstract class _User implements User {
   @override
   DateTime get updatedAt;
   @override
-  List<String> get roles;
+  @JsonKey(name: 'roles')
+  @protected
+  List<String> get rawRoles;
   @override // @required Comments tenants, not implemented yet
 // @required Comments comments, not implemented yet
 // @required Comments reviews, not implemented yet
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   String get typename;
   @override
   _$UserCopyWith<_User> get copyWith;

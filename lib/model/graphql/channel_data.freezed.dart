@@ -571,9 +571,14 @@ class _$AnnouncementsTearOff {
 
 // ignore: unused_element
   _Announcements call(
-      {@required @JsonKey(name: 'items') List<AnnouncementsItem> rawItems,
+      {@required
+      @JsonKey(name: 'items')
+      @protected
+          List<AnnouncementsItem> rawItems,
       String nextToken,
-      @required @JsonKey(name: '__typename') String typename}) {
+      @required
+      @JsonKey(name: '__typename')
+          String typename}) {
     return _Announcements(
       rawItems: rawItems,
       nextToken: nextToken,
@@ -594,6 +599,7 @@ const $Announcements = _$AnnouncementsTearOff();
 /// @nodoc
 mixin _$Announcements {
   @JsonKey(name: 'items')
+  @protected
   List<AnnouncementsItem> get rawItems;
   String get nextToken;
   @JsonKey(name: '__typename')
@@ -609,7 +615,7 @@ abstract class $AnnouncementsCopyWith<$Res> {
           Announcements value, $Res Function(Announcements) then) =
       _$AnnouncementsCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'items') List<AnnouncementsItem> rawItems,
+      {@JsonKey(name: 'items') @protected List<AnnouncementsItem> rawItems,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -647,7 +653,7 @@ abstract class _$AnnouncementsCopyWith<$Res>
       __$AnnouncementsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'items') List<AnnouncementsItem> rawItems,
+      {@JsonKey(name: 'items') @protected List<AnnouncementsItem> rawItems,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -684,7 +690,7 @@ class __$AnnouncementsCopyWithImpl<$Res>
 /// @nodoc
 class _$_Announcements extends _Announcements {
   const _$_Announcements(
-      {@required @JsonKey(name: 'items') this.rawItems,
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
       this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(rawItems != null),
@@ -697,6 +703,7 @@ class _$_Announcements extends _Announcements {
 
   @override
   @JsonKey(name: 'items')
+  @protected
   final List<AnnouncementsItem> rawItems;
   @override
   final String nextToken;
@@ -744,16 +751,21 @@ class _$_Announcements extends _Announcements {
 abstract class _Announcements extends Announcements {
   const _Announcements._() : super._();
   const factory _Announcements(
-          {@required @JsonKey(name: 'items') List<AnnouncementsItem> rawItems,
-          String nextToken,
-          @required @JsonKey(name: '__typename') String typename}) =
-      _$_Announcements;
+      {@required
+      @JsonKey(name: 'items')
+      @protected
+          List<AnnouncementsItem> rawItems,
+      String nextToken,
+      @required
+      @JsonKey(name: '__typename')
+          String typename}) = _$_Announcements;
 
   factory _Announcements.fromJson(Map<String, dynamic> json) =
       _$_Announcements.fromJson;
 
   @override
   @JsonKey(name: 'items')
+  @protected
   List<AnnouncementsItem> get rawItems;
   @override
   String get nextToken;
@@ -1296,7 +1308,7 @@ class _$ProgramsItemTearOff {
       @required String title,
       @required DateTime broadcastAt,
       @required int totalPlayTime,
-      @Deprecated("don't use!") String viewerPlanType,
+      @Deprecated('do not use!') String viewerPlanType,
       @required @JsonKey(name: '__typename') String typename}) {
     return _ProgramsItem(
       id: id,
@@ -1327,8 +1339,8 @@ mixin _$ProgramsItem {
   String get channelId;
   String get title;
   DateTime get broadcastAt;
-  int get totalPlayTime;
-  @Deprecated("don't use!")
+  int get totalPlayTime; //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
+  @Deprecated('do not use!')
   String get viewerPlanType;
   @JsonKey(name: '__typename')
   String get typename;
@@ -1349,7 +1361,7 @@ abstract class $ProgramsItemCopyWith<$Res> {
       String title,
       DateTime broadcastAt,
       int totalPlayTime,
-      @Deprecated("don't use!") String viewerPlanType,
+      @Deprecated('do not use!') String viewerPlanType,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1404,7 +1416,7 @@ abstract class _$ProgramsItemCopyWith<$Res>
       String title,
       DateTime broadcastAt,
       int totalPlayTime,
-      @Deprecated("don't use!") String viewerPlanType,
+      @Deprecated('do not use!') String viewerPlanType,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1458,7 +1470,7 @@ class _$_ProgramsItem implements _ProgramsItem {
       @required this.title,
       @required this.broadcastAt,
       @required this.totalPlayTime,
-      @Deprecated("don't use!") this.viewerPlanType,
+      @Deprecated('do not use!') this.viewerPlanType,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(tenantId != null),
@@ -1484,8 +1496,8 @@ class _$_ProgramsItem implements _ProgramsItem {
   final DateTime broadcastAt;
   @override
   final int totalPlayTime;
-  @override
-  @Deprecated("don't use!")
+  @override //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
+  @Deprecated('do not use!')
   final String viewerPlanType;
   @override
   @JsonKey(name: '__typename')
@@ -1554,7 +1566,7 @@ abstract class _ProgramsItem implements ProgramsItem {
           @required String title,
           @required DateTime broadcastAt,
           @required int totalPlayTime,
-          @Deprecated("don't use!") String viewerPlanType,
+          @Deprecated('do not use!') String viewerPlanType,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_ProgramsItem;
 
@@ -1573,8 +1585,8 @@ abstract class _ProgramsItem implements ProgramsItem {
   DateTime get broadcastAt;
   @override
   int get totalPlayTime;
-  @override
-  @Deprecated("don't use!")
+  @override //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
+  @Deprecated('do not use!')
   String get viewerPlanType;
   @override
   @JsonKey(name: '__typename')

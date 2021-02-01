@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/extension.dart';
 
 part 'auth_data.freezed.dart';
 part 'auth_data.g.dart';
@@ -49,11 +50,11 @@ abstract class DecodedToken with _$DecodedToken {
 abstract class Claims with _$Claims {
   const factory Claims({
     @JsonKey(name: '__raw') @required String raw,
-    @JsonKey(name: 'https://shirasu.io/roles') @required List<String> httpsShirasuIoRoles,
+    @JsonKey(name: 'https://shirasu.io/roles') @required @protected List<String> rawHttpsShirasuIoRoles,
     @JsonKey(name: 'https://shirasu.io/userAttribute') @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
     @JsonKey(name: 'https://shirasu.io/customerId') @required String httpsShirasuIoCustomerId,
-    @JsonKey(name: 'https://shirasu.io/distributeds') @required List<dynamic> httpsShirasuIoDistributeds,
-    @JsonKey(name: 'https://shirasu.io/tenants') @required List<dynamic> httpsShirasuIoTenants,
+    @JsonKey(name: 'https://shirasu.io/distributeds') @required @protected List<dynamic> rawHttpsShirasuIoDistributeds,
+    @JsonKey(name: 'https://shirasu.io/tenants') @required @protected List<dynamic> rawHttpsShirasuIoTenants,
     // @JsonKey(name: 'given_name') @required String givenName,
     // @JsonKey(name: 'family_name') @required String familyName,
     @required String nickname,
@@ -73,6 +74,14 @@ abstract class Claims with _$Claims {
 
   factory Claims.fromJson(Map<String, dynamic> json) =>
       _$ClaimsFromJson(json);
+
+  const Claims._();
+
+  UnmodifiableListView<String> get httpsShirasuIoRoles => rawHttpsShirasuIoRoles.toUnmodifiable();
+
+  UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds => rawHttpsShirasuIoDistributeds.toUnmodifiable();
+
+  UnmodifiableListView<dynamic> get httpsShirasuIoTenants => rawHttpsShirasuIoTenants.toUnmodifiable();
 }
 
 @freezed
@@ -80,7 +89,7 @@ abstract class HttpsShirasuIoUserAttribute implements _$HttpsShirasuIoUserAttrib
   const factory HttpsShirasuIoUserAttribute({
     @required DateTime birthDate,
     @required String job,
-    @required @JsonKey(name: 'country') String countryNonFixedCase,
+    @required @JsonKey(name: 'country') @protected String countryNonFixedCase,
     @required String prefecture,
     @required String familyName,
     @required String givenName,
@@ -123,11 +132,11 @@ abstract class Header with _$Header {
 @freezed
 abstract class User with _$User {
   const factory User({
-    @JsonKey(name: 'https://shirasu.io/roles') @required List<String> httpsShirasuIoRoles,
+    @JsonKey(name: 'https://shirasu.io/roles') @required @protected List<String> rawHttpsShirasuIoRoles,
     @JsonKey(name: 'https://shirasu.io/userAttribute') @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
     @JsonKey(name: 'https://shirasu.io/customerId') @required String httpsShirasuIoCustomerId,
-    @JsonKey(name: 'https://shirasu.io/distributeds') @required List<dynamic> httpsShirasuIoDistributeds,
-    @JsonKey(name: 'https://shirasu.io/tenants') @required List<dynamic> httpsShirasuIoTenants,
+    @JsonKey(name: 'https://shirasu.io/distributeds') @required @protected List<dynamic> rawHttpsShirasuIoDistributeds,
+    @JsonKey(name: 'https://shirasu.io/tenants') @required @protected List<dynamic> rawHttpsShirasuIoTenants,
     // @JsonKey(name: 'given_name') @required String givenName,
     // @JsonKey(name: 'family_name') @required String familyName,
     @required String nickname,
@@ -142,4 +151,13 @@ abstract class User with _$User {
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);
+
+  const User._();
+
+  //todo duplicate?
+  UnmodifiableListView<String> get httpsShirasuIoRoles => rawHttpsShirasuIoRoles.toUnmodifiable();
+
+  UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds => rawHttpsShirasuIoDistributeds.toUnmodifiable();
+
+  UnmodifiableListView<dynamic> get httpsShirasuIoTenants => rawHttpsShirasuIoTenants.toUnmodifiable();
 }

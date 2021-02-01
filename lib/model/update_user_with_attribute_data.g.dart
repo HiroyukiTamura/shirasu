@@ -86,7 +86,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     updatedAt: json['updatedAt'] == null
         ? null
         : DateTime.parse(json['updatedAt'] as String),
-    roles: (json['roles'] as List)?.map((e) => e as String)?.toList(),
+    rawRoles: (json['roles'] as List)?.map((e) => e as String)?.toList(),
     typename: json['__typename'] as String,
   );
 }
@@ -97,6 +97,6 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'icon': instance.icon,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
-      'roles': instance.roles,
+      'roles': instance.rawRoles,
       '__typename': instance.typename,
     };

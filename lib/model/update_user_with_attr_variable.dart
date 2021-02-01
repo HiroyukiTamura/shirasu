@@ -7,6 +7,7 @@ part 'update_user_with_attr_variable.g.dart';
 
 @freezed
 abstract class UpdateUserWithAttrVariable with _$UpdateUserWithAttrVariable {
+  @protected
   const factory UpdateUserWithAttrVariable({
     @required Input input,
   }) = _UpdateUserWithAttrVariable;

@@ -118,6 +118,7 @@ class __$UpdateUserWithAttrVariableCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+@protected
 
 /// @nodoc
 class _$_UpdateUserWithAttrVariable implements _UpdateUserWithAttrVariable {

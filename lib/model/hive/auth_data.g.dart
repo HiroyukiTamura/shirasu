@@ -156,12 +156,12 @@ class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
     };
     return HiveClaims(
       raw: fields[15] as String,
-      httpsShirasuIoRoles: (fields[16] as List)?.cast<String>(),
+      rawHttpsShirasuIoRoles: (fields[16] as List)?.cast<String>(),
       httpsShirasuIoUserAttribute:
           fields[17] as HiveHttpsShirasuIoUserAttribute,
       httpsShirasuIoCustomerId: fields[18] as String,
-      httpsShirasuIoDistributeds: (fields[19] as List)?.cast<dynamic>(),
-      httpsShirasuIoTenants: (fields[20] as List)?.cast<dynamic>(),
+      rawHttpsShirasuIoDistributeds: (fields[19] as List)?.cast<dynamic>(),
+      rawHttpsShirasuIoTenants: (fields[20] as List)?.cast<dynamic>(),
       nickname: fields[23] as String,
       name: fields[24] as String,
       picture: fields[25] as String,
@@ -183,15 +183,15 @@ class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
       ..writeByte(15)
       ..write(obj.raw)
       ..writeByte(16)
-      ..write(obj.httpsShirasuIoRoles)
+      ..write(obj.rawHttpsShirasuIoRoles)
       ..writeByte(17)
       ..write(obj.httpsShirasuIoUserAttribute)
       ..writeByte(18)
       ..write(obj.httpsShirasuIoCustomerId)
       ..writeByte(19)
-      ..write(obj.httpsShirasuIoDistributeds)
+      ..write(obj.rawHttpsShirasuIoDistributeds)
       ..writeByte(20)
-      ..write(obj.httpsShirasuIoTenants)
+      ..write(obj.rawHttpsShirasuIoTenants)
       ..writeByte(23)
       ..write(obj.nickname)
       ..writeByte(24)
@@ -374,12 +374,12 @@ class HiveUserAdapter extends TypeAdapter<HiveUser> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return HiveUser(
-      httpsShirasuIoRoles: (fields[49] as List)?.cast<String>(),
+      rawHttpsShirasuIoRoles: (fields[49] as List)?.cast<String>(),
       httpsShirasuIoUserAttribute:
           fields[50] as HiveHttpsShirasuIoUserAttribute,
       httpsShirasuIoCustomerId: fields[51] as String,
-      httpsShirasuIoDistributeds: (fields[52] as List)?.cast<dynamic>(),
-      httpsShirasuIoTenants: (fields[53] as List)?.cast<dynamic>(),
+      rawHttpsShirasuIoDistributeds: (fields[52] as List)?.cast<dynamic>(),
+      rawHttpsShirasuIoTenants: (fields[53] as List)?.cast<dynamic>(),
       nickname: fields[56] as String,
       name: fields[57] as String,
       picture: fields[58] as String,
@@ -395,15 +395,15 @@ class HiveUserAdapter extends TypeAdapter<HiveUser> {
     writer
       ..writeByte(12)
       ..writeByte(49)
-      ..write(obj.httpsShirasuIoRoles)
+      ..write(obj.rawHttpsShirasuIoRoles)
       ..writeByte(50)
       ..write(obj.httpsShirasuIoUserAttribute)
       ..writeByte(51)
       ..write(obj.httpsShirasuIoCustomerId)
       ..writeByte(52)
-      ..write(obj.httpsShirasuIoDistributeds)
+      ..write(obj.rawHttpsShirasuIoDistributeds)
       ..writeByte(53)
-      ..write(obj.httpsShirasuIoTenants)
+      ..write(obj.rawHttpsShirasuIoTenants)
       ..writeByte(56)
       ..write(obj.nickname)
       ..writeByte(57)

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
+import 'package:shirasu/extension.dart';
 
 part 'update_user_with_attribute_data.freezed.dart';
 
@@ -18,12 +19,12 @@ abstract class UserWithAttributeData with _$UserWithAttributeData {
 @freezed
 abstract class UserWithAttribute with _$UserWithAttribute implements BaseUserWithAttribute {
 
+  @Assert('typename == "UserWithAttribute"')
   const factory UserWithAttribute({
     @required User user,
     @required UserAttribute attr,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "UserWithAttribute"')
         String typename,
   }) = _UserWithAttribute;
 
@@ -34,6 +35,7 @@ abstract class UserWithAttribute with _$UserWithAttribute implements BaseUserWit
 @freezed
 abstract class UserAttribute with _$UserAttribute implements BaseUserAttribute {
 
+  @Assert('typename == "UserAttribute"')
   const factory UserAttribute({
     @required String id,
     @required String email,
@@ -45,7 +47,6 @@ abstract class UserAttribute with _$UserAttribute implements BaseUserAttribute {
     @required DateTime updatedAt,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "UserAttribute"')
         String typename,
   }) = _UserAttribute;
 
@@ -56,22 +57,26 @@ abstract class UserAttribute with _$UserAttribute implements BaseUserAttribute {
 @freezed
 abstract class User with _$User implements BaseUser {
 
+  @Assert('typename == "User"')
   const factory User({
     @required String id,
     @required String name,
     String icon,
     @required DateTime createdAt,
     @required DateTime updatedAt,
-    @required List<String> roles,
+    @required @JsonKey(name: 'roles') @protected List<String> rawRoles,
     // @required Comments tenants, not implemented yet
     // @required Comments comments, not implemented yet
     // @required Comments reviews, not implemented yet
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "User"')
         String typename,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);
+
+  const User._();
+
+  UnmodifiableListView<String> get roles => rawRoles.toUnmodifiable();
 }

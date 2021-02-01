@@ -35,7 +35,7 @@ abstract class NewPrograms with _$NewPrograms implements BaseSearchableProgramCo
   const NewPrograms._();
 
   @override
-  List<NewProgramItem> get items => rawItems.toUnmodifiable();
+  UnmodifiableListView<NewProgramItem> get items => rawItems.toUnmodifiable();
 }
 
 @freezed

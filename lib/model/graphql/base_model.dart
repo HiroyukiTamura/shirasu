@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 
@@ -101,7 +103,7 @@ abstract class BaseUser extends _GraphQlModel {}
 
 @immutable
 abstract class BaseSearchableProgramConnection extends _GraphQlModel {
-  List get items;
+  UnmodifiableListView get items;
 }
 
 @immutable

@@ -30,7 +30,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
           _apiClient.queryNewProgramsList);
       final data = ApiData(
         featureProgramData: apiResult.item1,
-        newProgramsDataList: [apiResult.item2],
+        rawNewProgramsDataList: [apiResult.item2],
       );
       newModel = state.copyAsSuccess(data);
     } catch (e) {

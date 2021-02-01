@@ -13,7 +13,8 @@ part 'dashboard_model.freezed.dart';
 abstract class ApiData implements _$ApiData {
   const factory ApiData({
     @required FeatureProgramData featureProgramData,
-    @required List<NewProgramsData> newProgramsDataList,
+    @protected
+    @required List<NewProgramsData> rawNewProgramsDataList,
   }) = _ApiData;
 
   const ApiData._();
@@ -22,6 +23,8 @@ abstract class ApiData implements _$ApiData {
       .map((it) => it.newPrograms.items)
       .expand((it) => it)
       .toUnmodifiable();
+
+  UnmodifiableListView<NewProgramsData> get newProgramsDataList => rawNewProgramsDataList.toUnmodifiable();
 }
 
 @freezed

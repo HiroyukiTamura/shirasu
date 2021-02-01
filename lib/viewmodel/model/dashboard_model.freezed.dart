@@ -16,10 +16,10 @@ class _$ApiDataTearOff {
 // ignore: unused_element
   _ApiData call(
       {@required FeatureProgramData featureProgramData,
-      @required List<NewProgramsData> newProgramsDataList}) {
+      @required @protected List<NewProgramsData> rawNewProgramsDataList}) {
     return _ApiData(
       featureProgramData: featureProgramData,
-      newProgramsDataList: newProgramsDataList,
+      rawNewProgramsDataList: rawNewProgramsDataList,
     );
   }
 }
@@ -31,7 +31,8 @@ const $ApiData = _$ApiDataTearOff();
 /// @nodoc
 mixin _$ApiData {
   FeatureProgramData get featureProgramData;
-  List<NewProgramsData> get newProgramsDataList;
+  @protected
+  List<NewProgramsData> get rawNewProgramsDataList;
 
   $ApiDataCopyWith<ApiData> get copyWith;
 }
@@ -42,7 +43,7 @@ abstract class $ApiDataCopyWith<$Res> {
       _$ApiDataCopyWithImpl<$Res>;
   $Res call(
       {FeatureProgramData featureProgramData,
-      List<NewProgramsData> newProgramsDataList});
+      @protected List<NewProgramsData> rawNewProgramsDataList});
 
   $FeatureProgramDataCopyWith<$Res> get featureProgramData;
 }
@@ -58,15 +59,15 @@ class _$ApiDataCopyWithImpl<$Res> implements $ApiDataCopyWith<$Res> {
   @override
   $Res call({
     Object featureProgramData = freezed,
-    Object newProgramsDataList = freezed,
+    Object rawNewProgramsDataList = freezed,
   }) {
     return _then(_value.copyWith(
       featureProgramData: featureProgramData == freezed
           ? _value.featureProgramData
           : featureProgramData as FeatureProgramData,
-      newProgramsDataList: newProgramsDataList == freezed
-          ? _value.newProgramsDataList
-          : newProgramsDataList as List<NewProgramsData>,
+      rawNewProgramsDataList: rawNewProgramsDataList == freezed
+          ? _value.rawNewProgramsDataList
+          : rawNewProgramsDataList as List<NewProgramsData>,
     ));
   }
 
@@ -89,7 +90,7 @@ abstract class _$ApiDataCopyWith<$Res> implements $ApiDataCopyWith<$Res> {
   @override
   $Res call(
       {FeatureProgramData featureProgramData,
-      List<NewProgramsData> newProgramsDataList});
+      @protected List<NewProgramsData> rawNewProgramsDataList});
 
   @override
   $FeatureProgramDataCopyWith<$Res> get featureProgramData;
@@ -107,15 +108,15 @@ class __$ApiDataCopyWithImpl<$Res> extends _$ApiDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object featureProgramData = freezed,
-    Object newProgramsDataList = freezed,
+    Object rawNewProgramsDataList = freezed,
   }) {
     return _then(_ApiData(
       featureProgramData: featureProgramData == freezed
           ? _value.featureProgramData
           : featureProgramData as FeatureProgramData,
-      newProgramsDataList: newProgramsDataList == freezed
-          ? _value.newProgramsDataList
-          : newProgramsDataList as List<NewProgramsData>,
+      rawNewProgramsDataList: rawNewProgramsDataList == freezed
+          ? _value.rawNewProgramsDataList
+          : rawNewProgramsDataList as List<NewProgramsData>,
     ));
   }
 }
@@ -123,19 +124,21 @@ class __$ApiDataCopyWithImpl<$Res> extends _$ApiDataCopyWithImpl<$Res>
 /// @nodoc
 class _$_ApiData extends _ApiData {
   const _$_ApiData(
-      {@required this.featureProgramData, @required this.newProgramsDataList})
+      {@required this.featureProgramData,
+      @required @protected this.rawNewProgramsDataList})
       : assert(featureProgramData != null),
-        assert(newProgramsDataList != null),
+        assert(rawNewProgramsDataList != null),
         super._();
 
   @override
   final FeatureProgramData featureProgramData;
   @override
-  final List<NewProgramsData> newProgramsDataList;
+  @protected
+  final List<NewProgramsData> rawNewProgramsDataList;
 
   @override
   String toString() {
-    return 'ApiData(featureProgramData: $featureProgramData, newProgramsDataList: $newProgramsDataList)';
+    return 'ApiData(featureProgramData: $featureProgramData, rawNewProgramsDataList: $rawNewProgramsDataList)';
   }
 
   @override
@@ -145,16 +148,16 @@ class _$_ApiData extends _ApiData {
             (identical(other.featureProgramData, featureProgramData) ||
                 const DeepCollectionEquality()
                     .equals(other.featureProgramData, featureProgramData)) &&
-            (identical(other.newProgramsDataList, newProgramsDataList) ||
-                const DeepCollectionEquality()
-                    .equals(other.newProgramsDataList, newProgramsDataList)));
+            (identical(other.rawNewProgramsDataList, rawNewProgramsDataList) ||
+                const DeepCollectionEquality().equals(
+                    other.rawNewProgramsDataList, rawNewProgramsDataList)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(featureProgramData) ^
-      const DeepCollectionEquality().hash(newProgramsDataList);
+      const DeepCollectionEquality().hash(rawNewProgramsDataList);
 
   @override
   _$ApiDataCopyWith<_ApiData> get copyWith =>
@@ -164,13 +167,15 @@ class _$_ApiData extends _ApiData {
 abstract class _ApiData extends ApiData {
   const _ApiData._() : super._();
   const factory _ApiData(
-      {@required FeatureProgramData featureProgramData,
-      @required List<NewProgramsData> newProgramsDataList}) = _$_ApiData;
+          {@required FeatureProgramData featureProgramData,
+          @required @protected List<NewProgramsData> rawNewProgramsDataList}) =
+      _$_ApiData;
 
   @override
   FeatureProgramData get featureProgramData;
   @override
-  List<NewProgramsData> get newProgramsDataList;
+  @protected
+  List<NewProgramsData> get rawNewProgramsDataList;
   @override
   _$ApiDataCopyWith<_ApiData> get copyWith;
 }

@@ -725,14 +725,16 @@ class _$WatchHistoryStateTearOff {
   }
 
 // ignore: unused_element
-  StateSuccess success(List<WatchHistoriesData> watchHistories) {
+  StateSuccess success(
+      UnmodifiableListView<WatchHistoriesData> watchHistories) {
     return StateSuccess(
       watchHistories,
     );
   }
 
 // ignore: unused_element
-  StateLoadingMore loadingMore(List<WatchHistoriesData> watchHistories) {
+  StateLoadingMore loadingMore(
+      UnmodifiableListView<WatchHistoriesData> watchHistories) {
     return StateLoadingMore(
       watchHistories,
     );
@@ -755,8 +757,12 @@ mixin _$WatchHistoryState {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required TResult resultEmpty(),
-    @required TResult success(List<WatchHistoriesData> watchHistories),
-    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    @required
+        TResult success(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
+    @required
+        TResult loadingMore(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
     @required TResult error(),
   });
   @optionalTypeArgs
@@ -764,8 +770,9 @@ mixin _$WatchHistoryState {
     TResult preInitialized(),
     TResult loading(),
     TResult resultEmpty(),
-    TResult success(List<WatchHistoriesData> watchHistories),
-    TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
+    TResult loadingMore(
+        UnmodifiableListView<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   });
@@ -849,8 +856,12 @@ class _$StatePreInitialized implements StatePreInitialized {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required TResult resultEmpty(),
-    @required TResult success(List<WatchHistoriesData> watchHistories),
-    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    @required
+        TResult success(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
+    @required
+        TResult loadingMore(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -868,8 +879,9 @@ class _$StatePreInitialized implements StatePreInitialized {
     TResult preInitialized(),
     TResult loading(),
     TResult resultEmpty(),
-    TResult success(List<WatchHistoriesData> watchHistories),
-    TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
+    TResult loadingMore(
+        UnmodifiableListView<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -964,8 +976,12 @@ class _$StateLoading implements StateLoading {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required TResult resultEmpty(),
-    @required TResult success(List<WatchHistoriesData> watchHistories),
-    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    @required
+        TResult success(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
+    @required
+        TResult loadingMore(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -983,8 +999,9 @@ class _$StateLoading implements StateLoading {
     TResult preInitialized(),
     TResult loading(),
     TResult resultEmpty(),
-    TResult success(List<WatchHistoriesData> watchHistories),
-    TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
+    TResult loadingMore(
+        UnmodifiableListView<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -1079,8 +1096,12 @@ class _$StateResultEmpty implements StateResultEmpty {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required TResult resultEmpty(),
-    @required TResult success(List<WatchHistoriesData> watchHistories),
-    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    @required
+        TResult success(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
+    @required
+        TResult loadingMore(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -1098,8 +1119,9 @@ class _$StateResultEmpty implements StateResultEmpty {
     TResult preInitialized(),
     TResult loading(),
     TResult resultEmpty(),
-    TResult success(List<WatchHistoriesData> watchHistories),
-    TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
+    TResult loadingMore(
+        UnmodifiableListView<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -1157,7 +1179,7 @@ abstract class $StateSuccessCopyWith<$Res> {
   factory $StateSuccessCopyWith(
           StateSuccess value, $Res Function(StateSuccess) then) =
       _$StateSuccessCopyWithImpl<$Res>;
-  $Res call({List<WatchHistoriesData> watchHistories});
+  $Res call({UnmodifiableListView<WatchHistoriesData> watchHistories});
 }
 
 /// @nodoc
@@ -1178,7 +1200,7 @@ class _$StateSuccessCopyWithImpl<$Res>
     return _then(StateSuccess(
       watchHistories == freezed
           ? _value.watchHistories
-          : watchHistories as List<WatchHistoriesData>,
+          : watchHistories as UnmodifiableListView<WatchHistoriesData>,
     ));
   }
 }
@@ -1188,7 +1210,7 @@ class _$StateSuccess implements StateSuccess {
   const _$StateSuccess(this.watchHistories) : assert(watchHistories != null);
 
   @override
-  final List<WatchHistoriesData> watchHistories;
+  final UnmodifiableListView<WatchHistoriesData> watchHistories;
 
   @override
   String toString() {
@@ -1219,8 +1241,12 @@ class _$StateSuccess implements StateSuccess {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required TResult resultEmpty(),
-    @required TResult success(List<WatchHistoriesData> watchHistories),
-    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    @required
+        TResult success(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
+    @required
+        TResult loadingMore(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -1238,8 +1264,9 @@ class _$StateSuccess implements StateSuccess {
     TResult preInitialized(),
     TResult loading(),
     TResult resultEmpty(),
-    TResult success(List<WatchHistoriesData> watchHistories),
-    TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
+    TResult loadingMore(
+        UnmodifiableListView<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -1289,10 +1316,10 @@ class _$StateSuccess implements StateSuccess {
 }
 
 abstract class StateSuccess implements WatchHistoryState {
-  const factory StateSuccess(List<WatchHistoriesData> watchHistories) =
-      _$StateSuccess;
+  const factory StateSuccess(
+      UnmodifiableListView<WatchHistoriesData> watchHistories) = _$StateSuccess;
 
-  List<WatchHistoriesData> get watchHistories;
+  UnmodifiableListView<WatchHistoriesData> get watchHistories;
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
 
@@ -1301,7 +1328,7 @@ abstract class $StateLoadingMoreCopyWith<$Res> {
   factory $StateLoadingMoreCopyWith(
           StateLoadingMore value, $Res Function(StateLoadingMore) then) =
       _$StateLoadingMoreCopyWithImpl<$Res>;
-  $Res call({List<WatchHistoriesData> watchHistories});
+  $Res call({UnmodifiableListView<WatchHistoriesData> watchHistories});
 }
 
 /// @nodoc
@@ -1322,7 +1349,7 @@ class _$StateLoadingMoreCopyWithImpl<$Res>
     return _then(StateLoadingMore(
       watchHistories == freezed
           ? _value.watchHistories
-          : watchHistories as List<WatchHistoriesData>,
+          : watchHistories as UnmodifiableListView<WatchHistoriesData>,
     ));
   }
 }
@@ -1333,7 +1360,7 @@ class _$StateLoadingMore implements StateLoadingMore {
       : assert(watchHistories != null);
 
   @override
-  final List<WatchHistoriesData> watchHistories;
+  final UnmodifiableListView<WatchHistoriesData> watchHistories;
 
   @override
   String toString() {
@@ -1364,8 +1391,12 @@ class _$StateLoadingMore implements StateLoadingMore {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required TResult resultEmpty(),
-    @required TResult success(List<WatchHistoriesData> watchHistories),
-    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    @required
+        TResult success(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
+    @required
+        TResult loadingMore(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -1383,8 +1414,9 @@ class _$StateLoadingMore implements StateLoadingMore {
     TResult preInitialized(),
     TResult loading(),
     TResult resultEmpty(),
-    TResult success(List<WatchHistoriesData> watchHistories),
-    TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
+    TResult loadingMore(
+        UnmodifiableListView<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -1434,10 +1466,11 @@ class _$StateLoadingMore implements StateLoadingMore {
 }
 
 abstract class StateLoadingMore implements WatchHistoryState {
-  const factory StateLoadingMore(List<WatchHistoriesData> watchHistories) =
+  const factory StateLoadingMore(
+          UnmodifiableListView<WatchHistoriesData> watchHistories) =
       _$StateLoadingMore;
 
-  List<WatchHistoriesData> get watchHistories;
+  UnmodifiableListView<WatchHistoriesData> get watchHistories;
   $StateLoadingMoreCopyWith<StateLoadingMore> get copyWith;
 }
 
@@ -1482,8 +1515,12 @@ class _$StateError implements StateError {
     @required TResult preInitialized(),
     @required TResult loading(),
     @required TResult resultEmpty(),
-    @required TResult success(List<WatchHistoriesData> watchHistories),
-    @required TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    @required
+        TResult success(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
+    @required
+        TResult loadingMore(
+            UnmodifiableListView<WatchHistoriesData> watchHistories),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -1501,8 +1538,9 @@ class _$StateError implements StateError {
     TResult preInitialized(),
     TResult loading(),
     TResult resultEmpty(),
-    TResult success(List<WatchHistoriesData> watchHistories),
-    TResult loadingMore(List<WatchHistoriesData> watchHistories),
+    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
+    TResult loadingMore(
+        UnmodifiableListView<WatchHistoriesData> watchHistories),
     TResult error(),
     @required TResult orElse(),
   }) {

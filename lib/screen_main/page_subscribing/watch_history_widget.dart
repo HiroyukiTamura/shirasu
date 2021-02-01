@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -47,7 +49,7 @@ class _ContentListView extends HookWidget {
     this.showLoadingIndicator,
   }) : super(key: key);
 
-  final List<WatchHistoriesData> watchHistories;
+  final UnmodifiableListView<WatchHistoriesData> watchHistories;
   final bool showLoadingIndicator;
 
   @override

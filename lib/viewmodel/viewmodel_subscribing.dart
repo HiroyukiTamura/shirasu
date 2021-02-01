@@ -9,6 +9,7 @@ import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:riverpod/src/framework.dart';
+import 'package:shirasu/extension.dart';
 
 part 'viewmodel_subscribing.freezed.dart';
 
@@ -58,7 +59,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       final data = await _apiClient.queryWatchHistory();
       newState = data.viewerUser.watchHistories.items.isEmpty
           ? const StateResultEmpty()
-          : StateSuccess([data]);
+          : StateSuccess([data].toUnmodifiable());
     } catch (e) {
       print(e);
       newState = const StateError();
@@ -124,10 +125,10 @@ abstract class WatchHistoryState with _$WatchHistoryState {
   const factory WatchHistoryState.resultEmpty() = StateResultEmpty;
 
   const factory WatchHistoryState.success(
-      List<WatchHistoriesData> watchHistories) = StateSuccess;
+      UnmodifiableListView<WatchHistoriesData> watchHistories) = StateSuccess;
 
   const factory WatchHistoryState.loadingMore(
-      List<WatchHistoriesData> watchHistories) = StateLoadingMore;
+      UnmodifiableListView<WatchHistoriesData> watchHistories) = StateLoadingMore;
 
   const factory WatchHistoryState.error() = StateError;
 }

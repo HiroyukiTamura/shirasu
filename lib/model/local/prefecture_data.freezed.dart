@@ -17,9 +17,13 @@ class _$PrefectureDataTearOff {
   const _$PrefectureDataTearOff();
 
 // ignore: unused_element
-  _PrefectureData call({@required List<Prefecture> prefecture}) {
+  _PrefectureData call(
+      {@required
+      @JsonKey(name: 'prefecture')
+      @protected
+          List<Prefecture> rawPrefecture}) {
     return _PrefectureData(
-      prefecture: prefecture,
+      rawPrefecture: rawPrefecture,
     );
   }
 
@@ -35,7 +39,9 @@ const $PrefectureData = _$PrefectureDataTearOff();
 
 /// @nodoc
 mixin _$PrefectureData {
-  List<Prefecture> get prefecture;
+  @JsonKey(name: 'prefecture')
+  @protected
+  List<Prefecture> get rawPrefecture;
 
   Map<String, dynamic> toJson();
   $PrefectureDataCopyWith<PrefectureData> get copyWith;
@@ -46,7 +52,8 @@ abstract class $PrefectureDataCopyWith<$Res> {
   factory $PrefectureDataCopyWith(
           PrefectureData value, $Res Function(PrefectureData) then) =
       _$PrefectureDataCopyWithImpl<$Res>;
-  $Res call({List<Prefecture> prefecture});
+  $Res call(
+      {@JsonKey(name: 'prefecture') @protected List<Prefecture> rawPrefecture});
 }
 
 /// @nodoc
@@ -60,12 +67,12 @@ class _$PrefectureDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object prefecture = freezed,
+    Object rawPrefecture = freezed,
   }) {
     return _then(_value.copyWith(
-      prefecture: prefecture == freezed
-          ? _value.prefecture
-          : prefecture as List<Prefecture>,
+      rawPrefecture: rawPrefecture == freezed
+          ? _value.rawPrefecture
+          : rawPrefecture as List<Prefecture>,
     ));
   }
 }
@@ -77,7 +84,8 @@ abstract class _$PrefectureDataCopyWith<$Res>
           _PrefectureData value, $Res Function(_PrefectureData) then) =
       __$PrefectureDataCopyWithImpl<$Res>;
   @override
-  $Res call({List<Prefecture> prefecture});
+  $Res call(
+      {@JsonKey(name: 'prefecture') @protected List<Prefecture> rawPrefecture});
 }
 
 /// @nodoc
@@ -93,12 +101,12 @@ class __$PrefectureDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object prefecture = freezed,
+    Object rawPrefecture = freezed,
   }) {
     return _then(_PrefectureData(
-      prefecture: prefecture == freezed
-          ? _value.prefecture
-          : prefecture as List<Prefecture>,
+      rawPrefecture: rawPrefecture == freezed
+          ? _value.rawPrefecture
+          : rawPrefecture as List<Prefecture>,
     ));
   }
 }
@@ -106,33 +114,37 @@ class __$PrefectureDataCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_PrefectureData implements _PrefectureData {
-  const _$_PrefectureData({@required this.prefecture})
-      : assert(prefecture != null);
+class _$_PrefectureData extends _PrefectureData {
+  const _$_PrefectureData(
+      {@required @JsonKey(name: 'prefecture') @protected this.rawPrefecture})
+      : assert(rawPrefecture != null),
+        super._();
 
   factory _$_PrefectureData.fromJson(Map<String, dynamic> json) =>
       _$_$_PrefectureDataFromJson(json);
 
   @override
-  final List<Prefecture> prefecture;
+  @JsonKey(name: 'prefecture')
+  @protected
+  final List<Prefecture> rawPrefecture;
 
   @override
   String toString() {
-    return 'PrefectureData(prefecture: $prefecture)';
+    return 'PrefectureData(rawPrefecture: $rawPrefecture)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _PrefectureData &&
-            (identical(other.prefecture, prefecture) ||
+            (identical(other.rawPrefecture, rawPrefecture) ||
                 const DeepCollectionEquality()
-                    .equals(other.prefecture, prefecture)));
+                    .equals(other.rawPrefecture, rawPrefecture)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(prefecture);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(rawPrefecture);
 
   @override
   _$PrefectureDataCopyWith<_PrefectureData> get copyWith =>
@@ -144,15 +156,21 @@ class _$_PrefectureData implements _PrefectureData {
   }
 }
 
-abstract class _PrefectureData implements PrefectureData {
-  const factory _PrefectureData({@required List<Prefecture> prefecture}) =
-      _$_PrefectureData;
+abstract class _PrefectureData extends PrefectureData {
+  const _PrefectureData._() : super._();
+  const factory _PrefectureData(
+      {@required
+      @JsonKey(name: 'prefecture')
+      @protected
+          List<Prefecture> rawPrefecture}) = _$_PrefectureData;
 
   factory _PrefectureData.fromJson(Map<String, dynamic> json) =
       _$_PrefectureData.fromJson;
 
   @override
-  List<Prefecture> get prefecture;
+  @JsonKey(name: 'prefecture')
+  @protected
+  List<Prefecture> get rawPrefecture;
   @override
   _$PrefectureDataCopyWith<_PrefectureData> get copyWith;
 }
@@ -167,7 +185,8 @@ class _$PrefectureTearOff {
 
 // ignore: unused_element
   _Prefecture call(
-      {@required @JsonKey(name: 'code') int codeInt, @required String name}) {
+      {@required @JsonKey(name: 'code') @protected int codeInt,
+      @required String name}) {
     return _Prefecture(
       codeInt: codeInt,
       name: name,
@@ -187,6 +206,7 @@ const $Prefecture = _$PrefectureTearOff();
 /// @nodoc
 mixin _$Prefecture {
   @JsonKey(name: 'code')
+  @protected
   int get codeInt;
   String get name;
 
@@ -199,7 +219,7 @@ abstract class $PrefectureCopyWith<$Res> {
   factory $PrefectureCopyWith(
           Prefecture value, $Res Function(Prefecture) then) =
       _$PrefectureCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: 'code') int codeInt, String name});
+  $Res call({@JsonKey(name: 'code') @protected int codeInt, String name});
 }
 
 /// @nodoc
@@ -228,7 +248,7 @@ abstract class _$PrefectureCopyWith<$Res> implements $PrefectureCopyWith<$Res> {
           _Prefecture value, $Res Function(_Prefecture) then) =
       __$PrefectureCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: 'code') int codeInt, String name});
+  $Res call({@JsonKey(name: 'code') @protected int codeInt, String name});
 }
 
 /// @nodoc
@@ -258,7 +278,8 @@ class __$PrefectureCopyWithImpl<$Res> extends _$PrefectureCopyWithImpl<$Res>
 /// @nodoc
 class _$_Prefecture extends _Prefecture {
   const _$_Prefecture(
-      {@required @JsonKey(name: 'code') this.codeInt, @required this.name})
+      {@required @JsonKey(name: 'code') @protected this.codeInt,
+      @required this.name})
       : assert(codeInt != null),
         assert(name != null),
         super._();
@@ -268,6 +289,7 @@ class _$_Prefecture extends _Prefecture {
 
   @override
   @JsonKey(name: 'code')
+  @protected
   final int codeInt;
   @override
   final String name;
@@ -307,7 +329,7 @@ class _$_Prefecture extends _Prefecture {
 abstract class _Prefecture extends Prefecture {
   const _Prefecture._() : super._();
   const factory _Prefecture(
-      {@required @JsonKey(name: 'code') int codeInt,
+      {@required @JsonKey(name: 'code') @protected int codeInt,
       @required String name}) = _$_Prefecture;
 
   factory _Prefecture.fromJson(Map<String, dynamic> json) =
@@ -315,6 +337,7 @@ abstract class _Prefecture extends Prefecture {
 
   @override
   @JsonKey(name: 'code')
+  @protected
   int get codeInt;
   @override
   String get name;

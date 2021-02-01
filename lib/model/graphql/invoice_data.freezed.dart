@@ -173,32 +173,19 @@ class _$InvoiceTearOff {
 
 // ignore: unused_element
   _Invoice call(
-      {@required
-          String id,
-      @required
-          DateTime createdAt,
-      @required
-          String currency,
-      @required
-          int discountAmount,
-      @required
-          String label,
-      @required
-          String planType,
-      @required
-          String status,
-      @required
-          int tax,
-      @required
-          int total,
-      @required
-          int subtotal,
+      {@required String id,
+      @required DateTime createdAt,
+      @required String currency,
+      @required int discountAmount,
+      @required String label,
+      @required String planType,
+      @required String status,
+      @required int tax,
+      @required int total,
+      @required int subtotal,
       dynamic discount,
       dynamic paymentIntent,
-      @required
-      @Assert('typename == Invoice')
-      @JsonKey(name: '__typename')
-          String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Invoice(
       id: id,
       createdAt: createdAt,
@@ -240,7 +227,6 @@ mixin _$Invoice {
   int get subtotal;
   dynamic get discount;
   dynamic get paymentIntent;
-  @Assert('typename == Invoice')
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -265,9 +251,7 @@ abstract class $InvoiceCopyWith<$Res> {
       int subtotal,
       dynamic discount,
       dynamic paymentIntent,
-      @Assert('typename == Invoice')
-      @JsonKey(name: '__typename')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -335,9 +319,7 @@ abstract class _$InvoiceCopyWith<$Res> implements $InvoiceCopyWith<$Res> {
       int subtotal,
       dynamic discount,
       dynamic paymentIntent,
-      @Assert('typename == Invoice')
-      @JsonKey(name: '__typename')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -393,32 +375,19 @@ class __$InvoiceCopyWithImpl<$Res> extends _$InvoiceCopyWithImpl<$Res>
 /// @nodoc
 class _$_Invoice extends _Invoice {
   const _$_Invoice(
-      {@required
-          this.id,
-      @required
-          this.createdAt,
-      @required
-          this.currency,
-      @required
-          this.discountAmount,
-      @required
-          this.label,
-      @required
-          this.planType,
-      @required
-          this.status,
-      @required
-          this.tax,
-      @required
-          this.total,
-      @required
-          this.subtotal,
+      {@required this.id,
+      @required this.createdAt,
+      @required this.currency,
+      @required this.discountAmount,
+      @required this.label,
+      @required this.planType,
+      @required this.status,
+      @required this.tax,
+      @required this.total,
+      @required this.subtotal,
       this.discount,
       this.paymentIntent,
-      @required
-      @Assert('typename == Invoice')
-      @JsonKey(name: '__typename')
-          this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(createdAt != null),
         assert(currency != null),
@@ -430,6 +399,7 @@ class _$_Invoice extends _Invoice {
         assert(total != null),
         assert(subtotal != null),
         assert(typename != null),
+        assert(typename == Invoice),
         super._();
 
   factory _$_Invoice.fromJson(Map<String, dynamic> json) =>
@@ -460,7 +430,6 @@ class _$_Invoice extends _Invoice {
   @override
   final dynamic paymentIntent;
   @override
-  @Assert('typename == Invoice')
   @JsonKey(name: '__typename')
   final String typename;
 
@@ -539,32 +508,19 @@ class _$_Invoice extends _Invoice {
 abstract class _Invoice extends Invoice {
   const _Invoice._() : super._();
   const factory _Invoice(
-      {@required
-          String id,
-      @required
-          DateTime createdAt,
-      @required
-          String currency,
-      @required
-          int discountAmount,
-      @required
-          String label,
-      @required
-          String planType,
-      @required
-          String status,
-      @required
-          int tax,
-      @required
-          int total,
-      @required
-          int subtotal,
+      {@required String id,
+      @required DateTime createdAt,
+      @required String currency,
+      @required int discountAmount,
+      @required String label,
+      @required String planType,
+      @required String status,
+      @required int tax,
+      @required int total,
+      @required int subtotal,
       dynamic discount,
       dynamic paymentIntent,
-      @required
-      @Assert('typename == Invoice')
-      @JsonKey(name: '__typename')
-          String typename}) = _$_Invoice;
+      @required @JsonKey(name: '__typename') String typename}) = _$_Invoice;
 
   factory _Invoice.fromJson(Map<String, dynamic> json) = _$_Invoice.fromJson;
 
@@ -593,7 +549,6 @@ abstract class _Invoice extends Invoice {
   @override
   dynamic get paymentIntent;
   @override
-  @Assert('typename == Invoice')
   @JsonKey(name: '__typename')
   String get typename;
   @override

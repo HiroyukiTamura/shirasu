@@ -183,14 +183,15 @@ class _$NewProgramsTearOff {
 // ignore: unused_element
   _NewPrograms call(
       {@required
-          List<NewProgramItem> items,
+      @JsonKey(name: 'items')
+      @protected
+          List<NewProgramItem> rawItems,
       String nextToken,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
           String typename}) {
     return _NewPrograms(
-      items: items,
+      rawItems: rawItems,
       nextToken: nextToken,
       typename: typename,
     );
@@ -208,10 +209,11 @@ const $NewPrograms = _$NewProgramsTearOff();
 
 /// @nodoc
 mixin _$NewPrograms {
-  List<NewProgramItem> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<NewProgramItem> get rawItems;
   String get nextToken;
   @JsonKey(name: '__typename')
-  @Assert('typename == "SearchableProgramConnection"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -224,11 +226,9 @@ abstract class $NewProgramsCopyWith<$Res> {
           NewPrograms value, $Res Function(NewPrograms) then) =
       _$NewProgramsCopyWithImpl<$Res>;
   $Res call(
-      {List<NewProgramItem> items,
+      {@JsonKey(name: 'items') @protected List<NewProgramItem> rawItems,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -241,12 +241,14 @@ class _$NewProgramsCopyWithImpl<$Res> implements $NewProgramsCopyWith<$Res> {
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<NewProgramItem>,
+      rawItems: rawItems == freezed
+          ? _value.rawItems
+          : rawItems as List<NewProgramItem>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -261,11 +263,9 @@ abstract class _$NewProgramsCopyWith<$Res>
       __$NewProgramsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<NewProgramItem> items,
+      {@JsonKey(name: 'items') @protected List<NewProgramItem> rawItems,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -280,12 +280,14 @@ class __$NewProgramsCopyWithImpl<$Res> extends _$NewProgramsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_NewPrograms(
-      items: items == freezed ? _value.items : items as List<NewProgramItem>,
+      rawItems: rawItems == freezed
+          ? _value.rawItems
+          : rawItems as List<NewProgramItem>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -295,41 +297,41 @@ class __$NewProgramsCopyWithImpl<$Res> extends _$NewProgramsCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_NewPrograms implements _NewPrograms {
+class _$_NewPrograms extends _NewPrograms {
   const _$_NewPrograms(
-      {@required
-          this.items,
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
       this.nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
-          this.typename})
-      : assert(items != null),
-        assert(typename != null);
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(rawItems != null),
+        assert(typename != null),
+        assert(typename == "SearchableProgramConnection"),
+        super._();
 
   factory _$_NewPrograms.fromJson(Map<String, dynamic> json) =>
       _$_$_NewProgramsFromJson(json);
 
   @override
-  final List<NewProgramItem> items;
+  @JsonKey(name: 'items')
+  @protected
+  final List<NewProgramItem> rawItems;
   @override
   final String nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "SearchableProgramConnection"')
   final String typename;
 
   @override
   String toString() {
-    return 'NewPrograms(items: $items, nextToken: $nextToken, typename: $typename)';
+    return 'NewPrograms(rawItems: $rawItems, nextToken: $nextToken, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _NewPrograms &&
-            (identical(other.items, items) ||
-                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.rawItems, rawItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawItems, rawItems)) &&
             (identical(other.nextToken, nextToken) ||
                 const DeepCollectionEquality()
                     .equals(other.nextToken, nextToken)) &&
@@ -341,7 +343,7 @@ class _$_NewPrograms implements _NewPrograms {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(rawItems) ^
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
@@ -355,26 +357,29 @@ class _$_NewPrograms implements _NewPrograms {
   }
 }
 
-abstract class _NewPrograms implements NewPrograms {
+abstract class _NewPrograms extends NewPrograms {
+  const _NewPrograms._() : super._();
   const factory _NewPrograms(
       {@required
-          List<NewProgramItem> items,
+      @JsonKey(name: 'items')
+      @protected
+          List<NewProgramItem> rawItems,
       String nextToken,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
           String typename}) = _$_NewPrograms;
 
   factory _NewPrograms.fromJson(Map<String, dynamic> json) =
       _$_NewPrograms.fromJson;
 
   @override
-  List<NewProgramItem> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<NewProgramItem> get rawItems;
   @override
   String get nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "SearchableProgramConnection"')
   String get typename;
   @override
   _$NewProgramsCopyWith<_NewPrograms> get copyWith;
@@ -390,30 +395,17 @@ class _$NewProgramItemTearOff {
 
 // ignore: unused_element
   _NewProgramItem call(
-      {@required
-          DateTime broadcastAt,
-      @required
-          String channelId,
-      @required
-          String id,
-      @required
-          int mainTime,
-      @required
-          DateTime releasedAt,
-      @required
-          String tenantId,
-      @required
-          String title,
-      @required
-          int totalPlayTime,
-      @visibleForTesting
-          String viewerPlanType,
-      @required
-          NewProgramChannel channel,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename}) {
+      {@required DateTime broadcastAt,
+      @required String channelId,
+      @required String id,
+      @required int mainTime,
+      @required DateTime releasedAt,
+      @required String tenantId,
+      @required String title,
+      @required int totalPlayTime,
+      @visibleForOverriding String viewerPlanType,
+      @required NewProgramChannel channel,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _NewProgramItem(
       broadcastAt: broadcastAt,
       channelId: channelId,
@@ -449,11 +441,10 @@ mixin _$NewProgramItem {
   String get tenantId;
   String get title;
   int get totalPlayTime;
-  @visibleForTesting
+  @visibleForOverriding
   String get viewerPlanType;
   NewProgramChannel get channel;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -474,12 +465,9 @@ abstract class $NewProgramItemCopyWith<$Res> {
       String tenantId,
       String title,
       int totalPlayTime,
-      @visibleForTesting
-          String viewerPlanType,
+      @visibleForOverriding String viewerPlanType,
       NewProgramChannel channel,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   $NewProgramChannelCopyWith<$Res> get channel;
 }
@@ -556,12 +544,9 @@ abstract class _$NewProgramItemCopyWith<$Res>
       String tenantId,
       String title,
       int totalPlayTime,
-      @visibleForTesting
-          String viewerPlanType,
+      @visibleForOverriding String viewerPlanType,
       NewProgramChannel channel,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $NewProgramChannelCopyWith<$Res> get channel;
@@ -620,30 +605,17 @@ class __$NewProgramItemCopyWithImpl<$Res>
 /// @nodoc
 class _$_NewProgramItem extends _NewProgramItem {
   const _$_NewProgramItem(
-      {@required
-          this.broadcastAt,
-      @required
-          this.channelId,
-      @required
-          this.id,
-      @required
-          this.mainTime,
-      @required
-          this.releasedAt,
-      @required
-          this.tenantId,
-      @required
-          this.title,
-      @required
-          this.totalPlayTime,
-      @visibleForTesting
-          this.viewerPlanType,
-      @required
-          this.channel,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          this.typename})
+      {@required this.broadcastAt,
+      @required this.channelId,
+      @required this.id,
+      @required this.mainTime,
+      @required this.releasedAt,
+      @required this.tenantId,
+      @required this.title,
+      @required this.totalPlayTime,
+      @visibleForOverriding this.viewerPlanType,
+      @required this.channel,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(broadcastAt != null),
         assert(channelId != null),
         assert(id != null),
@@ -654,6 +626,7 @@ class _$_NewProgramItem extends _NewProgramItem {
         assert(totalPlayTime != null),
         assert(channel != null),
         assert(typename != null),
+        assert(typename == "Program"),
         super._();
 
   factory _$_NewProgramItem.fromJson(Map<String, dynamic> json) =>
@@ -676,13 +649,12 @@ class _$_NewProgramItem extends _NewProgramItem {
   @override
   final int totalPlayTime;
   @override
-  @visibleForTesting
+  @visibleForOverriding
   final String viewerPlanType;
   @override
   final NewProgramChannel channel;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
   final String typename;
 
   @override
@@ -755,30 +727,18 @@ class _$_NewProgramItem extends _NewProgramItem {
 abstract class _NewProgramItem extends NewProgramItem {
   const _NewProgramItem._() : super._();
   const factory _NewProgramItem(
-      {@required
-          DateTime broadcastAt,
-      @required
-          String channelId,
-      @required
-          String id,
-      @required
-          int mainTime,
-      @required
-          DateTime releasedAt,
-      @required
-          String tenantId,
-      @required
-          String title,
-      @required
-          int totalPlayTime,
-      @visibleForTesting
-          String viewerPlanType,
-      @required
-          NewProgramChannel channel,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename}) = _$_NewProgramItem;
+          {@required DateTime broadcastAt,
+          @required String channelId,
+          @required String id,
+          @required int mainTime,
+          @required DateTime releasedAt,
+          @required String tenantId,
+          @required String title,
+          @required int totalPlayTime,
+          @visibleForOverriding String viewerPlanType,
+          @required NewProgramChannel channel,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_NewProgramItem;
 
   factory _NewProgramItem.fromJson(Map<String, dynamic> json) =
       _$_NewProgramItem.fromJson;
@@ -800,13 +760,12 @@ abstract class _NewProgramItem extends NewProgramItem {
   @override
   int get totalPlayTime;
   @override
-  @visibleForTesting
+  @visibleForOverriding
   String get viewerPlanType;
   @override
   NewProgramChannel get channel;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
   String get typename;
   @override
   _$NewProgramItemCopyWith<_NewProgramItem> get copyWith;
@@ -822,14 +781,9 @@ class _$NewProgramChannelTearOff {
 
 // ignore: unused_element
   _NewProgramChannel call(
-      {@required
-          String id,
-      @required
-          String name,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename}) {
+      {@required String id,
+      @required String name,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _NewProgramChannel(
       id: id,
       name: name,
@@ -852,7 +806,6 @@ mixin _$NewProgramChannel {
   String get id;
   String get name;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -865,11 +818,7 @@ abstract class $NewProgramChannelCopyWith<$Res> {
           NewProgramChannel value, $Res Function(NewProgramChannel) then) =
       _$NewProgramChannelCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      String name,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename});
+      {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -903,11 +852,7 @@ abstract class _$NewProgramChannelCopyWith<$Res>
       __$NewProgramChannelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      String name,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename});
+      {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -940,17 +885,13 @@ class __$NewProgramChannelCopyWithImpl<$Res>
 /// @nodoc
 class _$_NewProgramChannel implements _NewProgramChannel {
   const _$_NewProgramChannel(
-      {@required
-          this.id,
-      @required
-          this.name,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          this.typename})
+      {@required this.id,
+      @required this.name,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(name != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Channel");
 
   factory _$_NewProgramChannel.fromJson(Map<String, dynamic> json) =>
       _$_$_NewProgramChannelFromJson(json);
@@ -961,7 +902,6 @@ class _$_NewProgramChannel implements _NewProgramChannel {
   final String name;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   final String typename;
 
   @override
@@ -1001,14 +941,10 @@ class _$_NewProgramChannel implements _NewProgramChannel {
 
 abstract class _NewProgramChannel implements NewProgramChannel {
   const factory _NewProgramChannel(
-      {@required
-          String id,
-      @required
-          String name,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename}) = _$_NewProgramChannel;
+          {@required String id,
+          @required String name,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_NewProgramChannel;
 
   factory _NewProgramChannel.fromJson(Map<String, dynamic> json) =
       _$_NewProgramChannel.fromJson;
@@ -1019,7 +955,6 @@ abstract class _NewProgramChannel implements NewProgramChannel {
   String get name;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   String get typename;
   @override
   _$NewProgramChannelCopyWith<_NewProgramChannel> get copyWith;

@@ -21,7 +21,7 @@ Map<String, dynamic> _$_$_NewProgramsDataToJson(_$_NewProgramsData instance) =>
 
 _$_NewPrograms _$_$_NewProgramsFromJson(Map<String, dynamic> json) {
   return _$_NewPrograms(
-    items: (json['items'] as List)
+    rawItems: (json['items'] as List)
         ?.map((e) => e == null
             ? null
             : NewProgramItem.fromJson(e as Map<String, dynamic>))
@@ -33,7 +33,7 @@ _$_NewPrograms _$_$_NewProgramsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_NewProgramsToJson(_$_NewPrograms instance) =>
     <String, dynamic>{
-      'items': instance.items,
+      'items': instance.rawItems,
       'nextToken': instance.nextToken,
       '__typename': instance.typename,
     };

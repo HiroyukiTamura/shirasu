@@ -24,12 +24,12 @@ Map<String, dynamic> _$_$_ViewerToJson(_$_Viewer instance) => <String, dynamic>{
 
 _$_ViewerClass _$_$_ViewerClassFromJson(Map<String, dynamic> json) {
   return _$_ViewerClass(
-    paymentMethods: (json['paymentMethods'] as List)
+    rawPaymentMethods: (json['paymentMethods'] as List)
         ?.map((e) => e == null
             ? null
             : PaymentMethod.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    authConnections:
+    rawAuthConnections:
         (json['authConnections'] as List)?.map((e) => e as String)?.toList(),
     typename: json['__typename'] as String,
   );
@@ -37,8 +37,8 @@ _$_ViewerClass _$_$_ViewerClassFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_ViewerClassToJson(_$_ViewerClass instance) =>
     <String, dynamic>{
-      'paymentMethods': instance.paymentMethods,
-      'authConnections': instance.authConnections,
+      'paymentMethods': instance.rawPaymentMethods,
+      'authConnections': instance.rawAuthConnections,
       '__typename': instance.typename,
     };
 
@@ -66,7 +66,6 @@ _$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     icon: json['icon'] as String,
-    typename: json['__typename'] as String,
     invoiceHistory: json['invoiceHistory'] == null
         ? null
         : InvoiceHistory.fromJson(
@@ -75,11 +74,12 @@ _$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
         ? null
         : WatchHistories.fromJson(
             json['watchHistories'] as Map<String, dynamic>),
-    subscribedChannels: (json['subscribedChannels'] as List)
+    rawSubscribedChannels: (json['subscribedChannels'] as List)
         ?.map((e) => e == null
             ? null
             : SubscribedChannel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    typename: json['__typename'] as String,
   );
 }
 
@@ -88,15 +88,15 @@ Map<String, dynamic> _$_$_ViewerUserToJson(_$_ViewerUser instance) =>
       'id': instance.id,
       'name': instance.name,
       'icon': instance.icon,
-      '__typename': instance.typename,
       'invoiceHistory': instance.invoiceHistory,
       'watchHistories': instance.watchHistories,
-      'subscribedChannels': instance.subscribedChannels,
+      'subscribedChannels': instance.rawSubscribedChannels,
+      '__typename': instance.typename,
     };
 
 _$_InvoiceHistory _$_$_InvoiceHistoryFromJson(Map<String, dynamic> json) {
   return _$_InvoiceHistory(
-    items: (json['items'] as List)
+    rawItems: (json['items'] as List)
         ?.map((e) => e == null
             ? null
             : InvoiceHistoryItem.fromJson(e as Map<String, dynamic>))
@@ -108,7 +108,7 @@ _$_InvoiceHistory _$_$_InvoiceHistoryFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_InvoiceHistoryToJson(_$_InvoiceHistory instance) =>
     <String, dynamic>{
-      'items': instance.items,
+      'items': instance.rawItems,
       'nextToken': instance.nextToken,
       '__typename': instance.typename,
     };
@@ -221,7 +221,7 @@ Map<String, dynamic> _$_$_LatestInvoiceToJson(_$_LatestInvoice instance) =>
 _$_WatchHistories _$_$_WatchHistoriesFromJson(Map<String, dynamic> json) {
   return _$_WatchHistories(
     nextToken: json['nextToken'] as String,
-    items: (json['items'] as List)
+    rawItems: (json['items'] as List)
         ?.map((e) => e == null
             ? null
             : WatchHistoriesItem.fromJson(e as Map<String, dynamic>))
@@ -233,7 +233,7 @@ _$_WatchHistories _$_$_WatchHistoriesFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_WatchHistoriesToJson(_$_WatchHistories instance) =>
     <String, dynamic>{
       'nextToken': instance.nextToken,
-      'items': instance.items,
+      'items': instance.rawItems,
       '__typename': instance.typename,
     };
 

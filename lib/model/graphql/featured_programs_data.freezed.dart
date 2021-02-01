@@ -306,14 +306,10 @@ class _$BroadcastingsTearOff {
 
 // ignore: unused_element
   _Broadcastings call(
-      {@required
-          List<Item> items,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
-          String typename}) {
+      {@required @JsonKey(name: 'items') @protected List<Item> rawItems,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Broadcastings(
-      items: items,
+      rawItems: rawItems,
       typename: typename,
     );
   }
@@ -330,9 +326,10 @@ const $Broadcastings = _$BroadcastingsTearOff();
 
 /// @nodoc
 mixin _$Broadcastings {
-  List<Item> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<Item> get rawItems;
   @JsonKey(name: '__typename')
-  @Assert('typename == "SearchableProgramConnection"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -345,10 +342,8 @@ abstract class $BroadcastingsCopyWith<$Res> {
           Broadcastings value, $Res Function(Broadcastings) then) =
       _$BroadcastingsCopyWithImpl<$Res>;
   $Res call(
-      {List<Item> items,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
-          String typename});
+      {@JsonKey(name: 'items') @protected List<Item> rawItems,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -362,11 +357,11 @@ class _$BroadcastingsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<Item>,
+      rawItems: rawItems == freezed ? _value.rawItems : rawItems as List<Item>,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -380,10 +375,8 @@ abstract class _$BroadcastingsCopyWith<$Res>
       __$BroadcastingsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<Item> items,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
-          String typename});
+      {@JsonKey(name: 'items') @protected List<Item> rawItems,
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -399,11 +392,11 @@ class __$BroadcastingsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object typename = freezed,
   }) {
     return _then(_Broadcastings(
-      items: items == freezed ? _value.items : items as List<Item>,
+      rawItems: rawItems == freezed ? _value.rawItems : rawItems as List<Item>,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -412,30 +405,29 @@ class __$BroadcastingsCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
+class _$_Broadcastings extends _Broadcastings with DiagnosticableTreeMixin {
   const _$_Broadcastings(
-      {@required
-          this.items,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
-          this.typename})
-      : assert(items != null),
-        assert(typename != null);
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(rawItems != null),
+        assert(typename != null),
+        assert(typename == "SearchableProgramConnection"),
+        super._();
 
   factory _$_Broadcastings.fromJson(Map<String, dynamic> json) =>
       _$_$_BroadcastingsFromJson(json);
 
   @override
-  final List<Item> items;
+  @JsonKey(name: 'items')
+  @protected
+  final List<Item> rawItems;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "SearchableProgramConnection"')
   final String typename;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Broadcastings(items: $items, typename: $typename)';
+    return 'Broadcastings(rawItems: $rawItems, typename: $typename)';
   }
 
   @override
@@ -443,7 +435,7 @@ class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Broadcastings'))
-      ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('rawItems', rawItems))
       ..add(DiagnosticsProperty('typename', typename));
   }
 
@@ -451,8 +443,9 @@ class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Broadcastings &&
-            (identical(other.items, items) ||
-                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.rawItems, rawItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawItems, rawItems)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -461,7 +454,7 @@ class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(rawItems) ^
       const DeepCollectionEquality().hash(typename);
 
   @override
@@ -474,23 +467,22 @@ class _$_Broadcastings with DiagnosticableTreeMixin implements _Broadcastings {
   }
 }
 
-abstract class _Broadcastings implements Broadcastings {
+abstract class _Broadcastings extends Broadcastings {
+  const _Broadcastings._() : super._();
   const factory _Broadcastings(
-      {@required
-          List<Item> items,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SearchableProgramConnection"')
-          String typename}) = _$_Broadcastings;
+          {@required @JsonKey(name: 'items') @protected List<Item> rawItems,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_Broadcastings;
 
   factory _Broadcastings.fromJson(Map<String, dynamic> json) =
       _$_Broadcastings.fromJson;
 
   @override
-  List<Item> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<Item> get rawItems;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "SearchableProgramConnection"')
   String get typename;
   @override
   _$BroadcastingsCopyWith<_Broadcastings> get copyWith;
@@ -506,30 +498,17 @@ class _$ItemTearOff {
 
 // ignore: unused_element
   _Item call(
-      {@required
-          DateTime broadcastAt,
-      @required
-          String channelId,
-      @required
-          String id,
-      @required
-          int mainTime,
-      @required
-          DateTime releasedAt,
-      @required
-          String tenantId,
-      @required
-          String title,
-      @required
-          int totalPlayTime,
-      @visibleForTesting
-          String viewerPlanType,
-      @required
-          Channel channel,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename}) {
+      {@required DateTime broadcastAt,
+      @required String channelId,
+      @required String id,
+      @required int mainTime,
+      @required DateTime releasedAt,
+      @required String tenantId,
+      @required String title,
+      @required int totalPlayTime,
+      @visibleForOverriding String viewerPlanType,
+      @required Channel channel,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Item(
       broadcastAt: broadcastAt,
       channelId: channelId,
@@ -565,11 +544,10 @@ mixin _$Item {
   String get tenantId;
   String get title;
   int get totalPlayTime;
-  @visibleForTesting
+  @visibleForOverriding
   String get viewerPlanType;
   Channel get channel;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -589,12 +567,9 @@ abstract class $ItemCopyWith<$Res> {
       String tenantId,
       String title,
       int totalPlayTime,
-      @visibleForTesting
-          String viewerPlanType,
+      @visibleForOverriding String viewerPlanType,
       Channel channel,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   $ChannelCopyWith<$Res> get channel;
 }
@@ -667,12 +642,9 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String tenantId,
       String title,
       int totalPlayTime,
-      @visibleForTesting
-          String viewerPlanType,
+      @visibleForOverriding String viewerPlanType,
       Channel channel,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $ChannelCopyWith<$Res> get channel;
@@ -728,30 +700,17 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
 /// @nodoc
 class _$_Item with DiagnosticableTreeMixin implements _Item {
   const _$_Item(
-      {@required
-          this.broadcastAt,
-      @required
-          this.channelId,
-      @required
-          this.id,
-      @required
-          this.mainTime,
-      @required
-          this.releasedAt,
-      @required
-          this.tenantId,
-      @required
-          this.title,
-      @required
-          this.totalPlayTime,
-      @visibleForTesting
-          this.viewerPlanType,
-      @required
-          this.channel,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          this.typename})
+      {@required this.broadcastAt,
+      @required this.channelId,
+      @required this.id,
+      @required this.mainTime,
+      @required this.releasedAt,
+      @required this.tenantId,
+      @required this.title,
+      @required this.totalPlayTime,
+      @visibleForOverriding this.viewerPlanType,
+      @required this.channel,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(broadcastAt != null),
         assert(channelId != null),
         assert(id != null),
@@ -761,7 +720,8 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
         assert(title != null),
         assert(totalPlayTime != null),
         assert(channel != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Program");
 
   factory _$_Item.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemFromJson(json);
@@ -783,13 +743,12 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   @override
   final int totalPlayTime;
   @override
-  @visibleForTesting
+  @visibleForOverriding
   final String viewerPlanType;
   @override
   final Channel channel;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
   final String typename;
 
   @override
@@ -879,30 +838,17 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
 
 abstract class _Item implements Item {
   const factory _Item(
-      {@required
-          DateTime broadcastAt,
-      @required
-          String channelId,
-      @required
-          String id,
-      @required
-          int mainTime,
-      @required
-          DateTime releasedAt,
-      @required
-          String tenantId,
-      @required
-          String title,
-      @required
-          int totalPlayTime,
-      @visibleForTesting
-          String viewerPlanType,
-      @required
-          Channel channel,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename}) = _$_Item;
+      {@required DateTime broadcastAt,
+      @required String channelId,
+      @required String id,
+      @required int mainTime,
+      @required DateTime releasedAt,
+      @required String tenantId,
+      @required String title,
+      @required int totalPlayTime,
+      @visibleForOverriding String viewerPlanType,
+      @required Channel channel,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
@@ -923,13 +869,12 @@ abstract class _Item implements Item {
   @override
   int get totalPlayTime;
   @override
-  @visibleForTesting
+  @visibleForOverriding
   String get viewerPlanType;
   @override
   Channel get channel;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
   String get typename;
   @override
   _$ItemCopyWith<_Item> get copyWith;
@@ -945,14 +890,9 @@ class _$ChannelTearOff {
 
 // ignore: unused_element
   _Channel call(
-      {@required
-          String id,
-      @required
-          String name,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename}) {
+      {@required String id,
+      @required String name,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Channel(
       id: id,
       name: name,
@@ -975,7 +915,6 @@ mixin _$Channel {
   String get id;
   String get name;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -987,11 +926,7 @@ abstract class $ChannelCopyWith<$Res> {
   factory $ChannelCopyWith(Channel value, $Res Function(Channel) then) =
       _$ChannelCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      String name,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename});
+      {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1022,11 +957,7 @@ abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
       __$ChannelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      String name,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename});
+      {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1057,17 +988,13 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 /// @nodoc
 class _$_Channel with DiagnosticableTreeMixin implements _Channel {
   const _$_Channel(
-      {@required
-          this.id,
-      @required
-          this.name,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          this.typename})
+      {@required this.id,
+      @required this.name,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(name != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Channel");
 
   factory _$_Channel.fromJson(Map<String, dynamic> json) =>
       _$_$_ChannelFromJson(json);
@@ -1078,7 +1005,6 @@ class _$_Channel with DiagnosticableTreeMixin implements _Channel {
   final String name;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   final String typename;
 
   @override
@@ -1128,14 +1054,9 @@ class _$_Channel with DiagnosticableTreeMixin implements _Channel {
 
 abstract class _Channel implements Channel {
   const factory _Channel(
-      {@required
-          String id,
-      @required
-          String name,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename}) = _$_Channel;
+      {@required String id,
+      @required String name,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Channel;
 
   factory _Channel.fromJson(Map<String, dynamic> json) = _$_Channel.fromJson;
 
@@ -1145,7 +1066,6 @@ abstract class _Channel implements Channel {
   String get name;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   String get typename;
   @override
   _$ChannelCopyWith<_Channel> get copyWith;
@@ -1164,14 +1084,15 @@ class _$ViewerUserTearOff {
       {@required
           String id,
       @required
-          List<Item> subscribedPrograms,
+      @JsonKey(name: 'subscribedPrograms')
+      @protected
+          List<Item> rawSubscribedPrograms,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
           String typename}) {
     return _ViewerUser(
       id: id,
-      subscribedPrograms: subscribedPrograms,
+      rawSubscribedPrograms: rawSubscribedPrograms,
       typename: typename,
     );
   }
@@ -1189,9 +1110,10 @@ const $ViewerUser = _$ViewerUserTearOff();
 /// @nodoc
 mixin _$ViewerUser {
   String get id;
-  List<Item> get subscribedPrograms;
+  @JsonKey(name: 'subscribedPrograms')
+  @protected
+  List<Item> get rawSubscribedPrograms;
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1205,9 +1127,10 @@ abstract class $ViewerUserCopyWith<$Res> {
       _$ViewerUserCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      List<Item> subscribedPrograms,
+      @JsonKey(name: 'subscribedPrograms')
+      @protected
+          List<Item> rawSubscribedPrograms,
       @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
           String typename});
 }
 
@@ -1222,14 +1145,14 @@ class _$ViewerUserCopyWithImpl<$Res> implements $ViewerUserCopyWith<$Res> {
   @override
   $Res call({
     Object id = freezed,
-    Object subscribedPrograms = freezed,
+    Object rawSubscribedPrograms = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
-      subscribedPrograms: subscribedPrograms == freezed
-          ? _value.subscribedPrograms
-          : subscribedPrograms as List<Item>,
+      rawSubscribedPrograms: rawSubscribedPrograms == freezed
+          ? _value.rawSubscribedPrograms
+          : rawSubscribedPrograms as List<Item>,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1243,9 +1166,10 @@ abstract class _$ViewerUserCopyWith<$Res> implements $ViewerUserCopyWith<$Res> {
   @override
   $Res call(
       {String id,
-      List<Item> subscribedPrograms,
+      @JsonKey(name: 'subscribedPrograms')
+      @protected
+          List<Item> rawSubscribedPrograms,
       @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
           String typename});
 }
 
@@ -1262,14 +1186,14 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
   @override
   $Res call({
     Object id = freezed,
-    Object subscribedPrograms = freezed,
+    Object rawSubscribedPrograms = freezed,
     Object typename = freezed,
   }) {
     return _then(_ViewerUser(
       id: id == freezed ? _value.id : id as String,
-      subscribedPrograms: subscribedPrograms == freezed
-          ? _value.subscribedPrograms
-          : subscribedPrograms as List<Item>,
+      rawSubscribedPrograms: rawSubscribedPrograms == freezed
+          ? _value.rawSubscribedPrograms
+          : rawSubscribedPrograms as List<Item>,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1278,19 +1202,22 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
+class _$_ViewerUser extends _ViewerUser with DiagnosticableTreeMixin {
   const _$_ViewerUser(
       {@required
           this.id,
       @required
-          this.subscribedPrograms,
+      @JsonKey(name: 'subscribedPrograms')
+      @protected
+          this.rawSubscribedPrograms,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
           this.typename})
       : assert(id != null),
-        assert(subscribedPrograms != null),
-        assert(typename != null);
+        assert(rawSubscribedPrograms != null),
+        assert(typename != null),
+        assert(typename == "User"),
+        super._();
 
   factory _$_ViewerUser.fromJson(Map<String, dynamic> json) =>
       _$_$_ViewerUserFromJson(json);
@@ -1298,15 +1225,16 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
   @override
   final String id;
   @override
-  final List<Item> subscribedPrograms;
+  @JsonKey(name: 'subscribedPrograms')
+  @protected
+  final List<Item> rawSubscribedPrograms;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   final String typename;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ViewerUser(id: $id, subscribedPrograms: $subscribedPrograms, typename: $typename)';
+    return 'ViewerUser(id: $id, rawSubscribedPrograms: $rawSubscribedPrograms, typename: $typename)';
   }
 
   @override
@@ -1315,7 +1243,7 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
     properties
       ..add(DiagnosticsProperty('type', 'ViewerUser'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('subscribedPrograms', subscribedPrograms))
+      ..add(DiagnosticsProperty('rawSubscribedPrograms', rawSubscribedPrograms))
       ..add(DiagnosticsProperty('typename', typename));
   }
 
@@ -1325,9 +1253,9 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
         (other is _ViewerUser &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.subscribedPrograms, subscribedPrograms) ||
-                const DeepCollectionEquality()
-                    .equals(other.subscribedPrograms, subscribedPrograms)) &&
+            (identical(other.rawSubscribedPrograms, rawSubscribedPrograms) ||
+                const DeepCollectionEquality().equals(
+                    other.rawSubscribedPrograms, rawSubscribedPrograms)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -1337,7 +1265,7 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(subscribedPrograms) ^
+      const DeepCollectionEquality().hash(rawSubscribedPrograms) ^
       const DeepCollectionEquality().hash(typename);
 
   @override
@@ -1350,15 +1278,17 @@ class _$_ViewerUser with DiagnosticableTreeMixin implements _ViewerUser {
   }
 }
 
-abstract class _ViewerUser implements ViewerUser {
+abstract class _ViewerUser extends ViewerUser {
+  const _ViewerUser._() : super._();
   const factory _ViewerUser(
       {@required
           String id,
       @required
-          List<Item> subscribedPrograms,
+      @JsonKey(name: 'subscribedPrograms')
+      @protected
+          List<Item> rawSubscribedPrograms,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
           String typename}) = _$_ViewerUser;
 
   factory _ViewerUser.fromJson(Map<String, dynamic> json) =
@@ -1367,10 +1297,11 @@ abstract class _ViewerUser implements ViewerUser {
   @override
   String get id;
   @override
-  List<Item> get subscribedPrograms;
+  @JsonKey(name: 'subscribedPrograms')
+  @protected
+  List<Item> get rawSubscribedPrograms;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   String get typename;
   @override
   _$ViewerUserCopyWith<_ViewerUser> get copyWith;
@@ -1386,15 +1317,11 @@ class _$ChannelsTearOff {
 
 // ignore: unused_element
   _Channels call(
-      {@required
-          List<Channel> items,
+      {@required @JsonKey(name: 'items') @protected List<Channel> rawItems,
       String nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelChannelConnection"')
-          String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Channels(
-      items: items,
+      rawItems: rawItems,
       nextToken: nextToken,
       typename: typename,
     );
@@ -1412,10 +1339,11 @@ const $Channels = _$ChannelsTearOff();
 
 /// @nodoc
 mixin _$Channels {
-  List<Channel> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<Channel> get rawItems;
   String get nextToken;
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelChannelConnection"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1427,11 +1355,9 @@ abstract class $ChannelsCopyWith<$Res> {
   factory $ChannelsCopyWith(Channels value, $Res Function(Channels) then) =
       _$ChannelsCopyWithImpl<$Res>;
   $Res call(
-      {List<Channel> items,
+      {@JsonKey(name: 'items') @protected List<Channel> rawItems,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelChannelConnection"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1444,12 +1370,13 @@ class _$ChannelsCopyWithImpl<$Res> implements $ChannelsCopyWith<$Res> {
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<Channel>,
+      rawItems:
+          rawItems == freezed ? _value.rawItems : rawItems as List<Channel>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1462,11 +1389,9 @@ abstract class _$ChannelsCopyWith<$Res> implements $ChannelsCopyWith<$Res> {
       __$ChannelsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<Channel> items,
+      {@JsonKey(name: 'items') @protected List<Channel> rawItems,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelChannelConnection"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1480,12 +1405,13 @@ class __$ChannelsCopyWithImpl<$Res> extends _$ChannelsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_Channels(
-      items: items == freezed ? _value.items : items as List<Channel>,
+      rawItems:
+          rawItems == freezed ? _value.rawItems : rawItems as List<Channel>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1495,33 +1421,32 @@ class __$ChannelsCopyWithImpl<$Res> extends _$ChannelsCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Channels with DiagnosticableTreeMixin implements _Channels {
+class _$_Channels extends _Channels with DiagnosticableTreeMixin {
   const _$_Channels(
-      {@required
-          this.items,
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
       this.nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelChannelConnection"')
-          this.typename})
-      : assert(items != null),
-        assert(typename != null);
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(rawItems != null),
+        assert(typename != null),
+        assert(typename == "ModelChannelConnection"),
+        super._();
 
   factory _$_Channels.fromJson(Map<String, dynamic> json) =>
       _$_$_ChannelsFromJson(json);
 
   @override
-  final List<Channel> items;
+  @JsonKey(name: 'items')
+  @protected
+  final List<Channel> rawItems;
   @override
   final String nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelChannelConnection"')
   final String typename;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Channels(items: $items, nextToken: $nextToken, typename: $typename)';
+    return 'Channels(rawItems: $rawItems, nextToken: $nextToken, typename: $typename)';
   }
 
   @override
@@ -1529,7 +1454,7 @@ class _$_Channels with DiagnosticableTreeMixin implements _Channels {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Channels'))
-      ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('rawItems', rawItems))
       ..add(DiagnosticsProperty('nextToken', nextToken))
       ..add(DiagnosticsProperty('typename', typename));
   }
@@ -1538,8 +1463,9 @@ class _$_Channels with DiagnosticableTreeMixin implements _Channels {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Channels &&
-            (identical(other.items, items) ||
-                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.rawItems, rawItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawItems, rawItems)) &&
             (identical(other.nextToken, nextToken) ||
                 const DeepCollectionEquality()
                     .equals(other.nextToken, nextToken)) &&
@@ -1551,7 +1477,7 @@ class _$_Channels with DiagnosticableTreeMixin implements _Channels {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(rawItems) ^
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
@@ -1565,25 +1491,23 @@ class _$_Channels with DiagnosticableTreeMixin implements _Channels {
   }
 }
 
-abstract class _Channels implements Channels {
+abstract class _Channels extends Channels {
+  const _Channels._() : super._();
   const factory _Channels(
-      {@required
-          List<Channel> items,
+      {@required @JsonKey(name: 'items') @protected List<Channel> rawItems,
       String nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelChannelConnection"')
-          String typename}) = _$_Channels;
+      @required @JsonKey(name: '__typename') String typename}) = _$_Channels;
 
   factory _Channels.fromJson(Map<String, dynamic> json) = _$_Channels.fromJson;
 
   @override
-  List<Channel> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<Channel> get rawItems;
   @override
   String get nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelChannelConnection"')
   String get typename;
   @override
   _$ChannelsCopyWith<_Channels> get copyWith;

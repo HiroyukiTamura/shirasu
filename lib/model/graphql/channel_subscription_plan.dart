@@ -19,11 +19,11 @@ abstract class ChannelSubscriptionPlan with _$ChannelSubscriptionPlan {
 
 @freezed
 abstract class Channel with _$Channel implements BaseChannel {
+  @Assert('typename == "Channel"')
   const factory Channel({
     @required SubscriptionPlan subscriptionPlan,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "Channel"')
         String typename,
   }) = _Channel;
 
@@ -35,11 +35,12 @@ abstract class Channel with _$Channel implements BaseChannel {
 abstract class SubscriptionPlan
     with ProductTypeMixin, ParentPlanTypeMixin
     implements _$SubscriptionPlan, BaseSubscriptionPlan {
+  @Assert('typename == "SubscriptionPlan"')
   const factory SubscriptionPlan({
     @required String id,
-    @visibleForTesting String parentPlanType,
+    @Deprecated("don't use") String parentPlanType,
     String parentPlanId,
-    @visibleForTesting @required String productType,
+    @Deprecated("don't use") @required String productType,
     @required String productId,
     @required String name,
     @required int amount,
@@ -49,7 +50,6 @@ abstract class SubscriptionPlan
     @required bool isPurchasable,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "SubscriptionPlan"')
         String typename,
   }) = _SubscriptionPlan;
 

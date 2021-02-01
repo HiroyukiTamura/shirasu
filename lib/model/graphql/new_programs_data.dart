@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
+import 'package:shirasu/extension.dart';
 
 part 'new_programs_data.freezed.dart';
 
@@ -19,21 +20,28 @@ abstract class NewProgramsData with _$NewProgramsData {
 @freezed
 abstract class NewPrograms with _$NewPrograms implements BaseSearchableProgramConnection {
 
+  @Assert('typename == "SearchableProgramConnection"')
   const factory NewPrograms({
-    @required List<NewProgramItem> items,
+    @required @JsonKey(name: 'items') @protected List<NewProgramItem> rawItems,
     String nextToken,
     @JsonKey(name: '__typename')
     @required
-    @Assert('typename == "SearchableProgramConnection"')
         String typename,
   }) = _NewPrograms;
 
   factory NewPrograms.fromJson(Map<String, dynamic> json) =>
       _$NewProgramsFromJson(json);
+
+  const NewPrograms._();
+
+  @override
+  List<NewProgramItem> get items => rawItems.toUnmodifiable();
 }
 
 @freezed
 abstract class NewProgramItem with ViewerPlanTypeMixin implements _$NewProgramItem, BaseProgram {
+
+  @Assert('typename == "Program"')
   const factory NewProgramItem({
     @required DateTime broadcastAt,
     @required String channelId,
@@ -43,12 +51,11 @@ abstract class NewProgramItem with ViewerPlanTypeMixin implements _$NewProgramIt
     @required String tenantId,
     @required String title,
     @required int totalPlayTime,
-    @visibleForTesting
+    @visibleForOverriding
     String viewerPlanType,
     @required NewProgramChannel channel,
     @JsonKey(name: '__typename')
     @required
-    @Assert('typename == "Program"')
         String typename,
   }) = _NewProgramItem;
 
@@ -60,12 +67,13 @@ abstract class NewProgramItem with ViewerPlanTypeMixin implements _$NewProgramIt
 
 @freezed
 abstract class NewProgramChannel with _$NewProgramChannel implements BaseChannel {
+
+  @Assert('typename == "Channel"')
   const factory NewProgramChannel({
     @required String id,
     @required String name,
     @JsonKey(name: '__typename')
     @required
-    @Assert('typename == "Channel"')
         String typename,
   }) = _NewProgramChannel;
 

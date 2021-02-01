@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
+import 'package:shirasu/extension.dart';
 
 part 'featured_programs_data.freezed.dart';
 
@@ -27,21 +28,27 @@ abstract class FeatureProgramData implements _$FeatureProgramData {
 @freezed
 abstract class Broadcastings with _$Broadcastings implements BaseSearchableProgramConnection {
 
+  @Assert('typename == "SearchableProgramConnection"')
   const factory Broadcastings({
-    @required List<Item> items,
+    @required @JsonKey(name: 'items') @protected List<Item> rawItems,
     @JsonKey(name: '__typename')
     @required
-    @Assert('typename == "SearchableProgramConnection"')
         String typename,
   }) = _Broadcastings;
 
   factory Broadcastings.fromJson(Map<String, dynamic> json) =>
       _$BroadcastingsFromJson(json);
+
+  const Broadcastings._();
+
+  @override
+  UnmodifiableListView<Item> get items => rawItems.toUnmodifiable();
 }
 
 @freezed
 abstract class Item with _$Item implements BaseProgram{
 
+  @Assert('typename == "Program"')
   const factory Item({
     @required DateTime broadcastAt,
     @required String channelId,
@@ -51,12 +58,11 @@ abstract class Item with _$Item implements BaseProgram{
     @required String tenantId,
     @required String title,
     @required int totalPlayTime,
-    @visibleForTesting
+    @visibleForOverriding
     String viewerPlanType,
     @required Channel channel,
     @JsonKey(name: '__typename')
     @required
-    @Assert('typename == "Program"')
         String typename,
   }) = _Item;
 
@@ -66,12 +72,12 @@ abstract class Item with _$Item implements BaseProgram{
 @freezed
 abstract class Channel with _$Channel implements BaseChannel {
 
+  @Assert('typename == "Channel"')
   const factory Channel({
     @required String id,
     @required String name,
     @JsonKey(name: '__typename')
     @required
-    @Assert('typename == "Channel"')
         String typename,
   }) = _Channel;
 
@@ -82,31 +88,39 @@ abstract class Channel with _$Channel implements BaseChannel {
 @freezed
 abstract class ViewerUser with _$ViewerUser implements BaseUser {
 
+  @Assert('typename == "User"')
   const factory ViewerUser({
     @required String id,
-    @required List<Item> subscribedPrograms,
+    @required @JsonKey(name: 'subscribedPrograms') @protected List<Item> rawSubscribedPrograms,
     @JsonKey(name: '__typename')
     @required
-    @Assert('typename == "User"')
         String typename,
   }) = _ViewerUser;
 
   factory ViewerUser.fromJson(Map<String, dynamic> json) =>
       _$ViewerUserFromJson(json);
+
+  const ViewerUser._();
+
+  UnmodifiableListView<Item> get subscribedPrograms => rawSubscribedPrograms.toUnmodifiable();
 }
 
 @freezed
 abstract class Channels with _$Channels implements BaseModelChannelConnection {
 
+  @Assert('typename == "ModelChannelConnection"')
   const factory Channels({
-    @required List<Channel> items,
+    @required @JsonKey(name: 'items') @protected List<Channel> rawItems,
     String nextToken,
     @JsonKey(name: '__typename')
     @required
-    @Assert('typename == "ModelChannelConnection"')
     String typename,
   }) = _Channels;
 
   factory Channels.fromJson(Map<String, dynamic> json) =>
       _$ChannelsFromJson(json);
+
+  const Channels._();
+
+  UnmodifiableListView<Channel> get items => rawItems.toUnmodifiable();
 }

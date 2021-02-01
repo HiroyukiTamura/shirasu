@@ -180,14 +180,9 @@ class _$CommentsTearOff {
 
 // ignore: unused_element
   _Comments call(
-      {@required
-      @Deprecated('use [itemsSorted]')
-          List<CommentItem> items,
+      {@required @protected List<CommentItem> items,
       String nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelCommentConnection"')
-          String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Comments(
       items: items,
       nextToken: nextToken,
@@ -207,11 +202,10 @@ const $Comments = _$CommentsTearOff();
 
 /// @nodoc
 mixin _$Comments {
-  @Deprecated('use [itemsSorted]')
+  @protected
   List<CommentItem> get items;
   String get nextToken;
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelCommentConnection"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -223,12 +217,9 @@ abstract class $CommentsCopyWith<$Res> {
   factory $CommentsCopyWith(Comments value, $Res Function(Comments) then) =
       _$CommentsCopyWithImpl<$Res>;
   $Res call(
-      {@Deprecated('use [itemsSorted]')
-          List<CommentItem> items,
+      {@protected List<CommentItem> items,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelCommentConnection"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -259,12 +250,9 @@ abstract class _$CommentsCopyWith<$Res> implements $CommentsCopyWith<$Res> {
       __$CommentsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@Deprecated('use [itemsSorted]')
-          List<CommentItem> items,
+      {@protected List<CommentItem> items,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelCommentConnection"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -295,29 +283,24 @@ class __$CommentsCopyWithImpl<$Res> extends _$CommentsCopyWithImpl<$Res>
 /// @nodoc
 class _$_Comments extends _Comments {
   const _$_Comments(
-      {@required
-      @Deprecated('use [itemsSorted]')
-          this.items,
+      {@required @protected this.items,
       this.nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelCommentConnection"')
-          this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(items != null),
         assert(typename != null),
+        assert(typename == "ModelCommentConnection"),
         super._();
 
   factory _$_Comments.fromJson(Map<String, dynamic> json) =>
       _$_$_CommentsFromJson(json);
 
   @override
-  @Deprecated('use [itemsSorted]')
+  @protected
   final List<CommentItem> items;
   @override
   final String nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelCommentConnection"')
   final String typename;
 
   @override
@@ -359,25 +342,19 @@ class _$_Comments extends _Comments {
 abstract class _Comments extends Comments {
   const _Comments._() : super._();
   const factory _Comments(
-      {@required
-      @Deprecated('use [itemsSorted]')
-          List<CommentItem> items,
+      {@required @protected List<CommentItem> items,
       String nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelCommentConnection"')
-          String typename}) = _$_Comments;
+      @required @JsonKey(name: '__typename') String typename}) = _$_Comments;
 
   factory _Comments.fromJson(Map<String, dynamic> json) = _$_Comments.fromJson;
 
   @override
-  @Deprecated('use [itemsSorted]')
+  @protected
   List<CommentItem> get items;
   @override
   String get nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelCommentConnection"')
   String get typename;
   @override
   _$CommentsCopyWith<_Comments> get copyWith;
@@ -393,21 +370,12 @@ class _$CommentItemTearOff {
 
 // ignore: unused_element
   _CommentItem call(
-      {@required
-          String id,
-      @required
-          String text,
-      @required
-      @Deprecated('use [commentTime]')
-          int commentTime,
-      @required
-          String userId,
-      @required
-          User user,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Comment"')
-          String typename}) {
+      {@required String id,
+      @required String text,
+      @required @protected int commentTime,
+      @required String userId,
+      @required User user,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _CommentItem(
       id: id,
       text: text,
@@ -432,12 +400,11 @@ const $CommentItem = _$CommentItemTearOff();
 mixin _$CommentItem {
   String get id;
   String get text;
-  @Deprecated('use [commentTime]')
+  @protected
   int get commentTime;
   String get userId;
   User get user;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Comment"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -452,13 +419,10 @@ abstract class $CommentItemCopyWith<$Res> {
   $Res call(
       {String id,
       String text,
-      @Deprecated('use [commentTime]')
-          int commentTime,
+      @protected int commentTime,
       String userId,
       User user,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Comment"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   $UserCopyWith<$Res> get user;
 }
@@ -512,13 +476,10 @@ abstract class _$CommentItemCopyWith<$Res>
   $Res call(
       {String id,
       String text,
-      @Deprecated('use [commentTime]')
-          int commentTime,
+      @protected int commentTime,
       String userId,
       User user,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Comment"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -560,27 +521,19 @@ class __$CommentItemCopyWithImpl<$Res> extends _$CommentItemCopyWithImpl<$Res>
 /// @nodoc
 class _$_CommentItem extends _CommentItem {
   const _$_CommentItem(
-      {@required
-          this.id,
-      @required
-          this.text,
-      @required
-      @Deprecated('use [commentTime]')
-          this.commentTime,
-      @required
-          this.userId,
-      @required
-          this.user,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Comment"')
-          this.typename})
+      {@required this.id,
+      @required this.text,
+      @required @protected this.commentTime,
+      @required this.userId,
+      @required this.user,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(text != null),
         assert(commentTime != null),
         assert(userId != null),
         assert(user != null),
         assert(typename != null),
+        assert(typename == "Comment"),
         super._();
 
   factory _$_CommentItem.fromJson(Map<String, dynamic> json) =>
@@ -591,7 +544,7 @@ class _$_CommentItem extends _CommentItem {
   @override
   final String text;
   @override
-  @Deprecated('use [commentTime]')
+  @protected
   final int commentTime;
   @override
   final String userId;
@@ -599,7 +552,6 @@ class _$_CommentItem extends _CommentItem {
   final User user;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Comment"')
   final String typename;
 
   @override
@@ -650,21 +602,12 @@ class _$_CommentItem extends _CommentItem {
 abstract class _CommentItem extends CommentItem {
   const _CommentItem._() : super._();
   const factory _CommentItem(
-      {@required
-          String id,
-      @required
-          String text,
-      @required
-      @Deprecated('use [commentTime]')
-          int commentTime,
-      @required
-          String userId,
-      @required
-          User user,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Comment"')
-          String typename}) = _$_CommentItem;
+      {@required String id,
+      @required String text,
+      @required @protected int commentTime,
+      @required String userId,
+      @required User user,
+      @required @JsonKey(name: '__typename') String typename}) = _$_CommentItem;
 
   factory _CommentItem.fromJson(Map<String, dynamic> json) =
       _$_CommentItem.fromJson;
@@ -674,7 +617,7 @@ abstract class _CommentItem extends CommentItem {
   @override
   String get text;
   @override
-  @Deprecated('use [commentTime]')
+  @protected
   int get commentTime;
   @override
   String get userId;
@@ -682,7 +625,6 @@ abstract class _CommentItem extends CommentItem {
   User get user;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Comment"')
   String get typename;
   @override
   _$CommentItemCopyWith<_CommentItem> get copyWith;
@@ -698,16 +640,10 @@ class _$UserTearOff {
 
 // ignore: unused_element
   _User call(
-      {@required
-          String id,
-      @required
-          String name,
-      @required
-          String icon,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename}) {
+      {@required String id,
+      @required String name,
+      @required String icon,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _User(
       id: id,
       name: name,
@@ -732,7 +668,6 @@ mixin _$User {
   String get name;
   String get icon;
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -747,9 +682,7 @@ abstract class $UserCopyWith<$Res> {
       {String id,
       String name,
       String icon,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -785,9 +718,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       {String id,
       String name,
       String icon,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -820,20 +751,15 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 /// @nodoc
 class _$_User implements _User {
   const _$_User(
-      {@required
-          this.id,
-      @required
-          this.name,
-      @required
-          this.icon,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          this.typename})
+      {@required this.id,
+      @required this.name,
+      @required this.icon,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(name != null),
         assert(icon != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "User");
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -846,7 +772,6 @@ class _$_User implements _User {
   final String icon;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   final String typename;
 
   @override
@@ -889,16 +814,10 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {@required
-          String id,
-      @required
-          String name,
-      @required
-          String icon,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename}) = _$_User;
+      {@required String id,
+      @required String name,
+      @required String icon,
+      @required @JsonKey(name: '__typename') String typename}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -910,7 +829,6 @@ abstract class _User implements User {
   String get icon;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   String get typename;
   @override
   _$UserCopyWith<_User> get copyWith;

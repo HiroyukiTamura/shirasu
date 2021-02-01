@@ -18,12 +18,12 @@ abstract class ListCommentsByProgram with _$ListCommentsByProgram {
 
 @freezed
 abstract class Comments with _$Comments implements BaseModelCommentConnection {
+  @Assert('typename == "ModelCommentConnection"')
   const factory Comments({
-    @Deprecated('use [itemsSorted]') @required List<CommentItem> items,
+    @protected @required List<CommentItem> items,
     String nextToken,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "ModelCommentConnection"')
         String typename,
   }) = _Comments;
 
@@ -33,21 +33,20 @@ abstract class Comments with _$Comments implements BaseModelCommentConnection {
   const Comments._();
 
   List<CommentItem> get itemsSorted =>
-      // ignore: deprecated_member_use_from_same_package
       items.sortedByDescending((it) => it.commentTimeDuration);
 }
 
 @freezed
 abstract class CommentItem with _$CommentItem implements BaseComment {
+  @Assert('typename == "Comment"')
   const factory CommentItem({
     @required String id,
     @required String text,
-    @Deprecated('use [commentTime]') @required int commentTime,
+    @required @protected int commentTime,
     @required String userId,
     @required User user,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "Comment"')
         String typename,
   }) = _CommentItem;
 
@@ -61,13 +60,13 @@ abstract class CommentItem with _$CommentItem implements BaseComment {
 
 @freezed
 abstract class User with _$User implements BaseUser {
+  @Assert('typename == "User"')
   const factory User({
     @required String id,
     @required String name,
     @required String icon,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "User"')
         String typename,
   }) = _User;
 

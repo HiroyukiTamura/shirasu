@@ -8,8 +8,9 @@ part 'watch_history_data.g.dart';
 
 @freezed
 abstract class WatchHistoriesData with _$WatchHistoriesData {
-  const factory WatchHistoriesData(
-      {@required ViewerUserSimple viewerUser,}) = _WatchHistoriesData;
+  const factory WatchHistoriesData({
+    @required ViewerUserSimple viewerUser,
+  }) = _WatchHistoriesData;
 
   factory WatchHistoriesData.fromJson(Map<String, dynamic> json) =>
       _$WatchHistoriesDataFromJson(json);
@@ -17,11 +18,10 @@ abstract class WatchHistoriesData with _$WatchHistoriesData {
 
 @freezed
 abstract class ViewerUserSimple with _$ViewerUserSimple implements BaseUser {
-
+  @Assert('typename == "User"')
   const factory ViewerUserSimple({
     @required WatchHistories watchHistories,
-    @required @JsonKey(name: '__typename') @Assert(
-        'typename == "User"') String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _ViewerUserSimple;
 
   factory ViewerUserSimple.fromJson(Map<String, dynamic> json) =>

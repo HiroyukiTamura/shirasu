@@ -17,6 +17,7 @@ abstract class InvoiceData with _$InvoiceData {
 
 @freezed
 abstract class Invoice implements _$Invoice, BaseInvoice {
+  @Assert('typename == Invoice')
   const factory Invoice({
     @required String id,
     @required DateTime createdAt,
@@ -31,7 +32,6 @@ abstract class Invoice implements _$Invoice, BaseInvoice {
     dynamic discount,
     dynamic paymentIntent,
     @required
-    @Assert('typename == Invoice')
     @JsonKey(name: '__typename')
         String typename,
   }) = _Invoice;

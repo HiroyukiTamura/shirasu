@@ -6,7 +6,6 @@ import 'package:shirasu/di/local_json_client.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_user_location_dialog.dart';
 import 'package:shirasu/extension.dart';
-import 'package:dartx/dartx.dart';
 
 final _viewModelProvider =
     StateNotifierProvider.autoDispose<ViewModelUserLocationDialog>(

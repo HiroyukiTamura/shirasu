@@ -1,12 +1,15 @@
+import 'dart:collection';
+import 'dart:typed_data';
+
 import 'package:better_player/better_player.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
-import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 
 extension IteratableX<E> on Iterable<E> {
   // todo send PR to dartX
@@ -19,6 +22,12 @@ extension IteratableX<E> on Iterable<E> {
 
     return list;
   }
+
+  UnmodifiableListView<E> toUnmodifiable() => UnmodifiableListView(this);
+}
+
+extension MapX<K, V> on Map<K, V> {
+  UnmodifiableMapView<K, V> toUnmodifiable() => UnmodifiableMapView(this);
 }
 
 extension IntX on int {

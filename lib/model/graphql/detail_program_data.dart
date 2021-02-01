@@ -5,8 +5,8 @@ import 'package:shirasu/model/graphql/mixins/media_status.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 import 'package:shirasu/model/graphql/mixins/product_type.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
-import 'package:shirasu/extension.dart';
 import 'package:dartx/dartx.dart';
+import 'package:shirasu/extension.dart';
 
 part 'detail_program_data.freezed.dart';
 
@@ -27,6 +27,7 @@ abstract class ProgramDetailData with _$ProgramDetailData {
 abstract class ProgramDetail
     with ViewerPlanTypeMixin
     implements _$ProgramDetail, BaseProgram {
+  @Assert('typename == "Program"')
   const factory ProgramDetail({
     @required String id,
     @required String channelId,
@@ -38,29 +39,34 @@ abstract class ProgramDetail
     @required int mainTime,
     @required int previewTime,
     @required bool release,
-    @required List<String> tags,
+    @required @JsonKey(name: 'tags') @protected List<String> rawTags,
     @required String title,
     @required int totalPlayTime,
-    @visibleForTesting String viewerPlanType,
+    @Deprecated('use [viewerPlanType]') String viewerPlanType,
     bool isExtensionChargedToSubscribers,
     DateTime archivedAt,
     @required String releaseState,
     @required bool shouldArchive,
-    @required List<Extension> extensions,
-    @required
-    @JsonKey(name: '__typename')
-    @Assert('typename == "Program"')
-        String typename,
+    @required @protected @JsonKey(name: 'extensions') List<Extension> rawExtensions,
     @required DetailPrgChannel channel,
     @required Handouts handouts,
     @required VideoHandouts videos,
-    @required List<OnetimePlan> onetimePlans,
+    @required @protected @JsonKey(name: 'onetimePlans') List<OnetimePlan> rawOnetimePlans,
+    @required
+    @JsonKey(name: '__typename')
+    String typename,
   }) = _ProgramDetail;
 
   factory ProgramDetail.fromJson(Map<String, dynamic> json) =>
       _$ProgramDetailFromJson(json);
 
   const ProgramDetail._();
+
+  UnmodifiableListView<String> get tags => IteratableX(rawTags).toUnmodifiable();
+
+  UnmodifiableListView<Extension> get extensions => IteratableX(rawExtensions).toUnmodifiable();
+
+  UnmodifiableListView<OnetimePlan> get onetimePlans => IteratableX(rawOnetimePlans).toUnmodifiable();
 
   OnetimePlan get onetimePlanMain => onetimePlans.firstOrNullWhere(
         (it) => it.productTypeStrict == ProductType.PROGRAM,
@@ -85,6 +91,7 @@ abstract class ProgramDetail
 
 @freezed
 abstract class DetailPrgChannel with _$DetailPrgChannel implements BaseChannel {
+  @Assert('typename == "Channel"')
   const factory DetailPrgChannel({
     @required String id,
     @required String tenantId,
@@ -93,7 +100,6 @@ abstract class DetailPrgChannel with _$DetailPrgChannel implements BaseChannel {
     @required String textOnPurchaseScreen,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "Channel"')
         String typename,
   }) = _DetailPrgChannel;
 
@@ -105,36 +111,45 @@ abstract class DetailPrgChannel with _$DetailPrgChannel implements BaseChannel {
 abstract class VideoHandouts
     with _$VideoHandouts
     implements BaseModelHandoutConnection {
+  @Assert('typename == "ModelHandoutConnection"')
   const factory VideoHandouts({
-    @required List<DetailPrgItem> items,
+    @required @JsonKey(name: 'items') @protected List<DetailPrgItem> rawItems,
     String nextToken,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "ModelHandoutConnection"')
         String typename,
   }) = _VideoHandouts;
 
   factory VideoHandouts.fromJson(Map<String, dynamic> json) =>
       _$VideoHandoutsFromJson(json);
+
+  const VideoHandouts._();
+
+  UnmodifiableListView<DetailPrgItem> get items => IteratableX(rawItems).toUnmodifiable();
 }
 
 @freezed
 abstract class Handouts with _$Handouts implements BaseHandouts {
+  @Assert('typename == "Handouts"')
   const factory Handouts({
-    @required List<Handout> items,
+    @required @JsonKey(name: 'items') @protected List<Handout> rawItems,
     String nextToken,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "Handouts"')
         String typename,
   }) = _Handouts;
 
   factory Handouts.fromJson(Map<String, dynamic> json) =>
       _$HandoutsFromJson(json);
+
+  const Handouts._();
+
+  UnmodifiableListView<Handout> get items => IteratableX(rawItems).toUnmodifiable();
 }
 
 @freezed
 abstract class Handout with _$Handout implements BaseHandout {
+  @Assert('typename == "Handout"')
   const factory Handout({
     @required String id,
     @required String programId,
@@ -143,7 +158,6 @@ abstract class Handout with _$Handout implements BaseHandout {
     @required DateTime createdAt,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "Handout"')
         String typename,
   }) = _Handout;
 
@@ -151,19 +165,21 @@ abstract class Handout with _$Handout implements BaseHandout {
       _$HandoutFromJson(json);
 }
 
+/// use [videoTypeStrict] instead of [videoType]
 @freezed
 abstract class DetailPrgItem
     with _$DetailPrgItem, VideoTypeMixin, MediaStatusMixin
     implements BaseVideo {
+  @Assert('typename == "Video"')
   const factory DetailPrgItem({
     @required String id,
+    @visibleForOverriding
     @required String videoType,
     String mediaStatus,
     String liveUrl,
     String archiveUrl,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "Video"')
         String typename,
   }) = _DetailPrgItem;
 
@@ -182,7 +198,7 @@ abstract class DetailPrgItem
     return int.parse(RegExp(r'\d+$').stringMatch(id));
   }
 
-  // todo converting VideoType
+  // todo convert to freezed class
   String get urlAvailable {
     switch (videoTypeStrict) {
       case VideoType.LIVE:
@@ -199,11 +215,12 @@ abstract class DetailPrgItem
 abstract class OnetimePlan
     with ProductTypeMixin, ParentPlanTypeMixin, AmountMixin
     implements _$OnetimePlan, BaseOneTimePlan {
+  @Assert('typename == "OneTimePlan"')
   const factory OnetimePlan({
     @required String id,
-    @visibleForTesting String parentPlanType,
+    @visibleForOverriding String parentPlanType,
     String parentPlanId,
-    @visibleForTesting @required String productType,
+    @visibleForOverriding @required String productType,
     @required String productId,
     @required String name,
     @required int amount,
@@ -212,7 +229,6 @@ abstract class OnetimePlan
     String viewerPurchasedPlan,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "OneTimePlan"')
         String typename,
   }) = _OnetimePlan;
 
@@ -224,6 +240,7 @@ abstract class OnetimePlan
 
 @freezed
 abstract class Extension with _$Extension implements BaseExtension {
+  @Assert('typename == "LiveExtension"')
   const factory Extension({
     @required String id,
     @required int extensionTime,
@@ -231,7 +248,6 @@ abstract class Extension with _$Extension implements BaseExtension {
     @required OnetimePlan oneTimePlan,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "LiveExtension"')
         String typename,
   }) = _Extension;
 
@@ -241,12 +257,12 @@ abstract class Extension with _$Extension implements BaseExtension {
 
 @freezed
 abstract class Viewer with _$Viewer implements BaseViewer {
+  @Assert('typename == "Viewer"')
   const factory Viewer({
     @required String name,
     @required String icon,
     @required
     @JsonKey(name: '__typename')
-    @Assert('typename == "Viewer"')
         String typename,
   }) = _Viewer;
 

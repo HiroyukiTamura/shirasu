@@ -182,12 +182,8 @@ class _$ViewerUserSimpleTearOff {
 
 // ignore: unused_element
   _ViewerUserSimple call(
-      {@required
-          WatchHistories watchHistories,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename}) {
+      {@required WatchHistories watchHistories,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _ViewerUserSimple(
       watchHistories: watchHistories,
       typename: typename,
@@ -208,7 +204,6 @@ const $ViewerUserSimple = _$ViewerUserSimpleTearOff();
 mixin _$ViewerUserSimple {
   WatchHistories get watchHistories;
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -222,9 +217,7 @@ abstract class $ViewerUserSimpleCopyWith<$Res> {
       _$ViewerUserSimpleCopyWithImpl<$Res>;
   $Res call(
       {WatchHistories watchHistories,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   $WatchHistoriesCopyWith<$Res> get watchHistories;
 }
@@ -271,9 +264,7 @@ abstract class _$ViewerUserSimpleCopyWith<$Res>
   @override
   $Res call(
       {WatchHistories watchHistories,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $WatchHistoriesCopyWith<$Res> get watchHistories;
@@ -309,14 +300,11 @@ class __$ViewerUserSimpleCopyWithImpl<$Res>
 /// @nodoc
 class _$_ViewerUserSimple implements _ViewerUserSimple {
   const _$_ViewerUserSimple(
-      {@required
-          this.watchHistories,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          this.typename})
+      {@required this.watchHistories,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(watchHistories != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "User");
 
   factory _$_ViewerUserSimple.fromJson(Map<String, dynamic> json) =>
       _$_$_ViewerUserSimpleFromJson(json);
@@ -325,7 +313,6 @@ class _$_ViewerUserSimple implements _ViewerUserSimple {
   final WatchHistories watchHistories;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   final String typename;
 
   @override
@@ -363,12 +350,9 @@ class _$_ViewerUserSimple implements _ViewerUserSimple {
 
 abstract class _ViewerUserSimple implements ViewerUserSimple {
   const factory _ViewerUserSimple(
-      {@required
-          WatchHistories watchHistories,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "User"')
-          String typename}) = _$_ViewerUserSimple;
+          {@required WatchHistories watchHistories,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_ViewerUserSimple;
 
   factory _ViewerUserSimple.fromJson(Map<String, dynamic> json) =
       _$_ViewerUserSimple.fromJson;
@@ -377,7 +361,6 @@ abstract class _ViewerUserSimple implements ViewerUserSimple {
   WatchHistories get watchHistories;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "User"')
   String get typename;
   @override
   _$ViewerUserSimpleCopyWith<_ViewerUserSimple> get copyWith;

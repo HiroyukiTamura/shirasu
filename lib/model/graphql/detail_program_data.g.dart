@@ -40,7 +40,7 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
     mainTime: json['mainTime'] as int,
     previewTime: json['previewTime'] as int,
     release: json['release'] as bool,
-    tags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
+    rawTags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
     title: json['title'] as String,
     totalPlayTime: json['totalPlayTime'] as int,
     viewerPlanType: json['viewerPlanType'] as String,
@@ -51,11 +51,10 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['archivedAt'] as String),
     releaseState: json['releaseState'] as String,
     shouldArchive: json['shouldArchive'] as bool,
-    extensions: (json['extensions'] as List)
+    rawExtensions: (json['extensions'] as List)
         ?.map((e) =>
             e == null ? null : Extension.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    typename: json['__typename'] as String,
     channel: json['channel'] == null
         ? null
         : DetailPrgChannel.fromJson(json['channel'] as Map<String, dynamic>),
@@ -65,10 +64,11 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
     videos: json['videos'] == null
         ? null
         : VideoHandouts.fromJson(json['videos'] as Map<String, dynamic>),
-    onetimePlans: (json['onetimePlans'] as List)
+    rawOnetimePlans: (json['onetimePlans'] as List)
         ?.map((e) =>
             e == null ? null : OnetimePlan.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    typename: json['__typename'] as String,
   );
 }
 
@@ -85,7 +85,7 @@ Map<String, dynamic> _$_$_ProgramDetailToJson(_$_ProgramDetail instance) =>
       'mainTime': instance.mainTime,
       'previewTime': instance.previewTime,
       'release': instance.release,
-      'tags': instance.tags,
+      'tags': instance.rawTags,
       'title': instance.title,
       'totalPlayTime': instance.totalPlayTime,
       'viewerPlanType': instance.viewerPlanType,
@@ -94,12 +94,12 @@ Map<String, dynamic> _$_$_ProgramDetailToJson(_$_ProgramDetail instance) =>
       'archivedAt': instance.archivedAt?.toIso8601String(),
       'releaseState': instance.releaseState,
       'shouldArchive': instance.shouldArchive,
-      'extensions': instance.extensions,
-      '__typename': instance.typename,
+      'extensions': instance.rawExtensions,
       'channel': instance.channel,
       'handouts': instance.handouts,
       'videos': instance.videos,
-      'onetimePlans': instance.onetimePlans,
+      'onetimePlans': instance.rawOnetimePlans,
+      '__typename': instance.typename,
     };
 
 _$_DetailPrgChannel _$_$_DetailPrgChannelFromJson(Map<String, dynamic> json) {
@@ -126,7 +126,7 @@ Map<String, dynamic> _$_$_DetailPrgChannelToJson(
 
 _$_VideoHandouts _$_$_VideoHandoutsFromJson(Map<String, dynamic> json) {
   return _$_VideoHandouts(
-    items: (json['items'] as List)
+    rawItems: (json['items'] as List)
         ?.map((e) => e == null
             ? null
             : DetailPrgItem.fromJson(e as Map<String, dynamic>))
@@ -138,14 +138,14 @@ _$_VideoHandouts _$_$_VideoHandoutsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_VideoHandoutsToJson(_$_VideoHandouts instance) =>
     <String, dynamic>{
-      'items': instance.items,
+      'items': instance.rawItems,
       'nextToken': instance.nextToken,
       '__typename': instance.typename,
     };
 
 _$_Handouts _$_$_HandoutsFromJson(Map<String, dynamic> json) {
   return _$_Handouts(
-    items: (json['items'] as List)
+    rawItems: (json['items'] as List)
         ?.map((e) =>
             e == null ? null : Handout.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -156,7 +156,7 @@ _$_Handouts _$_$_HandoutsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_HandoutsToJson(_$_Handouts instance) =>
     <String, dynamic>{
-      'items': instance.items,
+      'items': instance.rawItems,
       'nextToken': instance.nextToken,
       '__typename': instance.typename,
     };

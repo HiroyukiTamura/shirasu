@@ -226,12 +226,14 @@ class _$ProgramDetailTearOff {
       @required
           bool release,
       @required
-          List<String> tags,
+      @JsonKey(name: 'tags')
+      @protected
+          List<String> rawTags,
       @required
           String title,
       @required
           int totalPlayTime,
-      @visibleForTesting
+      @Deprecated('use [viewerPlanType]')
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -240,11 +242,9 @@ class _$ProgramDetailTearOff {
       @required
           bool shouldArchive,
       @required
-          List<Extension> extensions,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename,
+      @protected
+      @JsonKey(name: 'extensions')
+          List<Extension> rawExtensions,
       @required
           DetailPrgChannel channel,
       @required
@@ -252,7 +252,12 @@ class _$ProgramDetailTearOff {
       @required
           VideoHandouts videos,
       @required
-          List<OnetimePlan> onetimePlans}) {
+      @protected
+      @JsonKey(name: 'onetimePlans')
+          List<OnetimePlan> rawOnetimePlans,
+      @required
+      @JsonKey(name: '__typename')
+          String typename}) {
     return _ProgramDetail(
       id: id,
       channelId: channelId,
@@ -264,7 +269,7 @@ class _$ProgramDetailTearOff {
       mainTime: mainTime,
       previewTime: previewTime,
       release: release,
-      tags: tags,
+      rawTags: rawTags,
       title: title,
       totalPlayTime: totalPlayTime,
       viewerPlanType: viewerPlanType,
@@ -272,12 +277,12 @@ class _$ProgramDetailTearOff {
       archivedAt: archivedAt,
       releaseState: releaseState,
       shouldArchive: shouldArchive,
-      extensions: extensions,
-      typename: typename,
+      rawExtensions: rawExtensions,
       channel: channel,
       handouts: handouts,
       videos: videos,
-      onetimePlans: onetimePlans,
+      rawOnetimePlans: rawOnetimePlans,
+      typename: typename,
     );
   }
 
@@ -303,23 +308,28 @@ mixin _$ProgramDetail {
   int get mainTime;
   int get previewTime;
   bool get release;
-  List<String> get tags;
+  @JsonKey(name: 'tags')
+  @protected
+  List<String> get rawTags;
   String get title;
   int get totalPlayTime;
-  @visibleForTesting
+  @Deprecated('use [viewerPlanType]')
   String get viewerPlanType;
   bool get isExtensionChargedToSubscribers;
   DateTime get archivedAt;
   String get releaseState;
   bool get shouldArchive;
-  List<Extension> get extensions;
-  @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
-  String get typename;
+  @protected
+  @JsonKey(name: 'extensions')
+  List<Extension> get rawExtensions;
   DetailPrgChannel get channel;
   Handouts get handouts;
   VideoHandouts get videos;
-  List<OnetimePlan> get onetimePlans;
+  @protected
+  @JsonKey(name: 'onetimePlans')
+  List<OnetimePlan> get rawOnetimePlans;
+  @JsonKey(name: '__typename')
+  String get typename;
 
   Map<String, dynamic> toJson();
   $ProgramDetailCopyWith<ProgramDetail> get copyWith;
@@ -341,23 +351,28 @@ abstract class $ProgramDetailCopyWith<$Res> {
       int mainTime,
       int previewTime,
       bool release,
-      List<String> tags,
+      @JsonKey(name: 'tags')
+      @protected
+          List<String> rawTags,
       String title,
       int totalPlayTime,
-      @visibleForTesting
+      @Deprecated('use [viewerPlanType]')
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       String releaseState,
       bool shouldArchive,
-      List<Extension> extensions,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename,
+      @protected
+      @JsonKey(name: 'extensions')
+          List<Extension> rawExtensions,
       DetailPrgChannel channel,
       Handouts handouts,
       VideoHandouts videos,
-      List<OnetimePlan> onetimePlans});
+      @protected
+      @JsonKey(name: 'onetimePlans')
+          List<OnetimePlan> rawOnetimePlans,
+      @JsonKey(name: '__typename')
+          String typename});
 
   $DetailPrgChannelCopyWith<$Res> get channel;
   $HandoutsCopyWith<$Res> get handouts;
@@ -385,7 +400,7 @@ class _$ProgramDetailCopyWithImpl<$Res>
     Object mainTime = freezed,
     Object previewTime = freezed,
     Object release = freezed,
-    Object tags = freezed,
+    Object rawTags = freezed,
     Object title = freezed,
     Object totalPlayTime = freezed,
     Object viewerPlanType = freezed,
@@ -393,12 +408,12 @@ class _$ProgramDetailCopyWithImpl<$Res>
     Object archivedAt = freezed,
     Object releaseState = freezed,
     Object shouldArchive = freezed,
-    Object extensions = freezed,
-    Object typename = freezed,
+    Object rawExtensions = freezed,
     Object channel = freezed,
     Object handouts = freezed,
     Object videos = freezed,
-    Object onetimePlans = freezed,
+    Object rawOnetimePlans = freezed,
+    Object typename = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
@@ -417,7 +432,7 @@ class _$ProgramDetailCopyWithImpl<$Res>
       previewTime:
           previewTime == freezed ? _value.previewTime : previewTime as int,
       release: release == freezed ? _value.release : release as bool,
-      tags: tags == freezed ? _value.tags : tags as List<String>,
+      rawTags: rawTags == freezed ? _value.rawTags : rawTags as List<String>,
       title: title == freezed ? _value.title : title as String,
       totalPlayTime: totalPlayTime == freezed
           ? _value.totalPlayTime
@@ -437,17 +452,17 @@ class _$ProgramDetailCopyWithImpl<$Res>
       shouldArchive: shouldArchive == freezed
           ? _value.shouldArchive
           : shouldArchive as bool,
-      extensions: extensions == freezed
-          ? _value.extensions
-          : extensions as List<Extension>,
-      typename: typename == freezed ? _value.typename : typename as String,
+      rawExtensions: rawExtensions == freezed
+          ? _value.rawExtensions
+          : rawExtensions as List<Extension>,
       channel:
           channel == freezed ? _value.channel : channel as DetailPrgChannel,
       handouts: handouts == freezed ? _value.handouts : handouts as Handouts,
       videos: videos == freezed ? _value.videos : videos as VideoHandouts,
-      onetimePlans: onetimePlans == freezed
-          ? _value.onetimePlans
-          : onetimePlans as List<OnetimePlan>,
+      rawOnetimePlans: rawOnetimePlans == freezed
+          ? _value.rawOnetimePlans
+          : rawOnetimePlans as List<OnetimePlan>,
+      typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
 
@@ -500,23 +515,28 @@ abstract class _$ProgramDetailCopyWith<$Res>
       int mainTime,
       int previewTime,
       bool release,
-      List<String> tags,
+      @JsonKey(name: 'tags')
+      @protected
+          List<String> rawTags,
       String title,
       int totalPlayTime,
-      @visibleForTesting
+      @Deprecated('use [viewerPlanType]')
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       String releaseState,
       bool shouldArchive,
-      List<Extension> extensions,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename,
+      @protected
+      @JsonKey(name: 'extensions')
+          List<Extension> rawExtensions,
       DetailPrgChannel channel,
       Handouts handouts,
       VideoHandouts videos,
-      List<OnetimePlan> onetimePlans});
+      @protected
+      @JsonKey(name: 'onetimePlans')
+          List<OnetimePlan> rawOnetimePlans,
+      @JsonKey(name: '__typename')
+          String typename});
 
   @override
   $DetailPrgChannelCopyWith<$Res> get channel;
@@ -549,7 +569,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
     Object mainTime = freezed,
     Object previewTime = freezed,
     Object release = freezed,
-    Object tags = freezed,
+    Object rawTags = freezed,
     Object title = freezed,
     Object totalPlayTime = freezed,
     Object viewerPlanType = freezed,
@@ -557,12 +577,12 @@ class __$ProgramDetailCopyWithImpl<$Res>
     Object archivedAt = freezed,
     Object releaseState = freezed,
     Object shouldArchive = freezed,
-    Object extensions = freezed,
-    Object typename = freezed,
+    Object rawExtensions = freezed,
     Object channel = freezed,
     Object handouts = freezed,
     Object videos = freezed,
-    Object onetimePlans = freezed,
+    Object rawOnetimePlans = freezed,
+    Object typename = freezed,
   }) {
     return _then(_ProgramDetail(
       id: id == freezed ? _value.id : id as String,
@@ -581,7 +601,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
       previewTime:
           previewTime == freezed ? _value.previewTime : previewTime as int,
       release: release == freezed ? _value.release : release as bool,
-      tags: tags == freezed ? _value.tags : tags as List<String>,
+      rawTags: rawTags == freezed ? _value.rawTags : rawTags as List<String>,
       title: title == freezed ? _value.title : title as String,
       totalPlayTime: totalPlayTime == freezed
           ? _value.totalPlayTime
@@ -601,17 +621,17 @@ class __$ProgramDetailCopyWithImpl<$Res>
       shouldArchive: shouldArchive == freezed
           ? _value.shouldArchive
           : shouldArchive as bool,
-      extensions: extensions == freezed
-          ? _value.extensions
-          : extensions as List<Extension>,
-      typename: typename == freezed ? _value.typename : typename as String,
+      rawExtensions: rawExtensions == freezed
+          ? _value.rawExtensions
+          : rawExtensions as List<Extension>,
       channel:
           channel == freezed ? _value.channel : channel as DetailPrgChannel,
       handouts: handouts == freezed ? _value.handouts : handouts as Handouts,
       videos: videos == freezed ? _value.videos : videos as VideoHandouts,
-      onetimePlans: onetimePlans == freezed
-          ? _value.onetimePlans
-          : onetimePlans as List<OnetimePlan>,
+      rawOnetimePlans: rawOnetimePlans == freezed
+          ? _value.rawOnetimePlans
+          : rawOnetimePlans as List<OnetimePlan>,
+      typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
 }
@@ -621,52 +641,30 @@ class __$ProgramDetailCopyWithImpl<$Res>
 /// @nodoc
 class _$_ProgramDetail extends _ProgramDetail {
   const _$_ProgramDetail(
-      {@required
-          this.id,
-      @required
-          this.channelId,
-      @required
-          this.tenantId,
+      {@required this.id,
+      @required this.channelId,
+      @required this.tenantId,
       this.adminComment,
       this.adminCommentDisappearAt,
-      @required
-          this.broadcastAt,
-      @required
-          this.detail,
-      @required
-          this.mainTime,
-      @required
-          this.previewTime,
-      @required
-          this.release,
-      @required
-          this.tags,
-      @required
-          this.title,
-      @required
-          this.totalPlayTime,
-      @visibleForTesting
-          this.viewerPlanType,
+      @required this.broadcastAt,
+      @required this.detail,
+      @required this.mainTime,
+      @required this.previewTime,
+      @required this.release,
+      @required @JsonKey(name: 'tags') @protected this.rawTags,
+      @required this.title,
+      @required this.totalPlayTime,
+      @Deprecated('use [viewerPlanType]') this.viewerPlanType,
       this.isExtensionChargedToSubscribers,
       this.archivedAt,
-      @required
-          this.releaseState,
-      @required
-          this.shouldArchive,
-      @required
-          this.extensions,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          this.typename,
-      @required
-          this.channel,
-      @required
-          this.handouts,
-      @required
-          this.videos,
-      @required
-          this.onetimePlans})
+      @required this.releaseState,
+      @required this.shouldArchive,
+      @required @protected @JsonKey(name: 'extensions') this.rawExtensions,
+      @required this.channel,
+      @required this.handouts,
+      @required this.videos,
+      @required @protected @JsonKey(name: 'onetimePlans') this.rawOnetimePlans,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(channelId != null),
         assert(tenantId != null),
@@ -675,17 +673,18 @@ class _$_ProgramDetail extends _ProgramDetail {
         assert(mainTime != null),
         assert(previewTime != null),
         assert(release != null),
-        assert(tags != null),
+        assert(rawTags != null),
         assert(title != null),
         assert(totalPlayTime != null),
         assert(releaseState != null),
         assert(shouldArchive != null),
-        assert(extensions != null),
-        assert(typename != null),
+        assert(rawExtensions != null),
         assert(channel != null),
         assert(handouts != null),
         assert(videos != null),
-        assert(onetimePlans != null),
+        assert(rawOnetimePlans != null),
+        assert(typename != null),
+        assert(typename == "Program"),
         super._();
 
   factory _$_ProgramDetail.fromJson(Map<String, dynamic> json) =>
@@ -712,13 +711,15 @@ class _$_ProgramDetail extends _ProgramDetail {
   @override
   final bool release;
   @override
-  final List<String> tags;
+  @JsonKey(name: 'tags')
+  @protected
+  final List<String> rawTags;
   @override
   final String title;
   @override
   final int totalPlayTime;
   @override
-  @visibleForTesting
+  @Deprecated('use [viewerPlanType]')
   final String viewerPlanType;
   @override
   final bool isExtensionChargedToSubscribers;
@@ -729,11 +730,9 @@ class _$_ProgramDetail extends _ProgramDetail {
   @override
   final bool shouldArchive;
   @override
-  final List<Extension> extensions;
-  @override
-  @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
-  final String typename;
+  @protected
+  @JsonKey(name: 'extensions')
+  final List<Extension> rawExtensions;
   @override
   final DetailPrgChannel channel;
   @override
@@ -741,11 +740,16 @@ class _$_ProgramDetail extends _ProgramDetail {
   @override
   final VideoHandouts videos;
   @override
-  final List<OnetimePlan> onetimePlans;
+  @protected
+  @JsonKey(name: 'onetimePlans')
+  final List<OnetimePlan> rawOnetimePlans;
+  @override
+  @JsonKey(name: '__typename')
+  final String typename;
 
   @override
   String toString() {
-    return 'ProgramDetail(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, tags: $tags, title: $title, totalPlayTime: $totalPlayTime, viewerPlanType: $viewerPlanType, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, extensions: $extensions, typename: $typename, channel: $channel, handouts: $handouts, videos: $videos, onetimePlans: $onetimePlans)';
+    return 'ProgramDetail(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, rawTags: $rawTags, title: $title, totalPlayTime: $totalPlayTime, viewerPlanType: $viewerPlanType, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, rawExtensions: $rawExtensions, channel: $channel, handouts: $handouts, videos: $videos, rawOnetimePlans: $rawOnetimePlans, typename: $typename)';
   }
 
   @override
@@ -780,8 +784,9 @@ class _$_ProgramDetail extends _ProgramDetail {
             (identical(other.release, release) ||
                 const DeepCollectionEquality()
                     .equals(other.release, release)) &&
-            (identical(other.tags, tags) ||
-                const DeepCollectionEquality().equals(other.tags, tags)) &&
+            (identical(other.rawTags, rawTags) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawTags, rawTags)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.totalPlayTime, totalPlayTime) ||
@@ -802,12 +807,12 @@ class _$_ProgramDetail extends _ProgramDetail {
                     .equals(other.releaseState, releaseState)) &&
             (identical(other.shouldArchive, shouldArchive) ||
                 const DeepCollectionEquality().equals(other.shouldArchive, shouldArchive)) &&
-            (identical(other.extensions, extensions) || const DeepCollectionEquality().equals(other.extensions, extensions)) &&
-            (identical(other.typename, typename) || const DeepCollectionEquality().equals(other.typename, typename)) &&
+            (identical(other.rawExtensions, rawExtensions) || const DeepCollectionEquality().equals(other.rawExtensions, rawExtensions)) &&
             (identical(other.channel, channel) || const DeepCollectionEquality().equals(other.channel, channel)) &&
             (identical(other.handouts, handouts) || const DeepCollectionEquality().equals(other.handouts, handouts)) &&
             (identical(other.videos, videos) || const DeepCollectionEquality().equals(other.videos, videos)) &&
-            (identical(other.onetimePlans, onetimePlans) || const DeepCollectionEquality().equals(other.onetimePlans, onetimePlans)));
+            (identical(other.rawOnetimePlans, rawOnetimePlans) || const DeepCollectionEquality().equals(other.rawOnetimePlans, rawOnetimePlans)) &&
+            (identical(other.typename, typename) || const DeepCollectionEquality().equals(other.typename, typename)));
   }
 
   @override
@@ -823,7 +828,7 @@ class _$_ProgramDetail extends _ProgramDetail {
       const DeepCollectionEquality().hash(mainTime) ^
       const DeepCollectionEquality().hash(previewTime) ^
       const DeepCollectionEquality().hash(release) ^
-      const DeepCollectionEquality().hash(tags) ^
+      const DeepCollectionEquality().hash(rawTags) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(totalPlayTime) ^
       const DeepCollectionEquality().hash(viewerPlanType) ^
@@ -831,12 +836,12 @@ class _$_ProgramDetail extends _ProgramDetail {
       const DeepCollectionEquality().hash(archivedAt) ^
       const DeepCollectionEquality().hash(releaseState) ^
       const DeepCollectionEquality().hash(shouldArchive) ^
-      const DeepCollectionEquality().hash(extensions) ^
-      const DeepCollectionEquality().hash(typename) ^
+      const DeepCollectionEquality().hash(rawExtensions) ^
       const DeepCollectionEquality().hash(channel) ^
       const DeepCollectionEquality().hash(handouts) ^
       const DeepCollectionEquality().hash(videos) ^
-      const DeepCollectionEquality().hash(onetimePlans);
+      const DeepCollectionEquality().hash(rawOnetimePlans) ^
+      const DeepCollectionEquality().hash(typename);
 
   @override
   _$ProgramDetailCopyWith<_ProgramDetail> get copyWith =>
@@ -870,12 +875,14 @@ abstract class _ProgramDetail extends ProgramDetail {
       @required
           bool release,
       @required
-          List<String> tags,
+      @JsonKey(name: 'tags')
+      @protected
+          List<String> rawTags,
       @required
           String title,
       @required
           int totalPlayTime,
-      @visibleForTesting
+      @Deprecated('use [viewerPlanType]')
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -884,11 +891,9 @@ abstract class _ProgramDetail extends ProgramDetail {
       @required
           bool shouldArchive,
       @required
-          List<Extension> extensions,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Program"')
-          String typename,
+      @protected
+      @JsonKey(name: 'extensions')
+          List<Extension> rawExtensions,
       @required
           DetailPrgChannel channel,
       @required
@@ -896,7 +901,12 @@ abstract class _ProgramDetail extends ProgramDetail {
       @required
           VideoHandouts videos,
       @required
-          List<OnetimePlan> onetimePlans}) = _$_ProgramDetail;
+      @protected
+      @JsonKey(name: 'onetimePlans')
+          List<OnetimePlan> rawOnetimePlans,
+      @required
+      @JsonKey(name: '__typename')
+          String typename}) = _$_ProgramDetail;
 
   factory _ProgramDetail.fromJson(Map<String, dynamic> json) =
       _$_ProgramDetail.fromJson;
@@ -922,13 +932,15 @@ abstract class _ProgramDetail extends ProgramDetail {
   @override
   bool get release;
   @override
-  List<String> get tags;
+  @JsonKey(name: 'tags')
+  @protected
+  List<String> get rawTags;
   @override
   String get title;
   @override
   int get totalPlayTime;
   @override
-  @visibleForTesting
+  @Deprecated('use [viewerPlanType]')
   String get viewerPlanType;
   @override
   bool get isExtensionChargedToSubscribers;
@@ -939,11 +951,9 @@ abstract class _ProgramDetail extends ProgramDetail {
   @override
   bool get shouldArchive;
   @override
-  List<Extension> get extensions;
-  @override
-  @JsonKey(name: '__typename')
-  @Assert('typename == "Program"')
-  String get typename;
+  @protected
+  @JsonKey(name: 'extensions')
+  List<Extension> get rawExtensions;
   @override
   DetailPrgChannel get channel;
   @override
@@ -951,7 +961,12 @@ abstract class _ProgramDetail extends ProgramDetail {
   @override
   VideoHandouts get videos;
   @override
-  List<OnetimePlan> get onetimePlans;
+  @protected
+  @JsonKey(name: 'onetimePlans')
+  List<OnetimePlan> get rawOnetimePlans;
+  @override
+  @JsonKey(name: '__typename')
+  String get typename;
   @override
   _$ProgramDetailCopyWith<_ProgramDetail> get copyWith;
 }
@@ -966,19 +981,12 @@ class _$DetailPrgChannelTearOff {
 
 // ignore: unused_element
   _DetailPrgChannel call(
-      {@required
-          String id,
-      @required
-          String tenantId,
-      @required
-          String name,
+      {@required String id,
+      @required String tenantId,
+      @required String name,
       dynamic icon,
-      @required
-          String textOnPurchaseScreen,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename}) {
+      @required String textOnPurchaseScreen,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _DetailPrgChannel(
       id: id,
       tenantId: tenantId,
@@ -1007,7 +1015,6 @@ mixin _$DetailPrgChannel {
   dynamic get icon;
   String get textOnPurchaseScreen;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1025,9 +1032,7 @@ abstract class $DetailPrgChannelCopyWith<$Res> {
       String name,
       dynamic icon,
       String textOnPurchaseScreen,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1074,9 +1079,7 @@ abstract class _$DetailPrgChannelCopyWith<$Res>
       String name,
       dynamic icon,
       String textOnPurchaseScreen,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1117,24 +1120,18 @@ class __$DetailPrgChannelCopyWithImpl<$Res>
 /// @nodoc
 class _$_DetailPrgChannel implements _DetailPrgChannel {
   const _$_DetailPrgChannel(
-      {@required
-          this.id,
-      @required
-          this.tenantId,
-      @required
-          this.name,
+      {@required this.id,
+      @required this.tenantId,
+      @required this.name,
       this.icon,
-      @required
-          this.textOnPurchaseScreen,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          this.typename})
+      @required this.textOnPurchaseScreen,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(tenantId != null),
         assert(name != null),
         assert(textOnPurchaseScreen != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Channel");
 
   factory _$_DetailPrgChannel.fromJson(Map<String, dynamic> json) =>
       _$_$_DetailPrgChannelFromJson(json);
@@ -1151,7 +1148,6 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
   final String textOnPurchaseScreen;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   final String typename;
 
   @override
@@ -1202,19 +1198,13 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
 
 abstract class _DetailPrgChannel implements DetailPrgChannel {
   const factory _DetailPrgChannel(
-      {@required
-          String id,
-      @required
-          String tenantId,
-      @required
-          String name,
-      dynamic icon,
-      @required
-          String textOnPurchaseScreen,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename}) = _$_DetailPrgChannel;
+          {@required String id,
+          @required String tenantId,
+          @required String name,
+          dynamic icon,
+          @required String textOnPurchaseScreen,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_DetailPrgChannel;
 
   factory _DetailPrgChannel.fromJson(Map<String, dynamic> json) =
       _$_DetailPrgChannel.fromJson;
@@ -1231,7 +1221,6 @@ abstract class _DetailPrgChannel implements DetailPrgChannel {
   String get textOnPurchaseScreen;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   String get typename;
   @override
   _$DetailPrgChannelCopyWith<_DetailPrgChannel> get copyWith;
@@ -1248,14 +1237,15 @@ class _$VideoHandoutsTearOff {
 // ignore: unused_element
   _VideoHandouts call(
       {@required
-          List<DetailPrgItem> items,
+      @JsonKey(name: 'items')
+      @protected
+          List<DetailPrgItem> rawItems,
       String nextToken,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
           String typename}) {
     return _VideoHandouts(
-      items: items,
+      rawItems: rawItems,
       nextToken: nextToken,
       typename: typename,
     );
@@ -1273,10 +1263,11 @@ const $VideoHandouts = _$VideoHandoutsTearOff();
 
 /// @nodoc
 mixin _$VideoHandouts {
-  List<DetailPrgItem> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<DetailPrgItem> get rawItems;
   String get nextToken;
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelHandoutConnection"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1289,11 +1280,9 @@ abstract class $VideoHandoutsCopyWith<$Res> {
           VideoHandouts value, $Res Function(VideoHandouts) then) =
       _$VideoHandoutsCopyWithImpl<$Res>;
   $Res call(
-      {List<DetailPrgItem> items,
+      {@JsonKey(name: 'items') @protected List<DetailPrgItem> rawItems,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1307,12 +1296,14 @@ class _$VideoHandoutsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<DetailPrgItem>,
+      rawItems: rawItems == freezed
+          ? _value.rawItems
+          : rawItems as List<DetailPrgItem>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1327,11 +1318,9 @@ abstract class _$VideoHandoutsCopyWith<$Res>
       __$VideoHandoutsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<DetailPrgItem> items,
+      {@JsonKey(name: 'items') @protected List<DetailPrgItem> rawItems,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1347,12 +1336,14 @@ class __$VideoHandoutsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_VideoHandouts(
-      items: items == freezed ? _value.items : items as List<DetailPrgItem>,
+      rawItems: rawItems == freezed
+          ? _value.rawItems
+          : rawItems as List<DetailPrgItem>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1362,41 +1353,41 @@ class __$VideoHandoutsCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_VideoHandouts implements _VideoHandouts {
+class _$_VideoHandouts extends _VideoHandouts {
   const _$_VideoHandouts(
-      {@required
-          this.items,
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
       this.nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
-          this.typename})
-      : assert(items != null),
-        assert(typename != null);
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(rawItems != null),
+        assert(typename != null),
+        assert(typename == "ModelHandoutConnection"),
+        super._();
 
   factory _$_VideoHandouts.fromJson(Map<String, dynamic> json) =>
       _$_$_VideoHandoutsFromJson(json);
 
   @override
-  final List<DetailPrgItem> items;
+  @JsonKey(name: 'items')
+  @protected
+  final List<DetailPrgItem> rawItems;
   @override
   final String nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelHandoutConnection"')
   final String typename;
 
   @override
   String toString() {
-    return 'VideoHandouts(items: $items, nextToken: $nextToken, typename: $typename)';
+    return 'VideoHandouts(rawItems: $rawItems, nextToken: $nextToken, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _VideoHandouts &&
-            (identical(other.items, items) ||
-                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.rawItems, rawItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawItems, rawItems)) &&
             (identical(other.nextToken, nextToken) ||
                 const DeepCollectionEquality()
                     .equals(other.nextToken, nextToken)) &&
@@ -1408,7 +1399,7 @@ class _$_VideoHandouts implements _VideoHandouts {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(rawItems) ^
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
@@ -1422,26 +1413,29 @@ class _$_VideoHandouts implements _VideoHandouts {
   }
 }
 
-abstract class _VideoHandouts implements VideoHandouts {
+abstract class _VideoHandouts extends VideoHandouts {
+  const _VideoHandouts._() : super._();
   const factory _VideoHandouts(
       {@required
-          List<DetailPrgItem> items,
+      @JsonKey(name: 'items')
+      @protected
+          List<DetailPrgItem> rawItems,
       String nextToken,
       @required
       @JsonKey(name: '__typename')
-      @Assert('typename == "ModelHandoutConnection"')
           String typename}) = _$_VideoHandouts;
 
   factory _VideoHandouts.fromJson(Map<String, dynamic> json) =
       _$_VideoHandouts.fromJson;
 
   @override
-  List<DetailPrgItem> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<DetailPrgItem> get rawItems;
   @override
   String get nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "ModelHandoutConnection"')
   String get typename;
   @override
   _$VideoHandoutsCopyWith<_VideoHandouts> get copyWith;
@@ -1457,15 +1451,11 @@ class _$HandoutsTearOff {
 
 // ignore: unused_element
   _Handouts call(
-      {@required
-          List<Handout> items,
+      {@required @JsonKey(name: 'items') @protected List<Handout> rawItems,
       String nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handouts"')
-          String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Handouts(
-      items: items,
+      rawItems: rawItems,
       nextToken: nextToken,
       typename: typename,
     );
@@ -1483,10 +1473,11 @@ const $Handouts = _$HandoutsTearOff();
 
 /// @nodoc
 mixin _$Handouts {
-  List<Handout> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<Handout> get rawItems;
   String get nextToken;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Handouts"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1498,11 +1489,9 @@ abstract class $HandoutsCopyWith<$Res> {
   factory $HandoutsCopyWith(Handouts value, $Res Function(Handouts) then) =
       _$HandoutsCopyWithImpl<$Res>;
   $Res call(
-      {List<Handout> items,
+      {@JsonKey(name: 'items') @protected List<Handout> rawItems,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handouts"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1515,12 +1504,13 @@ class _$HandoutsCopyWithImpl<$Res> implements $HandoutsCopyWith<$Res> {
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<Handout>,
+      rawItems:
+          rawItems == freezed ? _value.rawItems : rawItems as List<Handout>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1533,11 +1523,9 @@ abstract class _$HandoutsCopyWith<$Res> implements $HandoutsCopyWith<$Res> {
       __$HandoutsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<Handout> items,
+      {@JsonKey(name: 'items') @protected List<Handout> rawItems,
       String nextToken,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handouts"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1551,12 +1539,13 @@ class __$HandoutsCopyWithImpl<$Res> extends _$HandoutsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_Handouts(
-      items: items == freezed ? _value.items : items as List<Handout>,
+      rawItems:
+          rawItems == freezed ? _value.rawItems : rawItems as List<Handout>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1566,41 +1555,41 @@ class __$HandoutsCopyWithImpl<$Res> extends _$HandoutsCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Handouts implements _Handouts {
+class _$_Handouts extends _Handouts {
   const _$_Handouts(
-      {@required
-          this.items,
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
       this.nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handouts"')
-          this.typename})
-      : assert(items != null),
-        assert(typename != null);
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(rawItems != null),
+        assert(typename != null),
+        assert(typename == "Handouts"),
+        super._();
 
   factory _$_Handouts.fromJson(Map<String, dynamic> json) =>
       _$_$_HandoutsFromJson(json);
 
   @override
-  final List<Handout> items;
+  @JsonKey(name: 'items')
+  @protected
+  final List<Handout> rawItems;
   @override
   final String nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Handouts"')
   final String typename;
 
   @override
   String toString() {
-    return 'Handouts(items: $items, nextToken: $nextToken, typename: $typename)';
+    return 'Handouts(rawItems: $rawItems, nextToken: $nextToken, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Handouts &&
-            (identical(other.items, items) ||
-                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.rawItems, rawItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawItems, rawItems)) &&
             (identical(other.nextToken, nextToken) ||
                 const DeepCollectionEquality()
                     .equals(other.nextToken, nextToken)) &&
@@ -1612,7 +1601,7 @@ class _$_Handouts implements _Handouts {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(rawItems) ^
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
@@ -1626,25 +1615,23 @@ class _$_Handouts implements _Handouts {
   }
 }
 
-abstract class _Handouts implements Handouts {
+abstract class _Handouts extends Handouts {
+  const _Handouts._() : super._();
   const factory _Handouts(
-      {@required
-          List<Handout> items,
+      {@required @JsonKey(name: 'items') @protected List<Handout> rawItems,
       String nextToken,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handouts"')
-          String typename}) = _$_Handouts;
+      @required @JsonKey(name: '__typename') String typename}) = _$_Handouts;
 
   factory _Handouts.fromJson(Map<String, dynamic> json) = _$_Handouts.fromJson;
 
   @override
-  List<Handout> get items;
+  @JsonKey(name: 'items')
+  @protected
+  List<Handout> get rawItems;
   @override
   String get nextToken;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Handouts"')
   String get typename;
   @override
   _$HandoutsCopyWith<_Handouts> get copyWith;
@@ -1660,19 +1647,12 @@ class _$HandoutTearOff {
 
 // ignore: unused_element
   _Handout call(
-      {@required
-          String id,
-      @required
-          String programId,
+      {@required String id,
+      @required String programId,
       String extensionId,
-      @required
-          String name,
-      @required
-          DateTime createdAt,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handout"')
-          String typename}) {
+      @required String name,
+      @required DateTime createdAt,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Handout(
       id: id,
       programId: programId,
@@ -1701,7 +1681,6 @@ mixin _$Handout {
   String get name;
   DateTime get createdAt;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Handout"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1718,9 +1697,7 @@ abstract class $HandoutCopyWith<$Res> {
       String extensionId,
       String name,
       DateTime createdAt,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handout"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1764,9 +1741,7 @@ abstract class _$HandoutCopyWith<$Res> implements $HandoutCopyWith<$Res> {
       String extensionId,
       String name,
       DateTime createdAt,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handout"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1805,24 +1780,18 @@ class __$HandoutCopyWithImpl<$Res> extends _$HandoutCopyWithImpl<$Res>
 /// @nodoc
 class _$_Handout implements _Handout {
   const _$_Handout(
-      {@required
-          this.id,
-      @required
-          this.programId,
+      {@required this.id,
+      @required this.programId,
       this.extensionId,
-      @required
-          this.name,
-      @required
-          this.createdAt,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handout"')
-          this.typename})
+      @required this.name,
+      @required this.createdAt,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(programId != null),
         assert(name != null),
         assert(createdAt != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Handout");
 
   factory _$_Handout.fromJson(Map<String, dynamic> json) =>
       _$_$_HandoutFromJson(json);
@@ -1839,7 +1808,6 @@ class _$_Handout implements _Handout {
   final DateTime createdAt;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Handout"')
   final String typename;
 
   @override
@@ -1891,19 +1859,12 @@ class _$_Handout implements _Handout {
 
 abstract class _Handout implements Handout {
   const factory _Handout(
-      {@required
-          String id,
-      @required
-          String programId,
+      {@required String id,
+      @required String programId,
       String extensionId,
-      @required
-          String name,
-      @required
-          DateTime createdAt,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Handout"')
-          String typename}) = _$_Handout;
+      @required String name,
+      @required DateTime createdAt,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Handout;
 
   factory _Handout.fromJson(Map<String, dynamic> json) = _$_Handout.fromJson;
 
@@ -1919,7 +1880,6 @@ abstract class _Handout implements Handout {
   DateTime get createdAt;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Handout"')
   String get typename;
   @override
   _$HandoutCopyWith<_Handout> get copyWith;
@@ -1935,17 +1895,12 @@ class _$DetailPrgItemTearOff {
 
 // ignore: unused_element
   _DetailPrgItem call(
-      {@required
-          String id,
-      @required
-          String videoType,
+      {@required String id,
+      @required @visibleForOverriding String videoType,
       String mediaStatus,
       String liveUrl,
       String archiveUrl,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Video"')
-          String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _DetailPrgItem(
       id: id,
       videoType: videoType,
@@ -1969,12 +1924,12 @@ const $DetailPrgItem = _$DetailPrgItemTearOff();
 /// @nodoc
 mixin _$DetailPrgItem {
   String get id;
+  @visibleForOverriding
   String get videoType;
   String get mediaStatus;
   String get liveUrl;
   String get archiveUrl;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Video"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -1988,13 +1943,11 @@ abstract class $DetailPrgItemCopyWith<$Res> {
       _$DetailPrgItemCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      String videoType,
+      @visibleForOverriding String videoType,
       String mediaStatus,
       String liveUrl,
       String archiveUrl,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Video"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -2037,13 +1990,11 @@ abstract class _$DetailPrgItemCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      String videoType,
+      @visibleForOverriding String videoType,
       String mediaStatus,
       String liveUrl,
       String archiveUrl,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Video"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -2084,20 +2035,16 @@ class __$DetailPrgItemCopyWithImpl<$Res>
 /// @nodoc
 class _$_DetailPrgItem extends _DetailPrgItem {
   const _$_DetailPrgItem(
-      {@required
-          this.id,
-      @required
-          this.videoType,
+      {@required this.id,
+      @required @visibleForOverriding this.videoType,
       this.mediaStatus,
       this.liveUrl,
       this.archiveUrl,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Video"')
-          this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(videoType != null),
         assert(typename != null),
+        assert(typename == "Video"),
         super._();
 
   factory _$_DetailPrgItem.fromJson(Map<String, dynamic> json) =>
@@ -2106,6 +2053,7 @@ class _$_DetailPrgItem extends _DetailPrgItem {
   @override
   final String id;
   @override
+  @visibleForOverriding
   final String videoType;
   @override
   final String mediaStatus;
@@ -2115,7 +2063,6 @@ class _$_DetailPrgItem extends _DetailPrgItem {
   final String archiveUrl;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Video"')
   final String typename;
 
   @override
@@ -2169,17 +2116,13 @@ class _$_DetailPrgItem extends _DetailPrgItem {
 abstract class _DetailPrgItem extends DetailPrgItem {
   const _DetailPrgItem._() : super._();
   const factory _DetailPrgItem(
-      {@required
-          String id,
-      @required
-          String videoType,
-      String mediaStatus,
-      String liveUrl,
-      String archiveUrl,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Video"')
-          String typename}) = _$_DetailPrgItem;
+          {@required String id,
+          @required @visibleForOverriding String videoType,
+          String mediaStatus,
+          String liveUrl,
+          String archiveUrl,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_DetailPrgItem;
 
   factory _DetailPrgItem.fromJson(Map<String, dynamic> json) =
       _$_DetailPrgItem.fromJson;
@@ -2187,6 +2130,7 @@ abstract class _DetailPrgItem extends DetailPrgItem {
   @override
   String get id;
   @override
+  @visibleForOverriding
   String get videoType;
   @override
   String get mediaStatus;
@@ -2196,7 +2140,6 @@ abstract class _DetailPrgItem extends DetailPrgItem {
   String get archiveUrl;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Video"')
   String get typename;
   @override
   _$DetailPrgItemCopyWith<_DetailPrgItem> get copyWith;
@@ -2212,29 +2155,17 @@ class _$OnetimePlanTearOff {
 
 // ignore: unused_element
   _OnetimePlan call(
-      {@required
-          String id,
-      @visibleForTesting
-          String parentPlanType,
+      {@required String id,
+      @visibleForOverriding String parentPlanType,
       String parentPlanId,
-      @required
-      @visibleForTesting
-          String productType,
-      @required
-          String productId,
-      @required
-          String name,
-      @required
-          int amount,
-      @required
-          String currency,
-      @required
-          bool isPurchasable,
+      @required @visibleForOverriding String productType,
+      @required String productId,
+      @required String name,
+      @required int amount,
+      @required String currency,
+      @required bool isPurchasable,
       String viewerPurchasedPlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "OneTimePlan"')
-          String typename}) {
+      @required @JsonKey(name: '__typename') String typename}) {
     return _OnetimePlan(
       id: id,
       parentPlanType: parentPlanType,
@@ -2263,10 +2194,10 @@ const $OnetimePlan = _$OnetimePlanTearOff();
 /// @nodoc
 mixin _$OnetimePlan {
   String get id;
-  @visibleForTesting
+  @visibleForOverriding
   String get parentPlanType;
   String get parentPlanId;
-  @visibleForTesting
+  @visibleForOverriding
   String get productType;
   String get productId;
   String get name;
@@ -2275,7 +2206,6 @@ mixin _$OnetimePlan {
   bool get isPurchasable;
   String get viewerPurchasedPlan;
   @JsonKey(name: '__typename')
-  @Assert('typename == "OneTimePlan"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -2289,20 +2219,16 @@ abstract class $OnetimePlanCopyWith<$Res> {
       _$OnetimePlanCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      @visibleForTesting
-          String parentPlanType,
+      @visibleForOverriding String parentPlanType,
       String parentPlanId,
-      @visibleForTesting
-          String productType,
+      @visibleForOverriding String productType,
       String productId,
       String name,
       int amount,
       String currency,
       bool isPurchasable,
       String viewerPurchasedPlan,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "OneTimePlan"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -2361,20 +2287,16 @@ abstract class _$OnetimePlanCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      @visibleForTesting
-          String parentPlanType,
+      @visibleForOverriding String parentPlanType,
       String parentPlanId,
-      @visibleForTesting
-          String productType,
+      @visibleForOverriding String productType,
       String productId,
       String name,
       int amount,
       String currency,
       bool isPurchasable,
       String viewerPurchasedPlan,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "OneTimePlan"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -2431,29 +2353,17 @@ class __$OnetimePlanCopyWithImpl<$Res> extends _$OnetimePlanCopyWithImpl<$Res>
 /// @nodoc
 class _$_OnetimePlan extends _OnetimePlan {
   const _$_OnetimePlan(
-      {@required
-          this.id,
-      @visibleForTesting
-          this.parentPlanType,
+      {@required this.id,
+      @visibleForOverriding this.parentPlanType,
       this.parentPlanId,
-      @required
-      @visibleForTesting
-          this.productType,
-      @required
-          this.productId,
-      @required
-          this.name,
-      @required
-          this.amount,
-      @required
-          this.currency,
-      @required
-          this.isPurchasable,
+      @required @visibleForOverriding this.productType,
+      @required this.productId,
+      @required this.name,
+      @required this.amount,
+      @required this.currency,
+      @required this.isPurchasable,
       this.viewerPurchasedPlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "OneTimePlan"')
-          this.typename})
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(productType != null),
         assert(productId != null),
@@ -2462,6 +2372,7 @@ class _$_OnetimePlan extends _OnetimePlan {
         assert(currency != null),
         assert(isPurchasable != null),
         assert(typename != null),
+        assert(typename == "OneTimePlan"),
         super._();
 
   factory _$_OnetimePlan.fromJson(Map<String, dynamic> json) =>
@@ -2470,12 +2381,12 @@ class _$_OnetimePlan extends _OnetimePlan {
   @override
   final String id;
   @override
-  @visibleForTesting
+  @visibleForOverriding
   final String parentPlanType;
   @override
   final String parentPlanId;
   @override
-  @visibleForTesting
+  @visibleForOverriding
   final String productType;
   @override
   final String productId;
@@ -2491,7 +2402,6 @@ class _$_OnetimePlan extends _OnetimePlan {
   final String viewerPurchasedPlan;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "OneTimePlan"')
   final String typename;
 
   @override
@@ -2563,29 +2473,17 @@ class _$_OnetimePlan extends _OnetimePlan {
 abstract class _OnetimePlan extends OnetimePlan {
   const _OnetimePlan._() : super._();
   const factory _OnetimePlan(
-      {@required
-          String id,
-      @visibleForTesting
-          String parentPlanType,
+      {@required String id,
+      @visibleForOverriding String parentPlanType,
       String parentPlanId,
-      @required
-      @visibleForTesting
-          String productType,
-      @required
-          String productId,
-      @required
-          String name,
-      @required
-          int amount,
-      @required
-          String currency,
-      @required
-          bool isPurchasable,
+      @required @visibleForOverriding String productType,
+      @required String productId,
+      @required String name,
+      @required int amount,
+      @required String currency,
+      @required bool isPurchasable,
       String viewerPurchasedPlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "OneTimePlan"')
-          String typename}) = _$_OnetimePlan;
+      @required @JsonKey(name: '__typename') String typename}) = _$_OnetimePlan;
 
   factory _OnetimePlan.fromJson(Map<String, dynamic> json) =
       _$_OnetimePlan.fromJson;
@@ -2593,12 +2491,12 @@ abstract class _OnetimePlan extends OnetimePlan {
   @override
   String get id;
   @override
-  @visibleForTesting
+  @visibleForOverriding
   String get parentPlanType;
   @override
   String get parentPlanId;
   @override
-  @visibleForTesting
+  @visibleForOverriding
   String get productType;
   @override
   String get productId;
@@ -2614,7 +2512,6 @@ abstract class _OnetimePlan extends OnetimePlan {
   String get viewerPurchasedPlan;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "OneTimePlan"')
   String get typename;
   @override
   _$OnetimePlanCopyWith<_OnetimePlan> get copyWith;
@@ -2630,18 +2527,11 @@ class _$ExtensionTearOff {
 
 // ignore: unused_element
   _Extension call(
-      {@required
-          String id,
-      @required
-          int extensionTime,
-      @required
-          String oneTimePlanId,
-      @required
-          OnetimePlan oneTimePlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "LiveExtension"')
-          String typename}) {
+      {@required String id,
+      @required int extensionTime,
+      @required String oneTimePlanId,
+      @required OnetimePlan oneTimePlan,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Extension(
       id: id,
       extensionTime: extensionTime,
@@ -2668,7 +2558,6 @@ mixin _$Extension {
   String get oneTimePlanId;
   OnetimePlan get oneTimePlan;
   @JsonKey(name: '__typename')
-  @Assert('typename == "LiveExtension"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -2684,9 +2573,7 @@ abstract class $ExtensionCopyWith<$Res> {
       int extensionTime,
       String oneTimePlanId,
       OnetimePlan oneTimePlan,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "LiveExtension"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   $OnetimePlanCopyWith<$Res> get oneTimePlan;
 }
@@ -2744,9 +2631,7 @@ abstract class _$ExtensionCopyWith<$Res> implements $ExtensionCopyWith<$Res> {
       int extensionTime,
       String oneTimePlanId,
       OnetimePlan oneTimePlan,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "LiveExtension"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $OnetimePlanCopyWith<$Res> get oneTimePlan;
@@ -2790,23 +2675,17 @@ class __$ExtensionCopyWithImpl<$Res> extends _$ExtensionCopyWithImpl<$Res>
 /// @nodoc
 class _$_Extension implements _Extension {
   const _$_Extension(
-      {@required
-          this.id,
-      @required
-          this.extensionTime,
-      @required
-          this.oneTimePlanId,
-      @required
-          this.oneTimePlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "LiveExtension"')
-          this.typename})
+      {@required this.id,
+      @required this.extensionTime,
+      @required this.oneTimePlanId,
+      @required this.oneTimePlan,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(extensionTime != null),
         assert(oneTimePlanId != null),
         assert(oneTimePlan != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "LiveExtension");
 
   factory _$_Extension.fromJson(Map<String, dynamic> json) =>
       _$_$_ExtensionFromJson(json);
@@ -2821,7 +2700,6 @@ class _$_Extension implements _Extension {
   final OnetimePlan oneTimePlan;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "LiveExtension"')
   final String typename;
 
   @override
@@ -2870,18 +2748,11 @@ class _$_Extension implements _Extension {
 
 abstract class _Extension implements Extension {
   const factory _Extension(
-      {@required
-          String id,
-      @required
-          int extensionTime,
-      @required
-          String oneTimePlanId,
-      @required
-          OnetimePlan oneTimePlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "LiveExtension"')
-          String typename}) = _$_Extension;
+      {@required String id,
+      @required int extensionTime,
+      @required String oneTimePlanId,
+      @required OnetimePlan oneTimePlan,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Extension;
 
   factory _Extension.fromJson(Map<String, dynamic> json) =
       _$_Extension.fromJson;
@@ -2896,7 +2767,6 @@ abstract class _Extension implements Extension {
   OnetimePlan get oneTimePlan;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "LiveExtension"')
   String get typename;
   @override
   _$ExtensionCopyWith<_Extension> get copyWith;
@@ -2912,14 +2782,9 @@ class _$ViewerTearOff {
 
 // ignore: unused_element
   _Viewer call(
-      {@required
-          String name,
-      @required
-          String icon,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Viewer"')
-          String typename}) {
+      {@required String name,
+      @required String icon,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Viewer(
       name: name,
       icon: icon,
@@ -2942,7 +2807,6 @@ mixin _$Viewer {
   String get name;
   String get icon;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Viewer"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -2954,11 +2818,7 @@ abstract class $ViewerCopyWith<$Res> {
   factory $ViewerCopyWith(Viewer value, $Res Function(Viewer) then) =
       _$ViewerCopyWithImpl<$Res>;
   $Res call(
-      {String name,
-      String icon,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Viewer"')
-          String typename});
+      {String name, String icon, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -2989,11 +2849,7 @@ abstract class _$ViewerCopyWith<$Res> implements $ViewerCopyWith<$Res> {
       __$ViewerCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
-      String icon,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Viewer"')
-          String typename});
+      {String name, String icon, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -3024,17 +2880,13 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 /// @nodoc
 class _$_Viewer implements _Viewer {
   const _$_Viewer(
-      {@required
-          this.name,
-      @required
-          this.icon,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Viewer"')
-          this.typename})
+      {@required this.name,
+      @required this.icon,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(name != null),
         assert(icon != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Viewer");
 
   factory _$_Viewer.fromJson(Map<String, dynamic> json) =>
       _$_$_ViewerFromJson(json);
@@ -3045,7 +2897,6 @@ class _$_Viewer implements _Viewer {
   final String icon;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Viewer"')
   final String typename;
 
   @override
@@ -3085,14 +2936,9 @@ class _$_Viewer implements _Viewer {
 
 abstract class _Viewer implements Viewer {
   const factory _Viewer(
-      {@required
-          String name,
-      @required
-          String icon,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Viewer"')
-          String typename}) = _$_Viewer;
+      {@required String name,
+      @required String icon,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Viewer;
 
   factory _Viewer.fromJson(Map<String, dynamic> json) = _$_Viewer.fromJson;
 
@@ -3102,7 +2948,6 @@ abstract class _Viewer implements Viewer {
   String get icon;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Viewer"')
   String get typename;
   @override
   _$ViewerCopyWith<_Viewer> get copyWith;

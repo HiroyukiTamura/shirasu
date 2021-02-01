@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/mixins/currency_mixin.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
+import 'package:shirasu/extension.dart';
 
 part 'channel_data.freezed.dart';
 
@@ -19,6 +20,7 @@ abstract class ChannelData with _$ChannelData {
 
 @freezed
 abstract class Channel with _$Channel implements BaseChannel {
+  @Assert('typename == "Channel"')
   const factory Channel({
     @required String id,
     @required String name,
@@ -27,10 +29,7 @@ abstract class Channel with _$Channel implements BaseChannel {
     String facebookUrl,
     String textOnPurchaseScreen,
     @required String detail,
-    @required
-    @Assert('typename == "Channel"')
-    @JsonKey(name: '__typename')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
     @required SubscriptionPlan subscriptionPlan,
     @required ChannelPrograms programs,
     @required Announcements announcements,
@@ -44,23 +43,27 @@ abstract class Channel with _$Channel implements BaseChannel {
 abstract class Announcements
     with _$Announcements
     implements BaseModelChannelAnnouncementConnection {
+  @Assert('typename == "ModelChannelAnnouncementConnection"')
   const factory Announcements({
-    @required List<AnnouncementsItem> items,
+    @required @JsonKey(name: 'items') List<AnnouncementsItem> rawItems,
     String nextToken,
-    @required
-    @JsonKey(name: '__typename')
-    @Assert('typename == "ModelChannelAnnouncementConnection"')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _Announcements;
 
   factory Announcements.fromJson(Map<String, dynamic> json) =>
       _$AnnouncementsFromJson(json);
+
+  const Announcements._();
+
+  List<AnnouncementsItem> get items => rawItems.toUnmodifiable();
+
 }
 
 @freezed
 abstract class AnnouncementsItem
     with _$AnnouncementsItem
     implements BaseChannelAnnouncement {
+  @Assert('typename == "ChannelAnnouncement"')
   const factory AnnouncementsItem({
     @required String id,
     @required bool isOpen,
@@ -70,10 +73,7 @@ abstract class AnnouncementsItem
     @required DateTime publishedAt,
     @required DateTime createdAt,
     @required DateTime updatedAt,
-    @required
-    @JsonKey(name: '__typename')
-    @Assert('typename == "ChannelAnnouncement"')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _AnnouncementsItem;
 
   factory AnnouncementsItem.fromJson(Map<String, dynamic> json) =>
@@ -83,13 +83,11 @@ abstract class AnnouncementsItem
 @freezed
 abstract class ChannelPrograms
     implements _$ChannelPrograms, BaseModelProgramConnection {
+  @Assert('typename == "ModelProgramConnection"')
   const factory ChannelPrograms({
     @required List<ProgramsItem> items,
     String nextToken,
-    @required
-    @JsonKey(name: '__typename')
-    @Assert('typename == "ModelProgramConnection"')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _ChannelPrograms;
 
   const ChannelPrograms._();
@@ -97,6 +95,7 @@ abstract class ChannelPrograms
   factory ChannelPrograms.fromJson(Map<String, dynamic> json) =>
       _$ChannelProgramsFromJson(json);
 
+  //todo fix to unmodifiable
   ChannelPrograms append(ChannelPrograms newOne) {
     items.addAll(newOne.items);
     return ChannelPrograms(
@@ -108,8 +107,10 @@ abstract class ChannelPrograms
 }
 
 @freezed
-abstract class ProgramsItem with ViewerPlanTypeMixin implements BaseProgram, _$ProgramsItem {
-
+abstract class ProgramsItem
+    with ViewerPlanTypeMixin
+    implements BaseProgram, _$ProgramsItem {
+  @Assert('typename == "Program"')
   const factory ProgramsItem({
     @required String id,
     @required String tenantId,
@@ -117,36 +118,27 @@ abstract class ProgramsItem with ViewerPlanTypeMixin implements BaseProgram, _$P
     @required String title,
     @required DateTime broadcastAt,
     @required int totalPlayTime,
-    @visibleForTesting
-    String viewerPlanType,
-    @required
-    @JsonKey(name: '__typename')
-    @Assert('typename == "Program"')
-        String typename,
+    @Deprecated("don't use!") String viewerPlanType,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramsItem;
 
   factory ProgramsItem.fromJson(Map<String, dynamic> json) =>
       _$ProgramsItemFromJson(json);
-
-  const ProgramsItem._();
 }
 
 @freezed
-abstract class SubscriptionPlan with AmountMixin
+abstract class SubscriptionPlan
+    with AmountMixin
     implements _$SubscriptionPlan, BaseSubscriptionPlan {
+  @Assert('typename == "SubscriptionPlan"')
   const factory SubscriptionPlan({
     @required String id,
     @required int amount,
     @required String currency,
     @required bool isPurchasable,
-    @required
-    @JsonKey(name: '__typename')
-    @Assert('typename == "SubscriptionPlan"')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
     PurchasedPlan viewerPurchasedPlan, // null => not purchased
   }) = _SubscriptionPlan;
-
-  const SubscriptionPlan._();
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionPlanFromJson(json);
@@ -154,12 +146,10 @@ abstract class SubscriptionPlan with AmountMixin
 
 @freezed
 abstract class PurchasedPlan with _$PurchasedPlan implements BasePurchasedPlan {
+  @Assert('typename == "PurchasedPlan"')
   const factory PurchasedPlan({
     @required bool isActive,
-    @required
-    @JsonKey(name: '__typename')
-    @Assert('typename == "PurchasedPlan"')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _PurchasedPlan;
 
   factory PurchasedPlan.fromJson(Map<String, dynamic> json) =>

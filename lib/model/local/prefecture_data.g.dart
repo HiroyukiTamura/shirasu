@@ -8,7 +8,7 @@ part of 'prefecture_data.dart';
 
 _$_PrefectureData _$_$_PrefectureDataFromJson(Map<String, dynamic> json) {
   return _$_PrefectureData(
-    prefecture: (json['prefecture'] as List)
+    rawPrefecture: (json['prefecture'] as List)
         ?.map((e) =>
             e == null ? null : Prefecture.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -17,7 +17,7 @@ _$_PrefectureData _$_$_PrefectureDataFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_PrefectureDataToJson(_$_PrefectureData instance) =>
     <String, dynamic>{
-      'prefecture': instance.prefecture,
+      'prefecture': instance.rawPrefecture,
     };
 
 _$_Prefecture _$_$_PrefectureFromJson(Map<String, dynamic> json) {

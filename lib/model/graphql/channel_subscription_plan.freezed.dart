@@ -184,12 +184,8 @@ class _$ChannelTearOff {
 
 // ignore: unused_element
   _Channel call(
-      {@required
-          SubscriptionPlan subscriptionPlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename}) {
+      {@required SubscriptionPlan subscriptionPlan,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Channel(
       subscriptionPlan: subscriptionPlan,
       typename: typename,
@@ -210,7 +206,6 @@ const $Channel = _$ChannelTearOff();
 mixin _$Channel {
   SubscriptionPlan get subscriptionPlan;
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -223,9 +218,7 @@ abstract class $ChannelCopyWith<$Res> {
       _$ChannelCopyWithImpl<$Res>;
   $Res call(
       {SubscriptionPlan subscriptionPlan,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   $SubscriptionPlanCopyWith<$Res> get subscriptionPlan;
 }
@@ -269,9 +262,7 @@ abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
   @override
   $Res call(
       {SubscriptionPlan subscriptionPlan,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $SubscriptionPlanCopyWith<$Res> get subscriptionPlan;
@@ -305,14 +296,11 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 /// @nodoc
 class _$_Channel implements _Channel {
   const _$_Channel(
-      {@required
-          this.subscriptionPlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          this.typename})
+      {@required this.subscriptionPlan,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(subscriptionPlan != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Channel");
 
   factory _$_Channel.fromJson(Map<String, dynamic> json) =>
       _$_$_ChannelFromJson(json);
@@ -321,7 +309,6 @@ class _$_Channel implements _Channel {
   final SubscriptionPlan subscriptionPlan;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   final String typename;
 
   @override
@@ -359,12 +346,8 @@ class _$_Channel implements _Channel {
 
 abstract class _Channel implements Channel {
   const factory _Channel(
-      {@required
-          SubscriptionPlan subscriptionPlan,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "Channel"')
-          String typename}) = _$_Channel;
+      {@required SubscriptionPlan subscriptionPlan,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Channel;
 
   factory _Channel.fromJson(Map<String, dynamic> json) = _$_Channel.fromJson;
 
@@ -372,7 +355,6 @@ abstract class _Channel implements Channel {
   SubscriptionPlan get subscriptionPlan;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "Channel"')
   String get typename;
   @override
   _$ChannelCopyWith<_Channel> get copyWith;
@@ -388,32 +370,18 @@ class _$SubscriptionPlanTearOff {
 
 // ignore: unused_element
   _SubscriptionPlan call(
-      {@required
-          String id,
-      @visibleForTesting
-          String parentPlanType,
+      {@required String id,
+      @Deprecated("don't use") String parentPlanType,
       String parentPlanId,
-      @required
-      @visibleForTesting
-          String productType,
-      @required
-          String productId,
-      @required
-          String name,
-      @required
-          int amount,
-      @required
-          String currency,
-      @required
-          String interval,
-      @required
-          int intervalCount,
-      @required
-          bool isPurchasable,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SubscriptionPlan"')
-          String typename}) {
+      @required @Deprecated("don't use") String productType,
+      @required String productId,
+      @required String name,
+      @required int amount,
+      @required String currency,
+      @required String interval,
+      @required int intervalCount,
+      @required bool isPurchasable,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _SubscriptionPlan(
       id: id,
       parentPlanType: parentPlanType,
@@ -443,10 +411,10 @@ const $SubscriptionPlan = _$SubscriptionPlanTearOff();
 /// @nodoc
 mixin _$SubscriptionPlan {
   String get id;
-  @visibleForTesting
+  @Deprecated("don't use")
   String get parentPlanType;
   String get parentPlanId;
-  @visibleForTesting
+  @Deprecated("don't use")
   String get productType;
   String get productId;
   String get name;
@@ -456,7 +424,6 @@ mixin _$SubscriptionPlan {
   int get intervalCount;
   bool get isPurchasable;
   @JsonKey(name: '__typename')
-  @Assert('typename == "SubscriptionPlan"')
   String get typename;
 
   Map<String, dynamic> toJson();
@@ -470,11 +437,9 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       _$SubscriptionPlanCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      @visibleForTesting
-          String parentPlanType,
+      @Deprecated("don't use") String parentPlanType,
       String parentPlanId,
-      @visibleForTesting
-          String productType,
+      @Deprecated("don't use") String productType,
       String productId,
       String name,
       int amount,
@@ -482,9 +447,7 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       String interval,
       int intervalCount,
       bool isPurchasable,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SubscriptionPlan"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -546,11 +509,9 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      @visibleForTesting
-          String parentPlanType,
+      @Deprecated("don't use") String parentPlanType,
       String parentPlanId,
-      @visibleForTesting
-          String productType,
+      @Deprecated("don't use") String productType,
       String productId,
       String name,
       int amount,
@@ -558,9 +519,7 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
       String interval,
       int intervalCount,
       bool isPurchasable,
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SubscriptionPlan"')
-          String typename});
+      @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -620,32 +579,18 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 /// @nodoc
 class _$_SubscriptionPlan extends _SubscriptionPlan {
   const _$_SubscriptionPlan(
-      {@required
-          this.id,
-      @visibleForTesting
-          this.parentPlanType,
+      {@required this.id,
+      @Deprecated("don't use") this.parentPlanType,
       this.parentPlanId,
-      @required
-      @visibleForTesting
-          this.productType,
-      @required
-          this.productId,
-      @required
-          this.name,
-      @required
-          this.amount,
-      @required
-          this.currency,
-      @required
-          this.interval,
-      @required
-          this.intervalCount,
-      @required
-          this.isPurchasable,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SubscriptionPlan"')
-          this.typename})
+      @required @Deprecated("don't use") this.productType,
+      @required this.productId,
+      @required this.name,
+      @required this.amount,
+      @required this.currency,
+      @required this.interval,
+      @required this.intervalCount,
+      @required this.isPurchasable,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(productType != null),
         assert(productId != null),
@@ -656,6 +601,7 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
         assert(intervalCount != null),
         assert(isPurchasable != null),
         assert(typename != null),
+        assert(typename == "SubscriptionPlan"),
         super._();
 
   factory _$_SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
@@ -664,12 +610,12 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   @override
   final String id;
   @override
-  @visibleForTesting
+  @Deprecated("don't use")
   final String parentPlanType;
   @override
   final String parentPlanId;
   @override
-  @visibleForTesting
+  @Deprecated("don't use")
   final String productType;
   @override
   final String productId;
@@ -687,7 +633,6 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   final bool isPurchasable;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "SubscriptionPlan"')
   final String typename;
 
   @override
@@ -763,32 +708,19 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
 abstract class _SubscriptionPlan extends SubscriptionPlan {
   const _SubscriptionPlan._() : super._();
   const factory _SubscriptionPlan(
-      {@required
-          String id,
-      @visibleForTesting
-          String parentPlanType,
-      String parentPlanId,
-      @required
-      @visibleForTesting
-          String productType,
-      @required
-          String productId,
-      @required
-          String name,
-      @required
-          int amount,
-      @required
-          String currency,
-      @required
-          String interval,
-      @required
-          int intervalCount,
-      @required
-          bool isPurchasable,
-      @required
-      @JsonKey(name: '__typename')
-      @Assert('typename == "SubscriptionPlan"')
-          String typename}) = _$_SubscriptionPlan;
+          {@required String id,
+          @Deprecated("don't use") String parentPlanType,
+          String parentPlanId,
+          @required @Deprecated("don't use") String productType,
+          @required String productId,
+          @required String name,
+          @required int amount,
+          @required String currency,
+          @required String interval,
+          @required int intervalCount,
+          @required bool isPurchasable,
+          @required @JsonKey(name: '__typename') String typename}) =
+      _$_SubscriptionPlan;
 
   factory _SubscriptionPlan.fromJson(Map<String, dynamic> json) =
       _$_SubscriptionPlan.fromJson;
@@ -796,12 +728,12 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   @override
   String get id;
   @override
-  @visibleForTesting
+  @Deprecated("don't use")
   String get parentPlanType;
   @override
   String get parentPlanId;
   @override
-  @visibleForTesting
+  @Deprecated("don't use")
   String get productType;
   @override
   String get productId;
@@ -819,7 +751,6 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   bool get isPurchasable;
   @override
   @JsonKey(name: '__typename')
-  @Assert('typename == "SubscriptionPlan"')
   String get typename;
   @override
   _$SubscriptionPlanCopyWith<_SubscriptionPlan> get copyWith;

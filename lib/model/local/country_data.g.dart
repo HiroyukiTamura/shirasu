@@ -9,7 +9,7 @@ part of 'country_data.dart';
 _$_CountryData _$_$_CountryDataFromJson(Map<String, dynamic> json) {
   return _$_CountryData(
     locale: json['locale'] as String,
-    countries: (json['countries'] as Map<String, dynamic>)?.map(
+    rawCountries: (json['countries'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as String),
     ),
   );
@@ -18,5 +18,5 @@ _$_CountryData _$_$_CountryDataFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_CountryDataToJson(_$_CountryData instance) =>
     <String, dynamic>{
       'locale': instance.locale,
-      'countries': instance.countries,
+      'countries': instance.rawCountries,
     };

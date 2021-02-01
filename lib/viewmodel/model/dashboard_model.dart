@@ -6,7 +6,6 @@ import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:dartx/dartx.dart';
 
 part 'dashboard_model.freezed.dart';
 

@@ -18,10 +18,15 @@ class _$CountryDataTearOff {
 
 // ignore: unused_element
   _CountryData call(
-      {@required String locale, @required Map<String, String> countries}) {
+      {@required
+          String locale,
+      @required
+      @JsonKey(name: 'countries')
+      @protected
+          Map<String, String> rawCountries}) {
     return _CountryData(
       locale: locale,
-      countries: countries,
+      rawCountries: rawCountries,
     );
   }
 
@@ -38,7 +43,9 @@ const $CountryData = _$CountryDataTearOff();
 /// @nodoc
 mixin _$CountryData {
   String get locale;
-  Map<String, String> get countries;
+  @JsonKey(name: 'countries')
+  @protected
+  Map<String, String> get rawCountries;
 
   Map<String, dynamic> toJson();
   $CountryDataCopyWith<CountryData> get copyWith;
@@ -49,7 +56,9 @@ abstract class $CountryDataCopyWith<$Res> {
   factory $CountryDataCopyWith(
           CountryData value, $Res Function(CountryData) then) =
       _$CountryDataCopyWithImpl<$Res>;
-  $Res call({String locale, Map<String, String> countries});
+  $Res call(
+      {String locale,
+      @JsonKey(name: 'countries') @protected Map<String, String> rawCountries});
 }
 
 /// @nodoc
@@ -63,13 +72,13 @@ class _$CountryDataCopyWithImpl<$Res> implements $CountryDataCopyWith<$Res> {
   @override
   $Res call({
     Object locale = freezed,
-    Object countries = freezed,
+    Object rawCountries = freezed,
   }) {
     return _then(_value.copyWith(
       locale: locale == freezed ? _value.locale : locale as String,
-      countries: countries == freezed
-          ? _value.countries
-          : countries as Map<String, String>,
+      rawCountries: rawCountries == freezed
+          ? _value.rawCountries
+          : rawCountries as Map<String, String>,
     ));
   }
 }
@@ -81,7 +90,9 @@ abstract class _$CountryDataCopyWith<$Res>
           _CountryData value, $Res Function(_CountryData) then) =
       __$CountryDataCopyWithImpl<$Res>;
   @override
-  $Res call({String locale, Map<String, String> countries});
+  $Res call(
+      {String locale,
+      @JsonKey(name: 'countries') @protected Map<String, String> rawCountries});
 }
 
 /// @nodoc
@@ -97,13 +108,13 @@ class __$CountryDataCopyWithImpl<$Res> extends _$CountryDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object locale = freezed,
-    Object countries = freezed,
+    Object rawCountries = freezed,
   }) {
     return _then(_CountryData(
       locale: locale == freezed ? _value.locale : locale as String,
-      countries: countries == freezed
-          ? _value.countries
-          : countries as Map<String, String>,
+      rawCountries: rawCountries == freezed
+          ? _value.rawCountries
+          : rawCountries as Map<String, String>,
     ));
   }
 }
@@ -111,10 +122,13 @@ class __$CountryDataCopyWithImpl<$Res> extends _$CountryDataCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_CountryData implements _CountryData {
-  const _$_CountryData({@required this.locale, @required this.countries})
+class _$_CountryData extends _CountryData {
+  const _$_CountryData(
+      {@required this.locale,
+      @required @JsonKey(name: 'countries') @protected this.rawCountries})
       : assert(locale != null),
-        assert(countries != null);
+        assert(rawCountries != null),
+        super._();
 
   factory _$_CountryData.fromJson(Map<String, dynamic> json) =>
       _$_$_CountryDataFromJson(json);
@@ -122,11 +136,13 @@ class _$_CountryData implements _CountryData {
   @override
   final String locale;
   @override
-  final Map<String, String> countries;
+  @JsonKey(name: 'countries')
+  @protected
+  final Map<String, String> rawCountries;
 
   @override
   String toString() {
-    return 'CountryData(locale: $locale, countries: $countries)';
+    return 'CountryData(locale: $locale, rawCountries: $rawCountries)';
   }
 
   @override
@@ -135,16 +151,16 @@ class _$_CountryData implements _CountryData {
         (other is _CountryData &&
             (identical(other.locale, locale) ||
                 const DeepCollectionEquality().equals(other.locale, locale)) &&
-            (identical(other.countries, countries) ||
+            (identical(other.rawCountries, rawCountries) ||
                 const DeepCollectionEquality()
-                    .equals(other.countries, countries)));
+                    .equals(other.rawCountries, rawCountries)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(locale) ^
-      const DeepCollectionEquality().hash(countries);
+      const DeepCollectionEquality().hash(rawCountries);
 
   @override
   _$CountryDataCopyWith<_CountryData> get copyWith =>
@@ -156,10 +172,15 @@ class _$_CountryData implements _CountryData {
   }
 }
 
-abstract class _CountryData implements CountryData {
+abstract class _CountryData extends CountryData {
+  const _CountryData._() : super._();
   const factory _CountryData(
-      {@required String locale,
-      @required Map<String, String> countries}) = _$_CountryData;
+      {@required
+          String locale,
+      @required
+      @JsonKey(name: 'countries')
+      @protected
+          Map<String, String> rawCountries}) = _$_CountryData;
 
   factory _CountryData.fromJson(Map<String, dynamic> json) =
       _$_CountryData.fromJson;
@@ -167,7 +188,9 @@ abstract class _CountryData implements CountryData {
   @override
   String get locale;
   @override
-  Map<String, String> get countries;
+  @JsonKey(name: 'countries')
+  @protected
+  Map<String, String> get rawCountries;
   @override
   _$CountryDataCopyWith<_CountryData> get copyWith;
 }

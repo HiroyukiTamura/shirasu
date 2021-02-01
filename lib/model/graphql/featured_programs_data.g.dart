@@ -37,7 +37,7 @@ Map<String, dynamic> _$_$_FeatureProgramDataToJson(
 
 _$_Broadcastings _$_$_BroadcastingsFromJson(Map<String, dynamic> json) {
   return _$_Broadcastings(
-    items: (json['items'] as List)
+    rawItems: (json['items'] as List)
         ?.map(
             (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -47,7 +47,7 @@ _$_Broadcastings _$_$_BroadcastingsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_BroadcastingsToJson(_$_Broadcastings instance) =>
     <String, dynamic>{
-      'items': instance.items,
+      'items': instance.rawItems,
       '__typename': instance.typename,
     };
 
@@ -105,7 +105,7 @@ Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
 _$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
   return _$_ViewerUser(
     id: json['id'] as String,
-    subscribedPrograms: (json['subscribedPrograms'] as List)
+    rawSubscribedPrograms: (json['subscribedPrograms'] as List)
         ?.map(
             (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -116,13 +116,13 @@ _$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_ViewerUserToJson(_$_ViewerUser instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'subscribedPrograms': instance.subscribedPrograms,
+      'subscribedPrograms': instance.rawSubscribedPrograms,
       '__typename': instance.typename,
     };
 
 _$_Channels _$_$_ChannelsFromJson(Map<String, dynamic> json) {
   return _$_Channels(
-    items: (json['items'] as List)
+    rawItems: (json['items'] as List)
         ?.map((e) =>
             e == null ? null : Channel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -133,7 +133,7 @@ _$_Channels _$_$_ChannelsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_ChannelsToJson(_$_Channels instance) =>
     <String, dynamic>{
-      'items': instance.items,
+      'items': instance.rawItems,
       'nextToken': instance.nextToken,
       '__typename': instance.typename,
     };

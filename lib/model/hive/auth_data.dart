@@ -5,45 +5,41 @@ import 'package:shirasu/extension.dart';
 
 part 'auth_data.g.dart';
 
-/// todo freezed
+part 'auth_data.freezed.dart';
+
 /// todo reindex [HiveField]
 /// hive model for [AuthData]
-@HiveType(typeId: 0)
-class HiveAuthData extends HiveObject {
-  /// don't use default constrictor manually
+@freezed
+abstract class HiveAuthData with _$HiveAuthData {
   @protected
-  HiveAuthData({
-    @required this.body,
-    @required this.expiresAt,
-  });
+  @HiveType(typeId: 0)
+  const factory HiveAuthData({
+    @required @HiveField(0) HiveBody body,
+    @required @HiveField(1) int expiresAt,
+  }) = _HiveAuthData;
 
   factory HiveAuthData.parse(AuthData authData) => HiveAuthData(
         body: HiveBody.parse(authData.body),
         expiresAt: authData.expiresAt,
       );
-
-  @HiveField(0)
-  HiveBody body;
-  @HiveField(1)
-  int expiresAt;
 }
 
 /// hive model for [Body]
-@HiveType(typeId: 1)
-class HiveBody extends HiveObject {
-  /// don't use default constrictor manually
+@freezed
+abstract class HiveBody with _$HiveBody {
   @protected
-  HiveBody({
-    @required this.clientId,
-    @required this.accessToken,
-    @required this.refreshToken,
-    @required this.idToken,
-    @required this.scope,
-    @required this.expiresIn,
-    @required this.tokenType,
-    @required this.decodedToken,
-    @required this.audience,
-  });
+  @HiveType(typeId: 1)
+  const factory HiveBody({
+    @required @HiveField(2) String clientId,
+    @required @HiveField(3) String accessToken,
+    @required @HiveField(4) String refreshToken,
+    @required @HiveField(5) String idToken,
+    @required @HiveField(6) String scope,
+    @required @HiveField(7) int expiresIn,
+    @required @HiveField(8) String tokenType,
+    @required @HiveField(9) HiveDecodedToken decodedToken,
+    @required @HiveField(10) String audience,
+  }) = _HiveBody;
 
   factory HiveBody.parse(Body body) => HiveBody(
         clientId: body.clientId,
@@ -56,38 +52,19 @@ class HiveBody extends HiveObject {
         decodedToken: HiveDecodedToken.parse(body.decodedToken),
         audience: body.audience,
       );
-
-  @HiveField(2)
-  String clientId;
-  @HiveField(3)
-  String accessToken;
-  @HiveField(4)
-  String refreshToken;
-  @HiveField(5)
-  String idToken;
-  @HiveField(6)
-  String scope;
-  @HiveField(7)
-  int expiresIn;
-  @HiveField(8)
-  String tokenType;
-  @HiveField(9)
-  HiveDecodedToken decodedToken;
-  @HiveField(10)
-  String audience;
 }
 
 /// hive model for [DecodedToken]
-@HiveType(typeId: 2)
-class HiveDecodedToken extends HiveObject {
-  /// don't use default constrictor manually
+@freezed
+abstract class HiveDecodedToken with _$HiveDecodedToken {
+  @HiveType(typeId: 2)
   @protected
-  HiveDecodedToken({
-    @required this.encoded,
-    @required this.header,
-    @required this.claims,
-    @required this.user,
-  });
+  const factory HiveDecodedToken({
+    @required @HiveField(11) HiveEncoded encoded,
+    @required @HiveField(12) HiveHeader header,
+    @required @HiveField(13) HiveClaims claims,
+    @required @HiveField(14) HiveUser user,
+  }) = _HiveDecodedToken;
 
   factory HiveDecodedToken.parse(DecodedToken decodedToken) => HiveDecodedToken(
         encoded: HiveEncoded.parse(decodedToken.encoded),
@@ -95,45 +72,45 @@ class HiveDecodedToken extends HiveObject {
         claims: HiveClaims.parse(decodedToken.claims),
         user: HiveUser.parse(decodedToken.user),
       );
-
-  @HiveField(11)
-  HiveEncoded encoded;
-  @HiveField(12)
-  HiveHeader header;
-  @HiveField(13)
-  HiveClaims claims;
-  @HiveField(14)
-  HiveUser user;
 }
 
 /// hive model for [Claims]
-@HiveType(typeId: 3)
-class HiveClaims extends HiveObject {
-  /// don't use default constrictor manually
+@freezed
+abstract class HiveClaims implements _$HiveClaims {
+  @HiveType(typeId: 3)
   @protected
-  HiveClaims({
-    @required this.raw,
-    @required this.rawHttpsShirasuIoRoles,
-    @required this.httpsShirasuIoUserAttribute,
-    @required this.httpsShirasuIoCustomerId,
-    @required this.rawHttpsShirasuIoDistributeds,
-    @required this.rawHttpsShirasuIoTenants,
-    // @required this.givenName,
-    // @required this.familyName,
-    @required this.nickname,
-    @required this.name,
-    @required this.picture,
-    // @required this.locale,
-    @required this.updatedAt,
-    @required this.email,
-    @required this.emailVerified,
-    @required this.iss,
-    @required this.sub,
-    @required this.aud,
-    @required this.iat,
-    @required this.exp,
-    // @required this.nonce,
-  });
+  const factory HiveClaims({
+    @required @HiveField(15) String raw,
+    @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
+    @required
+    @HiveField(17)
+        HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+    @required @HiveField(18) String httpsShirasuIoCustomerId,
+    @required
+    @HiveField(19)
+    @protected
+        List<dynamic> rawHttpsShirasuIoDistributeds,
+    @required @HiveField(20) @protected List<dynamic> rawHttpsShirasuIoTenants,
+
+    // @HiveField(21)
+    // String givenName,
+    // @HiveField(22)
+    // String familyName,
+    @required @HiveField(23) String nickname,
+    @required @HiveField(24) String name,
+    @required @HiveField(25) String picture,
+
+    // @HiveField(26)
+    // String locale,
+    @required @HiveField(27) DateTime updatedAt,
+    @required @HiveField(28) String email,
+    @required @HiveField(29) bool emailVerified,
+    @required @HiveField(30) String iss,
+    @required @HiveField(31) String sub,
+    @required @HiveField(32) String aud,
+    @required @HiveField(33) int iat,
+    @required @HiveField(34) int exp,
+  }) = _HiveClaims;
 
   factory HiveClaims.parse(Claims claims) => HiveClaims(
         raw: claims.raw,
@@ -160,54 +137,7 @@ class HiveClaims extends HiveObject {
         // nonce: claims.nonce,
       );
 
-  @HiveField(15)
-  String raw;
-  @HiveField(16)
-  @protected
-  List<String> rawHttpsShirasuIoRoles;
-  @HiveField(17)
-  HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
-  @HiveField(18)
-  String httpsShirasuIoCustomerId;
-  @HiveField(19)
-  @protected
-  List<dynamic> rawHttpsShirasuIoDistributeds;
-  @HiveField(20)
-  @protected
-  List<dynamic> rawHttpsShirasuIoTenants;
-
-  // @HiveField(21)
-  // String givenName;
-  // @HiveField(22)
-  // String familyName;
-  @HiveField(23)
-  String nickname;
-  @HiveField(24)
-  String name;
-  @HiveField(25)
-  String picture;
-
-  // @HiveField(26)
-  // String locale;
-  @HiveField(27)
-  DateTime updatedAt;
-  @HiveField(28)
-  String email;
-  @HiveField(29)
-  bool emailVerified;
-  @HiveField(30)
-  String iss;
-  @HiveField(31)
-  String sub;
-  @HiveField(32)
-  String aud;
-  @HiveField(33)
-  int iat;
-  @HiveField(34)
-  int exp;
-
-  // @HiveField(35)
-  // String nonce;
+  const HiveClaims._();
 
   UnmodifiableListView<String> get httpsShirasuIoRoles =>
       rawHttpsShirasuIoRoles.toUnmodifiable();
@@ -220,20 +150,21 @@ class HiveClaims extends HiveObject {
 }
 
 /// hive model for [HttpsShirasuIoUserAttribute]
-@HiveType(typeId: 4)
-class HiveHttpsShirasuIoUserAttribute extends HiveObject {
-  /// don't use default constrictor manually
+@freezed
+abstract class HiveHttpsShirasuIoUserAttribute
+    with _$HiveHttpsShirasuIoUserAttribute {
+  @HiveType(typeId: 4)
   @protected
-  HiveHttpsShirasuIoUserAttribute({
-    @required this.birthDate,
-    @required this.job,
-    @required this.country,
-    @required this.prefecture,
-    @required this.familyName,
-    @required this.familyNameReading,
-    @required this.givenName,
-    @required this.givenNameReading,
-  });
+  const factory HiveHttpsShirasuIoUserAttribute({
+    @required @HiveField(36) DateTime birthDate,
+    @required @HiveField(37) String job,
+    @required @HiveField(38) String country,
+    @required @HiveField(39) String prefecture,
+    @required @HiveField(40) String familyName,
+    @required @HiveField(41) String givenName,
+    @required @HiveField(42) String familyNameReading,
+    @required @HiveField(43) String givenNameReading,
+  }) = _HiveHttpsShirasuIoUserAttribute;
 
   factory HiveHttpsShirasuIoUserAttribute.parse(
           HttpsShirasuIoUserAttribute attribute) =>
@@ -247,97 +178,86 @@ class HiveHttpsShirasuIoUserAttribute extends HiveObject {
         familyNameReading: attribute.familyNameReading,
         givenNameReading: attribute.givenNameReading,
       );
-
-  @HiveField(36)
-  DateTime birthDate;
-  @HiveField(37)
-  String job;
-  @HiveField(38)
-  String country;
-  @HiveField(39)
-  String prefecture;
-  @HiveField(40)
-  String familyName;
-  @HiveField(41)
-  String givenName;
-  @HiveField(42)
-  String familyNameReading;
-  @HiveField(43)
-  String givenNameReading;
 }
 
 /// hive model for [HiveEncoded]
-@HiveType(typeId: 5)
-class HiveEncoded extends HiveObject {
-  /// don't use default constrictor manually
+@freezed
+abstract class HiveEncoded with _$HiveEncoded {
   @protected
-  HiveEncoded({
-    @required this.header,
-    @required this.payload,
-    @required this.signature,
-  });
+  @HiveType(typeId: 5)
+  const factory HiveEncoded({
+    @required @HiveField(43) String header,
+    @required @HiveField(44) String payload,
+    @required @HiveField(45) String signature,
+  }) = _HiveEncoded;
 
   factory HiveEncoded.parse(Encoded encoded) => HiveEncoded(
         header: encoded.header,
         payload: encoded.payload,
         signature: encoded.signature,
       );
-
-  @HiveField(43)
-  String header;
-  @HiveField(44)
-  String payload;
-  @HiveField(45)
-  String signature;
 }
 
 /// hive model for [Header]
-@HiveType(typeId: 6)
-class HiveHeader extends HiveObject {
+@freezed
+abstract class HiveHeader with _$HiveHeader {
   /// don't use default constrictor manually
+  @HiveType(typeId: 6)
   @protected
-  HiveHeader({
-    @required this.alg,
-    @required this.typ,
-    @required this.kid,
-  });
+  const factory HiveHeader({
+    @required @HiveField(46) String alg,
+    @required @HiveField(47) String typ,
+    @required @HiveField(48) String kid,
+  }) = _HiveHeader;
 
   factory HiveHeader.parse(Header header) => HiveHeader(
         alg: header.alg,
         typ: header.typ,
         kid: header.kid,
       );
-
-  @HiveField(46)
-  String alg;
-  @HiveField(47)
-  String typ;
-  @HiveField(48)
-  String kid;
 }
 
 /// hive model for [User]
-@HiveType(typeId: 7)
-class HiveUser extends HiveObject {
-
+@freezed
+abstract class HiveUser with _$HiveUser {
+  @HiveType(typeId: 7)
   @protected
-  HiveUser({
-    @required this.rawHttpsShirasuIoRoles,
-    @required this.httpsShirasuIoUserAttribute,
-    @required this.httpsShirasuIoCustomerId,
-    @required this.rawHttpsShirasuIoDistributeds,
-    @required this.rawHttpsShirasuIoTenants,
-    // @required this.givenName,
-    // @required this.familyName,
-    @required this.nickname,
-    @required this.name,
-    @required this.picture,
-    // @required this.locale,
-    @required this.updatedAt,
-    @required this.email,
-    @required this.emailVerified,
-    @required this.sub,
-  });
+  const factory HiveUser({
+    @required
+    @HiveField(49)
+    @required
+    @protected
+        List<String> rawHttpsShirasuIoRoles,
+    @required
+    @HiveField(50)
+        HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+    @required @HiveField(51) String httpsShirasuIoCustomerId,
+    @required
+    @protected
+    @required
+    @HiveField(52)
+        List<dynamic> rawHttpsShirasuIoDistributeds,
+    @required
+    @protected
+    @required
+    @HiveField(53)
+        List<dynamic> rawHttpsShirasuIoTenants,
+
+    // @required @HiveField(54)
+    // String givenName,
+    // @required @HiveField(55)
+    // String familyName,
+    @required @HiveField(56) String nickname,
+    @required @HiveField(57) String name,
+    @required @HiveField(58) String picture,
+
+    // @required @HiveField(59)
+    // String locale,
+    @required @HiveField(60) DateTime updatedAt,
+    @required @HiveField(61) String email,
+    @required @HiveField(62) bool emailVerified,
+    @required @HiveField(63) String sub,
+  }) = _HiveUser;
 
   factory HiveUser.parse(User user) => HiveUser(
         rawHttpsShirasuIoRoles: user.httpsShirasuIoRoles,
@@ -355,41 +275,7 @@ class HiveUser extends HiveObject {
         sub: user.sub,
       );
 
-  @HiveField(49)
-  @protected
-  List<String> rawHttpsShirasuIoRoles;
-  @HiveField(50)
-  HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
-  @HiveField(51)
-  String httpsShirasuIoCustomerId;
-  @protected
-  @HiveField(52)
-  List<dynamic> rawHttpsShirasuIoDistributeds;
-  @protected
-  @HiveField(53)
-  List<dynamic> rawHttpsShirasuIoTenants;
-
-  // @HiveField(54)
-  // String givenName;
-  // @HiveField(55)
-  // String familyName;
-  @HiveField(56)
-  String nickname;
-  @HiveField(57)
-  String name;
-  @HiveField(58)
-  String picture;
-
-  // @HiveField(59)
-  // String locale;
-  @HiveField(60)
-  DateTime updatedAt;
-  @HiveField(61)
-  String email;
-  @HiveField(62)
-  bool emailVerified;
-  @HiveField(63)
-  String sub;
+  const HiveUser._();
 
   //todo duplicate
   UnmodifiableListView<String> get httpsShirasuIoRoles =>

@@ -6,24 +6,24 @@ part of 'auth_data.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class HiveAuthDataAdapter extends TypeAdapter<HiveAuthData> {
+class HiveAuthDataAdapter extends TypeAdapter<_$_HiveAuthData> {
   @override
   final int typeId = 0;
 
   @override
-  HiveAuthData read(BinaryReader reader) {
+  _$_HiveAuthData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveAuthData(
+    return _$_HiveAuthData(
       body: fields[0] as HiveBody,
       expiresAt: fields[1] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, HiveAuthData obj) {
+  void write(BinaryWriter writer, _$_HiveAuthData obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
@@ -43,17 +43,17 @@ class HiveAuthDataAdapter extends TypeAdapter<HiveAuthData> {
           typeId == other.typeId;
 }
 
-class HiveBodyAdapter extends TypeAdapter<HiveBody> {
+class HiveBodyAdapter extends TypeAdapter<_$_HiveBody> {
   @override
   final int typeId = 1;
 
   @override
-  HiveBody read(BinaryReader reader) {
+  _$_HiveBody read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveBody(
+    return _$_HiveBody(
       clientId: fields[2] as String,
       accessToken: fields[3] as String,
       refreshToken: fields[4] as String,
@@ -67,7 +67,7 @@ class HiveBodyAdapter extends TypeAdapter<HiveBody> {
   }
 
   @override
-  void write(BinaryWriter writer, HiveBody obj) {
+  void write(BinaryWriter writer, _$_HiveBody obj) {
     writer
       ..writeByte(9)
       ..writeByte(2)
@@ -101,17 +101,17 @@ class HiveBodyAdapter extends TypeAdapter<HiveBody> {
           typeId == other.typeId;
 }
 
-class HiveDecodedTokenAdapter extends TypeAdapter<HiveDecodedToken> {
+class HiveDecodedTokenAdapter extends TypeAdapter<_$_HiveDecodedToken> {
   @override
   final int typeId = 2;
 
   @override
-  HiveDecodedToken read(BinaryReader reader) {
+  _$_HiveDecodedToken read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveDecodedToken(
+    return _$_HiveDecodedToken(
       encoded: fields[11] as HiveEncoded,
       header: fields[12] as HiveHeader,
       claims: fields[13] as HiveClaims,
@@ -120,7 +120,7 @@ class HiveDecodedTokenAdapter extends TypeAdapter<HiveDecodedToken> {
   }
 
   @override
-  void write(BinaryWriter writer, HiveDecodedToken obj) {
+  void write(BinaryWriter writer, _$_HiveDecodedToken obj) {
     writer
       ..writeByte(4)
       ..writeByte(11)
@@ -144,17 +144,17 @@ class HiveDecodedTokenAdapter extends TypeAdapter<HiveDecodedToken> {
           typeId == other.typeId;
 }
 
-class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
+class HiveClaimsAdapter extends TypeAdapter<_$_HiveClaims> {
   @override
   final int typeId = 3;
 
   @override
-  HiveClaims read(BinaryReader reader) {
+  _$_HiveClaims read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveClaims(
+    return _$_HiveClaims(
       raw: fields[15] as String,
       rawHttpsShirasuIoRoles: (fields[16] as List)?.cast<String>(),
       httpsShirasuIoUserAttribute:
@@ -177,7 +177,7 @@ class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
   }
 
   @override
-  void write(BinaryWriter writer, HiveClaims obj) {
+  void write(BinaryWriter writer, _$_HiveClaims obj) {
     writer
       ..writeByte(17)
       ..writeByte(15)
@@ -228,30 +228,30 @@ class HiveClaimsAdapter extends TypeAdapter<HiveClaims> {
 }
 
 class HiveHttpsShirasuIoUserAttributeAdapter
-    extends TypeAdapter<HiveHttpsShirasuIoUserAttribute> {
+    extends TypeAdapter<_$_HiveHttpsShirasuIoUserAttribute> {
   @override
   final int typeId = 4;
 
   @override
-  HiveHttpsShirasuIoUserAttribute read(BinaryReader reader) {
+  _$_HiveHttpsShirasuIoUserAttribute read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveHttpsShirasuIoUserAttribute(
+    return _$_HiveHttpsShirasuIoUserAttribute(
       birthDate: fields[36] as DateTime,
       job: fields[37] as String,
       country: fields[38] as String,
       prefecture: fields[39] as String,
       familyName: fields[40] as String,
-      familyNameReading: fields[42] as String,
       givenName: fields[41] as String,
+      familyNameReading: fields[42] as String,
       givenNameReading: fields[43] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, HiveHttpsShirasuIoUserAttribute obj) {
+  void write(BinaryWriter writer, _$_HiveHttpsShirasuIoUserAttribute obj) {
     writer
       ..writeByte(8)
       ..writeByte(36)
@@ -283,17 +283,17 @@ class HiveHttpsShirasuIoUserAttributeAdapter
           typeId == other.typeId;
 }
 
-class HiveEncodedAdapter extends TypeAdapter<HiveEncoded> {
+class HiveEncodedAdapter extends TypeAdapter<_$_HiveEncoded> {
   @override
   final int typeId = 5;
 
   @override
-  HiveEncoded read(BinaryReader reader) {
+  _$_HiveEncoded read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveEncoded(
+    return _$_HiveEncoded(
       header: fields[43] as String,
       payload: fields[44] as String,
       signature: fields[45] as String,
@@ -301,7 +301,7 @@ class HiveEncodedAdapter extends TypeAdapter<HiveEncoded> {
   }
 
   @override
-  void write(BinaryWriter writer, HiveEncoded obj) {
+  void write(BinaryWriter writer, _$_HiveEncoded obj) {
     writer
       ..writeByte(3)
       ..writeByte(43)
@@ -323,17 +323,17 @@ class HiveEncodedAdapter extends TypeAdapter<HiveEncoded> {
           typeId == other.typeId;
 }
 
-class HiveHeaderAdapter extends TypeAdapter<HiveHeader> {
+class HiveHeaderAdapter extends TypeAdapter<_$_HiveHeader> {
   @override
   final int typeId = 6;
 
   @override
-  HiveHeader read(BinaryReader reader) {
+  _$_HiveHeader read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveHeader(
+    return _$_HiveHeader(
       alg: fields[46] as String,
       typ: fields[47] as String,
       kid: fields[48] as String,
@@ -341,7 +341,7 @@ class HiveHeaderAdapter extends TypeAdapter<HiveHeader> {
   }
 
   @override
-  void write(BinaryWriter writer, HiveHeader obj) {
+  void write(BinaryWriter writer, _$_HiveHeader obj) {
     writer
       ..writeByte(3)
       ..writeByte(46)
@@ -363,17 +363,17 @@ class HiveHeaderAdapter extends TypeAdapter<HiveHeader> {
           typeId == other.typeId;
 }
 
-class HiveUserAdapter extends TypeAdapter<HiveUser> {
+class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
   @override
   final int typeId = 7;
 
   @override
-  HiveUser read(BinaryReader reader) {
+  _$_HiveUser read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveUser(
+    return _$_HiveUser(
       rawHttpsShirasuIoRoles: (fields[49] as List)?.cast<String>(),
       httpsShirasuIoUserAttribute:
           fields[50] as HiveHttpsShirasuIoUserAttribute,
@@ -391,7 +391,7 @@ class HiveUserAdapter extends TypeAdapter<HiveUser> {
   }
 
   @override
-  void write(BinaryWriter writer, HiveUser obj) {
+  void write(BinaryWriter writer, _$_HiveUser obj) {
     writer
       ..writeByte(12)
       ..writeByte(49)

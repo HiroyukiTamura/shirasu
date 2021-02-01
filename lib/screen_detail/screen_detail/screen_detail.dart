@@ -77,8 +77,6 @@ final _kPrvFabVisibility = Provider.family.autoDispose<bool, String>((ref, id) {
   return isCommentShown && isNotFollowTimeLineMode;
 });
 
-final pDetailScaffold = Provider<ScaffoldKeyHolder>((_) => ScaffoldKeyHolder());
-
 class ScreenDetail extends StatefulHookWidget {
   const ScreenDetail({Key key, @required this.id}) : super(key: key);
 

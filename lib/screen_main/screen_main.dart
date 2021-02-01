@@ -5,6 +5,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
@@ -28,6 +29,8 @@ final _kPrvMainSnackMsg = Provider.autoDispose<SnackData>((ref) {
 
 final _pRouterDelegate =
     Provider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref));
+
+final _kPrvRouterDelegate = ChangeNotifierProvider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref));
 
 class ScaffoldKeyHolder {
   ScaffoldKeyHolder();
@@ -86,11 +89,11 @@ class _ScreenMainState extends State<ScreenMain> {
 @hwidget
 Widget _mainBottomNavigationBar(BuildContext context) => BottomNavigationBar(
       selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white.withOpacity(.6),
+      unselectedItemColor: Styles.colorTextSub,
       type: BottomNavigationBarType.fixed,
       unselectedFontSize: 14,
       onTap: (index) async => context.read(_pRouterDelegate).swapPage(index),
-      currentIndex: useProvider(_pRouterDelegate).pageIndex,
+      currentIndex: useProvider(_kPrvRouterDelegate.select((it) => it.pageIndex)),
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

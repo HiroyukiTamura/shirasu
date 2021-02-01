@@ -4,7 +4,6 @@ import 'package:shirasu/resource/styles.dart';
 
 @immutable
 class TextStyles {
-
   const TextStyles._();
 
   static const TEXT_HEIGHT = 1.3;
@@ -169,5 +168,12 @@ class TextStyles {
   static const SETTING_COMPONENT_TITLE = TextStyle(height: 1);
 
   static const SETTING_SUBSCRIBED_CHANNEL = TextStyle(height: 1.3);
+
   //endregion
+
+  static const DEFAULT_H = TextStyle(height: TEXT_HEIGHT);
+
+  static const SINGLE_LINE_DEFAULT = TextStyle(height: 1, fontSize: 14);
+
+  static const VIDEO_PAYMENT_BTN = TextStyle(fontSize: 18);
 }

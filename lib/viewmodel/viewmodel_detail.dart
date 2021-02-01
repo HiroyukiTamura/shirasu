@@ -78,13 +78,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (state.prgDataResult is StateSuccess) return;
 
     state = state.copyWith(prgDataResult: const DetailModelState.loading());
-    ModelDetail newState;
+
     try {
       final data = await Util.wait2<ProgramDetailData, ChannelData>(
           () async => _apiClient.queryProgramDetail(id),
           () async => _apiClient.queryChannelData(channelId));
 
-      newState = state.copyWith(
+      state = state.copyWith(
         prgDataResult: DetailModelState.success(
           programDetailData: data.item1,
           channelData: data.item2,
@@ -93,9 +93,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       );
     } catch (e) {
       print(e);
-      newState = state.copyWith(prgDataResult: const DetailModelState.error());
+      if (mounted)
+        state = state.copyWith(prgDataResult: const DetailModelState.error());
     }
-    setState(newState);
 
     await _initComments(Duration.zero);
   }

@@ -910,7 +910,7 @@ class _$_ViewerUser extends _ViewerUser {
         assert(watchHistories != null),
         assert(rawSubscribedChannels != null),
         assert(typename != null),
-        assert(typename == "Viewer"),
+        assert(typename == "User"),
         super._();
 
   factory _$_ViewerUser.fromJson(Map<String, dynamic> json) =>

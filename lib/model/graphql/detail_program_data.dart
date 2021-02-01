@@ -111,7 +111,7 @@ abstract class DetailPrgChannel with _$DetailPrgChannel implements BaseChannel {
 abstract class VideoHandouts
     with _$VideoHandouts
     implements BaseModelHandoutConnection {
-  @Assert('typename == "ModelHandoutConnection"')
+  @Assert('typename == "ModelVideoConnection"')
   const factory VideoHandouts({
     @required @JsonKey(name: 'items') @protected List<DetailPrgItem> rawItems,
     String nextToken,
@@ -130,7 +130,7 @@ abstract class VideoHandouts
 
 @freezed
 abstract class Handouts with _$Handouts implements BaseHandouts {
-  @Assert('typename == "Handouts"')
+  @Assert('typename == "ModelHandoutConnection"')
   const factory Handouts({
     @required @JsonKey(name: 'items') @protected List<Handout> rawItems,
     String nextToken,

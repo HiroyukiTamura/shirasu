@@ -22,8 +22,6 @@ class Styles {
   static const ACCENT_COLOR_DARK = Color(0xffd45c00);
   static final cardBackground = Colors.white.withOpacity(.1);
 
-  static const COLOR = Color(0xff0057ff);
-  static const COLOR_2 = Color(0xffffa800);
   static final introDot = Colors.white.withOpacity(.8);
 
   static final theme = _createTheme(const PlayerSliderTrackShape());
@@ -38,6 +36,7 @@ class Styles {
     primaryColorBrightness: Brightness.dark,
     primaryColor: PRIMARY_COLOR,
     accentColor: PRIMARY_COLOR,
+    primaryColorDark: PRIMARY_COLOR_DARK,
     cursorColor: Colors.white,
     scaffoldBackgroundColor: BACK_COLOR,
     appBarTheme: const AppBarTheme(color: Colors.black),

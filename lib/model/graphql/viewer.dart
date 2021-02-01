@@ -62,7 +62,7 @@ abstract class PaymentMethod with _$PaymentMethod implements BasePaymentMethod {
 
 @freezed
 abstract class ViewerUser with _$ViewerUser implements BaseViewer {
-  @Assert('typename == "Viewer"')
+  @Assert('typename == "User"')
   const factory ViewerUser({
     @required String id,
     @required String name,

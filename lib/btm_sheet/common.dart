@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/resource/text_styles.dart';
 
 import '../main.dart';
 
@@ -106,10 +107,7 @@ Widget textBtmSheetContent({
       leading: const Icon(Icons.access_time),
       title: Text(
         text,
-        style: const TextStyle(
-          fontSize: 14,
-          height: 1,
-        ),
+        style: TextStyles.SINGLE_LINE_DEFAULT,
       ),
       onTap: onTap,
     );

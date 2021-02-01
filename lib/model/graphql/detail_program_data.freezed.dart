@@ -1360,7 +1360,7 @@ class _$_VideoHandouts extends _VideoHandouts {
       @required @JsonKey(name: '__typename') this.typename})
       : assert(rawItems != null),
         assert(typename != null),
-        assert(typename == "ModelHandoutConnection"),
+        assert(typename == "ModelVideoConnection"),
         super._();
 
   factory _$_VideoHandouts.fromJson(Map<String, dynamic> json) =>
@@ -1562,7 +1562,7 @@ class _$_Handouts extends _Handouts {
       @required @JsonKey(name: '__typename') this.typename})
       : assert(rawItems != null),
         assert(typename != null),
-        assert(typename == "Handouts"),
+        assert(typename == "ModelHandoutConnection"),
         super._();
 
   factory _$_Handouts.fromJson(Map<String, dynamic> json) =>

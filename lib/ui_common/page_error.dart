@@ -17,25 +17,27 @@ Widget pageError({
   String text = Strings.SNACK_ERR,
 }) =>
     SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(48),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Assets.svg.roboto.svg(
-              color: Styles.colorTextSub,
-              width: 160,
-              height: 160,
-            ),
-            const SizedBox(height: 24),
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 16,
+      child: SizedBox.expand(
+        child: Padding(
+          padding: const EdgeInsets.all(48),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Assets.svg.roboto.svg(
                 color: Styles.colorTextSub,
+                width: 160,
+                height: 160,
               ),
-            ),
-          ],
+              const SizedBox(height: 24),
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Styles.colorTextSub,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

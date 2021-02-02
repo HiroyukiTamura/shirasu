@@ -4,6 +4,8 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
+import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
@@ -41,8 +43,8 @@ Widget rowTop(
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.white,
-                height: 1,
-                fontSize: 18,
+                height: TextHeight.TEXT_H_SINGLE,
+                fontSize: FontSize.S18,
               ),
             ),
           ),

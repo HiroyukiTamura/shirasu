@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
@@ -85,14 +86,20 @@ Widget movieListItem(
             onTap: onTap,
             titleHeight: 96,
             titleStyle: TextStyles.LIST_MOVIE_TITLE_THICK,
-            subTitleStyle: TextStyles.plain,
+            subTitleStyle: TextStyle(
+              fontSize: FontSize.DEFAULT,
+              color: Styles.colorTextSub,
+            ),
           )
         : MovieListItemBase(
             program: program,
             onTap: onTap,
             titleHeight: 72,
             titleStyle: TextStyles.LIST_MOVIE_TITLE,
-            subTitleStyle: TextStyles.plainSmall,
+            subTitleStyle: TextStyle(
+              fontSize: FontSize.SMALL,
+              color: Styles.colorTextSub,
+            ),
           );
 
 @swidget
@@ -124,7 +131,7 @@ Widget movieListBigItem({
                 program.title,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 4,
-                style: TextStyles.LIST_MOVIE_TITLE_BIG,
+                style: TextStyles.defaultFontSizeAndHeight(),
               ),
             )
           ],

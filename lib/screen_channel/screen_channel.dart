@@ -153,7 +153,10 @@ Widget _rowChannelName({@required Channel channel}) => ContentCell(
           const SizedBox(width: 24),
           Text(
             channel.name,
-            style: TextStyles.CHANNEL_NAME,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           )
         ],
       ),

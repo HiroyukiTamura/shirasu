@@ -30,7 +30,7 @@ ${Strings.CURRENT_PERIOD_END_AT_LABEL}: ${DateFormat('yyyy/MM/dd').format(subscr
       padding: const EdgeInsets.only(top: 4),
       child: Text(
         text,
-        style: TextStyles.SETTING_SUBSCRIBED_CHANNEL,
+        style: TextStyles.DEFAULT_H,
       ),
     ),
   );

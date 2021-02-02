@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
 import 'package:shirasu/screen_detail/page_base/item_heading.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,6 +43,8 @@ class _ScreenHandsOutInner extends HookWidget {
 
   final ProgramDetail program;
 
+  static const double _SUBTITLE_PAD = 6;
+
   @override
   Widget build(BuildContext context) => useProvider(detailSNProvider(program.id)
           .state
@@ -68,31 +72,31 @@ class _ScreenHandsOutInner extends HookWidget {
               ),
               title: Text(
                 handout.name,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(height: 1.3, fontSize: 15),
+                style: const TextStyle(
+                  height: TextHeight.TEXT_HEIGHT,
+                  fontSize: FontSize.DEFAULT,
+                ),
               ),
               isThreeLine: isExtensionOnly,
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: _SUBTITLE_PAD),
                   Text(
                     createdAt,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      height: 1.3,
-                    ),
+                    style: TextStyles.pageHandoutSubtitle(),
                   ),
                   if (isExtensionOnly)
                     Padding(
-                      padding: const EdgeInsets.only(top: 6),
+                      padding: const EdgeInsets.only(top: _SUBTITLE_PAD),
                       child: Text(
                         Strings.EXTENSION_PURCHASER_ONLY,
-                        style: TextStyle(
+                        style: TextStyles.pageHandoutSubtitle(
                           color: Theme.of(context).primaryColor,
-                          fontSize: 13,
-                          height: 1,
                         ),
                       ),
                     ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
 import '../main.dart';
@@ -68,7 +69,7 @@ class ListBtmSheetContent<T> extends StatelessWidget {
         textBuilder(item),
         maxLines: 1,
         style: const TextStyle(
-          fontSize: 16,
+          fontSize: FontSize.S16,
         ),
       );
 }

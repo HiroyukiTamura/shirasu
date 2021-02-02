@@ -14,6 +14,8 @@ Widget pageChannelDetail({@required String text}) => SingleChildScrollView(
       ),
       child: Text(
         text,
-        style: TextStyles.CHANNEL_PLAIN,
+        style: TextStyles.defaultFontSizeAndHeight(
+          color: Colors.white,
+        ),
       ),
     );

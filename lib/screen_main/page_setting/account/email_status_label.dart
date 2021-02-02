@@ -60,9 +60,7 @@ class ListItemEmail extends StatelessWidget {
                           const WidgetSpan(child: SizedBox(width: 4)),
                           const TextSpan(
                             text: Strings.AUTH_SYNC_CHECKED,
-                            style: TextStyle(
-                              height: 1,
-                            ),
+                            style: TextStyles.SINGLE_H,
                           )
                         ],
                       )),
@@ -133,7 +131,10 @@ class EmailStatusLabel extends StatelessWidget {
           padding: const EdgeInsets.all(4),
           child: Text(
             text,
-            style: const TextStyle(color: Colors.white, height: 1),
+            style: const TextStyle(
+              color: Colors.white,
+              height: TextHeight.TEXT_H_SINGLE,
+            ),
           ),
         ),
       );

@@ -5,6 +5,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
@@ -33,8 +34,9 @@ Widget listTileLoadMore(BuildContext context) =>
                 padding: EdgeInsets.all(8),
                 child: Text(
                   Strings.WATCH_MORE,
+                  maxLines: 1,
                   style: TextStyle(
-                    height: 1,
+                    height: TextHeight.TEXT_H_SINGLE,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

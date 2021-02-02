@@ -98,7 +98,7 @@ Widget _title({@required String title}) => Expanded(
           title,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
-          style: TextStyles.DASHBOARD_BILLBOARD_TITLE_H,
+          style: TextStyles.DASHBOARD_BILLBOARD_TITLE,
         ),
       ),
     );

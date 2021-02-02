@@ -2,6 +2,7 @@ import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -57,13 +58,13 @@ class DragOverlay extends HookWidget {
           Text(
             positionText,
             style: const TextStyle(
-              fontSize: 30,
+              fontSize: FontSize.S30,
             ),
           ),
           Text(
             diffText,
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: FontSize.S20,
             ),
           ),
         ],

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/ui_common/images.dart';
@@ -32,7 +33,7 @@ Widget pageError({
               Text(
                 text,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: FontSize.S16,
                   color: Styles.colorTextSub,
                 ),
               ),

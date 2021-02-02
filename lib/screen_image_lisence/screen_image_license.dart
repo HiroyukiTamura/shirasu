@@ -5,6 +5,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/util.dart';
@@ -44,13 +45,13 @@ Widget screenImageLicense() => SafeArea(
 class _ListTileRobot extends StatelessWidget {
   const _ListTileRobot({Key key}) : super(key: key);
 
-  static const _TEXT_STYLE = TextStyle(fontSize: 18);
-
   @override
   Widget build(BuildContext context) => ListTile(
         title: RichText(
           text: TextSpan(
-            style: _TEXT_STYLE,
+            style: const TextStyle(
+              fontSize: FontSize.S18,
+            ),
             children: [
               _autoLink(
                 context: context,
@@ -72,23 +73,20 @@ class _ListTileRobot extends StatelessWidget {
     @required BuildContext context,
     @required String text,
     @required String url,
-  }) {
-    final linkStyle = TextStyle(
-      color: Theme.of(context).accentColor,
-      decoration: TextDecoration.underline,
-    );
-
-    return TextSpan(
-      text: text,
-      style: linkStyle,
-      recognizer: TapGestureRecognizer()
-        ..onTap = () async => Util.launchUrl(
-              context,
-              url,
-              () => context
-                  .read(_kPrvSnackBarMsgNotifier)
-                  .notifyMsg(const SnackMsg.unknown(), false),
-            ),
-    );
-  }
+  }) =>
+      TextSpan(
+        text: text,
+        style: TextStyle(
+          color: Theme.of(context).accentColor,
+          decoration: TextDecoration.underline,
+        ),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () async => Util.launchUrl(
+                context,
+                url,
+                () => context
+                    .read(_kPrvSnackBarMsgNotifier)
+                    .notifyMsg(const SnackMsg.unknown(), false),
+              ),
+      );
 }

@@ -7,8 +7,10 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
+import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/page_comment/provider_page_comment.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
@@ -149,9 +151,7 @@ class CommentBtmBar extends HookWidget {
               buildCounter: (context,
                       {int currentLength, bool isFocused, int maxLength}) =>
                   null,
-              style: const TextStyle(
-                height: 1.3,
-              ),
+              style: TextStyles.DEFAULT_H,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(
                     ViewModelDetail.COMMENT_MAX_LETTER_LEN)
@@ -166,9 +166,7 @@ class CommentBtmBar extends HookWidget {
                 disabledBorder: InputBorder.none,
                 focusedErrorBorder: InputBorder.none,
                 suffixIcon: _SuffixBtn(id: id, onPressed: _onPressed),
-                hintStyle: const TextStyle(
-                  height: 1,
-                ),
+                hintStyle: TextStyles.SINGLE_H,
               ),
             ),
           ),
@@ -203,10 +201,8 @@ Widget _trailing({
     Text(
       Util.formatDurationStyled(item.commentTimeDuration),
       maxLines: 1,
-      style: TextStyle(
+      style: TextStyles.s13TextHSingle(
         color: Styles.colorTextSub,
-        fontSize: 13,
-        height: 1,
       ),
     );
 

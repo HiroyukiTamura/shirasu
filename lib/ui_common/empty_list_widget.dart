@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 
 part 'empty_list_widget.g.dart';
@@ -32,7 +33,7 @@ Widget emptyListWidget({
           text,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 18,
+            fontSize: FontSize.S18,
             color: Colors.white,
           ),
         ),

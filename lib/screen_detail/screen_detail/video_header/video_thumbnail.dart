@@ -8,6 +8,7 @@ import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/btm_sheet/video_payment_btm_sheet.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
@@ -136,7 +137,10 @@ Widget _waitingText() => const _HoverBackDrop(
       opacity: .7,
       child: Text(
         Strings.WAIT_FOR_START,
-        style: TextStyles.DETAIL_HEADER_MSG,
+        style: TextStyle(
+          fontSize: FontSize.S16,
+          color: Colors.white,
+        ),
       ),
     );
 
@@ -158,7 +162,7 @@ Widget _hoverBtn({
         child: Text(
           label,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: FontSize.S16,
           ),
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
@@ -148,9 +149,7 @@ class HorizontalCarouselDetailCaption extends StatelessWidget {
               DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: TextStyle(
-                height: 1,
-                fontSize: 13,
+              style: TextStyles.horizontalCarouselDetailCaption(
                 color: Theme.of(context).accentColor,
               ),
             ),
@@ -174,7 +173,7 @@ class HorizontalCarouselDetailCaption extends StatelessWidget {
                     item.channel.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: const TextStyle(height: 1, fontSize: 13),
+                    style: TextStyles.horizontalCarouselDetailCaption(),
                   ),
                 ),
               ],

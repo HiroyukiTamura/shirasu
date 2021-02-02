@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/resource/font_size.dart';
+import 'package:shirasu/resource/text_styles.dart';
 
 part 'heading.g.dart';
 
@@ -13,10 +15,9 @@ Widget heading(BuildContext context, {
     child: Text(
       text,
       style: TextStyle(
-        fontSize: 20,
-        height: 1,
+        fontSize: FontSize.S20,
+        height: TextHeight.TEXT_H_SINGLE,
         fontWeight: FontWeight.bold,
-        decoration: TextDecoration.none,
         color: Theme.of(context).accentColor,
       ),
     ),

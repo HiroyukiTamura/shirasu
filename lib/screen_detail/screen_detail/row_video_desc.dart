@@ -16,24 +16,25 @@ Widget rowVideoDesc(
   BuildContext context, {
   @required String text,
   @required String id,
-}) => BasePadding(
-    child: Linkify(
-      onOpen: (link) async => Util.launchUrl(
-        context,
-        link.url,
-        () => context
-            .read(detailSNProvider(id))
-            .commandSnackBar(const SnackMsg.unknown()),
+}) =>
+    BasePadding(
+      child: Linkify(
+        onOpen: (link) async => Util.launchUrl(
+          context,
+          link.url,
+          () => context
+              .read(detailSNProvider(id))
+              .commandSnackBar(const SnackMsg.unknown()),
+        ),
+        text: text,
+        style: TextStyles.defaultFontSizeAndHeight(
+          color: Colors.white,
+        ),
+        linkStyle: TextStyles.defaultFontSizeAndHeight(
+          color: Theme.of(context).primaryColor,
+        ),
+        options: LinkifyOptions(
+          humanize: false,
+        ),
       ),
-      text: text,
-      style: TextStyles.DETAIL_VIDEO_DESC,
-      linkStyle: TextStyle(
-        color: Theme.of(context).primaryColor,
-        fontSize: 14,
-        height: TextStyles.TEXT_HEIGHT,
-      ),
-      options: LinkifyOptions(
-        humanize: false,
-      ),
-    ),
-  );
+    );

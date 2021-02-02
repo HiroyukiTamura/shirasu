@@ -124,6 +124,9 @@ Widget _buttonMedium(
         text,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: TextStyles.PURCHASED_BANNER,
+        style: const TextStyle(
+          color: Colors.white,
+          height: TextHeight.TEXT_H_SINGLE,
+        ),
       ),
     );

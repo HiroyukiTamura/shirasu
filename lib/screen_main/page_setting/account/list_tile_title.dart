@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/account/list_tile_seem.dart';
@@ -36,7 +37,7 @@ class ListTileTitle extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyles.SETTING_COMPONENT_TITLE,
+            style: TextStyles.SINGLE_H,
           ),
           Visibility(
             visible: showEmptyText,
@@ -46,10 +47,8 @@ class ListTileTitle extends StatelessWidget {
               ),
               child: Text(
                 '$title${Strings.NO_ITEM_SUFFIX}',
-                style: TextStyle(
-                  fontSize: 13,
+                style: TextStyles.s13TextHSingle(
                   color: Colors.white.withOpacity(.5),
-                  height: 1,
                 ),
               ),
             ),

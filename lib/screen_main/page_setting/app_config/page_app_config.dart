@@ -5,7 +5,9 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
@@ -15,8 +17,6 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import '../../screen_main.dart';
 
 part 'page_app_config.g.dart';
-
-const _textStyle = TextStyle(height: 1);
 
 @swidget
 Widget pageAppConfig(BuildContext context) => ListView(
@@ -79,7 +79,7 @@ Widget _listItem(
       ),
       title: Text(
         title,
-        style: _textStyle,
+        style: TextStyles.SINGLE_H,
       ),
       onTap: onTap,
     );

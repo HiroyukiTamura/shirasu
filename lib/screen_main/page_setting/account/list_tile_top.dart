@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/ui_common/images.dart';
 import 'package:shirasu/util.dart';
@@ -32,7 +33,7 @@ Widget listTileTop({
         const SizedBox(width: 16),
         Text(
           userName,
-          style: const TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: FontSize.S18),
         )
       ],
     ),

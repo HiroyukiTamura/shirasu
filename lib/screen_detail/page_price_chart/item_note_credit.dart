@@ -13,7 +13,7 @@ Widget itemNoteCredit() => Padding(
     child: ItemPadding(
       child: Text(
         Strings.BTM_SHEET_MSG_CREDIT_CARD,
-        style: TextStyles.itemNote(
+        style: TextStyles.s13TextHMulti(
           color: Colors.white,
         ),
       ),

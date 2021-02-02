@@ -37,17 +37,8 @@ class TextStyles {
     height: 1.4,
   );
 
-  static const DASHBOARD_BILLBOARD_TITLE = TextStyle(
-    fontSize: FontSize.S16,
+  static final dashboardBillboardTitle = s16TextHMulti(
     fontWeight: FontWeight.bold,
-    height: TextHeight.TEXT_HEIGHT,
-    color: Colors.white,
-  );
-
-  static const DASHBOARD_BILLBOARD_CHANNEL_NAME_H = TextStyle(
-    fontSize: FontSize.DEFAULT,
-    fontWeight: FontWeight.bold,
-    height: TextHeight.TEXT_HEIGHT,
     color: Colors.white,
   );
 
@@ -63,10 +54,8 @@ class TextStyles {
     color: Colors.white,
   );
 
-  static const CHANNEL_HEADING = TextStyle(
+  static final channelHeading = s16TextHMulti(
     fontWeight: FontWeight.bold,
-    height: TextHeight.TEXT_HEIGHT,
-    fontSize: FontSize.S16,
   );
 
   static final channelTime = TextStyle(
@@ -75,27 +64,21 @@ class TextStyles {
     color: Styles.colorTextSub,
   );
 
-  static const LIST_MOVIE_TITLE = TextStyle(
-    height: TextHeight.TEXT_HEIGHT,
-    fontSize: FontSize.S13,
+  static final listMovieTitle = s13TextHMulti(
     fontWeight: FontWeight.bold,
   );
 
   static const LIST_MOVIE_TITLE_THICK = TextStyle(
-    height: TextHeight.TEXT_H_SML,
+    height: TextHeight.TEXT_H_SML,//todo fix??
     fontSize: FontSize.S16,
   );
 
   //region screen_detail
 
-  static const DETAIL_VIDEO_TITLE = TextStyle(
+  static final detailVideoTitle = s16TextHMulti(
     color: Colors.white,
-    fontSize: FontSize.S16,
     fontWeight: FontWeight.bold,
-    height: TextHeight.TEXT_HEIGHT,
   );
-
-  static const SETTING_SUBTITLE = TextStyle(color: Colors.blueAccent);
 
   //endregion
 
@@ -103,10 +86,15 @@ class TextStyles {
 
   static const SINGLE_H = TextStyle(height: TextHeight.TEXT_H_SINGLE);
 
-  static TextStyle defaultFontSizeAndHeight({Color color}) => TextStyle(
+  static TextStyle defaultFontSizeAndHeight({
+    Color color,
+    FontWeight fontWeight,
+  }) =>
+      TextStyle(
         height: TextHeight.TEXT_HEIGHT,
         fontSize: FontSize.DEFAULT,
         color: color,
+        fontWeight: fontWeight,
       );
 
   static const SINGLE_LINE_DEFAULT = TextStyle(
@@ -120,22 +108,24 @@ class TextStyles {
         color: color,
       );
 
-  static TextStyle itemNote({Color color}) => TextStyle(
-        height: TextHeight.TEXT_HEIGHT,
-        fontSize: FontSize.S13,
-        color: color,
-      );
-
-  static final videoTag = TextStyle(
+  static final videoTag = s13TextHMulti(
     color: Styles.colorTextSub,
-    height: TextHeight.TEXT_HEIGHT,
-    fontSize: FontSize.S13,
   );
 
-  static TextStyle horizontalCarouselDetailCaption({Color color}) => TextStyle(
-        height: TextHeight.TEXT_H_SINGLE,
+  static TextStyle s13TextHMulti({Color color, FontWeight fontWeight}) =>
+      TextStyle(
         fontSize: FontSize.S13,
+        height: TextHeight.TEXT_HEIGHT,
         color: color,
+        fontWeight: fontWeight,
+      );
+
+  static TextStyle s16TextHMulti({Color color, FontWeight fontWeight}) =>
+      TextStyle(
+        fontSize: FontSize.S16,
+        height: TextHeight.TEXT_HEIGHT,
+        color: color,
+        fontWeight: fontWeight,
       );
 
   static TextStyle s13TextHSingle({Color color}) => TextStyle(

@@ -11,15 +11,15 @@ class ListTileJob extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final job =
-        useProvider(settingViewModelSProvider.state.select((it) => it.editedUserInfo))
-                .jobCode ??
-            ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.job;
+    final job = useProvider(settingViewModelSProvider.state
+            .select((it) => it.editedUserInfo)).jobCode ??
+        ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.job;
 
     return PageUserInfo.listItem(
-        title: Strings.JOB_LABEL,
-        subTitle: Strings.JOB_MAP[job] ?? Strings.DEFAULT_EMPTY,
-        onTap: () async => _onTap(context),
+      title: Strings.JOB_LABEL,
+      subTitle: Strings.JOB_MAP[job] ?? Strings.DEFAULT_EMPTY,
+      onTap: () async => _onTap(context),
+      context: context,
     );
   }
 
@@ -28,18 +28,18 @@ class ListTileJob extends HookWidget {
         context: context,
         barrierDismissible: false,
         builder: (context) => SimpleDialog(
-          title: const Text(Strings.JOB_LABEL),
-          children: Strings.JOB_MAP // todo take care of if job unselected
-              .map<String, Widget>((key, value) {
-            final widget = SimpleDialogOption(
-              onPressed: () async => Navigator.pop(context, key),
-              child: Text(value),
-            );
-            return MapEntry(key, widget);
-          })
-              .values
-              .toList(),
-        ));
+              title: const Text(Strings.JOB_LABEL),
+              children: Strings.JOB_MAP // todo take care of if job unselected
+                  .map<String, Widget>((key, value) {
+                    final widget = SimpleDialogOption(
+                      onPressed: () async => Navigator.pop(context, key),
+                      child: Text(value),
+                    );
+                    return MapEntry(key, widget);
+                  })
+                  .values
+                  .toList(),
+            ));
     if (jobCode != null)
       context.read(settingViewModelSProvider).updateJobCode(jobCode);
   }

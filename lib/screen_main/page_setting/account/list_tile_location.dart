@@ -17,13 +17,14 @@ final _locationTextProvider =
 
 @hwidget
 Widget listTileLocation(BuildContext context) => PageUserInfo.listItem(
-    title: Strings.PLACE_LABEL,
-    subTitle: useProvider(_locationTextProvider.state),
-    onTap: () async {
-      final result = await UserLocationDialog.show(context);
-      if (result != null)
-        context
-            .read(settingViewModelSProvider)
-            .updateUserLocation(result.countryCode, result.prefectureCode);
-    },
-  );
+      title: Strings.PLACE_LABEL,
+      subTitle: useProvider(_locationTextProvider.state),
+      onTap: () async {
+        final result = await UserLocationDialog.show(context);
+        if (result != null)
+          context
+              .read(settingViewModelSProvider)
+              .updateUserLocation(result.countryCode, result.prefectureCode);
+      },
+      context: context,
+    );

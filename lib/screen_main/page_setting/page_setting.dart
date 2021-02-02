@@ -166,7 +166,9 @@ class PageUserInfo extends HookWidget {
         ),
       );
 
+  //todo extract
   static Widget listItem({
+    @required BuildContext context,
     @required String title,
     @required String subTitle,
     GestureTapCallback onTap,
@@ -175,7 +177,9 @@ class PageUserInfo extends HookWidget {
         title: Text(title),
         subtitle: Text(
           subTitle,
-          style: TextStyles.SETTING_SUBTITLE,
+          style: TextStyle(
+            color: Theme.of(context).primaryColorDark,
+          ),
         ),
         onTap: onTap,
       );

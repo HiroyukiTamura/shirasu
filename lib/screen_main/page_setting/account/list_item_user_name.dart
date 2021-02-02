@@ -7,7 +7,6 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
 class ListItemUserName extends StatelessWidget {
-
   const ListItemUserName({Key key, @required this.user}) : super(key: key);
 
   final User user;
@@ -18,7 +17,7 @@ class ListItemUserName extends StatelessWidget {
     if (user.httpsShirasuIoUserAttribute.familyNameReading != null &&
         user.httpsShirasuIoUserAttribute.givenNameReading != null)
       userName +=
-      '(${user.httpsShirasuIoUserAttribute.familyNameReading} ${user.httpsShirasuIoUserAttribute.givenNameReading})';
+          '(${user.httpsShirasuIoUserAttribute.familyNameReading} ${user.httpsShirasuIoUserAttribute.givenNameReading})';
     return userName;
   }
 
@@ -33,7 +32,9 @@ class ListItemUserName extends StatelessWidget {
         children: [
           Text(
             userName,
-            style: TextStyles.SETTING_SUBTITLE,
+            style: TextStyle(
+              color: Theme.of(context).primaryColorDark,
+            ),
           ),
           const SizedBox(height: 4),
           const Text(

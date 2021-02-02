@@ -25,7 +25,9 @@ class ListItemEmail extends StatelessWidget {
         children: [
           Text(
             user.email,
-            style: TextStyles.SETTING_SUBTITLE,
+            style: TextStyle(
+              color: Theme.of(context).primaryColorDark,
+            ),
           ),
           const SizedBox(height: 4),
           Row(
@@ -111,7 +113,9 @@ class EmailStatusLabel extends StatelessWidget {
             const SizedBox(width: 2),
             Text(
               text,
-              style: TextStyles.SETTING_SUBTITLE,
+              style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+              ),
             ),
           ],
         ),

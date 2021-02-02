@@ -63,7 +63,7 @@ class BillboardExpanded extends StatelessWidget {
   Widget _title() => _ItemPadding(
     child: Text(
         item.title,
-        style: TextStyles.DASHBOARD_BILLBOARD_TITLE,
+        style: TextStyles.dashboardBillboardTitle,
       ),
   );
 

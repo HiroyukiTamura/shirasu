@@ -95,7 +95,7 @@ Widget movieListItem(
             program: program,
             onTap: onTap,
             titleHeight: 72,
-            titleStyle: TextStyles.LIST_MOVIE_TITLE,
+            titleStyle: TextStyles.listMovieTitle,
             subTitleStyle: TextStyle(
               fontSize: FontSize.SMALL,
               color: Styles.colorTextSub,

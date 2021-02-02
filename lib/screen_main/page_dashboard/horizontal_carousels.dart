@@ -149,7 +149,7 @@ class HorizontalCarouselDetailCaption extends StatelessWidget {
               DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: TextStyles.horizontalCarouselDetailCaption(
+              style: TextStyles.s13TextHSingle(
                 color: Theme.of(context).accentColor,
               ),
             ),
@@ -173,7 +173,7 @@ class HorizontalCarouselDetailCaption extends StatelessWidget {
                     item.channel.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyles.horizontalCarouselDetailCaption(),
+                    style: TextStyles.s13TextHSingle(),
                   ),
                 ),
               ],

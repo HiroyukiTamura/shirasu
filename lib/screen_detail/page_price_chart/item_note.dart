@@ -15,7 +15,7 @@ Widget itemNote() => Padding(
       child: ItemPadding(
         child: Text(
           Strings.ARCHIVE_PRICE_TABLE_NOTE,
-          style: TextStyles.itemNote(
+          style: TextStyles.s13TextHMulti(
             color: Styles.colorPriceWhite,
           ),
         ),

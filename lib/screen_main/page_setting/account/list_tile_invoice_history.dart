@@ -9,8 +9,8 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
 class ListTileInvoiceHistory extends StatelessWidget {
-
-  const ListTileInvoiceHistory({Key key, @required this.invoiceHistoryItem}) : super(key: key);
+  const ListTileInvoiceHistory({Key key, @required this.invoiceHistoryItem})
+      : super(key: key);
 
   final InvoiceHistoryItem invoiceHistoryItem;
 
@@ -21,30 +21,33 @@ class ListTileInvoiceHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListTile(
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 8,
-        horizontal: Dimens.SETTING_OUTER_MARGIN,
-      ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              DateFormat('yyyy/MM/dd HH:mm').format(invoiceHistoryItem.createdAt),
-              style: TextStyle(
-                color: Colors.white.withOpacity(.7),
-                fontSize: FontSize.SMALL,
-                height: TextHeight.TEXT_H_SINGLE,
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: Dimens.SETTING_OUTER_MARGIN,
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                DateFormat('yyyy/MM/dd HH:mm')
+                    .format(invoiceHistoryItem.createdAt),
+                style: TextStyle(
+                  color: Colors.white.withOpacity(.7),
+                  fontSize: FontSize.SMALL,
+                  height: TextHeight.TEXT_H_SINGLE,
+                ),
               ),
             ),
+            Text(invoiceHistoryItem.label),
+          ],
+        ),
+        subtitle: Text(
+          _paymentText,
+          style: TextStyle(
+            color: Theme.of(context).primaryColorDark,
           ),
-          Text(invoiceHistoryItem.label),
-        ],
-      ),
-      subtitle: Text(
-        _paymentText,
-        style: TextStyles.SETTING_SUBTITLE,
-      ),
-    );
+        ),
+      );
 }

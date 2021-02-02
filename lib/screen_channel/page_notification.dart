@@ -38,7 +38,7 @@ class PageNotification extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           item.title,
-          style: TextStyles.CHANNEL_HEADING,
+          style: TextStyles.channelHeading,
         ),
         const SizedBox(height: 24),
         Text(

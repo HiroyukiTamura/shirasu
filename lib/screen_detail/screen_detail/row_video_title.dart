@@ -12,6 +12,6 @@ part 'row_video_title.g.dart';
 Widget rowVideoTitle({@required String text,}) => BasePadding(
     child: Text(
       text,
-      style: TextStyles.DETAIL_VIDEO_TITLE,
+      style: TextStyles.detailVideoTitle,
     ),
   );

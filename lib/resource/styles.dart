@@ -6,7 +6,13 @@ import 'package:shirasu/resource/player_slider_track_shape.dart';
 class Styles {
   const Styles._();
 
-  static final colorTextSub = Colors.white.withOpacity(.7);
+  static final labelCaution = Colors.red.shade900;
+  static final labelNormal = Colors.white.withOpacity(.8);
+  static const BARRIER = Colors.black54;
+  static final bigIcon = Colors.white.withOpacity(.5);
+  static final detailVideoTagIcon = Colors.white.withOpacity(.5);
+  static final detailFab = Colors.grey.shade200;
+  static const COLOR_TEXT_SUB = Colors.white70;
   static const COLOR_TEXT_BLUE_WHITE = Color(0xffd9f9ff);
   static const BACK_COLOR = Color(0xff181818);
   static final colorPriceWhite = Colors.white.withOpacity(.85);

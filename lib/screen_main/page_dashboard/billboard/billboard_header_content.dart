@@ -131,8 +131,8 @@ Widget _indicator({
       child: SmoothPageIndicator(
         controller: controller,
         count: count,
-        effect: WormEffect(
-          dotColor: Colors.white.withOpacity(.5),
+        effect: const WormEffect(
+          dotColor: Colors.white54,
           activeDotColor: Colors.white,
           dotHeight: 8,
           dotWidth: 8,

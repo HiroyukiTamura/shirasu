@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/global_app_state.dart';
@@ -89,9 +90,9 @@ class _ScreenMainState extends State<ScreenMain> {
 @hwidget
 Widget _mainBottomNavigationBar(BuildContext context) => BottomNavigationBar(
       selectedItemColor: Colors.white,
-      unselectedItemColor: Styles.colorTextSub,
+      unselectedItemColor: Styles.COLOR_TEXT_SUB,
       type: BottomNavigationBarType.fixed,
-      unselectedFontSize: 14,
+      unselectedFontSize: FontSize.DEFAULT,
       onTap: (index) async => context.read(_pRouterDelegate).swapPage(index),
       currentIndex: useProvider(_kPrvRouterDelegate.select((it) => it.pageIndex)),
       items: const [

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/model/auth_data.dart';
 
@@ -91,7 +92,7 @@ class ListItemEmail extends StatelessWidget {
 class EmailStatusLabel extends StatelessWidget {
   EmailStatusLabel({Key key, @required this.isVerified})
       : text = isVerified ? Strings.EMAIL_VERIFIED : Strings.EMAIL_NOT_VERIFIED,
-        color = isVerified ? Colors.white.withOpacity(.8) : Colors.red.shade900,
+        color = isVerified ? Styles.labelNormal : Styles.labelCaution,
         super(key: key);
 
   final bool isVerified;
@@ -105,9 +106,9 @@ class EmailStatusLabel extends StatelessWidget {
         margin: const EdgeInsets.only(top: 4),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               Icons.check,
-              color: Colors.blueAccent,
+              color: Theme.of(context).primaryColorDark,
               size: 16,
             ),
             const SizedBox(width: 2),

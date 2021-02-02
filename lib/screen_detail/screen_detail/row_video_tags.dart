@@ -34,7 +34,7 @@ Widget _videoTagChip({
             child: Icon(
               FontAwesomeIcons.tag,
               size: 13,
-              color: Colors.white.withOpacity(.5),
+              color: Styles.detailVideoTagIcon,
             ),
           ),
           const WidgetSpan(child: SizedBox(width: 4)),

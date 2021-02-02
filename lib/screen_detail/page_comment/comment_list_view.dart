@@ -202,7 +202,7 @@ Widget _trailing({
       Util.formatDurationStyled(item.commentTimeDuration),
       maxLines: 1,
       style: TextStyles.s13TextHSingle(
-        color: Styles.colorTextSub,
+        color: Styles.COLOR_TEXT_SUB,
       ),
     );
 

@@ -187,9 +187,9 @@ class _RowBillingBtn extends StatelessWidget {
             Visibility(
               visible: false,
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.add_alert,
-                  color: Styles.colorTextSub,
+                  color: Styles.COLOR_TEXT_SUB,
                 ),
                 onPressed: () {}, //todo implement
               ),
@@ -228,9 +228,9 @@ Widget _rowTab({
     );
 
 @swidget
-Widget _rowSeem() => SizedBox(
+Widget _rowSeem() => const SizedBox(
       height: .5,
       child: ColoredBox(
-        color: Styles.colorTextSub,
+        color: Styles.COLOR_TEXT_SUB,
       ),
     );

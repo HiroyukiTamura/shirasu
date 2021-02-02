@@ -58,10 +58,10 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static final channelTime = TextStyle(
+  static const CHANNEL_TIME = TextStyle(
     height: TextHeight.TEXT_HEIGHT,
     fontSize: FontSize.SMALL,
-    color: Styles.colorTextSub,
+    color: Styles.COLOR_TEXT_SUB,
   );
 
   static final listMovieTitle = s13TextHMulti(
@@ -109,7 +109,7 @@ class TextStyles {
       );
 
   static final videoTag = s13TextHMulti(
-    color: Styles.colorTextSub,
+    color: Styles.COLOR_TEXT_SUB,
   );
 
   static TextStyle s13TextHMulti({Color color, FontWeight fontWeight}) =>

@@ -25,16 +25,16 @@ Widget pageError({
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Assets.svg.roboto.svg(
-                color: Styles.colorTextSub,
+                color: Styles.COLOR_TEXT_SUB,
                 width: 160,
                 height: 160,
               ),
               const SizedBox(height: 24),
               Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: FontSize.S16,
-                  color: Styles.colorTextSub,
+                  color: Styles.COLOR_TEXT_SUB,
                 ),
               ),
             ],

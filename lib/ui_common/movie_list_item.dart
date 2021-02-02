@@ -86,9 +86,9 @@ Widget movieListItem(
             onTap: onTap,
             titleHeight: 96,
             titleStyle: TextStyles.LIST_MOVIE_TITLE_THICK,
-            subTitleStyle: TextStyle(
+            subTitleStyle: const TextStyle(
               fontSize: FontSize.DEFAULT,
-              color: Styles.colorTextSub,
+              color: Styles.COLOR_TEXT_SUB,
             ),
           )
         : MovieListItemBase(
@@ -96,9 +96,9 @@ Widget movieListItem(
             onTap: onTap,
             titleHeight: 72,
             titleStyle: TextStyles.listMovieTitle,
-            subTitleStyle: TextStyle(
+            subTitleStyle: const TextStyle(
               fontSize: FontSize.SMALL,
-              color: Styles.colorTextSub,
+              color: Styles.COLOR_TEXT_SUB,
             ),
           );
 

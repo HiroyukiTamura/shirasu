@@ -6,6 +6,7 @@ import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
 class ListTileInvoiceHistory extends StatelessWidget {
@@ -33,8 +34,8 @@ class ListTileInvoiceHistory extends StatelessWidget {
               child: Text(
                 DateFormat('yyyy/MM/dd HH:mm')
                     .format(invoiceHistoryItem.createdAt),
-                style: TextStyle(
-                  color: Colors.white.withOpacity(.7),
+                style: const TextStyle(
+                  color: Styles.COLOR_TEXT_SUB,
                   fontSize: FontSize.SMALL,
                   height: TextHeight.TEXT_H_SINGLE,
                 ),

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/ui_common/image_painter.dart';
 
@@ -101,7 +102,7 @@ Widget _coloredBackdropImage({
       height: widgetH,
       child: ColorFiltered(
         colorFilter:
-            ColorFilter.mode(Colors.black.withOpacity(.5), BlendMode.srcOver),
+            const ColorFilter.mode(Styles.BARRIER, BlendMode.srcOver),
         child: ColorFiltered(
           colorFilter:
               const ColorFilter.mode(Colors.grey, BlendMode.saturation),

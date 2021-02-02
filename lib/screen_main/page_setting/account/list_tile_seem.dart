@@ -22,7 +22,7 @@ class ListTileSeem extends StatelessWidget {
         child: const SizedBox(
           height: 1,
           child: ColoredBox(
-            color: Colors.white24,
+            color: Colors.white24,//todo fix?
           ),
         ),
       );

@@ -48,7 +48,7 @@ class ListTileTitle extends StatelessWidget {
               child: Text(
                 '$title${Strings.NO_ITEM_SUFFIX}',
                 style: TextStyles.s13TextHSingle(
-                  color: Colors.white.withOpacity(.5),
+                  color: Colors.white.withOpacity(.5),//todo extract
                 ),
               ),
             ),

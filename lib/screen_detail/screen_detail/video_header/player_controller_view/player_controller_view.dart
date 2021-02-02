@@ -79,7 +79,7 @@ class PlayerControllerView extends HookWidget {
                   padding: EdgeInsets.symmetric(
                     vertical: getFullScreenPadding(conf.fullScreen),
                   ),
-                  color: Colors.black.withOpacity(.5),
+                  color: Styles.BARRIER,
                   child: Stack(
                     overflow: Overflow.visible,
                     children: [

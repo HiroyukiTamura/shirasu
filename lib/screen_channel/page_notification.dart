@@ -33,11 +33,7 @@ class PageNotification extends StatelessWidget {
       children: [
         Text(
           DateFormat('yyyy/MM/dd HH:mm').format(item.publishedAt),
-          style: TextStyle(
-            height: TextStyles.TEXT_HEIGHT,
-            fontSize: 12,
-            color: Styles.colorTextSub,
-          ),
+          style: TextStyles.channelTime,
         ),
         const SizedBox(height: 4),
         Text(
@@ -47,7 +43,7 @@ class PageNotification extends StatelessWidget {
         const SizedBox(height: 24),
         Text(
           item.text,
-          style: TextStyles.CHANNEL_BOLD,
+          style: TextStyles.DEFAULT_H,
         )
       ],
     );

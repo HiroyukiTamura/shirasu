@@ -21,7 +21,8 @@ class BtmSheetCommon extends StatelessWidget {
   final SnackCallback snackCallback;
 
   @override
-  Widget build(BuildContext context) => Padding(
+  Widget build(BuildContext context) =>
+      Padding(
         padding: const EdgeInsets.only(
           top: 24,
           left: 24,
@@ -40,7 +41,9 @@ class BtmSheetCommon extends StatelessWidget {
                   child: Text(
                     Strings.DIALOG_CANCEL,
                     style: TextStyle(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme
+                          .of(context)
+                          .primaryColorDark,
                     ),
                   ),
                 )),
@@ -52,9 +55,11 @@ class BtmSheetCommon extends StatelessWidget {
                 onPressed: () async {
                   Navigator.pop(context);
                   await Util.launchUrl(context, url,
-                      () => snackCallback(const SnackMsg.unknown()));
+                          () => snackCallback(const SnackMsg.unknown()));
                 },
-                color: Theme.of(context).primaryColorDark,
+                color: Theme
+                    .of(context)
+                    .primaryColorDark,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(1000),
                 ),
@@ -65,19 +70,23 @@ class BtmSheetCommon extends StatelessWidget {
         ),
       );
 
-  static void showUrlLauncherBtmSheet({
+  static Future<void> showUrlLauncherBtmSheet({
     @required BuildContext context,
     @required String url,
     String positiveBtnString = Strings.OPEN_WEB,
     @required Widget child,
     @required SnackCallback snackCallback,
-  }) =>
-      Scaffold.of(context).showBottomSheet(
-        (context) => BtmSheetCommon(
-          positiveBtnString: Strings.OPEN_WEB,
-          snackCallback: snackCallback,
-          url: url,
-          child: child,
-        ),
+  }) async =>
+      showModalBottomSheet(
+          context: Scaffold
+              .of(context)
+              .context,
+          builder: (context) =>
+              BtmSheetCommon(
+                positiveBtnString: Strings.OPEN_WEB,
+                snackCallback: snackCallback,
+                url: url,
+                child: child,
+              ),
       );
 }

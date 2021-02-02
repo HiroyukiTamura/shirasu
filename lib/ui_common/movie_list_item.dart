@@ -73,39 +73,27 @@ class MovieListItemBase extends StatelessWidget {
       );
 }
 
-class MovieListItem extends StatelessWidget {
-  const MovieListItem({
-    Key key,
-    @required this.program,
-    @required this.onTap,
-  }) : super(key: key);
-
-  final BaseProgram program;
-  final GestureTapCallback onTap;
-
-  @override
-  Widget build(BuildContext context) => context.isBigScreen
-      ? MovieListItemBase(
-          program: program,
-          onTap: onTap,
-          titleHeight: 96,
-          titleStyle: TextStyles.LIST_MOVIE_TITLE_THICK,
-          subTitleStyle: TextStyle(
-            fontSize: 14,
-            color: Styles.colorTextSub,
-          ),
-        )
-      : MovieListItemBase(
-          program: program,
-          onTap: onTap,
-          titleHeight: 72,
-          titleStyle: TextStyles.LIST_MOVIE_TITLE,
-          subTitleStyle: TextStyle(
-            fontSize: 12,
-            color: Styles.colorTextSub,
-          ),
-        );
-}
+@swidget
+Widget movieListItem(
+  BuildContext context, {
+  @required BaseProgram program,
+  @required GestureTapCallback onTap,
+}) =>
+    context.isBigScreen
+        ? MovieListItemBase(
+            program: program,
+            onTap: onTap,
+            titleHeight: 96,
+            titleStyle: TextStyles.LIST_MOVIE_TITLE_THICK,
+            subTitleStyle: TextStyles.plain,
+          )
+        : MovieListItemBase(
+            program: program,
+            onTap: onTap,
+            titleHeight: 72,
+            titleStyle: TextStyles.LIST_MOVIE_TITLE,
+            subTitleStyle: TextStyles.plainSmall,
+          );
 
 @swidget
 Widget movieListBigItem({

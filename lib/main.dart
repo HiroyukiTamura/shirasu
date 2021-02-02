@@ -92,7 +92,7 @@ class MyAppState extends State<MyApp>
     final delegate = useProvider(pAppRouterDelegate);
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Demo',//todo fix
       theme: Styles.theme,
       home: SafeArea(
         child: Scaffold(

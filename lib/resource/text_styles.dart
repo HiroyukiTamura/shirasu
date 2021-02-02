@@ -82,8 +82,11 @@ class TextStyles {
 
   static final plain = TextStyle(
     color: Styles.colorTextSub,
-    fontWeight: FontWeight.normal,
-    decoration: TextDecoration.none,
+    fontSize: 14,
+  );
+
+  static final plainSmall = TextStyle(
+    color: Styles.colorTextSub,
     fontSize: 14,
   );
 
@@ -99,7 +102,11 @@ class TextStyles {
     fontSize: 16,
   );
 
-  static const CHANNEL_BOLD = TextStyle(height: TextStyles.TEXT_HEIGHT);
+  static final channelTime = TextStyle(
+    height: TextStyles.TEXT_HEIGHT,
+    fontSize: 12,
+    color: Styles.colorTextSub,
+  );
 
   static const CHANNEL_NAME = TextStyle(
     fontSize: 16,

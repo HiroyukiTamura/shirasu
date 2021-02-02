@@ -47,16 +47,8 @@ Widget screenChannel(
           success: (channelData) {
             final isAnnouncementEmpty =
                 channelData.channel.announcements.items.isEmpty;
-            final initialLength = isAnnouncementEmpty ? 2 : 3;
-            final tabController = useTabController(
-                initialLength: initialLength,
-                initialIndex: useProvider(channelProvider(channelId)).tabIndex);
-            tabController.addListener(() => context
-                .read(channelProvider(channelId))
-                .tabIndex = tabController.index);
             return _Content(
               channelData: channelData,
-              tabController: tabController,
               isAnnouncementEmpty: isAnnouncementEmpty,
             );
           },
@@ -68,95 +60,41 @@ class _Content extends HookWidget {
   const _Content({
     Key key,
     @required this.channelData,
-    @required this.tabController,
     @required this.isAnnouncementEmpty,
   }) : super(key: key);
 
   final ChannelData channelData;
-  final TabController tabController;
   final bool isAnnouncementEmpty;
+
+  String get channelId => channelData.channel.id;
 
   @override
   Widget build(BuildContext context) {
-    final _headerUrl = UrlUtil.getChannelHeaderUrl(channelData.channel.id);
-    final _logoUrl = UrlUtil.getChannelLogoUrl(channelData.channel.id);
+    final initialLength = isAnnouncementEmpty ? 2 : 3;
+
+    final tabController = useTabController(
+        initialLength: initialLength,
+        initialIndex: useProvider(channelProvider(channelId)).tabIndex);
+    _initTabListener(context, tabController);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AspectRatio(
-          aspectRatio: Dimens.HEADER_ASPECT,
-          child: CachedNetworkImage(imageUrl: _headerUrl),
-        ),
+        _RowHeaderImg(channelId: channelData.channel.id,),
         const SizedBox(height: 24),
-        ContentCell(
-          child: Row(
-            children: [
-              CachedNetworkImage(
-                height: _CHANNEL_LOGO_SIZE,
-                width: _CHANNEL_LOGO_SIZE,
-                imageUrl: _logoUrl,
-                errorWidget: Util.defaultChannelIcon,
-              ),
-              const SizedBox(width: 24),
-              Text(
-                channelData.channel.name,
-                style: TextStyles.CHANNEL_NAME,
-              )
-            ],
-          ),
+        _RowChannelName(
+          channel: channelData.channel,
         ),
         const SizedBox(height: 16),
-        ContentCell(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (channelData.channel.subscriptionPlan?.viewerPurchasedPlan
-                      ?.isActive ==
-                  true)
-                PurchasedBannerMedium(
-                  onTap: () async => _onTapSubscribeBtn(context),
-                )
-              else if (channelData.channel.subscriptionPlan?.isPurchasable ==
-                  true)
-                BillingBtnMedium(
-                  amountWithTax:
-                      channelData.channel.subscriptionPlan.amountWithTax,
-                  currencyAsSuffix:
-                      channelData.channel.subscriptionPlan.currencyAsSuffix,
-                  onTap: () async => _onTapSubscribeBtn(context),
-                )
-              else
-                const SizedBox.shrink(),
-              IconButton(
-                icon: Icon(
-                  Icons.add_alert,
-                  color: Styles.colorTextSub,
-                ),
-                onPressed: () {}, //todo implement
-              ),
-            ],
-          ),
+        _RowBillingBtn(
+          channel: channelData.channel,
         ),
         const SizedBox(height: 16),
-        ContentCell(
-          child: TabBar(
-              labelColor: Colors.white,
-              controller: tabController,
-              isScrollable: true,
-              tabs: [
-                const Tab(text: Strings.CHANNEL_TAB_DESC),
-                const Tab(text: Strings.CHANNEL_TAB_MOVIE),
-                if (!isAnnouncementEmpty)
-                  const Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
-              ]),
+        _RowTab(
+          isAnnouncementEmpty: isAnnouncementEmpty,
+          controller: tabController,
         ),
-        SizedBox(
-          height: .5,
-          child: ColoredBox(
-            color: Colors.white.withOpacity(.7),
-          ),
-        ),
+        const _RowSeem(),
         Expanded(
           child: TabBarView(
             controller: tabController,
@@ -177,13 +115,119 @@ class _Content extends HookWidget {
     );
   }
 
+  void _initTabListener(BuildContext context, TabController tabController) {
+    useEffect(() {
+      void listener() => context.read(channelProvider(channelId)).tabIndex =
+          tabController.index;
+      tabController.addListener(listener);
+      return () => tabController.removeListener(listener);
+    }, [tabController]);
+  }
+}
+
+@swidget
+Widget _rowHeaderImg({
+  @required String channelId,
+}) =>
+    AspectRatio(
+      aspectRatio: Dimens.HEADER_ASPECT,
+      child: CachedNetworkImage(
+        imageUrl: UrlUtil.getChannelHeaderUrl(channelId),
+        errorWidget: (context, url, e) {
+          Util.onImageError(url: url, error: e);
+          return const SizedBox.shrink();
+        },
+      ),
+    );
+
+@swidget
+Widget _rowChannelName({@required Channel channel}) => ContentCell(
+      child: Row(
+        children: [
+          CachedNetworkImage(
+            height: _CHANNEL_LOGO_SIZE,
+            width: _CHANNEL_LOGO_SIZE,
+            imageUrl: UrlUtil.getChannelLogoUrl(channel.id),
+            errorWidget: Util.defaultChannelIcon,
+          ),
+          const SizedBox(width: 24),
+          Text(
+            channel.name,
+            style: TextStyles.CHANNEL_NAME,
+          )
+        ],
+      ),
+    );
+
+class _RowBillingBtn extends StatelessWidget {
+  const _RowBillingBtn({Key key, this.channel}) : super(key: key);
+
+  final Channel channel;
+
+  @override
+  Widget build(BuildContext context) => ContentCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (channel.subscriptionPlan?.viewerPurchasedPlan?.isActive == true)
+              PurchasedBannerMedium(
+                onTap: () async => _onTapSubscribeBtn(context),
+              )
+            else if (channel.subscriptionPlan?.isPurchasable == true)
+              BillingBtnMedium(
+                amountWithTax: channel.subscriptionPlan.amountWithTax,
+                currencyAsSuffix: channel.subscriptionPlan.currencyAsSuffix,
+                onTap: () async => _onTapSubscribeBtn(context),
+              )
+            else
+              const SizedBox.shrink(),
+            Visibility(
+              visible: false,
+              child: IconButton(
+                icon: Icon(
+                  Icons.add_alert,
+                  color: Styles.colorTextSub,
+                ),
+                onPressed: () {}, //todo implement
+              ),
+            ),
+          ],
+        ),
+      );
+
   Future<void> _onTapSubscribeBtn(BuildContext context) async =>
       BtmSheetCommon.showUrlLauncherBtmSheet(
         context: context,
-        url: UrlUtil.channelId2Url(channelData.channel.id),
+        url: UrlUtil.channelId2Url(channel.id),
         child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
         snackCallback: (SnackMsg msg) {
           //todo implement
         },
       );
 }
+
+@swidget
+Widget _rowTab({
+  @required TabController controller,
+  @required bool isAnnouncementEmpty,
+}) =>
+    ContentCell(
+      child: TabBar(
+          labelColor: Colors.white,
+          controller: controller,
+          isScrollable: true,
+          tabs: [
+            const Tab(text: Strings.CHANNEL_TAB_DESC),
+            const Tab(text: Strings.CHANNEL_TAB_MOVIE),
+            if (!isAnnouncementEmpty)
+              const Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
+          ]),
+    );
+
+@swidget
+Widget _rowSeem() => SizedBox(
+      height: .5,
+      child: ColoredBox(
+        color: Styles.colorTextSub,
+      ),
+    );

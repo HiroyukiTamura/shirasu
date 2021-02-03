@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart';
+import 'package:shirasu/client/auth_wrapper_client.dart';
 import 'package:shirasu/client/graghql_query.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/client/url_util.dart';
@@ -69,6 +70,10 @@ class ApiClient {
     Map<String, dynamic> variables,
     String operationName,
   }) async {
+
+    AuthClientInterceptor.instance.ensureNotExpired();
+    await AuthClientInterceptor.instance.refreshAuthTokenIfNeeded();
+
     final result = await _graphQlClient.query(QueryOptions(
       document: gql(query),
       variables: variables ?? {},
@@ -91,6 +96,10 @@ class ApiClient {
     Map<String, dynamic> variables,
     String operationName,
   }) async {
+
+    AuthClientInterceptor.instance.ensureNotExpired();
+    await AuthClientInterceptor.instance.refreshAuthTokenIfNeeded();
+
     final result = await _graphQlClient.mutate(MutationOptions(
       document: gql(query),
       variables: variables ?? {},

@@ -9,6 +9,7 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_error/screen_error.dart';
 import 'package:shirasu/screen_image_lisence/screen_image_license.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
@@ -42,7 +43,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
         .map<Tuple2<String, Widget>>((pathData) {
           final screen = pathData.wrappedWhenRough(
             intro: () => ScreenIntro(),
-            error: () => throw UnimplementedError(),
+            error: (bool authExpired) => ScreenError(authExpired: authExpired),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
             ossLicense: () => const ScreenOssLicense(),

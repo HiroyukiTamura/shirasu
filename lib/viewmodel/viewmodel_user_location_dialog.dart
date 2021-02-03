@@ -13,16 +13,16 @@ part 'viewmodel_user_location_dialog.freezed.dart';
 class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
 
   ViewModelUserLocationDialog._({
-    @required this.ref,
+    @required Reader reader,
     @required this.countryCode,
     @required this.prefectureCode,
-  }) : super(UserLocationModel.preInitialized());
+  }) : super(reader, UserLocationModel.preInitialized());
 
-  factory ViewModelUserLocationDialog.createFromSettingVm(ProviderReference ref) {
+  factory ViewModelUserLocationDialog.createFromSettingVm(Reader reader) {
     final location =
-        ref.read(settingViewModelSProvider.state).editedUserInfo.location;
+        reader(settingViewModelSProvider.state).editedUserInfo.location;
     return ViewModelUserLocationDialog._(
-      ref: ref,
+      reader: reader,
       countryCode: location?.countryCode ??
           ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.country,
       prefectureCode: location?.prefectureCode ??
@@ -32,7 +32,6 @@ class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
 
   final _jsonClient = LocalJsonClient.instance();
 
-  final ProviderReference ref;
   final String countryCode;
   final String prefectureCode;
 
@@ -67,7 +66,7 @@ abstract class UserLocationModel implements _$UserLocationModel {
   const UserLocationModel._();
 
   factory UserLocationModel.preInitialized() =>
-      const UserLocationModel(status: PreInitalized());
+      const UserLocationModel(status: ModelStatus.preInitialized());
 
   factory UserLocationModel.initialized({
     @required CountryData countryData,
@@ -76,7 +75,7 @@ abstract class UserLocationModel implements _$UserLocationModel {
     @required String prefectureCode,
   }) =>
       UserLocationModel(
-        status: const Initalized(),
+        status: const ModelStatus.initialized(),
         data: ModelData(
           countryData: countryData,
           prefectureData: prefectureData,
@@ -86,17 +85,17 @@ abstract class UserLocationModel implements _$UserLocationModel {
       );
 
   UserLocationModel toCountry(String countryCode) =>
-      copyWith(data: data.copyWith(countryCode: countryCode));
+      copyWith.data(countryCode: countryCode);
 
   UserLocationModel toPrefecture(String prefectureCode) =>
-      copyWith(data: data.copyWith(prefectureCode: prefectureCode));
+      copyWith.data(prefectureCode: prefectureCode);
 }
 
 @freezed
 abstract class ModelStatus with _$ModelStatus {
-  const factory ModelStatus.preInitialized() = PreInitalized;
+  const factory ModelStatus.preInitialized() = _PreInitalized;
 
-  const factory ModelStatus.initialized() = Initalized;
+  const factory ModelStatus.initialized() = _Initialized;
 }
 
 @freezed

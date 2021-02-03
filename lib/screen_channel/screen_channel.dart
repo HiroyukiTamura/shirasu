@@ -28,7 +28,7 @@ import 'package:shirasu/extension.dart';
 part 'screen_channel.g.dart';
 
 final channelProvider = StateNotifierProvider.autoDispose
-    .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(ref, id));
+    .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(ref.read, id));
 
 const double _CHANNEL_LOGO_SIZE = 32;
 

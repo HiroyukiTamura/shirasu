@@ -6,6 +6,9 @@ import 'package:shirasu/client/api_client.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
+import 'package:shirasu/router/app_router_delegate.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:riverpod/src/framework.dart';
@@ -15,65 +18,74 @@ part 'viewmodel_subscribing.freezed.dart';
 
 //todo fix lint config as concerned to lack of generics
 class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
-  ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
+  ViewModelSubscribing(Reader reader)
+      : super(reader, const FeatureProgramState.preInitialized());
 
   @override
   Future<void> initialize() async {
-    if (!(state is FeatureProgramStatePreInitialized)) return;
+    if (state != const FeatureProgramState.preInitialized()) return;
 
-    state = const FeatureProgramStatePreInitialized();
+    state = const FeatureProgramState.preInitialized();
 
+    bool authExpired = false;
     FeatureProgramState newState;
     try {
       final data = await ApiClient.instance.queryFeaturedProgramsList();
       newState = data.viewerUser.subscribedPrograms.isEmpty
-          ? const FeatureProgramStateResultEmpty()
-          : FeatureProgramStateSuccess(data);
+          ? const FeatureProgramState.resultEmpty()
+          : FeatureProgramState.success(data);
+    } on AuthExpiredException catch (e) {
+      print(e);
+      authExpired = true;
     } catch (e) {
       print(e);
-      newState = const FeatureProgramStateError();
+      newState = const FeatureProgramState.error();
     }
-    setState(newState);
+
+    authExpired ? pushAuthExpireScreen() : setState(newState);
   }
 }
 
 class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
-  ViewModelWatchHistory(this._ref) : super(const StatePreInitialized());
+  ViewModelWatchHistory(Reader reader)
+      : super(reader, const WatchHistoryState.preInitialized());
 
-  final AutoDisposeProviderReference _ref;
-
-  SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
+  SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
   @override
   Future<void> initialize() async {
-    if (!(state is StatePreInitialized)) return;
+    if (state != const WatchHistoryState.preInitialized()) return;
 
-    state = const StateLoading();
+    state = const WatchHistoryState.loading();
 
     WatchHistoryState newState;
+    bool authExpired = false;
 
     try {
       final data = await ApiClient.instance.queryWatchHistory();
       newState = data.viewerUser.watchHistories.items.isEmpty
-          ? const StateResultEmpty()
-          : StateSuccess([data].toUnmodifiable());
+          ? const WatchHistoryState.resultEmpty()
+          : WatchHistoryState.success([data].toUnmodifiable());
+    } on AuthExpiredException catch (e) {
+      print(e);
+      authExpired = true;
     } catch (e) {
       print(e);
-      newState = const StateError();
+      newState = const WatchHistoryState.error();
     }
 
-    setState(newState);
+    authExpired ? pushAuthExpireScreen() : setState(newState);
   }
 
   Future<void> loadMoreWatchHistory() async {
     final oldState = state;
-    if (oldState is StateSuccess) {
+    if (oldState is _StateSuccess) {
       final nextToken =
           oldState.watchHistories.last.viewerUser.watchHistories.nextToken;
       if (nextToken == null) return;
 
       // we don't check if Disposed
-      state = StateLoadingMore(oldState.watchHistories);
+      state = WatchHistoryState.loadingMore(oldState.watchHistories);
 
       try {
         final newOne = await ApiClient.instance.queryWatchHistory(
@@ -82,14 +94,14 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
 
         oldState.watchHistories
             .add(newOne); //todo fix to watchHistories immutable collection
-        setState(StateSuccess(oldState.watchHistories));
+        setState(WatchHistoryState.success(oldState.watchHistories));
 
         if (newOne.viewerUser.watchHistories.items.isEmpty)
           _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
 
         return;
       } catch (e) {
-        setState(StateSuccess(oldState.watchHistories));
+        setState(WatchHistoryState.success(oldState.watchHistories));
         debugPrint(e.toString());
         _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
       }
@@ -100,32 +112,33 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
 @freezed
 abstract class FeatureProgramState with _$FeatureProgramState {
   const factory FeatureProgramState.preInitialized() =
-      FeatureProgramStatePreInitialized;
+      _FeatureProgramStatePreInitialized;
 
-  const factory FeatureProgramState.loading() = FeatureProgramStateLoading;
+  const factory FeatureProgramState.loading() = _FeatureProgramStateLoading;
 
   const factory FeatureProgramState.resultEmpty() =
-      FeatureProgramStateResultEmpty;
+      _FeatureProgramStateResultEmpty;
 
   const factory FeatureProgramState.success(
-      FeatureProgramData featureProgramData) = FeatureProgramStateSuccess;
+      FeatureProgramData featureProgramData) = _FeatureProgramStateSuccess;
 
-  const factory FeatureProgramState.error() = FeatureProgramStateError;
+  const factory FeatureProgramState.error() = _FeatureProgramStateError;
 }
 
 @freezed
 abstract class WatchHistoryState with _$WatchHistoryState {
-  const factory WatchHistoryState.preInitialized() = StatePreInitialized;
+  const factory WatchHistoryState.preInitialized() = _StatePreInitialized;
 
-  const factory WatchHistoryState.loading() = StateLoading;
+  const factory WatchHistoryState.loading() = _StateLoading;
 
-  const factory WatchHistoryState.resultEmpty() = StateResultEmpty;
+  const factory WatchHistoryState.resultEmpty() = _StateResultEmpty;
 
   const factory WatchHistoryState.success(
-      UnmodifiableListView<WatchHistoriesData> watchHistories) = StateSuccess;
+      UnmodifiableListView<WatchHistoriesData> watchHistories) = _StateSuccess;
 
   const factory WatchHistoryState.loadingMore(
-      UnmodifiableListView<WatchHistoriesData> watchHistories) = StateLoadingMore;
+          UnmodifiableListView<WatchHistoriesData> watchHistories) =
+      _StateLoadingMore;
 
-  const factory WatchHistoryState.error() = StateError;
+  const factory WatchHistoryState.error() = _StateError;
 }

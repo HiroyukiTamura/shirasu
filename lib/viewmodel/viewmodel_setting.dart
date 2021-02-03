@@ -7,18 +7,15 @@ import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart'
     show UpdateUserWithAttrVariable;
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
-import 'package:riverpod/src/framework.dart';
 import 'message_notifier.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
-  ViewModelSetting(this._ref) : super(SettingModel.initial());
+  ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
 
-  /// todo is really correct that `AutoDisposeProviderReference` exists in StateNotifier??
-  final AutoDisposeProviderReference _ref;
-
-  SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
+  SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
   static final User dummyUser = User(
     email: 'hogehoge@gmail.com',
@@ -54,15 +51,24 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     if (state.settingModelState is StateSuccess) return;
 
     SettingModelState newState;
+    bool authExpired = false;
     try {
       final viewer = await ApiClient.instance.queryViewer();
       newState = StateSuccess(viewer);
+    } on AuthExpiredException catch (e) {
+      print(e);
+      authExpired = true;
     } catch (e) {
       print(e);
       newState = const StateError();
     }
 
-    if (mounted) state = state.copyWith(settingModelState: newState);
+    if (!mounted) return;
+
+    if (authExpired)
+      pushAuthExpireScreen();
+    else
+      state = state.copyWith(settingModelState: newState);
   }
 
   void updateBirthDate(DateTime birthDate) =>
@@ -114,7 +120,6 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
       );
   }
 }
-
 
 class LocationTextNotifier extends StateNotifier<String>
     with StateTrySetter<String> {

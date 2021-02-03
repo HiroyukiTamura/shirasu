@@ -179,13 +179,13 @@ class _$ModelStatusTearOff {
   const _$ModelStatusTearOff();
 
 // ignore: unused_element
-  PreInitalized preInitialized() {
-    return const PreInitalized();
+  _PreInitalized preInitialized() {
+    return const _PreInitalized();
   }
 
 // ignore: unused_element
-  Initalized initialized() {
-    return const Initalized();
+  _Initialized initialized() {
+    return const _Initialized();
   }
 }
 
@@ -208,13 +208,13 @@ mixin _$ModelStatus {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitalized value),
-    @required TResult initialized(Initalized value),
+    @required TResult preInitialized(_PreInitalized value),
+    @required TResult initialized(_Initialized value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitalized value),
-    TResult initialized(Initalized value),
+    TResult preInitialized(_PreInitalized value),
+    TResult initialized(_Initialized value),
     @required TResult orElse(),
   });
 }
@@ -236,26 +236,26 @@ class _$ModelStatusCopyWithImpl<$Res> implements $ModelStatusCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $PreInitalizedCopyWith<$Res> {
-  factory $PreInitalizedCopyWith(
-          PreInitalized value, $Res Function(PreInitalized) then) =
-      _$PreInitalizedCopyWithImpl<$Res>;
+abstract class _$PreInitalizedCopyWith<$Res> {
+  factory _$PreInitalizedCopyWith(
+          _PreInitalized value, $Res Function(_PreInitalized) then) =
+      __$PreInitalizedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PreInitalizedCopyWithImpl<$Res> extends _$ModelStatusCopyWithImpl<$Res>
-    implements $PreInitalizedCopyWith<$Res> {
-  _$PreInitalizedCopyWithImpl(
-      PreInitalized _value, $Res Function(PreInitalized) _then)
-      : super(_value, (v) => _then(v as PreInitalized));
+class __$PreInitalizedCopyWithImpl<$Res> extends _$ModelStatusCopyWithImpl<$Res>
+    implements _$PreInitalizedCopyWith<$Res> {
+  __$PreInitalizedCopyWithImpl(
+      _PreInitalized _value, $Res Function(_PreInitalized) _then)
+      : super(_value, (v) => _then(v as _PreInitalized));
 
   @override
-  PreInitalized get _value => super._value as PreInitalized;
+  _PreInitalized get _value => super._value as _PreInitalized;
 }
 
 /// @nodoc
-class _$PreInitalized implements PreInitalized {
-  const _$PreInitalized();
+class _$_PreInitalized implements _PreInitalized {
+  const _$_PreInitalized();
 
   @override
   String toString() {
@@ -264,7 +264,7 @@ class _$PreInitalized implements PreInitalized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PreInitalized);
+    return identical(this, other) || (other is _PreInitalized);
   }
 
   @override
@@ -298,8 +298,8 @@ class _$PreInitalized implements PreInitalized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitalized value),
-    @required TResult initialized(Initalized value),
+    @required TResult preInitialized(_PreInitalized value),
+    @required TResult initialized(_Initialized value),
   }) {
     assert(preInitialized != null);
     assert(initialized != null);
@@ -309,8 +309,8 @@ class _$PreInitalized implements PreInitalized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitalized value),
-    TResult initialized(Initalized value),
+    TResult preInitialized(_PreInitalized value),
+    TResult initialized(_Initialized value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -321,30 +321,31 @@ class _$PreInitalized implements PreInitalized {
   }
 }
 
-abstract class PreInitalized implements ModelStatus {
-  const factory PreInitalized() = _$PreInitalized;
+abstract class _PreInitalized implements ModelStatus {
+  const factory _PreInitalized() = _$_PreInitalized;
 }
 
 /// @nodoc
-abstract class $InitalizedCopyWith<$Res> {
-  factory $InitalizedCopyWith(
-          Initalized value, $Res Function(Initalized) then) =
-      _$InitalizedCopyWithImpl<$Res>;
+abstract class _$InitializedCopyWith<$Res> {
+  factory _$InitializedCopyWith(
+          _Initialized value, $Res Function(_Initialized) then) =
+      __$InitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$InitalizedCopyWithImpl<$Res> extends _$ModelStatusCopyWithImpl<$Res>
-    implements $InitalizedCopyWith<$Res> {
-  _$InitalizedCopyWithImpl(Initalized _value, $Res Function(Initalized) _then)
-      : super(_value, (v) => _then(v as Initalized));
+class __$InitializedCopyWithImpl<$Res> extends _$ModelStatusCopyWithImpl<$Res>
+    implements _$InitializedCopyWith<$Res> {
+  __$InitializedCopyWithImpl(
+      _Initialized _value, $Res Function(_Initialized) _then)
+      : super(_value, (v) => _then(v as _Initialized));
 
   @override
-  Initalized get _value => super._value as Initalized;
+  _Initialized get _value => super._value as _Initialized;
 }
 
 /// @nodoc
-class _$Initalized implements Initalized {
-  const _$Initalized();
+class _$_Initialized implements _Initialized {
+  const _$_Initialized();
 
   @override
   String toString() {
@@ -353,7 +354,7 @@ class _$Initalized implements Initalized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Initalized);
+    return identical(this, other) || (other is _Initialized);
   }
 
   @override
@@ -387,8 +388,8 @@ class _$Initalized implements Initalized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitalized value),
-    @required TResult initialized(Initalized value),
+    @required TResult preInitialized(_PreInitalized value),
+    @required TResult initialized(_Initialized value),
   }) {
     assert(preInitialized != null);
     assert(initialized != null);
@@ -398,8 +399,8 @@ class _$Initalized implements Initalized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitalized value),
-    TResult initialized(Initalized value),
+    TResult preInitialized(_PreInitalized value),
+    TResult initialized(_Initialized value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -410,8 +411,8 @@ class _$Initalized implements Initalized {
   }
 }
 
-abstract class Initalized implements ModelStatus {
-  const factory Initalized() = _$Initalized;
+abstract class _Initialized implements ModelStatus {
+  const factory _Initialized() = _$_Initialized;
 }
 
 /// @nodoc

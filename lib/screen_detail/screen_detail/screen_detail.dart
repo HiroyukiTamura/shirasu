@@ -49,7 +49,7 @@ final _kPrvDetailSnackMsg =
 
 final detailSNProvider = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>(
-        (ref, id) => ViewModelDetail(id, ref.read));
+        (ref, id) => ViewModelDetail(ref.read, id));
 
 final kPrvVideoControllerReady =
     Provider.family.autoDispose<bool, String>((ref, id) {

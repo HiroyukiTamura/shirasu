@@ -11,8 +11,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'screen_auth.g.dart';
 
-final _viewModelProvider =
-    StateNotifierProvider.autoDispose<ViewModelAuth>((ref) => ViewModelAuth(ref.read));
+final _viewModelProvider = StateNotifierProvider.autoDispose<ViewModelAuth>(
+    (ref) => ViewModelAuth(ref.read));
 
 const _kUserAgent = 'USER_AGENT';
 

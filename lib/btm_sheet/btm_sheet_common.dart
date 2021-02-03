@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/ui_common/ui_util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 import '../util.dart';
@@ -61,7 +62,7 @@ class BtmSheetCommon extends StatelessWidget {
                     .of(context)
                     .primaryColorDark,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(1000),
+                  borderRadius: kCircleBorderRadius,
                 ),
                 child: Text(positiveBtnString),
               ),

@@ -31,7 +31,7 @@ part 'page_setting.g.dart';
 
 final settingViewModelSProvider =
     StateNotifierProvider.autoDispose<ViewModelSetting>(
-        (ref) => ViewModelSetting(ref));
+        (ref) => ViewModelSetting(ref.read));
 
 @swidget
 Widget pageSettingInMainScreen() => const MaterialTabView(

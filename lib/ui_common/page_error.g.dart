@@ -6,14 +6,12 @@ part of 'page_error.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-/// todo fix layout metrics, colors of image
-class PageError extends StatelessWidget {
-  /// todo fix layout metrics, colors of image
-  const PageError({Key key, this.text = Strings.SNACK_ERR}) : super(key: key);
+class _LoginBtn extends StatelessWidget {
+  const _LoginBtn({Key key, @required this.onTapLoginBtn}) : super(key: key);
 
-  /// todo fix layout metrics, colors of image
-  final String text;
+  final void Function(BuildContext) onTapLoginBtn;
 
   @override
-  Widget build(BuildContext _context) => pageError(text: text);
+  Widget build(BuildContext _context) =>
+      _loginBtn(_context, onTapLoginBtn: onTapLoginBtn);
 }

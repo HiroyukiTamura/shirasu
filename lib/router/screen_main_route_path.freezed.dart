@@ -19,8 +19,10 @@ class _$GlobalRoutePathTearOff {
   }
 
 // ignore: unused_element
-  _PathDataError error() {
-    return const _PathDataError();
+  PathDataError error(bool authExpired) {
+    return PathDataError(
+      authExpired,
+    );
   }
 
 // ignore: unused_element
@@ -62,7 +64,7 @@ mixin _$GlobalRoutePath {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(),
+    @required TResult error(bool authExpired),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -72,7 +74,7 @@ mixin _$GlobalRoutePath {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(),
+    TResult error(bool authExpired),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -83,7 +85,7 @@ mixin _$GlobalRoutePath {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult intro(_PathDataIntro value),
-    @required TResult error(_PathDataError value),
+    @required TResult error(PathDataError value),
     @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
@@ -93,7 +95,7 @@ mixin _$GlobalRoutePath {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult intro(_PathDataIntro value),
-    TResult error(_PathDataError value),
+    TResult error(PathDataError value),
     TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
@@ -160,7 +162,7 @@ class _$_PathDataIntro implements _PathDataIntro {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(),
+    @required TResult error(bool authExpired),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -181,7 +183,7 @@ class _$_PathDataIntro implements _PathDataIntro {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(),
+    TResult error(bool authExpired),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -200,7 +202,7 @@ class _$_PathDataIntro implements _PathDataIntro {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult intro(_PathDataIntro value),
-    @required TResult error(_PathDataError value),
+    @required TResult error(PathDataError value),
     @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
@@ -221,7 +223,7 @@ class _$_PathDataIntro implements _PathDataIntro {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult intro(_PathDataIntro value),
-    TResult error(_PathDataError value),
+    TResult error(PathDataError value),
     TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
@@ -242,46 +244,68 @@ abstract class _PathDataIntro implements GlobalRoutePath {
 }
 
 /// @nodoc
-abstract class _$PathDataErrorCopyWith<$Res> {
-  factory _$PathDataErrorCopyWith(
-          _PathDataError value, $Res Function(_PathDataError) then) =
-      __$PathDataErrorCopyWithImpl<$Res>;
+abstract class $PathDataErrorCopyWith<$Res> {
+  factory $PathDataErrorCopyWith(
+          PathDataError value, $Res Function(PathDataError) then) =
+      _$PathDataErrorCopyWithImpl<$Res>;
+  $Res call({bool authExpired});
 }
 
 /// @nodoc
-class __$PathDataErrorCopyWithImpl<$Res>
+class _$PathDataErrorCopyWithImpl<$Res>
     extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements _$PathDataErrorCopyWith<$Res> {
-  __$PathDataErrorCopyWithImpl(
-      _PathDataError _value, $Res Function(_PathDataError) _then)
-      : super(_value, (v) => _then(v as _PathDataError));
+    implements $PathDataErrorCopyWith<$Res> {
+  _$PathDataErrorCopyWithImpl(
+      PathDataError _value, $Res Function(PathDataError) _then)
+      : super(_value, (v) => _then(v as PathDataError));
 
   @override
-  _PathDataError get _value => super._value as _PathDataError;
+  PathDataError get _value => super._value as PathDataError;
+
+  @override
+  $Res call({
+    Object authExpired = freezed,
+  }) {
+    return _then(PathDataError(
+      authExpired == freezed ? _value.authExpired : authExpired as bool,
+    ));
+  }
 }
 
 /// @nodoc
-class _$_PathDataError implements _PathDataError {
-  const _$_PathDataError();
+class _$PathDataError implements PathDataError {
+  const _$PathDataError(this.authExpired) : assert(authExpired != null);
+
+  @override
+  final bool authExpired;
 
   @override
   String toString() {
-    return 'GlobalRoutePath.error()';
+    return 'GlobalRoutePath.error(authExpired: $authExpired)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PathDataError);
+    return identical(this, other) ||
+        (other is PathDataError &&
+            (identical(other.authExpired, authExpired) ||
+                const DeepCollectionEquality()
+                    .equals(other.authExpired, authExpired)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(authExpired);
+
+  @override
+  $PathDataErrorCopyWith<PathDataError> get copyWith =>
+      _$PathDataErrorCopyWithImpl<PathDataError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(),
+    @required TResult error(bool authExpired),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -295,14 +319,14 @@ class _$_PathDataError implements _PathDataError {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(auth != null);
-    return error();
+    return error(authExpired);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(),
+    TResult error(bool authExpired),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -312,7 +336,7 @@ class _$_PathDataError implements _PathDataError {
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error();
+      return error(authExpired);
     }
     return orElse();
   }
@@ -321,7 +345,7 @@ class _$_PathDataError implements _PathDataError {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult intro(_PathDataIntro value),
-    @required TResult error(_PathDataError value),
+    @required TResult error(PathDataError value),
     @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
@@ -342,7 +366,7 @@ class _$_PathDataError implements _PathDataError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult intro(_PathDataIntro value),
-    TResult error(_PathDataError value),
+    TResult error(PathDataError value),
     TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
@@ -358,8 +382,11 @@ class _$_PathDataError implements _PathDataError {
   }
 }
 
-abstract class _PathDataError implements GlobalRoutePath {
-  const factory _PathDataError() = _$_PathDataError;
+abstract class PathDataError implements GlobalRoutePath {
+  const factory PathDataError(bool authExpired) = _$PathDataError;
+
+  bool get authExpired;
+  $PathDataErrorCopyWith<PathDataError> get copyWith;
 }
 
 /// @nodoc
@@ -424,7 +451,7 @@ class _$_PathDataChannel implements _PathDataChannel {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(),
+    @required TResult error(bool authExpired),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -445,7 +472,7 @@ class _$_PathDataChannel implements _PathDataChannel {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(),
+    TResult error(bool authExpired),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -464,7 +491,7 @@ class _$_PathDataChannel implements _PathDataChannel {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult intro(_PathDataIntro value),
-    @required TResult error(_PathDataError value),
+    @required TResult error(PathDataError value),
     @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
@@ -485,7 +512,7 @@ class _$_PathDataChannel implements _PathDataChannel {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult intro(_PathDataIntro value),
-    TResult error(_PathDataError value),
+    TResult error(PathDataError value),
     TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
@@ -570,7 +597,7 @@ class _$PathDataProgram implements PathDataProgram {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(),
+    @required TResult error(bool authExpired),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -591,7 +618,7 @@ class _$PathDataProgram implements PathDataProgram {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(),
+    TResult error(bool authExpired),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -610,7 +637,7 @@ class _$PathDataProgram implements PathDataProgram {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult intro(_PathDataIntro value),
-    @required TResult error(_PathDataError value),
+    @required TResult error(PathDataError value),
     @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
@@ -631,7 +658,7 @@ class _$PathDataProgram implements PathDataProgram {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult intro(_PathDataIntro value),
-    TResult error(_PathDataError value),
+    TResult error(PathDataError value),
     TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
@@ -694,7 +721,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(),
+    @required TResult error(bool authExpired),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -715,7 +742,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(),
+    TResult error(bool authExpired),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -734,7 +761,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult intro(_PathDataIntro value),
-    @required TResult error(_PathDataError value),
+    @required TResult error(PathDataError value),
     @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
@@ -755,7 +782,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult intro(_PathDataIntro value),
-    TResult error(_PathDataError value),
+    TResult error(PathDataError value),
     TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
@@ -815,7 +842,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(),
+    @required TResult error(bool authExpired),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -836,7 +863,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(),
+    TResult error(bool authExpired),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -855,7 +882,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult intro(_PathDataIntro value),
-    @required TResult error(_PathDataError value),
+    @required TResult error(PathDataError value),
     @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
@@ -876,7 +903,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult intro(_PathDataIntro value),
-    TResult error(_PathDataError value),
+    TResult error(PathDataError value),
     TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
@@ -936,7 +963,7 @@ class _$_PathDataAuth implements _PathDataAuth {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(),
+    @required TResult error(bool authExpired),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -957,7 +984,7 @@ class _$_PathDataAuth implements _PathDataAuth {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(),
+    TResult error(bool authExpired),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -976,7 +1003,7 @@ class _$_PathDataAuth implements _PathDataAuth {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult intro(_PathDataIntro value),
-    @required TResult error(_PathDataError value),
+    @required TResult error(PathDataError value),
     @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
@@ -997,7 +1024,7 @@ class _$_PathDataAuth implements _PathDataAuth {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult intro(_PathDataIntro value),
-    TResult error(_PathDataError value),
+    TResult error(PathDataError value),
     TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),

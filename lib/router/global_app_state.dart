@@ -26,10 +26,10 @@ class GlobalAppState extends ChangeNotifier {
     if (last == const GlobalRoutePath.auth() && path == const GlobalRoutePath.auth())
       return;
 
-    if (last == const GlobalRoutePath.auth() && path == const GlobalRoutePath.error())
+    if (last == const GlobalRoutePath.auth() && path is PathDataError)
       _list.removeLast();
 
-    if (last == const GlobalRoutePath.error() || last == const GlobalRoutePath.intro())
+    if (last is PathDataError || last == const GlobalRoutePath.intro())
       _list.removeLast();
 
     if (last is PathDataMainPageBase && path is PathDataMainPageBase)

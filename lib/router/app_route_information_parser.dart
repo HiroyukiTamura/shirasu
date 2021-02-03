@@ -49,7 +49,7 @@ class AppRouteInformationParser
         break;
     }
 
-    return const GlobalRoutePath.error();
+    return const GlobalRoutePath.error(false);
   }
 
   @override
@@ -59,7 +59,7 @@ class AppRouteInformationParser
   static String restoreLocation(GlobalRoutePathBase configuration) =>
       configuration.wrappedWhen(
         intro: () => 'intro',
-        error: () => 'error',
+        error: (bool authExpired) => 'error',
         channel: (channelId) => '/c/$channelId',
         program: (programId) => UrlUtil.programId2UrlSegment(programId),
         dashboard: () => 'dashboard',

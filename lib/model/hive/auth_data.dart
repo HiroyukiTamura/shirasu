@@ -16,11 +16,13 @@ abstract class HiveAuthData with _$HiveAuthData {
   const factory HiveAuthData({
     @required @HiveField(0) HiveBody body,
     @required @HiveField(1) @protected int rawExpiresAt,
+    @required @HiveField(64) DateTime tokenPublishedAtUtc,
   }) = _HiveAuthData;
 
   factory HiveAuthData.parse(AuthData authData) => HiveAuthData(
         body: HiveBody.parse(authData.body),
         rawExpiresAt: authData.expiresAt,
+        tokenPublishedAtUtc: DateTime.now().toUtc(),
       );
 
   const HiveAuthData._();

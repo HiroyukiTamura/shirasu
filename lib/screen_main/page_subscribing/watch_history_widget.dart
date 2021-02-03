@@ -21,7 +21,7 @@ part 'watch_history_widget.g.dart';
 
 final _viewmodelSNProvider =
     StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
-        (ref) => ViewModelWatchHistory(ref));
+        (ref) => ViewModelWatchHistory(ref.read));
 
 @hwidget
 Widget watchHistoryWidget() => useProvider(_viewmodelSNProvider.state).when(

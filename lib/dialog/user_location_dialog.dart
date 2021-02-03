@@ -12,7 +12,7 @@ part 'user_location_dialog.g.dart';
 
 final _viewModelProvider =
     StateNotifierProvider.autoDispose<ViewModelUserLocationDialog>(
-  (ref) => ViewModelUserLocationDialog.createFromSettingVm(ref),
+  (ref) => ViewModelUserLocationDialog.createFromSettingVm(ref.read),
 );
 
 class _MsgUserLocation {

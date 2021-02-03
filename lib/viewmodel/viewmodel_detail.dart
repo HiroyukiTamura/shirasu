@@ -12,6 +12,7 @@ import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/util/single_timer.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
@@ -21,9 +22,9 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'model/model_detail.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
-  ViewModelDetail(this.id, this._reader)
+  ViewModelDetail(Reader reader, this.id)
       : channelId = UrlUtil.programId2channelId(id),
-        super(ModelDetail.initial(true)) {
+        super(reader, ModelDetail.initial(true)) {
     _hideTimer = SingleTimer(_hideController, const Duration(seconds: 2));
   }
 
@@ -34,13 +35,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   static const COMMENT_MAX_LETTER_LEN = 150;
 
   final panelController = PanelController();
-  final Reader _reader;
   final String id;
   final String channelId;
 
   SingleTimer _hideTimer;
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => _reader(kPrvDetailSnackBarMsgNotifier);
+  SnackBarMessageNotifier get _snackBarMsgNotifier =>
+      reader(kPrvDetailSnackBarMsgNotifier);
 
   DetailPrgItem get _previewArchivedVideoData {
     final v = state.prgDataResult;
@@ -77,6 +78,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyWith(prgDataResult: const DetailModelState.loading());
 
+    bool authExpired = false;
+
     try {
       final data = await Util.wait2<ProgramDetailData, ChannelData>(
           () async => ApiClient.instance.queryProgramDetail(id),
@@ -89,13 +92,22 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           page: const PageSheetModel.hidden(),
         ),
       );
+    } on AuthExpiredException catch (e) {
+      print(e);
+      authExpired = true;
     } catch (e) {
       print(e);
       if (mounted)
         state = state.copyWith(prgDataResult: const DetailModelState.error());
     }
 
-    await _initComments(Duration.zero);
+    if (!mounted)
+      return;
+
+    if (authExpired)
+      pushAuthExpireScreen();
+    else
+      await _initComments(Duration.zero);
   }
 
   Future<void> playVideo(bool preview) async {
@@ -104,16 +116,25 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
+    bool authExpired = false;
     String cookie;
     try {
-      cookie = await DioClient.instance.getSignedCookie(prg.id, prg.videoTypeStrict,
-          HiveAuthClient.instance().authData.body.idToken);
+      cookie = await DioClient.instance.getSignedCookie(prg.id,
+          prg.videoTypeStrict, HiveAuthClient.instance().authData.body.idToken);
       debugPrint(cookie);
+    } on AuthExpiredException catch (e) {
+      print(e); //todo handle error
+      authExpired = true;
     } catch (e) {
       print(e); //todo handle error
     }
 
-    if (cookie != null && mounted)
+    if (!mounted)
+      return;
+
+    if (authExpired)
+      pushAuthExpireScreen();
+    else if (cookie != null)
       state = state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie);
   }
 
@@ -239,8 +260,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   Future<void> postComment(String text) async {
-    if (text.isNullOrEmpty)
-      return;
+    if (text.isNullOrEmpty) return;
 
     if (state.playOutState.currentPos < Duration.zero) return;
 

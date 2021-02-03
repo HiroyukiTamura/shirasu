@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:shirasu/client/auth_wrapper_client.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
 
-/// todo singleton
-///
 class DioClient {
 
   DioClient._();
@@ -18,6 +17,10 @@ class DioClient {
 
   Future<String> getSignedCookie(
       String videoId, VideoType videoType, String auth) async {
+
+    AuthClientInterceptor.instance.ensureNotExpired();
+    await AuthClientInterceptor.instance.refreshAuthTokenIfNeeded();
+
     final response = await _dio.get<Map<String, dynamic>>(UrlUtil.URL_SIGNED_COOKIE,
         queryParameters: {
           'videoId': videoId,
@@ -49,7 +52,7 @@ class DioClient {
 
 
   /// auth0 API doc: https://auth0.com/docs/tokens/refresh-tokens/use-refresh-tokens
-  Future<void> requestRenewToken(String clientId, String refreshToken) async {
+  Future<ResultTokenRefresh> requestRenewToken(String clientId, String refreshToken) async {
     final result = await _dio.post<Map<String, dynamic>>(
       UrlUtil.URL_OAUTH_TOKEN,
       data: {

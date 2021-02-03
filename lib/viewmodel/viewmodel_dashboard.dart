@@ -4,25 +4,26 @@ import 'package:riverpod/src/framework.dart';
 import 'package:shirasu/client/api_client.dart';
 import 'package:shirasu/client/network_image_client.dart';
 import 'package:shirasu/main.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
-  ViewModelDashBoard(this._ref) : super();
-
-  final AutoDisposeProviderReference _ref;
+  ViewModelDashBoard(Reader reader) : super(reader);
 
   double headerBackDropScrollPos = 0;
 
-  SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
+  SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
   @override
   Future<void> initialize() async {
     if (!(state.state is StatePreInitialized)) return;
 
     DashboardModel newModel;
+    bool authExpired = false;
 
     try {
       final apiResult = await Util.wait2(ApiClient.instance.queryFeaturedProgramsList,
@@ -32,9 +33,16 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
         rawNewProgramsDataList: [apiResult.item2],
       );
       newModel = state.copyAsSuccess(data);
-    } catch (e) {
+    } on AuthExpiredException catch (e) {
       print(e);
+      authExpired = true;
+    } catch (e) {
       newModel = DashboardModel.error();
+    }
+
+    if (authExpired) {
+      pushAuthExpireScreen();
+      return;
     }
 
     trySetState(newModel);

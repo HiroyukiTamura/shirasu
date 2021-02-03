@@ -5,6 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/main.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -23,7 +25,7 @@ part 'page_dashboard.g.dart';
 
 final pDashboardViewModel =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
-        (ref) => ViewModelDashBoard(ref));
+        (ref) => ViewModelDashBoard(ref.read));
 
 @hwidget
 Widget pageDashboardInMainScreen() => useProvider(
@@ -48,7 +50,7 @@ Widget pageDashboardInMainScreen() => useProvider(
     );
 
 class _ListViewContent extends HookWidget {
-  _ListViewContent({
+  const _ListViewContent({
     @required this.model,
     @required this.showLoadingIndicator,
   });

@@ -13,7 +13,7 @@ abstract class GlobalRoutePathBase {
 extension GlobalRoutePathBaseX on GlobalRoutePathBase {
   Result wrappedWhen<Result extends Object>({
     @required Result Function() intro,
-    @required Result Function() error,
+    @required Result Function(bool ) error,
     @required Result Function(String channelId) channel,
     @required Result Function(String programId) program,
     @required Result Function() dashboard,
@@ -45,7 +45,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
 
   Result wrappedWhenRough<Result extends Object>({
     @required Result Function() intro,
-    @required Result Function() error,
+    @required Result Function(bool authExpired) error,
     @required Result Function(String channelId) channel,
     @required Result Function(String programId) program,
     @required Result Function() mainPage,
@@ -86,7 +86,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
 abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.intro() = _PathDataIntro;
 
-  const factory GlobalRoutePath.error() = _PathDataError;
+  const factory GlobalRoutePath.error(bool authExpired) = PathDataError;
 
   const factory GlobalRoutePath.channel(String channelId) = _PathDataChannel;
 

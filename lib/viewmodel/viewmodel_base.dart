@@ -1,13 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:state_notifier/state_notifier.dart';
+import 'package:shirasu/router/app_router_delegate.dart';
 
-abstract class ViewModelBase<T> extends StateNotifier<T> with StateTrySetter<T>, ViewModelInitListener {
+import '../main.dart';
 
-  ViewModelBase(T state) : super(state) {
+abstract class ViewModelBase<T> extends StateNotifier<T> with StateTrySetter<T>, ViewModelInitListener, AppRouterLocator {
+
+  ViewModelBase(this._reader, T state) : super(state) {
     initialize();
   }
+
+  final Reader _reader;
+
+  @override
+  T Function<T>(RootProvider<Object, T> provider) get reader => _reader;
 
   @override
   @protected
@@ -15,15 +25,20 @@ abstract class ViewModelBase<T> extends StateNotifier<T> with StateTrySetter<T>,
 }
 
 /// use only in case that we can't use [ViewModelBase]
-abstract class ViewModelBaseChangeNotifier extends ChangeNotifier with ViewModelInitListener {
+abstract class ViewModelBaseChangeNotifier extends ChangeNotifier with ViewModelInitListener, AppRouterLocator {
 
-  ViewModelBaseChangeNotifier(): super() {
+  ViewModelBaseChangeNotifier(this._reader): super() {
     initialize();
   }
+
+  final Reader _reader;
 
   bool _isMounted = true;
 
   bool get isMounted => _isMounted;
+
+  @override
+  T Function<T>(RootProvider<Object, T> provider) get reader => _reader;
 
   @override
   @protected
@@ -49,4 +64,13 @@ mixin StateTrySetter<T> on StateNotifier<T> {
     if (mounted)
       this.state = state;
   }
+}
+
+mixin AppRouterLocator {
+
+  @protected
+  Reader get reader;
+
+  @protected
+  void pushAuthExpireScreen() => reader(pAppRouterDelegate).pushPage(const GlobalRoutePath.error(true));
 }

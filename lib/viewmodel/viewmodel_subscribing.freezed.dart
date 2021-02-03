@@ -14,30 +14,30 @@ class _$FeatureProgramStateTearOff {
   const _$FeatureProgramStateTearOff();
 
 // ignore: unused_element
-  FeatureProgramStatePreInitialized preInitialized() {
-    return const FeatureProgramStatePreInitialized();
+  _FeatureProgramStatePreInitialized preInitialized() {
+    return const _FeatureProgramStatePreInitialized();
   }
 
 // ignore: unused_element
-  FeatureProgramStateLoading loading() {
-    return const FeatureProgramStateLoading();
+  _FeatureProgramStateLoading loading() {
+    return const _FeatureProgramStateLoading();
   }
 
 // ignore: unused_element
-  FeatureProgramStateResultEmpty resultEmpty() {
-    return const FeatureProgramStateResultEmpty();
+  _FeatureProgramStateResultEmpty resultEmpty() {
+    return const _FeatureProgramStateResultEmpty();
   }
 
 // ignore: unused_element
-  FeatureProgramStateSuccess success(FeatureProgramData featureProgramData) {
-    return FeatureProgramStateSuccess(
+  _FeatureProgramStateSuccess success(FeatureProgramData featureProgramData) {
+    return _FeatureProgramStateSuccess(
       featureProgramData,
     );
   }
 
 // ignore: unused_element
-  FeatureProgramStateError error() {
-    return const FeatureProgramStateError();
+  _FeatureProgramStateError error() {
+    return const _FeatureProgramStateError();
   }
 }
 
@@ -66,19 +66,19 @@ mixin _$FeatureProgramState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
-    @required TResult loading(FeatureProgramStateLoading value),
-    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    @required TResult success(FeatureProgramStateSuccess value),
-    @required TResult error(FeatureProgramStateError value),
+    @required TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    @required TResult loading(_FeatureProgramStateLoading value),
+    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    @required TResult success(_FeatureProgramStateSuccess value),
+    @required TResult error(_FeatureProgramStateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(FeatureProgramStatePreInitialized value),
-    TResult loading(FeatureProgramStateLoading value),
-    TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    TResult success(FeatureProgramStateSuccess value),
-    TResult error(FeatureProgramStateError value),
+    TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    TResult loading(_FeatureProgramStateLoading value),
+    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    TResult success(_FeatureProgramStateSuccess value),
+    TResult error(_FeatureProgramStateError value),
     @required TResult orElse(),
   });
 }
@@ -101,31 +101,31 @@ class _$FeatureProgramStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $FeatureProgramStatePreInitializedCopyWith<$Res> {
-  factory $FeatureProgramStatePreInitializedCopyWith(
-          FeatureProgramStatePreInitialized value,
-          $Res Function(FeatureProgramStatePreInitialized) then) =
-      _$FeatureProgramStatePreInitializedCopyWithImpl<$Res>;
+abstract class _$FeatureProgramStatePreInitializedCopyWith<$Res> {
+  factory _$FeatureProgramStatePreInitializedCopyWith(
+          _FeatureProgramStatePreInitialized value,
+          $Res Function(_FeatureProgramStatePreInitialized) then) =
+      __$FeatureProgramStatePreInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FeatureProgramStatePreInitializedCopyWithImpl<$Res>
+class __$FeatureProgramStatePreInitializedCopyWithImpl<$Res>
     extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements $FeatureProgramStatePreInitializedCopyWith<$Res> {
-  _$FeatureProgramStatePreInitializedCopyWithImpl(
-      FeatureProgramStatePreInitialized _value,
-      $Res Function(FeatureProgramStatePreInitialized) _then)
-      : super(_value, (v) => _then(v as FeatureProgramStatePreInitialized));
+    implements _$FeatureProgramStatePreInitializedCopyWith<$Res> {
+  __$FeatureProgramStatePreInitializedCopyWithImpl(
+      _FeatureProgramStatePreInitialized _value,
+      $Res Function(_FeatureProgramStatePreInitialized) _then)
+      : super(_value, (v) => _then(v as _FeatureProgramStatePreInitialized));
 
   @override
-  FeatureProgramStatePreInitialized get _value =>
-      super._value as FeatureProgramStatePreInitialized;
+  _FeatureProgramStatePreInitialized get _value =>
+      super._value as _FeatureProgramStatePreInitialized;
 }
 
 /// @nodoc
-class _$FeatureProgramStatePreInitialized
-    implements FeatureProgramStatePreInitialized {
-  const _$FeatureProgramStatePreInitialized();
+class _$_FeatureProgramStatePreInitialized
+    implements _FeatureProgramStatePreInitialized {
+  const _$_FeatureProgramStatePreInitialized();
 
   @override
   String toString() {
@@ -135,7 +135,7 @@ class _$FeatureProgramStatePreInitialized
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is FeatureProgramStatePreInitialized);
+        (other is _FeatureProgramStatePreInitialized);
   }
 
   @override
@@ -178,11 +178,11 @@ class _$FeatureProgramStatePreInitialized
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
-    @required TResult loading(FeatureProgramStateLoading value),
-    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    @required TResult success(FeatureProgramStateSuccess value),
-    @required TResult error(FeatureProgramStateError value),
+    @required TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    @required TResult loading(_FeatureProgramStateLoading value),
+    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    @required TResult success(_FeatureProgramStateSuccess value),
+    @required TResult error(_FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -195,11 +195,11 @@ class _$FeatureProgramStatePreInitialized
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(FeatureProgramStatePreInitialized value),
-    TResult loading(FeatureProgramStateLoading value),
-    TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    TResult success(FeatureProgramStateSuccess value),
-    TResult error(FeatureProgramStateError value),
+    TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    TResult loading(_FeatureProgramStateLoading value),
+    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    TResult success(_FeatureProgramStateSuccess value),
+    TResult error(_FeatureProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -210,35 +210,36 @@ class _$FeatureProgramStatePreInitialized
   }
 }
 
-abstract class FeatureProgramStatePreInitialized
+abstract class _FeatureProgramStatePreInitialized
     implements FeatureProgramState {
-  const factory FeatureProgramStatePreInitialized() =
-      _$FeatureProgramStatePreInitialized;
+  const factory _FeatureProgramStatePreInitialized() =
+      _$_FeatureProgramStatePreInitialized;
 }
 
 /// @nodoc
-abstract class $FeatureProgramStateLoadingCopyWith<$Res> {
-  factory $FeatureProgramStateLoadingCopyWith(FeatureProgramStateLoading value,
-          $Res Function(FeatureProgramStateLoading) then) =
-      _$FeatureProgramStateLoadingCopyWithImpl<$Res>;
+abstract class _$FeatureProgramStateLoadingCopyWith<$Res> {
+  factory _$FeatureProgramStateLoadingCopyWith(
+          _FeatureProgramStateLoading value,
+          $Res Function(_FeatureProgramStateLoading) then) =
+      __$FeatureProgramStateLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FeatureProgramStateLoadingCopyWithImpl<$Res>
+class __$FeatureProgramStateLoadingCopyWithImpl<$Res>
     extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements $FeatureProgramStateLoadingCopyWith<$Res> {
-  _$FeatureProgramStateLoadingCopyWithImpl(FeatureProgramStateLoading _value,
-      $Res Function(FeatureProgramStateLoading) _then)
-      : super(_value, (v) => _then(v as FeatureProgramStateLoading));
+    implements _$FeatureProgramStateLoadingCopyWith<$Res> {
+  __$FeatureProgramStateLoadingCopyWithImpl(_FeatureProgramStateLoading _value,
+      $Res Function(_FeatureProgramStateLoading) _then)
+      : super(_value, (v) => _then(v as _FeatureProgramStateLoading));
 
   @override
-  FeatureProgramStateLoading get _value =>
-      super._value as FeatureProgramStateLoading;
+  _FeatureProgramStateLoading get _value =>
+      super._value as _FeatureProgramStateLoading;
 }
 
 /// @nodoc
-class _$FeatureProgramStateLoading implements FeatureProgramStateLoading {
-  const _$FeatureProgramStateLoading();
+class _$_FeatureProgramStateLoading implements _FeatureProgramStateLoading {
+  const _$_FeatureProgramStateLoading();
 
   @override
   String toString() {
@@ -247,7 +248,7 @@ class _$FeatureProgramStateLoading implements FeatureProgramStateLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FeatureProgramStateLoading);
+    return identical(this, other) || (other is _FeatureProgramStateLoading);
   }
 
   @override
@@ -290,11 +291,11 @@ class _$FeatureProgramStateLoading implements FeatureProgramStateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
-    @required TResult loading(FeatureProgramStateLoading value),
-    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    @required TResult success(FeatureProgramStateSuccess value),
-    @required TResult error(FeatureProgramStateError value),
+    @required TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    @required TResult loading(_FeatureProgramStateLoading value),
+    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    @required TResult success(_FeatureProgramStateSuccess value),
+    @required TResult error(_FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -307,11 +308,11 @@ class _$FeatureProgramStateLoading implements FeatureProgramStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(FeatureProgramStatePreInitialized value),
-    TResult loading(FeatureProgramStateLoading value),
-    TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    TResult success(FeatureProgramStateSuccess value),
-    TResult error(FeatureProgramStateError value),
+    TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    TResult loading(_FeatureProgramStateLoading value),
+    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    TResult success(_FeatureProgramStateSuccess value),
+    TResult error(_FeatureProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -322,36 +323,36 @@ class _$FeatureProgramStateLoading implements FeatureProgramStateLoading {
   }
 }
 
-abstract class FeatureProgramStateLoading implements FeatureProgramState {
-  const factory FeatureProgramStateLoading() = _$FeatureProgramStateLoading;
+abstract class _FeatureProgramStateLoading implements FeatureProgramState {
+  const factory _FeatureProgramStateLoading() = _$_FeatureProgramStateLoading;
 }
 
 /// @nodoc
-abstract class $FeatureProgramStateResultEmptyCopyWith<$Res> {
-  factory $FeatureProgramStateResultEmptyCopyWith(
-          FeatureProgramStateResultEmpty value,
-          $Res Function(FeatureProgramStateResultEmpty) then) =
-      _$FeatureProgramStateResultEmptyCopyWithImpl<$Res>;
+abstract class _$FeatureProgramStateResultEmptyCopyWith<$Res> {
+  factory _$FeatureProgramStateResultEmptyCopyWith(
+          _FeatureProgramStateResultEmpty value,
+          $Res Function(_FeatureProgramStateResultEmpty) then) =
+      __$FeatureProgramStateResultEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FeatureProgramStateResultEmptyCopyWithImpl<$Res>
+class __$FeatureProgramStateResultEmptyCopyWithImpl<$Res>
     extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements $FeatureProgramStateResultEmptyCopyWith<$Res> {
-  _$FeatureProgramStateResultEmptyCopyWithImpl(
-      FeatureProgramStateResultEmpty _value,
-      $Res Function(FeatureProgramStateResultEmpty) _then)
-      : super(_value, (v) => _then(v as FeatureProgramStateResultEmpty));
+    implements _$FeatureProgramStateResultEmptyCopyWith<$Res> {
+  __$FeatureProgramStateResultEmptyCopyWithImpl(
+      _FeatureProgramStateResultEmpty _value,
+      $Res Function(_FeatureProgramStateResultEmpty) _then)
+      : super(_value, (v) => _then(v as _FeatureProgramStateResultEmpty));
 
   @override
-  FeatureProgramStateResultEmpty get _value =>
-      super._value as FeatureProgramStateResultEmpty;
+  _FeatureProgramStateResultEmpty get _value =>
+      super._value as _FeatureProgramStateResultEmpty;
 }
 
 /// @nodoc
-class _$FeatureProgramStateResultEmpty
-    implements FeatureProgramStateResultEmpty {
-  const _$FeatureProgramStateResultEmpty();
+class _$_FeatureProgramStateResultEmpty
+    implements _FeatureProgramStateResultEmpty {
+  const _$_FeatureProgramStateResultEmpty();
 
   @override
   String toString() {
@@ -360,7 +361,7 @@ class _$FeatureProgramStateResultEmpty
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FeatureProgramStateResultEmpty);
+    return identical(this, other) || (other is _FeatureProgramStateResultEmpty);
   }
 
   @override
@@ -403,11 +404,11 @@ class _$FeatureProgramStateResultEmpty
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
-    @required TResult loading(FeatureProgramStateLoading value),
-    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    @required TResult success(FeatureProgramStateSuccess value),
-    @required TResult error(FeatureProgramStateError value),
+    @required TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    @required TResult loading(_FeatureProgramStateLoading value),
+    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    @required TResult success(_FeatureProgramStateSuccess value),
+    @required TResult error(_FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -420,11 +421,11 @@ class _$FeatureProgramStateResultEmpty
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(FeatureProgramStatePreInitialized value),
-    TResult loading(FeatureProgramStateLoading value),
-    TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    TResult success(FeatureProgramStateSuccess value),
-    TResult error(FeatureProgramStateError value),
+    TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    TResult loading(_FeatureProgramStateLoading value),
+    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    TResult success(_FeatureProgramStateSuccess value),
+    TResult error(_FeatureProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -435,38 +436,39 @@ class _$FeatureProgramStateResultEmpty
   }
 }
 
-abstract class FeatureProgramStateResultEmpty implements FeatureProgramState {
-  const factory FeatureProgramStateResultEmpty() =
-      _$FeatureProgramStateResultEmpty;
+abstract class _FeatureProgramStateResultEmpty implements FeatureProgramState {
+  const factory _FeatureProgramStateResultEmpty() =
+      _$_FeatureProgramStateResultEmpty;
 }
 
 /// @nodoc
-abstract class $FeatureProgramStateSuccessCopyWith<$Res> {
-  factory $FeatureProgramStateSuccessCopyWith(FeatureProgramStateSuccess value,
-          $Res Function(FeatureProgramStateSuccess) then) =
-      _$FeatureProgramStateSuccessCopyWithImpl<$Res>;
+abstract class _$FeatureProgramStateSuccessCopyWith<$Res> {
+  factory _$FeatureProgramStateSuccessCopyWith(
+          _FeatureProgramStateSuccess value,
+          $Res Function(_FeatureProgramStateSuccess) then) =
+      __$FeatureProgramStateSuccessCopyWithImpl<$Res>;
   $Res call({FeatureProgramData featureProgramData});
 
   $FeatureProgramDataCopyWith<$Res> get featureProgramData;
 }
 
 /// @nodoc
-class _$FeatureProgramStateSuccessCopyWithImpl<$Res>
+class __$FeatureProgramStateSuccessCopyWithImpl<$Res>
     extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements $FeatureProgramStateSuccessCopyWith<$Res> {
-  _$FeatureProgramStateSuccessCopyWithImpl(FeatureProgramStateSuccess _value,
-      $Res Function(FeatureProgramStateSuccess) _then)
-      : super(_value, (v) => _then(v as FeatureProgramStateSuccess));
+    implements _$FeatureProgramStateSuccessCopyWith<$Res> {
+  __$FeatureProgramStateSuccessCopyWithImpl(_FeatureProgramStateSuccess _value,
+      $Res Function(_FeatureProgramStateSuccess) _then)
+      : super(_value, (v) => _then(v as _FeatureProgramStateSuccess));
 
   @override
-  FeatureProgramStateSuccess get _value =>
-      super._value as FeatureProgramStateSuccess;
+  _FeatureProgramStateSuccess get _value =>
+      super._value as _FeatureProgramStateSuccess;
 
   @override
   $Res call({
     Object featureProgramData = freezed,
   }) {
-    return _then(FeatureProgramStateSuccess(
+    return _then(_FeatureProgramStateSuccess(
       featureProgramData == freezed
           ? _value.featureProgramData
           : featureProgramData as FeatureProgramData,
@@ -486,8 +488,8 @@ class _$FeatureProgramStateSuccessCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
-  const _$FeatureProgramStateSuccess(this.featureProgramData)
+class _$_FeatureProgramStateSuccess implements _FeatureProgramStateSuccess {
+  const _$_FeatureProgramStateSuccess(this.featureProgramData)
       : assert(featureProgramData != null);
 
   @override
@@ -501,7 +503,7 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is FeatureProgramStateSuccess &&
+        (other is _FeatureProgramStateSuccess &&
             (identical(other.featureProgramData, featureProgramData) ||
                 const DeepCollectionEquality()
                     .equals(other.featureProgramData, featureProgramData)));
@@ -513,10 +515,9 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
       const DeepCollectionEquality().hash(featureProgramData);
 
   @override
-  $FeatureProgramStateSuccessCopyWith<FeatureProgramStateSuccess>
-      get copyWith =>
-          _$FeatureProgramStateSuccessCopyWithImpl<FeatureProgramStateSuccess>(
-              this, _$identity);
+  _$FeatureProgramStateSuccessCopyWith<_FeatureProgramStateSuccess>
+      get copyWith => __$FeatureProgramStateSuccessCopyWithImpl<
+          _FeatureProgramStateSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -555,11 +556,11 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
-    @required TResult loading(FeatureProgramStateLoading value),
-    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    @required TResult success(FeatureProgramStateSuccess value),
-    @required TResult error(FeatureProgramStateError value),
+    @required TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    @required TResult loading(_FeatureProgramStateLoading value),
+    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    @required TResult success(_FeatureProgramStateSuccess value),
+    @required TResult error(_FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -572,11 +573,11 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(FeatureProgramStatePreInitialized value),
-    TResult loading(FeatureProgramStateLoading value),
-    TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    TResult success(FeatureProgramStateSuccess value),
-    TResult error(FeatureProgramStateError value),
+    TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    TResult loading(_FeatureProgramStateLoading value),
+    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    TResult success(_FeatureProgramStateSuccess value),
+    TResult error(_FeatureProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -587,37 +588,38 @@ class _$FeatureProgramStateSuccess implements FeatureProgramStateSuccess {
   }
 }
 
-abstract class FeatureProgramStateSuccess implements FeatureProgramState {
-  const factory FeatureProgramStateSuccess(
-      FeatureProgramData featureProgramData) = _$FeatureProgramStateSuccess;
+abstract class _FeatureProgramStateSuccess implements FeatureProgramState {
+  const factory _FeatureProgramStateSuccess(
+      FeatureProgramData featureProgramData) = _$_FeatureProgramStateSuccess;
 
   FeatureProgramData get featureProgramData;
-  $FeatureProgramStateSuccessCopyWith<FeatureProgramStateSuccess> get copyWith;
+  _$FeatureProgramStateSuccessCopyWith<_FeatureProgramStateSuccess>
+      get copyWith;
 }
 
 /// @nodoc
-abstract class $FeatureProgramStateErrorCopyWith<$Res> {
-  factory $FeatureProgramStateErrorCopyWith(FeatureProgramStateError value,
-          $Res Function(FeatureProgramStateError) then) =
-      _$FeatureProgramStateErrorCopyWithImpl<$Res>;
+abstract class _$FeatureProgramStateErrorCopyWith<$Res> {
+  factory _$FeatureProgramStateErrorCopyWith(_FeatureProgramStateError value,
+          $Res Function(_FeatureProgramStateError) then) =
+      __$FeatureProgramStateErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FeatureProgramStateErrorCopyWithImpl<$Res>
+class __$FeatureProgramStateErrorCopyWithImpl<$Res>
     extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements $FeatureProgramStateErrorCopyWith<$Res> {
-  _$FeatureProgramStateErrorCopyWithImpl(FeatureProgramStateError _value,
-      $Res Function(FeatureProgramStateError) _then)
-      : super(_value, (v) => _then(v as FeatureProgramStateError));
+    implements _$FeatureProgramStateErrorCopyWith<$Res> {
+  __$FeatureProgramStateErrorCopyWithImpl(_FeatureProgramStateError _value,
+      $Res Function(_FeatureProgramStateError) _then)
+      : super(_value, (v) => _then(v as _FeatureProgramStateError));
 
   @override
-  FeatureProgramStateError get _value =>
-      super._value as FeatureProgramStateError;
+  _FeatureProgramStateError get _value =>
+      super._value as _FeatureProgramStateError;
 }
 
 /// @nodoc
-class _$FeatureProgramStateError implements FeatureProgramStateError {
-  const _$FeatureProgramStateError();
+class _$_FeatureProgramStateError implements _FeatureProgramStateError {
+  const _$_FeatureProgramStateError();
 
   @override
   String toString() {
@@ -626,7 +628,7 @@ class _$FeatureProgramStateError implements FeatureProgramStateError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FeatureProgramStateError);
+    return identical(this, other) || (other is _FeatureProgramStateError);
   }
 
   @override
@@ -669,11 +671,11 @@ class _$FeatureProgramStateError implements FeatureProgramStateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(FeatureProgramStatePreInitialized value),
-    @required TResult loading(FeatureProgramStateLoading value),
-    @required TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    @required TResult success(FeatureProgramStateSuccess value),
-    @required TResult error(FeatureProgramStateError value),
+    @required TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    @required TResult loading(_FeatureProgramStateLoading value),
+    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    @required TResult success(_FeatureProgramStateSuccess value),
+    @required TResult error(_FeatureProgramStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -686,11 +688,11 @@ class _$FeatureProgramStateError implements FeatureProgramStateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(FeatureProgramStatePreInitialized value),
-    TResult loading(FeatureProgramStateLoading value),
-    TResult resultEmpty(FeatureProgramStateResultEmpty value),
-    TResult success(FeatureProgramStateSuccess value),
-    TResult error(FeatureProgramStateError value),
+    TResult preInitialized(_FeatureProgramStatePreInitialized value),
+    TResult loading(_FeatureProgramStateLoading value),
+    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
+    TResult success(_FeatureProgramStateSuccess value),
+    TResult error(_FeatureProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -701,8 +703,8 @@ class _$FeatureProgramStateError implements FeatureProgramStateError {
   }
 }
 
-abstract class FeatureProgramStateError implements FeatureProgramState {
-  const factory FeatureProgramStateError() = _$FeatureProgramStateError;
+abstract class _FeatureProgramStateError implements FeatureProgramState {
+  const factory _FeatureProgramStateError() = _$_FeatureProgramStateError;
 }
 
 /// @nodoc
@@ -710,39 +712,39 @@ class _$WatchHistoryStateTearOff {
   const _$WatchHistoryStateTearOff();
 
 // ignore: unused_element
-  StatePreInitialized preInitialized() {
-    return const StatePreInitialized();
+  _StatePreInitialized preInitialized() {
+    return const _StatePreInitialized();
   }
 
 // ignore: unused_element
-  StateLoading loading() {
-    return const StateLoading();
+  _StateLoading loading() {
+    return const _StateLoading();
   }
 
 // ignore: unused_element
-  StateResultEmpty resultEmpty() {
-    return const StateResultEmpty();
+  _StateResultEmpty resultEmpty() {
+    return const _StateResultEmpty();
   }
 
 // ignore: unused_element
-  StateSuccess success(
+  _StateSuccess success(
       UnmodifiableListView<WatchHistoriesData> watchHistories) {
-    return StateSuccess(
+    return _StateSuccess(
       watchHistories,
     );
   }
 
 // ignore: unused_element
-  StateLoadingMore loadingMore(
+  _StateLoadingMore loadingMore(
       UnmodifiableListView<WatchHistoriesData> watchHistories) {
-    return StateLoadingMore(
+    return _StateLoadingMore(
       watchHistories,
     );
   }
 
 // ignore: unused_element
-  StateError error() {
-    return const StateError();
+  _StateError error() {
+    return const _StateError();
   }
 }
 
@@ -778,21 +780,21 @@ mixin _$WatchHistoryState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
-    @required TResult resultEmpty(StateResultEmpty value),
-    @required TResult success(StateSuccess value),
-    @required TResult loadingMore(StateLoadingMore value),
-    @required TResult error(StateError value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
+    @required TResult resultEmpty(_StateResultEmpty value),
+    @required TResult success(_StateSuccess value),
+    @required TResult loadingMore(_StateLoadingMore value),
+    @required TResult error(_StateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
-    TResult resultEmpty(StateResultEmpty value),
-    TResult success(StateSuccess value),
-    TResult loadingMore(StateLoadingMore value),
-    TResult error(StateError value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
+    TResult resultEmpty(_StateResultEmpty value),
+    TResult success(_StateSuccess value),
+    TResult loadingMore(_StateLoadingMore value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   });
 }
@@ -815,27 +817,27 @@ class _$WatchHistoryStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $StatePreInitializedCopyWith<$Res> {
-  factory $StatePreInitializedCopyWith(
-          StatePreInitialized value, $Res Function(StatePreInitialized) then) =
-      _$StatePreInitializedCopyWithImpl<$Res>;
+abstract class _$StatePreInitializedCopyWith<$Res> {
+  factory _$StatePreInitializedCopyWith(_StatePreInitialized value,
+          $Res Function(_StatePreInitialized) then) =
+      __$StatePreInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StatePreInitializedCopyWithImpl<$Res>
+class __$StatePreInitializedCopyWithImpl<$Res>
     extends _$WatchHistoryStateCopyWithImpl<$Res>
-    implements $StatePreInitializedCopyWith<$Res> {
-  _$StatePreInitializedCopyWithImpl(
-      StatePreInitialized _value, $Res Function(StatePreInitialized) _then)
-      : super(_value, (v) => _then(v as StatePreInitialized));
+    implements _$StatePreInitializedCopyWith<$Res> {
+  __$StatePreInitializedCopyWithImpl(
+      _StatePreInitialized _value, $Res Function(_StatePreInitialized) _then)
+      : super(_value, (v) => _then(v as _StatePreInitialized));
 
   @override
-  StatePreInitialized get _value => super._value as StatePreInitialized;
+  _StatePreInitialized get _value => super._value as _StatePreInitialized;
 }
 
 /// @nodoc
-class _$StatePreInitialized implements StatePreInitialized {
-  const _$StatePreInitialized();
+class _$_StatePreInitialized implements _StatePreInitialized {
+  const _$_StatePreInitialized();
 
   @override
   String toString() {
@@ -844,7 +846,7 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StatePreInitialized);
+    return identical(this, other) || (other is _StatePreInitialized);
   }
 
   @override
@@ -895,12 +897,12 @@ class _$StatePreInitialized implements StatePreInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
-    @required TResult resultEmpty(StateResultEmpty value),
-    @required TResult success(StateSuccess value),
-    @required TResult loadingMore(StateLoadingMore value),
-    @required TResult error(StateError value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
+    @required TResult resultEmpty(_StateResultEmpty value),
+    @required TResult success(_StateSuccess value),
+    @required TResult loadingMore(_StateLoadingMore value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -914,12 +916,12 @@ class _$StatePreInitialized implements StatePreInitialized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
-    TResult resultEmpty(StateResultEmpty value),
-    TResult success(StateSuccess value),
-    TResult loadingMore(StateLoadingMore value),
-    TResult error(StateError value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
+    TResult resultEmpty(_StateResultEmpty value),
+    TResult success(_StateSuccess value),
+    TResult loadingMore(_StateLoadingMore value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -930,32 +932,32 @@ class _$StatePreInitialized implements StatePreInitialized {
   }
 }
 
-abstract class StatePreInitialized implements WatchHistoryState {
-  const factory StatePreInitialized() = _$StatePreInitialized;
+abstract class _StatePreInitialized implements WatchHistoryState {
+  const factory _StatePreInitialized() = _$_StatePreInitialized;
 }
 
 /// @nodoc
-abstract class $StateLoadingCopyWith<$Res> {
-  factory $StateLoadingCopyWith(
-          StateLoading value, $Res Function(StateLoading) then) =
-      _$StateLoadingCopyWithImpl<$Res>;
+abstract class _$StateLoadingCopyWith<$Res> {
+  factory _$StateLoadingCopyWith(
+          _StateLoading value, $Res Function(_StateLoading) then) =
+      __$StateLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateLoadingCopyWithImpl<$Res>
+class __$StateLoadingCopyWithImpl<$Res>
     extends _$WatchHistoryStateCopyWithImpl<$Res>
-    implements $StateLoadingCopyWith<$Res> {
-  _$StateLoadingCopyWithImpl(
-      StateLoading _value, $Res Function(StateLoading) _then)
-      : super(_value, (v) => _then(v as StateLoading));
+    implements _$StateLoadingCopyWith<$Res> {
+  __$StateLoadingCopyWithImpl(
+      _StateLoading _value, $Res Function(_StateLoading) _then)
+      : super(_value, (v) => _then(v as _StateLoading));
 
   @override
-  StateLoading get _value => super._value as StateLoading;
+  _StateLoading get _value => super._value as _StateLoading;
 }
 
 /// @nodoc
-class _$StateLoading implements StateLoading {
-  const _$StateLoading();
+class _$_StateLoading implements _StateLoading {
+  const _$_StateLoading();
 
   @override
   String toString() {
@@ -964,7 +966,7 @@ class _$StateLoading implements StateLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateLoading);
+    return identical(this, other) || (other is _StateLoading);
   }
 
   @override
@@ -1015,12 +1017,12 @@ class _$StateLoading implements StateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
-    @required TResult resultEmpty(StateResultEmpty value),
-    @required TResult success(StateSuccess value),
-    @required TResult loadingMore(StateLoadingMore value),
-    @required TResult error(StateError value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
+    @required TResult resultEmpty(_StateResultEmpty value),
+    @required TResult success(_StateSuccess value),
+    @required TResult loadingMore(_StateLoadingMore value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -1034,12 +1036,12 @@ class _$StateLoading implements StateLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
-    TResult resultEmpty(StateResultEmpty value),
-    TResult success(StateSuccess value),
-    TResult loadingMore(StateLoadingMore value),
-    TResult error(StateError value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
+    TResult resultEmpty(_StateResultEmpty value),
+    TResult success(_StateSuccess value),
+    TResult loadingMore(_StateLoadingMore value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1050,32 +1052,32 @@ class _$StateLoading implements StateLoading {
   }
 }
 
-abstract class StateLoading implements WatchHistoryState {
-  const factory StateLoading() = _$StateLoading;
+abstract class _StateLoading implements WatchHistoryState {
+  const factory _StateLoading() = _$_StateLoading;
 }
 
 /// @nodoc
-abstract class $StateResultEmptyCopyWith<$Res> {
-  factory $StateResultEmptyCopyWith(
-          StateResultEmpty value, $Res Function(StateResultEmpty) then) =
-      _$StateResultEmptyCopyWithImpl<$Res>;
+abstract class _$StateResultEmptyCopyWith<$Res> {
+  factory _$StateResultEmptyCopyWith(
+          _StateResultEmpty value, $Res Function(_StateResultEmpty) then) =
+      __$StateResultEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateResultEmptyCopyWithImpl<$Res>
+class __$StateResultEmptyCopyWithImpl<$Res>
     extends _$WatchHistoryStateCopyWithImpl<$Res>
-    implements $StateResultEmptyCopyWith<$Res> {
-  _$StateResultEmptyCopyWithImpl(
-      StateResultEmpty _value, $Res Function(StateResultEmpty) _then)
-      : super(_value, (v) => _then(v as StateResultEmpty));
+    implements _$StateResultEmptyCopyWith<$Res> {
+  __$StateResultEmptyCopyWithImpl(
+      _StateResultEmpty _value, $Res Function(_StateResultEmpty) _then)
+      : super(_value, (v) => _then(v as _StateResultEmpty));
 
   @override
-  StateResultEmpty get _value => super._value as StateResultEmpty;
+  _StateResultEmpty get _value => super._value as _StateResultEmpty;
 }
 
 /// @nodoc
-class _$StateResultEmpty implements StateResultEmpty {
-  const _$StateResultEmpty();
+class _$_StateResultEmpty implements _StateResultEmpty {
+  const _$_StateResultEmpty();
 
   @override
   String toString() {
@@ -1084,7 +1086,7 @@ class _$StateResultEmpty implements StateResultEmpty {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateResultEmpty);
+    return identical(this, other) || (other is _StateResultEmpty);
   }
 
   @override
@@ -1135,12 +1137,12 @@ class _$StateResultEmpty implements StateResultEmpty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
-    @required TResult resultEmpty(StateResultEmpty value),
-    @required TResult success(StateSuccess value),
-    @required TResult loadingMore(StateLoadingMore value),
-    @required TResult error(StateError value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
+    @required TResult resultEmpty(_StateResultEmpty value),
+    @required TResult success(_StateSuccess value),
+    @required TResult loadingMore(_StateLoadingMore value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -1154,12 +1156,12 @@ class _$StateResultEmpty implements StateResultEmpty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
-    TResult resultEmpty(StateResultEmpty value),
-    TResult success(StateSuccess value),
-    TResult loadingMore(StateLoadingMore value),
-    TResult error(StateError value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
+    TResult resultEmpty(_StateResultEmpty value),
+    TResult success(_StateSuccess value),
+    TResult loadingMore(_StateLoadingMore value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1170,34 +1172,34 @@ class _$StateResultEmpty implements StateResultEmpty {
   }
 }
 
-abstract class StateResultEmpty implements WatchHistoryState {
-  const factory StateResultEmpty() = _$StateResultEmpty;
+abstract class _StateResultEmpty implements WatchHistoryState {
+  const factory _StateResultEmpty() = _$_StateResultEmpty;
 }
 
 /// @nodoc
-abstract class $StateSuccessCopyWith<$Res> {
-  factory $StateSuccessCopyWith(
-          StateSuccess value, $Res Function(StateSuccess) then) =
-      _$StateSuccessCopyWithImpl<$Res>;
+abstract class _$StateSuccessCopyWith<$Res> {
+  factory _$StateSuccessCopyWith(
+          _StateSuccess value, $Res Function(_StateSuccess) then) =
+      __$StateSuccessCopyWithImpl<$Res>;
   $Res call({UnmodifiableListView<WatchHistoriesData> watchHistories});
 }
 
 /// @nodoc
-class _$StateSuccessCopyWithImpl<$Res>
+class __$StateSuccessCopyWithImpl<$Res>
     extends _$WatchHistoryStateCopyWithImpl<$Res>
-    implements $StateSuccessCopyWith<$Res> {
-  _$StateSuccessCopyWithImpl(
-      StateSuccess _value, $Res Function(StateSuccess) _then)
-      : super(_value, (v) => _then(v as StateSuccess));
+    implements _$StateSuccessCopyWith<$Res> {
+  __$StateSuccessCopyWithImpl(
+      _StateSuccess _value, $Res Function(_StateSuccess) _then)
+      : super(_value, (v) => _then(v as _StateSuccess));
 
   @override
-  StateSuccess get _value => super._value as StateSuccess;
+  _StateSuccess get _value => super._value as _StateSuccess;
 
   @override
   $Res call({
     Object watchHistories = freezed,
   }) {
-    return _then(StateSuccess(
+    return _then(_StateSuccess(
       watchHistories == freezed
           ? _value.watchHistories
           : watchHistories as UnmodifiableListView<WatchHistoriesData>,
@@ -1206,8 +1208,8 @@ class _$StateSuccessCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$StateSuccess implements StateSuccess {
-  const _$StateSuccess(this.watchHistories) : assert(watchHistories != null);
+class _$_StateSuccess implements _StateSuccess {
+  const _$_StateSuccess(this.watchHistories) : assert(watchHistories != null);
 
   @override
   final UnmodifiableListView<WatchHistoriesData> watchHistories;
@@ -1220,7 +1222,7 @@ class _$StateSuccess implements StateSuccess {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is StateSuccess &&
+        (other is _StateSuccess &&
             (identical(other.watchHistories, watchHistories) ||
                 const DeepCollectionEquality()
                     .equals(other.watchHistories, watchHistories)));
@@ -1232,8 +1234,8 @@ class _$StateSuccess implements StateSuccess {
       const DeepCollectionEquality().hash(watchHistories);
 
   @override
-  $StateSuccessCopyWith<StateSuccess> get copyWith =>
-      _$StateSuccessCopyWithImpl<StateSuccess>(this, _$identity);
+  _$StateSuccessCopyWith<_StateSuccess> get copyWith =>
+      __$StateSuccessCopyWithImpl<_StateSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1280,12 +1282,12 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
-    @required TResult resultEmpty(StateResultEmpty value),
-    @required TResult success(StateSuccess value),
-    @required TResult loadingMore(StateLoadingMore value),
-    @required TResult error(StateError value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
+    @required TResult resultEmpty(_StateResultEmpty value),
+    @required TResult success(_StateSuccess value),
+    @required TResult loadingMore(_StateLoadingMore value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -1299,12 +1301,12 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
-    TResult resultEmpty(StateResultEmpty value),
-    TResult success(StateSuccess value),
-    TResult loadingMore(StateLoadingMore value),
-    TResult error(StateError value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
+    TResult resultEmpty(_StateResultEmpty value),
+    TResult success(_StateSuccess value),
+    TResult loadingMore(_StateLoadingMore value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1315,38 +1317,39 @@ class _$StateSuccess implements StateSuccess {
   }
 }
 
-abstract class StateSuccess implements WatchHistoryState {
-  const factory StateSuccess(
-      UnmodifiableListView<WatchHistoriesData> watchHistories) = _$StateSuccess;
+abstract class _StateSuccess implements WatchHistoryState {
+  const factory _StateSuccess(
+          UnmodifiableListView<WatchHistoriesData> watchHistories) =
+      _$_StateSuccess;
 
   UnmodifiableListView<WatchHistoriesData> get watchHistories;
-  $StateSuccessCopyWith<StateSuccess> get copyWith;
+  _$StateSuccessCopyWith<_StateSuccess> get copyWith;
 }
 
 /// @nodoc
-abstract class $StateLoadingMoreCopyWith<$Res> {
-  factory $StateLoadingMoreCopyWith(
-          StateLoadingMore value, $Res Function(StateLoadingMore) then) =
-      _$StateLoadingMoreCopyWithImpl<$Res>;
+abstract class _$StateLoadingMoreCopyWith<$Res> {
+  factory _$StateLoadingMoreCopyWith(
+          _StateLoadingMore value, $Res Function(_StateLoadingMore) then) =
+      __$StateLoadingMoreCopyWithImpl<$Res>;
   $Res call({UnmodifiableListView<WatchHistoriesData> watchHistories});
 }
 
 /// @nodoc
-class _$StateLoadingMoreCopyWithImpl<$Res>
+class __$StateLoadingMoreCopyWithImpl<$Res>
     extends _$WatchHistoryStateCopyWithImpl<$Res>
-    implements $StateLoadingMoreCopyWith<$Res> {
-  _$StateLoadingMoreCopyWithImpl(
-      StateLoadingMore _value, $Res Function(StateLoadingMore) _then)
-      : super(_value, (v) => _then(v as StateLoadingMore));
+    implements _$StateLoadingMoreCopyWith<$Res> {
+  __$StateLoadingMoreCopyWithImpl(
+      _StateLoadingMore _value, $Res Function(_StateLoadingMore) _then)
+      : super(_value, (v) => _then(v as _StateLoadingMore));
 
   @override
-  StateLoadingMore get _value => super._value as StateLoadingMore;
+  _StateLoadingMore get _value => super._value as _StateLoadingMore;
 
   @override
   $Res call({
     Object watchHistories = freezed,
   }) {
-    return _then(StateLoadingMore(
+    return _then(_StateLoadingMore(
       watchHistories == freezed
           ? _value.watchHistories
           : watchHistories as UnmodifiableListView<WatchHistoriesData>,
@@ -1355,8 +1358,8 @@ class _$StateLoadingMoreCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$StateLoadingMore implements StateLoadingMore {
-  const _$StateLoadingMore(this.watchHistories)
+class _$_StateLoadingMore implements _StateLoadingMore {
+  const _$_StateLoadingMore(this.watchHistories)
       : assert(watchHistories != null);
 
   @override
@@ -1370,7 +1373,7 @@ class _$StateLoadingMore implements StateLoadingMore {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is StateLoadingMore &&
+        (other is _StateLoadingMore &&
             (identical(other.watchHistories, watchHistories) ||
                 const DeepCollectionEquality()
                     .equals(other.watchHistories, watchHistories)));
@@ -1382,8 +1385,8 @@ class _$StateLoadingMore implements StateLoadingMore {
       const DeepCollectionEquality().hash(watchHistories);
 
   @override
-  $StateLoadingMoreCopyWith<StateLoadingMore> get copyWith =>
-      _$StateLoadingMoreCopyWithImpl<StateLoadingMore>(this, _$identity);
+  _$StateLoadingMoreCopyWith<_StateLoadingMore> get copyWith =>
+      __$StateLoadingMoreCopyWithImpl<_StateLoadingMore>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1430,12 +1433,12 @@ class _$StateLoadingMore implements StateLoadingMore {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
-    @required TResult resultEmpty(StateResultEmpty value),
-    @required TResult success(StateSuccess value),
-    @required TResult loadingMore(StateLoadingMore value),
-    @required TResult error(StateError value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
+    @required TResult resultEmpty(_StateResultEmpty value),
+    @required TResult success(_StateSuccess value),
+    @required TResult loadingMore(_StateLoadingMore value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -1449,12 +1452,12 @@ class _$StateLoadingMore implements StateLoadingMore {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
-    TResult resultEmpty(StateResultEmpty value),
-    TResult success(StateSuccess value),
-    TResult loadingMore(StateLoadingMore value),
-    TResult error(StateError value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
+    TResult resultEmpty(_StateResultEmpty value),
+    TResult success(_StateSuccess value),
+    TResult loadingMore(_StateLoadingMore value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1465,36 +1468,37 @@ class _$StateLoadingMore implements StateLoadingMore {
   }
 }
 
-abstract class StateLoadingMore implements WatchHistoryState {
-  const factory StateLoadingMore(
+abstract class _StateLoadingMore implements WatchHistoryState {
+  const factory _StateLoadingMore(
           UnmodifiableListView<WatchHistoriesData> watchHistories) =
-      _$StateLoadingMore;
+      _$_StateLoadingMore;
 
   UnmodifiableListView<WatchHistoriesData> get watchHistories;
-  $StateLoadingMoreCopyWith<StateLoadingMore> get copyWith;
+  _$StateLoadingMoreCopyWith<_StateLoadingMore> get copyWith;
 }
 
 /// @nodoc
-abstract class $StateErrorCopyWith<$Res> {
-  factory $StateErrorCopyWith(
-          StateError value, $Res Function(StateError) then) =
-      _$StateErrorCopyWithImpl<$Res>;
+abstract class _$StateErrorCopyWith<$Res> {
+  factory _$StateErrorCopyWith(
+          _StateError value, $Res Function(_StateError) then) =
+      __$StateErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateErrorCopyWithImpl<$Res>
+class __$StateErrorCopyWithImpl<$Res>
     extends _$WatchHistoryStateCopyWithImpl<$Res>
-    implements $StateErrorCopyWith<$Res> {
-  _$StateErrorCopyWithImpl(StateError _value, $Res Function(StateError) _then)
-      : super(_value, (v) => _then(v as StateError));
+    implements _$StateErrorCopyWith<$Res> {
+  __$StateErrorCopyWithImpl(
+      _StateError _value, $Res Function(_StateError) _then)
+      : super(_value, (v) => _then(v as _StateError));
 
   @override
-  StateError get _value => super._value as StateError;
+  _StateError get _value => super._value as _StateError;
 }
 
 /// @nodoc
-class _$StateError implements StateError {
-  const _$StateError();
+class _$_StateError implements _StateError {
+  const _$_StateError();
 
   @override
   String toString() {
@@ -1503,7 +1507,7 @@ class _$StateError implements StateError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateError);
+    return identical(this, other) || (other is _StateError);
   }
 
   @override
@@ -1554,12 +1558,12 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
-    @required TResult resultEmpty(StateResultEmpty value),
-    @required TResult success(StateSuccess value),
-    @required TResult loadingMore(StateLoadingMore value),
-    @required TResult error(StateError value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
+    @required TResult resultEmpty(_StateResultEmpty value),
+    @required TResult success(_StateSuccess value),
+    @required TResult loadingMore(_StateLoadingMore value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -1573,12 +1577,12 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
-    TResult resultEmpty(StateResultEmpty value),
-    TResult success(StateSuccess value),
-    TResult loadingMore(StateLoadingMore value),
-    TResult error(StateError value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
+    TResult resultEmpty(_StateResultEmpty value),
+    TResult success(_StateSuccess value),
+    TResult loadingMore(_StateLoadingMore value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1589,6 +1593,6 @@ class _$StateError implements StateError {
   }
 }
 
-abstract class StateError implements WatchHistoryState {
-  const factory StateError() = _$StateError;
+abstract class _StateError implements WatchHistoryState {
+  const factory _StateError() = _$_StateError;
 }

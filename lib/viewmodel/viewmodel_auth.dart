@@ -18,12 +18,10 @@ import 'package:synchronized/synchronized.dart';
 part 'viewmodel_auth.freezed.dart';
 
 class ViewModelAuth extends ViewModelBase<AuthModel> {
-  ViewModelAuth(this._reader) : super(AuthModel.initial());
+  ViewModelAuth(Reader reader) : super(reader, AuthModel.initial());
 
-  final Reader _reader;
   final _hiveClient = HiveAuthClient.instance();
   final _lock = Lock();
-  bool _initialLoad = false;
   bool _success = false;
   String _jsClickLoginBtn;
   String _jsLocalStorageGetter;
@@ -58,10 +56,8 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
   Future<void> _onStateChanged(WebViewStateChanged viewState) async {
     debugPrint('${viewState.url}, ${viewState.type}');
     if (viewState.type == WebViewState.finishLoad &&
-        viewState.url == UrlUtil.URL_HOME) {
-      _initialLoad = true;
+        viewState.url == UrlUtil.URL_HOME)
       await _plugin.evalJavascript(_jsClickLoginBtn);
-    }
   }
 
   Future<void> _onUrlChanged(String url) async {
@@ -100,24 +96,17 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
       if (!mounted)
         return;
 
-      final delegate = _reader(pAppRouterDelegate);
+      final delegate = reader(pAppRouterDelegate);
       if (_success)
         await delegate.popRoute();
       else if (_hiveClient.maybeExpired && url == UrlUtil.URL_DASHBOARD) {
         // todo improve logic
         await _plugin.clearCache();
         await _plugin.cleanCookies();
-        await delegate.pushPage(const GlobalRoutePath.error());
+        pushAuthExpireScreen();
       }
       await _plugin.close();
     }
-  }
-
-  Future<void> _showWebView() async {
-    await _cancelable?.cancel();
-    _cancelable = CancelableOperation.fromFuture(
-      _plugin.show(),
-    );
   }
 }
 

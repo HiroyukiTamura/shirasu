@@ -4,6 +4,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/ui_common/ui_util.dart';
 
 part 'billing_btn.g.dart';
 
@@ -117,7 +118,7 @@ Widget _buttonMedium(
           horizontal: Dimens.MARGIN_OUTLINE, vertical: 8),
       onPressed: onTap,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: kCircleBorderRadius,
         side: BorderSide(color: Theme.of(context).primaryColor),
       ),
       label: Text(

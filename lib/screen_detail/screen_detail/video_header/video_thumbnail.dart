@@ -14,6 +14,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/play_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/ui_util.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
@@ -153,7 +154,7 @@ Widget _hoverBtn({
       onPressed: onPressed,
       padding: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(1000),
+        borderRadius: kCircleBorderRadius,
         side: const BorderSide(color: Colors.white),
       ),
       color: Colors.black,

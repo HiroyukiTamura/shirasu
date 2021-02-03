@@ -16,7 +16,7 @@ part 'subscribing_widget.g.dart';
 
 final _viewmodelSNProvider =
     StateNotifierProvider.autoDispose<ViewModelSubscribing>(
-        (_) => ViewModelSubscribing());
+        (ref) => ViewModelSubscribing(ref.read));
 
 @hwidget
 Widget subscribingWidget() => useProvider(_viewmodelSNProvider.state).when(

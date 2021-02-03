@@ -1,26 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:riverpod/src/framework.dart';
 
 import '../main.dart';
 import 'model/model_channel.dart';
 
 class ViewModelChannel extends ViewModelBase<ChannelModel> {
-  ViewModelChannel(this._ref, this._channelId)
+  ViewModelChannel(Reader reader, this._channelId)
       : super(
+          reader,
           const ChannelModel(
             result: PreInitialized(),
             loading: false,
           ),
         );
 
-  final AutoDisposeProviderReference _ref;
   final String _channelId;
 
-  SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
+  SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
   int tabIndex = 0;
 
@@ -30,14 +31,23 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
     try {
       state = const ChannelModel(
-          result: ChannelDataResult.loading(), loading: false);
+        result: ChannelDataResult.loading(),
+        loading: false,
+      );
       final data = await ApiClient.instance.queryChannelData(_channelId);
       setState(ChannelModel(
-          result: ChannelDataResult.success(data), loading: false));
+        result: ChannelDataResult.success(data),
+        loading: false,
+      ));
+    } on AuthExpiredException catch (e) {
+      print(e);
+      pushAuthExpireScreen();
     } catch (e) {
       print(e);
       setState(const ChannelModel(
-          result: ChannelDataResult.error(), loading: false));
+        result: ChannelDataResult.error(),
+        loading: false,
+      ));
     }
   }
 

@@ -51,27 +51,7 @@ class MyApp extends StatefulHookWidget {
   MyAppState createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp>
-    with WidgetsBindingObserver, TickerProviderStateMixin {
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed &&
-        HiveAuthClient.instance().maybeExpired)
-      context.read(pAppRouterDelegate).pushPage(const GlobalRoutePath.auth());
-  }
+class MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {

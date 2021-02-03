@@ -14,13 +14,13 @@ class _$SettingModelStateTearOff {
   const _$SettingModelStateTearOff();
 
 // ignore: unused_element
-  StatePreInitialized preInitialized() {
-    return const StatePreInitialized();
+  _StatePreInitialized preInitialized() {
+    return const _StatePreInitialized();
   }
 
 // ignore: unused_element
-  StateLoading loading() {
-    return const StateLoading();
+  _StateLoading loading() {
+    return const _StateLoading();
   }
 
 // ignore: unused_element
@@ -31,8 +31,8 @@ class _$SettingModelStateTearOff {
   }
 
 // ignore: unused_element
-  StateError error() {
-    return const StateError();
+  _StateError error() {
+    return const _StateError();
   }
 }
 
@@ -59,17 +59,17 @@ mixin _$SettingModelState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   });
 }
@@ -92,27 +92,27 @@ class _$SettingModelStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $StatePreInitializedCopyWith<$Res> {
-  factory $StatePreInitializedCopyWith(
-          StatePreInitialized value, $Res Function(StatePreInitialized) then) =
-      _$StatePreInitializedCopyWithImpl<$Res>;
+abstract class _$StatePreInitializedCopyWith<$Res> {
+  factory _$StatePreInitializedCopyWith(_StatePreInitialized value,
+          $Res Function(_StatePreInitialized) then) =
+      __$StatePreInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StatePreInitializedCopyWithImpl<$Res>
+class __$StatePreInitializedCopyWithImpl<$Res>
     extends _$SettingModelStateCopyWithImpl<$Res>
-    implements $StatePreInitializedCopyWith<$Res> {
-  _$StatePreInitializedCopyWithImpl(
-      StatePreInitialized _value, $Res Function(StatePreInitialized) _then)
-      : super(_value, (v) => _then(v as StatePreInitialized));
+    implements _$StatePreInitializedCopyWith<$Res> {
+  __$StatePreInitializedCopyWithImpl(
+      _StatePreInitialized _value, $Res Function(_StatePreInitialized) _then)
+      : super(_value, (v) => _then(v as _StatePreInitialized));
 
   @override
-  StatePreInitialized get _value => super._value as StatePreInitialized;
+  _StatePreInitialized get _value => super._value as _StatePreInitialized;
 }
 
 /// @nodoc
-class _$StatePreInitialized implements StatePreInitialized {
-  const _$StatePreInitialized();
+class _$_StatePreInitialized implements _StatePreInitialized {
+  const _$_StatePreInitialized();
 
   @override
   String toString() {
@@ -121,7 +121,7 @@ class _$StatePreInitialized implements StatePreInitialized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StatePreInitialized);
+    return identical(this, other) || (other is _StatePreInitialized);
   }
 
   @override
@@ -161,10 +161,10 @@ class _$StatePreInitialized implements StatePreInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -176,10 +176,10 @@ class _$StatePreInitialized implements StatePreInitialized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -190,32 +190,32 @@ class _$StatePreInitialized implements StatePreInitialized {
   }
 }
 
-abstract class StatePreInitialized implements SettingModelState {
-  const factory StatePreInitialized() = _$StatePreInitialized;
+abstract class _StatePreInitialized implements SettingModelState {
+  const factory _StatePreInitialized() = _$_StatePreInitialized;
 }
 
 /// @nodoc
-abstract class $StateLoadingCopyWith<$Res> {
-  factory $StateLoadingCopyWith(
-          StateLoading value, $Res Function(StateLoading) then) =
-      _$StateLoadingCopyWithImpl<$Res>;
+abstract class _$StateLoadingCopyWith<$Res> {
+  factory _$StateLoadingCopyWith(
+          _StateLoading value, $Res Function(_StateLoading) then) =
+      __$StateLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateLoadingCopyWithImpl<$Res>
+class __$StateLoadingCopyWithImpl<$Res>
     extends _$SettingModelStateCopyWithImpl<$Res>
-    implements $StateLoadingCopyWith<$Res> {
-  _$StateLoadingCopyWithImpl(
-      StateLoading _value, $Res Function(StateLoading) _then)
-      : super(_value, (v) => _then(v as StateLoading));
+    implements _$StateLoadingCopyWith<$Res> {
+  __$StateLoadingCopyWithImpl(
+      _StateLoading _value, $Res Function(_StateLoading) _then)
+      : super(_value, (v) => _then(v as _StateLoading));
 
   @override
-  StateLoading get _value => super._value as StateLoading;
+  _StateLoading get _value => super._value as _StateLoading;
 }
 
 /// @nodoc
-class _$StateLoading implements StateLoading {
-  const _$StateLoading();
+class _$_StateLoading implements _StateLoading {
+  const _$_StateLoading();
 
   @override
   String toString() {
@@ -224,7 +224,7 @@ class _$StateLoading implements StateLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateLoading);
+    return identical(this, other) || (other is _StateLoading);
   }
 
   @override
@@ -264,10 +264,10 @@ class _$StateLoading implements StateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -279,10 +279,10 @@ class _$StateLoading implements StateLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -293,8 +293,8 @@ class _$StateLoading implements StateLoading {
   }
 }
 
-abstract class StateLoading implements SettingModelState {
-  const factory StateLoading() = _$StateLoading;
+abstract class _StateLoading implements SettingModelState {
+  const factory _StateLoading() = _$_StateLoading;
 }
 
 /// @nodoc
@@ -400,10 +400,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -415,10 +415,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -437,26 +437,27 @@ abstract class StateSuccess implements SettingModelState {
 }
 
 /// @nodoc
-abstract class $StateErrorCopyWith<$Res> {
-  factory $StateErrorCopyWith(
-          StateError value, $Res Function(StateError) then) =
-      _$StateErrorCopyWithImpl<$Res>;
+abstract class _$StateErrorCopyWith<$Res> {
+  factory _$StateErrorCopyWith(
+          _StateError value, $Res Function(_StateError) then) =
+      __$StateErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateErrorCopyWithImpl<$Res>
+class __$StateErrorCopyWithImpl<$Res>
     extends _$SettingModelStateCopyWithImpl<$Res>
-    implements $StateErrorCopyWith<$Res> {
-  _$StateErrorCopyWithImpl(StateError _value, $Res Function(StateError) _then)
-      : super(_value, (v) => _then(v as StateError));
+    implements _$StateErrorCopyWith<$Res> {
+  __$StateErrorCopyWithImpl(
+      _StateError _value, $Res Function(_StateError) _then)
+      : super(_value, (v) => _then(v as _StateError));
 
   @override
-  StateError get _value => super._value as StateError;
+  _StateError get _value => super._value as _StateError;
 }
 
 /// @nodoc
-class _$StateError implements StateError {
-  const _$StateError();
+class _$_StateError implements _StateError {
+  const _$_StateError();
 
   @override
   String toString() {
@@ -465,7 +466,7 @@ class _$StateError implements StateError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateError);
+    return identical(this, other) || (other is _StateError);
   }
 
   @override
@@ -505,10 +506,10 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_StatePreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -520,10 +521,10 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(StatePreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_StatePreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -534,8 +535,8 @@ class _$StateError implements StateError {
   }
 }
 
-abstract class StateError implements SettingModelState {
-  const factory StateError() = _$StateError;
+abstract class _StateError implements SettingModelState {
+  const factory _StateError() = _$_StateError;
 }
 
 /// @nodoc

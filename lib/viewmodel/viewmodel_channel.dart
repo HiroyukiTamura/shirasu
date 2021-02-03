@@ -14,7 +14,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
       : super(
           reader,
           const ChannelModel(
-            result: PreInitialized(),
+            result: ChannelDataResult.preInitialized(),
             loading: false,
           ),
         );
@@ -27,7 +27,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
   @override
   Future<void> initialize() async {
-    if (!(state.result is PreInitialized)) return;
+    if (state.result != const ChannelDataResult.preInitialized()) return;
 
     try {
       state = const ChannelModel(

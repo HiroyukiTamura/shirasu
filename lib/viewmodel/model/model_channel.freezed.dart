@@ -168,13 +168,13 @@ class _$ChannelDataResultTearOff {
   const _$ChannelDataResultTearOff();
 
 // ignore: unused_element
-  PreInitialized preInitialized() {
-    return const PreInitialized();
+  _PreInitialized preInitialized() {
+    return const _PreInitialized();
   }
 
 // ignore: unused_element
-  Loading loading() {
-    return const Loading();
+  _Loading loading() {
+    return const _Loading();
   }
 
 // ignore: unused_element
@@ -185,8 +185,8 @@ class _$ChannelDataResultTearOff {
   }
 
 // ignore: unused_element
-  Error error() {
-    return const Error();
+  _Error error() {
+    return const _Error();
   }
 }
 
@@ -213,17 +213,17 @@ mixin _$ChannelDataResult {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(Loading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_Loading value),
     @required TResult success(Success value),
-    @required TResult error(Error value),
+    @required TResult error(_Error value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(Loading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_Loading value),
     TResult success(Success value),
-    TResult error(Error value),
+    TResult error(_Error value),
     @required TResult orElse(),
   });
 }
@@ -246,27 +246,27 @@ class _$ChannelDataResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $PreInitializedCopyWith<$Res> {
-  factory $PreInitializedCopyWith(
-          PreInitialized value, $Res Function(PreInitialized) then) =
-      _$PreInitializedCopyWithImpl<$Res>;
+abstract class _$PreInitializedCopyWith<$Res> {
+  factory _$PreInitializedCopyWith(
+          _PreInitialized value, $Res Function(_PreInitialized) then) =
+      __$PreInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PreInitializedCopyWithImpl<$Res>
+class __$PreInitializedCopyWithImpl<$Res>
     extends _$ChannelDataResultCopyWithImpl<$Res>
-    implements $PreInitializedCopyWith<$Res> {
-  _$PreInitializedCopyWithImpl(
-      PreInitialized _value, $Res Function(PreInitialized) _then)
-      : super(_value, (v) => _then(v as PreInitialized));
+    implements _$PreInitializedCopyWith<$Res> {
+  __$PreInitializedCopyWithImpl(
+      _PreInitialized _value, $Res Function(_PreInitialized) _then)
+      : super(_value, (v) => _then(v as _PreInitialized));
 
   @override
-  PreInitialized get _value => super._value as PreInitialized;
+  _PreInitialized get _value => super._value as _PreInitialized;
 }
 
 /// @nodoc
-class _$PreInitialized implements PreInitialized {
-  const _$PreInitialized();
+class _$_PreInitialized implements _PreInitialized {
+  const _$_PreInitialized();
 
   @override
   String toString() {
@@ -275,7 +275,7 @@ class _$PreInitialized implements PreInitialized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PreInitialized);
+    return identical(this, other) || (other is _PreInitialized);
   }
 
   @override
@@ -315,10 +315,10 @@ class _$PreInitialized implements PreInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(Loading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_Loading value),
     @required TResult success(Success value),
-    @required TResult error(Error value),
+    @required TResult error(_Error value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -330,10 +330,10 @@ class _$PreInitialized implements PreInitialized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(Loading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_Loading value),
     TResult success(Success value),
-    TResult error(Error value),
+    TResult error(_Error value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -344,29 +344,29 @@ class _$PreInitialized implements PreInitialized {
   }
 }
 
-abstract class PreInitialized implements ChannelDataResult {
-  const factory PreInitialized() = _$PreInitialized;
+abstract class _PreInitialized implements ChannelDataResult {
+  const factory _PreInitialized() = _$_PreInitialized;
 }
 
 /// @nodoc
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class _$LoadingCopyWith<$Res> {
+  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) then) =
+      __$LoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LoadingCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class __$LoadingCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
+    implements _$LoadingCopyWith<$Res> {
+  __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
+      : super(_value, (v) => _then(v as _Loading));
 
   @override
-  Loading get _value => super._value as Loading;
+  _Loading get _value => super._value as _Loading;
 }
 
 /// @nodoc
-class _$Loading implements Loading {
-  const _$Loading();
+class _$_Loading implements _Loading {
+  const _$_Loading();
 
   @override
   String toString() {
@@ -375,7 +375,7 @@ class _$Loading implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Loading);
+    return identical(this, other) || (other is _Loading);
   }
 
   @override
@@ -415,10 +415,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(Loading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_Loading value),
     @required TResult success(Success value),
-    @required TResult error(Error value),
+    @required TResult error(_Error value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -430,10 +430,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(Loading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_Loading value),
     TResult success(Success value),
-    TResult error(Error value),
+    TResult error(_Error value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -444,8 +444,8 @@ class _$Loading implements Loading {
   }
 }
 
-abstract class Loading implements ChannelDataResult {
-  const factory Loading() = _$Loading;
+abstract class _Loading implements ChannelDataResult {
+  const factory _Loading() = _$_Loading;
 }
 
 /// @nodoc
@@ -549,10 +549,10 @@ class _$Success implements Success {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(Loading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_Loading value),
     @required TResult success(Success value),
-    @required TResult error(Error value),
+    @required TResult error(_Error value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -564,10 +564,10 @@ class _$Success implements Success {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(Loading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_Loading value),
     TResult success(Success value),
-    TResult error(Error value),
+    TResult error(_Error value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -586,24 +586,24 @@ abstract class Success implements ChannelDataResult {
 }
 
 /// @nodoc
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
+abstract class _$ErrorCopyWith<$Res> {
+  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) then) =
+      __$ErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ErrorCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+class __$ErrorCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
+    implements _$ErrorCopyWith<$Res> {
+  __$ErrorCopyWithImpl(_Error _value, $Res Function(_Error) _then)
+      : super(_value, (v) => _then(v as _Error));
 
   @override
-  Error get _value => super._value as Error;
+  _Error get _value => super._value as _Error;
 }
 
 /// @nodoc
-class _$Error implements Error {
-  const _$Error();
+class _$_Error implements _Error {
+  const _$_Error();
 
   @override
   String toString() {
@@ -612,7 +612,7 @@ class _$Error implements Error {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Error);
+    return identical(this, other) || (other is _Error);
   }
 
   @override
@@ -652,10 +652,10 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(Loading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_Loading value),
     @required TResult success(Success value),
-    @required TResult error(Error value),
+    @required TResult error(_Error value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -667,10 +667,10 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(Loading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_Loading value),
     TResult success(Success value),
-    TResult error(Error value),
+    TResult error(_Error value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -681,6 +681,6 @@ class _$Error implements Error {
   }
 }
 
-abstract class Error implements ChannelDataResult {
-  const factory Error() = _$Error;
+abstract class _Error implements ChannelDataResult {
+  const factory _Error() = _$_Error;
 }

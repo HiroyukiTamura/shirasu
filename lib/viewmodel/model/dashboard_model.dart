@@ -41,14 +41,14 @@ abstract class DashboardModel implements _$DashboardModel {
   const DashboardModel._();
 
   factory DashboardModel.preInitialized() =>
-      const DashboardModel(state: StatePreInitialized());
+      const DashboardModel(state: DashboardState.preInitialized());
 
-  factory DashboardModel.error() => const DashboardModel(state: _StateError());
+  factory DashboardModel.error() => const DashboardModel(state: DashboardState.error());
 
   DashboardModel copyAsSuccess(ApiData apiData) =>
       copyWith(state: const StateSuccess(), apiData: apiData);
 
-  DashboardModel copyAsLoadMore() => copyWith(state: const _StateLoadMore());
+  DashboardModel copyAsLoadMore() => copyWith(state: const DashboardState.loadingMore());
 }
 
 @freezed

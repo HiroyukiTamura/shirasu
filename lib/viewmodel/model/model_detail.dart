@@ -54,9 +54,9 @@ abstract class ModelDetail implements _$ModelDetail {
 
 @freezed
 abstract class DetailModelState with _$DetailModelState {
-  const factory DetailModelState.preInitialized() = PreInitialized;
+  const factory DetailModelState.preInitialized() = _PreInitialized;
 
-  const factory DetailModelState.loading() = StateLoading;
+  const factory DetailModelState.loading() = _StateLoading;
 
   const factory DetailModelState.success({
     @required ProgramDetailData programDetailData,
@@ -64,7 +64,7 @@ abstract class DetailModelState with _$DetailModelState {
     @required PageSheetModel page,
   }) = StateSuccess;
 
-  const factory DetailModelState.error() = StateError;
+  const factory DetailModelState.error() = _StateError;
 }
 
 @freezed
@@ -124,16 +124,16 @@ abstract class PlayOutState implements _$PlayOutState {
 @freezed
 abstract class PlayerCommandedState with _$PlayerCommandedState {
   const factory PlayerCommandedState.playError() =
-      PlayerCommandedStatePlayError;
+      _PlayerCommandedStatePlayError;
 
-  const factory PlayerCommandedState.prePlay() = PlayerCommandedStatePrePlay;
+  const factory PlayerCommandedState.prePlay() = _PlayerCommandedStatePrePlay;
 
-  const factory PlayerCommandedState.postPlay() = PlayerCommandedStatePostPlay;
+  const factory PlayerCommandedState.postPlay() = _PlayerCommandedStatePostPlay;
 
   const factory PlayerCommandedState.initializing() =
-      PlayerCommandedStateInitializing;
+      _PlayerCommandedStateInitializing;
 
-  const factory PlayerCommandedState.error() = PlayerCommandedStateError;
+  const factory PlayerCommandedState.error() = _PlayerCommandedStateError;
 }
 
 @freezed
@@ -223,8 +223,8 @@ abstract class CommentsHolder implements _$CommentsHolder {
         rawUserPostedComment: [],
       );
 
-  // ignore: deprecated_member_use_from_same_package
   UnmodifiableListView<CommentItem> get userPostedComment =>
+      // ignore: deprecated_member_use_from_same_package
       rawUserPostedComment.toUnmodifiable()
           as UnmodifiableListView<CommentItem>;
 
@@ -320,7 +320,7 @@ abstract class CommentsState with _$CommentsState {
   const factory CommentsState.loadingMore(LoadingState loadingState) =
       CommentsStateLoadingMore;
 
-  const factory CommentsState.error() = CommentsStateErr;
+  const factory CommentsState.error() = _CommentsStateErr;
 }
 
 @freezed

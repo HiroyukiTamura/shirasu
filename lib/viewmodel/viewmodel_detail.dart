@@ -247,7 +247,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final commentState = state.commentHolder.state;
 
     if ((commentState is CommentsStateLoadingMore) ||
-        commentState is CommentsStateErr) return false;
+        commentState == const CommentsState.error()) return false;
 
     return true;
   }

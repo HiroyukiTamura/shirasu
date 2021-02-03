@@ -5,13 +5,13 @@ part 'model_setting.freezed.dart';
 
 @freezed
 abstract class SettingModelState with _$SettingModelState {
-  const factory SettingModelState.preInitialized() = StatePreInitialized;
+  const factory SettingModelState.preInitialized() = _StatePreInitialized;
 
-  const factory SettingModelState.loading() = StateLoading;
+  const factory SettingModelState.loading() = _StateLoading;
 
   const factory SettingModelState.success(Viewer data) = StateSuccess;
 
-  const factory SettingModelState.error() = StateError;
+  const factory SettingModelState.error() = _StateError;
 }
 
 @freezed
@@ -38,7 +38,7 @@ abstract class SettingModel with _$SettingModel {
   }) = _SettingModel;
 
   factory SettingModel.initial() => const SettingModel(
-        settingModelState: StatePreInitialized(),
+        settingModelState: SettingModelState.preInitialized(),
         editedUserInfo: EditedUserInfo(),
         uploadingProfile: false,
       );

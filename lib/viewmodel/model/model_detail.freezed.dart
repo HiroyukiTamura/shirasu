@@ -297,13 +297,13 @@ class _$DetailModelStateTearOff {
   const _$DetailModelStateTearOff();
 
 // ignore: unused_element
-  PreInitialized preInitialized() {
-    return const PreInitialized();
+  _PreInitialized preInitialized() {
+    return const _PreInitialized();
   }
 
 // ignore: unused_element
-  StateLoading loading() {
-    return const StateLoading();
+  _StateLoading loading() {
+    return const _StateLoading();
   }
 
 // ignore: unused_element
@@ -319,8 +319,8 @@ class _$DetailModelStateTearOff {
   }
 
 // ignore: unused_element
-  StateError error() {
-    return const StateError();
+  _StateError error() {
+    return const _StateError();
   }
 }
 
@@ -350,17 +350,17 @@ mixin _$DetailModelState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   });
 }
@@ -383,27 +383,27 @@ class _$DetailModelStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $PreInitializedCopyWith<$Res> {
-  factory $PreInitializedCopyWith(
-          PreInitialized value, $Res Function(PreInitialized) then) =
-      _$PreInitializedCopyWithImpl<$Res>;
+abstract class _$PreInitializedCopyWith<$Res> {
+  factory _$PreInitializedCopyWith(
+          _PreInitialized value, $Res Function(_PreInitialized) then) =
+      __$PreInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PreInitializedCopyWithImpl<$Res>
+class __$PreInitializedCopyWithImpl<$Res>
     extends _$DetailModelStateCopyWithImpl<$Res>
-    implements $PreInitializedCopyWith<$Res> {
-  _$PreInitializedCopyWithImpl(
-      PreInitialized _value, $Res Function(PreInitialized) _then)
-      : super(_value, (v) => _then(v as PreInitialized));
+    implements _$PreInitializedCopyWith<$Res> {
+  __$PreInitializedCopyWithImpl(
+      _PreInitialized _value, $Res Function(_PreInitialized) _then)
+      : super(_value, (v) => _then(v as _PreInitialized));
 
   @override
-  PreInitialized get _value => super._value as PreInitialized;
+  _PreInitialized get _value => super._value as _PreInitialized;
 }
 
 /// @nodoc
-class _$PreInitialized implements PreInitialized {
-  const _$PreInitialized();
+class _$_PreInitialized implements _PreInitialized {
+  const _$_PreInitialized();
 
   @override
   String toString() {
@@ -412,7 +412,7 @@ class _$PreInitialized implements PreInitialized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PreInitialized);
+    return identical(this, other) || (other is _PreInitialized);
   }
 
   @override
@@ -455,10 +455,10 @@ class _$PreInitialized implements PreInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -470,10 +470,10 @@ class _$PreInitialized implements PreInitialized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -484,32 +484,32 @@ class _$PreInitialized implements PreInitialized {
   }
 }
 
-abstract class PreInitialized implements DetailModelState {
-  const factory PreInitialized() = _$PreInitialized;
+abstract class _PreInitialized implements DetailModelState {
+  const factory _PreInitialized() = _$_PreInitialized;
 }
 
 /// @nodoc
-abstract class $StateLoadingCopyWith<$Res> {
-  factory $StateLoadingCopyWith(
-          StateLoading value, $Res Function(StateLoading) then) =
-      _$StateLoadingCopyWithImpl<$Res>;
+abstract class _$StateLoadingCopyWith<$Res> {
+  factory _$StateLoadingCopyWith(
+          _StateLoading value, $Res Function(_StateLoading) then) =
+      __$StateLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateLoadingCopyWithImpl<$Res>
+class __$StateLoadingCopyWithImpl<$Res>
     extends _$DetailModelStateCopyWithImpl<$Res>
-    implements $StateLoadingCopyWith<$Res> {
-  _$StateLoadingCopyWithImpl(
-      StateLoading _value, $Res Function(StateLoading) _then)
-      : super(_value, (v) => _then(v as StateLoading));
+    implements _$StateLoadingCopyWith<$Res> {
+  __$StateLoadingCopyWithImpl(
+      _StateLoading _value, $Res Function(_StateLoading) _then)
+      : super(_value, (v) => _then(v as _StateLoading));
 
   @override
-  StateLoading get _value => super._value as StateLoading;
+  _StateLoading get _value => super._value as _StateLoading;
 }
 
 /// @nodoc
-class _$StateLoading implements StateLoading {
-  const _$StateLoading();
+class _$_StateLoading implements _StateLoading {
+  const _$_StateLoading();
 
   @override
   String toString() {
@@ -518,7 +518,7 @@ class _$StateLoading implements StateLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateLoading);
+    return identical(this, other) || (other is _StateLoading);
   }
 
   @override
@@ -561,10 +561,10 @@ class _$StateLoading implements StateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -576,10 +576,10 @@ class _$StateLoading implements StateLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -590,8 +590,8 @@ class _$StateLoading implements StateLoading {
   }
 }
 
-abstract class StateLoading implements DetailModelState {
-  const factory StateLoading() = _$StateLoading;
+abstract class _StateLoading implements DetailModelState {
+  const factory _StateLoading() = _$_StateLoading;
 }
 
 /// @nodoc
@@ -752,10 +752,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -767,10 +767,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -794,26 +794,27 @@ abstract class StateSuccess implements DetailModelState {
 }
 
 /// @nodoc
-abstract class $StateErrorCopyWith<$Res> {
-  factory $StateErrorCopyWith(
-          StateError value, $Res Function(StateError) then) =
-      _$StateErrorCopyWithImpl<$Res>;
+abstract class _$StateErrorCopyWith<$Res> {
+  factory _$StateErrorCopyWith(
+          _StateError value, $Res Function(_StateError) then) =
+      __$StateErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$StateErrorCopyWithImpl<$Res>
+class __$StateErrorCopyWithImpl<$Res>
     extends _$DetailModelStateCopyWithImpl<$Res>
-    implements $StateErrorCopyWith<$Res> {
-  _$StateErrorCopyWithImpl(StateError _value, $Res Function(StateError) _then)
-      : super(_value, (v) => _then(v as StateError));
+    implements _$StateErrorCopyWith<$Res> {
+  __$StateErrorCopyWithImpl(
+      _StateError _value, $Res Function(_StateError) _then)
+      : super(_value, (v) => _then(v as _StateError));
 
   @override
-  StateError get _value => super._value as StateError;
+  _StateError get _value => super._value as _StateError;
 }
 
 /// @nodoc
-class _$StateError implements StateError {
-  const _$StateError();
+class _$_StateError implements _StateError {
+  const _$_StateError();
 
   @override
   String toString() {
@@ -822,7 +823,7 @@ class _$StateError implements StateError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateError);
+    return identical(this, other) || (other is _StateError);
   }
 
   @override
@@ -865,10 +866,10 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(PreInitialized value),
-    @required TResult loading(StateLoading value),
+    @required TResult preInitialized(_PreInitialized value),
+    @required TResult loading(_StateLoading value),
     @required TResult success(StateSuccess value),
-    @required TResult error(StateError value),
+    @required TResult error(_StateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -880,10 +881,10 @@ class _$StateError implements StateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(PreInitialized value),
-    TResult loading(StateLoading value),
+    TResult preInitialized(_PreInitialized value),
+    TResult loading(_StateLoading value),
     TResult success(StateSuccess value),
-    TResult error(StateError value),
+    TResult error(_StateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -894,8 +895,8 @@ class _$StateError implements StateError {
   }
 }
 
-abstract class StateError implements DetailModelState {
-  const factory StateError() = _$StateError;
+abstract class _StateError implements DetailModelState {
+  const factory _StateError() = _$_StateError;
 }
 
 /// @nodoc
@@ -1383,28 +1384,28 @@ class _$PlayerCommandedStateTearOff {
   const _$PlayerCommandedStateTearOff();
 
 // ignore: unused_element
-  PlayerCommandedStatePlayError playError() {
-    return const PlayerCommandedStatePlayError();
+  _PlayerCommandedStatePlayError playError() {
+    return const _PlayerCommandedStatePlayError();
   }
 
 // ignore: unused_element
-  PlayerCommandedStatePrePlay prePlay() {
-    return const PlayerCommandedStatePrePlay();
+  _PlayerCommandedStatePrePlay prePlay() {
+    return const _PlayerCommandedStatePrePlay();
   }
 
 // ignore: unused_element
-  PlayerCommandedStatePostPlay postPlay() {
-    return const PlayerCommandedStatePostPlay();
+  _PlayerCommandedStatePostPlay postPlay() {
+    return const _PlayerCommandedStatePostPlay();
   }
 
 // ignore: unused_element
-  PlayerCommandedStateInitializing initializing() {
-    return const PlayerCommandedStateInitializing();
+  _PlayerCommandedStateInitializing initializing() {
+    return const _PlayerCommandedStateInitializing();
   }
 
 // ignore: unused_element
-  PlayerCommandedStateError error() {
-    return const PlayerCommandedStateError();
+  _PlayerCommandedStateError error() {
+    return const _PlayerCommandedStateError();
   }
 }
 
@@ -1433,19 +1434,19 @@ mixin _$PlayerCommandedState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(PlayerCommandedStatePlayError value),
-    @required TResult prePlay(PlayerCommandedStatePrePlay value),
-    @required TResult postPlay(PlayerCommandedStatePostPlay value),
-    @required TResult initializing(PlayerCommandedStateInitializing value),
-    @required TResult error(PlayerCommandedStateError value),
+    @required TResult playError(_PlayerCommandedStatePlayError value),
+    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult initializing(_PlayerCommandedStateInitializing value),
+    @required TResult error(_PlayerCommandedStateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(PlayerCommandedStatePlayError value),
-    TResult prePlay(PlayerCommandedStatePrePlay value),
-    TResult postPlay(PlayerCommandedStatePostPlay value),
-    TResult initializing(PlayerCommandedStateInitializing value),
-    TResult error(PlayerCommandedStateError value),
+    TResult playError(_PlayerCommandedStatePlayError value),
+    TResult prePlay(_PlayerCommandedStatePrePlay value),
+    TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult initializing(_PlayerCommandedStateInitializing value),
+    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   });
 }
@@ -1468,30 +1469,31 @@ class _$PlayerCommandedStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $PlayerCommandedStatePlayErrorCopyWith<$Res> {
-  factory $PlayerCommandedStatePlayErrorCopyWith(
-          PlayerCommandedStatePlayError value,
-          $Res Function(PlayerCommandedStatePlayError) then) =
-      _$PlayerCommandedStatePlayErrorCopyWithImpl<$Res>;
+abstract class _$PlayerCommandedStatePlayErrorCopyWith<$Res> {
+  factory _$PlayerCommandedStatePlayErrorCopyWith(
+          _PlayerCommandedStatePlayError value,
+          $Res Function(_PlayerCommandedStatePlayError) then) =
+      __$PlayerCommandedStatePlayErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PlayerCommandedStatePlayErrorCopyWithImpl<$Res>
+class __$PlayerCommandedStatePlayErrorCopyWithImpl<$Res>
     extends _$PlayerCommandedStateCopyWithImpl<$Res>
-    implements $PlayerCommandedStatePlayErrorCopyWith<$Res> {
-  _$PlayerCommandedStatePlayErrorCopyWithImpl(
-      PlayerCommandedStatePlayError _value,
-      $Res Function(PlayerCommandedStatePlayError) _then)
-      : super(_value, (v) => _then(v as PlayerCommandedStatePlayError));
+    implements _$PlayerCommandedStatePlayErrorCopyWith<$Res> {
+  __$PlayerCommandedStatePlayErrorCopyWithImpl(
+      _PlayerCommandedStatePlayError _value,
+      $Res Function(_PlayerCommandedStatePlayError) _then)
+      : super(_value, (v) => _then(v as _PlayerCommandedStatePlayError));
 
   @override
-  PlayerCommandedStatePlayError get _value =>
-      super._value as PlayerCommandedStatePlayError;
+  _PlayerCommandedStatePlayError get _value =>
+      super._value as _PlayerCommandedStatePlayError;
 }
 
 /// @nodoc
-class _$PlayerCommandedStatePlayError implements PlayerCommandedStatePlayError {
-  const _$PlayerCommandedStatePlayError();
+class _$_PlayerCommandedStatePlayError
+    implements _PlayerCommandedStatePlayError {
+  const _$_PlayerCommandedStatePlayError();
 
   @override
   String toString() {
@@ -1500,7 +1502,7 @@ class _$PlayerCommandedStatePlayError implements PlayerCommandedStatePlayError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PlayerCommandedStatePlayError);
+    return identical(this, other) || (other is _PlayerCommandedStatePlayError);
   }
 
   @override
@@ -1543,11 +1545,11 @@ class _$PlayerCommandedStatePlayError implements PlayerCommandedStatePlayError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(PlayerCommandedStatePlayError value),
-    @required TResult prePlay(PlayerCommandedStatePrePlay value),
-    @required TResult postPlay(PlayerCommandedStatePostPlay value),
-    @required TResult initializing(PlayerCommandedStateInitializing value),
-    @required TResult error(PlayerCommandedStateError value),
+    @required TResult playError(_PlayerCommandedStatePlayError value),
+    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult initializing(_PlayerCommandedStateInitializing value),
+    @required TResult error(_PlayerCommandedStateError value),
   }) {
     assert(playError != null);
     assert(prePlay != null);
@@ -1560,11 +1562,11 @@ class _$PlayerCommandedStatePlayError implements PlayerCommandedStatePlayError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(PlayerCommandedStatePlayError value),
-    TResult prePlay(PlayerCommandedStatePrePlay value),
-    TResult postPlay(PlayerCommandedStatePostPlay value),
-    TResult initializing(PlayerCommandedStateInitializing value),
-    TResult error(PlayerCommandedStateError value),
+    TResult playError(_PlayerCommandedStatePlayError value),
+    TResult prePlay(_PlayerCommandedStatePrePlay value),
+    TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult initializing(_PlayerCommandedStateInitializing value),
+    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1575,35 +1577,36 @@ class _$PlayerCommandedStatePlayError implements PlayerCommandedStatePlayError {
   }
 }
 
-abstract class PlayerCommandedStatePlayError implements PlayerCommandedState {
-  const factory PlayerCommandedStatePlayError() =
-      _$PlayerCommandedStatePlayError;
+abstract class _PlayerCommandedStatePlayError implements PlayerCommandedState {
+  const factory _PlayerCommandedStatePlayError() =
+      _$_PlayerCommandedStatePlayError;
 }
 
 /// @nodoc
-abstract class $PlayerCommandedStatePrePlayCopyWith<$Res> {
-  factory $PlayerCommandedStatePrePlayCopyWith(
-          PlayerCommandedStatePrePlay value,
-          $Res Function(PlayerCommandedStatePrePlay) then) =
-      _$PlayerCommandedStatePrePlayCopyWithImpl<$Res>;
+abstract class _$PlayerCommandedStatePrePlayCopyWith<$Res> {
+  factory _$PlayerCommandedStatePrePlayCopyWith(
+          _PlayerCommandedStatePrePlay value,
+          $Res Function(_PlayerCommandedStatePrePlay) then) =
+      __$PlayerCommandedStatePrePlayCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PlayerCommandedStatePrePlayCopyWithImpl<$Res>
+class __$PlayerCommandedStatePrePlayCopyWithImpl<$Res>
     extends _$PlayerCommandedStateCopyWithImpl<$Res>
-    implements $PlayerCommandedStatePrePlayCopyWith<$Res> {
-  _$PlayerCommandedStatePrePlayCopyWithImpl(PlayerCommandedStatePrePlay _value,
-      $Res Function(PlayerCommandedStatePrePlay) _then)
-      : super(_value, (v) => _then(v as PlayerCommandedStatePrePlay));
+    implements _$PlayerCommandedStatePrePlayCopyWith<$Res> {
+  __$PlayerCommandedStatePrePlayCopyWithImpl(
+      _PlayerCommandedStatePrePlay _value,
+      $Res Function(_PlayerCommandedStatePrePlay) _then)
+      : super(_value, (v) => _then(v as _PlayerCommandedStatePrePlay));
 
   @override
-  PlayerCommandedStatePrePlay get _value =>
-      super._value as PlayerCommandedStatePrePlay;
+  _PlayerCommandedStatePrePlay get _value =>
+      super._value as _PlayerCommandedStatePrePlay;
 }
 
 /// @nodoc
-class _$PlayerCommandedStatePrePlay implements PlayerCommandedStatePrePlay {
-  const _$PlayerCommandedStatePrePlay();
+class _$_PlayerCommandedStatePrePlay implements _PlayerCommandedStatePrePlay {
+  const _$_PlayerCommandedStatePrePlay();
 
   @override
   String toString() {
@@ -1612,7 +1615,7 @@ class _$PlayerCommandedStatePrePlay implements PlayerCommandedStatePrePlay {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PlayerCommandedStatePrePlay);
+    return identical(this, other) || (other is _PlayerCommandedStatePrePlay);
   }
 
   @override
@@ -1655,11 +1658,11 @@ class _$PlayerCommandedStatePrePlay implements PlayerCommandedStatePrePlay {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(PlayerCommandedStatePlayError value),
-    @required TResult prePlay(PlayerCommandedStatePrePlay value),
-    @required TResult postPlay(PlayerCommandedStatePostPlay value),
-    @required TResult initializing(PlayerCommandedStateInitializing value),
-    @required TResult error(PlayerCommandedStateError value),
+    @required TResult playError(_PlayerCommandedStatePlayError value),
+    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult initializing(_PlayerCommandedStateInitializing value),
+    @required TResult error(_PlayerCommandedStateError value),
   }) {
     assert(playError != null);
     assert(prePlay != null);
@@ -1672,11 +1675,11 @@ class _$PlayerCommandedStatePrePlay implements PlayerCommandedStatePrePlay {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(PlayerCommandedStatePlayError value),
-    TResult prePlay(PlayerCommandedStatePrePlay value),
-    TResult postPlay(PlayerCommandedStatePostPlay value),
-    TResult initializing(PlayerCommandedStateInitializing value),
-    TResult error(PlayerCommandedStateError value),
+    TResult playError(_PlayerCommandedStatePlayError value),
+    TResult prePlay(_PlayerCommandedStatePrePlay value),
+    TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult initializing(_PlayerCommandedStateInitializing value),
+    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1687,35 +1690,35 @@ class _$PlayerCommandedStatePrePlay implements PlayerCommandedStatePrePlay {
   }
 }
 
-abstract class PlayerCommandedStatePrePlay implements PlayerCommandedState {
-  const factory PlayerCommandedStatePrePlay() = _$PlayerCommandedStatePrePlay;
+abstract class _PlayerCommandedStatePrePlay implements PlayerCommandedState {
+  const factory _PlayerCommandedStatePrePlay() = _$_PlayerCommandedStatePrePlay;
 }
 
 /// @nodoc
-abstract class $PlayerCommandedStatePostPlayCopyWith<$Res> {
-  factory $PlayerCommandedStatePostPlayCopyWith(
-          PlayerCommandedStatePostPlay value,
-          $Res Function(PlayerCommandedStatePostPlay) then) =
-      _$PlayerCommandedStatePostPlayCopyWithImpl<$Res>;
+abstract class _$PlayerCommandedStatePostPlayCopyWith<$Res> {
+  factory _$PlayerCommandedStatePostPlayCopyWith(
+          _PlayerCommandedStatePostPlay value,
+          $Res Function(_PlayerCommandedStatePostPlay) then) =
+      __$PlayerCommandedStatePostPlayCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PlayerCommandedStatePostPlayCopyWithImpl<$Res>
+class __$PlayerCommandedStatePostPlayCopyWithImpl<$Res>
     extends _$PlayerCommandedStateCopyWithImpl<$Res>
-    implements $PlayerCommandedStatePostPlayCopyWith<$Res> {
-  _$PlayerCommandedStatePostPlayCopyWithImpl(
-      PlayerCommandedStatePostPlay _value,
-      $Res Function(PlayerCommandedStatePostPlay) _then)
-      : super(_value, (v) => _then(v as PlayerCommandedStatePostPlay));
+    implements _$PlayerCommandedStatePostPlayCopyWith<$Res> {
+  __$PlayerCommandedStatePostPlayCopyWithImpl(
+      _PlayerCommandedStatePostPlay _value,
+      $Res Function(_PlayerCommandedStatePostPlay) _then)
+      : super(_value, (v) => _then(v as _PlayerCommandedStatePostPlay));
 
   @override
-  PlayerCommandedStatePostPlay get _value =>
-      super._value as PlayerCommandedStatePostPlay;
+  _PlayerCommandedStatePostPlay get _value =>
+      super._value as _PlayerCommandedStatePostPlay;
 }
 
 /// @nodoc
-class _$PlayerCommandedStatePostPlay implements PlayerCommandedStatePostPlay {
-  const _$PlayerCommandedStatePostPlay();
+class _$_PlayerCommandedStatePostPlay implements _PlayerCommandedStatePostPlay {
+  const _$_PlayerCommandedStatePostPlay();
 
   @override
   String toString() {
@@ -1724,7 +1727,7 @@ class _$PlayerCommandedStatePostPlay implements PlayerCommandedStatePostPlay {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PlayerCommandedStatePostPlay);
+    return identical(this, other) || (other is _PlayerCommandedStatePostPlay);
   }
 
   @override
@@ -1767,11 +1770,11 @@ class _$PlayerCommandedStatePostPlay implements PlayerCommandedStatePostPlay {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(PlayerCommandedStatePlayError value),
-    @required TResult prePlay(PlayerCommandedStatePrePlay value),
-    @required TResult postPlay(PlayerCommandedStatePostPlay value),
-    @required TResult initializing(PlayerCommandedStateInitializing value),
-    @required TResult error(PlayerCommandedStateError value),
+    @required TResult playError(_PlayerCommandedStatePlayError value),
+    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult initializing(_PlayerCommandedStateInitializing value),
+    @required TResult error(_PlayerCommandedStateError value),
   }) {
     assert(playError != null);
     assert(prePlay != null);
@@ -1784,11 +1787,11 @@ class _$PlayerCommandedStatePostPlay implements PlayerCommandedStatePostPlay {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(PlayerCommandedStatePlayError value),
-    TResult prePlay(PlayerCommandedStatePrePlay value),
-    TResult postPlay(PlayerCommandedStatePostPlay value),
-    TResult initializing(PlayerCommandedStateInitializing value),
-    TResult error(PlayerCommandedStateError value),
+    TResult playError(_PlayerCommandedStatePlayError value),
+    TResult prePlay(_PlayerCommandedStatePrePlay value),
+    TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult initializing(_PlayerCommandedStateInitializing value),
+    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1799,36 +1802,37 @@ class _$PlayerCommandedStatePostPlay implements PlayerCommandedStatePostPlay {
   }
 }
 
-abstract class PlayerCommandedStatePostPlay implements PlayerCommandedState {
-  const factory PlayerCommandedStatePostPlay() = _$PlayerCommandedStatePostPlay;
+abstract class _PlayerCommandedStatePostPlay implements PlayerCommandedState {
+  const factory _PlayerCommandedStatePostPlay() =
+      _$_PlayerCommandedStatePostPlay;
 }
 
 /// @nodoc
-abstract class $PlayerCommandedStateInitializingCopyWith<$Res> {
-  factory $PlayerCommandedStateInitializingCopyWith(
-          PlayerCommandedStateInitializing value,
-          $Res Function(PlayerCommandedStateInitializing) then) =
-      _$PlayerCommandedStateInitializingCopyWithImpl<$Res>;
+abstract class _$PlayerCommandedStateInitializingCopyWith<$Res> {
+  factory _$PlayerCommandedStateInitializingCopyWith(
+          _PlayerCommandedStateInitializing value,
+          $Res Function(_PlayerCommandedStateInitializing) then) =
+      __$PlayerCommandedStateInitializingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PlayerCommandedStateInitializingCopyWithImpl<$Res>
+class __$PlayerCommandedStateInitializingCopyWithImpl<$Res>
     extends _$PlayerCommandedStateCopyWithImpl<$Res>
-    implements $PlayerCommandedStateInitializingCopyWith<$Res> {
-  _$PlayerCommandedStateInitializingCopyWithImpl(
-      PlayerCommandedStateInitializing _value,
-      $Res Function(PlayerCommandedStateInitializing) _then)
-      : super(_value, (v) => _then(v as PlayerCommandedStateInitializing));
+    implements _$PlayerCommandedStateInitializingCopyWith<$Res> {
+  __$PlayerCommandedStateInitializingCopyWithImpl(
+      _PlayerCommandedStateInitializing _value,
+      $Res Function(_PlayerCommandedStateInitializing) _then)
+      : super(_value, (v) => _then(v as _PlayerCommandedStateInitializing));
 
   @override
-  PlayerCommandedStateInitializing get _value =>
-      super._value as PlayerCommandedStateInitializing;
+  _PlayerCommandedStateInitializing get _value =>
+      super._value as _PlayerCommandedStateInitializing;
 }
 
 /// @nodoc
-class _$PlayerCommandedStateInitializing
-    implements PlayerCommandedStateInitializing {
-  const _$PlayerCommandedStateInitializing();
+class _$_PlayerCommandedStateInitializing
+    implements _PlayerCommandedStateInitializing {
+  const _$_PlayerCommandedStateInitializing();
 
   @override
   String toString() {
@@ -1838,7 +1842,7 @@ class _$PlayerCommandedStateInitializing
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is PlayerCommandedStateInitializing);
+        (other is _PlayerCommandedStateInitializing);
   }
 
   @override
@@ -1881,11 +1885,11 @@ class _$PlayerCommandedStateInitializing
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(PlayerCommandedStatePlayError value),
-    @required TResult prePlay(PlayerCommandedStatePrePlay value),
-    @required TResult postPlay(PlayerCommandedStatePostPlay value),
-    @required TResult initializing(PlayerCommandedStateInitializing value),
-    @required TResult error(PlayerCommandedStateError value),
+    @required TResult playError(_PlayerCommandedStatePlayError value),
+    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult initializing(_PlayerCommandedStateInitializing value),
+    @required TResult error(_PlayerCommandedStateError value),
   }) {
     assert(playError != null);
     assert(prePlay != null);
@@ -1898,11 +1902,11 @@ class _$PlayerCommandedStateInitializing
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(PlayerCommandedStatePlayError value),
-    TResult prePlay(PlayerCommandedStatePrePlay value),
-    TResult postPlay(PlayerCommandedStatePostPlay value),
-    TResult initializing(PlayerCommandedStateInitializing value),
-    TResult error(PlayerCommandedStateError value),
+    TResult playError(_PlayerCommandedStatePlayError value),
+    TResult prePlay(_PlayerCommandedStatePrePlay value),
+    TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult initializing(_PlayerCommandedStateInitializing value),
+    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1913,35 +1917,35 @@ class _$PlayerCommandedStateInitializing
   }
 }
 
-abstract class PlayerCommandedStateInitializing
+abstract class _PlayerCommandedStateInitializing
     implements PlayerCommandedState {
-  const factory PlayerCommandedStateInitializing() =
-      _$PlayerCommandedStateInitializing;
+  const factory _PlayerCommandedStateInitializing() =
+      _$_PlayerCommandedStateInitializing;
 }
 
 /// @nodoc
-abstract class $PlayerCommandedStateErrorCopyWith<$Res> {
-  factory $PlayerCommandedStateErrorCopyWith(PlayerCommandedStateError value,
-          $Res Function(PlayerCommandedStateError) then) =
-      _$PlayerCommandedStateErrorCopyWithImpl<$Res>;
+abstract class _$PlayerCommandedStateErrorCopyWith<$Res> {
+  factory _$PlayerCommandedStateErrorCopyWith(_PlayerCommandedStateError value,
+          $Res Function(_PlayerCommandedStateError) then) =
+      __$PlayerCommandedStateErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PlayerCommandedStateErrorCopyWithImpl<$Res>
+class __$PlayerCommandedStateErrorCopyWithImpl<$Res>
     extends _$PlayerCommandedStateCopyWithImpl<$Res>
-    implements $PlayerCommandedStateErrorCopyWith<$Res> {
-  _$PlayerCommandedStateErrorCopyWithImpl(PlayerCommandedStateError _value,
-      $Res Function(PlayerCommandedStateError) _then)
-      : super(_value, (v) => _then(v as PlayerCommandedStateError));
+    implements _$PlayerCommandedStateErrorCopyWith<$Res> {
+  __$PlayerCommandedStateErrorCopyWithImpl(_PlayerCommandedStateError _value,
+      $Res Function(_PlayerCommandedStateError) _then)
+      : super(_value, (v) => _then(v as _PlayerCommandedStateError));
 
   @override
-  PlayerCommandedStateError get _value =>
-      super._value as PlayerCommandedStateError;
+  _PlayerCommandedStateError get _value =>
+      super._value as _PlayerCommandedStateError;
 }
 
 /// @nodoc
-class _$PlayerCommandedStateError implements PlayerCommandedStateError {
-  const _$PlayerCommandedStateError();
+class _$_PlayerCommandedStateError implements _PlayerCommandedStateError {
+  const _$_PlayerCommandedStateError();
 
   @override
   String toString() {
@@ -1950,7 +1954,7 @@ class _$PlayerCommandedStateError implements PlayerCommandedStateError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PlayerCommandedStateError);
+    return identical(this, other) || (other is _PlayerCommandedStateError);
   }
 
   @override
@@ -1993,11 +1997,11 @@ class _$PlayerCommandedStateError implements PlayerCommandedStateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(PlayerCommandedStatePlayError value),
-    @required TResult prePlay(PlayerCommandedStatePrePlay value),
-    @required TResult postPlay(PlayerCommandedStatePostPlay value),
-    @required TResult initializing(PlayerCommandedStateInitializing value),
-    @required TResult error(PlayerCommandedStateError value),
+    @required TResult playError(_PlayerCommandedStatePlayError value),
+    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult initializing(_PlayerCommandedStateInitializing value),
+    @required TResult error(_PlayerCommandedStateError value),
   }) {
     assert(playError != null);
     assert(prePlay != null);
@@ -2010,11 +2014,11 @@ class _$PlayerCommandedStateError implements PlayerCommandedStateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(PlayerCommandedStatePlayError value),
-    TResult prePlay(PlayerCommandedStatePrePlay value),
-    TResult postPlay(PlayerCommandedStatePostPlay value),
-    TResult initializing(PlayerCommandedStateInitializing value),
-    TResult error(PlayerCommandedStateError value),
+    TResult playError(_PlayerCommandedStatePlayError value),
+    TResult prePlay(_PlayerCommandedStatePrePlay value),
+    TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult initializing(_PlayerCommandedStateInitializing value),
+    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2025,8 +2029,8 @@ class _$PlayerCommandedStateError implements PlayerCommandedStateError {
   }
 }
 
-abstract class PlayerCommandedStateError implements PlayerCommandedState {
-  const factory PlayerCommandedStateError() = _$PlayerCommandedStateError;
+abstract class _PlayerCommandedStateError implements PlayerCommandedState {
+  const factory _PlayerCommandedStateError() = _$_PlayerCommandedStateError;
 }
 
 /// @nodoc
@@ -4471,8 +4475,8 @@ class _$CommentsStateTearOff {
   }
 
 // ignore: unused_element
-  CommentsStateErr error() {
-    return const CommentsStateErr();
+  _CommentsStateErr error() {
+    return const _CommentsStateErr();
   }
 }
 
@@ -4502,14 +4506,14 @@ mixin _$CommentsState {
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
     @required TResult loadingMore(CommentsStateLoadingMore value),
-    @required TResult error(CommentsStateErr value),
+    @required TResult error(_CommentsStateErr value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
     TResult loadingMore(CommentsStateLoadingMore value),
-    TResult error(CommentsStateErr value),
+    TResult error(_CommentsStateErr value),
     @required TResult orElse(),
   });
 }
@@ -4604,7 +4608,7 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
     @required TResult loadingMore(CommentsStateLoadingMore value),
-    @required TResult error(CommentsStateErr value),
+    @required TResult error(_CommentsStateErr value),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4619,7 +4623,7 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
     TResult loadingMore(CommentsStateLoadingMore value),
-    TResult error(CommentsStateErr value),
+    TResult error(_CommentsStateErr value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4707,7 +4711,7 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
     @required TResult loadingMore(CommentsStateLoadingMore value),
-    @required TResult error(CommentsStateErr value),
+    @required TResult error(_CommentsStateErr value),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4722,7 +4726,7 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
     TResult loadingMore(CommentsStateLoadingMore value),
-    TResult error(CommentsStateErr value),
+    TResult error(_CommentsStateErr value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4837,7 +4841,7 @@ class _$CommentsStateLoadingMore implements CommentsStateLoadingMore {
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
     @required TResult loadingMore(CommentsStateLoadingMore value),
-    @required TResult error(CommentsStateErr value),
+    @required TResult error(_CommentsStateErr value),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4852,7 +4856,7 @@ class _$CommentsStateLoadingMore implements CommentsStateLoadingMore {
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
     TResult loadingMore(CommentsStateLoadingMore value),
-    TResult error(CommentsStateErr value),
+    TResult error(_CommentsStateErr value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4872,27 +4876,27 @@ abstract class CommentsStateLoadingMore implements CommentsState {
 }
 
 /// @nodoc
-abstract class $CommentsStateErrCopyWith<$Res> {
-  factory $CommentsStateErrCopyWith(
-          CommentsStateErr value, $Res Function(CommentsStateErr) then) =
-      _$CommentsStateErrCopyWithImpl<$Res>;
+abstract class _$CommentsStateErrCopyWith<$Res> {
+  factory _$CommentsStateErrCopyWith(
+          _CommentsStateErr value, $Res Function(_CommentsStateErr) then) =
+      __$CommentsStateErrCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$CommentsStateErrCopyWithImpl<$Res>
+class __$CommentsStateErrCopyWithImpl<$Res>
     extends _$CommentsStateCopyWithImpl<$Res>
-    implements $CommentsStateErrCopyWith<$Res> {
-  _$CommentsStateErrCopyWithImpl(
-      CommentsStateErr _value, $Res Function(CommentsStateErr) _then)
-      : super(_value, (v) => _then(v as CommentsStateErr));
+    implements _$CommentsStateErrCopyWith<$Res> {
+  __$CommentsStateErrCopyWithImpl(
+      _CommentsStateErr _value, $Res Function(_CommentsStateErr) _then)
+      : super(_value, (v) => _then(v as _CommentsStateErr));
 
   @override
-  CommentsStateErr get _value => super._value as CommentsStateErr;
+  _CommentsStateErr get _value => super._value as _CommentsStateErr;
 }
 
 /// @nodoc
-class _$CommentsStateErr implements CommentsStateErr {
-  const _$CommentsStateErr();
+class _$_CommentsStateErr implements _CommentsStateErr {
+  const _$_CommentsStateErr();
 
   @override
   String toString() {
@@ -4901,7 +4905,7 @@ class _$CommentsStateErr implements CommentsStateErr {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is CommentsStateErr);
+    return identical(this, other) || (other is _CommentsStateErr);
   }
 
   @override
@@ -4944,7 +4948,7 @@ class _$CommentsStateErr implements CommentsStateErr {
     @required TResult success(_CommentsStateSuccess value),
     @required TResult loading(_CommentsStateLoading value),
     @required TResult loadingMore(CommentsStateLoadingMore value),
-    @required TResult error(CommentsStateErr value),
+    @required TResult error(_CommentsStateErr value),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4959,7 +4963,7 @@ class _$CommentsStateErr implements CommentsStateErr {
     TResult success(_CommentsStateSuccess value),
     TResult loading(_CommentsStateLoading value),
     TResult loadingMore(CommentsStateLoadingMore value),
-    TResult error(CommentsStateErr value),
+    TResult error(_CommentsStateErr value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4970,8 +4974,8 @@ class _$CommentsStateErr implements CommentsStateErr {
   }
 }
 
-abstract class CommentsStateErr implements CommentsState {
-  const factory CommentsStateErr() = _$CommentsStateErr;
+abstract class _CommentsStateErr implements CommentsState {
+  const factory _CommentsStateErr() = _$_CommentsStateErr;
 }
 
 /// @nodoc

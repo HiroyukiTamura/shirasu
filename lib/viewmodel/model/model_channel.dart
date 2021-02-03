@@ -14,25 +14,24 @@ abstract class ChannelModel implements _$ChannelModel {
   const ChannelModel._();
 
   ChannelModel copyWithAdditionalPrograms(ChannelPrograms newOne) {
-    final tResult = result;
-    if (tResult is Success) {
-      final channelPrograms = tResult.channelData.channel.programs.append(newOne);
-      return ChannelModel(
-        result: tResult.copyWith.channelData.channel(programs: channelPrograms),
-        loading: false,
-      );
-    } else
-      throw Exception();
+    final tResult = result as Success;
+    final channelPrograms = tResult.channelData.channel.programs.append(newOne);
+    return ChannelModel(
+      result: tResult.copyWith.channelData.channel(
+        programs: channelPrograms,
+      ),
+      loading: false,
+    );
   }
 }
 
 @freezed
 abstract class ChannelDataResult with _$ChannelDataResult {
-  const factory ChannelDataResult.preInitialized() = PreInitialized;
+  const factory ChannelDataResult.preInitialized() = _PreInitialized;
 
-  const factory ChannelDataResult.loading() = Loading;
+  const factory ChannelDataResult.loading() = _Loading;
 
   const factory ChannelDataResult.success(ChannelData channelData) = Success;
 
-  const factory ChannelDataResult.error() = Error;
+  const factory ChannelDataResult.error() = _Error;
 }

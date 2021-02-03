@@ -54,13 +54,13 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     bool authExpired = false;
     try {
       final viewer = await ApiClient.instance.queryViewer();
-      newState = StateSuccess(viewer);
+      newState = SettingModelState.success(viewer);
     } on AuthExpiredException catch (e) {
       print(e);
       authExpired = true;
     } catch (e) {
       print(e);
-      newState = const StateError();
+      newState = const SettingModelState.error();
     }
 
     if (!mounted) return;

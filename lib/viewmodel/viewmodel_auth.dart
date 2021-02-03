@@ -5,6 +5,7 @@ import 'package:async/async.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/client/url_util.dart';
@@ -12,15 +13,14 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:riverpod/src/framework.dart';
 import 'package:synchronized/synchronized.dart';
 
 part 'viewmodel_auth.freezed.dart';
 
 class ViewModelAuth extends ViewModelBase<AuthModel> {
-  ViewModelAuth(this._ref) : super(AuthModel.initial());
+  ViewModelAuth(this._reader) : super(AuthModel.initial());
 
-  final AutoDisposeProviderReference _ref;
+  final Reader _reader;
   final _hiveClient = HiveAuthClient.instance();
   final _lock = Lock();
   bool _initialLoad = false;
@@ -46,8 +46,6 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
         // todo log error
       })
       ..onStateChanged.listen((viewState) async => _onStateChanged(viewState));
-
-    await _plugin.hide();
   }
 
   @override
@@ -57,26 +55,20 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
     _cancelable?.cancel();
   }
 
-  @override
-  set state(AuthModel value) {
-    if (!state.isFinishLoading && value.isFinishLoading && _initialLoad)
-      _showWebView();
-
-    super.state = value;
-  }
-
   Future<void> _onStateChanged(WebViewStateChanged viewState) async {
+    debugPrint('${viewState.url}, ${viewState.type}');
     if (viewState.type == WebViewState.finishLoad &&
         viewState.url == UrlUtil.URL_HOME) {
       _initialLoad = true;
       await _plugin.evalJavascript(_jsClickLoginBtn);
-      await _plugin.show();
     }
   }
 
   Future<void> _onUrlChanged(String url) async {
-    // todo synchronized
-    _updateUrl(url);
+    setState(state.copyWith(lastUrl: url));
+
+    if (_success)
+      return;
 
     // url except home page
     if (url != UrlUtil.URL_HOME && url.startsWith(UrlUtil.URL_HOME)) {
@@ -105,19 +97,21 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
           //todo handle error
         }
 
-      final delegate = _ref.read(pAppRouterDelegate);
+      if (!mounted)
+        return;
+
+      final delegate = _reader(pAppRouterDelegate);
       if (_success)
-        await delegate.popRoute(); // todo check current page is AuthScreen
+        await delegate.popRoute();
       else if (_hiveClient.maybeExpired && url == UrlUtil.URL_DASHBOARD) {
         // todo improve logic
         await _plugin.clearCache();
         await _plugin.cleanCookies();
         await delegate.pushPage(const GlobalRoutePath.error());
       }
+      await _plugin.close();
     }
   }
-
-  void _updateUrl(String url) => setState(state.copyWith(lastUrl: url));
 
   Future<void> _showWebView() async {
     await _cancelable?.cancel();

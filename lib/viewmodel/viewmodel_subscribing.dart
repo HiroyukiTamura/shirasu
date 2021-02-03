@@ -17,8 +17,6 @@ part 'viewmodel_subscribing.freezed.dart';
 class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
   ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
 
-  final _apiClient = ApiClient.instance();
-
   @override
   Future<void> initialize() async {
     if (!(state is FeatureProgramStatePreInitialized)) return;
@@ -27,7 +25,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
 
     FeatureProgramState newState;
     try {
-      final data = await _apiClient.queryFeaturedProgramsList();
+      final data = await ApiClient.instance.queryFeaturedProgramsList();
       newState = data.viewerUser.subscribedPrograms.isEmpty
           ? const FeatureProgramStateResultEmpty()
           : FeatureProgramStateSuccess(data);
@@ -43,7 +41,6 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   ViewModelWatchHistory(this._ref) : super(const StatePreInitialized());
 
   final AutoDisposeProviderReference _ref;
-  final _apiClient = ApiClient.instance();
 
   SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 
@@ -56,7 +53,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
     WatchHistoryState newState;
 
     try {
-      final data = await _apiClient.queryWatchHistory();
+      final data = await ApiClient.instance.queryWatchHistory();
       newState = data.viewerUser.watchHistories.items.isEmpty
           ? const StateResultEmpty()
           : StateSuccess([data].toUnmodifiable());
@@ -79,7 +76,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       state = StateLoadingMore(oldState.watchHistories);
 
       try {
-        final newOne = await _apiClient.queryWatchHistory(
+        final newOne = await ApiClient.instance.queryWatchHistory(
           nextToken: nextToken,
         );
 

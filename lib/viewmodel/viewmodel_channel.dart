@@ -18,7 +18,6 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         );
 
   final AutoDisposeProviderReference _ref;
-  final _apiClient = ApiClient.instance();
   final String _channelId;
 
   SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
@@ -32,7 +31,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
     try {
       state = const ChannelModel(
           result: ChannelDataResult.loading(), loading: false);
-      final data = await _apiClient.queryChannelData(_channelId);
+      final data = await ApiClient.instance.queryChannelData(_channelId);
       setState(ChannelModel(
           result: ChannelDataResult.success(data), loading: false));
     } catch (e) {
@@ -52,7 +51,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
       state = state.copyWith(loading: true);
 
       try {
-        final newOne = await _apiClient.queryChannelData(
+        final newOne = await ApiClient.instance.queryChannelData(
           _channelId,
           nextToken: nextToken,
         );

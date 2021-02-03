@@ -17,7 +17,6 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
   /// todo is really correct that `AutoDisposeProviderReference` exists in StateNotifier??
   final AutoDisposeProviderReference _ref;
-  final _apiClient = ApiClient.instance();
 
   SnackBarMessageNotifier get _msgNotifier => _ref.read(snackBarMsgProvider);
 
@@ -56,7 +55,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     SettingModelState newState;
     try {
-      final viewer = await _apiClient.queryViewer();
+      final viewer = await ApiClient.instance.queryViewer();
       newState = StateSuccess(viewer);
     } catch (e) {
       print(e);
@@ -100,7 +99,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     state = state.copyWith(uploadingProfile: true);
 
     try {
-      final updatedData = await _apiClient.updateUserWithAttr(variable);
+      final updatedData = await ApiClient.instance.updateUserWithAttr(variable);
       //todo update `dummyUser`
 
     } catch (e) {

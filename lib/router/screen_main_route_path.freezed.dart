@@ -14,18 +14,18 @@ class _$GlobalRoutePathTearOff {
   const _$GlobalRoutePathTearOff();
 
 // ignore: unused_element
-  PathDataIntro intro() {
-    return const PathDataIntro();
+  _PathDataIntro intro() {
+    return const _PathDataIntro();
   }
 
 // ignore: unused_element
-  PathDataError error() {
-    return const PathDataError();
+  _PathDataError error() {
+    return const _PathDataError();
   }
 
 // ignore: unused_element
-  PathDataChannel channel(String channelId) {
-    return PathDataChannel(
+  _PathDataChannel channel(String channelId) {
+    return _PathDataChannel(
       channelId,
     );
   }
@@ -38,18 +38,18 @@ class _$GlobalRoutePathTearOff {
   }
 
 // ignore: unused_element
-  PathDataOssLicense ossLicense() {
-    return const PathDataOssLicense();
+  _PathDataOssLicense ossLicense() {
+    return const _PathDataOssLicense();
   }
 
 // ignore: unused_element
-  PathDataImgLicense imgLicense() {
-    return const PathDataImgLicense();
+  _PathDataImgLicense imgLicense() {
+    return const _PathDataImgLicense();
   }
 
 // ignore: unused_element
-  PathDataAuth auth() {
-    return const PathDataAuth();
+  _PathDataAuth auth() {
+    return const _PathDataAuth();
   }
 }
 
@@ -82,23 +82,23 @@ mixin _$GlobalRoutePath {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(_PathDataError value),
+    @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(PathDataOssLicense value),
-    @required TResult imgLicense(PathDataImgLicense value),
-    @required TResult auth(PathDataAuth value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult auth(_PathDataAuth value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
+    TResult intro(_PathDataIntro value),
+    TResult error(_PathDataError value),
+    TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult ossLicense(PathDataOssLicense value),
-    TResult imgLicense(PathDataImgLicense value),
-    TResult auth(PathDataAuth value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult auth(_PathDataAuth value),
     @required TResult orElse(),
   });
 }
@@ -121,27 +121,27 @@ class _$GlobalRoutePathCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $PathDataIntroCopyWith<$Res> {
-  factory $PathDataIntroCopyWith(
-          PathDataIntro value, $Res Function(PathDataIntro) then) =
-      _$PathDataIntroCopyWithImpl<$Res>;
+abstract class _$PathDataIntroCopyWith<$Res> {
+  factory _$PathDataIntroCopyWith(
+          _PathDataIntro value, $Res Function(_PathDataIntro) then) =
+      __$PathDataIntroCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PathDataIntroCopyWithImpl<$Res>
+class __$PathDataIntroCopyWithImpl<$Res>
     extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements $PathDataIntroCopyWith<$Res> {
-  _$PathDataIntroCopyWithImpl(
-      PathDataIntro _value, $Res Function(PathDataIntro) _then)
-      : super(_value, (v) => _then(v as PathDataIntro));
+    implements _$PathDataIntroCopyWith<$Res> {
+  __$PathDataIntroCopyWithImpl(
+      _PathDataIntro _value, $Res Function(_PathDataIntro) _then)
+      : super(_value, (v) => _then(v as _PathDataIntro));
 
   @override
-  PathDataIntro get _value => super._value as PathDataIntro;
+  _PathDataIntro get _value => super._value as _PathDataIntro;
 }
 
 /// @nodoc
-class _$PathDataIntro implements PathDataIntro {
-  const _$PathDataIntro();
+class _$_PathDataIntro implements _PathDataIntro {
+  const _$_PathDataIntro();
 
   @override
   String toString() {
@@ -150,7 +150,7 @@ class _$PathDataIntro implements PathDataIntro {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataIntro);
+    return identical(this, other) || (other is _PathDataIntro);
   }
 
   @override
@@ -199,13 +199,13 @@ class _$PathDataIntro implements PathDataIntro {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(_PathDataError value),
+    @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(PathDataOssLicense value),
-    @required TResult imgLicense(PathDataImgLicense value),
-    @required TResult auth(PathDataAuth value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult auth(_PathDataAuth value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -220,13 +220,13 @@ class _$PathDataIntro implements PathDataIntro {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
+    TResult intro(_PathDataIntro value),
+    TResult error(_PathDataError value),
+    TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult ossLicense(PathDataOssLicense value),
-    TResult imgLicense(PathDataImgLicense value),
-    TResult auth(PathDataAuth value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult auth(_PathDataAuth value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -237,32 +237,32 @@ class _$PathDataIntro implements PathDataIntro {
   }
 }
 
-abstract class PathDataIntro implements GlobalRoutePath {
-  const factory PathDataIntro() = _$PathDataIntro;
+abstract class _PathDataIntro implements GlobalRoutePath {
+  const factory _PathDataIntro() = _$_PathDataIntro;
 }
 
 /// @nodoc
-abstract class $PathDataErrorCopyWith<$Res> {
-  factory $PathDataErrorCopyWith(
-          PathDataError value, $Res Function(PathDataError) then) =
-      _$PathDataErrorCopyWithImpl<$Res>;
+abstract class _$PathDataErrorCopyWith<$Res> {
+  factory _$PathDataErrorCopyWith(
+          _PathDataError value, $Res Function(_PathDataError) then) =
+      __$PathDataErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PathDataErrorCopyWithImpl<$Res>
+class __$PathDataErrorCopyWithImpl<$Res>
     extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements $PathDataErrorCopyWith<$Res> {
-  _$PathDataErrorCopyWithImpl(
-      PathDataError _value, $Res Function(PathDataError) _then)
-      : super(_value, (v) => _then(v as PathDataError));
+    implements _$PathDataErrorCopyWith<$Res> {
+  __$PathDataErrorCopyWithImpl(
+      _PathDataError _value, $Res Function(_PathDataError) _then)
+      : super(_value, (v) => _then(v as _PathDataError));
 
   @override
-  PathDataError get _value => super._value as PathDataError;
+  _PathDataError get _value => super._value as _PathDataError;
 }
 
 /// @nodoc
-class _$PathDataError implements PathDataError {
-  const _$PathDataError();
+class _$_PathDataError implements _PathDataError {
+  const _$_PathDataError();
 
   @override
   String toString() {
@@ -271,7 +271,7 @@ class _$PathDataError implements PathDataError {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataError);
+    return identical(this, other) || (other is _PathDataError);
   }
 
   @override
@@ -320,13 +320,13 @@ class _$PathDataError implements PathDataError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(_PathDataError value),
+    @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(PathDataOssLicense value),
-    @required TResult imgLicense(PathDataImgLicense value),
-    @required TResult auth(PathDataAuth value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult auth(_PathDataAuth value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -341,13 +341,13 @@ class _$PathDataError implements PathDataError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
+    TResult intro(_PathDataIntro value),
+    TResult error(_PathDataError value),
+    TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult ossLicense(PathDataOssLicense value),
-    TResult imgLicense(PathDataImgLicense value),
-    TResult auth(PathDataAuth value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult auth(_PathDataAuth value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -358,42 +358,42 @@ class _$PathDataError implements PathDataError {
   }
 }
 
-abstract class PathDataError implements GlobalRoutePath {
-  const factory PathDataError() = _$PathDataError;
+abstract class _PathDataError implements GlobalRoutePath {
+  const factory _PathDataError() = _$_PathDataError;
 }
 
 /// @nodoc
-abstract class $PathDataChannelCopyWith<$Res> {
-  factory $PathDataChannelCopyWith(
-          PathDataChannel value, $Res Function(PathDataChannel) then) =
-      _$PathDataChannelCopyWithImpl<$Res>;
+abstract class _$PathDataChannelCopyWith<$Res> {
+  factory _$PathDataChannelCopyWith(
+          _PathDataChannel value, $Res Function(_PathDataChannel) then) =
+      __$PathDataChannelCopyWithImpl<$Res>;
   $Res call({String channelId});
 }
 
 /// @nodoc
-class _$PathDataChannelCopyWithImpl<$Res>
+class __$PathDataChannelCopyWithImpl<$Res>
     extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements $PathDataChannelCopyWith<$Res> {
-  _$PathDataChannelCopyWithImpl(
-      PathDataChannel _value, $Res Function(PathDataChannel) _then)
-      : super(_value, (v) => _then(v as PathDataChannel));
+    implements _$PathDataChannelCopyWith<$Res> {
+  __$PathDataChannelCopyWithImpl(
+      _PathDataChannel _value, $Res Function(_PathDataChannel) _then)
+      : super(_value, (v) => _then(v as _PathDataChannel));
 
   @override
-  PathDataChannel get _value => super._value as PathDataChannel;
+  _PathDataChannel get _value => super._value as _PathDataChannel;
 
   @override
   $Res call({
     Object channelId = freezed,
   }) {
-    return _then(PathDataChannel(
+    return _then(_PathDataChannel(
       channelId == freezed ? _value.channelId : channelId as String,
     ));
   }
 }
 
 /// @nodoc
-class _$PathDataChannel implements PathDataChannel {
-  const _$PathDataChannel(this.channelId) : assert(channelId != null);
+class _$_PathDataChannel implements _PathDataChannel {
+  const _$_PathDataChannel(this.channelId) : assert(channelId != null);
 
   @override
   final String channelId;
@@ -406,7 +406,7 @@ class _$PathDataChannel implements PathDataChannel {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is PathDataChannel &&
+        (other is _PathDataChannel &&
             (identical(other.channelId, channelId) ||
                 const DeepCollectionEquality()
                     .equals(other.channelId, channelId)));
@@ -417,8 +417,8 @@ class _$PathDataChannel implements PathDataChannel {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(channelId);
 
   @override
-  $PathDataChannelCopyWith<PathDataChannel> get copyWith =>
-      _$PathDataChannelCopyWithImpl<PathDataChannel>(this, _$identity);
+  _$PathDataChannelCopyWith<_PathDataChannel> get copyWith =>
+      __$PathDataChannelCopyWithImpl<_PathDataChannel>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -463,13 +463,13 @@ class _$PathDataChannel implements PathDataChannel {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(_PathDataError value),
+    @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(PathDataOssLicense value),
-    @required TResult imgLicense(PathDataImgLicense value),
-    @required TResult auth(PathDataAuth value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult auth(_PathDataAuth value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -484,13 +484,13 @@ class _$PathDataChannel implements PathDataChannel {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
+    TResult intro(_PathDataIntro value),
+    TResult error(_PathDataError value),
+    TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult ossLicense(PathDataOssLicense value),
-    TResult imgLicense(PathDataImgLicense value),
-    TResult auth(PathDataAuth value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult auth(_PathDataAuth value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -501,11 +501,11 @@ class _$PathDataChannel implements PathDataChannel {
   }
 }
 
-abstract class PathDataChannel implements GlobalRoutePath {
-  const factory PathDataChannel(String channelId) = _$PathDataChannel;
+abstract class _PathDataChannel implements GlobalRoutePath {
+  const factory _PathDataChannel(String channelId) = _$_PathDataChannel;
 
   String get channelId;
-  $PathDataChannelCopyWith<PathDataChannel> get copyWith;
+  _$PathDataChannelCopyWith<_PathDataChannel> get copyWith;
 }
 
 /// @nodoc
@@ -609,13 +609,13 @@ class _$PathDataProgram implements PathDataProgram {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(_PathDataError value),
+    @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(PathDataOssLicense value),
-    @required TResult imgLicense(PathDataImgLicense value),
-    @required TResult auth(PathDataAuth value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult auth(_PathDataAuth value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -630,13 +630,13 @@ class _$PathDataProgram implements PathDataProgram {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
+    TResult intro(_PathDataIntro value),
+    TResult error(_PathDataError value),
+    TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult ossLicense(PathDataOssLicense value),
-    TResult imgLicense(PathDataImgLicense value),
-    TResult auth(PathDataAuth value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult auth(_PathDataAuth value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -655,27 +655,27 @@ abstract class PathDataProgram implements GlobalRoutePath {
 }
 
 /// @nodoc
-abstract class $PathDataOssLicenseCopyWith<$Res> {
-  factory $PathDataOssLicenseCopyWith(
-          PathDataOssLicense value, $Res Function(PathDataOssLicense) then) =
-      _$PathDataOssLicenseCopyWithImpl<$Res>;
+abstract class _$PathDataOssLicenseCopyWith<$Res> {
+  factory _$PathDataOssLicenseCopyWith(
+          _PathDataOssLicense value, $Res Function(_PathDataOssLicense) then) =
+      __$PathDataOssLicenseCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PathDataOssLicenseCopyWithImpl<$Res>
+class __$PathDataOssLicenseCopyWithImpl<$Res>
     extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements $PathDataOssLicenseCopyWith<$Res> {
-  _$PathDataOssLicenseCopyWithImpl(
-      PathDataOssLicense _value, $Res Function(PathDataOssLicense) _then)
-      : super(_value, (v) => _then(v as PathDataOssLicense));
+    implements _$PathDataOssLicenseCopyWith<$Res> {
+  __$PathDataOssLicenseCopyWithImpl(
+      _PathDataOssLicense _value, $Res Function(_PathDataOssLicense) _then)
+      : super(_value, (v) => _then(v as _PathDataOssLicense));
 
   @override
-  PathDataOssLicense get _value => super._value as PathDataOssLicense;
+  _PathDataOssLicense get _value => super._value as _PathDataOssLicense;
 }
 
 /// @nodoc
-class _$PathDataOssLicense implements PathDataOssLicense {
-  const _$PathDataOssLicense();
+class _$_PathDataOssLicense implements _PathDataOssLicense {
+  const _$_PathDataOssLicense();
 
   @override
   String toString() {
@@ -684,7 +684,7 @@ class _$PathDataOssLicense implements PathDataOssLicense {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataOssLicense);
+    return identical(this, other) || (other is _PathDataOssLicense);
   }
 
   @override
@@ -733,13 +733,13 @@ class _$PathDataOssLicense implements PathDataOssLicense {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(_PathDataError value),
+    @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(PathDataOssLicense value),
-    @required TResult imgLicense(PathDataImgLicense value),
-    @required TResult auth(PathDataAuth value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult auth(_PathDataAuth value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -754,13 +754,13 @@ class _$PathDataOssLicense implements PathDataOssLicense {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
+    TResult intro(_PathDataIntro value),
+    TResult error(_PathDataError value),
+    TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult ossLicense(PathDataOssLicense value),
-    TResult imgLicense(PathDataImgLicense value),
-    TResult auth(PathDataAuth value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult auth(_PathDataAuth value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -771,32 +771,32 @@ class _$PathDataOssLicense implements PathDataOssLicense {
   }
 }
 
-abstract class PathDataOssLicense implements GlobalRoutePath {
-  const factory PathDataOssLicense() = _$PathDataOssLicense;
+abstract class _PathDataOssLicense implements GlobalRoutePath {
+  const factory _PathDataOssLicense() = _$_PathDataOssLicense;
 }
 
 /// @nodoc
-abstract class $PathDataImgLicenseCopyWith<$Res> {
-  factory $PathDataImgLicenseCopyWith(
-          PathDataImgLicense value, $Res Function(PathDataImgLicense) then) =
-      _$PathDataImgLicenseCopyWithImpl<$Res>;
+abstract class _$PathDataImgLicenseCopyWith<$Res> {
+  factory _$PathDataImgLicenseCopyWith(
+          _PathDataImgLicense value, $Res Function(_PathDataImgLicense) then) =
+      __$PathDataImgLicenseCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PathDataImgLicenseCopyWithImpl<$Res>
+class __$PathDataImgLicenseCopyWithImpl<$Res>
     extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements $PathDataImgLicenseCopyWith<$Res> {
-  _$PathDataImgLicenseCopyWithImpl(
-      PathDataImgLicense _value, $Res Function(PathDataImgLicense) _then)
-      : super(_value, (v) => _then(v as PathDataImgLicense));
+    implements _$PathDataImgLicenseCopyWith<$Res> {
+  __$PathDataImgLicenseCopyWithImpl(
+      _PathDataImgLicense _value, $Res Function(_PathDataImgLicense) _then)
+      : super(_value, (v) => _then(v as _PathDataImgLicense));
 
   @override
-  PathDataImgLicense get _value => super._value as PathDataImgLicense;
+  _PathDataImgLicense get _value => super._value as _PathDataImgLicense;
 }
 
 /// @nodoc
-class _$PathDataImgLicense implements PathDataImgLicense {
-  const _$PathDataImgLicense();
+class _$_PathDataImgLicense implements _PathDataImgLicense {
+  const _$_PathDataImgLicense();
 
   @override
   String toString() {
@@ -805,7 +805,7 @@ class _$PathDataImgLicense implements PathDataImgLicense {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataImgLicense);
+    return identical(this, other) || (other is _PathDataImgLicense);
   }
 
   @override
@@ -854,13 +854,13 @@ class _$PathDataImgLicense implements PathDataImgLicense {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(_PathDataError value),
+    @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(PathDataOssLicense value),
-    @required TResult imgLicense(PathDataImgLicense value),
-    @required TResult auth(PathDataAuth value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult auth(_PathDataAuth value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -875,13 +875,13 @@ class _$PathDataImgLicense implements PathDataImgLicense {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
+    TResult intro(_PathDataIntro value),
+    TResult error(_PathDataError value),
+    TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult ossLicense(PathDataOssLicense value),
-    TResult imgLicense(PathDataImgLicense value),
-    TResult auth(PathDataAuth value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult auth(_PathDataAuth value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -892,32 +892,32 @@ class _$PathDataImgLicense implements PathDataImgLicense {
   }
 }
 
-abstract class PathDataImgLicense implements GlobalRoutePath {
-  const factory PathDataImgLicense() = _$PathDataImgLicense;
+abstract class _PathDataImgLicense implements GlobalRoutePath {
+  const factory _PathDataImgLicense() = _$_PathDataImgLicense;
 }
 
 /// @nodoc
-abstract class $PathDataAuthCopyWith<$Res> {
-  factory $PathDataAuthCopyWith(
-          PathDataAuth value, $Res Function(PathDataAuth) then) =
-      _$PathDataAuthCopyWithImpl<$Res>;
+abstract class _$PathDataAuthCopyWith<$Res> {
+  factory _$PathDataAuthCopyWith(
+          _PathDataAuth value, $Res Function(_PathDataAuth) then) =
+      __$PathDataAuthCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PathDataAuthCopyWithImpl<$Res>
+class __$PathDataAuthCopyWithImpl<$Res>
     extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements $PathDataAuthCopyWith<$Res> {
-  _$PathDataAuthCopyWithImpl(
-      PathDataAuth _value, $Res Function(PathDataAuth) _then)
-      : super(_value, (v) => _then(v as PathDataAuth));
+    implements _$PathDataAuthCopyWith<$Res> {
+  __$PathDataAuthCopyWithImpl(
+      _PathDataAuth _value, $Res Function(_PathDataAuth) _then)
+      : super(_value, (v) => _then(v as _PathDataAuth));
 
   @override
-  PathDataAuth get _value => super._value as PathDataAuth;
+  _PathDataAuth get _value => super._value as _PathDataAuth;
 }
 
 /// @nodoc
-class _$PathDataAuth implements PathDataAuth {
-  const _$PathDataAuth();
+class _$_PathDataAuth implements _PathDataAuth {
+  const _$_PathDataAuth();
 
   @override
   String toString() {
@@ -926,7 +926,7 @@ class _$PathDataAuth implements PathDataAuth {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataAuth);
+    return identical(this, other) || (other is _PathDataAuth);
   }
 
   @override
@@ -975,13 +975,13 @@ class _$PathDataAuth implements PathDataAuth {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult intro(PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(PathDataChannel value),
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(_PathDataError value),
+    @required TResult channel(_PathDataChannel value),
     @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(PathDataOssLicense value),
-    @required TResult imgLicense(PathDataImgLicense value),
-    @required TResult auth(PathDataAuth value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult auth(_PathDataAuth value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -996,13 +996,13 @@ class _$PathDataAuth implements PathDataAuth {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult intro(PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(PathDataChannel value),
+    TResult intro(_PathDataIntro value),
+    TResult error(_PathDataError value),
+    TResult channel(_PathDataChannel value),
     TResult program(PathDataProgram value),
-    TResult ossLicense(PathDataOssLicense value),
-    TResult imgLicense(PathDataImgLicense value),
-    TResult auth(PathDataAuth value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult auth(_PathDataAuth value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1013,8 +1013,8 @@ class _$PathDataAuth implements PathDataAuth {
   }
 }
 
-abstract class PathDataAuth implements GlobalRoutePath {
-  const factory PathDataAuth() = _$PathDataAuth;
+abstract class _PathDataAuth implements GlobalRoutePath {
+  const factory _PathDataAuth() = _$_PathDataAuth;
 }
 
 /// @nodoc
@@ -1022,20 +1022,20 @@ class _$PathDataMainPageBaseTearOff {
   const _$PathDataMainPageBaseTearOff();
 
 // ignore: unused_element
-  PathDataMainPageDashBoard dashboard() {
-    return const PathDataMainPageDashBoard();
+  _PathDataMainPageDashBoard dashboard() {
+    return const _PathDataMainPageDashBoard();
   }
 
 // ignore: unused_element
-  PathDataMainPageSubscribing subscribing(PageListTabPage index) {
-    return PathDataMainPageSubscribing(
+  _PathDataMainPageSubscribing subscribing(PageListTabPage index) {
+    return _PathDataMainPageSubscribing(
       index,
     );
   }
 
 // ignore: unused_element
-  PathDataMainPageSetting setting() {
-    return const PathDataMainPageSetting();
+  _PathDataMainPageSetting setting() {
+    return const _PathDataMainPageSetting();
   }
 }
 
@@ -1060,15 +1060,15 @@ mixin _$PathDataMainPageBase {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult dashboard(PathDataMainPageDashBoard value),
-    @required TResult subscribing(PathDataMainPageSubscribing value),
-    @required TResult setting(PathDataMainPageSetting value),
+    @required TResult dashboard(_PathDataMainPageDashBoard value),
+    @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult setting(_PathDataMainPageSetting value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult dashboard(PathDataMainPageDashBoard value),
-    TResult subscribing(PathDataMainPageSubscribing value),
-    TResult setting(PathDataMainPageSetting value),
+    TResult dashboard(_PathDataMainPageDashBoard value),
+    TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   });
 }
@@ -1091,28 +1091,28 @@ class _$PathDataMainPageBaseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $PathDataMainPageDashBoardCopyWith<$Res> {
-  factory $PathDataMainPageDashBoardCopyWith(PathDataMainPageDashBoard value,
-          $Res Function(PathDataMainPageDashBoard) then) =
-      _$PathDataMainPageDashBoardCopyWithImpl<$Res>;
+abstract class _$PathDataMainPageDashBoardCopyWith<$Res> {
+  factory _$PathDataMainPageDashBoardCopyWith(_PathDataMainPageDashBoard value,
+          $Res Function(_PathDataMainPageDashBoard) then) =
+      __$PathDataMainPageDashBoardCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PathDataMainPageDashBoardCopyWithImpl<$Res>
+class __$PathDataMainPageDashBoardCopyWithImpl<$Res>
     extends _$PathDataMainPageBaseCopyWithImpl<$Res>
-    implements $PathDataMainPageDashBoardCopyWith<$Res> {
-  _$PathDataMainPageDashBoardCopyWithImpl(PathDataMainPageDashBoard _value,
-      $Res Function(PathDataMainPageDashBoard) _then)
-      : super(_value, (v) => _then(v as PathDataMainPageDashBoard));
+    implements _$PathDataMainPageDashBoardCopyWith<$Res> {
+  __$PathDataMainPageDashBoardCopyWithImpl(_PathDataMainPageDashBoard _value,
+      $Res Function(_PathDataMainPageDashBoard) _then)
+      : super(_value, (v) => _then(v as _PathDataMainPageDashBoard));
 
   @override
-  PathDataMainPageDashBoard get _value =>
-      super._value as PathDataMainPageDashBoard;
+  _PathDataMainPageDashBoard get _value =>
+      super._value as _PathDataMainPageDashBoard;
 }
 
 /// @nodoc
-class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
-  const _$PathDataMainPageDashBoard() : super._();
+class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
+  const _$_PathDataMainPageDashBoard() : super._();
 
   @override
   String toString() {
@@ -1121,7 +1121,7 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataMainPageDashBoard);
+    return identical(this, other) || (other is _PathDataMainPageDashBoard);
   }
 
   @override
@@ -1158,9 +1158,9 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult dashboard(PathDataMainPageDashBoard value),
-    @required TResult subscribing(PathDataMainPageSubscribing value),
-    @required TResult setting(PathDataMainPageSetting value),
+    @required TResult dashboard(_PathDataMainPageDashBoard value),
+    @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -1171,9 +1171,9 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult dashboard(PathDataMainPageDashBoard value),
-    TResult subscribing(PathDataMainPageSubscribing value),
-    TResult setting(PathDataMainPageSetting value),
+    TResult dashboard(_PathDataMainPageDashBoard value),
+    TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1184,45 +1184,46 @@ class _$PathDataMainPageDashBoard extends PathDataMainPageDashBoard {
   }
 }
 
-abstract class PathDataMainPageDashBoard extends PathDataMainPageBase {
-  const PathDataMainPageDashBoard._() : super._();
-  const factory PathDataMainPageDashBoard() = _$PathDataMainPageDashBoard;
+abstract class _PathDataMainPageDashBoard extends PathDataMainPageBase {
+  const _PathDataMainPageDashBoard._() : super._();
+  const factory _PathDataMainPageDashBoard() = _$_PathDataMainPageDashBoard;
 }
 
 /// @nodoc
-abstract class $PathDataMainPageSubscribingCopyWith<$Res> {
-  factory $PathDataMainPageSubscribingCopyWith(
-          PathDataMainPageSubscribing value,
-          $Res Function(PathDataMainPageSubscribing) then) =
-      _$PathDataMainPageSubscribingCopyWithImpl<$Res>;
+abstract class _$PathDataMainPageSubscribingCopyWith<$Res> {
+  factory _$PathDataMainPageSubscribingCopyWith(
+          _PathDataMainPageSubscribing value,
+          $Res Function(_PathDataMainPageSubscribing) then) =
+      __$PathDataMainPageSubscribingCopyWithImpl<$Res>;
   $Res call({PageListTabPage index});
 }
 
 /// @nodoc
-class _$PathDataMainPageSubscribingCopyWithImpl<$Res>
+class __$PathDataMainPageSubscribingCopyWithImpl<$Res>
     extends _$PathDataMainPageBaseCopyWithImpl<$Res>
-    implements $PathDataMainPageSubscribingCopyWith<$Res> {
-  _$PathDataMainPageSubscribingCopyWithImpl(PathDataMainPageSubscribing _value,
-      $Res Function(PathDataMainPageSubscribing) _then)
-      : super(_value, (v) => _then(v as PathDataMainPageSubscribing));
+    implements _$PathDataMainPageSubscribingCopyWith<$Res> {
+  __$PathDataMainPageSubscribingCopyWithImpl(
+      _PathDataMainPageSubscribing _value,
+      $Res Function(_PathDataMainPageSubscribing) _then)
+      : super(_value, (v) => _then(v as _PathDataMainPageSubscribing));
 
   @override
-  PathDataMainPageSubscribing get _value =>
-      super._value as PathDataMainPageSubscribing;
+  _PathDataMainPageSubscribing get _value =>
+      super._value as _PathDataMainPageSubscribing;
 
   @override
   $Res call({
     Object index = freezed,
   }) {
-    return _then(PathDataMainPageSubscribing(
+    return _then(_PathDataMainPageSubscribing(
       index == freezed ? _value.index : index as PageListTabPage,
     ));
   }
 }
 
 /// @nodoc
-class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
-  const _$PathDataMainPageSubscribing(this.index)
+class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
+  const _$_PathDataMainPageSubscribing(this.index)
       : assert(index != null),
         super._();
 
@@ -1237,7 +1238,7 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is PathDataMainPageSubscribing &&
+        (other is _PathDataMainPageSubscribing &&
             (identical(other.index, index) ||
                 const DeepCollectionEquality().equals(other.index, index)));
   }
@@ -1247,9 +1248,9 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(index);
 
   @override
-  $PathDataMainPageSubscribingCopyWith<PathDataMainPageSubscribing>
-      get copyWith => _$PathDataMainPageSubscribingCopyWithImpl<
-          PathDataMainPageSubscribing>(this, _$identity);
+  _$PathDataMainPageSubscribingCopyWith<_PathDataMainPageSubscribing>
+      get copyWith => __$PathDataMainPageSubscribingCopyWithImpl<
+          _PathDataMainPageSubscribing>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1282,9 +1283,9 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult dashboard(PathDataMainPageDashBoard value),
-    @required TResult subscribing(PathDataMainPageSubscribing value),
-    @required TResult setting(PathDataMainPageSetting value),
+    @required TResult dashboard(_PathDataMainPageDashBoard value),
+    @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -1295,9 +1296,9 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult dashboard(PathDataMainPageDashBoard value),
-    TResult subscribing(PathDataMainPageSubscribing value),
-    TResult setting(PathDataMainPageSetting value),
+    TResult dashboard(_PathDataMainPageDashBoard value),
+    TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1308,38 +1309,39 @@ class _$PathDataMainPageSubscribing extends PathDataMainPageSubscribing {
   }
 }
 
-abstract class PathDataMainPageSubscribing extends PathDataMainPageBase {
-  const PathDataMainPageSubscribing._() : super._();
-  const factory PathDataMainPageSubscribing(PageListTabPage index) =
-      _$PathDataMainPageSubscribing;
+abstract class _PathDataMainPageSubscribing extends PathDataMainPageBase {
+  const _PathDataMainPageSubscribing._() : super._();
+  const factory _PathDataMainPageSubscribing(PageListTabPage index) =
+      _$_PathDataMainPageSubscribing;
 
   PageListTabPage get index;
-  $PathDataMainPageSubscribingCopyWith<PathDataMainPageSubscribing>
+  _$PathDataMainPageSubscribingCopyWith<_PathDataMainPageSubscribing>
       get copyWith;
 }
 
 /// @nodoc
-abstract class $PathDataMainPageSettingCopyWith<$Res> {
-  factory $PathDataMainPageSettingCopyWith(PathDataMainPageSetting value,
-          $Res Function(PathDataMainPageSetting) then) =
-      _$PathDataMainPageSettingCopyWithImpl<$Res>;
+abstract class _$PathDataMainPageSettingCopyWith<$Res> {
+  factory _$PathDataMainPageSettingCopyWith(_PathDataMainPageSetting value,
+          $Res Function(_PathDataMainPageSetting) then) =
+      __$PathDataMainPageSettingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PathDataMainPageSettingCopyWithImpl<$Res>
+class __$PathDataMainPageSettingCopyWithImpl<$Res>
     extends _$PathDataMainPageBaseCopyWithImpl<$Res>
-    implements $PathDataMainPageSettingCopyWith<$Res> {
-  _$PathDataMainPageSettingCopyWithImpl(PathDataMainPageSetting _value,
-      $Res Function(PathDataMainPageSetting) _then)
-      : super(_value, (v) => _then(v as PathDataMainPageSetting));
+    implements _$PathDataMainPageSettingCopyWith<$Res> {
+  __$PathDataMainPageSettingCopyWithImpl(_PathDataMainPageSetting _value,
+      $Res Function(_PathDataMainPageSetting) _then)
+      : super(_value, (v) => _then(v as _PathDataMainPageSetting));
 
   @override
-  PathDataMainPageSetting get _value => super._value as PathDataMainPageSetting;
+  _PathDataMainPageSetting get _value =>
+      super._value as _PathDataMainPageSetting;
 }
 
 /// @nodoc
-class _$PathDataMainPageSetting extends PathDataMainPageSetting {
-  const _$PathDataMainPageSetting() : super._();
+class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
+  const _$_PathDataMainPageSetting() : super._();
 
   @override
   String toString() {
@@ -1348,7 +1350,7 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PathDataMainPageSetting);
+    return identical(this, other) || (other is _PathDataMainPageSetting);
   }
 
   @override
@@ -1385,9 +1387,9 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult dashboard(PathDataMainPageDashBoard value),
-    @required TResult subscribing(PathDataMainPageSubscribing value),
-    @required TResult setting(PathDataMainPageSetting value),
+    @required TResult dashboard(_PathDataMainPageDashBoard value),
+    @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
@@ -1398,9 +1400,9 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult dashboard(PathDataMainPageDashBoard value),
-    TResult subscribing(PathDataMainPageSubscribing value),
-    TResult setting(PathDataMainPageSetting value),
+    TResult dashboard(_PathDataMainPageDashBoard value),
+    TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1411,7 +1413,7 @@ class _$PathDataMainPageSetting extends PathDataMainPageSetting {
   }
 }
 
-abstract class PathDataMainPageSetting extends PathDataMainPageBase {
-  const PathDataMainPageSetting._() : super._();
-  const factory PathDataMainPageSetting() = _$PathDataMainPageSetting;
+abstract class _PathDataMainPageSetting extends PathDataMainPageBase {
+  const _PathDataMainPageSetting._() : super._();
+  const factory _PathDataMainPageSetting() = _$_PathDataMainPageSetting;
 }

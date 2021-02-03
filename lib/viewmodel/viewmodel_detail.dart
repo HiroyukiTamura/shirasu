@@ -33,8 +33,6 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   static const COMMENT_MAX_ITEM_COUNT = 500;
   static const COMMENT_MAX_LETTER_LEN = 150;
 
-  final _apiClient = ApiClient.instance();
-  final _dioClient = DioClient();
   final panelController = PanelController();
   final Reader _reader;
   final String id;
@@ -81,8 +79,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     try {
       final data = await Util.wait2<ProgramDetailData, ChannelData>(
-          () async => _apiClient.queryProgramDetail(id),
-          () async => _apiClient.queryChannelData(channelId));
+          () async => ApiClient.instance.queryProgramDetail(id),
+          () async => ApiClient.instance.queryChannelData(channelId));
 
       state = state.copyWith(
         prgDataResult: DetailModelState.success(
@@ -108,7 +106,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     String cookie;
     try {
-      cookie = await _dioClient.getSignedCookie(prg.id, prg.videoTypeStrict,
+      cookie = await DioClient.instance.getSignedCookie(prg.id, prg.videoTypeStrict,
           HiveAuthClient.instance().authData.body.idToken);
       debugPrint(cookie);
     } catch (e) {
@@ -126,7 +124,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     String url;
     try {
-      url = await _apiClient.queryHandOutUrl(id, handoutId);
+      url = await ApiClient.instance.queryHandOutUrl(id, handoutId);
     } catch (e) {
       print(e);
     }
@@ -191,7 +189,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final pageNationKey = state.commentHolder.pageNationKey;
 
     try {
-      final object = await ApiClient.instance().queryComment(
+      final object = await ApiClient.instance.queryComment(
         programId: id,
         beginTime: beginTime,
         endTime: endTime,
@@ -249,7 +247,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     CommentItem posted;
     try {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
-      posted = await _apiClient.postComment(
+      posted = await ApiClient.instance.postComment(
         commentTime: state.playOutState.currentPos,
         programId: id,
         text: text,

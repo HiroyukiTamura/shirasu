@@ -15,13 +15,17 @@ abstract class HiveAuthData with _$HiveAuthData {
   @HiveType(typeId: 0)
   const factory HiveAuthData({
     @required @HiveField(0) HiveBody body,
-    @required @HiveField(1) int expiresAt,
+    @required @HiveField(1) @protected int rawExpiresAt,
   }) = _HiveAuthData;
 
   factory HiveAuthData.parse(AuthData authData) => HiveAuthData(
         body: HiveBody.parse(authData.body),
-        expiresAt: authData.expiresAt,
+        rawExpiresAt: authData.expiresAt,
       );
+
+  const HiveAuthData._();
+
+  DateTime get expiresAt => DateTime.fromMillisecondsSinceEpoch(rawExpiresAt);
 }
 
 /// hive model for [Body]

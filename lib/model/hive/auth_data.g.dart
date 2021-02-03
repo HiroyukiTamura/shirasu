@@ -18,7 +18,7 @@ class HiveAuthDataAdapter extends TypeAdapter<_$_HiveAuthData> {
     };
     return _$_HiveAuthData(
       body: fields[0] as HiveBody,
-      expiresAt: fields[1] as int,
+      rawExpiresAt: fields[1] as int,
     );
   }
 
@@ -29,7 +29,7 @@ class HiveAuthDataAdapter extends TypeAdapter<_$_HiveAuthData> {
       ..writeByte(0)
       ..write(obj.body)
       ..writeByte(1)
-      ..write(obj.expiresAt);
+      ..write(obj.rawExpiresAt);
   }
 
   @override

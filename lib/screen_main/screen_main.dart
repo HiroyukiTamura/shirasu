@@ -130,7 +130,7 @@ class _Fab extends HookWidget {
   Widget build(BuildContext context) {
     final page = useProvider(_pRouterDelegate.select((it) => it.page));
 
-    if (!(page is PathDataMainPageSetting)) return const SizedBox.shrink();
+    if (page != const PathDataMainPageBase.setting()) return const SizedBox.shrink();
 
     final isEdited = useProvider(settingViewModelSProvider.state
         .select((it) => it.editedUserInfo.isEdited));

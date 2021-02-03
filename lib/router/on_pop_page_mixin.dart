@@ -10,8 +10,7 @@ mixin OnPopPageMixin<T> on RouterDelegate<T> {
 
   GlobalAppState get appState;
 
-  Navigator createNavigator(List<Page> pages) =>
-      Navigator(
+  Navigator createNavigator(List<Page> pages) => Navigator(
         key: navigatorKey,
         pages: pages,
         onPopPage: (route, result) => _onPopPage(route, result),
@@ -27,7 +26,6 @@ mixin OnPopPageMixin<T> on RouterDelegate<T> {
 }
 
 mixin PlayerPopRouteMixin<T> on RouterDelegate<T> {
-
   GlobalKey<NavigatorState> get navigatorKey;
 
   ProviderReference get ref;

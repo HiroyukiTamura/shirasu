@@ -7,7 +7,7 @@ part 'screen_main_route_path.freezed.dart';
 
 @immutable
 abstract class GlobalRoutePathBase {
-  const factory GlobalRoutePathBase.redirect2Root() = PathDataMainPageDashBoard;
+  const factory GlobalRoutePathBase.redirect2Root() = PathDataMainPageBase.dashboard;
 }
 
 extension GlobalRoutePathBaseX on GlobalRoutePathBase {
@@ -40,7 +40,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         setting: setting,
       );
     else
-      throw UnsupportedError('unexpected routePath type: $runtimeType');
+      throw ArgumentError.value('unexpected routePath type: $runtimeType');
   }
 
   Result wrappedWhenRough<Result extends Object>({
@@ -65,7 +65,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         imgLicense: imgLicense,
       );
     else
-      throw UnsupportedError('unexpected routePath type: $runtimeType');
+      throw ArgumentError.value('unexpected routePath type: $runtimeType');
   }
 
   Result wrappedWhenType<Result extends Object>({
@@ -76,7 +76,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     if (this is GlobalRoutePath)
       return globalRoutePath();
     else
-      throw UnsupportedError(
+      throw ArgumentError.value(
           'unexpected routePath type: $runtimeType');
   }
 }
@@ -84,19 +84,19 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
 
 @freezed
 abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
-  const factory GlobalRoutePath.intro() = PathDataIntro;
+  const factory GlobalRoutePath.intro() = _PathDataIntro;
 
-  const factory GlobalRoutePath.error() = PathDataError;
+  const factory GlobalRoutePath.error() = _PathDataError;
 
-  const factory GlobalRoutePath.channel(String channelId) = PathDataChannel;
+  const factory GlobalRoutePath.channel(String channelId) = _PathDataChannel;
 
   const factory GlobalRoutePath.program(String programId) = PathDataProgram;
 
-  const factory GlobalRoutePath.ossLicense() = PathDataOssLicense;
+  const factory GlobalRoutePath.ossLicense() = _PathDataOssLicense;
 
-  const factory GlobalRoutePath.imgLicense() = PathDataImgLicense;
+  const factory GlobalRoutePath.imgLicense() = _PathDataImgLicense;
 
-  const factory GlobalRoutePath.auth() = PathDataAuth;
+  const factory GlobalRoutePath.auth() = _PathDataAuth;
 
   factory GlobalRoutePath.buildProgram({
     @required String channelId,
@@ -109,12 +109,12 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
 @freezed
 abstract class PathDataMainPageBase
     implements _$PathDataMainPageBase, GlobalRoutePathBase {
-  const factory PathDataMainPageBase.dashboard() = PathDataMainPageDashBoard;
+  const factory PathDataMainPageBase.dashboard() = _PathDataMainPageDashBoard;
 
   const factory PathDataMainPageBase.subscribing(PageListTabPage index) =
-      PathDataMainPageSubscribing;
+      _PathDataMainPageSubscribing;
 
-  const factory PathDataMainPageBase.setting() = PathDataMainPageSetting;
+  const factory PathDataMainPageBase.setting() = _PathDataMainPageSetting;
 
   factory PathDataMainPageBase.fromIndex(int index) {
     switch (index) {

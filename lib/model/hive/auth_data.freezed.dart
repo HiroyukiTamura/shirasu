@@ -16,10 +16,10 @@ class _$HiveAuthDataTearOff {
 // ignore: unused_element
   _HiveAuthData call(
       {@required @HiveField(0) HiveBody body,
-      @required @HiveField(1) int expiresAt}) {
+      @required @HiveField(1) @protected int rawExpiresAt}) {
     return _HiveAuthData(
       body: body,
-      expiresAt: expiresAt,
+      rawExpiresAt: rawExpiresAt,
     );
   }
 }
@@ -33,7 +33,8 @@ mixin _$HiveAuthData {
   @HiveField(0)
   HiveBody get body;
   @HiveField(1)
-  int get expiresAt;
+  @protected
+  int get rawExpiresAt;
 
   $HiveAuthDataCopyWith<HiveAuthData> get copyWith;
 }
@@ -43,7 +44,8 @@ abstract class $HiveAuthDataCopyWith<$Res> {
   factory $HiveAuthDataCopyWith(
           HiveAuthData value, $Res Function(HiveAuthData) then) =
       _$HiveAuthDataCopyWithImpl<$Res>;
-  $Res call({@HiveField(0) HiveBody body, @HiveField(1) int expiresAt});
+  $Res call(
+      {@HiveField(0) HiveBody body, @HiveField(1) @protected int rawExpiresAt});
 
   $HiveBodyCopyWith<$Res> get body;
 }
@@ -59,11 +61,12 @@ class _$HiveAuthDataCopyWithImpl<$Res> implements $HiveAuthDataCopyWith<$Res> {
   @override
   $Res call({
     Object body = freezed,
-    Object expiresAt = freezed,
+    Object rawExpiresAt = freezed,
   }) {
     return _then(_value.copyWith(
       body: body == freezed ? _value.body : body as HiveBody,
-      expiresAt: expiresAt == freezed ? _value.expiresAt : expiresAt as int,
+      rawExpiresAt:
+          rawExpiresAt == freezed ? _value.rawExpiresAt : rawExpiresAt as int,
     ));
   }
 
@@ -85,7 +88,8 @@ abstract class _$HiveAuthDataCopyWith<$Res>
           _HiveAuthData value, $Res Function(_HiveAuthData) then) =
       __$HiveAuthDataCopyWithImpl<$Res>;
   @override
-  $Res call({@HiveField(0) HiveBody body, @HiveField(1) int expiresAt});
+  $Res call(
+      {@HiveField(0) HiveBody body, @HiveField(1) @protected int rawExpiresAt});
 
   @override
   $HiveBodyCopyWith<$Res> get body;
@@ -104,11 +108,12 @@ class __$HiveAuthDataCopyWithImpl<$Res> extends _$HiveAuthDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object body = freezed,
-    Object expiresAt = freezed,
+    Object rawExpiresAt = freezed,
   }) {
     return _then(_HiveAuthData(
       body: body == freezed ? _value.body : body as HiveBody,
-      expiresAt: expiresAt == freezed ? _value.expiresAt : expiresAt as int,
+      rawExpiresAt:
+          rawExpiresAt == freezed ? _value.rawExpiresAt : rawExpiresAt as int,
     ));
   }
 }
@@ -117,23 +122,25 @@ class __$HiveAuthDataCopyWithImpl<$Res> extends _$HiveAuthDataCopyWithImpl<$Res>
 @HiveType(typeId: 0)
 
 /// @nodoc
-class _$_HiveAuthData implements _HiveAuthData {
+class _$_HiveAuthData extends _HiveAuthData {
   const _$_HiveAuthData(
       {@required @HiveField(0) this.body,
-      @required @HiveField(1) this.expiresAt})
+      @required @HiveField(1) @protected this.rawExpiresAt})
       : assert(body != null),
-        assert(expiresAt != null);
+        assert(rawExpiresAt != null),
+        super._();
 
   @override
   @HiveField(0)
   final HiveBody body;
   @override
   @HiveField(1)
-  final int expiresAt;
+  @protected
+  final int rawExpiresAt;
 
   @override
   String toString() {
-    return 'HiveAuthData(body: $body, expiresAt: $expiresAt)';
+    return 'HiveAuthData(body: $body, rawExpiresAt: $rawExpiresAt)';
   }
 
   @override
@@ -142,33 +149,35 @@ class _$_HiveAuthData implements _HiveAuthData {
         (other is _HiveAuthData &&
             (identical(other.body, body) ||
                 const DeepCollectionEquality().equals(other.body, body)) &&
-            (identical(other.expiresAt, expiresAt) ||
+            (identical(other.rawExpiresAt, rawExpiresAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.expiresAt, expiresAt)));
+                    .equals(other.rawExpiresAt, rawExpiresAt)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(body) ^
-      const DeepCollectionEquality().hash(expiresAt);
+      const DeepCollectionEquality().hash(rawExpiresAt);
 
   @override
   _$HiveAuthDataCopyWith<_HiveAuthData> get copyWith =>
       __$HiveAuthDataCopyWithImpl<_HiveAuthData>(this, _$identity);
 }
 
-abstract class _HiveAuthData implements HiveAuthData {
+abstract class _HiveAuthData extends HiveAuthData {
+  const _HiveAuthData._() : super._();
   const factory _HiveAuthData(
       {@required @HiveField(0) HiveBody body,
-      @required @HiveField(1) int expiresAt}) = _$_HiveAuthData;
+      @required @HiveField(1) @protected int rawExpiresAt}) = _$_HiveAuthData;
 
   @override
   @HiveField(0)
   HiveBody get body;
   @override
   @HiveField(1)
-  int get expiresAt;
+  @protected
+  int get rawExpiresAt;
   @override
   _$HiveAuthDataCopyWith<_HiveAuthData> get copyWith;
 }

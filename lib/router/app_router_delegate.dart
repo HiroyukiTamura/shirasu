@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/src/framework.dart';
+import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -18,7 +19,10 @@ import 'package:tuple/tuple.dart';
 import 'on_pop_page_mixin.dart';
 
 class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
-    with ChangeNotifier, OnPopPageMixin<GlobalRoutePathBase>, PlayerPopRouteMixin<GlobalRoutePathBase> {
+    with
+        ChangeNotifier,
+        OnPopPageMixin<GlobalRoutePathBase>,
+        PlayerPopRouteMixin<GlobalRoutePathBase> {
   AppRouterDelegate(this.ref) : navigatorKey = GlobalKey<NavigatorState>() {
     appState.addListener(notifyListeners);
   }
@@ -65,6 +69,16 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
   }
 
   @override
+  void notifyListeners() {
+    super.notifyListeners();
+
+    // if (HiveAuthClient.instance().maybeExpired &&
+    //     appState.last != const GlobalRoutePath.auth()) {
+    //   appState.push(const GlobalRoutePath.auth());//todo more logic
+    // }
+  }
+
+  @override
   Future<void> setNewRoutePath(GlobalRoutePathBase configuration) async =>
       appState.push(configuration);
 
@@ -78,9 +92,9 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
 
   /// copy of [PopNavigatorRouterDelegateMixin.popRoute]
   Future<bool> _popRouteAsDefault() {
-    final NavigatorState navigator = navigatorKey?.currentState;
-    if (navigator == null)
-      return SynchronousFuture<bool>(false);
-    return navigator.maybePop();
+    final navigator = navigatorKey?.currentState;
+    return navigator == null
+        ? SynchronousFuture<bool>(false)
+        : navigator.maybePop();
   }
 }

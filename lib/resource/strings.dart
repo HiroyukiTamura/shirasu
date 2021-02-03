@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 class Strings {
   const Strings._();
 
+  static const APP_NAME = 'SHIRASU';
+
   //region Intro
   static const String INTRO_TITLE_1ST = 'SHIRASU';
   static const String INTRO_DESC_1ST = 'このアプリは、動画配信プラットフォーム「シラス」の非公式アプリです。';

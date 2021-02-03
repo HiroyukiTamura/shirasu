@@ -36,11 +36,10 @@ class HiveAuthClient extends HiveClient<HiveAuthData> {
       Hive.box<HiveAuthData>(boxName).clear();
 
   bool get maybeExpired {
-    final expiredAt = authData?.expiresAt;
-    return expiredAt == null ||
-        expiredAt * 1000 < DateTime
-            .now()
-            .millisecondsSinceEpoch;
+    return true;
+    // final expiredAt = authData?.expiresAt;
+    // return expiredAt == null ||
+    //     expiredAt.isBefore(DateTime.now());//fixme @temp
   }
 }
 

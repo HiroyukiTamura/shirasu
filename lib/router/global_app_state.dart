@@ -21,14 +21,15 @@ class GlobalAppState extends ChangeNotifier {
     return _list;
   }
 
+  //todo fix
   void push(GlobalRoutePathBase path) {
-    if (last is PathDataAuth && path is PathDataAuth)
+    if (last == const GlobalRoutePath.auth() && path == const GlobalRoutePath.auth())
       return;
 
-    if (last is PathDataAuth && path is PathDataError)
+    if (last == const GlobalRoutePath.auth() && path == const GlobalRoutePath.error())
       _list.removeLast();
 
-    if (last is PathDataError || last is PathDataIntro)
+    if (last == const GlobalRoutePath.error() || last == const GlobalRoutePath.intro())
       _list.removeLast();
 
     if (last is PathDataMainPageBase && path is PathDataMainPageBase)

@@ -14,7 +14,7 @@ void main() {
 
   testWidgets('test for GraphQl API client', (WidgetTester tester) async {
     await tester.runAsync(() async {
-      final result = await ApiClient.instance().queryFeaturedProgramsList();
+      final result = await ApiClient.instance.queryFeaturedProgramsList();
       expect(result, 1);
     });
   });

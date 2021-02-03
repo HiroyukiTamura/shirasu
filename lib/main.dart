@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,6 +9,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/api_client.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
@@ -20,10 +22,6 @@ final snackBarMsgProvider =
 
 final pAppRouterDelegate =
     Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref));
-
-final pcnAppRouterDelegate =
-    ChangeNotifierProvider.autoDispose<AppRouterDelegate>(
-        (ref) => ref.watch(pAppRouterDelegate));
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,7 +53,6 @@ class MyApp extends StatefulHookWidget {
 
 class MyAppState extends State<MyApp>
     with WidgetsBindingObserver, TickerProviderStateMixin {
-  final GlobalKey<MyAppState> _myAppStateKey = GlobalKey<MyAppState>();
 
   @override
   void initState() {
@@ -76,13 +73,6 @@ class MyAppState extends State<MyApp>
       context.read(pAppRouterDelegate).pushPage(const GlobalRoutePath.auth());
   }
 
-  // todo should be called on navigation listener
-  @override
-  void afterFirstLayout(BuildContext context) {
-    if (HiveAuthClient.instance().maybeExpired)
-      context.read(pAppRouterDelegate).pushPage(const GlobalRoutePath.auth());
-  }
-
   @override
   Widget build(BuildContext context) {
     // final isInitialLaunch = HiveClient.isInitialLaunchApp();
@@ -92,15 +82,13 @@ class MyAppState extends State<MyApp>
     final delegate = useProvider(pAppRouterDelegate);
 
     return MaterialApp(
-      title: 'Flutter Demo',//todo fix
+      title: Strings.APP_NAME,
       theme: Styles.theme,
-      home: SafeArea(
-        child: Scaffold(
-          body: Router(
-            backButtonDispatcher: RootBackButtonDispatcher(),
-            routerDelegate: delegate,
-            routeInformationParser: AppRouteInformationParser.instance,
-          ),
+      home: Scaffold(
+        body: Router(
+          backButtonDispatcher: RootBackButtonDispatcher(),
+          routerDelegate: delegate,
+          routeInformationParser: AppRouteInformationParser.instance,
         ),
       ),
       localizationsDelegates: const [

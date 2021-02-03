@@ -24,13 +24,11 @@ import '../util.dart';
 /// todo operation name?
 @immutable
 class ApiClient {
-  ApiClient._() : _graphQlClient = _createClient(Client());
+  ApiClient._();
 
-  factory ApiClient.instance() => _instance ??= ApiClient._();
+  static final ApiClient instance = ApiClient._();
 
-  static ApiClient _instance;
-
-  final GraphQLClient _graphQlClient;
+  final GraphQLClient _graphQlClient = _createClient(Client());
 
   static Future<void> openHiveStore() async => HiveStore.open();
 

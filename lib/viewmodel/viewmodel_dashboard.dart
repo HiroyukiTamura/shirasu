@@ -12,7 +12,6 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   ViewModelDashBoard(this._ref) : super();
 
-  final _apiClient = ApiClient.instance();
   final AutoDisposeProviderReference _ref;
 
   double headerBackDropScrollPos = 0;
@@ -26,8 +25,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     DashboardModel newModel;
 
     try {
-      final apiResult = await Util.wait2(_apiClient.queryFeaturedProgramsList,
-          _apiClient.queryNewProgramsList);
+      final apiResult = await Util.wait2(ApiClient.instance.queryFeaturedProgramsList,
+          ApiClient.instance.queryNewProgramsList);
       final data = ApiData(
         featureProgramData: apiResult.item1,
         rawNewProgramsDataList: [apiResult.item2],
@@ -60,7 +59,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       try {
         state = oldState.copyAsLoadMore();
 
-        final newProgramsData = await _apiClient.queryNewProgramsList(
+        final newProgramsData = await ApiClient.instance.queryNewProgramsList(
           nextToken: nextToken,
         );
 

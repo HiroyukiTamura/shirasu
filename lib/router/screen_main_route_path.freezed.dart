@@ -297,6 +297,7 @@ class _$PathDataError implements PathDataError {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(authExpired);
 
+  @JsonKey(ignore: true)
   @override
   $PathDataErrorCopyWith<PathDataError> get copyWith =>
       _$PathDataErrorCopyWithImpl<PathDataError>(this, _$identity);
@@ -386,6 +387,7 @@ abstract class PathDataError implements GlobalRoutePath {
   const factory PathDataError(bool authExpired) = _$PathDataError;
 
   bool get authExpired;
+  @JsonKey(ignore: true)
   $PathDataErrorCopyWith<PathDataError> get copyWith;
 }
 
@@ -443,6 +445,7 @@ class _$_PathDataChannel implements _PathDataChannel {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(channelId);
 
+  @JsonKey(ignore: true)
   @override
   _$PathDataChannelCopyWith<_PathDataChannel> get copyWith =>
       __$PathDataChannelCopyWithImpl<_PathDataChannel>(this, _$identity);
@@ -532,6 +535,7 @@ abstract class _PathDataChannel implements GlobalRoutePath {
   const factory _PathDataChannel(String channelId) = _$_PathDataChannel;
 
   String get channelId;
+  @JsonKey(ignore: true)
   _$PathDataChannelCopyWith<_PathDataChannel> get copyWith;
 }
 
@@ -589,6 +593,7 @@ class _$PathDataProgram implements PathDataProgram {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(programId);
 
+  @JsonKey(ignore: true)
   @override
   $PathDataProgramCopyWith<PathDataProgram> get copyWith =>
       _$PathDataProgramCopyWithImpl<PathDataProgram>(this, _$identity);
@@ -678,6 +683,7 @@ abstract class PathDataProgram implements GlobalRoutePath {
   const factory PathDataProgram(String programId) = _$PathDataProgram;
 
   String get programId;
+  @JsonKey(ignore: true)
   $PathDataProgramCopyWith<PathDataProgram> get copyWith;
 }
 
@@ -1274,6 +1280,7 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(index);
 
+  @JsonKey(ignore: true)
   @override
   _$PathDataMainPageSubscribingCopyWith<_PathDataMainPageSubscribing>
       get copyWith => __$PathDataMainPageSubscribingCopyWithImpl<
@@ -1342,6 +1349,7 @@ abstract class _PathDataMainPageSubscribing extends PathDataMainPageBase {
       _$_PathDataMainPageSubscribing;
 
   PageListTabPage get index;
+  @JsonKey(ignore: true)
   _$PathDataMainPageSubscribingCopyWith<_PathDataMainPageSubscribing>
       get copyWith;
 }

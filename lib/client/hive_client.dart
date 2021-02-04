@@ -37,16 +37,16 @@ class HiveAuthClient extends HiveClient<HiveAuthData> {
 
   Future<void> clearAuthData() async => box.clear();
 
+  //todo synchronize??
   bool get shouldRefresh {
-    final tokenPublishedAtUtc = authData.tokenPublishedAtUtc;
+    final tokenPublishedAtUtc = authData?.tokenPublishedAtUtc;
     return tokenPublishedAtUtc == null ? null : (tokenPublishedAtUtc + 3.hours).isBefore(DateTime.now().toUtc());
   }
 
   bool get maybeExpired {
-    return true;
-    // final expiredAt = authData?.expiresAt;
-    // return expiredAt == null ||
-    //     expiredAt.isBefore(DateTime.now());//fixme @temp
+    final expiredAt = authData?.expiresAtUtc;
+    return expiredAt == null ||
+        expiredAt.isBefore(DateTime.now().toUtc());
   }
 
   Future<void> appendRefreshedToken(ResultTokenRefresh result) async {

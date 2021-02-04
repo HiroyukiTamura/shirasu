@@ -40,6 +40,7 @@ mixin _$HiveAuthData {
   @HiveField(64)
   DateTime get tokenPublishedAtUtc;
 
+  @JsonKey(ignore: true)
   $HiveAuthDataCopyWith<HiveAuthData> get copyWith;
 }
 
@@ -185,6 +186,7 @@ class _$_HiveAuthData extends _HiveAuthData {
       const DeepCollectionEquality().hash(rawExpiresAt) ^
       const DeepCollectionEquality().hash(tokenPublishedAtUtc);
 
+  @JsonKey(ignore: true)
   @override
   _$HiveAuthDataCopyWith<_HiveAuthData> get copyWith =>
       __$HiveAuthDataCopyWithImpl<_HiveAuthData>(this, _$identity);
@@ -208,6 +210,7 @@ abstract class _HiveAuthData extends HiveAuthData {
   @HiveField(64)
   DateTime get tokenPublishedAtUtc;
   @override
+  @JsonKey(ignore: true)
   _$HiveAuthDataCopyWith<_HiveAuthData> get copyWith;
 }
 
@@ -265,6 +268,7 @@ mixin _$HiveBody {
   @HiveField(10)
   String get audience;
 
+  @JsonKey(ignore: true)
   $HiveBodyCopyWith<HiveBody> get copyWith;
 }
 
@@ -498,6 +502,7 @@ class _$_HiveBody implements _HiveBody {
       const DeepCollectionEquality().hash(decodedToken) ^
       const DeepCollectionEquality().hash(audience);
 
+  @JsonKey(ignore: true)
   @override
   _$HiveBodyCopyWith<_HiveBody> get copyWith =>
       __$HiveBodyCopyWithImpl<_HiveBody>(this, _$identity);
@@ -543,6 +548,7 @@ abstract class _HiveBody implements HiveBody {
   @HiveField(10)
   String get audience;
   @override
+  @JsonKey(ignore: true)
   _$HiveBodyCopyWith<_HiveBody> get copyWith;
 }
 
@@ -580,6 +586,7 @@ mixin _$HiveDecodedToken {
   @HiveField(14)
   HiveUser get user;
 
+  @JsonKey(ignore: true)
   $HiveDecodedTokenCopyWith<HiveDecodedToken> get copyWith;
 }
 
@@ -771,6 +778,7 @@ class _$_HiveDecodedToken implements _HiveDecodedToken {
       const DeepCollectionEquality().hash(claims) ^
       const DeepCollectionEquality().hash(user);
 
+  @JsonKey(ignore: true)
   @override
   _$HiveDecodedTokenCopyWith<_HiveDecodedToken> get copyWith =>
       __$HiveDecodedTokenCopyWithImpl<_HiveDecodedToken>(this, _$identity);
@@ -796,6 +804,7 @@ abstract class _HiveDecodedToken implements HiveDecodedToken {
   @HiveField(14)
   HiveUser get user;
   @override
+  @JsonKey(ignore: true)
   _$HiveDecodedTokenCopyWith<_HiveDecodedToken> get copyWith;
 }
 
@@ -929,6 +938,7 @@ mixin _$HiveClaims {
   @HiveField(34)
   int get exp;
 
+  @JsonKey(ignore: true)
   $HiveClaimsCopyWith<HiveClaims> get copyWith;
 }
 
@@ -1345,6 +1355,7 @@ class _$_HiveClaims extends _HiveClaims {
       const DeepCollectionEquality().hash(iat) ^
       const DeepCollectionEquality().hash(exp);
 
+  @JsonKey(ignore: true)
   @override
   _$HiveClaimsCopyWith<_HiveClaims> get copyWith =>
       __$HiveClaimsCopyWithImpl<_HiveClaims>(this, _$identity);
@@ -1467,6 +1478,7 @@ abstract class _HiveClaims extends HiveClaims {
   @HiveField(34)
   int get exp;
   @override
+  @JsonKey(ignore: true)
   _$HiveClaimsCopyWith<_HiveClaims> get copyWith;
 }
 
@@ -1521,6 +1533,7 @@ mixin _$HiveHttpsShirasuIoUserAttribute {
   @HiveField(43)
   String get givenNameReading;
 
+  @JsonKey(ignore: true)
   $HiveHttpsShirasuIoUserAttributeCopyWith<HiveHttpsShirasuIoUserAttribute>
       get copyWith;
 }
@@ -1740,6 +1753,7 @@ class _$_HiveHttpsShirasuIoUserAttribute
       const DeepCollectionEquality().hash(familyNameReading) ^
       const DeepCollectionEquality().hash(givenNameReading);
 
+  @JsonKey(ignore: true)
   @override
   _$HiveHttpsShirasuIoUserAttributeCopyWith<_HiveHttpsShirasuIoUserAttribute>
       get copyWith => __$HiveHttpsShirasuIoUserAttributeCopyWithImpl<
@@ -1784,6 +1798,7 @@ abstract class _HiveHttpsShirasuIoUserAttribute
   @HiveField(43)
   String get givenNameReading;
   @override
+  @JsonKey(ignore: true)
   _$HiveHttpsShirasuIoUserAttributeCopyWith<_HiveHttpsShirasuIoUserAttribute>
       get copyWith;
 }
@@ -1818,6 +1833,7 @@ mixin _$HiveEncoded {
   @HiveField(45)
   String get signature;
 
+  @JsonKey(ignore: true)
   $HiveEncodedCopyWith<HiveEncoded> get copyWith;
 }
 
@@ -1940,6 +1956,7 @@ class _$_HiveEncoded implements _HiveEncoded {
       const DeepCollectionEquality().hash(payload) ^
       const DeepCollectionEquality().hash(signature);
 
+  @JsonKey(ignore: true)
   @override
   _$HiveEncodedCopyWith<_HiveEncoded> get copyWith =>
       __$HiveEncodedCopyWithImpl<_HiveEncoded>(this, _$identity);
@@ -1961,6 +1978,7 @@ abstract class _HiveEncoded implements HiveEncoded {
   @HiveField(45)
   String get signature;
   @override
+  @JsonKey(ignore: true)
   _$HiveEncodedCopyWith<_HiveEncoded> get copyWith;
 }
 
@@ -1994,6 +2012,7 @@ mixin _$HiveHeader {
   @HiveField(48)
   String get kid;
 
+  @JsonKey(ignore: true)
   $HiveHeaderCopyWith<HiveHeader> get copyWith;
 }
 
@@ -2113,6 +2132,7 @@ class _$_HiveHeader implements _HiveHeader {
       const DeepCollectionEquality().hash(typ) ^
       const DeepCollectionEquality().hash(kid);
 
+  @JsonKey(ignore: true)
   @override
   _$HiveHeaderCopyWith<_HiveHeader> get copyWith =>
       __$HiveHeaderCopyWithImpl<_HiveHeader>(this, _$identity);
@@ -2134,6 +2154,7 @@ abstract class _HiveHeader implements HiveHeader {
   @HiveField(48)
   String get kid;
   @override
+  @JsonKey(ignore: true)
   _$HiveHeaderCopyWith<_HiveHeader> get copyWith;
 }
 
@@ -2237,6 +2258,7 @@ mixin _$HiveUser {
   @HiveField(63)
   String get sub;
 
+  @JsonKey(ignore: true)
   $HiveUserCopyWith<HiveUser> get copyWith;
 }
 
@@ -2574,6 +2596,7 @@ class _$_HiveUser extends _HiveUser {
       const DeepCollectionEquality().hash(emailVerified) ^
       const DeepCollectionEquality().hash(sub);
 
+  @JsonKey(ignore: true)
   @override
   _$HiveUserCopyWith<_HiveUser> get copyWith =>
       __$HiveUserCopyWithImpl<_HiveUser>(this, _$identity);
@@ -2666,5 +2689,6 @@ abstract class _HiveUser extends HiveUser {
   @HiveField(63)
   String get sub;
   @override
+  @JsonKey(ignore: true)
   _$HiveUserCopyWith<_HiveUser> get copyWith;
 }

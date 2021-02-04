@@ -39,7 +39,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         result: ChannelDataResult.success(data),
         loading: false,
       ));
-    } on AuthExpiredException catch (e) {
+    } on UnauthorizedException catch (e) {
       print(e);
       pushAuthExpireScreen();
     } catch (e) {

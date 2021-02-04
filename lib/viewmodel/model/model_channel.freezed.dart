@@ -32,6 +32,7 @@ mixin _$ChannelModel {
   ChannelDataResult get result;
   bool get loading;
 
+  @JsonKey(ignore: true)
   $ChannelModelCopyWith<ChannelModel> get copyWith;
 }
 
@@ -144,6 +145,7 @@ class _$_ChannelModel extends _ChannelModel {
       const DeepCollectionEquality().hash(result) ^
       const DeepCollectionEquality().hash(loading);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelModelCopyWith<_ChannelModel> get copyWith =>
       __$ChannelModelCopyWithImpl<_ChannelModel>(this, _$identity);
@@ -160,6 +162,7 @@ abstract class _ChannelModel extends ChannelModel {
   @override
   bool get loading;
   @override
+  @JsonKey(ignore: true)
   _$ChannelModelCopyWith<_ChannelModel> get copyWith;
 }
 
@@ -511,6 +514,7 @@ class _$Success implements Success {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(channelData);
 
+  @JsonKey(ignore: true)
   @override
   $SuccessCopyWith<Success> get copyWith =>
       _$SuccessCopyWithImpl<Success>(this, _$identity);
@@ -582,6 +586,7 @@ abstract class Success implements ChannelDataResult {
   const factory Success(ChannelData channelData) = _$Success;
 
   ChannelData get channelData;
+  @JsonKey(ignore: true)
   $SuccessCopyWith<Success> get copyWith;
 }
 

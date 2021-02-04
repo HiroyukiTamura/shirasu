@@ -362,6 +362,7 @@ class _$StateSuccess implements StateSuccess {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
 
+  @JsonKey(ignore: true)
   @override
   $StateSuccessCopyWith<StateSuccess> get copyWith =>
       _$StateSuccessCopyWithImpl<StateSuccess>(this, _$identity);
@@ -433,6 +434,7 @@ abstract class StateSuccess implements SettingModelState {
   const factory StateSuccess(Viewer data) = _$StateSuccess;
 
   Viewer get data;
+  @JsonKey(ignore: true)
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
 
@@ -564,6 +566,7 @@ mixin _$EditedUserInfo {
   String get jobCode;
   Location get location;
 
+  @JsonKey(ignore: true)
   $EditedUserInfoCopyWith<EditedUserInfo> get copyWith;
 }
 
@@ -689,6 +692,7 @@ class _$_EditedUserInfo extends _EditedUserInfo {
       const DeepCollectionEquality().hash(jobCode) ^
       const DeepCollectionEquality().hash(location);
 
+  @JsonKey(ignore: true)
   @override
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith =>
       __$EditedUserInfoCopyWithImpl<_EditedUserInfo>(this, _$identity);
@@ -708,6 +712,7 @@ abstract class _EditedUserInfo extends EditedUserInfo {
   @override
   Location get location;
   @override
+  @JsonKey(ignore: true)
   _$EditedUserInfoCopyWith<_EditedUserInfo> get copyWith;
 }
 
@@ -738,6 +743,7 @@ mixin _$SettingModel {
   bool get uploadingProfile;
   EditedUserInfo get editedUserInfo;
 
+  @JsonKey(ignore: true)
   $SettingModelCopyWith<SettingModel> get copyWith;
 }
 
@@ -895,6 +901,7 @@ class _$_SettingModel implements _SettingModel {
       const DeepCollectionEquality().hash(uploadingProfile) ^
       const DeepCollectionEquality().hash(editedUserInfo);
 
+  @JsonKey(ignore: true)
   @override
   _$SettingModelCopyWith<_SettingModel> get copyWith =>
       __$SettingModelCopyWithImpl<_SettingModel>(this, _$identity);
@@ -913,6 +920,7 @@ abstract class _SettingModel implements SettingModel {
   @override
   EditedUserInfo get editedUserInfo;
   @override
+  @JsonKey(ignore: true)
   _$SettingModelCopyWith<_SettingModel> get copyWith;
 }
 
@@ -939,6 +947,7 @@ mixin _$Location {
   String get countryCode;
   String get prefectureCode;
 
+  @JsonKey(ignore: true)
   $LocationCopyWith<Location> get copyWith;
 }
 
@@ -1038,6 +1047,7 @@ class _$_Location implements _Location {
       const DeepCollectionEquality().hash(countryCode) ^
       const DeepCollectionEquality().hash(prefectureCode);
 
+  @JsonKey(ignore: true)
   @override
   _$LocationCopyWith<_Location> get copyWith =>
       __$LocationCopyWithImpl<_Location>(this, _$identity);
@@ -1053,5 +1063,6 @@ abstract class _Location implements Location {
   @override
   String get prefectureCode;
   @override
+  @JsonKey(ignore: true)
   _$LocationCopyWith<_Location> get copyWith;
 }

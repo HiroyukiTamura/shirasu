@@ -18,7 +18,6 @@ class DioClient {
   Future<String> getSignedCookie(
       String videoId, VideoType videoType, String auth) async {
 
-    AuthClientInterceptor.instance.ensureNotExpired();
     await AuthClientInterceptor.instance.refreshAuthTokenIfNeeded();
 
     final response = await _dio.get<Map<String, dynamic>>(UrlUtil.URL_SIGNED_COOKIE,

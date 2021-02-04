@@ -55,7 +55,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     try {
       final viewer = await ApiClient.instance.queryViewer();
       newState = SettingModelState.success(viewer);
-    } on AuthExpiredException catch (e) {
+    } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
     } catch (e) {

@@ -33,10 +33,11 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
         rawNewProgramsDataList: [apiResult.item2],
       );
       newModel = state.copyAsSuccess(data);
-    } on AuthExpiredException catch (e) {
+    } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
     } catch (e) {
+      print(e);
       newModel = DashboardModel.error();
     }
 

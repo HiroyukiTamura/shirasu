@@ -44,6 +44,7 @@ mixin _$PrefectureData {
   List<Prefecture> get rawPrefecture;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $PrefectureDataCopyWith<PrefectureData> get copyWith;
 }
 
@@ -146,6 +147,7 @@ class _$_PrefectureData extends _PrefectureData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(rawPrefecture);
 
+  @JsonKey(ignore: true)
   @override
   _$PrefectureDataCopyWith<_PrefectureData> get copyWith =>
       __$PrefectureDataCopyWithImpl<_PrefectureData>(this, _$identity);
@@ -172,6 +174,7 @@ abstract class _PrefectureData extends PrefectureData {
   @protected
   List<Prefecture> get rawPrefecture;
   @override
+  @JsonKey(ignore: true)
   _$PrefectureDataCopyWith<_PrefectureData> get copyWith;
 }
 
@@ -211,6 +214,7 @@ mixin _$Prefecture {
   String get name;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $PrefectureCopyWith<Prefecture> get copyWith;
 }
 
@@ -316,6 +320,7 @@ class _$_Prefecture extends _Prefecture {
       const DeepCollectionEquality().hash(codeInt) ^
       const DeepCollectionEquality().hash(name);
 
+  @JsonKey(ignore: true)
   @override
   _$PrefectureCopyWith<_Prefecture> get copyWith =>
       __$PrefectureCopyWithImpl<_Prefecture>(this, _$identity);
@@ -342,5 +347,6 @@ abstract class _Prefecture extends Prefecture {
   @override
   String get name;
   @override
+  @JsonKey(ignore: true)
   _$PrefectureCopyWith<_Prefecture> get copyWith;
 }

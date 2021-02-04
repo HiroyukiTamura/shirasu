@@ -38,6 +38,7 @@ mixin _$InvoiceData {
   Invoice get invoice;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $InvoiceDataCopyWith<InvoiceData> get copyWith;
 }
 
@@ -141,6 +142,7 @@ class _$_InvoiceData implements _InvoiceData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(invoice);
 
+  @JsonKey(ignore: true)
   @override
   _$InvoiceDataCopyWith<_InvoiceData> get copyWith =>
       __$InvoiceDataCopyWithImpl<_InvoiceData>(this, _$identity);
@@ -160,6 +162,7 @@ abstract class _InvoiceData implements InvoiceData {
   @override
   Invoice get invoice;
   @override
+  @JsonKey(ignore: true)
   _$InvoiceDataCopyWith<_InvoiceData> get copyWith;
 }
 
@@ -231,6 +234,7 @@ mixin _$Invoice {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $InvoiceCopyWith<Invoice> get copyWith;
 }
 
@@ -495,6 +499,7 @@ class _$_Invoice extends _Invoice {
       const DeepCollectionEquality().hash(paymentIntent) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$InvoiceCopyWith<_Invoice> get copyWith =>
       __$InvoiceCopyWithImpl<_Invoice>(this, _$identity);
@@ -552,5 +557,6 @@ abstract class _Invoice extends Invoice {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$InvoiceCopyWith<_Invoice> get copyWith;
 }

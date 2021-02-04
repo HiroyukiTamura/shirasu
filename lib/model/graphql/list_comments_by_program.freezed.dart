@@ -39,6 +39,7 @@ mixin _$ListCommentsByProgram {
   Comments get comments;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ListCommentsByProgramCopyWith<ListCommentsByProgram> get copyWith;
 }
 
@@ -146,6 +147,7 @@ class _$_ListCommentsByProgram implements _ListCommentsByProgram {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(comments);
 
+  @JsonKey(ignore: true)
   @override
   _$ListCommentsByProgramCopyWith<_ListCommentsByProgram> get copyWith =>
       __$ListCommentsByProgramCopyWithImpl<_ListCommentsByProgram>(
@@ -167,6 +169,7 @@ abstract class _ListCommentsByProgram implements ListCommentsByProgram {
   @override
   Comments get comments;
   @override
+  @JsonKey(ignore: true)
   _$ListCommentsByProgramCopyWith<_ListCommentsByProgram> get copyWith;
 }
 
@@ -209,6 +212,7 @@ mixin _$Comments {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CommentsCopyWith<Comments> get copyWith;
 }
 
@@ -329,6 +333,7 @@ class _$_Comments extends _Comments {
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$CommentsCopyWith<_Comments> get copyWith =>
       __$CommentsCopyWithImpl<_Comments>(this, _$identity);
@@ -357,6 +362,7 @@ abstract class _Comments extends Comments {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$CommentsCopyWith<_Comments> get copyWith;
 }
 
@@ -408,6 +414,7 @@ mixin _$CommentItem {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CommentItemCopyWith<CommentItem> get copyWith;
 }
 
@@ -589,6 +596,7 @@ class _$_CommentItem extends _CommentItem {
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$CommentItemCopyWith<_CommentItem> get copyWith =>
       __$CommentItemCopyWithImpl<_CommentItem>(this, _$identity);
@@ -627,6 +635,7 @@ abstract class _CommentItem extends CommentItem {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$CommentItemCopyWith<_CommentItem> get copyWith;
 }
 
@@ -671,6 +680,7 @@ mixin _$User {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith;
 }
 
@@ -802,6 +812,7 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$UserCopyWith<_User> get copyWith =>
       __$UserCopyWithImpl<_User>(this, _$identity);
@@ -831,5 +842,6 @@ abstract class _User implements User {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith;
 }

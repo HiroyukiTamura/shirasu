@@ -51,6 +51,7 @@ mixin _$ResultTokenRefresh {
   String get tokenType;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ResultTokenRefreshCopyWith<ResultTokenRefresh> get copyWith;
 }
 
@@ -204,6 +205,7 @@ class _$_ResultTokenRefresh implements _ResultTokenRefresh {
       const DeepCollectionEquality().hash(idToken) ^
       const DeepCollectionEquality().hash(tokenType);
 
+  @JsonKey(ignore: true)
   @override
   _$ResultTokenRefreshCopyWith<_ResultTokenRefresh> get copyWith =>
       __$ResultTokenRefreshCopyWithImpl<_ResultTokenRefresh>(this, _$identity);
@@ -236,5 +238,6 @@ abstract class _ResultTokenRefresh implements ResultTokenRefresh {
   @override
   String get tokenType;
   @override
+  @JsonKey(ignore: true)
   _$ResultTokenRefreshCopyWith<_ResultTokenRefresh> get copyWith;
 }

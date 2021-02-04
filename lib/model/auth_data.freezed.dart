@@ -40,6 +40,7 @@ mixin _$AuthData {
   int get expiresAt;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $AuthDataCopyWith<AuthData> get copyWith;
 }
 
@@ -152,6 +153,7 @@ class _$_AuthData implements _AuthData {
       const DeepCollectionEquality().hash(body) ^
       const DeepCollectionEquality().hash(expiresAt);
 
+  @JsonKey(ignore: true)
   @override
   _$AuthDataCopyWith<_AuthData> get copyWith =>
       __$AuthDataCopyWithImpl<_AuthData>(this, _$identity);
@@ -173,6 +175,7 @@ abstract class _AuthData implements AuthData {
   @override
   int get expiresAt;
   @override
+  @JsonKey(ignore: true)
   _$AuthDataCopyWith<_AuthData> get copyWith;
 }
 
@@ -237,6 +240,7 @@ mixin _$Body {
   String get audience;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $BodyCopyWith<Body> get copyWith;
 }
 
@@ -469,6 +473,7 @@ class _$_Body implements _Body {
       const DeepCollectionEquality().hash(decodedToken) ^
       const DeepCollectionEquality().hash(audience);
 
+  @JsonKey(ignore: true)
   @override
   _$BodyCopyWith<_Body> get copyWith =>
       __$BodyCopyWithImpl<_Body>(this, _$identity);
@@ -518,6 +523,7 @@ abstract class _Body implements Body {
   @override
   String get audience;
   @override
+  @JsonKey(ignore: true)
   _$BodyCopyWith<_Body> get copyWith;
 }
 
@@ -561,6 +567,7 @@ mixin _$DecodedToken {
   User get user;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $DecodedTokenCopyWith<DecodedToken> get copyWith;
 }
 
@@ -740,6 +747,7 @@ class _$_DecodedToken implements _DecodedToken {
       const DeepCollectionEquality().hash(claims) ^
       const DeepCollectionEquality().hash(user);
 
+  @JsonKey(ignore: true)
   @override
   _$DecodedTokenCopyWith<_DecodedToken> get copyWith =>
       __$DecodedTokenCopyWithImpl<_DecodedToken>(this, _$identity);
@@ -769,6 +777,7 @@ abstract class _DecodedToken implements DecodedToken {
   @override
   User get user;
   @override
+  @JsonKey(ignore: true)
   _$DecodedTokenCopyWith<_DecodedToken> get copyWith;
 }
 
@@ -892,6 +901,7 @@ mixin _$Claims {
   int get exp;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ClaimsCopyWith<Claims> get copyWith;
 }
 
@@ -1302,6 +1312,7 @@ class _$_Claims extends _Claims {
       const DeepCollectionEquality().hash(iat) ^
       const DeepCollectionEquality().hash(exp);
 
+  @JsonKey(ignore: true)
   @override
   _$ClaimsCopyWith<_Claims> get copyWith =>
       __$ClaimsCopyWithImpl<_Claims>(this, _$identity);
@@ -1410,6 +1421,7 @@ abstract class _Claims extends Claims {
   @override
   int get exp;
   @override
+  @JsonKey(ignore: true)
   _$ClaimsCopyWith<_Claims> get copyWith;
 }
 
@@ -1468,6 +1480,7 @@ mixin _$HttpsShirasuIoUserAttribute {
   String get givenNameReading;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $HttpsShirasuIoUserAttributeCopyWith<HttpsShirasuIoUserAttribute>
       get copyWith;
 }
@@ -1687,6 +1700,7 @@ class _$_HttpsShirasuIoUserAttribute extends _HttpsShirasuIoUserAttribute {
       const DeepCollectionEquality().hash(familyNameReading) ^
       const DeepCollectionEquality().hash(givenNameReading);
 
+  @JsonKey(ignore: true)
   @override
   _$HttpsShirasuIoUserAttributeCopyWith<_HttpsShirasuIoUserAttribute>
       get copyWith => __$HttpsShirasuIoUserAttributeCopyWithImpl<
@@ -1733,6 +1747,7 @@ abstract class _HttpsShirasuIoUserAttribute
   @override
   String get givenNameReading;
   @override
+  @JsonKey(ignore: true)
   _$HttpsShirasuIoUserAttributeCopyWith<_HttpsShirasuIoUserAttribute>
       get copyWith;
 }
@@ -1774,6 +1789,7 @@ mixin _$Encoded {
   String get signature;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $EncodedCopyWith<Encoded> get copyWith;
 }
 
@@ -1883,6 +1899,7 @@ class _$_Encoded implements _Encoded {
       const DeepCollectionEquality().hash(payload) ^
       const DeepCollectionEquality().hash(signature);
 
+  @JsonKey(ignore: true)
   @override
   _$EncodedCopyWith<_Encoded> get copyWith =>
       __$EncodedCopyWithImpl<_Encoded>(this, _$identity);
@@ -1908,6 +1925,7 @@ abstract class _Encoded implements Encoded {
   @override
   String get signature;
   @override
+  @JsonKey(ignore: true)
   _$EncodedCopyWith<_Encoded> get copyWith;
 }
 
@@ -1946,6 +1964,7 @@ mixin _$Header {
   String get kid;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $HeaderCopyWith<Header> get copyWith;
 }
 
@@ -2052,6 +2071,7 @@ class _$_Header implements _Header {
       const DeepCollectionEquality().hash(typ) ^
       const DeepCollectionEquality().hash(kid);
 
+  @JsonKey(ignore: true)
   @override
   _$HeaderCopyWith<_Header> get copyWith =>
       __$HeaderCopyWithImpl<_Header>(this, _$identity);
@@ -2077,6 +2097,7 @@ abstract class _Header implements Header {
   @override
   String get kid;
   @override
+  @JsonKey(ignore: true)
   _$HeaderCopyWith<_Header> get copyWith;
 }
 
@@ -2178,6 +2199,7 @@ mixin _$User {
   String get sub;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith;
 }
 
@@ -2518,6 +2540,7 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(emailVerified) ^
       const DeepCollectionEquality().hash(sub);
 
+  @JsonKey(ignore: true)
   @override
   _$UserCopyWith<_User> get copyWith =>
       __$UserCopyWithImpl<_User>(this, _$identity);
@@ -2604,5 +2627,6 @@ abstract class _User extends User {
   @override
   String get sub;
   @override
+  @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith;
 }

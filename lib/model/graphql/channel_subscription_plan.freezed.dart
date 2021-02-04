@@ -39,6 +39,7 @@ mixin _$ChannelSubscriptionPlan {
   ChannelSubscriptionPlan get channel;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ChannelSubscriptionPlanCopyWith<ChannelSubscriptionPlan> get copyWith;
 }
 
@@ -150,6 +151,7 @@ class _$_ChannelSubscriptionPlan implements _ChannelSubscriptionPlan {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(channel);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelSubscriptionPlanCopyWith<_ChannelSubscriptionPlan> get copyWith =>
       __$ChannelSubscriptionPlanCopyWithImpl<_ChannelSubscriptionPlan>(
@@ -171,6 +173,7 @@ abstract class _ChannelSubscriptionPlan implements ChannelSubscriptionPlan {
   @override
   ChannelSubscriptionPlan get channel;
   @override
+  @JsonKey(ignore: true)
   _$ChannelSubscriptionPlanCopyWith<_ChannelSubscriptionPlan> get copyWith;
 }
 
@@ -209,6 +212,7 @@ mixin _$Channel {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ChannelCopyWith<Channel> get copyWith;
 }
 
@@ -334,6 +338,7 @@ class _$_Channel implements _Channel {
       const DeepCollectionEquality().hash(subscriptionPlan) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelCopyWith<_Channel> get copyWith =>
       __$ChannelCopyWithImpl<_Channel>(this, _$identity);
@@ -357,6 +362,7 @@ abstract class _Channel implements Channel {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ChannelCopyWith<_Channel> get copyWith;
 }
 
@@ -427,6 +433,7 @@ mixin _$SubscriptionPlan {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SubscriptionPlanCopyWith<SubscriptionPlan> get copyWith;
 }
 
@@ -695,6 +702,7 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
       const DeepCollectionEquality().hash(isPurchasable) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$SubscriptionPlanCopyWith<_SubscriptionPlan> get copyWith =>
       __$SubscriptionPlanCopyWithImpl<_SubscriptionPlan>(this, _$identity);
@@ -753,5 +761,6 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$SubscriptionPlanCopyWith<_SubscriptionPlan> get copyWith;
 }

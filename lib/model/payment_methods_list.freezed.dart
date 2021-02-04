@@ -38,6 +38,7 @@ mixin _$PaymentMethodsData {
   Viewer get viewer;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $PaymentMethodsDataCopyWith<PaymentMethodsData> get copyWith;
 }
 
@@ -143,6 +144,7 @@ class _$_PaymentMethodsData implements _PaymentMethodsData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(viewer);
 
+  @JsonKey(ignore: true)
   @override
   _$PaymentMethodsDataCopyWith<_PaymentMethodsData> get copyWith =>
       __$PaymentMethodsDataCopyWithImpl<_PaymentMethodsData>(this, _$identity);
@@ -163,6 +165,7 @@ abstract class _PaymentMethodsData implements PaymentMethodsData {
   @override
   Viewer get viewer;
   @override
+  @JsonKey(ignore: true)
   _$PaymentMethodsDataCopyWith<_PaymentMethodsData> get copyWith;
 }
 
@@ -208,6 +211,7 @@ mixin _$Viewer {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ViewerCopyWith<Viewer> get copyWith;
 }
 
@@ -332,6 +336,7 @@ class _$_Viewer extends _Viewer {
       const DeepCollectionEquality().hash(rawPaymentMethods) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ViewerCopyWith<_Viewer> get copyWith =>
       __$ViewerCopyWithImpl<_Viewer>(this, _$identity);
@@ -363,6 +368,7 @@ abstract class _Viewer extends Viewer {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ViewerCopyWith<_Viewer> get copyWith;
 }
 
@@ -410,6 +416,7 @@ mixin _$PaymentMethod {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $PaymentMethodCopyWith<PaymentMethod> get copyWith;
 }
 
@@ -565,6 +572,7 @@ class _$_PaymentMethod implements _PaymentMethod {
       const DeepCollectionEquality().hash(expirationDate) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$PaymentMethodCopyWith<_PaymentMethod> get copyWith =>
       __$PaymentMethodCopyWithImpl<_PaymentMethod>(this, _$identity);
@@ -599,5 +607,6 @@ abstract class _PaymentMethod implements PaymentMethod {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$PaymentMethodCopyWith<_PaymentMethod> get copyWith;
 }

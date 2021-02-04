@@ -48,6 +48,7 @@ mixin _$FeatureProgramData {
   ViewerUser get viewerUser;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $FeatureProgramDataCopyWith<FeatureProgramData> get copyWith;
 }
 
@@ -263,6 +264,7 @@ class _$_FeatureProgramData extends _FeatureProgramData
       const DeepCollectionEquality().hash(channels) ^
       const DeepCollectionEquality().hash(viewerUser);
 
+  @JsonKey(ignore: true)
   @override
   _$FeatureProgramDataCopyWith<_FeatureProgramData> get copyWith =>
       __$FeatureProgramDataCopyWithImpl<_FeatureProgramData>(this, _$identity);
@@ -293,6 +295,7 @@ abstract class _FeatureProgramData extends FeatureProgramData {
   @override
   ViewerUser get viewerUser;
   @override
+  @JsonKey(ignore: true)
   _$FeatureProgramDataCopyWith<_FeatureProgramData> get copyWith;
 }
 
@@ -333,6 +336,7 @@ mixin _$Broadcastings {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $BroadcastingsCopyWith<Broadcastings> get copyWith;
 }
 
@@ -457,6 +461,7 @@ class _$_Broadcastings extends _Broadcastings with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(rawItems) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$BroadcastingsCopyWith<_Broadcastings> get copyWith =>
       __$BroadcastingsCopyWithImpl<_Broadcastings>(this, _$identity);
@@ -485,6 +490,7 @@ abstract class _Broadcastings extends Broadcastings {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$BroadcastingsCopyWith<_Broadcastings> get copyWith;
 }
 
@@ -551,6 +557,7 @@ mixin _$Item {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ItemCopyWith<Item> get copyWith;
 }
 
@@ -826,6 +833,7 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       const DeepCollectionEquality().hash(channel) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ItemCopyWith<_Item> get copyWith =>
       __$ItemCopyWithImpl<_Item>(this, _$identity);
@@ -877,6 +885,7 @@ abstract class _Item implements Item {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ItemCopyWith<_Item> get copyWith;
 }
 
@@ -918,6 +927,7 @@ mixin _$Channel {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ChannelCopyWith<Channel> get copyWith;
 }
 
@@ -1042,6 +1052,7 @@ class _$_Channel with DiagnosticableTreeMixin implements _Channel {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelCopyWith<_Channel> get copyWith =>
       __$ChannelCopyWithImpl<_Channel>(this, _$identity);
@@ -1068,6 +1079,7 @@ abstract class _Channel implements Channel {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ChannelCopyWith<_Channel> get copyWith;
 }
 
@@ -1117,6 +1129,7 @@ mixin _$ViewerUser {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ViewerUserCopyWith<ViewerUser> get copyWith;
 }
 
@@ -1268,6 +1281,7 @@ class _$_ViewerUser extends _ViewerUser with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(rawSubscribedPrograms) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ViewerUserCopyWith<_ViewerUser> get copyWith =>
       __$ViewerUserCopyWithImpl<_ViewerUser>(this, _$identity);
@@ -1304,6 +1318,7 @@ abstract class _ViewerUser extends ViewerUser {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ViewerUserCopyWith<_ViewerUser> get copyWith;
 }
 
@@ -1347,6 +1362,7 @@ mixin _$Channels {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ChannelsCopyWith<Channels> get copyWith;
 }
 
@@ -1481,6 +1497,7 @@ class _$_Channels extends _Channels with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelsCopyWith<_Channels> get copyWith =>
       __$ChannelsCopyWithImpl<_Channels>(this, _$identity);
@@ -1510,5 +1527,6 @@ abstract class _Channels extends Channels {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ChannelsCopyWith<_Channels> get copyWith;
 }

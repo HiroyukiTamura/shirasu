@@ -38,6 +38,7 @@ mixin _$NewProgramsData {
   NewPrograms get newPrograms;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $NewProgramsDataCopyWith<NewProgramsData> get copyWith;
 }
 
@@ -149,6 +150,7 @@ class _$_NewProgramsData implements _NewProgramsData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(newPrograms);
 
+  @JsonKey(ignore: true)
   @override
   _$NewProgramsDataCopyWith<_NewProgramsData> get copyWith =>
       __$NewProgramsDataCopyWithImpl<_NewProgramsData>(this, _$identity);
@@ -169,6 +171,7 @@ abstract class _NewProgramsData implements NewProgramsData {
   @override
   NewPrograms get newPrograms;
   @override
+  @JsonKey(ignore: true)
   _$NewProgramsDataCopyWith<_NewProgramsData> get copyWith;
 }
 
@@ -217,6 +220,7 @@ mixin _$NewPrograms {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $NewProgramsCopyWith<NewPrograms> get copyWith;
 }
 
@@ -347,6 +351,7 @@ class _$_NewPrograms extends _NewPrograms {
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$NewProgramsCopyWith<_NewPrograms> get copyWith =>
       __$NewProgramsCopyWithImpl<_NewPrograms>(this, _$identity);
@@ -382,6 +387,7 @@ abstract class _NewPrograms extends NewPrograms {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$NewProgramsCopyWith<_NewPrograms> get copyWith;
 }
 
@@ -448,6 +454,7 @@ mixin _$NewProgramItem {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $NewProgramItemCopyWith<NewProgramItem> get copyWith;
 }
 
@@ -714,6 +721,7 @@ class _$_NewProgramItem extends _NewProgramItem {
       const DeepCollectionEquality().hash(channel) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$NewProgramItemCopyWith<_NewProgramItem> get copyWith =>
       __$NewProgramItemCopyWithImpl<_NewProgramItem>(this, _$identity);
@@ -768,6 +776,7 @@ abstract class _NewProgramItem extends NewProgramItem {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$NewProgramItemCopyWith<_NewProgramItem> get copyWith;
 }
 
@@ -809,6 +818,7 @@ mixin _$NewProgramChannel {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $NewProgramChannelCopyWith<NewProgramChannel> get copyWith;
 }
 
@@ -929,6 +939,7 @@ class _$_NewProgramChannel implements _NewProgramChannel {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$NewProgramChannelCopyWith<_NewProgramChannel> get copyWith =>
       __$NewProgramChannelCopyWithImpl<_NewProgramChannel>(this, _$identity);
@@ -957,5 +968,6 @@ abstract class _NewProgramChannel implements NewProgramChannel {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$NewProgramChannelCopyWith<_NewProgramChannel> get copyWith;
 }

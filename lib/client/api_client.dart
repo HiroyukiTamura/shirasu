@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:http/http.dart';
 import 'package:shirasu/client/auth_wrapper_client.dart';
 import 'package:shirasu/client/graghql_query.dart';
 import 'package:shirasu/client/hive_client.dart';
@@ -17,7 +16,10 @@ import 'package:shirasu/model/update_user_with_attr_variable.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
+import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
+import 'package:dartx/dartx.dart';
+import 'package:http/http.dart' as http;
 
 import '../util.dart';
 
@@ -29,22 +31,23 @@ class ApiClient {
 
   static final ApiClient instance = ApiClient._();
 
-  final GraphQLClient _graphQlClient = _createClient(Client());
+  final GraphQLClient _graphQlClient = _createClient(http.Client());
 
   static Future<void> openHiveStore() async => HiveStore.open();
 
   /// todo no need client
-  static GraphQLClient _createClient(Client client) {
+  static GraphQLClient _createClient(http.Client client) {
     final httpLink = HttpLink(
       UrlUtil.URL_GRAPHQL,
       defaultHeaders: {
         'x-amz-user-agent': 'aws-amplify/2.0.2-apollothree',
       },
-      // httpClient: LoggerHttpClient(client)
+      // httpClient: client,
     );
 
     final authLink = AuthLink(
-      getToken: () async => HiveAuthClient.instance().authData.body.idToken,
+      getToken: () async =>
+          AuthClientInterceptor.instance.refreshAuthTokenIfNeeded(),
     );
 
     final link = authLink.concat(httpLink);
@@ -56,10 +59,12 @@ class ApiClient {
         query: Policies.safe(
           FetchPolicy.networkOnly,
           ErrorPolicy.none,
+          CacheRereadPolicy.ignoreAll,
         ),
         watchQuery: Policies.safe(
           FetchPolicy.networkOnly,
           ErrorPolicy.none,
+          CacheRereadPolicy.ignoreAll,
         ),
       ),
     );
@@ -70,23 +75,13 @@ class ApiClient {
     Map<String, dynamic> variables,
     String operationName,
   }) async {
-
-    AuthClientInterceptor.instance.ensureNotExpired();
-    await AuthClientInterceptor.instance.refreshAuthTokenIfNeeded();
-
     final result = await _graphQlClient.query(QueryOptions(
       document: gql(query),
       variables: variables ?? {},
       operationName: operationName,
     ));
 
-    if (result.hasException) {
-      // todo error handle
-      print(result.exception);
-      final isTokenExpired = result.exception.graphqlErrors
-          .any((it) => it.message.toLowerCase().contains('token has expired'));
-      for (final error in result.exception.graphqlErrors) print(error.message);
-    }
+    _logResultError(result);
 
     return result;
   }
@@ -96,30 +91,51 @@ class ApiClient {
     Map<String, dynamic> variables,
     String operationName,
   }) async {
-
-    AuthClientInterceptor.instance.ensureNotExpired();
-    await AuthClientInterceptor.instance.refreshAuthTokenIfNeeded();
-
     final result = await _graphQlClient.mutate(MutationOptions(
       document: gql(query),
       variables: variables ?? {},
       operationName: operationName,
     ));
 
-    if (result.hasException) {
-      // todo error handle
-      print(result.exception);
-      final isTokenExpired = result.exception.graphqlErrors
-          .any((it) => it.message.toLowerCase().contains('token has expired'));
-      for (final error in result.exception.graphqlErrors) print(error.message);
-    }
+    _logResultError(result);
 
     return result;
   }
 
+  void _logResultError(QueryResult result) {
+    if (result.hasException) {
+      print(result.exception);
+
+      for (final error in result.exception.graphqlErrors) print(error.message);
+
+      final linkException = result.exception.linkException;
+      debugPrint(linkException.toString());
+
+      if (linkException is ServerException) {
+        final statusCode = linkException.parsedResponse.context
+            .entry<HttpLinkResponseContext>()
+            ?.statusCode;
+        debugPrint(statusCode.toString());
+
+        linkException.parsedResponse.errors
+            .forEach((it) => debugPrint(it.toString()));
+      }
+
+      if (linkException is HttpLinkServerException) {
+        debugPrint(linkException.response.statusCode.toString());
+        if (linkException.response.statusCode.between(400, 499))
+          throw const UnauthorizedException(false);
+      }
+
+      final statusCode =
+          result.context.entry<HttpLinkResponseContext>()?.statusCode;
+      debugPrint(statusCode.toString());
+    }
+  }
+
   Future<FeatureProgramData> queryFeaturedProgramsList() async {
     final dateTime = DateTime.now().toUtc();
-    final dateTimeNext = dateTime.add(const Duration(days: 7));
+    final dateTimeNext = dateTime + 7.days;
     final result =
         await _query(GraphqlQuery.QUERY_FEATURED_PROGRAMS, variables: {
       'now': dateTime.toIso8601String(),

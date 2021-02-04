@@ -34,7 +34,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
       newState = data.viewerUser.subscribedPrograms.isEmpty
           ? const FeatureProgramState.resultEmpty()
           : FeatureProgramState.success(data);
-    } on AuthExpiredException catch (e) {
+    } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
     } catch (e) {
@@ -66,7 +66,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       newState = data.viewerUser.watchHistories.items.isEmpty
           ? const WatchHistoryState.resultEmpty()
           : WatchHistoryState.success([data].toUnmodifiable());
-    } on AuthExpiredException catch (e) {
+    } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
     } catch (e) {

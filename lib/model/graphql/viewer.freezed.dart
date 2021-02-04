@@ -41,6 +41,7 @@ mixin _$Viewer {
   ViewerUser get viewerUser;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ViewerCopyWith<Viewer> get copyWith;
 }
 
@@ -168,6 +169,7 @@ class _$_Viewer implements _Viewer {
       const DeepCollectionEquality().hash(viewer) ^
       const DeepCollectionEquality().hash(viewerUser);
 
+  @JsonKey(ignore: true)
   @override
   _$ViewerCopyWith<_Viewer> get copyWith =>
       __$ViewerCopyWithImpl<_Viewer>(this, _$identity);
@@ -190,6 +192,7 @@ abstract class _Viewer implements Viewer {
   @override
   ViewerUser get viewerUser;
   @override
+  @JsonKey(ignore: true)
   _$ViewerCopyWith<_Viewer> get copyWith;
 }
 
@@ -243,6 +246,7 @@ mixin _$ViewerClass {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ViewerClassCopyWith<ViewerClass> get copyWith;
 }
 
@@ -398,6 +402,7 @@ class _$_ViewerClass extends _ViewerClass {
       const DeepCollectionEquality().hash(rawAuthConnections) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ViewerClassCopyWith<_ViewerClass> get copyWith =>
       __$ViewerClassCopyWithImpl<_ViewerClass>(this, _$identity);
@@ -438,6 +443,7 @@ abstract class _ViewerClass extends ViewerClass {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ViewerClassCopyWith<_ViewerClass> get copyWith;
 }
 
@@ -485,6 +491,7 @@ mixin _$PaymentMethod {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $PaymentMethodCopyWith<PaymentMethod> get copyWith;
 }
 
@@ -640,6 +647,7 @@ class _$_PaymentMethod implements _PaymentMethod {
       const DeepCollectionEquality().hash(expirationDate) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$PaymentMethodCopyWith<_PaymentMethod> get copyWith =>
       __$PaymentMethodCopyWithImpl<_PaymentMethod>(this, _$identity);
@@ -674,6 +682,7 @@ abstract class _PaymentMethod implements PaymentMethod {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$PaymentMethodCopyWith<_PaymentMethod> get copyWith;
 }
 
@@ -739,6 +748,7 @@ mixin _$ViewerUser {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ViewerUserCopyWith<ViewerUser> get copyWith;
 }
 
@@ -974,6 +984,7 @@ class _$_ViewerUser extends _ViewerUser {
       const DeepCollectionEquality().hash(rawSubscribedChannels) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ViewerUserCopyWith<_ViewerUser> get copyWith =>
       __$ViewerUserCopyWithImpl<_ViewerUser>(this, _$identity);
@@ -1026,6 +1037,7 @@ abstract class _ViewerUser extends ViewerUser {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ViewerUserCopyWith<_ViewerUser> get copyWith;
 }
 
@@ -1074,6 +1086,7 @@ mixin _$InvoiceHistory {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $InvoiceHistoryCopyWith<InvoiceHistory> get copyWith;
 }
 
@@ -1206,6 +1219,7 @@ class _$_InvoiceHistory extends _InvoiceHistory {
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$InvoiceHistoryCopyWith<_InvoiceHistory> get copyWith =>
       __$InvoiceHistoryCopyWithImpl<_InvoiceHistory>(this, _$identity);
@@ -1241,6 +1255,7 @@ abstract class _InvoiceHistory extends InvoiceHistory {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$InvoiceHistoryCopyWith<_InvoiceHistory> get copyWith;
 }
 
@@ -1297,6 +1312,7 @@ mixin _$InvoiceHistoryItem {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $InvoiceHistoryItemCopyWith<InvoiceHistoryItem> get copyWith;
 }
 
@@ -1492,6 +1508,7 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$InvoiceHistoryItemCopyWith<_InvoiceHistoryItem> get copyWith =>
       __$InvoiceHistoryItemCopyWithImpl<_InvoiceHistoryItem>(this, _$identity);
@@ -1536,6 +1553,7 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$InvoiceHistoryItemCopyWith<_InvoiceHistoryItem> get copyWith;
 }
 
@@ -1589,6 +1607,7 @@ mixin _$SubscribedChannel {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SubscribedChannelCopyWith<SubscribedChannel> get copyWith;
 }
 
@@ -1815,6 +1834,7 @@ class _$_SubscribedChannel implements _SubscribedChannel {
       const DeepCollectionEquality().hash(latestInvoice) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$SubscribedChannelCopyWith<_SubscribedChannel> get copyWith =>
       __$SubscribedChannelCopyWithImpl<_SubscribedChannel>(this, _$identity);
@@ -1855,6 +1875,7 @@ abstract class _SubscribedChannel implements SubscribedChannel {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$SubscribedChannelCopyWith<_SubscribedChannel> get copyWith;
 }
 
@@ -1899,6 +1920,7 @@ mixin _$Channel {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ChannelCopyWith<Channel> get copyWith;
 }
 
@@ -2029,6 +2051,7 @@ class _$_Channel implements _Channel {
       const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelCopyWith<_Channel> get copyWith =>
       __$ChannelCopyWithImpl<_Channel>(this, _$identity);
@@ -2058,6 +2081,7 @@ abstract class _Channel implements Channel {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ChannelCopyWith<_Channel> get copyWith;
 }
 
@@ -2114,6 +2138,7 @@ mixin _$LatestInvoice {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $LatestInvoiceCopyWith<LatestInvoice> get copyWith;
 }
 
@@ -2319,6 +2344,7 @@ class _$_LatestInvoice extends _LatestInvoice {
       const DeepCollectionEquality().hash(nextPaymentAttempt) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$LatestInvoiceCopyWith<_LatestInvoice> get copyWith =>
       __$LatestInvoiceCopyWithImpl<_LatestInvoice>(this, _$identity);
@@ -2363,6 +2389,7 @@ abstract class _LatestInvoice extends LatestInvoice {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$LatestInvoiceCopyWith<_LatestInvoice> get copyWith;
 }
 
@@ -2411,6 +2438,7 @@ mixin _$WatchHistories {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $WatchHistoriesCopyWith<WatchHistories> get copyWith;
 }
 
@@ -2543,6 +2571,7 @@ class _$_WatchHistories extends _WatchHistories {
       const DeepCollectionEquality().hash(rawItems) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$WatchHistoriesCopyWith<_WatchHistories> get copyWith =>
       __$WatchHistoriesCopyWithImpl<_WatchHistories>(this, _$identity);
@@ -2578,6 +2607,7 @@ abstract class _WatchHistories extends WatchHistories {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$WatchHistoriesCopyWith<_WatchHistories> get copyWith;
 }
 
@@ -2622,6 +2652,7 @@ mixin _$WatchHistoriesItem {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $WatchHistoriesItemCopyWith<WatchHistoriesItem> get copyWith;
 }
 
@@ -2780,6 +2811,7 @@ class _$_WatchHistoriesItem implements _WatchHistoriesItem {
       const DeepCollectionEquality().hash(program) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$WatchHistoriesItemCopyWith<_WatchHistoriesItem> get copyWith =>
       __$WatchHistoriesItemCopyWithImpl<_WatchHistoriesItem>(this, _$identity);
@@ -2811,6 +2843,7 @@ abstract class _WatchHistoriesItem implements WatchHistoriesItem {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$WatchHistoriesItemCopyWith<_WatchHistoriesItem> get copyWith;
 }
 
@@ -2864,6 +2897,7 @@ mixin _$Program {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ProgramCopyWith<Program> get copyWith;
 }
 
@@ -3039,6 +3073,7 @@ class _$_Program implements _Program {
       const DeepCollectionEquality().hash(broadcastAt) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ProgramCopyWith<_Program> get copyWith =>
       __$ProgramCopyWithImpl<_Program>(this, _$identity);
@@ -3077,5 +3112,6 @@ abstract class _Program implements Program {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ProgramCopyWith<_Program> get copyWith;
 }

@@ -1,54 +1,55 @@
 import 'package:flutter/cupertino.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:tuple/tuple.dart';
+import 'package:shirasu/extension.dart';
 
 import '../../viewmodel/model/model_detail.dart';
 
+part 'provider_page_comment.freezed.dart';
+
 /// data set for comment [PageCommentInner].
 /// [comments] is only for display UI. do not use for business logic.
-class _PageUiData {
-  const _PageUiData([
-    this._comments = const [],
-    this.showBottomProgressIndicator = false,
-  ]);
+@freezed
+abstract class PageUiData with _$PageUiData {
+  const factory PageUiData({
+    @Default([]) List<CommentItem> rawComments,
+    @Default(false) bool showBottomProgressIndicator,
+  }) = _PageUiData;
 
-  final List<CommentItem> _comments;
-  final bool showBottomProgressIndicator;
+  const PageUiData._();
 
-  List<CommentItem> get comments => _comments.toUnmodifiable();
+  UnmodifiableListView<CommentItem> get comments => IteratableX<CommentItem>(rawComments).toUnmodifiable();
 }
 
 /// data set for comment [PageCommentInner].
 /// [comments] is only for display UI. do not use for business logic.
-class _PageUiDataWrapper {
-  const _PageUiDataWrapper({
-    @required this.data,
-    @required this.time,
-    @required this.state,
-  });
+@freezed
+abstract class PageUiDataWrapper with _$PageUiDataWrapper {
+  const factory PageUiDataWrapper({
+    @required PageUiData data,
+    @required DateTime timeUtc,
+    @required CommentsState state,
+  }) = _PageUiDataWrapper;
 
-  factory _PageUiDataWrapper.initial() => _PageUiDataWrapper(
-        data: const _PageUiData(),
-        time: DateTime.now(),
+  factory PageUiDataWrapper.initial() => _PageUiDataWrapper(
+        data: const PageUiData(),
+        timeUtc: DateTime.now().toUtc(),
         state: const CommentsState.loading(),
       );
-
-  final _PageUiData data;
-  final DateTime time;
-  final CommentsState state;
 }
 
-const _kUpdateOffset = Duration(seconds: 1);
+final _kUpdateOffset = 1.seconds;
 
 /// todo change to custom StateNotifier?
 final kPrvPageUiData = StateNotifierProvider.family
-    .autoDispose<StateController<_PageUiData>, String>((ref, id) {
-  _PageUiDataWrapper lastPostedData = _PageUiDataWrapper.initial();
+    .autoDispose<StateController<PageUiData>, String>((ref, id) {
+  PageUiDataWrapper lastPostedData = PageUiDataWrapper.initial();
 
-  final sc = StateController<_PageUiData>(lastPostedData.data);
+  final sc = StateController<PageUiData>(lastPostedData.data);
 
   final removeListener = ref.watch(detailSNProvider(id)).addListener((state) {
     final commentHolder = state.commentHolder;
@@ -58,12 +59,13 @@ final kPrvPageUiData = StateNotifierProvider.family
           commentHolder.getCommentItemsBefore(state.playOutState.currentPos),
     );
 
-    final data = _PageUiData(comments, !commentHolder.loadedMostPastComment);
+    final data = PageUiData(rawComments: comments, showBottomProgressIndicator: !commentHolder.loadedMostPastComment);
     if (commentHolder.state != lastPostedData.state ||
-        _kUpdateOffset < lastPostedData.time.difference(DateTime.now()).abs()) {
+        _kUpdateOffset <
+            lastPostedData.timeUtc.difference(DateTime.now().toUtc()).abs()) {
       lastPostedData = _PageUiDataWrapper(
         data: data,
-        time: DateTime.now(),
+        timeUtc: DateTime.now().toUtc(),
         state: state.commentHolder.state,
       );
       sc.state = lastPostedData.data;

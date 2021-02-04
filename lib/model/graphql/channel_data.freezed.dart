@@ -38,6 +38,7 @@ mixin _$ChannelData {
   Channel get channel;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ChannelDataCopyWith<ChannelData> get copyWith;
 }
 
@@ -141,6 +142,7 @@ class _$_ChannelData implements _ChannelData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(channel);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelDataCopyWith<_ChannelData> get copyWith =>
       __$ChannelDataCopyWithImpl<_ChannelData>(this, _$identity);
@@ -160,6 +162,7 @@ abstract class _ChannelData implements ChannelData {
   @override
   Channel get channel;
   @override
+  @JsonKey(ignore: true)
   _$ChannelDataCopyWith<_ChannelData> get copyWith;
 }
 
@@ -225,6 +228,7 @@ mixin _$Channel {
   Announcements get announcements;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ChannelCopyWith<Channel> get copyWith;
 }
 
@@ -508,6 +512,7 @@ class _$_Channel implements _Channel {
       const DeepCollectionEquality().hash(programs) ^
       const DeepCollectionEquality().hash(announcements);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelCopyWith<_Channel> get copyWith =>
       __$ChannelCopyWithImpl<_Channel>(this, _$identity);
@@ -558,6 +563,7 @@ abstract class _Channel implements Channel {
   @override
   Announcements get announcements;
   @override
+  @JsonKey(ignore: true)
   _$ChannelCopyWith<_Channel> get copyWith;
 }
 
@@ -606,6 +612,7 @@ mixin _$Announcements {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $AnnouncementsCopyWith<Announcements> get copyWith;
 }
 
@@ -738,6 +745,7 @@ class _$_Announcements extends _Announcements {
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$AnnouncementsCopyWith<_Announcements> get copyWith =>
       __$AnnouncementsCopyWithImpl<_Announcements>(this, _$identity);
@@ -773,6 +781,7 @@ abstract class _Announcements extends Announcements {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$AnnouncementsCopyWith<_Announcements> get copyWith;
 }
 
@@ -832,6 +841,7 @@ mixin _$AnnouncementsItem {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $AnnouncementsItemCopyWith<AnnouncementsItem> get copyWith;
 }
 
@@ -1048,6 +1058,7 @@ class _$_AnnouncementsItem implements _AnnouncementsItem {
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$AnnouncementsItemCopyWith<_AnnouncementsItem> get copyWith =>
       __$AnnouncementsItemCopyWithImpl<_AnnouncementsItem>(this, _$identity);
@@ -1094,6 +1105,7 @@ abstract class _AnnouncementsItem implements AnnouncementsItem {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$AnnouncementsItemCopyWith<_AnnouncementsItem> get copyWith;
 }
 
@@ -1135,6 +1147,7 @@ mixin _$ChannelPrograms {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ChannelProgramsCopyWith<ChannelPrograms> get copyWith;
 }
 
@@ -1260,6 +1273,7 @@ class _$_ChannelPrograms extends _ChannelPrograms {
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ChannelProgramsCopyWith<_ChannelPrograms> get copyWith =>
       __$ChannelProgramsCopyWithImpl<_ChannelPrograms>(this, _$identity);
@@ -1289,6 +1303,7 @@ abstract class _ChannelPrograms extends ChannelPrograms {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ChannelProgramsCopyWith<_ChannelPrograms> get copyWith;
 }
 
@@ -1308,7 +1323,7 @@ class _$ProgramsItemTearOff {
       @required String title,
       @required DateTime broadcastAt,
       @required int totalPlayTime,
-      @Deprecated('do not use!') String viewerPlanType,
+      @Deprecated("do not use!") String viewerPlanType,
       @required @JsonKey(name: '__typename') String typename}) {
     return _ProgramsItem(
       id: id,
@@ -1340,12 +1355,13 @@ mixin _$ProgramsItem {
   String get title;
   DateTime get broadcastAt;
   int get totalPlayTime; //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
-  @Deprecated('do not use!')
+  @Deprecated("do not use!")
   String get viewerPlanType;
   @JsonKey(name: '__typename')
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ProgramsItemCopyWith<ProgramsItem> get copyWith;
 }
 
@@ -1361,7 +1377,7 @@ abstract class $ProgramsItemCopyWith<$Res> {
       String title,
       DateTime broadcastAt,
       int totalPlayTime,
-      @Deprecated('do not use!') String viewerPlanType,
+      @Deprecated("do not use!") String viewerPlanType,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1416,7 +1432,7 @@ abstract class _$ProgramsItemCopyWith<$Res>
       String title,
       DateTime broadcastAt,
       int totalPlayTime,
-      @Deprecated('do not use!') String viewerPlanType,
+      @Deprecated("do not use!") String viewerPlanType,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1470,7 +1486,7 @@ class _$_ProgramsItem extends _ProgramsItem {
       @required this.title,
       @required this.broadcastAt,
       @required this.totalPlayTime,
-      @Deprecated('do not use!') this.viewerPlanType,
+      @Deprecated("do not use!") this.viewerPlanType,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(tenantId != null),
@@ -1498,7 +1514,7 @@ class _$_ProgramsItem extends _ProgramsItem {
   @override
   final int totalPlayTime;
   @override //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
-  @Deprecated('do not use!')
+  @Deprecated("do not use!")
   final String viewerPlanType;
   @override
   @JsonKey(name: '__typename')
@@ -1549,6 +1565,7 @@ class _$_ProgramsItem extends _ProgramsItem {
       const DeepCollectionEquality().hash(viewerPlanType) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ProgramsItemCopyWith<_ProgramsItem> get copyWith =>
       __$ProgramsItemCopyWithImpl<_ProgramsItem>(this, _$identity);
@@ -1568,7 +1585,7 @@ abstract class _ProgramsItem extends ProgramsItem {
           @required String title,
           @required DateTime broadcastAt,
           @required int totalPlayTime,
-          @Deprecated('do not use!') String viewerPlanType,
+          @Deprecated("do not use!") String viewerPlanType,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_ProgramsItem;
 
@@ -1588,12 +1605,13 @@ abstract class _ProgramsItem extends ProgramsItem {
   @override
   int get totalPlayTime;
   @override //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
-  @Deprecated('do not use!')
+  @Deprecated("do not use!")
   String get viewerPlanType;
   @override
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ProgramsItemCopyWith<_ProgramsItem> get copyWith;
 }
 
@@ -1644,6 +1662,7 @@ mixin _$SubscriptionPlan {
   PurchasedPlan get viewerPurchasedPlan;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SubscriptionPlanCopyWith<SubscriptionPlan> get copyWith;
 }
 
@@ -1833,6 +1852,7 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
       const DeepCollectionEquality().hash(typename) ^
       const DeepCollectionEquality().hash(viewerPurchasedPlan);
 
+  @JsonKey(ignore: true)
   @override
   _$SubscriptionPlanCopyWith<_SubscriptionPlan> get copyWith =>
       __$SubscriptionPlanCopyWithImpl<_SubscriptionPlan>(this, _$identity);
@@ -1870,6 +1890,7 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   @override
   PurchasedPlan get viewerPurchasedPlan;
   @override
+  @JsonKey(ignore: true)
   _$SubscriptionPlanCopyWith<_SubscriptionPlan> get copyWith;
 }
 
@@ -1908,6 +1929,7 @@ mixin _$PurchasedPlan {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $PurchasedPlanCopyWith<PurchasedPlan> get copyWith;
 }
 
@@ -2016,6 +2038,7 @@ class _$_PurchasedPlan implements _PurchasedPlan {
       const DeepCollectionEquality().hash(isActive) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$PurchasedPlanCopyWith<_PurchasedPlan> get copyWith =>
       __$PurchasedPlanCopyWithImpl<_PurchasedPlan>(this, _$identity);
@@ -2041,5 +2064,6 @@ abstract class _PurchasedPlan implements PurchasedPlan {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$PurchasedPlanCopyWith<_PurchasedPlan> get copyWith;
 }

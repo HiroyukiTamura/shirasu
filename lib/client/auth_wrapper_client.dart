@@ -8,19 +8,24 @@ class AuthClientInterceptor {
 
   static const AuthClientInterceptor instance = AuthClientInterceptor._();
 
-  /// @throw [AuthExpiredException]
-  void ensureNotExpired() {
+  /// @throw [UnauthorizedException]
+  void _ensureNotExpired() {
     if (HiveAuthClient.instance().maybeExpired)
-      throw AuthExpiredException();
+      throw const UnauthorizedException(true);
   }
 
-  Future<void> refreshAuthTokenIfNeeded() async {
-    final shouldRefresh = HiveAuthClient.instance().shouldRefresh;
-    if (!shouldRefresh)
-      return;
+  /// todo synchronize
+  Future<String> refreshAuthTokenIfNeeded() async {
 
-    final body = HiveAuthClient.instance().authData.body;
-    final result = await DioClient.instance.requestRenewToken(body.clientId, body.refreshToken);
-    await HiveAuthClient.instance().appendRefreshedToken(result);
+    _ensureNotExpired();
+
+    final shouldRefresh = HiveAuthClient.instance().shouldRefresh;
+    if (shouldRefresh == true) {
+      final body = HiveAuthClient.instance().authData.body;
+      final result = await DioClient.instance.requestRenewToken(body.clientId, body.refreshToken);
+      await HiveAuthClient.instance().appendRefreshedToken(result);
+    }
+
+    return HiveAuthClient.instance().authData?.body?.idToken;
   }
 }

@@ -92,7 +92,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           page: const PageSheetModel.hidden(),
         ),
       );
-    } on AuthExpiredException catch (e) {
+    } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
     } catch (e) {
@@ -122,7 +122,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       cookie = await DioClient.instance.getSignedCookie(prg.id,
           prg.videoTypeStrict, HiveAuthClient.instance().authData.body.idToken);
       debugPrint(cookie);
-    } on AuthExpiredException catch (e) {
+    } on UnauthorizedException catch (e) {
       print(e); //todo handle error
       authExpired = true;
     } catch (e) {

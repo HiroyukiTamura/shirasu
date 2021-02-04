@@ -38,6 +38,7 @@ mixin _$WatchHistoriesData {
   ViewerUserSimple get viewerUser;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $WatchHistoriesDataCopyWith<WatchHistoriesData> get copyWith;
 }
 
@@ -149,6 +150,7 @@ class _$_WatchHistoriesData implements _WatchHistoriesData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(viewerUser);
 
+  @JsonKey(ignore: true)
   @override
   _$WatchHistoriesDataCopyWith<_WatchHistoriesData> get copyWith =>
       __$WatchHistoriesDataCopyWithImpl<_WatchHistoriesData>(this, _$identity);
@@ -169,6 +171,7 @@ abstract class _WatchHistoriesData implements WatchHistoriesData {
   @override
   ViewerUserSimple get viewerUser;
   @override
+  @JsonKey(ignore: true)
   _$WatchHistoriesDataCopyWith<_WatchHistoriesData> get copyWith;
 }
 
@@ -207,6 +210,7 @@ mixin _$ViewerUserSimple {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ViewerUserSimpleCopyWith<ViewerUserSimple> get copyWith;
 }
 
@@ -338,6 +342,7 @@ class _$_ViewerUserSimple implements _ViewerUserSimple {
       const DeepCollectionEquality().hash(watchHistories) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ViewerUserSimpleCopyWith<_ViewerUserSimple> get copyWith =>
       __$ViewerUserSimpleCopyWithImpl<_ViewerUserSimple>(this, _$identity);
@@ -363,5 +368,6 @@ abstract class _ViewerUserSimple implements ViewerUserSimple {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ViewerUserSimpleCopyWith<_ViewerUserSimple> get copyWith;
 }

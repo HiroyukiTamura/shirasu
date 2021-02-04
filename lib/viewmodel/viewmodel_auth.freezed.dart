@@ -31,6 +31,7 @@ mixin _$AuthModel {
   String get lastUrl;
   WebViewState get viewState;
 
+  @JsonKey(ignore: true)
   $AuthModelCopyWith<AuthModel> get copyWith;
 }
 
@@ -125,6 +126,7 @@ class _$_AuthModel extends _AuthModel {
       const DeepCollectionEquality().hash(lastUrl) ^
       const DeepCollectionEquality().hash(viewState);
 
+  @JsonKey(ignore: true)
   @override
   _$AuthModelCopyWith<_AuthModel> get copyWith =>
       __$AuthModelCopyWithImpl<_AuthModel>(this, _$identity);
@@ -140,5 +142,6 @@ abstract class _AuthModel extends AuthModel {
   @override
   WebViewState get viewState;
   @override
+  @JsonKey(ignore: true)
   _$AuthModelCopyWith<_AuthModel> get copyWith;
 }

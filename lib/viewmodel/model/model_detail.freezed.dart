@@ -42,6 +42,7 @@ mixin _$ModelDetail {
   CommentsHolder get commentHolder;
   BtmSheetState get btmSheetState;
 
+  @JsonKey(ignore: true)
   $ModelDetailCopyWith<ModelDetail> get copyWith;
 }
 
@@ -264,6 +265,7 @@ class _$_ModelDetail extends _ModelDetail {
       const DeepCollectionEquality().hash(commentHolder) ^
       const DeepCollectionEquality().hash(btmSheetState);
 
+  @JsonKey(ignore: true)
   @override
   _$ModelDetailCopyWith<_ModelDetail> get copyWith =>
       __$ModelDetailCopyWithImpl<_ModelDetail>(this, _$identity);
@@ -289,6 +291,7 @@ abstract class _ModelDetail extends ModelDetail {
   @override
   BtmSheetState get btmSheetState;
   @override
+  @JsonKey(ignore: true)
   _$ModelDetailCopyWith<_ModelDetail> get copyWith;
 }
 
@@ -711,6 +714,7 @@ class _$StateSuccess implements StateSuccess {
       const DeepCollectionEquality().hash(channelData) ^
       const DeepCollectionEquality().hash(page);
 
+  @JsonKey(ignore: true)
   @override
   $StateSuccessCopyWith<StateSuccess> get copyWith =>
       _$StateSuccessCopyWithImpl<StateSuccess>(this, _$identity);
@@ -790,6 +794,7 @@ abstract class StateSuccess implements DetailModelState {
   ProgramDetailData get programDetailData;
   ChannelData get channelData;
   PageSheetModel get page;
+  @JsonKey(ignore: true)
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
 
@@ -961,6 +966,7 @@ mixin _$PlayOutState {
   VideoPlayerState get videoPlayerState;
   LastControllerCommandHolder get lastControllerCommandHolder;
 
+  @JsonKey(ignore: true)
   $PlayOutStateCopyWith<PlayOutState> get copyWith;
 }
 
@@ -1323,6 +1329,7 @@ class _$_PlayOutState extends _PlayOutState {
       const DeepCollectionEquality().hash(videoPlayerState) ^
       const DeepCollectionEquality().hash(lastControllerCommandHolder);
 
+  @JsonKey(ignore: true)
   @override
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith =>
       __$PlayOutStateCopyWithImpl<_PlayOutState>(this, _$identity);
@@ -1376,6 +1383,7 @@ abstract class _PlayOutState extends PlayOutState {
   @override
   LastControllerCommandHolder get lastControllerCommandHolder;
   @override
+  @JsonKey(ignore: true)
   _$PlayOutStateCopyWith<_PlayOutState> get copyWith;
 }
 
@@ -2549,6 +2557,7 @@ mixin _$LastControllerCommandHolder {
   LastControllerCommand get command;
   String get commandKey;
 
+  @JsonKey(ignore: true)
   $LastControllerCommandHolderCopyWith<LastControllerCommandHolder>
       get copyWith;
 }
@@ -2680,6 +2689,7 @@ class _$_LastControllerCommandHolder implements _LastControllerCommandHolder {
       const DeepCollectionEquality().hash(command) ^
       const DeepCollectionEquality().hash(commandKey);
 
+  @JsonKey(ignore: true)
   @override
   _$LastControllerCommandHolderCopyWith<_LastControllerCommandHolder>
       get copyWith => __$LastControllerCommandHolderCopyWithImpl<
@@ -2697,6 +2707,7 @@ abstract class _LastControllerCommandHolder
   @override
   String get commandKey;
   @override
+  @JsonKey(ignore: true)
   _$LastControllerCommandHolderCopyWith<_LastControllerCommandHolder>
       get copyWith;
 }
@@ -3209,6 +3220,7 @@ class _$_LastControllerCommandSeek implements _LastControllerCommandSeek {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(diff);
 
+  @JsonKey(ignore: true)
   @override
   _$LastControllerCommandSeekCopyWith<_LastControllerCommandSeek>
       get copyWith =>
@@ -3295,6 +3307,7 @@ abstract class _LastControllerCommandSeek implements LastControllerCommand {
       _$_LastControllerCommandSeek;
 
   Duration get diff;
+  @JsonKey(ignore: true)
   _$LastControllerCommandSeekCopyWith<_LastControllerCommandSeek> get copyWith;
 }
 
@@ -3354,6 +3367,7 @@ class _$_LastControllerCommandSeekTo implements _LastControllerCommandSeekTo {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(diff);
 
+  @JsonKey(ignore: true)
   @override
   _$LastControllerCommandSeekToCopyWith<_LastControllerCommandSeekTo>
       get copyWith => __$LastControllerCommandSeekToCopyWithImpl<
@@ -3439,6 +3453,7 @@ abstract class _LastControllerCommandSeekTo implements LastControllerCommand {
       _$_LastControllerCommandSeekTo;
 
   Duration get diff;
+  @JsonKey(ignore: true)
   _$LastControllerCommandSeekToCopyWith<_LastControllerCommandSeekTo>
       get copyWith;
 }
@@ -3911,6 +3926,7 @@ class _$_VideoPlayerStateError implements _VideoPlayerStateError {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(msg);
 
+  @JsonKey(ignore: true)
   @override
   _$VideoPlayerStateErrorCopyWith<_VideoPlayerStateError> get copyWith =>
       __$VideoPlayerStateErrorCopyWithImpl<_VideoPlayerStateError>(
@@ -3983,6 +3999,7 @@ abstract class _VideoPlayerStateError implements VideoPlayerState {
   const factory _VideoPlayerStateError(String msg) = _$_VideoPlayerStateError;
 
   String get msg;
+  @JsonKey(ignore: true)
   _$VideoPlayerStateErrorCopyWith<_VideoPlayerStateError> get copyWith;
 }
 
@@ -4143,6 +4160,7 @@ mixin _$CommentsHolder {
   @Deprecated('use [userPostedComment]')
   List<CommentItem> get rawUserPostedComment;
 
+  @JsonKey(ignore: true)
   $CommentsHolderCopyWith<CommentsHolder> get copyWith;
 }
 
@@ -4404,6 +4422,7 @@ class _$_CommentsHolder extends _CommentsHolder {
       const DeepCollectionEquality().hash(followTimeLineMode) ^
       const DeepCollectionEquality().hash(rawUserPostedComment);
 
+  @JsonKey(ignore: true)
   @override
   _$CommentsHolderCopyWith<_CommentsHolder> get copyWith =>
       __$CommentsHolderCopyWithImpl<_CommentsHolder>(this, _$identity);
@@ -4450,6 +4469,7 @@ abstract class _CommentsHolder extends CommentsHolder {
   @Deprecated('use [userPostedComment]')
   List<CommentItem> get rawUserPostedComment;
   @override
+  @JsonKey(ignore: true)
   _$CommentsHolderCopyWith<_CommentsHolder> get copyWith;
 }
 
@@ -4799,6 +4819,7 @@ class _$CommentsStateLoadingMore implements CommentsStateLoadingMore {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(loadingState);
 
+  @JsonKey(ignore: true)
   @override
   $CommentsStateLoadingMoreCopyWith<CommentsStateLoadingMore> get copyWith =>
       _$CommentsStateLoadingMoreCopyWithImpl<CommentsStateLoadingMore>(
@@ -4872,6 +4893,7 @@ abstract class CommentsStateLoadingMore implements CommentsState {
       _$CommentsStateLoadingMore;
 
   LoadingState get loadingState;
+  @JsonKey(ignore: true)
   $CommentsStateLoadingMoreCopyWith<CommentsStateLoadingMore> get copyWith;
 }
 
@@ -5453,6 +5475,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(shareUrl);
 
+  @JsonKey(ignore: true)
   @override
   _$BtmSheetStateShareCopyWith<_BtmSheetStateShare> get copyWith =>
       __$BtmSheetStateShareCopyWithImpl<_BtmSheetStateShare>(this, _$identity);
@@ -5530,6 +5553,7 @@ abstract class _BtmSheetStateShare implements BtmSheetState {
   const factory _BtmSheetStateShare(ShareUrl shareUrl) = _$_BtmSheetStateShare;
 
   ShareUrl get shareUrl;
+  @JsonKey(ignore: true)
   _$BtmSheetStateShareCopyWith<_BtmSheetStateShare> get copyWith;
 }
 
@@ -5588,6 +5612,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(position);
 
+  @JsonKey(ignore: true)
   @override
   $BtmSheetStateCommentSelectCopyWith<BtmSheetStateCommentSelect>
       get copyWith =>
@@ -5668,6 +5693,7 @@ abstract class BtmSheetStateCommentSelect implements BtmSheetState {
       _$BtmSheetStateCommentSelect;
 
   Duration get position;
+  @JsonKey(ignore: true)
   $BtmSheetStateCommentSelectCopyWith<BtmSheetStateCommentSelect> get copyWith;
 }
 
@@ -5789,6 +5815,7 @@ class _$FollowTimeLineModeNone implements FollowTimeLineModeNone {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(futurePos);
 
+  @JsonKey(ignore: true)
   @override
   $FollowTimeLineModeNoneCopyWith<FollowTimeLineModeNone> get copyWith =>
       _$FollowTimeLineModeNoneCopyWithImpl<FollowTimeLineModeNone>(
@@ -5850,6 +5877,7 @@ abstract class FollowTimeLineModeNone implements FollowTimeLineMode {
       _$FollowTimeLineModeNone;
 
   Duration get futurePos;
+  @JsonKey(ignore: true)
   $FollowTimeLineModeNoneCopyWith<FollowTimeLineModeNone> get copyWith;
 }
 

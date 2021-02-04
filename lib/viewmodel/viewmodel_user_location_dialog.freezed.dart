@@ -31,6 +31,7 @@ mixin _$UserLocationModel {
   ModelStatus get status;
   ModelData get data;
 
+  @JsonKey(ignore: true)
   $UserLocationModelCopyWith<UserLocationModel> get copyWith;
 }
 
@@ -156,6 +157,7 @@ class _$_UserLocationModel extends _UserLocationModel {
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(data);
 
+  @JsonKey(ignore: true)
   @override
   _$UserLocationModelCopyWith<_UserLocationModel> get copyWith =>
       __$UserLocationModelCopyWithImpl<_UserLocationModel>(this, _$identity);
@@ -171,6 +173,7 @@ abstract class _UserLocationModel extends UserLocationModel {
   @override
   ModelData get data;
   @override
+  @JsonKey(ignore: true)
   _$UserLocationModelCopyWith<_UserLocationModel> get copyWith;
 }
 
@@ -445,6 +448,7 @@ mixin _$ModelData {
   String get countryCode;
   String get prefectureCode;
 
+  @JsonKey(ignore: true)
   $ModelDataCopyWith<ModelData> get copyWith;
 }
 
@@ -615,6 +619,7 @@ class _$_ModelData implements _ModelData {
       const DeepCollectionEquality().hash(countryCode) ^
       const DeepCollectionEquality().hash(prefectureCode);
 
+  @JsonKey(ignore: true)
   @override
   _$ModelDataCopyWith<_ModelData> get copyWith =>
       __$ModelDataCopyWithImpl<_ModelData>(this, _$identity);
@@ -636,5 +641,6 @@ abstract class _ModelData implements ModelData {
   @override
   String get prefectureCode;
   @override
+  @JsonKey(ignore: true)
   _$ModelDataCopyWith<_ModelData> get copyWith;
 }

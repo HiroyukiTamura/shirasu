@@ -38,6 +38,7 @@ mixin _$PostedComment {
   CommentItem get comment;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $PostedCommentCopyWith<PostedComment> get copyWith;
 }
 
@@ -143,6 +144,7 @@ class _$_PostedComment implements _PostedComment {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(comment);
 
+  @JsonKey(ignore: true)
   @override
   _$PostedCommentCopyWith<_PostedComment> get copyWith =>
       __$PostedCommentCopyWithImpl<_PostedComment>(this, _$identity);
@@ -163,5 +165,6 @@ abstract class _PostedComment implements PostedComment {
   @override
   CommentItem get comment;
   @override
+  @JsonKey(ignore: true)
   _$PostedCommentCopyWith<_PostedComment> get copyWith;
 }

@@ -39,6 +39,7 @@ mixin _$UpdateUserWithAttrVariable {
   Input get input;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UpdateUserWithAttrVariableCopyWith<UpdateUserWithAttrVariable> get copyWith;
 }
 
@@ -148,6 +149,7 @@ class _$_UpdateUserWithAttrVariable implements _UpdateUserWithAttrVariable {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(input);
 
+  @JsonKey(ignore: true)
   @override
   _$UpdateUserWithAttrVariableCopyWith<_UpdateUserWithAttrVariable>
       get copyWith => __$UpdateUserWithAttrVariableCopyWithImpl<
@@ -170,6 +172,7 @@ abstract class _UpdateUserWithAttrVariable
   @override
   Input get input;
   @override
+  @JsonKey(ignore: true)
   _$UpdateUserWithAttrVariableCopyWith<_UpdateUserWithAttrVariable>
       get copyWith;
 }
@@ -206,6 +209,7 @@ mixin _$Input {
   Attr get attr;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $InputCopyWith<Input> get copyWith;
 }
 
@@ -330,6 +334,7 @@ class _$_Input implements _Input {
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(attr);
 
+  @JsonKey(ignore: true)
   @override
   _$InputCopyWith<_Input> get copyWith =>
       __$InputCopyWithImpl<_Input>(this, _$identity);
@@ -350,6 +355,7 @@ abstract class _Input implements Input {
   @override
   Attr get attr;
   @override
+  @JsonKey(ignore: true)
   _$InputCopyWith<_Input> get copyWith;
 }
 
@@ -396,6 +402,7 @@ mixin _$Attr {
   int get prefecture;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $AttrCopyWith<Attr> get copyWith;
 }
 
@@ -542,6 +549,7 @@ class _$_Attr implements _Attr {
       const DeepCollectionEquality().hash(country) ^
       const DeepCollectionEquality().hash(prefecture);
 
+  @JsonKey(ignore: true)
   @override
   _$AttrCopyWith<_Attr> get copyWith =>
       __$AttrCopyWithImpl<_Attr>(this, _$identity);
@@ -573,6 +581,7 @@ abstract class _Attr implements Attr {
   @override
   int get prefecture;
   @override
+  @JsonKey(ignore: true)
   _$AttrCopyWith<_Attr> get copyWith;
 }
 
@@ -606,6 +615,7 @@ mixin _$User {
   String get id;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith;
 }
 
@@ -690,6 +700,7 @@ class _$_User implements _User {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(id);
 
+  @JsonKey(ignore: true)
   @override
   _$UserCopyWith<_User> get copyWith =>
       __$UserCopyWithImpl<_User>(this, _$identity);
@@ -708,5 +719,6 @@ abstract class _User implements User {
   @override
   String get id;
   @override
+  @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith;
 }

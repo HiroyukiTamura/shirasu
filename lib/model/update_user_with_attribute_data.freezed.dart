@@ -40,6 +40,7 @@ mixin _$UserWithAttributeData {
   UserWithAttribute get updateUserWithAttribute;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UserWithAttributeDataCopyWith<UserWithAttributeData> get copyWith;
 }
 
@@ -154,6 +155,7 @@ class _$_UserWithAttributeData implements _UserWithAttributeData {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(updateUserWithAttribute);
 
+  @JsonKey(ignore: true)
   @override
   _$UserWithAttributeDataCopyWith<_UserWithAttributeData> get copyWith =>
       __$UserWithAttributeDataCopyWithImpl<_UserWithAttributeData>(
@@ -176,6 +178,7 @@ abstract class _UserWithAttributeData implements UserWithAttributeData {
   @override
   UserWithAttribute get updateUserWithAttribute;
   @override
+  @JsonKey(ignore: true)
   _$UserWithAttributeDataCopyWith<_UserWithAttributeData> get copyWith;
 }
 
@@ -217,6 +220,7 @@ mixin _$UserWithAttribute {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UserWithAttributeCopyWith<UserWithAttribute> get copyWith;
 }
 
@@ -369,6 +373,7 @@ class _$_UserWithAttribute implements _UserWithAttribute {
       const DeepCollectionEquality().hash(attr) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$UserWithAttributeCopyWith<_UserWithAttribute> get copyWith =>
       __$UserWithAttributeCopyWithImpl<_UserWithAttribute>(this, _$identity);
@@ -397,6 +402,7 @@ abstract class _UserWithAttribute implements UserWithAttribute {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$UserWithAttributeCopyWith<_UserWithAttribute> get copyWith;
 }
 
@@ -456,6 +462,7 @@ mixin _$UserAttribute {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UserAttributeCopyWith<UserAttribute> get copyWith;
 }
 
@@ -669,6 +676,7 @@ class _$_UserAttribute implements _UserAttribute {
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$UserAttributeCopyWith<_UserAttribute> get copyWith =>
       __$UserAttributeCopyWithImpl<_UserAttribute>(this, _$identity);
@@ -715,6 +723,7 @@ abstract class _UserAttribute implements UserAttribute {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$UserAttributeCopyWith<_UserAttribute> get copyWith;
 }
 
@@ -772,6 +781,7 @@ mixin _$User {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith;
 }
 
@@ -955,6 +965,7 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(rawRoles) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$UserCopyWith<_User> get copyWith =>
       __$UserCopyWithImpl<_User>(this, _$identity);
@@ -998,5 +1009,6 @@ abstract class _User extends User {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith;
 }

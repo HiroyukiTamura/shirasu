@@ -41,6 +41,7 @@ mixin _$ProgramDetailData {
   ProgramDetail get program;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ProgramDetailDataCopyWith<ProgramDetailData> get copyWith;
 }
 
@@ -171,6 +172,7 @@ class _$_ProgramDetailData implements _ProgramDetailData {
       const DeepCollectionEquality().hash(viewer) ^
       const DeepCollectionEquality().hash(program);
 
+  @JsonKey(ignore: true)
   @override
   _$ProgramDetailDataCopyWith<_ProgramDetailData> get copyWith =>
       __$ProgramDetailDataCopyWithImpl<_ProgramDetailData>(this, _$identity);
@@ -194,6 +196,7 @@ abstract class _ProgramDetailData implements ProgramDetailData {
   @override
   ProgramDetail get program;
   @override
+  @JsonKey(ignore: true)
   _$ProgramDetailDataCopyWith<_ProgramDetailData> get copyWith;
 }
 
@@ -332,6 +335,7 @@ mixin _$ProgramDetail {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ProgramDetailCopyWith<ProgramDetail> get copyWith;
 }
 
@@ -843,6 +847,7 @@ class _$_ProgramDetail extends _ProgramDetail {
       const DeepCollectionEquality().hash(rawOnetimePlans) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ProgramDetailCopyWith<_ProgramDetail> get copyWith =>
       __$ProgramDetailCopyWithImpl<_ProgramDetail>(this, _$identity);
@@ -968,6 +973,7 @@ abstract class _ProgramDetail extends ProgramDetail {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ProgramDetailCopyWith<_ProgramDetail> get copyWith;
 }
 
@@ -1018,6 +1024,7 @@ mixin _$DetailPrgChannel {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $DetailPrgChannelCopyWith<DetailPrgChannel> get copyWith;
 }
 
@@ -1186,6 +1193,7 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
       const DeepCollectionEquality().hash(textOnPurchaseScreen) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$DetailPrgChannelCopyWith<_DetailPrgChannel> get copyWith =>
       __$DetailPrgChannelCopyWithImpl<_DetailPrgChannel>(this, _$identity);
@@ -1223,6 +1231,7 @@ abstract class _DetailPrgChannel implements DetailPrgChannel {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$DetailPrgChannelCopyWith<_DetailPrgChannel> get copyWith;
 }
 
@@ -1271,6 +1280,7 @@ mixin _$VideoHandouts {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $VideoHandoutsCopyWith<VideoHandouts> get copyWith;
 }
 
@@ -1403,6 +1413,7 @@ class _$_VideoHandouts extends _VideoHandouts {
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$VideoHandoutsCopyWith<_VideoHandouts> get copyWith =>
       __$VideoHandoutsCopyWithImpl<_VideoHandouts>(this, _$identity);
@@ -1438,6 +1449,7 @@ abstract class _VideoHandouts extends VideoHandouts {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$VideoHandoutsCopyWith<_VideoHandouts> get copyWith;
 }
 
@@ -1481,6 +1493,7 @@ mixin _$Handouts {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $HandoutsCopyWith<Handouts> get copyWith;
 }
 
@@ -1605,6 +1618,7 @@ class _$_Handouts extends _Handouts {
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$HandoutsCopyWith<_Handouts> get copyWith =>
       __$HandoutsCopyWithImpl<_Handouts>(this, _$identity);
@@ -1634,6 +1648,7 @@ abstract class _Handouts extends Handouts {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$HandoutsCopyWith<_Handouts> get copyWith;
 }
 
@@ -1684,6 +1699,7 @@ mixin _$Handout {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $HandoutCopyWith<Handout> get copyWith;
 }
 
@@ -1847,6 +1863,7 @@ class _$_Handout implements _Handout {
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$HandoutCopyWith<_Handout> get copyWith =>
       __$HandoutCopyWithImpl<_Handout>(this, _$identity);
@@ -1882,6 +1899,7 @@ abstract class _Handout implements Handout {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$HandoutCopyWith<_Handout> get copyWith;
 }
 
@@ -1933,6 +1951,7 @@ mixin _$DetailPrgItem {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $DetailPrgItemCopyWith<DetailPrgItem> get copyWith;
 }
 
@@ -2103,6 +2122,7 @@ class _$_DetailPrgItem extends _DetailPrgItem {
       const DeepCollectionEquality().hash(archiveUrl) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$DetailPrgItemCopyWith<_DetailPrgItem> get copyWith =>
       __$DetailPrgItemCopyWithImpl<_DetailPrgItem>(this, _$identity);
@@ -2142,6 +2162,7 @@ abstract class _DetailPrgItem extends DetailPrgItem {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$DetailPrgItemCopyWith<_DetailPrgItem> get copyWith;
 }
 
@@ -2209,6 +2230,7 @@ mixin _$OnetimePlan {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $OnetimePlanCopyWith<OnetimePlan> get copyWith;
 }
 
@@ -2460,6 +2482,7 @@ class _$_OnetimePlan extends _OnetimePlan {
       const DeepCollectionEquality().hash(viewerPurchasedPlan) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$OnetimePlanCopyWith<_OnetimePlan> get copyWith =>
       __$OnetimePlanCopyWithImpl<_OnetimePlan>(this, _$identity);
@@ -2514,6 +2537,7 @@ abstract class _OnetimePlan extends OnetimePlan {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$OnetimePlanCopyWith<_OnetimePlan> get copyWith;
 }
 
@@ -2561,6 +2585,7 @@ mixin _$Extension {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ExtensionCopyWith<Extension> get copyWith;
 }
 
@@ -2736,6 +2761,7 @@ class _$_Extension implements _Extension {
       const DeepCollectionEquality().hash(oneTimePlan) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ExtensionCopyWith<_Extension> get copyWith =>
       __$ExtensionCopyWithImpl<_Extension>(this, _$identity);
@@ -2769,6 +2795,7 @@ abstract class _Extension implements Extension {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ExtensionCopyWith<_Extension> get copyWith;
 }
 
@@ -2810,6 +2837,7 @@ mixin _$Viewer {
   String get typename;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ViewerCopyWith<Viewer> get copyWith;
 }
 
@@ -2924,6 +2952,7 @@ class _$_Viewer implements _Viewer {
       const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(typename);
 
+  @JsonKey(ignore: true)
   @override
   _$ViewerCopyWith<_Viewer> get copyWith =>
       __$ViewerCopyWithImpl<_Viewer>(this, _$identity);
@@ -2950,5 +2979,6 @@ abstract class _Viewer implements Viewer {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  @JsonKey(ignore: true)
   _$ViewerCopyWith<_Viewer> get copyWith;
 }

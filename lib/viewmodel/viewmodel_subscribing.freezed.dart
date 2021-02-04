@@ -514,6 +514,7 @@ class _$_FeatureProgramStateSuccess implements _FeatureProgramStateSuccess {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(featureProgramData);
 
+  @JsonKey(ignore: true)
   @override
   _$FeatureProgramStateSuccessCopyWith<_FeatureProgramStateSuccess>
       get copyWith => __$FeatureProgramStateSuccessCopyWithImpl<
@@ -593,6 +594,7 @@ abstract class _FeatureProgramStateSuccess implements FeatureProgramState {
       FeatureProgramData featureProgramData) = _$_FeatureProgramStateSuccess;
 
   FeatureProgramData get featureProgramData;
+  @JsonKey(ignore: true)
   _$FeatureProgramStateSuccessCopyWith<_FeatureProgramStateSuccess>
       get copyWith;
 }
@@ -1233,6 +1235,7 @@ class _$_StateSuccess implements _StateSuccess {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(watchHistories);
 
+  @JsonKey(ignore: true)
   @override
   _$StateSuccessCopyWith<_StateSuccess> get copyWith =>
       __$StateSuccessCopyWithImpl<_StateSuccess>(this, _$identity);
@@ -1323,6 +1326,7 @@ abstract class _StateSuccess implements WatchHistoryState {
       _$_StateSuccess;
 
   UnmodifiableListView<WatchHistoriesData> get watchHistories;
+  @JsonKey(ignore: true)
   _$StateSuccessCopyWith<_StateSuccess> get copyWith;
 }
 
@@ -1384,6 +1388,7 @@ class _$_StateLoadingMore implements _StateLoadingMore {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(watchHistories);
 
+  @JsonKey(ignore: true)
   @override
   _$StateLoadingMoreCopyWith<_StateLoadingMore> get copyWith =>
       __$StateLoadingMoreCopyWithImpl<_StateLoadingMore>(this, _$identity);
@@ -1474,6 +1479,7 @@ abstract class _StateLoadingMore implements WatchHistoryState {
       _$_StateLoadingMore;
 
   UnmodifiableListView<WatchHistoriesData> get watchHistories;
+  @JsonKey(ignore: true)
   _$StateLoadingMoreCopyWith<_StateLoadingMore> get copyWith;
 }
 

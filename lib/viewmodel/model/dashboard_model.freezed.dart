@@ -34,6 +34,7 @@ mixin _$ApiData {
   @protected
   List<NewProgramsData> get rawNewProgramsDataList;
 
+  @JsonKey(ignore: true)
   $ApiDataCopyWith<ApiData> get copyWith;
 }
 
@@ -159,6 +160,7 @@ class _$_ApiData extends _ApiData {
       const DeepCollectionEquality().hash(featureProgramData) ^
       const DeepCollectionEquality().hash(rawNewProgramsDataList);
 
+  @JsonKey(ignore: true)
   @override
   _$ApiDataCopyWith<_ApiData> get copyWith =>
       __$ApiDataCopyWithImpl<_ApiData>(this, _$identity);
@@ -177,6 +179,7 @@ abstract class _ApiData extends ApiData {
   @protected
   List<NewProgramsData> get rawNewProgramsDataList;
   @override
+  @JsonKey(ignore: true)
   _$ApiDataCopyWith<_ApiData> get copyWith;
 }
 
@@ -216,6 +219,7 @@ mixin _$DashboardModel {
   double get subscribingChannelOffset;
   int get billboardHeaderPage;
 
+  @JsonKey(ignore: true)
   $DashboardModelCopyWith<DashboardModel> get copyWith;
 }
 
@@ -422,6 +426,7 @@ class _$_DashboardModel extends _DashboardModel {
       const DeepCollectionEquality().hash(subscribingChannelOffset) ^
       const DeepCollectionEquality().hash(billboardHeaderPage);
 
+  @JsonKey(ignore: true)
   @override
   _$DashboardModelCopyWith<_DashboardModel> get copyWith =>
       __$DashboardModelCopyWithImpl<_DashboardModel>(this, _$identity);
@@ -450,6 +455,7 @@ abstract class _DashboardModel extends DashboardModel {
   @override
   int get billboardHeaderPage;
   @override
+  @JsonKey(ignore: true)
   _$DashboardModelCopyWith<_DashboardModel> get copyWith;
 }
 

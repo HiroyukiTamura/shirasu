@@ -45,6 +45,7 @@ mixin _$SignedCookieResult {
   DateTime get now;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SignedCookieResultCopyWith<SignedCookieResult> get copyWith;
 }
 
@@ -168,6 +169,7 @@ class _$_SignedCookieResult implements _SignedCookieResult {
       const DeepCollectionEquality().hash(signLimitAt) ^
       const DeepCollectionEquality().hash(now);
 
+  @JsonKey(ignore: true)
   @override
   _$SignedCookieResultCopyWith<_SignedCookieResult> get copyWith =>
       __$SignedCookieResultCopyWithImpl<_SignedCookieResult>(this, _$identity);
@@ -197,5 +199,6 @@ abstract class _SignedCookieResult implements SignedCookieResult {
   @override
   DateTime get now;
   @override
+  @JsonKey(ignore: true)
   _$SignedCookieResultCopyWith<_SignedCookieResult> get copyWith;
 }

@@ -48,6 +48,7 @@ mixin _$CountryData {
   Map<String, String> get rawCountries;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CountryDataCopyWith<CountryData> get copyWith;
 }
 
@@ -162,6 +163,7 @@ class _$_CountryData extends _CountryData {
       const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(rawCountries);
 
+  @JsonKey(ignore: true)
   @override
   _$CountryDataCopyWith<_CountryData> get copyWith =>
       __$CountryDataCopyWithImpl<_CountryData>(this, _$identity);
@@ -192,5 +194,6 @@ abstract class _CountryData extends CountryData {
   @protected
   Map<String, String> get rawCountries;
   @override
+  @JsonKey(ignore: true)
   _$CountryDataCopyWith<_CountryData> get copyWith;
 }

@@ -60,6 +60,7 @@ class Util {
     debugPrint(error.toString());
   }
 
+  // todo improve logic
   static String sec2Hms(int sec) {
     final duration = Duration(seconds: sec);
     final dateTime = DateTime.fromMillisecondsSinceEpoch(
@@ -69,6 +70,7 @@ class Util {
     return DateFormat('hh:mm:ss').format(dateTime);
   }
 
+  // todo improve logic
   static String formatDurationStyled(Duration duration) {
     final dateTime = DateTime.fromMicrosecondsSinceEpoch(
         duration.inMicroseconds,
@@ -78,6 +80,7 @@ class Util {
         : DateFormat('hh:mm:ss').format(dateTime);
   }
 
+  // todo improve logic
   static String formatDurationHHMM(Duration duration, bool withPlusMinus) {
     final dateTime = DateTime(2000).toUtc() + duration.abs();
     final mmss = DateFormat('mm:ss').format(dateTime);

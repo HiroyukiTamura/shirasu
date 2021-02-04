@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -28,12 +29,12 @@ mixin OnPopPageMixin<T> on RouterDelegate<T> {
 mixin PlayerPopRouteMixin<T> on RouterDelegate<T> {
   GlobalKey<NavigatorState> get navigatorKey;
 
-  ProviderReference get ref;
+  Reader get reader;
 
   Future<bool> kickPopRoute(Future<bool> Function() onFalse) async {
     final last = GlobalAppState.instance.last;
     if (last is PathDataProgram) {
-      final closed = await ref.read(detailSNProvider(last.programId)).togglePage(const PageSheetModel.hidden());
+      final closed = await reader(detailSNProvider(last.programId)).togglePage(const PageSheetModel.hidden());
       if (closed)
         return true;
     }

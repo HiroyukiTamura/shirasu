@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 
 // todo synchronize?
@@ -13,18 +14,24 @@ class GlobalAppState extends ChangeNotifier {
 
   PathDataMainPageBase get findLastMainPagePath =>
       list.firstWhere((it) => it is PathDataMainPageBase)
-      as PathDataMainPageBase;
+          as PathDataMainPageBase;
 
-  // todo change to ImmutableListView
   List<GlobalRoutePathBase> get list {
-    if (_list.isEmpty) _list.add(const PathDataMainPageBase.dashboard());
+    final isInitialLaunch = HivePrefectureClient.instance().isInitialLaunchApp;
+
+    if (isInitialLaunch)
+      return _list = [const PathDataMainPageBase.dashboard(), const GlobalRoutePath.intro()];
+
+    if (_list.isEmpty)
+      _list = [const PathDataMainPageBase.dashboard()];
+
     return _list;
   }
 
   //todo fix
   void push(GlobalRoutePathBase path) {
-    if (last == const GlobalRoutePath.auth() && path == const GlobalRoutePath.auth())
-      return;
+    if (last == const GlobalRoutePath.auth() &&
+        path == const GlobalRoutePath.auth()) return;
 
     if (last == const GlobalRoutePath.auth() && path is PathDataError)
       _list.removeLast();

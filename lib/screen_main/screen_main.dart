@@ -28,10 +28,7 @@ final _kPrvMainSnackMsg = Provider.autoDispose<SnackData>((ref) {
   );
 });
 
-final _pRouterDelegate =
-    Provider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref));
-
-final _kPrvRouterDelegate = ChangeNotifierProvider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref));
+final _kPrvRouterDelegate = ChangeNotifierProvider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref.read));
 
 class ScaffoldKeyHolder {
   ScaffoldKeyHolder();
@@ -76,7 +73,7 @@ class _ScreenMainState extends State<ScreenMain> {
         body: SnackEventListener(
           provider: _kPrvMainSnackMsg,
           child: Router(
-            routerDelegate: useProvider(_pRouterDelegate),
+            routerDelegate: useProvider(_kPrvRouterDelegate),
             backButtonDispatcher: _backButtonDispatcher,
           ),
         ),
@@ -93,7 +90,7 @@ Widget _mainBottomNavigationBar(BuildContext context) => BottomNavigationBar(
       unselectedItemColor: Styles.COLOR_TEXT_SUB,
       type: BottomNavigationBarType.fixed,
       unselectedFontSize: FontSize.DEFAULT,
-      onTap: (index) async => context.read(_pRouterDelegate).swapPage(index),
+      onTap: (index) async => context.read(_kPrvRouterDelegate).swapPage(index),
       currentIndex: useProvider(_kPrvRouterDelegate.select((it) => it.pageIndex)),
       items: const [
         BottomNavigationBarItem(
@@ -128,7 +125,7 @@ class _Fab extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final page = useProvider(_pRouterDelegate.select((it) => it.page));
+    final page = useProvider(_kPrvRouterDelegate.select((it) => it.page));
 
     if (page != const PathDataMainPageBase.setting()) return const SizedBox.shrink();
 

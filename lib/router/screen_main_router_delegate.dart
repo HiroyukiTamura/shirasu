@@ -15,7 +15,7 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
         ChangeNotifier,
         OnPopPageMixin<PathDataMainPageBase>,
         PlayerPopRouteMixin<PathDataMainPageBase> {
-  ScreenMainRouterDelegate(this.ref)
+  ScreenMainRouterDelegate(this.reader)
       : navigatorKey = GlobalKey<NavigatorState>() {
     GlobalAppState.instance.addListener(notifyListeners);
   }
@@ -24,7 +24,7 @@ class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
   final GlobalKey<NavigatorState> navigatorKey;
 
   @override
-  final ProviderReference ref;
+  final T Function<T>(RootProvider<Object, T> provider) reader;
 
   @override
   GlobalAppState get appState => GlobalAppState.instance;

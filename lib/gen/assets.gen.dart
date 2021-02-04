@@ -61,6 +61,7 @@ class $AssetsPngGen {
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
+  SvgGenImage get appLogo => const SvgGenImage('assets/svg/app_logo.svg');
   SvgGenImage get defaultChannelIcon =>
       const SvgGenImage('assets/svg/default-channel-icon.svg');
   SvgGenImage get logoOfficial =>

@@ -24,7 +24,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
         ChangeNotifier,
         OnPopPageMixin<GlobalRoutePathBase>,
         PlayerPopRouteMixin<GlobalRoutePathBase> {
-  AppRouterDelegate(this.ref) : navigatorKey = GlobalKey<NavigatorState>() {
+  AppRouterDelegate(this.reader) : navigatorKey = GlobalKey<NavigatorState>() {
     appState.addListener(notifyListeners);
   }
 
@@ -35,7 +35,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
   final GlobalAppState appState = GlobalAppState.instance;
 
   @override
-  final ProviderReference ref;
+  final T Function<T>(RootProvider<Object, T> provider) reader;
 
   @override
   Widget build(BuildContext context) {

@@ -21,7 +21,7 @@ final snackBarMsgProvider =
         (ref) => SnackBarMessageNotifier());
 
 final pAppRouterDelegate =
-    Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref));
+    Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref.read));
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,33 +52,24 @@ class MyApp extends StatefulHookWidget {
 }
 
 class MyAppState extends State<MyApp> with TickerProviderStateMixin {
-
   @override
-  Widget build(BuildContext context) {
-    // final isInitialLaunch = HiveClient.isInitialLaunchApp();
-    // if (isInitialLaunch)
-    //   HiveClient.setInitialLaunchApp();
-
-    final delegate = useProvider(pAppRouterDelegate);
-
-    return MaterialApp(
-      title: Strings.APP_NAME,
-      theme: Styles.theme,
-      home: Scaffold(
-        body: Router(
-          backButtonDispatcher: RootBackButtonDispatcher(),
-          routerDelegate: delegate,
-          routeInformationParser: AppRouteInformationParser.instance,
+  Widget build(BuildContext context) => MaterialApp(
+        title: Strings.APP_NAME,
+        theme: Styles.theme,
+        home: Scaffold(
+          body: Router(
+            backButtonDispatcher: RootBackButtonDispatcher(),
+            routerDelegate: useProvider(pAppRouterDelegate),
+            routeInformationParser: AppRouteInformationParser.instance,
+          ),
         ),
-      ),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('ja'),
-      ],
-    );
-  }
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('ja'),
+        ],
+      );
 }

@@ -1,49 +1,24 @@
 import 'dart:ui';
 
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_intro/body_widget.dart';
 import 'package:shirasu/ui_common/images.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ScreenIntro extends StatelessWidget {
+class ScreenIntro extends StatefulWidget {
   static const double _IMG_SIZE = 128;
 
   @override
-  Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
-          // if (Navigator.canPop(context)) {
-          //   Navigator.pop(context);
-          //   return true;
-          // } else
-          //   return false;
-        },
-        child: IntroductionScreen(
-          globalBackgroundColor: Colors.transparent,
-          pages: _listPagesViewModel(context),
-          // onDone: () => Navigator.pop(context),
-          next: const Icon(Icons.navigate_next),
-          done: const Text(
-            Strings.INTRO_DONE,
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          dotsDecorator: DotsDecorator(
-            size: const Size.square(10),
-            activeSize: const Size(20, 10),
-            activeColor: Theme.of(context).accentColor,
-            color: Styles.introDot,
-            spacing: const EdgeInsets.symmetric(horizontal: 3),
-            activeShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-          ),
-        ),
-      );
+  _ScreenIntroState createState() => _ScreenIntroState();
 
   static List<PageViewModel> _listPagesViewModel(BuildContext context) => [
         PageViewModel(
@@ -60,7 +35,7 @@ class ScreenIntro extends StatelessWidget {
           bodyWidget: const BodyWidget(
             stringList: [Strings.INTRO_DESC_1ST, Strings.INTRO_DESC_1ST_2],
           ),
-          image: Assets.svg.logoOfficial.supportWeb().toWidget(
+          image: Assets.svg.appLogo.supportWeb().toWidget(
             width: _IMG_SIZE,
             height: _IMG_SIZE,
             semanticLabel: Strings.CD_INTRO_IMG,
@@ -114,4 +89,33 @@ class ScreenIntro extends StatelessWidget {
             end: Alignment.bottomLeft,
             colors: [color, Styles.BACK_COLOR, Colors.black]),
       );
+}
+
+class _ScreenIntroState extends State<ScreenIntro> with AfterLayoutMixin<ScreenIntro> {
+  @override
+  Widget build(BuildContext context) => IntroductionScreen(
+    globalBackgroundColor: Colors.transparent,
+    pages: ScreenIntro._listPagesViewModel(context),
+    onDone: () => Navigator.pop(context),
+    next: const Icon(Icons.navigate_next),
+    done: const Text(
+      Strings.INTRO_DONE,
+      style: TextStyle(fontWeight: FontWeight.w600),
+    ),
+    dotsDecorator: DotsDecorator(
+      size: const Size.square(10),
+      activeSize: const Size(20, 10),
+      activeColor: Theme.of(context).accentColor,
+      color: Styles.introDot,
+      spacing: const EdgeInsets.symmetric(horizontal: 3),
+      activeShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25),
+      ),
+    ),
+  );
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    HivePrefectureClient.instance().setInitialLaunchApp();
+  }
 }

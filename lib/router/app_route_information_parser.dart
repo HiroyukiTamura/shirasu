@@ -69,5 +69,6 @@ class AppRouteInformationParser
         ossLicense: () => 'oss_license',
         imgLicense: () => 'img_license',
         auth: () => 'auth',
+        preLogin: () => 'pre_login',
       );
 }

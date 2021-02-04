@@ -283,4 +283,15 @@ class Strings {
   static const String AUTH_TOKEN_EXPIRED = 'ログイン期限が切れました';
 
   static const String LOGIN_BTN_VALUE = 'ログイン';
+
+  //region screenPreLogin
+  static const String PRE_LOGIN_REGISTER_BTN_VALUE = 'シラスに新規登録';
+
+  static const String PRE_LOGIN_LOGIN_BTN_VALUE = 'シラスアカウントで\nログイン';
+
+  static const String PRE_LOGIN_NOTE_1 = '「シラス」における決済や認証は公式Webページを通じて行い、アプリはパスワードや個人情報を一切保持しません';
+  static const String PRE_LOGIN_NOTE_2 = '「シラス」と無関係の個人が開発・運営しており、本アプリのソースコード全文をネット上で公開しています';
+  static const String PRE_LOGIN_NOTE_3 = '本アプリによる広告表示・課金機能は一切ありません';
+
+  //endregion
 }

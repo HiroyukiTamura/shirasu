@@ -5,15 +5,18 @@ import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 part 'screen_main_route_path.freezed.dart';
 
+//todo file rename??
+
 @immutable
 abstract class GlobalRoutePathBase {
-  const factory GlobalRoutePathBase.redirect2Root() = PathDataMainPageBase.dashboard;
+  const factory GlobalRoutePathBase.redirect2Root() =
+      PathDataMainPageBase.dashboard;
 }
 
 extension GlobalRoutePathBaseX on GlobalRoutePathBase {
   Result wrappedWhen<Result extends Object>({
     @required Result Function() intro,
-    @required Result Function(bool ) error,
+    @required Result Function(bool) error,
     @required Result Function(String channelId) channel,
     @required Result Function(String programId) program,
     @required Result Function() dashboard,
@@ -22,6 +25,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() ossLicense,
     @required Result Function() imgLicense,
     @required Result Function() auth,
+    @required Result Function() preLogin,
   }) {
     if (this is GlobalRoutePath)
       return (this as GlobalRoutePath).when(
@@ -32,6 +36,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         ossLicense: ossLicense,
         imgLicense: imgLicense,
         auth: auth,
+        preLogin: preLogin,
       );
     else if (this is PathDataMainPageBase)
       return (this as PathDataMainPageBase).when(
@@ -52,6 +57,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() ossLicense,
     @required Result Function() imgLicense,
     @required Result Function() auth,
+    @required Result Function() preLogin,
   }) {
     if (this is PathDataMainPageBase) return mainPage();
     if (this is GlobalRoutePath)
@@ -62,6 +68,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         program: program,
         ossLicense: ossLicense,
         auth: auth,
+        preLogin: preLogin,
         imgLicense: imgLicense,
       );
     else
@@ -76,11 +83,9 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     if (this is GlobalRoutePath)
       return globalRoutePath();
     else
-      throw ArgumentError.value(
-          'unexpected routePath type: $runtimeType');
+      throw ArgumentError.value('unexpected routePath type: $runtimeType');
   }
 }
-
 
 @freezed
 abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
@@ -97,6 +102,8 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.imgLicense() = _PathDataImgLicense;
 
   const factory GlobalRoutePath.auth() = _PathDataAuth;
+
+  const factory GlobalRoutePath.preLogin() = _PathDataPreLogin;
 
   factory GlobalRoutePath.buildProgram({
     @required String channelId,

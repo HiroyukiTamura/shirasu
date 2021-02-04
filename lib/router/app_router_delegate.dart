@@ -15,6 +15,7 @@ import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/screen_oss_licence/screen_oss_licence.dart';
+import 'package:shirasu/screen_pre_login/screen_pre_login.dart';
 import 'package:tuple/tuple.dart';
 
 import 'on_pop_page_mixin.dart';
@@ -50,6 +51,7 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
             auth: () => const ScreenAuth(),
             mainPage: () => const ScreenMain(),
             imgLicense: () => const ScreenImageLicense(),
+            preLogin: () => const ScreenPreLogin(),
           );
           final location = NavigationValueKeyHandler.getValueKey(pathData);
           return Tuple2(location, screen);

@@ -17,15 +17,16 @@ class GlobalAppState extends ChangeNotifier {
           as PathDataMainPageBase;
 
   List<GlobalRoutePathBase> get list {
-    final isInitialLaunch = HivePrefectureClient.instance().isInitialLaunchApp;
-
-    if (isInitialLaunch)
-      return _list = [const PathDataMainPageBase.dashboard(), const GlobalRoutePath.intro()];
-
-    if (_list.isEmpty)
-      _list = [const PathDataMainPageBase.dashboard()];
-
-    return _list;
+    return [GlobalRoutePath.preLogin()];
+    // final isInitialLaunch = HivePrefectureClient.instance().isInitialLaunchApp;
+    //
+    // if (isInitialLaunch)
+    //   return _list = [const PathDataMainPageBase.dashboard(), const GlobalRoutePath.intro()];
+    //
+    // if (_list.isEmpty)
+    //   _list = [const PathDataMainPageBase.dashboard()];
+    //
+    // return _list;
   }
 
   //todo fix

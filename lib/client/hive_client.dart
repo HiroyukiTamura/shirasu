@@ -16,6 +16,8 @@ abstract class HiveClient<T> {
 
   @protected
   Box<T> get box => Hive.box<T>(_boxName);
+
+  bool get isEmpty => box.isEmpty;
 }
 
 class HiveAuthClient extends HiveClient<HiveAuthData> {

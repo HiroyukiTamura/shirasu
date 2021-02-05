@@ -98,12 +98,13 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
 
       final delegate = reader(pAppRouterDelegate);
       if (_success)
-        await delegate.popRoute();
+        delegate.reset();
       else if (_hiveClient.maybeExpired && url == UrlUtil.URL_DASHBOARD) {
         // todo improve logic
         await _plugin.clearCache();
         await _plugin.cleanCookies();
         pushAuthExpireScreen();
+        //todo show error screen
       }
       await _plugin.close();
     }

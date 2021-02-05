@@ -27,7 +27,7 @@ abstract class HiveAuthData with _$HiveAuthData {
 
   const HiveAuthData._();
 
-  DateTime get expiresAtUtc => DateTime.fromMillisecondsSinceEpoch(rawExpiresAt).toUtc();
+  DateTime get expiresAtUtc => DateTime.fromMillisecondsSinceEpoch(rawExpiresAt * 1000).toUtc();
 }
 
 /// hive model for [Body]

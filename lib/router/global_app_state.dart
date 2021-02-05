@@ -16,17 +16,22 @@ class GlobalAppState extends ChangeNotifier {
       list.firstWhere((it) => it is PathDataMainPageBase)
           as PathDataMainPageBase;
 
+  bool get _isLoggedOut => HiveAuthClient.instance().isEmpty;
+
+  bool get _isInitialLaunch =>
+      HivePrefectureClient.instance().isInitialLaunchApp;
+
   List<GlobalRoutePathBase> get list {
-    return [GlobalRoutePath.preLogin()];
-    // final isInitialLaunch = HivePrefectureClient.instance().isInitialLaunchApp;
-    //
-    // if (isInitialLaunch)
-    //   return _list = [const PathDataMainPageBase.dashboard(), const GlobalRoutePath.intro()];
-    //
-    // if (_list.isEmpty)
-    //   _list = [const PathDataMainPageBase.dashboard()];
-    //
-    // return _list;
+    if (_isInitialLaunch) return _list = [const GlobalRoutePath.intro()];
+
+    if (_list.isEmpty) {
+      if (_isLoggedOut) {
+        return _list = [const GlobalRoutePath.preLogin()];
+      }
+      _list = [const PathDataMainPageBase.dashboard()];
+    }
+
+    return _list;
   }
 
   //todo fix
@@ -54,4 +59,6 @@ class GlobalAppState extends ChangeNotifier {
     _list.removeLast();
     notifyListeners();
   }
+
+  void reset() => _list.clear();
 }

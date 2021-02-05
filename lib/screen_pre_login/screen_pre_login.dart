@@ -50,27 +50,24 @@ class ScreenPreLogin extends StatelessWidget {
             children: [
               const _Background(),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 48,
+                padding: const EdgeInsets.only(
+                  right: 24,
+                  left: 24,
+                  bottom: 48,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const _HeaderLogo(),
                     Expanded(
                       child: ScrollConfiguration(
                         behavior: const NoEffectScrollBehavior(),
-                        child: ListView.separated(
+                        child: ListView(
                           padding: const EdgeInsets.symmetric(vertical: 48),
-                          itemCount: _NOTE_LIST.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              _Note(text: _NOTE_LIST[index]),
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(height: 16),
+                          children: _listViewChildren(),
                         ),
                       ),
                     ),
+                    const SizedBox(height: 24),
                     _Button(
                       text: Strings.PRE_LOGIN_REGISTER_BTN_VALUE,
                       btnColor: Colors.white,
@@ -91,6 +88,15 @@ class ScreenPreLogin extends StatelessWidget {
           ),
         ),
       ));
+
+  List<Widget> _listViewChildren() {
+    final notes = _NOTE_LIST
+        .map<Widget>((text) => _Note(
+              text: text,
+            ))
+        .joinWith(() => const SizedBox(height: 16));
+    return [const _HeaderLogo(), const SizedBox(height: 48,), ...notes];
+  }
 
   void _onTapRegister(BuildContext context) => Util.launchUrl(
         context,

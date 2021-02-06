@@ -3,8 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/client/native_client.dart';
+import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
@@ -110,10 +113,10 @@ class _ScreenDetailState extends State<ScreenDetail>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        _stopPlayBackground();
+        _switchVideoForeground();
         break;
       case AppLifecycleState.inactive:
-        _startPlayBackground(); //todo is it good??
+        _switchVideoBackground(); //todo is it good??
         break;
       case AppLifecycleState.detached:
       case AppLifecycleState.paused:
@@ -163,36 +166,37 @@ class _ScreenDetailState extends State<ScreenDetail>
       .read(detailSNProvider(widget.id))
       .notifyFollowTimeLineMode(const FollowTimeLineMode.follow());
 
-  Future<void> _stopPlayBackground() async {
-    // if (!isPlaying) return;
-    //
-    // await NativeClient.stopBackGround();
-    // await context.read(pVideoViewModel(widget.id)).playProgrammatically();
+  Future<void> _switchVideoForeground() async {
+    final replyData =
+        await context.read(detailSNProvider(widget.id)).stopBackGroundPlayer();
+    if (mounted && replyData.wasPlaying) {
+      bool isLandCape =
+          MediaQuery.of(context).orientation == Orientation.landscape;
+      context.read(detailSNProvider(widget.id)).playOrPause(
+            isLandCape,
+            VideoControllerCommand.play(replyData.position),
+          );
+    }
   }
 
-  Future<void> _startPlayBackground() async {
-    // if (!isPlaying) return;
-    //
-    // await context.read(pVideoViewModel(widget.id)).pauseProgrammatically();
-    //
-    // final prgDataResult =
-    //     context.read(detailSNProvider(widget.id).state).prgDataResult;
-    // if (prgDataResult is StateSuccess) {
-    //   final playOutState =
-    //       context.read(pVideoViewModel(widget.id)).playOutState;
-    //   await NativeClient.startPlayBackGround(
-    //     url: playOutState.hlsMediaUrl,
-    //     isLiveStream: playOutState.videoType == VideoType.LIVE,
-    //     position: context
-    //         .read(pVideoViewModel(widget.id).state)
-    //         .currentPosSafe
-    //         .inMilliseconds,
-    //     iconUrl: UrlUtil.getThumbnailUrl(widget.id),
-    //     cookie: playOutState.cookie,
-    //     title: prgDataResult.programDetailData.program.title,
-    //     subtitle: prgDataResult.channelData.channel.name,
-    //   );
-    // }
+  Future<void> _switchVideoBackground() async {
+    final state = context.read(detailSNProvider(widget.id).state);
+    if (state.playOutState.isPlaying) {
+      final inMilliseconds = state.playOutState.currentPos.inMilliseconds;
+      final cookie = state.playOutState.cookie;
+      bool isLandCape =
+          MediaQuery.of(context).orientation == Orientation.landscape;
+
+      final viewModel = context.read(detailSNProvider(widget.id))
+        ..playOrPause(
+          isLandCape,
+          const VideoControllerCommand.pause(),
+        );
+      await viewModel.startPlayBackground(
+        inMilliseconds,
+        cookie,
+      );
+    }
   }
 
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>

@@ -130,6 +130,9 @@ class ApiClient {
       final statusCode =
           result.context.entry<HttpLinkResponseContext>()?.statusCode;
       debugPrint(statusCode.toString());
+
+      if (result.exception.linkException.originalException is UnauthorizedException)
+        throw result.exception.linkException.originalException;
     }
   }
 

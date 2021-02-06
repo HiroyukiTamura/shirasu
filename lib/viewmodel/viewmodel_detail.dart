@@ -1,14 +1,17 @@
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/client/api_client.dart';
 import 'package:shirasu/client/dio_client.dart';
 import 'package:shirasu/client/hive_client.dart';
+import 'package:shirasu/client/native_client.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/util.dart';
@@ -101,8 +104,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         state = state.copyWith(prgDataResult: const DetailModelState.error());
     }
 
-    if (!mounted)
-      return;
+    if (!mounted) return;
 
     if (authExpired)
       pushAuthExpireScreen();
@@ -129,8 +131,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       print(e); //todo handle error
     }
 
-    if (!mounted)
-      return;
+    if (!mounted) return;
 
     if (authExpired)
       pushAuthExpireScreen();
@@ -385,15 +386,18 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   /// allow commands any time though [videoPlayerState] is not ready
-  void commandVideoController({
+  void _commandVideoController({
     @required bool fullScreen,
+    @required bool renewHideTimer,
     @required LastControllerCommand command,
   }) {
-    if (fullScreen == state.playOutState.fullScreen)
+    if (fullScreen == state.playOutState.fullScreen) {
       state = state.copyWith.playOutState(
         lastControllerCommandHolder:
             LastControllerCommandHolder.create(command),
       );
+      if (renewHideTimer) _hideTimer.renew();
+    }
   }
 
   void updateVideoPlayerState({
@@ -427,24 +431,20 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   /// must be [mounted] == true && [state.isInitialized] == true
   void seek(bool fullScreen, Duration diff) {
-    if (fullScreen == state.playOutState.fullScreen) {
-      commandVideoController(
-        fullScreen: fullScreen,
-        command: LastControllerCommand.seek(diff),
-      );
-      _hideTimer.renew();
-    }
+    _commandVideoController(
+      fullScreen: fullScreen,
+      command: LastControllerCommand.seek(diff),
+      renewHideTimer: true,
+    );
   }
 
   /// must be [mounted] == true && [state.isInitialized] == true
   void seekToWithBtmSheet(bool fullScreen, Duration duration) {
-    if (fullScreen == state.playOutState.fullScreen) {
-      commandVideoController(
-        fullScreen: fullScreen,
-        command: LastControllerCommand.seekTo(duration),
-      );
-      _hideTimer.renew();
-    }
+    _commandVideoController(
+      fullScreen: fullScreen,
+      command: LastControllerCommand.seekTo(duration),
+      renewHideTimer: true,
+    );
   }
 
   /// must be [mounted] == true && [state.isInitialized] == true
@@ -463,21 +463,19 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       applyCurrentPosUi: true,
     );
     if (applyController)
-      commandVideoController(
+      _commandVideoController(
         fullScreen: fullScreen,
         command: LastControllerCommand.seekTo(duration),
+        renewHideTimer: false,
       );
   }
 
-  void playOrPause(bool fullScreen) {
-    if (fullScreen != state.playOutState.fullScreen) return;
-
-    _hideTimer.renew();
-    commandVideoController(
-      fullScreen: fullScreen,
-      command: const LastControllerCommand.playOrPause(),
-    );
-  }
+  void playOrPause(bool fullScreen, VideoControllerCommand command) =>
+      _commandVideoController(
+        fullScreen: fullScreen,
+        command: command.converted,
+        renewHideTimer: true,
+      );
 
   void updateIsisBuffering({
     @required bool fullScreen,
@@ -501,5 +499,40 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         state.commentHolder.followTimeLineMode ==
             const FollowTimeLineMode.follow();
     _snackBarMsgNotifier.notifyMsg(snackMsg, isCommentAppBarShown);
+  }
+
+  /// provide old values as param; [position], [cookie]
+  Future<void> startPlayBackground(int position, String cookie) async {
+    if (!mounted)
+      return;
+
+    final prgDataResult = state.prgDataResult;
+    if (prgDataResult is StateSuccess) {
+      final playOutState = state.playOutState;
+      try {
+        await NativeClient.startPlayBackGround(
+                url: playOutState.hlsMediaUrl,
+                isLiveStream: playOutState.videoType == VideoType.LIVE,
+                position: position,
+                iconUrl: UrlUtil.getThumbnailUrl(id),
+                cookie: cookie,
+                title: prgDataResult.programDetailData.program.title,
+                subtitle: prgDataResult.channelData.channel.name,
+              );
+      } catch (e) {
+        print(e);
+        //todo handle error
+      }
+    }
+  }
+
+  Future<ReplyData> stopBackGroundPlayer() async {
+    try {
+      return NativeClient.stopBackGround();
+    } catch (e) {
+      print(e);
+      //todo handle error
+      return null;
+    }
   }
 }

@@ -52,8 +52,9 @@ class HiveAuthClient extends HiveClient<HiveAuthData> {
   }
 
   Future<void> appendRefreshedToken(ResultTokenRefresh result) async {
+    final int unixSec = DateTime.now().millisecondsSinceEpoch ~/ 1000;//todo extension method?
     final data = authData.copyWith(
-        rawExpiresAt: result.expiresIn + DateTime.now().millisecondsSinceEpoch,
+        rawExpiresAt: result.expiresIn + unixSec,
         tokenPublishedAtUtc: DateTime.now().toUtc(),
         body: authData.body.copyWith(
           expiresIn: result.expiresIn,

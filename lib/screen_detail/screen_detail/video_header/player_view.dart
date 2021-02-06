@@ -48,7 +48,8 @@ class _PlayerViewState extends State<PlayerView>
 
   @override
   void dispose() {
-    _controller.videoPlayerController.removeListener(_rawVideoPlayerListener);//must invoke
+    _controller.videoPlayerController
+        .removeListener(_rawVideoPlayerListener); //must invoke
     super.dispose();
     _controller.dispose();
   }
@@ -87,8 +88,7 @@ class _PlayerViewState extends State<PlayerView>
         .takePriority(fullScreen: widget.conf.fullScreen);
     _controller.setupDataSource(_dataSource).then((value) {
       if (mounted)
-        _controller.videoPlayerController
-            .addListener(_rawVideoPlayerListener);
+        _controller.videoPlayerController.addListener(_rawVideoPlayerListener);
     });
   }
 
@@ -103,9 +103,11 @@ class _PlayerViewState extends State<PlayerView>
   void _onPlayerCommanded(
       BuildContext context, LastControllerCommandHolder holder) {
     holder.command.when(
-      play: () async {
-        if (_controller.videoPlayerController.value.initialized)
+      play: (position) async {
+        if (_controller.videoPlayerController.value.initialized) {
+          if (position != null) await _controller.seekTo(position);
           await _controller.play();
+        }
       },
       pause: () async {
         if (_controller.videoPlayerController.value.initialized)
@@ -123,8 +125,7 @@ class _PlayerViewState extends State<PlayerView>
         if (!_controller.videoPlayerController.value.initialized) return;
 
         final duration = _controller.videoPlayerController.value.duration;
-        if (duration != null)
-          await _controller.seekTo(position);
+        if (duration != null) await _controller.seekTo(position);
       },
       playOrPause: () async {
         if (_controller.videoPlayerController.value.initialized)
@@ -140,8 +141,7 @@ class _PlayerViewState extends State<PlayerView>
 
   // region PlayerEventListener
   void _playerEventListener(BetterPlayerEvent event) {
-    if (!mounted)
-      return;
+    if (!mounted) return;
 
     switch (event.betterPlayerEventType) {
       case BetterPlayerEventType.initialized:
@@ -157,7 +157,6 @@ class _PlayerViewState extends State<PlayerView>
         _onProgressEvent(event);
         break;
       case BetterPlayerEventType.seekTo:
-        // todo show progress indicator while loading??
         _onSeekEvent(event);
         break;
       case BetterPlayerEventType.play:
@@ -177,9 +176,9 @@ class _PlayerViewState extends State<PlayerView>
 
   void _onInitializedEvent() {
     _getViewModelDetail(context).setAsVideoControllerInitialized(
-        totalDuration: _controller.videoPlayerController.value.duration,
-        fullScreen: widget.conf.fullScreen,
-      );
+      totalDuration: _controller.videoPlayerController.value.duration,
+      fullScreen: widget.conf.fullScreen,
+    );
     if (_controller.videoPlayerController.value.initialized)
       _controller.setSpeed(HivePrefectureClient.instance().playSpeed);
   }

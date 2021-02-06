@@ -163,7 +163,7 @@ abstract class LastControllerCommandHolder with _$LastControllerCommandHolder {
 abstract class LastControllerCommand with _$LastControllerCommand {
   const factory LastControllerCommand.initial() = _LastControllerCommandInitial;
 
-  const factory LastControllerCommand.play() = _LastControllerCommandPlay;
+  const factory LastControllerCommand.play(Duration position) = _LastControllerCommandPlay;
 
   const factory LastControllerCommand.pause() = _LastControllerCommandPause;
 
@@ -175,6 +175,24 @@ abstract class LastControllerCommand with _$LastControllerCommand {
 
   const factory LastControllerCommand.playOrPause() =
       _LastControllerCommandPlayOrPause;
+}
+
+@freezed
+abstract class VideoControllerCommand with _$VideoControllerCommand {
+  const factory VideoControllerCommand.play(Duration position) = _VideoControllerCommandPlay;
+
+  const factory VideoControllerCommand.pause() = _VideoControllerCommandPause;
+
+  const factory VideoControllerCommand.playOrPause() =
+      _VideoControllerCommandPlayOrPause;
+
+  const VideoControllerCommand._();
+
+  LastControllerCommand get converted => when(
+        play: (position) => LastControllerCommand.play(position),
+        pause: () => const LastControllerCommand.pause(),
+        playOrPause: () => const LastControllerCommand.playOrPause(),
+      );
 }
 
 @freezed

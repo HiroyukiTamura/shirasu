@@ -110,7 +110,10 @@ class PlayerControllerView extends HookWidget {
       );
 
   void _onTapPlayToggleBtn(BuildContext context) =>
-      context.read(detailSNProvider(conf.id)).playOrPause(conf.fullScreen);
+      context.read(detailSNProvider(conf.id)).playOrPause(
+            conf.fullScreen,
+            const VideoControllerCommand.playOrPause(),
+          );
 
   void _onTapFastForwardBtn(BuildContext context) =>
       _seek(context, ViewModelDetail.SEC_FAST_SEEK_BY_BTN);
@@ -124,8 +127,9 @@ class PlayerControllerView extends HookWidget {
   Future<void> _onTapFullScreenBtn(BuildContext context) async =>
       context.toggleFullScreenMode();
 
-  Future<void> _onTapSpeedBtn(BuildContext context) async =>
-      context.read(detailSNProvider(conf.id)).commandModal(const BtmSheetState.playSpeed());
+  Future<void> _onTapSpeedBtn(BuildContext context) async => context
+      .read(detailSNProvider(conf.id))
+      .commandModal(const BtmSheetState.playSpeed());
 
   void _onTapBgBtn(BuildContext context) =>
       context.read(detailSNProvider(conf.id)).toggleVisibility();

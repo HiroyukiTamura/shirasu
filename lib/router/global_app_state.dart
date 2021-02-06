@@ -60,5 +60,8 @@ class GlobalAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void reset() => _list.clear();
+  void reset() {
+    _list.clear();
+    notifyListeners();
+  }
 }

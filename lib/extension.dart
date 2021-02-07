@@ -10,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/util.dart';
 
 extension IteratableX<E> on Iterable<E> {
   // todo send PR to dartX
@@ -36,11 +37,6 @@ extension IntX on int {
 
 extension BuildContextX on BuildContext {
 
-  static const _LANDSCAPE_ORIENTATIONS = [
-    DeviceOrientation.landscapeRight,
-    DeviceOrientation.landscapeLeft,
-  ];
-
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(pAppRouterDelegate).pushPage(path);
 
@@ -62,7 +58,7 @@ extension BuildContextX on BuildContext {
           MediaQuery.of(this).orientation == Orientation.portrait;
 
       final orientations =
-          isPortrait ? _LANDSCAPE_ORIENTATIONS : DeviceOrientation.values;
+          isPortrait ? Util.LANDSCAPE_ORIENTATIONS : DeviceOrientation.values;
       await SystemChrome.setPreferredOrientations(orientations);
       if (isPortrait)
         await SystemChrome.setEnabledSystemUIOverlays([]);

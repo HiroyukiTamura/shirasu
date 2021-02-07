@@ -17,6 +17,11 @@ class Util {
 
   static const JP_TAX_RATIO = 0.1;
 
+  static const LANDSCAPE_ORIENTATIONS = [
+    DeviceOrientation.landscapeRight,
+    DeviceOrientation.landscapeLeft,
+  ];
+
   static Future<Tuple2<T, S>> wait2<T, S>(
       Future<T> Function() predicate1, Future<S> Function() predicate2) async {
     T t;

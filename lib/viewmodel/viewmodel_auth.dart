@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/client/url_util.dart';
@@ -20,7 +21,7 @@ part 'viewmodel_auth.freezed.dart';
 class ViewModelAuth extends ViewModelBase<AuthModel> {
   ViewModelAuth(Reader reader) : super(reader, AuthModel.initial());
 
-  final _hiveClient = HiveAuthClient.instance();
+  HiveAuthRepository get _hiveClient => reader(kPrvHiveAuthRepository);
   final _lock = Lock();
   bool _success = false;
   String _jsClickLoginBtn;

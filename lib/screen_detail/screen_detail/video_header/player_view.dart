@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/client/hive_client.dart';
+import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
@@ -179,8 +180,10 @@ class _PlayerViewState extends State<PlayerView>
       totalDuration: _controller.videoPlayerController.value.duration,
       fullScreen: widget.conf.fullScreen,
     );
-    if (_controller.videoPlayerController.value.initialized)
-      _controller.setSpeed(HivePrefectureClient.instance().playSpeed);
+    if (_controller.videoPlayerController.value.initialized) {
+      final playSpeed = context.read(kPrvHivePrefRepository).playSpeed;
+      _controller.setSpeed(playSpeed);
+    }
   }
 
   void _onProgressEvent(BetterPlayerEvent event) =>

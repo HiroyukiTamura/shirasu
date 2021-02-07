@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -18,23 +19,11 @@ import 'package:tuple/tuple.dart';
 
 import 'on_pop_page_mixin.dart';
 
-class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
-    with
-        ChangeNotifier,
-        OnPopPageMixin<GlobalRoutePathBase>,
-        PlayerPopRouteMixin<GlobalRoutePathBase> {
-  AppRouterDelegate(this.reader) : navigatorKey = GlobalKey<NavigatorState>() {
+class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
+  AppRouterDelegate(Reader reader)
+      : super(GlobalKey<NavigatorState>(), reader) {
     appState.addListener(notifyListeners);
   }
-
-  @override
-  final GlobalKey<NavigatorState> navigatorKey;
-
-  @override
-  final GlobalAppState appState = GlobalAppState.instance;
-
-  @override
-  final T Function<T>(RootProvider<Object, T> provider) reader;
 
   @override
   Widget build(BuildContext context) {
@@ -61,22 +50,6 @@ class AppRouterDelegate extends RouterDelegate<GlobalRoutePathBase>
         .toList();
 
     return createNavigator(pageList);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    appState.removeListener(notifyListeners);
-  }
-
-  @override
-  void notifyListeners() {
-    super.notifyListeners();
-
-    // if (HiveAuthClient.instance().maybeExpired &&
-    //     appState.last != const GlobalRoutePath.auth()) {
-    //   appState.push(const GlobalRoutePath.auth());//todo more logic
-    // }
   }
 
   @override

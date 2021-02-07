@@ -25,6 +25,8 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
   int tabIndex = 0;
 
+  ApiClient get apiClient => reader(kPrvApiClient);
+
   @override
   Future<void> initialize() async {
     if (state.result != const ChannelDataResult.preInitialized()) return;
@@ -34,7 +36,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         result: ChannelDataResult.loading(),
         loading: false,
       );
-      final data = await ApiClient.instance.queryChannelData(_channelId);
+      final data = await apiClient.queryChannelData(_channelId);
       setState(ChannelModel(
         result: ChannelDataResult.success(data),
         loading: false,
@@ -61,7 +63,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
       state = state.copyWith(loading: true);
 
       try {
-        final newOne = await ApiClient.instance.queryChannelData(
+        final newOne = await apiClient.queryChannelData(
           _channelId,
           nextToken: nextToken,
         );

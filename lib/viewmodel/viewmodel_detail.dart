@@ -85,8 +85,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     try {
       final data = await Util.wait2<ProgramDetailData, ChannelData>(
-          () async => ApiClient.instance.queryProgramDetail(id),
-          () async => ApiClient.instance.queryChannelData(channelId));
+          () async => apiClient.queryProgramDetail(id),
+          () async => apiClient.queryChannelData(channelId));
 
       state = state.copyWith(
         prgDataResult: DetailModelState.success(
@@ -121,8 +121,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     bool authExpired = false;
     String cookie;
     try {
-      cookie = await DioClient.instance.getSignedCookie(prg.id,
-          prg.videoTypeStrict, HiveAuthClient.instance().authData.body.idToken);
+      cookie = await dioClient.getSignedCookie(
+        prg.id,
+        prg.videoTypeStrict,
+        hiveAuthRepository.authData.body.idToken,
+      );
       debugPrint(cookie);
     } on UnauthorizedException catch (e) {
       print(e); //todo handle error
@@ -146,7 +149,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     String url;
     try {
-      url = await ApiClient.instance.queryHandOutUrl(id, handoutId);
+      url = await apiClient.queryHandOutUrl(id, handoutId);
     } catch (e) {
       print(e);
     }
@@ -211,7 +214,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final pageNationKey = state.commentHolder.pageNationKey;
 
     try {
-      final object = await ApiClient.instance.queryComment(
+      final object = await apiClient.queryComment(
         programId: id,
         beginTime: beginTime,
         endTime: endTime,
@@ -268,7 +271,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     CommentItem posted;
     try {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
-      posted = await ApiClient.instance.postComment(
+      posted = await apiClient.postComment(
         commentTime: state.playOutState.currentPos,
         programId: id,
         text: text,
@@ -503,22 +506,21 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   /// provide old values as param; [position], [cookie]
   Future<void> startPlayBackground(int position, String cookie) async {
-    if (!mounted)
-      return;
+    if (!mounted) return;
 
     final prgDataResult = state.prgDataResult;
     if (prgDataResult is StateSuccess) {
       final playOutState = state.playOutState;
       try {
         await NativeClient.startPlayBackGround(
-                url: playOutState.hlsMediaUrl,
-                isLiveStream: playOutState.videoType == VideoType.LIVE,
-                position: position,
-                iconUrl: UrlUtil.getThumbnailUrl(id),
-                cookie: cookie,
-                title: prgDataResult.programDetailData.program.title,
-                subtitle: prgDataResult.channelData.channel.name,
-              );
+          url: playOutState.hlsMediaUrl,
+          isLiveStream: playOutState.videoType == VideoType.LIVE,
+          position: position,
+          iconUrl: UrlUtil.getThumbnailUrl(id),
+          cookie: cookie,
+          title: prgDataResult.programDetailData.program.title,
+          subtitle: prgDataResult.channelData.channel.name,
+        );
       } catch (e) {
         print(e);
         //todo handle error

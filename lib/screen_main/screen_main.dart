@@ -17,7 +17,7 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 part 'screen_main.g.dart';
 
 final kPrvMainSnackBarMsgNotifier =
-StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
+    StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
         (ref) => SnackBarMessageNotifier());
 
 final _kPrvMainSnackMsg = Provider.autoDispose<SnackData>((ref) {
@@ -28,7 +28,9 @@ final _kPrvMainSnackMsg = Provider.autoDispose<SnackData>((ref) {
   );
 });
 
-final _kPrvRouterDelegate = ChangeNotifierProvider<ScreenMainRouterDelegate>((ref) => ScreenMainRouterDelegate(ref.read));
+final _kPrvRouterDelegate =
+    ChangeNotifierProvider.autoDispose<ScreenMainRouterDelegate>(
+        (ref) => ScreenMainRouterDelegate(ref.read));
 
 class ScaffoldKeyHolder {
   ScaffoldKeyHolder();
@@ -91,7 +93,8 @@ Widget _mainBottomNavigationBar(BuildContext context) => BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       unselectedFontSize: FontSize.DEFAULT,
       onTap: (index) async => context.read(_kPrvRouterDelegate).swapPage(index),
-      currentIndex: useProvider(_kPrvRouterDelegate.select((it) => it.pageIndex)),
+      currentIndex:
+          useProvider(_kPrvRouterDelegate.select((it) => it.pageIndex)),
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -127,7 +130,8 @@ class _Fab extends HookWidget {
   Widget build(BuildContext context) {
     final page = useProvider(_kPrvRouterDelegate.select((it) => it.page));
 
-    if (page != const PathDataMainPageBase.setting()) return const SizedBox.shrink();
+    if (page != const PathDataMainPageBase.setting())
+      return const SizedBox.shrink();
 
     final isEdited = useProvider(settingViewModelSProvider.state
         .select((it) => it.editedUserInfo.isEdited));

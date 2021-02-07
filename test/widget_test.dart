@@ -1,30 +1,32 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/hive_pref_repository.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:shirasu/screen_intro/screen_intro.dart';
 
-import 'package:shirasu/main.dart';
+import 'mock_repository/hive_auth_empty.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  testGoldens('ScreenIntro - Portrait', (tester) async {
+    final builder = DeviceBuilder()
+      ..overrideDevicesForAllScenarios(devices: [
+        Device.phone,
+        Device.iphone11,
+        Device.tabletPortrait,
+        Device.tabletLandscape,
+      ])
+      ..addScenario(
+        widget: ProviderScope(
+          overrides: [
+            kPrvHivePrefRepository.overrideWithProvider(Provider((ref) => HiveEmptyPrefRepositoryImpl()))
+          ],
+          child: ScreenIntro(),
+        ),
+        name: 'screen_intro',
+      );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpDeviceBuilder(builder);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await screenMatchesGolden(tester, 'screen_intro_portrait');
   });
 }

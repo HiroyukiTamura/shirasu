@@ -1,24 +1,28 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/auth_wrapper_client.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
 
+final kPrvDioClient = Provider.autoDispose<DioClient>((ref) => DioClient(ref.read));
+
 class DioClient {
 
-  DioClient._();
+  DioClient(this._reader);
 
   final Dio _dio = Dio();
 
-  static final DioClient instance = DioClient._();
+  final Reader _reader;
+  AuthClientInterceptor get _authClientInterceptor => _reader(kPrvAuthClientInterceptor);
 
   Future<String> getSignedCookie(
       String videoId, VideoType videoType, String auth) async {
 
-    await AuthClientInterceptor.instance.refreshAuthTokenIfNeeded();
+    await _authClientInterceptor.refreshAuthTokenIfNeeded();
 
     final response = await _dio.get<Map<String, dynamic>>(UrlUtil.URL_SIGNED_COOKIE,
         queryParameters: {

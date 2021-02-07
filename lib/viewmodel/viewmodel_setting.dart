@@ -53,7 +53,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     SettingModelState newState;
     bool authExpired = false;
     try {
-      final viewer = await ApiClient.instance.queryViewer();
+      final viewer = await apiClient.queryViewer();
       newState = SettingModelState.success(viewer);
     } on UnauthorizedException catch (e) {
       print(e);
@@ -105,7 +105,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     state = state.copyWith(uploadingProfile: true);
 
     try {
-      final updatedData = await ApiClient.instance.updateUserWithAttr(variable);
+      final updatedData = await apiClient.updateUserWithAttr(variable);
       //todo update `dummyUser`
 
     } catch (e) {

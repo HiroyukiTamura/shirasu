@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/auth_wrapper_client.dart';
 import 'package:shirasu/client/graghql_query.dart';
-import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart'
@@ -17,26 +17,31 @@ import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/util/exceptions.dart';
-import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:dartx/dartx.dart';
 import 'package:http/http.dart' as http;
 
 import '../util.dart';
 
+final kPrvApiClient = Provider.autoDispose<ApiClient>((ref) => ApiClient.instance(ref.read));
+
 /// todo handle timeout
 /// todo operation name?
-@immutable
 class ApiClient {
-  ApiClient._();
 
-  static final ApiClient instance = ApiClient._();
+  ApiClient._(this._reader) {
+    _graphQlClient = _createClient(http.Client());
+  }
 
-  final GraphQLClient _graphQlClient = _createClient(http.Client());
+  factory ApiClient.instance(Reader reader) => ApiClient._(reader);
+
+  GraphQLClient _graphQlClient;
+
+  final Reader _reader;
 
   static Future<void> openHiveStore() async => HiveStore.open();
 
   /// todo no need client
-  static GraphQLClient _createClient(http.Client client) {
+  GraphQLClient _createClient(http.Client client) {
     final httpLink = HttpLink(
       UrlUtil.URL_GRAPHQL,
       defaultHeaders: {
@@ -46,8 +51,7 @@ class ApiClient {
     );
 
     final authLink = AuthLink(
-      getToken: () async =>
-          AuthClientInterceptor.instance.refreshAuthTokenIfNeeded(),
+      getToken: () async => _reader(kPrvAuthClientInterceptor).refreshAuthTokenIfNeeded(),
     );
 
     final link = authLink.concat(httpLink);

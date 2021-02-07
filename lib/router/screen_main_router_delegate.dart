@@ -10,30 +10,10 @@ import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
 
 import 'on_pop_page_mixin.dart';
 
-class ScreenMainRouterDelegate extends RouterDelegate<PathDataMainPageBase>
-    with
-        ChangeNotifier,
-        OnPopPageMixin<PathDataMainPageBase>,
-        PlayerPopRouteMixin<PathDataMainPageBase> {
-  ScreenMainRouterDelegate(this.reader)
-      : navigatorKey = GlobalKey<NavigatorState>() {
-    GlobalAppState.instance.addListener(notifyListeners);
-  }
-
-  @override
-  final GlobalKey<NavigatorState> navigatorKey;
-
-  @override
-  final T Function<T>(RootProvider<Object, T> provider) reader;
-
-  @override
-  GlobalAppState get appState => GlobalAppState.instance;
-
-  @override
-  void dispose() {
-    super.dispose();
-    appState.removeListener(notifyListeners);
-  }
+class ScreenMainRouterDelegate
+    extends CommonRouterDelegate<PathDataMainPageBase> {
+  ScreenMainRouterDelegate(Reader reader)
+      : super(GlobalKey<NavigatorState>(), reader);
 
   @override
   Widget build(BuildContext context) {

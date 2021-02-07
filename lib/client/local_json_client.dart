@@ -7,7 +7,6 @@ import 'package:shirasu/model/local/country_data.dart';
 import 'package:shirasu/model/local/prefecture_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
-import 'package:shirasu/extension.dart';
 import 'package:dartx/dartx.dart';
 
 class LocalJsonClient {

@@ -1,4 +1,3 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,15 +12,15 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 final snackBarMsgProvider =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
         (ref) => SnackBarMessageNotifier());
 
-final pAppRouterDelegate =
-    Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref.read));
+final pAppRouterDelegate = Provider<AppRouterDelegate>((ref) =>
+    AppRouterDelegate(
+        ref.read));
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,8 +36,8 @@ Future<void> main() async {
     ..registerAdapter(HiveHeaderAdapter())
     ..registerAdapter(HiveUserAdapter());
 
-  await HiveAuthClient.instance().init();
-  await HivePrefectureClient.instance().init();
+  await HiveAuthRepositoryImpl.instance().init();
+  await HivePrefRepositoryImpl.instance().init();
   await ApiClient.openHiveStore();
 
   runApp(

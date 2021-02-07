@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/btm_sheet/common.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
+import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -73,7 +74,7 @@ class BtmSheetEventListener extends StatelessWidget {
 
 @swidget
 Widget btmSheetPlaySpeed(BuildContext context) => ListBtmSheetContent<double>(
-      items: HivePrefectureClient.PLAY_SPEED,
+      items: HivePrefRepositoryImpl.PLAY_SPEED,
       textBuilder: (speed) {
         final string = speed.truncate() == speed
             ? speed.toStringAsFixed(1)
@@ -82,11 +83,11 @@ Widget btmSheetPlaySpeed(BuildContext context) => ListBtmSheetContent<double>(
       },
       isSelected: (speed) {
         final currentSpeed = useProvider(kPrvHivePlaySpeedUpdate).data?.value ??
-            HivePrefectureClient.instance().playSpeed;
+            context.read(kPrvHivePrefRepository).playSpeed;
         return speed == currentSpeed;
       },
       onTap: (speed) {
-        HivePrefectureClient.instance().setPlaySpeed(speed);
+        context.read(kPrvHivePrefRepository).setPlaySpeed(speed);
         Navigator.of(context).pop();
       },
     );

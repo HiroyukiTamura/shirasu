@@ -30,7 +30,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
     bool authExpired = false;
     FeatureProgramState newState;
     try {
-      final data = await ApiClient.instance.queryFeaturedProgramsList();
+      final data = await apiClient.queryFeaturedProgramsList();
       newState = data.viewerUser.subscribedPrograms.isEmpty
           ? const FeatureProgramState.resultEmpty()
           : FeatureProgramState.success(data);
@@ -62,7 +62,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
     bool authExpired = false;
 
     try {
-      final data = await ApiClient.instance.queryWatchHistory();
+      final data = await apiClient.queryWatchHistory();
       newState = data.viewerUser.watchHistories.items.isEmpty
           ? const WatchHistoryState.resultEmpty()
           : WatchHistoryState.success([data].toUnmodifiable());
@@ -88,7 +88,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       state = WatchHistoryState.loadingMore(oldState.watchHistories);
 
       try {
-        final newOne = await ApiClient.instance.queryWatchHistory(
+        final newOne = await apiClient.queryWatchHistory(
           nextToken: nextToken,
         );
 

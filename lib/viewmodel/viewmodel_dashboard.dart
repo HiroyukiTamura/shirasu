@@ -18,6 +18,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
+  ApiClient get _apiClient => reader(kPrvApiClient);
+
   @override
   Future<void> initialize() async {
     if (!(state.state is StatePreInitialized)) return;
@@ -26,8 +28,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     bool authExpired = false;
 
     try {
-      final apiResult = await Util.wait2(ApiClient.instance.queryFeaturedProgramsList,
-          ApiClient.instance.queryNewProgramsList);
+      final apiResult = await Util.wait2(_apiClient.queryFeaturedProgramsList,
+          _apiClient.queryNewProgramsList);
       final data = ApiData(
         featureProgramData: apiResult.item1,
         rawNewProgramsDataList: [apiResult.item2],
@@ -68,7 +70,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       try {
         state = oldState.copyAsLoadMore();
 
-        final newProgramsData = await ApiClient.instance.queryNewProgramsList(
+        final newProgramsData = await _apiClient.queryNewProgramsList(
           nextToken: nextToken,
         );
 

@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'test_extension.dart';
 
 class TestUtil {
   static final _phoneHorizontal = Device.phone.copyWith(
@@ -19,4 +22,23 @@ class TestUtil {
     _phoneHorizontal,
     _iphone11HorizontalTextBig,
   ];
+
+  static Future<void> matchGolden({
+    @required WidgetTester tester,
+    @required String goldenName,
+    @required Widget widget,
+    OnScenarioCreate onScenarioCreate,
+  }) async {
+    final builder = DeviceBuilder()
+      ..overrideAllDevice()
+      ..addScenario(
+        widget: widget,
+        name: goldenName,
+        onCreate: onScenarioCreate,
+      );
+
+    await tester.pumpDeviceBuilder(builder);
+
+    await screenMatchesGolden(tester, goldenName);
+  }
 }

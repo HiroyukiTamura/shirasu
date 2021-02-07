@@ -297,5 +297,7 @@ class Strings {
       '「シラス」と無関係の個人が開発・運営しており、本アプリのソースコード全文をネット上で公開しています';
   static const String PRE_LOGIN_NOTE_3 = '本アプリによる広告表示・課金機能は一切ありません';
 
+  static const String CD_LOGO = 'ロゴ';
+
   //endregion
 }

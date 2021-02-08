@@ -14,7 +14,10 @@ import 'package:shirasu/util/types.dart';
 
 final scrollRatioProvider =
     Provider.family.autoDispose<double, double>((ref, height) {
-  final offset = ref.watch(kPrvDashboardViewModel).state.offset;
+  final offset = ref.watch(kPrvDashboardViewModel).state.maybeWhen(
+        success: (data) => data.scrollOffset,
+        orElse: () => 0,
+      );
   return 0 < offset && offset < height ? offset / height : 0;
 });
 

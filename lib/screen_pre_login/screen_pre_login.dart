@@ -19,8 +19,6 @@ import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/extension.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'package:simple_animations/simple_animations.dart';
-import 'package:simple_animations/simple_animations.dart';
 import 'package:dartx/dartx.dart';
 
 part 'screen_pre_login.g.dart';
@@ -51,65 +49,63 @@ class ScreenPreLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-          child: Scaffold(
-        body: SnackEventListener(
-          provider: _kPrvSnackMsg,
-          child: Stack(
-            children: [
-              const _AnimatedBackground(),
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 24,
-                  left: 24,
-                  bottom: 24,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: ScrollConfiguration(
-                        behavior: const NoEffectScrollBehavior(),
-                        child: ListView(
-                          padding: const EdgeInsets.symmetric(vertical: 48),
-                          children: _listViewChildren(),
+        child: Scaffold(
+          body: SnackEventListener(
+            provider: _kPrvSnackMsg,
+            child: Stack(
+              children: [
+                const _AnimatedBackground(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: ScrollConfiguration(
+                          behavior: const NoEffectScrollBehavior(),
+                          child: ListView(
+                            padding: const EdgeInsets.symmetric(vertical: 48),
+                            children: _listViewChildren(),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 24),
-                    _Button(
-                      text: Strings.PRE_LOGIN_REGISTER_BTN_VALUE,
-                      btnColor: Colors.white,
-                      textColor: Theme.of(context).primaryColor,
-                      onTap: () => _launchUrl(context, UrlUtil.URL_HOME),
-                    ),
-                    const SizedBox(height: 24),
-                    _Button(
-                      text: Strings.PRE_LOGIN_LOGIN_BTN_VALUE,
-                      btnColor: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      onTap: () => _onTapLogin(context),
-                    ),
-                    const SizedBox(height: 24),
-                    Row(
-                      children: [
-                        _FooterText(
-                          text: Strings.FOOTER_BTN_SOURCE_VALUE,
-                          onTap: () => _launchUrl(context, UrlUtil.URL_GITHUB),
-                        ),
-                        _FooterText(
-                          text: Strings.FOOTER_BTN_PRIVACY_VALUE,
-                          onTap: () => _launchUrl(
-                              context, UrlUtil.URL_GITHUB), //todo fix
-                        ),
-                      ],
-                    ),
-                  ],
+                      _Button(
+                        text: Strings.PRE_LOGIN_REGISTER_BTN_VALUE,
+                        btnColor: Colors.white,
+                        textColor: Theme.of(context).primaryColor,
+                        onTap: () => _launchUrl(context, UrlUtil.URL_HOME),
+                      ),
+                      _Button(
+                        text: Strings.PRE_LOGIN_LOGIN_BTN_VALUE,
+                        btnColor: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
+                        onTap: () => _onTapLogin(context),
+                      ),
+                      Row(
+                        children: [
+                          _FooterText(
+                            text: Strings.FOOTER_BTN_SOURCE_VALUE,
+                            onTap: () =>
+                                _launchUrl(context, UrlUtil.URL_GITHUB),
+                          ),
+                          _FooterText(
+                            text: Strings.FOOTER_BTN_PRIVACY_VALUE,
+                            onTap: () => _launchUrl(
+                                context, UrlUtil.URL_GITHUB), //todo fix
+                          ),
+                        ],
+                      ),
+                    ]
+                        .map((it) =>
+                            const Padding(padding: EdgeInsets.only(top: 24)))
+                        .toList(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),);
+      );
 
   List<Widget> _listViewChildren() {
     final notes = _NOTE_LIST

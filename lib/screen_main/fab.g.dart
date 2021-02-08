@@ -1,16 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'screen_main.dart';
+part of 'fab.dart';
 
 // **************************************************************************
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class _MainBottomNavigationBar extends HookWidget {
-  const _MainBottomNavigationBar({Key key}) : super(key: key);
+class Fab extends HookWidget {
+  const Fab({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext _context) => _mainBottomNavigationBar(_context);
+  Widget build(BuildContext _context) => fab();
 }
 
 class _FabContent extends HookWidget {

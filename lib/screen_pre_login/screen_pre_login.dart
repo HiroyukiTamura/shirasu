@@ -8,6 +8,7 @@ import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
@@ -17,8 +18,14 @@ import 'package:shirasu/ui_common/images.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/extension.dart';
+import 'package:simple_animations/simple_animations.dart';
+import 'package:simple_animations/simple_animations.dart';
+import 'package:simple_animations/simple_animations.dart';
+import 'package:dartx/dartx.dart';
 
 part 'screen_pre_login.g.dart';
+
+final _kAnimationDuration = 10.seconds;
 
 final _kPrvSnackBarMsgNotifier =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
@@ -49,7 +56,7 @@ class ScreenPreLogin extends StatelessWidget {
           provider: _kPrvSnackMsg,
           child: Stack(
             children: [
-              const _Background(),
+              const _AnimatedBackground(),
               Padding(
                 padding: const EdgeInsets.only(
                   right: 24,
@@ -91,7 +98,8 @@ class ScreenPreLogin extends StatelessWidget {
                         ),
                         _FooterText(
                           text: Strings.FOOTER_BTN_PRIVACY_VALUE,
-                          onTap: () => _launchUrl(context, UrlUtil.URL_GITHUB),//todo fix
+                          onTap: () => _launchUrl(
+                              context, UrlUtil.URL_GITHUB), //todo fix
                         ),
                       ],
                     ),
@@ -101,7 +109,7 @@ class ScreenPreLogin extends StatelessWidget {
             ],
           ),
         ),
-      ));
+      ),);
 
   List<Widget> _listViewChildren() {
     final notes = _NOTE_LIST
@@ -237,18 +245,35 @@ Widget _note(
     );
 
 @swidget
-Widget _background(
+Widget _animatedBackground(
   BuildContext context,
-) =>
-    Container(
+) {
+  final tween = TimelineTween<DefaultAnimationProperties>()
+    ..addScene(
+      begin: Duration.zero,
+      end: _kAnimationDuration,
+    ).animate(
+      DefaultAnimationProperties.color,
+      tween: ColorTween(
+        begin: Theme.of(context).primaryColor,
+        end: Theme.of(context).primaryColorDark,
+      ),
+    );
+
+  return MirrorAnimation<TimelineValue<DefaultAnimationProperties>>(
+    tween: tween, // Pass in tween
+    duration: tween.duration, // Obtain duration
+    builder: (context, child, value) => Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [
-            Theme.of(context).primaryColor,
+            value.get(DefaultAnimationProperties.color),
             Theme.of(context).scaffoldBackgroundColor,
           ],
         ),
       ),
-    );
+    ),
+  );
+}

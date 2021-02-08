@@ -57,9 +57,9 @@ class _Note extends StatelessWidget {
   Widget build(BuildContext _context) => _note(_context, text: text);
 }
 
-class _Background extends StatelessWidget {
-  const _Background({Key key}) : super(key: key);
+class _AnimatedBackground extends StatelessWidget {
+  const _AnimatedBackground({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext _context) => _background(_context);
+  Widget build(BuildContext _context) => _animatedBackground(_context);
 }

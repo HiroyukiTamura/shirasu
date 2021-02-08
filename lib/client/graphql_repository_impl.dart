@@ -204,7 +204,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
   Future<UserWithAttributeData> updateUserWithAttr(
       UpdateUserWithAttrVariable variable) async {
     final result = await _mutate(
-      GraphqlQuery.QUERY_UPDATE_USER_WITH_ATTRIBUTE,
+      GraphqlQuery.MUTATE_UPDATE_USER_WITH_ATTRIBUTE,
       variables: variable.toJson(),
     );
     return UserWithAttributeData.fromJson(result.data);
@@ -213,7 +213,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
   @override
   Future<String> queryHandOutUrl(String programId, String handoutId) async {
     final result = await _mutate(
-      GraphqlQuery.QUERY_HAND_OUT_URL,
+      GraphqlQuery.MUTATE_HAND_OUT_URL,
       variables: {
         'key': 'private/programs/$programId/handouts/$handoutId',
         'operation': 'getObject',
@@ -259,7 +259,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
     };
 
     final result = await _mutate(
-      GraphqlQuery.QUERY_POST_COMMENT,
+      GraphqlQuery.MUTATE_POST_COMMENT,
       variables: variables,
       operationName: 'PostComment',
     );

@@ -443,7 +443,7 @@ fragment WatchingHistoryPageWatchHistoryData on WatchHistory {
 }
   ''';
 
-  static const QUERY_UPDATE_USER_WITH_ATTRIBUTE = r'''
+  static const MUTATE_UPDATE_USER_WITH_ATTRIBUTE = r'''
 mutation UpdateUserWithAttribute($input: UpdateUserWithAttributeInput) {
     updateUserWithAttribute(input: $input) {
         user {
@@ -483,7 +483,7 @@ mutation UpdateUserWithAttribute($input: UpdateUserWithAttributeInput) {
 }
   ''';
 
-  static const String QUERY_HAND_OUT_URL = r'''
+  static const String MUTATE_HAND_OUT_URL = r'''
 mutation GetSignedUrl(
     $operation: S3Operation!
     $key: String!
@@ -540,7 +540,7 @@ fragment UseProgramCommentData on Comment {
 }
 ''';
 
-  static const QUERY_POST_COMMENT = r'''
+  static const MUTATE_POST_COMMENT = r'''
 mutation PostComment($input: PostCommentInput!) {
   comment: postComment(input: $input) {
     ...UseProgramCommentData

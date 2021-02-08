@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_pre_login/screen_pre_login.dart';
 
-import '../test_util.dart';
+import '../../test_util.dart';
 
 const String _kTestNameGolden = 'Golden';
 

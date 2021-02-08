@@ -13,65 +13,72 @@ part 'dashboard_model.freezed.dart';
 abstract class ApiData implements _$ApiData {
   const factory ApiData({
     @required FeatureProgramData featureProgramData,
-    @protected
-    @required List<NewProgramsData> rawNewProgramsDataList,
+    @protected @required List<NewProgramsData> rawNewProgramsDataList,
   }) = _ApiData;
 
   const ApiData._();
 
-  List<NewProgramItem> get allNewPrograms => newProgramsDataList
+  UnmodifiableListView<NewProgramItem> get allNewPrograms => newProgramsDataList
       .map((it) => it.newPrograms.items)
       .expand((it) => it)
       .toUnmodifiable();
 
-  UnmodifiableListView<NewProgramsData> get newProgramsDataList => rawNewProgramsDataList.toUnmodifiable();
+  UnmodifiableListView<NewProgramsData> get newProgramsDataList =>
+      rawNewProgramsDataList.toUnmodifiable();
 }
 
 @freezed
-abstract class DashboardModel implements _$DashboardModel {
-  const factory DashboardModel({
-    @required DashboardState state,
-    ApiData apiData,
-    @Default(0) double offset,
-    @Default(0) double channelHorizontalOffset,
-    @Default(0) double subscribingChannelOffset,
-    @Default(0) int billboardHeaderPage,
-  }) = _DashboardModel;
+abstract class DataWrapper with _$DataWrapper {
+  /// must be used with [DataWrapper.initial]
+  @protected
+  const factory DataWrapper({
+    @required double scrollOffset,
+    @required double channelHorizontalOffset,
+    @required double subscribingChannelOffset,
+    @required int billboardHeaderPage,
+    @required ApiData apiData,
+    @required bool loadingMore,
+  }) = _DataWrapper;
 
-  const DashboardModel._();
-
-  factory DashboardModel.preInitialized() =>
-      const DashboardModel(state: DashboardState.preInitialized());
-
-  factory DashboardModel.error() => const DashboardModel(state: DashboardState.error());
-
-  DashboardModel copyAsSuccess(ApiData apiData) =>
-      copyWith(state: const StateSuccess(), apiData: apiData);
-
-  DashboardModel copyAsLoadMore() => copyWith(state: const DashboardState.loadingMore());
+  @protected
+  factory DataWrapper.initial(ApiData apiData) => DataWrapper(
+        scrollOffset: 0,
+        channelHorizontalOffset: 0,
+        subscribingChannelOffset: 0,
+        billboardHeaderPage: 0,
+        apiData: apiData,
+        loadingMore: false,
+      );
 }
 
 @freezed
-abstract class DashboardState with _$DashboardState {
-  const factory DashboardState.loadingMore() = _StateLoadMore;
+abstract class DashboardModel with _$DashboardModel {
+  const factory DashboardModel.initial() = _DashboardPreInitialized;
 
-  const factory DashboardState.preInitialized() = StatePreInitialized;
+  @protected
+  const factory DashboardModel.success(DataWrapper data) = DashboardSuccess;
 
-  const factory DashboardState.success() = StateSuccess;
+  const factory DashboardModel.error() = _DashboardModelError;
 
-  const factory DashboardState.error() = _StateError;
+  factory DashboardModel.successInitialization(ApiData data) =>
+      DashboardModel.success(DataWrapper.initial(data));
+
+  /// must be this is [DashboardSuccess]
+  DashboardModel appendLoadMoreData(NewProgramsData newProgramsData) {
+    final dataWrapper = (this as DashboardSuccess).data;
+    final rawNewProgramsDataList =
+        dataWrapper.apiData.newProgramsDataList + [newProgramsData];
+    return DashboardModel.success(
+      dataWrapper.copyWith.apiData(
+        rawNewProgramsDataList: rawNewProgramsDataList,
+      ),
+    );
+  }
 }
 
 mixin MutableState on ViewModelBaseChangeNotifier {
-  DashboardModel _state = DashboardModel.preInitialized();
+  DashboardModel _state = const DashboardModel.initial();
   ui.Image _headerImage;
-
-  void trySetState(DashboardModel state) {
-    if (isMounted) {
-      _state = state;
-      notifyListeners();
-    }
-  }
 
   DashboardModel get state => _state;
 
@@ -80,11 +87,9 @@ mixin MutableState on ViewModelBaseChangeNotifier {
     notifyListeners();
   }
 
-  void trySetHeaderImage(ui.Image headerImage) {
-    if (isMounted) {
-      _headerImage = headerImage;
-      notifyListeners();
-    }
+  set headerImage(ui.Image headerImage) {
+    _headerImage = headerImage;
+    notifyListeners();
   }
 
   ui.Image get headerImage => _headerImage;

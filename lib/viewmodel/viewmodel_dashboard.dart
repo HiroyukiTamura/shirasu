@@ -10,6 +10,7 @@ import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'dart:ui' as ui;
 
 class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   ViewModelDashBoard(Reader reader) : super(reader);
@@ -22,25 +23,28 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   @override
   Future<void> initialize() async {
-    if (!(state.state is StatePreInitialized)) return;
+    if (state != const DashboardModel.initial()) return;
 
-    DashboardModel newModel;
     bool authExpired = false;
 
     try {
-      final apiResult = await Util.wait2(_apiClient.queryFeaturedProgramsList,
-          _apiClient.queryNewProgramsList);
+      final apiResult = await Util.wait2(
+        _apiClient.queryFeaturedProgramsList,
+        _apiClient.queryNewProgramsList,
+      );
       final data = ApiData(
         featureProgramData: apiResult.item1,
         rawNewProgramsDataList: [apiResult.item2],
       );
-      newModel = state.copyAsSuccess(data);
+      state = DashboardModel.successInitialization(data);
     } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
+
+      if (isMounted) state = const DashboardModel.error();
     } catch (e) {
       print(e);
-      newModel = DashboardModel.error();
+      if (isMounted) state = const DashboardModel.error();
     }
 
     if (authExpired) {
@@ -48,12 +52,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       return;
     }
 
-    trySetState(newModel);
-
     try {
-      final headerImage =
-          await NetworkImageClient.instance.requestHeaderImage();
-      trySetHeaderImage(headerImage);
+      headerImage = await NetworkImageClient.instance.requestHeaderImage();
     } catch (e) {
       // todo handle error
       print(e);
@@ -62,52 +62,68 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   Future<void> loadMoreNewPrg() async {
     final oldState = state;
-    if (oldState.state is StateSuccess) {
-      final nextToken =
-          oldState.apiData.newProgramsDataList?.last?.newPrograms?.nextToken;
+    if (oldState is DashboardSuccess) {
+      final nextToken = oldState
+          .data.apiData.newProgramsDataList?.last?.newPrograms?.nextToken;
       if (nextToken == null) return;
 
       try {
-        state = oldState.copyAsLoadMore();
+        state = oldState.copyWith.data(loadingMore: true);
 
         final newProgramsData = await _apiClient.queryNewProgramsList(
           nextToken: nextToken,
         );
 
-        oldState.apiData.newProgramsDataList.add(newProgramsData);
-        trySetState(oldState.copyAsSuccess(oldState.apiData));
+        state = state.appendLoadMoreData(newProgramsData);
 
         if (newProgramsData.newPrograms.items.isEmpty)
           _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
       } catch (e) {
         debugPrint(e.toString());
-        trySetState(DashboardModel.error());
+        if (!isMounted) return;
+
+        _updateIfStateSuccess((data) => data.copyWith(
+              loadingMore: false,
+            ));
         _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
       }
     }
   }
 
+  void _updateIfStateSuccess(DataWrapper Function(DataWrapper data) editData) {
+    state.maybeWhen(
+      orElse: () {},
+      success: (data) {
+        state = DashboardModel.success(editData(data));
+      },
+    );
+  }
+
   void updateScrollOffset(double offset) {
-    final s = state;
-    if (s.state is StateSuccess && isMounted)
-      state = s.copyWith(offset: offset);
+    if (isMounted)
+      _updateIfStateSuccess((data) => data.copyWith(
+            scrollOffset: offset,
+          ));
   }
 
   void updateBillboardHeaderPage(int page) {
-    final s = state;
-    if (s.state is StateSuccess && isMounted)
-      state = s.copyWith(billboardHeaderPage: page);
+    if (isMounted)
+      _updateIfStateSuccess((data) => data.copyWith(
+            billboardHeaderPage: page,
+          ));
   }
 
   void updateChannelOffset(double offset) {
-    final s = state;
-    if (s.state is StateSuccess && isMounted)
-      state = s.copyWith(channelHorizontalOffset: offset);
+    if (isMounted)
+      _updateIfStateSuccess((data) => data.copyWith(
+            channelHorizontalOffset: offset,
+          ));
   }
 
   void updateSubscribingCarouselOffset(double offset) {
-    final s = state;
-    if (s.state is StateSuccess && isMounted)
-      state = s.copyWith(subscribingChannelOffset: offset);
+    if (isMounted)
+      _updateIfStateSuccess((data) => data.copyWith(
+            subscribingChannelOffset: offset,
+          ));
   }
 }

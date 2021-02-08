@@ -28,42 +28,39 @@ final kPrvDashboardViewModel =
         (ref) => ViewModelDashBoard(ref.read));
 
 @hwidget
-Widget pageDashboardInMainScreen() => useProvider(
-        kPrvDashboardViewModel.select((viewModel) => viewModel.state.state)).when(
-      preInitialized: () => const CenterCircleProgress(),
+Widget pageDashboardInMainScreen() =>
+    useProvider(kPrvDashboardViewModel.select((viewModel) => viewModel.state))
+        .when(
+      initial: () => const CenterCircleProgress(),
       error: () => const PageError(),
-      loadingMore: () => _ListViewContent(
-        model: useProvider(kPrvDashboardViewModel).state.apiData,
-        // we don't want to rebuild
-        showLoadingIndicator: true,
-      ),
-      success: () {
-        final model = useProvider(kPrvDashboardViewModel)
-            .state
-            .apiData; // we don't want to rebuild,
+      success: (data) {
+        final showLoadingIndicator = data.loadingMore ||
+            (data.apiData.newProgramsDataList?.isNotEmpty == true &&
+                data.apiData.newProgramsDataList?.last?.newPrograms
+                        ?.nextToken !=
+                    null);
         return _ListViewContent(
-          model: model,
-          showLoadingIndicator: model.newProgramsDataList?.isNotEmpty == true &&
-              model.newProgramsDataList?.last?.newPrograms?.nextToken != null,
+          data: data.apiData,
+          showLoadingIndicator: showLoadingIndicator,
         );
       },
     );
 
 class _ListViewContent extends HookWidget {
   const _ListViewContent({
-    @required this.model,
+    @required this.data,
     @required this.showLoadingIndicator,
   });
 
   static const _NOW_BROADCASTINGS_LAST = 1;
 
-  final ApiData model;
+  final ApiData data;
   final bool showLoadingIndicator;
 
   @override
   Widget build(BuildContext context) {
-    final featurePrgData = model.featureProgramData;
-    final newPrgData = model.allNewPrograms;
+    final featurePrgData = data.featureProgramData;
+    final newPrgData = data.allNewPrograms;
 
     final anyNowBroadcastings =
         featurePrgData?.nowBroadcastings?.items?.isNotEmpty != true;
@@ -90,7 +87,7 @@ class _ListViewContent extends HookWidget {
     if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
     final controller = useScrollController(keepScrollOffset: false);
-    controller.addListener(() async => _onScroll(context, controller));
+    controller.addListener(() async => _onScroll(context, controller));//todo use effect
 
     return LayoutBuilder(
       builder: (context, constraints) =>
@@ -184,7 +181,9 @@ class _ListViewContent extends HookWidget {
 
   Future<void> _onScroll(
           BuildContext context, ScrollController controller) async =>
-      context.read(kPrvDashboardViewModel).updateScrollOffset(controller.offset);
+      context
+          .read(kPrvDashboardViewModel)
+          .updateScrollOffset(controller.offset);
 
   bool _onScrollNotification(BuildContext context, ScrollController controller,
       ScrollNotification notification) {

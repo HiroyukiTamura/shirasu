@@ -184,84 +184,82 @@ abstract class _ApiData extends ApiData {
 }
 
 /// @nodoc
-class _$DashboardModelTearOff {
-  const _$DashboardModelTearOff();
+class _$DataWrapperTearOff {
+  const _$DataWrapperTearOff();
 
 // ignore: unused_element
-  _DashboardModel call(
-      {@required DashboardState state,
-      ApiData apiData,
-      double offset = 0,
-      double channelHorizontalOffset = 0,
-      double subscribingChannelOffset = 0,
-      int billboardHeaderPage = 0}) {
-    return _DashboardModel(
-      state: state,
-      apiData: apiData,
-      offset: offset,
+  _DataWrapper call(
+      {@required double scrollOffset,
+      @required double channelHorizontalOffset,
+      @required double subscribingChannelOffset,
+      @required int billboardHeaderPage,
+      @required ApiData apiData,
+      @required bool loadingMore}) {
+    return _DataWrapper(
+      scrollOffset: scrollOffset,
       channelHorizontalOffset: channelHorizontalOffset,
       subscribingChannelOffset: subscribingChannelOffset,
       billboardHeaderPage: billboardHeaderPage,
+      apiData: apiData,
+      loadingMore: loadingMore,
     );
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $DashboardModel = _$DashboardModelTearOff();
+const $DataWrapper = _$DataWrapperTearOff();
 
 /// @nodoc
-mixin _$DashboardModel {
-  DashboardState get state;
-  ApiData get apiData;
-  double get offset;
+mixin _$DataWrapper {
+  double get scrollOffset;
   double get channelHorizontalOffset;
   double get subscribingChannelOffset;
   int get billboardHeaderPage;
+  ApiData get apiData;
+  bool get loadingMore;
 
   @JsonKey(ignore: true)
-  $DashboardModelCopyWith<DashboardModel> get copyWith;
+  $DataWrapperCopyWith<DataWrapper> get copyWith;
 }
 
 /// @nodoc
-abstract class $DashboardModelCopyWith<$Res> {
-  factory $DashboardModelCopyWith(
-          DashboardModel value, $Res Function(DashboardModel) then) =
-      _$DashboardModelCopyWithImpl<$Res>;
+abstract class $DataWrapperCopyWith<$Res> {
+  factory $DataWrapperCopyWith(
+          DataWrapper value, $Res Function(DataWrapper) then) =
+      _$DataWrapperCopyWithImpl<$Res>;
   $Res call(
-      {DashboardState state,
-      ApiData apiData,
-      double offset,
+      {double scrollOffset,
       double channelHorizontalOffset,
       double subscribingChannelOffset,
-      int billboardHeaderPage});
+      int billboardHeaderPage,
+      ApiData apiData,
+      bool loadingMore});
 
-  $DashboardStateCopyWith<$Res> get state;
   $ApiDataCopyWith<$Res> get apiData;
 }
 
 /// @nodoc
-class _$DashboardModelCopyWithImpl<$Res>
-    implements $DashboardModelCopyWith<$Res> {
-  _$DashboardModelCopyWithImpl(this._value, this._then);
+class _$DataWrapperCopyWithImpl<$Res> implements $DataWrapperCopyWith<$Res> {
+  _$DataWrapperCopyWithImpl(this._value, this._then);
 
-  final DashboardModel _value;
+  final DataWrapper _value;
   // ignore: unused_field
-  final $Res Function(DashboardModel) _then;
+  final $Res Function(DataWrapper) _then;
 
   @override
   $Res call({
-    Object state = freezed,
-    Object apiData = freezed,
-    Object offset = freezed,
+    Object scrollOffset = freezed,
     Object channelHorizontalOffset = freezed,
     Object subscribingChannelOffset = freezed,
     Object billboardHeaderPage = freezed,
+    Object apiData = freezed,
+    Object loadingMore = freezed,
   }) {
     return _then(_value.copyWith(
-      state: state == freezed ? _value.state : state as DashboardState,
-      apiData: apiData == freezed ? _value.apiData : apiData as ApiData,
-      offset: offset == freezed ? _value.offset : offset as double,
+      scrollOffset: scrollOffset == freezed
+          ? _value.scrollOffset
+          : scrollOffset as double,
       channelHorizontalOffset: channelHorizontalOffset == freezed
           ? _value.channelHorizontalOffset
           : channelHorizontalOffset as double,
@@ -271,17 +269,10 @@ class _$DashboardModelCopyWithImpl<$Res>
       billboardHeaderPage: billboardHeaderPage == freezed
           ? _value.billboardHeaderPage
           : billboardHeaderPage as int,
+      apiData: apiData == freezed ? _value.apiData : apiData as ApiData,
+      loadingMore:
+          loadingMore == freezed ? _value.loadingMore : loadingMore as bool,
     ));
-  }
-
-  @override
-  $DashboardStateCopyWith<$Res> get state {
-    if (_value.state == null) {
-      return null;
-    }
-    return $DashboardStateCopyWith<$Res>(_value.state, (value) {
-      return _then(_value.copyWith(state: value));
-    });
   }
 
   @override
@@ -296,50 +287,47 @@ class _$DashboardModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$DashboardModelCopyWith<$Res>
-    implements $DashboardModelCopyWith<$Res> {
-  factory _$DashboardModelCopyWith(
-          _DashboardModel value, $Res Function(_DashboardModel) then) =
-      __$DashboardModelCopyWithImpl<$Res>;
+abstract class _$DataWrapperCopyWith<$Res>
+    implements $DataWrapperCopyWith<$Res> {
+  factory _$DataWrapperCopyWith(
+          _DataWrapper value, $Res Function(_DataWrapper) then) =
+      __$DataWrapperCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DashboardState state,
-      ApiData apiData,
-      double offset,
+      {double scrollOffset,
       double channelHorizontalOffset,
       double subscribingChannelOffset,
-      int billboardHeaderPage});
+      int billboardHeaderPage,
+      ApiData apiData,
+      bool loadingMore});
 
-  @override
-  $DashboardStateCopyWith<$Res> get state;
   @override
   $ApiDataCopyWith<$Res> get apiData;
 }
 
 /// @nodoc
-class __$DashboardModelCopyWithImpl<$Res>
-    extends _$DashboardModelCopyWithImpl<$Res>
-    implements _$DashboardModelCopyWith<$Res> {
-  __$DashboardModelCopyWithImpl(
-      _DashboardModel _value, $Res Function(_DashboardModel) _then)
-      : super(_value, (v) => _then(v as _DashboardModel));
+class __$DataWrapperCopyWithImpl<$Res> extends _$DataWrapperCopyWithImpl<$Res>
+    implements _$DataWrapperCopyWith<$Res> {
+  __$DataWrapperCopyWithImpl(
+      _DataWrapper _value, $Res Function(_DataWrapper) _then)
+      : super(_value, (v) => _then(v as _DataWrapper));
 
   @override
-  _DashboardModel get _value => super._value as _DashboardModel;
+  _DataWrapper get _value => super._value as _DataWrapper;
 
   @override
   $Res call({
-    Object state = freezed,
-    Object apiData = freezed,
-    Object offset = freezed,
+    Object scrollOffset = freezed,
     Object channelHorizontalOffset = freezed,
     Object subscribingChannelOffset = freezed,
     Object billboardHeaderPage = freezed,
+    Object apiData = freezed,
+    Object loadingMore = freezed,
   }) {
-    return _then(_DashboardModel(
-      state: state == freezed ? _value.state : state as DashboardState,
-      apiData: apiData == freezed ? _value.apiData : apiData as ApiData,
-      offset: offset == freezed ? _value.offset : offset as double,
+    return _then(_DataWrapper(
+      scrollOffset: scrollOffset == freezed
+          ? _value.scrollOffset
+          : scrollOffset as double,
       channelHorizontalOffset: channelHorizontalOffset == freezed
           ? _value.channelHorizontalOffset
           : channelHorizontalOffset as double,
@@ -349,59 +337,54 @@ class __$DashboardModelCopyWithImpl<$Res>
       billboardHeaderPage: billboardHeaderPage == freezed
           ? _value.billboardHeaderPage
           : billboardHeaderPage as int,
+      apiData: apiData == freezed ? _value.apiData : apiData as ApiData,
+      loadingMore:
+          loadingMore == freezed ? _value.loadingMore : loadingMore as bool,
     ));
   }
 }
 
 /// @nodoc
-class _$_DashboardModel extends _DashboardModel {
-  const _$_DashboardModel(
-      {@required this.state,
-      this.apiData,
-      this.offset = 0,
-      this.channelHorizontalOffset = 0,
-      this.subscribingChannelOffset = 0,
-      this.billboardHeaderPage = 0})
-      : assert(state != null),
-        assert(offset != null),
+class _$_DataWrapper implements _DataWrapper {
+  const _$_DataWrapper(
+      {@required this.scrollOffset,
+      @required this.channelHorizontalOffset,
+      @required this.subscribingChannelOffset,
+      @required this.billboardHeaderPage,
+      @required this.apiData,
+      @required this.loadingMore})
+      : assert(scrollOffset != null),
         assert(channelHorizontalOffset != null),
         assert(subscribingChannelOffset != null),
         assert(billboardHeaderPage != null),
-        super._();
+        assert(apiData != null),
+        assert(loadingMore != null);
 
   @override
-  final DashboardState state;
-  @override
-  final ApiData apiData;
-  @JsonKey(defaultValue: 0)
-  @override
-  final double offset;
-  @JsonKey(defaultValue: 0)
+  final double scrollOffset;
   @override
   final double channelHorizontalOffset;
-  @JsonKey(defaultValue: 0)
   @override
   final double subscribingChannelOffset;
-  @JsonKey(defaultValue: 0)
   @override
   final int billboardHeaderPage;
+  @override
+  final ApiData apiData;
+  @override
+  final bool loadingMore;
 
   @override
   String toString() {
-    return 'DashboardModel(state: $state, apiData: $apiData, offset: $offset, channelHorizontalOffset: $channelHorizontalOffset, subscribingChannelOffset: $subscribingChannelOffset, billboardHeaderPage: $billboardHeaderPage)';
+    return 'DataWrapper(scrollOffset: $scrollOffset, channelHorizontalOffset: $channelHorizontalOffset, subscribingChannelOffset: $subscribingChannelOffset, billboardHeaderPage: $billboardHeaderPage, apiData: $apiData, loadingMore: $loadingMore)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _DashboardModel &&
-            (identical(other.state, state) ||
-                const DeepCollectionEquality().equals(other.state, state)) &&
-            (identical(other.apiData, apiData) ||
+        (other is _DataWrapper &&
+            (identical(other.scrollOffset, scrollOffset) ||
                 const DeepCollectionEquality()
-                    .equals(other.apiData, apiData)) &&
-            (identical(other.offset, offset) ||
-                const DeepCollectionEquality().equals(other.offset, offset)) &&
+                    .equals(other.scrollOffset, scrollOffset)) &&
             (identical(
                     other.channelHorizontalOffset, channelHorizontalOffset) ||
                 const DeepCollectionEquality().equals(
@@ -413,41 +396,42 @@ class _$_DashboardModel extends _DashboardModel {
                     subscribingChannelOffset)) &&
             (identical(other.billboardHeaderPage, billboardHeaderPage) ||
                 const DeepCollectionEquality()
-                    .equals(other.billboardHeaderPage, billboardHeaderPage)));
+                    .equals(other.billboardHeaderPage, billboardHeaderPage)) &&
+            (identical(other.apiData, apiData) ||
+                const DeepCollectionEquality()
+                    .equals(other.apiData, apiData)) &&
+            (identical(other.loadingMore, loadingMore) ||
+                const DeepCollectionEquality()
+                    .equals(other.loadingMore, loadingMore)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(state) ^
-      const DeepCollectionEquality().hash(apiData) ^
-      const DeepCollectionEquality().hash(offset) ^
+      const DeepCollectionEquality().hash(scrollOffset) ^
       const DeepCollectionEquality().hash(channelHorizontalOffset) ^
       const DeepCollectionEquality().hash(subscribingChannelOffset) ^
-      const DeepCollectionEquality().hash(billboardHeaderPage);
+      const DeepCollectionEquality().hash(billboardHeaderPage) ^
+      const DeepCollectionEquality().hash(apiData) ^
+      const DeepCollectionEquality().hash(loadingMore);
 
   @JsonKey(ignore: true)
   @override
-  _$DashboardModelCopyWith<_DashboardModel> get copyWith =>
-      __$DashboardModelCopyWithImpl<_DashboardModel>(this, _$identity);
+  _$DataWrapperCopyWith<_DataWrapper> get copyWith =>
+      __$DataWrapperCopyWithImpl<_DataWrapper>(this, _$identity);
 }
 
-abstract class _DashboardModel extends DashboardModel {
-  const _DashboardModel._() : super._();
-  const factory _DashboardModel(
-      {@required DashboardState state,
-      ApiData apiData,
-      double offset,
-      double channelHorizontalOffset,
-      double subscribingChannelOffset,
-      int billboardHeaderPage}) = _$_DashboardModel;
+abstract class _DataWrapper implements DataWrapper {
+  const factory _DataWrapper(
+      {@required double scrollOffset,
+      @required double channelHorizontalOffset,
+      @required double subscribingChannelOffset,
+      @required int billboardHeaderPage,
+      @required ApiData apiData,
+      @required bool loadingMore}) = _$_DataWrapper;
 
   @override
-  DashboardState get state;
-  @override
-  ApiData get apiData;
-  @override
-  double get offset;
+  double get scrollOffset;
   @override
   double get channelHorizontalOffset;
   @override
@@ -455,121 +439,119 @@ abstract class _DashboardModel extends DashboardModel {
   @override
   int get billboardHeaderPage;
   @override
+  ApiData get apiData;
+  @override
+  bool get loadingMore;
+  @override
   @JsonKey(ignore: true)
-  _$DashboardModelCopyWith<_DashboardModel> get copyWith;
+  _$DataWrapperCopyWith<_DataWrapper> get copyWith;
 }
 
 /// @nodoc
-class _$DashboardStateTearOff {
-  const _$DashboardStateTearOff();
+class _$DashboardModelTearOff {
+  const _$DashboardModelTearOff();
 
 // ignore: unused_element
-  _StateLoadMore loadingMore() {
-    return const _StateLoadMore();
+  _DashboardPreInitialized initial() {
+    return const _DashboardPreInitialized();
   }
 
 // ignore: unused_element
-  StatePreInitialized preInitialized() {
-    return const StatePreInitialized();
+  DashboardSuccess success(DataWrapper data) {
+    return DashboardSuccess(
+      data,
+    );
   }
 
 // ignore: unused_element
-  StateSuccess success() {
-    return const StateSuccess();
-  }
-
-// ignore: unused_element
-  _StateError error() {
-    return const _StateError();
+  _DashboardModelError error() {
+    return const _DashboardModelError();
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $DashboardState = _$DashboardStateTearOff();
+const $DashboardModel = _$DashboardModelTearOff();
 
 /// @nodoc
-mixin _$DashboardState {
+mixin _$DashboardModel {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult loadingMore(),
-    @required TResult preInitialized(),
-    @required TResult success(),
+    @required TResult initial(),
+    @required TResult success(DataWrapper data),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult loadingMore(),
-    TResult preInitialized(),
-    TResult success(),
+    TResult initial(),
+    TResult success(DataWrapper data),
     TResult error(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(_StateLoadMore value),
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult initial(_DashboardPreInitialized value),
+    @required TResult success(DashboardSuccess value),
+    @required TResult error(_DashboardModelError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(_StateLoadMore value),
-    TResult preInitialized(StatePreInitialized value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult initial(_DashboardPreInitialized value),
+    TResult success(DashboardSuccess value),
+    TResult error(_DashboardModelError value),
     @required TResult orElse(),
   });
 }
 
 /// @nodoc
-abstract class $DashboardStateCopyWith<$Res> {
-  factory $DashboardStateCopyWith(
-          DashboardState value, $Res Function(DashboardState) then) =
-      _$DashboardStateCopyWithImpl<$Res>;
+abstract class $DashboardModelCopyWith<$Res> {
+  factory $DashboardModelCopyWith(
+          DashboardModel value, $Res Function(DashboardModel) then) =
+      _$DashboardModelCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$DashboardStateCopyWithImpl<$Res>
-    implements $DashboardStateCopyWith<$Res> {
-  _$DashboardStateCopyWithImpl(this._value, this._then);
+class _$DashboardModelCopyWithImpl<$Res>
+    implements $DashboardModelCopyWith<$Res> {
+  _$DashboardModelCopyWithImpl(this._value, this._then);
 
-  final DashboardState _value;
+  final DashboardModel _value;
   // ignore: unused_field
-  final $Res Function(DashboardState) _then;
+  final $Res Function(DashboardModel) _then;
 }
 
 /// @nodoc
-abstract class _$StateLoadMoreCopyWith<$Res> {
-  factory _$StateLoadMoreCopyWith(
-          _StateLoadMore value, $Res Function(_StateLoadMore) then) =
-      __$StateLoadMoreCopyWithImpl<$Res>;
+abstract class _$DashboardPreInitializedCopyWith<$Res> {
+  factory _$DashboardPreInitializedCopyWith(_DashboardPreInitialized value,
+          $Res Function(_DashboardPreInitialized) then) =
+      __$DashboardPreInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$StateLoadMoreCopyWithImpl<$Res>
-    extends _$DashboardStateCopyWithImpl<$Res>
-    implements _$StateLoadMoreCopyWith<$Res> {
-  __$StateLoadMoreCopyWithImpl(
-      _StateLoadMore _value, $Res Function(_StateLoadMore) _then)
-      : super(_value, (v) => _then(v as _StateLoadMore));
+class __$DashboardPreInitializedCopyWithImpl<$Res>
+    extends _$DashboardModelCopyWithImpl<$Res>
+    implements _$DashboardPreInitializedCopyWith<$Res> {
+  __$DashboardPreInitializedCopyWithImpl(_DashboardPreInitialized _value,
+      $Res Function(_DashboardPreInitialized) _then)
+      : super(_value, (v) => _then(v as _DashboardPreInitialized));
 
   @override
-  _StateLoadMore get _value => super._value as _StateLoadMore;
+  _DashboardPreInitialized get _value =>
+      super._value as _DashboardPreInitialized;
 }
 
 /// @nodoc
-class _$_StateLoadMore implements _StateLoadMore {
-  const _$_StateLoadMore();
+class _$_DashboardPreInitialized implements _DashboardPreInitialized {
+  const _$_DashboardPreInitialized();
 
   @override
   String toString() {
-    return 'DashboardState.loadingMore()';
+    return 'DashboardModel.initial()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _StateLoadMore);
+    return identical(this, other) || (other is _DashboardPreInitialized);
   }
 
   @override
@@ -578,30 +560,27 @@ class _$_StateLoadMore implements _StateLoadMore {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult loadingMore(),
-    @required TResult preInitialized(),
-    @required TResult success(),
+    @required TResult initial(),
+    @required TResult success(DataWrapper data),
     @required TResult error(),
   }) {
-    assert(loadingMore != null);
-    assert(preInitialized != null);
+    assert(initial != null);
     assert(success != null);
     assert(error != null);
-    return loadingMore();
+    return initial();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult loadingMore(),
-    TResult preInitialized(),
-    TResult success(),
+    TResult initial(),
+    TResult success(DataWrapper data),
     TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (loadingMore != null) {
-      return loadingMore();
+    if (initial != null) {
+      return initial();
     }
     return orElse();
   }
@@ -609,205 +588,130 @@ class _$_StateLoadMore implements _StateLoadMore {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(_StateLoadMore value),
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult initial(_DashboardPreInitialized value),
+    @required TResult success(DashboardSuccess value),
+    @required TResult error(_DashboardModelError value),
   }) {
-    assert(loadingMore != null);
-    assert(preInitialized != null);
+    assert(initial != null);
     assert(success != null);
     assert(error != null);
-    return loadingMore(this);
+    return initial(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(_StateLoadMore value),
-    TResult preInitialized(StatePreInitialized value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult initial(_DashboardPreInitialized value),
+    TResult success(DashboardSuccess value),
+    TResult error(_DashboardModelError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (loadingMore != null) {
-      return loadingMore(this);
+    if (initial != null) {
+      return initial(this);
     }
     return orElse();
   }
 }
 
-abstract class _StateLoadMore implements DashboardState {
-  const factory _StateLoadMore() = _$_StateLoadMore;
+abstract class _DashboardPreInitialized implements DashboardModel {
+  const factory _DashboardPreInitialized() = _$_DashboardPreInitialized;
 }
 
 /// @nodoc
-abstract class $StatePreInitializedCopyWith<$Res> {
-  factory $StatePreInitializedCopyWith(
-          StatePreInitialized value, $Res Function(StatePreInitialized) then) =
-      _$StatePreInitializedCopyWithImpl<$Res>;
+abstract class $DashboardSuccessCopyWith<$Res> {
+  factory $DashboardSuccessCopyWith(
+          DashboardSuccess value, $Res Function(DashboardSuccess) then) =
+      _$DashboardSuccessCopyWithImpl<$Res>;
+  $Res call({DataWrapper data});
+
+  $DataWrapperCopyWith<$Res> get data;
 }
 
 /// @nodoc
-class _$StatePreInitializedCopyWithImpl<$Res>
-    extends _$DashboardStateCopyWithImpl<$Res>
-    implements $StatePreInitializedCopyWith<$Res> {
-  _$StatePreInitializedCopyWithImpl(
-      StatePreInitialized _value, $Res Function(StatePreInitialized) _then)
-      : super(_value, (v) => _then(v as StatePreInitialized));
+class _$DashboardSuccessCopyWithImpl<$Res>
+    extends _$DashboardModelCopyWithImpl<$Res>
+    implements $DashboardSuccessCopyWith<$Res> {
+  _$DashboardSuccessCopyWithImpl(
+      DashboardSuccess _value, $Res Function(DashboardSuccess) _then)
+      : super(_value, (v) => _then(v as DashboardSuccess));
 
   @override
-  StatePreInitialized get _value => super._value as StatePreInitialized;
+  DashboardSuccess get _value => super._value as DashboardSuccess;
+
+  @override
+  $Res call({
+    Object data = freezed,
+  }) {
+    return _then(DashboardSuccess(
+      data == freezed ? _value.data : data as DataWrapper,
+    ));
+  }
+
+  @override
+  $DataWrapperCopyWith<$Res> get data {
+    if (_value.data == null) {
+      return null;
+    }
+    return $DataWrapperCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
+  }
 }
 
 /// @nodoc
-class _$StatePreInitialized implements StatePreInitialized {
-  const _$StatePreInitialized();
+class _$DashboardSuccess implements DashboardSuccess {
+  const _$DashboardSuccess(this.data) : assert(data != null);
+
+  @override
+  final DataWrapper data;
 
   @override
   String toString() {
-    return 'DashboardState.preInitialized()';
+    return 'DashboardModel.success(data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StatePreInitialized);
+    return identical(this, other) ||
+        (other is DashboardSuccess &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
+
+  @JsonKey(ignore: true)
+  @override
+  $DashboardSuccessCopyWith<DashboardSuccess> get copyWith =>
+      _$DashboardSuccessCopyWithImpl<DashboardSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult loadingMore(),
-    @required TResult preInitialized(),
-    @required TResult success(),
+    @required TResult initial(),
+    @required TResult success(DataWrapper data),
     @required TResult error(),
   }) {
-    assert(loadingMore != null);
-    assert(preInitialized != null);
+    assert(initial != null);
     assert(success != null);
     assert(error != null);
-    return preInitialized();
+    return success(data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult loadingMore(),
-    TResult preInitialized(),
-    TResult success(),
-    TResult error(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (preInitialized != null) {
-      return preInitialized();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult loadingMore(_StateLoadMore value),
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
-  }) {
-    assert(loadingMore != null);
-    assert(preInitialized != null);
-    assert(success != null);
-    assert(error != null);
-    return preInitialized(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(_StateLoadMore value),
-    TResult preInitialized(StatePreInitialized value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (preInitialized != null) {
-      return preInitialized(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class StatePreInitialized implements DashboardState {
-  const factory StatePreInitialized() = _$StatePreInitialized;
-}
-
-/// @nodoc
-abstract class $StateSuccessCopyWith<$Res> {
-  factory $StateSuccessCopyWith(
-          StateSuccess value, $Res Function(StateSuccess) then) =
-      _$StateSuccessCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$StateSuccessCopyWithImpl<$Res>
-    extends _$DashboardStateCopyWithImpl<$Res>
-    implements $StateSuccessCopyWith<$Res> {
-  _$StateSuccessCopyWithImpl(
-      StateSuccess _value, $Res Function(StateSuccess) _then)
-      : super(_value, (v) => _then(v as StateSuccess));
-
-  @override
-  StateSuccess get _value => super._value as StateSuccess;
-}
-
-/// @nodoc
-class _$StateSuccess implements StateSuccess {
-  const _$StateSuccess();
-
-  @override
-  String toString() {
-    return 'DashboardState.success()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is StateSuccess);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult loadingMore(),
-    @required TResult preInitialized(),
-    @required TResult success(),
-    @required TResult error(),
-  }) {
-    assert(loadingMore != null);
-    assert(preInitialized != null);
-    assert(success != null);
-    assert(error != null);
-    return success();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult loadingMore(),
-    TResult preInitialized(),
-    TResult success(),
+    TResult initial(),
+    TResult success(DataWrapper data),
     TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
-      return success();
+      return success(data);
     }
     return orElse();
   }
@@ -815,13 +719,11 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(_StateLoadMore value),
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult initial(_DashboardPreInitialized value),
+    @required TResult success(DashboardSuccess value),
+    @required TResult error(_DashboardModelError value),
   }) {
-    assert(loadingMore != null);
-    assert(preInitialized != null);
+    assert(initial != null);
     assert(success != null);
     assert(error != null);
     return success(this);
@@ -830,10 +732,9 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(_StateLoadMore value),
-    TResult preInitialized(StatePreInitialized value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult initial(_DashboardPreInitialized value),
+    TResult success(DashboardSuccess value),
+    TResult error(_DashboardModelError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -844,40 +745,45 @@ class _$StateSuccess implements StateSuccess {
   }
 }
 
-abstract class StateSuccess implements DashboardState {
-  const factory StateSuccess() = _$StateSuccess;
+abstract class DashboardSuccess implements DashboardModel {
+  const factory DashboardSuccess(DataWrapper data) = _$DashboardSuccess;
+
+  DataWrapper get data;
+  @JsonKey(ignore: true)
+  $DashboardSuccessCopyWith<DashboardSuccess> get copyWith;
 }
 
 /// @nodoc
-abstract class _$StateErrorCopyWith<$Res> {
-  factory _$StateErrorCopyWith(
-          _StateError value, $Res Function(_StateError) then) =
-      __$StateErrorCopyWithImpl<$Res>;
+abstract class _$DashboardModelErrorCopyWith<$Res> {
+  factory _$DashboardModelErrorCopyWith(_DashboardModelError value,
+          $Res Function(_DashboardModelError) then) =
+      __$DashboardModelErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$StateErrorCopyWithImpl<$Res> extends _$DashboardStateCopyWithImpl<$Res>
-    implements _$StateErrorCopyWith<$Res> {
-  __$StateErrorCopyWithImpl(
-      _StateError _value, $Res Function(_StateError) _then)
-      : super(_value, (v) => _then(v as _StateError));
+class __$DashboardModelErrorCopyWithImpl<$Res>
+    extends _$DashboardModelCopyWithImpl<$Res>
+    implements _$DashboardModelErrorCopyWith<$Res> {
+  __$DashboardModelErrorCopyWithImpl(
+      _DashboardModelError _value, $Res Function(_DashboardModelError) _then)
+      : super(_value, (v) => _then(v as _DashboardModelError));
 
   @override
-  _StateError get _value => super._value as _StateError;
+  _DashboardModelError get _value => super._value as _DashboardModelError;
 }
 
 /// @nodoc
-class _$_StateError implements _StateError {
-  const _$_StateError();
+class _$_DashboardModelError implements _DashboardModelError {
+  const _$_DashboardModelError();
 
   @override
   String toString() {
-    return 'DashboardState.error()';
+    return 'DashboardModel.error()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _StateError);
+    return identical(this, other) || (other is _DashboardModelError);
   }
 
   @override
@@ -886,13 +792,11 @@ class _$_StateError implements _StateError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult loadingMore(),
-    @required TResult preInitialized(),
-    @required TResult success(),
+    @required TResult initial(),
+    @required TResult success(DataWrapper data),
     @required TResult error(),
   }) {
-    assert(loadingMore != null);
-    assert(preInitialized != null);
+    assert(initial != null);
     assert(success != null);
     assert(error != null);
     return error();
@@ -901,9 +805,8 @@ class _$_StateError implements _StateError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult loadingMore(),
-    TResult preInitialized(),
-    TResult success(),
+    TResult initial(),
+    TResult success(DataWrapper data),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -917,13 +820,11 @@ class _$_StateError implements _StateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult loadingMore(_StateLoadMore value),
-    @required TResult preInitialized(StatePreInitialized value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult initial(_DashboardPreInitialized value),
+    @required TResult success(DashboardSuccess value),
+    @required TResult error(_DashboardModelError value),
   }) {
-    assert(loadingMore != null);
-    assert(preInitialized != null);
+    assert(initial != null);
     assert(success != null);
     assert(error != null);
     return error(this);
@@ -932,10 +833,9 @@ class _$_StateError implements _StateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult loadingMore(_StateLoadMore value),
-    TResult preInitialized(StatePreInitialized value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult initial(_DashboardPreInitialized value),
+    TResult success(DashboardSuccess value),
+    TResult error(_DashboardModelError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -946,6 +846,6 @@ class _$_StateError implements _StateError {
   }
 }
 
-abstract class _StateError implements DashboardState {
-  const factory _StateError() = _$_StateError;
+abstract class _DashboardModelError implements DashboardModel {
+  const factory _DashboardModelError() = _$_DashboardModelError;
 }

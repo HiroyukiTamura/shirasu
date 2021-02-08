@@ -12,10 +12,3 @@ class _MainBottomNavigationBar extends HookWidget {
   @override
   Widget build(BuildContext _context) => _mainBottomNavigationBar(_context);
 }
-
-class _FabContent extends HookWidget {
-  const _FabContent({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext _context) => _fabContent(_context);
-}

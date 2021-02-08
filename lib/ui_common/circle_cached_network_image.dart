@@ -51,6 +51,6 @@ Widget circleCachedNetworkImage({
                     ),
             );
           },
-          errorWidget: Util.defaultChannelIcon,
+          errorWidget: errorWidget,
         );
 }

@@ -13,48 +13,31 @@ import 'package:shirasu/util/types.dart';
 
 part 'billboard_header_single_card.g.dart';
 
-class BillboardHeaderSingleCardView extends StatelessWidget {
-  const BillboardHeaderSingleCardView({
-    Key key,
-    @required this.height,
-    @required this.data,
-    @required this.onTapItem,
-    @required this.controller,
-  }) : super(key: key);
-
-  final double height;
-  final HeaderData data;
-  final OnTapItem onTapItem;
-  final PageController controller;
-
-  @override
-  Widget build(BuildContext context) => SizedBox(
-        height: height,
-        child: PageView.builder(
-          controller: controller,
-          itemBuilder: (context, i) => _BillboardHeaderSingleCard(
-            item: data.items[i],
-            onTapItem: onTapItem,
-          ),
-          itemCount: data.items.length,
+@swidget
+Widget billboardHeaderSingleCardView({
+  @required double height,
+  @required HeaderData data,
+  @required OnTapItem onTapItem,
+  @required PageController controller,
+}) =>
+    SizedBox(
+      height: height,
+      child: PageView.builder(
+        controller: controller,
+        itemBuilder: (context, i) => _BillboardHeaderSingleCard(
+          item: data.items[i],
+          onTapItem: onTapItem,
         ),
-      );
-}
+        itemCount: data.items.length,
+      ),
+    );
 
-class _BillboardHeaderSingleCard extends StatelessWidget {
-  _BillboardHeaderSingleCard({
-    Key key,
-    @required this.item,
-    @required this.onTapItem,
-  })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
-        super(key: key);
-
-  final String _thumbnailUrl;
-  final Item item;
-  final OnTapItem onTapItem;
-
-  @override
-  Widget build(BuildContext context) => Padding(
+@swidget
+Widget _billboardHeaderSingleCard(
+  BuildContext context, {
+  @required Item item,
+  @required OnTapItem onTapItem,
+}) => Padding(
     padding: const EdgeInsets.all(BillboardHeader.CARD_PADDING),
     child: Card(
       elevation: 4,
@@ -68,15 +51,18 @@ class _BillboardHeaderSingleCard extends StatelessWidget {
           onTap: () async => onTapItem(context, item.id),
           child: Column(
             children: [
-              _Thumbnail(url: _thumbnailUrl),
-              _Title(title: item.title),
+              _Thumbnail(
+                url: UrlUtil.getThumbnailUrl(item.id),
+              ),
+              _Title(
+                title: item.title,
+              ),
             ],
           ),
         ),
       ),
     ),
   );
-}
 
 @swidget
 Widget _thumbnail({@required String url}) => AspectRatio(

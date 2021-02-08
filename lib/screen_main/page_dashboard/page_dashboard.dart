@@ -63,16 +63,12 @@ class _ListViewContent extends HookWidget {
     final newPrgData = data.allNewPrograms;
 
     final anyNowBroadcastings =
-        featurePrgData?.nowBroadcastings?.items?.isNotEmpty != true;
+        featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
 
     int itemCount = _NOW_BROADCASTINGS_LAST;
 
-    if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true) {
-      final row = context.isBigScreen
-          ? 1
-          : featurePrgData.comingBroadcastings.items.length;
-      itemCount += row + 1;
-    }
+    if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
+      itemCount += 2;
     final comingBroadcastingsLast = itemCount;
 
     if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty == true)
@@ -116,23 +112,13 @@ class _ListViewContent extends HookWidget {
                 if (i == 0)
                   return const Heading(text: Strings.HEADING_UPCOMING);
 
-                if (context.isBigScreen)
-                  return HorizontalCarousels(
-                    list: featurePrgData.comingBroadcastings.items,
-                    maxWidth: constraints.maxWidth,
-                    constraints: constraints,
-                    detailCaption: true,
-                    onTapItem: (item, id) async => context.pushProgramPage(id),
-                  );
-                else {
-                  final item = featurePrgData.comingBroadcastings.items[i - 1];
-                  return BillboardExpanded(
-                    item: item,
-                    onTap: () async => context.pushProgramPage(item.id),
-                    btmPadding:
-                        i != featurePrgData.comingBroadcastings.items.length,
-                  );
-                }
+                return HorizontalCarousels(
+                  list: featurePrgData.comingBroadcastings.items,
+                  maxWidth: constraints.maxWidth,
+                  constraints: constraints,
+                  detailCaption: true,
+                  onTapItem: (item, id) async => context.pushProgramPage(id),
+                );
               } else if (index < subscribingLast &&
                   comingBroadcastingsLast != subscribingLast) {
                 final i = index - comingBroadcastingsLast;

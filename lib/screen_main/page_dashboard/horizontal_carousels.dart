@@ -19,8 +19,8 @@ import 'package:shirasu/util/types.dart';
 
 part 'horizontal_carousels.g.dart';
 
-const double _SEPARATOR_MARGIN = Dimens.DASHBOARD_OUTER_MARGIN;
-const double _MAX_WIDTH = 300;
+const double _kSeparatorMargin = Dimens.DASHBOARD_OUTER_MARGIN;
+const double _kMaxWidth = 300;
 
 class HorizontalCarousels extends StatefulWidget {
   const HorizontalCarousels({
@@ -41,19 +41,20 @@ class HorizontalCarousels extends StatefulWidget {
   _HorizontalCarouselsState createState() => _HorizontalCarouselsState();
 }
 
-class _HorizontalCarouselsState extends State<HorizontalCarousels> with AutomaticKeepAliveClientMixin {
+class _HorizontalCarouselsState extends State<HorizontalCarousels>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    final columnCount = (widget.constraints.maxWidth / _MAX_WIDTH).ceil();
-    final inScreenItemCount = columnCount - 1 + 7 / 16;
+    final columnCount = (widget.constraints.maxWidth / _kMaxWidth).ceil();
+    final inScreenItemCount = columnCount - 1 + (1 - 1 / Dimens.IMG_RATIO);
     final nonMarginTotalWidth = widget.maxWidth -
         Dimens.DASHBOARD_OUTER_MARGIN -
-        (columnCount - 1) * _SEPARATOR_MARGIN;
+        (columnCount - 1) * _kSeparatorMargin;
     final width = nonMarginTotalWidth / inScreenItemCount;
     final height =
-        width / Dimens.IMG_RATIO + HorizontalCarouselDetailCaption.HEIGHT;
+        width / Dimens.IMG_RATIO + Dimens.CAROUSEL_DETAIL_CAPTION_H;
 
     return Container(
       margin: const EdgeInsets.only(top: 16, bottom: 32),
@@ -65,7 +66,7 @@ class _HorizontalCarouselsState extends State<HorizontalCarousels> with Automati
         itemCount: widget.list.length,
         scrollDirection: Axis.horizontal,
         separatorBuilder: (BuildContext context, int index) =>
-            const SizedBox(width: _SEPARATOR_MARGIN),
+            const SizedBox(width: _kSeparatorMargin),
         itemBuilder: (context, index) => HorizontalCarouselItem(
           item: widget.list[index],
           width: width,
@@ -110,7 +111,7 @@ Widget horizontalCarouselItem(
               ),
               Expanded(
                 child: detailCaption
-                    ? HorizontalCarouselDetailCaption(item: item)
+                    ? _HorizontalCarouselDetailCaption(item: item)
                     : _CaptionTitle(item: item),
               ),
             ],
@@ -131,55 +132,51 @@ Widget _captionTitle({@required Item item}) => Container(
       ),
     );
 
-class HorizontalCarouselDetailCaption extends StatelessWidget {
-  const HorizontalCarouselDetailCaption({Key key, @required this.item})
-      : super(key: key);
-
-  static const double HEIGHT = 108;
-  final Item item;
-
-  @override
-  Widget build(BuildContext context) => Container(
-        height: HEIGHT,
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
+@swidget
+Widget _horizontalCarouselDetailCaption(
+  BuildContext context, {
+  @required Item item,
+}) =>
+    Container(
+      height: Dimens.CAROUSEL_DETAIL_CAPTION_H,
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: TextStyles.s13TextHSingle(
+              color: Theme.of(context).accentColor,
+            ),
+          ),
+          Center(
+            child: Text(
+              item.title,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: TextStyles.s13TextHSingle(
-                color: Theme.of(context).accentColor,
+              style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+            ),
+          ),
+          Row(
+            children: [
+              CircleCachedNetworkImage(
+                imageUrl: UrlUtil.getChannelLogoUrl(item.channelId),
+                size: 20,
               ),
-            ),
-            Center(
-              child: Text(
-                item.title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  item.channel.name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyles.s13TextHSingle(),
+                ),
               ),
-            ),
-            Row(
-              children: [
-                CircleCachedNetworkImage(
-                  imageUrl: UrlUtil.getChannelLogoUrl(item.channelId),
-                  size: 20,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    item.channel.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyles.s13TextHSingle(),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-}
+            ],
+          ),
+        ],
+      ),
+    );

@@ -12,7 +12,7 @@ Widget headerColorFilter({
 }) {
   double scrollRatio = 0;
   if (!data.wideMode)
-    scrollRatio = useProvider(scrollRatioProvider(data.height));
+    scrollRatio = useProvider(kPrvScrollRatio(data.height));
   return Visibility(
     visible: 0 < scrollRatio,
     child: Opacity(

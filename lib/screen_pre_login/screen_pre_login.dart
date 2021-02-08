@@ -56,7 +56,11 @@ class ScreenPreLogin extends StatelessWidget {
               children: [
                 const _AnimatedBackground(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.only(
+                    right: 24,
+                    left: 24,
+                    bottom: 24,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -95,10 +99,7 @@ class ScreenPreLogin extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ]
-                        .map((it) =>
-                            const Padding(padding: EdgeInsets.only(top: 24)))
-                        .toList(),
+                    ].joinWith(() => const SizedBox(height: 24)),
                   ),
                 ),
               ],

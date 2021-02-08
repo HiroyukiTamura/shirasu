@@ -43,3 +43,14 @@ class _CaptionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext _context) => _captionTitle(item: item);
 }
+
+class _HorizontalCarouselDetailCaption extends StatelessWidget {
+  const _HorizontalCarouselDetailCaption({Key key, @required this.item})
+      : super(key: key);
+
+  final Item item;
+
+  @override
+  Widget build(BuildContext _context) =>
+      _horizontalCarouselDetailCaption(_context, item: item);
+}

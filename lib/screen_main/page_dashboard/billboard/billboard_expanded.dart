@@ -12,6 +12,7 @@ import 'package:shirasu/util.dart';
 
 part 'billboard_expanded.g.dart';
 
+@Deprecated('use horizontal carousel only. this widget is too big.')
 class BillboardExpanded extends StatelessWidget {
   BillboardExpanded({
     Key key,

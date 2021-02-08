@@ -9,6 +9,8 @@ import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/util/types.dart';
 
+/// must be max width of this widget is more than [WIDTH]
+/// @see [BuildContextX.isBigScreen]
 class BillboardHeaderMultiCardView extends StatelessWidget {
   const BillboardHeaderMultiCardView({
     Key key,
@@ -31,7 +33,7 @@ class BillboardHeaderMultiCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height =
-        WIDTH / Dimens.IMG_RATIO + HorizontalCarouselDetailCaption.HEIGHT;
+        WIDTH / Dimens.IMG_RATIO + Dimens.CAROUSEL_DETAIL_CAPTION_H;
     final cardCountInPage = data.constraints.maxWidth ~/ WIDTH;
     final pageCount = (data.items.length / cardCountInPage).ceil();
     return SizedBox(

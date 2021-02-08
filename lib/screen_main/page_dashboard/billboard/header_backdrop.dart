@@ -13,14 +13,14 @@ import 'package:shirasu/ui_common/image_painter.dart';
 
 part 'header_backdrop.g.dart';
 
-final _pHeaderImage = Provider.autoDispose<ui.Image>(
+final _kPrvHeaderImage = Provider.autoDispose<ui.Image>(
     (ref) => ref.watch(kPrvDashboardViewModel).headerImage);
 
 @hwidget
 Widget backDrop({
   @required double height,
 }) {
-  final image = useProvider(_pHeaderImage);
+  final image = useProvider(_kPrvHeaderImage);
   return image == null
       ? const SizedBox.shrink()
       : _BackDropInner(
@@ -109,7 +109,7 @@ Widget _coloredBackdropImage({
           child: CustomPaint(
             size: Size(widgetW, widgetH),
             painter: ImagePainter(
-              image: useProvider(_pHeaderImage),
+              image: useProvider(_kPrvHeaderImage),
               widgetH: widgetH,
               widgetW: widgetW,
             ),

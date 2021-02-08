@@ -60,6 +60,8 @@ abstract class DashboardModel with _$DashboardModel {
 
   const factory DashboardModel.error() = _DashboardModelError;
 
+  const DashboardModel._();
+
   factory DashboardModel.successInitialization(ApiData data) =>
       DashboardModel.success(DataWrapper.initial(data));
 

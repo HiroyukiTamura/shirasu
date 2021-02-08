@@ -344,6 +344,8 @@ class __$DataWrapperCopyWithImpl<$Res> extends _$DataWrapperCopyWithImpl<$Res>
   }
 }
 
+@protected
+
 /// @nodoc
 class _$_DataWrapper implements _DataWrapper {
   const _$_DataWrapper(
@@ -541,8 +543,8 @@ class __$DashboardPreInitializedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_DashboardPreInitialized implements _DashboardPreInitialized {
-  const _$_DashboardPreInitialized();
+class _$_DashboardPreInitialized extends _DashboardPreInitialized {
+  const _$_DashboardPreInitialized() : super._();
 
   @override
   String toString() {
@@ -614,7 +616,8 @@ class _$_DashboardPreInitialized implements _DashboardPreInitialized {
   }
 }
 
-abstract class _DashboardPreInitialized implements DashboardModel {
+abstract class _DashboardPreInitialized extends DashboardModel {
+  const _DashboardPreInitialized._() : super._();
   const factory _DashboardPreInitialized() = _$_DashboardPreInitialized;
 }
 
@@ -659,9 +662,13 @@ class _$DashboardSuccessCopyWithImpl<$Res>
   }
 }
 
+@protected
+
 /// @nodoc
-class _$DashboardSuccess implements DashboardSuccess {
-  const _$DashboardSuccess(this.data) : assert(data != null);
+class _$DashboardSuccess extends DashboardSuccess {
+  const _$DashboardSuccess(this.data)
+      : assert(data != null),
+        super._();
 
   @override
   final DataWrapper data;
@@ -745,7 +752,8 @@ class _$DashboardSuccess implements DashboardSuccess {
   }
 }
 
-abstract class DashboardSuccess implements DashboardModel {
+abstract class DashboardSuccess extends DashboardModel {
+  const DashboardSuccess._() : super._();
   const factory DashboardSuccess(DataWrapper data) = _$DashboardSuccess;
 
   DataWrapper get data;
@@ -773,8 +781,8 @@ class __$DashboardModelErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_DashboardModelError implements _DashboardModelError {
-  const _$_DashboardModelError();
+class _$_DashboardModelError extends _DashboardModelError {
+  const _$_DashboardModelError() : super._();
 
   @override
   String toString() {
@@ -846,6 +854,7 @@ class _$_DashboardModelError implements _DashboardModelError {
   }
 }
 
-abstract class _DashboardModelError implements DashboardModel {
+abstract class _DashboardModelError extends DashboardModel {
+  const _DashboardModelError._() : super._();
   const factory _DashboardModelError() = _$_DashboardModelError;
 }

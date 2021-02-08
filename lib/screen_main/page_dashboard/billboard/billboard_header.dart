@@ -7,12 +7,11 @@ import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_co
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_multi_card_view.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/header_backdrop.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/header_color_filter.dart';
-import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/util/types.dart';
 
-final scrollRatioProvider =
+final kPrvScrollRatio =
     Provider.family.autoDispose<double, double>((ref, height) {
   final offset = ref.watch(kPrvDashboardViewModel).state.maybeWhen(
         success: (data) => data.scrollOffset,
@@ -59,7 +58,7 @@ class BillboardHeader extends StatelessWidget {
     final commonH = TITLE_H + CARD_SPACE * 2 + bottomH + BTM_NOTCH_H_PAD;
     final height = wideMode
         ? BillboardHeaderMultiCardView.WIDTH / Dimens.IMG_RATIO +
-            HorizontalCarouselDetailCaption.HEIGHT
+            Dimens.CAROUSEL_DETAIL_CAPTION_H
         : _PRG_TITLE_H + thumbnailHeight;
     return BillboardHeader._(
       data: HeaderData(

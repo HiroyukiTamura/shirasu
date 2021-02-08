@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_multi_card_view.dart';
@@ -66,14 +67,12 @@ class _BillboardHeaderContentState extends State<BillboardHeaderContent>
     ScrollController sc;
     double topPadding = 0;
 
+    final scrollRatio = useProvider(kPrvScrollRatio(widget.data.height));
     if (!widget.data.wideMode) {
-      final scrollRatio = useProvider(scrollRatioProvider(widget.data.height));
       topPadding = widget.data.height * scrollRatio / 2;
       sc = useScrollController(
-          initialScrollOffset: widget.data.height + topPadding);
-    } else {
-      useProvider(
-          scrollRatioProvider(widget.data.height)); // avoid hook mismatch
+        initialScrollOffset: widget.data.height + topPadding,
+      );
     }
 
     return SingleChildScrollView(
@@ -148,7 +147,7 @@ Widget _title() => Container(
       child: Text(
         Strings.HEADING_NOW_ON_AIR,
         style: GoogleFonts.roboto(
-          fontSize: 28,
+          fontSize: FontSize.S28,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),

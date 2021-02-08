@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:http/http.dart' show Client;
-import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
@@ -30,7 +30,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
     bool authExpired = false;
     FeatureProgramState newState;
     try {
-      final data = await apiClient.queryFeaturedProgramsList();
+      final data = await graphQlRepository.queryFeaturedProgramsList();
       newState = data.viewerUser.subscribedPrograms.isEmpty
           ? const FeatureProgramState.resultEmpty()
           : FeatureProgramState.success(data);
@@ -62,7 +62,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
     bool authExpired = false;
 
     try {
-      final data = await apiClient.queryWatchHistory();
+      final data = await graphQlRepository.queryWatchHistory();
       newState = data.viewerUser.watchHistories.items.isEmpty
           ? const WatchHistoryState.resultEmpty()
           : WatchHistoryState.success([data].toUnmodifiable());
@@ -88,7 +88,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       state = WatchHistoryState.loadingMore(oldState.watchHistories);
 
       try {
-        final newOne = await apiClient.queryWatchHistory(
+        final newOne = await graphQlRepository.queryWatchHistory(
           nextToken: nextToken,
         );
 

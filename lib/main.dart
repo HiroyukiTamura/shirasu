@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -38,7 +39,7 @@ Future<void> main() async {
 
   await HiveAuthRepositoryImpl.instance().init();
   await HivePrefRepositoryImpl.instance().init();
-  await ApiClient.openHiveStore();
+  await GraphQlRepositoryImpl.openHiveStore();
 
   runApp(
     ProviderScope(child: MyApp()),

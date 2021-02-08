@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/auth_wrapper_client.dart';
 import 'package:shirasu/client/graghql_query.dart';
+import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart'
@@ -22,54 +23,53 @@ import 'package:http/http.dart' as http;
 
 import '../util.dart';
 
-final kPrvApiClient = Provider.autoDispose<ApiClient>((ref) => ApiClient.instance(ref.read));
+final kPrvApiClient = Provider.autoDispose<GraphQlRepository>(
+    (ref) => GraphQlRepositoryImpl.instance(ref.read));
 
 /// todo handle timeout
 /// todo operation name?
-class ApiClient {
-
-  ApiClient._(this._reader) {
-    _graphQlClient = _createClient(http.Client());
+class GraphQlRepositoryImpl with GraphQlRepository {
+  GraphQlRepositoryImpl._(this._reader) {
+    _graphQlClient = _createClient();
   }
 
-  factory ApiClient.instance(Reader reader) => ApiClient._(reader);
+  factory GraphQlRepositoryImpl.instance(Reader reader) =>
+      GraphQlRepositoryImpl._(reader);
 
   GraphQLClient _graphQlClient;
 
   final Reader _reader;
 
+  AuthClientInterceptor get _interceptor => _reader(kPrvAuthClientInterceptor);
+
   static Future<void> openHiveStore() async => HiveStore.open();
 
   /// todo no need client
-  GraphQLClient _createClient(http.Client client) {
-    final httpLink = HttpLink(
-      UrlUtil.URL_GRAPHQL,
-      defaultHeaders: {
-        'x-amz-user-agent': 'aws-amplify/2.0.2-apollothree',
-      },
-      // httpClient: client,
-    );
+  GraphQLClient _createClient() {
+    final link = Link.from([
+      HttpLink(
+        UrlUtil.URL_GRAPHQL,
+        defaultHeaders: {
+          'x-amz-user-agent': 'aws-amplify/2.0.2-apollothree',
+        },
+      ),
+      AuthLink(
+        getToken: () async => _interceptor.refreshAuthTokenIfNeeded(),
+      )
+    ]);
 
-    final authLink = AuthLink(
-      getToken: () async => _reader(kPrvAuthClientInterceptor).refreshAuthTokenIfNeeded(),
+    final policy = Policies.safe(
+      FetchPolicy.networkOnly,
+      ErrorPolicy.none,
+      CacheRereadPolicy.ignoreAll,
     );
-
-    final link = authLink.concat(httpLink);
 
     return GraphQLClient(
       cache: GraphQLCache(store: HiveStore()),
       link: link,
       defaultPolicies: DefaultPolicies(
-        query: Policies.safe(
-          FetchPolicy.networkOnly,
-          ErrorPolicy.none,
-          CacheRereadPolicy.ignoreAll,
-        ),
-        watchQuery: Policies.safe(
-          FetchPolicy.networkOnly,
-          ErrorPolicy.none,
-          CacheRereadPolicy.ignoreAll,
-        ),
+        query: policy,
+        mutate: policy,
       ),
     );
   }
@@ -85,7 +85,7 @@ class ApiClient {
       operationName: operationName,
     ));
 
-    _logResultError(result);
+    _handleError(result);
 
     return result;
   }
@@ -101,12 +101,12 @@ class ApiClient {
       operationName: operationName,
     ));
 
-    _logResultError(result);
+    _handleError(result);
 
     return result;
   }
 
-  void _logResultError(QueryResult result) {
+  void _handleError(QueryResult result) {
     if (result.hasException) {
       print(result.exception);
 
@@ -135,11 +135,13 @@ class ApiClient {
           result.context.entry<HttpLinkResponseContext>()?.statusCode;
       debugPrint(statusCode.toString());
 
-      if (result.exception.linkException.originalException is UnauthorizedException)
+      if (result.exception.linkException.originalException
+          is UnauthorizedException)
         throw result.exception.linkException.originalException;
     }
   }
 
+  @override
   Future<FeatureProgramData> queryFeaturedProgramsList() async {
     final dateTime = DateTime.now().toUtc();
     final dateTimeNext = dateTime + 7.days;
@@ -151,6 +153,7 @@ class ApiClient {
     return FeatureProgramData.fromJson(result.data);
   }
 
+  @override
   Future<NewProgramsData> queryNewProgramsList({String nextToken}) async {
     final variables = nextToken == null ? null : {'nextToken': nextToken};
     final result =
@@ -158,6 +161,7 @@ class ApiClient {
     return NewProgramsData.fromJson(result.data);
   }
 
+  @override
   Future<ProgramDetailData> queryProgramDetail(String itemId) async {
     final result = await _query(GraphqlQuery.QUERY_DETAIL_PROGRAMS, variables: {
       'id': itemId,
@@ -165,6 +169,7 @@ class ApiClient {
     return ProgramDetailData.fromJson(result.data);
   }
 
+  @override
   Future<ChannelData> queryChannelData(String channelId,
       {String nextToken}) async {
     final variables = {
@@ -176,6 +181,7 @@ class ApiClient {
     return ChannelData.fromJson(result.data);
   }
 
+  @override
   Future<WatchHistoriesData> queryWatchHistory(
       {String nextToken, int limit}) async {
     final variable = nextToken == null
@@ -188,11 +194,13 @@ class ApiClient {
     return WatchHistoriesData.fromJson(result.data);
   }
 
-  Future<Viewer> queryViewer() async {
+  @override
+  Future<ViewerWrapper> queryViewer() async {
     final result = await _query(GraphqlQuery.QUERY_VIEWER);
-    return Viewer.fromJson(result.data);
+    return ViewerWrapper.fromJson(result.data);
   }
 
+  @override
   Future<UserWithAttributeData> updateUserWithAttr(
       UpdateUserWithAttrVariable variable) async {
     final result = await _mutate(
@@ -202,6 +210,7 @@ class ApiClient {
     return UserWithAttributeData.fromJson(result.data);
   }
 
+  @override
   Future<String> queryHandOutUrl(String programId, String handoutId) async {
     final result = await _mutate(
       GraphqlQuery.QUERY_HAND_OUT_URL,
@@ -213,6 +222,7 @@ class ApiClient {
     return result.data['getSignedUrl'] as String;
   }
 
+  @override
   Future<Comments> queryComment({
     @required String programId,
     String nextToken,
@@ -233,6 +243,7 @@ class ApiClient {
     return ListCommentsByProgram.fromJson(result.data).comments;
   }
 
+  @override
   Future<CommentItem> postComment({
     @required Duration commentTime,
     @required String programId,

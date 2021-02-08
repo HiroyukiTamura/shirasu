@@ -24,7 +24,7 @@ class _$SettingModelStateTearOff {
   }
 
 // ignore: unused_element
-  StateSuccess success(Viewer data) {
+  StateSuccess success(ViewerWrapper data) {
     return StateSuccess(
       data,
     );
@@ -46,14 +46,14 @@ mixin _$SettingModelState {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data),
+    @required TResult success(ViewerWrapper data),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data),
+    TResult success(ViewerWrapper data),
     TResult error(),
     @required TResult orElse(),
   });
@@ -132,7 +132,7 @@ class _$_StatePreInitialized implements _StatePreInitialized {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data),
+    @required TResult success(ViewerWrapper data),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -147,7 +147,7 @@ class _$_StatePreInitialized implements _StatePreInitialized {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data),
+    TResult success(ViewerWrapper data),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -235,7 +235,7 @@ class _$_StateLoading implements _StateLoading {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data),
+    @required TResult success(ViewerWrapper data),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -250,7 +250,7 @@ class _$_StateLoading implements _StateLoading {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data),
+    TResult success(ViewerWrapper data),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -302,9 +302,9 @@ abstract class $StateSuccessCopyWith<$Res> {
   factory $StateSuccessCopyWith(
           StateSuccess value, $Res Function(StateSuccess) then) =
       _$StateSuccessCopyWithImpl<$Res>;
-  $Res call({Viewer data});
+  $Res call({ViewerWrapper data});
 
-  $ViewerCopyWith<$Res> get data;
+  $ViewerWrapperCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -323,16 +323,16 @@ class _$StateSuccessCopyWithImpl<$Res>
     Object data = freezed,
   }) {
     return _then(StateSuccess(
-      data == freezed ? _value.data : data as Viewer,
+      data == freezed ? _value.data : data as ViewerWrapper,
     ));
   }
 
   @override
-  $ViewerCopyWith<$Res> get data {
+  $ViewerWrapperCopyWith<$Res> get data {
     if (_value.data == null) {
       return null;
     }
-    return $ViewerCopyWith<$Res>(_value.data, (value) {
+    return $ViewerWrapperCopyWith<$Res>(_value.data, (value) {
       return _then(_value.copyWith(data: value));
     });
   }
@@ -343,7 +343,7 @@ class _$StateSuccess implements StateSuccess {
   const _$StateSuccess(this.data) : assert(data != null);
 
   @override
-  final Viewer data;
+  final ViewerWrapper data;
 
   @override
   String toString() {
@@ -372,7 +372,7 @@ class _$StateSuccess implements StateSuccess {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data),
+    @required TResult success(ViewerWrapper data),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -387,7 +387,7 @@ class _$StateSuccess implements StateSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data),
+    TResult success(ViewerWrapper data),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -431,9 +431,9 @@ class _$StateSuccess implements StateSuccess {
 }
 
 abstract class StateSuccess implements SettingModelState {
-  const factory StateSuccess(Viewer data) = _$StateSuccess;
+  const factory StateSuccess(ViewerWrapper data) = _$StateSuccess;
 
-  Viewer get data;
+  ViewerWrapper get data;
   @JsonKey(ignore: true)
   $StateSuccessCopyWith<StateSuccess> get copyWith;
 }
@@ -479,7 +479,7 @@ class _$_StateError implements _StateError {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult loading(),
-    @required TResult success(Viewer data),
+    @required TResult success(ViewerWrapper data),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
@@ -494,7 +494,7 @@ class _$_StateError implements _StateError {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult loading(),
-    TResult success(Viewer data),
+    TResult success(ViewerWrapper data),
     TResult error(),
     @required TResult orElse(),
   }) {

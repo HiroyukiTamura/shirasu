@@ -186,7 +186,7 @@ class PageUserInfo extends HookWidget {
 
   static Widget _genListItemAboveCreditCard(
     BuildContext context,
-    Viewer viewer,
+    ViewerWrapper viewer,
     int index,
   ) {
     switch (index) {

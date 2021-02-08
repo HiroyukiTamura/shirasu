@@ -2,7 +2,7 @@ import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/dio_client.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/client/native_client.dart';
@@ -85,8 +85,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     try {
       final data = await Util.wait2<ProgramDetailData, ChannelData>(
-          () async => apiClient.queryProgramDetail(id),
-          () async => apiClient.queryChannelData(channelId));
+          () async => graphQlRepository.queryProgramDetail(id),
+          () async => graphQlRepository.queryChannelData(channelId));
 
       state = state.copyWith(
         prgDataResult: DetailModelState.success(
@@ -149,7 +149,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     String url;
     try {
-      url = await apiClient.queryHandOutUrl(id, handoutId);
+      url = await graphQlRepository.queryHandOutUrl(id, handoutId);
     } catch (e) {
       print(e);
     }
@@ -214,7 +214,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final pageNationKey = state.commentHolder.pageNationKey;
 
     try {
-      final object = await apiClient.queryComment(
+      final object = await graphQlRepository.queryComment(
         programId: id,
         beginTime: beginTime,
         endTime: endTime,
@@ -271,7 +271,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     CommentItem posted;
     try {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
-      posted = await apiClient.postComment(
+      posted = await graphQlRepository.postComment(
         commentTime: state.playOutState.currentPos,
         programId: id,
         text: text,

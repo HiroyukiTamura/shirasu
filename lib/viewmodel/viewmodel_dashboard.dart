@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:riverpod/src/framework.dart';
-import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/graphql_repository.dart';
+import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/network_image_client.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -19,7 +20,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
-  ApiClient get _apiClient => reader(kPrvApiClient);
+  GraphQlRepository get _apiClient => reader(kPrvApiClient);
 
   @override
   Future<void> initialize() async {

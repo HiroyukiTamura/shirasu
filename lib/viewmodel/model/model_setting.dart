@@ -9,7 +9,7 @@ abstract class SettingModelState with _$SettingModelState {
 
   const factory SettingModelState.loading() = _StateLoading;
 
-  const factory SettingModelState.success(Viewer data) = StateSuccess;
+  const factory SettingModelState.success(ViewerWrapper data) = StateSuccess;
 
   const factory SettingModelState.error() = _StateError;
 }

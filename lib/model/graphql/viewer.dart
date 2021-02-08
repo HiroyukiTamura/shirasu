@@ -9,19 +9,19 @@ part 'viewer.freezed.dart';
 part 'viewer.g.dart';
 
 @freezed
-abstract class Viewer with _$Viewer {
-  const factory Viewer({
-    @required ViewerClass viewer,
+abstract class ViewerWrapper with _$ViewerWrapper {
+  const factory ViewerWrapper({
+    @required ViewerData viewer,
     @required ViewerUser viewerUser,
-  }) = _Viewer;
+  }) = _ViewerWrapper;
 
-  factory Viewer.fromJson(Map<String, dynamic> json) => _$ViewerFromJson(json);
+  factory ViewerWrapper.fromJson(Map<String, dynamic> json) => _$ViewerWrapperFromJson(json);
 }
 
 @freezed
-abstract class ViewerClass with _$ViewerClass implements BaseViewer {
+abstract class ViewerData with _$ViewerData implements BaseViewer {
   @Assert('typename == "Viewer"')
-  const factory ViewerClass({
+  const factory ViewerData({
     @required
     @JsonKey(name: 'paymentMethods')
     @protected
@@ -31,12 +31,12 @@ abstract class ViewerClass with _$ViewerClass implements BaseViewer {
     @protected
         List<String> rawAuthConnections,
     @required @JsonKey(name: '__typename') String typename,
-  }) = _ViewerClass;
+  }) = _ViewerData;
 
-  factory ViewerClass.fromJson(Map<String, dynamic> json) =>
-      _$ViewerClassFromJson(json);
+  factory ViewerData.fromJson(Map<String, dynamic> json) =>
+      _$ViewerDataFromJson(json);
 
-  const ViewerClass._();
+  const ViewerData._();
 
   UnmodifiableListView<PaymentMethod> get paymentMethods =>
       rawPaymentMethods.toUnmodifiable();

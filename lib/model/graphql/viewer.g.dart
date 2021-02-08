@@ -6,24 +6,25 @@ part of 'viewer.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Viewer _$_$_ViewerFromJson(Map<String, dynamic> json) {
-  return _$_Viewer(
+_$_ViewerWrapper _$_$_ViewerWrapperFromJson(Map<String, dynamic> json) {
+  return _$_ViewerWrapper(
     viewer: json['viewer'] == null
         ? null
-        : ViewerClass.fromJson(json['viewer'] as Map<String, dynamic>),
+        : ViewerData.fromJson(json['viewer'] as Map<String, dynamic>),
     viewerUser: json['viewerUser'] == null
         ? null
         : ViewerUser.fromJson(json['viewerUser'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$_$_ViewerToJson(_$_Viewer instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_ViewerWrapperToJson(_$_ViewerWrapper instance) =>
+    <String, dynamic>{
       'viewer': instance.viewer,
       'viewerUser': instance.viewerUser,
     };
 
-_$_ViewerClass _$_$_ViewerClassFromJson(Map<String, dynamic> json) {
-  return _$_ViewerClass(
+_$_ViewerData _$_$_ViewerDataFromJson(Map<String, dynamic> json) {
+  return _$_ViewerData(
     rawPaymentMethods: (json['paymentMethods'] as List)
         ?.map((e) => e == null
             ? null
@@ -35,7 +36,7 @@ _$_ViewerClass _$_$_ViewerClassFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_ViewerClassToJson(_$_ViewerClass instance) =>
+Map<String, dynamic> _$_$_ViewerDataToJson(_$_ViewerData instance) =>
     <String, dynamic>{
       'paymentMethods': instance.rawPaymentMethods,
       'authConnections': instance.rawAuthConnections,

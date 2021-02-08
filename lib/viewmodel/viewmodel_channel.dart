@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/graphql_repository.dart';
+import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -25,7 +26,8 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
   int tabIndex = 0;
 
-  ApiClient get apiClient => reader(kPrvApiClient);
+  @override
+  GraphQlRepository get graphQlRepository => reader(kPrvApiClient);
 
   @override
   Future<void> initialize() async {
@@ -36,7 +38,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         result: ChannelDataResult.loading(),
         loading: false,
       );
-      final data = await apiClient.queryChannelData(_channelId);
+      final data = await graphQlRepository.queryChannelData(_channelId);
       setState(ChannelModel(
         result: ChannelDataResult.success(data),
         loading: false,
@@ -63,7 +65,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
       state = state.copyWith(loading: true);
 
       try {
-        final newOne = await apiClient.queryChannelData(
+        final newOne = await graphQlRepository.queryChannelData(
           _channelId,
           nextToken: nextToken,
         );

@@ -8,60 +8,62 @@ part of 'viewer.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-Viewer _$ViewerFromJson(Map<String, dynamic> json) {
-  return _Viewer.fromJson(json);
+ViewerWrapper _$ViewerWrapperFromJson(Map<String, dynamic> json) {
+  return _ViewerWrapper.fromJson(json);
 }
 
 /// @nodoc
-class _$ViewerTearOff {
-  const _$ViewerTearOff();
+class _$ViewerWrapperTearOff {
+  const _$ViewerWrapperTearOff();
 
 // ignore: unused_element
-  _Viewer call(
-      {@required ViewerClass viewer, @required ViewerUser viewerUser}) {
-    return _Viewer(
+  _ViewerWrapper call(
+      {@required ViewerData viewer, @required ViewerUser viewerUser}) {
+    return _ViewerWrapper(
       viewer: viewer,
       viewerUser: viewerUser,
     );
   }
 
 // ignore: unused_element
-  Viewer fromJson(Map<String, Object> json) {
-    return Viewer.fromJson(json);
+  ViewerWrapper fromJson(Map<String, Object> json) {
+    return ViewerWrapper.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $Viewer = _$ViewerTearOff();
+const $ViewerWrapper = _$ViewerWrapperTearOff();
 
 /// @nodoc
-mixin _$Viewer {
-  ViewerClass get viewer;
+mixin _$ViewerWrapper {
+  ViewerData get viewer;
   ViewerUser get viewerUser;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $ViewerCopyWith<Viewer> get copyWith;
+  $ViewerWrapperCopyWith<ViewerWrapper> get copyWith;
 }
 
 /// @nodoc
-abstract class $ViewerCopyWith<$Res> {
-  factory $ViewerCopyWith(Viewer value, $Res Function(Viewer) then) =
-      _$ViewerCopyWithImpl<$Res>;
-  $Res call({ViewerClass viewer, ViewerUser viewerUser});
+abstract class $ViewerWrapperCopyWith<$Res> {
+  factory $ViewerWrapperCopyWith(
+          ViewerWrapper value, $Res Function(ViewerWrapper) then) =
+      _$ViewerWrapperCopyWithImpl<$Res>;
+  $Res call({ViewerData viewer, ViewerUser viewerUser});
 
-  $ViewerClassCopyWith<$Res> get viewer;
+  $ViewerDataCopyWith<$Res> get viewer;
   $ViewerUserCopyWith<$Res> get viewerUser;
 }
 
 /// @nodoc
-class _$ViewerCopyWithImpl<$Res> implements $ViewerCopyWith<$Res> {
-  _$ViewerCopyWithImpl(this._value, this._then);
+class _$ViewerWrapperCopyWithImpl<$Res>
+    implements $ViewerWrapperCopyWith<$Res> {
+  _$ViewerWrapperCopyWithImpl(this._value, this._then);
 
-  final Viewer _value;
+  final ViewerWrapper _value;
   // ignore: unused_field
-  final $Res Function(Viewer) _then;
+  final $Res Function(ViewerWrapper) _then;
 
   @override
   $Res call({
@@ -69,18 +71,18 @@ class _$ViewerCopyWithImpl<$Res> implements $ViewerCopyWith<$Res> {
     Object viewerUser = freezed,
   }) {
     return _then(_value.copyWith(
-      viewer: viewer == freezed ? _value.viewer : viewer as ViewerClass,
+      viewer: viewer == freezed ? _value.viewer : viewer as ViewerData,
       viewerUser:
           viewerUser == freezed ? _value.viewerUser : viewerUser as ViewerUser,
     ));
   }
 
   @override
-  $ViewerClassCopyWith<$Res> get viewer {
+  $ViewerDataCopyWith<$Res> get viewer {
     if (_value.viewer == null) {
       return null;
     }
-    return $ViewerClassCopyWith<$Res>(_value.viewer, (value) {
+    return $ViewerDataCopyWith<$Res>(_value.viewer, (value) {
       return _then(_value.copyWith(viewer: value));
     });
   }
@@ -97,34 +99,38 @@ class _$ViewerCopyWithImpl<$Res> implements $ViewerCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ViewerCopyWith<$Res> implements $ViewerCopyWith<$Res> {
-  factory _$ViewerCopyWith(_Viewer value, $Res Function(_Viewer) then) =
-      __$ViewerCopyWithImpl<$Res>;
+abstract class _$ViewerWrapperCopyWith<$Res>
+    implements $ViewerWrapperCopyWith<$Res> {
+  factory _$ViewerWrapperCopyWith(
+          _ViewerWrapper value, $Res Function(_ViewerWrapper) then) =
+      __$ViewerWrapperCopyWithImpl<$Res>;
   @override
-  $Res call({ViewerClass viewer, ViewerUser viewerUser});
+  $Res call({ViewerData viewer, ViewerUser viewerUser});
 
   @override
-  $ViewerClassCopyWith<$Res> get viewer;
+  $ViewerDataCopyWith<$Res> get viewer;
   @override
   $ViewerUserCopyWith<$Res> get viewerUser;
 }
 
 /// @nodoc
-class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
-    implements _$ViewerCopyWith<$Res> {
-  __$ViewerCopyWithImpl(_Viewer _value, $Res Function(_Viewer) _then)
-      : super(_value, (v) => _then(v as _Viewer));
+class __$ViewerWrapperCopyWithImpl<$Res>
+    extends _$ViewerWrapperCopyWithImpl<$Res>
+    implements _$ViewerWrapperCopyWith<$Res> {
+  __$ViewerWrapperCopyWithImpl(
+      _ViewerWrapper _value, $Res Function(_ViewerWrapper) _then)
+      : super(_value, (v) => _then(v as _ViewerWrapper));
 
   @override
-  _Viewer get _value => super._value as _Viewer;
+  _ViewerWrapper get _value => super._value as _ViewerWrapper;
 
   @override
   $Res call({
     Object viewer = freezed,
     Object viewerUser = freezed,
   }) {
-    return _then(_Viewer(
-      viewer: viewer == freezed ? _value.viewer : viewer as ViewerClass,
+    return _then(_ViewerWrapper(
+      viewer: viewer == freezed ? _value.viewer : viewer as ViewerData,
       viewerUser:
           viewerUser == freezed ? _value.viewerUser : viewerUser as ViewerUser,
     ));
@@ -134,28 +140,28 @@ class __$ViewerCopyWithImpl<$Res> extends _$ViewerCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Viewer implements _Viewer {
-  const _$_Viewer({@required this.viewer, @required this.viewerUser})
+class _$_ViewerWrapper implements _ViewerWrapper {
+  const _$_ViewerWrapper({@required this.viewer, @required this.viewerUser})
       : assert(viewer != null),
         assert(viewerUser != null);
 
-  factory _$_Viewer.fromJson(Map<String, dynamic> json) =>
-      _$_$_ViewerFromJson(json);
+  factory _$_ViewerWrapper.fromJson(Map<String, dynamic> json) =>
+      _$_$_ViewerWrapperFromJson(json);
 
   @override
-  final ViewerClass viewer;
+  final ViewerData viewer;
   @override
   final ViewerUser viewerUser;
 
   @override
   String toString() {
-    return 'Viewer(viewer: $viewer, viewerUser: $viewerUser)';
+    return 'ViewerWrapper(viewer: $viewer, viewerUser: $viewerUser)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Viewer &&
+        (other is _ViewerWrapper &&
             (identical(other.viewer, viewer) ||
                 const DeepCollectionEquality().equals(other.viewer, viewer)) &&
             (identical(other.viewerUser, viewerUser) ||
@@ -171,41 +177,42 @@ class _$_Viewer implements _Viewer {
 
   @JsonKey(ignore: true)
   @override
-  _$ViewerCopyWith<_Viewer> get copyWith =>
-      __$ViewerCopyWithImpl<_Viewer>(this, _$identity);
+  _$ViewerWrapperCopyWith<_ViewerWrapper> get copyWith =>
+      __$ViewerWrapperCopyWithImpl<_ViewerWrapper>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ViewerToJson(this);
+    return _$_$_ViewerWrapperToJson(this);
   }
 }
 
-abstract class _Viewer implements Viewer {
-  const factory _Viewer(
-      {@required ViewerClass viewer,
-      @required ViewerUser viewerUser}) = _$_Viewer;
+abstract class _ViewerWrapper implements ViewerWrapper {
+  const factory _ViewerWrapper(
+      {@required ViewerData viewer,
+      @required ViewerUser viewerUser}) = _$_ViewerWrapper;
 
-  factory _Viewer.fromJson(Map<String, dynamic> json) = _$_Viewer.fromJson;
+  factory _ViewerWrapper.fromJson(Map<String, dynamic> json) =
+      _$_ViewerWrapper.fromJson;
 
   @override
-  ViewerClass get viewer;
+  ViewerData get viewer;
   @override
   ViewerUser get viewerUser;
   @override
   @JsonKey(ignore: true)
-  _$ViewerCopyWith<_Viewer> get copyWith;
+  _$ViewerWrapperCopyWith<_ViewerWrapper> get copyWith;
 }
 
-ViewerClass _$ViewerClassFromJson(Map<String, dynamic> json) {
-  return _ViewerClass.fromJson(json);
+ViewerData _$ViewerDataFromJson(Map<String, dynamic> json) {
+  return _ViewerData.fromJson(json);
 }
 
 /// @nodoc
-class _$ViewerClassTearOff {
-  const _$ViewerClassTearOff();
+class _$ViewerDataTearOff {
+  const _$ViewerDataTearOff();
 
 // ignore: unused_element
-  _ViewerClass call(
+  _ViewerData call(
       {@required
       @JsonKey(name: 'paymentMethods')
       @protected
@@ -217,7 +224,7 @@ class _$ViewerClassTearOff {
       @required
       @JsonKey(name: '__typename')
           String typename}) {
-    return _ViewerClass(
+    return _ViewerData(
       rawPaymentMethods: rawPaymentMethods,
       rawAuthConnections: rawAuthConnections,
       typename: typename,
@@ -225,17 +232,17 @@ class _$ViewerClassTearOff {
   }
 
 // ignore: unused_element
-  ViewerClass fromJson(Map<String, Object> json) {
-    return ViewerClass.fromJson(json);
+  ViewerData fromJson(Map<String, Object> json) {
+    return ViewerData.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $ViewerClass = _$ViewerClassTearOff();
+const $ViewerData = _$ViewerDataTearOff();
 
 /// @nodoc
-mixin _$ViewerClass {
+mixin _$ViewerData {
   @JsonKey(name: 'paymentMethods')
   @protected
   List<PaymentMethod> get rawPaymentMethods;
@@ -247,14 +254,14 @@ mixin _$ViewerClass {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $ViewerClassCopyWith<ViewerClass> get copyWith;
+  $ViewerDataCopyWith<ViewerData> get copyWith;
 }
 
 /// @nodoc
-abstract class $ViewerClassCopyWith<$Res> {
-  factory $ViewerClassCopyWith(
-          ViewerClass value, $Res Function(ViewerClass) then) =
-      _$ViewerClassCopyWithImpl<$Res>;
+abstract class $ViewerDataCopyWith<$Res> {
+  factory $ViewerDataCopyWith(
+          ViewerData value, $Res Function(ViewerData) then) =
+      _$ViewerDataCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'paymentMethods')
       @protected
@@ -267,12 +274,12 @@ abstract class $ViewerClassCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ViewerClassCopyWithImpl<$Res> implements $ViewerClassCopyWith<$Res> {
-  _$ViewerClassCopyWithImpl(this._value, this._then);
+class _$ViewerDataCopyWithImpl<$Res> implements $ViewerDataCopyWith<$Res> {
+  _$ViewerDataCopyWithImpl(this._value, this._then);
 
-  final ViewerClass _value;
+  final ViewerData _value;
   // ignore: unused_field
-  final $Res Function(ViewerClass) _then;
+  final $Res Function(ViewerData) _then;
 
   @override
   $Res call({
@@ -293,11 +300,10 @@ class _$ViewerClassCopyWithImpl<$Res> implements $ViewerClassCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ViewerClassCopyWith<$Res>
-    implements $ViewerClassCopyWith<$Res> {
-  factory _$ViewerClassCopyWith(
-          _ViewerClass value, $Res Function(_ViewerClass) then) =
-      __$ViewerClassCopyWithImpl<$Res>;
+abstract class _$ViewerDataCopyWith<$Res> implements $ViewerDataCopyWith<$Res> {
+  factory _$ViewerDataCopyWith(
+          _ViewerData value, $Res Function(_ViewerData) then) =
+      __$ViewerDataCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'paymentMethods')
@@ -311,14 +317,14 @@ abstract class _$ViewerClassCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ViewerClassCopyWithImpl<$Res> extends _$ViewerClassCopyWithImpl<$Res>
-    implements _$ViewerClassCopyWith<$Res> {
-  __$ViewerClassCopyWithImpl(
-      _ViewerClass _value, $Res Function(_ViewerClass) _then)
-      : super(_value, (v) => _then(v as _ViewerClass));
+class __$ViewerDataCopyWithImpl<$Res> extends _$ViewerDataCopyWithImpl<$Res>
+    implements _$ViewerDataCopyWith<$Res> {
+  __$ViewerDataCopyWithImpl(
+      _ViewerData _value, $Res Function(_ViewerData) _then)
+      : super(_value, (v) => _then(v as _ViewerData));
 
   @override
-  _ViewerClass get _value => super._value as _ViewerClass;
+  _ViewerData get _value => super._value as _ViewerData;
 
   @override
   $Res call({
@@ -326,7 +332,7 @@ class __$ViewerClassCopyWithImpl<$Res> extends _$ViewerClassCopyWithImpl<$Res>
     Object rawAuthConnections = freezed,
     Object typename = freezed,
   }) {
-    return _then(_ViewerClass(
+    return _then(_ViewerData(
       rawPaymentMethods: rawPaymentMethods == freezed
           ? _value.rawPaymentMethods
           : rawPaymentMethods as List<PaymentMethod>,
@@ -341,8 +347,8 @@ class __$ViewerClassCopyWithImpl<$Res> extends _$ViewerClassCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ViewerClass extends _ViewerClass {
-  const _$_ViewerClass(
+class _$_ViewerData extends _ViewerData {
+  const _$_ViewerData(
       {@required
       @JsonKey(name: 'paymentMethods')
       @protected
@@ -360,8 +366,8 @@ class _$_ViewerClass extends _ViewerClass {
         assert(typename == "Viewer"),
         super._();
 
-  factory _$_ViewerClass.fromJson(Map<String, dynamic> json) =>
-      _$_$_ViewerClassFromJson(json);
+  factory _$_ViewerData.fromJson(Map<String, dynamic> json) =>
+      _$_$_ViewerDataFromJson(json);
 
   @override
   @JsonKey(name: 'paymentMethods')
@@ -377,13 +383,13 @@ class _$_ViewerClass extends _ViewerClass {
 
   @override
   String toString() {
-    return 'ViewerClass(rawPaymentMethods: $rawPaymentMethods, rawAuthConnections: $rawAuthConnections, typename: $typename)';
+    return 'ViewerData(rawPaymentMethods: $rawPaymentMethods, rawAuthConnections: $rawAuthConnections, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ViewerClass &&
+        (other is _ViewerData &&
             (identical(other.rawPaymentMethods, rawPaymentMethods) ||
                 const DeepCollectionEquality()
                     .equals(other.rawPaymentMethods, rawPaymentMethods)) &&
@@ -404,18 +410,18 @@ class _$_ViewerClass extends _ViewerClass {
 
   @JsonKey(ignore: true)
   @override
-  _$ViewerClassCopyWith<_ViewerClass> get copyWith =>
-      __$ViewerClassCopyWithImpl<_ViewerClass>(this, _$identity);
+  _$ViewerDataCopyWith<_ViewerData> get copyWith =>
+      __$ViewerDataCopyWithImpl<_ViewerData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ViewerClassToJson(this);
+    return _$_$_ViewerDataToJson(this);
   }
 }
 
-abstract class _ViewerClass extends ViewerClass {
-  const _ViewerClass._() : super._();
-  const factory _ViewerClass(
+abstract class _ViewerData extends ViewerData {
+  const _ViewerData._() : super._();
+  const factory _ViewerData(
       {@required
       @JsonKey(name: 'paymentMethods')
       @protected
@@ -426,10 +432,10 @@ abstract class _ViewerClass extends ViewerClass {
           List<String> rawAuthConnections,
       @required
       @JsonKey(name: '__typename')
-          String typename}) = _$_ViewerClass;
+          String typename}) = _$_ViewerData;
 
-  factory _ViewerClass.fromJson(Map<String, dynamic> json) =
-      _$_ViewerClass.fromJson;
+  factory _ViewerData.fromJson(Map<String, dynamic> json) =
+      _$_ViewerData.fromJson;
 
   @override
   @JsonKey(name: 'paymentMethods')
@@ -444,7 +450,7 @@ abstract class _ViewerClass extends ViewerClass {
   String get typename;
   @override
   @JsonKey(ignore: true)
-  _$ViewerClassCopyWith<_ViewerClass> get copyWith;
+  _$ViewerDataCopyWith<_ViewerData> get copyWith;
 }
 
 PaymentMethod _$PaymentMethodFromJson(Map<String, dynamic> json) {

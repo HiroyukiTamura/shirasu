@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/graphql_repository.dart';
+import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/dio_client.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
@@ -76,7 +77,7 @@ mixin AppRouterLocator {
   void pushAuthExpireScreen() => reader(pAppRouterDelegate).pushPage(const GlobalRoutePath.error(true));
 
   @protected
-  ApiClient get apiClient => reader(kPrvApiClient);
+  GraphQlRepository get graphQlRepository => reader(kPrvApiClient);
 
   @protected
   DioClient get dioClient => reader(kPrvDioClient);

@@ -1,6 +1,6 @@
 import 'package:async/async.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/api_client.dart';
+import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
@@ -53,7 +53,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     SettingModelState newState;
     bool authExpired = false;
     try {
-      final viewer = await apiClient.queryViewer();
+      final viewer = await graphQlRepository.queryViewer();
       newState = SettingModelState.success(viewer);
     } on UnauthorizedException catch (e) {
       print(e);
@@ -105,7 +105,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     state = state.copyWith(uploadingProfile: true);
 
     try {
-      final updatedData = await apiClient.updateUserWithAttr(variable);
+      final updatedData = await graphQlRepository.updateUserWithAttr(variable);
       //todo update `dummyUser`
 
     } catch (e) {

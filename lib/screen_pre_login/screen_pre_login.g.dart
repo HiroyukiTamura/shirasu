@@ -6,6 +6,19 @@ part of 'screen_pre_login.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
+class _FooterText extends StatelessWidget {
+  const _FooterText({Key key, @required this.text, @required this.onTap})
+      : super(key: key);
+
+  final String text;
+
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext _context) =>
+      _footerText(_context, text: text, onTap: onTap);
+}
+
 class _HeaderLogo extends StatelessWidget {
   const _HeaderLogo({Key key}) : super(key: key);
 
@@ -41,7 +54,7 @@ class _Note extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext _context) => _note(text: text);
+  Widget build(BuildContext _context) => _note(_context, text: text);
 }
 
 class _Background extends StatelessWidget {

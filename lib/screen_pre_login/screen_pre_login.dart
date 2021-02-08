@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/url_util.dart';
@@ -53,7 +54,7 @@ class ScreenPreLogin extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   right: 24,
                   left: 24,
-                  bottom: 48,
+                  bottom: 24,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +73,7 @@ class ScreenPreLogin extends StatelessWidget {
                       text: Strings.PRE_LOGIN_REGISTER_BTN_VALUE,
                       btnColor: Colors.white,
                       textColor: Theme.of(context).primaryColor,
-                      onTap: () => _onTapRegister(context),
+                      onTap: () => _launchUrl(context, UrlUtil.URL_HOME),
                     ),
                     const SizedBox(height: 24),
                     _Button(
@@ -80,6 +81,19 @@ class ScreenPreLogin extends StatelessWidget {
                       btnColor: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onTap: () => _onTapLogin(context),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      children: [
+                        _FooterText(
+                          text: Strings.FOOTER_BTN_SOURCE_VALUE,
+                          onTap: () => _launchUrl(context, UrlUtil.URL_GITHUB),
+                        ),
+                        _FooterText(
+                          text: Strings.FOOTER_BTN_PRIVACY_VALUE,
+                          onTap: () => _launchUrl(context, UrlUtil.URL_GITHUB),//todo fix
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -95,12 +109,18 @@ class ScreenPreLogin extends StatelessWidget {
               text: text,
             ))
         .joinWith(() => const SizedBox(height: 16));
-    return [const _HeaderLogo(), const SizedBox(height: 48,), ...notes];
+    return [
+      const _HeaderLogo(),
+      const SizedBox(
+        height: 48,
+      ),
+      ...notes
+    ];
   }
 
-  void _onTapRegister(BuildContext context) => Util.launchUrl(
+  void _launchUrl(BuildContext context, String url) => Util.launchUrl(
         context,
-        UrlUtil.URL_HOME,
+        url,
         () => context
             .read(_kPrvSnackBarMsgNotifier)
             .notifyMsg(const SnackMsg.unknown(), false),
@@ -110,29 +130,53 @@ class ScreenPreLogin extends StatelessWidget {
       context.pushPage(const GlobalRoutePath.auth());
 }
 
-//todo update logo style
 @swidget
-Widget _headerLogo() => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Assets.svg.logoOfficial.svg(
-            height: 48,
-            color: Colors.white,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(
-              Icons.clear_rounded,
-              color: Colors.white,
-              size: 40,
+Widget _footerText(
+  BuildContext context, {
+  @required String text,
+  @required VoidCallback onTap,
+}) =>
+    Expanded(
+      child: Center(
+        child: TextButton(
+          onPressed: onTap,
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 14,
             ),
           ),
-          Assets.svg.appLogoContent.supportWeb().toWidget(
-                height: 60,
+        ),
+      ),
+    );
+
+//todo update logo style
+@swidget
+Widget _headerLogo() => Semantics(
+      label: Strings.CD_LOGO,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Assets.svg.logoOfficial.svg(
+              height: 48,
+              color: Colors.white,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Icon(
+                Icons.clear_rounded,
+                color: Colors.white,
+                size: 40,
               ),
-        ],
+            ),
+            Assets.svg.appLogoContent.supportWeb().toWidget(
+                  height: 60,
+                ),
+          ],
+        ),
       ),
     );
 
@@ -144,37 +188,33 @@ Widget _button(
   @required Color textColor,
   @required VoidCallback onTap,
 }) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-      ),
-      child: SizedBox(
-        width: double.infinity,
-        child: RaisedButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: kCircleBorderRadius,
-          ),
-          color: btnColor,
-          onPressed: onTap,
-          padding: EdgeInsets.symmetric(
-            vertical: 4,
-            horizontal: Theme.of(context).buttonTheme.padding.horizontal,
-          ),
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: textColor,
-              fontSize: FontSize.S16,
-              height: TextHeight.TEXT_HEIGHT,
-            ),
+    SizedBox(
+      width: double.infinity,
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: kCircleBorderRadius,
+        ),
+        color: btnColor,
+        onPressed: onTap,
+        padding: EdgeInsets.symmetric(
+          vertical: 4,
+          horizontal: Theme.of(context).buttonTheme.padding.horizontal,
+        ),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: textColor,
+            fontSize: FontSize.S16,
+            height: TextHeight.TEXT_HEIGHT,
           ),
         ),
       ),
     );
 
 @swidget
-Widget _note({
+Widget _note(
+  BuildContext context, {
   @required String text,
 }) =>
     Row(

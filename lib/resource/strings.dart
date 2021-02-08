@@ -299,5 +299,8 @@ class Strings {
 
   static const String CD_LOGO = 'ロゴ';
 
+  static const String FOOTER_BTN_SOURCE_VALUE = 'ソースコード';
+  static const String FOOTER_BTN_PRIVACY_VALUE = 'プライバシーポリシー';
+
   //endregion
 }

@@ -23,22 +23,22 @@ import 'package:shirasu/extension.dart';
 
 part 'page_dashboard.g.dart';
 
-final pDashboardViewModel =
+final kPrvDashboardViewModel =
     ChangeNotifierProvider.autoDispose<ViewModelDashBoard>(
         (ref) => ViewModelDashBoard(ref.read));
 
 @hwidget
 Widget pageDashboardInMainScreen() => useProvider(
-        pDashboardViewModel.select((viewModel) => viewModel.state.state)).when(
+        kPrvDashboardViewModel.select((viewModel) => viewModel.state.state)).when(
       preInitialized: () => const CenterCircleProgress(),
       error: () => const PageError(),
       loadingMore: () => _ListViewContent(
-        model: useProvider(pDashboardViewModel).state.apiData,
+        model: useProvider(kPrvDashboardViewModel).state.apiData,
         // we don't want to rebuild
         showLoadingIndicator: true,
       ),
       success: () {
-        final model = useProvider(pDashboardViewModel)
+        final model = useProvider(kPrvDashboardViewModel)
             .state
             .apiData; // we don't want to rebuild,
         return _ListViewContent(
@@ -184,7 +184,7 @@ class _ListViewContent extends HookWidget {
 
   Future<void> _onScroll(
           BuildContext context, ScrollController controller) async =>
-      context.read(pDashboardViewModel).updateScrollOffset(controller.offset);
+      context.read(kPrvDashboardViewModel).updateScrollOffset(controller.offset);
 
   bool _onScrollNotification(BuildContext context, ScrollController controller,
       ScrollNotification notification) {
@@ -193,7 +193,7 @@ class _ListViewContent extends HookWidget {
         notification.direction == ScrollDirection.idle &&
         controller.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
             controller.offset) {
-      context.read(pDashboardViewModel).loadMoreNewPrg();
+      context.read(kPrvDashboardViewModel).loadMoreNewPrg();
       return true;
     }
 

@@ -11,6 +11,7 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/ui_common/ui_util.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/util/types.dart';
 
 part 'page_error.g.dart';
 

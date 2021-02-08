@@ -9,6 +9,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/util/types.dart';
 
 part 'billboard_header_single_card.g.dart';
 

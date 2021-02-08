@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
+import 'package:shirasu/util/types.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
 import '../../../screen_detail.dart';

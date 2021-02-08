@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:typed_data';
 
 import 'package:better_player/better_player.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';

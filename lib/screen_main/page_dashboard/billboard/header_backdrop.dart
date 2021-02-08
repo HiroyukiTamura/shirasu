@@ -14,7 +14,7 @@ import 'package:shirasu/ui_common/image_painter.dart';
 part 'header_backdrop.g.dart';
 
 final _pHeaderImage = Provider.autoDispose<ui.Image>(
-    (ref) => ref.watch(pDashboardViewModel).headerImage);
+    (ref) => ref.watch(kPrvDashboardViewModel).headerImage);
 
 @hwidget
 Widget backDrop({
@@ -50,7 +50,7 @@ class _BackDropInnerState extends State<_BackDropInner>
   @override
   void initState() {
     super.initState();
-    final pos = context.read(pDashboardViewModel).headerBackDropScrollPos;
+    final pos = context.read(kPrvDashboardViewModel).headerBackDropScrollPos;
     _controller = ScrollController(
       initialScrollOffset: 10000 < pos ? 0 : pos,
       // restore position if it's not too far
@@ -78,7 +78,7 @@ class _BackDropInnerState extends State<_BackDropInner>
   void afterFirstLayout(BuildContext context) => _startScroll();
 
   Future<void> _onScroll() async =>
-      context.read(pDashboardViewModel).headerBackDropScrollPos =
+      context.read(kPrvDashboardViewModel).headerBackDropScrollPos =
           _controller.offset;
 
   Future<void> _startScroll() async {

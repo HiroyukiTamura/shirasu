@@ -13,6 +13,7 @@ part 'btm_sheet_sns_share.g.dart';
 const double _LIST_TILE_HEIGHT = 56;
 const double _PAD_V = 16;
 
+//todo move
 typedef SnackCallback = void Function(SnackMsg msg);
 
 /// todo deep link for this app

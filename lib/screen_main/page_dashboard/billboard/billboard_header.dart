@@ -10,14 +10,13 @@ import 'package:shirasu/screen_main/page_dashboard/billboard/header_color_filter
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/util/types.dart';
 
 final scrollRatioProvider =
     Provider.family.autoDispose<double, double>((ref, height) {
-  final offset = ref.watch(pDashboardViewModel).state.offset;
+  final offset = ref.watch(kPrvDashboardViewModel).state.offset;
   return 0 < offset && offset < height ? offset / height : 0;
 });
-
-typedef OnTapItem = void Function(BuildContext context, String prgId);
 
 class HeaderData {
   const HeaderData({

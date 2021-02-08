@@ -16,12 +16,11 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/play_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/ui_util.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/util/types.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'video_thumbnail.g.dart';
-
-typedef OnTap = void Function(BuildContext context);
 
 @swidget
 Widget loadingThumbnail({@required String id}) => Stack(

@@ -15,6 +15,7 @@ import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.da
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/util/types.dart';
 
 part 'horizontal_carousels.g.dart';
 

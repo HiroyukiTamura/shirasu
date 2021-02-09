@@ -7,6 +7,7 @@ import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
 
@@ -55,7 +56,7 @@ class BillboardExpanded extends StatelessWidget {
 
   Widget _thumbnail() => AspectRatio(
       aspectRatio: Dimens.IMG_RATIO,
-      child: CachedNetworkImage(
+      child: CustomCachedNetworkImage(
         imageUrl: _thumbnailUrl,
         errorWidget: Util.defaultPrgThumbnail,
       ),
@@ -71,7 +72,7 @@ class BillboardExpanded extends StatelessWidget {
   Widget _channel() => _ItemPadding(
     child: Row(
         children: [
-          CachedNetworkImage(
+          CustomCachedNetworkImage(
             imageUrl: _channelLogoUrl,
             height: _CHANNEL_LOGO_SIZE,
             width: _CHANNEL_LOGO_SIZE,

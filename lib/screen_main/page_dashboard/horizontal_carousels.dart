@@ -13,6 +13,7 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
@@ -104,7 +105,7 @@ Widget horizontalCarouselItem(
             children: [
               AspectRatio(
                 aspectRatio: Dimens.IMG_RATIO,
-                child: CachedNetworkImage(
+                child: CustomCachedNetworkImage(
                   imageUrl: UrlUtil.getThumbnailUrl(item.id),
                   errorWidget: Util.defaultPrgThumbnail,
                 ),

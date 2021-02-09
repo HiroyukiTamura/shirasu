@@ -6,6 +6,8 @@ import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/ui_common/images.dart';
 
+import 'custom_cached_network_image.dart';
+
 part 'circle_cached_network_image.g.dart';
 
 /// must not be null either of [imageUrl] or [errorWidget]
@@ -23,7 +25,7 @@ Widget circleCachedNetworkImage({
             width: size,
             height: size,
           )
-      : CachedNetworkImage(
+      : CustomCachedNetworkImage(
           imageUrl: imageUrl,
           height: size,
           width: size,

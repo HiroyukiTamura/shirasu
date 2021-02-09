@@ -6,6 +6,7 @@ import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/extension.dart';
 
@@ -23,7 +24,7 @@ Widget rowChannel(BuildContext context, {
           vertical: 16, horizontal: Dimens.MARGIN_OUTLINE),
       child: Row(
         children: [
-          CachedNetworkImage(
+          CustomCachedNetworkImage(
             imageUrl: UrlUtil.getChannelLogoUrl(channelId),
           ),
           const SizedBox(width: 16),

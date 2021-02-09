@@ -16,6 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
@@ -64,7 +65,7 @@ class _ScreenHandsOutInner extends HookWidget {
               enabled: enabled,
               leading: AspectRatio(
                 aspectRatio: Dimens.HANDOUT_THUMBNAIL_RATIO,
-                child: CachedNetworkImage(
+                child: CustomCachedNetworkImage(
                   imageUrl:
                       UrlUtil.getHandoutThumbnailUrl(program.id, handout.id),
                   errorWidget: Util.defaultHandoutThumbnail,

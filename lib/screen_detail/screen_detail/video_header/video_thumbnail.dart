@@ -14,6 +14,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/play_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/ui_util.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
@@ -25,7 +26,7 @@ part 'video_thumbnail.g.dart';
 @swidget
 Widget loadingThumbnail({@required String id}) => Stack(
       children: [
-        CachedNetworkImage(
+        CustomCachedNetworkImage(
           fit: BoxFit.cover,
           imageUrl: UrlUtil.getThumbnailUrl(id),
           errorWidget: Util.defaultPrgThumbnail,
@@ -54,7 +55,7 @@ class VideoThumbnail extends HookWidget {
     final program = result.programDetailData.program;
     return Stack(
       children: [
-        CachedNetworkImage(
+        CustomCachedNetworkImage(
           fit: BoxFit.cover,
           imageUrl: UrlUtil.getThumbnailUrl(program.id),
           errorWidget: Util.defaultPrgThumbnail,

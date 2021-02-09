@@ -13,6 +13,8 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/extension.dart';
 
+import 'custom_cached_network_image.dart';
+
 part 'movie_list_item.g.dart';
 
 class MovieListItemBase extends StatelessWidget {
@@ -42,7 +44,7 @@ class MovieListItemBase extends StatelessWidget {
             height: titleHeight,
             child: Row(
               children: [
-                CachedNetworkImage(
+                CustomCachedNetworkImage(
                   imageUrl: UrlUtil.getThumbnailUrl(program.id),
                   width: titleHeight * Dimens.IMG_RATIO,
                   errorWidget: Util.defaultPrgThumbnail,

@@ -7,6 +7,7 @@ import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
@@ -67,7 +68,7 @@ Widget _billboardHeaderSingleCard(
 @swidget
 Widget _thumbnail({@required String url}) => AspectRatio(
       aspectRatio: Dimens.IMG_RATIO,
-      child: CachedNetworkImage(
+      child: CustomCachedNetworkImage(
         imageUrl: url,
         errorWidget: Util.defaultPrgThumbnail,
       ),

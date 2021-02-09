@@ -13,28 +13,28 @@ class AuthClientInterceptor {
 
   final _lock = Lock();
 
-  HiveAuthRepository get _HiveAuthRepository => _reader(kPrvHiveAuthRepository);
+  HiveAuthRepository get _hiveAuthRepository => _reader(kPrvHiveAuthRepository);
 
   DioClient get _dioClient => _reader(kPrvDioClient);
   final Reader _reader;
 
   /// @throw [UnauthorizedException]
   void _ensureNotExpired() {
-    if (_HiveAuthRepository.maybeExpired) throw const UnauthorizedException(true);
+    if (_hiveAuthRepository.maybeExpired) throw const UnauthorizedException(true);
   }
 
   Future<String> refreshAuthTokenIfNeeded() async =>
       _lock.synchronized(() async {
         _ensureNotExpired();
 
-        final shouldRefresh = _HiveAuthRepository.shouldRefresh;
+        final shouldRefresh = _hiveAuthRepository.shouldRefresh;
         if (shouldRefresh == true) {
-          final body = _HiveAuthRepository.authData.body;
+          final body = _hiveAuthRepository.authData.body;
           final result = await _dioClient.requestRenewToken(
               body.clientId, body.refreshToken);
-          await _HiveAuthRepository.appendRefreshedToken(result);
+          await _hiveAuthRepository.appendRefreshedToken(result);
         }
 
-        return _HiveAuthRepository.authData?.body?.idToken;
+        return _hiveAuthRepository.authData?.body?.idToken;
       });
 }

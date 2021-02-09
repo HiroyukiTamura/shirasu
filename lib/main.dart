@@ -14,6 +14,7 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 final snackBarMsgProvider =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(

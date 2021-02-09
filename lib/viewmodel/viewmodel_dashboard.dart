@@ -54,7 +54,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     } on NetworkDisconnectException catch (e) {
       print(e);
       if (isMounted)
-        state = const DashboardModel.error(ErrorMsgCommon.unknown());
+        state = const DashboardModel.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
       if (isMounted) state = const DashboardModel.error(ErrorMsgCommon.unknown());

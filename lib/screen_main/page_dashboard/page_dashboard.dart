@@ -83,8 +83,7 @@ class _ListViewContent extends HookWidget {
     if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
     final controller = useScrollController(keepScrollOffset: false);
-    controller.addListener(
-        () async => _onScroll(context, controller)); //todo use effect
+    _initScrollControllerListener(context, controller);
 
     return LayoutBuilder(
       builder: (context, constraints) =>
@@ -166,11 +165,15 @@ class _ListViewContent extends HookWidget {
     );
   }
 
-  Future<void> _onScroll(
-          BuildContext context, ScrollController controller) async =>
-      context
-          .read(kPrvDashboardViewModel)
-          .updateScrollOffset(controller.offset);
+  void _initScrollControllerListener(
+          BuildContext context, ScrollController controller) =>
+      useEffect(() {
+        void listener() => context
+            .read(kPrvDashboardViewModel)
+            .updateScrollOffset(controller.offset);
+        controller.addListener(listener);
+        return () => controller.removeListener(listener);
+      }, [controller]);
 
   bool _onScrollNotification(BuildContext context, ScrollController controller,
       ScrollNotification notification) {

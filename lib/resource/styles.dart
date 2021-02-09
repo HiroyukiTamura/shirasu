@@ -46,9 +46,6 @@ class Styles {
     cursorColor: Colors.white,
     scaffoldBackgroundColor: BACK_COLOR,
     appBarTheme: const AppBarTheme(color: Colors.black),
-    textTheme: GoogleFonts.latoTextTheme(
-      ThemeData.dark().textTheme,
-    ),
     primaryTextTheme: const TextTheme(
       headline6: TextStyle(color: Colors.white),
       bodyText1: TextStyle(color: Colors.white),

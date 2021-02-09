@@ -385,6 +385,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_video_background:
+    dependency: "direct main"
+    description:
+      path: "/Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background"
+      relative: false
+    source: path
+    version: "0.0.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

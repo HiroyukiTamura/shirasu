@@ -9,7 +9,7 @@ import '../../widget_test_util/widget_holder.dart';
 
 const String _kTestNameGolden = 'Golden';
 
-void testUiOnScreenPreLogin() {
+void main() {
   Widget _widget() => const WidgetHolder(child: ScreenPreLogin());
 
   group('ScreenPreLogin', () {

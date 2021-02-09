@@ -23,7 +23,7 @@ String _kTestNameScreenIntroSwipe1 = 'ScreenIntro_Swipe1';
 String _kTestNameScreenIntroSwipe2 = 'ScreenIntro_Swipe2';
 String _kTestNameScreenIntroSwipe3 = 'ScreenIntro_Swipe3';
 
-void testUiOnScreenIntro() {
+void main() {
   Future<void> _tapNextIcon(WidgetTester tester, Key scenarioWidgetKey) async {
     final finder = find.descendant(
       of: find.byKey(scenarioWidgetKey),
@@ -37,7 +37,10 @@ void testUiOnScreenIntro() {
   // todo not work...
   Future<void> _horizontalDrag(
       WidgetTester tester, Key scenarioWidgetKey) async {
-    final finder = find.byType(IntroductionScreen);
+    final finder = find.descendant(
+      of: find.byKey(scenarioWidgetKey),
+      matching: find.byType(IntroductionScreen),
+    );
     expect(finder, findsWidgets);
     await tester.fling(finder.last, const Offset(-200, 0), 10000,
         initialOffset: const Offset(200, 50));

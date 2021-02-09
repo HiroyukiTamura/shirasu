@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:shirasu/resource/styles.dart';
 import 'test_extension.dart';
 
 class TestUtil {
@@ -28,6 +30,7 @@ class TestUtil {
     @required String goldenName,
     @required Widget widget,
     OnScenarioCreate onScenarioCreate,
+    ThemeData theme,
   }) async {
     final builder = DeviceBuilder()
       ..overrideAllDevice()
@@ -37,7 +40,12 @@ class TestUtil {
         onCreate: onScenarioCreate,
       );
 
-    await tester.pumpDeviceBuilder(builder);
+    await tester.pumpDeviceBuilder(
+      builder,
+      wrapper: materialAppWrapper(
+        theme: theme ?? Styles.theme,
+      ),
+    );
 
     await screenMatchesGolden(tester, goldenName);
   }

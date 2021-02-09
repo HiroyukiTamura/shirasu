@@ -1,6 +1,6 @@
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_video_background/model/replay_data.dart';
+// import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/dio_client.dart';
@@ -528,13 +528,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     }
   }
 
-  Future<ReplyData> stopBackGroundPlayer() async {
-    try {
-      return NativeClient.stopBackGround();
-    } catch (e) {
-      print(e);
-      //todo handle error
-      return null;
-    }
-  }
+  // Future<ReplyData> stopBackGroundPlayer() async {
+  //   try {
+  //     return NativeClient.stopBackGround();
+  //   } catch (e) {
+  //     print(e);
+  //     //todo handle error
+  //     return null;
+  //   }
+  // }
 }

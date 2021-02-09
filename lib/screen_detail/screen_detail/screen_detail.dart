@@ -166,17 +166,18 @@ class _ScreenDetailState extends State<ScreenDetail>
       .read(detailSNProvider(widget.id))
       .notifyFollowTimeLineMode(const FollowTimeLineMode.follow());
 
+  //todo fixme
   Future<void> _switchVideoForeground() async {
-    final replyData =
-        await context.read(detailSNProvider(widget.id)).stopBackGroundPlayer();
-    if (mounted && replyData.wasPlaying) {
-      bool isLandCape =
-          MediaQuery.of(context).orientation == Orientation.landscape;
-      context.read(detailSNProvider(widget.id)).playOrPause(
-            isLandCape,
-            VideoControllerCommand.play(replyData.position),
-          );
-    }
+    // final replyData =
+    //     await context.read(detailSNProvider(widget.id)).stopBackGroundPlayer();
+    // if (mounted && replyData.wasPlaying) {
+    //   bool isLandCape =
+    //       MediaQuery.of(context).orientation == Orientation.landscape;
+    //   context.read(detailSNProvider(widget.id)).playOrPause(
+    //         isLandCape,
+    //         VideoControllerCommand.play(replyData.position),
+    //       );
+    // }
   }
 
   Future<void> _switchVideoBackground() async {

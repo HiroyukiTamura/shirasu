@@ -63,8 +63,8 @@ dependencies:
   uuid: ^2.2.2
   simple_animations: ^2.5.0
   connectivity: ^2.0.2
-  flutter_video_background:
-    path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background
+#  flutter_video_background:
+#    path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background
 
 dev_dependencies:
   flutter_test:

@@ -466,8 +466,10 @@ class _$DashboardModelTearOff {
   }
 
 // ignore: unused_element
-  _DashboardModelError error() {
-    return const _DashboardModelError();
+  _DashboardModelError error(ErrorMsgCommon errMsg) {
+    return _DashboardModelError(
+      errMsg,
+    );
   }
 }
 
@@ -481,13 +483,13 @@ mixin _$DashboardModel {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult success(DataWrapper data),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult success(DataWrapper data),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -564,7 +566,7 @@ class _$_DashboardPreInitialized extends _DashboardPreInitialized {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult success(DataWrapper data),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(initial != null);
     assert(success != null);
@@ -577,7 +579,7 @@ class _$_DashboardPreInitialized extends _DashboardPreInitialized {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult success(DataWrapper data),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -700,7 +702,7 @@ class _$DashboardSuccess extends DashboardSuccess {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult success(DataWrapper data),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(initial != null);
     assert(success != null);
@@ -713,7 +715,7 @@ class _$DashboardSuccess extends DashboardSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult success(DataWrapper data),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -766,6 +768,9 @@ abstract class _$DashboardModelErrorCopyWith<$Res> {
   factory _$DashboardModelErrorCopyWith(_DashboardModelError value,
           $Res Function(_DashboardModelError) then) =
       __$DashboardModelErrorCopyWithImpl<$Res>;
+  $Res call({ErrorMsgCommon errMsg});
+
+  $ErrorMsgCommonCopyWith<$Res> get errMsg;
 }
 
 /// @nodoc
@@ -778,36 +783,70 @@ class __$DashboardModelErrorCopyWithImpl<$Res>
 
   @override
   _DashboardModelError get _value => super._value as _DashboardModelError;
+
+  @override
+  $Res call({
+    Object errMsg = freezed,
+  }) {
+    return _then(_DashboardModelError(
+      errMsg == freezed ? _value.errMsg : errMsg as ErrorMsgCommon,
+    ));
+  }
+
+  @override
+  $ErrorMsgCommonCopyWith<$Res> get errMsg {
+    if (_value.errMsg == null) {
+      return null;
+    }
+    return $ErrorMsgCommonCopyWith<$Res>(_value.errMsg, (value) {
+      return _then(_value.copyWith(errMsg: value));
+    });
+  }
 }
 
 /// @nodoc
 class _$_DashboardModelError extends _DashboardModelError {
-  const _$_DashboardModelError() : super._();
+  const _$_DashboardModelError(this.errMsg)
+      : assert(errMsg != null),
+        super._();
+
+  @override
+  final ErrorMsgCommon errMsg;
 
   @override
   String toString() {
-    return 'DashboardModel.error()';
+    return 'DashboardModel.error(errMsg: $errMsg)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _DashboardModelError);
+    return identical(this, other) ||
+        (other is _DashboardModelError &&
+            (identical(other.errMsg, errMsg) ||
+                const DeepCollectionEquality().equals(other.errMsg, errMsg)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(errMsg);
+
+  @JsonKey(ignore: true)
+  @override
+  _$DashboardModelErrorCopyWith<_DashboardModelError> get copyWith =>
+      __$DashboardModelErrorCopyWithImpl<_DashboardModelError>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult success(DataWrapper data),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(initial != null);
     assert(success != null);
     assert(error != null);
-    return error();
+    return error(errMsg);
   }
 
   @override
@@ -815,12 +854,12 @@ class _$_DashboardModelError extends _DashboardModelError {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult success(DataWrapper data),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error();
+      return error(errMsg);
     }
     return orElse();
   }
@@ -856,5 +895,10 @@ class _$_DashboardModelError extends _DashboardModelError {
 
 abstract class _DashboardModelError extends DashboardModel {
   const _DashboardModelError._() : super._();
-  const factory _DashboardModelError() = _$_DashboardModelError;
+  const factory _DashboardModelError(ErrorMsgCommon errMsg) =
+      _$_DashboardModelError;
+
+  ErrorMsgCommon get errMsg;
+  @JsonKey(ignore: true)
+  _$DashboardModelErrorCopyWith<_DashboardModelError> get copyWith;
 }

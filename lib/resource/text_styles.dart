@@ -14,10 +14,11 @@ class TextStyles {
   const TextStyles._();
 
   static TextStyle introDesc = const TextStyle(
-      fontSize: 20,
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      height: TextHeight.TEXT_HEIGHT);
+    fontSize: FontSize.S20,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    height: TextHeight.TEXT_HEIGHT,
+  );
 
   static TextStyle introTitleStyle(BuildContext context) => const TextStyle(
         color: Colors.deepOrange,
@@ -69,7 +70,7 @@ class TextStyles {
   );
 
   static const LIST_MOVIE_TITLE_THICK = TextStyle(
-    height: TextHeight.TEXT_H_SML,//todo fix??
+    height: TextHeight.TEXT_H_SML, //todo fix??
     fontSize: FontSize.S16,
   );
 

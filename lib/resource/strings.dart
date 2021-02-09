@@ -282,7 +282,9 @@ class Strings {
 
 //endregion
 
-  static const String AUTH_TOKEN_EXPIRED = 'ログイン期限が切れました';
+  static const String ERR_NETWORK_TIMEOUT = '接続がタイムアウトしました';
+  static const String ERR_NETWORK_DISCONNECTED = 'ネットワークに接続していません';
+  static const String ERR_AUTH_EXPIRED = 'ログイン期限が切れました';
 
   static const String LOGIN_BTN_VALUE = 'ログイン';
 

@@ -5,6 +5,8 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:uuid/uuid.dart';
 
+import 'model/notification_msg.dart';
+
 part 'message_notifier.freezed.dart';
 
 class SnackBarMessageNotifier extends StateNotifier<SnackMsgEvent> {
@@ -25,7 +27,7 @@ class SnackMsgEvent {
 }
 
 @freezed
-abstract class SnackMsg with _$SnackMsg {
+abstract class SnackMsg with _$SnackMsg, NotificationMsg {
   const factory SnackMsg.unknown() = _SnackMsgUnknownErr;
 
   const factory SnackMsg.noMoreItem() = _SnackMsgNoMoreItem;
@@ -36,6 +38,7 @@ abstract class SnackMsg with _$SnackMsg {
 
   const SnackMsg._();
 
+  @override
   String get value => when(
         unknown: () => Strings.SNACK_ERR,
         noMoreItem: () => Strings.SNACK_NO_MORE_ITEM,

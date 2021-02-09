@@ -1,17 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:riverpod/src/framework.dart';
+import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/network_image_client.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'dart:ui' as ui;
 
 class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   ViewModelDashBoard(Reader reader) : super(reader);
@@ -20,7 +22,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
-  GraphQlRepository get _apiClient => reader(kPrvApiClient);
+  GraphQlRepository get _graphQlRepository => reader(kPrvApiClient);
 
   @override
   Future<void> initialize() async {
@@ -29,10 +31,11 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     bool authExpired = false;
 
     try {
+      await connectivityRepository.ensureNotDisconnect();
       final apiResult = await Util.wait2(
-        _apiClient.queryFeaturedProgramsList,
-        _apiClient.queryNewProgramsList,
-      );
+        _graphQlRepository.queryFeaturedProgramsList,
+        _graphQlRepository.queryNewProgramsList,
+      ).timeout(GraphQlRepository.TIMEOUT);
       final data = ApiData(
         featureProgramData: apiResult.item1,
         rawNewProgramsDataList: [apiResult.item2],
@@ -42,10 +45,19 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       print(e);
       authExpired = true;
 
-      if (isMounted) state = const DashboardModel.error();
+      if (isMounted) state = const DashboardModel.error(ErrorMsgCommon.authExpired());
+    } on TimeoutException catch (e) {
+      //todo log error
+      print(e);
+      if (isMounted)
+        state = const DashboardModel.error(ErrorMsgCommon.networkTimeout());
+    } on NetworkDisconnectException catch (e) {
+      print(e);
+      if (isMounted)
+        state = const DashboardModel.error(ErrorMsgCommon.unknown());
     } catch (e) {
       print(e);
-      if (isMounted) state = const DashboardModel.error();
+      if (isMounted) state = const DashboardModel.error(ErrorMsgCommon.unknown());
     }
 
     if (authExpired) {
@@ -71,7 +83,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       try {
         state = oldState.copyWith.data(loadingMore: true);
 
-        final newProgramsData = await _apiClient.queryNewProgramsList(
+        final newProgramsData = await _graphQlRepository.queryNewProgramsList(
           nextToken: nextToken,
         );
 
@@ -94,9 +106,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   void _updateIfStateSuccess(DataWrapper Function(DataWrapper data) editData) {
     state.maybeWhen(
       orElse: () {},
-      success: (data) {
-        state = DashboardModel.success(editData(data));
-      },
+      success: (data) => state = DashboardModel.success(editData(data)),
     );
   }
 

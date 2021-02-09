@@ -5,7 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+
+import 'error_msg_common.dart';
 
 part 'dashboard_model.freezed.dart';
 
@@ -58,7 +61,7 @@ abstract class DashboardModel with _$DashboardModel {
   @protected
   const factory DashboardModel.success(DataWrapper data) = DashboardSuccess;
 
-  const factory DashboardModel.error() = _DashboardModelError;
+  const factory DashboardModel.error(ErrorMsgCommon errMsg) = _DashboardModelError;
 
   const DashboardModel._();
 

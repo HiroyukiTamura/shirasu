@@ -12,6 +12,8 @@ import 'package:shirasu/model/update_user_with_attribute_data.dart';
 
 mixin GraphQlRepository {
 
+  static const TIMEOUT = Duration(seconds: 10);
+
   Future<FeatureProgramData> queryFeaturedProgramsList();
 
   Future<NewProgramsData> queryNewProgramsList({String nextToken});

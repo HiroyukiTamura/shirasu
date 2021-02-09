@@ -15,7 +15,7 @@ Widget screenError({@required bool authExpired}) => SafeArea(
             ? PageError(
                 onTapLoginBtn: (context) =>
                     context.pushPage(const GlobalRoutePath.auth()),
-                text: Strings.AUTH_TOKEN_EXPIRED,
+                text: Strings.ERR_AUTH_EXPIRED,
               )
             : const PageError(),
       ),

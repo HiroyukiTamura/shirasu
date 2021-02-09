@@ -32,7 +32,7 @@ Widget pageDashboardInMainScreen() =>
     useProvider(kPrvDashboardViewModel.select((viewModel) => viewModel.state))
         .when(
       initial: () => const CenterCircleProgress(),
-      error: () => const PageError(),
+      error: (msg) => PageError(text: msg.value),
       success: (data) {
         final showLoadingIndicator = data.loadingMore ||
             (data.apiData.newProgramsDataList?.isNotEmpty == true &&
@@ -83,7 +83,8 @@ class _ListViewContent extends HookWidget {
     if (newPrgData?.isNotEmpty == true) itemCount += newPrgData.length;
 
     final controller = useScrollController(keepScrollOffset: false);
-    controller.addListener(() async => _onScroll(context, controller));//todo use effect
+    controller.addListener(
+        () async => _onScroll(context, controller)); //todo use effect
 
     return LayoutBuilder(
       builder: (context, constraints) =>

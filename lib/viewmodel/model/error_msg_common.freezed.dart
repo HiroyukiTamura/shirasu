@@ -110,8 +110,8 @@ class __$ErrorMsgCommonUnknownCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_ErrorMsgCommonUnknown implements _ErrorMsgCommonUnknown {
-  const _$_ErrorMsgCommonUnknown();
+class _$_ErrorMsgCommonUnknown extends _ErrorMsgCommonUnknown {
+  const _$_ErrorMsgCommonUnknown() : super._();
 
   @override
   String toString() {
@@ -190,7 +190,8 @@ class _$_ErrorMsgCommonUnknown implements _ErrorMsgCommonUnknown {
   }
 }
 
-abstract class _ErrorMsgCommonUnknown implements ErrorMsgCommon {
+abstract class _ErrorMsgCommonUnknown extends ErrorMsgCommon {
+  const _ErrorMsgCommonUnknown._() : super._();
   const factory _ErrorMsgCommonUnknown() = _$_ErrorMsgCommonUnknown;
 }
 
@@ -215,8 +216,8 @@ class __$ErrorMsgCommonAuthExpiredCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_ErrorMsgCommonAuthExpired implements _ErrorMsgCommonAuthExpired {
-  const _$_ErrorMsgCommonAuthExpired();
+class _$_ErrorMsgCommonAuthExpired extends _ErrorMsgCommonAuthExpired {
+  const _$_ErrorMsgCommonAuthExpired() : super._();
 
   @override
   String toString() {
@@ -295,7 +296,8 @@ class _$_ErrorMsgCommonAuthExpired implements _ErrorMsgCommonAuthExpired {
   }
 }
 
-abstract class _ErrorMsgCommonAuthExpired implements ErrorMsgCommon {
+abstract class _ErrorMsgCommonAuthExpired extends ErrorMsgCommon {
+  const _ErrorMsgCommonAuthExpired._() : super._();
   const factory _ErrorMsgCommonAuthExpired() = _$_ErrorMsgCommonAuthExpired;
 }
 
@@ -322,8 +324,8 @@ class __$ErrorMsgCommonNetworkTimeoutCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_ErrorMsgCommonNetworkTimeout implements _ErrorMsgCommonNetworkTimeout {
-  const _$_ErrorMsgCommonNetworkTimeout();
+class _$_ErrorMsgCommonNetworkTimeout extends _ErrorMsgCommonNetworkTimeout {
+  const _$_ErrorMsgCommonNetworkTimeout() : super._();
 
   @override
   String toString() {
@@ -402,7 +404,8 @@ class _$_ErrorMsgCommonNetworkTimeout implements _ErrorMsgCommonNetworkTimeout {
   }
 }
 
-abstract class _ErrorMsgCommonNetworkTimeout implements ErrorMsgCommon {
+abstract class _ErrorMsgCommonNetworkTimeout extends ErrorMsgCommon {
+  const _ErrorMsgCommonNetworkTimeout._() : super._();
   const factory _ErrorMsgCommonNetworkTimeout() =
       _$_ErrorMsgCommonNetworkTimeout;
 }
@@ -431,8 +434,8 @@ class __$ErrorMsgCommonNetworkDisconnectedCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_ErrorMsgCommonNetworkDisconnected
-    implements _ErrorMsgCommonNetworkDisconnected {
-  const _$_ErrorMsgCommonNetworkDisconnected();
+    extends _ErrorMsgCommonNetworkDisconnected {
+  const _$_ErrorMsgCommonNetworkDisconnected() : super._();
 
   @override
   String toString() {
@@ -512,7 +515,8 @@ class _$_ErrorMsgCommonNetworkDisconnected
   }
 }
 
-abstract class _ErrorMsgCommonNetworkDisconnected implements ErrorMsgCommon {
+abstract class _ErrorMsgCommonNetworkDisconnected extends ErrorMsgCommon {
+  const _ErrorMsgCommonNetworkDisconnected._() : super._();
   const factory _ErrorMsgCommonNetworkDisconnected() =
       _$_ErrorMsgCommonNetworkDisconnected;
 }

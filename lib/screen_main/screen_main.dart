@@ -7,10 +7,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/router/global_app_state.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
-import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
@@ -33,12 +30,6 @@ final _kPrvMainSnackMsg = Provider.autoDispose<SnackData>((ref) {
 final _kPrvRouterDelegate =
     ChangeNotifierProvider.autoDispose<ScreenMainRouterDelegate>(
         (ref) => ScreenMainRouterDelegate(ref.read));
-
-class ScaffoldKeyHolder {
-  ScaffoldKeyHolder();
-
-  GlobalKey<ScaffoldState> key;
-}
 
 class ScreenMain extends StatefulHookWidget {
   const ScreenMain({

@@ -9,10 +9,11 @@ import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
+import 'package:shirasu/screen_pre_login/screen_pre_login.dart';
 
 import '../../mock_repository/hive_auth_empty.dart';
-import '../../test_extension.dart';
-import '../../test_util.dart';
+import '../../widget_test_util/test_util.dart';
+import '../../widget_test_util/widget_holder.dart';
 
 String _kTestNameScreenIntro1 = 'ScreenIntro1';
 String _kTestNameScreenIntro2 = 'ScreenIntro2';
@@ -50,6 +51,14 @@ void testUiOnScreenIntro() {
     expect(finder, findsOneWidget);
   }
 
+  Widget _widget() => WidgetHolder(
+        overrides: [
+          kPrvHivePrefRepository.overrideWithProvider(
+              Provider((ref) => HiveEmptyPrefRepositoryImpl()))
+        ],
+        child: ScreenIntro(),
+      );
+
   Future<void> _matchGolden({
     @required WidgetTester tester,
     @required String goldenName,
@@ -58,7 +67,7 @@ void testUiOnScreenIntro() {
       TestUtil.matchGolden(
         tester: tester,
         goldenName: goldenName,
-        widget: const _ScreenIntro(),
+        widget: _widget(),
         onScenarioCreate: onScenarioCreate,
       );
 
@@ -139,22 +148,4 @@ void testUiOnScreenIntro() {
       ),
     );
   });
-}
-
-class _ScreenIntro extends StatelessWidget {
-  const _ScreenIntro({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => ProviderScope(
-        overrides: [
-          kPrvHivePrefRepository.overrideWithProvider(
-              Provider((ref) => HiveEmptyPrefRepositoryImpl()))
-        ],
-        child: Theme(
-          data: Styles.theme,
-          child: ScreenIntro(),
-        ),
-      );
 }

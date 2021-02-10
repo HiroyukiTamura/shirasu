@@ -12,6 +12,7 @@ import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 
 import '../../../mock_repository/connected_connected.dart';
 import '../../../mock_repository/connected_disconnect.dart';
+import '../../../mock_repository/graphql_error.dart';
 import '../../../mock_repository/graphql_timeout.dart';
 import '../../../mock_repository/graphql_unauthorized.dart';
 import '../../../mock_repository/hive_pref_empty.dart';
@@ -21,6 +22,8 @@ import '../../../widget_test_util/widget_holder.dart';
 const _kTestNameErrorNetworkDisconnected = 'ErrorNetworkDisconnected';
 const _kTestNameErrorNetworkTimeout = 'ErrorNetworkTimeout';
 const _kTestNameErrorAuthExpired = 'ErrorAuthExpired';
+const _kTestNameErrorUnAuth = 'ErrorUnAuth';
+const _kTestNameErrorUnknown = 'ErrorUnknown';
 
 /// test for [PageDashboardInMainScreen]
 void main() {
@@ -103,6 +106,51 @@ void main() {
           ],
           tester: tester,
           goldenName: _kTestNameErrorAuthExpired,
+          onScenarioCreate: (scenarioWidgetKey) async {
+            await tester.pump(3.seconds);
+            TestUtil.expectFind(
+              scenarioWidgetKey: scenarioWidgetKey,
+              matching: find.text(Strings.ERR_AUTH_EXPIRED),
+              matcher: findsOneWidget,
+            );
+            _findNothingRaisedBtn(scenarioWidgetKey);
+          }),
+    );
+    testGoldens(
+      _kTestNameErrorUnAuth,
+          (tester) async => _matchGolden(
+          overrides: [
+            kPrvConnectivityRepository
+                .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
+            kPrvGraphqlRepository
+                .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(false)),
+            kPrvHivePrefRepository
+                .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+          ],
+          tester: tester,
+          goldenName: _kTestNameErrorUnAuth,
+          onScenarioCreate: (scenarioWidgetKey) async {
+            await tester.pump(3.seconds);
+            TestUtil.expectFind(
+              scenarioWidgetKey: scenarioWidgetKey,
+              matching: find.text(Strings.ERR_UN_AUTH),
+              matcher: findsOneWidget,
+            );
+            _findNothingRaisedBtn(scenarioWidgetKey);
+          }),
+    );
+    testGoldens(
+      _kTestNameErrorUnknown,
+          (tester) async => _matchGolden(
+          overrides: [
+            kPrvConnectivityRepository
+                .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
+            kPrvHivePrefRepository
+                .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+            kPrvGraphqlRepository.overrideWithValue(const GraphQlRepositoryErrorImpl()),
+          ],
+          tester: tester,
+          goldenName: _kTestNameErrorUnknown,
           onScenarioCreate: (scenarioWidgetKey) async {
             await tester.pump(3.seconds);
             TestUtil.expectFind(

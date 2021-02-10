@@ -285,6 +285,7 @@ class Strings {
   static const String ERR_NETWORK_TIMEOUT = '接続がタイムアウトしました';
   static const String ERR_NETWORK_DISCONNECTED = 'ネットワークに接続していません';
   static const String ERR_AUTH_EXPIRED = 'ログイン期限が切れました';
+  static const String ERR_UN_AUTH = 'ログインに失敗しました';
 
   static const String LOGIN_BTN_VALUE = 'ログイン';
 

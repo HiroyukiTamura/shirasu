@@ -45,7 +45,12 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       print(e);
       authExpired = true;
 
-      if (isMounted) state = const DashboardModel.error(ErrorMsgCommon.authExpired());
+      if (isMounted) {
+        final errorMsg = e.detectedByTime
+            ? const ErrorMsgCommon.authExpired()
+            : const ErrorMsgCommon.unAuth();
+        state = DashboardModel.error(errorMsg);
+      }
     } on TimeoutException catch (e) {
       //todo log error
       print(e);
@@ -54,10 +59,12 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     } on NetworkDisconnectException catch (e) {
       print(e);
       if (isMounted)
-        state = const DashboardModel.error(ErrorMsgCommon.networkDisconnected());
+        state =
+            const DashboardModel.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
-      if (isMounted) state = const DashboardModel.error(ErrorMsgCommon.unknown());
+      if (isMounted)
+        state = const DashboardModel.error(ErrorMsgCommon.unknown());
     }
 
     if (authExpired) {

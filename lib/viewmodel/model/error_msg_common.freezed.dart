@@ -24,6 +24,11 @@ class _$ErrorMsgCommonTearOff {
   }
 
 // ignore: unused_element
+  _ErrorMsgCommonUnAuth unAuth() {
+    return const _ErrorMsgCommonUnAuth();
+  }
+
+// ignore: unused_element
   _ErrorMsgCommonNetworkTimeout networkTimeout() {
     return const _ErrorMsgCommonNetworkTimeout();
   }
@@ -44,6 +49,7 @@ mixin _$ErrorMsgCommon {
   TResult when<TResult extends Object>({
     @required TResult unknown(),
     @required TResult authExpired(),
+    @required TResult unAuth(),
     @required TResult networkTimeout(),
     @required TResult networkDisconnected(),
   });
@@ -51,6 +57,7 @@ mixin _$ErrorMsgCommon {
   TResult maybeWhen<TResult extends Object>({
     TResult unknown(),
     TResult authExpired(),
+    TResult unAuth(),
     TResult networkTimeout(),
     TResult networkDisconnected(),
     @required TResult orElse(),
@@ -59,6 +66,7 @@ mixin _$ErrorMsgCommon {
   TResult map<TResult extends Object>({
     @required TResult unknown(_ErrorMsgCommonUnknown value),
     @required TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    @required TResult unAuth(_ErrorMsgCommonUnAuth value),
     @required TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     @required
         TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
@@ -67,6 +75,7 @@ mixin _$ErrorMsgCommon {
   TResult maybeMap<TResult extends Object>({
     TResult unknown(_ErrorMsgCommonUnknown value),
     TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    TResult unAuth(_ErrorMsgCommonUnAuth value),
     TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
     @required TResult orElse(),
@@ -131,11 +140,13 @@ class _$_ErrorMsgCommonUnknown extends _ErrorMsgCommonUnknown {
   TResult when<TResult extends Object>({
     @required TResult unknown(),
     @required TResult authExpired(),
+    @required TResult unAuth(),
     @required TResult networkTimeout(),
     @required TResult networkDisconnected(),
   }) {
     assert(unknown != null);
     assert(authExpired != null);
+    assert(unAuth != null);
     assert(networkTimeout != null);
     assert(networkDisconnected != null);
     return unknown();
@@ -146,6 +157,7 @@ class _$_ErrorMsgCommonUnknown extends _ErrorMsgCommonUnknown {
   TResult maybeWhen<TResult extends Object>({
     TResult unknown(),
     TResult authExpired(),
+    TResult unAuth(),
     TResult networkTimeout(),
     TResult networkDisconnected(),
     @required TResult orElse(),
@@ -162,12 +174,14 @@ class _$_ErrorMsgCommonUnknown extends _ErrorMsgCommonUnknown {
   TResult map<TResult extends Object>({
     @required TResult unknown(_ErrorMsgCommonUnknown value),
     @required TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    @required TResult unAuth(_ErrorMsgCommonUnAuth value),
     @required TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     @required
         TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
   }) {
     assert(unknown != null);
     assert(authExpired != null);
+    assert(unAuth != null);
     assert(networkTimeout != null);
     assert(networkDisconnected != null);
     return unknown(this);
@@ -178,6 +192,7 @@ class _$_ErrorMsgCommonUnknown extends _ErrorMsgCommonUnknown {
   TResult maybeMap<TResult extends Object>({
     TResult unknown(_ErrorMsgCommonUnknown value),
     TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    TResult unAuth(_ErrorMsgCommonUnAuth value),
     TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
     @required TResult orElse(),
@@ -237,11 +252,13 @@ class _$_ErrorMsgCommonAuthExpired extends _ErrorMsgCommonAuthExpired {
   TResult when<TResult extends Object>({
     @required TResult unknown(),
     @required TResult authExpired(),
+    @required TResult unAuth(),
     @required TResult networkTimeout(),
     @required TResult networkDisconnected(),
   }) {
     assert(unknown != null);
     assert(authExpired != null);
+    assert(unAuth != null);
     assert(networkTimeout != null);
     assert(networkDisconnected != null);
     return authExpired();
@@ -252,6 +269,7 @@ class _$_ErrorMsgCommonAuthExpired extends _ErrorMsgCommonAuthExpired {
   TResult maybeWhen<TResult extends Object>({
     TResult unknown(),
     TResult authExpired(),
+    TResult unAuth(),
     TResult networkTimeout(),
     TResult networkDisconnected(),
     @required TResult orElse(),
@@ -268,12 +286,14 @@ class _$_ErrorMsgCommonAuthExpired extends _ErrorMsgCommonAuthExpired {
   TResult map<TResult extends Object>({
     @required TResult unknown(_ErrorMsgCommonUnknown value),
     @required TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    @required TResult unAuth(_ErrorMsgCommonUnAuth value),
     @required TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     @required
         TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
   }) {
     assert(unknown != null);
     assert(authExpired != null);
+    assert(unAuth != null);
     assert(networkTimeout != null);
     assert(networkDisconnected != null);
     return authExpired(this);
@@ -284,6 +304,7 @@ class _$_ErrorMsgCommonAuthExpired extends _ErrorMsgCommonAuthExpired {
   TResult maybeMap<TResult extends Object>({
     TResult unknown(_ErrorMsgCommonUnknown value),
     TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    TResult unAuth(_ErrorMsgCommonUnAuth value),
     TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
     @required TResult orElse(),
@@ -299,6 +320,117 @@ class _$_ErrorMsgCommonAuthExpired extends _ErrorMsgCommonAuthExpired {
 abstract class _ErrorMsgCommonAuthExpired extends ErrorMsgCommon {
   const _ErrorMsgCommonAuthExpired._() : super._();
   const factory _ErrorMsgCommonAuthExpired() = _$_ErrorMsgCommonAuthExpired;
+}
+
+/// @nodoc
+abstract class _$ErrorMsgCommonUnAuthCopyWith<$Res> {
+  factory _$ErrorMsgCommonUnAuthCopyWith(_ErrorMsgCommonUnAuth value,
+          $Res Function(_ErrorMsgCommonUnAuth) then) =
+      __$ErrorMsgCommonUnAuthCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ErrorMsgCommonUnAuthCopyWithImpl<$Res>
+    extends _$ErrorMsgCommonCopyWithImpl<$Res>
+    implements _$ErrorMsgCommonUnAuthCopyWith<$Res> {
+  __$ErrorMsgCommonUnAuthCopyWithImpl(
+      _ErrorMsgCommonUnAuth _value, $Res Function(_ErrorMsgCommonUnAuth) _then)
+      : super(_value, (v) => _then(v as _ErrorMsgCommonUnAuth));
+
+  @override
+  _ErrorMsgCommonUnAuth get _value => super._value as _ErrorMsgCommonUnAuth;
+}
+
+/// @nodoc
+class _$_ErrorMsgCommonUnAuth extends _ErrorMsgCommonUnAuth {
+  const _$_ErrorMsgCommonUnAuth() : super._();
+
+  @override
+  String toString() {
+    return 'ErrorMsgCommon.unAuth()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ErrorMsgCommonUnAuth);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult unknown(),
+    @required TResult authExpired(),
+    @required TResult unAuth(),
+    @required TResult networkTimeout(),
+    @required TResult networkDisconnected(),
+  }) {
+    assert(unknown != null);
+    assert(authExpired != null);
+    assert(unAuth != null);
+    assert(networkTimeout != null);
+    assert(networkDisconnected != null);
+    return unAuth();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult unknown(),
+    TResult authExpired(),
+    TResult unAuth(),
+    TResult networkTimeout(),
+    TResult networkDisconnected(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (unAuth != null) {
+      return unAuth();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult unknown(_ErrorMsgCommonUnknown value),
+    @required TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    @required TResult unAuth(_ErrorMsgCommonUnAuth value),
+    @required TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
+    @required
+        TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
+  }) {
+    assert(unknown != null);
+    assert(authExpired != null);
+    assert(unAuth != null);
+    assert(networkTimeout != null);
+    assert(networkDisconnected != null);
+    return unAuth(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult unknown(_ErrorMsgCommonUnknown value),
+    TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    TResult unAuth(_ErrorMsgCommonUnAuth value),
+    TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
+    TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (unAuth != null) {
+      return unAuth(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ErrorMsgCommonUnAuth extends ErrorMsgCommon {
+  const _ErrorMsgCommonUnAuth._() : super._();
+  const factory _ErrorMsgCommonUnAuth() = _$_ErrorMsgCommonUnAuth;
 }
 
 /// @nodoc
@@ -345,11 +477,13 @@ class _$_ErrorMsgCommonNetworkTimeout extends _ErrorMsgCommonNetworkTimeout {
   TResult when<TResult extends Object>({
     @required TResult unknown(),
     @required TResult authExpired(),
+    @required TResult unAuth(),
     @required TResult networkTimeout(),
     @required TResult networkDisconnected(),
   }) {
     assert(unknown != null);
     assert(authExpired != null);
+    assert(unAuth != null);
     assert(networkTimeout != null);
     assert(networkDisconnected != null);
     return networkTimeout();
@@ -360,6 +494,7 @@ class _$_ErrorMsgCommonNetworkTimeout extends _ErrorMsgCommonNetworkTimeout {
   TResult maybeWhen<TResult extends Object>({
     TResult unknown(),
     TResult authExpired(),
+    TResult unAuth(),
     TResult networkTimeout(),
     TResult networkDisconnected(),
     @required TResult orElse(),
@@ -376,12 +511,14 @@ class _$_ErrorMsgCommonNetworkTimeout extends _ErrorMsgCommonNetworkTimeout {
   TResult map<TResult extends Object>({
     @required TResult unknown(_ErrorMsgCommonUnknown value),
     @required TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    @required TResult unAuth(_ErrorMsgCommonUnAuth value),
     @required TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     @required
         TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
   }) {
     assert(unknown != null);
     assert(authExpired != null);
+    assert(unAuth != null);
     assert(networkTimeout != null);
     assert(networkDisconnected != null);
     return networkTimeout(this);
@@ -392,6 +529,7 @@ class _$_ErrorMsgCommonNetworkTimeout extends _ErrorMsgCommonNetworkTimeout {
   TResult maybeMap<TResult extends Object>({
     TResult unknown(_ErrorMsgCommonUnknown value),
     TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    TResult unAuth(_ErrorMsgCommonUnAuth value),
     TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
     @required TResult orElse(),
@@ -456,11 +594,13 @@ class _$_ErrorMsgCommonNetworkDisconnected
   TResult when<TResult extends Object>({
     @required TResult unknown(),
     @required TResult authExpired(),
+    @required TResult unAuth(),
     @required TResult networkTimeout(),
     @required TResult networkDisconnected(),
   }) {
     assert(unknown != null);
     assert(authExpired != null);
+    assert(unAuth != null);
     assert(networkTimeout != null);
     assert(networkDisconnected != null);
     return networkDisconnected();
@@ -471,6 +611,7 @@ class _$_ErrorMsgCommonNetworkDisconnected
   TResult maybeWhen<TResult extends Object>({
     TResult unknown(),
     TResult authExpired(),
+    TResult unAuth(),
     TResult networkTimeout(),
     TResult networkDisconnected(),
     @required TResult orElse(),
@@ -487,12 +628,14 @@ class _$_ErrorMsgCommonNetworkDisconnected
   TResult map<TResult extends Object>({
     @required TResult unknown(_ErrorMsgCommonUnknown value),
     @required TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    @required TResult unAuth(_ErrorMsgCommonUnAuth value),
     @required TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     @required
         TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
   }) {
     assert(unknown != null);
     assert(authExpired != null);
+    assert(unAuth != null);
     assert(networkTimeout != null);
     assert(networkDisconnected != null);
     return networkDisconnected(this);
@@ -503,6 +646,7 @@ class _$_ErrorMsgCommonNetworkDisconnected
   TResult maybeMap<TResult extends Object>({
     TResult unknown(_ErrorMsgCommonUnknown value),
     TResult authExpired(_ErrorMsgCommonAuthExpired value),
+    TResult unAuth(_ErrorMsgCommonUnAuth value),
     TResult networkTimeout(_ErrorMsgCommonNetworkTimeout value),
     TResult networkDisconnected(_ErrorMsgCommonNetworkDisconnected value),
     @required TResult orElse(),

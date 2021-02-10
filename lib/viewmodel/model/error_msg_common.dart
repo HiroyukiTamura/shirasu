@@ -10,6 +10,8 @@ abstract class ErrorMsgCommon with _$ErrorMsgCommon, NotificationMsg {
 
   const factory ErrorMsgCommon.authExpired() = _ErrorMsgCommonAuthExpired;
 
+  const factory ErrorMsgCommon.unAuth() = _ErrorMsgCommonUnAuth;
+
   const factory ErrorMsgCommon.networkTimeout() = _ErrorMsgCommonNetworkTimeout;
 
   const factory ErrorMsgCommon.networkDisconnected() =
@@ -23,5 +25,6 @@ abstract class ErrorMsgCommon with _$ErrorMsgCommon, NotificationMsg {
         networkDisconnected: () => Strings.ERR_NETWORK_DISCONNECTED,
         networkTimeout: () => Strings.ERR_NETWORK_TIMEOUT,
         unknown: () => Strings.SNACK_ERR,
+        unAuth: () => Strings.ERR_UN_AUTH,
       );
 }

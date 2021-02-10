@@ -1,0 +1,1 @@
+class ExpectedException implements Exception {}

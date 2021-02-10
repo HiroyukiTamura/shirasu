@@ -6,7 +6,8 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
-import 'package:shirasu/client/network_image_client.dart';
+import 'package:shirasu/client/network_image_repository.dart';
+import 'package:shirasu/client/network_image_repository_impl.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
@@ -23,6 +24,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
   GraphQlRepository get _graphQlRepository => reader(kPrvGraphqlRepository);
+
+  NetworkImageRepository get _networkRepository => reader(kPrvNetworkRepository);
 
   @override
   Future<void> initialize() async {
@@ -73,7 +76,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     }
 
     try {
-      headerImage = await NetworkImageClient.instance.requestHeaderImage();
+      headerImage = await _networkRepository.requestHeaderImage();
     } catch (e) {
       // todo handle error
       print(e);

@@ -5,17 +5,21 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository_impl.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
+import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
+import 'package:shirasu/ui_common/page_error.dart';
 
 import '../../../mock_repository/connected_connected.dart';
 import '../../../mock_repository/connected_disconnect.dart';
+import '../../../mock_repository/graphql_common.dart';
 import '../../../mock_repository/graphql_error.dart';
 import '../../../mock_repository/graphql_timeout.dart';
 import '../../../mock_repository/graphql_unauthorized.dart';
 import '../../../mock_repository/hive_pref_empty.dart';
+import '../../../widget_test_util/json_client.dart';
 import '../../../widget_test_util/test_util.dart';
 import '../../../widget_test_util/widget_holder.dart';
 
@@ -24,9 +28,16 @@ const _kTestNameErrorNetworkTimeout = 'ErrorNetworkTimeout';
 const _kTestNameErrorAuthExpired = 'ErrorAuthExpired';
 const _kTestNameErrorUnAuth = 'ErrorUnAuth';
 const _kTestNameErrorUnknown = 'ErrorUnknown';
+const _kTestNameNowBroadcasting = 'NowBroadcasting';
 
 /// test for [PageDashboardInMainScreen]
 void main() {
+
+  final jsonClient = JsonClient();
+
+  FeatureProgramData featureProgramData;
+  NewProgramsData newProgramsData;
+
   Widget _widget(List<Override> overrides) => WidgetHolder(
         overrides: overrides,
         child: const Scaffold(
@@ -53,7 +64,12 @@ void main() {
         matcher: findsNothing,
       );
 
-  group('PageDashboard', () {
+  setUp(() async {
+    featureProgramData = await jsonClient.featureProgramData;
+    newProgramsData = await jsonClient.newProgramsData;
+  });
+
+  group('PageDashboard error screen', () {
     testGoldens(
       _kTestNameErrorNetworkDisconnected,
       (tester) async => _matchGolden(
@@ -79,7 +95,7 @@ void main() {
             kPrvConnectivityRepository
                 .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
             kPrvGraphqlRepository
-                .overrideWithValue(GraphQlRepositoryTimeoutImpl()),
+                .overrideWithValue(const GraphQlRepositoryTimeoutImpl()),
           ],
           tester: tester,
           goldenName: _kTestNameErrorNetworkTimeout,
@@ -118,7 +134,7 @@ void main() {
     );
     testGoldens(
       _kTestNameErrorUnAuth,
-          (tester) async => _matchGolden(
+      (tester) async => _matchGolden(
           overrides: [
             kPrvConnectivityRepository
                 .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
@@ -141,13 +157,14 @@ void main() {
     );
     testGoldens(
       _kTestNameErrorUnknown,
-          (tester) async => _matchGolden(
+      (tester) async => _matchGolden(
           overrides: [
             kPrvConnectivityRepository
                 .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
             kPrvHivePrefRepository
                 .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
-            kPrvGraphqlRepository.overrideWithValue(const GraphQlRepositoryErrorImpl()),
+            kPrvGraphqlRepository
+                .overrideWithValue(const GraphQlRepositoryErrorImpl()),
           ],
           tester: tester,
           goldenName: _kTestNameErrorUnknown,
@@ -160,6 +177,34 @@ void main() {
             );
             _findNothingRaisedBtn(scenarioWidgetKey);
           }),
+    );
+  });
+
+  group('PageDashboard normal screen', () {
+    testGoldens(
+      _kTestNameNowBroadcasting,
+      (tester) async => _matchGolden(
+            overrides: [
+              kPrvConnectivityRepository
+                  .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
+              kPrvHivePrefRepository
+                  .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+              kPrvGraphqlRepository
+                  .overrideWithValue(GraphQlRepositoryCommonImpl(
+                featureProgramData: featureProgramData,
+                newProgramsData: newProgramsData,
+              ))
+            ],
+            tester: tester,
+            goldenName: _kTestNameNowBroadcasting,
+            onScenarioCreate: (scenarioWidgetKey) async {
+              await tester.pump(5.seconds);
+              TestUtil.expectFind(
+                scenarioWidgetKey: scenarioWidgetKey,
+                matching: find.byType(PageError),
+                matcher: findsNothing,
+              );
+            }),
     );
   });
 }

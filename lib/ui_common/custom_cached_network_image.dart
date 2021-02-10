@@ -3,13 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'custom_cached_network_image.g.dart';
 
 final _kPrvImageCache = Provider.autoDispose<BaseCacheManager>(
         (ref) => null);
 
-@swidget
+@hwidget
 Widget customCachedNetworkImage({
   String imageUrl,
   double width,

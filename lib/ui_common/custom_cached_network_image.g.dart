@@ -6,7 +6,7 @@ part of 'custom_cached_network_image.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class CustomCachedNetworkImage extends StatelessWidget {
+class CustomCachedNetworkImage extends HookWidget {
   const CustomCachedNetworkImage(
       {Key key,
       this.imageUrl,

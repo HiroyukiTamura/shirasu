@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:shirasu/resource/styles.dart';
+
 import 'test_extension.dart';
 
 class TestUtil {
@@ -60,5 +64,10 @@ class TestUtil {
       matching: matching,
     );
     expect(errText, matcher);
+  }
+
+  static Future<Map<String, dynamic>> loadJson(String fileName) async {
+    final jsonString = await File(fileName).readAsString();
+    return jsonDecode(jsonString)['data'] as Map<String, dynamic>;
   }
 }

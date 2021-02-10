@@ -22,7 +22,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
 
-  GraphQlRepository get _graphQlRepository => reader(kPrvApiClient);
+  GraphQlRepository get _graphQlRepository => reader(kPrvGraphqlRepository);
 
   @override
   Future<void> initialize() async {

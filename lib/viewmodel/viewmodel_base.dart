@@ -79,7 +79,7 @@ mixin AppRouterLocator {
   void pushAuthExpireScreen() => reader(pAppRouterDelegate).pushPage(const GlobalRoutePath.error(true));
 
   @protected
-  GraphQlRepository get graphQlRepository => reader(kPrvApiClient);
+  GraphQlRepository get graphQlRepository => reader(kPrvGraphqlRepository);
 
   @protected
   DioClient get dioClient => reader(kPrvDioClient);

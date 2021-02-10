@@ -23,7 +23,7 @@ import 'package:http/http.dart' as http;
 
 import '../util.dart';
 
-final kPrvApiClient = Provider.autoDispose<GraphQlRepository>(
+final kPrvGraphqlRepository = Provider.autoDispose<GraphQlRepository>(
     (ref) => GraphQlRepositoryImpl.instance(ref.read));
 
 /// todo handle timeout

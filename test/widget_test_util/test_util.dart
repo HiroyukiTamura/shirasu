@@ -49,4 +49,16 @@ class TestUtil {
 
     await screenMatchesGolden(tester, goldenName);
   }
+
+  static void expectFind({
+    @required Key scenarioWidgetKey,
+    @required Finder matching,
+    @required dynamic matcher,
+  }) {
+    final errText = find.descendant(
+      of: find.byKey(scenarioWidgetKey),
+      matching: matching,
+    );
+    expect(errText, matcher);
+  }
 }

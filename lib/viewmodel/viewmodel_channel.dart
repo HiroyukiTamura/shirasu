@@ -27,7 +27,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
   int tabIndex = 0;
 
   @override
-  GraphQlRepository get graphQlRepository => reader(kPrvApiClient);
+  GraphQlRepository get graphQlRepository => reader(kPrvGraphqlRepository);
 
   @override
   Future<void> initialize() async {

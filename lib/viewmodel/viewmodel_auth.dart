@@ -62,7 +62,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
   }
 
   Future<void> _onUrlChanged(String url) async {
-    setState(state.copyWith(lastUrl: url));
+    trySet(state.copyWith(lastUrl: url));
 
     if (_success)
       return;

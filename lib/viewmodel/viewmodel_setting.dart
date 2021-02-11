@@ -141,6 +141,6 @@ class LocationTextNotifier extends StateNotifier<String>
     _completer = CancelableOperation.fromFuture(
         _jsonClient.genLocationStr(ViewModelSetting.dummyUser, location));
     final text = await _completer.value;
-    setState(text);
+    trySet(text);
   }
 }

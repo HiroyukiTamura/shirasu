@@ -37,7 +37,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       newState = const WatchHistoryState.error();
     }
 
-    authExpired ? pushAuthExpireScreen() : setState(newState);
+    authExpired ? pushAuthExpireScreen() : trySet(newState);
   }
 
   Future<void> loadMoreWatchHistory() async {
@@ -57,14 +57,14 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
 
         oldState.watchHistories
             .add(newOne); //todo fix to watchHistories immutable collection
-        setState(WatchHistoryState.success(oldState.watchHistories));
+        trySet(WatchHistoryState.success(oldState.watchHistories));
 
         if (newOne.viewerUser.watchHistories.items.isEmpty)
           _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
 
         return;
       } catch (e) {
-        setState(WatchHistoryState.success(oldState.watchHistories));
+        trySet(WatchHistoryState.success(oldState.watchHistories));
         debugPrint(e.toString());
         _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
       }

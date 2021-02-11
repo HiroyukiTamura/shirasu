@@ -61,9 +61,8 @@ mixin ViewModelInitListener {
 }
 
 mixin StateTrySetter<T> on StateNotifier<T> {
-  /// todo rename to trySetState?
   @protected
-  void setState(T state) {
+  void trySet(T state) {
     if (mounted)
       this.state = state;
   }

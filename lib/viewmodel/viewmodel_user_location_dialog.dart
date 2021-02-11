@@ -40,7 +40,7 @@ class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
 
     final tuple = await Util.wait2(_jsonClient.getCountryData, _jsonClient.getPrefectureData);
 
-    setState(UserLocationModel.initialized(
+    trySet(UserLocationModel.initialized(
       countryData: tuple.item1,
       prefectureData: tuple.item2,
       countryCode: countryCode,

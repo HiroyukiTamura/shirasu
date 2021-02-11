@@ -53,7 +53,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
       newState = const FeatureProgramState.error(ErrorMsgCommon.unknown());
     }
 
-    authExpired ? pushAuthExpireScreen() : setState(newState);
+    authExpired ? pushAuthExpireScreen() : trySet(newState);
   }
 }
 

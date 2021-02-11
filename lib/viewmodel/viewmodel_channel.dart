@@ -39,7 +39,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         loading: false,
       );
       final data = await graphQlRepository.queryChannelData(_channelId);
-      setState(ChannelModel(
+      trySet(ChannelModel(
         result: ChannelDataResult.success(data),
         loading: false,
       ));
@@ -48,7 +48,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
       pushAuthExpireScreen();
     } catch (e) {
       print(e);
-      setState(const ChannelModel(
+      trySet(const ChannelModel(
         result: ChannelDataResult.error(),
         loading: false,
       ));

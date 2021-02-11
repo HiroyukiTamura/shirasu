@@ -13,7 +13,6 @@ import 'model/error_msg_common.dart';
 
 part 'viewmodel_subscribing.freezed.dart';
 
-//todo fix lint config as concerned to lack of generics
 class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
   ViewModelSubscribing(Reader reader)
       : super(reader, const FeatureProgramState.initial());

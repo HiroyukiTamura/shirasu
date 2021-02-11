@@ -6,7 +6,7 @@ import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
-import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
+import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 
 import 'on_pop_page_mixin.dart';
 

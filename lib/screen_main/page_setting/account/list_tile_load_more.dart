@@ -8,7 +8,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
-import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
+import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 
 part 'list_tile_load_more.g.dart';
 

@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -8,6 +11,7 @@ import 'package:shirasu/extension.dart';
 
 import '../main.dart';
 import 'message_notifier.dart';
+import 'model/error_msg_common.dart';
 
 part 'viewmodel_watch_history.freezed.dart';
 
@@ -28,13 +32,29 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       final data = await graphQlRepository.queryWatchHistory();
       newState = data.viewerUser.watchHistories.items.isEmpty
           ? const WatchHistoryState.resultEmpty()
-          : WatchHistoryState.success([data].toUnmodifiable());
+          : WatchHistoryState.success(WatchHistoriesDataWrapper(
+              isLoadingMore: true,
+              watchHistories: [data].toUnmodifiable(),
+            ));
     } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
+
+      final errorMsg = e.detectedByTime
+          ? const ErrorMsgCommon.authExpired()
+          : const ErrorMsgCommon.unAuth();
+      newState = WatchHistoryState.error(errorMsg);
+    } on TimeoutException catch (e) {
+      //todo log error
+      print(e);
+      newState = const WatchHistoryState.error(ErrorMsgCommon.networkTimeout());
+    } on NetworkDisconnectException catch (e) {
+      print(e);
+      newState =
+          const WatchHistoryState.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
-      newState = const WatchHistoryState.error();
+      newState = const WatchHistoryState.error(ErrorMsgCommon.unknown());
     }
 
     authExpired ? pushAuthExpireScreen() : trySet(newState);
@@ -44,28 +64,38 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
     final oldState = state;
     if (oldState is _StateSuccess) {
       final nextToken =
-          oldState.watchHistories.last.viewerUser.watchHistories.nextToken;
+          oldState.data.watchHistories.last.viewerUser.watchHistories.nextToken;
       if (nextToken == null) return;
 
       // we don't check if Disposed
-      state = WatchHistoryState.loadingMore(oldState.watchHistories);
+      state = WatchHistoryState.success(WatchHistoriesDataWrapper(
+        watchHistories: oldState.data.watchHistories,
+        isLoadingMore: true,
+      ));
 
       try {
         final newOne = await graphQlRepository.queryWatchHistory(
           nextToken: nextToken,
         );
 
-        oldState.watchHistories
-            .add(newOne); //todo fix to watchHistories immutable collection
-        trySet(WatchHistoryState.success(oldState.watchHistories));
+        final newList = oldState.data.watchHistories + [newOne];
+
+        if (!mounted) return;
+
+        state = WatchHistoryState.success(WatchHistoriesDataWrapper(
+          watchHistories: newList.toUnmodifiable(),
+          isLoadingMore: false,
+        ));
 
         if (newOne.viewerUser.watchHistories.items.isEmpty)
           _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
-
-        return;
       } catch (e) {
-        trySet(WatchHistoryState.success(oldState.watchHistories));
         debugPrint(e.toString());
+        if (!mounted) return;
+        state = WatchHistoryState.success(WatchHistoriesDataWrapper(
+          watchHistories: oldState.data.watchHistories,
+          isLoadingMore: oldState.data.isLoadingMore,
+        ));
         _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
       }
     }
@@ -79,12 +109,18 @@ abstract class WatchHistoryState with _$WatchHistoryState {
 
   const factory WatchHistoryState.resultEmpty() = _StateResultEmpty;
 
-  const factory WatchHistoryState.success(
-      UnmodifiableListView<WatchHistoriesData> watchHistories) = _StateSuccess;
+  const factory WatchHistoryState.success(WatchHistoriesDataWrapper data) =
+      _StateSuccess;
 
-  const factory WatchHistoryState.loadingMore(
-      UnmodifiableListView<WatchHistoriesData> watchHistories) =
-  _StateLoadingMore;
+  const factory WatchHistoryState.error(ErrorMsgCommon errorMsgCommon) =
+      _StateError;
+}
 
-  const factory WatchHistoryState.error() = _StateError;
+@protected
+@freezed
+abstract class WatchHistoriesDataWrapper with _$WatchHistoriesDataWrapper {
+  const factory WatchHistoriesDataWrapper({
+    @required UnmodifiableListView<WatchHistoriesData> watchHistories,
+    @required bool isLoadingMore,
+  }) = _WatchHistoriesDataWrapper;
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_main/page_subscribing/watch_history_widget.dart';
-import 'package:shirasu/screen_main/page_subscribing/subscribing_widget.dart';
+import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
+import 'package:shirasu/screen_main/page_list/subscribing_widget.dart';
 import 'package:shirasu/ui_common/material_tab_view.dart';
 
 class PageListInMainScreen extends HookWidget {

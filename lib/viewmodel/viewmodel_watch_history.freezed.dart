@@ -24,24 +24,17 @@ class _$WatchHistoryStateTearOff {
   }
 
 // ignore: unused_element
-  _StateSuccess success(
-      UnmodifiableListView<WatchHistoriesData> watchHistories) {
+  _StateSuccess success(WatchHistoriesDataWrapper data) {
     return _StateSuccess(
-      watchHistories,
+      data,
     );
   }
 
 // ignore: unused_element
-  _StateLoadingMore loadingMore(
-      UnmodifiableListView<WatchHistoriesData> watchHistories) {
-    return _StateLoadingMore(
-      watchHistories,
+  _StateError error(ErrorMsgCommon errorMsgCommon) {
+    return _StateError(
+      errorMsgCommon,
     );
-  }
-
-// ignore: unused_element
-  _StateError error() {
-    return const _StateError();
   }
 }
 
@@ -55,22 +48,15 @@ mixin _$WatchHistoryState {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required
-        TResult success(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required
-        TResult loadingMore(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required TResult error(),
+    @required TResult success(WatchHistoriesDataWrapper data),
+    @required TResult error(ErrorMsgCommon errorMsgCommon),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult loadingMore(
-        UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult error(),
+    TResult success(WatchHistoriesDataWrapper data),
+    TResult error(ErrorMsgCommon errorMsgCommon),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -78,7 +64,6 @@ mixin _$WatchHistoryState {
     @required TResult initial(_StatePreInitial value),
     @required TResult resultEmpty(_StateResultEmpty value),
     @required TResult success(_StateSuccess value),
-    @required TResult loadingMore(_StateLoadingMore value),
     @required TResult error(_StateError value),
   });
   @optionalTypeArgs
@@ -86,7 +71,6 @@ mixin _$WatchHistoryState {
     TResult initial(_StatePreInitial value),
     TResult resultEmpty(_StateResultEmpty value),
     TResult success(_StateSuccess value),
-    TResult loadingMore(_StateLoadingMore value),
     TResult error(_StateError value),
     @required TResult orElse(),
   });
@@ -150,18 +134,12 @@ class _$_StatePreInitial implements _StatePreInitial {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required
-        TResult success(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required
-        TResult loadingMore(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required TResult error(),
+    @required TResult success(WatchHistoriesDataWrapper data),
+    @required TResult error(ErrorMsgCommon errorMsgCommon),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
-    assert(loadingMore != null);
     assert(error != null);
     return initial();
   }
@@ -171,10 +149,8 @@ class _$_StatePreInitial implements _StatePreInitial {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult loadingMore(
-        UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult error(),
+    TResult success(WatchHistoriesDataWrapper data),
+    TResult error(ErrorMsgCommon errorMsgCommon),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -190,13 +166,11 @@ class _$_StatePreInitial implements _StatePreInitial {
     @required TResult initial(_StatePreInitial value),
     @required TResult resultEmpty(_StateResultEmpty value),
     @required TResult success(_StateSuccess value),
-    @required TResult loadingMore(_StateLoadingMore value),
     @required TResult error(_StateError value),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
-    assert(loadingMore != null);
     assert(error != null);
     return initial(this);
   }
@@ -207,7 +181,6 @@ class _$_StatePreInitial implements _StatePreInitial {
     TResult initial(_StatePreInitial value),
     TResult resultEmpty(_StateResultEmpty value),
     TResult success(_StateSuccess value),
-    TResult loadingMore(_StateLoadingMore value),
     TResult error(_StateError value),
     @required TResult orElse(),
   }) {
@@ -264,18 +237,12 @@ class _$_StateResultEmpty implements _StateResultEmpty {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required
-        TResult success(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required
-        TResult loadingMore(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required TResult error(),
+    @required TResult success(WatchHistoriesDataWrapper data),
+    @required TResult error(ErrorMsgCommon errorMsgCommon),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
-    assert(loadingMore != null);
     assert(error != null);
     return resultEmpty();
   }
@@ -285,10 +252,8 @@ class _$_StateResultEmpty implements _StateResultEmpty {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult loadingMore(
-        UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult error(),
+    TResult success(WatchHistoriesDataWrapper data),
+    TResult error(ErrorMsgCommon errorMsgCommon),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -304,13 +269,11 @@ class _$_StateResultEmpty implements _StateResultEmpty {
     @required TResult initial(_StatePreInitial value),
     @required TResult resultEmpty(_StateResultEmpty value),
     @required TResult success(_StateSuccess value),
-    @required TResult loadingMore(_StateLoadingMore value),
     @required TResult error(_StateError value),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
-    assert(loadingMore != null);
     assert(error != null);
     return resultEmpty(this);
   }
@@ -321,7 +284,6 @@ class _$_StateResultEmpty implements _StateResultEmpty {
     TResult initial(_StatePreInitial value),
     TResult resultEmpty(_StateResultEmpty value),
     TResult success(_StateSuccess value),
-    TResult loadingMore(_StateLoadingMore value),
     TResult error(_StateError value),
     @required TResult orElse(),
   }) {
@@ -342,7 +304,9 @@ abstract class _$StateSuccessCopyWith<$Res> {
   factory _$StateSuccessCopyWith(
           _StateSuccess value, $Res Function(_StateSuccess) then) =
       __$StateSuccessCopyWithImpl<$Res>;
-  $Res call({UnmodifiableListView<WatchHistoriesData> watchHistories});
+  $Res call({WatchHistoriesDataWrapper data});
+
+  $WatchHistoriesDataWrapperCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -358,41 +322,47 @@ class __$StateSuccessCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object watchHistories = freezed,
+    Object data = freezed,
   }) {
     return _then(_StateSuccess(
-      watchHistories == freezed
-          ? _value.watchHistories
-          : watchHistories as UnmodifiableListView<WatchHistoriesData>,
+      data == freezed ? _value.data : data as WatchHistoriesDataWrapper,
     ));
+  }
+
+  @override
+  $WatchHistoriesDataWrapperCopyWith<$Res> get data {
+    if (_value.data == null) {
+      return null;
+    }
+    return $WatchHistoriesDataWrapperCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
   }
 }
 
 /// @nodoc
 class _$_StateSuccess implements _StateSuccess {
-  const _$_StateSuccess(this.watchHistories) : assert(watchHistories != null);
+  const _$_StateSuccess(this.data) : assert(data != null);
 
   @override
-  final UnmodifiableListView<WatchHistoriesData> watchHistories;
+  final WatchHistoriesDataWrapper data;
 
   @override
   String toString() {
-    return 'WatchHistoryState.success(watchHistories: $watchHistories)';
+    return 'WatchHistoryState.success(data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _StateSuccess &&
-            (identical(other.watchHistories, watchHistories) ||
-                const DeepCollectionEquality()
-                    .equals(other.watchHistories, watchHistories)));
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(watchHistories);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
 
   @JsonKey(ignore: true)
   @override
@@ -404,20 +374,14 @@ class _$_StateSuccess implements _StateSuccess {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required
-        TResult success(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required
-        TResult loadingMore(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required TResult error(),
+    @required TResult success(WatchHistoriesDataWrapper data),
+    @required TResult error(ErrorMsgCommon errorMsgCommon),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
-    assert(loadingMore != null);
     assert(error != null);
-    return success(watchHistories);
+    return success(data);
   }
 
   @override
@@ -425,15 +389,13 @@ class _$_StateSuccess implements _StateSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult loadingMore(
-        UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult error(),
+    TResult success(WatchHistoriesDataWrapper data),
+    TResult error(ErrorMsgCommon errorMsgCommon),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
-      return success(watchHistories);
+      return success(data);
     }
     return orElse();
   }
@@ -444,13 +406,11 @@ class _$_StateSuccess implements _StateSuccess {
     @required TResult initial(_StatePreInitial value),
     @required TResult resultEmpty(_StateResultEmpty value),
     @required TResult success(_StateSuccess value),
-    @required TResult loadingMore(_StateLoadingMore value),
     @required TResult error(_StateError value),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
-    assert(loadingMore != null);
     assert(error != null);
     return success(this);
   }
@@ -461,7 +421,6 @@ class _$_StateSuccess implements _StateSuccess {
     TResult initial(_StatePreInitial value),
     TResult resultEmpty(_StateResultEmpty value),
     TResult success(_StateSuccess value),
-    TResult loadingMore(_StateLoadingMore value),
     TResult error(_StateError value),
     @required TResult orElse(),
   }) {
@@ -474,160 +433,11 @@ class _$_StateSuccess implements _StateSuccess {
 }
 
 abstract class _StateSuccess implements WatchHistoryState {
-  const factory _StateSuccess(
-          UnmodifiableListView<WatchHistoriesData> watchHistories) =
-      _$_StateSuccess;
+  const factory _StateSuccess(WatchHistoriesDataWrapper data) = _$_StateSuccess;
 
-  UnmodifiableListView<WatchHistoriesData> get watchHistories;
+  WatchHistoriesDataWrapper get data;
   @JsonKey(ignore: true)
   _$StateSuccessCopyWith<_StateSuccess> get copyWith;
-}
-
-/// @nodoc
-abstract class _$StateLoadingMoreCopyWith<$Res> {
-  factory _$StateLoadingMoreCopyWith(
-          _StateLoadingMore value, $Res Function(_StateLoadingMore) then) =
-      __$StateLoadingMoreCopyWithImpl<$Res>;
-  $Res call({UnmodifiableListView<WatchHistoriesData> watchHistories});
-}
-
-/// @nodoc
-class __$StateLoadingMoreCopyWithImpl<$Res>
-    extends _$WatchHistoryStateCopyWithImpl<$Res>
-    implements _$StateLoadingMoreCopyWith<$Res> {
-  __$StateLoadingMoreCopyWithImpl(
-      _StateLoadingMore _value, $Res Function(_StateLoadingMore) _then)
-      : super(_value, (v) => _then(v as _StateLoadingMore));
-
-  @override
-  _StateLoadingMore get _value => super._value as _StateLoadingMore;
-
-  @override
-  $Res call({
-    Object watchHistories = freezed,
-  }) {
-    return _then(_StateLoadingMore(
-      watchHistories == freezed
-          ? _value.watchHistories
-          : watchHistories as UnmodifiableListView<WatchHistoriesData>,
-    ));
-  }
-}
-
-/// @nodoc
-class _$_StateLoadingMore implements _StateLoadingMore {
-  const _$_StateLoadingMore(this.watchHistories)
-      : assert(watchHistories != null);
-
-  @override
-  final UnmodifiableListView<WatchHistoriesData> watchHistories;
-
-  @override
-  String toString() {
-    return 'WatchHistoryState.loadingMore(watchHistories: $watchHistories)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _StateLoadingMore &&
-            (identical(other.watchHistories, watchHistories) ||
-                const DeepCollectionEquality()
-                    .equals(other.watchHistories, watchHistories)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(watchHistories);
-
-  @JsonKey(ignore: true)
-  @override
-  _$StateLoadingMoreCopyWith<_StateLoadingMore> get copyWith =>
-      __$StateLoadingMoreCopyWithImpl<_StateLoadingMore>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult initial(),
-    @required TResult resultEmpty(),
-    @required
-        TResult success(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required
-        TResult loadingMore(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required TResult error(),
-  }) {
-    assert(initial != null);
-    assert(resultEmpty != null);
-    assert(success != null);
-    assert(loadingMore != null);
-    assert(error != null);
-    return loadingMore(watchHistories);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult initial(),
-    TResult resultEmpty(),
-    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult loadingMore(
-        UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult error(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (loadingMore != null) {
-      return loadingMore(watchHistories);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult initial(_StatePreInitial value),
-    @required TResult resultEmpty(_StateResultEmpty value),
-    @required TResult success(_StateSuccess value),
-    @required TResult loadingMore(_StateLoadingMore value),
-    @required TResult error(_StateError value),
-  }) {
-    assert(initial != null);
-    assert(resultEmpty != null);
-    assert(success != null);
-    assert(loadingMore != null);
-    assert(error != null);
-    return loadingMore(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult initial(_StatePreInitial value),
-    TResult resultEmpty(_StateResultEmpty value),
-    TResult success(_StateSuccess value),
-    TResult loadingMore(_StateLoadingMore value),
-    TResult error(_StateError value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (loadingMore != null) {
-      return loadingMore(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _StateLoadingMore implements WatchHistoryState {
-  const factory _StateLoadingMore(
-          UnmodifiableListView<WatchHistoriesData> watchHistories) =
-      _$_StateLoadingMore;
-
-  UnmodifiableListView<WatchHistoriesData> get watchHistories;
-  @JsonKey(ignore: true)
-  _$StateLoadingMoreCopyWith<_StateLoadingMore> get copyWith;
 }
 
 /// @nodoc
@@ -635,6 +445,9 @@ abstract class _$StateErrorCopyWith<$Res> {
   factory _$StateErrorCopyWith(
           _StateError value, $Res Function(_StateError) then) =
       __$StateErrorCopyWithImpl<$Res>;
+  $Res call({ErrorMsgCommon errorMsgCommon});
+
+  $ErrorMsgCommonCopyWith<$Res> get errorMsgCommon;
 }
 
 /// @nodoc
@@ -647,44 +460,73 @@ class __$StateErrorCopyWithImpl<$Res>
 
   @override
   _StateError get _value => super._value as _StateError;
+
+  @override
+  $Res call({
+    Object errorMsgCommon = freezed,
+  }) {
+    return _then(_StateError(
+      errorMsgCommon == freezed
+          ? _value.errorMsgCommon
+          : errorMsgCommon as ErrorMsgCommon,
+    ));
+  }
+
+  @override
+  $ErrorMsgCommonCopyWith<$Res> get errorMsgCommon {
+    if (_value.errorMsgCommon == null) {
+      return null;
+    }
+    return $ErrorMsgCommonCopyWith<$Res>(_value.errorMsgCommon, (value) {
+      return _then(_value.copyWith(errorMsgCommon: value));
+    });
+  }
 }
 
 /// @nodoc
 class _$_StateError implements _StateError {
-  const _$_StateError();
+  const _$_StateError(this.errorMsgCommon) : assert(errorMsgCommon != null);
+
+  @override
+  final ErrorMsgCommon errorMsgCommon;
 
   @override
   String toString() {
-    return 'WatchHistoryState.error()';
+    return 'WatchHistoryState.error(errorMsgCommon: $errorMsgCommon)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _StateError);
+    return identical(this, other) ||
+        (other is _StateError &&
+            (identical(other.errorMsgCommon, errorMsgCommon) ||
+                const DeepCollectionEquality()
+                    .equals(other.errorMsgCommon, errorMsgCommon)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(errorMsgCommon);
+
+  @JsonKey(ignore: true)
+  @override
+  _$StateErrorCopyWith<_StateError> get copyWith =>
+      __$StateErrorCopyWithImpl<_StateError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required
-        TResult success(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required
-        TResult loadingMore(
-            UnmodifiableListView<WatchHistoriesData> watchHistories),
-    @required TResult error(),
+    @required TResult success(WatchHistoriesDataWrapper data),
+    @required TResult error(ErrorMsgCommon errorMsgCommon),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
-    assert(loadingMore != null);
     assert(error != null);
-    return error();
+    return error(errorMsgCommon);
   }
 
   @override
@@ -692,15 +534,13 @@ class _$_StateError implements _StateError {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult loadingMore(
-        UnmodifiableListView<WatchHistoriesData> watchHistories),
-    TResult error(),
+    TResult success(WatchHistoriesDataWrapper data),
+    TResult error(ErrorMsgCommon errorMsgCommon),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error();
+      return error(errorMsgCommon);
     }
     return orElse();
   }
@@ -711,13 +551,11 @@ class _$_StateError implements _StateError {
     @required TResult initial(_StatePreInitial value),
     @required TResult resultEmpty(_StateResultEmpty value),
     @required TResult success(_StateSuccess value),
-    @required TResult loadingMore(_StateLoadingMore value),
     @required TResult error(_StateError value),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
-    assert(loadingMore != null);
     assert(error != null);
     return error(this);
   }
@@ -728,7 +566,6 @@ class _$_StateError implements _StateError {
     TResult initial(_StatePreInitial value),
     TResult resultEmpty(_StateResultEmpty value),
     TResult success(_StateSuccess value),
-    TResult loadingMore(_StateLoadingMore value),
     TResult error(_StateError value),
     @required TResult orElse(),
   }) {
@@ -741,5 +578,169 @@ class _$_StateError implements _StateError {
 }
 
 abstract class _StateError implements WatchHistoryState {
-  const factory _StateError() = _$_StateError;
+  const factory _StateError(ErrorMsgCommon errorMsgCommon) = _$_StateError;
+
+  ErrorMsgCommon get errorMsgCommon;
+  @JsonKey(ignore: true)
+  _$StateErrorCopyWith<_StateError> get copyWith;
+}
+
+/// @nodoc
+class _$WatchHistoriesDataWrapperTearOff {
+  const _$WatchHistoriesDataWrapperTearOff();
+
+// ignore: unused_element
+  _WatchHistoriesDataWrapper call(
+      {@required UnmodifiableListView<WatchHistoriesData> watchHistories,
+      @required bool isLoadingMore}) {
+    return _WatchHistoriesDataWrapper(
+      watchHistories: watchHistories,
+      isLoadingMore: isLoadingMore,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $WatchHistoriesDataWrapper = _$WatchHistoriesDataWrapperTearOff();
+
+/// @nodoc
+mixin _$WatchHistoriesDataWrapper {
+  UnmodifiableListView<WatchHistoriesData> get watchHistories;
+  bool get isLoadingMore;
+
+  @JsonKey(ignore: true)
+  $WatchHistoriesDataWrapperCopyWith<WatchHistoriesDataWrapper> get copyWith;
+}
+
+/// @nodoc
+abstract class $WatchHistoriesDataWrapperCopyWith<$Res> {
+  factory $WatchHistoriesDataWrapperCopyWith(WatchHistoriesDataWrapper value,
+          $Res Function(WatchHistoriesDataWrapper) then) =
+      _$WatchHistoriesDataWrapperCopyWithImpl<$Res>;
+  $Res call(
+      {UnmodifiableListView<WatchHistoriesData> watchHistories,
+      bool isLoadingMore});
+}
+
+/// @nodoc
+class _$WatchHistoriesDataWrapperCopyWithImpl<$Res>
+    implements $WatchHistoriesDataWrapperCopyWith<$Res> {
+  _$WatchHistoriesDataWrapperCopyWithImpl(this._value, this._then);
+
+  final WatchHistoriesDataWrapper _value;
+  // ignore: unused_field
+  final $Res Function(WatchHistoriesDataWrapper) _then;
+
+  @override
+  $Res call({
+    Object watchHistories = freezed,
+    Object isLoadingMore = freezed,
+  }) {
+    return _then(_value.copyWith(
+      watchHistories: watchHistories == freezed
+          ? _value.watchHistories
+          : watchHistories as UnmodifiableListView<WatchHistoriesData>,
+      isLoadingMore: isLoadingMore == freezed
+          ? _value.isLoadingMore
+          : isLoadingMore as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$WatchHistoriesDataWrapperCopyWith<$Res>
+    implements $WatchHistoriesDataWrapperCopyWith<$Res> {
+  factory _$WatchHistoriesDataWrapperCopyWith(_WatchHistoriesDataWrapper value,
+          $Res Function(_WatchHistoriesDataWrapper) then) =
+      __$WatchHistoriesDataWrapperCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {UnmodifiableListView<WatchHistoriesData> watchHistories,
+      bool isLoadingMore});
+}
+
+/// @nodoc
+class __$WatchHistoriesDataWrapperCopyWithImpl<$Res>
+    extends _$WatchHistoriesDataWrapperCopyWithImpl<$Res>
+    implements _$WatchHistoriesDataWrapperCopyWith<$Res> {
+  __$WatchHistoriesDataWrapperCopyWithImpl(_WatchHistoriesDataWrapper _value,
+      $Res Function(_WatchHistoriesDataWrapper) _then)
+      : super(_value, (v) => _then(v as _WatchHistoriesDataWrapper));
+
+  @override
+  _WatchHistoriesDataWrapper get _value =>
+      super._value as _WatchHistoriesDataWrapper;
+
+  @override
+  $Res call({
+    Object watchHistories = freezed,
+    Object isLoadingMore = freezed,
+  }) {
+    return _then(_WatchHistoriesDataWrapper(
+      watchHistories: watchHistories == freezed
+          ? _value.watchHistories
+          : watchHistories as UnmodifiableListView<WatchHistoriesData>,
+      isLoadingMore: isLoadingMore == freezed
+          ? _value.isLoadingMore
+          : isLoadingMore as bool,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_WatchHistoriesDataWrapper implements _WatchHistoriesDataWrapper {
+  const _$_WatchHistoriesDataWrapper(
+      {@required this.watchHistories, @required this.isLoadingMore})
+      : assert(watchHistories != null),
+        assert(isLoadingMore != null);
+
+  @override
+  final UnmodifiableListView<WatchHistoriesData> watchHistories;
+  @override
+  final bool isLoadingMore;
+
+  @override
+  String toString() {
+    return 'WatchHistoriesDataWrapper(watchHistories: $watchHistories, isLoadingMore: $isLoadingMore)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _WatchHistoriesDataWrapper &&
+            (identical(other.watchHistories, watchHistories) ||
+                const DeepCollectionEquality()
+                    .equals(other.watchHistories, watchHistories)) &&
+            (identical(other.isLoadingMore, isLoadingMore) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLoadingMore, isLoadingMore)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(watchHistories) ^
+      const DeepCollectionEquality().hash(isLoadingMore);
+
+  @JsonKey(ignore: true)
+  @override
+  _$WatchHistoriesDataWrapperCopyWith<_WatchHistoriesDataWrapper>
+      get copyWith =>
+          __$WatchHistoriesDataWrapperCopyWithImpl<_WatchHistoriesDataWrapper>(
+              this, _$identity);
+}
+
+abstract class _WatchHistoriesDataWrapper implements WatchHistoriesDataWrapper {
+  const factory _WatchHistoriesDataWrapper(
+      {@required UnmodifiableListView<WatchHistoriesData> watchHistories,
+      @required bool isLoadingMore}) = _$_WatchHistoriesDataWrapper;
+
+  @override
+  UnmodifiableListView<WatchHistoriesData> get watchHistories;
+  @override
+  bool get isLoadingMore;
+  @override
+  @JsonKey(ignore: true)
+  _$WatchHistoriesDataWrapperCopyWith<_WatchHistoriesDataWrapper> get copyWith;
 }

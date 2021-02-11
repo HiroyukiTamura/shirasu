@@ -6,6 +6,7 @@ import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/ui_common/center_circle_progress.dart';
 
 part 'fab.g.dart';
 
@@ -41,7 +42,7 @@ Widget _fabContent(BuildContext context) {
           Visibility(
             visible: isUploadingProfile,
             child: const SizedBox.expand(
-              child: CircularProgressIndicator(
+              child: CustomCircleProgress(
                 strokeWidth: _kStrokeWidth,
                 valueColor: AlwaysStoppedAnimation(Colors.white),
               ),

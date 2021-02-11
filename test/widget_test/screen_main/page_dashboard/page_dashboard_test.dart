@@ -17,7 +17,6 @@ import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:tuple/tuple.dart';
 
 import '../../../mock_repository/connected_connected.dart';
 import '../../../mock_repository/connected_disconnect.dart';
@@ -29,6 +28,7 @@ import '../../../mock_repository/hive_pref_empty.dart';
 import '../../../mock_repository/network_image_error.dart';
 import '../../../widget_test_util/json_client.dart';
 import '../../../widget_test_util/override_util.dart';
+import '../../../widget_test_util/test_models.dart';
 import '../../../widget_test_util/test_util.dart';
 import '../../../widget_test_util/widget_holder.dart';
 
@@ -44,31 +44,7 @@ const _kTestNameGoldenData = 'GoldenData';
 void main() {
   final jsonClient = JsonClient();
 
-  const EMPTY_BROAD_CASTINGS = Broadcastings(
-    typename: 'SearchableProgramConnection',
-    rawItems: [],
-  );
-
-  const EMPTY_NEW_PROGRAMS = NewProgramsData(
-    newPrograms: NewPrograms(
-      rawItems: [],
-      typename: 'SearchableProgramConnection',
-    ),
-  );
-
-  const EMPTY_CHANNEL = Channels(
-    rawItems: [],
-    typename: 'ModelChannelConnection',
-  );
-
-  const EMPTY_VIEWER_USER = ViewerUser(
-    rawSubscribedPrograms: [],
-    id: '',
-    typename: 'User',
-  );
-
   FeatureProgramData mFeatureProgramData;
-  FeatureProgramData mFeatureProgramDataEmpty;
   NewProgramsData mNewProgramsData;
 
   Widget _widget(List<Override> overrides) => WidgetHolder(
@@ -101,12 +77,6 @@ void main() {
 
   setUpAll(() async {
     mFeatureProgramData = await jsonClient.featureProgramData;
-    mFeatureProgramDataEmpty = mFeatureProgramData.copyWith(
-      channels: EMPTY_CHANNEL,
-      nowBroadcastings: EMPTY_BROAD_CASTINGS,
-      comingBroadcastings: EMPTY_BROAD_CASTINGS,
-      viewerUser: EMPTY_VIEWER_USER,
-    );
     mNewProgramsData = await jsonClient.newProgramsData;
   });
 
@@ -343,8 +313,8 @@ void main() {
 
     testGoldenTemplate(
       goldenName: _kTestNameNoData,
-      featureProgramData: mFeatureProgramDataEmpty,
-      newProgramsData: EMPTY_NEW_PROGRAMS,
+      featureProgramData:TestModels.FEATURE_PROGRAM_DATA,
+      newProgramsData: TestModels.EMPTY_NEW_PROGRAMS,
       expectOneWidgetList: [
         find.text(Strings.HEADING_CHANNEL),
         find.text(Strings.HEADING_NEW_PRG),

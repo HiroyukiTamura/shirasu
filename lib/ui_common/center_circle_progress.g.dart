@@ -15,3 +15,20 @@ class CenterCircleProgress extends StatelessWidget {
   @override
   Widget build(BuildContext _context) => centerCircleProgress(padding: padding);
 }
+
+/// default [strokeWidth] is [CircularProgressIndicator.strokeWidth]
+class CustomCircleProgress extends HookWidget {
+  /// default [strokeWidth] is [CircularProgressIndicator.strokeWidth]
+  const CustomCircleProgress({Key key, this.valueColor, this.strokeWidth = 4})
+      : super(key: key);
+
+  /// default [strokeWidth] is [CircularProgressIndicator.strokeWidth]
+  final Animation<Color> valueColor;
+
+  /// default [strokeWidth] is [CircularProgressIndicator.strokeWidth]
+  final double strokeWidth;
+
+  @override
+  Widget build(BuildContext _context) =>
+      customCircleProgress(valueColor: valueColor, strokeWidth: strokeWidth);
+}

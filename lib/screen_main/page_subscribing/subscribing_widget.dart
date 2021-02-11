@@ -14,15 +14,14 @@ import 'package:shirasu/extension.dart';
 
 part 'subscribing_widget.g.dart';
 
-final _viewmodelSNProvider =
+final _kPrvViewModel =
     StateNotifierProvider.autoDispose<ViewModelSubscribing>(
         (ref) => ViewModelSubscribing(ref.read));
 
 @hwidget
-Widget subscribingWidget() => useProvider(_viewmodelSNProvider.state).when(
-      preInitialized: () => const CenterCircleProgress(),
-      loading: () => const CenterCircleProgress(),
-      error: () => const PageError(),
+Widget subscribingWidget() => useProvider(_kPrvViewModel.state).when(
+      initial: () => const CenterCircleProgress(),
+      error: (errorMsg) => PageError(text: errorMsg.value),
       resultEmpty: () => const EmptyListWidget(
         text: Strings.SUBSCRIBING_EMPTY_MSG,
         icon: Icons.video_collection,

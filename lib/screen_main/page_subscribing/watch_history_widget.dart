@@ -16,6 +16,7 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 
 part 'watch_history_widget.g.dart';
 
@@ -25,8 +26,7 @@ final _viewmodelSNProvider =
 
 @hwidget
 Widget watchHistoryWidget() => useProvider(_viewmodelSNProvider.state).when(
-    loading: () => const CenterCircleProgress(),
-    preInitialized: () => const CenterCircleProgress(),
+    initial: () => const CenterCircleProgress(),
     loadingMore: (watchHistories) => _ContentListView(
           watchHistories: watchHistories,
           showLoadingIndicator: true,
@@ -63,7 +63,7 @@ class _ContentListView extends HookWidget {
         sc: sc,
         items: watchHistories
             .expand((it) => it.viewerUser.watchHistories.items)
-            .toList(), //todo fix,
+            .toUnmodifiable(),
       ),
     );
   }

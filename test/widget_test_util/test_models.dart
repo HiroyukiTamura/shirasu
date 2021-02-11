@@ -1,6 +1,7 @@
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
-import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
+import 'package:shirasu/model/graphql/watch_history_data.dart';
+import 'package:shirasu/model/graphql/viewer.dart' hide ViewerUser;
 
 class TestModels {
   const TestModels._();
@@ -33,5 +34,15 @@ class TestModels {
     comingBroadcastings: EMPTY_BROAD_CASTINGS,
     channels: EMPTY_CHANNEL,
     viewerUser: EMPTY_VIEWER_USER,
+  );
+
+  static const EMPTY_WATCH_HISTORIES_DATA = WatchHistoriesData(
+    viewerUser: ViewerUserSimple(
+      watchHistories: WatchHistories(
+        rawItems: [],
+        typename: 'ModelWatchHistoryConnection',
+      ),
+      typename: 'User',
+    ),
   );
 }

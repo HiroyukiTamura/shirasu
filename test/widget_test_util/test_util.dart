@@ -1,19 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:path/path.dart' as p;
 import 'package:file/local.dart';
 
+import 'json_client.dart';
 import 'test_extension.dart';
 
 typedef OnPostBuild = Future<void> Function(WidgetTester tester);
 
+final kJsonClient = JsonClient();
+
 class TestUtil {
+  TestUtil._();
+
   static final _phoneHorizontal = Device.phone.copyWith(
     name: 'phone - Horizontal',
     size: Device.phone.size.flipped,
@@ -91,5 +98,26 @@ class TestUtil {
       return 'test/$path';
     else
       return path;
+  }
+
+  // todo notworks...
+  static Future<void> loadFonts() async {
+
+    final fontLoader = FontLoader('Roboto');
+
+    final path = _fixTestPath('resources/fonts/roboto');
+
+    Directory(path)
+        .listSync()
+        .where((it) => it.path.endsWith('.ttf'))
+        .map((it) {
+          print(it.path);
+          return File(it.path)
+            .readAsBytes()
+            .then((bytes) => ByteData.view(Uint8List.fromList(bytes).buffer));
+        })
+        .forEach((it) => fontLoader.addFont(it));
+
+    await fontLoader.load();
   }
 }

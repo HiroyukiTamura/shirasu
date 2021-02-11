@@ -4,6 +4,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/client/env_repository.dart';
+import 'package:shirasu/resource/dimens.dart';
 
 part 'center_circle_progress.g.dart';
 

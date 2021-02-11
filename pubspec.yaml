@@ -100,4 +100,4 @@ flutter:
     - assets/json/
     - assets/lottie/
     - assets/js/
-    - assets/images/ # @see https://github.com/eBay/flutter_glove_box/issues/31#issuecomment-598420555
+    - images/ # @see https://github.com/eBay/flutter_glove_box/issues/31#issuecomment-598420555

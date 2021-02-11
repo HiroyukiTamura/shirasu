@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
+import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -29,7 +30,10 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
     bool authExpired = false;
 
     try {
-      final data = await graphQlRepository.queryWatchHistory();
+      await connectivityRepository.ensureNotDisconnect();
+      final data = await graphQlRepository
+          .queryWatchHistory()
+          .timeout(GraphQlRepository.TIMEOUT);
       newState = data.viewerUser.watchHistories.items.isEmpty
           ? const WatchHistoryState.resultEmpty()
           : WatchHistoryState.success(WatchHistoriesDataWrapper(
@@ -57,9 +61,13 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       newState = const WatchHistoryState.error(ErrorMsgCommon.unknown());
     }
 
-    authExpired ? pushAuthExpireScreen() : trySet(newState);
+    if (!mounted) return;
+    state = newState;
+
+    if (authExpired) pushAuthExpireScreen();
   }
 
+  //todo connectivity check
   Future<void> loadMoreWatchHistory() async {
     final oldState = state;
     if (oldState is _StateSuccess) {

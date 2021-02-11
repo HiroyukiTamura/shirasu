@@ -30,7 +30,6 @@ import '../../../widget_test_util/json_client.dart';
 import '../../../widget_test_util/override_util.dart';
 import '../../../widget_test_util/test_models.dart';
 import '../../../widget_test_util/test_util.dart';
-import '../../../widget_test_util/widget_holder.dart';
 
 const _kTestNameErrorNetworkDisconnected = 'ErrorNetworkDisconnected';
 const _kTestNameErrorNetworkTimeout = 'ErrorNetworkTimeout';
@@ -42,12 +41,11 @@ const _kTestNameGoldenData = 'GoldenData';
 
 /// test for [PageDashboardInMainScreen]
 void main() {
-  final jsonClient = JsonClient();
 
   FeatureProgramData mFeatureProgramData;
   NewProgramsData mNewProgramsData;
 
-  Widget _widget(List<Override> overrides) => WidgetHolder(
+  Widget _widget(List<Override> overrides) => ProviderScope(
         overrides: overrides,
         child: const Scaffold(
           body: PageDashboardInMainScreen(),
@@ -76,8 +74,8 @@ void main() {
       );
 
   setUpAll(() async {
-    mFeatureProgramData = await jsonClient.featureProgramData;
-    mNewProgramsData = await jsonClient.newProgramsData;
+    mFeatureProgramData = await kJsonClient.featureProgramData;
+    mNewProgramsData = await kJsonClient.newProgramsData;
   });
 
   group('PageDashboard error screen', () {

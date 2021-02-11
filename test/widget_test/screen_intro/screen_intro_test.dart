@@ -11,7 +11,6 @@ import 'package:shirasu/screen_intro/screen_intro.dart';
 
 import '../../mock_repository/hive_auth_empty.dart';
 import '../../widget_test_util/test_util.dart';
-import '../../widget_test_util/widget_holder.dart';
 
 String _kTestNameScreenIntro1 = 'ScreenIntro1';
 String _kTestNameScreenIntro2 = 'ScreenIntro2';
@@ -56,7 +55,7 @@ void main() {
         matcher: findsOneWidget,
       );
 
-  Widget _widget() => WidgetHolder(
+  Widget _widget() => ProviderScope(
         overrides: [
           kPrvHivePrefRepository.overrideWithProvider(
               Provider((ref) => HiveEmptyPrefRepositoryImpl()))

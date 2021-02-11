@@ -20,9 +20,8 @@ import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 
 part 'watch_history_widget.g.dart';
 
-final _kPrvViewModel =
-    StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
-        (ref) => ViewModelWatchHistory(ref.read));
+final _kPrvViewModel = StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
+    (ref) => ViewModelWatchHistory(ref.read));
 
 @hwidget
 Widget watchHistoryWidget() => useProvider(_kPrvViewModel.state).when(
@@ -99,13 +98,11 @@ class _ContentListView extends HookWidget {
       itemBuilder: (context, i) {
         if (showLoadingIndicator && i == itemCount - 1)
           return const CenterCircleProgress();
-        else {
-          final program = items[i].program;
-          return MovieListItem(
-            program: program,
-            onTap: () async => context.pushProgramPage(program.id),
-          );
-        }
+        final program = items[i].program;
+        return MovieListItem(
+          program: program,
+          onTap: () async => context.pushProgramPage(program.id),
+        );
       },
       itemCount: itemCount,
     );

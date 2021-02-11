@@ -1,8 +1,12 @@
 import 'package:shirasu/client/connectivity_repository.dart';
+import 'package:shirasu/client/connectivity_repository_impl.dart';
 
-class ConnectedRepositoryConnectedImpl with ConnectivityRepository {
+final kOverrideConnectedRepositoryConnectedImpl = kPrvConnectivityRepository
+    .overrideWithValue(const _ConnectedRepositoryConnectedImpl());
 
-  const ConnectedRepositoryConnectedImpl();
+class _ConnectedRepositoryConnectedImpl with ConnectivityRepository {
+
+  const _ConnectedRepositoryConnectedImpl();
 
   @override
   Future<void> ensureNotDisconnect() async {}

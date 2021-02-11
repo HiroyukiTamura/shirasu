@@ -103,8 +103,7 @@ void main() {
       _kTestNameErrorNetworkTimeout,
       (tester) async => _matchGolden(
           overrides: [
-            kPrvConnectivityRepository
-                .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
+            kOverrideConnectedRepositoryConnectedImpl,
             kPrvGraphqlRepository
                 .overrideWithValue(const GraphQlRepositoryTimeoutImpl()),
           ],
@@ -124,8 +123,7 @@ void main() {
       _kTestNameErrorAuthExpired,
       (tester) async => _matchGolden(
           overrides: [
-            kPrvConnectivityRepository
-                .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
+            kOverrideConnectedRepositoryConnectedImpl,
             kPrvGraphqlRepository
                 .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(true)),
             kPrvHivePrefRepository
@@ -147,8 +145,7 @@ void main() {
       _kTestNameErrorUnAuth,
       (tester) async => _matchGolden(
           overrides: [
-            kPrvConnectivityRepository
-                .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
+            kOverrideConnectedRepositoryConnectedImpl,
             kPrvGraphqlRepository
                 .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(false)),
             kPrvHivePrefRepository
@@ -170,8 +167,7 @@ void main() {
       _kTestNameErrorUnknown,
       (tester) async => _matchGolden(
           overrides: [
-            kPrvConnectivityRepository
-                .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
+            kOverrideConnectedRepositoryConnectedImpl,
             kPrvHivePrefRepository
                 .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
             kPrvGraphqlRepository
@@ -207,8 +203,7 @@ void main() {
           goldenName,
           (tester) async => _matchGolden(
             overrides: [
-              kPrvConnectivityRepository
-                  .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
+              kOverrideConnectedRepositoryConnectedImpl,
               kPrvHivePrefRepository
                   .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
               kPrvGraphqlRepository

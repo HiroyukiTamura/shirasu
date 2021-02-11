@@ -5,16 +5,17 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/all.dart';
 
 import 'override_util.dart';
+import 'test_runner_on_page_error.dart';
 import 'test_util.dart';
 
 typedef WidgetBuilder = Widget Function();
 
 class TestRunnerBase {
+  const TestRunnerBase(this.builder, {this.goldenNamePrefix = ''});
 
-  const TestRunnerBase(this.builder);
-  
   final WidgetBuilder builder;
-  
+  final String goldenNamePrefix;
+
   Future<void> matchGolden({
     @required WidgetTester tester,
     @required String goldenName,
@@ -31,5 +32,21 @@ class TestRunnerBase {
         ),
         theme: theme,
         onScenarioCreate: onScenarioCreate,
+      );
+
+  @protected
+  void testGoldensSimple({
+    @required String testName,
+    @required List<Override> overrides,
+    @required OnScenarioCreateTest onScenarioCreate,
+  }) =>
+      testGoldens(
+        testName,
+        (tester) async => matchGolden(
+          overrides: overrides,
+          tester: tester,
+          goldenName: '$goldenNamePrefix$testName',
+          onScenarioCreate: (key) async => onScenarioCreate(tester, key),
+        ),
       );
 }

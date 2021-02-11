@@ -7,6 +7,7 @@ import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
 import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 
+import '../../../mock_repository/connected_connected.dart';
 import '../../../mock_repository/graphql_common.dart';
 import '../../../widget_test_util/override_util.dart';
 import '../../../widget_test_util/test_models.dart';
@@ -22,9 +23,12 @@ Future<void> main() async {
 
 class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
   _TestRunner()
-      : super(() => const Scaffold(
-              body: WatchHistoryWidget(),
-            ));
+      : super(
+          () => const Scaffold(
+            body: WatchHistoryWidget(),
+          ),
+          goldenNamePrefix: 'WatchHistoryWidget',
+        );
 
   static const _TEST_NAME_EMPTY = 'Empty';
   static const _TEST_NAME_NORMAL = 'Normal';
@@ -43,38 +47,30 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
             watchHistoriesData: watchHistoriesData,
           ));
         });
-        testGoldens(
-          _TEST_NAME_EMPTY,
-          (tester) async => matchGolden(
-            overrides: [
-              _overrideEmpty,
-              kOverrideConnectedRepositoryConnectedImpl
-            ],
-            tester: tester,
-            goldenName: _TEST_NAME_EMPTY,
-            onScenarioCreate: (scenarioWidgetKey) async => TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.byType(EmptyListWidget),
-              matcher: findsOneWidget,
-            ),
+        testGoldensSimple(
+          testName: _TEST_NAME_EMPTY,
+          overrides: [
+            _overrideEmpty,
+            kOverrideConnectedRepositoryConnectedImpl
+          ],
+          onScenarioCreate: (tester, scenarioWidgetKey) async =>
+              TestUtil.expectFind(
+            scenarioWidgetKey: scenarioWidgetKey,
+            matching: find.byType(EmptyListWidget),
+            matcher: findsOneWidget,
           ),
         );
-        testGoldens(
-          _TEST_NAME_NORMAL,
-          (tester) async => matchGolden(
-              overrides: [
-                overrideNormal,
-                kOverrideConnectedRepositoryConnectedImpl
-              ],
-              tester: tester,
-              goldenName: _TEST_NAME_NORMAL,
-              onScenarioCreate: (scenarioWidgetKey) async =>
-                  TestUtil.expectFind(
-                scenarioWidgetKey: scenarioWidgetKey,
-                matching: find.byType(MovieListItem),
-                matcher: findsOneWidget,
-              ),
-            ),
-        );
+        testGoldensSimple(
+            testName: _TEST_NAME_NORMAL,
+            overrides: [
+              overrideNormal,
+              kOverrideConnectedRepositoryConnectedImpl
+            ],
+            onScenarioCreate: (tester, scenarioWidgetKey) async =>
+                TestUtil.expectFind(
+                  scenarioWidgetKey: scenarioWidgetKey,
+                  matching: find.byType(MovieListItem),
+                  matcher: findsOneWidget,
+                ));
       });
 }

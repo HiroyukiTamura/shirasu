@@ -6,10 +6,13 @@ import 'package:shirasu/client/connectivity_repository_impl.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
+import 'package:shirasu/client/network_image_repository_impl.dart';
+import 'package:shirasu/env.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 
 import '../../../mock_repository/connected_connected.dart';
@@ -19,7 +22,10 @@ import '../../../mock_repository/graphql_error.dart';
 import '../../../mock_repository/graphql_timeout.dart';
 import '../../../mock_repository/graphql_unauthorized.dart';
 import '../../../mock_repository/hive_pref_empty.dart';
+import '../../../mock_repository/network_image_error.dart';
+import '../../../mock_repository/test_env.dart';
 import '../../../widget_test_util/json_client.dart';
+import '../../../widget_test_util/test_cache_manager.dart';
 import '../../../widget_test_util/test_util.dart';
 import '../../../widget_test_util/widget_holder.dart';
 
@@ -50,7 +56,7 @@ void main() {
     @required String goldenName,
     List<Override> overrides = const [],
     OnScenarioCreate onScenarioCreate,
-  }) =>
+  }) async =>
       TestUtil.matchGolden(
         tester: tester,
         goldenName: goldenName,
@@ -64,7 +70,7 @@ void main() {
         matcher: findsNothing,
       );
 
-  setUp(() async {
+  setUpAll(() async {
     featureProgramData = await jsonClient.featureProgramData;
     newProgramsData = await jsonClient.newProgramsData;
   });
@@ -76,6 +82,8 @@ void main() {
           overrides: [
             kPrvConnectivityRepository
                 .overrideWithValue(const ConnectedRepositoryDisconnectedImpl()),
+            kPrvNetworkRepository.overrideWithValue(NetworkImageRepositoryErrorImpl()),
+            kPrvEnv.overrideWithValue(const EnvRepositoryTestImpl()),
           ],
           tester: tester,
           goldenName: _kTestNameErrorNetworkDisconnected,
@@ -96,6 +104,8 @@ void main() {
                 .overrideWithValue(const ConnectedRepositoryConnectedImpl()),
             kPrvGraphqlRepository
                 .overrideWithValue(const GraphQlRepositoryTimeoutImpl()),
+            kPrvNetworkRepository.overrideWithValue(NetworkImageRepositoryErrorImpl()),
+            kPrvEnv.overrideWithValue(const EnvRepositoryTestImpl()),
           ],
           tester: tester,
           goldenName: _kTestNameErrorNetworkTimeout,
@@ -119,6 +129,8 @@ void main() {
                 .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(true)),
             kPrvHivePrefRepository
                 .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+            kPrvNetworkRepository.overrideWithValue(NetworkImageRepositoryErrorImpl()),
+            kPrvEnv.overrideWithValue(const EnvRepositoryTestImpl()),
           ],
           tester: tester,
           goldenName: _kTestNameErrorAuthExpired,
@@ -142,6 +154,8 @@ void main() {
                 .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(false)),
             kPrvHivePrefRepository
                 .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+            kPrvNetworkRepository.overrideWithValue(NetworkImageRepositoryErrorImpl()),
+            kPrvEnv.overrideWithValue(const EnvRepositoryTestImpl()),
           ],
           tester: tester,
           goldenName: _kTestNameErrorUnAuth,
@@ -165,6 +179,8 @@ void main() {
                 .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
             kPrvGraphqlRepository
                 .overrideWithValue(const GraphQlRepositoryErrorImpl()),
+            kPrvNetworkRepository.overrideWithValue(NetworkImageRepositoryErrorImpl()),
+            kPrvEnv.overrideWithValue(const EnvRepositoryTestImpl()),
           ],
           tester: tester,
           goldenName: _kTestNameErrorUnknown,
@@ -180,7 +196,7 @@ void main() {
     );
   });
 
-  group('PageDashboard normal screen', () {
+  group('PageDashboardNormalScreen', () {
     testGoldens(
       _kTestNameNowBroadcasting,
       (tester) async => _matchGolden(
@@ -193,7 +209,9 @@ void main() {
                   .overrideWithValue(GraphQlRepositoryCommonImpl(
                 featureProgramData: featureProgramData,
                 newProgramsData: newProgramsData,
-              ))
+              )),
+              kPrvNetworkRepository.overrideWithValue(NetworkImageRepositoryErrorImpl()),
+              kPrvEnv.overrideWithValue(const EnvRepositoryTestImpl()),
             ],
             tester: tester,
             goldenName: _kTestNameNowBroadcasting,

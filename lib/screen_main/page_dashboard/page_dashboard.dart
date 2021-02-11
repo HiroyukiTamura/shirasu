@@ -100,7 +100,7 @@ class _ListViewContent extends HookWidget {
                     ? BillboardHeader.build(
                         onTapItem: (BuildContext context, String prgId) async =>
                             context.pushProgramPage(prgId),
-                        items: featurePrgData.comingBroadcastings.items,
+                        items: featurePrgData.nowBroadcastings.items,
                         constraints: constraints,
                         wideMode: context.isBigScreen,
                       )

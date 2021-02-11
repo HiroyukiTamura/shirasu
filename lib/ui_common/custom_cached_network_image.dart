@@ -4,11 +4,9 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/env.dart';
 
 part 'custom_cached_network_image.g.dart';
-
-final _kPrvImageCache = Provider.autoDispose<BaseCacheManager>(
-        (ref) => null);
 
 @hwidget
 Widget customCachedNetworkImage({
@@ -18,15 +16,20 @@ Widget customCachedNetworkImage({
   BoxFit fit,
   PlaceholderWidgetBuilder placeholder,
   LoadingErrorWidgetBuilder errorWidget,
-  ImageWidgetBuilder imageBuilder
+  ImageWidgetBuilder imageBuilder,
 }) =>
-    CachedNetworkImage(
-      cacheManager: useProvider(_kPrvImageCache),
-      imageUrl: imageUrl,
-      height: height,
-      width: width,
-      fit: fit,
-      imageBuilder: imageBuilder,
-      errorWidget: errorWidget,
-      placeholder: placeholder,
-    );
+    useProvider(kPrvEnv).enableNetworkImage
+        ? CachedNetworkImage(
+            imageUrl: imageUrl,
+            height: height,
+            width: width,
+            fit: fit,
+            imageBuilder: imageBuilder,
+            errorWidget: errorWidget,
+            placeholder: placeholder,
+          )
+        : SizedBox(
+            width: width,
+            height: height,
+            child: const Placeholder(),
+          );

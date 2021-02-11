@@ -1,0 +1,10 @@
+name: test
+
+flutter_gen:
+  integrations:
+    flare_flutter: true
+
+flutter:
+  assets:
+    - jpeg/
+    - json/

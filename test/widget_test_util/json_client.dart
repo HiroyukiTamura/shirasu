@@ -6,12 +6,14 @@ import '../widget_test_util/test_util.dart';
 
 class JsonClient {
   Future<FeatureProgramData> get featureProgramData async {
-    final json = await TestUtil.loadJson(Assets.json.listFeaturedPrograms);
+    final path = TestUtil.fixAssetPath(Assets.json.listFeaturedPrograms);
+    final json = await TestUtil.loadJson(path);
     return FeatureProgramData.fromJson(json);
   }
 
   Future<NewProgramsData> get newProgramsData async {
-    final json = await TestUtil.loadJson(Assets.json.listNewPrograms);
+    final path = TestUtil.fixAssetPath(Assets.json.listNewPrograms);
+    final json = await TestUtil.loadJson(path);
     return NewProgramsData.fromJson(json);
   }
 }

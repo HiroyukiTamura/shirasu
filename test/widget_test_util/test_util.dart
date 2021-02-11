@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:shirasu/resource/styles.dart';
+import 'package:path/path.dart' as p;
+import 'package:file/local.dart';
 
 import 'test_extension.dart';
+
+typedef OnPostBuild = Future<void> Function(WidgetTester tester);
 
 class TestUtil {
   static final _phoneHorizontal = Device.phone.copyWith(
@@ -35,6 +39,7 @@ class TestUtil {
     @required Widget widget,
     OnScenarioCreate onScenarioCreate,
     ThemeData theme,
+    OnPostBuild onPostBuild,
   }) async {
     final builder = DeviceBuilder()
       ..overrideAllDevice()
@@ -50,6 +55,8 @@ class TestUtil {
         theme: theme ?? Styles.theme,
       ),
     );
+
+    if (onPostBuild != null) await onPostBuild(tester);
 
     await screenMatchesGolden(tester, goldenName);
   }
@@ -69,5 +76,20 @@ class TestUtil {
   static Future<Map<String, dynamic>> loadJson(String fileName) async {
     final jsonString = await File(fileName).readAsString();
     return jsonDecode(jsonString)['data'] as Map<String, dynamic>;
+  }
+
+  static String fixAssetPath(String assetName) {
+    final path = p.join('resources', assetName);
+    return _fixTestPath(path);
+  }
+
+  /// ref https://github.com/flutter/flutter/issues/20907
+  static String _fixTestPath(String path) {
+    if (const LocalFileSystem().currentDirectory.path.endsWith('test'))
+      return path.replaceFirst('test/', '');
+    else if (!path.startsWith('test'))
+      return 'test/$path';
+    else
+      return path;
   }
 }

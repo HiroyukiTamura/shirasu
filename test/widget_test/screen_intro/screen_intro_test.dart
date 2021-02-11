@@ -57,8 +57,7 @@ void main() {
 
   Widget _widget() => ProviderScope(
         overrides: [
-          kPrvHivePrefRepository.overrideWithProvider(
-              Provider((ref) => HiveEmptyPrefRepositoryImpl()))
+          kOverrideHiveEmpty
         ],
         child: ScreenIntro(),
       );

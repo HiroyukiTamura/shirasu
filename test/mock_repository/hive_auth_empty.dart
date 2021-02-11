@@ -1,6 +1,10 @@
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
 
-class HiveEmptyPrefRepositoryImpl with HivePrefRepository {
+final kOverrideHiveEmpty = kPrvHivePrefRepository
+    .overrideWithProvider(Provider((ref) => _HiveEmptyPrefRepositoryImpl()));
+
+class _HiveEmptyPrefRepositoryImpl with HivePrefRepository {
   @override
   bool get isInitialLaunchApp => throw UnimplementedError();
 

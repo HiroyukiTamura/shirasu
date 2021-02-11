@@ -83,8 +83,7 @@ void main() {
       _kTestNameErrorNetworkDisconnected,
       (tester) async => _matchGolden(
           overrides: [
-            kPrvConnectivityRepository
-                .overrideWithValue(const ConnectedRepositoryDisconnectedImpl()),
+            kOverrideDisconnected,
             kPrvNetworkRepository
                 .overrideWithValue(NetworkImageRepositoryErrorImpl()),
           ],
@@ -104,8 +103,7 @@ void main() {
       (tester) async => _matchGolden(
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
-            kPrvGraphqlRepository
-                .overrideWithValue(const GraphQlRepositoryTimeoutImpl()),
+            kOverrideGraphqlTimeout
           ],
           tester: tester,
           goldenName: _kTestNameErrorNetworkTimeout,
@@ -124,10 +122,8 @@ void main() {
       (tester) async => _matchGolden(
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
-            kPrvGraphqlRepository
-                .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(true)),
-            kPrvHivePrefRepository
-                .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+            kOverrideGraphqlUnAuthDetectedByTime,
+            kOverrideHivePref,
           ],
           tester: tester,
           goldenName: _kTestNameErrorAuthExpired,
@@ -146,10 +142,8 @@ void main() {
       (tester) async => _matchGolden(
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
-            kPrvGraphqlRepository
-                .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(false)),
-            kPrvHivePrefRepository
-                .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+            kOverrideGraphqlUnAuthNotDetectedByTime,
+            kOverrideHivePref,
           ],
           tester: tester,
           goldenName: _kTestNameErrorUnAuth,
@@ -168,10 +162,8 @@ void main() {
       (tester) async => _matchGolden(
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
-            kPrvHivePrefRepository
-                .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
-            kPrvGraphqlRepository
-                .overrideWithValue(const GraphQlRepositoryErrorImpl()),
+            kOverrideHivePref,
+            kOverrideGraphqlRepository,
           ],
           tester: tester,
           goldenName: _kTestNameErrorUnknown,
@@ -204,8 +196,7 @@ void main() {
           (tester) async => _matchGolden(
             overrides: [
               kOverrideConnectedRepositoryConnectedImpl,
-              kPrvHivePrefRepository
-                  .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+              kOverrideHivePref,
               kPrvGraphqlRepository
                   .overrideWithValue(GraphQlRepositoryCommonImpl(
                 featureProgramData: featureProgramData ?? mFeatureProgramData,

@@ -40,7 +40,6 @@ mixin TestRunnerOnPageError on TestRunnerBase {
 
   void runTestGroup(String prefix, {String goldenNamePrefix = ''}) =>
       group('$prefix error screen', () {
-
         setUpAll(() async {
           await TestUtil.loadFonts();
         });
@@ -55,10 +54,7 @@ mixin TestRunnerOnPageError on TestRunnerBase {
             );
             _findNothingRaisedBtn(scenarioWidgetKey);
           },
-          overrides: [
-            kPrvConnectivityRepository
-                .overrideWithValue(const ConnectedRepositoryDisconnectedImpl()),
-          ],
+          overrides: [kOverrideDisconnected],
         );
         testGoldensSimple(
           testName: _kTestNameErrorNetworkTimeout,
@@ -73,8 +69,7 @@ mixin TestRunnerOnPageError on TestRunnerBase {
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
-            kPrvGraphqlRepository
-                .overrideWithValue(const GraphQlRepositoryTimeoutImpl()),
+            kOverrideGraphqlTimeout,
           ],
         );
         testGoldensSimple(
@@ -90,10 +85,8 @@ mixin TestRunnerOnPageError on TestRunnerBase {
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
-            kPrvGraphqlRepository
-                .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(true)),
-            kPrvHivePrefRepository
-                .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+            kOverrideGraphqlUnAuthDetectedByTime,
+            kOverrideHivePref,
           ],
         );
         testGoldensSimple(
@@ -109,10 +102,8 @@ mixin TestRunnerOnPageError on TestRunnerBase {
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
-            kPrvGraphqlRepository
-                .overrideWithValue(GraphQlRepositoryUnauthorizedImpl(false)),
-            kPrvHivePrefRepository
-                .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
+            kOverrideGraphqlUnAuthNotDetectedByTime,
+            kOverrideHivePref,
           ],
         );
         testGoldensSimple(
@@ -128,10 +119,8 @@ mixin TestRunnerOnPageError on TestRunnerBase {
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
-            kPrvHivePrefRepository
-                .overrideWithValue(const HivePrefEmptyRepositoryImpl()),
-            kPrvGraphqlRepository
-                .overrideWithValue(const GraphQlRepositoryErrorImpl()),
+            kOverrideHivePref,
+            kOverrideGraphqlRepository,
           ],
         );
       });

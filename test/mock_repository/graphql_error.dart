@@ -1,10 +1,13 @@
+import 'package:shirasu/client/graphql_repository_impl.dart';
 
 import '../widget_test_util/exception.dart';
 import 'graphql_allin.dart';
 
-class GraphQlRepositoryErrorImpl extends GraphqlAllin {
+final kOverrideGraphqlRepository = kPrvGraphqlRepository
+    .overrideWithValue(const _GraphQlRepositoryErrorImpl());
 
-  const GraphQlRepositoryErrorImpl(): super();
+class _GraphQlRepositoryErrorImpl extends GraphqlAllin {
+  const _GraphQlRepositoryErrorImpl() : super();
 
   @override
   Future<T> process<T>() => throw ExpectedException();

@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
+import 'package:shirasu/client/network_image_repository_impl.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -24,6 +25,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
     bool authExpired = false;
     FeatureProgramState newState;
     try {
+      await connectivityRepository.ensureNotDisconnect();
       final data = await graphQlRepository
           .queryFeaturedProgramsList()
           .timeout(GraphQlRepository.TIMEOUT);
@@ -52,7 +54,12 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
       newState = const FeatureProgramState.error(ErrorMsgCommon.unknown());
     }
 
-    authExpired ? pushAuthExpireScreen() : trySet(newState);
+    if (!mounted)
+      return;
+
+    state = newState;
+    if (authExpired)
+      pushAuthExpireScreen();
   }
 }
 

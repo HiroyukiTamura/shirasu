@@ -30,7 +30,7 @@ Widget subscribingWidget() => useProvider(_kPrvViewModel.state).when(
         padding: const EdgeInsets.symmetric(vertical: 16),
         itemBuilder: (context, i) {
           final item = programData.viewerUser.subscribedPrograms[i];
-          return MovieListBigItem(
+          return MovieListItem(
             program: item,
             onTap: () async => context.pushProgramPage(item.id),
           );

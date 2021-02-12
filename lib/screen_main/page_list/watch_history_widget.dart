@@ -20,11 +20,12 @@ import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 
 part 'watch_history_widget.g.dart';
 
-final _kPrvViewModel = StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
+@visibleForTesting
+final kPrvViewModelWatchHistory = StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
     (ref) => ViewModelWatchHistory(ref.read));
 
 @hwidget
-Widget watchHistoryWidget() => useProvider(_kPrvViewModel.state).when(
+Widget watchHistoryWidget() => useProvider(kPrvViewModelWatchHistory.state).when(
     initial: () => const CenterCircleProgress(),
     success: (data) => _ContentListView(
           watchHistories: data.watchHistories,
@@ -76,7 +77,7 @@ class _ContentListView extends HookWidget {
                     notification.direction == ScrollDirection.forward &&
                     sc.position.maxScrollExtent - Dimens.CIRCULAR_HEIGHT <
                         sc.offset) {
-                  context.read(_kPrvViewModel).loadMoreWatchHistory();
+                  context.read(kPrvViewModelWatchHistory).loadMoreWatchHistory();
                   return true;
                 }
 

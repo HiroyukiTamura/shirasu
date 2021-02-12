@@ -22,6 +22,7 @@ class TestRunnerBase {
     List<Override> overrides = const [],
     OnScenarioCreate onScenarioCreate,
     ThemeData theme,
+    OnPostBuild onPostBuild,
   }) async =>
       TestUtil.matchGolden(
         tester: tester,
@@ -32,6 +33,7 @@ class TestRunnerBase {
         ),
         theme: theme,
         onScenarioCreate: onScenarioCreate,
+        onPostBuild: onPostBuild,
       );
 
   @protected
@@ -39,6 +41,7 @@ class TestRunnerBase {
     @required String testName,
     @required List<Override> overrides,
     @required OnScenarioCreateTest onScenarioCreate,
+    OnPostBuild onPostBuild,
   }) =>
       testGoldens(
         testName,
@@ -47,6 +50,7 @@ class TestRunnerBase {
           tester: tester,
           goldenName: '$goldenNamePrefix$testName',
           onScenarioCreate: (key) async => onScenarioCreate(tester, key),
+          onPostBuild: onPostBuild,
         ),
       );
 }

@@ -7,9 +7,9 @@ import 'package:shirasu/extension.dart';
 
 
 final kOverrideViewModelWatchHistoryLoadMore = kPrvViewModelWatchHistory
-    .overrideWithProvider(_kPrvViewModelWatchHistoryLoadMore);
+    .overrideWithProvider(_kPrvViewModel);
 
-final _kPrvViewModelWatchHistoryLoadMore =
+final _kPrvViewModel =
     StateNotifierProvider.autoDispose<ViewModelWatchHistory>(
         (ref) => _ViewModelWatchHistoryLoadMore(ref.read));
 

@@ -40,7 +40,7 @@ class TestRunnerBase {
   void testGoldensSimple({
     @required String testName,
     @required List<Override> overrides,
-    @required OnScenarioCreateTest onScenarioCreate,
+    OnScenarioCreateTest onScenarioCreate,
     OnPostBuild onPostBuild,
   }) =>
       testGoldens(
@@ -49,7 +49,9 @@ class TestRunnerBase {
           overrides: overrides,
           tester: tester,
           goldenName: '$goldenNamePrefix$testName',
-          onScenarioCreate: (key) async => onScenarioCreate(tester, key),
+          onScenarioCreate: (key) async {
+            if (onScenarioCreate != null) return onScenarioCreate(tester, key);
+          },
           onPostBuild: onPostBuild,
         ),
       );

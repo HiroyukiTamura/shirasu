@@ -9,8 +9,8 @@ import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
 
-import '../../mock_repository/hive_auth_empty.dart';
-import '../../widget_test_util/test_util.dart';
+import '../mock_repository/hive_auth_empty.dart';
+import '../widget_test_util/test_util.dart';
 
 String _kTestNameScreenIntro1 = 'ScreenIntro1';
 String _kTestNameScreenIntro2 = 'ScreenIntro2';

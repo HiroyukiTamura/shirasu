@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
@@ -25,9 +26,13 @@ void main() => group('ViewModelSubscribing', () {
         kPrvHiveAuthRepository.overrideWithValue(HiveEmptyAuthRepositoryImpl()),
       ];
 
-      test('networkDisconnected', () async {
+      Future<void> testTemplate({
+        @required List<Override> override,
+        @required FeatureProgramState expectState,
+        @required dynamic expectPath,
+      }) async {
         final container = ProviderContainer(
-          overrides: [kOverrideDisconnected] + defaultOverride,
+          overrides: override + defaultOverride,
         );
         final appRouter = container.listen(kPrvAppRouterDelegate).read();
         final viewModel = container.listen(kPrvViewModelSubscribing).read();
@@ -35,76 +40,64 @@ void main() => group('ViewModelSubscribing', () {
         expect(
             // ignore: invalid_use_of_protected_member
             viewModel.state,
-            const FeatureProgramState.error(
-                ErrorMsgCommon.networkDisconnected()));
-        expect(appRouter.appState.last, isNot(const GlobalRoutePath.auth()));
-      });
-      test('networkTimeout', () async {
-        final container = ProviderContainer(
-          overrides: [
-                kOverrideConnectedRepositoryConnectedImpl,
-                kOverrideGraphqlTimeout,
-              ] +
-              defaultOverride,
-        );
-        final appRouter = container.listen(kPrvAppRouterDelegate).read();
-        final viewModel = container.listen(kPrvViewModelSubscribing).read();
-        await viewModel.initialize();
-        expect(
-            // ignore: invalid_use_of_protected_member
-            viewModel.state,
-            const FeatureProgramState.error(ErrorMsgCommon.networkTimeout()));
-        expect(appRouter.appState.last, isNot(const GlobalRoutePath.auth()));
-      });
-      test('AuthExpired', () async {
-        final container = ProviderContainer(
-          overrides: [
-                kOverrideConnectedRepositoryConnectedImpl,
-                kOverrideGraphqlUnAuthDetectedByTime,
-              ] +
-              defaultOverride,
-        );
-        final appRouter = container.listen(kPrvAppRouterDelegate).read();
-        final viewModel = container.listen(kPrvViewModelSubscribing).read();
-        await viewModel.initialize();
-        expect(
-            // ignore: invalid_use_of_protected_member
-            viewModel.state,
-            const FeatureProgramState.error(ErrorMsgCommon.authExpired()));
-        expect(appRouter.appState.last, const GlobalRoutePath.error(true));
-      });
-      test('UnAuth', () async {
-        final container = ProviderContainer(
-          overrides: [
-                kOverrideConnectedRepositoryConnectedImpl,
-                kOverrideGraphqlUnAuthNotDetectedByTime,
-              ] +
-              defaultOverride,
-        );
-        final appRouter = container.listen(kPrvAppRouterDelegate).read();
-        final viewModel = container.listen(kPrvViewModelSubscribing).read();
-        await viewModel.initialize();
-        expect(
-            // ignore: invalid_use_of_protected_member
-            viewModel.state,
-            const FeatureProgramState.error(ErrorMsgCommon.unAuth()));
-        expect(appRouter.appState.last, const GlobalRoutePath.error(true));
-      });
-      test('UnknownError', () async {
-        final container = ProviderContainer(
-          overrides: [
-                kOverrideConnectedRepositoryConnectedImpl,
-                kOverrideGraphqlErr,
-              ] +
-              defaultOverride,
-        );
-        final appRouter = container.listen(kPrvAppRouterDelegate).read();
-        final viewModel = container.listen(kPrvViewModelSubscribing).read();
-        await viewModel.initialize();
-        expect(
-            // ignore: invalid_use_of_protected_member
-            viewModel.state,
-            const FeatureProgramState.error(ErrorMsgCommon.unknown()));
-        expect(appRouter.appState.last, isNot(const GlobalRoutePath.auth()));
-      });
+            expectState);
+        expect(appRouter.appState.last, expectPath);
+      }
+
+      test(
+        'networkDisconnected',
+        () async => testTemplate(
+          override: [kOverrideDisconnected],
+          expectState: const FeatureProgramState.error(
+              ErrorMsgCommon.networkDisconnected()),
+          expectPath: isNot(isA<PathDataError>()),
+        ),
+      );
+      test(
+        'networkTimeout',
+        () async => testTemplate(
+          override: [
+            kOverrideConnectedRepositoryConnectedImpl,
+            kOverrideGraphqlTimeout,
+          ],
+          expectState:
+              const FeatureProgramState.error(ErrorMsgCommon.networkTimeout()),
+          expectPath: isNot(isA<PathDataError>()),
+        ),
+      );
+      test(
+        'AuthExpired',
+        () async => testTemplate(
+          override: [
+            kOverrideConnectedRepositoryConnectedImpl,
+            kOverrideGraphqlUnAuthDetectedByTime,
+          ],
+          expectState:
+              const FeatureProgramState.error(ErrorMsgCommon.authExpired()),
+          expectPath: const GlobalRoutePath.error(true),
+        ),
+      );
+      test(
+        'UnAuth',
+        () async => testTemplate(
+          override: [
+            kOverrideConnectedRepositoryConnectedImpl,
+            kOverrideGraphqlUnAuthNotDetectedByTime,
+          ],
+          expectState: const FeatureProgramState.error(ErrorMsgCommon.unAuth()),
+          expectPath: const GlobalRoutePath.error(true),
+        ),
+      );
+      test(
+        'UnknownError',
+        () async => testTemplate(
+          override: [
+            kOverrideConnectedRepositoryConnectedImpl,
+            kOverrideGraphqlErr,
+          ],
+          expectState:
+              const FeatureProgramState.error(ErrorMsgCommon.unknown()),
+          expectPath: isNot(isA<PathDataError>()),
+        ),
+      );
     });

@@ -1,3 +1,3 @@
 class ExpectedException implements Exception {}
 
-class NoExpectedException implements Exception {}
+class UnExpectedException implements Exception {}

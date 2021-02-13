@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_intro/screen_intro.dart';
@@ -57,7 +58,7 @@ void main() {
 
   Widget _widget() => ProviderScope(
         overrides: [
-          kOverrideHiveEmpty
+          kPrvHivePrefRepository.overrideWithValue(HiveEmptyPrefRepositoryImpl(false)),
         ],
         child: ScreenIntro(),
       );

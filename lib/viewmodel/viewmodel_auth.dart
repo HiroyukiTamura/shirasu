@@ -97,7 +97,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
       if (!mounted)
         return;
 
-      final delegate = reader(pAppRouterDelegate);
+      final delegate = reader(kPrvAppRouterDelegate);
       if (_success)
         delegate.reset();
       else if (_hiveClient.maybeExpired && url == UrlUtil.URL_DASHBOARD) {

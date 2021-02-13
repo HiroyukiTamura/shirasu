@@ -4,7 +4,7 @@ import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'hive_client.dart';
 
-final kPrvHiveAuthRepository = Provider<HiveAuthRepositoryImpl>((ref) => HiveAuthRepositoryImpl.instance());
+final kPrvHiveAuthRepository = Provider<HiveAuthRepository>((ref) => HiveAuthRepositoryImpl.instance());
 
 mixin HiveAuthRepository {
   HiveAuthData get authData;

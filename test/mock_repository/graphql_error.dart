@@ -3,7 +3,7 @@ import 'package:shirasu/client/graphql_repository_impl.dart';
 import '../widget_test_util/exception.dart';
 import 'graphql_allin.dart';
 
-final kOverrideGraphqlRepository = kPrvGraphqlRepository
+final kOverrideGraphqlErr = kPrvGraphqlRepository
     .overrideWithValue(const _GraphQlRepositoryErrorImpl());
 
 class _GraphQlRepositoryErrorImpl extends GraphqlAllin {

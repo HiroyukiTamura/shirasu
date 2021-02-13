@@ -1,14 +1,11 @@
 import 'package:shirasu/client/hive_pref_repository.dart';
 
-final kOverrideHivePref = kPrvHivePrefRepository
-    .overrideWithValue(const _HivePrefEmptyRepositoryImpl());
+class HivePrefEmptyRepositoryImpl with HivePrefRepository {
 
-class _HivePrefEmptyRepositoryImpl with HivePrefRepository {
-
-  const _HivePrefEmptyRepositoryImpl();
+  const HivePrefEmptyRepositoryImpl(this.isInitialLaunchApp);
 
   @override
-  bool get isInitialLaunchApp => true;
+  final bool isInitialLaunchApp;
 
   @override
   double get playSpeed => throw UnimplementedError();

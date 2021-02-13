@@ -27,7 +27,7 @@ Widget listTileLoadMore(BuildContext context) =>
                 const path = PathDataMainPageBase.subscribing(
                     PageListTabPage.WATCH_HISTORY);
                 return context
-                    .read(pAppRouterDelegate)
+                    .read(kPrvAppRouterDelegate)
                     .swapPageInMainScreen(path);
               },
               child: const Padding(

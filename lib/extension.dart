@@ -37,13 +37,13 @@ extension IntX on int {
 extension BuildContextX on BuildContext {
 
   Future<void> pushPage(GlobalRoutePath path) async =>
-      read(pAppRouterDelegate).pushPage(path);
+      read(kPrvAppRouterDelegate).pushPage(path);
 
   Future<void> pushProgramPage(String id) async =>
-      read(pAppRouterDelegate).pushPage(GlobalRoutePath.program(id));
+      read(kPrvAppRouterDelegate).pushPage(GlobalRoutePath.program(id));
 
   Future<void> pushChannelPage(String id) async =>
-      read(pAppRouterDelegate).pushPage(GlobalRoutePath.channel(id));
+      read(kPrvAppRouterDelegate).pushPage(GlobalRoutePath.channel(id));
 
   // todo extract dimen
   bool get isBigScreen => 600 < MediaQuery.of(this).size.width;

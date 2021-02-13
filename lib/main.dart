@@ -20,8 +20,7 @@ final snackBarMsgProvider =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
         (ref) => SnackBarMessageNotifier());
 
-// todo rename
-final pAppRouterDelegate = Provider<AppRouterDelegate>((ref) =>
+final kPrvAppRouterDelegate = Provider<AppRouterDelegate>((ref) =>
     AppRouterDelegate(
         ref.read));
 
@@ -61,7 +60,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
         home: Scaffold(
           body: Router(
             backButtonDispatcher: RootBackButtonDispatcher(),
-            routerDelegate: useProvider(pAppRouterDelegate),
+            routerDelegate: useProvider(kPrvAppRouterDelegate),
             routeInformationParser: AppRouteInformationParser.instance,
           ),
         ),

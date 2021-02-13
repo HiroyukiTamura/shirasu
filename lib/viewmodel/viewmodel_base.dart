@@ -75,7 +75,7 @@ mixin AppRouterLocator {
   Reader get reader;
 
   @protected
-  void pushAuthExpireScreen() => reader(pAppRouterDelegate).pushPage(const GlobalRoutePath.error(true));
+  void pushAuthExpireScreen() => reader(kPrvAppRouterDelegate).pushPage(const GlobalRoutePath.error(true));
 
   @protected
   GraphQlRepository get graphQlRepository => reader(kPrvGraphqlRepository);

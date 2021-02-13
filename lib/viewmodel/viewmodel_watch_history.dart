@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:async/async.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
@@ -20,7 +21,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   ViewModelWatchHistory(Reader reader)
       : super(reader, const WatchHistoryState.initial());
 
-  SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
+  SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
 
   @override
   Future<void> initialize() async {
@@ -82,9 +83,12 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       ));
 
       try {
-        final newOne = await graphQlRepository.queryWatchHistory(
-          nextToken: nextToken,
-        );
+        await connectivityRepository.ensureNotDisconnect();
+        final newOne = await graphQlRepository
+            .queryWatchHistory(
+              nextToken: nextToken,
+            )
+            .timeout(GraphQlRepository.TIMEOUT);
 
         final newList = oldState.data.watchHistories + [newOne];
 
@@ -100,11 +104,19 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       } catch (e) {
         debugPrint(e.toString());
         if (!mounted) return;
+
+        SnackMsg msg;
+        if (e is NetworkDisconnectException)
+          msg = const SnackMsg.networkDisconnected();
+        else if (e is TimeoutException)
+          msg = const SnackMsg.networkTimeout();
+        else
+          msg = const SnackMsg.unknown();
         state = WatchHistoryState.success(WatchHistoriesDataWrapper(
           watchHistories: oldState.data.watchHistories,
-          isLoadingMore: oldState.data.isLoadingMore,
+          isLoadingMore: false,
         ));
-        _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+        _msgNotifier.notifyMsg(msg, false);
       }
     }
   }

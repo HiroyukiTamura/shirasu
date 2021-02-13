@@ -14,6 +14,7 @@ import 'package:shirasu/extension.dart';
 
 part 'subscribing_widget.g.dart';
 
+@visibleForTesting
 final kPrvViewModelSubscribing =
     StateNotifierProvider.autoDispose<ViewModelSubscribing>(
         (ref) => ViewModelSubscribing(ref.read));

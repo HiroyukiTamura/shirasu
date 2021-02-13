@@ -36,6 +36,10 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
 
   const factory SnackMsg.urlCopied() = _SnackMsgUrlCopied;
 
+  const factory SnackMsg.networkDisconnected() = _SnackMsgNetworkDisconnected;
+
+  const factory SnackMsg.networkTimeout() = _SnackMsgNetworkTimeout;
+
   const SnackMsg._();
 
   @override

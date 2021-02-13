@@ -21,7 +21,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   double headerBackDropScrollPos = 0;
 
-  SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
+  SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
 
   GraphQlRepository get _graphQlRepository => reader(kPrvGraphqlRepository);
 

@@ -32,6 +32,16 @@ class _$SnackMsgTearOff {
   _SnackMsgUrlCopied urlCopied() {
     return const _SnackMsgUrlCopied();
   }
+
+// ignore: unused_element
+  _SnackMsgNetworkDisconnected networkDisconnected() {
+    return const _SnackMsgNetworkDisconnected();
+  }
+
+// ignore: unused_element
+  _SnackMsgNetworkTimeout networkTimeout() {
+    return const _SnackMsgNetworkTimeout();
+  }
 }
 
 /// @nodoc
@@ -46,6 +56,8 @@ mixin _$SnackMsg {
     @required TResult noMoreItem(),
     @required TResult cantOpenUrl(),
     @required TResult urlCopied(),
+    @required TResult networkDisconnected(),
+    @required TResult networkTimeout(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -53,6 +65,8 @@ mixin _$SnackMsg {
     TResult noMoreItem(),
     TResult cantOpenUrl(),
     TResult urlCopied(),
+    TResult networkDisconnected(),
+    TResult networkTimeout(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -61,6 +75,8 @@ mixin _$SnackMsg {
     @required TResult noMoreItem(_SnackMsgNoMoreItem value),
     @required TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     @required TResult urlCopied(_SnackMsgUrlCopied value),
+    @required TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    @required TResult networkTimeout(_SnackMsgNetworkTimeout value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -68,6 +84,8 @@ mixin _$SnackMsg {
     TResult noMoreItem(_SnackMsgNoMoreItem value),
     TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     TResult urlCopied(_SnackMsgUrlCopied value),
+    TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    TResult networkTimeout(_SnackMsgNetworkTimeout value),
     @required TResult orElse(),
   });
 }
@@ -130,11 +148,15 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     @required TResult noMoreItem(),
     @required TResult cantOpenUrl(),
     @required TResult urlCopied(),
+    @required TResult networkDisconnected(),
+    @required TResult networkTimeout(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
     assert(cantOpenUrl != null);
     assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
     return unknown();
   }
 
@@ -145,6 +167,8 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     TResult noMoreItem(),
     TResult cantOpenUrl(),
     TResult urlCopied(),
+    TResult networkDisconnected(),
+    TResult networkTimeout(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -161,11 +185,15 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     @required TResult noMoreItem(_SnackMsgNoMoreItem value),
     @required TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     @required TResult urlCopied(_SnackMsgUrlCopied value),
+    @required TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    @required TResult networkTimeout(_SnackMsgNetworkTimeout value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
     assert(cantOpenUrl != null);
     assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
     return unknown(this);
   }
 
@@ -176,6 +204,8 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     TResult noMoreItem(_SnackMsgNoMoreItem value),
     TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     TResult urlCopied(_SnackMsgUrlCopied value),
+    TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    TResult networkTimeout(_SnackMsgNetworkTimeout value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -234,11 +264,15 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     @required TResult noMoreItem(),
     @required TResult cantOpenUrl(),
     @required TResult urlCopied(),
+    @required TResult networkDisconnected(),
+    @required TResult networkTimeout(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
     assert(cantOpenUrl != null);
     assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
     return noMoreItem();
   }
 
@@ -249,6 +283,8 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     TResult noMoreItem(),
     TResult cantOpenUrl(),
     TResult urlCopied(),
+    TResult networkDisconnected(),
+    TResult networkTimeout(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -265,11 +301,15 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     @required TResult noMoreItem(_SnackMsgNoMoreItem value),
     @required TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     @required TResult urlCopied(_SnackMsgUrlCopied value),
+    @required TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    @required TResult networkTimeout(_SnackMsgNetworkTimeout value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
     assert(cantOpenUrl != null);
     assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
     return noMoreItem(this);
   }
 
@@ -280,6 +320,8 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     TResult noMoreItem(_SnackMsgNoMoreItem value),
     TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     TResult urlCopied(_SnackMsgUrlCopied value),
+    TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    TResult networkTimeout(_SnackMsgNetworkTimeout value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -338,11 +380,15 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     @required TResult noMoreItem(),
     @required TResult cantOpenUrl(),
     @required TResult urlCopied(),
+    @required TResult networkDisconnected(),
+    @required TResult networkTimeout(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
     assert(cantOpenUrl != null);
     assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
     return cantOpenUrl();
   }
 
@@ -353,6 +399,8 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     TResult noMoreItem(),
     TResult cantOpenUrl(),
     TResult urlCopied(),
+    TResult networkDisconnected(),
+    TResult networkTimeout(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -369,11 +417,15 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     @required TResult noMoreItem(_SnackMsgNoMoreItem value),
     @required TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     @required TResult urlCopied(_SnackMsgUrlCopied value),
+    @required TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    @required TResult networkTimeout(_SnackMsgNetworkTimeout value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
     assert(cantOpenUrl != null);
     assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
     return cantOpenUrl(this);
   }
 
@@ -384,6 +436,8 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     TResult noMoreItem(_SnackMsgNoMoreItem value),
     TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     TResult urlCopied(_SnackMsgUrlCopied value),
+    TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    TResult networkTimeout(_SnackMsgNetworkTimeout value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -442,11 +496,15 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     @required TResult noMoreItem(),
     @required TResult cantOpenUrl(),
     @required TResult urlCopied(),
+    @required TResult networkDisconnected(),
+    @required TResult networkTimeout(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
     assert(cantOpenUrl != null);
     assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
     return urlCopied();
   }
 
@@ -457,6 +515,8 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     TResult noMoreItem(),
     TResult cantOpenUrl(),
     TResult urlCopied(),
+    TResult networkDisconnected(),
+    TResult networkTimeout(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -473,11 +533,15 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     @required TResult noMoreItem(_SnackMsgNoMoreItem value),
     @required TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     @required TResult urlCopied(_SnackMsgUrlCopied value),
+    @required TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    @required TResult networkTimeout(_SnackMsgNetworkTimeout value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
     assert(cantOpenUrl != null);
     assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
     return urlCopied(this);
   }
 
@@ -488,6 +552,8 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     TResult noMoreItem(_SnackMsgNoMoreItem value),
     TResult cantOpenUrl(_SnackMsgCantOpenurl value),
     TResult urlCopied(_SnackMsgUrlCopied value),
+    TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    TResult networkTimeout(_SnackMsgNetworkTimeout value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -501,4 +567,239 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
 abstract class _SnackMsgUrlCopied extends SnackMsg {
   const _SnackMsgUrlCopied._() : super._();
   const factory _SnackMsgUrlCopied() = _$_SnackMsgUrlCopied;
+}
+
+/// @nodoc
+abstract class _$SnackMsgNetworkDisconnectedCopyWith<$Res> {
+  factory _$SnackMsgNetworkDisconnectedCopyWith(
+          _SnackMsgNetworkDisconnected value,
+          $Res Function(_SnackMsgNetworkDisconnected) then) =
+      __$SnackMsgNetworkDisconnectedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$SnackMsgNetworkDisconnectedCopyWithImpl<$Res>
+    extends _$SnackMsgCopyWithImpl<$Res>
+    implements _$SnackMsgNetworkDisconnectedCopyWith<$Res> {
+  __$SnackMsgNetworkDisconnectedCopyWithImpl(
+      _SnackMsgNetworkDisconnected _value,
+      $Res Function(_SnackMsgNetworkDisconnected) _then)
+      : super(_value, (v) => _then(v as _SnackMsgNetworkDisconnected));
+
+  @override
+  _SnackMsgNetworkDisconnected get _value =>
+      super._value as _SnackMsgNetworkDisconnected;
+}
+
+/// @nodoc
+class _$_SnackMsgNetworkDisconnected extends _SnackMsgNetworkDisconnected {
+  const _$_SnackMsgNetworkDisconnected() : super._();
+
+  @override
+  String toString() {
+    return 'SnackMsg.networkDisconnected()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _SnackMsgNetworkDisconnected);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult unknown(),
+    @required TResult noMoreItem(),
+    @required TResult cantOpenUrl(),
+    @required TResult urlCopied(),
+    @required TResult networkDisconnected(),
+    @required TResult networkTimeout(),
+  }) {
+    assert(unknown != null);
+    assert(noMoreItem != null);
+    assert(cantOpenUrl != null);
+    assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
+    return networkDisconnected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult unknown(),
+    TResult noMoreItem(),
+    TResult cantOpenUrl(),
+    TResult urlCopied(),
+    TResult networkDisconnected(),
+    TResult networkTimeout(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (networkDisconnected != null) {
+      return networkDisconnected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult unknown(_SnackMsgUnknownErr value),
+    @required TResult noMoreItem(_SnackMsgNoMoreItem value),
+    @required TResult cantOpenUrl(_SnackMsgCantOpenurl value),
+    @required TResult urlCopied(_SnackMsgUrlCopied value),
+    @required TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    @required TResult networkTimeout(_SnackMsgNetworkTimeout value),
+  }) {
+    assert(unknown != null);
+    assert(noMoreItem != null);
+    assert(cantOpenUrl != null);
+    assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
+    return networkDisconnected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult unknown(_SnackMsgUnknownErr value),
+    TResult noMoreItem(_SnackMsgNoMoreItem value),
+    TResult cantOpenUrl(_SnackMsgCantOpenurl value),
+    TResult urlCopied(_SnackMsgUrlCopied value),
+    TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    TResult networkTimeout(_SnackMsgNetworkTimeout value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (networkDisconnected != null) {
+      return networkDisconnected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SnackMsgNetworkDisconnected extends SnackMsg {
+  const _SnackMsgNetworkDisconnected._() : super._();
+  const factory _SnackMsgNetworkDisconnected() = _$_SnackMsgNetworkDisconnected;
+}
+
+/// @nodoc
+abstract class _$SnackMsgNetworkTimeoutCopyWith<$Res> {
+  factory _$SnackMsgNetworkTimeoutCopyWith(_SnackMsgNetworkTimeout value,
+          $Res Function(_SnackMsgNetworkTimeout) then) =
+      __$SnackMsgNetworkTimeoutCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$SnackMsgNetworkTimeoutCopyWithImpl<$Res>
+    extends _$SnackMsgCopyWithImpl<$Res>
+    implements _$SnackMsgNetworkTimeoutCopyWith<$Res> {
+  __$SnackMsgNetworkTimeoutCopyWithImpl(_SnackMsgNetworkTimeout _value,
+      $Res Function(_SnackMsgNetworkTimeout) _then)
+      : super(_value, (v) => _then(v as _SnackMsgNetworkTimeout));
+
+  @override
+  _SnackMsgNetworkTimeout get _value => super._value as _SnackMsgNetworkTimeout;
+}
+
+/// @nodoc
+class _$_SnackMsgNetworkTimeout extends _SnackMsgNetworkTimeout {
+  const _$_SnackMsgNetworkTimeout() : super._();
+
+  @override
+  String toString() {
+    return 'SnackMsg.networkTimeout()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _SnackMsgNetworkTimeout);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult unknown(),
+    @required TResult noMoreItem(),
+    @required TResult cantOpenUrl(),
+    @required TResult urlCopied(),
+    @required TResult networkDisconnected(),
+    @required TResult networkTimeout(),
+  }) {
+    assert(unknown != null);
+    assert(noMoreItem != null);
+    assert(cantOpenUrl != null);
+    assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
+    return networkTimeout();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult unknown(),
+    TResult noMoreItem(),
+    TResult cantOpenUrl(),
+    TResult urlCopied(),
+    TResult networkDisconnected(),
+    TResult networkTimeout(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (networkTimeout != null) {
+      return networkTimeout();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult unknown(_SnackMsgUnknownErr value),
+    @required TResult noMoreItem(_SnackMsgNoMoreItem value),
+    @required TResult cantOpenUrl(_SnackMsgCantOpenurl value),
+    @required TResult urlCopied(_SnackMsgUrlCopied value),
+    @required TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    @required TResult networkTimeout(_SnackMsgNetworkTimeout value),
+  }) {
+    assert(unknown != null);
+    assert(noMoreItem != null);
+    assert(cantOpenUrl != null);
+    assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
+    return networkTimeout(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult unknown(_SnackMsgUnknownErr value),
+    TResult noMoreItem(_SnackMsgNoMoreItem value),
+    TResult cantOpenUrl(_SnackMsgCantOpenurl value),
+    TResult urlCopied(_SnackMsgUrlCopied value),
+    TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    TResult networkTimeout(_SnackMsgNetworkTimeout value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (networkTimeout != null) {
+      return networkTimeout(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SnackMsgNetworkTimeout extends SnackMsg {
+  const _SnackMsgNetworkTimeout._() : super._();
+  const factory _SnackMsgNetworkTimeout() = _$_SnackMsgNetworkTimeout;
 }

@@ -22,7 +22,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
   final String _channelId;
 
-  SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
+  SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
 
   int tabIndex = 0;
 

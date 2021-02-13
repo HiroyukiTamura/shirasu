@@ -15,7 +15,7 @@ import 'message_notifier.dart';
 class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
 
-  SnackBarMessageNotifier get _msgNotifier => reader(snackBarMsgProvider);
+  SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
 
   static final User dummyUser = User(
     email: 'hogehoge@gmail.com',

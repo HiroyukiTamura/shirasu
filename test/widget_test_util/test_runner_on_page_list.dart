@@ -23,6 +23,9 @@ mixin TestRunnerOnPageList on TestRunnerBase {
 
   Override _overrideNormal;
 
+  @protected
+  Override get overrideGraphQl => _overrideNormal;
+
   Future<void> initTestOnPageList() async {
     final watchHistoriesData = await kJsonClient.watchHistoriesData;
     final featureProgramData = await kJsonClient.featureProgramData;

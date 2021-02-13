@@ -1,18 +1,21 @@
+import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/extension.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 
+import '../../mock_repository/connected_connected.dart';
 import '../../mock_viewmodel/viewmodel_watch_hisotry_mockable.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_runner_on_page_error.dart';
 import '../../widget_test_util/test_runner_on_page_list.dart';
 import '../../widget_test_util/test_util.dart';
 
+/// test for [WatchHistoryWidget]
 Future<void> main() async {
   final runner = _TestRunner();
   await runner.initTestOnPageList();
@@ -26,44 +29,62 @@ class _TestRunner extends TestRunnerBase
     with TestRunnerOnPageError, TestRunnerOnPageList {
   _TestRunner()
       : super(
-        () =>
-    const Scaffold(
-      body: WatchHistoryWidget(),
-    ),
-    goldenNamePrefix: 'WatchHistoryWidget',
-  );
+          () => const Scaffold(
+            body: WatchHistoryWidget(),
+          ),
+          goldenNamePrefix: 'WatchHistoryWidget',
+        );
 
   static const _TEST_NAME_LOADING_MORE = 'LoadingMore';
+  static const _TEST_NAME_PREFIX_INTEGRATE = 'Integrate';
 
-  void runTestLoadingMore() =>
-      group('WatchHistoryWidget', () {
-        Override override;
-        AutoDisposeStateNotifierProvider<ViewModelWatchHistory> provider;
-        final dummyState = WatchHistoryState.success(WatchHistoriesDataWrapper(
-          watchHistories: <WatchHistoriesData>[].toUnmodifiable(),
-          isLoadingMore: true,
-        ));
+  void runTestLoadingMore() => group(
+        'WatchHistoryWidget',
+        () {
+          testGoldensSimple(
+            testName: _TEST_NAME_LOADING_MORE,
+            overrides: [
+              kOverrideConnectedRepositoryConnectedImpl,
+              overrideGraphQl,
+            ],
+            onScenarioCreate: (tester, scenarioWidgetKey) async {
+              await tester.pump(3.seconds);
+              TestUtil.expectFind(
+                scenarioWidgetKey: scenarioWidgetKey,
+                matching: find.descendant(
+                  of: find.byType(ListView),
+                  matching: find.byType(CenterCircleProgress),
+                ),
+                matcher: findsOneWidget,
+              );
+            },
+          );
 
-        setUpAll(() async {
-          provider = ViewModelWatchHistoryMockable.createProvider(null);
-          override =
-              kPrvViewModelWatchHistory.overrideWithProvider(provider);
-        });
-
-        testGoldensSimple(
-          testName: _TEST_NAME_LOADING_MORE,
-          overrides: [override],
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            provider.state.overrideWithValue(dummyState);
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.descendant(
-                of: find.byType(ListView),
-                matching: find.byType(CenterCircleProgress),
-              ),
-              matcher: findsOneWidget,
-            );
-          },
-        );
-      });
+          testGoldensSimple(
+            testName: '$_TEST_NAME_PREFIX_INTEGRATE$_TEST_NAME_LOADING_MORE',
+            overrides: [
+              kOverrideConnectedRepositoryConnectedImpl,
+              overrideGraphQl,
+            ],
+            onScenarioCreate: (tester, scenarioWidgetKey) async {
+              TestUtil.expectFind(
+                scenarioWidgetKey: scenarioWidgetKey,
+                matching: find.descendant(
+                  of: find.byType(ListView),
+                  matching: find.byType(CenterCircleProgress),
+                ),
+                matcher: findsOneWidget,
+              );
+              await tester.fling(
+                  find.descendant(
+                      of: find.byKey(scenarioWidgetKey),
+                      matching: find.byType(ListView)),
+                  const Offset(0, -500),
+                  2000);
+              await tester.pump(1.seconds);
+            },
+          );
+        },
+        skip: true, //todo
+      );
 }

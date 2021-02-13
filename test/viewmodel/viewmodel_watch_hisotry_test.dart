@@ -26,7 +26,7 @@ void main() {
   final defaultOverride = [
     kPrvHivePrefRepository
         .overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
-    kPrvHiveAuthRepository.overrideWithValue(HiveEmptyAuthRepositoryImpl()),
+    kOverrideEmptyHiveAuthRepository,
   ];
 
   Future<void> testTemplate({

@@ -4,7 +4,9 @@ import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import '../widget_test_util/exception.dart';
 
-class HiveEmptyAuthRepositoryImpl with HiveAuthRepository {
+final kOverrideEmptyHiveAuthRepository = kPrvHiveAuthRepository.overrideWithValue(_HiveAuthRepositoryImpl());
+
+class _HiveAuthRepositoryImpl with HiveAuthRepository {
   @override
   Future<void> appendRefreshedToken(ResultTokenRefresh result) => throw UnExpectedException();
 

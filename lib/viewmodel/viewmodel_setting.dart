@@ -49,8 +49,6 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     ),
   );
 
-  /// todo should be synchronized?
-  /// todo check is disposed
   @override
   Future<void> initialize() async {
     if (state != SettingModel.initial()) return;

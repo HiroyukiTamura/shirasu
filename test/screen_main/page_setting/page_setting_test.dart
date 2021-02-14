@@ -3,13 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
-import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 
 import '../../mock_viewmodel/viewmodel_setting_mockable.dart';
-import '../../mock_viewmodel/viewmodel_subscribing_mockable.dart';
-import '../../mock_viewmodel/viewmodel_watch_hisotry_mockable.dart';
 import '../../widget_test_util/test_runner_base.dart';
 
 void main() => _TestRunner().runTest();

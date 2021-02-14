@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/hive_pref_repository.dart';
 
+import '../mock_repository/hive_auth_empty.dart';
+import '../mock_repository/hive_pref_empty.dart';
 import 'override_util.dart';
 import 'test_runner_on_page_error.dart';
 import 'test_util.dart';
@@ -11,10 +14,16 @@ import 'test_util.dart';
 typedef WidgetBuilder = Widget Function();
 
 class TestRunnerBase {
-  const TestRunnerBase(this.builder, {this.goldenNamePrefix = ''});
+  TestRunnerBase(this.builder, {this.goldenNamePrefix = ''});
 
   final WidgetBuilder builder;
   final String goldenNamePrefix;
+
+  final defaultOverride = kOverrideUtil.createOverrides([
+    kPrvHivePrefRepository
+        .overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
+    kOverrideEmptyHiveAuthRepository,
+  ]);
 
   Future<void> matchGolden({
     @required WidgetTester tester,

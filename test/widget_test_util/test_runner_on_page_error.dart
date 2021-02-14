@@ -36,11 +36,6 @@ typedef OnScenarioCreateTest = Future<void> Function(
     WidgetTester tester, Key scenarioWidgetKey);
 
 mixin TestRunnerOnPageError on TestRunnerBase {
-  void _findNothingRaisedBtn(Key scenarioWidgetKey) => TestUtil.expectFind(
-        scenarioWidgetKey: scenarioWidgetKey,
-        matching: find.byType(RaisedButton),
-        matcher: findsNothing,
-      );
 
   void runTestGroup(String prefix, {String goldenNamePrefix = ''}) =>
       group('$prefix error screen', () {
@@ -56,7 +51,6 @@ mixin TestRunnerOnPageError on TestRunnerBase {
               matching: find.text(Strings.ERR_NETWORK_DISCONNECTED),
               matcher: findsOneWidget,
             );
-            _findNothingRaisedBtn(scenarioWidgetKey);
           },
           overrides: [kOverrideDisconnected],
         );
@@ -69,7 +63,6 @@ mixin TestRunnerOnPageError on TestRunnerBase {
               matching: find.text(Strings.ERR_NETWORK_TIMEOUT),
               matcher: findsOneWidget,
             );
-            _findNothingRaisedBtn(scenarioWidgetKey);
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
@@ -85,7 +78,6 @@ mixin TestRunnerOnPageError on TestRunnerBase {
               matching: find.text(Strings.ERR_AUTH_EXPIRED),
               matcher: findsOneWidget,
             );
-            _findNothingRaisedBtn(scenarioWidgetKey);
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
@@ -103,7 +95,6 @@ mixin TestRunnerOnPageError on TestRunnerBase {
               matching: find.text(Strings.ERR_UN_AUTH),
               matcher: findsOneWidget,
             );
-            _findNothingRaisedBtn(scenarioWidgetKey);
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
@@ -121,7 +112,6 @@ mixin TestRunnerOnPageError on TestRunnerBase {
               matching: find.text(Strings.SNACK_ERR),
               matcher: findsOneWidget,
             );
-            _findNothingRaisedBtn(scenarioWidgetKey);
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,

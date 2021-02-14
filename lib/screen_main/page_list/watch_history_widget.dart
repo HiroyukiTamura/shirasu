@@ -30,7 +30,7 @@ Widget watchHistoryWidget() => useProvider(kPrvViewModelWatchHistory.state).when
     success: (data) => _ContentListView(
           watchHistories: data.watchHistories,
           showLoadingIndicator:
-              data.isLoadingMore || data.watchHistories.last.viewerUser.watchHistories.nextToken != null,
+              data.isLoadingMore && data.watchHistories.last.viewerUser.watchHistories.nextToken != null,
         ),
     resultEmpty: () => const EmptyListWidget(
           text: Strings.WATCH_HISTORY_EMPTY_MSG,

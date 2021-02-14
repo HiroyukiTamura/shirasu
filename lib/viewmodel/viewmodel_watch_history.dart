@@ -68,7 +68,6 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
     if (authExpired) pushAuthExpireScreen();
   }
 
-  //todo connectivity check
   Future<void> loadMoreWatchHistory() async {
     final oldState = state;
     if (oldState is _StateSuccess) {

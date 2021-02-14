@@ -73,11 +73,11 @@ class TestUtil {
     @required Finder matching,
     @required dynamic matcher,
   }) {
-    final errText = find.descendant(
+    final actual = find.descendant(
       of: find.byKey(scenarioWidgetKey),
       matching: matching,
     );
-    expect(errText, matcher);
+    expect(actual, matcher);
   }
 
   static Future<Map<String, dynamic>> loadJson(String fileName) async {

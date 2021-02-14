@@ -26,6 +26,7 @@ abstract class ViewModelBase<T> extends StateNotifier<T> with StateTrySetter<T>,
 
   @override
   @protected
+  @visibleForTesting
   Future<void> initialize() async {}
 }
 

@@ -1,110 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
-import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
+import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 
 import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
-import '../mock_repository/graphql_unauthorized.dart';
-import '../mock_repository/hive_auth_empty.dart';
-import '../mock_repository/hive_pref_empty.dart';
 import '../mock_viewmodel/viewmodel_watch_hisotry_mockable.dart';
 import '../widget_test_util/test_util.dart';
+import 'viewmodel_test_base.dart';
 
+/// test for [ViewModelSubscribing]
 void main() {
-  final defaultOverride = [
-    kPrvHivePrefRepository
-        .overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
-    kOverrideEmptyHiveAuthRepository,
-  ];
+  final testBase =
+      ViewModelTestBase<WatchHistoryState>(kPrvViewModelWatchHistory);
 
-  Future<void> testTemplate({
-    List<Override> override = const [],
-    @required WatchHistoryState expectState,
-    @required dynamic expectPath,
-  }) async {
-    final container = ProviderContainer(
-      overrides: override + defaultOverride,
-    );
-    final appRouter = container.listen(kPrvAppRouterDelegate).read();
-    final viewModel = container.listen(kPrvViewModelWatchHistory).read();
-    await viewModel.initialize();
-    expect(
-        // ignore: invalid_use_of_protected_member
-        viewModel.state,
-        expectState);
-    expect(appRouter.appState.last, expectPath);
-  }
-
-  /// test for [ViewModelWatchHistory.initialize]
-  group('ViewModelWatchHistory Initialization', () {
-    test(
-      'networkDisconnected',
-      () async => testTemplate(
-        override: [kOverrideDisconnected],
-        expectState:
-            const WatchHistoryState.error(ErrorMsgCommon.networkDisconnected()),
-        expectPath: isNot(isA<PathDataError>()),
-      ),
-    );
-    test(
-      'networkTimeout',
-      () async => testTemplate(
-        override: [
-          kOverrideConnectedRepositoryConnectedImpl,
-          kOverrideGraphqlTimeout,
-        ],
-        expectState:
-            const WatchHistoryState.error(ErrorMsgCommon.networkTimeout()),
-        expectPath: isNot(isA<PathDataError>()),
-      ),
-    );
-    test(
-      'AuthExpired',
-      () async => testTemplate(
-        override: [
-          kOverrideConnectedRepositoryConnectedImpl,
-          kOverrideGraphqlUnAuthDetectedByTime,
-        ],
-        expectState:
-            const WatchHistoryState.error(ErrorMsgCommon.authExpired()),
-        expectPath: const GlobalRoutePath.error(true),
-      ),
-    );
-    test(
-      'UnAuth',
-      () async => testTemplate(
-        override: [
-          kOverrideConnectedRepositoryConnectedImpl,
-          kOverrideGraphqlUnAuthNotDetectedByTime,
-        ],
-        expectState: const WatchHistoryState.error(ErrorMsgCommon.unAuth()),
-        expectPath: const GlobalRoutePath.error(true),
-      ),
-    );
-    test(
-      'UnknownError',
-      () async => testTemplate(
-        override: [
-          kOverrideConnectedRepositoryConnectedImpl,
-          kOverrideGraphqlErr,
-        ],
-        expectState: const WatchHistoryState.error(ErrorMsgCommon.unknown()),
-        expectPath: isNot(isA<PathDataError>()),
-      ),
-    );
-  });
+  group(
+      'ViewModelWatchHistory',
+      () => testBase
+        ..testNetworkDisconnected(
+            const WatchHistoryState.error(ErrorMsgCommon.networkDisconnected()))
+        ..testNetworkTimeout(
+            const WatchHistoryState.error(ErrorMsgCommon.networkTimeout()))
+        ..testAuthExpired(
+            const WatchHistoryState.error(ErrorMsgCommon.authExpired()))
+        ..testUnAuth(const WatchHistoryState.error(ErrorMsgCommon.unAuth()))
+        ..testUnknownError(
+            const WatchHistoryState.error(ErrorMsgCommon.unknown())));
 
   /// test for [ViewModelWatchHistory.loadMoreWatchHistory]
   group('ViewModelWatchHistory LoadingMore', () {
@@ -129,7 +59,7 @@ void main() {
 
     ProviderContainer createProviderContainer(List<Override> list) =>
         ProviderContainer(
-          overrides: defaultOverride + list,
+          overrides: testBase.defaultOverride + list,
         );
 
     Future<void> testTemplate({
@@ -172,7 +102,7 @@ void main() {
       },
     );
     test(
-      'NetworkDisconnected',
+      ViewModelTestBase.TEST_NAME_NETWORK_DISCONNECTED,
       () async {
         final overrideViewModel = kPrvViewModelWatchHistory
             .overrideWithProvider(ViewModelWatchHistoryMockable.createProvider(
@@ -189,7 +119,7 @@ void main() {
       },
     );
     test(
-      'NetworkTimeout',
+      ViewModelTestBase.TEST_NAME_NETWORK_TIMEOUT,
       () async {
         final overrideViewModel = kPrvViewModelWatchHistory
             .overrideWithProvider(ViewModelWatchHistoryMockable.createProvider(
@@ -207,11 +137,11 @@ void main() {
       },
     );
     test(
-      'ErrUnknown',
-          () async {
+      ViewModelTestBase.TEST_NAME_ERR_UNKNOWN,
+      () async {
         final overrideViewModel = kPrvViewModelWatchHistory
             .overrideWithProvider(ViewModelWatchHistoryMockable.createProvider(
-            hasNextTokenState));
+                hasNextTokenState));
         final overrideList = [
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlErr,

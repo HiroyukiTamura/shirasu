@@ -25,13 +25,16 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   GraphQlRepository get _graphQlRepository => reader(kPrvGraphqlRepository);
 
-  NetworkImageRepository get _networkRepository => reader(kPrvNetworkRepository);
+  NetworkImageRepository get _networkRepository =>
+      reader(kPrvNetworkRepository);
 
   @override
   Future<void> initialize() async {
     if (state != const DashboardModel.initial()) return;
 
     bool authExpired = false;
+
+    DashboardModel newState;
 
     try {
       await connectivityRepository.ensureNotDisconnect();
@@ -43,32 +46,32 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
         featureProgramData: apiResult.item1,
         rawNewProgramsDataList: [apiResult.item2],
       );
-      state = DashboardModel.successInitialization(data);
+      newState = DashboardModel.successInitialization(data);
     } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
 
-      if (isMounted) {
-        final errorMsg = e.detectedByTime
-            ? const ErrorMsgCommon.authExpired()
-            : const ErrorMsgCommon.unAuth();
-        state = DashboardModel.error(errorMsg);
-      }
+      final errorMsg = e.detectedByTime
+          ? const ErrorMsgCommon.authExpired()
+          : const ErrorMsgCommon.unAuth();
+      newState = DashboardModel.error(errorMsg);
     } on TimeoutException catch (e) {
       //todo log error
       print(e);
-      if (isMounted)
-        state = const DashboardModel.error(ErrorMsgCommon.networkTimeout());
+      newState = const DashboardModel.error(ErrorMsgCommon.networkTimeout());
     } on NetworkDisconnectException catch (e) {
       print(e);
-      if (isMounted)
-        state =
-            const DashboardModel.error(ErrorMsgCommon.networkDisconnected());
+      newState =
+          const DashboardModel.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
-      if (isMounted)
-        state = const DashboardModel.error(ErrorMsgCommon.unknown());
+      newState = const DashboardModel.error(ErrorMsgCommon.unknown());
     }
+
+    if (!isMounted)
+      return;
+
+    state = newState;
 
     if (authExpired) {
       pushAuthExpireScreen();

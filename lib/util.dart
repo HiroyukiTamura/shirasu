@@ -11,7 +11,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/ui_common/images.dart';
 import 'package:dartx/dartx.dart';
 
-
 class Util {
   const Util._();
 
@@ -33,7 +32,8 @@ class Util {
     return Tuple2(t, s);
   }
 
-  static Future<void> launchUrl(BuildContext context, String url, VoidCallback onUrlInvalid) async {
+  static Future<void> launchUrl(
+      BuildContext context, String url, VoidCallback onUrlInvalid) async {
     if (!await canLaunch(url)) {
       onUrlInvalid();
       return;
@@ -98,8 +98,7 @@ class Util {
   }
 
   static void require(bool check, [String message]) {
-    if (!check)
-      throw ArgumentError(message);
+    if (!check) throw ArgumentError(message);
   }
 }
 

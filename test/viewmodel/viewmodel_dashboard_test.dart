@@ -1,104 +1,37 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
-import 'package:shirasu/client/hive_pref_repository.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/router/global_app_state.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
-import 'package:shirasu/screen_main/page_list/subscribing_widget.dart';
+import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
-import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
+import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 
-import '../mock_repository/connected_connected.dart';
-import '../mock_repository/connected_disconnect.dart';
-import '../mock_repository/graphql_error.dart';
-import '../mock_repository/graphql_timeout.dart';
-import '../mock_repository/graphql_unauthorized.dart';
-import '../mock_repository/hive_auth_empty.dart';
-import '../mock_repository/hive_pref_empty.dart';
+import '../widget_test_util/test_util.dart';
+import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelDashBoard]
-void main() => group('ViewModelDashBoard', () {
-      final defaultOverride = [
-        kPrvHivePrefRepository
-            .overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
-        kOverrideEmptyHiveAuthRepository,
-      ];
+Future<void> main() async {
+  final testBase = ViewModelTestBase<DashboardModel>(
+    prvDashboardViewModel: kPrvDashboardViewModel,
+  );
 
-      Future<void> testTemplate({
-        @required List<Override> override,
-        @required FeatureProgramState expectState,
-        @required dynamic expectPath,
-      }) async {
-        final container = ProviderContainer(
-          overrides: override + defaultOverride,
-        );
-        final appRouter = container.listen(kPrvAppRouterDelegate).read();
-        final viewModel = container.listen(kPrvDashboardViewModel).read();
-        await viewModel.initialize();
-        expect(
-            // ignore: invalid_use_of_protected_member
-            viewModel.state,
-            expectState);
-        expect(appRouter.appState.last, expectPath);
-      }
+  await testBase.init();
 
-      test(
-        'networkDisconnected',
-        () async => testTemplate(
-          override: [kOverrideDisconnected],
-          expectState: const FeatureProgramState.error(
-              ErrorMsgCommon.networkDisconnected()),
-          expectPath: isNot(isA<PathDataError>()),
-        ),
+  group('ViewModelDashBoard', () {
+    testBase
+      ..testNetworkDisconnected(
+          const DashboardModel.error(ErrorMsgCommon.networkDisconnected()))
+      ..testNetworkTimeout(
+          const DashboardModel.error(ErrorMsgCommon.networkTimeout()))
+      ..testAuthExpired(
+          const DashboardModel.error(ErrorMsgCommon.authExpired()))
+      ..testUnAuth(const DashboardModel.error(ErrorMsgCommon.unAuth()))
+      ..testUnknownError(const DashboardModel.error(ErrorMsgCommon.unknown()))
+      ..testNormal(//todo implement to ViewModelSubscribing, ViewModelWatchHistory
+        DashboardModel.success(DataWrapper.initial(ApiData(
+          featureProgramData: testBase.featureProgramData,
+          rawNewProgramsDataList: [testBase.newProgramsData],
+        ))),
       );
-      test(
-        'networkTimeout',
-        () async => testTemplate(
-          override: [
-            kOverrideConnectedRepositoryConnectedImpl,
-            kOverrideGraphqlTimeout,
-          ],
-          expectState:
-              const FeatureProgramState.error(ErrorMsgCommon.networkTimeout()),
-          expectPath: isNot(isA<PathDataError>()),
-        ),
-      );
-      test(
-        'AuthExpired',
-        () async => testTemplate(
-          override: [
-            kOverrideConnectedRepositoryConnectedImpl,
-            kOverrideGraphqlUnAuthDetectedByTime,
-          ],
-          expectState:
-              const FeatureProgramState.error(ErrorMsgCommon.authExpired()),
-          expectPath: const GlobalRoutePath.error(true),
-        ),
-      );
-      test(
-        'UnAuth',
-        () async => testTemplate(
-          override: [
-            kOverrideConnectedRepositoryConnectedImpl,
-            kOverrideGraphqlUnAuthNotDetectedByTime,
-          ],
-          expectState: const FeatureProgramState.error(ErrorMsgCommon.unAuth()),
-          expectPath: const GlobalRoutePath.error(true),
-        ),
-      );
-      test(
-        'UnknownError',
-        () async => testTemplate(
-          override: [
-            kOverrideConnectedRepositoryConnectedImpl,
-            kOverrideGraphqlErr,
-          ],
-          expectState:
-              const FeatureProgramState.error(ErrorMsgCommon.unknown()),
-          expectPath: isNot(isA<PathDataError>()),
-        ),
-      );
-    });
+  });
+}

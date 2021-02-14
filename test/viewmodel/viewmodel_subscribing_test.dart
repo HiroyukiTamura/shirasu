@@ -7,7 +7,9 @@ import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelSubscribing]
 void main() {
-  final testBase = ViewModelTestBase<FeatureProgramState>(kPrvViewModelSubscribing);
+  final testBase = ViewModelTestBase<FeatureProgramState>(
+    prvViewModel: kPrvViewModelSubscribing,
+  );
 
   group(
       'ViewModelSubscribing',
@@ -18,8 +20,7 @@ void main() {
             const FeatureProgramState.error(ErrorMsgCommon.networkTimeout()))
         ..testAuthExpired(
             const FeatureProgramState.error(ErrorMsgCommon.authExpired()))
-        ..testUnAuth(
-            const FeatureProgramState.error(ErrorMsgCommon.unAuth()))
+        ..testUnAuth(const FeatureProgramState.error(ErrorMsgCommon.unAuth()))
         ..testUnknownError(
             const FeatureProgramState.error(ErrorMsgCommon.unknown())));
 }

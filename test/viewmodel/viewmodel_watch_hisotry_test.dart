@@ -20,8 +20,9 @@ import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelSubscribing]
 void main() {
-  final testBase =
-      ViewModelTestBase<WatchHistoryState>(kPrvViewModelWatchHistory);
+  final testBase = ViewModelTestBase<WatchHistoryState>(
+    prvViewModel: kPrvViewModelWatchHistory,
+  );
 
   group(
       'ViewModelWatchHistory',

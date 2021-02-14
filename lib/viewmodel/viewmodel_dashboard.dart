@@ -68,8 +68,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       newState = const DashboardModel.error(ErrorMsgCommon.unknown());
     }
 
-    if (!isMounted)
-      return;
+    if (!isMounted) return;
 
     state = newState;
 
@@ -96,9 +95,11 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       try {
         state = oldState.copyWith.data(loadingMore: true);
 
+        await connectivityRepository.ensureNotDisconnect();
+
         final newProgramsData = await _graphQlRepository.queryNewProgramsList(
           nextToken: nextToken,
-        );
+        ).timeout(GraphQlRepository.TIMEOUT);
 
         state = state.appendLoadMoreData(newProgramsData);
 
@@ -108,10 +109,19 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
         debugPrint(e.toString());
         if (!isMounted) return;
 
+        // todo merge to viewModelWatchHistory
+        SnackMsg msg;
+        if (e is NetworkDisconnectException)
+          msg = const SnackMsg.networkDisconnected();
+        else if (e is TimeoutException)
+          msg = const SnackMsg.networkTimeout();
+        else
+          msg = const SnackMsg.unknown();
+
         _updateIfStateSuccess((data) => data.copyWith(
               loadingMore: false,
             ));
-        _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+        _msgNotifier.notifyMsg(msg, false);
       }
     }
   }

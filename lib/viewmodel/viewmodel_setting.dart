@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:async/async.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/connectivity_repository.dart';
+import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/main.dart';
@@ -11,6 +15,7 @@ import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'message_notifier.dart';
+import 'model/error_msg_common.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
@@ -48,27 +53,43 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
   /// todo check is disposed
   @override
   Future<void> initialize() async {
-    if (state.settingModelState is StateSuccess) return;
+    if (state != SettingModel.initial()) return;
 
     SettingModelState newState;
     bool authExpired = false;
     try {
-      final viewer = await graphQlRepository.queryViewer();
+      await connectivityRepository.ensureNotDisconnect();
+      final viewer = await graphQlRepository
+          .queryViewer()
+          .timeout(GraphQlRepository.TIMEOUT);
       newState = SettingModelState.success(viewer);
     } on UnauthorizedException catch (e) {
       print(e);
       authExpired = true;
+
+      final errorMsg = e.detectedByTime
+          ? const ErrorMsgCommon.authExpired()
+          : const ErrorMsgCommon.unAuth();
+      newState = SettingModelState.error(errorMsg);
+    } on TimeoutException catch (e) {
+      //todo log error
+      print(e);
+      newState = const SettingModelState.error(ErrorMsgCommon.networkTimeout());
+    } on NetworkDisconnectException catch (e) {
+      print(e);
+      newState =
+          const SettingModelState.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
-      newState = const SettingModelState.error();
+      newState = const SettingModelState.error(ErrorMsgCommon.unknown());
     }
 
     if (!mounted) return;
 
+    state = state.copyWith(settingModelState: newState);
+
     if (authExpired)
       pushAuthExpireScreen();
-    else
-      state = state.copyWith(settingModelState: newState);
   }
 
   void updateBirthDate(DateTime birthDate) =>
@@ -125,7 +146,7 @@ class LocationTextNotifier extends StateNotifier<String>
     with StateTrySetter<String> {
   LocationTextNotifier(AutoDisposeProviderReference ref) : super('') {
     final removeListener = ref
-        .watch<ViewModelSetting>(settingViewModelSProvider)
+        .watch<ViewModelSetting>(kPrvViewModelSetting)
         .addListener(
             (state) async => _updateLocation(state.editedUserInfo.location));
     ref.onDispose(removeListener);

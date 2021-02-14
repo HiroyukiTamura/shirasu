@@ -13,7 +13,7 @@ import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 part 'list_tile_load_more.g.dart';
 
 final _showLoadMoreProvider = Provider.autoDispose<bool>((ref) =>
-    ref.watch(settingViewModelSProvider.state).settingModelState.maybeWhen(
+    ref.watch(kPrvViewModelSetting.state).settingModelState.maybeWhen(
           success: (data) => data.viewerUser.watchHistories.items.isNotEmpty,
           orElse: () => false,
         ));

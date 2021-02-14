@@ -28,10 +28,10 @@ Widget fab() => useProvider(_kPrvRouterDelegate.select((it) => it.page)) ==
 
 @hwidget
 Widget _fabContent(BuildContext context) {
-  final isEdited = useProvider(settingViewModelSProvider.state
+  final isEdited = useProvider(kPrvViewModelSetting.state
       .select((it) => it.editedUserInfo.isEdited));
   final isUploadingProfile = useProvider(
-      settingViewModelSProvider.state.select((it) => it.uploadingProfile));
+      kPrvViewModelSetting.state.select((it) => it.uploadingProfile));
 
   return Visibility(
     visible: isEdited,
@@ -53,7 +53,7 @@ Widget _fabContent(BuildContext context) {
               onPressed: isUploadingProfile
                   ? null
                   : () async =>
-                      context.read(settingViewModelSProvider).postProfile(),
+                      context.read(kPrvViewModelSetting).postProfile(),
               child: const Icon(Icons.save),
             ),
           ),

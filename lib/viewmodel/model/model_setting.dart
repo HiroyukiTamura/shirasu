@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
 part 'model_setting.freezed.dart';
 
@@ -7,11 +8,9 @@ part 'model_setting.freezed.dart';
 abstract class SettingModelState with _$SettingModelState {
   const factory SettingModelState.preInitialized() = _StatePreInitialized;
 
-  const factory SettingModelState.loading() = _StateLoading;
+  const factory SettingModelState.success(ViewerWrapper data) = _StateSuccess;
 
-  const factory SettingModelState.success(ViewerWrapper data) = StateSuccess;
-
-  const factory SettingModelState.error() = _StateError;
+  const factory SettingModelState.error(ErrorMsgCommon errorMsg) = _StateError;
 }
 
 @freezed

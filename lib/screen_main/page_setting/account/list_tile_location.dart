@@ -23,7 +23,7 @@ Widget listTileLocation(BuildContext context) => PageUserInfo.listItem(
         final result = await UserLocationDialog.show(context);
         if (result != null)
           context
-              .read(settingViewModelSProvider)
+              .read(kPrvViewModelSetting)
               .updateUserLocation(result.countryCode, result.prefectureCode);
       },
       context: context,

@@ -20,7 +20,7 @@ class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
 
   factory ViewModelUserLocationDialog.createFromSettingVm(Reader reader) {
     final location =
-        reader(settingViewModelSProvider.state).editedUserInfo.location;
+        reader(kPrvViewModelSetting.state).editedUserInfo.location;
     return ViewModelUserLocationDialog._(
       reader: reader,
       countryCode: location?.countryCode ??

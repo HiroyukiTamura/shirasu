@@ -29,7 +29,7 @@ import 'package:shirasu/extension.dart';
 
 part 'page_setting.g.dart';
 
-final settingViewModelSProvider =
+final kPrvViewModelSetting =
     StateNotifierProvider.autoDispose<ViewModelSetting>(
         (ref) => ViewModelSetting(ref.read));
 
@@ -47,11 +47,10 @@ class PageUserInfo extends HookWidget {
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(settingViewModelSProvider.state
+      useProvider(kPrvViewModelSetting.state
           .select((it) => it.settingModelState)).when(
         preInitialized: () => const CenterCircleProgress(),
-        loading: () => const CenterCircleProgress(),
-        error: () => const PageError(),
+        error: (msg) => PageError(text: msg.value,),
         success: (data) => ListView.builder(
           padding:
               const EdgeInsets.symmetric(vertical: Dimens.SETTING_OUTER_MARGIN),
@@ -72,7 +71,8 @@ class PageUserInfo extends HookWidget {
             threshHolds.swap(2);
 
             if (i <= threshHolds.threshold) {
-              switch (i - threshHolds.preThreshHold - 1) {
+              final index = i - threshHolds.preThreshHold - 1;
+              switch (index) {
                 case 0:
                   return ListTileSeem(
                     paddingTop: data.viewer.paymentMethods.isNotEmpty,
@@ -84,8 +84,9 @@ class PageUserInfo extends HookWidget {
                     showEmptyText: data.viewerUser.subscribedChannels.isEmpty,
                     isCreditCard: false,
                   );
+                default:
+                  throw ArgumentError.value(index);
               }
-              throw Exception();
             }
 
             threshHolds.swap(data.viewerUser.subscribedChannels.length);
@@ -100,7 +101,8 @@ class PageUserInfo extends HookWidget {
             threshHolds.swap(2);
 
             if (i <= threshHolds.threshold) {
-              switch (i - threshHolds.preThreshHold - 1) {
+              final index = i - threshHolds.preThreshHold - 1;
+              switch (index) {
                 case 0:
                   return const ListTileSeem(
                     paddingBtm: true,
@@ -112,8 +114,9 @@ class PageUserInfo extends HookWidget {
                     showEmptyText: data.viewerUser.invoiceHistory.items.isEmpty,
                     isCreditCard: false,
                   );
+                default:
+                  throw ArgumentError.value(index);
               }
-              throw Exception();
             }
 
             threshHolds.swap(data.viewerUser.invoiceHistory.items.length);
@@ -128,7 +131,8 @@ class PageUserInfo extends HookWidget {
             threshHolds.swap(2);
 
             if (i <= threshHolds.threshold) {
-              switch (i - threshHolds.preThreshHold - 1) {
+              final index = i - threshHolds.preThreshHold - 1;
+              switch (index) {
                 case 0:
                   return const ListTileSeem(
                     paddingBtm: true,
@@ -140,8 +144,9 @@ class PageUserInfo extends HookWidget {
                     showEmptyText: data.viewerUser.watchHistories.items.isEmpty,
                     isCreditCard: false,
                   );
+                default:
+                  throw ArgumentError.value(index);
               }
-              throw Exception();
             }
 
             threshHolds.swap(data.viewerUser.watchHistories.items.length);
@@ -219,7 +224,7 @@ class PageUserInfo extends HookWidget {
           isCreditCard: true,
         );
       default:
-        throw Exception('unexpected index: $index');
+        throw ArgumentError.value(index);
     }
   }
 }

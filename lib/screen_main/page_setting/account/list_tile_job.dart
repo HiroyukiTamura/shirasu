@@ -11,7 +11,7 @@ class ListTileJob extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final job = useProvider(settingViewModelSProvider.state
+    final job = useProvider(kPrvViewModelSetting.state
             .select((it) => it.editedUserInfo)).jobCode ??
         ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.job;
 
@@ -41,6 +41,6 @@ class ListTileJob extends HookWidget {
                   .toList(),
             ));
     if (jobCode != null)
-      context.read(settingViewModelSProvider).updateJobCode(jobCode);
+      context.read(kPrvViewModelSetting).updateJobCode(jobCode);
   }
 }

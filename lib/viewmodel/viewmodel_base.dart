@@ -70,7 +70,7 @@ mixin StateTrySetter<T> on StateNotifier<T> {
 }
 
 //todo rename
-//todo snackBarProvider
+//todo implement snackBarProvider
 mixin AppRouterLocator {
 
   @protected

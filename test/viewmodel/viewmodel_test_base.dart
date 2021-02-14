@@ -6,6 +6,7 @@ import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
+import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/util.dart';
@@ -51,16 +52,19 @@ class ViewModelTestBase<T> {
   FeatureProgramData featureProgramData;
   NewProgramsData newProgramsData;
   WatchHistoriesData watchHistoriesData;
+  ViewerWrapper viewerWrapper;
 
   Future<void> init() async {
     featureProgramData = await kJsonClient.featureProgramData;
     newProgramsData = await kJsonClient.newProgramsData;
     watchHistoriesData = await kJsonClient.watchHistoriesData;
+    viewerWrapper = await kJsonClient.viewerWrapper;
     _graphQlOverrideNormal = kOverrideUtil.createOverrides([
       kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
         featureProgramData: featureProgramData,
         newProgramsData: newProgramsData,
         watchHistoriesData: watchHistoriesData,
+        viewerWrapper: viewerWrapper,
       )),
     ]);
   }

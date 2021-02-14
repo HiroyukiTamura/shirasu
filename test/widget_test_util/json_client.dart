@@ -24,4 +24,10 @@ class JsonClient {
     final json = await TestUtil.loadJson(path);
     return WatchHistoriesData.fromJson(json);
   }
+
+  Future<ViewerWrapper> get viewerWrapper async {
+    final path = TestUtil.fixAssetPath(Assets.json.viewer);
+    final json = await TestUtil.loadJson(path);
+    return ViewerWrapper.fromJson(json);
+  }
 }

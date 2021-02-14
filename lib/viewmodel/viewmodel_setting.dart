@@ -88,8 +88,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(settingModelState: newState);
 
-    if (authExpired)
-      pushAuthExpireScreen();
+    if (authExpired) pushAuthExpireScreen();
   }
 
   void updateBirthDate(DateTime birthDate) =>
@@ -98,15 +97,13 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
   void updateJobCode(String jobCode) =>
       state = state.copyWith.editedUserInfo(jobCode: jobCode);
 
-  void updateUserLocation(String countryCode, String prefectureCode) {
-    if (mounted)
+  void updateUserLocation(String countryCode, String prefectureCode) =>
       state = state.copyWith.editedUserInfo(
         location: Location(
           countryCode: countryCode,
           prefectureCode: prefectureCode,
         ),
       );
-  }
 
   Future<void> postProfile() async {
     if (state.uploadingProfile) return;

@@ -184,7 +184,7 @@ class PageUserInfo extends HookWidget {
           userName: viewer.viewerUser.name,
         );
       case 1:
-        return const ListItemUserName(user: null);
+        return const ListItemUserName();
       case 2:
         return const ListItemEmail();
       case 3:

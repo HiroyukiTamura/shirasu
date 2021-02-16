@@ -15,7 +15,7 @@ final _locationTextProvider =
     StateNotifierProvider.autoDispose<LocationTextNotifier>(
         (ref) => LocationTextNotifier(ref));
 
-class ListTileLocation extends StatelessWidget {
+class ListTileLocation extends HookWidget {
 
   const ListTileLocation();
 

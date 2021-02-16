@@ -15,7 +15,7 @@ class ListTileBirthDate extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final birthDateEdited = useProvider(
-        kPrvViewModelSetting.state.select((it) => it.editedUserInfo)).birthDate;
+        kPrvViewModelSetting.state.select((it) => it.editedUserInfo.birthDate));
     final birthDateLocal = useProvider(kPrvHiveAuthUser
         .select((it) => it?.httpsShirasuIoUserAttribute?.birthDate));
     final birthDate = birthDateEdited ?? birthDateLocal;

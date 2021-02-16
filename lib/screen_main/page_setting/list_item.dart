@@ -4,8 +4,8 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 part 'list_item.g.dart';
 
 @swidget
-Widget listItem({
-  @required BuildContext context,
+Widget listItem(
+  BuildContext context, {
   @required String title,
   @required String subTitle,
   GestureTapCallback onTap,

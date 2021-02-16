@@ -172,24 +172,6 @@ class PageUserInfo extends HookWidget {
         ),
       );
 
-  //todo extract
-  static Widget listItem({
-    @required BuildContext context,
-    @required String title,
-    @required String subTitle,
-    GestureTapCallback onTap,
-  }) =>
-      ListTile(
-        title: Text(title),
-        subtitle: Text(
-          subTitle,
-          style: TextStyle(
-            color: Theme.of(context).primaryColorDark,
-          ),
-        ),
-        onTap: onTap,
-      );
-
   static Widget _genListItemAboveCreditCard(
     BuildContext context,
     ViewerWrapper viewer,

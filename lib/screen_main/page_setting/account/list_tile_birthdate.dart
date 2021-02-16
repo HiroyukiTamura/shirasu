@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
+import '../list_item.dart';
 import '../page_setting.dart';
 
 class ListTileBirthDate extends HookWidget {
@@ -18,11 +19,10 @@ class ListTileBirthDate extends HookWidget {
     final birthDateLocal = useProvider(kPrvHiveAuthUser
         .select((it) => it?.httpsShirasuIoUserAttribute?.birthDate));
     final birthDate = birthDateEdited ?? birthDateLocal;
-    return PageUserInfo.listItem(
+    return ListItem(
       title: Strings.BIRTH_DATE_LABEL,
       subTitle: DateFormat('yyyy/MM/dd').format(birthDate),
       onTap: () async => _onTapBirthDate(context),
-      context: context,
     );
   }
 

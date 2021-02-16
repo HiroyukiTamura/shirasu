@@ -9,22 +9,28 @@ import 'package:flutter_riverpod/all.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import 'package:riverpod/all.dart';
 
-part 'list_tile_location.g.dart';
+import '../list_item.dart';
 
 final _locationTextProvider =
     StateNotifierProvider.autoDispose<LocationTextNotifier>(
         (ref) => LocationTextNotifier(ref));
 
-@hwidget
-Widget listTileLocation(BuildContext context) => PageUserInfo.listItem(
-      title: Strings.PLACE_LABEL,
-      subTitle: useProvider(_locationTextProvider.state),
-      onTap: () async {
-        final result = await UserLocationDialog.show(context);
-        if (result != null)
-          context
-              .read(kPrvViewModelSetting)
-              .updateUserLocation(result.countryCode, result.prefectureCode);
-      },
-      context: context,
-    );
+class ListTileLocation extends StatelessWidget {
+
+  const ListTileLocation();
+
+  @override
+  Widget build(BuildContext context) => ListItem(
+        title: Strings.PLACE_LABEL,
+        subTitle: useProvider(_locationTextProvider.state),
+        onTap: () async => _onTap(context),
+      );
+
+  Future<void> _onTap(BuildContext context) async {
+    final result = await UserLocationDialog.show(context);
+    if (result != null)
+      context
+          .read(kPrvViewModelSetting)
+          .updateUserLocation(result.countryCode, result.prefectureCode);
+  }
+}

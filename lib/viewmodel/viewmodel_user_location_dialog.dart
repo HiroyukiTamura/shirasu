@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/model/local/country_data.dart';
 import 'package:shirasu/model/local/prefecture_data.dart';
@@ -11,7 +12,6 @@ import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 part 'viewmodel_user_location_dialog.freezed.dart';
 
 class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
-
   ViewModelUserLocationDialog._({
     @required Reader reader,
     @required this.countryCode,
@@ -19,14 +19,14 @@ class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
   }) : super(reader, UserLocationModel.preInitialized());
 
   factory ViewModelUserLocationDialog.createFromSettingVm(Reader reader) {
-    final location =
+    final editedLocation =
         reader(kPrvViewModelSetting.state).editedUserInfo.location;
+    final storedLocation = reader(kPrvHiveAuthUser).httpsShirasuIoUserAttribute;
     return ViewModelUserLocationDialog._(
       reader: reader,
-      countryCode: location?.countryCode ??
-          ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.country,
-      prefectureCode: location?.prefectureCode ??
-          ViewModelSetting.dummyUser.httpsShirasuIoUserAttribute.prefecture,
+      countryCode: editedLocation?.countryCode ?? storedLocation?.country,
+      prefectureCode:
+          editedLocation?.prefectureCode ?? storedLocation?.prefecture,
     );
   }
 
@@ -37,8 +37,8 @@ class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
 
   @override
   Future<void> initialize() async {
-
-    final tuple = await Util.wait2(_jsonClient.getCountryData, _jsonClient.getPrefectureData);
+    final tuple = await Util.wait2(
+        _jsonClient.getCountryData, _jsonClient.getPrefectureData);
 
     trySet(UserLocationModel.initialized(
       countryData: tuple.item1,
@@ -54,7 +54,6 @@ class ViewModelUserLocationDialog extends ViewModelBase<UserLocationModel> {
   void changePrefecture(String prefectureCode) =>
       state = state.toPrefecture(prefectureCode);
 }
-
 
 @freezed
 abstract class UserLocationModel implements _$UserLocationModel {

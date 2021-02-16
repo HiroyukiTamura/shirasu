@@ -20,6 +20,7 @@ class $JsonGen {
   String get listFeaturedPrograms => 'json/list_featured_programs.json';
   String get listNewPrograms => 'json/list_new_programs.json';
   String get listPaymentMethods => 'json/list_payment_methods.json';
+  String get localstorage => 'json/localstorage.json';
   String get makeInvoice => 'json/make_invoice.json';
   String get postedComment => 'json/posted_comment.json';
   String get programDetail => 'json/program_detail.json';

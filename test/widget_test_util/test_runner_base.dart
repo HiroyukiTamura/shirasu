@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
+import 'package:shirasu/model/hive/auth_data.dart';
 
 import '../mock_repository/hive_auth_empty.dart';
 import '../mock_repository/hive_pref_empty.dart';
@@ -15,6 +16,12 @@ typedef WidgetBuilder = Widget Function();
 
 class TestRunnerBase {
   TestRunnerBase(this.builder, {this.goldenNamePrefix = ''});
+
+  HiveAuthData authData;
+
+  Future<void> init() async {
+    authData = await kJsonClient.hiveAuth;
+  }
 
   final WidgetBuilder builder;
   final String goldenNamePrefix;

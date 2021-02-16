@@ -6,6 +6,8 @@ import 'hive_client.dart';
 
 final kPrvHiveAuthRepository = Provider<HiveAuthRepository>((ref) => HiveAuthRepositoryImpl.instance());
 
+final kPrvHiveAuthUser = Provider<HiveUser>((ref) => ref.watch(kPrvHiveAuthRepository).authData?.body?.decodedToken?.user);
+
 mixin HiveAuthRepository {
   HiveAuthData get authData;
 

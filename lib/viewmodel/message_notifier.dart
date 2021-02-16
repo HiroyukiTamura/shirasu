@@ -48,5 +48,7 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
         noMoreItem: () => Strings.SNACK_NO_MORE_ITEM,
         cantOpenUrl: () => Strings.SNACK_CANT_OPEN_URL,
         urlCopied: () => Strings.SNACK_URL_COPIED,
+        networkTimeout: () => Strings.ERR_NETWORK_TIMEOUT,
+        networkDisconnected: () => Strings.ERR_NETWORK_DISCONNECTED,
       );
 }

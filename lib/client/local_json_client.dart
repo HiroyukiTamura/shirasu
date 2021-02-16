@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/local/country_data.dart';
 import 'package:shirasu/model/local/prefecture_data.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -59,7 +60,7 @@ class LocalJsonClient {
 
   static bool isJapan(String countryCode) => countryCode.toUpperCase() == 'JP';
 
-  Future<String> genLocationStr(User user, Location location) async {
+  Future<String> genLocationStr(HiveUser user, Location location) async {
     final countryCode =
         location?.countryCode ?? user?.httpsShirasuIoUserAttribute?.country;
     final prefectureCode = location?.prefectureCode ??

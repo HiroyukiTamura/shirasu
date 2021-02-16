@@ -46,11 +46,12 @@ class PageUserInfo extends HookWidget {
   const PageUserInfo({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      useProvider(kPrvViewModelSetting.state
-          .select((it) => it.settingModelState)).when(
+  Widget build(BuildContext context) => useProvider(
+          kPrvViewModelSetting.state.select((it) => it.settingModelState)).when(
         preInitialized: () => const CenterCircleProgress(),
-        error: (msg) => PageError(text: msg.value,),
+        error: (msg) => PageError(
+          text: msg.value,
+        ),
         success: (data) => ListView.builder(
           padding:
               const EdgeInsets.symmetric(vertical: Dimens.SETTING_OUTER_MARGIN),
@@ -201,11 +202,9 @@ class PageUserInfo extends HookWidget {
           userName: viewer.viewerUser.name,
         );
       case 1:
-        return ListItemUserName(user: ViewModelSetting.dummyUser);
+        return const ListItemUserName(user: null);
       case 2:
-        return ListItemEmail(
-          user: ViewModelSetting.dummyUser,
-        );
+        return const ListItemEmail();
       case 3:
         return const ListTileBirthDate();
       case 4:

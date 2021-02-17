@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
-import 'package:shirasu/model/graphql/viewer.dart';
-import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_main/page_setting/account/list_tile_birthdate.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 
@@ -24,6 +21,7 @@ Future<void> main() async {
   runner.runTestNormal();
 }
 
+/// todo dialog test
 class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
   _TestRunner()
       : super(

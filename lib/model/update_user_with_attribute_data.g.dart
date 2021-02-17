@@ -26,7 +26,7 @@ _$_UserWithAttribute _$_$_UserWithAttributeFromJson(Map<String, dynamic> json) {
   return _$_UserWithAttribute(
     user: json['user'] == null
         ? null
-        : User.fromJson(json['user'] as Map<String, dynamic>),
+        : UserStatic.fromJson(json['user'] as Map<String, dynamic>),
     attr: json['attr'] == null
         ? null
         : UserAttribute.fromJson(json['attr'] as Map<String, dynamic>),
@@ -75,8 +75,8 @@ Map<String, dynamic> _$_$_UserAttributeToJson(_$_UserAttribute instance) =>
       '__typename': instance.typename,
     };
 
-_$_User _$_$_UserFromJson(Map<String, dynamic> json) {
-  return _$_User(
+_$_UserStatic _$_$_UserStaticFromJson(Map<String, dynamic> json) {
+  return _$_UserStatic(
     id: json['id'] as String,
     name: json['name'] as String,
     icon: json['icon'] as String,
@@ -91,7 +91,8 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_UserStaticToJson(_$_UserStatic instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'icon': instance.icon,

@@ -5,6 +5,7 @@ import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
+import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:shirasu/util.dart';
 import 'package:dartx/dartx.dart';
 
@@ -23,10 +24,12 @@ abstract class HiveClient<T> {
   bool get isEmpty => box.isEmpty;
 }
 
-class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData> with HiveAuthRepository {
+class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
+    with HiveAuthRepository {
   HiveAuthRepositoryImpl._() : super(_NAME);
 
-  factory HiveAuthRepositoryImpl.instance() => _instance ??= HiveAuthRepositoryImpl._();
+  factory HiveAuthRepositoryImpl.instance() =>
+      _instance ??= HiveAuthRepositoryImpl._();
 
   static const _NAME = 'AUTH_DATA';
   static const _KEY_AUTH_DATA = 'AUTH_DATA';
@@ -49,19 +52,21 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData> with HiveAuthRepos
   @override
   bool get shouldRefresh {
     final tokenPublishedAtUtc = authData?.tokenPublishedAtUtc;
-    return tokenPublishedAtUtc == null ? null : (tokenPublishedAtUtc + 3.hours).isBefore(DateTime.now().toUtc());
+    return tokenPublishedAtUtc == null
+        ? null
+        : (tokenPublishedAtUtc + 3.hours).isBefore(DateTime.now().toUtc());
   }
 
   @override
   bool get maybeExpired {
     final expiredAt = authData?.expiresAtUtc;
-    return expiredAt == null ||
-        expiredAt.isBefore(DateTime.now().toUtc());
+    return expiredAt == null || expiredAt.isBefore(DateTime.now().toUtc());
   }
 
   @override
   Future<void> appendRefreshedToken(ResultTokenRefresh result) async {
-    final int unixSec = DateTime.now().millisecondsSinceEpoch ~/ 1000;//todo extension method?
+    final int unixSec =
+        DateTime.now().millisecondsSinceEpoch ~/ 1000; //todo extension method?
     final data = authData.copyWith(
         rawExpiresAt: result.expiresIn + unixSec,
         tokenPublishedAtUtc: DateTime.now().toUtc(),
@@ -73,6 +78,12 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData> with HiveAuthRepos
           scope: result.scope,
         ));
     await _putAuthData(data);
+  }
+
+  @override
+  Future<void> updateProfile(UserWithAttributeData data) async {
+    final hiveUser = authData.copyWithEditResult(data.updateUserWithAttribute);
+    await _putAuthData(hiveUser);
   }
 }
 
@@ -87,7 +98,8 @@ final kPrvHiveResolutionUpdate = StreamProvider.autoDispose<double>((ref) =>
         .watch(key: HivePrefRepositoryImpl.KEY_RESOLUTION)
         .map((event) => event.value as double));
 
-class HivePrefRepositoryImpl extends HiveClient<dynamic> with HivePrefRepository {
+class HivePrefRepositoryImpl extends HiveClient<dynamic>
+    with HivePrefRepository {
   HivePrefRepositoryImpl._() : super(NAME);
 
   factory HivePrefRepositoryImpl.instance() =>

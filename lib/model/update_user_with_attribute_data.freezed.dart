@@ -192,7 +192,7 @@ class _$UserWithAttributeTearOff {
 
 // ignore: unused_element
   _UserWithAttribute call(
-      {@required User user,
+      {@required UserStatic user,
       @required UserAttribute attr,
       @required @JsonKey(name: '__typename') String typename}) {
     return _UserWithAttribute(
@@ -214,7 +214,7 @@ const $UserWithAttribute = _$UserWithAttributeTearOff();
 
 /// @nodoc
 mixin _$UserWithAttribute {
-  User get user;
+  UserStatic get user;
   UserAttribute get attr;
   @JsonKey(name: '__typename')
   String get typename;
@@ -230,11 +230,11 @@ abstract class $UserWithAttributeCopyWith<$Res> {
           UserWithAttribute value, $Res Function(UserWithAttribute) then) =
       _$UserWithAttributeCopyWithImpl<$Res>;
   $Res call(
-      {User user,
+      {UserStatic user,
       UserAttribute attr,
       @JsonKey(name: '__typename') String typename});
 
-  $UserCopyWith<$Res> get user;
+  $UserStaticCopyWith<$Res> get user;
   $UserAttributeCopyWith<$Res> get attr;
 }
 
@@ -254,18 +254,18 @@ class _$UserWithAttributeCopyWithImpl<$Res>
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      user: user == freezed ? _value.user : user as User,
+      user: user == freezed ? _value.user : user as UserStatic,
       attr: attr == freezed ? _value.attr : attr as UserAttribute,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
 
   @override
-  $UserCopyWith<$Res> get user {
+  $UserStaticCopyWith<$Res> get user {
     if (_value.user == null) {
       return null;
     }
-    return $UserCopyWith<$Res>(_value.user, (value) {
+    return $UserStaticCopyWith<$Res>(_value.user, (value) {
       return _then(_value.copyWith(user: value));
     });
   }
@@ -289,12 +289,12 @@ abstract class _$UserWithAttributeCopyWith<$Res>
       __$UserWithAttributeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {User user,
+      {UserStatic user,
       UserAttribute attr,
       @JsonKey(name: '__typename') String typename});
 
   @override
-  $UserCopyWith<$Res> get user;
+  $UserStaticCopyWith<$Res> get user;
   @override
   $UserAttributeCopyWith<$Res> get attr;
 }
@@ -317,7 +317,7 @@ class __$UserWithAttributeCopyWithImpl<$Res>
     Object typename = freezed,
   }) {
     return _then(_UserWithAttribute(
-      user: user == freezed ? _value.user : user as User,
+      user: user == freezed ? _value.user : user as UserStatic,
       attr: attr == freezed ? _value.attr : attr as UserAttribute,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -341,7 +341,7 @@ class _$_UserWithAttribute implements _UserWithAttribute {
       _$_$_UserWithAttributeFromJson(json);
 
   @override
-  final User user;
+  final UserStatic user;
   @override
   final UserAttribute attr;
   @override
@@ -386,7 +386,7 @@ class _$_UserWithAttribute implements _UserWithAttribute {
 
 abstract class _UserWithAttribute implements UserWithAttribute {
   const factory _UserWithAttribute(
-          {@required User user,
+          {@required UserStatic user,
           @required UserAttribute attr,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_UserWithAttribute;
@@ -395,7 +395,7 @@ abstract class _UserWithAttribute implements UserWithAttribute {
       _$_UserWithAttribute.fromJson;
 
   @override
-  User get user;
+  UserStatic get user;
   @override
   UserAttribute get attr;
   @override
@@ -727,16 +727,16 @@ abstract class _UserAttribute implements UserAttribute {
   _$UserAttributeCopyWith<_UserAttribute> get copyWith;
 }
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+UserStatic _$UserStaticFromJson(Map<String, dynamic> json) {
+  return _UserStatic.fromJson(json);
 }
 
 /// @nodoc
-class _$UserTearOff {
-  const _$UserTearOff();
+class _$UserStaticTearOff {
+  const _$UserStaticTearOff();
 
 // ignore: unused_element
-  _User call(
+  _UserStatic call(
       {@required String id,
       @required String name,
       String icon,
@@ -744,7 +744,7 @@ class _$UserTearOff {
       @required DateTime updatedAt,
       @required @JsonKey(name: 'roles') @protected List<String> rawRoles,
       @required @JsonKey(name: '__typename') String typename}) {
-    return _User(
+    return _UserStatic(
       id: id,
       name: name,
       icon: icon,
@@ -756,17 +756,17 @@ class _$UserTearOff {
   }
 
 // ignore: unused_element
-  User fromJson(Map<String, Object> json) {
-    return User.fromJson(json);
+  UserStatic fromJson(Map<String, Object> json) {
+    return UserStatic.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $User = _$UserTearOff();
+const $UserStatic = _$UserStaticTearOff();
 
 /// @nodoc
-mixin _$User {
+mixin _$UserStatic {
   String get id;
   String get name;
   String get icon;
@@ -782,13 +782,14 @@ mixin _$User {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $UserCopyWith<User> get copyWith;
+  $UserStaticCopyWith<UserStatic> get copyWith;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res>;
+abstract class $UserStaticCopyWith<$Res> {
+  factory $UserStaticCopyWith(
+          UserStatic value, $Res Function(UserStatic) then) =
+      _$UserStaticCopyWithImpl<$Res>;
   $Res call(
       {String id,
       String name,
@@ -800,12 +801,12 @@ abstract class $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$UserStaticCopyWithImpl<$Res> implements $UserStaticCopyWith<$Res> {
+  _$UserStaticCopyWithImpl(this._value, this._then);
 
-  final User _value;
+  final UserStatic _value;
   // ignore: unused_field
-  final $Res Function(User) _then;
+  final $Res Function(UserStatic) _then;
 
   @override
   $Res call({
@@ -833,9 +834,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$UserCopyWith(_User value, $Res Function(_User) then) =
-      __$UserCopyWithImpl<$Res>;
+abstract class _$UserStaticCopyWith<$Res> implements $UserStaticCopyWith<$Res> {
+  factory _$UserStaticCopyWith(
+          _UserStatic value, $Res Function(_UserStatic) then) =
+      __$UserStaticCopyWithImpl<$Res>;
   @override
   $Res call(
       {String id,
@@ -848,13 +850,14 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
-    implements _$UserCopyWith<$Res> {
-  __$UserCopyWithImpl(_User _value, $Res Function(_User) _then)
-      : super(_value, (v) => _then(v as _User));
+class __$UserStaticCopyWithImpl<$Res> extends _$UserStaticCopyWithImpl<$Res>
+    implements _$UserStaticCopyWith<$Res> {
+  __$UserStaticCopyWithImpl(
+      _UserStatic _value, $Res Function(_UserStatic) _then)
+      : super(_value, (v) => _then(v as _UserStatic));
 
   @override
-  _User get _value => super._value as _User;
+  _UserStatic get _value => super._value as _UserStatic;
 
   @override
   $Res call({
@@ -866,7 +869,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object rawRoles = freezed,
     Object typename = freezed,
   }) {
-    return _then(_User(
+    return _then(_UserStatic(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
       icon: icon == freezed ? _value.icon : icon as String,
@@ -884,8 +887,8 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_User extends _User {
-  const _$_User(
+class _$_UserStatic extends _UserStatic {
+  const _$_UserStatic(
       {@required this.id,
       @required this.name,
       this.icon,
@@ -902,8 +905,8 @@ class _$_User extends _User {
         assert(typename == "User"),
         super._();
 
-  factory _$_User.fromJson(Map<String, dynamic> json) =>
-      _$_$_UserFromJson(json);
+  factory _$_UserStatic.fromJson(Map<String, dynamic> json) =>
+      _$_$_UserStaticFromJson(json);
 
   @override
   final String id;
@@ -927,13 +930,13 @@ class _$_User extends _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, icon: $icon, createdAt: $createdAt, updatedAt: $updatedAt, rawRoles: $rawRoles, typename: $typename)';
+    return 'UserStatic(id: $id, name: $name, icon: $icon, createdAt: $createdAt, updatedAt: $updatedAt, rawRoles: $rawRoles, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _User &&
+        (other is _UserStatic &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
@@ -967,27 +970,28 @@ class _$_User extends _User {
 
   @JsonKey(ignore: true)
   @override
-  _$UserCopyWith<_User> get copyWith =>
-      __$UserCopyWithImpl<_User>(this, _$identity);
+  _$UserStaticCopyWith<_UserStatic> get copyWith =>
+      __$UserStaticCopyWithImpl<_UserStatic>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UserToJson(this);
+    return _$_$_UserStaticToJson(this);
   }
 }
 
-abstract class _User extends User {
-  const _User._() : super._();
-  const factory _User(
+abstract class _UserStatic extends UserStatic {
+  const _UserStatic._() : super._();
+  const factory _UserStatic(
       {@required String id,
       @required String name,
       String icon,
       @required DateTime createdAt,
       @required DateTime updatedAt,
       @required @JsonKey(name: 'roles') @protected List<String> rawRoles,
-      @required @JsonKey(name: '__typename') String typename}) = _$_User;
+      @required @JsonKey(name: '__typename') String typename}) = _$_UserStatic;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
+  factory _UserStatic.fromJson(Map<String, dynamic> json) =
+      _$_UserStatic.fromJson;
 
   @override
   String get id;
@@ -1010,5 +1014,5 @@ abstract class _User extends User {
   String get typename;
   @override
   @JsonKey(ignore: true)
-  _$UserCopyWith<_User> get copyWith;
+  _$UserStaticCopyWith<_UserStatic> get copyWith;
 }

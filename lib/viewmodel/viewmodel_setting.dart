@@ -83,8 +83,9 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
   Future<void> postProfile() async {
     if (state.uploadingProfile) return;
 
-    final clientId = _hiveAuthBody?.clientId;
-    final attrs = _hiveAuthBody?.decodedToken?.user?.httpsShirasuIoUserAttribute;
+    final sub = _hiveAuthBody?.decodedToken?.user?.sub;
+    final attrs =
+        _hiveAuthBody?.decodedToken?.user?.httpsShirasuIoUserAttribute;
 
     state.settingModelState.maybeWhen(
         success: (viewerUser) async {
@@ -95,33 +96,39 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
           final prefecture = state.editedUserInfo?.location?.prefectureCode ??
               attrs?.prefecture;
 
-          if ([clientId, birthDate, job, country, prefecture].contains(null)) {
-            _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
-            return;
-          }
+          if (sub == viewerUser.viewerUser.id) {
+            final variable = UpdateUserWithAttrVariable.build(
+              userId: sub,
+              birthDate: birthDate,
+              job: job,
+              country: country,
+              prefecture: prefecture,
+            );
 
-          if (clientId != viewerUser.viewerUser.id) {
-            //todo force log out and reAuth
-            return;
-          }
+            state = state.copyWith(uploadingProfile: true);
 
-          final variable = UpdateUserWithAttrVariable.build(
-            userId: clientId,
-            birthDate: birthDate,
-            job: job,
-            country: country,
-            prefecture: prefecture,
-          );
-
-          state = state.copyWith(uploadingProfile: true);
-
-          try {
-            final updatedData =
-                await graphQlRepository.updateUserWithAttr(variable);
-            //todo update hive, handle error
-
-          } catch (e) {
-            print(e);
+            try {
+              await connectivityRepository.ensureNotDisconnect();
+              final updatedData = await graphQlRepository
+                  .updateUserWithAttr(variable)
+                  .timeout(GraphQlRepository.TIMEOUT);
+              await hiveAuthRepository.updateProfile(updatedData);
+            } on TimeoutException catch (e) {
+              //todo log error
+              print(e);
+              if (mounted)
+                _msgNotifier.notifyMsg(const SnackMsg.networkTimeout(), false);
+            } on NetworkDisconnectException catch (e) {
+              print(e);
+              if (mounted)
+                _msgNotifier.notifyMsg(
+                    const SnackMsg.networkDisconnected(), false);
+            } catch (e) {
+              print(e);
+              if (mounted)
+                _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+            }
+          } else {
             _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
           }
 

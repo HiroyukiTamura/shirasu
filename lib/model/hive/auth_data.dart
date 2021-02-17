@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/model/update_user_with_attribute_data.dart';
+import '../update_user_with_attr_variable.dart' as attr;
 
 part 'auth_data.g.dart';
 
@@ -27,7 +29,15 @@ abstract class HiveAuthData with _$HiveAuthData {
 
   const HiveAuthData._();
 
-  DateTime get expiresAtUtc => DateTime.fromMillisecondsSinceEpoch(rawExpiresAt * 1000).toUtc();
+  DateTime get expiresAtUtc => DateTime.fromMillisecondsSinceEpoch(
+        rawExpiresAt * 1000,
+        isUtc: true,
+      );
+
+  HiveAuthData copyWithEditResult(UserWithAttribute attr) =>
+      copyWith.body.decodedToken(
+        user: body.decodedToken.user._copyWithEditResult(attr),
+      );
 }
 
 /// hive model for [Body]
@@ -282,6 +292,16 @@ abstract class HiveUser with _$HiveUser {
       );
 
   const HiveUser._();
+
+  HiveUser _copyWithEditResult(UserWithAttribute data) => copyWith(
+        rawHttpsShirasuIoRoles: data.user.roles,
+        httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute.copyWith(
+          birthDate: data.attr.birthDate,
+          job: data.attr.job,
+          country: data.attr.country,
+        ),
+        updatedAt: data.user.updatedAt,
+      );
 
   //todo duplicate
   UnmodifiableListView<String> get httpsShirasuIoRoles =>

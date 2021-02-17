@@ -21,7 +21,7 @@ abstract class UserWithAttribute with _$UserWithAttribute implements BaseUserWit
 
   @Assert('typename == "UserWithAttribute"')
   const factory UserWithAttribute({
-    @required User user,
+    @required UserStatic user,
     @required UserAttribute attr,
     @required
     @JsonKey(name: '__typename')
@@ -55,10 +55,10 @@ abstract class UserAttribute with _$UserAttribute implements BaseUserAttribute {
 }
 
 @freezed
-abstract class User with _$User implements BaseUser {
+abstract class UserStatic with _$UserStatic implements BaseUser {
 
   @Assert('typename == "User"')
-  const factory User({
+  const factory UserStatic({
     @required String id,
     @required String name,
     String icon,
@@ -71,12 +71,12 @@ abstract class User with _$User implements BaseUser {
     @required
     @JsonKey(name: '__typename')
         String typename,
-  }) = _User;
+  }) = _UserStatic;
 
-  factory User.fromJson(Map<String, dynamic> json) =>
-      _$UserFromJson(json);
+  factory UserStatic.fromJson(Map<String, dynamic> json) =>
+      _$UserStaticFromJson(json);
 
-  const User._();
+  const UserStatic._();
 
   UnmodifiableListView<String> get roles => rawRoles.toUnmodifiable();
 }

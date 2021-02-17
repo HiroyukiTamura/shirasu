@@ -8,6 +8,7 @@ import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
+import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -45,7 +46,6 @@ class ViewModelTestBase<T> {
   final defaultOverride = kOverrideUtil.createOverrides([
     kPrvHivePrefRepository
         .overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
-    kOverrideEmptyHiveAuthRepository,
   ]);
 
   List<Override> _graphQlOverrideNormal;
@@ -53,12 +53,14 @@ class ViewModelTestBase<T> {
   NewProgramsData newProgramsData;
   WatchHistoriesData watchHistoriesData;
   ViewerWrapper viewerWrapper;
+  HiveAuthData hiveAuthData;
 
   Future<void> init() async {
     featureProgramData = await kJsonClient.featureProgramData;
     newProgramsData = await kJsonClient.newProgramsData;
     watchHistoriesData = await kJsonClient.watchHistoriesData;
     viewerWrapper = await kJsonClient.viewerWrapper;
+    hiveAuthData = await kJsonClient.hiveAuth;
     _graphQlOverrideNormal = kOverrideUtil.createOverrides([
       kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
         featureProgramData: featureProgramData,
@@ -75,7 +77,7 @@ class ViewModelTestBase<T> {
     @required dynamic expectPath,
   }) async {
     final container = ProviderContainer(
-      overrides: override + defaultOverride,
+      overrides: override + defaultOverride + [kOverrideEmptyHiveAuthRepository],
     );
     final appRouter = container.listen(kPrvAppRouterDelegate).read();
     if (prvViewModel != null) {

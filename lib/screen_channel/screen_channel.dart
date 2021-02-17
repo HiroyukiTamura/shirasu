@@ -45,7 +45,9 @@ Widget screenChannel(
       child: Scaffold(
         body: useProvider(kPrvViewModelChannel(channelId).state).when(
           preInitialized: () => const CenterCircleProgress(),
-          error: (errMsg) => PageError(text: errMsg.value,),
+          error: (errMsg) => PageError(
+            text: errMsg.value,
+          ),
           success: (dataWrapper) => _Content(
             channelData: dataWrapper.data,
             isAnnouncementEmpty:
@@ -204,9 +206,8 @@ class _RowBillingBtn extends StatelessWidget {
         context: context,
         url: UrlUtil.channelId2Url(channel.id),
         child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
-        snackCallback: (SnackMsg msg) {
-          //todo implement
-        },
+        snackCallback: (SnackMsg msg) =>
+            context.read(kPrvSnackBar).notifyMsg(msg, false),
       );
 }
 

@@ -6,6 +6,7 @@ import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_movie_list.dart';
 import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
+import 'package:shirasu/screen_detail/screen_detail/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
@@ -46,6 +47,36 @@ class _TestRunner extends TestRunnerBase {
       ViewModelChannelMockable.createProvider(
           ChannelModel.success(ChannelDataWrapper(
             data: channelData.copyWith.channel.announcements(rawItems: []),
+            loading: false,
+          )),
+          channelId),
+    );
+
+    final overrideNonPurchased =
+        kPrvViewModelChannel(channelId).overrideWithProvider(
+      ViewModelChannelMockable.createProvider(
+          ChannelModel.success(ChannelDataWrapper(
+            data: channelData.copyWith.channel.subscriptionPlan
+                .viewerPurchasedPlan(
+              isActive: false,
+            ),
+            loading: false,
+          )),
+          channelId),
+    );
+
+    final overrideNoPurchasable =
+        kPrvViewModelChannel(channelId).overrideWithProvider(
+      ViewModelChannelMockable.createProvider(
+          ChannelModel.success(ChannelDataWrapper(
+            data: channelData.copyWith.channel
+                .subscriptionPlan(isPurchasable: false)
+                .copyWith
+                .channel
+                .subscriptionPlan
+                .viewerPurchasedPlan(
+                  isActive: false,
+                ),
             loading: false,
           )),
           channelId),
@@ -128,6 +159,41 @@ class _TestRunner extends TestRunnerBase {
             TestUtil.expectFind(
               scenarioWidgetKey: scenarioWidgetKey,
               matching: find.text(Strings.CHANNEL_TAB_NOTIFICATION),
+              matcher: findsNothing,
+            );
+          });
+      testGoldensSimple(
+          testName: 'Normal_Purchased',
+          overrides: [overrideNormal],
+          onScenarioCreate: (tester, scenarioWidgetKey) async {
+            TestUtil.expectFind(
+              scenarioWidgetKey: scenarioWidgetKey,
+              matching: find.byType(PurchasedBannerMedium),
+              matcher: findsOneWidget,
+            );
+          });
+      testGoldensSimple(
+          testName: 'Normal_NonPurchased',
+          overrides: [overrideNonPurchased],
+          onScenarioCreate: (tester, scenarioWidgetKey) async {
+            TestUtil.expectFind(
+              scenarioWidgetKey: scenarioWidgetKey,
+              matching: find.byType(BillingBtnMedium),
+              matcher: findsOneWidget,
+            );
+          });
+      testGoldensSimple(
+          testName: 'Normal_NoPurchasable',
+          overrides: [overrideNoPurchasable],
+          onScenarioCreate: (tester, scenarioWidgetKey) async {
+            TestUtil.expectFind(
+              scenarioWidgetKey: scenarioWidgetKey,
+              matching: find.byType(BillingBtnMedium),
+              matcher: findsNothing,
+            );
+            TestUtil.expectFind(
+              scenarioWidgetKey: scenarioWidgetKey,
+              matching: find.byType(PurchasedBannerMedium),
               matcher: findsNothing,
             );
           });

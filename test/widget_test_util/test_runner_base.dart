@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 
@@ -22,10 +23,13 @@ class TestRunnerBase {
   HiveAuthData authData;
   @protected
   ViewerWrapper viewerWrapper;
+  @protected
+  ChannelData channelData;
 
   Future<void> init() async {
     authData = await kJsonClient.hiveAuth;
     viewerWrapper = await kJsonClient.viewerWrapper;
+    channelData = await kJsonClient.channel;
   }
 
   final WidgetBuilder builder;

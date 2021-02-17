@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
@@ -49,5 +50,11 @@ class JsonClient {
     final json = jsonDecode(jsonString) as Map<String, dynamic>;
     final authData = AuthData.fromJson(json);
     return HiveAuthData.parse(authData);
+  }
+
+  Future<ProgramDetailData> get programDetail async {
+    final path = TestUtil.fixAssetPath(Assets.json.programDetail);
+    final json = await TestUtil.loadJson(path);
+    return ProgramDetailData.fromJson(json);
   }
 }

@@ -23,7 +23,7 @@ Widget rowTop(
   @required OnTap onTapSpeedBtn,
   @required VideoViewModelConf conf,
 }) {
-  final prgDataResult = useProvider(detailSNProvider(conf.id))
+  final prgDataResult = useProvider(kPrvViewModelDetail(conf.id))
       .state
       .prgDataResult as StateSuccess; // don't want rebuild
   final title = prgDataResult.programDetailData.program.title;

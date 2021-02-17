@@ -1,5 +1,6 @@
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
+
 // import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
@@ -18,6 +19,7 @@ import 'package:shirasu/util.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/util/single_timer.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -43,73 +45,74 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   SingleTimer _hideTimer;
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier =>
-      reader(kPrvDetailSnackBarMsgNotifier);
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
 
-  DetailPrgItem get _previewArchivedVideoData {
-    final v = state.prgDataResult;
-    if (v is StateSuccess)
-      return v.programDetailData.program.previewPrgItem;
-    else
-      return null;
-  }
+  DetailPrgItem get _previewArchivedVideoData => state.prgDataResult.maybeWhen(
+      orElse: () => null,
+      success: (prgDetailData, _, __) => prgDetailData.program.previewPrgItem);
 
   DetailPrgItem get _availableVideoData {
-    final v = state.prgDataResult;
-    if (v is StateSuccess) {
-      final program = v.programDetailData.program;
+    return state.prgDataResult.maybeWhen(
+        orElse: () => null,
+        success: (prgDetailData, _, __) {
+          final program = prgDetailData.program;
 
-      //todo shouldn't written in DetailProgramData?
-      DetailPrgItem detailPrgItem; //todo more logic
-      if (program.archivedAt?.isBefore(DateTime.now()) == true) {
-        if (program.isAllExtensionAvailable)
-          detailPrgItem = program.lastArchivedExtensionPrgItem;
-        else {
-          // todo implement
-          throw UnimplementedError();
-        }
-      }
+          //todo shouldn't written in DetailProgramData?
+          DetailPrgItem detailPrgItem; //todo more logic
+          if (program.archivedAt?.isBefore(DateTime.now()) == true) {
+            if (program.isAllExtensionAvailable)
+              detailPrgItem = program.lastArchivedExtensionPrgItem;
+            else {
+              // todo implement
+              throw UnimplementedError();
+            }
+          }
 
-      return detailPrgItem ?? program.nowLivePrgItem;
-    } else
-      return null;
+          return detailPrgItem ?? program.nowLivePrgItem;
+        });
   }
 
   @override
   Future<void> initialize() async {
-    if (state.prgDataResult is StateSuccess) return;
+    state.prgDataResult.maybeWhen(
+        orElse: () {},
+        success: (___, __, _) async {
+          state =
+              state.copyWith(prgDataResult: const DetailModelState.loading());
 
-    state = state.copyWith(prgDataResult: const DetailModelState.loading());
+          bool authExpired = false;
 
-    bool authExpired = false;
+          try {
+            final data = await Util.wait2<ProgramDetailData, ChannelData>(
+                () async => graphQlRepository.queryProgramDetail(id),
+                () async => graphQlRepository.queryChannelData(channelId));
 
-    try {
-      final data = await Util.wait2<ProgramDetailData, ChannelData>(
-          () async => graphQlRepository.queryProgramDetail(id),
-          () async => graphQlRepository.queryChannelData(channelId));
+            state = state.copyWith(
+              prgDataResult: DetailModelState.success(
+                programDetailData: data.item1,
+                channelData: data.item2,
+                page: const PageSheetModel.hidden(),
+              ),
+            );
+          } on UnauthorizedException catch (e) {
+            print(e);
+            authExpired = true;
+          } catch (e) {
+            print(e);
+            if (mounted)
+              state = state.copyWith(
+                prgDataResult:
+                    const DetailModelState.error(ErrorMsgCommon.unknown()),
+              );
+          }
 
-      state = state.copyWith(
-        prgDataResult: DetailModelState.success(
-          programDetailData: data.item1,
-          channelData: data.item2,
-          page: const PageSheetModel.hidden(),
-        ),
-      );
-    } on UnauthorizedException catch (e) {
-      print(e);
-      authExpired = true;
-    } catch (e) {
-      print(e);
-      if (mounted)
-        state = state.copyWith(prgDataResult: const DetailModelState.error());
-    }
+          if (!mounted) return;
 
-    if (!mounted) return;
-
-    if (authExpired)
-      pushAuthExpireScreen();
-    else
-      await _initComments(Duration.zero);
+          if (authExpired)
+            pushAuthExpireScreen();
+          else
+            await _initComments(Duration.zero);
+        });
   }
 
   Future<void> playVideo(bool preview) async {
@@ -528,13 +531,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     }
   }
 
-  // Future<ReplyData> stopBackGroundPlayer() async {
-  //   try {
-  //     return NativeClient.stopBackGround();
-  //   } catch (e) {
-  //     print(e);
-  //     //todo handle error
-  //     return null;
-  //   }
-  // }
+// Future<ReplyData> stopBackGroundPlayer() async {
+//   try {
+//     return NativeClient.stopBackGround();
+//   } catch (e) {
+//     print(e);
+//     //todo handle error
+//     return null;
+//   }
+// }
 }

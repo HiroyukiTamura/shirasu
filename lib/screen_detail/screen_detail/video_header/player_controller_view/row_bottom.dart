@@ -42,11 +42,11 @@ Widget _timeText({
   EdgeInsets padding = const EdgeInsets.all(8),
 }) {
   final isSeekBarDragging = useProvider(
-      detailSNProvider(conf.id).state.select((it) => it.playOutState.isSeekBarDragging));
+      kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.isSeekBarDragging));
   final total =
-      useProvider(detailSNProvider(conf.id).state.select((it) => it.playOutState.totalDuration));
+      useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.totalDuration));
   final current =
-      useProvider(detailSNProvider(conf.id).state.select((it) => it.playOutState.currentPosForUi));
+      useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.currentPosForUi));
 
   final totalStr = Util.formatDurationStyled(total);
   final currentStr = Util.formatDurationStyled(current);

@@ -49,7 +49,7 @@ class VideoThumbnail extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = useProvider(detailSNProvider(programId)).state.prgDataResult
+    final result = useProvider(kPrvViewModelDetail(programId)).state.prgDataResult
         as StateSuccess; //we don't want rebuild here
 
     final program = result.programDetailData.program;
@@ -72,14 +72,14 @@ class VideoThumbnail extends HookWidget {
 
   /// todo extract
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    final result = context.read(detailSNProvider(programId).state).prgDataResult
+    final result = context.read(kPrvViewModelDetail(programId).state).prgDataResult
         as StateSuccess;
     await BtmSheetCommon.showUrlLauncherBtmSheet(
       context: context,
       url: UrlUtil.programId2Url(programId),
       child: VideoPaymentBtmSheet(result: result),
       snackCallback: (msg) => context
-          .read(detailSNProvider(programId))
+          .read(kPrvViewModelDetail(programId))
           .commandSnackBar(const SnackMsg.unknown()),
     );
   }

@@ -32,17 +32,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../main.dart';
 import 'btm_sheet.dart';
 
 part 'screen_detail.g.dart';
 
-final kPrvDetailSnackBarMsgNotifier =
-    StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
-        (ref) => SnackBarMessageNotifier());
-
-final _kPrvDetailSnackMsg =
-    Provider.autoDispose.family<SnackData, String>((ref, id) {
-  final snackMsgEvent = ref.watch(kPrvDetailSnackBarMsgNotifier.state);
+final _kPrvDetailSnackMsg = Provider.autoDispose<SnackData>((ref) {
+  final snackMsgEvent = ref.watch(kPrvSnackBar.state);
   EdgeInsets margin = Dimens.SNACK_BAR_DEFAULT_MARGIN;
   if (snackMsgEvent.btmAppBarMargin)
     margin += const EdgeInsets.only(bottom: CommentBtmBar.HEIGHT + 10);
@@ -50,33 +46,34 @@ final _kPrvDetailSnackMsg =
   return SnackData(snackMsgEvent.snackMsg, margin);
 });
 
-final detailSNProvider = StateNotifierProvider.autoDispose
+final kPrvViewModelDetail = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>(
         (ref, id) => ViewModelDetail(ref.read, id));
 
 final kPrvVideoControllerReady =
     Provider.family.autoDispose<bool, String>((ref, id) {
-  final playOutState = ref.watch(detailSNProvider(id).state).playOutState;
+  final playOutState = ref.watch(kPrvViewModelDetail(id).state).playOutState;
   return playOutState.commandedState == const PlayerCommandedState.postPlay() &&
       playOutState.videoPlayerState == const VideoPlayerState.ready();
 });
 
-final _pBtmSheetExpanded = Provider.autoDispose.family<PageSheetModel, String>(
-  (ref, id) => ref.watch(detailSNProvider(id).state).prgDataResult.maybeWhen(
+final _kPrvBtmSheetExpanded =
+    Provider.autoDispose.family<PageSheetModel, String>(
+  (ref, id) => ref.watch(kPrvViewModelDetail(id).state).prgDataResult.maybeWhen(
         success: (programDetail, channelData, page) => page,
         orElse: () => const PageSheetModel.hidden(),
       ),
 );
 
 final _kPrvFabVisibility = Provider.family.autoDispose<bool, String>((ref, id) {
-  final viewModel = ref.watch(detailSNProvider(id).state);
+  final viewModel = ref.watch(kPrvViewModelDetail(id).state);
   final isNotFollowTimeLineMode =
       viewModel.commentHolder.followTimeLineMode is FollowTimeLineModeNone;
-  final prgDataResult = viewModel.prgDataResult;
-  // ignore: avoid_bool_literals_in_conditional_expressions
-  final isCommentShown = prgDataResult is StateSuccess
-      ? prgDataResult.page == const PageSheetModel.comment()
-      : false;
+  final isCommentShown = viewModel.prgDataResult.maybeWhen(
+    orElse: () => false,
+    success: (prgDataResult, channelData, page) =>
+        page == const PageSheetModel.comment(),
+  );
   return isCommentShown && isNotFollowTimeLineMode;
 });
 
@@ -128,52 +125,33 @@ class _ScreenDetailState extends State<ScreenDetail>
   @override
   Widget build(BuildContext context) => SafeArea(
         child: SnackEventListener(
-          provider: _kPrvDetailSnackMsg(widget.id),
+          provider: _kPrvDetailSnackMsg,
           child: BtmSheetEventListener(
             id: widget.id,
             child: Scaffold(
               primary: false,
-              body: useProvider(detailSNProvider(widget.id)
+              body: useProvider(kPrvViewModelDetail(widget.id)
                   .state
                   .select((it) => it.prgDataResult)).when(
                 loading: () => const CenterCircleProgress(),
                 preInitialized: () => const CenterCircleProgress(),
-                error: () => const PageError(),
+                error: (errMsg) => PageError(text: errMsg.value),
                 success: _successWidget,
               ),
-              floatingActionButton: _fab(),
+              floatingActionButton: _Fab(id: widget.id),
             ),
           ),
         ),
       );
 
-  //todo hide fab if btm sheet shown
-  Widget _fab() {
-    final context = useContext();
-    return Visibility(
-      visible: useProvider(_kPrvFabVisibility(widget.id)),
-      child: FloatingActionButton(
-        onPressed: () => _onTapFab(context),
-        child: const Icon(
-          Icons.sync,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-
-  void _onTapFab(BuildContext context) => context
-      .read(detailSNProvider(widget.id))
-      .notifyFollowTimeLineMode(const FollowTimeLineMode.follow());
-
   //todo fixme
   Future<void> _switchVideoForeground() async {
     // final replyData =
-    //     await context.read(detailSNProvider(widget.id)).stopBackGroundPlayer();
+    //     await context.read(kPrvViewModelDetail(widget.id)).stopBackGroundPlayer();
     // if (mounted && replyData.wasPlaying) {
     //   bool isLandCape =
     //       MediaQuery.of(context).orientation == Orientation.landscape;
-    //   context.read(detailSNProvider(widget.id)).playOrPause(
+    //   context.read(kPrvViewModelDetail(widget.id)).playOrPause(
     //         isLandCape,
     //         VideoControllerCommand.play(replyData.position),
     //       );
@@ -181,14 +159,14 @@ class _ScreenDetailState extends State<ScreenDetail>
   }
 
   Future<void> _switchVideoBackground() async {
-    final state = context.read(detailSNProvider(widget.id).state);
+    final state = context.read(kPrvViewModelDetail(widget.id).state);
     if (state.playOutState.isPlaying) {
       final inMilliseconds = state.playOutState.currentPos.inMilliseconds;
       final cookie = state.playOutState.cookie;
       bool isLandCape =
           MediaQuery.of(context).orientation == Orientation.landscape;
 
-      final viewModel = context.read(detailSNProvider(widget.id))
+      final viewModel = context.read(kPrvViewModelDetail(widget.id))
         ..playOrPause(
           isLandCape,
           const VideoControllerCommand.pause(),
@@ -201,7 +179,7 @@ class _ScreenDetailState extends State<ScreenDetail>
   }
 
   Future<void> _playVideo(BuildContext context, bool isPreview) async =>
-      context.read(detailSNProvider(widget.id)).playVideo(isPreview);
+      context.read(kPrvViewModelDetail(widget.id)).playVideo(isPreview);
 
   Widget _successWidget(ProgramDetailData programDetailData,
           ChannelData channelData, PageSheetModel page) =>
@@ -249,6 +227,28 @@ class _ScreenDetailState extends State<ScreenDetail>
       });
 }
 
+class _Fab extends HookWidget {
+  const _Fab({@required this.id});
+
+  final String id;
+
+  @override
+  Widget build(BuildContext context) => Visibility(
+        visible: useProvider(_kPrvFabVisibility(id)),
+        child: FloatingActionButton(
+          onPressed: () => _onTapFab(context),
+          child: const Icon(
+            Icons.sync,
+            color: Colors.white,
+          ),
+        ),
+      );
+
+  void _onTapFab(BuildContext context) => context
+      .read(kPrvViewModelDetail(id))
+      .notifyFollowTimeLineMode(const FollowTimeLineMode.follow());
+}
+
 class _BottomPanel extends HookWidget {
   const _BottomPanel({
     Key key,
@@ -259,7 +259,7 @@ class _BottomPanel extends HookWidget {
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_pBtmSheetExpanded(program.id)).when(
+      useProvider(_kPrvBtmSheetExpanded(program.id)).when(
         hidden: () => const SizedBox.shrink(),
         handouts: () => PageHandouts(
           program: program,
@@ -273,7 +273,7 @@ class _BottomPanel extends HookWidget {
       );
 
   Future<void> _onClearClicked(BuildContext context) async => context
-      .read(detailSNProvider(program.id))
+      .read(kPrvViewModelDetail(program.id))
       .togglePage(const PageSheetModel.hidden());
 }
 
@@ -286,55 +286,50 @@ Widget _playerBodyWrapper({
         ? const SizedBox.shrink()
         : _PlayerBody(height: height, data: data);
 
-class _PlayerBody extends HookWidget {
-  const _PlayerBody({
-    @required this.height,
-    @required this.data,
-  });
-
-  final double height;
-  final ProgramDetailData data;
-
-  @override
-  Widget build(BuildContext context) => SizedBox(
-        height: height,
-        child: SlidingUpPanel(
-          minHeight: 0,
-          maxHeight: height,
-          controller:
-              useProvider(detailSNProvider(data.program.id)).panelController,
-          color: Theme.of(context).scaffoldBackgroundColor,
-          panel: _BottomPanel(program: data.program),
-          body: ListView.builder(
-              itemCount: 6,
-              padding: const EdgeInsets.only(bottom: 24),
-              itemBuilder: (context, index) {
-                switch (index) {
-                  case 0:
-                    return RowChannel(
-                      title: data.program.channel.name,
-                      channelId: data.program.channel.id,
-                    );
-                  case 1:
-                    return RowVideoTitle(text: data.program.title);
-                  case 2:
-                    return RowVideoTime(
-                      broadcastAt: data.program.broadcastAt,
-                      totalPlayTime: data.program.totalPlayTime,
-                    );
-                  case 3:
-                    return RowVideoTags(textList: data.program.tags);
-                  case 4:
-                    return RowFabs(program: data.program);
-                  case 5:
-                    return RowVideoDesc(
-                      text: data.program.detail,
-                      id: data.program.id,
-                    );
-                  default:
-                    return const SizedBox.shrink();
-                }
-              }),
-        ),
-      );
-}
+@hwidget
+Widget _playerBody(
+  BuildContext context, {
+  @required double height,
+  @required ProgramDetailData data,
+}) =>
+    SizedBox(
+      height: height,
+      child: SlidingUpPanel(
+        minHeight: 0,
+        maxHeight: height,
+        controller:
+            useProvider(kPrvViewModelDetail(data.program.id)).panelController,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        panel: _BottomPanel(program: data.program),
+        body: ListView.builder(
+            itemCount: 6,
+            padding: const EdgeInsets.only(bottom: 24),
+            itemBuilder: (context, index) {
+              switch (index) {
+                case 0:
+                  return RowChannel(
+                    title: data.program.channel.name,
+                    channelId: data.program.channel.id,
+                  );
+                case 1:
+                  return RowVideoTitle(text: data.program.title);
+                case 2:
+                  return RowVideoTime(
+                    broadcastAt: data.program.broadcastAt,
+                    totalPlayTime: data.program.totalPlayTime,
+                  );
+                case 3:
+                  return RowVideoTags(textList: data.program.tags);
+                case 4:
+                  return RowFabs(program: data.program);
+                case 5:
+                  return RowVideoDesc(
+                    text: data.program.detail,
+                    id: data.program.id,
+                  );
+                default:
+                  return const SizedBox.shrink();
+              }
+            }),
+      ),
+    );

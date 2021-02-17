@@ -93,8 +93,8 @@ class CommentListView extends HookWidget {
 
   Future<void> _onScroll(
       BuildContext context, ScrollController controller) async {
-    final viewModel = context.read(detailSNProvider(id));
-    final state = context.read(detailSNProvider(id).state);
+    final viewModel = context.read(kPrvViewModelDetail(id));
+    final state = context.read(kPrvViewModelDetail(id).state);
 
     final showBtmProgressIndicator =
         context.read(kPrvPageUiData(id).state).showBottomProgressIndicator;
@@ -123,7 +123,7 @@ class CommentListView extends HookWidget {
 
   void _onTap(BuildContext context, CommentItem item) {
     final command = BtmSheetState.commentSelect(item.commentTimeDuration);
-    context.read(detailSNProvider(id)).commandModal(command);
+    context.read(kPrvViewModelDetail(id)).commandModal(command);
   }
 }
 
@@ -137,7 +137,7 @@ class CommentBtmBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) => Visibility(
-        visible: useProvider(detailSNProvider(id).state.select((it) =>
+        visible: useProvider(kPrvViewModelDetail(id).state.select((it) =>
             it.commentHolder.followTimeLineMode ==
             const FollowTimeLineMode.follow())), //todo more logic
         child: BottomAppBar(
@@ -174,7 +174,7 @@ class CommentBtmBar extends HookWidget {
       );
 
   Future<void> _onPressed(BuildContext context, String text) async =>
-      context.read(detailSNProvider(id)).postComment(text);
+      context.read(kPrvViewModelDetail(id)).postComment(text);
 }
 
 /// disable [IconButton] if text is empty

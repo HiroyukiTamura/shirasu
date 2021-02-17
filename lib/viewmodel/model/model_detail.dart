@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dartx/dartx.dart';
 // import 'package:shirasu/extension.dart' show IteratableX;
@@ -47,7 +49,11 @@ abstract class ModelDetail implements _$ModelDetail {
   ModelDetail copyAsPageSheet(PageSheetModel pageSheetModel) {
     final p = prgDataResult;
     return p is StateSuccess
-        ? copyWith(prgDataResult: p.copyWith(page: pageSheetModel))
+        ? copyWith(
+            prgDataResult: p.copyWith(
+              page: pageSheetModel,
+            ),
+          )
         : null;
   }
 }
@@ -64,7 +70,7 @@ abstract class DetailModelState with _$DetailModelState {
     @required PageSheetModel page,
   }) = StateSuccess;
 
-  const factory DetailModelState.error() = _StateError;
+  const factory DetailModelState.error(ErrorMsgCommon msg) = _StateError;
 }
 
 @freezed
@@ -163,7 +169,8 @@ abstract class LastControllerCommandHolder with _$LastControllerCommandHolder {
 abstract class LastControllerCommand with _$LastControllerCommand {
   const factory LastControllerCommand.initial() = _LastControllerCommandInitial;
 
-  const factory LastControllerCommand.play(Duration position) = _LastControllerCommandPlay;
+  const factory LastControllerCommand.play(Duration position) =
+      _LastControllerCommandPlay;
 
   const factory LastControllerCommand.pause() = _LastControllerCommandPause;
 
@@ -179,7 +186,8 @@ abstract class LastControllerCommand with _$LastControllerCommand {
 
 @freezed
 abstract class VideoControllerCommand with _$VideoControllerCommand {
-  const factory VideoControllerCommand.play(Duration position) = _VideoControllerCommandPlay;
+  const factory VideoControllerCommand.play(Duration position) =
+      _VideoControllerCommandPlay;
 
   const factory VideoControllerCommand.pause() = _VideoControllerCommandPause;
 

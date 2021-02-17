@@ -20,7 +20,7 @@ import '../screen_detail.dart';
 
 final _kPrvVideoCommand = Provider.autoDispose
     .family<LastControllerCommandHolder, String>((ref, id) => ref
-        .watch(detailSNProvider(id).state)
+        .watch(kPrvViewModelDetail(id).state)
         .playOutState
         .lastControllerCommandHolder);
 
@@ -264,10 +264,10 @@ class _PlayerViewState extends State<PlayerView>
       );
 
   ViewModelDetail _getViewModelDetail(BuildContext context) =>
-      context.read(detailSNProvider(widget.conf.id));
+      context.read(kPrvViewModelDetail(widget.conf.id));
 
   PlayOutState _getPlayOutState(BuildContext context) =>
-      context.read(detailSNProvider(widget.conf.id).state).playOutState;
+      context.read(kPrvViewModelDetail(widget.conf.id).state).playOutState;
 
   bool _isSeekBarDragging(BuildContext context) =>
       _getPlayOutState(context).isSeekBarDragging;

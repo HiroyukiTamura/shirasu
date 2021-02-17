@@ -20,7 +20,7 @@ import 'comment_list_view.dart';
 part 'page_comment.g.dart';
 
 final _kPrvPositionUpdateEvent = Provider.family.autoDispose<Duration, String>(
-    (ref, id) => ref.watch(detailSNProvider(id).state).playOutState.currentPos);
+    (ref, id) => ref.watch(kPrvViewModelDetail(id).state).playOutState.currentPos);
 
 class PageComment extends StatelessWidget {
   const PageComment({
@@ -38,9 +38,9 @@ class PageComment extends StatelessWidget {
       );
 
   Future<void> _onChange(BuildContext context, Duration currentPos) async {
-    final viewModel = context.read(detailSNProvider(id));
+    final viewModel = context.read(kPrvViewModelDetail(id));
     final commentHolder =
-        context.read(detailSNProvider(id).state).commentHolder;
+        context.read(kPrvViewModelDetail(id).state).commentHolder;
 
     if (commentHolder.followTimeLineMode is FollowTimeLineModeNone) return;
 
@@ -86,7 +86,7 @@ Widget _pageCommentInner({
   @required String id,
 }) =>
     useProvider(
-        detailSNProvider(id).state.select((it) => it.commentHolder.state)).when(
+        kPrvViewModelDetail(id).state.select((it) => it.commentHolder.state)).when(
       success: () => CommentListView(id: id),
       loading: () => const CenterCircleProgress(),
       loadingMore: (loadingState) => CommentListView(id: id),

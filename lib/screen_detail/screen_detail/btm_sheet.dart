@@ -15,7 +15,7 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 part 'btm_sheet.g.dart';
 
 final _kPrvBtmSheetEvent = Provider.family.autoDispose<BtmSheetState, String>(
-    (ref, id) => ref.watch(detailSNProvider(id).state).btmSheetState);
+    (ref, id) => ref.watch(kPrvViewModelDetail(id).state).btmSheetState);
 
 class BtmSheetEventListener extends StatelessWidget {
   const BtmSheetEventListener({
@@ -56,7 +56,7 @@ class BtmSheetEventListener extends StatelessWidget {
         (context) => BtmSheetSnsShare(
           shareUrl: shareUrl,
           snackCallback: (snackMsg) =>
-              context.read(detailSNProvider(id)).commandSnackBar(snackMsg),
+              context.read(kPrvViewModelDetail(id)).commandSnackBar(snackMsg),
         ),
       ),
     );
@@ -68,7 +68,7 @@ class BtmSheetEventListener extends StatelessWidget {
       builder: builder,
       context: context,
     );
-    context.read(detailSNProvider(id)).clearModal();
+    context.read(kPrvViewModelDetail(id)).clearModal();
   }
 }
 
@@ -101,7 +101,7 @@ Widget btmSheetCommentSelected(
     TextBtmSheetContent(
       text: Strings.BTM_SHEET_COMMENT_LABEL,
       onTap: () {
-        context.read(detailSNProvider(id)).seekToWithBtmSheet(false, position);
+        context.read(kPrvViewModelDetail(id)).seekToWithBtmSheet(false, position);
         Navigator.of(context).pop();
       },
     );

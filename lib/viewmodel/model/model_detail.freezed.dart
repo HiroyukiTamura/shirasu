@@ -322,8 +322,10 @@ class _$DetailModelStateTearOff {
   }
 
 // ignore: unused_element
-  _StateError error() {
-    return const _StateError();
+  _StateError error(ErrorMsgCommon msg) {
+    return _StateError(
+      msg,
+    );
   }
 }
 
@@ -340,7 +342,7 @@ mixin _$DetailModelState {
     @required
         TResult success(ProgramDetailData programDetailData,
             ChannelData channelData, PageSheetModel page),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -348,7 +350,7 @@ mixin _$DetailModelState {
     TResult loading(),
     TResult success(ProgramDetailData programDetailData,
         ChannelData channelData, PageSheetModel page),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -429,7 +431,7 @@ class _$_PreInitialized implements _PreInitialized {
     @required
         TResult success(ProgramDetailData programDetailData,
             ChannelData channelData, PageSheetModel page),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -445,7 +447,7 @@ class _$_PreInitialized implements _PreInitialized {
     TResult loading(),
     TResult success(ProgramDetailData programDetailData,
         ChannelData channelData, PageSheetModel page),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -535,7 +537,7 @@ class _$_StateLoading implements _StateLoading {
     @required
         TResult success(ProgramDetailData programDetailData,
             ChannelData channelData, PageSheetModel page),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -551,7 +553,7 @@ class _$_StateLoading implements _StateLoading {
     TResult loading(),
     TResult success(ProgramDetailData programDetailData,
         ChannelData channelData, PageSheetModel page),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -727,7 +729,7 @@ class _$StateSuccess implements StateSuccess {
     @required
         TResult success(ProgramDetailData programDetailData,
             ChannelData channelData, PageSheetModel page),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -743,7 +745,7 @@ class _$StateSuccess implements StateSuccess {
     TResult loading(),
     TResult success(ProgramDetailData programDetailData,
         ChannelData channelData, PageSheetModel page),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -803,6 +805,9 @@ abstract class _$StateErrorCopyWith<$Res> {
   factory _$StateErrorCopyWith(
           _StateError value, $Res Function(_StateError) then) =
       __$StateErrorCopyWithImpl<$Res>;
+  $Res call({ErrorMsgCommon msg});
+
+  $ErrorMsgCommonCopyWith<$Res> get msg;
 }
 
 /// @nodoc
@@ -815,24 +820,55 @@ class __$StateErrorCopyWithImpl<$Res>
 
   @override
   _StateError get _value => super._value as _StateError;
+
+  @override
+  $Res call({
+    Object msg = freezed,
+  }) {
+    return _then(_StateError(
+      msg == freezed ? _value.msg : msg as ErrorMsgCommon,
+    ));
+  }
+
+  @override
+  $ErrorMsgCommonCopyWith<$Res> get msg {
+    if (_value.msg == null) {
+      return null;
+    }
+    return $ErrorMsgCommonCopyWith<$Res>(_value.msg, (value) {
+      return _then(_value.copyWith(msg: value));
+    });
+  }
 }
 
 /// @nodoc
 class _$_StateError implements _StateError {
-  const _$_StateError();
+  const _$_StateError(this.msg) : assert(msg != null);
+
+  @override
+  final ErrorMsgCommon msg;
 
   @override
   String toString() {
-    return 'DetailModelState.error()';
+    return 'DetailModelState.error(msg: $msg)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _StateError);
+    return identical(this, other) ||
+        (other is _StateError &&
+            (identical(other.msg, msg) ||
+                const DeepCollectionEquality().equals(other.msg, msg)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(msg);
+
+  @JsonKey(ignore: true)
+  @override
+  _$StateErrorCopyWith<_StateError> get copyWith =>
+      __$StateErrorCopyWithImpl<_StateError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -842,13 +878,13 @@ class _$_StateError implements _StateError {
     @required
         TResult success(ProgramDetailData programDetailData,
             ChannelData channelData, PageSheetModel page),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
     assert(success != null);
     assert(error != null);
-    return error();
+    return error(msg);
   }
 
   @override
@@ -858,12 +894,12 @@ class _$_StateError implements _StateError {
     TResult loading(),
     TResult success(ProgramDetailData programDetailData,
         ChannelData channelData, PageSheetModel page),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error();
+      return error(msg);
     }
     return orElse();
   }
@@ -901,7 +937,11 @@ class _$_StateError implements _StateError {
 }
 
 abstract class _StateError implements DetailModelState {
-  const factory _StateError() = _$_StateError;
+  const factory _StateError(ErrorMsgCommon msg) = _$_StateError;
+
+  ErrorMsgCommon get msg;
+  @JsonKey(ignore: true)
+  _$StateErrorCopyWith<_StateError> get copyWith;
 }
 
 /// @nodoc

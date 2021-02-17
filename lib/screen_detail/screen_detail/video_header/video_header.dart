@@ -26,11 +26,11 @@ class VideoHeader extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = useProvider(detailSNProvider(conf.id)).state.prgDataResult
+    final result = useProvider(kPrvViewModelDetail(conf.id)).state.prgDataResult
         as StateSuccess; //we don't want rebuild here
     final program = result.programDetailData.program;
 
-    final child = useProvider(detailSNProvider(conf.id)
+    final child = useProvider(kPrvViewModelDetail(conf.id)
         .state
         .select((it) => it.playOutState.commandedState)).when(
       playError: () => throw UnimplementedError(),
@@ -65,7 +65,7 @@ class _PlayerViewPlaceHolder extends HookWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context) => useProvider(detailSNProvider(id)
+  Widget build(BuildContext context) => useProvider(kPrvViewModelDetail(id)
           .state
           .select((it) => it.playOutState.videoPlayerState)).when(
         error: (msg) => Container(), // todo implement
@@ -86,7 +86,7 @@ class _BufferingIndicator extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isBuffering = useProvider(
-        detailSNProvider(id).state.select((it) => it.playOutState.isBuffering));
+        kPrvViewModelDetail(id).state.select((it) => it.playOutState.isBuffering));
 
     return Visibility(
       visible: isBuffering,

@@ -18,7 +18,7 @@ Widget playerAnimOpacity({
   @required VideoViewModelConf conf,
 }) {
   final visible = useProvider(
-      detailSNProvider(conf.id).state.select((it) => it.playOutState.controllerVisibility));
+      kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.controllerVisibility));
   return AnimatedOpacity(
     opacity: visible ? 1 : 0,
     duration: const Duration(milliseconds: 500),
@@ -74,10 +74,10 @@ class VideoSeekBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final max = useProvider(detailSNProvider(conf.id)
+    final max = useProvider(kPrvViewModelDetail(conf.id)
         .state
         .select((it) => it.playOutState.totalDuration)).inSeconds.toDouble();
-    final value = useProvider(detailSNProvider(conf.id)
+    final value = useProvider(kPrvViewModelDetail(conf.id)
         .state
         .select((it) => it.playOutState.currentPosForUiSafe)).inSeconds.toDouble();
 
@@ -90,10 +90,10 @@ class VideoSeekBar extends HookWidget {
   }
 
   void _onChanged(BuildContext context, double value) => context
-      .read(detailSNProvider(conf.id))
+      .read(kPrvViewModelDetail(conf.id))
       .seekToWithSlider(conf.fullScreen, Duration(seconds: value.toInt()), false, false);
 
   void _onChangedEnd(BuildContext context, double value) => context
-      .read(detailSNProvider(conf.id))
+      .read(kPrvViewModelDetail(conf.id))
       .seekToWithSlider(conf.fullScreen, Duration(seconds: value.toInt()), true, true);
 }

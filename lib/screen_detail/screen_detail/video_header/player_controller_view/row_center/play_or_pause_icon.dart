@@ -15,7 +15,7 @@ import '../../../screen_detail.dart';
 part 'play_or_pause_icon.g.dart';
 
 final _kPrvIsPlaying = Provider.autoDispose.family<bool, String>(
-    (ref, id) => ref.watch(detailSNProvider(id).state).playOutState.isPlaying);
+    (ref, id) => ref.watch(kPrvViewModelDetail(id).state).playOutState.isPlaying);
 
 @hwidget
 Widget _playOrPauseIcon({
@@ -48,7 +48,7 @@ Widget playOrPauseBtn(
   @required String id,
 }) {
   final isBuffering = useProvider(
-      detailSNProvider(id).state.select((it) => it.playOutState.isBuffering));
+      kPrvViewModelDetail(id).state.select((it) => it.playOutState.isBuffering));
   return Container(
     width: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
     alignment: Alignment.center,

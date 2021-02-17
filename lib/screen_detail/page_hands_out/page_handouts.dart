@@ -47,7 +47,7 @@ class _ScreenHandsOutInner extends HookWidget {
   static const double _SUBTITLE_PAD = 6;
 
   @override
-  Widget build(BuildContext context) => useProvider(detailSNProvider(program.id)
+  Widget build(BuildContext context) => useProvider(kPrvViewModelDetail(program.id)
           .state
           .select((it) => it.isHandoutUrlRequesting))
       ? const CenterCircleProgress()
@@ -109,14 +109,14 @@ class _ScreenHandsOutInner extends HookWidget {
 
   Future<void> _onTapItem(BuildContext context, String handoutId) async {
     final url = await context
-        .read(detailSNProvider(program.id))
+        .read(kPrvViewModelDetail(program.id))
         .queryHandOutUrl(handoutId);
     if (url != null)
       Util.launchUrl(
           context,
           url,
           () => context
-              .read(detailSNProvider(program.id))
+              .read(kPrvViewModelDetail(program.id))
               .commandSnackBar(const SnackMsg.unknown()));
   }
 }

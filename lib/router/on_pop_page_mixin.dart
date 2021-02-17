@@ -40,7 +40,7 @@ abstract class CommonRouterDelegate<T> extends RouterDelegate<T> with ChangeNoti
   Future<bool> kickPopRoute(Future<bool> Function() onFalse) async {
     final last = appState.last;
     if (last is PathDataProgram) {
-      final closed = await reader(detailSNProvider(last.programId)).togglePage(const PageSheetModel.hidden());
+      final closed = await reader(kPrvViewModelDetail(last.programId)).togglePage(const PageSheetModel.hidden());
       if (closed)
         return true;
     }

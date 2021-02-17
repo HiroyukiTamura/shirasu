@@ -23,7 +23,7 @@ Widget rowVideoDesc(
           context,
           link.url,
           () => context
-              .read(detailSNProvider(id))
+              .read(kPrvViewModelDetail(id))
               .commandSnackBar(const SnackMsg.unknown()),
         ),
         text: text,

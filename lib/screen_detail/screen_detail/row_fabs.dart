@@ -62,19 +62,19 @@ class RowFabs extends StatelessWidget {
       );
 
   void _onClickShareBtn(BuildContext context) => context
-      .read(detailSNProvider(program.id))
+      .read(kPrvViewModelDetail(program.id))
       .commandModal(BtmSheetState.share(shareUrl));
 
   Future<void> _onClickCommentBtn(BuildContext context) async => context
-      .read(detailSNProvider(program.id))
+      .read(kPrvViewModelDetail(program.id))
       .togglePage(const PageSheetModel.comment());
 
   Future<void> _onClickPaymentBtn(BuildContext context) async => context
-      .read(detailSNProvider(program.id))
+      .read(kPrvViewModelDetail(program.id))
       .togglePage(const PageSheetModel.pricing());
 
   Future<void> _onClickHandoutsBtn(BuildContext context) async => context
-      .read(detailSNProvider(program.id))
+      .read(kPrvViewModelDetail(program.id))
       .togglePage(const PageSheetModel.handouts());
 }
 

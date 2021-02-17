@@ -110,7 +110,7 @@ class PlayerControllerView extends HookWidget {
       );
 
   void _onTapPlayToggleBtn(BuildContext context) =>
-      context.read(detailSNProvider(conf.id)).playOrPause(
+      context.read(kPrvViewModelDetail(conf.id)).playOrPause(
             conf.fullScreen,
             const VideoControllerCommand.playOrPause(),
           );
@@ -122,20 +122,20 @@ class PlayerControllerView extends HookWidget {
       _seek(context, -ViewModelDetail.SEC_FAST_SEEK_BY_BTN);
 
   void _seek(BuildContext context, Duration diff) =>
-      context.read(detailSNProvider(conf.id)).seek(conf.fullScreen, diff);
+      context.read(kPrvViewModelDetail(conf.id)).seek(conf.fullScreen, diff);
 
   Future<void> _onTapFullScreenBtn(BuildContext context) async =>
       context.toggleFullScreenMode();
 
   Future<void> _onTapSpeedBtn(BuildContext context) async => context
-      .read(detailSNProvider(conf.id))
+      .read(kPrvViewModelDetail(conf.id))
       .commandModal(const BtmSheetState.playSpeed());
 
   void _onTapBgBtn(BuildContext context) =>
-      context.read(detailSNProvider(conf.id)).toggleVisibility();
+      context.read(kPrvViewModelDetail(conf.id)).toggleVisibility();
 
   void _onDoubleTap(BuildContext context, Lr lr) {
-    context.read(detailSNProvider(conf.id)).hide();
+    context.read(kPrvViewModelDetail(conf.id)).hide();
     context.read(_kSPrvDoubleTapEvent(lr)).state++;
 
     final duration = lr == Lr.LEFT
@@ -147,7 +147,7 @@ class PlayerControllerView extends HookWidget {
   void _onSwipeEnd(BuildContext context, SwipeData data) {
     _seek(context, data.diffDuration);
     _clearStartDx(context, 0);
-    context.read(detailSNProvider(conf.id)).hide();
+    context.read(kPrvViewModelDetail(conf.id)).hide();
   }
 
   void _clearStartDx(BuildContext context, double dx) =>

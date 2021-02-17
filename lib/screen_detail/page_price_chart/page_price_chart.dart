@@ -53,7 +53,7 @@ class PagePriceChart extends StatelessWidget {
         context,
         UrlUtil.programId2Url(program.id),
         () => context
-            .read(detailSNProvider(program.id))
+            .read(kPrvViewModelDetail(program.id))
             .commandSnackBar(const SnackMsg.unknown()),
       );
 }

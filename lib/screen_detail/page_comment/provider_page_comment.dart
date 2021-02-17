@@ -51,7 +51,7 @@ final kPrvPageUiData = StateNotifierProvider.family
 
   final sc = StateController<PageUiData>(lastPostedData.data);
 
-  final removeListener = ref.watch(detailSNProvider(id)).addListener((state) {
+  final removeListener = ref.watch(kPrvViewModelDetail(id)).addListener((state) {
     final commentHolder = state.commentHolder;
     final comments = commentHolder.followTimeLineMode.when(
       notFollow: (futurePos) => commentHolder.getCommentItemsBefore(futurePos),

@@ -72,10 +72,10 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
   Future<void> loadMorePrograms() async => state.maybeWhen(
       orElse: () {},
       success: (dataWrapper) async {
+        if (dataWrapper.loading) return;
+
         final nextToken = dataWrapper.data.channel.programs.nextToken;
         if (nextToken == null) return;
-
-        if (dataWrapper.loading) return;
 
         // we don't check if Disposed
         state = ChannelModel.success(dataWrapper.copyWith(
@@ -83,12 +83,15 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
           loading: true,
         ));
 
-        // todo fix
         try {
-          final newOne = await graphQlRepository.queryChannelData(
-            _channelId,
-            nextToken: nextToken,
-          );
+          await connectivityRepository.ensureNotDisconnect();
+
+          final newOne = await graphQlRepository
+              .queryChannelData(
+                _channelId,
+                nextToken: nextToken,
+              )
+              .timeout(GraphQlRepository.TIMEOUT);
 
           state = state.copyWithAdditionalPrograms(newOne.channel.programs);
 
@@ -98,9 +101,20 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
           return;
         } catch (e) {
           debugPrint(e.toString());
+
+          SnackMsg msg;
+          if (e is NetworkDisconnectException)
+            msg = const SnackMsg.networkDisconnected();
+          else if (e is TimeoutException)
+            msg = const SnackMsg.networkTimeout();
+          else
+            msg = const SnackMsg.unknown();
           if (mounted) {
-            state = const ChannelModel.error(ErrorMsgCommon.unknown());
-            _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+            _msgNotifier.notifyMsg(msg, false);
+            state = ChannelModel.success(dataWrapper.copyWith(
+              data: dataWrapper.data,
+              loading: false,
+            ));
           }
         }
       });

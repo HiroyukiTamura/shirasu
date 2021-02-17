@@ -56,6 +56,7 @@ class ViewModelTestBase<T> {
   ViewerWrapper viewerWrapper;
   HiveAuthData hiveAuthData;
   ChannelData channelData;
+  ChannelData hasNextTokenChannelData;
 
   Future<void> init() async {
     featureProgramData = await kJsonClient.featureProgramData;
@@ -64,6 +65,9 @@ class ViewModelTestBase<T> {
     viewerWrapper = await kJsonClient.viewerWrapper;
     hiveAuthData = await kJsonClient.hiveAuth;
     channelData = await kJsonClient.channel;
+    hasNextTokenChannelData = channelData.copyWith.channel.programs(
+      nextToken: 'NEXT_TOKEN',
+    );
     _graphQlOverrideNormal = kOverrideUtil.createOverrides([
       kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
         featureProgramData: featureProgramData,

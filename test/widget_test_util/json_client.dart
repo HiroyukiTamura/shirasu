@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
@@ -34,6 +35,12 @@ class JsonClient {
     final path = TestUtil.fixAssetPath(Assets.json.viewer);
     final json = await TestUtil.loadJson(path);
     return ViewerWrapper.fromJson(json);
+  }
+
+  Future<ChannelData> get channel async {
+    final path = TestUtil.fixAssetPath(Assets.json.channel);
+    final json = await TestUtil.loadJson(path);
+    return ChannelData.fromJson(json);
   }
 
   Future<HiveAuthData> get hiveAuth async {

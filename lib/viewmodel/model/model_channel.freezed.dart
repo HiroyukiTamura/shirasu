@@ -26,8 +26,10 @@ class _$ChannelModelTearOff {
   }
 
 // ignore: unused_element
-  _Error error() {
-    return const _Error();
+  _Error error(ErrorMsgCommon errMsg) {
+    return _Error(
+      errMsg,
+    );
   }
 }
 
@@ -41,13 +43,13 @@ mixin _$ChannelModel {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult success(ChannelDataWrapper channelData),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult success(ChannelDataWrapper channelData),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -122,7 +124,7 @@ class _$_PreInitialized extends _PreInitialized {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult success(ChannelDataWrapper channelData),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -135,7 +137,7 @@ class _$_PreInitialized extends _PreInitialized {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult success(ChannelDataWrapper channelData),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -256,7 +258,7 @@ class _$Success extends Success {
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult success(ChannelDataWrapper channelData),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(preInitialized != null);
     assert(success != null);
@@ -269,7 +271,7 @@ class _$Success extends Success {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult success(ChannelDataWrapper channelData),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -321,6 +323,9 @@ abstract class Success extends ChannelModel {
 abstract class _$ErrorCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) then) =
       __$ErrorCopyWithImpl<$Res>;
+  $Res call({ErrorMsgCommon errMsg});
+
+  $ErrorMsgCommonCopyWith<$Res> get errMsg;
 }
 
 /// @nodoc
@@ -331,36 +336,69 @@ class __$ErrorCopyWithImpl<$Res> extends _$ChannelModelCopyWithImpl<$Res>
 
   @override
   _Error get _value => super._value as _Error;
+
+  @override
+  $Res call({
+    Object errMsg = freezed,
+  }) {
+    return _then(_Error(
+      errMsg == freezed ? _value.errMsg : errMsg as ErrorMsgCommon,
+    ));
+  }
+
+  @override
+  $ErrorMsgCommonCopyWith<$Res> get errMsg {
+    if (_value.errMsg == null) {
+      return null;
+    }
+    return $ErrorMsgCommonCopyWith<$Res>(_value.errMsg, (value) {
+      return _then(_value.copyWith(errMsg: value));
+    });
+  }
 }
 
 /// @nodoc
 class _$_Error extends _Error {
-  const _$_Error() : super._();
+  const _$_Error(this.errMsg)
+      : assert(errMsg != null),
+        super._();
+
+  @override
+  final ErrorMsgCommon errMsg;
 
   @override
   String toString() {
-    return 'ChannelModel.error()';
+    return 'ChannelModel.error(errMsg: $errMsg)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Error);
+    return identical(this, other) ||
+        (other is _Error &&
+            (identical(other.errMsg, errMsg) ||
+                const DeepCollectionEquality().equals(other.errMsg, errMsg)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(errMsg);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ErrorCopyWith<_Error> get copyWith =>
+      __$ErrorCopyWithImpl<_Error>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
     @required TResult success(ChannelDataWrapper channelData),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(preInitialized != null);
     assert(success != null);
     assert(error != null);
-    return error();
+    return error(errMsg);
   }
 
   @override
@@ -368,12 +406,12 @@ class _$_Error extends _Error {
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
     TResult success(ChannelDataWrapper channelData),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error();
+      return error(errMsg);
     }
     return orElse();
   }
@@ -409,7 +447,11 @@ class _$_Error extends _Error {
 
 abstract class _Error extends ChannelModel {
   const _Error._() : super._();
-  const factory _Error() = _$_Error;
+  const factory _Error(ErrorMsgCommon errMsg) = _$_Error;
+
+  ErrorMsgCommon get errMsg;
+  @JsonKey(ignore: true)
+  _$ErrorCopyWith<_Error> get copyWith;
 }
 
 /// @nodoc

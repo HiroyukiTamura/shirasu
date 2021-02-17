@@ -45,7 +45,7 @@ Widget screenChannel(
       child: Scaffold(
         body: useProvider(kPrvViewModelChannel(channelId).state).when(
           preInitialized: () => const CenterCircleProgress(),
-          error: () => const PageError(),
+          error: (errMsg) => PageError(text: errMsg.value,),
           success: (dataWrapper) => _Content(
             channelData: dataWrapper.data,
             isAnnouncementEmpty:

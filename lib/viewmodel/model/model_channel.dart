@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+
+import 'error_msg_common.dart';
 
 part 'model_channel.freezed.dart';
 
@@ -12,7 +15,7 @@ abstract class ChannelModel implements _$ChannelModel {
 
   const factory ChannelModel.success(ChannelDataWrapper channelData) = Success;
 
-  const factory ChannelModel.error() = _Error;
+  const factory ChannelModel.error(ErrorMsgCommon errMsg) = _Error;
 
   /// throws [TypeError]
   ChannelModel copyWithAdditionalPrograms(ChannelPrograms newOne) {

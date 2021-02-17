@@ -8,7 +8,7 @@ Future<void> main() async {
   final runner = TestRunnerBase(() => const ScreenImageLicense());
   await runner.init();
 
-  group('ScreenImageTest', () {
+  group('ScreenImageLicense', () {
     runner.testGoldensSimple(testName: 'normal', overrides: []);
   });
 }

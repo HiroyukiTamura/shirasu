@@ -59,7 +59,7 @@ class TestRunnerBase {
   @protected
   void testGoldensSimple({
     @required String testName,
-    @required List<Override> overrides,
+    List<Override> overrides = const [],
     OnScenarioCreateTest onScenarioCreate,
     OnPostBuild onPostBuild,
   }) =>

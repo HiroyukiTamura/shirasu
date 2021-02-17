@@ -29,26 +29,24 @@ class PageMovieList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final sc = useScrollController();
-    final loading = useProvider(
-        channelProvider(channelId).state.select((it) => it.loading));
-    final result = useProvider(channelProvider(channelId)).state.result;
-
-    if (result is Success) {
-      final showLoadingIndicator =
-          result.channelData.channel.programs.nextToken != null;
-      final listView = _ListView(
-        sc: sc,
-        channelPrograms: result.channelData.channel.programs,
-        showLoadingIndicator: showLoadingIndicator,
-      );
-      return _WrappedNotificationListener(
-        sc: sc,
-        channelId: channelId,
-        enabled: !loading,
-        child: listView,
-      );
-    } else
-      return const SizedBox.shrink();
+    return useProvider(kPrvViewModelChannel(channelId).state).maybeWhen(
+      orElse: () => const SizedBox.shrink(),
+      success: (dataWrapper) {
+        final showLoadingIndicator =
+            dataWrapper.data.channel.programs.nextToken != null;
+        final listView = _ListView(
+          sc: sc,
+          channelPrograms: dataWrapper.data.channel.programs,
+          showLoadingIndicator: showLoadingIndicator,
+        );
+        return _WrappedNotificationListener(
+          sc: sc,
+          channelId: channelId,
+          enabled: !dataWrapper.loading,
+          child: listView,
+        );
+      },
+    );
   }
 }
 
@@ -69,7 +67,7 @@ Widget _wrappedNotificationListener(
                     (Dimens.CIRCULAR_HEIGHT +
                         Dimens.CHANNEL_PAGE_VERTICAL_MARGIN) <
                 sc.offset) {
-          context.read(channelProvider(channelId)).loadMorePrograms();
+          context.read(kPrvViewModelChannel(channelId)).loadMorePrograms();
           return true;
         }
 

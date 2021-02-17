@@ -178,10 +178,10 @@ class _$ChannelTearOff {
   _Channel call(
       {@required String id,
       @required String name,
-      dynamic icon,
+      @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
-      String textOnPurchaseScreen,
+      @Deprecated('no need to use') String textOnPurchaseScreen,
       @required String detail,
       @required @JsonKey(name: '__typename') String typename,
       @required SubscriptionPlan subscriptionPlan,
@@ -216,9 +216,11 @@ const $Channel = _$ChannelTearOff();
 mixin _$Channel {
   String get id;
   String get name;
+  @Deprecated('no need to use')
   dynamic get icon;
   String get twitterUrl;
   String get facebookUrl;
+  @Deprecated('no need to use')
   String get textOnPurchaseScreen;
   String get detail;
   @JsonKey(name: '__typename')
@@ -239,10 +241,10 @@ abstract class $ChannelCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      dynamic icon,
+      @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
-      String textOnPurchaseScreen,
+      @Deprecated('no need to use') String textOnPurchaseScreen,
       String detail,
       @JsonKey(name: '__typename') String typename,
       SubscriptionPlan subscriptionPlan,
@@ -339,10 +341,10 @@ abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      dynamic icon,
+      @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
-      String textOnPurchaseScreen,
+      @Deprecated('no need to use') String textOnPurchaseScreen,
       String detail,
       @JsonKey(name: '__typename') String typename,
       SubscriptionPlan subscriptionPlan,
@@ -412,10 +414,10 @@ class _$_Channel implements _Channel {
   const _$_Channel(
       {@required this.id,
       @required this.name,
-      this.icon,
+      @Deprecated('no need to use') this.icon,
       this.twitterUrl,
       this.facebookUrl,
-      this.textOnPurchaseScreen,
+      @Deprecated('no need to use') this.textOnPurchaseScreen,
       @required this.detail,
       @required @JsonKey(name: '__typename') this.typename,
       @required this.subscriptionPlan,
@@ -438,12 +440,14 @@ class _$_Channel implements _Channel {
   @override
   final String name;
   @override
+  @Deprecated('no need to use')
   final dynamic icon;
   @override
   final String twitterUrl;
   @override
   final String facebookUrl;
   @override
+  @Deprecated('no need to use')
   final String textOnPurchaseScreen;
   @override
   final String detail;
@@ -527,10 +531,10 @@ abstract class _Channel implements Channel {
   const factory _Channel(
       {@required String id,
       @required String name,
-      dynamic icon,
+      @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
-      String textOnPurchaseScreen,
+      @Deprecated('no need to use') String textOnPurchaseScreen,
       @required String detail,
       @required @JsonKey(name: '__typename') String typename,
       @required SubscriptionPlan subscriptionPlan,
@@ -544,12 +548,14 @@ abstract class _Channel implements Channel {
   @override
   String get name;
   @override
+  @Deprecated('no need to use')
   dynamic get icon;
   @override
   String get twitterUrl;
   @override
   String get facebookUrl;
   @override
+  @Deprecated('no need to use')
   String get textOnPurchaseScreen;
   @override
   String get detail;
@@ -1119,11 +1125,11 @@ class _$ChannelProgramsTearOff {
 
 // ignore: unused_element
   _ChannelPrograms call(
-      {@required List<ProgramsItem> items,
+      {@required @JsonKey(name: 'items') List<ProgramsItem> rawItems,
       String nextToken,
       @required @JsonKey(name: '__typename') String typename}) {
     return _ChannelPrograms(
-      items: items,
+      rawItems: rawItems,
       nextToken: nextToken,
       typename: typename,
     );
@@ -1141,7 +1147,8 @@ const $ChannelPrograms = _$ChannelProgramsTearOff();
 
 /// @nodoc
 mixin _$ChannelPrograms {
-  List<ProgramsItem> get items;
+  @JsonKey(name: 'items')
+  List<ProgramsItem> get rawItems;
   String get nextToken;
   @JsonKey(name: '__typename')
   String get typename;
@@ -1157,7 +1164,7 @@ abstract class $ChannelProgramsCopyWith<$Res> {
           ChannelPrograms value, $Res Function(ChannelPrograms) then) =
       _$ChannelProgramsCopyWithImpl<$Res>;
   $Res call(
-      {List<ProgramsItem> items,
+      {@JsonKey(name: 'items') List<ProgramsItem> rawItems,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -1173,12 +1180,14 @@ class _$ChannelProgramsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<ProgramsItem>,
+      rawItems: rawItems == freezed
+          ? _value.rawItems
+          : rawItems as List<ProgramsItem>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1193,7 +1202,7 @@ abstract class _$ChannelProgramsCopyWith<$Res>
       __$ChannelProgramsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<ProgramsItem> items,
+      {@JsonKey(name: 'items') List<ProgramsItem> rawItems,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -1211,12 +1220,14 @@ class __$ChannelProgramsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object rawItems = freezed,
     Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_ChannelPrograms(
-      items: items == freezed ? _value.items : items as List<ProgramsItem>,
+      rawItems: rawItems == freezed
+          ? _value.rawItems
+          : rawItems as List<ProgramsItem>,
       nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
@@ -1228,10 +1239,10 @@ class __$ChannelProgramsCopyWithImpl<$Res>
 /// @nodoc
 class _$_ChannelPrograms extends _ChannelPrograms {
   const _$_ChannelPrograms(
-      {@required this.items,
+      {@required @JsonKey(name: 'items') this.rawItems,
       this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
-      : assert(items != null),
+      : assert(rawItems != null),
         assert(typename != null),
         assert(typename == "ModelProgramConnection"),
         super._();
@@ -1240,7 +1251,8 @@ class _$_ChannelPrograms extends _ChannelPrograms {
       _$_$_ChannelProgramsFromJson(json);
 
   @override
-  final List<ProgramsItem> items;
+  @JsonKey(name: 'items')
+  final List<ProgramsItem> rawItems;
   @override
   final String nextToken;
   @override
@@ -1249,15 +1261,16 @@ class _$_ChannelPrograms extends _ChannelPrograms {
 
   @override
   String toString() {
-    return 'ChannelPrograms(items: $items, nextToken: $nextToken, typename: $typename)';
+    return 'ChannelPrograms(rawItems: $rawItems, nextToken: $nextToken, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ChannelPrograms &&
-            (identical(other.items, items) ||
-                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.rawItems, rawItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawItems, rawItems)) &&
             (identical(other.nextToken, nextToken) ||
                 const DeepCollectionEquality()
                     .equals(other.nextToken, nextToken)) &&
@@ -1269,7 +1282,7 @@ class _$_ChannelPrograms extends _ChannelPrograms {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(rawItems) ^
       const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
@@ -1287,7 +1300,7 @@ class _$_ChannelPrograms extends _ChannelPrograms {
 abstract class _ChannelPrograms extends ChannelPrograms {
   const _ChannelPrograms._() : super._();
   const factory _ChannelPrograms(
-          {@required List<ProgramsItem> items,
+          {@required @JsonKey(name: 'items') List<ProgramsItem> rawItems,
           String nextToken,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_ChannelPrograms;
@@ -1296,7 +1309,8 @@ abstract class _ChannelPrograms extends ChannelPrograms {
       _$_ChannelPrograms.fromJson;
 
   @override
-  List<ProgramsItem> get items;
+  @JsonKey(name: 'items')
+  List<ProgramsItem> get rawItems;
   @override
   String get nextToken;
   @override

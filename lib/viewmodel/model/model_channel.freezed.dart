@@ -14,174 +14,12 @@ class _$ChannelModelTearOff {
   const _$ChannelModelTearOff();
 
 // ignore: unused_element
-  _ChannelModel call(
-      {@required ChannelDataResult result, @required bool loading}) {
-    return _ChannelModel(
-      result: result,
-      loading: loading,
-    );
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $ChannelModel = _$ChannelModelTearOff();
-
-/// @nodoc
-mixin _$ChannelModel {
-  ChannelDataResult get result;
-  bool get loading;
-
-  @JsonKey(ignore: true)
-  $ChannelModelCopyWith<ChannelModel> get copyWith;
-}
-
-/// @nodoc
-abstract class $ChannelModelCopyWith<$Res> {
-  factory $ChannelModelCopyWith(
-          ChannelModel value, $Res Function(ChannelModel) then) =
-      _$ChannelModelCopyWithImpl<$Res>;
-  $Res call({ChannelDataResult result, bool loading});
-
-  $ChannelDataResultCopyWith<$Res> get result;
-}
-
-/// @nodoc
-class _$ChannelModelCopyWithImpl<$Res> implements $ChannelModelCopyWith<$Res> {
-  _$ChannelModelCopyWithImpl(this._value, this._then);
-
-  final ChannelModel _value;
-  // ignore: unused_field
-  final $Res Function(ChannelModel) _then;
-
-  @override
-  $Res call({
-    Object result = freezed,
-    Object loading = freezed,
-  }) {
-    return _then(_value.copyWith(
-      result: result == freezed ? _value.result : result as ChannelDataResult,
-      loading: loading == freezed ? _value.loading : loading as bool,
-    ));
-  }
-
-  @override
-  $ChannelDataResultCopyWith<$Res> get result {
-    if (_value.result == null) {
-      return null;
-    }
-    return $ChannelDataResultCopyWith<$Res>(_value.result, (value) {
-      return _then(_value.copyWith(result: value));
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$ChannelModelCopyWith<$Res>
-    implements $ChannelModelCopyWith<$Res> {
-  factory _$ChannelModelCopyWith(
-          _ChannelModel value, $Res Function(_ChannelModel) then) =
-      __$ChannelModelCopyWithImpl<$Res>;
-  @override
-  $Res call({ChannelDataResult result, bool loading});
-
-  @override
-  $ChannelDataResultCopyWith<$Res> get result;
-}
-
-/// @nodoc
-class __$ChannelModelCopyWithImpl<$Res> extends _$ChannelModelCopyWithImpl<$Res>
-    implements _$ChannelModelCopyWith<$Res> {
-  __$ChannelModelCopyWithImpl(
-      _ChannelModel _value, $Res Function(_ChannelModel) _then)
-      : super(_value, (v) => _then(v as _ChannelModel));
-
-  @override
-  _ChannelModel get _value => super._value as _ChannelModel;
-
-  @override
-  $Res call({
-    Object result = freezed,
-    Object loading = freezed,
-  }) {
-    return _then(_ChannelModel(
-      result: result == freezed ? _value.result : result as ChannelDataResult,
-      loading: loading == freezed ? _value.loading : loading as bool,
-    ));
-  }
-}
-
-/// @nodoc
-class _$_ChannelModel extends _ChannelModel {
-  const _$_ChannelModel({@required this.result, @required this.loading})
-      : assert(result != null),
-        assert(loading != null),
-        assert(!loading || (result is Success && loading)),
-        super._();
-
-  @override
-  final ChannelDataResult result;
-  @override
-  final bool loading;
-
-  @override
-  String toString() {
-    return 'ChannelModel(result: $result, loading: $loading)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _ChannelModel &&
-            (identical(other.result, result) ||
-                const DeepCollectionEquality().equals(other.result, result)) &&
-            (identical(other.loading, loading) ||
-                const DeepCollectionEquality().equals(other.loading, loading)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(result) ^
-      const DeepCollectionEquality().hash(loading);
-
-  @JsonKey(ignore: true)
-  @override
-  _$ChannelModelCopyWith<_ChannelModel> get copyWith =>
-      __$ChannelModelCopyWithImpl<_ChannelModel>(this, _$identity);
-}
-
-abstract class _ChannelModel extends ChannelModel {
-  const _ChannelModel._() : super._();
-  const factory _ChannelModel(
-      {@required ChannelDataResult result,
-      @required bool loading}) = _$_ChannelModel;
-
-  @override
-  ChannelDataResult get result;
-  @override
-  bool get loading;
-  @override
-  @JsonKey(ignore: true)
-  _$ChannelModelCopyWith<_ChannelModel> get copyWith;
-}
-
-/// @nodoc
-class _$ChannelDataResultTearOff {
-  const _$ChannelDataResultTearOff();
-
-// ignore: unused_element
   _PreInitialized preInitialized() {
     return const _PreInitialized();
   }
 
 // ignore: unused_element
-  _Loading loading() {
-    return const _Loading();
-  }
-
-// ignore: unused_element
-  Success success(ChannelData channelData) {
+  Success success(ChannelDataWrapper channelData) {
     return Success(
       channelData,
     );
@@ -195,36 +33,32 @@ class _$ChannelDataResultTearOff {
 
 /// @nodoc
 // ignore: unused_element
-const $ChannelDataResult = _$ChannelDataResultTearOff();
+const $ChannelModel = _$ChannelModelTearOff();
 
 /// @nodoc
-mixin _$ChannelDataResult {
+mixin _$ChannelModel {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
-    @required TResult loading(),
-    @required TResult success(ChannelData channelData),
+    @required TResult success(ChannelDataWrapper channelData),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
-    TResult loading(),
-    TResult success(ChannelData channelData),
+    TResult success(ChannelDataWrapper channelData),
     TResult error(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_Loading value),
     @required TResult success(Success value),
     @required TResult error(_Error value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(_PreInitialized value),
-    TResult loading(_Loading value),
     TResult success(Success value),
     TResult error(_Error value),
     @required TResult orElse(),
@@ -232,20 +66,19 @@ mixin _$ChannelDataResult {
 }
 
 /// @nodoc
-abstract class $ChannelDataResultCopyWith<$Res> {
-  factory $ChannelDataResultCopyWith(
-          ChannelDataResult value, $Res Function(ChannelDataResult) then) =
-      _$ChannelDataResultCopyWithImpl<$Res>;
+abstract class $ChannelModelCopyWith<$Res> {
+  factory $ChannelModelCopyWith(
+          ChannelModel value, $Res Function(ChannelModel) then) =
+      _$ChannelModelCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ChannelDataResultCopyWithImpl<$Res>
-    implements $ChannelDataResultCopyWith<$Res> {
-  _$ChannelDataResultCopyWithImpl(this._value, this._then);
+class _$ChannelModelCopyWithImpl<$Res> implements $ChannelModelCopyWith<$Res> {
+  _$ChannelModelCopyWithImpl(this._value, this._then);
 
-  final ChannelDataResult _value;
+  final ChannelModel _value;
   // ignore: unused_field
-  final $Res Function(ChannelDataResult) _then;
+  final $Res Function(ChannelModel) _then;
 }
 
 /// @nodoc
@@ -257,7 +90,7 @@ abstract class _$PreInitializedCopyWith<$Res> {
 
 /// @nodoc
 class __$PreInitializedCopyWithImpl<$Res>
-    extends _$ChannelDataResultCopyWithImpl<$Res>
+    extends _$ChannelModelCopyWithImpl<$Res>
     implements _$PreInitializedCopyWith<$Res> {
   __$PreInitializedCopyWithImpl(
       _PreInitialized _value, $Res Function(_PreInitialized) _then)
@@ -268,12 +101,12 @@ class __$PreInitializedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_PreInitialized implements _PreInitialized {
-  const _$_PreInitialized();
+class _$_PreInitialized extends _PreInitialized {
+  const _$_PreInitialized() : super._();
 
   @override
   String toString() {
-    return 'ChannelDataResult.preInitialized()';
+    return 'ChannelModel.preInitialized()';
   }
 
   @override
@@ -288,12 +121,10 @@ class _$_PreInitialized implements _PreInitialized {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
-    @required TResult loading(),
-    @required TResult success(ChannelData channelData),
+    @required TResult success(ChannelDataWrapper channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
-    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return preInitialized();
@@ -303,8 +134,7 @@ class _$_PreInitialized implements _PreInitialized {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
-    TResult loading(),
-    TResult success(ChannelData channelData),
+    TResult success(ChannelDataWrapper channelData),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -319,12 +149,10 @@ class _$_PreInitialized implements _PreInitialized {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_Loading value),
     @required TResult success(Success value),
     @required TResult error(_Error value),
   }) {
     assert(preInitialized != null);
-    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return preInitialized(this);
@@ -334,7 +162,6 @@ class _$_PreInitialized implements _PreInitialized {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(_PreInitialized value),
-    TResult loading(_Loading value),
     TResult success(Success value),
     TResult error(_Error value),
     @required TResult orElse(),
@@ -347,121 +174,22 @@ class _$_PreInitialized implements _PreInitialized {
   }
 }
 
-abstract class _PreInitialized implements ChannelDataResult {
+abstract class _PreInitialized extends ChannelModel {
+  const _PreInitialized._() : super._();
   const factory _PreInitialized() = _$_PreInitialized;
-}
-
-/// @nodoc
-abstract class _$LoadingCopyWith<$Res> {
-  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) then) =
-      __$LoadingCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$LoadingCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
-    implements _$LoadingCopyWith<$Res> {
-  __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
-      : super(_value, (v) => _then(v as _Loading));
-
-  @override
-  _Loading get _value => super._value as _Loading;
-}
-
-/// @nodoc
-class _$_Loading implements _Loading {
-  const _$_Loading();
-
-  @override
-  String toString() {
-    return 'ChannelDataResult.loading()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Loading);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult preInitialized(),
-    @required TResult loading(),
-    @required TResult success(ChannelData channelData),
-    @required TResult error(),
-  }) {
-    assert(preInitialized != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(error != null);
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult preInitialized(),
-    TResult loading(),
-    TResult success(ChannelData channelData),
-    TResult error(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_Loading value),
-    @required TResult success(Success value),
-    @required TResult error(_Error value),
-  }) {
-    assert(preInitialized != null);
-    assert(loading != null);
-    assert(success != null);
-    assert(error != null);
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(_PreInitialized value),
-    TResult loading(_Loading value),
-    TResult success(Success value),
-    TResult error(_Error value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Loading implements ChannelDataResult {
-  const factory _Loading() = _$_Loading;
 }
 
 /// @nodoc
 abstract class $SuccessCopyWith<$Res> {
   factory $SuccessCopyWith(Success value, $Res Function(Success) then) =
       _$SuccessCopyWithImpl<$Res>;
-  $Res call({ChannelData channelData});
+  $Res call({ChannelDataWrapper channelData});
 
-  $ChannelDataCopyWith<$Res> get channelData;
+  $ChannelDataWrapperCopyWith<$Res> get channelData;
 }
 
 /// @nodoc
-class _$SuccessCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
+class _$SuccessCopyWithImpl<$Res> extends _$ChannelModelCopyWithImpl<$Res>
     implements $SuccessCopyWith<$Res> {
   _$SuccessCopyWithImpl(Success _value, $Res Function(Success) _then)
       : super(_value, (v) => _then(v as Success));
@@ -474,31 +202,35 @@ class _$SuccessCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
     Object channelData = freezed,
   }) {
     return _then(Success(
-      channelData == freezed ? _value.channelData : channelData as ChannelData,
+      channelData == freezed
+          ? _value.channelData
+          : channelData as ChannelDataWrapper,
     ));
   }
 
   @override
-  $ChannelDataCopyWith<$Res> get channelData {
+  $ChannelDataWrapperCopyWith<$Res> get channelData {
     if (_value.channelData == null) {
       return null;
     }
-    return $ChannelDataCopyWith<$Res>(_value.channelData, (value) {
+    return $ChannelDataWrapperCopyWith<$Res>(_value.channelData, (value) {
       return _then(_value.copyWith(channelData: value));
     });
   }
 }
 
 /// @nodoc
-class _$Success implements Success {
-  const _$Success(this.channelData) : assert(channelData != null);
+class _$Success extends Success {
+  const _$Success(this.channelData)
+      : assert(channelData != null),
+        super._();
 
   @override
-  final ChannelData channelData;
+  final ChannelDataWrapper channelData;
 
   @override
   String toString() {
-    return 'ChannelDataResult.success(channelData: $channelData)';
+    return 'ChannelModel.success(channelData: $channelData)';
   }
 
   @override
@@ -523,12 +255,10 @@ class _$Success implements Success {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
-    @required TResult loading(),
-    @required TResult success(ChannelData channelData),
+    @required TResult success(ChannelDataWrapper channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
-    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return success(channelData);
@@ -538,8 +268,7 @@ class _$Success implements Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
-    TResult loading(),
-    TResult success(ChannelData channelData),
+    TResult success(ChannelDataWrapper channelData),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -554,12 +283,10 @@ class _$Success implements Success {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_Loading value),
     @required TResult success(Success value),
     @required TResult error(_Error value),
   }) {
     assert(preInitialized != null);
-    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return success(this);
@@ -569,7 +296,6 @@ class _$Success implements Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(_PreInitialized value),
-    TResult loading(_Loading value),
     TResult success(Success value),
     TResult error(_Error value),
     @required TResult orElse(),
@@ -582,10 +308,11 @@ class _$Success implements Success {
   }
 }
 
-abstract class Success implements ChannelDataResult {
-  const factory Success(ChannelData channelData) = _$Success;
+abstract class Success extends ChannelModel {
+  const Success._() : super._();
+  const factory Success(ChannelDataWrapper channelData) = _$Success;
 
-  ChannelData get channelData;
+  ChannelDataWrapper get channelData;
   @JsonKey(ignore: true)
   $SuccessCopyWith<Success> get copyWith;
 }
@@ -597,7 +324,7 @@ abstract class _$ErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$ErrorCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
+class __$ErrorCopyWithImpl<$Res> extends _$ChannelModelCopyWithImpl<$Res>
     implements _$ErrorCopyWith<$Res> {
   __$ErrorCopyWithImpl(_Error _value, $Res Function(_Error) _then)
       : super(_value, (v) => _then(v as _Error));
@@ -607,12 +334,12 @@ class __$ErrorCopyWithImpl<$Res> extends _$ChannelDataResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_Error implements _Error {
-  const _$_Error();
+class _$_Error extends _Error {
+  const _$_Error() : super._();
 
   @override
   String toString() {
-    return 'ChannelDataResult.error()';
+    return 'ChannelModel.error()';
   }
 
   @override
@@ -627,12 +354,10 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult preInitialized(),
-    @required TResult loading(),
-    @required TResult success(ChannelData channelData),
+    @required TResult success(ChannelDataWrapper channelData),
     @required TResult error(),
   }) {
     assert(preInitialized != null);
-    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return error();
@@ -642,8 +367,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult preInitialized(),
-    TResult loading(),
-    TResult success(ChannelData channelData),
+    TResult success(ChannelDataWrapper channelData),
     TResult error(),
     @required TResult orElse(),
   }) {
@@ -658,12 +382,10 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_Loading value),
     @required TResult success(Success value),
     @required TResult error(_Error value),
   }) {
     assert(preInitialized != null);
-    assert(loading != null);
     assert(success != null);
     assert(error != null);
     return error(this);
@@ -673,7 +395,6 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult preInitialized(_PreInitialized value),
-    TResult loading(_Loading value),
     TResult success(Success value),
     TResult error(_Error value),
     @required TResult orElse(),
@@ -686,6 +407,163 @@ class _$_Error implements _Error {
   }
 }
 
-abstract class _Error implements ChannelDataResult {
+abstract class _Error extends ChannelModel {
+  const _Error._() : super._();
   const factory _Error() = _$_Error;
+}
+
+/// @nodoc
+class _$ChannelDataWrapperTearOff {
+  const _$ChannelDataWrapperTearOff();
+
+// ignore: unused_element
+  _ChannelDataWrapper call(
+      {@required ChannelData data, @required bool loading}) {
+    return _ChannelDataWrapper(
+      data: data,
+      loading: loading,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $ChannelDataWrapper = _$ChannelDataWrapperTearOff();
+
+/// @nodoc
+mixin _$ChannelDataWrapper {
+  ChannelData get data;
+  bool get loading;
+
+  @JsonKey(ignore: true)
+  $ChannelDataWrapperCopyWith<ChannelDataWrapper> get copyWith;
+}
+
+/// @nodoc
+abstract class $ChannelDataWrapperCopyWith<$Res> {
+  factory $ChannelDataWrapperCopyWith(
+          ChannelDataWrapper value, $Res Function(ChannelDataWrapper) then) =
+      _$ChannelDataWrapperCopyWithImpl<$Res>;
+  $Res call({ChannelData data, bool loading});
+
+  $ChannelDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$ChannelDataWrapperCopyWithImpl<$Res>
+    implements $ChannelDataWrapperCopyWith<$Res> {
+  _$ChannelDataWrapperCopyWithImpl(this._value, this._then);
+
+  final ChannelDataWrapper _value;
+  // ignore: unused_field
+  final $Res Function(ChannelDataWrapper) _then;
+
+  @override
+  $Res call({
+    Object data = freezed,
+    Object loading = freezed,
+  }) {
+    return _then(_value.copyWith(
+      data: data == freezed ? _value.data : data as ChannelData,
+      loading: loading == freezed ? _value.loading : loading as bool,
+    ));
+  }
+
+  @override
+  $ChannelDataCopyWith<$Res> get data {
+    if (_value.data == null) {
+      return null;
+    }
+    return $ChannelDataCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$ChannelDataWrapperCopyWith<$Res>
+    implements $ChannelDataWrapperCopyWith<$Res> {
+  factory _$ChannelDataWrapperCopyWith(
+          _ChannelDataWrapper value, $Res Function(_ChannelDataWrapper) then) =
+      __$ChannelDataWrapperCopyWithImpl<$Res>;
+  @override
+  $Res call({ChannelData data, bool loading});
+
+  @override
+  $ChannelDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class __$ChannelDataWrapperCopyWithImpl<$Res>
+    extends _$ChannelDataWrapperCopyWithImpl<$Res>
+    implements _$ChannelDataWrapperCopyWith<$Res> {
+  __$ChannelDataWrapperCopyWithImpl(
+      _ChannelDataWrapper _value, $Res Function(_ChannelDataWrapper) _then)
+      : super(_value, (v) => _then(v as _ChannelDataWrapper));
+
+  @override
+  _ChannelDataWrapper get _value => super._value as _ChannelDataWrapper;
+
+  @override
+  $Res call({
+    Object data = freezed,
+    Object loading = freezed,
+  }) {
+    return _then(_ChannelDataWrapper(
+      data: data == freezed ? _value.data : data as ChannelData,
+      loading: loading == freezed ? _value.loading : loading as bool,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_ChannelDataWrapper implements _ChannelDataWrapper {
+  const _$_ChannelDataWrapper({@required this.data, @required this.loading})
+      : assert(data != null),
+        assert(loading != null);
+
+  @override
+  final ChannelData data;
+  @override
+  final bool loading;
+
+  @override
+  String toString() {
+    return 'ChannelDataWrapper(data: $data, loading: $loading)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ChannelDataWrapper &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)) &&
+            (identical(other.loading, loading) ||
+                const DeepCollectionEquality().equals(other.loading, loading)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(data) ^
+      const DeepCollectionEquality().hash(loading);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ChannelDataWrapperCopyWith<_ChannelDataWrapper> get copyWith =>
+      __$ChannelDataWrapperCopyWithImpl<_ChannelDataWrapper>(this, _$identity);
+}
+
+abstract class _ChannelDataWrapper implements ChannelDataWrapper {
+  const factory _ChannelDataWrapper(
+      {@required ChannelData data,
+      @required bool loading}) = _$_ChannelDataWrapper;
+
+  @override
+  ChannelData get data;
+  @override
+  bool get loading;
+  @override
+  @JsonKey(ignore: true)
+  _$ChannelDataWrapperCopyWith<_ChannelDataWrapper> get copyWith;
 }

@@ -14,10 +14,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
   ViewModelChannel(Reader reader, this._channelId)
       : super(
           reader,
-          const ChannelModel(
-            result: ChannelDataResult.preInitialized(),
-            loading: false,
-          ),
+          const ChannelModel.preInitialized(),
         );
 
   final String _channelId;
@@ -31,58 +28,60 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
   @override
   Future<void> initialize() async {
-    if (state.result != const ChannelDataResult.preInitialized()) return;
+    if (state != const ChannelModel.preInitialized()) return;
 
     try {
-      state = const ChannelModel(
-        result: ChannelDataResult.loading(),
-        loading: false,
-      );
       final data = await graphQlRepository.queryChannelData(_channelId);
-      trySet(ChannelModel(
-        result: ChannelDataResult.success(data),
-        loading: false,
+      trySet(ChannelModel.success(
+        ChannelDataWrapper(
+          data: data,
+          loading: false,
+        ),
       ));
     } on UnauthorizedException catch (e) {
       print(e);
       pushAuthExpireScreen();
     } catch (e) {
       print(e);
-      trySet(const ChannelModel(
-        result: ChannelDataResult.error(),
-        loading: false,
-      ));
+      trySet(const ChannelModel.error());
     }
   }
 
   Future<void> loadMorePrograms() async {
-    final oldResult = state.result;
-    if (oldResult is Success) {
-      final nextToken = oldResult.channelData.channel.programs.nextToken;
-      if (nextToken == null) return;
+    state.maybeWhen(
+        orElse: () {},
+        success: (dataWrapper) async {
+          final nextToken = dataWrapper.data.channel.programs.nextToken;
+          if (nextToken == null) return;
 
-      // we don't check if Disposed
-      state = state.copyWith(loading: true);
+          if (dataWrapper.loading)
+            return;
 
-      try {
-        final newOne = await graphQlRepository.queryChannelData(
-          _channelId,
-          nextToken: nextToken,
-        );
+          // we don't check if Disposed
+          state = ChannelModel.success(dataWrapper.copyWith(
+            data: dataWrapper.data,
+            loading: true,
+          ));
 
-        state = state.copyWithAdditionalPrograms(newOne.channel.programs);
+          try {
+            final newOne = await graphQlRepository.queryChannelData(
+              _channelId,
+              nextToken: nextToken,
+            );
 
-        if (newOne.channel.programs.items.isEmpty)
-          _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
+            state = state.copyWithAdditionalPrograms(newOne.channel.programs);
 
-        return;
-      } catch (e) {
-        debugPrint(e.toString());
-        if (mounted) {
-          state = state.copyWith(loading: false);
-          _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
-        }
-      }
-    }
+            if (newOne.channel.programs.items.isEmpty)
+              _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
+
+            return;
+          } catch (e) {
+            debugPrint(e.toString());
+            if (mounted) {
+              state = const ChannelModel.error();
+              _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+            }
+          }
+        });
   }
 }

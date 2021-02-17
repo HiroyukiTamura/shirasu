@@ -24,9 +24,11 @@ abstract class Channel with _$Channel implements BaseChannel {
   const factory Channel({
     @required String id,
     @required String name,
+    @Deprecated('no need to use')
     dynamic icon,
     String twitterUrl,
     String facebookUrl,
+    @Deprecated('no need to use')
     String textOnPurchaseScreen,
     @required String detail,
     @required @JsonKey(name: '__typename') String typename,
@@ -55,8 +57,7 @@ abstract class Announcements
 
   const Announcements._();
 
-  List<AnnouncementsItem> get items => rawItems.toUnmodifiable();
-
+  UnmodifiableListView<AnnouncementsItem> get items => rawItems.toUnmodifiable();
 }
 
 @freezed
@@ -85,7 +86,7 @@ abstract class ChannelPrograms
     implements _$ChannelPrograms, BaseModelProgramConnection {
   @Assert('typename == "ModelProgramConnection"')
   const factory ChannelPrograms({
-    @required List<ProgramsItem> items,
+    @required @JsonKey(name: 'items') List<ProgramsItem> rawItems,
     String nextToken,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ChannelPrograms;
@@ -95,11 +96,12 @@ abstract class ChannelPrograms
   factory ChannelPrograms.fromJson(Map<String, dynamic> json) =>
       _$ChannelProgramsFromJson(json);
 
-  //todo fix to unmodifiable
+  UnmodifiableListView<ProgramsItem> get items => rawItems.toUnmodifiable();
+
   ChannelPrograms append(ChannelPrograms newOne) {
     items.addAll(newOne.items);
     return ChannelPrograms(
-      items: items,
+      rawItems: items + newOne.items,
       typename: newOne.typename,
       nextToken: newOne.nextToken,
     );

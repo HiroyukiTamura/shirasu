@@ -30,8 +30,9 @@ import '../main.dart';
 
 part 'screen_channel.g.dart';
 
-final channelProvider = StateNotifierProvider.autoDispose
-    .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(ref.read, id));
+final kPrvViewModelChannel = StateNotifierProvider.autoDispose
+    .family<ViewModelChannel, String>(
+        (ref, id) => ViewModelChannel(ref.read, id));
 
 const double _CHANNEL_LOGO_SIZE = 32;
 
@@ -42,19 +43,14 @@ Widget screenChannel(
 }) =>
     SafeArea(
       child: Scaffold(
-        body: useProvider(
-            channelProvider(channelId).state.select((it) => it.result)).when(
+        body: useProvider(kPrvViewModelChannel(channelId).state).when(
           preInitialized: () => const CenterCircleProgress(),
-          loading: () => const CenterCircleProgress(),
           error: () => const PageError(),
-          success: (channelData) {
-            final isAnnouncementEmpty =
-                channelData.channel.announcements.items.isEmpty;
-            return _Content(
-              channelData: channelData,
-              isAnnouncementEmpty: isAnnouncementEmpty,
-            );
-          },
+          success: (dataWrapper) => _Content(
+            channelData: dataWrapper.data,
+            isAnnouncementEmpty:
+                dataWrapper.data.channel.announcements.items.isEmpty,
+          ),
         ),
       ),
     );
@@ -77,13 +73,15 @@ class _Content extends HookWidget {
 
     final tabController = useTabController(
         initialLength: initialLength,
-        initialIndex: useProvider(channelProvider(channelId)).tabIndex);
+        initialIndex: useProvider(kPrvViewModelChannel(channelId)).tabIndex);
     _initTabListener(context, tabController);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _RowHeaderImg(channelId: channelData.channel.id,),
+        _RowHeaderImg(
+          channelId: channelData.channel.id,
+        ),
         const SizedBox(height: 24),
         _RowChannelName(
           channel: channelData.channel,
@@ -118,14 +116,14 @@ class _Content extends HookWidget {
     );
   }
 
-  void _initTabListener(BuildContext context, TabController tabController) {
-    useEffect(() {
-      void listener() => context.read(channelProvider(channelId)).tabIndex =
-          tabController.index;
-      tabController.addListener(listener);
-      return () => tabController.removeListener(listener);
-    }, [tabController]);
-  }
+  void _initTabListener(BuildContext context, TabController tabController) =>
+      useEffect(() {
+        void listener() =>
+            context.read(kPrvViewModelChannel(channelId)).tabIndex =
+                tabController.index;
+        tabController.addListener(listener);
+        return () => tabController.removeListener(listener);
+      }, [tabController]);
 }
 
 @swidget

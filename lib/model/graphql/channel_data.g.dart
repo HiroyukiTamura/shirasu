@@ -112,7 +112,7 @@ Map<String, dynamic> _$_$_AnnouncementsItemToJson(
 
 _$_ChannelPrograms _$_$_ChannelProgramsFromJson(Map<String, dynamic> json) {
   return _$_ChannelPrograms(
-    items: (json['items'] as List)
+    rawItems: (json['items'] as List)
         ?.map((e) =>
             e == null ? null : ProgramsItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -123,7 +123,7 @@ _$_ChannelPrograms _$_$_ChannelProgramsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_ChannelProgramsToJson(_$_ChannelPrograms instance) =>
     <String, dynamic>{
-      'items': instance.items,
+      'items': instance.rawItems,
       'nextToken': instance.nextToken,
       '__typename': instance.typename,
     };

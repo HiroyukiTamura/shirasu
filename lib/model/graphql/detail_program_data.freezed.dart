@@ -689,7 +689,9 @@ class _$_ProgramDetail extends _ProgramDetail {
         assert(rawOnetimePlans != null),
         assert(typename != null),
         assert(typename == "Program"),
-        assert(0 < totalPlayTime),
+        assert(0 <= totalPlayTime),
+        assert(0 <= mainTime),
+        assert(0 <= previewTime),
         super._();
 
   factory _$_ProgramDetail.fromJson(Map<String, dynamic> json) =>

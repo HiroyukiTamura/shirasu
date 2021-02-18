@@ -15,3 +15,15 @@ class _LoginBtn extends StatelessWidget {
   Widget build(BuildContext _context) =>
       _loginBtn(_context, onTapLoginBtn: onTapLoginBtn);
 }
+
+/// replacement of [PageError] for small space
+class PageErrText extends StatelessWidget {
+  /// replacement of [PageError] for small space
+  const PageErrText({Key key, @required this.text}) : super(key: key);
+
+  /// replacement of [PageError] for small space
+  final String text;
+
+  @override
+  Widget build(BuildContext _context) => pageErrText(text: text);
+}

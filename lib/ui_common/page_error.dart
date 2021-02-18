@@ -20,46 +20,43 @@ part 'page_error.g.dart';
 ///
 
 class PageError extends StatelessWidget {
-
   const PageError({
     Key key,
     this.onTapLoginBtn,
     this.text = Strings.SNACK_ERR,
   }) : super(key: key);
 
-
   final OnTap onTapLoginBtn;
   final String text;
 
-
   @override
   Widget build(BuildContext context) => SafeArea(
-      child: SizedBox.expand(
-        child: Padding(
-          padding: const EdgeInsets.all(48),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Assets.svg.roboto.svg(
-                color: Styles.COLOR_TEXT_SUB,
-                width: 160,
-                height: 160,
-              ),
-              const SizedBox(height: 24),
-              Text(
-                text,
-                style: const TextStyle(
-                  fontSize: FontSize.S16,
+        child: SizedBox.expand(
+          child: Padding(
+            padding: const EdgeInsets.all(48),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Assets.svg.roboto.svg(
                   color: Styles.COLOR_TEXT_SUB,
+                  width: 160,
+                  height: 160,
                 ),
-              ),
-              if (onTapLoginBtn != null)
-                _LoginBtn(onTapLoginBtn: onTapLoginBtn),
-            ],
+                const SizedBox(height: 24),
+                Text(
+                  text,
+                  style: const TextStyle(
+                    fontSize: FontSize.S16,
+                    color: Styles.COLOR_TEXT_SUB,
+                  ),
+                ),
+                if (onTapLoginBtn != null)
+                  _LoginBtn(onTapLoginBtn: onTapLoginBtn),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
 }
 
 @swidget
@@ -86,6 +83,21 @@ Widget _loginBtn(
             fontSize: FontSize.S16,
             height: TextHeight.TEXT_H_SINGLE,
           ),
+        ),
+      ),
+    );
+
+/// replacement of [PageError] for small space
+@swidget
+Widget pageErrText({@required String text}) => Container(
+      padding: const EdgeInsets.all(24),
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+        style: const TextStyle(
+          color: Styles.COLOR_TEXT_SUB,
         ),
       ),
     );

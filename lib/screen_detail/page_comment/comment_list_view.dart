@@ -139,7 +139,7 @@ class CommentBtmBar extends HookWidget {
   Widget build(BuildContext context) => Visibility(
         visible: useProvider(kPrvViewModelDetail(id).state.select((it) =>
             it.commentHolder.followTimeLineMode ==
-            const FollowTimeLineMode.follow())), //todo more logic
+            const FollowTimeLineMode.follow())), //todo more logic?
         child: BottomAppBar(
           child: Padding(
             padding: const EdgeInsets.only(left: 16),
@@ -148,8 +148,12 @@ class CommentBtmBar extends HookWidget {
               maxLength: ViewModelDetail.COMMENT_MAX_LETTER_LEN,
               maxLines: null,
               textInputAction: TextInputAction.send,
-              buildCounter: (context,
-                      {int currentLength, bool isFocused, int maxLength}) =>
+              buildCounter: (
+                context, {
+                int currentLength,
+                bool isFocused,
+                int maxLength,
+              }) =>
                   null,
               style: TextStyles.DEFAULT_H,
               inputFormatters: [
@@ -165,7 +169,10 @@ class CommentBtmBar extends HookWidget {
                 errorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
                 focusedErrorBorder: InputBorder.none,
-                suffixIcon: _SuffixBtn(id: id, onPressed: _onPressed),
+                suffixIcon: _SuffixBtn(
+                  id: id,
+                  onPressed: _onPressed,
+                ),
                 hintStyle: TextStyles.SINGLE_H,
               ),
             ),
@@ -188,9 +195,7 @@ Widget _suffixBtn(
   return IconButton(
     icon: const Icon(Icons.send),
     color: Colors.white,
-    onPressed: text.isNullOrEmpty
-        ? null
-        : () => onPressed(context, text),
+    onPressed: text.isNullOrEmpty ? null : () => onPressed(context, text),
   );
 }
 

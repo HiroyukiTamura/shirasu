@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 
@@ -28,12 +29,15 @@ class TestRunnerBase {
   ChannelData channelData;
   @protected
   ProgramDetailData programDetailData;
+  @protected
+  ListCommentsByProgram listCommentsByProgram;
 
   Future<void> init() async {
     authData = await kJsonClient.hiveAuth;
     viewerWrapper = await kJsonClient.viewerWrapper;
     channelData = await kJsonClient.channel;
     programDetailData = await kJsonClient.programDetail;
+    listCommentsByProgram = await kJsonClient.listCommentsByProgram;
   }
 
   final WidgetBuilder builder;

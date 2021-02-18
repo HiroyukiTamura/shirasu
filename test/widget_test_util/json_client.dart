@@ -5,6 +5,7 @@ import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
@@ -56,5 +57,11 @@ class JsonClient {
     final path = TestUtil.fixAssetPath(Assets.json.programDetail);
     final json = await TestUtil.loadJson(path);
     return ProgramDetailData.fromJson(json);
+  }
+
+  Future<ListCommentsByProgram> get listCommentsByProgram async {
+    final path = TestUtil.fixAssetPath(Assets.json.listCommentsByProgram);
+    final json = await TestUtil.loadJson(path);
+    return ListCommentsByProgram.fromJson(json);
   }
 }

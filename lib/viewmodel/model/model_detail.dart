@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
+import 'package:shirasu/extension.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
@@ -8,7 +9,6 @@ import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dartx/dartx.dart';
-// import 'package:shirasu/extension.dart' show IteratableX;
 
 import '../viewmodel_detail.dart';
 
@@ -238,7 +238,7 @@ abstract class CommentsHolder implements _$CommentsHolder {
   /// [playFromStart] : video starts playing at [Duration.zero] or not
   factory CommentsHolder.initial(bool playFromStart) => CommentsHolder(
         // ignore: deprecated_member_use_from_same_package
-        comments: <CommentItem>[].toUnmodifiable(),
+        comments: IterableX(<CommentItem>[]).toUnmodifiable(),
         pageNationKey: Uuid().v4(),
         loadedMostPastComment: playFromStart,
         loadedMostFutureComment: false,
@@ -251,14 +251,14 @@ abstract class CommentsHolder implements _$CommentsHolder {
 
   UnmodifiableListView<CommentItem> get userPostedComment =>
       // ignore: deprecated_member_use_from_same_package
-      rawUserPostedComment.toUnmodifiable()
-          as UnmodifiableListView<CommentItem>;
+      IteratableX(rawUserPostedComment).toUnmodifiable();
 
-  UnmodifiableListView<CommentItem> _commentSorted(bool includeUserPosted) =>
-      // ignore: deprecated_member_use_from_same_package
-      (comments + userPostedComment)
-          .sortedByDescending((it) => it.commentTimeDuration)
-          .toUnmodifiable() as UnmodifiableListView<CommentItem>;
+  UnmodifiableListView<CommentItem> _commentSorted(bool includeUserPosted) {
+    // ignore: deprecated_member_use_from_same_package
+    final list = (comments + userPostedComment)
+          .sortedByDescending((it) => it.commentTimeDuration);
+    return IteratableX(list).toUnmodifiable();
+  }
 
   Duration get mostPastCommentTime =>
       _commentSorted(true).lastOrNull?.commentTimeDuration;
@@ -266,15 +266,17 @@ abstract class CommentsHolder implements _$CommentsHolder {
   Duration get mostFutureCommentTime =>
       _commentSorted(true).firstOrNull?.commentTimeDuration;
 
-  UnmodifiableListView<CommentItem> getCommentItemsBefore(Duration duration) =>
-      _commentSorted(true)
-          .filter((it) => it.commentTimeDuration < duration)
-          .toUnmodifiable() as UnmodifiableListView<CommentItem>;
+  UnmodifiableListView<CommentItem> getCommentItemsBefore(Duration duration) {
+    final list = _commentSorted(true)
+          .filter((it) => it.commentTimeDuration < duration);
+    return IteratableX(list).toUnmodifiable();
+  }
 
-  List<CommentItem> getCommentItemsAfter(Duration duration) =>
-      _commentSorted(true)
-          .filter((it) => duration < it.commentTimeDuration)
-          .toUnmodifiable();
+  List<CommentItem> getCommentItemsAfter(Duration duration) {
+    final list = _commentSorted(true)
+          .filter((it) => duration < it.commentTimeDuration);
+    return IterableX(list).toUnmodifiable();
+  }
 
   CommentsHolder copyAsAddSingleCommentHolder(
     Comments newComments,
@@ -333,7 +335,7 @@ abstract class CommentsHolder implements _$CommentsHolder {
         default:
           throw ArgumentError(loadingState);
       }
-    return itr.toUnmodifiable() as UnmodifiableListView<CommentItem>;
+    return IteratableX(itr).toUnmodifiable();
   }
 }
 

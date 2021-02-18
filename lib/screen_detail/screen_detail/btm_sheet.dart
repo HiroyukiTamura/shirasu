@@ -9,7 +9,6 @@ import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'btm_sheet.g.dart';
@@ -86,8 +85,8 @@ Widget btmSheetPlaySpeed(BuildContext context) => ListBtmSheetContent<double>(
             context.read(kPrvHivePrefRepository).playSpeed;
         return speed == currentSpeed;
       },
-      onTap: (speed) {
-        context.read(kPrvHivePrefRepository).setPlaySpeed(speed);
+      onTap: (speed) async {
+        await context.read(kPrvHivePrefRepository).setPlaySpeed(speed);
         Navigator.of(context).pop();
       },
     );

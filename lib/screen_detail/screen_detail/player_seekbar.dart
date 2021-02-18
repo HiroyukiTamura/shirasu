@@ -9,6 +9,7 @@ import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_video.dart';
+import 'package:dartx/dartx.dart';
 
 part 'player_seekbar.g.dart';
 
@@ -17,11 +18,12 @@ Widget playerAnimOpacity({
   @required Widget child,
   @required VideoViewModelConf conf,
 }) {
-  final visible = useProvider(
-      kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.controllerVisibility));
+  final visible = useProvider(kPrvViewModelDetail(conf.id)
+      .state
+      .select((it) => it.playOutState.controllerVisibility));
   return AnimatedOpacity(
     opacity: visible ? 1 : 0,
-    duration: const Duration(milliseconds: 500),
+    duration: 500.milliseconds,
     child: IgnorePointer(
       ignoring: !visible,
       child: child,
@@ -30,7 +32,8 @@ Widget playerAnimOpacity({
 }
 
 @swidget
-Widget videoSeekBarHoverStyle(BuildContext context, {
+Widget videoSeekBarHoverStyle(
+  BuildContext context, {
   @required VideoViewModelConf conf,
   @required double topMargin,
 }) =>
@@ -50,14 +53,8 @@ Widget videoSeekBarHoverStyle(BuildContext context, {
                   child: VideoSeekBar(conf: conf),
                 ),
                 Container(
-                  color: Theme
-                      .of(context)
-                      .sliderTheme
-                      .inactiveTrackColor,
-                  height: Theme
-                      .of(context)
-                      .sliderTheme
-                      .trackHeight,
+                  color: Theme.of(context).sliderTheme.inactiveTrackColor,
+                  height: Theme.of(context).sliderTheme.trackHeight,
                 )
               ],
             ),
@@ -78,22 +75,24 @@ class VideoSeekBar extends HookWidget {
         .state
         .select((it) => it.playOutState.totalDuration)).inSeconds.toDouble();
     final value = useProvider(kPrvViewModelDetail(conf.id)
-        .state
-        .select((it) => it.playOutState.currentPosForUiSafe)).inSeconds.toDouble();
+            .state
+            .select((it) => it.playOutState.currentPosForUiSafe))
+        .inSeconds
+        .toDouble();
 
     return Slider(
       max: max,
       value: value,
-      onChanged: (value) => _onChanged(context, value),
-      onChangeEnd: (value) => _onChangedEnd(context, value),
+      onChanged: (it) => _onChanged(context, it),
+      onChangeEnd: (it) => _onChangedEnd(context, it),
     );
   }
 
   void _onChanged(BuildContext context, double value) => context
       .read(kPrvViewModelDetail(conf.id))
-      .seekToWithSlider(conf.fullScreen, Duration(seconds: value.toInt()), false, false);
+      .seekToWithSlider(conf.fullScreen, value.seconds, false, false);
 
   void _onChangedEnd(BuildContext context, double value) => context
       .read(kPrvViewModelDetail(conf.id))
-      .seekToWithSlider(conf.fullScreen, Duration(seconds: value.toInt()), true, true);
+      .seekToWithSlider(conf.fullScreen, value.seconds, true, true);
 }

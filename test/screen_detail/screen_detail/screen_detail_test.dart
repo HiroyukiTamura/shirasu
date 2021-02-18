@@ -18,11 +18,8 @@ Future<void> main() async {
   final programDetail = await kJsonClient.programDetail;
 
   final runner = _TestRunner(programDetail);
-  final priceChart = _TestRunnerPriceChart(programDetail);
   await runner.init();
-  await priceChart.init();
   runner.runScreenTest();
-  priceChart.runTest();
 }
 
 /// todo test BottomPanel (integration)
@@ -80,34 +77,24 @@ class _TestRunner extends TestRunnerBase {
             onPostBuild: (tester) async {
               expect(find.byType(VideoTagChip), findsNothing);
             });
-      });
-}
 
-class _TestRunnerPriceChart extends TestRunnerBase {
-  _TestRunnerPriceChart(this.dummyData)
-      : super(() => PagePriceChart(
-              onClearClicked: (context) {},
-              program: dummyData.program,
-            ));
-
-  final ProgramDetailData dummyData;
-
-  void runTest() => group('ScreenDetailPriceChart', () {
         testGoldensSimple(
-          testName: 'ScreenDetailPriceChart',
-          overrides: [
-            kPrvViewModelDetail(dummyData.program.id)
-                .overrideWithProvider(ViewModelDetailMockable.createProvider(
-                    ModelDetail.initial(true).copyWith(
-                      isHandoutUrlRequesting: true,
-                      prgDataResult: DetailModelState.success(
-                        programDetailData: dummyData,
-                        page: const PageSheetModel.hidden(),
-                        channelData: channelData,
+            testName: 'PrePlay',
+            overrides: [
+              kPrvViewModelDetail(dummyData.program.id)
+                  .overrideWithProvider(ViewModelDetailMockable.createProvider(
+                      ModelDetail.initial(true).copyWith(
+                        btmSheetState: null,
+                        prgDataResult: DetailModelState.success(
+                          programDetailData: dummyData,
+                          page: const PageSheetModel.hidden(),
+                          channelData: channelData,
+                        ),
                       ),
-                    ),
-                    dummyData.program.id)),
-          ],
-        );
+                      dummyData.program.id)),
+            ],
+            onPostBuild: (tester) async {
+              expect(find.byType(VideoTagChip), findsNothing);
+            });
       });
 }

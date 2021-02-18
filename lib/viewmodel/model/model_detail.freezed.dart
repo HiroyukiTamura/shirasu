@@ -5250,6 +5250,8 @@ abstract class $CommentsStateLoadingMoreCopyWith<$Res> {
           $Res Function(CommentsStateLoadingMore) then) =
       _$CommentsStateLoadingMoreCopyWithImpl<$Res>;
   $Res call({LoadingState loadingState});
+
+  $LoadingStateCopyWith<$Res> get loadingState;
 }
 
 /// @nodoc
@@ -5273,6 +5275,16 @@ class _$CommentsStateLoadingMoreCopyWithImpl<$Res>
           ? _value.loadingState
           : loadingState as LoadingState,
     ));
+  }
+
+  @override
+  $LoadingStateCopyWith<$Res> get loadingState {
+    if (_value.loadingState == null) {
+      return null;
+    }
+    return $LoadingStateCopyWith<$Res>(_value.loadingState, (value) {
+      return _then(_value.copyWith(loadingState: value));
+    });
   }
 }
 
@@ -5910,6 +5922,8 @@ abstract class _$BtmSheetStateShareCopyWith<$Res> {
           _BtmSheetStateShare value, $Res Function(_BtmSheetStateShare) then) =
       __$BtmSheetStateShareCopyWithImpl<$Res>;
   $Res call({ShareUrl shareUrl});
+
+  $ShareUrlCopyWith<$Res> get shareUrl;
 }
 
 /// @nodoc
@@ -5930,6 +5944,16 @@ class __$BtmSheetStateShareCopyWithImpl<$Res>
     return _then(_BtmSheetStateShare(
       shareUrl == freezed ? _value.shareUrl : shareUrl as ShareUrl,
     ));
+  }
+
+  @override
+  $ShareUrlCopyWith<$Res> get shareUrl {
+    if (_value.shareUrl == null) {
+      return null;
+    }
+    return $ShareUrlCopyWith<$Res>(_value.shareUrl, (value) {
+      return _then(_value.copyWith(shareUrl: value));
+    });
   }
 }
 
@@ -6454,4 +6478,402 @@ class _$_FollowTimeLineModeFollow implements _FollowTimeLineModeFollow {
 
 abstract class _FollowTimeLineModeFollow implements FollowTimeLineMode {
   const factory _FollowTimeLineModeFollow() = _$_FollowTimeLineModeFollow;
+}
+
+/// @nodoc
+class _$ShareUrlTearOff {
+  const _$ShareUrlTearOff();
+
+// ignore: unused_element
+  _ShareUrl call(
+      {@required String urlTwitter,
+      @required String urlFaceBook,
+      @required String url}) {
+    return _ShareUrl(
+      urlTwitter: urlTwitter,
+      urlFaceBook: urlFaceBook,
+      url: url,
+    );
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $ShareUrl = _$ShareUrlTearOff();
+
+/// @nodoc
+mixin _$ShareUrl {
+  String get urlTwitter;
+  String get urlFaceBook;
+  String get url;
+
+  @JsonKey(ignore: true)
+  $ShareUrlCopyWith<ShareUrl> get copyWith;
+}
+
+/// @nodoc
+abstract class $ShareUrlCopyWith<$Res> {
+  factory $ShareUrlCopyWith(ShareUrl value, $Res Function(ShareUrl) then) =
+      _$ShareUrlCopyWithImpl<$Res>;
+  $Res call({String urlTwitter, String urlFaceBook, String url});
+}
+
+/// @nodoc
+class _$ShareUrlCopyWithImpl<$Res> implements $ShareUrlCopyWith<$Res> {
+  _$ShareUrlCopyWithImpl(this._value, this._then);
+
+  final ShareUrl _value;
+  // ignore: unused_field
+  final $Res Function(ShareUrl) _then;
+
+  @override
+  $Res call({
+    Object urlTwitter = freezed,
+    Object urlFaceBook = freezed,
+    Object url = freezed,
+  }) {
+    return _then(_value.copyWith(
+      urlTwitter:
+          urlTwitter == freezed ? _value.urlTwitter : urlTwitter as String,
+      urlFaceBook:
+          urlFaceBook == freezed ? _value.urlFaceBook : urlFaceBook as String,
+      url: url == freezed ? _value.url : url as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ShareUrlCopyWith<$Res> implements $ShareUrlCopyWith<$Res> {
+  factory _$ShareUrlCopyWith(_ShareUrl value, $Res Function(_ShareUrl) then) =
+      __$ShareUrlCopyWithImpl<$Res>;
+  @override
+  $Res call({String urlTwitter, String urlFaceBook, String url});
+}
+
+/// @nodoc
+class __$ShareUrlCopyWithImpl<$Res> extends _$ShareUrlCopyWithImpl<$Res>
+    implements _$ShareUrlCopyWith<$Res> {
+  __$ShareUrlCopyWithImpl(_ShareUrl _value, $Res Function(_ShareUrl) _then)
+      : super(_value, (v) => _then(v as _ShareUrl));
+
+  @override
+  _ShareUrl get _value => super._value as _ShareUrl;
+
+  @override
+  $Res call({
+    Object urlTwitter = freezed,
+    Object urlFaceBook = freezed,
+    Object url = freezed,
+  }) {
+    return _then(_ShareUrl(
+      urlTwitter:
+          urlTwitter == freezed ? _value.urlTwitter : urlTwitter as String,
+      urlFaceBook:
+          urlFaceBook == freezed ? _value.urlFaceBook : urlFaceBook as String,
+      url: url == freezed ? _value.url : url as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_ShareUrl implements _ShareUrl {
+  const _$_ShareUrl(
+      {@required this.urlTwitter,
+      @required this.urlFaceBook,
+      @required this.url})
+      : assert(urlTwitter != null),
+        assert(urlFaceBook != null),
+        assert(url != null);
+
+  @override
+  final String urlTwitter;
+  @override
+  final String urlFaceBook;
+  @override
+  final String url;
+
+  @override
+  String toString() {
+    return 'ShareUrl(urlTwitter: $urlTwitter, urlFaceBook: $urlFaceBook, url: $url)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ShareUrl &&
+            (identical(other.urlTwitter, urlTwitter) ||
+                const DeepCollectionEquality()
+                    .equals(other.urlTwitter, urlTwitter)) &&
+            (identical(other.urlFaceBook, urlFaceBook) ||
+                const DeepCollectionEquality()
+                    .equals(other.urlFaceBook, urlFaceBook)) &&
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(urlTwitter) ^
+      const DeepCollectionEquality().hash(urlFaceBook) ^
+      const DeepCollectionEquality().hash(url);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ShareUrlCopyWith<_ShareUrl> get copyWith =>
+      __$ShareUrlCopyWithImpl<_ShareUrl>(this, _$identity);
+}
+
+abstract class _ShareUrl implements ShareUrl {
+  const factory _ShareUrl(
+      {@required String urlTwitter,
+      @required String urlFaceBook,
+      @required String url}) = _$_ShareUrl;
+
+  @override
+  String get urlTwitter;
+  @override
+  String get urlFaceBook;
+  @override
+  String get url;
+  @override
+  @JsonKey(ignore: true)
+  _$ShareUrlCopyWith<_ShareUrl> get copyWith;
+}
+
+/// @nodoc
+class _$LoadingStateTearOff {
+  const _$LoadingStateTearOff();
+
+// ignore: unused_element
+  _Feature feature() {
+    return const _Feature();
+  }
+
+// ignore: unused_element
+  _Past past() {
+    return const _Past();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $LoadingState = _$LoadingStateTearOff();
+
+/// @nodoc
+mixin _$LoadingState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult feature(),
+    @required TResult past(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult feature(),
+    TResult past(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult feature(_Feature value),
+    @required TResult past(_Past value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult feature(_Feature value),
+    TResult past(_Past value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $LoadingStateCopyWith<$Res> {
+  factory $LoadingStateCopyWith(
+          LoadingState value, $Res Function(LoadingState) then) =
+      _$LoadingStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$LoadingStateCopyWithImpl<$Res> implements $LoadingStateCopyWith<$Res> {
+  _$LoadingStateCopyWithImpl(this._value, this._then);
+
+  final LoadingState _value;
+  // ignore: unused_field
+  final $Res Function(LoadingState) _then;
+}
+
+/// @nodoc
+abstract class _$FeatureCopyWith<$Res> {
+  factory _$FeatureCopyWith(_Feature value, $Res Function(_Feature) then) =
+      __$FeatureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$FeatureCopyWithImpl<$Res> extends _$LoadingStateCopyWithImpl<$Res>
+    implements _$FeatureCopyWith<$Res> {
+  __$FeatureCopyWithImpl(_Feature _value, $Res Function(_Feature) _then)
+      : super(_value, (v) => _then(v as _Feature));
+
+  @override
+  _Feature get _value => super._value as _Feature;
+}
+
+/// @nodoc
+class _$_Feature implements _Feature {
+  const _$_Feature();
+
+  @override
+  String toString() {
+    return 'LoadingState.feature()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Feature);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult feature(),
+    @required TResult past(),
+  }) {
+    assert(feature != null);
+    assert(past != null);
+    return feature();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult feature(),
+    TResult past(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (feature != null) {
+      return feature();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult feature(_Feature value),
+    @required TResult past(_Past value),
+  }) {
+    assert(feature != null);
+    assert(past != null);
+    return feature(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult feature(_Feature value),
+    TResult past(_Past value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (feature != null) {
+      return feature(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Feature implements LoadingState {
+  const factory _Feature() = _$_Feature;
+}
+
+/// @nodoc
+abstract class _$PastCopyWith<$Res> {
+  factory _$PastCopyWith(_Past value, $Res Function(_Past) then) =
+      __$PastCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PastCopyWithImpl<$Res> extends _$LoadingStateCopyWithImpl<$Res>
+    implements _$PastCopyWith<$Res> {
+  __$PastCopyWithImpl(_Past _value, $Res Function(_Past) _then)
+      : super(_value, (v) => _then(v as _Past));
+
+  @override
+  _Past get _value => super._value as _Past;
+}
+
+/// @nodoc
+class _$_Past implements _Past {
+  const _$_Past();
+
+  @override
+  String toString() {
+    return 'LoadingState.past()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Past);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult feature(),
+    @required TResult past(),
+  }) {
+    assert(feature != null);
+    assert(past != null);
+    return past();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult feature(),
+    TResult past(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (past != null) {
+      return past();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult feature(_Feature value),
+    @required TResult past(_Past value),
+  }) {
+    assert(feature != null);
+    assert(past != null);
+    return past(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult feature(_Feature value),
+    TResult past(_Past value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (past != null) {
+      return past(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Past implements LoadingState {
+  const factory _Past() = _$_Past;
 }

@@ -182,7 +182,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         beginTime: currentPos,
         endTime: 1.days,
         sortDirection: SortDirection.ASC,
-        loadingState: LoadingState.FUTURE,
+        loadingState: const LoadingState.feature(),
         forceRun: forceRun,
       );
 
@@ -192,7 +192,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         beginTime: Duration.zero,
         endTime: currentPos,
         sortDirection: SortDirection.DESC,
-        loadingState: LoadingState.PAST,
+        loadingState: const LoadingState.past(),
         forceRun: forceRun,
       );
 

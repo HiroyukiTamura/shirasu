@@ -256,7 +256,7 @@ abstract class CommentsHolder implements _$CommentsHolder {
   UnmodifiableListView<CommentItem> _commentSorted(bool includeUserPosted) {
     // ignore: deprecated_member_use_from_same_package
     final list = (comments + userPostedComment)
-          .sortedByDescending((it) => it.commentTimeDuration);
+        .sortedByDescending((it) => it.commentTimeDuration);
     return IteratableX(list).toUnmodifiable();
   }
 
@@ -267,14 +267,14 @@ abstract class CommentsHolder implements _$CommentsHolder {
       _commentSorted(true).firstOrNull?.commentTimeDuration;
 
   UnmodifiableListView<CommentItem> getCommentItemsBefore(Duration duration) {
-    final list = _commentSorted(true)
-          .filter((it) => it.commentTimeDuration < duration);
+    final list =
+        _commentSorted(true).filter((it) => it.commentTimeDuration < duration);
     return IteratableX(list).toUnmodifiable();
   }
 
   List<CommentItem> getCommentItemsAfter(Duration duration) {
-    final list = _commentSorted(true)
-          .filter((it) => duration < it.commentTimeDuration);
+    final list =
+        _commentSorted(true).filter((it) => duration < it.commentTimeDuration);
     return IterableX(list).toUnmodifiable();
   }
 
@@ -284,27 +284,22 @@ abstract class CommentsHolder implements _$CommentsHolder {
   ) {
     final list = _regenerateCommentList(newComments, loadingState);
 
-    if (newComments.nextToken == null)
-      switch (loadingState) {
-        case LoadingState.FUTURE:
-          return copyWith(
+    return newComments.nextToken == null
+        ? loadingState.when(
+            feature: () => copyWith(
+                  comments: list,
+                  loadedMostFutureComment: true,
+                  state: const CommentsState.success(),
+                ),
+            past: () => copyWith(
+                  comments: list,
+                  loadedMostPastComment: true,
+                  state: const CommentsState.success(),
+                ))
+        : copyWith(
             comments: list,
-            loadedMostFutureComment: true,
             state: const CommentsState.success(),
           );
-        case LoadingState.PAST:
-          return copyWith(
-            comments: list,
-            loadedMostPastComment: true,
-            state: const CommentsState.success(),
-          );
-        default:
-          throw ArgumentError(loadingState);
-      }
-    return copyWith(
-      comments: list,
-      state: const CommentsState.success(),
-    );
   }
 
   CommentsHolder copyAsAddUserComment(CommentItem item) => copyWith(
@@ -325,16 +320,10 @@ abstract class CommentsHolder implements _$CommentsHolder {
     Iterable<CommentItem> itr =
         raw.distinct().sortedByDescending((it) => it.commentTimeDuration);
     if (ViewModelDetail.COMMENT_MAX_ITEM_COUNT < itr.length)
-      switch (loadingState) {
-        case LoadingState.FUTURE: //todo freezed
-          itr = itr.take(ViewModelDetail.COMMENT_MAX_ITEM_COUNT);
-          break;
-        case LoadingState.PAST:
-          itr = itr.takeLast(ViewModelDetail.COMMENT_MAX_ITEM_COUNT);
-          break;
-        default:
-          throw ArgumentError(loadingState);
-      }
+      itr = loadingState.when(
+        feature: () => itr.take(ViewModelDetail.COMMENT_MAX_ITEM_COUNT),
+        past: () => itr.takeLast(ViewModelDetail.COMMENT_MAX_ITEM_COUNT),
+      );
     return IteratableX(itr).toUnmodifiable();
   }
 }
@@ -373,16 +362,18 @@ abstract class FollowTimeLineMode with _$FollowTimeLineMode {
   const factory FollowTimeLineMode.follow() = _FollowTimeLineModeFollow;
 }
 
-class ShareUrl {
-  const ShareUrl({
-    @required this.urlTwitter,
-    @required this.urlFaceBook,
-    @required this.url,
-  });
-
-  final String urlTwitter;
-  final String urlFaceBook;
-  final String url;
+@freezed
+abstract class ShareUrl with _$ShareUrl {
+  const factory ShareUrl({
+    @required String urlTwitter,
+    @required String urlFaceBook,
+    @required String url,
+  }) = _ShareUrl;
 }
 
-enum LoadingState { FUTURE, PAST }
+@freezed
+abstract class LoadingState with _$LoadingState {
+  const factory LoadingState.feature() = _Feature;
+
+  const factory LoadingState.past() = _Past;
+}

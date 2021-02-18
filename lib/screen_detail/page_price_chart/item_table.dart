@@ -41,7 +41,7 @@ class ItemTable extends StatelessWidget {
         first: Strings.ARCHIVE_PRICE_TABLE_MAIN_TYPE,
         second: Util.sec2Hms(program.mainTime),
         third: price,
-        fourth: mainType.parentPlanTypeStrict == PlanType.SUBSCRIPTION
+        fourth: mainType.parentPlanTypeStrict == PlanType.SUBSCRIPTION//todo fix
             ? Strings.ARCHIVE_PRICE_TABLE_FREE
             : '${mainType.amountWithTax}${mainType.currencyAsSuffix}',
       );

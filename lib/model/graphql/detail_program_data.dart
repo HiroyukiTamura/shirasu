@@ -30,7 +30,9 @@ abstract class ProgramDetail
     with ViewerPlanTypeMixin
     implements _$ProgramDetail, BaseProgram {
   @Assert('typename == "Program"')
-  @Assert('0 < totalPlayTime')
+  @Assert('0 <= totalPlayTime')
+  @Assert('0 <= mainTime')
+  @Assert('0 <= previewTime')
   const factory ProgramDetail({
     @required String id,
     @required String channelId,

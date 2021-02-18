@@ -19,10 +19,13 @@ Future<void> main() async {
 
   final runner = _TestRunner(programDetail);
   final panelHandout = _TestRunnerHandout(programDetail);
+  final priceChart = _TestRunnerPriceChart(programDetail);
   await runner.init();
   await panelHandout.init();
+  await priceChart.init();
   runner.runScreenTest();
   panelHandout.runTest();
+  priceChart.runTest();
 }
 
 /// todo test BottomPanel (integration)
@@ -149,5 +152,33 @@ class _TestRunnerHandout extends TestRunnerBase {
                       (widget.title as Text).data == '20201019シラス開設記念.pdf'),
                   findsOneWidget);
             });
+      });
+}
+
+class _TestRunnerPriceChart extends TestRunnerBase {
+  _TestRunnerPriceChart(this.dummyData)
+      : super(() => PagePriceChart(
+              onClearClicked: (context) {},
+              program: dummyData.program,
+            ));
+
+  final ProgramDetailData dummyData;
+
+  void runTest() => group('ScreenDetailPriceChart', () {
+        testGoldensSimple(
+            testName: 'ScreenDetailPriceChart',
+            overrides: [
+              kPrvViewModelDetail(dummyData.program.id)
+                  .overrideWithProvider(ViewModelDetailMockable.createProvider(
+                      ModelDetail.initial(true).copyWith(
+                        isHandoutUrlRequesting: true,
+                        prgDataResult: DetailModelState.success(
+                          programDetailData: dummyData,
+                          page: const PageSheetModel.hidden(),
+                          channelData: channelData,
+                        ),
+                      ),
+                      dummyData.program.id)),
+            ],
       });
 }

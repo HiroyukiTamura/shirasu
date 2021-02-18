@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-enum ProductType { CHANNEL, PROGRAM }
+enum ProductType { CHANNEL, PROGRAM, LIVE_EXT }
 
 mixin ProductTypeMixin {
 
@@ -15,8 +15,10 @@ mixin ProductTypeMixin {
         return ProductType.PROGRAM;
       case 'Channel':
         return ProductType.CHANNEL;
+      case 'LiveExtension':
+        return ProductType.LIVE_EXT;
       default:
-        throw Exception('unexpected value: $productType');
+        throw ArgumentError.value(productType);
     }
   }
 }

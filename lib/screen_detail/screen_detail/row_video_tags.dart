@@ -12,32 +12,35 @@ part 'row_video_tags.g.dart';
 const double _SPACE = 8;
 
 @swidget
-Widget rowVideoTags({@required List<String> textList}) => BasePadding(
-      top: 16,
-      child: Wrap(
-        spacing: _SPACE,
-        runSpacing: _SPACE,
-        children: textList
-            .map((text) => _VideoTagChip(text: text))
-            .toUnmodifiable(),
+Widget rowVideoTags({@required List<String> textList}) => Visibility(
+      visible: textList.isNotEmpty,
+      child: BasePadding(
+        top: 16,
+        child: Wrap(
+          spacing: _SPACE,
+          runSpacing: _SPACE,
+          children: textList
+              .map((text) => VideoTagChip(text: text))
+              .toUnmodifiable(),
+        ),
       ),
     );
 
+@visibleForTesting
 @swidget
-Widget _videoTagChip({
+Widget videoTagChip({
   @required String text,
-}) => RichText(
-    text: TextSpan(
-        style: TextStyles.videoTag,
-        children: [
-          WidgetSpan(
-            child: Icon(
-              FontAwesomeIcons.tag,
-              size: 13,
-              color: Styles.detailVideoTagIcon,
-            ),
+}) =>
+    RichText(
+      text: TextSpan(style: TextStyles.videoTag, children: [
+        WidgetSpan(
+          child: Icon(
+            FontAwesomeIcons.tag,
+            size: 13,
+            color: Styles.detailVideoTagIcon,
           ),
-          const WidgetSpan(child: SizedBox(width: 4)),
-          TextSpan(text: text)
-        ]),
-  );
+        ),
+        const WidgetSpan(child: SizedBox(width: 4)),
+        TextSpan(text: text)
+      ]),
+    );

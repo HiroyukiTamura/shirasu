@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -14,7 +15,7 @@ import 'package:file/local.dart';
 import 'json_client.dart';
 import 'test_extension.dart';
 
-typedef OnPostBuild = Future<void> Function(WidgetTester tester);
+typedef OnPostBuild = FutureOr<void> Function(WidgetTester tester);
 
 final kJsonClient = JsonClient();
 

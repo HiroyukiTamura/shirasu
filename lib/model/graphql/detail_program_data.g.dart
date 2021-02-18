@@ -216,7 +216,10 @@ _$_OnetimePlan _$_$_OnetimePlanFromJson(Map<String, dynamic> json) {
     amount: json['amount'] as int,
     currency: json['currency'] as String,
     isPurchasable: json['isPurchasable'] as bool,
-    viewerPurchasedPlan: json['viewerPurchasedPlan'] as String,
+    viewerPurchasedPlan: json['viewerPurchasedPlan'] == null
+        ? null
+        : PurchasedPlan.fromJson(
+            json['viewerPurchasedPlan'] as Map<String, dynamic>),
     typename: json['__typename'] as String,
   );
 }

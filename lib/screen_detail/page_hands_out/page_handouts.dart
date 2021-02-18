@@ -47,9 +47,10 @@ class _ScreenHandsOutInner extends HookWidget {
   static const double _SUBTITLE_PAD = 6;
 
   @override
-  Widget build(BuildContext context) => useProvider(kPrvViewModelDetail(program.id)
-          .state
-          .select((it) => it.isHandoutUrlRequesting))
+  Widget build(BuildContext context) => useProvider(
+          kPrvViewModelDetail(program.id)
+              .state
+              .select((it) => it.isHandoutUrlRequesting))
       ? const CenterCircleProgress()
       : ListView.builder(
           itemCount: program.handouts.items.length,
@@ -57,10 +58,11 @@ class _ScreenHandsOutInner extends HookWidget {
             final handout = program.handouts.items[index];
             final createdAt =
                 DateFormat('yyyy.MM.dd HH:mm').format(handout.createdAt);
-            // todo ripple effect is not shown
             final isExtensionOnly = handout.extensionId != null;
-            final enabled = program.isAllExtensionAvailable &&
-                isExtensionOnly; //todo is it correct logic?
+            bool enabled = program.viewerPlanTypeStrict != null &&
+                (!isExtensionOnly ||
+                    program.isExtensionAvailable(handout.extensionId));
+
             return ListTile(
               enabled: enabled,
               leading: AspectRatio(

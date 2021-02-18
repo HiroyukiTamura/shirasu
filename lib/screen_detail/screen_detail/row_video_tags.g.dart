@@ -15,11 +15,11 @@ class RowVideoTags extends StatelessWidget {
   Widget build(BuildContext _context) => rowVideoTags(textList: textList);
 }
 
-class _VideoTagChip extends StatelessWidget {
-  const _VideoTagChip({Key key, @required this.text}) : super(key: key);
+class VideoTagChip extends StatelessWidget {
+  const VideoTagChip({Key key, @required this.text}) : super(key: key);
 
   final String text;
 
   @override
-  Widget build(BuildContext _context) => _videoTagChip(text: text);
+  Widget build(BuildContext _context) => videoTagChip(text: text);
 }

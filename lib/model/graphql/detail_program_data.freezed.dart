@@ -236,7 +236,7 @@ class _$ProgramDetailTearOff {
           String title,
       @required
           int totalPlayTime,
-      @Deprecated('use [viewerPlanType]')
+      @Deprecated('use [viewerPlanTypeStrict]')
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -316,7 +316,7 @@ mixin _$ProgramDetail {
   List<String> get rawTags;
   String get title;
   int get totalPlayTime;
-  @Deprecated('use [viewerPlanType]')
+  @Deprecated('use [viewerPlanTypeStrict]')
   String get viewerPlanType;
   bool get isExtensionChargedToSubscribers;
   DateTime get archivedAt;
@@ -360,7 +360,7 @@ abstract class $ProgramDetailCopyWith<$Res> {
           List<String> rawTags,
       String title,
       int totalPlayTime,
-      @Deprecated('use [viewerPlanType]')
+      @Deprecated('use [viewerPlanTypeStrict]')
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -524,7 +524,7 @@ abstract class _$ProgramDetailCopyWith<$Res>
           List<String> rawTags,
       String title,
       int totalPlayTime,
-      @Deprecated('use [viewerPlanType]')
+      @Deprecated('use [viewerPlanTypeStrict]')
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -658,7 +658,7 @@ class _$_ProgramDetail extends _ProgramDetail {
       @required @JsonKey(name: 'tags') @protected this.rawTags,
       @required this.title,
       @required this.totalPlayTime,
-      @Deprecated('use [viewerPlanType]') this.viewerPlanType,
+      @Deprecated('use [viewerPlanTypeStrict]') this.viewerPlanType,
       this.isExtensionChargedToSubscribers,
       this.archivedAt,
       @required this.releaseState,
@@ -689,6 +689,7 @@ class _$_ProgramDetail extends _ProgramDetail {
         assert(rawOnetimePlans != null),
         assert(typename != null),
         assert(typename == "Program"),
+        assert(0 < totalPlayTime),
         super._();
 
   factory _$_ProgramDetail.fromJson(Map<String, dynamic> json) =>
@@ -723,7 +724,7 @@ class _$_ProgramDetail extends _ProgramDetail {
   @override
   final int totalPlayTime;
   @override
-  @Deprecated('use [viewerPlanType]')
+  @Deprecated('use [viewerPlanTypeStrict]')
   final String viewerPlanType;
   @override
   final bool isExtensionChargedToSubscribers;
@@ -887,7 +888,7 @@ abstract class _ProgramDetail extends ProgramDetail {
           String title,
       @required
           int totalPlayTime,
-      @Deprecated('use [viewerPlanType]')
+      @Deprecated('use [viewerPlanTypeStrict]')
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -945,7 +946,7 @@ abstract class _ProgramDetail extends ProgramDetail {
   @override
   int get totalPlayTime;
   @override
-  @Deprecated('use [viewerPlanType]')
+  @Deprecated('use [viewerPlanTypeStrict]')
   String get viewerPlanType;
   @override
   bool get isExtensionChargedToSubscribers;
@@ -2185,7 +2186,7 @@ class _$OnetimePlanTearOff {
       @required int amount,
       @required String currency,
       @required bool isPurchasable,
-      String viewerPurchasedPlan,
+      PurchasedPlan viewerPurchasedPlan,
       @required @JsonKey(name: '__typename') String typename}) {
     return _OnetimePlan(
       id: id,
@@ -2225,7 +2226,7 @@ mixin _$OnetimePlan {
   int get amount;
   String get currency;
   bool get isPurchasable;
-  String get viewerPurchasedPlan;
+  PurchasedPlan get viewerPurchasedPlan;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -2249,8 +2250,10 @@ abstract class $OnetimePlanCopyWith<$Res> {
       int amount,
       String currency,
       bool isPurchasable,
-      String viewerPurchasedPlan,
+      PurchasedPlan viewerPurchasedPlan,
       @JsonKey(name: '__typename') String typename});
+
+  $PurchasedPlanCopyWith<$Res> get viewerPurchasedPlan;
 }
 
 /// @nodoc
@@ -2294,9 +2297,19 @@ class _$OnetimePlanCopyWithImpl<$Res> implements $OnetimePlanCopyWith<$Res> {
           : isPurchasable as bool,
       viewerPurchasedPlan: viewerPurchasedPlan == freezed
           ? _value.viewerPurchasedPlan
-          : viewerPurchasedPlan as String,
+          : viewerPurchasedPlan as PurchasedPlan,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
+  }
+
+  @override
+  $PurchasedPlanCopyWith<$Res> get viewerPurchasedPlan {
+    if (_value.viewerPurchasedPlan == null) {
+      return null;
+    }
+    return $PurchasedPlanCopyWith<$Res>(_value.viewerPurchasedPlan, (value) {
+      return _then(_value.copyWith(viewerPurchasedPlan: value));
+    });
   }
 }
 
@@ -2317,8 +2330,11 @@ abstract class _$OnetimePlanCopyWith<$Res>
       int amount,
       String currency,
       bool isPurchasable,
-      String viewerPurchasedPlan,
+      PurchasedPlan viewerPurchasedPlan,
       @JsonKey(name: '__typename') String typename});
+
+  @override
+  $PurchasedPlanCopyWith<$Res> get viewerPurchasedPlan;
 }
 
 /// @nodoc
@@ -2364,7 +2380,7 @@ class __$OnetimePlanCopyWithImpl<$Res> extends _$OnetimePlanCopyWithImpl<$Res>
           : isPurchasable as bool,
       viewerPurchasedPlan: viewerPurchasedPlan == freezed
           ? _value.viewerPurchasedPlan
-          : viewerPurchasedPlan as String,
+          : viewerPurchasedPlan as PurchasedPlan,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -2421,7 +2437,7 @@ class _$_OnetimePlan extends _OnetimePlan {
   @override
   final bool isPurchasable;
   @override
-  final String viewerPurchasedPlan;
+  final PurchasedPlan viewerPurchasedPlan;
   @override
   @JsonKey(name: '__typename')
   final String typename;
@@ -2505,7 +2521,7 @@ abstract class _OnetimePlan extends OnetimePlan {
       @required int amount,
       @required String currency,
       @required bool isPurchasable,
-      String viewerPurchasedPlan,
+      PurchasedPlan viewerPurchasedPlan,
       @required @JsonKey(name: '__typename') String typename}) = _$_OnetimePlan;
 
   factory _OnetimePlan.fromJson(Map<String, dynamic> json) =
@@ -2532,7 +2548,7 @@ abstract class _OnetimePlan extends OnetimePlan {
   @override
   bool get isPurchasable;
   @override
-  String get viewerPurchasedPlan;
+  PurchasedPlan get viewerPurchasedPlan;
   @override
   @JsonKey(name: '__typename')
   String get typename;

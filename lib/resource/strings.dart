@@ -306,4 +306,8 @@ class Strings {
   static const String FOOTER_BTN_PRIVACY_VALUE = 'プライバシーポリシー';
 
   //endregion
+
+  static const String TIME_PREFIX_START = '開始';
+  static const String TIME_PREFIX_END = '終了';
+  static const String TIME_PREFIX_PLANNING = '予定';
 }

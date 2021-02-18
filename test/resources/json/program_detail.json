@@ -1,108 +1,71 @@
 {
   "data": {
     "viewer": {
-      "name": "HiroyukiTamura",
-      "icon": "https://lh6.googleusercontent.com/-xARQ0foJdCA/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuck6e6cRIn75RY5zuSkoAIDdVcQcHA/s96-c/photo.jpg",
+      "name": "NAME",
+      "icon": "https://shirasu-storage-product.s3.amazonaws.com/public/users/google-oauth2%7C109431228853603579684/icon-1605868213782-563163654447",
       "__typename": "Viewer"
     },
     "program": {
-      "id": "genron-genron-20201109",
+      "id": "genron-genron-20201025",
       "channelId": "genron",
       "tenantId": "genron",
-      "adminComment": "みなさま、長時間のご視聴ありがとうございました！！！",
-      "adminCommentDisappearAt": "2020-11-09T21:09:47.030Z",
-      "broadcastAt": "2020-11-09T10:00:00.000Z",
-      "detail": "☆ 当番組のご購入・ご視聴は、2021年5月9日まで可能です。\n\n※ 生放送された番組は、放送終了後から半年間、アーカイブ動画（録画）として番組を公開しています。放送終了後も、番組の単独購入は可能です。\n\n■\n\nクリストファー・ノーラン監督の新作映画『TENET テネット』が大ヒットしている。新型コロナウィルス流行で注目映画の公開延期などが続いているなか、久々の海外話題作となった。ノーランが得意とする大胆なSF設定と目の覚めるような映像描写で、リピーターも少なくないという。\n\nノーランは、2000年に公開された劇場映画第2作『メメント』で映画ファンに衝撃を与え、華々しいデビューを飾った。その後も、バットマンをリブートした「ダークナイト トリロジー」3部作や『インセプション』『インターステラー』など、最新作は公開のたびに話題を呼ぶ。21世紀最初の20年間で、最も活躍し、最も注目を集めた映画監督と言えるだろう。\n\n今回ゲンロンカフェでは、ノーラン映画をふり返ることで、21世紀のポストシネマ、それに連なるサブカルチャーのゆくえについて考える番組を配信する。\n\n登壇するのは、マンガ家の大井昌和氏、批評家のさやわか氏、映画史研究者・批評家の渡邉大輔氏。「ニッポンのマンガ」シリーズでお馴染みの大井・さやわか両氏は、以前よりノーラン映画に注目をしており、マンガ・アニメ・ゲームなど他ジャンルの想像力や世界観とも重ねて言及をしている。ゲンロンから刊行予定で『新映画論　ポストシネマ（仮）』を準備中の渡邉氏は、『キネマ旬報 2020年10月上旬号』の『TENET テネット』特集にも寄稿をするなど、ノーラン映画への考察は深い。\n\nゲンロンカフェの人気登壇者がそろい踏みで語るノーラン、ポストシネマ、サブカルチャー！ 絶対にお見逃しなく！\n\n※ 放送のみ（会場は無観客）のイベントです。\n\n■\n\n番組本編は約5時間。そのあとの有料延長（約6時間）では、渡邊大輔のかわりに東浩紀が登壇し、大井氏、さやわか氏とともに、ノーランと関係があるようなないような長い雑談が繰り広げられています。これぞ「ゲンロンカフェ」的な深夜放談。こちらも見逃せないぞ！\n\n\nノーランとポストシネマ、あるいはサブカルの地平線 – ゲンロンカフェ\nhttps://genron-cafe.jp/event/20201109/",
-      "mainTime": 18600,
-      "previewTime": 1389,
+      "adminComment": "",
+      "adminCommentDisappearAt": "2020-10-25T12:28:11.955Z",
+      "broadcastAt": "2020-10-25T11:30:00.000Z",
+      "detail": "☆ 当番組のご購入・ご視聴は、2021年4月25日まで可能です。\n\n※ 生放送された番組は、放送終了後から半年間、アーカイブ動画（録画）として番組を公開しています。放送終了後も、番組の単独購入は可能です。\n\n■\n\nゲンロン主導で開発し、10月19日にオープンした新配信プラットフォーム「シラス」。ゲンロンはオープンと同時に「ゲンロン完全中継チャンネル」シラス版を開設。同日には、来月チャンネル開設予定のさやわか、辻田真佐憲両氏を招いて記念配信を行った。\n\nところがそんな初配信で、最初の2時間ほど映像がガタつくというトラブルが発生。予想以上のアクセスでの障害で、配信中に解決したもののやはり不安は残る。そこでゲンロン／シラスでは、急遽テスト配信の実施を決定した。\n\nシラスは「すべて有料配信」を旨とするが、今回はなんと、先着1500名限定で【完全無料】！　視聴希望者は、シラスのアカウントを作成したあと、購入画面で本ページ下部に記されたクーポンを適用すれば無料で視聴可能だ（1500名を超えると550円での販売となります）。\n\n今回の配信はテスト配信。基本的には負荷テストなのでどこで切れるかわからないし、もしかして途中で番組立て直しもあるかもしれない。だからこその先着無料なので、承知のうえでご参加いただきたい。タイムシフトもない（ない！）。\n\nトーク内容は前回の続き。今回はCTOの桂大介氏が番組冒頭から登場。桂氏は、前回配信後半でゲスト出演はしたものの、トラブル対応で憔悴したうえにアルコールも回りほとんどプレゼンができなかった。そんな彼に今度こそ「配信とデータの未来」について語ってもらう。そもそも思い出してみれば、東もあの日はあまりの緊張で舌が回っていなかった。今回こそ、「情報唯物論的等価交換」の本義が語られるのかもしれない。\n\nシラス爆誕の第2の瞬間を見逃すな！\n\n■\n\nクーポンコード「genron1025」\n上記のクーポンが適用できない場合、「genron102502」をご利用ください。\nどちらのクーポンも適用できなくなった場合、上限となります。通常価格での視聴となりますので、ご了承ください。\n\n番組購入画面で上記文字列をクーポン欄に記入し、番組価格がゼロ円になっていることを確認のうえ、決済ボタンを押してください。\nクーポンの有効期限は2020/10/25 23:59です。\n\nシラスのアカウント登録には、有効なクレジットカードの入力が必須です。クーポンを適用するまえに、必ずアカウントを登録し、クレカ番号の入力をお済ませください。\n\n■\n\n本番組はテスト番組です。\nクーポン配布終了後の有料購入の場合は、上記注意書きを読んだうえで、途中の切断、立て直しなどの可能性があることを十分承知したうえでご購入ください。番組終了後の返金には一切応じることができません。\n\n■\n\n10月19日の「シラスの未来、配信の未来、データの未来」の前半は「ゲンロン完全中継チャンネル：ニコ生版」で放送されました（無料、下記のYouTubeアドレスでも公開中）。\nhttps://youtu.be/n3rm4aaH0m8\n\n10月19日の「シラスの未来、配信の未来、データの未来」の後半は「ゲンロン完全中継チャンネル：シラス版」で放送されました（有料）。\nhttps://shirasu.io/t/genron/c/genron/p/20201019",
+      "mainTime": 8439,
+      "previewTime": 1800,
       "release": true,
       "tags": [
-        "大井昌和",
-        "さやわか",
-        "渡邉大輔",
-        "クリストファー・ノーラン",
-        "映画",
-        "ゲンロンカフェ（文化）",
-        "ニッポンのマンガ",
-        "サブカル",
-        "ポストシネマ"
+        "ゲンロンカフェ（特別配信）",
+        "桂大介",
+        "東浩紀",
+        "上田洋子",
+        "シラス",
+        "情報唯物論的等価交換",
+        "テスト配信"
       ],
-      "title": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w @hazuma #ゲンロン201109",
-      "totalPlayTime": 40200,
+      "title": "桂大介×東浩紀（司会＝上田洋子）「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma @yuvmsk #ゲンロン201025",
+      "totalPlayTime": 19239,
       "viewerPlanType": "SubscriptionPlan",
       "isExtensionChargedToSubscribers": true,
-      "archivedAt": "2020-11-10T00:38:42.551Z",
+      "archivedAt": "2020-10-25T18:29:00.939Z",
       "releaseState": "open",
       "shouldArchive": true,
       "extensions": [
         {
-          "id": "genron-genron-20201109:extension001",
+          "id": "genron-genron-20201025:extension001",
           "extensionTime": 7200,
-          "oneTimePlanId": "genron-genron-20201109:extension001",
+          "oneTimePlanId": "genron-genron-20201025:extension001",
           "oneTimePlan": {
-            "id": "genron-genron-20201109:extension001",
+            "id": "genron-genron-20201025:extension001",
             "parentPlanType": null,
             "parentPlanId": null,
             "productType": "LiveExtension",
-            "productId": "genron-genron-20201109:extension001",
-            "name": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w #ゲンロン201109 延長1回",
+            "productId": "genron-genron-20201025:extension001",
+            "name": "桂大介×東浩紀（司会＝上田洋子）「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma @yuvmsk #ゲンロン201025 延長1回",
             "amount": 300,
             "currency": "jpy",
             "isPurchasable": true,
-            "viewerPurchasedPlan": null,
+            "viewerPurchasedPlan": {
+              "isActive": true,
+              "__typename": "PurchasedPlan"
+            },
             "__typename": "OneTimePlan"
           },
           "__typename": "LiveExtension"
         },
         {
-          "id": "genron-genron-20201109:extension002",
-          "extensionTime": 7200,
-          "oneTimePlanId": "genron-genron-20201109:extension002",
-          "oneTimePlan": {
-            "id": "genron-genron-20201109:extension002",
-            "parentPlanType": null,
-            "parentPlanId": null,
-            "productType": "LiveExtension",
-            "productId": "genron-genron-20201109:extension002",
-            "name": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w #ゲンロン201109 延長2回",
-            "amount": 300,
-            "currency": "jpy",
-            "isPurchasable": true,
-            "viewerPurchasedPlan": null,
-            "__typename": "OneTimePlan"
-          },
-          "__typename": "LiveExtension"
-        },
-        {
-          "id": "genron-genron-20201109:extension003",
+          "id": "genron-genron-20201025:extension002",
           "extensionTime": 3600,
-          "oneTimePlanId": "genron-genron-20201109:extension003",
+          "oneTimePlanId": "genron-genron-20201025:extension002",
           "oneTimePlan": {
-            "id": "genron-genron-20201109:extension003",
+            "id": "genron-genron-20201025:extension002",
             "parentPlanType": null,
             "parentPlanId": null,
             "productType": "LiveExtension",
-            "productId": "genron-genron-20201109:extension003",
-            "name": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w #ゲンロン201109 延長3回",
-            "amount": 150,
-            "currency": "jpy",
-            "isPurchasable": true,
-            "viewerPurchasedPlan": null,
-            "__typename": "OneTimePlan"
-          },
-          "__typename": "LiveExtension"
-        },
-        {
-          "id": "genron-genron-20201109:extension004",
-          "extensionTime": 3600,
-          "oneTimePlanId": "genron-genron-20201109:extension004",
-          "oneTimePlan": {
-            "id": "genron-genron-20201109:extension004",
-            "parentPlanType": null,
-            "parentPlanId": null,
-            "productType": "LiveExtension",
-            "productId": "genron-genron-20201109:extension004",
-            "name": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w #ゲンロン201109 延長4回",
+            "productId": "genron-genron-20201025:extension002",
+            "name": "桂大介×東浩紀（司会＝上田洋子）「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma @yuvmsk #ゲンロン201025 延長2回",
             "amount": 150,
             "currency": "jpy",
             "isPurchasable": true,
@@ -124,59 +87,27 @@
       "handouts": {
         "items": [
           {
-            "id": "b1a0cd79-daf8-4950-9e2c-a85d00b4e4f1",
-            "programId": "genron-genron-20201109",
+            "id": "13ad0ace-a948-4612-86be-aaaaaaaa",
+            "programId": "genron-genron-20201025",
             "extensionId": null,
-            "name": "渡邉大輔_プレゼン資料_20201109_ゲンロンカフェ.pdf",
-            "createdAt": "2020-11-09T11:55:07.137Z",
+            "name": "DUMMY.pdf",
+            "createdAt": "2020-10-25T16:09:27.795Z",
             "__typename": "Handout"
           },
           {
-            "id": "7e300604-7ed1-4bfd-97b4-3a3b2532ed71",
-            "programId": "genron-genron-20201109",
-            "extensionId": null,
-            "name": "大井昌和_ノーランマンガ6.jpg",
-            "createdAt": "2020-11-09T10:04:03.064Z",
+            "id": "13ad0ace-a948-4612-86be-dc5bf517c992",
+            "programId": "genron-genron-20201025",
+            "extensionId": "genron-genron-20201025:extension002",
+            "name": "20201019シラス開設記念.pdf",
+            "createdAt": "2020-10-25T16:09:27.795Z",
             "__typename": "Handout"
           },
           {
-            "id": "ea88cf8b-6f76-4294-97ae-1b87fd123e62",
-            "programId": "genron-genron-20201109",
-            "extensionId": null,
-            "name": "大井昌和_ノーランマンガ5.jpg",
-            "createdAt": "2020-11-09T10:03:55.631Z",
-            "__typename": "Handout"
-          },
-          {
-            "id": "fcc85c1a-682e-4229-8f94-b61c3a434b09",
-            "programId": "genron-genron-20201109",
-            "extensionId": null,
-            "name": "大井昌和_ノーランマンガ4.jpg",
-            "createdAt": "2020-11-09T10:03:47.015Z",
-            "__typename": "Handout"
-          },
-          {
-            "id": "b61d2fff-23a5-49da-b250-66b4ff041358",
-            "programId": "genron-genron-20201109",
-            "extensionId": null,
-            "name": "大井昌和_ノーランマンガ3.jpg",
-            "createdAt": "2020-11-09T10:03:38.872Z",
-            "__typename": "Handout"
-          },
-          {
-            "id": "5537ea8b-11af-499f-bb4f-c8e8d5715539",
-            "programId": "genron-genron-20201109",
-            "extensionId": null,
-            "name": "大井昌和_ノーランマンガ2.jpg",
-            "createdAt": "2020-11-09T10:03:30.796Z",
-            "__typename": "Handout"
-          },
-          {
-            "id": "d89a99c2-801b-4794-9806-dfcecfb9cd8b",
-            "programId": "genron-genron-20201109",
-            "extensionId": null,
-            "name": "大井昌和_ノーランマンガ1.jpg",
-            "createdAt": "2020-11-09T10:03:17.685Z",
+            "id": "b1caf637-7ffd-4df7-9ce3-e02cfb09c87d",
+            "programId": "genron-genron-20201025",
+            "extensionId": "genron-genron-20201025:extension001",
+            "name": "シラス_桂_20201025.pdf",
+            "createdAt": "2020-10-25T13:55:19.328Z",
             "__typename": "Handout"
           }
         ],
@@ -186,59 +117,43 @@
       "videos": {
         "items": [
           {
-            "id": "genron-genron-20201109:free",
+            "id": "genron-genron-20201025:ext.1",
             "videoType": "ArchivedVideo",
             "mediaStatus": null,
             "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/e88442b5-a252-4381-bf91-e9d723e6dd4a/free/index.m3u8",
+            "archiveUrl": "https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/ext.1/index.m3u8",
             "__typename": "Video"
           },
           {
-            "id": "genron-genron-20201109:ext.3",
+            "id": "genron-genron-20201025:ext.0",
             "videoType": "ArchivedVideo",
             "mediaStatus": null,
             "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/e88442b5-a252-4381-bf91-e9d723e6dd4a/ext.3/index.m3u8",
+            "archiveUrl": "https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/ext.0/index.m3u8",
             "__typename": "Video"
           },
           {
-            "id": "genron-genron-20201109:ext.1",
+            "id": "genron-genron-20201025:free",
             "videoType": "ArchivedVideo",
             "mediaStatus": null,
             "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/e88442b5-a252-4381-bf91-e9d723e6dd4a/ext.1/index.m3u8",
+            "archiveUrl": "https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/free/index.m3u8",
             "__typename": "Video"
           },
           {
-            "id": "genron-genron-20201109:ext.2",
-            "videoType": "ArchivedVideo",
-            "mediaStatus": null,
-            "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/e88442b5-a252-4381-bf91-e9d723e6dd4a/ext.2/index.m3u8",
-            "__typename": "Video"
-          },
-          {
-            "id": "genron-genron-20201109:ext.0",
-            "videoType": "ArchivedVideo",
-            "mediaStatus": null,
-            "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/e88442b5-a252-4381-bf91-e9d723e6dd4a/ext.0/index.m3u8",
-            "__typename": "Video"
-          },
-          {
-            "id": "ad164d67-11cc-44ed-afce-2409d3c02ecf",
+            "id": "b9714e7d-1cd9-4bc4-bb8f-9fe484c55c31",
             "videoType": "LiveVideo",
             "mediaStatus": "ENDED",
-            "liveUrl": "https://video.shirasu.io/e88442b5-a252-4381-bf91-e9d723e6dd4a-fv3pjhlnqje2rilqhxaag65ate-product/live.m3u8",
+            "liveUrl": "https://video.shirasu.io/d485df5d-4d53-4544-8836-ae412fe31ece-fv3pjhlnqje2rilqhxaag65ate-product/live.m3u8",
             "archiveUrl": null,
             "__typename": "Video"
           },
           {
-            "id": "genron-genron-20201109:main",
+            "id": "genron-genron-20201025:main",
             "videoType": "ArchivedVideo",
             "mediaStatus": null,
             "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/e88442b5-a252-4381-bf91-e9d723e6dd4a/main/index.m3u8",
+            "archiveUrl": "https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/main/index.m3u8",
             "__typename": "Video"
           }
         ],
@@ -247,16 +162,19 @@
       },
       "onetimePlans": [
         {
-          "id": "8886d41f-28fc-4095-b8e1-f7f1cf701122",
+          "id": "0ca7a91d-5bec-4694-9c5c-3d6626e01cd0",
           "parentPlanType": "SubscriptionPlan",
           "parentPlanId": "price_1HcpJXG1x5cV2jHOJqhaapY0",
           "productType": "Program",
-          "productId": "genron-genron-20201109",
-          "name": "ゲンロン完全中継チャンネル 大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀（仮）」 単品",
-          "amount": 800,
+          "productId": "genron-genron-20201025",
+          "name": "ゲンロン完全中継チャンネル 桂大介×東浩紀「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma #ゲンロン201025 単品",
+          "amount": 500,
           "currency": "jpy",
           "isPurchasable": true,
-          "viewerPurchasedPlan": null,
+          "viewerPurchasedPlan": {
+            "isActive": true,
+            "__typename": "PurchasedPlan"
+          },
           "__typename": "OneTimePlan"
         }
       ]

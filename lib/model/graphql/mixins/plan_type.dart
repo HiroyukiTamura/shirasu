@@ -16,27 +16,27 @@ class _PlanTypeUtil {
       case 'SubscriptionPlan':
         return PlanType.SUBSCRIPTION;
       default:
-        throw Exception('unexpected value: $value');
+        throw ArgumentError.value(value);
     }
   }
 }
 
 mixin ViewerPlanTypeMixin {
-  @visibleForTesting
+  @protected
   String get viewerPlanType;
 
   PlanType get viewerPlanTypeStrict => _PlanTypeUtil.parse(viewerPlanType);
 }
 
 mixin PlanTypeMixin {
-  @visibleForTesting
+  @protected
   String get planType;
 
   PlanType get planTypeStrict => _PlanTypeUtil.parse(planType);
 }
 
 mixin ParentPlanTypeMixin {
-  @visibleForTesting
+  @protected
   String get parentPlanType;
 
   PlanType get parentPlanTypeStrict => _PlanTypeUtil.parse(parentPlanType);

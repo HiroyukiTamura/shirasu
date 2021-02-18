@@ -29,24 +29,14 @@ class PagePriceChart extends StatelessWidget {
   Widget build(BuildContext context) => DraggableSheet(
         heading: Strings.ARCHIVE_PRICE_TABLE_TITLE,
         onClearClicked: onClearClicked,
-        child: ListView.builder(
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              switch (index) {
-                case 0:
-                  return ItemTable(program: program);
-                case 1:
-                  return const ItemNote();
-                case 2:
-                  return const ItemNoteCredit();
-                case 3:
-                  return ItemWebButton(
-                    onTap: () async => _onTapWebBtn(context),
-                  );
-                default:
-                  return const SizedBox.shrink();
-              }
-            }),
+        child: ListView(children: [
+          ItemTable(program: program),
+          const ItemNote(),
+          const ItemNoteCredit(),
+          ItemWebButton(
+            onTap: () async => _onTapWebBtn(context),
+          ),
+        ]),
       );
 
   void _onTapWebBtn(BuildContext context) => Util.launchUrl(

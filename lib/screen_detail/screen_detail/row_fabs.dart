@@ -31,6 +31,7 @@ class RowFabs extends StatelessWidget {
       );
 
   /// todo implement
+  /// todo should not show if not purchased??
   @override
   Widget build(BuildContext context) => basePadding(
         top: _PADDING_V,
@@ -39,10 +40,11 @@ class RowFabs extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             // const _Fab(icon: Icons.comment),
-            _Fab(
-              icon: Icons.comment,
-              onPressed: () => _onClickCommentBtn(context),
-            ),
+            if (program.viewerPlanTypeStrict != null)
+              _Fab(
+                icon: Icons.comment,
+                onPressed: () => _onClickCommentBtn(context),
+              ),
             _Fab(
               icon: Icons.credit_card,
               onPressed: () => _onClickPaymentBtn(context),

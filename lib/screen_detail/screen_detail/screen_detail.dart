@@ -71,7 +71,7 @@ final _kPrvFabVisibility = Provider.family.autoDispose<bool, String>((ref, id) {
       viewModel.commentHolder.followTimeLineMode is FollowTimeLineModeNone;
   final isCommentShown = viewModel.prgDataResult.maybeWhen(
     orElse: () => false,
-    success: (prgDataResult, channelData, page) =>
+    success: (_, __, page) =>
         page == const PageSheetModel.comment(),
   );
   return isCommentShown && isNotFollowTimeLineMode;
@@ -138,7 +138,14 @@ class _ScreenDetailState extends State<ScreenDetail>
                 error: (errMsg) => PageError(text: errMsg.value),
                 success: _successWidget,
               ),
-              floatingActionButton: _Fab(id: widget.id),
+              floatingActionButton: OrientationBuilder(
+                builder: (context, orientation) => Visibility(
+                  visible: orientation == Orientation.portrait,
+                  child: _Fab(
+                    id: widget.id,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
@@ -301,35 +308,25 @@ Widget _playerBody(
             useProvider(kPrvViewModelDetail(data.program.id)).panelController,
         color: Theme.of(context).scaffoldBackgroundColor,
         panel: _BottomPanel(program: data.program),
-        body: ListView.builder(
-            itemCount: 6,
-            padding: const EdgeInsets.only(bottom: 24),
-            itemBuilder: (context, index) {
-              switch (index) {
-                case 0:
-                  return RowChannel(
-                    title: data.program.channel.name,
-                    channelId: data.program.channel.id,
-                  );
-                case 1:
-                  return RowVideoTitle(text: data.program.title);
-                case 2:
-                  return RowVideoTime(
-                    broadcastAt: data.program.broadcastAt,
-                    totalPlayTime: data.program.totalPlayTime,
-                  );
-                case 3:
-                  return RowVideoTags(textList: data.program.tags);
-                case 4:
-                  return RowFabs(program: data.program);
-                case 5:
-                  return RowVideoDesc(
-                    text: data.program.detail,
-                    id: data.program.id,
-                  );
-                default:
-                  return const SizedBox.shrink();
-              }
-            }),
+        body: ListView(
+          padding: const EdgeInsets.only(bottom: 24),
+          children: [
+            RowChannel(
+              title: data.program.channel.name,
+              channelId: data.program.channel.id,
+            ),
+            RowVideoTitle(text: data.program.title),
+            RowVideoTime(
+              broadcastAt: data.program.broadcastAt,
+              totalPlayTime: data.program.totalPlayTime,
+            ),
+            RowVideoTags(textList: data.program.tags),
+            RowFabs(program: data.program),
+            RowVideoDesc(
+              text: data.program.detail,
+              id: data.program.id,
+            )
+          ],
+        ),
       ),
     );

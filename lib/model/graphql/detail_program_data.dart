@@ -8,6 +8,8 @@ import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/extension.dart';
 
+import 'channel_data.dart';
+
 part 'detail_program_data.freezed.dart';
 
 part 'detail_program_data.g.dart';
@@ -28,6 +30,7 @@ abstract class ProgramDetail
     with ViewerPlanTypeMixin
     implements _$ProgramDetail, BaseProgram {
   @Assert('typename == "Program"')
+  @Assert('0 < totalPlayTime')
   const factory ProgramDetail({
     @required String id,
     @required String channelId,
@@ -42,19 +45,23 @@ abstract class ProgramDetail
     @required @JsonKey(name: 'tags') @protected List<String> rawTags,
     @required String title,
     @required int totalPlayTime,
-    @Deprecated('use [viewerPlanType]') String viewerPlanType,
+    @Deprecated('use [viewerPlanTypeStrict]') String viewerPlanType,
     bool isExtensionChargedToSubscribers,
     DateTime archivedAt,
     @required String releaseState,
     @required bool shouldArchive,
-    @required @protected @JsonKey(name: 'extensions') List<Extension> rawExtensions,
+    @required
+    @protected
+    @JsonKey(name: 'extensions')
+        List<Extension> rawExtensions,
     @required DetailPrgChannel channel,
     @required Handouts handouts,
     @required VideoHandouts videos,
-    @required @protected @JsonKey(name: 'onetimePlans') List<OnetimePlan> rawOnetimePlans,
     @required
-    @JsonKey(name: '__typename')
-    String typename,
+    @protected
+    @JsonKey(name: 'onetimePlans')
+        List<OnetimePlan> rawOnetimePlans,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramDetail;
 
   factory ProgramDetail.fromJson(Map<String, dynamic> json) =>
@@ -62,11 +69,14 @@ abstract class ProgramDetail
 
   const ProgramDetail._();
 
-  UnmodifiableListView<String> get tags => IteratableX(rawTags).toUnmodifiable();
+  UnmodifiableListView<String> get tags =>
+      IteratableX(rawTags).toUnmodifiable();
 
-  UnmodifiableListView<Extension> get extensions => IteratableX(rawExtensions).toUnmodifiable();
+  UnmodifiableListView<Extension> get extensions =>
+      IteratableX(rawExtensions).toUnmodifiable();
 
-  UnmodifiableListView<OnetimePlan> get onetimePlans => IteratableX(rawOnetimePlans).toUnmodifiable();
+  UnmodifiableListView<OnetimePlan> get onetimePlans =>
+      IteratableX(rawOnetimePlans).toUnmodifiable();
 
   OnetimePlan get onetimePlanMain => onetimePlans.firstOrNullWhere(
         (it) => it.productTypeStrict == ProductType.PROGRAM,
@@ -86,7 +96,17 @@ abstract class ProgramDetail
 
   // todo detect logic for one time plan user who don't purchased extension
   bool get isAllExtensionAvailable =>
-      viewerPlanTypeStrict == PlanType.SUBSCRIPTION && isExtensionChargedToSubscribers != true;
+      viewerPlanTypeStrict == PlanType.SUBSCRIPTION &&
+      isExtensionChargedToSubscribers != true;
+
+  /// if [extensionId] is invalid, returns null
+  bool isExtensionAvailable(String extensionId) =>
+      extensions
+          .firstOrNullWhere((it) => it.id == extensionId)
+          ?.oneTimePlan
+          ?.viewerPurchasedPlan
+          ?.isActive ==
+      true;
 }
 
 @freezed
@@ -98,9 +118,7 @@ abstract class DetailPrgChannel with _$DetailPrgChannel implements BaseChannel {
     @required String name,
     dynamic icon,
     @required String textOnPurchaseScreen,
-    @required
-    @JsonKey(name: '__typename')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _DetailPrgChannel;
 
   factory DetailPrgChannel.fromJson(Map<String, dynamic> json) =>
@@ -115,9 +133,7 @@ abstract class VideoHandouts
   const factory VideoHandouts({
     @required @JsonKey(name: 'items') @protected List<DetailPrgItem> rawItems,
     String nextToken,
-    @required
-    @JsonKey(name: '__typename')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _VideoHandouts;
 
   factory VideoHandouts.fromJson(Map<String, dynamic> json) =>
@@ -125,7 +141,8 @@ abstract class VideoHandouts
 
   const VideoHandouts._();
 
-  UnmodifiableListView<DetailPrgItem> get items => IteratableX(rawItems).toUnmodifiable();
+  UnmodifiableListView<DetailPrgItem> get items =>
+      IteratableX(rawItems).toUnmodifiable();
 }
 
 @freezed
@@ -134,9 +151,7 @@ abstract class Handouts with _$Handouts implements BaseHandouts {
   const factory Handouts({
     @required @JsonKey(name: 'items') @protected List<Handout> rawItems,
     String nextToken,
-    @required
-    @JsonKey(name: '__typename')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _Handouts;
 
   factory Handouts.fromJson(Map<String, dynamic> json) =>
@@ -144,7 +159,8 @@ abstract class Handouts with _$Handouts implements BaseHandouts {
 
   const Handouts._();
 
-  UnmodifiableListView<Handout> get items => IteratableX(rawItems).toUnmodifiable();
+  UnmodifiableListView<Handout> get items =>
+      IteratableX(rawItems).toUnmodifiable();
 }
 
 @freezed
@@ -156,9 +172,7 @@ abstract class Handout with _$Handout implements BaseHandout {
     String extensionId,
     @required String name,
     @required DateTime createdAt,
-    @required
-    @JsonKey(name: '__typename')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _Handout;
 
   factory Handout.fromJson(Map<String, dynamic> json) =>
@@ -173,14 +187,11 @@ abstract class DetailPrgItem
   @Assert('typename == "Video"')
   const factory DetailPrgItem({
     @required String id,
-    @visibleForOverriding
-    @required String videoType,
+    @visibleForOverriding @required String videoType,
     String mediaStatus,
     String liveUrl,
     String archiveUrl,
-    @required
-    @JsonKey(name: '__typename')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _DetailPrgItem;
 
   factory DetailPrgItem.fromJson(Map<String, dynamic> json) =>
@@ -226,10 +237,8 @@ abstract class OnetimePlan
     @required int amount,
     @required String currency,
     @required bool isPurchasable,
-    String viewerPurchasedPlan,
-    @required
-    @JsonKey(name: '__typename')
-        String typename,
+    PurchasedPlan viewerPurchasedPlan,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _OnetimePlan;
 
   factory OnetimePlan.fromJson(Map<String, dynamic> json) =>
@@ -246,9 +255,7 @@ abstract class Extension with _$Extension implements BaseExtension {
     @required int extensionTime,
     @required String oneTimePlanId,
     @required OnetimePlan oneTimePlan,
-    @required
-    @JsonKey(name: '__typename')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _Extension;
 
   factory Extension.fromJson(Map<String, dynamic> json) =>
@@ -261,9 +268,7 @@ abstract class Viewer with _$Viewer implements BaseViewer {
   const factory Viewer({
     @required String name,
     @required String icon,
-    @required
-    @JsonKey(name: '__typename')
-        String typename,
+    @required @JsonKey(name: '__typename') String typename,
   }) = _Viewer;
 
   factory Viewer.fromJson(Map<String, dynamic> json) => _$ViewerFromJson(json);

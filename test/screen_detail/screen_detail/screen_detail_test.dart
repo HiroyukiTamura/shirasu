@@ -1,5 +1,7 @@
+import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:test/test.dart';
@@ -29,6 +31,27 @@ class _TestRunner extends TestRunnerBase {
           kPrvViewModelDetail(dummyData.program.id).overrideWithProvider(
               ViewModelDetailMockable.createProvider(
                   ModelDetail.initial(true), dummyData.program.id))
+        ]);
+        testGoldensSimple(testName: 'error', overrides: [
+          kPrvViewModelDetail(dummyData.program.id)
+              .overrideWithProvider(ViewModelDetailMockable.createProvider(
+                  ModelDetail.initial(true).copyWith(
+                    prgDataResult:
+                        const DetailModelState.error(ErrorMsgCommon.unknown()),
+                  ),
+                  dummyData.program.id))
+        ]);
+        testGoldensSimple(testName: 'success', overrides: [
+          kPrvViewModelDetail(dummyData.program.id)
+              .overrideWithProvider(ViewModelDetailMockable.createProvider(
+                  ModelDetail.initial(true).copyWith(
+                    prgDataResult: DetailModelState.success(
+                      programDetailData: dummyData,
+                      page: const PageSheetModel.hidden(),
+                      channelData: channelData,
+                    ),
+                  ),
+                  dummyData.program.id))
         ]);
       });
 }

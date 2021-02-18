@@ -9,6 +9,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/util.dart';
 
 part 'row_channel.g.dart';
 
@@ -25,6 +26,8 @@ Widget rowChannel(BuildContext context, {
       child: Row(
         children: [
           CustomCachedNetworkImage(
+            width: 40,
+            errorWidget: Util.defaultChannelIcon,
             imageUrl: UrlUtil.getChannelLogoUrl(channelId),
           ),
           const SizedBox(width: 16),

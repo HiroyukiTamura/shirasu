@@ -48,16 +48,8 @@ class TestUtil {
     ThemeData theme,
     OnPostBuild onPostBuild,
   }) async {
-    final builder = DeviceBuilder()
-      ..overrideAllDevice()
-      ..addScenario(
-        widget: widget,
-        name: goldenName,
-        onCreate: onScenarioCreate,
-      );
-
-    await tester.pumpDeviceBuilder(
-      builder,
+    await tester.pumpWidgetBuilder(
+      widget,
       wrapper: materialAppWrapper(
         theme: theme ?? Styles.theme,
       ),
@@ -65,7 +57,7 @@ class TestUtil {
 
     if (onPostBuild != null) await onPostBuild(tester);
 
-    await screenMatchesGolden(tester, goldenName);
+    await multiScreenGolden(tester, goldenName, devices: TestUtil.allDevices);
   }
 
   static void expectFind({

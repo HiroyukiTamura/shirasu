@@ -18,13 +18,10 @@ Future<void> main() async {
   final programDetail = await kJsonClient.programDetail;
 
   final runner = _TestRunner(programDetail);
-  final panelHandout = _TestRunnerHandout(programDetail);
   final priceChart = _TestRunnerPriceChart(programDetail);
   await runner.init();
-  await panelHandout.init();
   await priceChart.init();
   runner.runScreenTest();
-  panelHandout.runTest();
   priceChart.runTest();
 }
 
@@ -86,75 +83,6 @@ class _TestRunner extends TestRunnerBase {
       });
 }
 
-class _TestRunnerHandout extends TestRunnerBase {
-  _TestRunnerHandout(this.dummyData)
-      : super(() => PageHandouts(
-              onClearClicked: (context) {},
-              program: dummyData.program,
-            ));
-
-  final ProgramDetailData dummyData;
-
-  void runTest() => group('ScreenDetailHandout', () {
-        testGoldensSimple(
-            testName: 'ScreenDetailHandout_HandoutUrlRequesting',
-            overrides: [
-              kPrvViewModelDetail(dummyData.program.id)
-                  .overrideWithProvider(ViewModelDetailMockable.createProvider(
-                      ModelDetail.initial(true).copyWith(
-                        isHandoutUrlRequesting: true,
-                        prgDataResult: DetailModelState.success(
-                          programDetailData: dummyData,
-                          page: const PageSheetModel.hidden(),
-                          channelData: channelData,
-                        ),
-                      ),
-                      dummyData.program.id)),
-            ],
-            onPostBuild: (tester) =>
-                expect(find.byType(CenterCircleProgress), findsOneWidget));
-        testGoldensSimple(
-            testName: 'ScreenDetailHandout_Normal',
-            overrides: [
-              kPrvViewModelDetail(dummyData.program.id)
-                  .overrideWithProvider(ViewModelDetailMockable.createProvider(
-                      ModelDetail.initial(true).copyWith(
-                        isHandoutUrlRequesting: false,
-                        prgDataResult: DetailModelState.success(
-                          programDetailData: dummyData,
-                          page: const PageSheetModel.hidden(),
-                          channelData: channelData,
-                        ),
-                      ),
-                      dummyData.program.id)),
-            ],
-            onPostBuild: (tester) {
-              expect(find.byType(CenterCircleProgress), findsNothing);
-              expect(
-                  find.byWidgetPredicate((widget) =>
-                      widget is ListTile &&
-                      widget.enabled &&
-                      !widget.isThreeLine &&
-                      (widget.title as Text).data == 'DUMMY.pdf'),
-                  findsOneWidget);
-              expect(
-                  find.byWidgetPredicate((widget) =>
-                      widget is ListTile &&
-                      widget.enabled &&
-                      widget.isThreeLine &&
-                      (widget.title as Text).data == 'シラス_桂_20201025.pdf'),
-                  findsOneWidget);
-              expect(
-                  find.byWidgetPredicate((widget) =>
-                      widget is ListTile &&
-                      !widget.enabled &&
-                      widget.isThreeLine &&
-                      (widget.title as Text).data == '20201019シラス開設記念.pdf'),
-                  findsOneWidget);
-            });
-      });
-}
-
 class _TestRunnerPriceChart extends TestRunnerBase {
   _TestRunnerPriceChart(this.dummyData)
       : super(() => PagePriceChart(
@@ -166,19 +94,20 @@ class _TestRunnerPriceChart extends TestRunnerBase {
 
   void runTest() => group('ScreenDetailPriceChart', () {
         testGoldensSimple(
-            testName: 'ScreenDetailPriceChart',
-            overrides: [
-              kPrvViewModelDetail(dummyData.program.id)
-                  .overrideWithProvider(ViewModelDetailMockable.createProvider(
-                      ModelDetail.initial(true).copyWith(
-                        isHandoutUrlRequesting: true,
-                        prgDataResult: DetailModelState.success(
-                          programDetailData: dummyData,
-                          page: const PageSheetModel.hidden(),
-                          channelData: channelData,
-                        ),
+          testName: 'ScreenDetailPriceChart',
+          overrides: [
+            kPrvViewModelDetail(dummyData.program.id)
+                .overrideWithProvider(ViewModelDetailMockable.createProvider(
+                    ModelDetail.initial(true).copyWith(
+                      isHandoutUrlRequesting: true,
+                      prgDataResult: DetailModelState.success(
+                        programDetailData: dummyData,
+                        page: const PageSheetModel.hidden(),
+                        channelData: channelData,
                       ),
-                      dummyData.program.id)),
-            ],
+                    ),
+                    dummyData.program.id)),
+          ],
+        );
       });
 }

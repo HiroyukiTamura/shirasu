@@ -6,7 +6,7 @@ import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_movie_list.dart';
 import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
-import 'package:shirasu/screen_detail/screen_detail/billing_btn.dart';
+import 'package:shirasu/ui_common/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';

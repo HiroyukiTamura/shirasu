@@ -6,7 +6,15 @@ part of 'billing_btn.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
+/// note; only for monthly purchase.
+/// [SubscriptionPlan]
+/// but [s.SubscriptionPlan] has `interval` and `intervalCount`.
+/// we need watch updating of the api response json structure.
 class BillingBtnMedium extends StatelessWidget {
+  /// note; only for monthly purchase.
+  /// [SubscriptionPlan]
+  /// but [s.SubscriptionPlan] has `interval` and `intervalCount`.
+  /// we need watch updating of the api response json structure.
   const BillingBtnMedium(
       {Key key,
       @required this.amountWithTax,
@@ -14,10 +22,22 @@ class BillingBtnMedium extends StatelessWidget {
       @required this.onTap})
       : super(key: key);
 
+  /// note; only for monthly purchase.
+  /// [SubscriptionPlan]
+  /// but [s.SubscriptionPlan] has `interval` and `intervalCount`.
+  /// we need watch updating of the api response json structure.
   final int amountWithTax;
 
+  /// note; only for monthly purchase.
+  /// [SubscriptionPlan]
+  /// but [s.SubscriptionPlan] has `interval` and `intervalCount`.
+  /// we need watch updating of the api response json structure.
   final String currencyAsSuffix;
 
+  /// note; only for monthly purchase.
+  /// [SubscriptionPlan]
+  /// but [s.SubscriptionPlan] has `interval` and `intervalCount`.
+  /// we need watch updating of the api response json structure.
   final void Function() onTap;
 
   @override

@@ -16,7 +16,7 @@ import 'package:shirasu/screen_channel/content_cell.dart';
 import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_movie_list.dart';
 import 'package:shirasu/screen_channel/page_notification.dart';
-import 'package:shirasu/screen_detail/screen_detail/billing_btn.dart';
+import 'package:shirasu/ui_common/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/page_error.dart';

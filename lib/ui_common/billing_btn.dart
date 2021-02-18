@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/channel_subscription_plan.dart' as s;
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -74,6 +76,10 @@ part 'billing_btn.g.dart';
 //       );
 // }
 
+/// note; only for monthly purchase.
+/// [SubscriptionPlan]
+/// but [s.SubscriptionPlan] has `interval` and `intervalCount`.
+/// we need watch updating of the api response json structure.
 @swidget
 Widget billingBtnMedium({
   @required int amountWithTax,

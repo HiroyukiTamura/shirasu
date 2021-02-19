@@ -7,14 +7,14 @@ part of 'video_controller_vis.dart';
 // **************************************************************************
 
 class VideoControllerVis extends HookWidget {
-  const VideoControllerVis({Key key, @required this.conf, @required this.child})
+  const VideoControllerVis({Key key, @required this.id, @required this.child})
       : super(key: key);
 
-  final VideoViewModelConf conf;
+  final String id;
 
   final Widget child;
 
   @override
   Widget build(BuildContext _context) =>
-      videoControllerVis(conf: conf, child: child);
+      videoControllerVis(id: id, child: child);
 }

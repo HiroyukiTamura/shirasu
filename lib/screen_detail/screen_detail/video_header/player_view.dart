@@ -14,7 +14,6 @@ import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
-import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:shirasu/extension.dart';
 
 import '../screen_detail.dart';

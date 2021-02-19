@@ -7,16 +7,16 @@ part of 'player_seekbar.dart';
 // **************************************************************************
 
 class PlayerAnimOpacity extends HookWidget {
-  const PlayerAnimOpacity({Key key, @required this.child, @required this.conf})
+  const PlayerAnimOpacity({Key key, @required this.child, @required this.id})
       : super(key: key);
 
   final Widget child;
 
-  final VideoViewModelConf conf;
+  final String id;
 
   @override
   Widget build(BuildContext _context) =>
-      playerAnimOpacity(child: child, conf: conf);
+      playerAnimOpacity(child: child, id: id);
 }
 
 class VideoSeekBarHoverStyle extends StatelessWidget {

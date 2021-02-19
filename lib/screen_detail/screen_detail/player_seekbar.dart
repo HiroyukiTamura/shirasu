@@ -8,7 +8,6 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
-import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:dartx/dartx.dart';
 
 part 'player_seekbar.g.dart';
@@ -16,9 +15,9 @@ part 'player_seekbar.g.dart';
 @hwidget
 Widget playerAnimOpacity({
   @required Widget child,
-  @required VideoViewModelConf conf,
+  @required String id,
 }) {
-  final visible = useProvider(kPrvViewModelDetail(conf.id)
+  final visible = useProvider(kPrvViewModelDetail(id)
       .state
       .select((it) => it.playOutState.controllerVisibility));
   return AnimatedOpacity(
@@ -38,11 +37,11 @@ Widget videoSeekBarHoverStyle(
   @required double topMargin,
 }) =>
     VideoControllerVis(
-      conf: conf,
+      id: conf.id,
       child: Padding(
         padding: EdgeInsets.only(top: topMargin),
         child: PlayerAnimOpacity(
-          conf: conf,
+          id: conf.id,
           child: SizedBox(
             height: Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H,
             child: Row(

@@ -395,15 +395,14 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     @required bool renewHideTimer,
     @required LastControllerCommand command,
   }) {
-    if (fullScreen == state.playOutState.fullScreen) {
-      state = state.copyWith.playOutState(
-        lastControllerCommandHolder:
-            LastControllerCommandHolder.create(command),
-      );
-      if (renewHideTimer) _hideTimer.renew();
-    }
+    if (fullScreen != state.playOutState.fullScreen) return;
+    state = state.copyWith.playOutState(
+      lastControllerCommandHolder: LastControllerCommandHolder.create(command),
+    );
+    if (renewHideTimer) _hideTimer.renew();
   }
 
+  /// todo check [fullScreen]?
   void updateVideoPlayerState({
     @required bool fullScreen,
     @required VideoPlayerState videoPlayerState,
@@ -434,22 +433,19 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   /// must be [mounted] == true && [state.isInitialized] == true
-  void seek(bool fullScreen, Duration diff) {
-    _commandVideoController(
-      fullScreen: fullScreen,
-      command: LastControllerCommand.seek(diff),
-      renewHideTimer: true,
-    );
-  }
+  void seek(bool fullScreen, Duration diff) => _commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seek(diff),
+        renewHideTimer: true,
+      );
 
   /// must be [mounted] == true && [state.isInitialized] == true
-  void seekToWithBtmSheet(bool fullScreen, Duration duration) {
-    _commandVideoController(
-      fullScreen: fullScreen,
-      command: LastControllerCommand.seekTo(duration),
-      renewHideTimer: true,
-    );
-  }
+  void seekToWithBtmSheet(bool fullScreen, Duration duration) =>
+      _commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seekTo(duration),
+        renewHideTimer: true,
+      );
 
   /// must be [mounted] == true && [state.isInitialized] == true
   void seekToWithSlider(

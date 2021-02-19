@@ -12,7 +12,6 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
-import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:dartx/dartx.dart';
 
 part 'video_header.g.dart';

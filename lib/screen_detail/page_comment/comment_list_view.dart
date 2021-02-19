@@ -180,8 +180,10 @@ class CommentBtmBar extends HookWidget {
         ),
       );
 
-  Future<void> _onPressed(BuildContext context, String text) async =>
-      context.read(kPrvViewModelDetail(id)).postComment(text);
+  Future<void> _onPressed(BuildContext context, String text) async {
+    context.read(_kPrvTextController).clear();
+    await context.read(kPrvViewModelDetail(id)).postComment(text);
+  }
 }
 
 /// disable [IconButton] if text is empty

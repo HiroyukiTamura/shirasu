@@ -29,7 +29,6 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../main.dart';

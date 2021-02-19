@@ -18,7 +18,6 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/video_controlle
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
-import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_top.dart';
 import 'package:shirasu/extension.dart';
 
@@ -47,7 +46,7 @@ class PlayerControllerView extends HookWidget {
 
   @override
   Widget build(BuildContext context) => VideoControllerVis(
-        conf: conf,
+        id: conf.id,
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () => _onTapBgBtn(context),
@@ -74,7 +73,7 @@ class PlayerControllerView extends HookWidget {
                 ),
               ),
               PlayerAnimOpacity(
-                conf: conf,
+                id: conf.id,
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     vertical: getFullScreenPadding(conf.fullScreen),

@@ -5,15 +5,14 @@ import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:shirasu/viewmodel/viewmodel_video.dart';
 
 part 'video_controller_vis.g.dart';
 
 @hwidget
 Widget videoControllerVis({
-  @required VideoViewModelConf conf,
+  @required String id,
   @required Widget child,
 }) => Visibility(
-      visible: useProvider(kPrvVideoControllerReady(conf.id)),
+      visible: useProvider(kPrvVideoControllerReady(id)),
       child: child,
     );

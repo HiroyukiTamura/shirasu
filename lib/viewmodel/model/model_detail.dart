@@ -389,3 +389,10 @@ abstract class LoadingState with _$LoadingState {
 
   const factory LoadingState.past() = _Past;
 }
+
+class VideoViewModelConf {
+  VideoViewModelConf(this.id, this.fullScreen);
+
+  final String id;
+  final bool fullScreen;
+}

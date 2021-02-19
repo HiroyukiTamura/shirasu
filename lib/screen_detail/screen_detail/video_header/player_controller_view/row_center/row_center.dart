@@ -6,7 +6,7 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/player_controll
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/play_or_pause_icon.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/seek_btn.dart';
 import 'package:shirasu/util/types.dart';
-import 'package:shirasu/viewmodel/viewmodel_video.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 import '../../video_thumbnail.dart';
 
 part 'row_center.g.dart';

@@ -6,8 +6,8 @@ import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
-import 'package:shirasu/viewmodel/viewmodel_video.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 import '../../../../util.dart';
 import '../../player_seekbar.dart';

@@ -30,6 +30,10 @@ Future<void> main() async {
 
   await testBase.init();
 
+  final overrideGraphQlCommon = kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
+    comments: testBase.commentsByProgram.comments,
+  ));
+
   group(
       'ViewModelDetail.initialize',
       () => testBase
@@ -191,9 +195,7 @@ Future<void> main() async {
         override: [
           overrideViewModel,
           kOverrideConnectedRepositoryConnectedImpl,
-          kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
-            comments: testBase.commentsByProgram.comments,
-          ))
+          overrideGraphQlCommon,
         ],
         expectedSnack: null,
         predicate: (viewModel) async {
@@ -210,7 +212,7 @@ Future<void> main() async {
     );
   });
 
-  group('ViewModelDetail.loadMorePastComment', () {
+  group('ViewModelDetail.requestHandout', () {
     final specState = ModelDetail.initial(true).copyWith(
         prgDataResult: DetailModelState.success(
           programDetailData: testBase.programDetail,
@@ -233,15 +235,63 @@ Future<void> main() async {
           kOverrideDisconnected,
           overrideViewModel,
         ],
-        expectedState: specState.copyWith.commentHolder(
-          state: const CommentsState.error(
-            ErrorMsgCommon.networkDisconnected(),
-          ),
-        ),
+        expectedState: specState,
+        expectedSnack: const SnackMsg.networkDisconnected(),
+        predicate: (viewModel) async {
+          final url = await viewModel.queryHandOutUrl(testBase.programDetail.program.handouts.items.first.id);
+          await Future.delayed(1.seconds);
+          expect(url, isNull);
+        },
+      ),
+    );
+    test(
+      'networkTimeoutErr',
+          () => testTemplate(
+        override: [
+          kOverrideConnectedRepositoryConnectedImpl,
+          kOverrideGraphqlTimeout,
+          overrideViewModel,
+        ],
+        expectedState: specState,
+        expectedSnack: const SnackMsg.networkTimeout(),
+        predicate: (viewModel) async {
+          final url = await viewModel.queryHandOutUrl(testBase.programDetail.program.handouts.items.first.id);
+          await Future.delayed(10.seconds);
+          expect(url, isNull);
+        },
+      ),
+    );
+    test(
+      'networkAuthErr',
+          () => testTemplate(
+        override: [
+          kOverrideConnectedRepositoryConnectedImpl,
+          kOverrideGraphqlUnAuthNotDetectedByTime,
+          overrideViewModel,
+        ],
+        expectedState: specState,
+        expectedSnack: const SnackMsg.unknown(),
+        predicate: (viewModel) async {
+          final url = await viewModel.queryHandOutUrl(testBase.programDetail.program.handouts.items.first.id);
+          await Future.delayed(1.seconds);
+          expect(url, isNull);
+        },
+      ),
+    );
+    test(
+      'normal',
+          () => testTemplate(
+        override: [
+          kOverrideConnectedRepositoryConnectedImpl,
+          overrideViewModel,
+          overrideGraphQlCommon,
+        ],
+        expectedState: specState,
         expectedSnack: null,
         predicate: (viewModel) async {
-          await viewModel.loadMoreFutureComment(Duration.zero, true);
+          final url = await viewModel.queryHandOutUrl(testBase.programDetail.program.handouts.items.first.id);
           await Future.delayed(1.seconds);
+          expect(url, GraphQlRepositoryCommonImpl.HANDOUT_URL);
         },
       ),
     );

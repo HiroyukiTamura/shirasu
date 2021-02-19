@@ -136,30 +136,6 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       state = state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie);
   }
 
-  Future<String> queryHandOutUrl(String handoutId) async {
-    if (state.isHandoutUrlRequesting) return null;
-
-    state = state.copyWith(isHandoutUrlRequesting: true);
-
-    String url;
-    try {
-      await connectivityRepository.ensureNotDisconnect();
-      url = await graphQlRepository
-          .queryHandOutUrl(id, handoutId)
-          .timeout(GraphQlRepository.TIMEOUT);
-    } catch (e) {
-      print(e);
-      commandSnackBar(toNetworkSnack(e));
-    }
-
-    if (!mounted) return null;
-
-    state = state.copyWith(
-      isHandoutUrlRequesting: false,
-    );
-    return url;
-  }
-
   Future<void> _initComments(Duration currentPos) async {
     if (mounted) await loadMorePastComment(currentPos, true);
     if (mounted) await loadMoreFutureComment(currentPos, true);
@@ -278,6 +254,30 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       state = state.copyWith(
         commentHolder: state.commentHolder.copyAsAddUserComment(posted),
       );
+  }
+
+  Future<String> queryHandOutUrl(String handoutId) async {
+    if (state.isHandoutUrlRequesting) return null;
+
+    state = state.copyWith(isHandoutUrlRequesting: true);
+
+    String url;
+    try {
+      await connectivityRepository.ensureNotDisconnect();
+      url = await graphQlRepository
+          .queryHandOutUrl(id, handoutId)
+          .timeout(GraphQlRepository.TIMEOUT);
+    } catch (e) {
+      print(e);
+      commandSnackBar(toNetworkSnack(e));
+    }
+
+    if (!mounted) return null;
+
+    state = state.copyWith(
+      isHandoutUrlRequesting: false,
+    );
+    return url;
   }
 
   Future<bool> togglePage(PageSheetModel pageSheet) async {

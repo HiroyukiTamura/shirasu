@@ -21,6 +21,7 @@ abstract class ModelDetail implements _$ModelDetail {
     @required DetailModelState prgDataResult,
     @required PlayOutState playOutState,
     @required bool isHandoutUrlRequesting,
+    @required bool isCommentPosting,
     @required CommentsHolder commentHolder,
     @required BtmSheetState btmSheetState,
   }) = _ModelDetail;
@@ -31,6 +32,7 @@ abstract class ModelDetail implements _$ModelDetail {
         prgDataResult: const DetailModelState.preInitialized(),
         playOutState: PlayOutState.initial(),
         isHandoutUrlRequesting: false,
+        isCommentPosting: false,
         commentHolder: CommentsHolder.initial(playFromStart),
         btmSheetState: const BtmSheetState.none(),
       );
@@ -228,6 +230,7 @@ abstract class CommentsHolder implements _$CommentsHolder {
     @required bool loadedMostFutureComment,
     @required CommentsState state,
     @required FollowTimeLineMode followTimeLineMode,
+
     /// use [userPostedComment]
     @Deprecated('use [userPostedComment]')
     @required

@@ -233,27 +233,35 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   Future<void> postComment(String text) async {
-    if (text.isNullOrEmpty) return;
+    if (text.isNullOrEmpty ||
+        state.isCommentPosting ||
+        state.playOutState.currentPos.isNegative) return;
 
-    if (state.playOutState.currentPos < Duration.zero) return;
-
-    CommentItem posted;
-    try {
+    state = state.copyWith(isCommentPosting: true);
+    final result = await Result.guardFuture(() async {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
-      posted = await graphQlRepository.postComment(
+      await connectivityRepository.ensureNotDisconnect();
+      return graphQlRepository.postComment(
         commentTime: state.playOutState.currentPos,
         programId: id,
         text: text,
       );
-    } catch (e) {
-      print(e);
-      commandSnackBar(const SnackMsg.unknown());
-    }
+    });
+    if (!mounted) return;
 
-    if (mounted && posted != null && !state.commentHolder.isRenewing)
-      state = state.copyWith(
-        commentHolder: state.commentHolder.copyAsAddUserComment(posted),
-      );
+    state = state.copyWith(isCommentPosting: false);
+    result.when(
+      success: (posted) {
+        if (!state.commentHolder.isRenewing)
+          state = state.copyWith(
+            commentHolder: state.commentHolder.copyAsAddUserComment(posted),
+          );
+      },
+      failure: (e) {
+        print(e);
+        commandSnackBar(toNetworkSnack(e));
+      },
+    );
   }
 
   Future<String> queryHandOutUrl(String handoutId) async {

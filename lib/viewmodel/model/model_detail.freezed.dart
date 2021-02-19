@@ -18,12 +18,14 @@ class _$ModelDetailTearOff {
       {@required DetailModelState prgDataResult,
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
+      @required bool isCommentPosting,
       @required CommentsHolder commentHolder,
       @required BtmSheetState btmSheetState}) {
     return _ModelDetail(
       prgDataResult: prgDataResult,
       playOutState: playOutState,
       isHandoutUrlRequesting: isHandoutUrlRequesting,
+      isCommentPosting: isCommentPosting,
       commentHolder: commentHolder,
       btmSheetState: btmSheetState,
     );
@@ -39,6 +41,7 @@ mixin _$ModelDetail {
   DetailModelState get prgDataResult;
   PlayOutState get playOutState;
   bool get isHandoutUrlRequesting;
+  bool get isCommentPosting;
   CommentsHolder get commentHolder;
   BtmSheetState get btmSheetState;
 
@@ -55,6 +58,7 @@ abstract class $ModelDetailCopyWith<$Res> {
       {DetailModelState prgDataResult,
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
+      bool isCommentPosting,
       CommentsHolder commentHolder,
       BtmSheetState btmSheetState});
 
@@ -77,6 +81,7 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
     Object prgDataResult = freezed,
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
+    Object isCommentPosting = freezed,
     Object commentHolder = freezed,
     Object btmSheetState = freezed,
   }) {
@@ -90,6 +95,9 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       isHandoutUrlRequesting: isHandoutUrlRequesting == freezed
           ? _value.isHandoutUrlRequesting
           : isHandoutUrlRequesting as bool,
+      isCommentPosting: isCommentPosting == freezed
+          ? _value.isCommentPosting
+          : isCommentPosting as bool,
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
           : commentHolder as CommentsHolder,
@@ -151,6 +159,7 @@ abstract class _$ModelDetailCopyWith<$Res>
       {DetailModelState prgDataResult,
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
+      bool isCommentPosting,
       CommentsHolder commentHolder,
       BtmSheetState btmSheetState});
 
@@ -179,6 +188,7 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
     Object prgDataResult = freezed,
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
+    Object isCommentPosting = freezed,
     Object commentHolder = freezed,
     Object btmSheetState = freezed,
   }) {
@@ -192,6 +202,9 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
       isHandoutUrlRequesting: isHandoutUrlRequesting == freezed
           ? _value.isHandoutUrlRequesting
           : isHandoutUrlRequesting as bool,
+      isCommentPosting: isCommentPosting == freezed
+          ? _value.isCommentPosting
+          : isCommentPosting as bool,
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
           : commentHolder as CommentsHolder,
@@ -210,11 +223,13 @@ class _$_ModelDetail extends _ModelDetail {
       {@required this.prgDataResult,
       @required this.playOutState,
       @required this.isHandoutUrlRequesting,
+      @required this.isCommentPosting,
       @required this.commentHolder,
       @required this.btmSheetState})
       : assert(prgDataResult != null),
         assert(playOutState != null),
         assert(isHandoutUrlRequesting != null),
+        assert(isCommentPosting != null),
         assert(commentHolder != null),
         assert(btmSheetState != null),
         super._();
@@ -226,13 +241,15 @@ class _$_ModelDetail extends _ModelDetail {
   @override
   final bool isHandoutUrlRequesting;
   @override
+  final bool isCommentPosting;
+  @override
   final CommentsHolder commentHolder;
   @override
   final BtmSheetState btmSheetState;
 
   @override
   String toString() {
-    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, commentHolder: $commentHolder, btmSheetState: $btmSheetState)';
+    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, isCommentPosting: $isCommentPosting, commentHolder: $commentHolder, btmSheetState: $btmSheetState)';
   }
 
   @override
@@ -248,6 +265,9 @@ class _$_ModelDetail extends _ModelDetail {
             (identical(other.isHandoutUrlRequesting, isHandoutUrlRequesting) ||
                 const DeepCollectionEquality().equals(
                     other.isHandoutUrlRequesting, isHandoutUrlRequesting)) &&
+            (identical(other.isCommentPosting, isCommentPosting) ||
+                const DeepCollectionEquality()
+                    .equals(other.isCommentPosting, isCommentPosting)) &&
             (identical(other.commentHolder, commentHolder) ||
                 const DeepCollectionEquality()
                     .equals(other.commentHolder, commentHolder)) &&
@@ -262,6 +282,7 @@ class _$_ModelDetail extends _ModelDetail {
       const DeepCollectionEquality().hash(prgDataResult) ^
       const DeepCollectionEquality().hash(playOutState) ^
       const DeepCollectionEquality().hash(isHandoutUrlRequesting) ^
+      const DeepCollectionEquality().hash(isCommentPosting) ^
       const DeepCollectionEquality().hash(commentHolder) ^
       const DeepCollectionEquality().hash(btmSheetState);
 
@@ -277,6 +298,7 @@ abstract class _ModelDetail extends ModelDetail {
       {@required DetailModelState prgDataResult,
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
+      @required bool isCommentPosting,
       @required CommentsHolder commentHolder,
       @required BtmSheetState btmSheetState}) = _$_ModelDetail;
 
@@ -286,6 +308,8 @@ abstract class _ModelDetail extends ModelDetail {
   PlayOutState get playOutState;
   @override
   bool get isHandoutUrlRequesting;
+  @override
+  bool get isCommentPosting;
   @override
   CommentsHolder get commentHolder;
   @override

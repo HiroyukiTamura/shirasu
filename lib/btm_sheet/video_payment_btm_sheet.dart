@@ -12,7 +12,7 @@ const _kSubTextStyle = TextStyle(fontSize: FontSize.S18);
 @swidget
 Widget videoPaymentBtmSheet(
   BuildContext context, {
-  @required StateSuccess result,
+  @required DetailStateSuccess result,
 }) {
   final program = result.programDetailData.program;
   final subscriptionPlan = result.channelData.channel.subscriptionPlan;

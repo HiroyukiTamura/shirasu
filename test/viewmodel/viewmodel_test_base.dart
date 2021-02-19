@@ -90,6 +90,7 @@ class ViewModelTestBase<T> {
     if (prvViewModel != null) {
       final viewModel = container.listen(prvViewModel).read();
       await viewModel.initialize();
+      await Future.delayed(10.seconds);// todo unknown why, but we must need it
       expect(
           // ignore: invalid_use_of_protected_member
           viewModel.state,

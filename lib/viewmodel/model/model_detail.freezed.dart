@@ -300,21 +300,21 @@ class _$DetailModelStateTearOff {
   const _$DetailModelStateTearOff();
 
 // ignore: unused_element
-  _PreInitialized preInitialized() {
-    return const _PreInitialized();
+  _DetailPreInitialized preInitialized() {
+    return const _DetailPreInitialized();
   }
 
 // ignore: unused_element
-  _StateLoading loading() {
-    return const _StateLoading();
+  _DetailStateLoading loading() {
+    return const _DetailStateLoading();
   }
 
 // ignore: unused_element
-  StateSuccess success(
+  DetailStateSuccess success(
       {@required ProgramDetailData programDetailData,
       @required ChannelData channelData,
       @required PageSheetModel page}) {
-    return StateSuccess(
+    return DetailStateSuccess(
       programDetailData: programDetailData,
       channelData: channelData,
       page: page,
@@ -322,8 +322,8 @@ class _$DetailModelStateTearOff {
   }
 
 // ignore: unused_element
-  _StateError error(ErrorMsgCommon msg) {
-    return _StateError(
+  _DetailStateError error(ErrorMsgCommon msg) {
+    return _DetailStateError(
       msg,
     );
   }
@@ -355,17 +355,17 @@ mixin _$DetailModelState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_StateLoading value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult preInitialized(_DetailPreInitialized value),
+    @required TResult loading(_DetailStateLoading value),
+    @required TResult success(DetailStateSuccess value),
+    @required TResult error(_DetailStateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(_PreInitialized value),
-    TResult loading(_StateLoading value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult preInitialized(_DetailPreInitialized value),
+    TResult loading(_DetailStateLoading value),
+    TResult success(DetailStateSuccess value),
+    TResult error(_DetailStateError value),
     @required TResult orElse(),
   });
 }
@@ -388,27 +388,27 @@ class _$DetailModelStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$PreInitializedCopyWith<$Res> {
-  factory _$PreInitializedCopyWith(
-          _PreInitialized value, $Res Function(_PreInitialized) then) =
-      __$PreInitializedCopyWithImpl<$Res>;
+abstract class _$DetailPreInitializedCopyWith<$Res> {
+  factory _$DetailPreInitializedCopyWith(_DetailPreInitialized value,
+          $Res Function(_DetailPreInitialized) then) =
+      __$DetailPreInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$PreInitializedCopyWithImpl<$Res>
+class __$DetailPreInitializedCopyWithImpl<$Res>
     extends _$DetailModelStateCopyWithImpl<$Res>
-    implements _$PreInitializedCopyWith<$Res> {
-  __$PreInitializedCopyWithImpl(
-      _PreInitialized _value, $Res Function(_PreInitialized) _then)
-      : super(_value, (v) => _then(v as _PreInitialized));
+    implements _$DetailPreInitializedCopyWith<$Res> {
+  __$DetailPreInitializedCopyWithImpl(
+      _DetailPreInitialized _value, $Res Function(_DetailPreInitialized) _then)
+      : super(_value, (v) => _then(v as _DetailPreInitialized));
 
   @override
-  _PreInitialized get _value => super._value as _PreInitialized;
+  _DetailPreInitialized get _value => super._value as _DetailPreInitialized;
 }
 
 /// @nodoc
-class _$_PreInitialized implements _PreInitialized {
-  const _$_PreInitialized();
+class _$_DetailPreInitialized implements _DetailPreInitialized {
+  const _$_DetailPreInitialized();
 
   @override
   String toString() {
@@ -417,7 +417,7 @@ class _$_PreInitialized implements _PreInitialized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PreInitialized);
+    return identical(this, other) || (other is _DetailPreInitialized);
   }
 
   @override
@@ -460,10 +460,10 @@ class _$_PreInitialized implements _PreInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_StateLoading value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult preInitialized(_DetailPreInitialized value),
+    @required TResult loading(_DetailStateLoading value),
+    @required TResult success(DetailStateSuccess value),
+    @required TResult error(_DetailStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -475,10 +475,10 @@ class _$_PreInitialized implements _PreInitialized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(_PreInitialized value),
-    TResult loading(_StateLoading value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult preInitialized(_DetailPreInitialized value),
+    TResult loading(_DetailStateLoading value),
+    TResult success(DetailStateSuccess value),
+    TResult error(_DetailStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -489,32 +489,32 @@ class _$_PreInitialized implements _PreInitialized {
   }
 }
 
-abstract class _PreInitialized implements DetailModelState {
-  const factory _PreInitialized() = _$_PreInitialized;
+abstract class _DetailPreInitialized implements DetailModelState {
+  const factory _DetailPreInitialized() = _$_DetailPreInitialized;
 }
 
 /// @nodoc
-abstract class _$StateLoadingCopyWith<$Res> {
-  factory _$StateLoadingCopyWith(
-          _StateLoading value, $Res Function(_StateLoading) then) =
-      __$StateLoadingCopyWithImpl<$Res>;
+abstract class _$DetailStateLoadingCopyWith<$Res> {
+  factory _$DetailStateLoadingCopyWith(
+          _DetailStateLoading value, $Res Function(_DetailStateLoading) then) =
+      __$DetailStateLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$StateLoadingCopyWithImpl<$Res>
+class __$DetailStateLoadingCopyWithImpl<$Res>
     extends _$DetailModelStateCopyWithImpl<$Res>
-    implements _$StateLoadingCopyWith<$Res> {
-  __$StateLoadingCopyWithImpl(
-      _StateLoading _value, $Res Function(_StateLoading) _then)
-      : super(_value, (v) => _then(v as _StateLoading));
+    implements _$DetailStateLoadingCopyWith<$Res> {
+  __$DetailStateLoadingCopyWithImpl(
+      _DetailStateLoading _value, $Res Function(_DetailStateLoading) _then)
+      : super(_value, (v) => _then(v as _DetailStateLoading));
 
   @override
-  _StateLoading get _value => super._value as _StateLoading;
+  _DetailStateLoading get _value => super._value as _DetailStateLoading;
 }
 
 /// @nodoc
-class _$_StateLoading implements _StateLoading {
-  const _$_StateLoading();
+class _$_DetailStateLoading implements _DetailStateLoading {
+  const _$_DetailStateLoading();
 
   @override
   String toString() {
@@ -523,7 +523,7 @@ class _$_StateLoading implements _StateLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _StateLoading);
+    return identical(this, other) || (other is _DetailStateLoading);
   }
 
   @override
@@ -566,10 +566,10 @@ class _$_StateLoading implements _StateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_StateLoading value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult preInitialized(_DetailPreInitialized value),
+    @required TResult loading(_DetailStateLoading value),
+    @required TResult success(DetailStateSuccess value),
+    @required TResult error(_DetailStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -581,10 +581,10 @@ class _$_StateLoading implements _StateLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(_PreInitialized value),
-    TResult loading(_StateLoading value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult preInitialized(_DetailPreInitialized value),
+    TResult loading(_DetailStateLoading value),
+    TResult success(DetailStateSuccess value),
+    TResult error(_DetailStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -595,15 +595,15 @@ class _$_StateLoading implements _StateLoading {
   }
 }
 
-abstract class _StateLoading implements DetailModelState {
-  const factory _StateLoading() = _$_StateLoading;
+abstract class _DetailStateLoading implements DetailModelState {
+  const factory _DetailStateLoading() = _$_DetailStateLoading;
 }
 
 /// @nodoc
-abstract class $StateSuccessCopyWith<$Res> {
-  factory $StateSuccessCopyWith(
-          StateSuccess value, $Res Function(StateSuccess) then) =
-      _$StateSuccessCopyWithImpl<$Res>;
+abstract class $DetailStateSuccessCopyWith<$Res> {
+  factory $DetailStateSuccessCopyWith(
+          DetailStateSuccess value, $Res Function(DetailStateSuccess) then) =
+      _$DetailStateSuccessCopyWithImpl<$Res>;
   $Res call(
       {ProgramDetailData programDetailData,
       ChannelData channelData,
@@ -615,15 +615,15 @@ abstract class $StateSuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StateSuccessCopyWithImpl<$Res>
+class _$DetailStateSuccessCopyWithImpl<$Res>
     extends _$DetailModelStateCopyWithImpl<$Res>
-    implements $StateSuccessCopyWith<$Res> {
-  _$StateSuccessCopyWithImpl(
-      StateSuccess _value, $Res Function(StateSuccess) _then)
-      : super(_value, (v) => _then(v as StateSuccess));
+    implements $DetailStateSuccessCopyWith<$Res> {
+  _$DetailStateSuccessCopyWithImpl(
+      DetailStateSuccess _value, $Res Function(DetailStateSuccess) _then)
+      : super(_value, (v) => _then(v as DetailStateSuccess));
 
   @override
-  StateSuccess get _value => super._value as StateSuccess;
+  DetailStateSuccess get _value => super._value as DetailStateSuccess;
 
   @override
   $Res call({
@@ -631,7 +631,7 @@ class _$StateSuccessCopyWithImpl<$Res>
     Object channelData = freezed,
     Object page = freezed,
   }) {
-    return _then(StateSuccess(
+    return _then(DetailStateSuccess(
       programDetailData: programDetailData == freezed
           ? _value.programDetailData
           : programDetailData as ProgramDetailData,
@@ -674,8 +674,8 @@ class _$StateSuccessCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$StateSuccess implements StateSuccess {
-  const _$StateSuccess(
+class _$DetailStateSuccess implements DetailStateSuccess {
+  const _$DetailStateSuccess(
       {@required this.programDetailData,
       @required this.channelData,
       @required this.page})
@@ -698,7 +698,7 @@ class _$StateSuccess implements StateSuccess {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is StateSuccess &&
+        (other is DetailStateSuccess &&
             (identical(other.programDetailData, programDetailData) ||
                 const DeepCollectionEquality()
                     .equals(other.programDetailData, programDetailData)) &&
@@ -718,8 +718,8 @@ class _$StateSuccess implements StateSuccess {
 
   @JsonKey(ignore: true)
   @override
-  $StateSuccessCopyWith<StateSuccess> get copyWith =>
-      _$StateSuccessCopyWithImpl<StateSuccess>(this, _$identity);
+  $DetailStateSuccessCopyWith<DetailStateSuccess> get copyWith =>
+      _$DetailStateSuccessCopyWithImpl<DetailStateSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -758,10 +758,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_StateLoading value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult preInitialized(_DetailPreInitialized value),
+    @required TResult loading(_DetailStateLoading value),
+    @required TResult success(DetailStateSuccess value),
+    @required TResult error(_DetailStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -773,10 +773,10 @@ class _$StateSuccess implements StateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(_PreInitialized value),
-    TResult loading(_StateLoading value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult preInitialized(_DetailPreInitialized value),
+    TResult loading(_DetailStateLoading value),
+    TResult success(DetailStateSuccess value),
+    TResult error(_DetailStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -787,45 +787,45 @@ class _$StateSuccess implements StateSuccess {
   }
 }
 
-abstract class StateSuccess implements DetailModelState {
-  const factory StateSuccess(
+abstract class DetailStateSuccess implements DetailModelState {
+  const factory DetailStateSuccess(
       {@required ProgramDetailData programDetailData,
       @required ChannelData channelData,
-      @required PageSheetModel page}) = _$StateSuccess;
+      @required PageSheetModel page}) = _$DetailStateSuccess;
 
   ProgramDetailData get programDetailData;
   ChannelData get channelData;
   PageSheetModel get page;
   @JsonKey(ignore: true)
-  $StateSuccessCopyWith<StateSuccess> get copyWith;
+  $DetailStateSuccessCopyWith<DetailStateSuccess> get copyWith;
 }
 
 /// @nodoc
-abstract class _$StateErrorCopyWith<$Res> {
-  factory _$StateErrorCopyWith(
-          _StateError value, $Res Function(_StateError) then) =
-      __$StateErrorCopyWithImpl<$Res>;
+abstract class _$DetailStateErrorCopyWith<$Res> {
+  factory _$DetailStateErrorCopyWith(
+          _DetailStateError value, $Res Function(_DetailStateError) then) =
+      __$DetailStateErrorCopyWithImpl<$Res>;
   $Res call({ErrorMsgCommon msg});
 
   $ErrorMsgCommonCopyWith<$Res> get msg;
 }
 
 /// @nodoc
-class __$StateErrorCopyWithImpl<$Res>
+class __$DetailStateErrorCopyWithImpl<$Res>
     extends _$DetailModelStateCopyWithImpl<$Res>
-    implements _$StateErrorCopyWith<$Res> {
-  __$StateErrorCopyWithImpl(
-      _StateError _value, $Res Function(_StateError) _then)
-      : super(_value, (v) => _then(v as _StateError));
+    implements _$DetailStateErrorCopyWith<$Res> {
+  __$DetailStateErrorCopyWithImpl(
+      _DetailStateError _value, $Res Function(_DetailStateError) _then)
+      : super(_value, (v) => _then(v as _DetailStateError));
 
   @override
-  _StateError get _value => super._value as _StateError;
+  _DetailStateError get _value => super._value as _DetailStateError;
 
   @override
   $Res call({
     Object msg = freezed,
   }) {
-    return _then(_StateError(
+    return _then(_DetailStateError(
       msg == freezed ? _value.msg : msg as ErrorMsgCommon,
     ));
   }
@@ -842,8 +842,8 @@ class __$StateErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_StateError implements _StateError {
-  const _$_StateError(this.msg) : assert(msg != null);
+class _$_DetailStateError implements _DetailStateError {
+  const _$_DetailStateError(this.msg) : assert(msg != null);
 
   @override
   final ErrorMsgCommon msg;
@@ -856,7 +856,7 @@ class _$_StateError implements _StateError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _StateError &&
+        (other is _DetailStateError &&
             (identical(other.msg, msg) ||
                 const DeepCollectionEquality().equals(other.msg, msg)));
   }
@@ -867,8 +867,8 @@ class _$_StateError implements _StateError {
 
   @JsonKey(ignore: true)
   @override
-  _$StateErrorCopyWith<_StateError> get copyWith =>
-      __$StateErrorCopyWithImpl<_StateError>(this, _$identity);
+  _$DetailStateErrorCopyWith<_DetailStateError> get copyWith =>
+      __$DetailStateErrorCopyWithImpl<_DetailStateError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -907,10 +907,10 @@ class _$_StateError implements _StateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult preInitialized(_PreInitialized value),
-    @required TResult loading(_StateLoading value),
-    @required TResult success(StateSuccess value),
-    @required TResult error(_StateError value),
+    @required TResult preInitialized(_DetailPreInitialized value),
+    @required TResult loading(_DetailStateLoading value),
+    @required TResult success(DetailStateSuccess value),
+    @required TResult error(_DetailStateError value),
   }) {
     assert(preInitialized != null);
     assert(loading != null);
@@ -922,10 +922,10 @@ class _$_StateError implements _StateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult preInitialized(_PreInitialized value),
-    TResult loading(_StateLoading value),
-    TResult success(StateSuccess value),
-    TResult error(_StateError value),
+    TResult preInitialized(_DetailPreInitialized value),
+    TResult loading(_DetailStateLoading value),
+    TResult success(DetailStateSuccess value),
+    TResult error(_DetailStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -936,12 +936,12 @@ class _$_StateError implements _StateError {
   }
 }
 
-abstract class _StateError implements DetailModelState {
-  const factory _StateError(ErrorMsgCommon msg) = _$_StateError;
+abstract class _DetailStateError implements DetailModelState {
+  const factory _DetailStateError(ErrorMsgCommon msg) = _$_DetailStateError;
 
   ErrorMsgCommon get msg;
   @JsonKey(ignore: true)
-  _$StateErrorCopyWith<_StateError> get copyWith;
+  _$DetailStateErrorCopyWith<_DetailStateError> get copyWith;
 }
 
 /// @nodoc

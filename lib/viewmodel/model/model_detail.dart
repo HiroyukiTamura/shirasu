@@ -48,7 +48,7 @@ abstract class ModelDetail implements _$ModelDetail {
 
   ModelDetail copyAsPageSheet(PageSheetModel pageSheetModel) {
     final p = prgDataResult;
-    return p is StateSuccess
+    return p is DetailStateSuccess
         ? copyWith(
             prgDataResult: p.copyWith(
               page: pageSheetModel,
@@ -56,21 +56,25 @@ abstract class ModelDetail implements _$ModelDetail {
           )
         : null;
   }
+
+  ModelDetail copyAsPrgDataResultErr(ErrorMsgCommon errMsg) => copyWith(
+        prgDataResult: DetailModelState.error(errMsg),
+      );
 }
 
 @freezed
 abstract class DetailModelState with _$DetailModelState {
-  const factory DetailModelState.preInitialized() = _PreInitialized;
+  const factory DetailModelState.preInitialized() = _DetailPreInitialized;
 
-  const factory DetailModelState.loading() = _StateLoading;
+  const factory DetailModelState.loading() = _DetailStateLoading;
 
   const factory DetailModelState.success({
     @required ProgramDetailData programDetailData,
     @required ChannelData channelData,
     @required PageSheetModel page,
-  }) = StateSuccess;
+  }) = DetailStateSuccess;
 
-  const factory DetailModelState.error(ErrorMsgCommon msg) = _StateError;
+  const factory DetailModelState.error(ErrorMsgCommon msg) = _DetailStateError;
 }
 
 @freezed
@@ -234,7 +238,7 @@ abstract class CommentsHolder implements _$CommentsHolder {
   factory CommentsHolder.initial(bool playFromStart) => CommentsHolder(
         // ignore: deprecated_member_use_from_same_package
         comments: IterableX(<CommentItem>[]).toUnmodifiable(),
-        pageNationKey: Uuid().v4(),
+        pageNationKey: _INITIAL_PAGE_NATION_KEY,
         loadedMostPastComment: playFromStart,
         loadedMostFutureComment: false,
         state: const CommentsState.loading(),
@@ -243,6 +247,8 @@ abstract class CommentsHolder implements _$CommentsHolder {
         // ignore: deprecated_member_use_from_same_package
         rawUserPostedComment: [],
       );
+
+  static const _INITIAL_PAGE_NATION_KEY = 'INITIAL_PAGE_NATION_KEY';
 
   UnmodifiableListView<CommentItem> get userPostedComment =>
       // ignore: deprecated_member_use_from_same_package

@@ -10,7 +10,7 @@ class VideoPaymentBtmSheet extends StatelessWidget {
   const VideoPaymentBtmSheet({Key key, @required this.result})
       : super(key: key);
 
-  final StateSuccess result;
+  final DetailStateSuccess result;
 
   @override
   Widget build(BuildContext _context) =>

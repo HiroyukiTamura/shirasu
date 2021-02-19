@@ -1,11 +1,12 @@
+import 'dart:async';
+
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 
 // import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/client/graphql_repository_impl.dart';
-import 'package:shirasu/client/dio_client.dart';
-import 'package:shirasu/client/hive_client.dart';
+import 'package:shirasu/client/connectivity_repository.dart';
+import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/native_client.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/main.dart';
@@ -14,7 +15,6 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
-import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/util/single_timer.dart';
@@ -30,7 +30,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(Reader reader, this.id)
       : channelId = UrlUtil.programId2channelId(id),
         super(reader, ModelDetail.initial(true)) {
-    _hideTimer = SingleTimer(_hideController, const Duration(seconds: 2));
+    _hideTimer = SingleTimer(_hideController, 2.seconds);
   }
 
   static const SEC_FAST_SEEK_BY_BTN = Duration(seconds: 30);
@@ -51,68 +51,83 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       orElse: () => null,
       success: (prgDetailData, _, __) => prgDetailData.program.previewPrgItem);
 
-  DetailPrgItem get _availableVideoData {
-    return state.prgDataResult.maybeWhen(
-        orElse: () => null,
-        success: (prgDetailData, _, __) {
-          final program = prgDetailData.program;
+  DetailPrgItem get _availableVideoData => state.prgDataResult.maybeWhen(
+      orElse: () => null,
+      success: (prgDetailData, _, __) {
+        final program = prgDetailData.program;
 
-          //todo shouldn't written in DetailProgramData?
-          DetailPrgItem detailPrgItem; //todo more logic
-          if (program.archivedAt?.isBefore(DateTime.now()) == true) {
-            if (program.isAllExtensionAvailable)
-              detailPrgItem = program.lastArchivedExtensionPrgItem;
-            else {
-              // todo implement
-              throw UnimplementedError();
-            }
+        //todo shouldn't written in DetailProgramData?
+        DetailPrgItem detailPrgItem; //todo more logic
+        if (program.archivedAt?.isBefore(DateTime.now()) == true) {
+          if (program.isAllExtensionAvailable)
+            detailPrgItem = program.lastArchivedExtensionPrgItem;
+          else {
+            // todo implement
+            throw UnimplementedError();
           }
+        }
 
-          return detailPrgItem ?? program.nowLivePrgItem;
-        });
-  }
+        return detailPrgItem ?? program.nowLivePrgItem;
+      });
 
   @override
   Future<void> initialize() async {
-    state.prgDataResult.maybeWhen(
-        orElse: () {},
-        success: (___, __, _) async {
-          state =
-              state.copyWith(prgDataResult: const DetailModelState.loading());
+    if (state.prgDataResult != const DetailModelState.preInitialized()) return;
 
-          bool authExpired = false;
+    state = state.copyWith(
+      prgDataResult: const DetailModelState.loading(),
+    );
 
-          try {
-            final data = await Util.wait2<ProgramDetailData, ChannelData>(
-                () async => graphQlRepository.queryProgramDetail(id),
-                () async => graphQlRepository.queryChannelData(channelId));
+    bool authExpired = false;
 
-            state = state.copyWith(
-              prgDataResult: DetailModelState.success(
-                programDetailData: data.item1,
-                channelData: data.item2,
-                page: const PageSheetModel.hidden(),
-              ),
-            );
-          } on UnauthorizedException catch (e) {
-            print(e);
-            authExpired = true;
-          } catch (e) {
-            print(e);
-            if (mounted)
-              state = state.copyWith(
-                prgDataResult:
-                    const DetailModelState.error(ErrorMsgCommon.unknown()),
-              );
-          }
+    try {
+      await connectivityRepository.ensureNotDisconnect();
+      final data = await Util.wait2<ProgramDetailData, ChannelData>(
+              () async => graphQlRepository.queryProgramDetail(id),
+              () async => graphQlRepository.queryChannelData(channelId))
+          .timeout(GraphQlRepository.TIMEOUT);
 
-          if (!mounted) return;
+      state = state.copyWith(
+        prgDataResult: DetailModelState.success(
+          programDetailData: data.item1,
+          channelData: data.item2,
+          page: const PageSheetModel.hidden(),
+        ),
+      );
+    } on UnauthorizedException catch (e) {
+      print(e);
+      authExpired = true;
 
-          if (authExpired)
-            pushAuthExpireScreen();
-          else
-            await _initComments(Duration.zero);
-        });
+      final errorMsg = e.detectedByTime
+          ? const ErrorMsgCommon.authExpired()
+          : const ErrorMsgCommon.unAuth();
+      if (mounted) state = state.copyAsPrgDataResultErr(errorMsg);
+    } on TimeoutException catch (e) {
+      //todo log error
+      print(e);
+      if (mounted)
+        state = state.copyAsPrgDataResultErr(
+          const ErrorMsgCommon.networkTimeout(),
+        );
+    } on NetworkDisconnectException catch (e) {
+      print(e);
+      if (mounted)
+        state = state.copyAsPrgDataResultErr(
+          const ErrorMsgCommon.networkDisconnected(),
+        );
+    } catch (e) {
+      print(e);
+      if (mounted)
+        state = state.copyAsPrgDataResultErr(
+          const ErrorMsgCommon.unknown(),
+        );
+    }
+
+    if (!mounted) return;
+    if (authExpired)
+      pushAuthExpireScreen();
+    else if (state.prgDataResult is DetailStateSuccess)
+      await _initComments(Duration.zero);
   }
 
   Future<void> playVideo(bool preview) async {
@@ -500,7 +515,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   void commandSnackBar(SnackMsg snackMsg) {
     final prgDataResult = state.prgDataResult;
-    final isCommentAppBarShown = prgDataResult is StateSuccess &&
+    final isCommentAppBarShown = prgDataResult is DetailStateSuccess &&
         prgDataResult.page == const PageSheetModel.comment() &&
         state.commentHolder.followTimeLineMode ==
             const FollowTimeLineMode.follow();
@@ -512,7 +527,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (!mounted) return;
 
     final prgDataResult = state.prgDataResult;
-    if (prgDataResult is StateSuccess) {
+    if (prgDataResult is DetailStateSuccess) {
       final playOutState = state.playOutState;
       try {
         await NativeClient.startPlayBackGround(

@@ -25,7 +25,8 @@ Widget rowTop(
 }) {
   final prgDataResult = useProvider(kPrvViewModelDetail(conf.id))
       .state
-      .prgDataResult as StateSuccess; // don't want rebuild
+      .prgDataResult as DetailStateSuccess; // don't want rebuild
+  // todo fix
   final title = prgDataResult.programDetailData.program.title;
 
   return Padding(

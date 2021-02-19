@@ -70,7 +70,7 @@ class VideoThumbnail extends HookWidget {
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
     final result = context
         .read(kPrvViewModelDetail(program.id).state)
-        .prgDataResult as StateSuccess;
+        .prgDataResult as DetailStateSuccess;
     await BtmSheetCommon.showUrlLauncherBtmSheet(
       context: context,
       url: UrlUtil.programId2Url(program.id),

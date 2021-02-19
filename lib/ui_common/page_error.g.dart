@@ -19,11 +19,16 @@ class _LoginBtn extends StatelessWidget {
 /// replacement of [PageError] for small space
 class PageErrText extends StatelessWidget {
   /// replacement of [PageError] for small space
-  const PageErrText({Key key, @required this.text}) : super(key: key);
+  const PageErrText({Key key, @required this.text, this.backColor})
+      : super(key: key);
 
   /// replacement of [PageError] for small space
   final String text;
 
+  /// replacement of [PageError] for small space
+  final Color backColor;
+
   @override
-  Widget build(BuildContext _context) => pageErrText(text: text);
+  Widget build(BuildContext _context) =>
+      pageErrText(text: text, backColor: backColor);
 }

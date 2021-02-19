@@ -71,8 +71,7 @@ final _kPrvFabVisibility = Provider.family.autoDispose<bool, String>((ref, id) {
       viewModel.commentHolder.followTimeLineMode is FollowTimeLineModeNone;
   final isCommentShown = viewModel.prgDataResult.maybeWhen(
     orElse: () => false,
-    success: (_, __, page) =>
-        page == const PageSheetModel.comment(),
+    success: (_, __, page) => page == const PageSheetModel.comment(),
   );
   return isCommentShown && isNotFollowTimeLineMode;
 });
@@ -207,6 +206,7 @@ class _ScreenDetailState extends State<ScreenDetail>
                     conf: conf,
                     onTap: () async => _playVideo(context, false),
                     onTapPreviewBtn: () async => _playVideo(context, true),
+                    program: programDetailData.program,
                   ),
                   _PlayerBodyWrapper(
                     height: listViewH,
@@ -226,6 +226,7 @@ class _ScreenDetailState extends State<ScreenDetail>
             alignment: Alignment.center,
             child: VideoHeader(
               height: constraints.maxHeight,
+              program: programDetailData.program,
               conf: conf,
               onTap: () async => _playVideo(context, false),
               onTapPreviewBtn: () async => _playVideo(context, true),

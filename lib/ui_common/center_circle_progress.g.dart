@@ -7,13 +7,17 @@ part of 'center_circle_progress.dart';
 // **************************************************************************
 
 class CenterCircleProgress extends StatelessWidget {
-  const CenterCircleProgress({Key key, this.padding = EdgeInsets.zero})
+  const CenterCircleProgress(
+      {Key key, this.padding = EdgeInsets.zero, this.valueColor})
       : super(key: key);
 
   final EdgeInsets padding;
 
+  final Animation<Color> valueColor;
+
   @override
-  Widget build(BuildContext _context) => centerCircleProgress(padding: padding);
+  Widget build(BuildContext _context) =>
+      centerCircleProgress(padding: padding, valueColor: valueColor);
 }
 
 /// default [strokeWidth] is [CircularProgressIndicator.strokeWidth]

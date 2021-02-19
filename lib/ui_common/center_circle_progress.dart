@@ -9,10 +9,16 @@ import 'package:shirasu/resource/dimens.dart';
 part 'center_circle_progress.g.dart';
 
 @swidget
-Widget centerCircleProgress({EdgeInsets padding = EdgeInsets.zero}) => Center(
+Widget centerCircleProgress({
+  EdgeInsets padding = EdgeInsets.zero,
+  Animation<Color> valueColor,
+}) =>
+    Center(
       child: Padding(
         padding: padding,
-        child: const CustomCircleProgress(),
+        child: CustomCircleProgress(
+          valueColor: valueColor,
+        ),
       ),
     );
 

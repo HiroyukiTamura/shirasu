@@ -8,4 +8,7 @@ class EnvRepositoryTestImpl implements EnvRepository {
 
   @override
   bool get enableProgressAnimation => false;
+
+  @override
+  bool get enableVideoPlugin => false;
 }

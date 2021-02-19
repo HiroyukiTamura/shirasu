@@ -6,7 +6,10 @@ import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/player_view.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
@@ -28,17 +31,17 @@ class _TestRunner extends TestRunnerBase {
   _TestRunner(this.dummyData)
       : super(() => ScreenDetail(
               id: dummyData.program.id,
-            ));
+            ), goldenNamePrefix: 'ScreenDetail');
 
   final ProgramDetailData dummyData;
 
   void runScreenTest() => group('ScreenDetail', () {
-        testGoldensSimple(testName: 'initial', overrides: [
+        testGoldensSimple(testName: 'Initial', overrides: [
           kPrvViewModelDetail(dummyData.program.id).overrideWithProvider(
               ViewModelDetailMockable.createProvider(
                   ModelDetail.initial(true), dummyData.program.id))
         ]);
-        testGoldensSimple(testName: 'error', overrides: [
+        testGoldensSimple(testName: 'Error', overrides: [
           kPrvViewModelDetail(dummyData.program.id)
               .overrideWithProvider(ViewModelDetailMockable.createProvider(
                   ModelDetail.initial(true).copyWith(
@@ -47,7 +50,7 @@ class _TestRunner extends TestRunnerBase {
                   ),
                   dummyData.program.id))
         ]);
-        testGoldensSimple(testName: 'success', overrides: [
+        testGoldensSimple(testName: 'Success', overrides: [
           kPrvViewModelDetail(dummyData.program.id)
               .overrideWithProvider(ViewModelDetailMockable.createProvider(
                   ModelDetail.initial(true).copyWith(
@@ -68,25 +71,6 @@ class _TestRunner extends TestRunnerBase {
                         prgDataResult: DetailModelState.success(
                           programDetailData:
                               dummyData.copyWith.program(rawTags: []),
-                          page: const PageSheetModel.hidden(),
-                          channelData: channelData,
-                        ),
-                      ),
-                      dummyData.program.id)),
-            ],
-            onPostBuild: (tester) async {
-              expect(find.byType(VideoTagChip), findsNothing);
-            });
-
-        testGoldensSimple(
-            testName: 'PrePlay',
-            overrides: [
-              kPrvViewModelDetail(dummyData.program.id)
-                  .overrideWithProvider(ViewModelDetailMockable.createProvider(
-                      ModelDetail.initial(true).copyWith(
-                        btmSheetState: null,
-                        prgDataResult: DetailModelState.success(
-                          programDetailData: dummyData,
                           page: const PageSheetModel.hidden(),
                           channelData: channelData,
                         ),

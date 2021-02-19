@@ -1432,11 +1432,6 @@ class _$PlayerCommandedStateTearOff {
   const _$PlayerCommandedStateTearOff();
 
 // ignore: unused_element
-  _PlayerCommandedStatePlayError playError() {
-    return const _PlayerCommandedStatePlayError();
-  }
-
-// ignore: unused_element
   _PlayerCommandedStatePrePlay prePlay() {
     return const _PlayerCommandedStatePrePlay();
   }
@@ -1450,11 +1445,6 @@ class _$PlayerCommandedStateTearOff {
   _PlayerCommandedStateInitializing initializing() {
     return const _PlayerCommandedStateInitializing();
   }
-
-// ignore: unused_element
-  _PlayerCommandedStateError error() {
-    return const _PlayerCommandedStateError();
-  }
 }
 
 /// @nodoc
@@ -1465,36 +1455,28 @@ const $PlayerCommandedState = _$PlayerCommandedStateTearOff();
 mixin _$PlayerCommandedState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult playError(),
     @required TResult prePlay(),
     @required TResult postPlay(),
     @required TResult initializing(),
-    @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult playError(),
     TResult prePlay(),
     TResult postPlay(),
     TResult initializing(),
-    TResult error(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(_PlayerCommandedStatePlayError value),
     @required TResult prePlay(_PlayerCommandedStatePrePlay value),
     @required TResult postPlay(_PlayerCommandedStatePostPlay value),
     @required TResult initializing(_PlayerCommandedStateInitializing value),
-    @required TResult error(_PlayerCommandedStateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(_PlayerCommandedStatePlayError value),
     TResult prePlay(_PlayerCommandedStatePrePlay value),
     TResult postPlay(_PlayerCommandedStatePostPlay value),
     TResult initializing(_PlayerCommandedStateInitializing value),
-    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   });
 }
@@ -1514,120 +1496,6 @@ class _$PlayerCommandedStateCopyWithImpl<$Res>
   final PlayerCommandedState _value;
   // ignore: unused_field
   final $Res Function(PlayerCommandedState) _then;
-}
-
-/// @nodoc
-abstract class _$PlayerCommandedStatePlayErrorCopyWith<$Res> {
-  factory _$PlayerCommandedStatePlayErrorCopyWith(
-          _PlayerCommandedStatePlayError value,
-          $Res Function(_PlayerCommandedStatePlayError) then) =
-      __$PlayerCommandedStatePlayErrorCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$PlayerCommandedStatePlayErrorCopyWithImpl<$Res>
-    extends _$PlayerCommandedStateCopyWithImpl<$Res>
-    implements _$PlayerCommandedStatePlayErrorCopyWith<$Res> {
-  __$PlayerCommandedStatePlayErrorCopyWithImpl(
-      _PlayerCommandedStatePlayError _value,
-      $Res Function(_PlayerCommandedStatePlayError) _then)
-      : super(_value, (v) => _then(v as _PlayerCommandedStatePlayError));
-
-  @override
-  _PlayerCommandedStatePlayError get _value =>
-      super._value as _PlayerCommandedStatePlayError;
-}
-
-/// @nodoc
-class _$_PlayerCommandedStatePlayError
-    implements _PlayerCommandedStatePlayError {
-  const _$_PlayerCommandedStatePlayError();
-
-  @override
-  String toString() {
-    return 'PlayerCommandedState.playError()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PlayerCommandedStatePlayError);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult playError(),
-    @required TResult prePlay(),
-    @required TResult postPlay(),
-    @required TResult initializing(),
-    @required TResult error(),
-  }) {
-    assert(playError != null);
-    assert(prePlay != null);
-    assert(postPlay != null);
-    assert(initializing != null);
-    assert(error != null);
-    return playError();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult playError(),
-    TResult prePlay(),
-    TResult postPlay(),
-    TResult initializing(),
-    TResult error(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (playError != null) {
-      return playError();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult playError(_PlayerCommandedStatePlayError value),
-    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
-    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
-    @required TResult initializing(_PlayerCommandedStateInitializing value),
-    @required TResult error(_PlayerCommandedStateError value),
-  }) {
-    assert(playError != null);
-    assert(prePlay != null);
-    assert(postPlay != null);
-    assert(initializing != null);
-    assert(error != null);
-    return playError(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult playError(_PlayerCommandedStatePlayError value),
-    TResult prePlay(_PlayerCommandedStatePrePlay value),
-    TResult postPlay(_PlayerCommandedStatePostPlay value),
-    TResult initializing(_PlayerCommandedStateInitializing value),
-    TResult error(_PlayerCommandedStateError value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (playError != null) {
-      return playError(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _PlayerCommandedStatePlayError implements PlayerCommandedState {
-  const factory _PlayerCommandedStatePlayError() =
-      _$_PlayerCommandedStatePlayError;
 }
 
 /// @nodoc
@@ -1672,28 +1540,22 @@ class _$_PlayerCommandedStatePrePlay implements _PlayerCommandedStatePrePlay {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult playError(),
     @required TResult prePlay(),
     @required TResult postPlay(),
     @required TResult initializing(),
-    @required TResult error(),
   }) {
-    assert(playError != null);
     assert(prePlay != null);
     assert(postPlay != null);
     assert(initializing != null);
-    assert(error != null);
     return prePlay();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult playError(),
     TResult prePlay(),
     TResult postPlay(),
     TResult initializing(),
-    TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1706,28 +1568,22 @@ class _$_PlayerCommandedStatePrePlay implements _PlayerCommandedStatePrePlay {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(_PlayerCommandedStatePlayError value),
     @required TResult prePlay(_PlayerCommandedStatePrePlay value),
     @required TResult postPlay(_PlayerCommandedStatePostPlay value),
     @required TResult initializing(_PlayerCommandedStateInitializing value),
-    @required TResult error(_PlayerCommandedStateError value),
   }) {
-    assert(playError != null);
     assert(prePlay != null);
     assert(postPlay != null);
     assert(initializing != null);
-    assert(error != null);
     return prePlay(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(_PlayerCommandedStatePlayError value),
     TResult prePlay(_PlayerCommandedStatePrePlay value),
     TResult postPlay(_PlayerCommandedStatePostPlay value),
     TResult initializing(_PlayerCommandedStateInitializing value),
-    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1784,28 +1640,22 @@ class _$_PlayerCommandedStatePostPlay implements _PlayerCommandedStatePostPlay {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult playError(),
     @required TResult prePlay(),
     @required TResult postPlay(),
     @required TResult initializing(),
-    @required TResult error(),
   }) {
-    assert(playError != null);
     assert(prePlay != null);
     assert(postPlay != null);
     assert(initializing != null);
-    assert(error != null);
     return postPlay();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult playError(),
     TResult prePlay(),
     TResult postPlay(),
     TResult initializing(),
-    TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1818,28 +1668,22 @@ class _$_PlayerCommandedStatePostPlay implements _PlayerCommandedStatePostPlay {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(_PlayerCommandedStatePlayError value),
     @required TResult prePlay(_PlayerCommandedStatePrePlay value),
     @required TResult postPlay(_PlayerCommandedStatePostPlay value),
     @required TResult initializing(_PlayerCommandedStateInitializing value),
-    @required TResult error(_PlayerCommandedStateError value),
   }) {
-    assert(playError != null);
     assert(prePlay != null);
     assert(postPlay != null);
     assert(initializing != null);
-    assert(error != null);
     return postPlay(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(_PlayerCommandedStatePlayError value),
     TResult prePlay(_PlayerCommandedStatePrePlay value),
     TResult postPlay(_PlayerCommandedStatePostPlay value),
     TResult initializing(_PlayerCommandedStateInitializing value),
-    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1899,28 +1743,22 @@ class _$_PlayerCommandedStateInitializing
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult playError(),
     @required TResult prePlay(),
     @required TResult postPlay(),
     @required TResult initializing(),
-    @required TResult error(),
   }) {
-    assert(playError != null);
     assert(prePlay != null);
     assert(postPlay != null);
     assert(initializing != null);
-    assert(error != null);
     return initializing();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult playError(),
     TResult prePlay(),
     TResult postPlay(),
     TResult initializing(),
-    TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1933,28 +1771,22 @@ class _$_PlayerCommandedStateInitializing
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult playError(_PlayerCommandedStatePlayError value),
     @required TResult prePlay(_PlayerCommandedStatePrePlay value),
     @required TResult postPlay(_PlayerCommandedStatePostPlay value),
     @required TResult initializing(_PlayerCommandedStateInitializing value),
-    @required TResult error(_PlayerCommandedStateError value),
   }) {
-    assert(playError != null);
     assert(prePlay != null);
     assert(postPlay != null);
     assert(initializing != null);
-    assert(error != null);
     return initializing(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult playError(_PlayerCommandedStatePlayError value),
     TResult prePlay(_PlayerCommandedStatePrePlay value),
     TResult postPlay(_PlayerCommandedStatePostPlay value),
     TResult initializing(_PlayerCommandedStateInitializing value),
-    TResult error(_PlayerCommandedStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1969,116 +1801,6 @@ abstract class _PlayerCommandedStateInitializing
     implements PlayerCommandedState {
   const factory _PlayerCommandedStateInitializing() =
       _$_PlayerCommandedStateInitializing;
-}
-
-/// @nodoc
-abstract class _$PlayerCommandedStateErrorCopyWith<$Res> {
-  factory _$PlayerCommandedStateErrorCopyWith(_PlayerCommandedStateError value,
-          $Res Function(_PlayerCommandedStateError) then) =
-      __$PlayerCommandedStateErrorCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$PlayerCommandedStateErrorCopyWithImpl<$Res>
-    extends _$PlayerCommandedStateCopyWithImpl<$Res>
-    implements _$PlayerCommandedStateErrorCopyWith<$Res> {
-  __$PlayerCommandedStateErrorCopyWithImpl(_PlayerCommandedStateError _value,
-      $Res Function(_PlayerCommandedStateError) _then)
-      : super(_value, (v) => _then(v as _PlayerCommandedStateError));
-
-  @override
-  _PlayerCommandedStateError get _value =>
-      super._value as _PlayerCommandedStateError;
-}
-
-/// @nodoc
-class _$_PlayerCommandedStateError implements _PlayerCommandedStateError {
-  const _$_PlayerCommandedStateError();
-
-  @override
-  String toString() {
-    return 'PlayerCommandedState.error()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PlayerCommandedStateError);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult playError(),
-    @required TResult prePlay(),
-    @required TResult postPlay(),
-    @required TResult initializing(),
-    @required TResult error(),
-  }) {
-    assert(playError != null);
-    assert(prePlay != null);
-    assert(postPlay != null);
-    assert(initializing != null);
-    assert(error != null);
-    return error();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult playError(),
-    TResult prePlay(),
-    TResult postPlay(),
-    TResult initializing(),
-    TResult error(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (error != null) {
-      return error();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult playError(_PlayerCommandedStatePlayError value),
-    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
-    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
-    @required TResult initializing(_PlayerCommandedStateInitializing value),
-    @required TResult error(_PlayerCommandedStateError value),
-  }) {
-    assert(playError != null);
-    assert(prePlay != null);
-    assert(postPlay != null);
-    assert(initializing != null);
-    assert(error != null);
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult playError(_PlayerCommandedStatePlayError value),
-    TResult prePlay(_PlayerCommandedStatePrePlay value),
-    TResult postPlay(_PlayerCommandedStatePostPlay value),
-    TResult initializing(_PlayerCommandedStateInitializing value),
-    TResult error(_PlayerCommandedStateError value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _PlayerCommandedStateError implements PlayerCommandedState {
-  const factory _PlayerCommandedStateError() = _$_PlayerCommandedStateError;
 }
 
 /// @nodoc

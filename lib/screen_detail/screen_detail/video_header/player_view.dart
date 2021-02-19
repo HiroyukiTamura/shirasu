@@ -3,11 +3,14 @@ import 'package:better_player/better_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/client/env_repository.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
@@ -16,7 +19,7 @@ import 'package:shirasu/extension.dart';
 
 import '../screen_detail.dart';
 
-// part 'player_view.g.dart';
+part 'player_view.g.dart';
 
 final _kPrvVideoCommand = Provider.autoDispose
     .family<LastControllerCommandHolder, String>((ref, id) => ref
@@ -24,8 +27,16 @@ final _kPrvVideoCommand = Provider.autoDispose
         .playOutState
         .lastControllerCommandHolder);
 
-class PlayerView extends StatefulHookWidget {
-  const PlayerView({Key key, this.conf}) : super(key: key);
+@hwidget
+Widget playerViewWrapper({
+  @required VideoViewModelConf conf,
+}) =>
+    useProvider(kPrvEnv).enableVideoPlugin
+        ? _PlayerView(conf: conf)
+        : const Placeholder();
+
+class _PlayerView extends StatefulHookWidget {
+  const _PlayerView({Key key, this.conf}) : super(key: key);
 
   final VideoViewModelConf conf;
 
@@ -33,8 +44,8 @@ class PlayerView extends StatefulHookWidget {
   _PlayerViewState createState() => _PlayerViewState();
 }
 
-class _PlayerViewState extends State<PlayerView>
-    with AfterLayoutMixin<PlayerView> {
+class _PlayerViewState extends State<_PlayerView>
+    with AfterLayoutMixin<_PlayerView> {
   BetterPlayerController _controller;
   BetterPlayerDataSource _dataSource;
 

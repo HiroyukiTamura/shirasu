@@ -89,7 +89,12 @@ Widget _loginBtn(
 
 /// replacement of [PageError] for small space
 @swidget
-Widget pageErrText({@required String text}) => Container(
+Widget pageErrText({
+  @required String text,
+  Color backColor,
+}) =>
+    Container(
+      color: backColor,
       padding: const EdgeInsets.all(24),
       alignment: Alignment.center,
       child: Text(

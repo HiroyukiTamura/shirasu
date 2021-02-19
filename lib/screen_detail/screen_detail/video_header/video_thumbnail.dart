@@ -31,55 +31,52 @@ Widget loadingThumbnail({@required String id}) => Stack(
           imageUrl: UrlUtil.getThumbnailUrl(id),
           errorWidget: Util.defaultPrgThumbnail,
         ),
-        const CenterCircleProgress(),
+        const CenterCircleProgress(
+          valueColor: AlwaysStoppedAnimation(Colors.white),
+        ),
       ],
     );
 
 class VideoThumbnail extends HookWidget {
   const VideoThumbnail({
     Key key,
-    @required this.programId,
+    @required this.program,
     this.onTap,
     this.onTapPreviewBtn,
   }) : super(key: key);
 
   final VoidCallback onTap;
   final VoidCallback onTapPreviewBtn;
-  final String programId;
+  final ProgramDetail program;
 
   @override
-  Widget build(BuildContext context) {
-    final result = useProvider(kPrvViewModelDetail(programId)).state.prgDataResult
-        as StateSuccess; //we don't want rebuild here
-
-    final program = result.programDetailData.program;
-    return Stack(
-      children: [
-        CustomCachedNetworkImage(
-          fit: BoxFit.cover,
-          imageUrl: UrlUtil.getThumbnailUrl(program.id),
-          errorWidget: Util.defaultPrgThumbnail,
-        ),
-        _HoverWidget(
-          program: program,
-          onClickPurchaseBtn: _onClickPurchaseBtn,
-          onTapPreviewBtn: onTapPreviewBtn,
-          onTap: onTap,
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Stack(
+        children: [
+          CustomCachedNetworkImage(
+            fit: BoxFit.cover,
+            imageUrl: UrlUtil.getThumbnailUrl(program.id),
+            errorWidget: Util.defaultPrgThumbnail,
+          ),
+          _HoverWidget(
+            program: program,
+            onClickPurchaseBtn: _onClickPurchaseBtn,
+            onTapPreviewBtn: onTapPreviewBtn,
+            onTap: onTap,
+          ),
+        ],
+      );
 
   /// todo extract
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    final result = context.read(kPrvViewModelDetail(programId).state).prgDataResult
-        as StateSuccess;
+    final result = context
+        .read(kPrvViewModelDetail(program.id).state)
+        .prgDataResult as StateSuccess;
     await BtmSheetCommon.showUrlLauncherBtmSheet(
       context: context,
-      url: UrlUtil.programId2Url(programId),
+      url: UrlUtil.programId2Url(program.id),
       child: VideoPaymentBtmSheet(result: result),
       snackCallback: (msg) => context
-          .read(kPrvViewModelDetail(programId))
+          .read(kPrvViewModelDetail(program.id))
           .commandSnackBar(const SnackMsg.unknown()),
     );
   }
@@ -95,8 +92,7 @@ Widget _hoverWidget(
 }) {
   final isWaiting = DateTime.now().isBefore(program.broadcastAt);
   final isPurchasable = program.onetimePlanMain != null;
-  final isPurchased =
-      program.viewerPlanTypeStrict != null; //todo need more logic
+  final isPurchased = program.viewerPlanTypeStrict != null;
   final canPreview = program.previewTime != 0;
 
   if (isPurchased)
@@ -115,12 +111,13 @@ Widget _hoverWidget(
               onPressed: () => onClickPurchaseBtn(context),
             ),
           if (isPurchasable && canPreview) const SizedBox(height: 16),
-          if (canPreview && isWaiting) const _PreviewExistMessage(),
-          if (canPreview && !isWaiting)
-            _HoverBtn(
-              label: Strings.PREVIEW_BTN_TEXT,
-              onPressed: onTapPreviewBtn,
-            ),
+          if (canPreview)
+            isWaiting
+                ? const _PreviewExistMessage()
+                : _HoverBtn(
+                    label: Strings.PREVIEW_BTN_TEXT,
+                    onPressed: onTapPreviewBtn,
+                  ),
         ],
       ),
     ),

@@ -129,17 +129,12 @@ abstract class PlayOutState implements _$PlayOutState {
 
 @freezed
 abstract class PlayerCommandedState with _$PlayerCommandedState {
-  const factory PlayerCommandedState.playError() =
-      _PlayerCommandedStatePlayError;
-
   const factory PlayerCommandedState.prePlay() = _PlayerCommandedStatePrePlay;
 
   const factory PlayerCommandedState.postPlay() = _PlayerCommandedStatePostPlay;
 
   const factory PlayerCommandedState.initializing() =
       _PlayerCommandedStateInitializing;
-
-  const factory PlayerCommandedState.error() = _PlayerCommandedStateError;
 }
 
 @freezed

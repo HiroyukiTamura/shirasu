@@ -10,15 +10,17 @@ import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 
 import '../viewmodel/mock_viewmodel_base.dart';
 
-class ViewModelDetailMockable extends ViewModelDetail with MockViewModelBase {
-  ViewModelDetailMockable(Reader reader, this.specState, String id)
-      : super(reader, id);
+class ViewModelDetailMockable extends ViewModelDetail {
+  ViewModelDetailMockable(Reader reader, this.initial, String id) : super(reader, id);
+
+  final ModelDetail initial;
 
   @override
-  final ModelDetail specState;
+  Future<void> initialize() async => state = initial;
+
 
   static AutoDisposeStateNotifierProvider<ViewModelDetail> createProvider(
-          ModelDetail specState, String id) =>
+      ModelDetail specState, String id) =>
       StateNotifierProvider.autoDispose<ViewModelDetail>(
-          (ref) => ViewModelDetailMockable(ref.read, specState, id));
+              (ref) => ViewModelDetailMockable(ref.read, specState, id));
 }

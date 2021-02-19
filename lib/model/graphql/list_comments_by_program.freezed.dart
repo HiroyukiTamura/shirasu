@@ -183,7 +183,7 @@ class _$CommentsTearOff {
 
 // ignore: unused_element
   _Comments call(
-      {@required @protected List<CommentItem> items,
+      {@visibleForTesting List<CommentItem> items,
       String nextToken,
       @required @JsonKey(name: '__typename') String typename}) {
     return _Comments(
@@ -205,7 +205,7 @@ const $Comments = _$CommentsTearOff();
 
 /// @nodoc
 mixin _$Comments {
-  @protected
+  @visibleForTesting
   List<CommentItem> get items;
   String get nextToken;
   @JsonKey(name: '__typename')
@@ -221,7 +221,7 @@ abstract class $CommentsCopyWith<$Res> {
   factory $CommentsCopyWith(Comments value, $Res Function(Comments) then) =
       _$CommentsCopyWithImpl<$Res>;
   $Res call(
-      {@protected List<CommentItem> items,
+      {@visibleForTesting List<CommentItem> items,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -254,7 +254,7 @@ abstract class _$CommentsCopyWith<$Res> implements $CommentsCopyWith<$Res> {
       __$CommentsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@protected List<CommentItem> items,
+      {@visibleForTesting List<CommentItem> items,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -287,11 +287,10 @@ class __$CommentsCopyWithImpl<$Res> extends _$CommentsCopyWithImpl<$Res>
 /// @nodoc
 class _$_Comments extends _Comments {
   const _$_Comments(
-      {@required @protected this.items,
+      {@visibleForTesting this.items,
       this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
-      : assert(items != null),
-        assert(typename != null),
+      : assert(typename != null),
         assert(typename == "ModelCommentConnection"),
         super._();
 
@@ -299,7 +298,7 @@ class _$_Comments extends _Comments {
       _$_$_CommentsFromJson(json);
 
   @override
-  @protected
+  @visibleForTesting
   final List<CommentItem> items;
   @override
   final String nextToken;
@@ -347,14 +346,14 @@ class _$_Comments extends _Comments {
 abstract class _Comments extends Comments {
   const _Comments._() : super._();
   const factory _Comments(
-      {@required @protected List<CommentItem> items,
+      {@visibleForTesting List<CommentItem> items,
       String nextToken,
       @required @JsonKey(name: '__typename') String typename}) = _$_Comments;
 
   factory _Comments.fromJson(Map<String, dynamic> json) = _$_Comments.fromJson;
 
   @override
-  @protected
+  @visibleForTesting
   List<CommentItem> get items;
   @override
   String get nextToken;

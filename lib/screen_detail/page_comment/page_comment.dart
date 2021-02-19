@@ -71,14 +71,14 @@ class PageComment extends StatelessWidget {
           futureComments.firstOrNull?.commentTimeDuration ?? currentPos;
 
       duration += 1.milliseconds;
-      await viewModel.loadMorePostComment(duration, false);
+      await viewModel.loadMorePastComment(duration, false);
     } else if (pastComments.length < ViewModelDetail.COMMENT_PREFETCH_OFFSET) {
       if (commentHolder.loadedMostPastComment) return;
 
       Duration duration =
           pastComments.lastOrNull?.commentTimeDuration ?? currentPos;
       duration -= 1.milliseconds;
-      await viewModel.loadMorePreComment(duration, false);
+      await viewModel.loadMoreFutureComment(duration, false);
     }
   }
 }
@@ -92,5 +92,5 @@ Widget _pageCommentInner({
       success: () => CommentListView(id: id),
       loading: () => const CenterCircleProgress(),
       loadingMore: (_) => CommentListView(id: id),
-      error: () => const PageErrText(text: Strings.SNACK_ERR,),
+      error: (errMsg) => PageErrText(text: errMsg.networkValue,),
     );

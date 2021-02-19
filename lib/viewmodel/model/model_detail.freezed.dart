@@ -4318,7 +4318,7 @@ class _$CommentsHolderTearOff {
 // ignore: unused_element
   _CommentsHolder call(
       {@required
-      @Deprecated('use [commentsSorted]')
+      @Deprecated('use [_commentSorted]')
           List<CommentItem> comments,
       @required
           String pageNationKey,
@@ -4354,7 +4354,8 @@ const $CommentsHolder = _$CommentsHolderTearOff();
 
 /// @nodoc
 mixin _$CommentsHolder {
-  @Deprecated('use [commentsSorted]')
+  /// use [_commentSorted]
+  @Deprecated('use [_commentSorted]')
   List<CommentItem> get comments;
   String get pageNationKey;
   bool get loadedMostPastComment;
@@ -4362,6 +4363,8 @@ mixin _$CommentsHolder {
   bool get loadedMostFutureComment;
   CommentsState get state;
   FollowTimeLineMode get followTimeLineMode;
+
+  /// use [userPostedComment]
   @Deprecated('use [userPostedComment]')
   List<CommentItem> get rawUserPostedComment;
 
@@ -4375,7 +4378,7 @@ abstract class $CommentsHolderCopyWith<$Res> {
           CommentsHolder value, $Res Function(CommentsHolder) then) =
       _$CommentsHolderCopyWithImpl<$Res>;
   $Res call(
-      {@Deprecated('use [commentsSorted]')
+      {@Deprecated('use [_commentSorted]')
           List<CommentItem> comments,
       String pageNationKey,
       bool loadedMostPastComment,
@@ -4464,7 +4467,7 @@ abstract class _$CommentsHolderCopyWith<$Res>
       __$CommentsHolderCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@Deprecated('use [commentsSorted]')
+      {@Deprecated('use [_commentSorted]')
           List<CommentItem> comments,
       String pageNationKey,
       bool loadedMostPastComment,
@@ -4534,7 +4537,7 @@ class __$CommentsHolderCopyWithImpl<$Res>
 class _$_CommentsHolder extends _CommentsHolder {
   const _$_CommentsHolder(
       {@required
-      @Deprecated('use [commentsSorted]')
+      @Deprecated('use [_commentSorted]')
           this.comments,
       @required
           this.pageNationKey,
@@ -4562,7 +4565,9 @@ class _$_CommentsHolder extends _CommentsHolder {
         super._();
 
   @override
-  @Deprecated('use [commentsSorted]')
+
+  /// use [_commentSorted]
+  @Deprecated('use [_commentSorted]')
   final List<CommentItem> comments;
   @override
   final String pageNationKey;
@@ -4577,6 +4582,8 @@ class _$_CommentsHolder extends _CommentsHolder {
   @override
   final FollowTimeLineMode followTimeLineMode;
   @override
+
+  /// use [userPostedComment]
   @Deprecated('use [userPostedComment]')
   final List<CommentItem> rawUserPostedComment;
 
@@ -4637,7 +4644,7 @@ abstract class _CommentsHolder extends CommentsHolder {
   const _CommentsHolder._() : super._();
   const factory _CommentsHolder(
       {@required
-      @Deprecated('use [commentsSorted]')
+      @Deprecated('use [_commentSorted]')
           List<CommentItem> comments,
       @required
           String pageNationKey,
@@ -4656,7 +4663,9 @@ abstract class _CommentsHolder extends CommentsHolder {
           List<CommentItem> rawUserPostedComment}) = _$_CommentsHolder;
 
   @override
-  @Deprecated('use [commentsSorted]')
+
+  /// use [_commentSorted]
+  @Deprecated('use [_commentSorted]')
   List<CommentItem> get comments;
   @override
   String get pageNationKey;
@@ -4671,6 +4680,8 @@ abstract class _CommentsHolder extends CommentsHolder {
   @override
   FollowTimeLineMode get followTimeLineMode;
   @override
+
+  /// use [userPostedComment]
   @Deprecated('use [userPostedComment]')
   List<CommentItem> get rawUserPostedComment;
   @override
@@ -4700,8 +4711,10 @@ class _$CommentsStateTearOff {
   }
 
 // ignore: unused_element
-  _CommentsStateErr error() {
-    return const _CommentsStateErr();
+  _CommentsStateErr error(ErrorMsgCommon errMsg) {
+    return _CommentsStateErr(
+      errMsg,
+    );
   }
 }
 
@@ -4716,14 +4729,14 @@ mixin _$CommentsState {
     @required TResult success(),
     @required TResult loading(),
     @required TResult loadingMore(LoadingState loadingState),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult success(),
     TResult loading(),
     TResult loadingMore(LoadingState loadingState),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -4780,8 +4793,8 @@ class __$CommentsStateSuccessCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_CommentsStateSuccess implements _CommentsStateSuccess {
-  const _$_CommentsStateSuccess();
+class _$_CommentsStateSuccess extends _CommentsStateSuccess {
+  const _$_CommentsStateSuccess() : super._();
 
   @override
   String toString() {
@@ -4802,7 +4815,7 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
     @required TResult success(),
     @required TResult loading(),
     @required TResult loadingMore(LoadingState loadingState),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4817,7 +4830,7 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
     TResult success(),
     TResult loading(),
     TResult loadingMore(LoadingState loadingState),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4859,7 +4872,8 @@ class _$_CommentsStateSuccess implements _CommentsStateSuccess {
   }
 }
 
-abstract class _CommentsStateSuccess implements CommentsState {
+abstract class _CommentsStateSuccess extends CommentsState {
+  const _CommentsStateSuccess._() : super._();
   const factory _CommentsStateSuccess() = _$_CommentsStateSuccess;
 }
 
@@ -4883,8 +4897,8 @@ class __$CommentsStateLoadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_CommentsStateLoading implements _CommentsStateLoading {
-  const _$_CommentsStateLoading();
+class _$_CommentsStateLoading extends _CommentsStateLoading {
+  const _$_CommentsStateLoading() : super._();
 
   @override
   String toString() {
@@ -4905,7 +4919,7 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
     @required TResult success(),
     @required TResult loading(),
     @required TResult loadingMore(LoadingState loadingState),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -4920,7 +4934,7 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
     TResult success(),
     TResult loading(),
     TResult loadingMore(LoadingState loadingState),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -4962,7 +4976,8 @@ class _$_CommentsStateLoading implements _CommentsStateLoading {
   }
 }
 
-abstract class _CommentsStateLoading implements CommentsState {
+abstract class _CommentsStateLoading extends CommentsState {
+  const _CommentsStateLoading._() : super._();
   const factory _CommentsStateLoading() = _$_CommentsStateLoading;
 }
 
@@ -5011,9 +5026,10 @@ class _$CommentsStateLoadingMoreCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$CommentsStateLoadingMore implements CommentsStateLoadingMore {
+class _$CommentsStateLoadingMore extends CommentsStateLoadingMore {
   const _$CommentsStateLoadingMore(this.loadingState)
-      : assert(loadingState != null);
+      : assert(loadingState != null),
+        super._();
 
   @override
   final LoadingState loadingState;
@@ -5048,7 +5064,7 @@ class _$CommentsStateLoadingMore implements CommentsStateLoadingMore {
     @required TResult success(),
     @required TResult loading(),
     @required TResult loadingMore(LoadingState loadingState),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(success != null);
     assert(loading != null);
@@ -5063,7 +5079,7 @@ class _$CommentsStateLoadingMore implements CommentsStateLoadingMore {
     TResult success(),
     TResult loading(),
     TResult loadingMore(LoadingState loadingState),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5105,7 +5121,8 @@ class _$CommentsStateLoadingMore implements CommentsStateLoadingMore {
   }
 }
 
-abstract class CommentsStateLoadingMore implements CommentsState {
+abstract class CommentsStateLoadingMore extends CommentsState {
+  const CommentsStateLoadingMore._() : super._();
   const factory CommentsStateLoadingMore(LoadingState loadingState) =
       _$CommentsStateLoadingMore;
 
@@ -5119,6 +5136,9 @@ abstract class _$CommentsStateErrCopyWith<$Res> {
   factory _$CommentsStateErrCopyWith(
           _CommentsStateErr value, $Res Function(_CommentsStateErr) then) =
       __$CommentsStateErrCopyWithImpl<$Res>;
+  $Res call({ErrorMsgCommon errMsg});
+
+  $ErrorMsgCommonCopyWith<$Res> get errMsg;
 }
 
 /// @nodoc
@@ -5131,24 +5151,57 @@ class __$CommentsStateErrCopyWithImpl<$Res>
 
   @override
   _CommentsStateErr get _value => super._value as _CommentsStateErr;
+
+  @override
+  $Res call({
+    Object errMsg = freezed,
+  }) {
+    return _then(_CommentsStateErr(
+      errMsg == freezed ? _value.errMsg : errMsg as ErrorMsgCommon,
+    ));
+  }
+
+  @override
+  $ErrorMsgCommonCopyWith<$Res> get errMsg {
+    if (_value.errMsg == null) {
+      return null;
+    }
+    return $ErrorMsgCommonCopyWith<$Res>(_value.errMsg, (value) {
+      return _then(_value.copyWith(errMsg: value));
+    });
+  }
 }
 
 /// @nodoc
-class _$_CommentsStateErr implements _CommentsStateErr {
-  const _$_CommentsStateErr();
+class _$_CommentsStateErr extends _CommentsStateErr {
+  const _$_CommentsStateErr(this.errMsg)
+      : assert(errMsg != null),
+        super._();
+
+  @override
+  final ErrorMsgCommon errMsg;
 
   @override
   String toString() {
-    return 'CommentsState.error()';
+    return 'CommentsState.error(errMsg: $errMsg)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _CommentsStateErr);
+    return identical(this, other) ||
+        (other is _CommentsStateErr &&
+            (identical(other.errMsg, errMsg) ||
+                const DeepCollectionEquality().equals(other.errMsg, errMsg)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(errMsg);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CommentsStateErrCopyWith<_CommentsStateErr> get copyWith =>
+      __$CommentsStateErrCopyWithImpl<_CommentsStateErr>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5156,13 +5209,13 @@ class _$_CommentsStateErr implements _CommentsStateErr {
     @required TResult success(),
     @required TResult loading(),
     @required TResult loadingMore(LoadingState loadingState),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon errMsg),
   }) {
     assert(success != null);
     assert(loading != null);
     assert(loadingMore != null);
     assert(error != null);
-    return error();
+    return error(errMsg);
   }
 
   @override
@@ -5171,12 +5224,12 @@ class _$_CommentsStateErr implements _CommentsStateErr {
     TResult success(),
     TResult loading(),
     TResult loadingMore(LoadingState loadingState),
-    TResult error(),
+    TResult error(ErrorMsgCommon errMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error();
+      return error(errMsg);
     }
     return orElse();
   }
@@ -5213,8 +5266,13 @@ class _$_CommentsStateErr implements _CommentsStateErr {
   }
 }
 
-abstract class _CommentsStateErr implements CommentsState {
-  const factory _CommentsStateErr() = _$_CommentsStateErr;
+abstract class _CommentsStateErr extends CommentsState {
+  const _CommentsStateErr._() : super._();
+  const factory _CommentsStateErr(ErrorMsgCommon errMsg) = _$_CommentsStateErr;
+
+  ErrorMsgCommon get errMsg;
+  @JsonKey(ignore: true)
+  _$CommentsStateErrCopyWith<_CommentsStateErr> get copyWith;
 }
 
 /// @nodoc

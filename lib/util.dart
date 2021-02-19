@@ -100,6 +100,18 @@ class Util {
   static void require(bool check, [String message]) {
     if (!check) throw ArgumentError(message);
   }
+
+  Future<void> asyncGuard<T>(Future<T> Function() predicate, Future<T> Function(dynamic e) onError) async {
+    T result;
+
+    try {
+      result = await predicate();
+    } catch (e) {
+      onError(e);
+    }
+
+    return result;
+  }
 }
 
 mixin Disposable {

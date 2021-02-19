@@ -15,6 +15,7 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/util/single_timer.dart';
@@ -77,35 +78,32 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(
       prgDataResult: const DetailModelState.loading(),
     );
-
-    bool authExpired = false;
-
-    try {
+    final result = await Result.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
-      final data = await Util.wait2<ProgramDetailData, ChannelData>(
+      return Util.wait2<ProgramDetailData, ChannelData>(
               () async => graphQlRepository.queryProgramDetail(id),
               () async => graphQlRepository.queryChannelData(channelId))
-          .timeout(GraphQlRepository.TIMEOUT);
-
-      state = state.copyWith(
-        prgDataResult: DetailModelState.success(
-          programDetailData: data.item1,
-          channelData: data.item2,
-          page: const PageSheetModel.hidden(),
-        ),
-      );
-    } catch (e) {
-      print(e);
-      if (mounted)
-        state = state.copyAsPrgDataResultErr(toErrMsg(e));
-      authExpired = e is UnauthorizedException;
-    }
-
-    if (!mounted) return;
-    if (authExpired)
-      pushAuthExpireScreen();
-    else if (state.prgDataResult is DetailStateSuccess)
-      await _initComments(Duration.zero);
+          .timeout(
+              GraphQlRepository.TIMEOUT); //todo set timeout on graphQl side?
+    });
+    result.when(
+      success: (data) async {
+        if (mounted)
+          state = state.copyWith(
+            prgDataResult: DetailModelState.success(
+              programDetailData: data.item1,
+              channelData: data.item2,
+              page: const PageSheetModel.hidden(),
+            ),
+          );
+        return _initComments(Duration.zero);
+      },
+      failure: (e) {
+        print(e);
+        if (mounted) state = state.copyAsPrgDataResultErr(toErrMsg(e));
+        if (e is UnauthorizedException) pushAuthExpireScreen();
+      },
+    );
   }
 
   Future<void> playVideo(bool preview) async {
@@ -145,89 +143,96 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     String url;
     try {
-      url = await graphQlRepository.queryHandOutUrl(id, handoutId);
+      await connectivityRepository.ensureNotDisconnect();
+      url = await graphQlRepository
+          .queryHandOutUrl(id, handoutId)
+          .timeout(GraphQlRepository.TIMEOUT);
     } catch (e) {
       print(e);
+      commandSnackBar(toNetworkSnack(e));
     }
 
     if (!mounted) return null;
 
-    if (url == null)
-      commandSnackBar(const SnackMsg.unknown());
-    else
-      state = state.copyWith(isHandoutUrlRequesting: false);
-
+    state = state.copyWith(
+      isHandoutUrlRequesting: false,
+    );
     return url;
   }
 
   Future<void> _initComments(Duration currentPos) async {
-    if (mounted) await loadMorePreComment(currentPos, true);
-    if (mounted) await loadMorePostComment(currentPos, true);
+    if (mounted) await loadMorePastComment(currentPos, true);
+    if (mounted) await loadMoreFutureComment(currentPos, true);
     if (mounted)
       state = state.copyWith.commentHolder(
         isRenewing: false,
       );
   }
 
-  ///todo rename
-  Future<void> loadMorePostComment(Duration currentPos, bool forceRun) async =>
+  Future<void> loadMoreFutureComment(
+          Duration currentPos, bool runAsRenewing) async =>
       _loadMoreComment(
         beginTime: currentPos,
         endTime: 1.days,
         sortDirection: SortDirection.ASC,
         loadingState: const LoadingState.feature(),
-        forceRun: forceRun,
+        runAsRenewing: runAsRenewing,
       );
 
-  ///todo rename
-  Future<void> loadMorePreComment(Duration currentPos, bool forceRun) async =>
+  Future<void> loadMorePastComment(
+          Duration currentPos, bool runAsRenewing) async =>
       _loadMoreComment(
         beginTime: Duration.zero,
         endTime: currentPos,
         sortDirection: SortDirection.DESC,
         loadingState: const LoadingState.past(),
-        forceRun: forceRun,
+        runAsRenewing: runAsRenewing,
       );
 
-  /// todo synchronous??
+  /// synchronous operation by [_shouldLoadMoreComment] checks [CommentsState.isSuccessOrLoading]
+  /// [forceRun] : if true, force to request comments although [CommentsHolder.isRenewing] is true
+  /// note; must check is mounted before call this method.
   Future<void> _loadMoreComment({
     @required Duration beginTime,
     @required Duration endTime,
     @required SortDirection sortDirection,
     @required LoadingState loadingState,
-    @required bool forceRun,
+    @required bool runAsRenewing,
   }) async {
     final shouldRun = _shouldLoadMoreComment(
       beginTime: beginTime,
       endTime: endTime,
-      forceRun: forceRun,
+      runAsRenewing: runAsRenewing,
     );
     if (!shouldRun) return;
 
-    state = state.copyWith
-        .commentHolder(state: CommentsState.loadingMore(loadingState));
+    state = state.copyWith.commentHolder(
+      state: CommentsState.loadingMore(loadingState),
+    );
 
     final pageNationKey = state.commentHolder.pageNationKey;
 
-    try {
-      final object = await graphQlRepository.queryComment(
-        programId: id,
-        beginTime: beginTime,
-        endTime: endTime,
-        sortDirection: sortDirection,
-      );
-      if (mounted && pageNationKey == state.commentHolder.pageNationKey)
-        state = state.copyWith(
+    final result = await Result.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return graphQlRepository
+          .queryComment(
+            programId: id,
+            beginTime: beginTime,
+            endTime: endTime,
+            sortDirection: sortDirection,
+          )
+          .timeout(GraphQlRepository.TIMEOUT);
+    });
+    if (mounted && pageNationKey == state.commentHolder.pageNationKey)
+      result.when(
+        success: (object) => state = state.copyWith(
           commentHolder: state.commentHolder
               .copyAsAddSingleCommentHolder(object, loadingState),
-        );
-    } catch (e) {
-      print(e);
-      if (mounted && pageNationKey == state.commentHolder.pageNationKey)
-        state = state.copyWith.commentHolder(
-          state: const CommentsState.error(),
-        );
-    }
+        ),
+        failure: (e) => state = state.copyWith.commentHolder(
+          state: CommentsState.error(toErrMsg(e)),
+        ),
+      );
   }
 
   void notifyFollowTimeLineMode(FollowTimeLineMode followTimeLineMode) =>
@@ -238,19 +243,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   bool _shouldLoadMoreComment({
     @required Duration beginTime,
     @required Duration endTime,
-    @required bool forceRun,
-  }) {
-    if (beginTime == endTime) return false;
-
-    if (!forceRun && state.commentHolder.isRenewing) return false;
-
-    final commentState = state.commentHolder.state;
-
-    if ((commentState is CommentsStateLoadingMore) ||
-        commentState == const CommentsState.error()) return false;
-
-    return true;
-  }
+    @required bool runAsRenewing,
+  }) =>
+      beginTime != endTime &&
+      (runAsRenewing || !state.commentHolder.isRenewing) &&
+      state.commentHolder.state.isSuccessOrLoading;
 
   Future<void> renewAllComment(Duration currentPos) async {
     if (state.commentHolder.isRenewing) return;

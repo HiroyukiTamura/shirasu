@@ -220,13 +220,15 @@ abstract class VideoPlayerState with _$VideoPlayerState {
 abstract class CommentsHolder implements _$CommentsHolder {
   @protected
   const factory CommentsHolder({
-    @Deprecated('use [commentsSorted]') @required List<CommentItem> comments,
+    /// use [_commentSorted]
+    @Deprecated('use [_commentSorted]') @required List<CommentItem> comments,
     @required String pageNationKey,
     @required bool loadedMostPastComment,
     @required bool isRenewing,
     @required bool loadedMostFutureComment,
     @required CommentsState state,
     @required FollowTimeLineMode followTimeLineMode,
+    /// use [userPostedComment]
     @Deprecated('use [userPostedComment]')
     @required
         List<CommentItem> rawUserPostedComment,
@@ -338,7 +340,13 @@ abstract class CommentsState with _$CommentsState {
   const factory CommentsState.loadingMore(LoadingState loadingState) =
       CommentsStateLoadingMore;
 
-  const factory CommentsState.error() = _CommentsStateErr;
+  const factory CommentsState.error(ErrorMsgCommon errMsg) = _CommentsStateErr;
+
+  const CommentsState._();
+
+  bool get isSuccessOrLoading =>
+      this == const CommentsState.success() ||
+      this == const CommentsState.loading();
 }
 
 @freezed

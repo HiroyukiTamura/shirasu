@@ -20,7 +20,7 @@ abstract class ListCommentsByProgram with _$ListCommentsByProgram {
 abstract class Comments with _$Comments implements BaseModelCommentConnection {
   @Assert('typename == "ModelCommentConnection"')
   const factory Comments({
-    @protected @required List<CommentItem> items,
+    @visibleForTesting List<CommentItem> items,
     String nextToken,
     @required
     @JsonKey(name: '__typename')

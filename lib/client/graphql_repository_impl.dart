@@ -231,10 +231,12 @@ class GraphQlRepositoryImpl with GraphQlRepository {
     @required Duration endTime,
     @required SortDirection sortDirection,
   }) async {
+    final beginTimeFixed = beginTime.isNegative ? Duration.zero : beginTime;
+    final endTimeFixed = beginTime.isNegative ? Duration.zero : endTime;
     Map<String, String> variables = {
       'programId': programId,
-      'beginTime': beginTime.inMilliseconds.toString(),
-      'endTime': endTime.inMilliseconds.toString(),
+      'beginTime': beginTimeFixed.inMilliseconds.toString(),
+      'endTime': endTimeFixed.inMilliseconds.toString(),
       'sortDirection': sortDirection.value,
     };
     if (nextToken != null) variables['nextToken'] = nextToken;

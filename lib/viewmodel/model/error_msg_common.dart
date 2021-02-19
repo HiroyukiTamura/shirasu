@@ -27,4 +27,10 @@ abstract class ErrorMsgCommon with _$ErrorMsgCommon, NotificationMsg {
         unknown: () => Strings.SNACK_ERR,
         unAuth: () => Strings.ERR_UN_AUTH,
       );
+
+  String get networkValue => maybeWhen(
+    networkDisconnected: () => Strings.ERR_NETWORK_DISCONNECTED,
+    networkTimeout: () => Strings.ERR_NETWORK_TIMEOUT,
+    orElse: () => Strings.SNACK_ERR,
+  );
 }

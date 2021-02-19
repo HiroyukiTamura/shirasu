@@ -10,6 +10,7 @@ import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 import '../../mock_viewmodel/viewmodel_detail_mockable.dart';
@@ -54,7 +55,7 @@ class _TestRunner extends TestRunnerBase {
                 .overrideWithProvider(ViewModelDetailMockable.createProvider(
                     ModelDetail.initial(true).copyWith(
                         commentHolder: CommentsHolder.initial(true).copyWith(
-                      state: const CommentsState.error(),
+                      state: const CommentsState.error(ErrorMsgCommon.unknown()),
                     )),
                     dummyData.program.id)),
           ],

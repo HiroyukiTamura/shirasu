@@ -115,7 +115,7 @@ class CommentListView extends HookWidget {
           _LOAD_MORE_OFFSET) {
         final mostPastCommentTime = state.commentHolder.mostPastCommentTime;
         if (mostPastCommentTime != null)
-          viewModel.loadMorePreComment(
+          viewModel.loadMorePastComment(
               mostPastCommentTime - 1.milliseconds, false);
       }
     }

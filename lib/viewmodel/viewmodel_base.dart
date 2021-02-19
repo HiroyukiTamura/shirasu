@@ -15,6 +15,7 @@ import 'package:shirasu/util/exceptions.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import '../main.dart';
+import 'message_notifier.dart';
 import 'model/error_msg_common.dart';
 
 abstract class ViewModelBase<T> extends StateNotifier<T>
@@ -105,5 +106,14 @@ mixin AppRouterLocator {
       return const ErrorMsgCommon.networkDisconnected();
     else
       return const ErrorMsgCommon.unknown();
+  }
+
+  SnackMsg toNetworkSnack(dynamic e) {
+    if (e is TimeoutException)
+      return const SnackMsg.networkTimeout();
+    else if (e is NetworkDisconnectException)
+      return const SnackMsg.networkDisconnected();
+    else
+      return const SnackMsg.unknown();
   }
 }

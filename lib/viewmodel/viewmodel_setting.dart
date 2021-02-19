@@ -38,25 +38,10 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
           .queryViewer()
           .timeout(GraphQlRepository.TIMEOUT);
       newState = SettingModelState.success(viewer);
-    } on UnauthorizedException catch (e) {
-      print(e);
-      authExpired = true;
-
-      final errorMsg = e.detectedByTime
-          ? const ErrorMsgCommon.authExpired()
-          : const ErrorMsgCommon.unAuth();
-      newState = SettingModelState.error(errorMsg);
-    } on TimeoutException catch (e) {
-      //todo log error
-      print(e);
-      newState = const SettingModelState.error(ErrorMsgCommon.networkTimeout());
-    } on NetworkDisconnectException catch (e) {
-      print(e);
-      newState =
-          const SettingModelState.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
-      newState = const SettingModelState.error(ErrorMsgCommon.unknown());
+      newState = SettingModelState.error(toErrMsg(e));
+      authExpired = e is UnauthorizedException;
     }
 
     if (!mounted) return;

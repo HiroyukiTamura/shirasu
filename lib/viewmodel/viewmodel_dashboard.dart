@@ -47,25 +47,10 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
         rawNewProgramsDataList: [apiResult.item2],
       );
       newState = DashboardModel.successInitialization(data);
-    } on UnauthorizedException catch (e) {
-      print(e);
-      authExpired = true;
-
-      final errorMsg = e.detectedByTime
-          ? const ErrorMsgCommon.authExpired()
-          : const ErrorMsgCommon.unAuth();
-      newState = DashboardModel.error(errorMsg);
-    } on TimeoutException catch (e) {
-      //todo log error
-      print(e);
-      newState = const DashboardModel.error(ErrorMsgCommon.networkTimeout());
-    } on NetworkDisconnectException catch (e) {
-      print(e);
-      newState =
-          const DashboardModel.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
-      newState = const DashboardModel.error(ErrorMsgCommon.unknown());
+      newState = DashboardModel.error(toErrMsg(e));
+      authExpired = e is UnauthorizedException;
     }
 
     if (!isMounted) return;

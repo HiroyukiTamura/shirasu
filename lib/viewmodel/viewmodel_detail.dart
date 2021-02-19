@@ -94,33 +94,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           page: const PageSheetModel.hidden(),
         ),
       );
-    } on UnauthorizedException catch (e) {
-      print(e);
-      authExpired = true;
-
-      final errorMsg = e.detectedByTime
-          ? const ErrorMsgCommon.authExpired()
-          : const ErrorMsgCommon.unAuth();
-      if (mounted) state = state.copyAsPrgDataResultErr(errorMsg);
-    } on TimeoutException catch (e) {
-      //todo log error
-      print(e);
-      if (mounted)
-        state = state.copyAsPrgDataResultErr(
-          const ErrorMsgCommon.networkTimeout(),
-        );
-    } on NetworkDisconnectException catch (e) {
-      print(e);
-      if (mounted)
-        state = state.copyAsPrgDataResultErr(
-          const ErrorMsgCommon.networkDisconnected(),
-        );
     } catch (e) {
       print(e);
       if (mounted)
-        state = state.copyAsPrgDataResultErr(
-          const ErrorMsgCommon.unknown(),
-        );
+        state = state.copyAsPrgDataResultErr(toErrMsg(e));
+      authExpired = e is UnauthorizedException;
     }
 
     if (!mounted) return;

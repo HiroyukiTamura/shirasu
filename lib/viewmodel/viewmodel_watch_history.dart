@@ -41,25 +41,10 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
               isLoadingMore: true,
               watchHistories: [data].toUnmodifiable(),
             ));
-    } on UnauthorizedException catch (e) {
-      print(e);
-      authExpired = true;
-
-      final errorMsg = e.detectedByTime
-          ? const ErrorMsgCommon.authExpired()
-          : const ErrorMsgCommon.unAuth();
-      newState = WatchHistoryState.error(errorMsg);
-    } on TimeoutException catch (e) {
-      //todo log error
-      print(e);
-      newState = const WatchHistoryState.error(ErrorMsgCommon.networkTimeout());
-    } on NetworkDisconnectException catch (e) {
-      print(e);
-      newState =
-          const WatchHistoryState.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
-      newState = const WatchHistoryState.error(ErrorMsgCommon.unknown());
+      newState = WatchHistoryState.error(toErrMsg(e));
+      authExpired = e is UnauthorizedException;
     }
 
     if (!mounted) return;

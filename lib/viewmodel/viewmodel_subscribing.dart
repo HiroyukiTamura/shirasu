@@ -32,26 +32,10 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
       newState = data.viewerUser.subscribedPrograms.isEmpty
           ? const FeatureProgramState.resultEmpty()
           : FeatureProgramState.success(data);
-    } on UnauthorizedException catch (e) {
-      print(e);
-      authExpired = true;
-
-      final errorMsg = e.detectedByTime
-          ? const ErrorMsgCommon.authExpired()
-          : const ErrorMsgCommon.unAuth();
-      newState = FeatureProgramState.error(errorMsg);
-    } on TimeoutException catch (e) {
-      //todo log error
-      print(e);
-      newState =
-          const FeatureProgramState.error(ErrorMsgCommon.networkTimeout());
-    } on NetworkDisconnectException catch (e) {
-      print(e);
-      newState =
-          const FeatureProgramState.error(ErrorMsgCommon.networkDisconnected());
     } catch (e) {
       print(e);
-      newState = const FeatureProgramState.error(ErrorMsgCommon.unknown());
+      newState = FeatureProgramState.error(toErrMsg(e));
+      authExpired = e is UnauthorizedException;
     }
 
     if (!mounted)

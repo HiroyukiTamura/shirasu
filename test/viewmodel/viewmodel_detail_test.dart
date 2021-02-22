@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/connectivity_repository_impl.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
+import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/main.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
@@ -12,10 +15,12 @@ import 'package:dartx/dartx.dart';
 
 import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
+import '../mock_repository/dio_timeout.dart';
 import '../mock_repository/graphql_common.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
 import '../mock_repository/graphql_unauthorized.dart';
+import '../mock_repository/hive_auth_empty.dart';
 import '../mock_viewmodel/viewmodel_detail_mockable.dart';
 import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
@@ -380,6 +385,61 @@ Future<void> main() async {
           },
         );
       },
+    );
+  });
+
+  group('ViewModelDetail.playVideo', () {
+    test(
+      'networkErr',
+      () => testTemplate(
+        override: [
+          kOverrideDisconnected,
+          overrideGraphQlCommon,
+          overrideViewModel,
+        ],
+        expectedState: specState
+            .copyAsInitialize(
+                'https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/free/index.m3u8',
+                const VideoType.archived())
+            .copyWith
+            .playOutState(
+              commandedState: const PlayerCommandedState.error(
+                  ErrorMsgCommon.networkDisconnected()),
+            ),
+        expectedSnack: null,
+        predicate: (viewModel) async {
+          await viewModel.playVideo(true);
+          await Future.delayed(1.seconds);
+        },
+      ),
+    );
+    test(
+      'networkTimeoutErr',
+      () => testTemplate(
+        override: [
+          kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
+            specAuthData: testBase.hiveAuthData,
+          )),
+          kOverrideConnectedRepositoryConnectedImpl,
+          kOverrideDioTimeout,
+          overrideGraphQlCommon,
+          overrideViewModel,
+        ],
+        expectedState: specState
+            .copyAsInitialize(
+                'https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/free/index.m3u8',
+                const VideoType.archived())
+            .copyWith
+            .playOutState(
+              commandedState: const PlayerCommandedState.error(
+                  ErrorMsgCommon.networkTimeout()),
+            ),
+        expectedSnack: null,
+        predicate: (viewModel) async {
+          await viewModel.playVideo(true);
+          await Future.delayed(1.seconds);
+        },
+      ),
     );
   });
 }

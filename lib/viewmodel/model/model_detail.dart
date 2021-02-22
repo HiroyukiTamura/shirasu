@@ -396,7 +396,7 @@ abstract class LoadingState with _$LoadingState {
 }
 
 class VideoViewModelConf {
-  VideoViewModelConf(this.id, this.fullScreen);
+  const VideoViewModelConf(this.id, this.fullScreen);
 
   final String id;
   final bool fullScreen;

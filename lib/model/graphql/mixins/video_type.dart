@@ -7,7 +7,7 @@ mixin VideoTypeMixin {
   String get videoType;
 
   // ignore: deprecated_member_use_from_same_package
-  VideoType get videoTypeStrict => VideoType.parse(videoType);
+  VideoType get videoTypeStrict => VideoType._parse(videoType);
 }
 
 @freezed
@@ -16,7 +16,7 @@ abstract class VideoType with _$VideoType {
 
   const factory VideoType.live() = _VideoTypeLive;
 
-  factory VideoType.parse(String videoType) {
+  factory VideoType._parse(String videoType) {
     if (videoType == null) return null;
 
     switch (videoType) {

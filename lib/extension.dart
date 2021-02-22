@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:better_player/better_player.dart';
+import 'package:dio/dio.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -40,7 +41,6 @@ extension IntX on int {
 }
 
 extension BuildContextX on BuildContext {
-
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(kPrvAppRouterDelegate).pushPage(path);
 
@@ -68,7 +68,6 @@ extension BuildContextX on BuildContext {
         await SystemChrome.setEnabledSystemUIOverlays([]);
       else
         await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-
     } catch (e) {
       print(e);
     } finally {
@@ -91,5 +90,18 @@ extension SwipeDataX on SwipeData {
   Duration get diffDuration {
     final sec = (currentDx - startDx) * _FACTOR_DX2SEC;
     return Duration(seconds: sec.toInt());
+  }
+}
+
+extension DioErrorX on DioError {
+  bool get isTimeoutErr {
+    switch (type) {
+      case DioErrorType.CONNECT_TIMEOUT:
+      case DioErrorType.RECEIVE_TIMEOUT:
+      case DioErrorType.SEND_TIMEOUT:
+        return true;
+      default:
+        return false;
+    }
   }
 }

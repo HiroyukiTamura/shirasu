@@ -213,7 +213,6 @@ abstract class Handout with _$Handout implements BaseHandout {
       _$HandoutFromJson(json);
 }
 
-/// use [videoTypeStrict] instead of [videoType]
 @freezed
 abstract class DetailPrgItem
     with _$DetailPrgItem, VideoTypeMixin, MediaStatusMixin
@@ -221,7 +220,7 @@ abstract class DetailPrgItem
   @Assert('typename == "Video"')
   const factory DetailPrgItem({
     @required String id,
-    @visibleForOverriding @required String videoType,
+    @Deprecated('use [videoTypeStrict]') @required String videoType,
     String mediaStatus,
     String liveUrl,
     String archiveUrl,
@@ -246,8 +245,8 @@ abstract class DetailPrgItem
   }
 
   String get urlAvailable => videoTypeStrict.when(
-        archived: () => liveUrl,
-        live: () => archiveUrl,
+        archived: () => archiveUrl,
+        live: () => liveUrl,
       );
 }
 

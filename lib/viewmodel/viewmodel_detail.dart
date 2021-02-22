@@ -27,6 +27,7 @@ import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:shirasu/extension.dart';
 
 import 'model/model_detail.dart';
 
@@ -97,6 +98,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }
 
   Future<void> playVideo(bool preview) async {
+    if (state.playOutState.commandedState !=
+        const PlayerCommandedState.prePlay()) return;
+
     final prg = preview ? _previewArchivedVideoData : _availableVideoData;
     if (prg == null) {
       state = state.copyWith.playOutState(
@@ -121,18 +125,12 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         success: (cookie) =>
             state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie),
         failure: (e) {
+          debugPrint(e.toString());
           ErrorMsgCommon msg = const ErrorMsgCommon.unknown();
-          if (e is NetworkDisconnectException) {
+          if (e is NetworkDisconnectException)
             msg = const ErrorMsgCommon.networkDisconnected();
-          } else if (e is DioError) {
-            // ignore: missing_enum_constant_in_switch
-            switch (e.type) {
-              case DioErrorType.CONNECT_TIMEOUT:
-              case DioErrorType.RECEIVE_TIMEOUT:
-              case DioErrorType.SEND_TIMEOUT:
-                msg = const ErrorMsgCommon.networkTimeout();
-            }
-          }
+          else if (e is DioError && e.isTimeoutErr)
+            msg = const ErrorMsgCommon.networkTimeout();
           return state.copyWith.playOutState(
             commandedState: PlayerCommandedState.error(msg),
           );

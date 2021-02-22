@@ -210,6 +210,7 @@ class Strings {
   static const String ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
   static const String ITEM_TITLE_IMAGE_LICENCE = '画像ライセンス';
   static const String ITEM_TITLE_GITHUB = 'GitHub';
+  static const String ITEM_TITLE_LOGOUT = 'ログアウト';
 
 //endregion
 

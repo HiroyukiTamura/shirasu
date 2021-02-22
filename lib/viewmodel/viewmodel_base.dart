@@ -27,6 +27,7 @@ abstract class ViewModelBase<T> extends StateNotifier<T>
 
   final Reader _reader;
 
+  @protected
   @override
   T Function<T>(RootProvider<Object, T> provider) get reader => _reader;
 

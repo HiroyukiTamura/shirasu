@@ -1,15 +1,15 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
-import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/model/result.dart' as r;
 import 'package:shirasu/model/update_user_with_attr_variable.dart'
     show UpdateUserWithAttrVariable;
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
@@ -17,7 +17,6 @@ import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'message_notifier.dart';
-import 'model/error_msg_common.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
@@ -25,6 +24,8 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
   SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
 
   HiveBody get _hiveAuthBody => hiveAuthRepository?.authData?.body;
+
+  bool _isInLogout = false;
 
   @override
   Future<void> initialize() async {
@@ -120,6 +121,23 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
           editedUserInfo: EditedUserInfo.empty(),
         );
     });
+  }
+
+  Future<void> clearHiveAuth() async {
+    if (_isInLogout) return;
+
+    _isInLogout = true;
+
+    await hiveAuthRepository.clearAuthData();
+    final result = await r.Result.guardFuture(() async {
+      await FlutterWebviewPlugin().cleanCookies();
+      await FlutterWebviewPlugin().clearCache();
+    });
+    result.ifFailure((e) {
+      //todo log error
+    });
+
+    _isInLogout = false;
   }
 }
 

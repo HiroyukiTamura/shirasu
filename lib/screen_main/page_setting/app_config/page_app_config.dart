@@ -10,6 +10,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
@@ -38,6 +39,12 @@ Widget pageAppConfig(BuildContext context) => ListView(
             title: Strings.ITEM_TITLE_MOVIE_QUALITY_MOBILE,
             onTap: () {},
           ),
+        ),
+        _ListItem(
+          icon: Icons.logout,
+          title: Strings.ITEM_TITLE_LOGOUT,
+          onTap: () async =>
+              context.read(kPrvViewModelSetting).clearHiveAuth(),
         ),
         _ListItem(
           icon: Icons.image,

@@ -341,18 +341,17 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   }) {
     assert(!currentPos.isNegative);
 
-    if (fullScreen != state.playOutState.fullScreen) return;
-
-    state = applyCurrentPosUi
-        ? state.copyWith.playOutState(
-            currentPos: currentPos,
-            currentPosForUi: currentPos,
-            fullScreen: fullScreen,
-          )
-        : state.copyWith.playOutState(
-            currentPos: currentPos,
-            fullScreen: fullScreen,
-          );
+    if (fullScreen == state.playOutState.fullScreen)
+      state = applyCurrentPosUi
+          ? state.copyWith.playOutState(
+              currentPos: currentPos,
+              currentPosForUi: currentPos,
+              fullScreen: fullScreen,
+            )
+          : state.copyWith.playOutState(
+              currentPos: currentPos,
+              fullScreen: fullScreen,
+            );
   }
 
   void setVideoDurations({
@@ -365,20 +364,19 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     assert(!totalDuration.isNegative);
     assert(currentPos < totalDuration);
 
-    if (fullScreen != state.playOutState.fullScreen) return;
-
-    state = applyCurrentPosUi
-        ? state.copyWith.playOutState(
-            currentPos: currentPos,
-            currentPosForUi: currentPos,
-            totalDuration: totalDuration,
-            fullScreen: fullScreen,
-          )
-        : state.copyWith.playOutState(
-            currentPos: currentPos,
-            totalDuration: totalDuration,
-            fullScreen: fullScreen,
-          );
+    if (fullScreen == state.playOutState.fullScreen)
+      state = applyCurrentPosUi
+          ? state.copyWith.playOutState(
+              currentPos: currentPos,
+              currentPosForUi: currentPos,
+              totalDuration: totalDuration,
+              fullScreen: fullScreen,
+            )
+          : state.copyWith.playOutState(
+              currentPos: currentPos,
+              totalDuration: totalDuration,
+              fullScreen: fullScreen,
+            );
   }
 
   void setVideoIsPlaying({
@@ -479,13 +477,12 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         renewHideTimer: true,
       );
 
-  void updateIsisBuffering({
+  void updateIsBuffering({
     @required bool fullScreen,
     @required bool isBuffering,
   }) {
-    if (fullScreen != state.playOutState.fullScreen) return;
-
-    state = state.copyWith.playOutState(isBuffering: isBuffering);
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(isBuffering: isBuffering);
   }
 
   void commandModal(BtmSheetState btmSheetState) =>
@@ -495,45 +492,34 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       state = state.copyWith(btmSheetState: const BtmSheetState.none());
 
   void commandSnackBar(SnackMsg snackMsg) {
-    final prgDataResult = state.prgDataResult;
-    final isCommentAppBarShown = prgDataResult is DetailStateSuccess &&
-        prgDataResult.page == const PageSheetModel.comment() &&
-        state.commentHolder.followTimeLineMode ==
-            const FollowTimeLineMode.follow();
+    final isCommentAppBarShown = state.prgDataResult.maybeWhen(
+      orElse: () => false,
+      success: (_, __, page) =>
+          page == const PageSheetModel.comment() &&
+          state.commentHolder.followTimeLineMode ==
+              const FollowTimeLineMode.follow(),
+    );
     _snackBarMsgNotifier.notifyMsg(snackMsg, isCommentAppBarShown);
   }
 
   /// provide old values as param; [position], [cookie]
   Future<void> startPlayBackground(int position, String cookie) async {
-    if (!mounted) return;
-
-    final prgDataResult = state.prgDataResult;
-    if (prgDataResult is DetailStateSuccess) {
-      final playOutState = state.playOutState;
-      try {
-        await NativeClient.startPlayBackGround(
-          url: playOutState.hlsMediaUrl,
-          isLiveStream: playOutState.videoType == const VideoType.live(),
-          position: position,
-          iconUrl: UrlUtil.getThumbnailUrl(id),
-          cookie: cookie,
-          title: prgDataResult.programDetailData.program.title,
-          subtitle: prgDataResult.channelData.channel.name,
-        );
-      } catch (e) {
-        print(e);
-        //todo handle error
-      }
-    }
+    if (mounted)
+      state.prgDataResult.whenSuccess((prgDetailData, channelData, page) async {
+        final result = await Result.guardFuture(
+            () async => NativeClient.startPlayBackGround(
+                  url: state.playOutState.hlsMediaUrl,
+                  isLiveStream:
+                      state.playOutState.videoType == const VideoType.live(),
+                  position: position,
+                  iconUrl: UrlUtil.getThumbnailUrl(id),
+                  cookie: cookie,
+                  title: prgDetailData.program.title,
+                  subtitle: channelData.channel.name,
+                ));
+        result.ifFailure((e) {
+          print(e);
+        });
+      });
   }
-
-// Future<ReplyData> stopBackGroundPlayer() async {
-//   try {
-//     return NativeClient.stopBackGround();
-//   } catch (e) {
-//     print(e);
-//     //todo handle error
-//     return null;
-//   }
-// }
 }

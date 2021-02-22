@@ -104,8 +104,8 @@ class __$StatePreInitializedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_StatePreInitialized implements _StatePreInitialized {
-  const _$_StatePreInitialized();
+class _$_StatePreInitialized extends _StatePreInitialized {
+  const _$_StatePreInitialized() : super._();
 
   @override
   String toString() {
@@ -177,7 +177,8 @@ class _$_StatePreInitialized implements _StatePreInitialized {
   }
 }
 
-abstract class _StatePreInitialized implements SettingModelState {
+abstract class _StatePreInitialized extends SettingModelState {
+  const _StatePreInitialized._() : super._();
   const factory _StatePreInitialized() = _$_StatePreInitialized;
 }
 
@@ -223,8 +224,10 @@ class __$StateSuccessCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_StateSuccess implements _StateSuccess {
-  const _$_StateSuccess(this.data) : assert(data != null);
+class _$_StateSuccess extends _StateSuccess {
+  const _$_StateSuccess(this.data)
+      : assert(data != null),
+        super._();
 
   @override
   final ViewerWrapper data;
@@ -308,7 +311,8 @@ class _$_StateSuccess implements _StateSuccess {
   }
 }
 
-abstract class _StateSuccess implements SettingModelState {
+abstract class _StateSuccess extends SettingModelState {
+  const _StateSuccess._() : super._();
   const factory _StateSuccess(ViewerWrapper data) = _$_StateSuccess;
 
   ViewerWrapper get data;
@@ -358,8 +362,10 @@ class __$StateErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_StateError implements _StateError {
-  const _$_StateError(this.errorMsg) : assert(errorMsg != null);
+class _$_StateError extends _StateError {
+  const _$_StateError(this.errorMsg)
+      : assert(errorMsg != null),
+        super._();
 
   @override
   final ErrorMsgCommon errorMsg;
@@ -444,7 +450,8 @@ class _$_StateError implements _StateError {
   }
 }
 
-abstract class _StateError implements SettingModelState {
+abstract class _StateError extends SettingModelState {
+  const _StateError._() : super._();
   const factory _StateError(ErrorMsgCommon errorMsg) = _$_StateError;
 
   ErrorMsgCommon get errorMsg;

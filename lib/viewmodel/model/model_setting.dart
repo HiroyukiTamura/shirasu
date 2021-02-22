@@ -11,6 +11,15 @@ abstract class SettingModelState with _$SettingModelState {
   const factory SettingModelState.success(ViewerWrapper data) = _StateSuccess;
 
   const factory SettingModelState.error(ErrorMsgCommon errorMsg) = _StateError;
+
+  const SettingModelState._();
+
+  void whenSuccess(void Function(ViewerWrapper data) predicate) {
+    maybeWhen(
+      orElse: () {},
+      success: (ViewerWrapper data) => predicate(data),
+    );
+  }
 }
 
 @freezed

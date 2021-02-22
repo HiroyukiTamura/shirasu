@@ -8,7 +8,6 @@ part 'model_channel.freezed.dart';
 
 @freezed
 abstract class ChannelModel implements _$ChannelModel {
-
   const ChannelModel._();
 
   const factory ChannelModel.preInitialized() = _PreInitialized;
@@ -20,7 +19,8 @@ abstract class ChannelModel implements _$ChannelModel {
   /// throws [TypeError]
   ChannelModel copyWithAdditionalPrograms(ChannelPrograms newOne) {
     final tResult = this as Success;
-    final channelPrograms = tResult.channelData.data.channel.programs.append(newOne);
+    final channelPrograms =
+        tResult.channelData.data.channel.programs.append(newOne);
     return ChannelModel.success(
       ChannelDataWrapper(
         data: ChannelData(
@@ -30,6 +30,13 @@ abstract class ChannelModel implements _$ChannelModel {
         ),
         loading: false,
       ),
+    );
+  }
+
+  void whenSuccess(void Function(ChannelDataWrapper channelData) predicate) {
+    maybeWhen(
+      orElse: () {},
+      success: (channelData) => predicate(channelData),
     );
   }
 }

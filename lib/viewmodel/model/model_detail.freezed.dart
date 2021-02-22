@@ -431,8 +431,8 @@ class __$DetailPreInitializedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_DetailPreInitialized implements _DetailPreInitialized {
-  const _$_DetailPreInitialized();
+class _$_DetailPreInitialized extends _DetailPreInitialized {
+  const _$_DetailPreInitialized() : super._();
 
   @override
   String toString() {
@@ -513,7 +513,8 @@ class _$_DetailPreInitialized implements _DetailPreInitialized {
   }
 }
 
-abstract class _DetailPreInitialized implements DetailModelState {
+abstract class _DetailPreInitialized extends DetailModelState {
+  const _DetailPreInitialized._() : super._();
   const factory _DetailPreInitialized() = _$_DetailPreInitialized;
 }
 
@@ -537,8 +538,8 @@ class __$DetailStateLoadingCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_DetailStateLoading implements _DetailStateLoading {
-  const _$_DetailStateLoading();
+class _$_DetailStateLoading extends _DetailStateLoading {
+  const _$_DetailStateLoading() : super._();
 
   @override
   String toString() {
@@ -619,7 +620,8 @@ class _$_DetailStateLoading implements _DetailStateLoading {
   }
 }
 
-abstract class _DetailStateLoading implements DetailModelState {
+abstract class _DetailStateLoading extends DetailModelState {
+  const _DetailStateLoading._() : super._();
   const factory _DetailStateLoading() = _$_DetailStateLoading;
 }
 
@@ -698,14 +700,15 @@ class _$DetailStateSuccessCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$DetailStateSuccess implements DetailStateSuccess {
+class _$DetailStateSuccess extends DetailStateSuccess {
   const _$DetailStateSuccess(
       {@required this.programDetailData,
       @required this.channelData,
       @required this.page})
       : assert(programDetailData != null),
         assert(channelData != null),
-        assert(page != null);
+        assert(page != null),
+        super._();
 
   @override
   final ProgramDetailData programDetailData;
@@ -811,7 +814,8 @@ class _$DetailStateSuccess implements DetailStateSuccess {
   }
 }
 
-abstract class DetailStateSuccess implements DetailModelState {
+abstract class DetailStateSuccess extends DetailModelState {
+  const DetailStateSuccess._() : super._();
   const factory DetailStateSuccess(
       {@required ProgramDetailData programDetailData,
       @required ChannelData channelData,
@@ -866,8 +870,10 @@ class __$DetailStateErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_DetailStateError implements _DetailStateError {
-  const _$_DetailStateError(this.msg) : assert(msg != null);
+class _$_DetailStateError extends _DetailStateError {
+  const _$_DetailStateError(this.msg)
+      : assert(msg != null),
+        super._();
 
   @override
   final ErrorMsgCommon msg;
@@ -960,7 +966,8 @@ class _$_DetailStateError implements _DetailStateError {
   }
 }
 
-abstract class _DetailStateError implements DetailModelState {
+abstract class _DetailStateError extends DetailModelState {
+  const _DetailStateError._() : super._();
   const factory _DetailStateError(ErrorMsgCommon msg) = _$_DetailStateError;
 
   ErrorMsgCommon get msg;

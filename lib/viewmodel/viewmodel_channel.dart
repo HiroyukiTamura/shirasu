@@ -55,9 +55,8 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
     if (authExpired) pushAuthExpireScreen();
   }
 
-  Future<void> loadMorePrograms() async => state.maybeWhen(
-      orElse: () {},
-      success: (dataWrapper) async {
+  Future<void> loadMorePrograms() async =>
+      state.whenSuccess((dataWrapper) async {
         if (dataWrapper.loading) return;
 
         final nextToken = dataWrapper.data.channel.programs.nextToken;

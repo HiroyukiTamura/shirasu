@@ -1917,7 +1917,7 @@ class _$DetailPrgItemTearOff {
 // ignore: unused_element
   _DetailPrgItem call(
       {@required String id,
-      @required @visibleForOverriding String videoType,
+      @required @Deprecated('use [videoTypeStrict]') String videoType,
       String mediaStatus,
       String liveUrl,
       String archiveUrl,
@@ -1945,7 +1945,7 @@ const $DetailPrgItem = _$DetailPrgItemTearOff();
 /// @nodoc
 mixin _$DetailPrgItem {
   String get id;
-  @visibleForOverriding
+  @Deprecated('use [videoTypeStrict]')
   String get videoType;
   String get mediaStatus;
   String get liveUrl;
@@ -1965,7 +1965,7 @@ abstract class $DetailPrgItemCopyWith<$Res> {
       _$DetailPrgItemCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      @visibleForOverriding String videoType,
+      @Deprecated('use [videoTypeStrict]') String videoType,
       String mediaStatus,
       String liveUrl,
       String archiveUrl,
@@ -2012,7 +2012,7 @@ abstract class _$DetailPrgItemCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      @visibleForOverriding String videoType,
+      @Deprecated('use [videoTypeStrict]') String videoType,
       String mediaStatus,
       String liveUrl,
       String archiveUrl,
@@ -2058,7 +2058,7 @@ class __$DetailPrgItemCopyWithImpl<$Res>
 class _$_DetailPrgItem extends _DetailPrgItem {
   const _$_DetailPrgItem(
       {@required this.id,
-      @required @visibleForOverriding this.videoType,
+      @required @Deprecated('use [videoTypeStrict]') this.videoType,
       this.mediaStatus,
       this.liveUrl,
       this.archiveUrl,
@@ -2075,7 +2075,7 @@ class _$_DetailPrgItem extends _DetailPrgItem {
   @override
   final String id;
   @override
-  @visibleForOverriding
+  @Deprecated('use [videoTypeStrict]')
   final String videoType;
   @override
   final String mediaStatus;
@@ -2140,7 +2140,7 @@ abstract class _DetailPrgItem extends DetailPrgItem {
   const _DetailPrgItem._() : super._();
   const factory _DetailPrgItem(
           {@required String id,
-          @required @visibleForOverriding String videoType,
+          @required @Deprecated('use [videoTypeStrict]') String videoType,
           String mediaStatus,
           String liveUrl,
           String archiveUrl,
@@ -2153,7 +2153,7 @@ abstract class _DetailPrgItem extends DetailPrgItem {
   @override
   String get id;
   @override
-  @visibleForOverriding
+  @Deprecated('use [videoTypeStrict]')
   String get videoType;
   @override
   String get mediaStatus;

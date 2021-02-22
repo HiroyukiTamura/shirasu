@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter_video_background/flutter_video_background.dart';
-// import 'package:flutter_video_background/model/replay_data.dart';
+import 'package:flutter_video_background/flutter_video_background.dart';
+import 'package:flutter_video_background/model/replay_data.dart';
 
 // todo is this verbose?
 class NativeClient {
@@ -15,17 +15,17 @@ class NativeClient {
     @required String title,
     @required String subtitle,
   }) async {
-    // await FlutterVideoBackground.startPlayBackGround(
-    //   url: url,
-    //   isLiveStream: isLiveStream,
-    //   position: position.toString(),
-    //   iconUrl: iconUrl,
-    //   cookie: cookie,
-    //   title: title,
-    //   subtitle: subtitle,
-    // );
+    await FlutterVideoBackground.startPlayBackGround(
+      url: url,
+      isLiveStream: isLiveStream,
+      position: position.toString(),
+      iconUrl: iconUrl,
+      cookie: cookie,
+      title: title,
+      subtitle: subtitle,
+    );
   }
 
-  // static Future<ReplyData> stopBackGround() async =>
-  //     FlutterVideoBackground.stopBackGround(true);
+  static Future<ReplyData> stopBackGround() async =>
+      FlutterVideoBackground.stopBackGround(true);
 }

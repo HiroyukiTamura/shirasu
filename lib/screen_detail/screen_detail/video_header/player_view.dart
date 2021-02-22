@@ -232,7 +232,7 @@ class _PlayerViewState extends State<_PlayerView>
 
   // todo send issue to BetterPlayer repository
   void _rawVideoPlayerListener() =>
-      _getViewModelDetail(context).updateIsisBuffering(
+      _getViewModelDetail(context).updateIsBuffering(
         fullScreen: widget.conf.fullScreen,
         isBuffering: _controller.isBuffering(),
       );

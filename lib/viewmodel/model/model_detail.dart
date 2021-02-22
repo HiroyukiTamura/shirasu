@@ -77,6 +77,19 @@ abstract class DetailModelState with _$DetailModelState {
   }) = DetailStateSuccess;
 
   const factory DetailModelState.error(ErrorMsgCommon msg) = _DetailStateError;
+
+  const DetailModelState._();
+
+  void whenSuccess(
+    void Function(ProgramDetailData programDetailData, ChannelData channelData,
+            PageSheetModel page)
+        success,
+  ) {
+    maybeWhen(
+      orElse: () {},
+      success: success,
+    );
+  }
 }
 
 @freezed
@@ -142,7 +155,8 @@ abstract class PlayerCommandedState with _$PlayerCommandedState {
 
   const factory PlayerCommandedState.postPlay() = _PlayerCommandedStatePostPlay;
 
-  const factory PlayerCommandedState.error(ErrorMsgCommon errMsg) = _PlayerCommandedStatePostError;
+  const factory PlayerCommandedState.error(ErrorMsgCommon errMsg) =
+      _PlayerCommandedStatePostError;
 
   const factory PlayerCommandedState.initializing() =
       _PlayerCommandedStateInitializing;

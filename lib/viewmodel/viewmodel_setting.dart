@@ -72,58 +72,54 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     final attrs =
         _hiveAuthBody?.decodedToken?.user?.httpsShirasuIoUserAttribute;
 
-    state.settingModelState.maybeWhen(
-        success: (viewerUser) async {
-          final birthDate = state.editedUserInfo?.birthDate ?? attrs.birthDate;
-          final job = state.editedUserInfo?.jobCode ?? attrs.job;
-          final country =
-              state.editedUserInfo?.location?.countryCode ?? attrs.country;
-          final prefecture = state.editedUserInfo?.location?.prefectureCode ??
-              attrs?.prefecture;
+    state.settingModelState.whenSuccess((viewerUser) async {
+      final birthDate = state.editedUserInfo?.birthDate ?? attrs.birthDate;
+      final job = state.editedUserInfo?.jobCode ?? attrs.job;
+      final country =
+          state.editedUserInfo?.location?.countryCode ?? attrs.country;
+      final prefecture =
+          state.editedUserInfo?.location?.prefectureCode ?? attrs?.prefecture;
 
-          if (sub == viewerUser.viewerUser.id) {
-            final variable = UpdateUserWithAttrVariable.build(
-              userId: sub,
-              birthDate: birthDate,
-              job: job,
-              country: country,
-              prefecture: prefecture,
-            );
+      if (sub == viewerUser.viewerUser.id) {
+        final variable = UpdateUserWithAttrVariable.build(
+          userId: sub,
+          birthDate: birthDate,
+          job: job,
+          country: country,
+          prefecture: prefecture,
+        );
 
-            state = state.copyWith(uploadingProfile: true);
+        state = state.copyWith(uploadingProfile: true);
 
-            try {
-              await connectivityRepository.ensureNotDisconnect();
-              final updatedData = await graphQlRepository
-                  .updateUserWithAttr(variable)
-                  .timeout(GraphQlRepository.TIMEOUT);
-              await hiveAuthRepository.updateProfile(updatedData);
-            } on TimeoutException catch (e) {
-              //todo log error
-              print(e);
-              if (mounted)
-                _msgNotifier.notifyMsg(const SnackMsg.networkTimeout(), false);
-            } on NetworkDisconnectException catch (e) {
-              print(e);
-              if (mounted)
-                _msgNotifier.notifyMsg(
-                    const SnackMsg.networkDisconnected(), false);
-            } catch (e) {
-              print(e);
-              if (mounted)
-                _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
-            }
-          } else {
-            _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
-          }
-
+        try {
+          await connectivityRepository.ensureNotDisconnect();
+          final updatedData = await graphQlRepository
+              .updateUserWithAttr(variable)
+              .timeout(GraphQlRepository.TIMEOUT);
+          await hiveAuthRepository.updateProfile(updatedData);
+        } on TimeoutException catch (e) {
+          //todo log error
+          print(e);
           if (mounted)
-            state = state.copyWith(
-              uploadingProfile: false,
-              editedUserInfo: EditedUserInfo.empty(),
-            );
-        },
-        orElse: () {});
+            _msgNotifier.notifyMsg(const SnackMsg.networkTimeout(), false);
+        } on NetworkDisconnectException catch (e) {
+          print(e);
+          if (mounted)
+            _msgNotifier.notifyMsg(const SnackMsg.networkDisconnected(), false);
+        } catch (e) {
+          print(e);
+          if (mounted) _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+        }
+      } else {
+        _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+      }
+
+      if (mounted)
+        state = state.copyWith(
+          uploadingProfile: false,
+          editedUserInfo: EditedUserInfo.empty(),
+        );
+    });
   }
 }
 

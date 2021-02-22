@@ -133,11 +133,16 @@ abstract class PlayOutState implements _$PlayOutState {
       currentPosForUi.isNegative ? Duration.zero : currentPos;
 }
 
+/// status of statue of video command.
+/// this is not status of the real video player. @see [VideoPlayerState]
+/// for example, [_PlayerCommandedStatePostError] is used when failed to get cookie before the video player initialize.
 @freezed
 abstract class PlayerCommandedState with _$PlayerCommandedState {
   const factory PlayerCommandedState.prePlay() = _PlayerCommandedStatePrePlay;
 
   const factory PlayerCommandedState.postPlay() = _PlayerCommandedStatePostPlay;
+
+  const factory PlayerCommandedState.error(ErrorMsgCommon errMsg) = _PlayerCommandedStatePostError;
 
   const factory PlayerCommandedState.initializing() =
       _PlayerCommandedStateInitializing;

@@ -1466,6 +1466,13 @@ class _$PlayerCommandedStateTearOff {
   }
 
 // ignore: unused_element
+  _PlayerCommandedStatePostError error(ErrorMsgCommon errMsg) {
+    return _PlayerCommandedStatePostError(
+      errMsg,
+    );
+  }
+
+// ignore: unused_element
   _PlayerCommandedStateInitializing initializing() {
     return const _PlayerCommandedStateInitializing();
   }
@@ -1481,12 +1488,14 @@ mixin _$PlayerCommandedState {
   TResult when<TResult extends Object>({
     @required TResult prePlay(),
     @required TResult postPlay(),
+    @required TResult error(ErrorMsgCommon errMsg),
     @required TResult initializing(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult prePlay(),
     TResult postPlay(),
+    TResult error(ErrorMsgCommon errMsg),
     TResult initializing(),
     @required TResult orElse(),
   });
@@ -1494,12 +1503,14 @@ mixin _$PlayerCommandedState {
   TResult map<TResult extends Object>({
     @required TResult prePlay(_PlayerCommandedStatePrePlay value),
     @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult error(_PlayerCommandedStatePostError value),
     @required TResult initializing(_PlayerCommandedStateInitializing value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult prePlay(_PlayerCommandedStatePrePlay value),
     TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult error(_PlayerCommandedStatePostError value),
     TResult initializing(_PlayerCommandedStateInitializing value),
     @required TResult orElse(),
   });
@@ -1566,10 +1577,12 @@ class _$_PlayerCommandedStatePrePlay implements _PlayerCommandedStatePrePlay {
   TResult when<TResult extends Object>({
     @required TResult prePlay(),
     @required TResult postPlay(),
+    @required TResult error(ErrorMsgCommon errMsg),
     @required TResult initializing(),
   }) {
     assert(prePlay != null);
     assert(postPlay != null);
+    assert(error != null);
     assert(initializing != null);
     return prePlay();
   }
@@ -1579,6 +1592,7 @@ class _$_PlayerCommandedStatePrePlay implements _PlayerCommandedStatePrePlay {
   TResult maybeWhen<TResult extends Object>({
     TResult prePlay(),
     TResult postPlay(),
+    TResult error(ErrorMsgCommon errMsg),
     TResult initializing(),
     @required TResult orElse(),
   }) {
@@ -1594,10 +1608,12 @@ class _$_PlayerCommandedStatePrePlay implements _PlayerCommandedStatePrePlay {
   TResult map<TResult extends Object>({
     @required TResult prePlay(_PlayerCommandedStatePrePlay value),
     @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult error(_PlayerCommandedStatePostError value),
     @required TResult initializing(_PlayerCommandedStateInitializing value),
   }) {
     assert(prePlay != null);
     assert(postPlay != null);
+    assert(error != null);
     assert(initializing != null);
     return prePlay(this);
   }
@@ -1607,6 +1623,7 @@ class _$_PlayerCommandedStatePrePlay implements _PlayerCommandedStatePrePlay {
   TResult maybeMap<TResult extends Object>({
     TResult prePlay(_PlayerCommandedStatePrePlay value),
     TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult error(_PlayerCommandedStatePostError value),
     TResult initializing(_PlayerCommandedStateInitializing value),
     @required TResult orElse(),
   }) {
@@ -1666,10 +1683,12 @@ class _$_PlayerCommandedStatePostPlay implements _PlayerCommandedStatePostPlay {
   TResult when<TResult extends Object>({
     @required TResult prePlay(),
     @required TResult postPlay(),
+    @required TResult error(ErrorMsgCommon errMsg),
     @required TResult initializing(),
   }) {
     assert(prePlay != null);
     assert(postPlay != null);
+    assert(error != null);
     assert(initializing != null);
     return postPlay();
   }
@@ -1679,6 +1698,7 @@ class _$_PlayerCommandedStatePostPlay implements _PlayerCommandedStatePostPlay {
   TResult maybeWhen<TResult extends Object>({
     TResult prePlay(),
     TResult postPlay(),
+    TResult error(ErrorMsgCommon errMsg),
     TResult initializing(),
     @required TResult orElse(),
   }) {
@@ -1694,10 +1714,12 @@ class _$_PlayerCommandedStatePostPlay implements _PlayerCommandedStatePostPlay {
   TResult map<TResult extends Object>({
     @required TResult prePlay(_PlayerCommandedStatePrePlay value),
     @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult error(_PlayerCommandedStatePostError value),
     @required TResult initializing(_PlayerCommandedStateInitializing value),
   }) {
     assert(prePlay != null);
     assert(postPlay != null);
+    assert(error != null);
     assert(initializing != null);
     return postPlay(this);
   }
@@ -1707,6 +1729,7 @@ class _$_PlayerCommandedStatePostPlay implements _PlayerCommandedStatePostPlay {
   TResult maybeMap<TResult extends Object>({
     TResult prePlay(_PlayerCommandedStatePrePlay value),
     TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult error(_PlayerCommandedStatePostError value),
     TResult initializing(_PlayerCommandedStateInitializing value),
     @required TResult orElse(),
   }) {
@@ -1721,6 +1744,154 @@ class _$_PlayerCommandedStatePostPlay implements _PlayerCommandedStatePostPlay {
 abstract class _PlayerCommandedStatePostPlay implements PlayerCommandedState {
   const factory _PlayerCommandedStatePostPlay() =
       _$_PlayerCommandedStatePostPlay;
+}
+
+/// @nodoc
+abstract class _$PlayerCommandedStatePostErrorCopyWith<$Res> {
+  factory _$PlayerCommandedStatePostErrorCopyWith(
+          _PlayerCommandedStatePostError value,
+          $Res Function(_PlayerCommandedStatePostError) then) =
+      __$PlayerCommandedStatePostErrorCopyWithImpl<$Res>;
+  $Res call({ErrorMsgCommon errMsg});
+
+  $ErrorMsgCommonCopyWith<$Res> get errMsg;
+}
+
+/// @nodoc
+class __$PlayerCommandedStatePostErrorCopyWithImpl<$Res>
+    extends _$PlayerCommandedStateCopyWithImpl<$Res>
+    implements _$PlayerCommandedStatePostErrorCopyWith<$Res> {
+  __$PlayerCommandedStatePostErrorCopyWithImpl(
+      _PlayerCommandedStatePostError _value,
+      $Res Function(_PlayerCommandedStatePostError) _then)
+      : super(_value, (v) => _then(v as _PlayerCommandedStatePostError));
+
+  @override
+  _PlayerCommandedStatePostError get _value =>
+      super._value as _PlayerCommandedStatePostError;
+
+  @override
+  $Res call({
+    Object errMsg = freezed,
+  }) {
+    return _then(_PlayerCommandedStatePostError(
+      errMsg == freezed ? _value.errMsg : errMsg as ErrorMsgCommon,
+    ));
+  }
+
+  @override
+  $ErrorMsgCommonCopyWith<$Res> get errMsg {
+    if (_value.errMsg == null) {
+      return null;
+    }
+    return $ErrorMsgCommonCopyWith<$Res>(_value.errMsg, (value) {
+      return _then(_value.copyWith(errMsg: value));
+    });
+  }
+}
+
+/// @nodoc
+class _$_PlayerCommandedStatePostError
+    implements _PlayerCommandedStatePostError {
+  const _$_PlayerCommandedStatePostError(this.errMsg) : assert(errMsg != null);
+
+  @override
+  final ErrorMsgCommon errMsg;
+
+  @override
+  String toString() {
+    return 'PlayerCommandedState.error(errMsg: $errMsg)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PlayerCommandedStatePostError &&
+            (identical(other.errMsg, errMsg) ||
+                const DeepCollectionEquality().equals(other.errMsg, errMsg)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(errMsg);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PlayerCommandedStatePostErrorCopyWith<_PlayerCommandedStatePostError>
+      get copyWith => __$PlayerCommandedStatePostErrorCopyWithImpl<
+          _PlayerCommandedStatePostError>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult prePlay(),
+    @required TResult postPlay(),
+    @required TResult error(ErrorMsgCommon errMsg),
+    @required TResult initializing(),
+  }) {
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(error != null);
+    assert(initializing != null);
+    return error(errMsg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult prePlay(),
+    TResult postPlay(),
+    TResult error(ErrorMsgCommon errMsg),
+    TResult initializing(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(errMsg);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult prePlay(_PlayerCommandedStatePrePlay value),
+    @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult error(_PlayerCommandedStatePostError value),
+    @required TResult initializing(_PlayerCommandedStateInitializing value),
+  }) {
+    assert(prePlay != null);
+    assert(postPlay != null);
+    assert(error != null);
+    assert(initializing != null);
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult prePlay(_PlayerCommandedStatePrePlay value),
+    TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult error(_PlayerCommandedStatePostError value),
+    TResult initializing(_PlayerCommandedStateInitializing value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PlayerCommandedStatePostError implements PlayerCommandedState {
+  const factory _PlayerCommandedStatePostError(ErrorMsgCommon errMsg) =
+      _$_PlayerCommandedStatePostError;
+
+  ErrorMsgCommon get errMsg;
+  @JsonKey(ignore: true)
+  _$PlayerCommandedStatePostErrorCopyWith<_PlayerCommandedStatePostError>
+      get copyWith;
 }
 
 /// @nodoc
@@ -1769,10 +1940,12 @@ class _$_PlayerCommandedStateInitializing
   TResult when<TResult extends Object>({
     @required TResult prePlay(),
     @required TResult postPlay(),
+    @required TResult error(ErrorMsgCommon errMsg),
     @required TResult initializing(),
   }) {
     assert(prePlay != null);
     assert(postPlay != null);
+    assert(error != null);
     assert(initializing != null);
     return initializing();
   }
@@ -1782,6 +1955,7 @@ class _$_PlayerCommandedStateInitializing
   TResult maybeWhen<TResult extends Object>({
     TResult prePlay(),
     TResult postPlay(),
+    TResult error(ErrorMsgCommon errMsg),
     TResult initializing(),
     @required TResult orElse(),
   }) {
@@ -1797,10 +1971,12 @@ class _$_PlayerCommandedStateInitializing
   TResult map<TResult extends Object>({
     @required TResult prePlay(_PlayerCommandedStatePrePlay value),
     @required TResult postPlay(_PlayerCommandedStatePostPlay value),
+    @required TResult error(_PlayerCommandedStatePostError value),
     @required TResult initializing(_PlayerCommandedStateInitializing value),
   }) {
     assert(prePlay != null);
     assert(postPlay != null);
+    assert(error != null);
     assert(initializing != null);
     return initializing(this);
   }
@@ -1810,6 +1986,7 @@ class _$_PlayerCommandedStateInitializing
   TResult maybeMap<TResult extends Object>({
     TResult prePlay(_PlayerCommandedStatePrePlay value),
     TResult postPlay(_PlayerCommandedStatePostPlay value),
+    TResult error(_PlayerCommandedStatePostError value),
     TResult initializing(_PlayerCommandedStateInitializing value),
     @required TResult orElse(),
   }) {

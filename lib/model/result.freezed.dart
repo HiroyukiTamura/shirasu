@@ -21,7 +21,7 @@ class _$ResultTearOff {
   }
 
 // ignore: unused_element
-  _Failure<T> failure<T>(Exception error) {
+  _Failure<T> failure<T>(dynamic error) {
     return _Failure<T>(
       error,
     );
@@ -37,12 +37,12 @@ mixin _$Result<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult success(T data),
-    @required TResult failure(Exception error),
+    @required TResult failure(dynamic error),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult success(T data),
-    TResult failure(Exception error),
+    TResult failure(dynamic error),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -135,7 +135,7 @@ class _$_Success<T> extends _Success<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult success(T data),
-    @required TResult failure(Exception error),
+    @required TResult failure(dynamic error),
   }) {
     assert(success != null);
     assert(failure != null);
@@ -146,7 +146,7 @@ class _$_Success<T> extends _Success<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult success(T data),
-    TResult failure(Exception error),
+    TResult failure(dynamic error),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -196,7 +196,7 @@ abstract class _$FailureCopyWith<T, $Res> {
   factory _$FailureCopyWith(
           _Failure<T> value, $Res Function(_Failure<T>) then) =
       __$FailureCopyWithImpl<T, $Res>;
-  $Res call({Exception error});
+  $Res call({dynamic error});
 }
 
 /// @nodoc
@@ -213,7 +213,7 @@ class __$FailureCopyWithImpl<T, $Res> extends _$ResultCopyWithImpl<T, $Res>
     Object error = freezed,
   }) {
     return _then(_Failure<T>(
-      error == freezed ? _value.error : error as Exception,
+      error == freezed ? _value.error : error as dynamic,
     ));
   }
 }
@@ -225,7 +225,7 @@ class _$_Failure<T> extends _Failure<T> {
         super._();
 
   @override
-  final Exception error;
+  final dynamic error;
 
   @override
   String toString() {
@@ -253,7 +253,7 @@ class _$_Failure<T> extends _Failure<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult success(T data),
-    @required TResult failure(Exception error),
+    @required TResult failure(dynamic error),
   }) {
     assert(success != null);
     assert(failure != null);
@@ -264,7 +264,7 @@ class _$_Failure<T> extends _Failure<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult success(T data),
-    TResult failure(Exception error),
+    TResult failure(dynamic error),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -302,9 +302,9 @@ class _$_Failure<T> extends _Failure<T> {
 
 abstract class _Failure<T> extends Result<T> {
   const _Failure._() : super._();
-  const factory _Failure(Exception error) = _$_Failure<T>;
+  const factory _Failure(dynamic error) = _$_Failure<T>;
 
-  Exception get error;
+  dynamic get error;
   @JsonKey(ignore: true)
   _$FailureCopyWith<T, _Failure<T>> get copyWith;
 }

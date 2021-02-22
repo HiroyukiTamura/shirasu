@@ -49,7 +49,7 @@ class DioClient {
       case VideoType.LIVE:
         return 'live';
       default:
-        throw Exception('unknown video type $videoType');
+        throw ArgumentError.value(videoType);
     }
   }
 

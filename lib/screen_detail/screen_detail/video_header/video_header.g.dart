@@ -35,6 +35,16 @@ class VideoHeader extends HookWidget {
       height: height);
 }
 
+class _PageErrText extends HookWidget {
+  const _PageErrText({Key key, this.text = Strings.SNACK_ERR})
+      : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext _context) => _pageErrText(text: text);
+}
+
 class BufferingIndicator extends HookWidget {
   const BufferingIndicator({Key key, @required this.id}) : super(key: key);
 

@@ -10,15 +10,7 @@ class ConnectivityRepositoryImpl with ConnectivityRepository {
   /// @throws [NetworkDisconnectException]
   @override
   Future<void> ensureNotDisconnect() async {
-    ConnectivityResult result;
-    try {
-      result = await Connectivity().checkConnectivity();
-    } catch (e) {
-      print(e);
-      //todo log error
-    }
-
-    if (result == ConnectivityResult.none)
+    if (await Connectivity().checkConnectivity() == ConnectivityResult.none)
       throw NetworkDisconnectException();
   }
 }

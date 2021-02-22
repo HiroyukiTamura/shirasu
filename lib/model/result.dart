@@ -9,13 +9,13 @@ abstract class Result<T> with _$Result<T> {
 
   const factory Result.success(T data) = _Success<T>;
 
-  const factory Result.failure(Exception error) = _Failure<T>;
+  const factory Result.failure(dynamic error) = _Failure<T>;
 
   // ignore: prefer_constructors_over_static_methods
   static Result<T> guard<T>(T Function() body) {
     try {
       return Result.success(body());
-    } on Exception catch (e) {
+    } catch (e) {
       return Result.failure(e);
     }
   }
@@ -23,7 +23,7 @@ abstract class Result<T> with _$Result<T> {
   static Future<Result<T>> guardFuture<T>(Future<T> Function() future) async {
     try {
       return Result.success(await future());
-    } on Exception catch (e) {
+    } catch (e) {
       return Result.failure(e);
     }
   }
@@ -41,7 +41,7 @@ abstract class Result<T> with _$Result<T> {
     );
   }
 
-  void ifFailure(Function(Exception e) body) {
+  void ifFailure(Function(dynamic e) body) {
     maybeWhen(
       failure: (e) => body(e),
       orElse: () {
@@ -59,5 +59,5 @@ abstract class Result<T> with _$Result<T> {
 extension ResultObjectExt<T> on T {
   Result<T> get asSuccess => Result.success(this);
 
-  Result<T> asFailure(Exception e) => Result.failure(e);
+  Result<T> asFailure(dynamic e) => Result.failure(e);
 }

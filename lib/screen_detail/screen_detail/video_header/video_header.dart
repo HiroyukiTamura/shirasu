@@ -45,10 +45,7 @@ Widget videoHeader({
             onTapPreviewBtn: onTapPreviewBtn,
           ),
           postPlay: () => videoPlayerState.when(
-            error: (msg) => const PageErrText(
-              text: Strings.SNACK_ERR,
-              backColor: Colors.black,
-            ),
+            error: (msg) => const _PageErrText(),
             // todo implement err msg
             preInitialized: () => LoadingThumbnail(id: conf.id),
             finish: () => const SizedBox.shrink(),
@@ -56,11 +53,21 @@ Widget videoHeader({
             ready: () => BufferingIndicator(id: conf.id),
           ),
           initializing: () => LoadingThumbnail(id: conf.id),
+          error: (msg) => const _PageErrText(),
         )
       ],
     ),
   );
 }
+
+@hwidget
+Widget _pageErrText({
+  String text = Strings.SNACK_ERR,
+}) =>
+    PageErrText(
+      text: text,
+      backColor: Colors.black,
+    );
 
 @visibleForTesting
 @hwidget

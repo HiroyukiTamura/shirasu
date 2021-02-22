@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dartx/dartx.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 // import 'package:flutter_video_background/model/replay_data.dart';
@@ -108,32 +109,45 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   Future<void> playVideo(bool preview) async {
     final prg = preview ? _previewArchivedVideoData : _availableVideoData;
-    if (prg == null) return; // todo handle error
+    if (prg == null) {
+      state = state.copyWith.playOutState(
+        commandedState: const PlayerCommandedState.error(ErrorMsgCommon.unknown()),
+      );
+      return;
+    }
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
-    bool authExpired = false;
-    String cookie;
-    try {
-      cookie = await dioClient.getSignedCookie(
+    final result = await Result.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return dioClient.getSignedCookie(
         prg.id,
         prg.videoTypeStrict,
         hiveAuthRepository.authData.body.idToken,
       );
-      debugPrint(cookie);
-    } on UnauthorizedException catch (e) {
-      print(e); //todo handle error
-      authExpired = true;
-    } catch (e) {
-      print(e); //todo handle error
-    }
-
-    if (!mounted) return;
-
-    if (authExpired)
-      pushAuthExpireScreen();
-    else if (cookie != null)
-      state = state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie);
+    });
+    if (mounted)
+      state = result.when(
+        success: (cookie) =>
+            state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie),
+        failure: (e) {
+          ErrorMsgCommon msg = const ErrorMsgCommon.unknown();
+          if (e is NetworkDisconnectException) {
+            msg = const ErrorMsgCommon.networkDisconnected();
+          } else if (e is DioError) {
+            // ignore: missing_enum_constant_in_switch
+            switch (e.type) {
+              case DioErrorType.CONNECT_TIMEOUT:
+              case DioErrorType.RECEIVE_TIMEOUT:
+              case DioErrorType.SEND_TIMEOUT:
+                msg = const ErrorMsgCommon.networkTimeout();
+            }
+          }
+          return state.copyWith.playOutState(
+            commandedState: PlayerCommandedState.error(msg),
+          );
+        },
+      );
   }
 
   Future<void> _initComments(Duration currentPos) async {

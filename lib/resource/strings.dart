@@ -171,6 +171,9 @@ class Strings {
   static const String PREVIEW_EXIST_MESSAGE =
       '冒頭を無料で見ることができます。\n番組開始後に冒頭無料視聴をお選びください。';
 
+  /// ref: users.pages.Program.components.ProgramNotice.saving
+  static const String PROGRAM_ARCHIVING = 'この放送は終了しました。アーカイブ動画への変換中です。\n視聴可能になるまで、少々お待ちください。';
+
   static const String CURRENT_PERIOD_END_AT_LABEL = '次回更新日';
   static const String SUBSCRIPTION_START_DATE = '購読開始日';
 

@@ -14,6 +14,8 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
+import 'package:shirasu/model/graphql/mixins/media_status.dart';
+import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/model/result.dart';
@@ -53,24 +55,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       orElse: () => null,
       success: (prgDetailData, _, __) => prgDetailData.program.previewPrgItem);
 
+  /// warning! returns null if archive is not available and the live streaming is ended
   DetailPrgItem get _availableVideoData => state.prgDataResult.maybeWhen(
-      orElse: () => null,
-      success: (prgDetailData, _, __) {
-        final program = prgDetailData.program;
-
-        //todo shouldn't written in DetailProgramData?
-        DetailPrgItem detailPrgItem; //todo more logic
-        if (program.archivedAt?.isBefore(DateTime.now()) == true) {
-          if (program.isAllExtensionAvailable)
-            detailPrgItem = program.lastArchivedExtensionPrgItem;
-          else {
-            // todo implement
-            throw UnimplementedError();
-          }
-        }
-
-        return detailPrgItem ?? program.nowLivePrgItem;
-      });
+        orElse: () => null,
+        success: (prgDetailData, _, __) => prgDetailData.program.itemToPlay,
+      );
 
   @override
   Future<void> initialize() async {
@@ -111,7 +100,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final prg = preview ? _previewArchivedVideoData : _availableVideoData;
     if (prg == null) {
       state = state.copyWith.playOutState(
-        commandedState: const PlayerCommandedState.error(ErrorMsgCommon.unknown()),
+        commandedState:
+            const PlayerCommandedState.error(ErrorMsgCommon.unknown()),
       );
       return;
     }
@@ -525,7 +515,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       try {
         await NativeClient.startPlayBackGround(
           url: playOutState.hlsMediaUrl,
-          isLiveStream: playOutState.videoType == VideoType.LIVE,
+          isLiveStream: playOutState.videoType == const VideoType.live(),
           position: position,
           iconUrl: UrlUtil.getThumbnailUrl(id),
           cookie: cookie,

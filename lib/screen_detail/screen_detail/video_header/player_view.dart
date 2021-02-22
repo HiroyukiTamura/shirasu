@@ -267,7 +267,7 @@ class _PlayerViewState extends State<_PlayerView>
       BetterPlayerDataSource(
         BetterPlayerDataSourceType.network,
         playOutState.hlsMediaUrl,
-        liveStream: playOutState.videoType == VideoType.LIVE,
+        liveStream: playOutState.videoType == const VideoType.live(),
         headers: {
           'Cookie': playOutState.cookie,
         },

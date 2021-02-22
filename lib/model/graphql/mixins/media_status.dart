@@ -14,7 +14,7 @@ mixin MediaStatusMixin {
       case 'WAITING':
         return MediaStatus.WAITING;
       default:
-        throw Exception('unexpected value: $mediaStatus');
+        throw ArgumentError.value(mediaStatus);
     }
   }
 }

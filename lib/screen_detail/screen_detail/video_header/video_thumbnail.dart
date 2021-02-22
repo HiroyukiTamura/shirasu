@@ -96,10 +96,12 @@ Widget _hoverWidget(
   final canPreview = program.previewTime != 0;
 
   if (isPurchased)
-    return isWaiting ? const _WaitingText() : PlayBtn(onTap: onTap);
+    return isWaiting ? const _HoverText(text: Strings.WAIT_FOR_START) : PlayBtn(onTap: onTap);
+
+  if (program.isInVideoArchiving)
+    return const _HoverText(text: Strings.PROGRAM_ARCHIVING);
 
   return _HoverBackDrop(
-    opacity: .7,
     child: IntrinsicWidth(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -131,11 +133,10 @@ Widget _previewExistMessage() => const Text(
     );
 
 @swidget
-Widget _waitingText() => const _HoverBackDrop(
-      opacity: .7,
+Widget _hoverText({@required String text,}) => _HoverBackDrop(
       child: Text(
-        Strings.WAIT_FOR_START,
-        style: TextStyle(
+        text,
+        style: const TextStyle(
           fontSize: FontSize.S16,
           color: Colors.white,
         ),
@@ -172,7 +173,6 @@ Widget _hoverBtn({
 
 @swidget
 Widget _hoverBackDrop({
-  @required double opacity,
   @required Widget child,
 }) =>
     SizedBox.expand(

@@ -84,31 +84,63 @@ abstract class ProgramDetail
         (it) => it.productTypeStrict == ProductType.PROGRAM,
       );
 
-  DetailPrgItem get lastArchivedExtensionPrgItem => videos.items
-      .where((it) => it.isExtension && it.videoTypeStrict == VideoType.ARCHIVED)
-      .sortedBy((it) => it.extensionIndex)
-      .lastOrNull;
+  DetailPrgItem get itemToPlay {
+    if (archivedAt?.isBefore(DateTime.now()) != true) return nowLivePrgItem;
+
+    final lastExtensionIndex =
+        extensions.lastIndexWhere((it) => isExtensionAvailable(it.id));
+    if (lastExtensionIndex != -1)
+      return _lastArchivedExtensionPrgItem(lastExtensionIndex);
+
+    final isMainVideoAvailable =
+        onetimePlanMain?.viewerPurchasedPlan?.isActive == true ||
+            (onetimePlanMain?.parentPlanTypeStrict == PlanType.SUBSCRIPTION &&
+                viewerPlanTypeStrict == PlanType.SUBSCRIPTION);
+    return isMainVideoAvailable ? mainPrgItem : null;
+  }
+
+  DetailPrgItem _lastArchivedExtensionPrgItem(int extensionIndex) {
+    final item = videos.items.firstOrNullWhere(
+        (it) => it.isExtension && it.extensionIndex == extensionIndex);
+    if (item == null) return null;
+    if (item.videoTypeStrict == const VideoType.archived()) return item;
+    // if the item is not archived yet, return most near item
+    return videos.items.take(extensionIndex + 1).lastOrNullWhere(
+        (it) => it.videoTypeStrict == const VideoType.archived());
+  }
 
   DetailPrgItem get nowLivePrgItem => videos.items.firstOrNullWhere((it) =>
-      it.videoTypeStrict == VideoType.LIVE &&
+      it.videoTypeStrict == const VideoType.live() &&
       it.mediaStatusStrict != MediaStatus.ENDED);
 
   DetailPrgItem get previewPrgItem => videos.items.firstOrNullWhere(
-      (it) => it.isFree && it.videoTypeStrict == VideoType.ARCHIVED);
+      (it) => it.isFree && it.videoTypeStrict == const VideoType.archived());
 
-  // todo detect logic for one time plan user who don't purchased extension
-  bool get isAllExtensionAvailable =>
+  DetailPrgItem get mainPrgItem => videos.items.firstOrNullWhere(
+      (it) => it.isMain && it.videoTypeStrict == const VideoType.archived());
+
+  bool get _isAllExtensionAvailableAsSubscriber =>
       viewerPlanTypeStrict == PlanType.SUBSCRIPTION &&
       isExtensionChargedToSubscribers != true;
 
-  /// if [extensionId] is invalid, returns null
+  /// if [extensionId] is invalid, returns false
   bool isExtensionAvailable(String extensionId) =>
       extensions
-          .firstOrNullWhere((it) => it.id == extensionId)
-          ?.oneTimePlan
-          ?.viewerPurchasedPlan
-          ?.isActive ==
-      true;
+              .firstOrNullWhere((it) => it.id == extensionId)
+              ?.oneTimePlan
+              ?.viewerPurchasedPlan
+              ?.isActive ==
+          true ||
+      _isAllExtensionAvailableAsSubscriber;
+
+  bool get isInVideoArchiving =>
+      videos.items
+          .where((it) =>
+              it.videoTypeStrict == const VideoType.live() &&
+              it.mediaStatusStrict == MediaStatus.ENDED)
+          .isNotEmpty &&
+      archivedAt == null &&
+      shouldArchive;
 }
 
 @freezed
@@ -205,23 +237,18 @@ abstract class DetailPrgItem
 
   bool get isExtension => RegExp(r':ext\.\d+$').hasMatch(id);
 
+  bool get isMain => id.endsWith(':main');
+
   /// must ensure [isExtension] == true
   int get extensionIndex {
     assert(isExtension);
     return int.parse(RegExp(r'\d+$').stringMatch(id));
   }
 
-  // todo convert to freezed class
-  String get urlAvailable {
-    switch (videoTypeStrict) {
-      case VideoType.LIVE:
-        return liveUrl;
-      case VideoType.ARCHIVED:
-        return archiveUrl;
-      default:
-        throw UnsupportedError('unknown VideoType: $videoTypeStrict');
-    }
-  }
+  String get urlAvailable => videoTypeStrict.when(
+        archived: () => liveUrl,
+        live: () => archiveUrl,
+      );
 }
 
 @freezed

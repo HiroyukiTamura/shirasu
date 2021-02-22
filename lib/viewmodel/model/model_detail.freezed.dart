@@ -1056,6 +1056,7 @@ abstract class $PlayOutStateCopyWith<$Res> {
       LastControllerCommandHolder lastControllerCommandHolder});
 
   $PlayerCommandedStateCopyWith<$Res> get commandedState;
+  $VideoTypeCopyWith<$Res> get videoType;
   $VideoPlayerStateCopyWith<$Res> get videoPlayerState;
   $LastControllerCommandHolderCopyWith<$Res> get lastControllerCommandHolder;
 }
@@ -1133,6 +1134,16 @@ class _$PlayOutStateCopyWithImpl<$Res> implements $PlayOutStateCopyWith<$Res> {
   }
 
   @override
+  $VideoTypeCopyWith<$Res> get videoType {
+    if (_value.videoType == null) {
+      return null;
+    }
+    return $VideoTypeCopyWith<$Res>(_value.videoType, (value) {
+      return _then(_value.copyWith(videoType: value));
+    });
+  }
+
+  @override
   $VideoPlayerStateCopyWith<$Res> get videoPlayerState {
     if (_value.videoPlayerState == null) {
       return null;
@@ -1179,6 +1190,8 @@ abstract class _$PlayOutStateCopyWith<$Res>
 
   @override
   $PlayerCommandedStateCopyWith<$Res> get commandedState;
+  @override
+  $VideoTypeCopyWith<$Res> get videoType;
   @override
   $VideoPlayerStateCopyWith<$Res> get videoPlayerState;
   @override

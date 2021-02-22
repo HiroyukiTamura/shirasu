@@ -47,11 +47,13 @@ class _PreviewExistMessage extends StatelessWidget {
   Widget build(BuildContext _context) => _previewExistMessage();
 }
 
-class _WaitingText extends StatelessWidget {
-  const _WaitingText({Key key}) : super(key: key);
+class _HoverText extends StatelessWidget {
+  const _HoverText({Key key, @required this.text}) : super(key: key);
+
+  final String text;
 
   @override
-  Widget build(BuildContext _context) => _waitingText();
+  Widget build(BuildContext _context) => _hoverText(text: text);
 }
 
 class _HoverBtn extends StatelessWidget {
@@ -68,14 +70,10 @@ class _HoverBtn extends StatelessWidget {
 }
 
 class _HoverBackDrop extends StatelessWidget {
-  const _HoverBackDrop({Key key, @required this.opacity, @required this.child})
-      : super(key: key);
-
-  final double opacity;
+  const _HoverBackDrop({Key key, @required this.child}) : super(key: key);
 
   final Widget child;
 
   @override
-  Widget build(BuildContext _context) =>
-      _hoverBackDrop(opacity: opacity, child: child);
+  Widget build(BuildContext _context) => _hoverBackDrop(child: child);
 }

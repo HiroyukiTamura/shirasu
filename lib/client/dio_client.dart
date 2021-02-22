@@ -10,31 +10,39 @@ import 'package:shirasu/model/signed_cookie_result.dart';
 
 import 'dio_repository.dart';
 
-final kPrvDioRepository = Provider.autoDispose<DioRepository>((ref) => DioRepositoryImpl._(ref.read));
+final kPrvDioRepository =
+    Provider.autoDispose<DioRepository>((ref) => DioRepositoryImpl._(ref.read));
 
 class DioRepositoryImpl with DioRepository {
-
   DioRepositoryImpl._(this._reader);
 
   final Dio _dio = Dio();
 
   final Reader _reader;
-  AuthClientInterceptor get _authClientInterceptor => _reader(kPrvAuthClientInterceptor);
+
+  AuthClientInterceptor get _authClientInterceptor =>
+      _reader(kPrvAuthClientInterceptor);
 
   @override
   Future<String> getSignedCookie(
       String videoId, VideoType videoType, String auth) async {
-
     await _authClientInterceptor.refreshAuthTokenIfNeeded();
 
-    final response = await _dio.get<Map<String, dynamic>>(UrlUtil.URL_SIGNED_COOKIE,
-        queryParameters: {
-          'videoId': videoId,
-          'type': _parseVideoType(videoType)
-        },
-        options: Options(headers: {
+    final response = await _dio.get<Map<String, dynamic>>(
+      UrlUtil.URL_SIGNED_COOKIE,
+      queryParameters: {
+        'videoId': videoId,
+        'type': videoType.when(
+          archived: () => 'archive',
+          live: () => 'live',
+        )
+      },
+      options: Options(
+        headers: {
           'Authorization': auth,
-        }));
+        },
+      ),
+    );
 
     final success = SignedCookieResult.fromJson(response.data).ok;
     if (!success) throw Exception('getSignedCookie failed : ${response.data}');
@@ -45,21 +53,10 @@ class DioRepositoryImpl with DioRepository {
     }).join('; ');
   }
 
-  static String _parseVideoType(VideoType videoType) {
-    switch (videoType) {
-      case VideoType.ARCHIVED:
-        return 'archive';
-      case VideoType.LIVE:
-        return 'live';
-      default:
-        throw ArgumentError.value(videoType);
-    }
-  }
-
-
   /// auth0 API doc: https://auth0.com/docs/tokens/refresh-tokens/use-refresh-tokens
   @override
-  Future<ResultTokenRefresh> requestRenewToken(String clientId, String refreshToken) async {
+  Future<ResultTokenRefresh> requestRenewToken(
+      String clientId, String refreshToken) async {
     final result = await _dio.post<Map<String, dynamic>>(
       UrlUtil.URL_OAUTH_TOKEN,
       data: {

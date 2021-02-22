@@ -13,7 +13,6 @@ import 'package:path/path.dart' as p;
 import 'package:file/local.dart';
 
 import 'json_client.dart';
-import 'test_extension.dart';
 
 typedef OnPostBuild = FutureOr<void> Function(WidgetTester tester);
 

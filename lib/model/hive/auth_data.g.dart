@@ -115,8 +115,6 @@ class HiveDecodedTokenAdapter extends TypeAdapter<_$_HiveDecodedToken> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveDecodedToken(
-      encoded: fields[11] as HiveEncoded,
-      header: fields[12] as HiveHeader,
       claims: fields[13] as HiveClaims,
       user: fields[14] as HiveUser,
     );
@@ -125,11 +123,7 @@ class HiveDecodedTokenAdapter extends TypeAdapter<_$_HiveDecodedToken> {
   @override
   void write(BinaryWriter writer, _$_HiveDecodedToken obj) {
     writer
-      ..writeByte(4)
-      ..writeByte(11)
-      ..write(obj.encoded)
-      ..writeByte(12)
-      ..write(obj.header)
+      ..writeByte(2)
       ..writeByte(13)
       ..write(obj.claims)
       ..writeByte(14)
@@ -158,65 +152,17 @@ class HiveClaimsAdapter extends TypeAdapter<_$_HiveClaims> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveClaims(
-      raw: fields[15] as String,
-      rawHttpsShirasuIoRoles: (fields[16] as List)?.cast<String>(),
       httpsShirasuIoUserAttribute:
           fields[17] as HiveHttpsShirasuIoUserAttribute,
-      httpsShirasuIoCustomerId: fields[18] as String,
-      rawHttpsShirasuIoDistributeds: (fields[19] as List)?.cast<dynamic>(),
-      rawHttpsShirasuIoTenants: (fields[20] as List)?.cast<dynamic>(),
-      nickname: fields[23] as String,
-      name: fields[24] as String,
-      picture: fields[25] as String,
-      updatedAt: fields[27] as DateTime,
-      email: fields[28] as String,
-      emailVerified: fields[29] as bool,
-      iss: fields[30] as String,
-      sub: fields[31] as String,
-      aud: fields[32] as String,
-      iat: fields[33] as int,
-      exp: fields[34] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_HiveClaims obj) {
     writer
+      ..writeByte(1)
       ..writeByte(17)
-      ..writeByte(15)
-      ..write(obj.raw)
-      ..writeByte(16)
-      ..write(obj.rawHttpsShirasuIoRoles)
-      ..writeByte(17)
-      ..write(obj.httpsShirasuIoUserAttribute)
-      ..writeByte(18)
-      ..write(obj.httpsShirasuIoCustomerId)
-      ..writeByte(19)
-      ..write(obj.rawHttpsShirasuIoDistributeds)
-      ..writeByte(20)
-      ..write(obj.rawHttpsShirasuIoTenants)
-      ..writeByte(23)
-      ..write(obj.nickname)
-      ..writeByte(24)
-      ..write(obj.name)
-      ..writeByte(25)
-      ..write(obj.picture)
-      ..writeByte(27)
-      ..write(obj.updatedAt)
-      ..writeByte(28)
-      ..write(obj.email)
-      ..writeByte(29)
-      ..write(obj.emailVerified)
-      ..writeByte(30)
-      ..write(obj.iss)
-      ..writeByte(31)
-      ..write(obj.sub)
-      ..writeByte(32)
-      ..write(obj.aud)
-      ..writeByte(33)
-      ..write(obj.iat)
-      ..writeByte(34)
-      ..write(obj.exp);
+      ..write(obj.httpsShirasuIoUserAttribute);
   }
 
   @override
@@ -286,86 +232,6 @@ class HiveHttpsShirasuIoUserAttributeAdapter
           typeId == other.typeId;
 }
 
-class HiveEncodedAdapter extends TypeAdapter<_$_HiveEncoded> {
-  @override
-  final int typeId = 5;
-
-  @override
-  _$_HiveEncoded read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return _$_HiveEncoded(
-      header: fields[43] as String,
-      payload: fields[44] as String,
-      signature: fields[45] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, _$_HiveEncoded obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(43)
-      ..write(obj.header)
-      ..writeByte(44)
-      ..write(obj.payload)
-      ..writeByte(45)
-      ..write(obj.signature);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is HiveEncodedAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class HiveHeaderAdapter extends TypeAdapter<_$_HiveHeader> {
-  @override
-  final int typeId = 6;
-
-  @override
-  _$_HiveHeader read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return _$_HiveHeader(
-      alg: fields[46] as String,
-      typ: fields[47] as String,
-      kid: fields[48] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, _$_HiveHeader obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(46)
-      ..write(obj.alg)
-      ..writeByte(47)
-      ..write(obj.typ)
-      ..writeByte(48)
-      ..write(obj.kid);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is HiveHeaderAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
 class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
   @override
   final int typeId = 7;
@@ -377,15 +243,12 @@ class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveUser(
-      rawHttpsShirasuIoRoles: (fields[49] as List)?.cast<String>(),
       httpsShirasuIoUserAttribute:
           fields[50] as HiveHttpsShirasuIoUserAttribute,
-      httpsShirasuIoCustomerId: fields[51] as String,
-      rawHttpsShirasuIoDistributeds: (fields[52] as List)?.cast<dynamic>(),
-      rawHttpsShirasuIoTenants: (fields[53] as List)?.cast<dynamic>(),
       nickname: fields[56] as String,
       name: fields[57] as String,
       picture: fields[58] as String,
+      locale: fields[59] as String,
       updatedAt: fields[60] as DateTime,
       email: fields[61] as String,
       emailVerified: fields[62] as bool,
@@ -396,23 +259,17 @@ class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
   @override
   void write(BinaryWriter writer, _$_HiveUser obj) {
     writer
-      ..writeByte(12)
-      ..writeByte(49)
-      ..write(obj.rawHttpsShirasuIoRoles)
+      ..writeByte(9)
       ..writeByte(50)
       ..write(obj.httpsShirasuIoUserAttribute)
-      ..writeByte(51)
-      ..write(obj.httpsShirasuIoCustomerId)
-      ..writeByte(52)
-      ..write(obj.rawHttpsShirasuIoDistributeds)
-      ..writeByte(53)
-      ..write(obj.rawHttpsShirasuIoTenants)
       ..writeByte(56)
       ..write(obj.nickname)
       ..writeByte(57)
       ..write(obj.name)
       ..writeByte(58)
       ..write(obj.picture)
+      ..writeByte(59)
+      ..write(obj.locale)
       ..writeByte(60)
       ..write(obj.updatedAt)
       ..writeByte(61)

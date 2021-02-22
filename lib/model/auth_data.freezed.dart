@@ -819,6 +819,8 @@ class _$ClaimsTearOff {
       @required
           String picture,
       @required
+          String locale,
+      @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       @required
@@ -846,6 +848,7 @@ class _$ClaimsTearOff {
       nickname: nickname,
       name: name,
       picture: picture,
+      locale: locale,
       updatedAt: updatedAt,
       email: email,
       emailVerified: emailVerified,
@@ -888,7 +891,8 @@ mixin _$Claims {
 // @JsonKey(name: 'family_name') @required String familyName,
   String get nickname;
   String get name;
-  String get picture; // @required String locale,
+  String get picture;
+  String get locale;
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   String get email;
@@ -928,6 +932,7 @@ abstract class $ClaimsCopyWith<$Res> {
       String nickname,
       String name,
       String picture,
+      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -961,6 +966,7 @@ class _$ClaimsCopyWithImpl<$Res> implements $ClaimsCopyWith<$Res> {
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
+    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -990,6 +996,7 @@ class _$ClaimsCopyWithImpl<$Res> implements $ClaimsCopyWith<$Res> {
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
+      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -1040,6 +1047,7 @@ abstract class _$ClaimsCopyWith<$Res> implements $ClaimsCopyWith<$Res> {
       String nickname,
       String name,
       String picture,
+      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -1075,6 +1083,7 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
+    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -1104,6 +1113,7 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
+      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -1152,6 +1162,8 @@ class _$_Claims extends _Claims {
       @required
           this.picture,
       @required
+          this.locale,
+      @required
       @JsonKey(name: 'updated_at')
           this.updatedAt,
       @required
@@ -1178,6 +1190,7 @@ class _$_Claims extends _Claims {
         assert(nickname != null),
         assert(name != null),
         assert(picture != null),
+        assert(locale != null),
         assert(updatedAt != null),
         assert(email != null),
         assert(emailVerified != null),
@@ -1219,7 +1232,9 @@ class _$_Claims extends _Claims {
   final String name;
   @override
   final String picture;
-  @override // @required String locale,
+  @override
+  final String locale;
+  @override
   @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
   @override
@@ -1240,7 +1255,7 @@ class _$_Claims extends _Claims {
 
   @override
   String toString() {
-    return 'Claims(raw: $raw, rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, iss: $iss, sub: $sub, aud: $aud, iat: $iat, exp: $exp)';
+    return 'Claims(raw: $raw, rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, locale: $locale, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, iss: $iss, sub: $sub, aud: $aud, iat: $iat, exp: $exp)';
   }
 
   @override
@@ -1276,14 +1291,15 @@ class _$_Claims extends _Claims {
             (identical(other.picture, picture) ||
                 const DeepCollectionEquality()
                     .equals(other.picture, picture)) &&
+            (identical(other.locale, locale) ||
+                const DeepCollectionEquality().equals(other.locale, locale)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
                     .equals(other.updatedAt, updatedAt)) &&
             (identical(other.email, email) ||
                 const DeepCollectionEquality().equals(other.email, email)) &&
             (identical(other.emailVerified, emailVerified) ||
-                const DeepCollectionEquality()
-                    .equals(other.emailVerified, emailVerified)) &&
+                const DeepCollectionEquality().equals(other.emailVerified, emailVerified)) &&
             (identical(other.iss, iss) || const DeepCollectionEquality().equals(other.iss, iss)) &&
             (identical(other.sub, sub) || const DeepCollectionEquality().equals(other.sub, sub)) &&
             (identical(other.aud, aud) || const DeepCollectionEquality().equals(other.aud, aud)) &&
@@ -1303,6 +1319,7 @@ class _$_Claims extends _Claims {
       const DeepCollectionEquality().hash(nickname) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
+      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(emailVerified) ^
@@ -1354,6 +1371,8 @@ abstract class _Claims extends Claims {
       @required
           String picture,
       @required
+          String locale,
+      @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       @required
@@ -1402,7 +1421,9 @@ abstract class _Claims extends Claims {
   String get name;
   @override
   String get picture;
-  @override // @required String locale,
+  @override
+  String get locale;
+  @override
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   @override
@@ -1438,7 +1459,7 @@ class _$HttpsShirasuIoUserAttributeTearOff {
   _HttpsShirasuIoUserAttribute call(
       {@required DateTime birthDate,
       @required String job,
-      @required @JsonKey(name: 'country') @protected String countryNonFixedCase,
+      @required @JsonKey(name: 'country') @protected String rawCountry,
       @required String prefecture,
       @required String familyName,
       @required String givenName,
@@ -1447,7 +1468,7 @@ class _$HttpsShirasuIoUserAttributeTearOff {
     return _HttpsShirasuIoUserAttribute(
       birthDate: birthDate,
       job: job,
-      countryNonFixedCase: countryNonFixedCase,
+      rawCountry: rawCountry,
       prefecture: prefecture,
       familyName: familyName,
       givenName: givenName,
@@ -1472,7 +1493,7 @@ mixin _$HttpsShirasuIoUserAttribute {
   String get job;
   @JsonKey(name: 'country')
   @protected
-  String get countryNonFixedCase;
+  String get rawCountry;
   String get prefecture;
   String get familyName;
   String get givenName;
@@ -1494,7 +1515,7 @@ abstract class $HttpsShirasuIoUserAttributeCopyWith<$Res> {
   $Res call(
       {DateTime birthDate,
       String job,
-      @JsonKey(name: 'country') @protected String countryNonFixedCase,
+      @JsonKey(name: 'country') @protected String rawCountry,
       String prefecture,
       String familyName,
       String givenName,
@@ -1515,7 +1536,7 @@ class _$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
   $Res call({
     Object birthDate = freezed,
     Object job = freezed,
-    Object countryNonFixedCase = freezed,
+    Object rawCountry = freezed,
     Object prefecture = freezed,
     Object familyName = freezed,
     Object givenName = freezed,
@@ -1526,9 +1547,8 @@ class _$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
       job: job == freezed ? _value.job : job as String,
-      countryNonFixedCase: countryNonFixedCase == freezed
-          ? _value.countryNonFixedCase
-          : countryNonFixedCase as String,
+      rawCountry:
+          rawCountry == freezed ? _value.rawCountry : rawCountry as String,
       prefecture:
           prefecture == freezed ? _value.prefecture : prefecture as String,
       familyName:
@@ -1555,7 +1575,7 @@ abstract class _$HttpsShirasuIoUserAttributeCopyWith<$Res>
   $Res call(
       {DateTime birthDate,
       String job,
-      @JsonKey(name: 'country') @protected String countryNonFixedCase,
+      @JsonKey(name: 'country') @protected String rawCountry,
       String prefecture,
       String familyName,
       String givenName,
@@ -1580,7 +1600,7 @@ class __$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
   $Res call({
     Object birthDate = freezed,
     Object job = freezed,
-    Object countryNonFixedCase = freezed,
+    Object rawCountry = freezed,
     Object prefecture = freezed,
     Object familyName = freezed,
     Object givenName = freezed,
@@ -1591,9 +1611,8 @@ class __$HttpsShirasuIoUserAttributeCopyWithImpl<$Res>
       birthDate:
           birthDate == freezed ? _value.birthDate : birthDate as DateTime,
       job: job == freezed ? _value.job : job as String,
-      countryNonFixedCase: countryNonFixedCase == freezed
-          ? _value.countryNonFixedCase
-          : countryNonFixedCase as String,
+      rawCountry:
+          rawCountry == freezed ? _value.rawCountry : rawCountry as String,
       prefecture:
           prefecture == freezed ? _value.prefecture : prefecture as String,
       familyName:
@@ -1616,7 +1635,7 @@ class _$_HttpsShirasuIoUserAttribute extends _HttpsShirasuIoUserAttribute {
   const _$_HttpsShirasuIoUserAttribute(
       {@required this.birthDate,
       @required this.job,
-      @required @JsonKey(name: 'country') @protected this.countryNonFixedCase,
+      @required @JsonKey(name: 'country') @protected this.rawCountry,
       @required this.prefecture,
       @required this.familyName,
       @required this.givenName,
@@ -1624,7 +1643,7 @@ class _$_HttpsShirasuIoUserAttribute extends _HttpsShirasuIoUserAttribute {
       @required this.givenNameReading})
       : assert(birthDate != null),
         assert(job != null),
-        assert(countryNonFixedCase != null),
+        assert(rawCountry != null),
         assert(prefecture != null),
         assert(familyName != null),
         assert(givenName != null),
@@ -1642,7 +1661,7 @@ class _$_HttpsShirasuIoUserAttribute extends _HttpsShirasuIoUserAttribute {
   @override
   @JsonKey(name: 'country')
   @protected
-  final String countryNonFixedCase;
+  final String rawCountry;
   @override
   final String prefecture;
   @override
@@ -1656,7 +1675,7 @@ class _$_HttpsShirasuIoUserAttribute extends _HttpsShirasuIoUserAttribute {
 
   @override
   String toString() {
-    return 'HttpsShirasuIoUserAttribute(birthDate: $birthDate, job: $job, countryNonFixedCase: $countryNonFixedCase, prefecture: $prefecture, familyName: $familyName, givenName: $givenName, familyNameReading: $familyNameReading, givenNameReading: $givenNameReading)';
+    return 'HttpsShirasuIoUserAttribute(birthDate: $birthDate, job: $job, rawCountry: $rawCountry, prefecture: $prefecture, familyName: $familyName, givenName: $givenName, familyNameReading: $familyNameReading, givenNameReading: $givenNameReading)';
   }
 
   @override
@@ -1668,9 +1687,9 @@ class _$_HttpsShirasuIoUserAttribute extends _HttpsShirasuIoUserAttribute {
                     .equals(other.birthDate, birthDate)) &&
             (identical(other.job, job) ||
                 const DeepCollectionEquality().equals(other.job, job)) &&
-            (identical(other.countryNonFixedCase, countryNonFixedCase) ||
+            (identical(other.rawCountry, rawCountry) ||
                 const DeepCollectionEquality()
-                    .equals(other.countryNonFixedCase, countryNonFixedCase)) &&
+                    .equals(other.rawCountry, rawCountry)) &&
             (identical(other.prefecture, prefecture) ||
                 const DeepCollectionEquality()
                     .equals(other.prefecture, prefecture)) &&
@@ -1693,7 +1712,7 @@ class _$_HttpsShirasuIoUserAttribute extends _HttpsShirasuIoUserAttribute {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(birthDate) ^
       const DeepCollectionEquality().hash(job) ^
-      const DeepCollectionEquality().hash(countryNonFixedCase) ^
+      const DeepCollectionEquality().hash(rawCountry) ^
       const DeepCollectionEquality().hash(prefecture) ^
       const DeepCollectionEquality().hash(familyName) ^
       const DeepCollectionEquality().hash(givenName) ^
@@ -1718,7 +1737,7 @@ abstract class _HttpsShirasuIoUserAttribute
   const factory _HttpsShirasuIoUserAttribute(
       {@required DateTime birthDate,
       @required String job,
-      @required @JsonKey(name: 'country') @protected String countryNonFixedCase,
+      @required @JsonKey(name: 'country') @protected String rawCountry,
       @required String prefecture,
       @required String familyName,
       @required String givenName,
@@ -1735,7 +1754,7 @@ abstract class _HttpsShirasuIoUserAttribute
   @override
   @JsonKey(name: 'country')
   @protected
-  String get countryNonFixedCase;
+  String get rawCountry;
   @override
   String get prefecture;
   @override
@@ -2130,11 +2149,21 @@ class _$UserTearOff {
       @protected
           List<dynamic> rawHttpsShirasuIoTenants,
       @required
+      @JsonKey(name: 'given_name')
+      @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]')
+          String givenName,
+      @required
+      @JsonKey(name: 'family_name')
+      @Deprecated('no need to use')
+          String familyName,
+      @required
           String nickname,
       @required
           String name,
       @required
           String picture,
+      @required
+          String locale,
       @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
@@ -2151,9 +2180,12 @@ class _$UserTearOff {
       httpsShirasuIoCustomerId: httpsShirasuIoCustomerId,
       rawHttpsShirasuIoDistributeds: rawHttpsShirasuIoDistributeds,
       rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants,
+      givenName: givenName,
+      familyName: familyName,
       nickname: nickname,
       name: name,
       picture: picture,
+      locale: locale,
       updatedAt: updatedAt,
       email: email,
       emailVerified: emailVerified,
@@ -2185,12 +2217,21 @@ mixin _$User {
   List<dynamic> get rawHttpsShirasuIoDistributeds;
   @JsonKey(name: 'https://shirasu.io/tenants')
   @protected
-  List<dynamic>
-      get rawHttpsShirasuIoTenants; // @JsonKey(name: 'given_name') @required String givenName,
-// @JsonKey(name: 'family_name') @required String familyName,
+  List<dynamic> get rawHttpsShirasuIoTenants;
+
+  /// use [HttpsShirasuIoUserAttribute.givenName]
+  @JsonKey(name: 'given_name')
+  @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]')
+  String get givenName;
+
+  /// use [HttpsShirasuIoUserAttribute.familyName]
+  @JsonKey(name: 'family_name')
+  @Deprecated('no need to use')
+  String get familyName;
   String get nickname;
   String get name;
-  String get picture; // @required String locale,
+  String get picture;
+  String get locale;
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   String get email;
@@ -2221,9 +2262,16 @@ abstract class $UserCopyWith<$Res> {
       @JsonKey(name: 'https://shirasu.io/tenants')
       @protected
           List<dynamic> rawHttpsShirasuIoTenants,
+      @JsonKey(name: 'given_name')
+      @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]')
+          String givenName,
+      @JsonKey(name: 'family_name')
+      @Deprecated('no need to use')
+          String familyName,
       String nickname,
       String name,
       String picture,
+      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -2249,9 +2297,12 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object httpsShirasuIoCustomerId = freezed,
     Object rawHttpsShirasuIoDistributeds = freezed,
     Object rawHttpsShirasuIoTenants = freezed,
+    Object givenName = freezed,
+    Object familyName = freezed,
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
+    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -2273,9 +2324,13 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants == freezed
           ? _value.rawHttpsShirasuIoTenants
           : rawHttpsShirasuIoTenants as List<dynamic>,
+      givenName: givenName == freezed ? _value.givenName : givenName as String,
+      familyName:
+          familyName == freezed ? _value.familyName : familyName as String,
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
+      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -2317,9 +2372,16 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       @JsonKey(name: 'https://shirasu.io/tenants')
       @protected
           List<dynamic> rawHttpsShirasuIoTenants,
+      @JsonKey(name: 'given_name')
+      @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]')
+          String givenName,
+      @JsonKey(name: 'family_name')
+      @Deprecated('no need to use')
+          String familyName,
       String nickname,
       String name,
       String picture,
+      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -2347,9 +2409,12 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object httpsShirasuIoCustomerId = freezed,
     Object rawHttpsShirasuIoDistributeds = freezed,
     Object rawHttpsShirasuIoTenants = freezed,
+    Object givenName = freezed,
+    Object familyName = freezed,
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
+    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -2371,9 +2436,13 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants == freezed
           ? _value.rawHttpsShirasuIoTenants
           : rawHttpsShirasuIoTenants as List<dynamic>,
+      givenName: givenName == freezed ? _value.givenName : givenName as String,
+      familyName:
+          familyName == freezed ? _value.familyName : familyName as String,
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
+      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -2388,7 +2457,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_User extends _User {
+class _$_User implements _User {
   const _$_User(
       {@required
       @JsonKey(name: 'https://shirasu.io/roles')
@@ -2409,11 +2478,21 @@ class _$_User extends _User {
       @protected
           this.rawHttpsShirasuIoTenants,
       @required
+      @JsonKey(name: 'given_name')
+      @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]')
+          this.givenName,
+      @required
+      @JsonKey(name: 'family_name')
+      @Deprecated('no need to use')
+          this.familyName,
+      @required
           this.nickname,
       @required
           this.name,
       @required
           this.picture,
+      @required
+          this.locale,
       @required
       @JsonKey(name: 'updated_at')
           this.updatedAt,
@@ -2429,14 +2508,16 @@ class _$_User extends _User {
         assert(httpsShirasuIoCustomerId != null),
         assert(rawHttpsShirasuIoDistributeds != null),
         assert(rawHttpsShirasuIoTenants != null),
+        assert(givenName != null),
+        assert(familyName != null),
         assert(nickname != null),
         assert(name != null),
         assert(picture != null),
+        assert(locale != null),
         assert(updatedAt != null),
         assert(email != null),
         assert(emailVerified != null),
-        assert(sub != null),
-        super._();
+        assert(sub != null);
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -2459,14 +2540,27 @@ class _$_User extends _User {
   @JsonKey(name: 'https://shirasu.io/tenants')
   @protected
   final List<dynamic> rawHttpsShirasuIoTenants;
-  @override // @JsonKey(name: 'given_name') @required String givenName,
-// @JsonKey(name: 'family_name') @required String familyName,
+  @override
+
+  /// use [HttpsShirasuIoUserAttribute.givenName]
+  @JsonKey(name: 'given_name')
+  @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]')
+  final String givenName;
+  @override
+
+  /// use [HttpsShirasuIoUserAttribute.familyName]
+  @JsonKey(name: 'family_name')
+  @Deprecated('no need to use')
+  final String familyName;
+  @override
   final String nickname;
   @override
   final String name;
   @override
   final String picture;
-  @override // @required String locale,
+  @override
+  final String locale;
+  @override
   @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
   @override
@@ -2479,7 +2573,7 @@ class _$_User extends _User {
 
   @override
   String toString() {
-    return 'User(rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
+    return 'User(rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, givenName: $givenName, familyName: $familyName, nickname: $nickname, name: $name, picture: $picture, locale: $locale, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
   }
 
   @override
@@ -2505,6 +2599,12 @@ class _$_User extends _User {
                 const DeepCollectionEquality().equals(
                     other.rawHttpsShirasuIoTenants,
                     rawHttpsShirasuIoTenants)) &&
+            (identical(other.givenName, givenName) ||
+                const DeepCollectionEquality()
+                    .equals(other.givenName, givenName)) &&
+            (identical(other.familyName, familyName) ||
+                const DeepCollectionEquality()
+                    .equals(other.familyName, familyName)) &&
             (identical(other.nickname, nickname) ||
                 const DeepCollectionEquality()
                     .equals(other.nickname, nickname)) &&
@@ -2513,14 +2613,11 @@ class _$_User extends _User {
             (identical(other.picture, picture) ||
                 const DeepCollectionEquality()
                     .equals(other.picture, picture)) &&
-            (identical(other.updatedAt, updatedAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.emailVerified, emailVerified) ||
-                const DeepCollectionEquality()
-                    .equals(other.emailVerified, emailVerified)) &&
+            (identical(other.locale, locale) ||
+                const DeepCollectionEquality().equals(other.locale, locale)) &&
+            (identical(other.updatedAt, updatedAt) || const DeepCollectionEquality().equals(other.updatedAt, updatedAt)) &&
+            (identical(other.email, email) || const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.emailVerified, emailVerified) || const DeepCollectionEquality().equals(other.emailVerified, emailVerified)) &&
             (identical(other.sub, sub) || const DeepCollectionEquality().equals(other.sub, sub)));
   }
 
@@ -2532,9 +2629,12 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(httpsShirasuIoCustomerId) ^
       const DeepCollectionEquality().hash(rawHttpsShirasuIoDistributeds) ^
       const DeepCollectionEquality().hash(rawHttpsShirasuIoTenants) ^
+      const DeepCollectionEquality().hash(givenName) ^
+      const DeepCollectionEquality().hash(familyName) ^
       const DeepCollectionEquality().hash(nickname) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
+      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(emailVerified) ^
@@ -2551,8 +2651,7 @@ class _$_User extends _User {
   }
 }
 
-abstract class _User extends User {
-  const _User._() : super._();
+abstract class _User implements User {
   const factory _User(
       {@required
       @JsonKey(name: 'https://shirasu.io/roles')
@@ -2573,11 +2672,21 @@ abstract class _User extends User {
       @protected
           List<dynamic> rawHttpsShirasuIoTenants,
       @required
+      @JsonKey(name: 'given_name')
+      @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]')
+          String givenName,
+      @required
+      @JsonKey(name: 'family_name')
+      @Deprecated('no need to use')
+          String familyName,
+      @required
           String nickname,
       @required
           String name,
       @required
           String picture,
+      @required
+          String locale,
       @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
@@ -2609,14 +2718,27 @@ abstract class _User extends User {
   @JsonKey(name: 'https://shirasu.io/tenants')
   @protected
   List<dynamic> get rawHttpsShirasuIoTenants;
-  @override // @JsonKey(name: 'given_name') @required String givenName,
-// @JsonKey(name: 'family_name') @required String familyName,
+  @override
+
+  /// use [HttpsShirasuIoUserAttribute.givenName]
+  @JsonKey(name: 'given_name')
+  @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]')
+  String get givenName;
+  @override
+
+  /// use [HttpsShirasuIoUserAttribute.familyName]
+  @JsonKey(name: 'family_name')
+  @Deprecated('no need to use')
+  String get familyName;
+  @override
   String get nickname;
   @override
   String get name;
   @override
   String get picture;
-  @override // @required String locale,
+  @override
+  String get locale;
+  @override
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   @override

@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/resource/strings.dart';
+
+part 'list_tile_payment_method.g.dart';
 
 /// amex: "/static/img/amex-logo.png",
 /// diners: "/static/img/dinersclub-logo.png",
@@ -10,16 +13,13 @@ import 'package:shirasu/resource/strings.dart';
 /// jcb: "/static/img/jcb-logo.png",
 /// mastercard: "/static/img/mastarcard-logo.png",
 /// visa: "/static/img/visa-logo.png"
-class ListTilePaymentMethod extends StatelessWidget {
-
-  const ListTilePaymentMethod({Key key, @required this.paymentMethod}) : super(key: key);
-
-  final BasePaymentMethod paymentMethod;
-
-  @override
-  Widget build(BuildContext context) => ListTile(
+@swidget
+Widget listTilePaymentMethod({
+  @required BasePaymentMethod paymentMethod,
+}) =>
+    ListTile(
       leading: Icon(
-        _getCardIcon(),
+        paymentMethod.toCardIcon(),
         color: Colors.white,
       ),
       title: Text('XXXX-XXXX-XXXX-${paymentMethod.last4}'),
@@ -28,8 +28,9 @@ class ListTilePaymentMethod extends StatelessWidget {
       ),
     );
 
-  IconData _getCardIcon() {
-    switch (paymentMethod.brand) {
+extension on BasePaymentMethod {
+  IconData toCardIcon() {
+    switch (brand) {
       case 'amex':
         return FontAwesomeIcons.ccAmex;
       case 'diners':
@@ -43,7 +44,7 @@ class ListTilePaymentMethod extends StatelessWidget {
       case 'visa':
         return FontAwesomeIcons.ccVisa;
       default:
-        throw UnsupportedError('unexpected item: ${paymentMethod.brand}');
+        throw ArgumentError.value(brand);
     }
   }
 }

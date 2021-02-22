@@ -92,6 +92,7 @@ _$_Claims _$_$_ClaimsFromJson(Map<String, dynamic> json) {
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
+    locale: json['locale'] as String,
     updatedAt: json['updated_at'] == null
         ? null
         : DateTime.parse(json['updated_at'] as String),
@@ -115,6 +116,7 @@ Map<String, dynamic> _$_$_ClaimsToJson(_$_Claims instance) => <String, dynamic>{
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,
+      'locale': instance.locale,
       'updated_at': instance.updatedAt?.toIso8601String(),
       'email': instance.email,
       'email_verified': instance.emailVerified,
@@ -132,7 +134,7 @@ _$_HttpsShirasuIoUserAttribute _$_$_HttpsShirasuIoUserAttributeFromJson(
         ? null
         : DateTime.parse(json['birthDate'] as String),
     job: json['job'] as String,
-    countryNonFixedCase: json['country'] as String,
+    rawCountry: json['country'] as String,
     prefecture: json['prefecture'] as String,
     familyName: json['familyName'] as String,
     givenName: json['givenName'] as String,
@@ -146,7 +148,7 @@ Map<String, dynamic> _$_$_HttpsShirasuIoUserAttributeToJson(
     <String, dynamic>{
       'birthDate': instance.birthDate?.toIso8601String(),
       'job': instance.job,
-      'country': instance.countryNonFixedCase,
+      'country': instance.rawCountry,
       'prefecture': instance.prefecture,
       'familyName': instance.familyName,
       'givenName': instance.givenName,
@@ -197,9 +199,12 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     rawHttpsShirasuIoDistributeds:
         json['https://shirasu.io/distributeds'] as List,
     rawHttpsShirasuIoTenants: json['https://shirasu.io/tenants'] as List,
+    givenName: json['given_name'] as String,
+    familyName: json['family_name'] as String,
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
+    locale: json['locale'] as String,
     updatedAt: json['updated_at'] == null
         ? null
         : DateTime.parse(json['updated_at'] as String),
@@ -215,9 +220,12 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'https://shirasu.io/customerId': instance.httpsShirasuIoCustomerId,
       'https://shirasu.io/distributeds': instance.rawHttpsShirasuIoDistributeds,
       'https://shirasu.io/tenants': instance.rawHttpsShirasuIoTenants,
+      'given_name': instance.givenName,
+      'family_name': instance.familyName,
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,
+      'locale': instance.locale,
       'updated_at': instance.updatedAt?.toIso8601String(),
       'email': instance.email,
       'email_verified': instance.emailVerified,

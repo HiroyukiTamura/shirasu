@@ -34,8 +34,8 @@ Future<void> main() async {
     ..registerAdapter(HiveDecodedTokenAdapter())
     ..registerAdapter(HiveClaimsAdapter())
     ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
-    ..registerAdapter(HiveEncodedAdapter())
-    ..registerAdapter(HiveHeaderAdapter())
+    // ..registerAdapter(HiveEncodedAdapter())
+    // ..registerAdapter(HiveHeaderAdapter())
     ..registerAdapter(HiveUserAdapter());
 
   await HiveAuthRepositoryImpl.instance().init();

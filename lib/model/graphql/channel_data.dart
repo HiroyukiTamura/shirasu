@@ -24,11 +24,9 @@ abstract class Channel with _$Channel implements BaseChannel {
   const factory Channel({
     @required String id,
     @required String name,
-    @Deprecated('no need to use')
-    dynamic icon,
+    @Deprecated('no need to use') dynamic icon,
     String twitterUrl,
     String facebookUrl,
-    @Deprecated('no need to use')
     String textOnPurchaseScreen,
     @required String detail,
     @required @JsonKey(name: '__typename') String typename,
@@ -47,7 +45,10 @@ abstract class Announcements
     implements BaseModelChannelAnnouncementConnection {
   @Assert('typename == "ModelChannelAnnouncementConnection"')
   const factory Announcements({
-    @required @JsonKey(name: 'items') @protected List<AnnouncementsItem> rawItems,
+    @required
+    @JsonKey(name: 'items')
+    @protected
+        List<AnnouncementsItem> rawItems,
     String nextToken,
     @required @JsonKey(name: '__typename') String typename,
   }) = _Announcements;
@@ -57,7 +58,8 @@ abstract class Announcements
 
   const Announcements._();
 
-  UnmodifiableListView<AnnouncementsItem> get items => rawItems.toUnmodifiable();
+  UnmodifiableListView<AnnouncementsItem> get items =>
+      rawItems.toUnmodifiable();
 }
 
 @freezed
@@ -68,7 +70,7 @@ abstract class AnnouncementsItem
   const factory AnnouncementsItem({
     @required String id,
     @required bool isOpen,
-    @required bool isSubscriberOnly,
+    @required bool isSubscriberOnly, //todo use
     @required String title,
     @required String text,
     @required DateTime publishedAt,
@@ -86,7 +88,7 @@ abstract class ChannelPrograms
     implements _$ChannelPrograms, BaseModelProgramConnection {
   @Assert('typename == "ModelProgramConnection"')
   const factory ChannelPrograms({
-    @required @JsonKey(name: 'items') List<ProgramsItem> rawItems,
+    @required @JsonKey(name: 'items') @protected List<ProgramsItem> rawItems,
     String nextToken,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ChannelPrograms;
@@ -98,14 +100,11 @@ abstract class ChannelPrograms
 
   UnmodifiableListView<ProgramsItem> get items => rawItems.toUnmodifiable();
 
-  ChannelPrograms append(ChannelPrograms newOne) {
-    items.addAll(newOne.items);
-    return ChannelPrograms(
-      rawItems: items + newOne.items,
-      typename: newOne.typename,
-      nextToken: newOne.nextToken,
-    );
-  }
+  ChannelPrograms append(ChannelPrograms newOne) => ChannelPrograms(
+        rawItems: items + newOne.items,
+        typename: newOne.typename,
+        nextToken: newOne.nextToken,
+      );
 }
 
 @freezed
@@ -120,15 +119,13 @@ abstract class ProgramsItem
     @required String title,
     @required DateTime broadcastAt,
     @required int totalPlayTime,
-    //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
+    //todo send PR to freezed; the string "don't use!" throws error if the factory has assertion
     @Deprecated("do not use!") String viewerPlanType,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramsItem;
 
   factory ProgramsItem.fromJson(Map<String, dynamic> json) =>
       _$ProgramsItemFromJson(json);
-
-  const ProgramsItem._();
 }
 
 @freezed
@@ -147,8 +144,6 @@ abstract class SubscriptionPlan
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionPlanFromJson(json);
-
-  const SubscriptionPlan._();
 }
 
 @freezed

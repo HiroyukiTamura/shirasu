@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'video_type.freezed.dart';
 
 mixin VideoTypeMixin {
-  @Deprecated('use [videoTypeStrict]')
+  @protected
   String get videoType;
 
   // ignore: deprecated_member_use_from_same_package

@@ -181,7 +181,7 @@ class _$ChannelTearOff {
       @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
-      @Deprecated('no need to use') String textOnPurchaseScreen,
+      String textOnPurchaseScreen,
       @required String detail,
       @required @JsonKey(name: '__typename') String typename,
       @required SubscriptionPlan subscriptionPlan,
@@ -220,7 +220,6 @@ mixin _$Channel {
   dynamic get icon;
   String get twitterUrl;
   String get facebookUrl;
-  @Deprecated('no need to use')
   String get textOnPurchaseScreen;
   String get detail;
   @JsonKey(name: '__typename')
@@ -244,7 +243,7 @@ abstract class $ChannelCopyWith<$Res> {
       @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
-      @Deprecated('no need to use') String textOnPurchaseScreen,
+      String textOnPurchaseScreen,
       String detail,
       @JsonKey(name: '__typename') String typename,
       SubscriptionPlan subscriptionPlan,
@@ -344,7 +343,7 @@ abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
       @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
-      @Deprecated('no need to use') String textOnPurchaseScreen,
+      String textOnPurchaseScreen,
       String detail,
       @JsonKey(name: '__typename') String typename,
       SubscriptionPlan subscriptionPlan,
@@ -417,7 +416,7 @@ class _$_Channel implements _Channel {
       @Deprecated('no need to use') this.icon,
       this.twitterUrl,
       this.facebookUrl,
-      @Deprecated('no need to use') this.textOnPurchaseScreen,
+      this.textOnPurchaseScreen,
       @required this.detail,
       @required @JsonKey(name: '__typename') this.typename,
       @required this.subscriptionPlan,
@@ -447,7 +446,6 @@ class _$_Channel implements _Channel {
   @override
   final String facebookUrl;
   @override
-  @Deprecated('no need to use')
   final String textOnPurchaseScreen;
   @override
   final String detail;
@@ -534,7 +532,7 @@ abstract class _Channel implements Channel {
       @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
-      @Deprecated('no need to use') String textOnPurchaseScreen,
+      String textOnPurchaseScreen,
       @required String detail,
       @required @JsonKey(name: '__typename') String typename,
       @required SubscriptionPlan subscriptionPlan,
@@ -555,7 +553,6 @@ abstract class _Channel implements Channel {
   @override
   String get facebookUrl;
   @override
-  @Deprecated('no need to use')
   String get textOnPurchaseScreen;
   @override
   String get detail;
@@ -837,7 +834,7 @@ const $AnnouncementsItem = _$AnnouncementsItemTearOff();
 mixin _$AnnouncementsItem {
   String get id;
   bool get isOpen;
-  bool get isSubscriberOnly;
+  bool get isSubscriberOnly; //todo use
   String get title;
   String get text;
   DateTime get publishedAt;
@@ -1003,7 +1000,7 @@ class _$_AnnouncementsItem implements _AnnouncementsItem {
   final bool isOpen;
   @override
   final bool isSubscriberOnly;
-  @override
+  @override //todo use
   final String title;
   @override
   final String text;
@@ -1097,7 +1094,7 @@ abstract class _AnnouncementsItem implements AnnouncementsItem {
   bool get isOpen;
   @override
   bool get isSubscriberOnly;
-  @override
+  @override //todo use
   String get title;
   @override
   String get text;
@@ -1125,7 +1122,7 @@ class _$ChannelProgramsTearOff {
 
 // ignore: unused_element
   _ChannelPrograms call(
-      {@required @JsonKey(name: 'items') List<ProgramsItem> rawItems,
+      {@required @JsonKey(name: 'items') @protected List<ProgramsItem> rawItems,
       String nextToken,
       @required @JsonKey(name: '__typename') String typename}) {
     return _ChannelPrograms(
@@ -1148,6 +1145,7 @@ const $ChannelPrograms = _$ChannelProgramsTearOff();
 /// @nodoc
 mixin _$ChannelPrograms {
   @JsonKey(name: 'items')
+  @protected
   List<ProgramsItem> get rawItems;
   String get nextToken;
   @JsonKey(name: '__typename')
@@ -1164,7 +1162,7 @@ abstract class $ChannelProgramsCopyWith<$Res> {
           ChannelPrograms value, $Res Function(ChannelPrograms) then) =
       _$ChannelProgramsCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'items') List<ProgramsItem> rawItems,
+      {@JsonKey(name: 'items') @protected List<ProgramsItem> rawItems,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -1202,7 +1200,7 @@ abstract class _$ChannelProgramsCopyWith<$Res>
       __$ChannelProgramsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'items') List<ProgramsItem> rawItems,
+      {@JsonKey(name: 'items') @protected List<ProgramsItem> rawItems,
       String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
@@ -1239,7 +1237,7 @@ class __$ChannelProgramsCopyWithImpl<$Res>
 /// @nodoc
 class _$_ChannelPrograms extends _ChannelPrograms {
   const _$_ChannelPrograms(
-      {@required @JsonKey(name: 'items') this.rawItems,
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
       this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(rawItems != null),
@@ -1252,6 +1250,7 @@ class _$_ChannelPrograms extends _ChannelPrograms {
 
   @override
   @JsonKey(name: 'items')
+  @protected
   final List<ProgramsItem> rawItems;
   @override
   final String nextToken;
@@ -1300,16 +1299,21 @@ class _$_ChannelPrograms extends _ChannelPrograms {
 abstract class _ChannelPrograms extends ChannelPrograms {
   const _ChannelPrograms._() : super._();
   const factory _ChannelPrograms(
-          {@required @JsonKey(name: 'items') List<ProgramsItem> rawItems,
-          String nextToken,
-          @required @JsonKey(name: '__typename') String typename}) =
-      _$_ChannelPrograms;
+      {@required
+      @JsonKey(name: 'items')
+      @protected
+          List<ProgramsItem> rawItems,
+      String nextToken,
+      @required
+      @JsonKey(name: '__typename')
+          String typename}) = _$_ChannelPrograms;
 
   factory _ChannelPrograms.fromJson(Map<String, dynamic> json) =
       _$_ChannelPrograms.fromJson;
 
   @override
   @JsonKey(name: 'items')
+  @protected
   List<ProgramsItem> get rawItems;
   @override
   String get nextToken;
@@ -1368,7 +1372,7 @@ mixin _$ProgramsItem {
   String get channelId;
   String get title;
   DateTime get broadcastAt;
-  int get totalPlayTime; //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
+  int get totalPlayTime; //todo send PR to freezed; the string "don't use!" throws error if the factory has assertion
   @Deprecated('do not use!')
   String get viewerPlanType;
   @JsonKey(name: '__typename')
@@ -1492,7 +1496,7 @@ class __$ProgramsItemCopyWithImpl<$Res> extends _$ProgramsItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ProgramsItem extends _ProgramsItem {
+class _$_ProgramsItem implements _ProgramsItem {
   const _$_ProgramsItem(
       {@required this.id,
       @required this.tenantId,
@@ -1509,8 +1513,7 @@ class _$_ProgramsItem extends _ProgramsItem {
         assert(broadcastAt != null),
         assert(totalPlayTime != null),
         assert(typename != null),
-        assert(typename == "Program"),
-        super._();
+        assert(typename == "Program");
 
   factory _$_ProgramsItem.fromJson(Map<String, dynamic> json) =>
       _$_$_ProgramsItemFromJson(json);
@@ -1527,7 +1530,7 @@ class _$_ProgramsItem extends _ProgramsItem {
   final DateTime broadcastAt;
   @override
   final int totalPlayTime;
-  @override //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
+  @override //todo send PR to freezed; the string "don't use!" throws error if the factory has assertion
   @Deprecated('do not use!')
   final String viewerPlanType;
   @override
@@ -1590,8 +1593,7 @@ class _$_ProgramsItem extends _ProgramsItem {
   }
 }
 
-abstract class _ProgramsItem extends ProgramsItem {
-  const _ProgramsItem._() : super._();
+abstract class _ProgramsItem implements ProgramsItem {
   const factory _ProgramsItem(
           {@required String id,
           @required String tenantId,
@@ -1618,7 +1620,7 @@ abstract class _ProgramsItem extends ProgramsItem {
   DateTime get broadcastAt;
   @override
   int get totalPlayTime;
-  @override //todo send PR to freezed; the string "do not use!" throws error if the factory has assertion
+  @override //todo send PR to freezed; the string "don't use!" throws error if the factory has assertion
   @Deprecated('do not use!')
   String get viewerPlanType;
   @override
@@ -1796,7 +1798,7 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_SubscriptionPlan extends _SubscriptionPlan {
+class _$_SubscriptionPlan implements _SubscriptionPlan {
   const _$_SubscriptionPlan(
       {@required this.id,
       @required this.amount,
@@ -1809,8 +1811,7 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
         assert(currency != null),
         assert(isPurchasable != null),
         assert(typename != null),
-        assert(typename == "SubscriptionPlan"),
-        super._();
+        assert(typename == "SubscriptionPlan");
 
   factory _$_SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$_$_SubscriptionPlanFromJson(json);
@@ -1877,8 +1878,7 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan extends SubscriptionPlan {
-  const _SubscriptionPlan._() : super._();
+abstract class _SubscriptionPlan implements SubscriptionPlan {
   const factory _SubscriptionPlan(
       {@required String id,
       @required int amount,

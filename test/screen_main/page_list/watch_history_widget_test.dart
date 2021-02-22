@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
@@ -16,7 +17,6 @@ import '../../mock_repository/hive_auth_empty.dart';
 import '../../mock_repository/hive_pref_empty.dart';
 import '../../mock_viewmodel/viewmodel_watch_hisotry_mockable.dart';
 import '../../mock_viewmodel/viewmodel_watch_hisotry_no_loadmore.dart';
-import '../../widget_test_util/guard.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_runner_on_page_error.dart';
 import '../../widget_test_util/test_runner_on_page_list.dart';
@@ -123,13 +123,13 @@ class _TestRunner extends TestRunnerBase
           2000);
 
   static Future<bool> _isScrollToEnd(Key scenarioWidgetKey) async =>
-      Guard<void>.run(() => TestUtil.expectFind(
+      Result.guard(() => TestUtil.expectFind(
             scenarioWidgetKey: scenarioWidgetKey,
             matching: find.text(TestRunnerOnPageList.WATCH_HISTORY_LAST_TITLE),
             matcher: findsOneWidget,
           )).when(
         success: (data) => true,
-        error: (e) => false,
+        failure: (e) => false,
       );
 
   static void _findLoadMoreCircleProgress(

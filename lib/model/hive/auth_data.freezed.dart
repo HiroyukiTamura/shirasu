@@ -558,13 +558,9 @@ class _$HiveDecodedTokenTearOff {
 
 // ignore: unused_element
   _HiveDecodedToken call(
-      {@required @HiveField(11) HiveEncoded encoded,
-      @required @HiveField(12) HiveHeader header,
-      @required @HiveField(13) HiveClaims claims,
+      {@required @HiveField(13) HiveClaims claims,
       @required @HiveField(14) HiveUser user}) {
     return _HiveDecodedToken(
-      encoded: encoded,
-      header: header,
       claims: claims,
       user: user,
     );
@@ -577,10 +573,8 @@ const $HiveDecodedToken = _$HiveDecodedTokenTearOff();
 
 /// @nodoc
 mixin _$HiveDecodedToken {
-  @HiveField(11)
-  HiveEncoded get encoded;
-  @HiveField(12)
-  HiveHeader get header;
+// @required @HiveField(11) HiveEncoded encoded,
+// @required @HiveField(12) HiveHeader header,
   @HiveField(13)
   HiveClaims get claims;
   @HiveField(14)
@@ -595,14 +589,8 @@ abstract class $HiveDecodedTokenCopyWith<$Res> {
   factory $HiveDecodedTokenCopyWith(
           HiveDecodedToken value, $Res Function(HiveDecodedToken) then) =
       _$HiveDecodedTokenCopyWithImpl<$Res>;
-  $Res call(
-      {@HiveField(11) HiveEncoded encoded,
-      @HiveField(12) HiveHeader header,
-      @HiveField(13) HiveClaims claims,
-      @HiveField(14) HiveUser user});
+  $Res call({@HiveField(13) HiveClaims claims, @HiveField(14) HiveUser user});
 
-  $HiveEncodedCopyWith<$Res> get encoded;
-  $HiveHeaderCopyWith<$Res> get header;
   $HiveClaimsCopyWith<$Res> get claims;
   $HiveUserCopyWith<$Res> get user;
 }
@@ -618,37 +606,13 @@ class _$HiveDecodedTokenCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object encoded = freezed,
-    Object header = freezed,
     Object claims = freezed,
     Object user = freezed,
   }) {
     return _then(_value.copyWith(
-      encoded: encoded == freezed ? _value.encoded : encoded as HiveEncoded,
-      header: header == freezed ? _value.header : header as HiveHeader,
       claims: claims == freezed ? _value.claims : claims as HiveClaims,
       user: user == freezed ? _value.user : user as HiveUser,
     ));
-  }
-
-  @override
-  $HiveEncodedCopyWith<$Res> get encoded {
-    if (_value.encoded == null) {
-      return null;
-    }
-    return $HiveEncodedCopyWith<$Res>(_value.encoded, (value) {
-      return _then(_value.copyWith(encoded: value));
-    });
-  }
-
-  @override
-  $HiveHeaderCopyWith<$Res> get header {
-    if (_value.header == null) {
-      return null;
-    }
-    return $HiveHeaderCopyWith<$Res>(_value.header, (value) {
-      return _then(_value.copyWith(header: value));
-    });
   }
 
   @override
@@ -679,16 +643,8 @@ abstract class _$HiveDecodedTokenCopyWith<$Res>
           _HiveDecodedToken value, $Res Function(_HiveDecodedToken) then) =
       __$HiveDecodedTokenCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {@HiveField(11) HiveEncoded encoded,
-      @HiveField(12) HiveHeader header,
-      @HiveField(13) HiveClaims claims,
-      @HiveField(14) HiveUser user});
+  $Res call({@HiveField(13) HiveClaims claims, @HiveField(14) HiveUser user});
 
-  @override
-  $HiveEncodedCopyWith<$Res> get encoded;
-  @override
-  $HiveHeaderCopyWith<$Res> get header;
   @override
   $HiveClaimsCopyWith<$Res> get claims;
   @override
@@ -708,14 +664,10 @@ class __$HiveDecodedTokenCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object encoded = freezed,
-    Object header = freezed,
     Object claims = freezed,
     Object user = freezed,
   }) {
     return _then(_HiveDecodedToken(
-      encoded: encoded == freezed ? _value.encoded : encoded as HiveEncoded,
-      header: header == freezed ? _value.header : header as HiveHeader,
       claims: claims == freezed ? _value.claims : claims as HiveClaims,
       user: user == freezed ? _value.user : user as HiveUser,
     ));
@@ -728,22 +680,13 @@ class __$HiveDecodedTokenCopyWithImpl<$Res>
 /// @nodoc
 class _$_HiveDecodedToken implements _HiveDecodedToken {
   const _$_HiveDecodedToken(
-      {@required @HiveField(11) this.encoded,
-      @required @HiveField(12) this.header,
-      @required @HiveField(13) this.claims,
+      {@required @HiveField(13) this.claims,
       @required @HiveField(14) this.user})
-      : assert(encoded != null),
-        assert(header != null),
-        assert(claims != null),
+      : assert(claims != null),
         assert(user != null);
 
-  @override
-  @HiveField(11)
-  final HiveEncoded encoded;
-  @override
-  @HiveField(12)
-  final HiveHeader header;
-  @override
+  @override // @required @HiveField(11) HiveEncoded encoded,
+// @required @HiveField(12) HiveHeader header,
   @HiveField(13)
   final HiveClaims claims;
   @override
@@ -752,18 +695,13 @@ class _$_HiveDecodedToken implements _HiveDecodedToken {
 
   @override
   String toString() {
-    return 'HiveDecodedToken(encoded: $encoded, header: $header, claims: $claims, user: $user)';
+    return 'HiveDecodedToken(claims: $claims, user: $user)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _HiveDecodedToken &&
-            (identical(other.encoded, encoded) ||
-                const DeepCollectionEquality()
-                    .equals(other.encoded, encoded)) &&
-            (identical(other.header, header) ||
-                const DeepCollectionEquality().equals(other.header, header)) &&
             (identical(other.claims, claims) ||
                 const DeepCollectionEquality().equals(other.claims, claims)) &&
             (identical(other.user, user) ||
@@ -773,8 +711,6 @@ class _$_HiveDecodedToken implements _HiveDecodedToken {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(encoded) ^
-      const DeepCollectionEquality().hash(header) ^
       const DeepCollectionEquality().hash(claims) ^
       const DeepCollectionEquality().hash(user);
 
@@ -786,18 +722,11 @@ class _$_HiveDecodedToken implements _HiveDecodedToken {
 
 abstract class _HiveDecodedToken implements HiveDecodedToken {
   const factory _HiveDecodedToken(
-      {@required @HiveField(11) HiveEncoded encoded,
-      @required @HiveField(12) HiveHeader header,
-      @required @HiveField(13) HiveClaims claims,
+      {@required @HiveField(13) HiveClaims claims,
       @required @HiveField(14) HiveUser user}) = _$_HiveDecodedToken;
 
-  @override
-  @HiveField(11)
-  HiveEncoded get encoded;
-  @override
-  @HiveField(12)
-  HiveHeader get header;
-  @override
+  @override // @required @HiveField(11) HiveEncoded encoded,
+// @required @HiveField(12) HiveHeader header,
   @HiveField(13)
   HiveClaims get claims;
   @override
@@ -815,77 +744,10 @@ class _$HiveClaimsTearOff {
 // ignore: unused_element
   _HiveClaims call(
       {@required
-      @HiveField(15)
-          String raw,
-      @required
-      @HiveField(16)
-      @protected
-          List<String> rawHttpsShirasuIoRoles,
-      @required
       @HiveField(17)
-          HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @required
-      @HiveField(18)
-          String httpsShirasuIoCustomerId,
-      @required
-      @HiveField(19)
-      @protected
-          List<dynamic> rawHttpsShirasuIoDistributeds,
-      @required
-      @HiveField(20)
-      @protected
-          List<dynamic> rawHttpsShirasuIoTenants,
-      @required
-      @HiveField(23)
-          String nickname,
-      @required
-      @HiveField(24)
-          String name,
-      @required
-      @HiveField(25)
-          String picture,
-      @required
-      @HiveField(27)
-          DateTime updatedAt,
-      @required
-      @HiveField(28)
-          String email,
-      @required
-      @HiveField(29)
-          bool emailVerified,
-      @required
-      @HiveField(30)
-          String iss,
-      @required
-      @HiveField(31)
-          String sub,
-      @required
-      @HiveField(32)
-          String aud,
-      @required
-      @HiveField(33)
-          int iat,
-      @required
-      @HiveField(34)
-          int exp}) {
+          HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute}) {
     return _HiveClaims(
-      raw: raw,
-      rawHttpsShirasuIoRoles: rawHttpsShirasuIoRoles,
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute,
-      httpsShirasuIoCustomerId: httpsShirasuIoCustomerId,
-      rawHttpsShirasuIoDistributeds: rawHttpsShirasuIoDistributeds,
-      rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants,
-      nickname: nickname,
-      name: name,
-      picture: picture,
-      updatedAt: updatedAt,
-      email: email,
-      emailVerified: emailVerified,
-      iss: iss,
-      sub: sub,
-      aud: aud,
-      iat: iat,
-      exp: exp,
     );
   }
 }
@@ -896,47 +758,10 @@ const $HiveClaims = _$HiveClaimsTearOff();
 
 /// @nodoc
 mixin _$HiveClaims {
-  @HiveField(15)
-  String get raw;
-  @HiveField(16)
-  @protected
-  List<String> get rawHttpsShirasuIoRoles;
+// @required @HiveField(15) String raw,
+// @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
   @HiveField(17)
   HiveHttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
-  @HiveField(18)
-  String get httpsShirasuIoCustomerId;
-  @HiveField(19)
-  @protected
-  List<dynamic> get rawHttpsShirasuIoDistributeds;
-  @HiveField(20)
-  @protected
-  List<dynamic> get rawHttpsShirasuIoTenants; // @HiveField(21)
-// String givenName,
-// @HiveField(22)
-// String familyName,
-  @HiveField(23)
-  String get nickname;
-  @HiveField(24)
-  String get name;
-  @HiveField(25)
-  String get picture; // @HiveField(26)
-// String locale,
-  @HiveField(27)
-  DateTime get updatedAt;
-  @HiveField(28)
-  String get email;
-  @HiveField(29)
-  bool get emailVerified;
-  @HiveField(30)
-  String get iss;
-  @HiveField(31)
-  String get sub;
-  @HiveField(32)
-  String get aud;
-  @HiveField(33)
-  int get iat;
-  @HiveField(34)
-  int get exp;
 
   @JsonKey(ignore: true)
   $HiveClaimsCopyWith<HiveClaims> get copyWith;
@@ -948,43 +773,8 @@ abstract class $HiveClaimsCopyWith<$Res> {
           HiveClaims value, $Res Function(HiveClaims) then) =
       _$HiveClaimsCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(15)
-          String raw,
-      @HiveField(16)
-      @protected
-          List<String> rawHttpsShirasuIoRoles,
-      @HiveField(17)
-          HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @HiveField(18)
-          String httpsShirasuIoCustomerId,
-      @HiveField(19)
-      @protected
-          List<dynamic> rawHttpsShirasuIoDistributeds,
-      @HiveField(20)
-      @protected
-          List<dynamic> rawHttpsShirasuIoTenants,
-      @HiveField(23)
-          String nickname,
-      @HiveField(24)
-          String name,
-      @HiveField(25)
-          String picture,
-      @HiveField(27)
-          DateTime updatedAt,
-      @HiveField(28)
-          String email,
-      @HiveField(29)
-          bool emailVerified,
-      @HiveField(30)
-          String iss,
-      @HiveField(31)
-          String sub,
-      @HiveField(32)
-          String aud,
-      @HiveField(33)
-          int iat,
-      @HiveField(34)
-          int exp});
+      {@HiveField(17)
+          HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute});
 
   $HiveHttpsShirasuIoUserAttributeCopyWith<$Res>
       get httpsShirasuIoUserAttribute;
@@ -1000,55 +790,12 @@ class _$HiveClaimsCopyWithImpl<$Res> implements $HiveClaimsCopyWith<$Res> {
 
   @override
   $Res call({
-    Object raw = freezed,
-    Object rawHttpsShirasuIoRoles = freezed,
     Object httpsShirasuIoUserAttribute = freezed,
-    Object httpsShirasuIoCustomerId = freezed,
-    Object rawHttpsShirasuIoDistributeds = freezed,
-    Object rawHttpsShirasuIoTenants = freezed,
-    Object nickname = freezed,
-    Object name = freezed,
-    Object picture = freezed,
-    Object updatedAt = freezed,
-    Object email = freezed,
-    Object emailVerified = freezed,
-    Object iss = freezed,
-    Object sub = freezed,
-    Object aud = freezed,
-    Object iat = freezed,
-    Object exp = freezed,
   }) {
     return _then(_value.copyWith(
-      raw: raw == freezed ? _value.raw : raw as String,
-      rawHttpsShirasuIoRoles: rawHttpsShirasuIoRoles == freezed
-          ? _value.rawHttpsShirasuIoRoles
-          : rawHttpsShirasuIoRoles as List<String>,
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute == freezed
           ? _value.httpsShirasuIoUserAttribute
           : httpsShirasuIoUserAttribute as HiveHttpsShirasuIoUserAttribute,
-      httpsShirasuIoCustomerId: httpsShirasuIoCustomerId == freezed
-          ? _value.httpsShirasuIoCustomerId
-          : httpsShirasuIoCustomerId as String,
-      rawHttpsShirasuIoDistributeds: rawHttpsShirasuIoDistributeds == freezed
-          ? _value.rawHttpsShirasuIoDistributeds
-          : rawHttpsShirasuIoDistributeds as List<dynamic>,
-      rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants == freezed
-          ? _value.rawHttpsShirasuIoTenants
-          : rawHttpsShirasuIoTenants as List<dynamic>,
-      nickname: nickname == freezed ? _value.nickname : nickname as String,
-      name: name == freezed ? _value.name : name as String,
-      picture: picture == freezed ? _value.picture : picture as String,
-      updatedAt:
-          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
-      email: email == freezed ? _value.email : email as String,
-      emailVerified: emailVerified == freezed
-          ? _value.emailVerified
-          : emailVerified as bool,
-      iss: iss == freezed ? _value.iss : iss as String,
-      sub: sub == freezed ? _value.sub : sub as String,
-      aud: aud == freezed ? _value.aud : aud as String,
-      iat: iat == freezed ? _value.iat : iat as int,
-      exp: exp == freezed ? _value.exp : exp as int,
     ));
   }
 
@@ -1072,43 +819,8 @@ abstract class _$HiveClaimsCopyWith<$Res> implements $HiveClaimsCopyWith<$Res> {
       __$HiveClaimsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(15)
-          String raw,
-      @HiveField(16)
-      @protected
-          List<String> rawHttpsShirasuIoRoles,
-      @HiveField(17)
-          HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @HiveField(18)
-          String httpsShirasuIoCustomerId,
-      @HiveField(19)
-      @protected
-          List<dynamic> rawHttpsShirasuIoDistributeds,
-      @HiveField(20)
-      @protected
-          List<dynamic> rawHttpsShirasuIoTenants,
-      @HiveField(23)
-          String nickname,
-      @HiveField(24)
-          String name,
-      @HiveField(25)
-          String picture,
-      @HiveField(27)
-          DateTime updatedAt,
-      @HiveField(28)
-          String email,
-      @HiveField(29)
-          bool emailVerified,
-      @HiveField(30)
-          String iss,
-      @HiveField(31)
-          String sub,
-      @HiveField(32)
-          String aud,
-      @HiveField(33)
-          int iat,
-      @HiveField(34)
-          int exp});
+      {@HiveField(17)
+          HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute});
 
   @override
   $HiveHttpsShirasuIoUserAttributeCopyWith<$Res>
@@ -1127,55 +839,12 @@ class __$HiveClaimsCopyWithImpl<$Res> extends _$HiveClaimsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object raw = freezed,
-    Object rawHttpsShirasuIoRoles = freezed,
     Object httpsShirasuIoUserAttribute = freezed,
-    Object httpsShirasuIoCustomerId = freezed,
-    Object rawHttpsShirasuIoDistributeds = freezed,
-    Object rawHttpsShirasuIoTenants = freezed,
-    Object nickname = freezed,
-    Object name = freezed,
-    Object picture = freezed,
-    Object updatedAt = freezed,
-    Object email = freezed,
-    Object emailVerified = freezed,
-    Object iss = freezed,
-    Object sub = freezed,
-    Object aud = freezed,
-    Object iat = freezed,
-    Object exp = freezed,
   }) {
     return _then(_HiveClaims(
-      raw: raw == freezed ? _value.raw : raw as String,
-      rawHttpsShirasuIoRoles: rawHttpsShirasuIoRoles == freezed
-          ? _value.rawHttpsShirasuIoRoles
-          : rawHttpsShirasuIoRoles as List<String>,
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute == freezed
           ? _value.httpsShirasuIoUserAttribute
           : httpsShirasuIoUserAttribute as HiveHttpsShirasuIoUserAttribute,
-      httpsShirasuIoCustomerId: httpsShirasuIoCustomerId == freezed
-          ? _value.httpsShirasuIoCustomerId
-          : httpsShirasuIoCustomerId as String,
-      rawHttpsShirasuIoDistributeds: rawHttpsShirasuIoDistributeds == freezed
-          ? _value.rawHttpsShirasuIoDistributeds
-          : rawHttpsShirasuIoDistributeds as List<dynamic>,
-      rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants == freezed
-          ? _value.rawHttpsShirasuIoTenants
-          : rawHttpsShirasuIoTenants as List<dynamic>,
-      nickname: nickname == freezed ? _value.nickname : nickname as String,
-      name: name == freezed ? _value.name : name as String,
-      picture: picture == freezed ? _value.picture : picture as String,
-      updatedAt:
-          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
-      email: email == freezed ? _value.email : email as String,
-      emailVerified: emailVerified == freezed
-          ? _value.emailVerified
-          : emailVerified as bool,
-      iss: iss == freezed ? _value.iss : iss as String,
-      sub: sub == freezed ? _value.sub : sub as String,
-      aud: aud == freezed ? _value.aud : aud as String,
-      iat: iat == freezed ? _value.iat : iat as int,
-      exp: exp == freezed ? _value.exp : exp as int,
     ));
   }
 }
@@ -1186,174 +855,35 @@ class __$HiveClaimsCopyWithImpl<$Res> extends _$HiveClaimsCopyWithImpl<$Res>
 /// @nodoc
 class _$_HiveClaims extends _HiveClaims {
   const _$_HiveClaims(
-      {@required @HiveField(15) this.raw,
-      @required @HiveField(16) @protected this.rawHttpsShirasuIoRoles,
-      @required @HiveField(17) this.httpsShirasuIoUserAttribute,
-      @required @HiveField(18) this.httpsShirasuIoCustomerId,
-      @required @HiveField(19) @protected this.rawHttpsShirasuIoDistributeds,
-      @required @HiveField(20) @protected this.rawHttpsShirasuIoTenants,
-      @required @HiveField(23) this.nickname,
-      @required @HiveField(24) this.name,
-      @required @HiveField(25) this.picture,
-      @required @HiveField(27) this.updatedAt,
-      @required @HiveField(28) this.email,
-      @required @HiveField(29) this.emailVerified,
-      @required @HiveField(30) this.iss,
-      @required @HiveField(31) this.sub,
-      @required @HiveField(32) this.aud,
-      @required @HiveField(33) this.iat,
-      @required @HiveField(34) this.exp})
-      : assert(raw != null),
-        assert(rawHttpsShirasuIoRoles != null),
-        assert(httpsShirasuIoUserAttribute != null),
-        assert(httpsShirasuIoCustomerId != null),
-        assert(rawHttpsShirasuIoDistributeds != null),
-        assert(rawHttpsShirasuIoTenants != null),
-        assert(nickname != null),
-        assert(name != null),
-        assert(picture != null),
-        assert(updatedAt != null),
-        assert(email != null),
-        assert(emailVerified != null),
-        assert(iss != null),
-        assert(sub != null),
-        assert(aud != null),
-        assert(iat != null),
-        assert(exp != null),
+      {@required @HiveField(17) this.httpsShirasuIoUserAttribute})
+      : assert(httpsShirasuIoUserAttribute != null),
         super._();
 
-  @override
-  @HiveField(15)
-  final String raw;
-  @override
-  @HiveField(16)
-  @protected
-  final List<String> rawHttpsShirasuIoRoles;
-  @override
+  @override // @required @HiveField(15) String raw,
+// @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
   @HiveField(17)
   final HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
-  @override
-  @HiveField(18)
-  final String httpsShirasuIoCustomerId;
-  @override
-  @HiveField(19)
-  @protected
-  final List<dynamic> rawHttpsShirasuIoDistributeds;
-  @override
-  @HiveField(20)
-  @protected
-  final List<dynamic> rawHttpsShirasuIoTenants;
-  @override // @HiveField(21)
-// String givenName,
-// @HiveField(22)
-// String familyName,
-  @HiveField(23)
-  final String nickname;
-  @override
-  @HiveField(24)
-  final String name;
-  @override
-  @HiveField(25)
-  final String picture;
-  @override // @HiveField(26)
-// String locale,
-  @HiveField(27)
-  final DateTime updatedAt;
-  @override
-  @HiveField(28)
-  final String email;
-  @override
-  @HiveField(29)
-  final bool emailVerified;
-  @override
-  @HiveField(30)
-  final String iss;
-  @override
-  @HiveField(31)
-  final String sub;
-  @override
-  @HiveField(32)
-  final String aud;
-  @override
-  @HiveField(33)
-  final int iat;
-  @override
-  @HiveField(34)
-  final int exp;
 
   @override
   String toString() {
-    return 'HiveClaims(raw: $raw, rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, iss: $iss, sub: $sub, aud: $aud, iat: $iat, exp: $exp)';
+    return 'HiveClaims(httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _HiveClaims &&
-            (identical(other.raw, raw) ||
-                const DeepCollectionEquality().equals(other.raw, raw)) &&
-            (identical(other.rawHttpsShirasuIoRoles, rawHttpsShirasuIoRoles) ||
-                const DeepCollectionEquality().equals(
-                    other.rawHttpsShirasuIoRoles, rawHttpsShirasuIoRoles)) &&
-            (identical(other.httpsShirasuIoUserAttribute, httpsShirasuIoUserAttribute) ||
+            (identical(other.httpsShirasuIoUserAttribute,
+                    httpsShirasuIoUserAttribute) ||
                 const DeepCollectionEquality().equals(
                     other.httpsShirasuIoUserAttribute,
-                    httpsShirasuIoUserAttribute)) &&
-            (identical(other.httpsShirasuIoCustomerId, httpsShirasuIoCustomerId) ||
-                const DeepCollectionEquality().equals(
-                    other.httpsShirasuIoCustomerId,
-                    httpsShirasuIoCustomerId)) &&
-            (identical(other.rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoDistributeds) ||
-                const DeepCollectionEquality().equals(
-                    other.rawHttpsShirasuIoDistributeds,
-                    rawHttpsShirasuIoDistributeds)) &&
-            (identical(other.rawHttpsShirasuIoTenants, rawHttpsShirasuIoTenants) ||
-                const DeepCollectionEquality().equals(
-                    other.rawHttpsShirasuIoTenants,
-                    rawHttpsShirasuIoTenants)) &&
-            (identical(other.nickname, nickname) ||
-                const DeepCollectionEquality()
-                    .equals(other.nickname, nickname)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.picture, picture) ||
-                const DeepCollectionEquality()
-                    .equals(other.picture, picture)) &&
-            (identical(other.updatedAt, updatedAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.emailVerified, emailVerified) ||
-                const DeepCollectionEquality()
-                    .equals(other.emailVerified, emailVerified)) &&
-            (identical(other.iss, iss) || const DeepCollectionEquality().equals(other.iss, iss)) &&
-            (identical(other.sub, sub) || const DeepCollectionEquality().equals(other.sub, sub)) &&
-            (identical(other.aud, aud) || const DeepCollectionEquality().equals(other.aud, aud)) &&
-            (identical(other.iat, iat) || const DeepCollectionEquality().equals(other.iat, iat)) &&
-            (identical(other.exp, exp) || const DeepCollectionEquality().equals(other.exp, exp)));
+                    httpsShirasuIoUserAttribute)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(raw) ^
-      const DeepCollectionEquality().hash(rawHttpsShirasuIoRoles) ^
-      const DeepCollectionEquality().hash(httpsShirasuIoUserAttribute) ^
-      const DeepCollectionEquality().hash(httpsShirasuIoCustomerId) ^
-      const DeepCollectionEquality().hash(rawHttpsShirasuIoDistributeds) ^
-      const DeepCollectionEquality().hash(rawHttpsShirasuIoTenants) ^
-      const DeepCollectionEquality().hash(nickname) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(picture) ^
-      const DeepCollectionEquality().hash(updatedAt) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(emailVerified) ^
-      const DeepCollectionEquality().hash(iss) ^
-      const DeepCollectionEquality().hash(sub) ^
-      const DeepCollectionEquality().hash(aud) ^
-      const DeepCollectionEquality().hash(iat) ^
-      const DeepCollectionEquality().hash(exp);
+      const DeepCollectionEquality().hash(httpsShirasuIoUserAttribute);
 
   @JsonKey(ignore: true)
   @override
@@ -1364,119 +894,15 @@ class _$_HiveClaims extends _HiveClaims {
 abstract class _HiveClaims extends HiveClaims {
   const _HiveClaims._() : super._();
   const factory _HiveClaims(
-      {@required
-      @HiveField(15)
-          String raw,
-      @required
-      @HiveField(16)
-      @protected
-          List<String> rawHttpsShirasuIoRoles,
-      @required
-      @HiveField(17)
-          HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @required
-      @HiveField(18)
-          String httpsShirasuIoCustomerId,
-      @required
-      @HiveField(19)
-      @protected
-          List<dynamic> rawHttpsShirasuIoDistributeds,
-      @required
-      @HiveField(20)
-      @protected
-          List<dynamic> rawHttpsShirasuIoTenants,
-      @required
-      @HiveField(23)
-          String nickname,
-      @required
-      @HiveField(24)
-          String name,
-      @required
-      @HiveField(25)
-          String picture,
-      @required
-      @HiveField(27)
-          DateTime updatedAt,
-      @required
-      @HiveField(28)
-          String email,
-      @required
-      @HiveField(29)
-          bool emailVerified,
-      @required
-      @HiveField(30)
-          String iss,
-      @required
-      @HiveField(31)
-          String sub,
-      @required
-      @HiveField(32)
-          String aud,
-      @required
-      @HiveField(33)
-          int iat,
-      @required
-      @HiveField(34)
-          int exp}) = _$_HiveClaims;
+          {@required
+          @HiveField(17)
+              HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute}) =
+      _$_HiveClaims;
 
-  @override
-  @HiveField(15)
-  String get raw;
-  @override
-  @HiveField(16)
-  @protected
-  List<String> get rawHttpsShirasuIoRoles;
-  @override
+  @override // @required @HiveField(15) String raw,
+// @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
   @HiveField(17)
   HiveHttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
-  @override
-  @HiveField(18)
-  String get httpsShirasuIoCustomerId;
-  @override
-  @HiveField(19)
-  @protected
-  List<dynamic> get rawHttpsShirasuIoDistributeds;
-  @override
-  @HiveField(20)
-  @protected
-  List<dynamic> get rawHttpsShirasuIoTenants;
-  @override // @HiveField(21)
-// String givenName,
-// @HiveField(22)
-// String familyName,
-  @HiveField(23)
-  String get nickname;
-  @override
-  @HiveField(24)
-  String get name;
-  @override
-  @HiveField(25)
-  String get picture;
-  @override // @HiveField(26)
-// String locale,
-  @HiveField(27)
-  DateTime get updatedAt;
-  @override
-  @HiveField(28)
-  String get email;
-  @override
-  @HiveField(29)
-  bool get emailVerified;
-  @override
-  @HiveField(30)
-  String get iss;
-  @override
-  @HiveField(31)
-  String get sub;
-  @override
-  @HiveField(32)
-  String get aud;
-  @override
-  @HiveField(33)
-  int get iat;
-  @override
-  @HiveField(34)
-  int get exp;
   @override
   @JsonKey(ignore: true)
   _$HiveClaimsCopyWith<_HiveClaims> get copyWith;
@@ -1804,384 +1230,14 @@ abstract class _HiveHttpsShirasuIoUserAttribute
 }
 
 /// @nodoc
-class _$HiveEncodedTearOff {
-  const _$HiveEncodedTearOff();
-
-// ignore: unused_element
-  _HiveEncoded call(
-      {@required @HiveField(43) String header,
-      @required @HiveField(44) String payload,
-      @required @HiveField(45) String signature}) {
-    return _HiveEncoded(
-      header: header,
-      payload: payload,
-      signature: signature,
-    );
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $HiveEncoded = _$HiveEncodedTearOff();
-
-/// @nodoc
-mixin _$HiveEncoded {
-  @HiveField(43)
-  String get header;
-  @HiveField(44)
-  String get payload;
-  @HiveField(45)
-  String get signature;
-
-  @JsonKey(ignore: true)
-  $HiveEncodedCopyWith<HiveEncoded> get copyWith;
-}
-
-/// @nodoc
-abstract class $HiveEncodedCopyWith<$Res> {
-  factory $HiveEncodedCopyWith(
-          HiveEncoded value, $Res Function(HiveEncoded) then) =
-      _$HiveEncodedCopyWithImpl<$Res>;
-  $Res call(
-      {@HiveField(43) String header,
-      @HiveField(44) String payload,
-      @HiveField(45) String signature});
-}
-
-/// @nodoc
-class _$HiveEncodedCopyWithImpl<$Res> implements $HiveEncodedCopyWith<$Res> {
-  _$HiveEncodedCopyWithImpl(this._value, this._then);
-
-  final HiveEncoded _value;
-  // ignore: unused_field
-  final $Res Function(HiveEncoded) _then;
-
-  @override
-  $Res call({
-    Object header = freezed,
-    Object payload = freezed,
-    Object signature = freezed,
-  }) {
-    return _then(_value.copyWith(
-      header: header == freezed ? _value.header : header as String,
-      payload: payload == freezed ? _value.payload : payload as String,
-      signature: signature == freezed ? _value.signature : signature as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$HiveEncodedCopyWith<$Res>
-    implements $HiveEncodedCopyWith<$Res> {
-  factory _$HiveEncodedCopyWith(
-          _HiveEncoded value, $Res Function(_HiveEncoded) then) =
-      __$HiveEncodedCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {@HiveField(43) String header,
-      @HiveField(44) String payload,
-      @HiveField(45) String signature});
-}
-
-/// @nodoc
-class __$HiveEncodedCopyWithImpl<$Res> extends _$HiveEncodedCopyWithImpl<$Res>
-    implements _$HiveEncodedCopyWith<$Res> {
-  __$HiveEncodedCopyWithImpl(
-      _HiveEncoded _value, $Res Function(_HiveEncoded) _then)
-      : super(_value, (v) => _then(v as _HiveEncoded));
-
-  @override
-  _HiveEncoded get _value => super._value as _HiveEncoded;
-
-  @override
-  $Res call({
-    Object header = freezed,
-    Object payload = freezed,
-    Object signature = freezed,
-  }) {
-    return _then(_HiveEncoded(
-      header: header == freezed ? _value.header : header as String,
-      payload: payload == freezed ? _value.payload : payload as String,
-      signature: signature == freezed ? _value.signature : signature as String,
-    ));
-  }
-}
-
-@protected
-@HiveType(typeId: 5)
-
-/// @nodoc
-class _$_HiveEncoded implements _HiveEncoded {
-  const _$_HiveEncoded(
-      {@required @HiveField(43) this.header,
-      @required @HiveField(44) this.payload,
-      @required @HiveField(45) this.signature})
-      : assert(header != null),
-        assert(payload != null),
-        assert(signature != null);
-
-  @override
-  @HiveField(43)
-  final String header;
-  @override
-  @HiveField(44)
-  final String payload;
-  @override
-  @HiveField(45)
-  final String signature;
-
-  @override
-  String toString() {
-    return 'HiveEncoded(header: $header, payload: $payload, signature: $signature)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _HiveEncoded &&
-            (identical(other.header, header) ||
-                const DeepCollectionEquality().equals(other.header, header)) &&
-            (identical(other.payload, payload) ||
-                const DeepCollectionEquality()
-                    .equals(other.payload, payload)) &&
-            (identical(other.signature, signature) ||
-                const DeepCollectionEquality()
-                    .equals(other.signature, signature)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(header) ^
-      const DeepCollectionEquality().hash(payload) ^
-      const DeepCollectionEquality().hash(signature);
-
-  @JsonKey(ignore: true)
-  @override
-  _$HiveEncodedCopyWith<_HiveEncoded> get copyWith =>
-      __$HiveEncodedCopyWithImpl<_HiveEncoded>(this, _$identity);
-}
-
-abstract class _HiveEncoded implements HiveEncoded {
-  const factory _HiveEncoded(
-      {@required @HiveField(43) String header,
-      @required @HiveField(44) String payload,
-      @required @HiveField(45) String signature}) = _$_HiveEncoded;
-
-  @override
-  @HiveField(43)
-  String get header;
-  @override
-  @HiveField(44)
-  String get payload;
-  @override
-  @HiveField(45)
-  String get signature;
-  @override
-  @JsonKey(ignore: true)
-  _$HiveEncodedCopyWith<_HiveEncoded> get copyWith;
-}
-
-/// @nodoc
-class _$HiveHeaderTearOff {
-  const _$HiveHeaderTearOff();
-
-// ignore: unused_element
-  _HiveHeader call(
-      {@required @HiveField(46) String alg,
-      @required @HiveField(47) String typ,
-      @required @HiveField(48) String kid}) {
-    return _HiveHeader(
-      alg: alg,
-      typ: typ,
-      kid: kid,
-    );
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $HiveHeader = _$HiveHeaderTearOff();
-
-/// @nodoc
-mixin _$HiveHeader {
-  @HiveField(46)
-  String get alg;
-  @HiveField(47)
-  String get typ;
-  @HiveField(48)
-  String get kid;
-
-  @JsonKey(ignore: true)
-  $HiveHeaderCopyWith<HiveHeader> get copyWith;
-}
-
-/// @nodoc
-abstract class $HiveHeaderCopyWith<$Res> {
-  factory $HiveHeaderCopyWith(
-          HiveHeader value, $Res Function(HiveHeader) then) =
-      _$HiveHeaderCopyWithImpl<$Res>;
-  $Res call(
-      {@HiveField(46) String alg,
-      @HiveField(47) String typ,
-      @HiveField(48) String kid});
-}
-
-/// @nodoc
-class _$HiveHeaderCopyWithImpl<$Res> implements $HiveHeaderCopyWith<$Res> {
-  _$HiveHeaderCopyWithImpl(this._value, this._then);
-
-  final HiveHeader _value;
-  // ignore: unused_field
-  final $Res Function(HiveHeader) _then;
-
-  @override
-  $Res call({
-    Object alg = freezed,
-    Object typ = freezed,
-    Object kid = freezed,
-  }) {
-    return _then(_value.copyWith(
-      alg: alg == freezed ? _value.alg : alg as String,
-      typ: typ == freezed ? _value.typ : typ as String,
-      kid: kid == freezed ? _value.kid : kid as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$HiveHeaderCopyWith<$Res> implements $HiveHeaderCopyWith<$Res> {
-  factory _$HiveHeaderCopyWith(
-          _HiveHeader value, $Res Function(_HiveHeader) then) =
-      __$HiveHeaderCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {@HiveField(46) String alg,
-      @HiveField(47) String typ,
-      @HiveField(48) String kid});
-}
-
-/// @nodoc
-class __$HiveHeaderCopyWithImpl<$Res> extends _$HiveHeaderCopyWithImpl<$Res>
-    implements _$HiveHeaderCopyWith<$Res> {
-  __$HiveHeaderCopyWithImpl(
-      _HiveHeader _value, $Res Function(_HiveHeader) _then)
-      : super(_value, (v) => _then(v as _HiveHeader));
-
-  @override
-  _HiveHeader get _value => super._value as _HiveHeader;
-
-  @override
-  $Res call({
-    Object alg = freezed,
-    Object typ = freezed,
-    Object kid = freezed,
-  }) {
-    return _then(_HiveHeader(
-      alg: alg == freezed ? _value.alg : alg as String,
-      typ: typ == freezed ? _value.typ : typ as String,
-      kid: kid == freezed ? _value.kid : kid as String,
-    ));
-  }
-}
-
-@HiveType(typeId: 6)
-@protected
-
-/// @nodoc
-class _$_HiveHeader implements _HiveHeader {
-  const _$_HiveHeader(
-      {@required @HiveField(46) this.alg,
-      @required @HiveField(47) this.typ,
-      @required @HiveField(48) this.kid})
-      : assert(alg != null),
-        assert(typ != null),
-        assert(kid != null);
-
-  @override
-  @HiveField(46)
-  final String alg;
-  @override
-  @HiveField(47)
-  final String typ;
-  @override
-  @HiveField(48)
-  final String kid;
-
-  @override
-  String toString() {
-    return 'HiveHeader(alg: $alg, typ: $typ, kid: $kid)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _HiveHeader &&
-            (identical(other.alg, alg) ||
-                const DeepCollectionEquality().equals(other.alg, alg)) &&
-            (identical(other.typ, typ) ||
-                const DeepCollectionEquality().equals(other.typ, typ)) &&
-            (identical(other.kid, kid) ||
-                const DeepCollectionEquality().equals(other.kid, kid)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(alg) ^
-      const DeepCollectionEquality().hash(typ) ^
-      const DeepCollectionEquality().hash(kid);
-
-  @JsonKey(ignore: true)
-  @override
-  _$HiveHeaderCopyWith<_HiveHeader> get copyWith =>
-      __$HiveHeaderCopyWithImpl<_HiveHeader>(this, _$identity);
-}
-
-abstract class _HiveHeader implements HiveHeader {
-  const factory _HiveHeader(
-      {@required @HiveField(46) String alg,
-      @required @HiveField(47) String typ,
-      @required @HiveField(48) String kid}) = _$_HiveHeader;
-
-  @override
-  @HiveField(46)
-  String get alg;
-  @override
-  @HiveField(47)
-  String get typ;
-  @override
-  @HiveField(48)
-  String get kid;
-  @override
-  @JsonKey(ignore: true)
-  _$HiveHeaderCopyWith<_HiveHeader> get copyWith;
-}
-
-/// @nodoc
 class _$HiveUserTearOff {
   const _$HiveUserTearOff();
 
 // ignore: unused_element
   _HiveUser call(
       {@required
-      @HiveField(49)
-      @protected
-          List<String> rawHttpsShirasuIoRoles,
-      @required
       @HiveField(50)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @required
-      @HiveField(51)
-          String httpsShirasuIoCustomerId,
-      @required
-      @protected
-      @HiveField(52)
-          List<dynamic> rawHttpsShirasuIoDistributeds,
-      @required
-      @protected
-      @HiveField(53)
-          List<dynamic> rawHttpsShirasuIoTenants,
       @required
       @HiveField(56)
           String nickname,
@@ -2191,6 +1247,9 @@ class _$HiveUserTearOff {
       @required
       @HiveField(58)
           String picture,
+      @required
+      @HiveField(59)
+          String locale,
       @required
       @HiveField(60)
           DateTime updatedAt,
@@ -2204,14 +1263,11 @@ class _$HiveUserTearOff {
       @HiveField(63)
           String sub}) {
     return _HiveUser(
-      rawHttpsShirasuIoRoles: rawHttpsShirasuIoRoles,
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute,
-      httpsShirasuIoCustomerId: httpsShirasuIoCustomerId,
-      rawHttpsShirasuIoDistributeds: rawHttpsShirasuIoDistributeds,
-      rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants,
       nickname: nickname,
       name: name,
       picture: picture,
+      locale: locale,
       updatedAt: updatedAt,
       email: email,
       emailVerified: emailVerified,
@@ -2226,19 +1282,22 @@ const $HiveUser = _$HiveUserTearOff();
 
 /// @nodoc
 mixin _$HiveUser {
-  @HiveField(49)
-  @protected
-  List<String> get rawHttpsShirasuIoRoles;
+// @required
+// @HiveField(49)
+// @protected
+//     List<String> rawHttpsShirasuIoRoles,
   @HiveField(50)
-  HiveHttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
-  @HiveField(51)
-  String get httpsShirasuIoCustomerId;
-  @protected
-  @HiveField(52)
-  List<dynamic> get rawHttpsShirasuIoDistributeds;
-  @protected
-  @HiveField(53)
-  List<dynamic> get rawHttpsShirasuIoTenants; // @required @HiveField(54)
+  HiveHttpsShirasuIoUserAttribute
+      get httpsShirasuIoUserAttribute; // @required @HiveField(51) String httpsShirasuIoCustomerId,
+// @protected
+// @required
+// @HiveField(52)
+//     List<dynamic> rawHttpsShirasuIoDistributeds,
+// @protected
+// @required
+// @HiveField(53)
+//     List<dynamic> rawHttpsShirasuIoTenants,
+// @required @HiveField(54)
 // String givenName,
 // @required @HiveField(55)
 // String familyName,
@@ -2247,8 +1306,9 @@ mixin _$HiveUser {
   @HiveField(57)
   String get name;
   @HiveField(58)
-  String get picture; // @required @HiveField(59)
-// String locale,
+  String get picture;
+  @HiveField(59)
+  String get locale;
   @HiveField(60)
   DateTime get updatedAt;
   @HiveField(61)
@@ -2267,25 +1327,16 @@ abstract class $HiveUserCopyWith<$Res> {
   factory $HiveUserCopyWith(HiveUser value, $Res Function(HiveUser) then) =
       _$HiveUserCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(49)
-      @protected
-          List<String> rawHttpsShirasuIoRoles,
-      @HiveField(50)
+      {@HiveField(50)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @HiveField(51)
-          String httpsShirasuIoCustomerId,
-      @protected
-      @HiveField(52)
-          List<dynamic> rawHttpsShirasuIoDistributeds,
-      @protected
-      @HiveField(53)
-          List<dynamic> rawHttpsShirasuIoTenants,
       @HiveField(56)
           String nickname,
       @HiveField(57)
           String name,
       @HiveField(58)
           String picture,
+      @HiveField(59)
+          String locale,
       @HiveField(60)
           DateTime updatedAt,
       @HiveField(61)
@@ -2309,38 +1360,24 @@ class _$HiveUserCopyWithImpl<$Res> implements $HiveUserCopyWith<$Res> {
 
   @override
   $Res call({
-    Object rawHttpsShirasuIoRoles = freezed,
     Object httpsShirasuIoUserAttribute = freezed,
-    Object httpsShirasuIoCustomerId = freezed,
-    Object rawHttpsShirasuIoDistributeds = freezed,
-    Object rawHttpsShirasuIoTenants = freezed,
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
+    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
     Object sub = freezed,
   }) {
     return _then(_value.copyWith(
-      rawHttpsShirasuIoRoles: rawHttpsShirasuIoRoles == freezed
-          ? _value.rawHttpsShirasuIoRoles
-          : rawHttpsShirasuIoRoles as List<String>,
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute == freezed
           ? _value.httpsShirasuIoUserAttribute
           : httpsShirasuIoUserAttribute as HiveHttpsShirasuIoUserAttribute,
-      httpsShirasuIoCustomerId: httpsShirasuIoCustomerId == freezed
-          ? _value.httpsShirasuIoCustomerId
-          : httpsShirasuIoCustomerId as String,
-      rawHttpsShirasuIoDistributeds: rawHttpsShirasuIoDistributeds == freezed
-          ? _value.rawHttpsShirasuIoDistributeds
-          : rawHttpsShirasuIoDistributeds as List<dynamic>,
-      rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants == freezed
-          ? _value.rawHttpsShirasuIoTenants
-          : rawHttpsShirasuIoTenants as List<dynamic>,
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
+      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -2370,25 +1407,16 @@ abstract class _$HiveUserCopyWith<$Res> implements $HiveUserCopyWith<$Res> {
       __$HiveUserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(49)
-      @protected
-          List<String> rawHttpsShirasuIoRoles,
-      @HiveField(50)
+      {@HiveField(50)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @HiveField(51)
-          String httpsShirasuIoCustomerId,
-      @protected
-      @HiveField(52)
-          List<dynamic> rawHttpsShirasuIoDistributeds,
-      @protected
-      @HiveField(53)
-          List<dynamic> rawHttpsShirasuIoTenants,
       @HiveField(56)
           String nickname,
       @HiveField(57)
           String name,
       @HiveField(58)
           String picture,
+      @HiveField(59)
+          String locale,
       @HiveField(60)
           DateTime updatedAt,
       @HiveField(61)
@@ -2414,38 +1442,24 @@ class __$HiveUserCopyWithImpl<$Res> extends _$HiveUserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object rawHttpsShirasuIoRoles = freezed,
     Object httpsShirasuIoUserAttribute = freezed,
-    Object httpsShirasuIoCustomerId = freezed,
-    Object rawHttpsShirasuIoDistributeds = freezed,
-    Object rawHttpsShirasuIoTenants = freezed,
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
+    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
     Object sub = freezed,
   }) {
     return _then(_HiveUser(
-      rawHttpsShirasuIoRoles: rawHttpsShirasuIoRoles == freezed
-          ? _value.rawHttpsShirasuIoRoles
-          : rawHttpsShirasuIoRoles as List<String>,
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute == freezed
           ? _value.httpsShirasuIoUserAttribute
           : httpsShirasuIoUserAttribute as HiveHttpsShirasuIoUserAttribute,
-      httpsShirasuIoCustomerId: httpsShirasuIoCustomerId == freezed
-          ? _value.httpsShirasuIoCustomerId
-          : httpsShirasuIoCustomerId as String,
-      rawHttpsShirasuIoDistributeds: rawHttpsShirasuIoDistributeds == freezed
-          ? _value.rawHttpsShirasuIoDistributeds
-          : rawHttpsShirasuIoDistributeds as List<dynamic>,
-      rawHttpsShirasuIoTenants: rawHttpsShirasuIoTenants == freezed
-          ? _value.rawHttpsShirasuIoTenants
-          : rawHttpsShirasuIoTenants as List<dynamic>,
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
+      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -2463,51 +1477,42 @@ class __$HiveUserCopyWithImpl<$Res> extends _$HiveUserCopyWithImpl<$Res>
 /// @nodoc
 class _$_HiveUser extends _HiveUser {
   const _$_HiveUser(
-      {@required @HiveField(49) @protected this.rawHttpsShirasuIoRoles,
-      @required @HiveField(50) this.httpsShirasuIoUserAttribute,
-      @required @HiveField(51) this.httpsShirasuIoCustomerId,
-      @required @protected @HiveField(52) this.rawHttpsShirasuIoDistributeds,
-      @required @protected @HiveField(53) this.rawHttpsShirasuIoTenants,
+      {@required @HiveField(50) this.httpsShirasuIoUserAttribute,
       @required @HiveField(56) this.nickname,
       @required @HiveField(57) this.name,
       @required @HiveField(58) this.picture,
+      @required @HiveField(59) this.locale,
       @required @HiveField(60) this.updatedAt,
       @required @HiveField(61) this.email,
       @required @HiveField(62) this.emailVerified,
       @required @HiveField(63) this.sub})
-      : assert(rawHttpsShirasuIoRoles != null),
-        assert(httpsShirasuIoUserAttribute != null),
-        assert(httpsShirasuIoCustomerId != null),
-        assert(rawHttpsShirasuIoDistributeds != null),
-        assert(rawHttpsShirasuIoTenants != null),
+      : assert(httpsShirasuIoUserAttribute != null),
         assert(nickname != null),
         assert(name != null),
         assert(picture != null),
+        assert(locale != null),
         assert(updatedAt != null),
         assert(email != null),
         assert(emailVerified != null),
         assert(sub != null),
         super._();
 
-  @override
-  @HiveField(49)
-  @protected
-  final List<String> rawHttpsShirasuIoRoles;
-  @override
+  @override // @required
+// @HiveField(49)
+// @protected
+//     List<String> rawHttpsShirasuIoRoles,
   @HiveField(50)
   final HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
-  @override
-  @HiveField(51)
-  final String httpsShirasuIoCustomerId;
-  @override
-  @protected
-  @HiveField(52)
-  final List<dynamic> rawHttpsShirasuIoDistributeds;
-  @override
-  @protected
-  @HiveField(53)
-  final List<dynamic> rawHttpsShirasuIoTenants;
-  @override // @required @HiveField(54)
+  @override // @required @HiveField(51) String httpsShirasuIoCustomerId,
+// @protected
+// @required
+// @HiveField(52)
+//     List<dynamic> rawHttpsShirasuIoDistributeds,
+// @protected
+// @required
+// @HiveField(53)
+//     List<dynamic> rawHttpsShirasuIoTenants,
+// @required @HiveField(54)
 // String givenName,
 // @required @HiveField(55)
 // String familyName,
@@ -2519,8 +1524,10 @@ class _$_HiveUser extends _HiveUser {
   @override
   @HiveField(58)
   final String picture;
-  @override // @required @HiveField(59)
-// String locale,
+  @override
+  @HiveField(59)
+  final String locale;
+  @override
   @HiveField(60)
   final DateTime updatedAt;
   @override
@@ -2535,32 +1542,18 @@ class _$_HiveUser extends _HiveUser {
 
   @override
   String toString() {
-    return 'HiveUser(rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
+    return 'HiveUser(httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, nickname: $nickname, name: $name, picture: $picture, locale: $locale, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _HiveUser &&
-            (identical(other.rawHttpsShirasuIoRoles, rawHttpsShirasuIoRoles) ||
-                const DeepCollectionEquality().equals(
-                    other.rawHttpsShirasuIoRoles, rawHttpsShirasuIoRoles)) &&
-            (identical(other.httpsShirasuIoUserAttribute, httpsShirasuIoUserAttribute) ||
+            (identical(other.httpsShirasuIoUserAttribute,
+                    httpsShirasuIoUserAttribute) ||
                 const DeepCollectionEquality().equals(
                     other.httpsShirasuIoUserAttribute,
                     httpsShirasuIoUserAttribute)) &&
-            (identical(other.httpsShirasuIoCustomerId, httpsShirasuIoCustomerId) ||
-                const DeepCollectionEquality().equals(
-                    other.httpsShirasuIoCustomerId,
-                    httpsShirasuIoCustomerId)) &&
-            (identical(other.rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoDistributeds) ||
-                const DeepCollectionEquality().equals(
-                    other.rawHttpsShirasuIoDistributeds,
-                    rawHttpsShirasuIoDistributeds)) &&
-            (identical(other.rawHttpsShirasuIoTenants, rawHttpsShirasuIoTenants) ||
-                const DeepCollectionEquality().equals(
-                    other.rawHttpsShirasuIoTenants,
-                    rawHttpsShirasuIoTenants)) &&
             (identical(other.nickname, nickname) ||
                 const DeepCollectionEquality()
                     .equals(other.nickname, nickname)) &&
@@ -2569,6 +1562,8 @@ class _$_HiveUser extends _HiveUser {
             (identical(other.picture, picture) ||
                 const DeepCollectionEquality()
                     .equals(other.picture, picture)) &&
+            (identical(other.locale, locale) ||
+                const DeepCollectionEquality().equals(other.locale, locale)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
                     .equals(other.updatedAt, updatedAt)) &&
@@ -2577,20 +1572,18 @@ class _$_HiveUser extends _HiveUser {
             (identical(other.emailVerified, emailVerified) ||
                 const DeepCollectionEquality()
                     .equals(other.emailVerified, emailVerified)) &&
-            (identical(other.sub, sub) || const DeepCollectionEquality().equals(other.sub, sub)));
+            (identical(other.sub, sub) ||
+                const DeepCollectionEquality().equals(other.sub, sub)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(rawHttpsShirasuIoRoles) ^
       const DeepCollectionEquality().hash(httpsShirasuIoUserAttribute) ^
-      const DeepCollectionEquality().hash(httpsShirasuIoCustomerId) ^
-      const DeepCollectionEquality().hash(rawHttpsShirasuIoDistributeds) ^
-      const DeepCollectionEquality().hash(rawHttpsShirasuIoTenants) ^
       const DeepCollectionEquality().hash(nickname) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
+      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(emailVerified) ^
@@ -2606,23 +1599,8 @@ abstract class _HiveUser extends HiveUser {
   const _HiveUser._() : super._();
   const factory _HiveUser(
       {@required
-      @HiveField(49)
-      @protected
-          List<String> rawHttpsShirasuIoRoles,
-      @required
       @HiveField(50)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @required
-      @HiveField(51)
-          String httpsShirasuIoCustomerId,
-      @required
-      @protected
-      @HiveField(52)
-          List<dynamic> rawHttpsShirasuIoDistributeds,
-      @required
-      @protected
-      @HiveField(53)
-          List<dynamic> rawHttpsShirasuIoTenants,
       @required
       @HiveField(56)
           String nickname,
@@ -2632,6 +1610,9 @@ abstract class _HiveUser extends HiveUser {
       @required
       @HiveField(58)
           String picture,
+      @required
+      @HiveField(59)
+          String locale,
       @required
       @HiveField(60)
           DateTime updatedAt,
@@ -2645,25 +1626,22 @@ abstract class _HiveUser extends HiveUser {
       @HiveField(63)
           String sub}) = _$_HiveUser;
 
-  @override
-  @HiveField(49)
-  @protected
-  List<String> get rawHttpsShirasuIoRoles;
-  @override
+  @override // @required
+// @HiveField(49)
+// @protected
+//     List<String> rawHttpsShirasuIoRoles,
   @HiveField(50)
   HiveHttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
-  @override
-  @HiveField(51)
-  String get httpsShirasuIoCustomerId;
-  @override
-  @protected
-  @HiveField(52)
-  List<dynamic> get rawHttpsShirasuIoDistributeds;
-  @override
-  @protected
-  @HiveField(53)
-  List<dynamic> get rawHttpsShirasuIoTenants;
-  @override // @required @HiveField(54)
+  @override // @required @HiveField(51) String httpsShirasuIoCustomerId,
+// @protected
+// @required
+// @HiveField(52)
+//     List<dynamic> rawHttpsShirasuIoDistributeds,
+// @protected
+// @required
+// @HiveField(53)
+//     List<dynamic> rawHttpsShirasuIoTenants,
+// @required @HiveField(54)
 // String givenName,
 // @required @HiveField(55)
 // String familyName,
@@ -2675,8 +1653,10 @@ abstract class _HiveUser extends HiveUser {
   @override
   @HiveField(58)
   String get picture;
-  @override // @required @HiveField(59)
-// String locale,
+  @override
+  @HiveField(59)
+  String get locale;
+  @override
   @HiveField(60)
   DateTime get updatedAt;
   @override

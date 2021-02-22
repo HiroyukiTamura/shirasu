@@ -1,0 +1,6 @@
+{
+  "query": "subscription SubscribeProgramUpdates($id: ID!) {\n  updates: onProgramUpdated(programId: $id) {\n    programId\n    updateType\n    program {\n      ...UseProgramProgramData\n      __typename\n    }\n    comment {\n      ...UseProgramCommentWithUserData\n      __typename\n    }\n    handout {\n      ...UseProgramHandoutData\n      __typename\n    }\n    video {\n      ...UseProgramVideoData\n      __typename\n    }\n    totalPlayTime\n    __typename\n  }\n}\n\nfragment UseProgramProgramData on Program {\n  id\n  channelId\n  tenantId\n  broadcastAt\n  title\n  detail\n  mainTime\n  previewTime\n  release\n  adminComment\n  adminCommentDisappearAt\n  tags\n  tenantId\n  title\n  isExtensionChargedToSubscribers\n  archivedAt\n  releaseState\n  shouldArchive\n  __typename\n}\n\nfragment UseProgramCommentWithUserData on CommentWithUser {\n  id\n  tenantId\n  programId\n  text\n  commentTime\n  userId\n  userName\n  userIcon\n  __typename\n}\n\nfragment UseProgramHandoutData on Handout {\n  id\n  name\n  createdAt\n  __typename\n}\n\nfragment UseProgramVideoData on Video {\n  id\n  mediaStatus\n  liveUrl\n  archiveUrl\n  __typename\n}\n",
+  "variables": {
+    "id": "genron-genron-20210222"
+  }
+}

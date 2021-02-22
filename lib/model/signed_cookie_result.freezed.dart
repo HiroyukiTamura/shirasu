@@ -41,7 +41,7 @@ const $SignedCookieResult = _$SignedCookieResultTearOff();
 mixin _$SignedCookieResult {
   bool get ok;
   String get url;
-  DateTime get signLimitAt;
+  DateTime get signLimitAt; //todo rotate cookie?
   DateTime get now;
 
   Map<String, dynamic> toJson();
@@ -138,7 +138,7 @@ class _$_SignedCookieResult implements _SignedCookieResult {
   final String url;
   @override
   final DateTime signLimitAt;
-  @override
+  @override //todo rotate cookie?
   final DateTime now;
 
   @override
@@ -196,7 +196,7 @@ abstract class _SignedCookieResult implements SignedCookieResult {
   String get url;
   @override
   DateTime get signLimitAt;
-  @override
+  @override //todo rotate cookie?
   DateTime get now;
   @override
   @JsonKey(ignore: true)

@@ -19,7 +19,7 @@ class HiveAuthDataAdapter extends TypeAdapter<_$_HiveAuthData> {
     return _$_HiveAuthData(
       body: fields[0] as HiveBody,
       rawExpiresAt: fields[1] as int,
-      tokenPublishedAtUtc: fields[64] as DateTime,
+      tokenPublishedAtUtc: fields[2] as DateTime,
     );
   }
 
@@ -31,7 +31,7 @@ class HiveAuthDataAdapter extends TypeAdapter<_$_HiveAuthData> {
       ..write(obj.body)
       ..writeByte(1)
       ..write(obj.rawExpiresAt)
-      ..writeByte(64)
+      ..writeByte(2)
       ..write(obj.tokenPublishedAtUtc);
   }
 
@@ -57,15 +57,15 @@ class HiveBodyAdapter extends TypeAdapter<_$_HiveBody> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveBody(
-      clientId: fields[2] as String,
-      accessToken: fields[3] as String,
-      refreshToken: fields[4] as String,
-      idToken: fields[5] as String,
-      scope: fields[6] as String,
-      expiresIn: fields[7] as int,
-      tokenType: fields[8] as String,
-      decodedToken: fields[9] as HiveDecodedToken,
-      audience: fields[10] as String,
+      clientId: fields[3] as String,
+      accessToken: fields[4] as String,
+      refreshToken: fields[5] as String,
+      idToken: fields[6] as String,
+      scope: fields[7] as String,
+      expiresIn: fields[8] as int,
+      tokenType: fields[9] as String,
+      decodedToken: fields[10] as HiveDecodedToken,
+      audience: fields[11] as String,
     );
   }
 
@@ -73,23 +73,23 @@ class HiveBodyAdapter extends TypeAdapter<_$_HiveBody> {
   void write(BinaryWriter writer, _$_HiveBody obj) {
     writer
       ..writeByte(9)
-      ..writeByte(2)
-      ..write(obj.clientId)
       ..writeByte(3)
-      ..write(obj.accessToken)
+      ..write(obj.clientId)
       ..writeByte(4)
-      ..write(obj.refreshToken)
+      ..write(obj.accessToken)
       ..writeByte(5)
-      ..write(obj.idToken)
+      ..write(obj.refreshToken)
       ..writeByte(6)
-      ..write(obj.scope)
+      ..write(obj.idToken)
       ..writeByte(7)
-      ..write(obj.expiresIn)
+      ..write(obj.scope)
       ..writeByte(8)
-      ..write(obj.tokenType)
+      ..write(obj.expiresIn)
       ..writeByte(9)
-      ..write(obj.decodedToken)
+      ..write(obj.tokenType)
       ..writeByte(10)
+      ..write(obj.decodedToken)
+      ..writeByte(11)
       ..write(obj.audience);
   }
 
@@ -115,8 +115,8 @@ class HiveDecodedTokenAdapter extends TypeAdapter<_$_HiveDecodedToken> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveDecodedToken(
-      claims: fields[13] as HiveClaims,
-      user: fields[14] as HiveUser,
+      claims: fields[12] as HiveClaims,
+      user: fields[13] as HiveUser,
     );
   }
 
@@ -124,9 +124,9 @@ class HiveDecodedTokenAdapter extends TypeAdapter<_$_HiveDecodedToken> {
   void write(BinaryWriter writer, _$_HiveDecodedToken obj) {
     writer
       ..writeByte(2)
-      ..writeByte(13)
+      ..writeByte(12)
       ..write(obj.claims)
-      ..writeByte(14)
+      ..writeByte(13)
       ..write(obj.user);
   }
 
@@ -153,7 +153,7 @@ class HiveClaimsAdapter extends TypeAdapter<_$_HiveClaims> {
     };
     return _$_HiveClaims(
       httpsShirasuIoUserAttribute:
-          fields[17] as HiveHttpsShirasuIoUserAttribute,
+          fields[14] as HiveHttpsShirasuIoUserAttribute,
     );
   }
 
@@ -161,7 +161,7 @@ class HiveClaimsAdapter extends TypeAdapter<_$_HiveClaims> {
   void write(BinaryWriter writer, _$_HiveClaims obj) {
     writer
       ..writeByte(1)
-      ..writeByte(17)
+      ..writeByte(14)
       ..write(obj.httpsShirasuIoUserAttribute);
   }
 
@@ -188,14 +188,14 @@ class HiveHttpsShirasuIoUserAttributeAdapter
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveHttpsShirasuIoUserAttribute(
-      birthDate: fields[36] as DateTime,
-      job: fields[37] as String,
-      country: fields[38] as String,
-      prefecture: fields[39] as String,
-      familyName: fields[40] as String,
-      givenName: fields[41] as String,
-      familyNameReading: fields[42] as String,
-      givenNameReading: fields[43] as String,
+      birthDate: fields[15] as DateTime,
+      job: fields[16] as String,
+      country: fields[17] as String,
+      prefecture: fields[18] as String,
+      familyName: fields[19] as String,
+      givenName: fields[20] as String,
+      familyNameReading: fields[21] as String,
+      givenNameReading: fields[22] as String,
     );
   }
 
@@ -203,21 +203,21 @@ class HiveHttpsShirasuIoUserAttributeAdapter
   void write(BinaryWriter writer, _$_HiveHttpsShirasuIoUserAttribute obj) {
     writer
       ..writeByte(8)
-      ..writeByte(36)
+      ..writeByte(15)
       ..write(obj.birthDate)
-      ..writeByte(37)
+      ..writeByte(16)
       ..write(obj.job)
-      ..writeByte(38)
+      ..writeByte(17)
       ..write(obj.country)
-      ..writeByte(39)
+      ..writeByte(18)
       ..write(obj.prefecture)
-      ..writeByte(40)
+      ..writeByte(19)
       ..write(obj.familyName)
-      ..writeByte(41)
+      ..writeByte(20)
       ..write(obj.givenName)
-      ..writeByte(42)
+      ..writeByte(21)
       ..write(obj.familyNameReading)
-      ..writeByte(43)
+      ..writeByte(22)
       ..write(obj.givenNameReading);
   }
 
@@ -244,15 +244,15 @@ class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
     };
     return _$_HiveUser(
       httpsShirasuIoUserAttribute:
-          fields[50] as HiveHttpsShirasuIoUserAttribute,
-      nickname: fields[56] as String,
-      name: fields[57] as String,
-      picture: fields[58] as String,
-      locale: fields[59] as String,
-      updatedAt: fields[60] as DateTime,
-      email: fields[61] as String,
-      emailVerified: fields[62] as bool,
-      sub: fields[63] as String,
+          fields[23] as HiveHttpsShirasuIoUserAttribute,
+      nickname: fields[24] as String,
+      name: fields[25] as String,
+      picture: fields[26] as String,
+      locale: fields[27] as String,
+      updatedAt: fields[28] as DateTime,
+      email: fields[29] as String,
+      emailVerified: fields[30] as bool,
+      sub: fields[31] as String,
     );
   }
 
@@ -260,23 +260,23 @@ class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
   void write(BinaryWriter writer, _$_HiveUser obj) {
     writer
       ..writeByte(9)
-      ..writeByte(50)
+      ..writeByte(23)
       ..write(obj.httpsShirasuIoUserAttribute)
-      ..writeByte(56)
+      ..writeByte(24)
       ..write(obj.nickname)
-      ..writeByte(57)
+      ..writeByte(25)
       ..write(obj.name)
-      ..writeByte(58)
+      ..writeByte(26)
       ..write(obj.picture)
-      ..writeByte(59)
+      ..writeByte(27)
       ..write(obj.locale)
-      ..writeByte(60)
+      ..writeByte(28)
       ..write(obj.updatedAt)
-      ..writeByte(61)
+      ..writeByte(29)
       ..write(obj.email)
-      ..writeByte(62)
+      ..writeByte(30)
       ..write(obj.emailVerified)
-      ..writeByte(63)
+      ..writeByte(31)
       ..write(obj.sub);
   }
 

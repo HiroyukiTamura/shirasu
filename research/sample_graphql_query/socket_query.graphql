@@ -1,0 +1,69 @@
+subscription SubscribeProgramUpdates($id: ID!) {
+    updates: onProgramUpdated(programId: $id) {
+        programId
+        updateType
+        program {
+            ...UseProgramProgramData
+            __typename
+        }
+        comment {
+            ...UseProgramCommentWithUserData
+            __typename
+        }
+        handout {
+            ...UseProgramHandoutData
+            __typename
+        }
+        video {
+            ...UseProgramVideoData
+            __typename
+        }
+        totalPlayTime
+        __typename
+    }
+}
+fragment UseProgramProgramData on Program {
+    id
+    channelId
+    tenantId
+    broadcastAt
+    title
+    detail
+    mainTime
+    previewTime
+    release
+    adminComment
+    adminCommentDisappearAt
+    tags
+    tenantId
+    title
+    isExtensionChargedToSubscribers
+    archivedAt
+    releaseState
+    shouldArchive
+    __typename
+}
+fragment UseProgramCommentWithUserData on CommentWithUser {
+    id
+    tenantId
+    programId
+    text
+    commentTime
+    userId
+    userName
+    userIcon
+    __typename
+}
+fragment UseProgramHandoutData on Handout {
+    id
+    name
+    createdAt
+    __typename
+}
+fragment UseProgramVideoData on Video {
+    id
+    mediaStatus
+    liveUrl
+    archiveUrl
+    __typename
+}

@@ -1,0 +1,28 @@
+{
+  "id": "e96155f7-aed6-4ac1-9fbc-46c3b1a958c3",
+  "type": "data",
+  "payload": {
+    "data": {
+      "updates": {
+        "programId": "genron-genron-20210222",
+        "updateType": "commentCreated",
+        "program": null,
+        "comment": {
+          "id": "0e074687-18b6-4e72-93a3-20d17f8b2642",
+          "tenantId": "genron",
+          "programId": "genron-genron-20210222",
+          "text": "おおおおお",
+          "commentTime": 8640614,
+          "userId": "auth0|5f9aaa3191dfd600729d6c0a",
+          "userName": "qpp",
+          "userIcon": "https://s.gravatar.com/avatar/c2d8fc4936524bb5ca8e08bf0cd5c875?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fjw.png",
+          "__typename": "CommentWithUser"
+        },
+        "handout": null,
+        "video": null,
+        "totalPlayTime": null,
+        "__typename": "ProgramUpdate"
+      }
+    }
+  }
+}

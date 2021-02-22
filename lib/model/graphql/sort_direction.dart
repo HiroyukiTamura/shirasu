@@ -1,17 +1,14 @@
-enum SortDirection {
-  ASC, DESC
-}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-//todo freezed
-extension SortDirectionX on SortDirection {
-  String get value {
-    switch(this) {
-      case SortDirection.ASC:
-        return 'ASC';
-      case SortDirection.DESC:
-        return 'DESC';
-      default:
-        throw ArgumentError();
-    }
-  }
+part 'sort_direction.freezed.dart';
+
+@freezed
+abstract class SortDirection with _$SortDirection {
+  const factory SortDirection.asc() = _Asc;
+
+  const factory SortDirection.desc() = _Desc;
+
+  const SortDirection._();
+
+  String get value => when(asc: () => 'ASC', desc: () => 'DESC');
 }

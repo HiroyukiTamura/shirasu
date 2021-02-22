@@ -152,7 +152,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       _loadMoreComment(
         beginTime: currentPos,
         endTime: 1.days,
-        sortDirection: SortDirection.ASC,
+        sortDirection: const SortDirection.asc(),
         loadingState: const LoadingState.feature(),
         runAsRenewing: runAsRenewing,
       );
@@ -162,7 +162,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       _loadMoreComment(
         beginTime: Duration.zero,
         endTime: currentPos,
-        sortDirection: SortDirection.DESC,
+        sortDirection: const SortDirection.desc(),
         loadingState: const LoadingState.past(),
         runAsRenewing: runAsRenewing,
       );

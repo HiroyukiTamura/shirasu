@@ -1,0 +1,6 @@
+{
+  "type": "connection_ack",
+  "payload": {
+    "connectionTimeoutMs": 300000
+  }
+}

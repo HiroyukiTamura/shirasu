@@ -9,7 +9,7 @@ abstract class SignedCookieResult with _$SignedCookieResult {
   const factory SignedCookieResult({
     @required bool ok,
     String url,
-    DateTime signLimitAt,
+    DateTime signLimitAt,//todo rotate cookie?
     DateTime now,
   }) = _SignedCookieResult;
 

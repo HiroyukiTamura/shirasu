@@ -17,7 +17,7 @@ class _$HiveAuthDataTearOff {
   _HiveAuthData call(
       {@required @HiveField(0) HiveBody body,
       @required @HiveField(1) @protected int rawExpiresAt,
-      @required @HiveField(64) DateTime tokenPublishedAtUtc}) {
+      @required @HiveField(2) DateTime tokenPublishedAtUtc}) {
     return _HiveAuthData(
       body: body,
       rawExpiresAt: rawExpiresAt,
@@ -37,7 +37,7 @@ mixin _$HiveAuthData {
   @HiveField(1)
   @protected
   int get rawExpiresAt;
-  @HiveField(64)
+  @HiveField(2)
   DateTime get tokenPublishedAtUtc;
 
   @JsonKey(ignore: true)
@@ -52,7 +52,7 @@ abstract class $HiveAuthDataCopyWith<$Res> {
   $Res call(
       {@HiveField(0) HiveBody body,
       @HiveField(1) @protected int rawExpiresAt,
-      @HiveField(64) DateTime tokenPublishedAtUtc});
+      @HiveField(2) DateTime tokenPublishedAtUtc});
 
   $HiveBodyCopyWith<$Res> get body;
 }
@@ -102,7 +102,7 @@ abstract class _$HiveAuthDataCopyWith<$Res>
   $Res call(
       {@HiveField(0) HiveBody body,
       @HiveField(1) @protected int rawExpiresAt,
-      @HiveField(64) DateTime tokenPublishedAtUtc});
+      @HiveField(2) DateTime tokenPublishedAtUtc});
 
   @override
   $HiveBodyCopyWith<$Res> get body;
@@ -143,7 +143,7 @@ class _$_HiveAuthData extends _HiveAuthData {
   const _$_HiveAuthData(
       {@required @HiveField(0) this.body,
       @required @HiveField(1) @protected this.rawExpiresAt,
-      @required @HiveField(64) this.tokenPublishedAtUtc})
+      @required @HiveField(2) this.tokenPublishedAtUtc})
       : assert(body != null),
         assert(rawExpiresAt != null),
         assert(tokenPublishedAtUtc != null),
@@ -157,7 +157,7 @@ class _$_HiveAuthData extends _HiveAuthData {
   @protected
   final int rawExpiresAt;
   @override
-  @HiveField(64)
+  @HiveField(2)
   final DateTime tokenPublishedAtUtc;
 
   @override
@@ -197,7 +197,7 @@ abstract class _HiveAuthData extends HiveAuthData {
   const factory _HiveAuthData(
       {@required @HiveField(0) HiveBody body,
       @required @HiveField(1) @protected int rawExpiresAt,
-      @required @HiveField(64) DateTime tokenPublishedAtUtc}) = _$_HiveAuthData;
+      @required @HiveField(2) DateTime tokenPublishedAtUtc}) = _$_HiveAuthData;
 
   @override
   @HiveField(0)
@@ -207,7 +207,7 @@ abstract class _HiveAuthData extends HiveAuthData {
   @protected
   int get rawExpiresAt;
   @override
-  @HiveField(64)
+  @HiveField(2)
   DateTime get tokenPublishedAtUtc;
   @override
   @JsonKey(ignore: true)
@@ -220,15 +220,15 @@ class _$HiveBodyTearOff {
 
 // ignore: unused_element
   _HiveBody call(
-      {@required @HiveField(2) String clientId,
-      @required @HiveField(3) String accessToken,
-      @required @HiveField(4) String refreshToken,
-      @required @HiveField(5) String idToken,
-      @required @HiveField(6) String scope,
-      @required @HiveField(7) int expiresIn,
-      @required @HiveField(8) String tokenType,
-      @required @HiveField(9) HiveDecodedToken decodedToken,
-      @required @HiveField(10) String audience}) {
+      {@required @HiveField(3) String clientId,
+      @required @HiveField(4) String accessToken,
+      @required @HiveField(5) String refreshToken,
+      @required @HiveField(6) String idToken,
+      @required @HiveField(7) String scope,
+      @required @HiveField(8) int expiresIn,
+      @required @HiveField(9) String tokenType,
+      @required @HiveField(10) HiveDecodedToken decodedToken,
+      @required @HiveField(11) String audience}) {
     return _HiveBody(
       clientId: clientId,
       accessToken: accessToken,
@@ -249,23 +249,23 @@ const $HiveBody = _$HiveBodyTearOff();
 
 /// @nodoc
 mixin _$HiveBody {
-  @HiveField(2)
-  String get clientId;
   @HiveField(3)
-  String get accessToken;
+  String get clientId;
   @HiveField(4)
-  String get refreshToken;
+  String get accessToken;
   @HiveField(5)
-  String get idToken;
+  String get refreshToken;
   @HiveField(6)
-  String get scope;
+  String get idToken;
   @HiveField(7)
-  int get expiresIn;
+  String get scope;
   @HiveField(8)
-  String get tokenType;
+  int get expiresIn;
   @HiveField(9)
-  HiveDecodedToken get decodedToken;
+  String get tokenType;
   @HiveField(10)
+  HiveDecodedToken get decodedToken;
+  @HiveField(11)
   String get audience;
 
   @JsonKey(ignore: true)
@@ -277,15 +277,15 @@ abstract class $HiveBodyCopyWith<$Res> {
   factory $HiveBodyCopyWith(HiveBody value, $Res Function(HiveBody) then) =
       _$HiveBodyCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(2) String clientId,
-      @HiveField(3) String accessToken,
-      @HiveField(4) String refreshToken,
-      @HiveField(5) String idToken,
-      @HiveField(6) String scope,
-      @HiveField(7) int expiresIn,
-      @HiveField(8) String tokenType,
-      @HiveField(9) HiveDecodedToken decodedToken,
-      @HiveField(10) String audience});
+      {@HiveField(3) String clientId,
+      @HiveField(4) String accessToken,
+      @HiveField(5) String refreshToken,
+      @HiveField(6) String idToken,
+      @HiveField(7) String scope,
+      @HiveField(8) int expiresIn,
+      @HiveField(9) String tokenType,
+      @HiveField(10) HiveDecodedToken decodedToken,
+      @HiveField(11) String audience});
 
   $HiveDecodedTokenCopyWith<$Res> get decodedToken;
 }
@@ -345,15 +345,15 @@ abstract class _$HiveBodyCopyWith<$Res> implements $HiveBodyCopyWith<$Res> {
       __$HiveBodyCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(2) String clientId,
-      @HiveField(3) String accessToken,
-      @HiveField(4) String refreshToken,
-      @HiveField(5) String idToken,
-      @HiveField(6) String scope,
-      @HiveField(7) int expiresIn,
-      @HiveField(8) String tokenType,
-      @HiveField(9) HiveDecodedToken decodedToken,
-      @HiveField(10) String audience});
+      {@HiveField(3) String clientId,
+      @HiveField(4) String accessToken,
+      @HiveField(5) String refreshToken,
+      @HiveField(6) String idToken,
+      @HiveField(7) String scope,
+      @HiveField(8) int expiresIn,
+      @HiveField(9) String tokenType,
+      @HiveField(10) HiveDecodedToken decodedToken,
+      @HiveField(11) String audience});
 
   @override
   $HiveDecodedTokenCopyWith<$Res> get decodedToken;
@@ -405,15 +405,15 @@ class __$HiveBodyCopyWithImpl<$Res> extends _$HiveBodyCopyWithImpl<$Res>
 /// @nodoc
 class _$_HiveBody implements _HiveBody {
   const _$_HiveBody(
-      {@required @HiveField(2) this.clientId,
-      @required @HiveField(3) this.accessToken,
-      @required @HiveField(4) this.refreshToken,
-      @required @HiveField(5) this.idToken,
-      @required @HiveField(6) this.scope,
-      @required @HiveField(7) this.expiresIn,
-      @required @HiveField(8) this.tokenType,
-      @required @HiveField(9) this.decodedToken,
-      @required @HiveField(10) this.audience})
+      {@required @HiveField(3) this.clientId,
+      @required @HiveField(4) this.accessToken,
+      @required @HiveField(5) this.refreshToken,
+      @required @HiveField(6) this.idToken,
+      @required @HiveField(7) this.scope,
+      @required @HiveField(8) this.expiresIn,
+      @required @HiveField(9) this.tokenType,
+      @required @HiveField(10) this.decodedToken,
+      @required @HiveField(11) this.audience})
       : assert(clientId != null),
         assert(accessToken != null),
         assert(refreshToken != null),
@@ -425,31 +425,31 @@ class _$_HiveBody implements _HiveBody {
         assert(audience != null);
 
   @override
-  @HiveField(2)
+  @HiveField(3)
   final String clientId;
   @override
-  @HiveField(3)
+  @HiveField(4)
   final String accessToken;
   @override
-  @HiveField(4)
+  @HiveField(5)
   final String refreshToken;
   @override
-  @HiveField(5)
+  @HiveField(6)
   final String idToken;
   @override
-  @HiveField(6)
+  @HiveField(7)
   final String scope;
   @override
-  @HiveField(7)
+  @HiveField(8)
   final int expiresIn;
   @override
-  @HiveField(8)
+  @HiveField(9)
   final String tokenType;
   @override
-  @HiveField(9)
+  @HiveField(10)
   final HiveDecodedToken decodedToken;
   @override
-  @HiveField(10)
+  @HiveField(11)
   final String audience;
 
   @override
@@ -510,42 +510,42 @@ class _$_HiveBody implements _HiveBody {
 
 abstract class _HiveBody implements HiveBody {
   const factory _HiveBody(
-      {@required @HiveField(2) String clientId,
-      @required @HiveField(3) String accessToken,
-      @required @HiveField(4) String refreshToken,
-      @required @HiveField(5) String idToken,
-      @required @HiveField(6) String scope,
-      @required @HiveField(7) int expiresIn,
-      @required @HiveField(8) String tokenType,
-      @required @HiveField(9) HiveDecodedToken decodedToken,
-      @required @HiveField(10) String audience}) = _$_HiveBody;
+      {@required @HiveField(3) String clientId,
+      @required @HiveField(4) String accessToken,
+      @required @HiveField(5) String refreshToken,
+      @required @HiveField(6) String idToken,
+      @required @HiveField(7) String scope,
+      @required @HiveField(8) int expiresIn,
+      @required @HiveField(9) String tokenType,
+      @required @HiveField(10) HiveDecodedToken decodedToken,
+      @required @HiveField(11) String audience}) = _$_HiveBody;
 
   @override
-  @HiveField(2)
+  @HiveField(3)
   String get clientId;
   @override
-  @HiveField(3)
+  @HiveField(4)
   String get accessToken;
   @override
-  @HiveField(4)
+  @HiveField(5)
   String get refreshToken;
   @override
-  @HiveField(5)
+  @HiveField(6)
   String get idToken;
   @override
-  @HiveField(6)
+  @HiveField(7)
   String get scope;
   @override
-  @HiveField(7)
+  @HiveField(8)
   int get expiresIn;
   @override
-  @HiveField(8)
+  @HiveField(9)
   String get tokenType;
   @override
-  @HiveField(9)
+  @HiveField(10)
   HiveDecodedToken get decodedToken;
   @override
-  @HiveField(10)
+  @HiveField(11)
   String get audience;
   @override
   @JsonKey(ignore: true)
@@ -558,8 +558,8 @@ class _$HiveDecodedTokenTearOff {
 
 // ignore: unused_element
   _HiveDecodedToken call(
-      {@required @HiveField(13) HiveClaims claims,
-      @required @HiveField(14) HiveUser user}) {
+      {@required @HiveField(12) HiveClaims claims,
+      @required @HiveField(13) HiveUser user}) {
     return _HiveDecodedToken(
       claims: claims,
       user: user,
@@ -575,9 +575,9 @@ const $HiveDecodedToken = _$HiveDecodedTokenTearOff();
 mixin _$HiveDecodedToken {
 // @required @HiveField(11) HiveEncoded encoded,
 // @required @HiveField(12) HiveHeader header,
-  @HiveField(13)
+  @HiveField(12)
   HiveClaims get claims;
-  @HiveField(14)
+  @HiveField(13)
   HiveUser get user;
 
   @JsonKey(ignore: true)
@@ -589,7 +589,7 @@ abstract class $HiveDecodedTokenCopyWith<$Res> {
   factory $HiveDecodedTokenCopyWith(
           HiveDecodedToken value, $Res Function(HiveDecodedToken) then) =
       _$HiveDecodedTokenCopyWithImpl<$Res>;
-  $Res call({@HiveField(13) HiveClaims claims, @HiveField(14) HiveUser user});
+  $Res call({@HiveField(12) HiveClaims claims, @HiveField(13) HiveUser user});
 
   $HiveClaimsCopyWith<$Res> get claims;
   $HiveUserCopyWith<$Res> get user;
@@ -643,7 +643,7 @@ abstract class _$HiveDecodedTokenCopyWith<$Res>
           _HiveDecodedToken value, $Res Function(_HiveDecodedToken) then) =
       __$HiveDecodedTokenCopyWithImpl<$Res>;
   @override
-  $Res call({@HiveField(13) HiveClaims claims, @HiveField(14) HiveUser user});
+  $Res call({@HiveField(12) HiveClaims claims, @HiveField(13) HiveUser user});
 
   @override
   $HiveClaimsCopyWith<$Res> get claims;
@@ -680,17 +680,17 @@ class __$HiveDecodedTokenCopyWithImpl<$Res>
 /// @nodoc
 class _$_HiveDecodedToken implements _HiveDecodedToken {
   const _$_HiveDecodedToken(
-      {@required @HiveField(13) this.claims,
-      @required @HiveField(14) this.user})
+      {@required @HiveField(12) this.claims,
+      @required @HiveField(13) this.user})
       : assert(claims != null),
         assert(user != null);
 
   @override // @required @HiveField(11) HiveEncoded encoded,
 // @required @HiveField(12) HiveHeader header,
-  @HiveField(13)
+  @HiveField(12)
   final HiveClaims claims;
   @override
-  @HiveField(14)
+  @HiveField(13)
   final HiveUser user;
 
   @override
@@ -722,15 +722,15 @@ class _$_HiveDecodedToken implements _HiveDecodedToken {
 
 abstract class _HiveDecodedToken implements HiveDecodedToken {
   const factory _HiveDecodedToken(
-      {@required @HiveField(13) HiveClaims claims,
-      @required @HiveField(14) HiveUser user}) = _$_HiveDecodedToken;
+      {@required @HiveField(12) HiveClaims claims,
+      @required @HiveField(13) HiveUser user}) = _$_HiveDecodedToken;
 
   @override // @required @HiveField(11) HiveEncoded encoded,
 // @required @HiveField(12) HiveHeader header,
-  @HiveField(13)
+  @HiveField(12)
   HiveClaims get claims;
   @override
-  @HiveField(14)
+  @HiveField(13)
   HiveUser get user;
   @override
   @JsonKey(ignore: true)
@@ -744,7 +744,7 @@ class _$HiveClaimsTearOff {
 // ignore: unused_element
   _HiveClaims call(
       {@required
-      @HiveField(17)
+      @HiveField(14)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute}) {
     return _HiveClaims(
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute,
@@ -760,7 +760,7 @@ const $HiveClaims = _$HiveClaimsTearOff();
 mixin _$HiveClaims {
 // @required @HiveField(15) String raw,
 // @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
-  @HiveField(17)
+  @HiveField(14)
   HiveHttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
 
   @JsonKey(ignore: true)
@@ -773,7 +773,7 @@ abstract class $HiveClaimsCopyWith<$Res> {
           HiveClaims value, $Res Function(HiveClaims) then) =
       _$HiveClaimsCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(17)
+      {@HiveField(14)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute});
 
   $HiveHttpsShirasuIoUserAttributeCopyWith<$Res>
@@ -819,7 +819,7 @@ abstract class _$HiveClaimsCopyWith<$Res> implements $HiveClaimsCopyWith<$Res> {
       __$HiveClaimsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(17)
+      {@HiveField(14)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute});
 
   @override
@@ -855,13 +855,13 @@ class __$HiveClaimsCopyWithImpl<$Res> extends _$HiveClaimsCopyWithImpl<$Res>
 /// @nodoc
 class _$_HiveClaims extends _HiveClaims {
   const _$_HiveClaims(
-      {@required @HiveField(17) this.httpsShirasuIoUserAttribute})
+      {@required @HiveField(14) this.httpsShirasuIoUserAttribute})
       : assert(httpsShirasuIoUserAttribute != null),
         super._();
 
   @override // @required @HiveField(15) String raw,
 // @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
-  @HiveField(17)
+  @HiveField(14)
   final HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
 
   @override
@@ -895,13 +895,13 @@ abstract class _HiveClaims extends HiveClaims {
   const _HiveClaims._() : super._();
   const factory _HiveClaims(
           {@required
-          @HiveField(17)
+          @HiveField(14)
               HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute}) =
       _$_HiveClaims;
 
   @override // @required @HiveField(15) String raw,
 // @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
-  @HiveField(17)
+  @HiveField(14)
   HiveHttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
   @override
   @JsonKey(ignore: true)
@@ -914,14 +914,14 @@ class _$HiveHttpsShirasuIoUserAttributeTearOff {
 
 // ignore: unused_element
   _HiveHttpsShirasuIoUserAttribute call(
-      {@required @HiveField(36) DateTime birthDate,
-      @required @HiveField(37) String job,
-      @required @HiveField(38) String country,
-      @required @HiveField(39) String prefecture,
-      @required @HiveField(40) String familyName,
-      @required @HiveField(41) String givenName,
-      @required @HiveField(42) String familyNameReading,
-      @required @HiveField(43) String givenNameReading}) {
+      {@required @HiveField(15) DateTime birthDate,
+      @required @HiveField(16) String job,
+      @required @HiveField(17) String country,
+      @required @HiveField(18) String prefecture,
+      @required @HiveField(19) String familyName,
+      @required @HiveField(20) String givenName,
+      @required @HiveField(21) String familyNameReading,
+      @required @HiveField(22) String givenNameReading}) {
     return _HiveHttpsShirasuIoUserAttribute(
       birthDate: birthDate,
       job: job,
@@ -942,21 +942,21 @@ const $HiveHttpsShirasuIoUserAttribute =
 
 /// @nodoc
 mixin _$HiveHttpsShirasuIoUserAttribute {
-  @HiveField(36)
+  @HiveField(15)
   DateTime get birthDate;
-  @HiveField(37)
+  @HiveField(16)
   String get job;
-  @HiveField(38)
+  @HiveField(17)
   String get country;
-  @HiveField(39)
+  @HiveField(18)
   String get prefecture;
-  @HiveField(40)
+  @HiveField(19)
   String get familyName;
-  @HiveField(41)
+  @HiveField(20)
   String get givenName;
-  @HiveField(42)
+  @HiveField(21)
   String get familyNameReading;
-  @HiveField(43)
+  @HiveField(22)
   String get givenNameReading;
 
   @JsonKey(ignore: true)
@@ -971,14 +971,14 @@ abstract class $HiveHttpsShirasuIoUserAttributeCopyWith<$Res> {
           $Res Function(HiveHttpsShirasuIoUserAttribute) then) =
       _$HiveHttpsShirasuIoUserAttributeCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(36) DateTime birthDate,
-      @HiveField(37) String job,
-      @HiveField(38) String country,
-      @HiveField(39) String prefecture,
-      @HiveField(40) String familyName,
-      @HiveField(41) String givenName,
-      @HiveField(42) String familyNameReading,
-      @HiveField(43) String givenNameReading});
+      {@HiveField(15) DateTime birthDate,
+      @HiveField(16) String job,
+      @HiveField(17) String country,
+      @HiveField(18) String prefecture,
+      @HiveField(19) String familyName,
+      @HiveField(20) String givenName,
+      @HiveField(21) String familyNameReading,
+      @HiveField(22) String givenNameReading});
 }
 
 /// @nodoc
@@ -1030,14 +1030,14 @@ abstract class _$HiveHttpsShirasuIoUserAttributeCopyWith<$Res>
       __$HiveHttpsShirasuIoUserAttributeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(36) DateTime birthDate,
-      @HiveField(37) String job,
-      @HiveField(38) String country,
-      @HiveField(39) String prefecture,
-      @HiveField(40) String familyName,
-      @HiveField(41) String givenName,
-      @HiveField(42) String familyNameReading,
-      @HiveField(43) String givenNameReading});
+      {@HiveField(15) DateTime birthDate,
+      @HiveField(16) String job,
+      @HiveField(17) String country,
+      @HiveField(18) String prefecture,
+      @HiveField(19) String familyName,
+      @HiveField(20) String givenName,
+      @HiveField(21) String familyNameReading,
+      @HiveField(22) String givenNameReading});
 }
 
 /// @nodoc
@@ -1091,14 +1091,14 @@ class __$HiveHttpsShirasuIoUserAttributeCopyWithImpl<$Res>
 class _$_HiveHttpsShirasuIoUserAttribute
     implements _HiveHttpsShirasuIoUserAttribute {
   const _$_HiveHttpsShirasuIoUserAttribute(
-      {@required @HiveField(36) this.birthDate,
-      @required @HiveField(37) this.job,
-      @required @HiveField(38) this.country,
-      @required @HiveField(39) this.prefecture,
-      @required @HiveField(40) this.familyName,
-      @required @HiveField(41) this.givenName,
-      @required @HiveField(42) this.familyNameReading,
-      @required @HiveField(43) this.givenNameReading})
+      {@required @HiveField(15) this.birthDate,
+      @required @HiveField(16) this.job,
+      @required @HiveField(17) this.country,
+      @required @HiveField(18) this.prefecture,
+      @required @HiveField(19) this.familyName,
+      @required @HiveField(20) this.givenName,
+      @required @HiveField(21) this.familyNameReading,
+      @required @HiveField(22) this.givenNameReading})
       : assert(birthDate != null),
         assert(job != null),
         assert(country != null),
@@ -1109,28 +1109,28 @@ class _$_HiveHttpsShirasuIoUserAttribute
         assert(givenNameReading != null);
 
   @override
-  @HiveField(36)
+  @HiveField(15)
   final DateTime birthDate;
   @override
-  @HiveField(37)
+  @HiveField(16)
   final String job;
   @override
-  @HiveField(38)
+  @HiveField(17)
   final String country;
   @override
-  @HiveField(39)
+  @HiveField(18)
   final String prefecture;
   @override
-  @HiveField(40)
+  @HiveField(19)
   final String familyName;
   @override
-  @HiveField(41)
+  @HiveField(20)
   final String givenName;
   @override
-  @HiveField(42)
+  @HiveField(21)
   final String familyNameReading;
   @override
-  @HiveField(43)
+  @HiveField(22)
   final String givenNameReading;
 
   @override
@@ -1189,39 +1189,39 @@ class _$_HiveHttpsShirasuIoUserAttribute
 abstract class _HiveHttpsShirasuIoUserAttribute
     implements HiveHttpsShirasuIoUserAttribute {
   const factory _HiveHttpsShirasuIoUserAttribute(
-          {@required @HiveField(36) DateTime birthDate,
-          @required @HiveField(37) String job,
-          @required @HiveField(38) String country,
-          @required @HiveField(39) String prefecture,
-          @required @HiveField(40) String familyName,
-          @required @HiveField(41) String givenName,
-          @required @HiveField(42) String familyNameReading,
-          @required @HiveField(43) String givenNameReading}) =
+          {@required @HiveField(15) DateTime birthDate,
+          @required @HiveField(16) String job,
+          @required @HiveField(17) String country,
+          @required @HiveField(18) String prefecture,
+          @required @HiveField(19) String familyName,
+          @required @HiveField(20) String givenName,
+          @required @HiveField(21) String familyNameReading,
+          @required @HiveField(22) String givenNameReading}) =
       _$_HiveHttpsShirasuIoUserAttribute;
 
   @override
-  @HiveField(36)
+  @HiveField(15)
   DateTime get birthDate;
   @override
-  @HiveField(37)
+  @HiveField(16)
   String get job;
   @override
-  @HiveField(38)
+  @HiveField(17)
   String get country;
   @override
-  @HiveField(39)
+  @HiveField(18)
   String get prefecture;
   @override
-  @HiveField(40)
+  @HiveField(19)
   String get familyName;
   @override
-  @HiveField(41)
+  @HiveField(20)
   String get givenName;
   @override
-  @HiveField(42)
+  @HiveField(21)
   String get familyNameReading;
   @override
-  @HiveField(43)
+  @HiveField(22)
   String get givenNameReading;
   @override
   @JsonKey(ignore: true)
@@ -1236,31 +1236,31 @@ class _$HiveUserTearOff {
 // ignore: unused_element
   _HiveUser call(
       {@required
-      @HiveField(50)
+      @HiveField(23)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
       @required
-      @HiveField(56)
+      @HiveField(24)
           String nickname,
       @required
-      @HiveField(57)
+      @HiveField(25)
           String name,
       @required
-      @HiveField(58)
+      @HiveField(26)
           String picture,
       @required
-      @HiveField(59)
+      @HiveField(27)
           String locale,
       @required
-      @HiveField(60)
+      @HiveField(28)
           DateTime updatedAt,
       @required
-      @HiveField(61)
+      @HiveField(29)
           String email,
       @required
-      @HiveField(62)
+      @HiveField(30)
           bool emailVerified,
       @required
-      @HiveField(63)
+      @HiveField(31)
           String sub}) {
     return _HiveUser(
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute,
@@ -1286,7 +1286,7 @@ mixin _$HiveUser {
 // @HiveField(49)
 // @protected
 //     List<String> rawHttpsShirasuIoRoles,
-  @HiveField(50)
+  @HiveField(23)
   HiveHttpsShirasuIoUserAttribute
       get httpsShirasuIoUserAttribute; // @required @HiveField(51) String httpsShirasuIoCustomerId,
 // @protected
@@ -1301,21 +1301,21 @@ mixin _$HiveUser {
 // String givenName,
 // @required @HiveField(55)
 // String familyName,
-  @HiveField(56)
+  @HiveField(24)
   String get nickname;
-  @HiveField(57)
+  @HiveField(25)
   String get name;
-  @HiveField(58)
+  @HiveField(26)
   String get picture;
-  @HiveField(59)
+  @HiveField(27)
   String get locale;
-  @HiveField(60)
+  @HiveField(28)
   DateTime get updatedAt;
-  @HiveField(61)
+  @HiveField(29)
   String get email;
-  @HiveField(62)
+  @HiveField(30)
   bool get emailVerified;
-  @HiveField(63)
+  @HiveField(31)
   String get sub;
 
   @JsonKey(ignore: true)
@@ -1327,23 +1327,23 @@ abstract class $HiveUserCopyWith<$Res> {
   factory $HiveUserCopyWith(HiveUser value, $Res Function(HiveUser) then) =
       _$HiveUserCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(50)
+      {@HiveField(23)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @HiveField(56)
+      @HiveField(24)
           String nickname,
-      @HiveField(57)
+      @HiveField(25)
           String name,
-      @HiveField(58)
+      @HiveField(26)
           String picture,
-      @HiveField(59)
+      @HiveField(27)
           String locale,
-      @HiveField(60)
+      @HiveField(28)
           DateTime updatedAt,
-      @HiveField(61)
+      @HiveField(29)
           String email,
-      @HiveField(62)
+      @HiveField(30)
           bool emailVerified,
-      @HiveField(63)
+      @HiveField(31)
           String sub});
 
   $HiveHttpsShirasuIoUserAttributeCopyWith<$Res>
@@ -1407,23 +1407,23 @@ abstract class _$HiveUserCopyWith<$Res> implements $HiveUserCopyWith<$Res> {
       __$HiveUserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(50)
+      {@HiveField(23)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-      @HiveField(56)
+      @HiveField(24)
           String nickname,
-      @HiveField(57)
+      @HiveField(25)
           String name,
-      @HiveField(58)
+      @HiveField(26)
           String picture,
-      @HiveField(59)
+      @HiveField(27)
           String locale,
-      @HiveField(60)
+      @HiveField(28)
           DateTime updatedAt,
-      @HiveField(61)
+      @HiveField(29)
           String email,
-      @HiveField(62)
+      @HiveField(30)
           bool emailVerified,
-      @HiveField(63)
+      @HiveField(31)
           String sub});
 
   @override
@@ -1477,15 +1477,15 @@ class __$HiveUserCopyWithImpl<$Res> extends _$HiveUserCopyWithImpl<$Res>
 /// @nodoc
 class _$_HiveUser extends _HiveUser {
   const _$_HiveUser(
-      {@required @HiveField(50) this.httpsShirasuIoUserAttribute,
-      @required @HiveField(56) this.nickname,
-      @required @HiveField(57) this.name,
-      @required @HiveField(58) this.picture,
-      @required @HiveField(59) this.locale,
-      @required @HiveField(60) this.updatedAt,
-      @required @HiveField(61) this.email,
-      @required @HiveField(62) this.emailVerified,
-      @required @HiveField(63) this.sub})
+      {@required @HiveField(23) this.httpsShirasuIoUserAttribute,
+      @required @HiveField(24) this.nickname,
+      @required @HiveField(25) this.name,
+      @required @HiveField(26) this.picture,
+      @required @HiveField(27) this.locale,
+      @required @HiveField(28) this.updatedAt,
+      @required @HiveField(29) this.email,
+      @required @HiveField(30) this.emailVerified,
+      @required @HiveField(31) this.sub})
       : assert(httpsShirasuIoUserAttribute != null),
         assert(nickname != null),
         assert(name != null),
@@ -1501,7 +1501,7 @@ class _$_HiveUser extends _HiveUser {
 // @HiveField(49)
 // @protected
 //     List<String> rawHttpsShirasuIoRoles,
-  @HiveField(50)
+  @HiveField(23)
   final HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute;
   @override // @required @HiveField(51) String httpsShirasuIoCustomerId,
 // @protected
@@ -1516,28 +1516,28 @@ class _$_HiveUser extends _HiveUser {
 // String givenName,
 // @required @HiveField(55)
 // String familyName,
-  @HiveField(56)
+  @HiveField(24)
   final String nickname;
   @override
-  @HiveField(57)
+  @HiveField(25)
   final String name;
   @override
-  @HiveField(58)
+  @HiveField(26)
   final String picture;
   @override
-  @HiveField(59)
+  @HiveField(27)
   final String locale;
   @override
-  @HiveField(60)
+  @HiveField(28)
   final DateTime updatedAt;
   @override
-  @HiveField(61)
+  @HiveField(29)
   final String email;
   @override
-  @HiveField(62)
+  @HiveField(30)
   final bool emailVerified;
   @override
-  @HiveField(63)
+  @HiveField(31)
   final String sub;
 
   @override
@@ -1599,38 +1599,38 @@ abstract class _HiveUser extends HiveUser {
   const _HiveUser._() : super._();
   const factory _HiveUser(
       {@required
-      @HiveField(50)
+      @HiveField(23)
           HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
       @required
-      @HiveField(56)
+      @HiveField(24)
           String nickname,
       @required
-      @HiveField(57)
+      @HiveField(25)
           String name,
       @required
-      @HiveField(58)
+      @HiveField(26)
           String picture,
       @required
-      @HiveField(59)
+      @HiveField(27)
           String locale,
       @required
-      @HiveField(60)
+      @HiveField(28)
           DateTime updatedAt,
       @required
-      @HiveField(61)
+      @HiveField(29)
           String email,
       @required
-      @HiveField(62)
+      @HiveField(30)
           bool emailVerified,
       @required
-      @HiveField(63)
+      @HiveField(31)
           String sub}) = _$_HiveUser;
 
   @override // @required
 // @HiveField(49)
 // @protected
 //     List<String> rawHttpsShirasuIoRoles,
-  @HiveField(50)
+  @HiveField(23)
   HiveHttpsShirasuIoUserAttribute get httpsShirasuIoUserAttribute;
   @override // @required @HiveField(51) String httpsShirasuIoCustomerId,
 // @protected
@@ -1645,28 +1645,28 @@ abstract class _HiveUser extends HiveUser {
 // String givenName,
 // @required @HiveField(55)
 // String familyName,
-  @HiveField(56)
+  @HiveField(24)
   String get nickname;
   @override
-  @HiveField(57)
+  @HiveField(25)
   String get name;
   @override
-  @HiveField(58)
+  @HiveField(26)
   String get picture;
   @override
-  @HiveField(59)
+  @HiveField(27)
   String get locale;
   @override
-  @HiveField(60)
+  @HiveField(28)
   DateTime get updatedAt;
   @override
-  @HiveField(61)
+  @HiveField(29)
   String get email;
   @override
-  @HiveField(62)
+  @HiveField(30)
   bool get emailVerified;
   @override
-  @HiveField(63)
+  @HiveField(31)
   String get sub;
   @override
   @JsonKey(ignore: true)

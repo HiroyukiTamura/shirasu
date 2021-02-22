@@ -8,17 +8,20 @@ import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
 
-final kPrvDioClient = Provider.autoDispose<DioClient>((ref) => DioClient(ref.read));
+import 'dio_repository.dart';
 
-class DioClient {
+final kPrvDioRepository = Provider.autoDispose<DioRepository>((ref) => DioRepositoryImpl._(ref.read));
 
-  DioClient(this._reader);
+class DioRepositoryImpl with DioRepository {
+
+  DioRepositoryImpl._(this._reader);
 
   final Dio _dio = Dio();
 
   final Reader _reader;
   AuthClientInterceptor get _authClientInterceptor => _reader(kPrvAuthClientInterceptor);
 
+  @override
   Future<String> getSignedCookie(
       String videoId, VideoType videoType, String auth) async {
 
@@ -55,6 +58,7 @@ class DioClient {
 
 
   /// auth0 API doc: https://auth0.com/docs/tokens/refresh-tokens/use-refresh-tokens
+  @override
   Future<ResultTokenRefresh> requestRenewToken(String clientId, String refreshToken) async {
     final result = await _dio.post<Map<String, dynamic>>(
       UrlUtil.URL_OAUTH_TOKEN,

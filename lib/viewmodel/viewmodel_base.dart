@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/connectivity_repository_impl.dart';
+import 'package:shirasu/client/dio_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/dio_client.dart';
@@ -86,7 +87,7 @@ mixin AppRouterLocator {
   GraphQlRepository get graphQlRepository => reader(kPrvGraphqlRepository);
 
   @protected
-  DioClient get dioClient => reader(kPrvDioClient);
+  DioRepository get dioClient => reader(kPrvDioRepository);
 
   @protected
   ConnectivityRepository get connectivityRepository =>

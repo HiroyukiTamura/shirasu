@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -22,21 +24,19 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 /// must via access from ViewModel
-final kPrvSnackBar =
-    StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
-        (ref) => SnackBarMessageNotifier());
+final kPrvSnackBar = StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
+    (ref) => SnackBarMessageNotifier());
 
-final kPrvAppRouterDelegate = Provider<AppRouterDelegate>((ref) =>
-    AppRouterDelegate(
-        ref.read));
+final kPrvAppRouterDelegate =
+    Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref.read));
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   runZonedGuarded(() async {
-
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
+    await FirebaseCrashlytics.instance
+        .setCrashlyticsCollectionEnabled(!kDebugMode);
     await Hive.initFlutter();
     Hive
       ..registerAdapter(HiveAuthDataAdapter())
@@ -44,8 +44,8 @@ Future<void> main() async {
       ..registerAdapter(HiveDecodedTokenAdapter())
       ..registerAdapter(HiveClaimsAdapter())
       ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
-    // ..registerAdapter(HiveEncodedAdapter())
-    // ..registerAdapter(HiveHeaderAdapter())
+      // ..registerAdapter(HiveEncodedAdapter())
+      // ..registerAdapter(HiveHeaderAdapter())
       ..registerAdapter(HiveUserAdapter());
 
     await HiveAuthRepositoryImpl.instance().init();
@@ -64,6 +64,8 @@ class MyApp extends StatefulHookWidget {
 }
 
 class MyAppState extends State<MyApp> with TickerProviderStateMixin {
+  static final _analytics = FirebaseAnalytics();
+
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: Strings.APP_NAME,
@@ -82,6 +84,9 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
         ],
         supportedLocales: const [
           Locale('ja'),
+        ],
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: _analytics),
         ],
       );
 }

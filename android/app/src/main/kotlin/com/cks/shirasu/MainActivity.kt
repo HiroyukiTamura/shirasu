@@ -8,11 +8,12 @@ import com.example.flutter_video_background.ChannelClient
 import com.example.flutter_video_background.Logger
 import com.example.flutter_video_background.LoggerListener
 import com.example.flutter_video_background.MusicServiceConnection
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugins.GeneratedPluginRegistrant
 
-class MainActivity: FlutterActivity(), LoggerListener {
+class MainActivity : FlutterActivity(), LoggerListener {
 
     private val channelClient = ChannelClient()
 
@@ -29,17 +30,13 @@ class MainActivity: FlutterActivity(), LoggerListener {
         channelClient.initEventChannel(flutterEngine.dartExecutor.binaryMessenger)
     }
 
-    override fun d(tag: String, msg: Any?) {
-        Log.d(tag, PREFIX + msg.toString())
-    }
+    override fun d(tag: String, msg: Any?) = FirebaseCrashlytics.getInstance().log("$PREFIX $msg")
 
-    override fun e(tag: String, msg: String?) {
-        Log.e(tag, PREFIX + msg.toString())
-    }
+    override fun e(tag: String, msg: String?) =
+            FirebaseCrashlytics.getInstance().log("$PREFIX $msg")
 
-    override fun e(tag: String, thr: Throwable) {
-        Log.e(tag, PREFIX, thr)
-    }
+    override fun e(tag: String, thr: Throwable) =
+            FirebaseCrashlytics.getInstance().recordException(thr)
 
     companion object {
         const val PREFIX = "------------------------------------"

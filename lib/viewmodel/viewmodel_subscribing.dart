@@ -7,6 +7,7 @@ import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/network_image_repository_impl.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
@@ -22,28 +23,21 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
   Future<void> initialize() async {
     if (state != const FeatureProgramState.initial()) return;
 
-    bool authExpired = false;
-    FeatureProgramState newState;
-    try {
+    final result = await Result.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
-      final data = await graphQlRepository
+      return graphQlRepository
           .queryFeaturedProgramsList()
           .timeout(GraphQlRepository.TIMEOUT);
-      newState = data.viewerUser.subscribedPrograms.isEmpty
-          ? const FeatureProgramState.resultEmpty()
-          : FeatureProgramState.success(data);
-    } catch (e) {
-      print(e);
-      newState = FeatureProgramState.error(toErrMsg(e));
-      authExpired = e is UnauthorizedException;
-    }
-
-    if (!mounted)
-      return;
-
-    state = newState;
-    if (authExpired)
-      pushAuthExpireScreen();
+    });
+    if (mounted)
+      result.when(success: (data) {
+        state = data.viewerUser.subscribedPrograms.isEmpty
+            ? const FeatureProgramState.resultEmpty()
+            : FeatureProgramState.success(data);
+      }, failure: (e) {
+        state = FeatureProgramState.error(toErrMsg(e));
+        if (e is UnauthorizedException) pushAuthExpireScreen();
+      });
   }
 }
 

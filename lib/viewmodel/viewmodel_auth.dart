@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:async/async.dart';
+import 'package:async/async.dart' hide Result;
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,6 +13,7 @@ import 'package:shirasu/client/local_json_client.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:synchronized/synchronized.dart';
@@ -41,9 +43,8 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
       ..onUrlChanged.listen(
         (url) async => _lock.synchronized(() async => _onUrlChanged(url)),
       )
-      ..onHttpError.listen((e) {
-        // todo log error
-      })
+      ..onHttpError
+          .listen((e) => FirebaseCrashlytics.instance.recordError(e, null))
       ..onStateChanged.listen((viewState) async => _onStateChanged(viewState));
   }
 
@@ -64,38 +65,32 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
   Future<void> _onUrlChanged(String url) async {
     trySet(state.copyWith(lastUrl: url));
 
-    if (_success)
-      return;
+    if (_success) return;
 
     // url except home page
     if (url != UrlUtil.URL_HOME && url.startsWith(UrlUtil.URL_HOME)) {
       final storage = await _plugin.evalJavascript(_jsLocalStorageGetter);
       if (storage.isEmpty || storage == '\"\"') return;
 
-      try {
-        final authData =
-            AuthData.fromJson(jsonDecode(storage) as Map<String, dynamic>);
-        await _hiveClient.putAuthData(authData);
+      // try {
+      //   final authData =
+      //       AuthData.fromJson(jsonDecode(storage) as Map<String, dynamic>);
+      //   await _hiveClient.putAuthData(authData);
+      //   _success = true;
+      // } catch (e) {
+      //   debugPrint(e.toString());
+      // }
+
+      if (!_success) {
+        // try unescape string and decode json
+        final result = await Result.guardFuture(() async => AuthData.fromJson(
+            jsonDecode(jsonDecode(storage) as String) as Map<String, dynamic>));
+        if (mounted)
+          result.ifSuccess((data) async => _hiveClient.putAuthData(data));
         _success = true;
-      } catch (e) {
-        debugPrint(e.toString());
       }
 
-      if (!_success)
-        // try unescape string and decode json
-        try {
-          final authData = AuthData.fromJson(
-              jsonDecode(jsonDecode(storage) as String)
-                  as Map<String, dynamic>);
-          await _hiveClient.putAuthData(authData);
-          _success = true;
-        } catch (e) {
-          debugPrint(e.toString());
-          //todo handle error
-        }
-
-      if (!mounted)
-        return;
+      if (!mounted) return;
 
       final delegate = reader(kPrvAppRouterDelegate);
       if (_success)

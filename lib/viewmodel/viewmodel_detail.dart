@@ -75,9 +75,9 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           .timeout(
               GraphQlRepository.TIMEOUT); //todo set timeout on graphQl side?
     });
-    result.when(
-      success: (data) async {
-        if (mounted)
+    if (mounted)
+      result.when(
+        success: (data) async {
           state = state.copyWith(
             prgDataResult: DetailModelState.success(
               programDetailData: data.item1,
@@ -85,14 +85,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
               page: const PageSheetModel.hidden(),
             ),
           );
-        return _initComments(Duration.zero);
-      },
-      failure: (e) {
-        print(e);
-        if (mounted) state = state.copyAsPrgDataResultErr(toErrMsg(e));
-        if (e is UnauthorizedException) pushAuthExpireScreen();
-      },
-    );
+          return _initComments(Duration.zero);
+        },
+        failure: (e) {
+          if (mounted) state = state.copyAsPrgDataResultErr(toErrMsg(e));
+          if (e is UnauthorizedException) pushAuthExpireScreen();
+        },
+      );
   }
 
   Future<void> playVideo(bool preview) async {
@@ -123,14 +122,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         success: (cookie) =>
             state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie),
         failure: (e) {
-          debugPrint(e.toString());
           ErrorMsgCommon msg = const ErrorMsgCommon.unknown();
           if (e is NetworkDisconnectException)
             msg = const ErrorMsgCommon.networkDisconnected();
           else if (e is DioError && e.isTimeoutErr)
             msg = const ErrorMsgCommon.networkTimeout();
           return state.copyWith.playOutState(
-            commandedState: PlayerCommandedState.error(msg),
+            commandedState: PlayerCommandedState.error(msg), //todo fix
           );
         },
       );
@@ -258,7 +256,6 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           );
       },
       failure: (e) {
-        print(e);
         commandSnackBar(toNetworkSnack(e));
       },
     );
@@ -269,19 +266,19 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyWith(isHandoutUrlRequesting: true);
 
-    String url;
-    try {
+    final result = await Result.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
-      url = await graphQlRepository
+      return graphQlRepository
           .queryHandOutUrl(id, handoutId)
           .timeout(GraphQlRepository.TIMEOUT);
-    } catch (e) {
-      print(e);
-      commandSnackBar(toNetworkSnack(e));
-    }
-
+    });
     if (!mounted) return null;
-
+    final url = result.when(
+        success: (url) => url,
+        failure: (e) {
+          commandSnackBar(toNetworkSnack(e));
+          return null;
+        });
     state = state.copyWith(
       isHandoutUrlRequesting: false,
     );
@@ -503,21 +500,17 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   /// provide old values as param; [position], [cookie]
   Future<void> startPlayBackground(int position, String cookie) async {
     if (mounted)
-      state.prgDataResult.whenSuccess((prgDetailData, channelData, page) async {
-        final result = await Result.guardFuture(
-            () async => NativeClient.startPlayBackGround(
-                  url: state.playOutState.hlsMediaUrl,
-                  isLiveStream:
-                      state.playOutState.videoType == const VideoType.live(),
-                  position: position,
-                  iconUrl: UrlUtil.getThumbnailUrl(id),
-                  cookie: cookie,
-                  title: prgDetailData.program.title,
-                  subtitle: channelData.channel.name,
-                ));
-        result.ifFailure((e) {
-          print(e);
-        });
-      });
+      state.prgDataResult.whenSuccess(
+          (prgDetailData, channelData, page) async =>
+              Result.guardFuture(() async => NativeClient.startPlayBackGround(
+                    url: state.playOutState.hlsMediaUrl,
+                    isLiveStream:
+                        state.playOutState.videoType == const VideoType.live(),
+                    position: position,
+                    iconUrl: UrlUtil.getThumbnailUrl(id),
+                    cookie: cookie,
+                    title: prgDetailData.program.title,
+                    subtitle: channelData.channel.name,
+                  )));
   }
 }

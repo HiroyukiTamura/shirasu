@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/extension.dart';
@@ -23,83 +24,66 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   Future<void> initialize() async {
     if (state != const WatchHistoryState.initial()) return;
 
-    WatchHistoryState newState;
-    bool authExpired = false;
-
-    try {
+    final result = await Result.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
-      final data = await graphQlRepository
+      return graphQlRepository
           .queryWatchHistory()
           .timeout(GraphQlRepository.TIMEOUT);
-      newState = data.viewerUser.watchHistories.items.isEmpty
+    });
+    result.when(success: (data) {
+      state = data.viewerUser.watchHistories.items.isEmpty
           ? const WatchHistoryState.resultEmpty()
           : WatchHistoryState.success(WatchHistoriesDataWrapper(
               isLoadingMore: true,
               watchHistories: [data].toUnmodifiable(),
             ));
-    } catch (e) {
-      print(e);
-      newState = WatchHistoryState.error(toErrMsg(e));
-      authExpired = e is UnauthorizedException;
-    }
-
-    if (!mounted) return;
-    state = newState;
-
-    if (authExpired) pushAuthExpireScreen();
+    }, failure: (e) {
+      state = WatchHistoryState.error(toErrMsg(e));
+      if (e is UnauthorizedException) pushAuthExpireScreen();
+    });
   }
 
-  Future<void> loadMoreWatchHistory() async {
-    final oldState = state;
-    if (oldState is _StateSuccess) {
-      final nextToken =
-          oldState.data.watchHistories.last.viewerUser.watchHistories.nextToken;
-      if (nextToken == null) return;
+  Future<void> loadMoreWatchHistory() async => state.maybeWhen(
+        orElse: null,
+        success: (oldData) async {
+          final nextToken =
+              oldData.watchHistories.last.viewerUser.watchHistories.nextToken;
+          if (nextToken == null) return;
 
-      // we don't check if Disposed
-      state = WatchHistoryState.success(WatchHistoriesDataWrapper(
-        watchHistories: oldState.data.watchHistories,
-        isLoadingMore: true,
-      ));
+          // we don't check if Disposed
+          state = WatchHistoryState.success(WatchHistoriesDataWrapper(
+            watchHistories: oldData.watchHistories,
+            isLoadingMore: true,
+          ));
 
-      try {
-        await connectivityRepository.ensureNotDisconnect();
-        final newOne = await graphQlRepository
-            .queryWatchHistory(
-              nextToken: nextToken,
-            )
-            .timeout(GraphQlRepository.TIMEOUT);
+          final result = await Result.guardFuture(() async {
+            await connectivityRepository.ensureNotDisconnect();
+            return graphQlRepository
+                .queryWatchHistory(
+                  nextToken: nextToken,
+                )
+                .timeout(GraphQlRepository.TIMEOUT);
+          });
+          if (mounted)
+            result.when(success: (data) {
+              //todo extract to model class
+              final newList = oldData.watchHistories + [data];
+              state = WatchHistoryState.success(WatchHistoriesDataWrapper(
+                watchHistories: newList.toUnmodifiable(),
+                isLoadingMore: false,
+              ));
 
-        final newList = oldState.data.watchHistories + [newOne];
-
-        if (!mounted) return;
-
-        state = WatchHistoryState.success(WatchHistoriesDataWrapper(
-          watchHistories: newList.toUnmodifiable(),
-          isLoadingMore: false,
-        ));
-
-        if (newOne.viewerUser.watchHistories.items.isEmpty)
-          notifySnackMsg(const SnackMsg.noMoreItem());
-      } catch (e) {
-        debugPrint(e.toString());
-        if (!mounted) return;
-
-        SnackMsg msg;
-        if (e is NetworkDisconnectException)
-          msg = const SnackMsg.networkDisconnected();
-        else if (e is TimeoutException)
-          msg = const SnackMsg.networkTimeout();
-        else
-          msg = const SnackMsg.unknown();
-        state = WatchHistoryState.success(WatchHistoriesDataWrapper(
-          watchHistories: oldState.data.watchHistories,
-          isLoadingMore: false,
-        ));
-        notifySnackMsg(msg);
-      }
-    }
-  }
+              if (data.viewerUser.watchHistories.items.isEmpty)
+                notifySnackMsg(const SnackMsg.noMoreItem());
+            }, failure: (e) {
+              state = WatchHistoryState.success(WatchHistoriesDataWrapper(
+                watchHistories: oldData.watchHistories,
+                isLoadingMore: false,
+              ));
+              notifySnackMsg(toNetworkSnack(e));
+            });
+        },
+      );
 
   void notifySnackMsg(SnackMsg snackMsg) =>
       snackBarMsgNotifier.notifyMsg(snackMsg, false);

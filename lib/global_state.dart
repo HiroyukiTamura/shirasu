@@ -1,8 +1,11 @@
+import 'package:synchronized/synchronized.dart';
+
+
 class GlobalState {
 
   GlobalState._();
 
   static final instance = GlobalState._();
 
-  bool isInFullScreenOperation = false;
+  static final Lock isInFullScreenOperation = Lock();
 }

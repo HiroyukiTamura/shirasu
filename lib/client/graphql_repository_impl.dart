@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
@@ -24,7 +25,7 @@ import 'package:http/http.dart' as http;
 import '../util.dart';
 
 final kPrvGraphqlRepository = Provider.autoDispose<GraphQlRepository>(
-        (ref) => GraphQlRepositoryImpl.instance(ref.read));
+    (ref) => GraphQlRepositoryImpl.instance(ref.read));
 
 /// todo handle timeout
 /// todo operation name?
@@ -74,7 +75,8 @@ class GraphQlRepositoryImpl with GraphQlRepository {
     );
   }
 
-  Future<QueryResult> _query(String query, {
+  Future<QueryResult> _query(
+    String query, {
     Map<String, dynamic> variables,
     String operationName,
   }) async {
@@ -89,7 +91,8 @@ class GraphQlRepositoryImpl with GraphQlRepository {
     return result;
   }
 
-  Future<QueryResult> _mutate(String query, {
+  Future<QueryResult> _mutate(
+    String query, {
     Map<String, dynamic> variables,
     String operationName,
   }) async {
@@ -106,38 +109,34 @@ class GraphQlRepositoryImpl with GraphQlRepository {
 
   void _handleError(QueryResult result) {
     if (result.hasException) {
-      print(result.exception);
+      FirebaseCrashlytics.instance.log(result.exception.toString());
 
       for (final error in result.exception.graphqlErrors)
-        print(error.message);
+        FirebaseCrashlytics.instance.log(error.message);
 
       final linkException = result.exception.linkException;
-      debugPrint(linkException.toString());
+      FirebaseCrashlytics.instance.log(linkException.toString());
 
       if (linkException is ServerException) {
         final statusCode = linkException.parsedResponse.context
             .entry<HttpLinkResponseContext>()
             ?.statusCode;
-        debugPrint(statusCode.toString());
+        FirebaseCrashlytics.instance.log('statueCode: $statusCode');
 
         linkException.parsedResponse.errors
-            .forEach((it) => debugPrint(it.toString()));
-      }
-
-      if (linkException is HttpLinkServerException) {
-        debugPrint(linkException.response.statusCode.toString());
+            .forEach((it) => FirebaseCrashlytics.instance.log(it.toString()));
+      } else if (linkException is HttpLinkServerException) {
+        FirebaseCrashlytics.instance.log('statueCode: ${linkException.response.statusCode}');
         if (linkException.response.statusCode.between(400, 499))
           throw const UnauthorizedException(false);
       }
 
       final statusCode =
-          result.context
-              .entry<HttpLinkResponseContext>()
-              ?.statusCode;
-      debugPrint(statusCode.toString());
+          result.context.entry<HttpLinkResponseContext>()?.statusCode;
+      FirebaseCrashlytics.instance.log('statueCode: $statusCode');
 
-      if (result.exception.linkException.originalException
-      is UnauthorizedException)
+      if (linkException.originalException
+          is UnauthorizedException)
         throw result.exception.linkException.originalException;
     }
   }
@@ -147,7 +146,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
     final dateTime = DateTime.now().toUtc();
     final dateTimeNext = dateTime + 7.days;
     final result =
-    await _query(GraphqlQuery.QUERY_FEATURED_PROGRAMS, variables: {
+        await _query(GraphqlQuery.QUERY_FEATURED_PROGRAMS, variables: {
       'now': dateTime.toIso8601String(),
       'nowPlus7D': dateTimeNext.toIso8601String(),
     });
@@ -158,7 +157,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
   Future<NewProgramsData> queryNewProgramsList({String nextToken}) async {
     final variables = nextToken == null ? null : {'nextToken': nextToken};
     final result =
-    await _query(GraphqlQuery.QUERY_NEW_PROGRAMS, variables: variables);
+        await _query(GraphqlQuery.QUERY_NEW_PROGRAMS, variables: variables);
     return NewProgramsData.fromJson(result.data);
   }
 
@@ -178,7 +177,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
       if (nextToken != null) 'nextToken': nextToken
     };
     final result =
-    await _query(GraphqlQuery.QUERY_CHANNEL, variables: variables);
+        await _query(GraphqlQuery.QUERY_CHANNEL, variables: variables);
     return ChannelData.fromJson(result.data);
   }
 
@@ -188,8 +187,8 @@ class GraphQlRepositoryImpl with GraphQlRepository {
     final variable = nextToken == null
         ? null
         : {
-      'nextToken': nextToken,
-    };
+            'nextToken': nextToken,
+          };
     final query = GraphqlQuery.genQueryForWatchHistory(limit: limit);
     final result = await _query(query, variables: variable);
     return WatchHistoriesData.fromJson(result.data);
@@ -242,10 +241,8 @@ class GraphQlRepositoryImpl with GraphQlRepository {
     if (nextToken != null) variables['nextToken'] = nextToken;
 
     final result =
-    await _query(GraphqlQuery.QUERY_COMMENTS, variables: variables);
-    return ListCommentsByProgram
-        .fromJson(result.data)
-        .comments;
+        await _query(GraphqlQuery.QUERY_COMMENTS, variables: variables);
+    return ListCommentsByProgram.fromJson(result.data).comments;
   }
 
   @override
@@ -268,8 +265,6 @@ class GraphQlRepositoryImpl with GraphQlRepository {
       variables: variables,
       operationName: 'PostComment',
     );
-    return PostedComment
-        .fromJson(result.data)
-        .comment;
+    return PostedComment.fromJson(result.data).comment;
   }
 }

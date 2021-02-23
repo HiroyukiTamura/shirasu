@@ -28,25 +28,21 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
   Future<void> initialize() async {
     if (state != SettingModel.initial()) return;
 
-    SettingModelState newState;
-    bool authExpired = false;
-    try {
+    final result = await r.Result.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
-      final viewer = await graphQlRepository
-          .queryViewer()
-          .timeout(GraphQlRepository.TIMEOUT);
-      newState = SettingModelState.success(viewer);
-    } catch (e) {
-      print(e);
-      newState = SettingModelState.error(toErrMsg(e));
-      authExpired = e is UnauthorizedException;
-    }
-
-    if (!mounted) return;
-
-    state = state.copyWith(settingModelState: newState);
-
-    if (authExpired) pushAuthExpireScreen();
+      return graphQlRepository.queryViewer().timeout(GraphQlRepository.TIMEOUT);
+    });
+    if (mounted)
+      result.when(success: (data) {
+        state = state.copyWith(
+          settingModelState: SettingModelState.success(data),
+        );
+      }, failure: (e) {
+        state = state.copyWith(
+          settingModelState: SettingModelState.error(toErrMsg(e)),
+        );
+        if (e is UnauthorizedException) pushAuthExpireScreen();
+      });
   }
 
   void updateBirthDate(DateTime birthDate) =>
@@ -79,6 +75,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
           state.editedUserInfo?.location?.prefectureCode ?? attrs?.prefecture;
 
       if (sub == viewerUser.viewerUser.id) {
+        //todo must check on initialize too
         final variable = UpdateUserWithAttrVariable.build(
           userId: sub,
           birthDate: birthDate,
@@ -89,25 +86,18 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
         state = state.copyWith(uploadingProfile: true);
 
-        try {
+        final result = await r.Result.guardFuture(() async {
           await connectivityRepository.ensureNotDisconnect();
-          final updatedData = await graphQlRepository
+          return graphQlRepository
               .updateUserWithAttr(variable)
               .timeout(GraphQlRepository.TIMEOUT);
-          await hiveAuthRepository.updateProfile(updatedData);
-        } on TimeoutException catch (e) {
-          //todo log error
-          print(e);
-          if (mounted)
-            notifySnackMsg(const SnackMsg.networkTimeout());
-        } on NetworkDisconnectException catch (e) {
-          print(e);
-          if (mounted)
-            notifySnackMsg(const SnackMsg.networkDisconnected());
-        } catch (e) {
-          print(e);
-          if (mounted) notifySnackMsg(const SnackMsg.unknown());
-        }
+        });
+        if (mounted)
+          await result.when(
+              success: (data) async => hiveAuthRepository.updateProfile(data),
+              failure: (e) {
+                notifySnackMsg(toNetworkSnack(e));
+              });
       } else {
         notifySnackMsg(const SnackMsg.unknown());
       }

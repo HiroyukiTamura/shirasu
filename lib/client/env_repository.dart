@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/all.dart';
 
 final kPrvEnv = Provider<EnvRepository>(
@@ -9,7 +8,6 @@ mixin EnvRepository {
   bool get enableNetworkImage;
   bool get enableProgressAnimation;
   bool get enableVideoPlugin;
-  bool get enableCrashlytics;
 }
 
 class EnvRepositoryImpl with EnvRepository {
@@ -24,7 +22,4 @@ class EnvRepositoryImpl with EnvRepository {
 
   @override
   bool get enableVideoPlugin => true;
-
-  @override
-  bool get enableCrashlytics => true;
 }

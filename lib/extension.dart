@@ -10,11 +10,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
+import 'package:synchronized/synchronized.dart';
 
 import 'client/connectivity_repository.dart';
 
@@ -55,25 +57,19 @@ extension BuildContextX on BuildContext {
   bool get isBigScreen => 600 < MediaQuery.of(this).size.width;
 
   Future<void> toggleFullScreenMode() async {
-    if (GlobalState.instance.isInFullScreenOperation) return;
+    if (GlobalState.isInFullScreenOperation.inLock) return;
 
-    GlobalState.instance.isInFullScreenOperation = true;
-    try {
-      final isPortrait =
-          MediaQuery.of(this).orientation == Orientation.portrait;
+    final isPortrait = MediaQuery.of(this).orientation == Orientation.portrait;
+    final orientations =
+        isPortrait ? Util.LANDSCAPE_ORIENTATIONS : DeviceOrientation.values;
 
-      final orientations =
-          isPortrait ? Util.LANDSCAPE_ORIENTATIONS : DeviceOrientation.values;
+    Result.guardFuture(() async {
       await SystemChrome.setPreferredOrientations(orientations);
       if (isPortrait)
         await SystemChrome.setEnabledSystemUIOverlays([]);
       else
         await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-    } catch (e) {
-      print(e);
-    } finally {
-      GlobalState.instance.isInFullScreenOperation = false;
-    }
+    });
   }
 }
 

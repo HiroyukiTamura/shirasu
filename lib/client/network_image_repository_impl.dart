@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/network_image_repository.dart';
@@ -19,13 +20,10 @@ class NetworkImageRepositoryImpl with NetworkImageRepository {
     const CachedNetworkImageProvider(UrlUtil.URL_HEADER_BACKDROP)
         .resolve(const ImageConfiguration())
         .addListener(
-      ImageStreamListener((info, _) => completer.complete(info.image),
-          onError: (e, stackTrace) {
-            debugPrintStack(stackTrace: stackTrace);
-            debugPrint(e.toString());
-            // todo handle error
-          }),
-    );
+          ImageStreamListener((info, _) => completer.complete(info.image),
+              onError: (e, stackTrace) =>
+                  FirebaseCrashlytics.instance.recordError(e, stackTrace)),
+        );
     return completer.future;
   }
 }

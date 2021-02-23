@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'result.freezed.dart';
@@ -20,10 +21,12 @@ abstract class Result<T> with _$Result<T> {
     }
   }
 
-  static Future<Result<T>> guardFuture<T>(Future<T> Function() future) async {
+  static Future<Result<T>> guardFuture<T>(Future<T> Function() future,
+      {bool logError = true}) async {
     try {
       return Result.success(await future());
     } catch (e) {
+      if (logError) FirebaseCrashlytics.instance.recordError(e, null);
       return Result.failure(e);
     }
   }

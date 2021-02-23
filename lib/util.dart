@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -60,10 +61,10 @@ class Util {
     return Assets.jpeg.defaultHandoutThumbnail.image();
   }
 
-  static void onImageError({String url, dynamic error, StackTrace stackTrace}) {
-    debugPrintStack(stackTrace: stackTrace);
-    debugPrint(error.toString());
-  }
+  static Future<void> onImageError(
+          {String url, dynamic error, StackTrace stackTrace}) async =>
+      FirebaseCrashlytics.instance
+          .recordError(error, stackTrace, reason: 'url: $url');
 
   // todo improve logic
   static String sec2Hms(int sec) {
@@ -99,18 +100,6 @@ class Util {
 
   static void require(bool check, [String message]) {
     if (!check) throw ArgumentError(message);
-  }
-
-  Future<void> asyncGuard<T>(Future<T> Function() predicate, Future<T> Function(dynamic e) onError) async {
-    T result;
-
-    try {
-      result = await predicate();
-    } catch (e) {
-      onError(e);
-    }
-
-    return result;
   }
 }
 

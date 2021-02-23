@@ -40,13 +40,13 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
       );
     });
 
-    result.when(success: (data) {
-      if (mounted) state = data;
-    }, failure: (e) {
-      print(e);
-      if (mounted) state = ChannelModel.error(toErrMsg(e));
-      if (e is UnauthorizedException) pushAuthExpireScreen();
-    });
+    if (mounted)
+      result.when(success: (data) {
+        state = data;
+      }, failure: (e) {
+        state = ChannelModel.error(toErrMsg(e));
+        if (e is UnauthorizedException) pushAuthExpireScreen();
+      });
   }
 
   Future<void> loadMorePrograms() async =>
@@ -62,40 +62,30 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
           loading: true,
         ));
 
-        try {
+        final result = await Result.guardFuture(() async {
           await connectivityRepository.ensureNotDisconnect();
 
-          final newOne = await graphQlRepository
+          return graphQlRepository
               .queryChannelData(
                 _channelId,
                 nextToken: nextToken,
               )
               .timeout(GraphQlRepository.TIMEOUT);
+        });
+        if (mounted)
+          result.when(success: (data) {
+            state = state.copyWithAdditionalPrograms(data.channel.programs);
 
-          state = state.copyWithAdditionalPrograms(newOne.channel.programs);
-
-          if (newOne.channel.programs.items.isEmpty)
-            notifySnackMsg(const SnackMsg.noMoreItem());
-
-          return;
-        } catch (e) {
-          debugPrint(e.toString());
-
-          SnackMsg msg;
-          if (e is NetworkDisconnectException)
-            msg = const SnackMsg.networkDisconnected();
-          else if (e is TimeoutException)
-            msg = const SnackMsg.networkTimeout();
-          else
-            msg = const SnackMsg.unknown();
-          if (mounted) {
-            notifySnackMsg(msg);
+            if (data.channel.programs.items.isEmpty)
+              notifySnackMsg(const SnackMsg.noMoreItem());
+          }, failure: (e) {
+            notifySnackMsg(toNetworkSnack(e));
+            //todo extract to model class
             state = ChannelModel.success(dataWrapper.copyWith(
               data: dataWrapper.data,
               loading: false,
             ));
-          }
-        }
+          });
       });
 
   void notifySnackMsg(SnackMsg snackMsg) =>

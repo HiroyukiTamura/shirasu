@@ -9,6 +9,7 @@ import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/network_image_repository.dart';
 import 'package:shirasu/client/network_image_repository_impl.dart';
 import 'package:shirasu/main.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';
@@ -30,42 +31,27 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   Future<void> initialize() async {
     if (state != const DashboardModel.initial()) return;
 
-    bool authExpired = false;
-
-    DashboardModel newState;
-
-    try {
+    final result = await Result.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
-      final apiResult = await Util.wait2(
+      return Util.wait2(
         _graphQlRepository.queryFeaturedProgramsList,
         _graphQlRepository.queryNewProgramsList,
       ).timeout(GraphQlRepository.TIMEOUT);
-      final data = ApiData(
-        featureProgramData: apiResult.item1,
-        rawNewProgramsDataList: [apiResult.item2],
-      );
-      newState = DashboardModel.successInitialization(data);
-    } catch (e) {
-      print(e);
-      newState = DashboardModel.error(toErrMsg(e));
-      authExpired = e is UnauthorizedException;
-    }
-
+    });
     if (!isMounted) return;
+    result.when(success: (data) {
+      final apiData = ApiData(
+        featureProgramData: data.item1,
+        rawNewProgramsDataList: [data.item2],
+      );
+      state = DashboardModel.successInitialization(apiData);
+    }, failure: (e) {
+      state = DashboardModel.error(toErrMsg(e));
+      if (e is UnauthorizedException) pushAuthExpireScreen();
+    });
 
-    state = newState;
-
-    if (authExpired) {
-      pushAuthExpireScreen();
-      return;
-    }
-
-    try {
-      headerImage = await _networkRepository.requestHeaderImage();
-    } catch (e) {
-      // todo handle error
-      print(e);
-    }
+    await Result.guardFuture(
+        () async => _networkRepository.requestHeaderImage());
   }
 
   Future<void> loadMoreNewPrg() async {
@@ -77,37 +63,27 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
       state = oldState.copyWith.data(loadingMore: true);
 
-      try {
+      final result = await Result.guardFuture(() async {
         await connectivityRepository.ensureNotDisconnect();
-
-        final newProgramsData = await _graphQlRepository
+        return _graphQlRepository
             .queryNewProgramsList(
               nextToken: nextToken,
             )
             .timeout(GraphQlRepository.TIMEOUT);
+      });
+      if (isMounted)
+        result.when(success: (data) {
+          state = state.appendLoadMoreData(data);
 
-        state = state.appendLoadMoreData(newProgramsData);
-
-        if (newProgramsData.newPrograms.items.isEmpty)
-          notifySnackMsg(const SnackMsg.noMoreItem());
-      } catch (e) {
-        debugPrint(e.toString());
-        if (!isMounted) return;
-
-        // todo merge to viewModelWatchHistory
-        SnackMsg msg;
-        if (e is NetworkDisconnectException)
-          msg = const SnackMsg.networkDisconnected();
-        else if (e is TimeoutException)
-          msg = const SnackMsg.networkTimeout();
-        else
-          msg = const SnackMsg.unknown();
-
-        _updateIfStateSuccess((data) => data.copyWith(
-              loadingMore: false,
-            ));
-        notifySnackMsg(msg);
-      }
+          if (data.newPrograms.items.isEmpty)
+            notifySnackMsg(const SnackMsg.noMoreItem());
+        }, failure: (e) {
+          // todo merge to viewModelWatchHistory
+          _updateIfStateSuccess((data) => data.copyWith(
+                loadingMore: false,
+              ));
+          notifySnackMsg(toNetworkSnack(e));
+        });
     }
   }
 

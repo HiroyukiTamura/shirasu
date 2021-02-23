@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
@@ -114,15 +115,13 @@ Widget _tileUrl(
 }) =>
     _ListTile(
       onTap: () async {
-        bool err = false;
-        try {
-          await Clipboard.setData(ClipboardData(text: url));
-        } catch (e) {
-          print(e);
-          err = true;
-        }
+        final result = await Result.guardFuture(
+            () async => Clipboard.setData(ClipboardData(text: url)));
         Navigator.of(context).pop();
-        final msg = err ? const SnackMsg.unknown() : const SnackMsg.urlCopied();
+        final msg = result.when(
+          success: (_) => const SnackMsg.unknown(),
+          failure: (e) => const SnackMsg.urlCopied(),
+        );
         snackCallback(msg);
       },
       title: Strings.COPY_URL,

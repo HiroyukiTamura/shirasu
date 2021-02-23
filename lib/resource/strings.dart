@@ -248,6 +248,7 @@ class Strings {
   static const String LICENSE_LEGAL_APP = '''Except where otherwise noted,
  all of this app is licensed under CC BY-NC-SA 4.0 license''';
 
+  static const String LICENSE_VALUE_LOTTIE = 'Animation by LottieFiles on LottieFiles';
 //endregion
 
 //region screen_price_chart

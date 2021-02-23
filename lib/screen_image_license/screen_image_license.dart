@@ -27,7 +27,7 @@ final _kPrvSnackData = Provider.autoDispose<SnackData>((ref) {
 });
 
 @swidget
-Widget screenImageLicense() => SafeArea(
+Widget screenImageLicense(BuildContext context) => SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text(Strings.ITEM_TITLE_IMAGE_LICENCE),
@@ -37,6 +37,7 @@ Widget screenImageLicense() => SafeArea(
           child: ListView(
             children: const [
               _ListTileRobot(),
+              _ListTileLottie(),
             ],
           ),
         ),
@@ -82,12 +83,21 @@ class _ListTileRobot extends StatelessWidget {
           decoration: TextDecoration.underline,
         ),
         recognizer: TapGestureRecognizer()
-          ..onTap = () async => Util.launchUrl(
-                context,
-                url,
-                () => context
-                    .read(_kPrvSnackBarMsgNotifier)
-                    .notifyMsg(const SnackMsg.unknown(), false),
-              ),
+          ..onTap = () async => context.launchUrl(url),
+      );
+}
+
+@swidget
+Widget _listTileLottie(BuildContext context) => ListTile(
+      title: const Text(Strings.LICENSE_VALUE_LOTTIE),
+      onTap: () async => context.launchUrl(UrlUtil.URL_IMG_LICENSE_LOTTIE),
+    );
+
+extension on BuildContext {
+  Future<void> launchUrl(String url) async => Util.launchUrl(
+        this,
+        url,
+        () => read(_kPrvSnackBarMsgNotifier)
+            .notifyMsg(const SnackMsg.unknown(), false),
       );
 }

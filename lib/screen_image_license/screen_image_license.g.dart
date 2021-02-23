@@ -10,5 +10,12 @@ class ScreenImageLicense extends StatelessWidget {
   const ScreenImageLicense({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext _context) => screenImageLicense();
+  Widget build(BuildContext _context) => screenImageLicense(_context);
+}
+
+class _ListTileLottie extends StatelessWidget {
+  const _ListTileLottie({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext _context) => _listTileLottie(_context);
 }

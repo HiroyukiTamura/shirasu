@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'screen_oss_licence.dart';
+part of 'screen_oss_license.dart';
 
 // **************************************************************************
 // FunctionalWidgetGenerator

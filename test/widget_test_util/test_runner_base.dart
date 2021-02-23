@@ -9,6 +9,7 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/resource/styles.dart';
 
 import '../mock_repository/hive_auth_empty.dart';
 import '../mock_repository/hive_pref_empty.dart';
@@ -55,20 +56,23 @@ class TestRunnerBase {
     OnScenarioCreate onScenarioCreate,
     ThemeData theme,
     OnPostBuild onPostBuild,
-  }) async =>
-      TestUtil.matchGolden(
-        tester: tester,
-        goldenName: goldenName,
-        widget: ProviderScope(
-          overrides: kOverrideUtil.createOverrides(overrides),
-          child: builder(),
-        ),
-        theme: theme,
-        onScenarioCreate: onScenarioCreate,
-        onPostBuild: onPostBuild,
-      );
+  }) async {
 
-  @protected
+    await tester.pumpWidgetBuilder(
+      ProviderScope(
+        overrides: kOverrideUtil.createOverrides(overrides),
+        child: builder(),
+      ),
+      wrapper: materialAppWrapper(
+        theme: theme ?? Styles.theme,
+      ),
+    );
+
+    if (onPostBuild != null) await onPostBuild(tester);
+
+    await multiScreenGolden(tester, goldenName, devices: TestUtil.allDevices);
+  }
+
   void testGoldensSimple({
     @required String testName,
     List<Override> overrides = const [],

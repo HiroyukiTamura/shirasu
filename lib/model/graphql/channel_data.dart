@@ -37,6 +37,13 @@ abstract class Channel with _$Channel implements BaseChannel {
 
   factory Channel.fromJson(Map<String, dynamic> json) =>
       _$ChannelFromJson(json);
+
+  const Channel._();
+
+  UnmodifiableListView<AnnouncementsItem> get announcementAvailable =>
+      subscriptionPlan?.viewerPurchasedPlan?.isActive == true
+          ? announcements._items
+          : announcements._itemsForNonSubscriber;
 }
 
 @freezed
@@ -58,8 +65,11 @@ abstract class Announcements
 
   const Announcements._();
 
-  UnmodifiableListView<AnnouncementsItem> get items =>
+  UnmodifiableListView<AnnouncementsItem> get _items =>
       rawItems.toUnmodifiable();
+
+  UnmodifiableListView<AnnouncementsItem> get _itemsForNonSubscriber =>
+      rawItems.where((it) => !it.isSubscriberOnly).toUnmodifiable();
 }
 
 @freezed
@@ -70,7 +80,7 @@ abstract class AnnouncementsItem
   const factory AnnouncementsItem({
     @required String id,
     @required bool isOpen,
-    @required bool isSubscriberOnly, //todo use
+    @required bool isSubscriberOnly,
     @required String title,
     @required String text,
     @required DateTime publishedAt,

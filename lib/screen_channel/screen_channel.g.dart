@@ -35,17 +35,12 @@ class _RowChannelName extends StatelessWidget {
 }
 
 class _RowTab extends StatelessWidget {
-  const _RowTab(
-      {Key key, @required this.controller, @required this.isAnnouncementEmpty})
-      : super(key: key);
+  const _RowTab({Key key, @required this.controller}) : super(key: key);
 
   final TabController controller;
 
-  final bool isAnnouncementEmpty;
-
   @override
-  Widget build(BuildContext _context) =>
-      _rowTab(controller: controller, isAnnouncementEmpty: isAnnouncementEmpty);
+  Widget build(BuildContext _context) => _rowTab(controller: controller);
 }
 
 class _RowSeem extends StatelessWidget {

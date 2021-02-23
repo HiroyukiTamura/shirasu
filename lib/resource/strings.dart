@@ -67,6 +67,7 @@ class Strings {
   static const String CHANNEL_TAB_DESC = '概要';
   static const String CHANNEL_TAB_MOVIE = '動画';
   static const String CHANNEL_TAB_NOTIFICATION = 'お知らせ';
+  static const String CHANNEL_ANNOUNCEMENTS_EMPTY_MSG = 'お知らせはありません';
 
 //endregion
 

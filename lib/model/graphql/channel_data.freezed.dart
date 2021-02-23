@@ -409,7 +409,7 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Channel implements _Channel {
+class _$_Channel extends _Channel {
   const _$_Channel(
       {@required this.id,
       @required this.name,
@@ -429,7 +429,8 @@ class _$_Channel implements _Channel {
         assert(subscriptionPlan != null),
         assert(programs != null),
         assert(announcements != null),
-        assert(typename == "Channel");
+        assert(typename == "Channel"),
+        super._();
 
   factory _$_Channel.fromJson(Map<String, dynamic> json) =>
       _$_$_ChannelFromJson(json);
@@ -525,7 +526,8 @@ class _$_Channel implements _Channel {
   }
 }
 
-abstract class _Channel implements Channel {
+abstract class _Channel extends Channel {
+  const _Channel._() : super._();
   const factory _Channel(
       {@required String id,
       @required String name,
@@ -834,7 +836,7 @@ const $AnnouncementsItem = _$AnnouncementsItemTearOff();
 mixin _$AnnouncementsItem {
   String get id;
   bool get isOpen;
-  bool get isSubscriberOnly; //todo use
+  bool get isSubscriberOnly;
   String get title;
   String get text;
   DateTime get publishedAt;
@@ -1000,7 +1002,7 @@ class _$_AnnouncementsItem implements _AnnouncementsItem {
   final bool isOpen;
   @override
   final bool isSubscriberOnly;
-  @override //todo use
+  @override
   final String title;
   @override
   final String text;
@@ -1094,7 +1096,7 @@ abstract class _AnnouncementsItem implements AnnouncementsItem {
   bool get isOpen;
   @override
   bool get isSubscriberOnly;
-  @override //todo use
+  @override
   String get title;
   @override
   String get text;

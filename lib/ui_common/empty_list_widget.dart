@@ -15,27 +15,30 @@ Widget emptyListWidget({
     Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(48),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Container(
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(.5) //todo refactor
-              ),
-          child: Icon(
-            icon,
-            color: Colors.black,
-            size: 60,
+              color: Colors.white.withOpacity(.5), //todo refactor
+            ),
+            child: Icon(
+              icon,
+              color: Colors.black,
+              size: 60,
+            ),
           ),
-        ),
-        const SizedBox(height: 32),
-        Text(
-          text,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: FontSize.S18,
-            color: Colors.white,
+          const SizedBox(height: 32),
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: FontSize.S18,
+              color: Colors.white,
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );

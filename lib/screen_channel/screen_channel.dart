@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,7 +10,6 @@ import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_channel/content_cell.dart';
 import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_movie_list.dart';
@@ -21,12 +19,9 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/util.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/extension.dart';
-
-import '../main.dart';
 
 part 'screen_channel.g.dart';
 
@@ -49,9 +44,7 @@ Widget screenChannel(
             text: errMsg.value,
           ),
           success: (dataWrapper) => _Content(
-            channelData: dataWrapper.data,
-            isAnnouncementEmpty:
-                dataWrapper.data.channel.announcements.items.isEmpty,
+            channel: dataWrapper.data.channel,
           ),
         ),
       ),
@@ -60,57 +53,47 @@ Widget screenChannel(
 class _Content extends HookWidget {
   const _Content({
     Key key,
-    @required this.channelData,
-    @required this.isAnnouncementEmpty,
+    @required this.channel,
   }) : super(key: key);
 
-  final ChannelData channelData;
-  final bool isAnnouncementEmpty;
-
-  String get channelId => channelData.channel.id;
+  final Channel channel;
 
   @override
   Widget build(BuildContext context) {
-    final initialLength = isAnnouncementEmpty ? 2 : 3;
-
     final tabController = useTabController(
-        initialLength: initialLength,
-        initialIndex: useProvider(kPrvViewModelChannel(channelId)).tabIndex);
+      initialLength: 3,
+      initialIndex: useProvider(kPrvViewModelChannel(channel.id)).tabIndex,
+    );
     _initTabListener(context, tabController);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _RowHeaderImg(
-          channelId: channelData.channel.id,
+          channelId: channel.id,
         ),
         const SizedBox(height: 24),
         _RowChannelName(
-          channel: channelData.channel,
+          channel: channel,
         ),
         const SizedBox(height: 16),
         _RowBillingBtn(
-          channel: channelData.channel,
+          channel: channel,
         ),
         const SizedBox(height: 16),
-        _RowTab(
-          isAnnouncementEmpty: isAnnouncementEmpty,
-          controller: tabController,
-        ),
+        _RowTab(controller: tabController),
         const _RowSeem(),
         Expanded(
           child: TabBarView(
             controller: tabController,
             children: [
-              PageChannelDetail(text: channelData.channel.detail),
+              PageChannelDetail(text: channel.detail),
               PageMovieList(
                 onTapItem: (context, prgId) async =>
                     context.pushProgramPage(prgId),
-                channelId: channelData.channel.id,
+                channelId: channel.id,
               ),
-              if (!isAnnouncementEmpty)
-                PageNotification(
-                    announcements: channelData.channel.announcements),
+              PageNotification(announcements: channel.announcementAvailable),
             ],
           ),
         )
@@ -121,7 +104,7 @@ class _Content extends HookWidget {
   void _initTabListener(BuildContext context, TabController tabController) =>
       useEffect(() {
         void listener() =>
-            context.read(kPrvViewModelChannel(channelId)).tabIndex =
+            context.read(kPrvViewModelChannel(channel.id)).tabIndex =
                 tabController.index;
         tabController.addListener(listener);
         return () => tabController.removeListener(listener);
@@ -214,18 +197,16 @@ class _RowBillingBtn extends StatelessWidget {
 @swidget
 Widget _rowTab({
   @required TabController controller,
-  @required bool isAnnouncementEmpty,
 }) =>
     ContentCell(
       child: TabBar(
           labelColor: Colors.white,
           controller: controller,
           isScrollable: true,
-          tabs: [
-            const Tab(text: Strings.CHANNEL_TAB_DESC),
-            const Tab(text: Strings.CHANNEL_TAB_MOVIE),
-            if (!isAnnouncementEmpty)
-              const Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
+          tabs: const [
+            Tab(text: Strings.CHANNEL_TAB_DESC),
+            Tab(text: Strings.CHANNEL_TAB_MOVIE),
+            Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
           ]),
     );
 

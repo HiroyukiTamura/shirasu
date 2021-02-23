@@ -12,6 +12,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugins.GeneratedPluginRegistrant
+import java.lang.RuntimeException
 
 class MainActivity : FlutterActivity(), LoggerListener {
 
@@ -21,7 +22,7 @@ class MainActivity : FlutterActivity(), LoggerListener {
         super.onCreate(savedInstanceState)
         Logger.instance.initialize(this)
         volumeControlStream = AudioManager.STREAM_MUSIC
-        channelClient.mConnection = MusicServiceConnection.getInstance(this, ComponentName(this, MusicService::class.java))// todo Daggar
+        channelClient.mConnection = MusicServiceConnection.getInstance(this, ComponentName(this, MusicService::class.java))
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {

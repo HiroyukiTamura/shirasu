@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'connection_ack.json';
+part of 'connection_ack.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

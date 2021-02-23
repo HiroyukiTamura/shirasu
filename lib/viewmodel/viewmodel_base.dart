@@ -97,6 +97,9 @@ mixin AppRouterLocator {
   @protected
   HiveAuthRepository get hiveAuthRepository => reader(kPrvHiveAuthRepository);
 
+  @protected
+  SnackBarMessageNotifier get snackBarMsgNotifier => reader(kPrvSnackBar);
+
   ErrorMsgCommon toErrMsg(dynamic e) {
     if (e is UnauthorizedException)
       return e.detectedByTime

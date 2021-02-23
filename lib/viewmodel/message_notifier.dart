@@ -12,10 +12,8 @@ part 'message_notifier.freezed.dart';
 class SnackBarMessageNotifier extends StateNotifier<SnackMsgEvent> {
   SnackBarMessageNotifier() : super(null);
 
-  void notifyMsg(SnackMsg snackMsg, bool btmAppBarMargin) {
-    debugPrint(state.toString());
-    state = SnackMsgEvent(snackMsg, btmAppBarMargin);
-  }
+  void notifyMsg(SnackMsg snackMsg, bool btmAppBarMargin) =>
+      state = SnackMsgEvent(snackMsg, btmAppBarMargin);
 }
 
 class SnackMsgEvent {

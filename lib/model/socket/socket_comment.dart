@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/model/graphql/base_model.dart';
+import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/media_status.dart';
+import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 
 part 'socket_comment.freezed.dart';
 
@@ -36,7 +41,8 @@ abstract class ProgramUpdateWrapper with _$ProgramUpdateWrapper {
     @required ProgramUpdate updates,
   }) = _ProgramUpdateWrapper;
 
-  factory ProgramUpdateWrapper.fromJson(Map<String, dynamic> json) => _$ProgramUpdateWrapperFromJson(json);
+  factory ProgramUpdateWrapper.fromJson(Map<String, dynamic> json) =>
+      _$ProgramUpdateWrapperFromJson(json);
 }
 
 @freezed
@@ -45,10 +51,10 @@ abstract class ProgramUpdate with _$ProgramUpdate {
   const factory ProgramUpdate({
     @required String programId,
     @required String updateType,
-    @required UseProgramProgramData program,
+    @required UseProgramData program,
     @required CommentWithUser comment,
     @required SocketHandout handout,
-    @required SocketVideo video,
+    @required DetailPrgItem video,
     @required dynamic totalPlayTime,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramUpdate;
@@ -76,34 +82,41 @@ abstract class CommentWithUser with _$CommentWithUser {
       _$CommentWithUserFromJson(json);
 }
 
+/// @see [ProgramDetail]
 @freezed
-abstract class UseProgramProgramData with _$UseProgramProgramData {
-  const factory UseProgramProgramData({
+abstract class UseProgramData
+    with ViewerPlanTypeMixin
+    implements _$UseProgramData {
+  @Assert('typename == "Program"')
+  @Assert('0 <= totalPlayTime')
+  @Assert('0 <= mainTime')
+  @Assert('0 <= previewTime')
+  const factory UseProgramData({
     @required String id,
     @required String channelId,
     @required String tenantId,
-    DateTime broadcastAt,
-    @required String title,
+    String adminComment,
+    DateTime adminCommentDisappearAt,
+    @required DateTime broadcastAt,
     @required String detail,
     @required int mainTime,
     @required int previewTime,
     @required bool release,
-    String adminComment,
-    DateTime adminCommentDisappearAt,
-    @required List<String> tags,//todo
+    @required @JsonKey(name: 'tags') @protected List<String> rawTags,
     bool isExtensionChargedToSubscribers,
     DateTime archivedAt,
     @required String releaseState,
     @required bool shouldArchive,
     @required @JsonKey(name: '__typename') String typename,
-  }) = _UseProgramProgramData;
+  }) = _UseProgramData;
 
-  factory UseProgramProgramData.fromJson(Map<String, dynamic> json) =>
-      _$UseProgramProgramDataFromJson(json);
+  factory UseProgramData.fromJson(Map<String, dynamic> json) =>
+      _$UseProgramDataFromJson(json);
 }
 
 @freezed
-abstract class SocketHandout with _$SocketHandout {
+abstract class SocketHandout with _$SocketHandout implements BaseHandout {
+  @Assert('typename == "Handout"')
   const factory SocketHandout({
     @required String id,
     @required String name,
@@ -116,26 +129,12 @@ abstract class SocketHandout with _$SocketHandout {
 }
 
 @freezed
-abstract class SocketVideo with _$SocketVideo {
-  const factory SocketVideo({
-    @required String id,
-    @required MediaStatus mediaStatus,
-    String liveUrl,
-    String archiveUrl,
-    @required @JsonKey(name: '__typename') String typename,
-  }) = _SocketVideo;
-
-  factory SocketVideo.fromJson(Map<String, dynamic> json) =>
-      _$SocketVideoFromJson(json);
-}
-
-@freezed
 abstract class SocketMsgType with _$SocketMsgType {
   const factory SocketMsgType.connectionInit() = _ConnectionInit;
 
   const factory SocketMsgType.connectionAck() = _ConnectionAck;
 
-  const factory SocketMsgType.ka() = _Ka;
+  const factory SocketMsgType.keepAlive() = _KeepAlive;
 
   const factory SocketMsgType.startAck() = _StartAck;
 
@@ -148,7 +147,7 @@ abstract class SocketMsgType with _$SocketMsgType {
       case 'connection_ack':
         return const SocketMsgType.connectionAck();
       case 'ka':
-        return const SocketMsgType.ka();
+        return const SocketMsgType.keepAlive();
       case 'start_ack':
         return const SocketMsgType.startAck();
       case 'data':
@@ -157,4 +156,18 @@ abstract class SocketMsgType with _$SocketMsgType {
         throw ArgumentError.value(string);
     }
   }
+}
+
+@freezed
+abstract class TypeBase with _$TypeBase {
+  const factory TypeBase({
+    @required @protected @JsonKey(name: 'type') String rawType,
+  }) = _TypeBase;
+
+  factory TypeBase.fromJson(Map<String, dynamic> json) =>
+      _$TypeBaseFromJson(json);
+
+  const TypeBase._();
+
+  SocketMsgType get type => SocketMsgType.parse(rawType);
 }

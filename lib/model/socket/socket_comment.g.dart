@@ -57,8 +57,7 @@ _$_ProgramUpdate _$_$_ProgramUpdateFromJson(Map<String, dynamic> json) {
     updateType: json['updateType'] as String,
     program: json['program'] == null
         ? null
-        : UseProgramProgramData.fromJson(
-            json['program'] as Map<String, dynamic>),
+        : UseProgramData.fromJson(json['program'] as Map<String, dynamic>),
     comment: json['comment'] == null
         ? null
         : CommentWithUser.fromJson(json['comment'] as Map<String, dynamic>),
@@ -67,7 +66,7 @@ _$_ProgramUpdate _$_$_ProgramUpdateFromJson(Map<String, dynamic> json) {
         : SocketHandout.fromJson(json['handout'] as Map<String, dynamic>),
     video: json['video'] == null
         ? null
-        : SocketVideo.fromJson(json['video'] as Map<String, dynamic>),
+        : DetailPrgItem.fromJson(json['video'] as Map<String, dynamic>),
     totalPlayTime: json['totalPlayTime'],
     typename: json['__typename'] as String,
   );
@@ -112,25 +111,23 @@ Map<String, dynamic> _$_$_CommentWithUserToJson(_$_CommentWithUser instance) =>
       '__typename': instance.typename,
     };
 
-_$_UseProgramProgramData _$_$_UseProgramProgramDataFromJson(
-    Map<String, dynamic> json) {
-  return _$_UseProgramProgramData(
+_$_UseProgramData _$_$_UseProgramDataFromJson(Map<String, dynamic> json) {
+  return _$_UseProgramData(
     id: json['id'] as String,
     channelId: json['channelId'] as String,
     tenantId: json['tenantId'] as String,
-    broadcastAt: json['broadcastAt'] == null
-        ? null
-        : DateTime.parse(json['broadcastAt'] as String),
-    title: json['title'] as String,
-    detail: json['detail'] as String,
-    mainTime: json['mainTime'] as int,
-    previewTime: json['previewTime'] as int,
-    release: json['release'] as bool,
     adminComment: json['adminComment'] as String,
     adminCommentDisappearAt: json['adminCommentDisappearAt'] == null
         ? null
         : DateTime.parse(json['adminCommentDisappearAt'] as String),
-    tags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
+    broadcastAt: json['broadcastAt'] == null
+        ? null
+        : DateTime.parse(json['broadcastAt'] as String),
+    detail: json['detail'] as String,
+    mainTime: json['mainTime'] as int,
+    previewTime: json['previewTime'] as int,
+    release: json['release'] as bool,
+    rawTags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
     isExtensionChargedToSubscribers:
         json['isExtensionChargedToSubscribers'] as bool,
     archivedAt: json['archivedAt'] == null
@@ -142,22 +139,20 @@ _$_UseProgramProgramData _$_$_UseProgramProgramDataFromJson(
   );
 }
 
-Map<String, dynamic> _$_$_UseProgramProgramDataToJson(
-        _$_UseProgramProgramData instance) =>
+Map<String, dynamic> _$_$_UseProgramDataToJson(_$_UseProgramData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'channelId': instance.channelId,
       'tenantId': instance.tenantId,
+      'adminComment': instance.adminComment,
+      'adminCommentDisappearAt':
+          instance.adminCommentDisappearAt?.toIso8601String(),
       'broadcastAt': instance.broadcastAt?.toIso8601String(),
-      'title': instance.title,
       'detail': instance.detail,
       'mainTime': instance.mainTime,
       'previewTime': instance.previewTime,
       'release': instance.release,
-      'adminComment': instance.adminComment,
-      'adminCommentDisappearAt':
-          instance.adminCommentDisappearAt?.toIso8601String(),
-      'tags': instance.tags,
+      'tags': instance.rawTags,
       'isExtensionChargedToSubscribers':
           instance.isExtensionChargedToSubscribers,
       'archivedAt': instance.archivedAt?.toIso8601String(),
@@ -185,60 +180,13 @@ Map<String, dynamic> _$_$_SocketHandoutToJson(_$_SocketHandout instance) =>
       '__typename': instance.typename,
     };
 
-_$_SocketVideo _$_$_SocketVideoFromJson(Map<String, dynamic> json) {
-  return _$_SocketVideo(
-    id: json['id'] as String,
-    mediaStatus:
-        _$enumDecodeNullable(_$MediaStatusEnumMap, json['mediaStatus']),
-    liveUrl: json['liveUrl'] as String,
-    archiveUrl: json['archiveUrl'] as String,
-    typename: json['__typename'] as String,
+_$_TypeBase _$_$_TypeBaseFromJson(Map<String, dynamic> json) {
+  return _$_TypeBase(
+    rawType: json['type'] as String,
   );
 }
 
-Map<String, dynamic> _$_$_SocketVideoToJson(_$_SocketVideo instance) =>
+Map<String, dynamic> _$_$_TypeBaseToJson(_$_TypeBase instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'mediaStatus': _$MediaStatusEnumMap[instance.mediaStatus],
-      'liveUrl': instance.liveUrl,
-      'archiveUrl': instance.archiveUrl,
-      '__typename': instance.typename,
+      'type': instance.rawType,
     };
-
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
-}
-
-const _$MediaStatusEnumMap = {
-  MediaStatus.ENDED: 'ENDED',
-  MediaStatus.WAITING: 'WAITING',
-  MediaStatus.RUNNING: 'RUNNING',
-};

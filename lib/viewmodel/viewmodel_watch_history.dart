@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:async/async.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
@@ -11,7 +10,6 @@ import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/extension.dart';
 
-import '../main.dart';
 import 'message_notifier.dart';
 import 'model/error_msg_common.dart';
 
@@ -20,8 +18,6 @@ part 'viewmodel_watch_history.freezed.dart';
 class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   ViewModelWatchHistory(Reader reader)
       : super(reader, const WatchHistoryState.initial());
-
-  SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
 
   @override
   Future<void> initialize() async {
@@ -84,7 +80,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
         ));
 
         if (newOne.viewerUser.watchHistories.items.isEmpty)
-          _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
+          notifySnackMsg(const SnackMsg.noMoreItem());
       } catch (e) {
         debugPrint(e.toString());
         if (!mounted) return;
@@ -100,10 +96,13 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
           watchHistories: oldState.data.watchHistories,
           isLoadingMore: false,
         ));
-        _msgNotifier.notifyMsg(msg, false);
+        notifySnackMsg(msg);
       }
     }
   }
+
+  void notifySnackMsg(SnackMsg snackMsg) =>
+      snackBarMsgNotifier.notifyMsg(snackMsg, false);
 }
 
 @protected

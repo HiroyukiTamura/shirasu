@@ -21,8 +21,6 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   double headerBackDropScrollPos = 0;
 
-  SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
-
   GraphQlRepository get _graphQlRepository => reader(kPrvGraphqlRepository);
 
   NetworkImageRepository get _networkRepository =>
@@ -77,19 +75,21 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
           .data.apiData.newProgramsDataList?.last?.newPrograms?.nextToken;
       if (nextToken == null) return;
 
-      try {
-        state = oldState.copyWith.data(loadingMore: true);
+      state = oldState.copyWith.data(loadingMore: true);
 
+      try {
         await connectivityRepository.ensureNotDisconnect();
 
-        final newProgramsData = await _graphQlRepository.queryNewProgramsList(
-          nextToken: nextToken,
-        ).timeout(GraphQlRepository.TIMEOUT);
+        final newProgramsData = await _graphQlRepository
+            .queryNewProgramsList(
+              nextToken: nextToken,
+            )
+            .timeout(GraphQlRepository.TIMEOUT);
 
         state = state.appendLoadMoreData(newProgramsData);
 
         if (newProgramsData.newPrograms.items.isEmpty)
-          _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
+          notifySnackMsg(const SnackMsg.noMoreItem());
       } catch (e) {
         debugPrint(e.toString());
         if (!isMounted) return;
@@ -106,7 +106,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
         _updateIfStateSuccess((data) => data.copyWith(
               loadingMore: false,
             ));
-        _msgNotifier.notifyMsg(msg, false);
+        notifySnackMsg(msg);
       }
     }
   }
@@ -145,4 +145,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
             subscribingChannelOffset: offset,
           ));
   }
+
+  void notifySnackMsg(SnackMsg snackMsg) =>
+      snackBarMsgNotifier.notifyMsg(snackMsg, false);
 }

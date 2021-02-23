@@ -5,13 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
-import 'package:shirasu/client/network_image_repository_impl.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-import '../main.dart';
-import 'model/error_msg_common.dart';
 import 'model/model_channel.dart';
 
 class ViewModelChannel extends ViewModelBase<ChannelModel> {
@@ -22,8 +19,6 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         );
 
   final String _channelId;
-
-  SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
 
   int tabIndex = 0;
 
@@ -81,7 +76,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
           state = state.copyWithAdditionalPrograms(newOne.channel.programs);
 
           if (newOne.channel.programs.items.isEmpty)
-            _msgNotifier.notifyMsg(const SnackMsg.noMoreItem(), false);
+            notifySnackMsg(const SnackMsg.noMoreItem());
 
           return;
         } catch (e) {
@@ -95,7 +90,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
           else
             msg = const SnackMsg.unknown();
           if (mounted) {
-            _msgNotifier.notifyMsg(msg, false);
+            notifySnackMsg(msg);
             state = ChannelModel.success(dataWrapper.copyWith(
               data: dataWrapper.data,
               loading: false,
@@ -103,4 +98,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
           }
         }
       });
+
+  void notifySnackMsg(SnackMsg snackMsg) =>
+      snackBarMsgNotifier.notifyMsg(snackMsg, false);
 }

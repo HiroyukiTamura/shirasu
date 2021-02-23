@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/url_util.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -17,7 +18,7 @@ final _kPrvSnackBarMsgNotifier =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
         (ref) => SnackBarMessageNotifier());
 
-final _kPrvSnackMsg = Provider.autoDispose<SnackData>((ref) {
+final _kPrvSnackData = Provider.autoDispose<SnackData>((ref) {
   final state = ref.watch(_kPrvSnackBarMsgNotifier.state);
   return SnackData(
     state.snackMsg,
@@ -32,7 +33,7 @@ Widget screenImageLicense() => SafeArea(
           title: const Text(Strings.ITEM_TITLE_IMAGE_LICENCE),
         ),
         body: SnackEventListener(
-          provider: _kPrvSnackMsg,
+          provider: _kPrvSnackData,
           child: ListView(
             children: const [
               _ListTileRobot(),

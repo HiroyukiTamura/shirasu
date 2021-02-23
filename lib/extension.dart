@@ -12,6 +12,7 @@ import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/util.dart';
+import 'package:dartx/dartx.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
@@ -89,7 +90,7 @@ extension SwipeDataX on SwipeData {
 
   Duration get diffDuration {
     final sec = (currentDx - startDx) * _FACTOR_DX2SEC;
-    return Duration(seconds: sec.toInt());
+    return sec.toInt().seconds;
   }
 }
 

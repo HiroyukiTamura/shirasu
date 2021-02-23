@@ -377,9 +377,9 @@ class _$SubscriptionPlanTearOff {
 // ignore: unused_element
   _SubscriptionPlan call(
       {@required String id,
-      @Deprecated("don't use") String parentPlanType,
+      @Deprecated('do not use') String parentPlanType,
       String parentPlanId,
-      @required @Deprecated("don't use") String productType,
+      @required @Deprecated('do not use') String productType,
       @required String productId,
       @required String name,
       @required int amount,
@@ -417,10 +417,10 @@ const $SubscriptionPlan = _$SubscriptionPlanTearOff();
 /// @nodoc
 mixin _$SubscriptionPlan {
   String get id;
-  @Deprecated("don't use")
+  @Deprecated('do not use')
   String get parentPlanType;
   String get parentPlanId;
-  @Deprecated("don't use")
+  @Deprecated('do not use')
   String get productType;
   String get productId;
   String get name;
@@ -444,9 +444,9 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       _$SubscriptionPlanCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      @Deprecated("don't use") String parentPlanType,
+      @Deprecated('do not use') String parentPlanType,
       String parentPlanId,
-      @Deprecated("don't use") String productType,
+      @Deprecated('do not use') String productType,
       String productId,
       String name,
       int amount,
@@ -516,9 +516,9 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      @Deprecated("don't use") String parentPlanType,
+      @Deprecated('do not use') String parentPlanType,
       String parentPlanId,
-      @Deprecated("don't use") String productType,
+      @Deprecated('do not use') String productType,
       String productId,
       String name,
       int amount,
@@ -587,9 +587,9 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 class _$_SubscriptionPlan extends _SubscriptionPlan {
   const _$_SubscriptionPlan(
       {@required this.id,
-      @Deprecated("don't use") this.parentPlanType,
+      @Deprecated('do not use') this.parentPlanType,
       this.parentPlanId,
-      @required @Deprecated("don't use") this.productType,
+      @required @Deprecated('do not use') this.productType,
       @required this.productId,
       @required this.name,
       @required this.amount,
@@ -617,12 +617,12 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   @override
   final String id;
   @override
-  @Deprecated("don't use")
+  @Deprecated('do not use')
   final String parentPlanType;
   @override
   final String parentPlanId;
   @override
-  @Deprecated("don't use")
+  @Deprecated('do not use')
   final String productType;
   @override
   final String productId;
@@ -717,9 +717,9 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   const _SubscriptionPlan._() : super._();
   const factory _SubscriptionPlan(
           {@required String id,
-          @Deprecated("don't use") String parentPlanType,
+          @Deprecated('do not use') String parentPlanType,
           String parentPlanId,
-          @required @Deprecated("don't use") String productType,
+          @required @Deprecated('do not use') String productType,
           @required String productId,
           @required String name,
           @required int amount,
@@ -736,12 +736,12 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   @override
   String get id;
   @override
-  @Deprecated("don't use")
+  @Deprecated('do not use')
   String get parentPlanType;
   @override
   String get parentPlanId;
   @override
-  @Deprecated("don't use")
+  @Deprecated('do not use')
   String get productType;
   @override
   String get productId;

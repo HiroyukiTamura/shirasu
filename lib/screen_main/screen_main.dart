@@ -11,16 +11,13 @@ import 'package:shirasu/router/screen_main_router_delegate.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
+import '../main.dart';
 import 'fab.dart';
 
 part 'screen_main.g.dart';
 
-final kPrvMainSnackBarMsgNotifier =
-    StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
-        (ref) => SnackBarMessageNotifier());
-
 final _kPrvMainSnackMsg = Provider.autoDispose<SnackData>((ref) {
-  final state = ref.watch(kPrvMainSnackBarMsgNotifier.state);
+  final state = ref.watch(kPrvSnackBar.state);
   return SnackData(
     state.snackMsg,
     Dimens.SNACK_BAR_DEFAULT_MARGIN,

@@ -50,8 +50,6 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   SingleTimer _hideTimer;
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
-
   DetailPrgItem get _previewArchivedVideoData => state.prgDataResult.maybeWhen(
       orElse: () => null,
       success: (prgDetailData, _, __) => prgDetailData.program.previewPrgItem);
@@ -499,7 +497,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           state.commentHolder.followTimeLineMode ==
               const FollowTimeLineMode.follow(),
     );
-    _snackBarMsgNotifier.notifyMsg(snackMsg, isCommentAppBarShown);
+    snackBarMsgNotifier.notifyMsg(snackMsg, isCommentAppBarShown);
   }
 
   /// provide old values as param; [position], [cookie]

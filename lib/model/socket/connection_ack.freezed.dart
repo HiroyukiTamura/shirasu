@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'connection_ack.json';
+part of 'connection_ack.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -127,7 +127,8 @@ class __$ConnectionAckCopyWithImpl<$Res>
 class _$_ConnectionAck implements _ConnectionAck {
   const _$_ConnectionAck({@required this.type, @required this.payload})
       : assert(type != null),
-        assert(payload != null);
+        assert(payload != null),
+        assert(type = 'connection_ack');
 
   factory _$_ConnectionAck.fromJson(Map<String, dynamic> json) =>
       _$_$_ConnectionAckFromJson(json);

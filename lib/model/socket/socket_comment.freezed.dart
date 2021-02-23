@@ -550,10 +550,10 @@ class _$ProgramUpdateTearOff {
   _ProgramUpdate call(
       {@required String programId,
       @required String updateType,
-      @required UseProgramProgramData program,
+      @required UseProgramData program,
       @required CommentWithUser comment,
       @required SocketHandout handout,
-      @required SocketVideo video,
+      @required DetailPrgItem video,
       @required dynamic totalPlayTime,
       @required @JsonKey(name: '__typename') String typename}) {
     return _ProgramUpdate(
@@ -582,10 +582,10 @@ const $ProgramUpdate = _$ProgramUpdateTearOff();
 mixin _$ProgramUpdate {
   String get programId;
   String get updateType;
-  UseProgramProgramData get program;
+  UseProgramData get program;
   CommentWithUser get comment;
   SocketHandout get handout;
-  SocketVideo get video;
+  DetailPrgItem get video;
   dynamic get totalPlayTime;
   @JsonKey(name: '__typename')
   String get typename;
@@ -603,17 +603,17 @@ abstract class $ProgramUpdateCopyWith<$Res> {
   $Res call(
       {String programId,
       String updateType,
-      UseProgramProgramData program,
+      UseProgramData program,
       CommentWithUser comment,
       SocketHandout handout,
-      SocketVideo video,
+      DetailPrgItem video,
       dynamic totalPlayTime,
       @JsonKey(name: '__typename') String typename});
 
-  $UseProgramProgramDataCopyWith<$Res> get program;
+  $UseProgramDataCopyWith<$Res> get program;
   $CommentWithUserCopyWith<$Res> get comment;
   $SocketHandoutCopyWith<$Res> get handout;
-  $SocketVideoCopyWith<$Res> get video;
+  $DetailPrgItemCopyWith<$Res> get video;
 }
 
 /// @nodoc
@@ -640,12 +640,10 @@ class _$ProgramUpdateCopyWithImpl<$Res>
       programId: programId == freezed ? _value.programId : programId as String,
       updateType:
           updateType == freezed ? _value.updateType : updateType as String,
-      program: program == freezed
-          ? _value.program
-          : program as UseProgramProgramData,
+      program: program == freezed ? _value.program : program as UseProgramData,
       comment: comment == freezed ? _value.comment : comment as CommentWithUser,
       handout: handout == freezed ? _value.handout : handout as SocketHandout,
-      video: video == freezed ? _value.video : video as SocketVideo,
+      video: video == freezed ? _value.video : video as DetailPrgItem,
       totalPlayTime: totalPlayTime == freezed
           ? _value.totalPlayTime
           : totalPlayTime as dynamic,
@@ -654,11 +652,11 @@ class _$ProgramUpdateCopyWithImpl<$Res>
   }
 
   @override
-  $UseProgramProgramDataCopyWith<$Res> get program {
+  $UseProgramDataCopyWith<$Res> get program {
     if (_value.program == null) {
       return null;
     }
-    return $UseProgramProgramDataCopyWith<$Res>(_value.program, (value) {
+    return $UseProgramDataCopyWith<$Res>(_value.program, (value) {
       return _then(_value.copyWith(program: value));
     });
   }
@@ -684,11 +682,11 @@ class _$ProgramUpdateCopyWithImpl<$Res>
   }
 
   @override
-  $SocketVideoCopyWith<$Res> get video {
+  $DetailPrgItemCopyWith<$Res> get video {
     if (_value.video == null) {
       return null;
     }
-    return $SocketVideoCopyWith<$Res>(_value.video, (value) {
+    return $DetailPrgItemCopyWith<$Res>(_value.video, (value) {
       return _then(_value.copyWith(video: value));
     });
   }
@@ -704,21 +702,21 @@ abstract class _$ProgramUpdateCopyWith<$Res>
   $Res call(
       {String programId,
       String updateType,
-      UseProgramProgramData program,
+      UseProgramData program,
       CommentWithUser comment,
       SocketHandout handout,
-      SocketVideo video,
+      DetailPrgItem video,
       dynamic totalPlayTime,
       @JsonKey(name: '__typename') String typename});
 
   @override
-  $UseProgramProgramDataCopyWith<$Res> get program;
+  $UseProgramDataCopyWith<$Res> get program;
   @override
   $CommentWithUserCopyWith<$Res> get comment;
   @override
   $SocketHandoutCopyWith<$Res> get handout;
   @override
-  $SocketVideoCopyWith<$Res> get video;
+  $DetailPrgItemCopyWith<$Res> get video;
 }
 
 /// @nodoc
@@ -747,12 +745,10 @@ class __$ProgramUpdateCopyWithImpl<$Res>
       programId: programId == freezed ? _value.programId : programId as String,
       updateType:
           updateType == freezed ? _value.updateType : updateType as String,
-      program: program == freezed
-          ? _value.program
-          : program as UseProgramProgramData,
+      program: program == freezed ? _value.program : program as UseProgramData,
       comment: comment == freezed ? _value.comment : comment as CommentWithUser,
       handout: handout == freezed ? _value.handout : handout as SocketHandout,
-      video: video == freezed ? _value.video : video as SocketVideo,
+      video: video == freezed ? _value.video : video as DetailPrgItem,
       totalPlayTime: totalPlayTime == freezed
           ? _value.totalPlayTime
           : totalPlayTime as dynamic,
@@ -792,13 +788,13 @@ class _$_ProgramUpdate implements _ProgramUpdate {
   @override
   final String updateType;
   @override
-  final UseProgramProgramData program;
+  final UseProgramData program;
   @override
   final CommentWithUser comment;
   @override
   final SocketHandout handout;
   @override
-  final SocketVideo video;
+  final DetailPrgItem video;
   @override
   final dynamic totalPlayTime;
   @override
@@ -866,10 +862,10 @@ abstract class _ProgramUpdate implements ProgramUpdate {
   const factory _ProgramUpdate(
           {@required String programId,
           @required String updateType,
-          @required UseProgramProgramData program,
+          @required UseProgramData program,
           @required CommentWithUser comment,
           @required SocketHandout handout,
-          @required SocketVideo video,
+          @required DetailPrgItem video,
           @required dynamic totalPlayTime,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_ProgramUpdate;
@@ -882,13 +878,13 @@ abstract class _ProgramUpdate implements ProgramUpdate {
   @override
   String get updateType;
   @override
-  UseProgramProgramData get program;
+  UseProgramData get program;
   @override
   CommentWithUser get comment;
   @override
   SocketHandout get handout;
   @override
-  SocketVideo get video;
+  DetailPrgItem get video;
   @override
   dynamic get totalPlayTime;
   @override
@@ -1216,47 +1212,44 @@ abstract class _CommentWithUser implements CommentWithUser {
   _$CommentWithUserCopyWith<_CommentWithUser> get copyWith;
 }
 
-UseProgramProgramData _$UseProgramProgramDataFromJson(
-    Map<String, dynamic> json) {
-  return _UseProgramProgramData.fromJson(json);
+UseProgramData _$UseProgramDataFromJson(Map<String, dynamic> json) {
+  return _UseProgramData.fromJson(json);
 }
 
 /// @nodoc
-class _$UseProgramProgramDataTearOff {
-  const _$UseProgramProgramDataTearOff();
+class _$UseProgramDataTearOff {
+  const _$UseProgramDataTearOff();
 
 // ignore: unused_element
-  _UseProgramProgramData call(
+  _UseProgramData call(
       {@required String id,
       @required String channelId,
       @required String tenantId,
-      DateTime broadcastAt,
-      @required String title,
+      String adminComment,
+      DateTime adminCommentDisappearAt,
+      @required DateTime broadcastAt,
       @required String detail,
       @required int mainTime,
       @required int previewTime,
       @required bool release,
-      String adminComment,
-      DateTime adminCommentDisappearAt,
-      @required List<String> tags,
+      @required @JsonKey(name: 'tags') @protected List<String> rawTags,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       @required String releaseState,
       @required bool shouldArchive,
       @required @JsonKey(name: '__typename') String typename}) {
-    return _UseProgramProgramData(
+    return _UseProgramData(
       id: id,
       channelId: channelId,
       tenantId: tenantId,
+      adminComment: adminComment,
+      adminCommentDisappearAt: adminCommentDisappearAt,
       broadcastAt: broadcastAt,
-      title: title,
       detail: detail,
       mainTime: mainTime,
       previewTime: previewTime,
       release: release,
-      adminComment: adminComment,
-      adminCommentDisappearAt: adminCommentDisappearAt,
-      tags: tags,
+      rawTags: rawTags,
       isExtensionChargedToSubscribers: isExtensionChargedToSubscribers,
       archivedAt: archivedAt,
       releaseState: releaseState,
@@ -1266,29 +1259,30 @@ class _$UseProgramProgramDataTearOff {
   }
 
 // ignore: unused_element
-  UseProgramProgramData fromJson(Map<String, Object> json) {
-    return UseProgramProgramData.fromJson(json);
+  UseProgramData fromJson(Map<String, Object> json) {
+    return UseProgramData.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $UseProgramProgramData = _$UseProgramProgramDataTearOff();
+const $UseProgramData = _$UseProgramDataTearOff();
 
 /// @nodoc
-mixin _$UseProgramProgramData {
+mixin _$UseProgramData {
   String get id;
   String get channelId;
   String get tenantId;
+  String get adminComment;
+  DateTime get adminCommentDisappearAt;
   DateTime get broadcastAt;
-  String get title;
   String get detail;
   int get mainTime;
   int get previewTime;
   bool get release;
-  String get adminComment;
-  DateTime get adminCommentDisappearAt;
-  List<String> get tags; //todo
+  @JsonKey(name: 'tags')
+  @protected
+  List<String> get rawTags;
   bool get isExtensionChargedToSubscribers;
   DateTime get archivedAt;
   String get releaseState;
@@ -1298,27 +1292,26 @@ mixin _$UseProgramProgramData {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $UseProgramProgramDataCopyWith<UseProgramProgramData> get copyWith;
+  $UseProgramDataCopyWith<UseProgramData> get copyWith;
 }
 
 /// @nodoc
-abstract class $UseProgramProgramDataCopyWith<$Res> {
-  factory $UseProgramProgramDataCopyWith(UseProgramProgramData value,
-          $Res Function(UseProgramProgramData) then) =
-      _$UseProgramProgramDataCopyWithImpl<$Res>;
+abstract class $UseProgramDataCopyWith<$Res> {
+  factory $UseProgramDataCopyWith(
+          UseProgramData value, $Res Function(UseProgramData) then) =
+      _$UseProgramDataCopyWithImpl<$Res>;
   $Res call(
       {String id,
       String channelId,
       String tenantId,
+      String adminComment,
+      DateTime adminCommentDisappearAt,
       DateTime broadcastAt,
-      String title,
       String detail,
       int mainTime,
       int previewTime,
       bool release,
-      String adminComment,
-      DateTime adminCommentDisappearAt,
-      List<String> tags,
+      @JsonKey(name: 'tags') @protected List<String> rawTags,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       String releaseState,
@@ -1327,28 +1320,27 @@ abstract class $UseProgramProgramDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UseProgramProgramDataCopyWithImpl<$Res>
-    implements $UseProgramProgramDataCopyWith<$Res> {
-  _$UseProgramProgramDataCopyWithImpl(this._value, this._then);
+class _$UseProgramDataCopyWithImpl<$Res>
+    implements $UseProgramDataCopyWith<$Res> {
+  _$UseProgramDataCopyWithImpl(this._value, this._then);
 
-  final UseProgramProgramData _value;
+  final UseProgramData _value;
   // ignore: unused_field
-  final $Res Function(UseProgramProgramData) _then;
+  final $Res Function(UseProgramData) _then;
 
   @override
   $Res call({
     Object id = freezed,
     Object channelId = freezed,
     Object tenantId = freezed,
+    Object adminComment = freezed,
+    Object adminCommentDisappearAt = freezed,
     Object broadcastAt = freezed,
-    Object title = freezed,
     Object detail = freezed,
     Object mainTime = freezed,
     Object previewTime = freezed,
     Object release = freezed,
-    Object adminComment = freezed,
-    Object adminCommentDisappearAt = freezed,
-    Object tags = freezed,
+    Object rawTags = freezed,
     Object isExtensionChargedToSubscribers = freezed,
     Object archivedAt = freezed,
     Object releaseState = freezed,
@@ -1359,21 +1351,20 @@ class _$UseProgramProgramDataCopyWithImpl<$Res>
       id: id == freezed ? _value.id : id as String,
       channelId: channelId == freezed ? _value.channelId : channelId as String,
       tenantId: tenantId == freezed ? _value.tenantId : tenantId as String,
-      broadcastAt:
-          broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
-      title: title == freezed ? _value.title : title as String,
-      detail: detail == freezed ? _value.detail : detail as String,
-      mainTime: mainTime == freezed ? _value.mainTime : mainTime as int,
-      previewTime:
-          previewTime == freezed ? _value.previewTime : previewTime as int,
-      release: release == freezed ? _value.release : release as bool,
       adminComment: adminComment == freezed
           ? _value.adminComment
           : adminComment as String,
       adminCommentDisappearAt: adminCommentDisappearAt == freezed
           ? _value.adminCommentDisappearAt
           : adminCommentDisappearAt as DateTime,
-      tags: tags == freezed ? _value.tags : tags as List<String>,
+      broadcastAt:
+          broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
+      detail: detail == freezed ? _value.detail : detail as String,
+      mainTime: mainTime == freezed ? _value.mainTime : mainTime as int,
+      previewTime:
+          previewTime == freezed ? _value.previewTime : previewTime as int,
+      release: release == freezed ? _value.release : release as bool,
+      rawTags: rawTags == freezed ? _value.rawTags : rawTags as List<String>,
       isExtensionChargedToSubscribers:
           isExtensionChargedToSubscribers == freezed
               ? _value.isExtensionChargedToSubscribers
@@ -1392,25 +1383,24 @@ class _$UseProgramProgramDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$UseProgramProgramDataCopyWith<$Res>
-    implements $UseProgramProgramDataCopyWith<$Res> {
-  factory _$UseProgramProgramDataCopyWith(_UseProgramProgramData value,
-          $Res Function(_UseProgramProgramData) then) =
-      __$UseProgramProgramDataCopyWithImpl<$Res>;
+abstract class _$UseProgramDataCopyWith<$Res>
+    implements $UseProgramDataCopyWith<$Res> {
+  factory _$UseProgramDataCopyWith(
+          _UseProgramData value, $Res Function(_UseProgramData) then) =
+      __$UseProgramDataCopyWithImpl<$Res>;
   @override
   $Res call(
       {String id,
       String channelId,
       String tenantId,
+      String adminComment,
+      DateTime adminCommentDisappearAt,
       DateTime broadcastAt,
-      String title,
       String detail,
       int mainTime,
       int previewTime,
       bool release,
-      String adminComment,
-      DateTime adminCommentDisappearAt,
-      List<String> tags,
+      @JsonKey(name: 'tags') @protected List<String> rawTags,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
       String releaseState,
@@ -1419,55 +1409,53 @@ abstract class _$UseProgramProgramDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$UseProgramProgramDataCopyWithImpl<$Res>
-    extends _$UseProgramProgramDataCopyWithImpl<$Res>
-    implements _$UseProgramProgramDataCopyWith<$Res> {
-  __$UseProgramProgramDataCopyWithImpl(_UseProgramProgramData _value,
-      $Res Function(_UseProgramProgramData) _then)
-      : super(_value, (v) => _then(v as _UseProgramProgramData));
+class __$UseProgramDataCopyWithImpl<$Res>
+    extends _$UseProgramDataCopyWithImpl<$Res>
+    implements _$UseProgramDataCopyWith<$Res> {
+  __$UseProgramDataCopyWithImpl(
+      _UseProgramData _value, $Res Function(_UseProgramData) _then)
+      : super(_value, (v) => _then(v as _UseProgramData));
 
   @override
-  _UseProgramProgramData get _value => super._value as _UseProgramProgramData;
+  _UseProgramData get _value => super._value as _UseProgramData;
 
   @override
   $Res call({
     Object id = freezed,
     Object channelId = freezed,
     Object tenantId = freezed,
+    Object adminComment = freezed,
+    Object adminCommentDisappearAt = freezed,
     Object broadcastAt = freezed,
-    Object title = freezed,
     Object detail = freezed,
     Object mainTime = freezed,
     Object previewTime = freezed,
     Object release = freezed,
-    Object adminComment = freezed,
-    Object adminCommentDisappearAt = freezed,
-    Object tags = freezed,
+    Object rawTags = freezed,
     Object isExtensionChargedToSubscribers = freezed,
     Object archivedAt = freezed,
     Object releaseState = freezed,
     Object shouldArchive = freezed,
     Object typename = freezed,
   }) {
-    return _then(_UseProgramProgramData(
+    return _then(_UseProgramData(
       id: id == freezed ? _value.id : id as String,
       channelId: channelId == freezed ? _value.channelId : channelId as String,
       tenantId: tenantId == freezed ? _value.tenantId : tenantId as String,
-      broadcastAt:
-          broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
-      title: title == freezed ? _value.title : title as String,
-      detail: detail == freezed ? _value.detail : detail as String,
-      mainTime: mainTime == freezed ? _value.mainTime : mainTime as int,
-      previewTime:
-          previewTime == freezed ? _value.previewTime : previewTime as int,
-      release: release == freezed ? _value.release : release as bool,
       adminComment: adminComment == freezed
           ? _value.adminComment
           : adminComment as String,
       adminCommentDisappearAt: adminCommentDisappearAt == freezed
           ? _value.adminCommentDisappearAt
           : adminCommentDisappearAt as DateTime,
-      tags: tags == freezed ? _value.tags : tags as List<String>,
+      broadcastAt:
+          broadcastAt == freezed ? _value.broadcastAt : broadcastAt as DateTime,
+      detail: detail == freezed ? _value.detail : detail as String,
+      mainTime: mainTime == freezed ? _value.mainTime : mainTime as int,
+      previewTime:
+          previewTime == freezed ? _value.previewTime : previewTime as int,
+      release: release == freezed ? _value.release : release as bool,
+      rawTags: rawTags == freezed ? _value.rawTags : rawTags as List<String>,
       isExtensionChargedToSubscribers:
           isExtensionChargedToSubscribers == freezed
               ? _value.isExtensionChargedToSubscribers
@@ -1488,20 +1476,19 @@ class __$UseProgramProgramDataCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_UseProgramProgramData implements _UseProgramProgramData {
-  const _$_UseProgramProgramData(
+class _$_UseProgramData implements _UseProgramData {
+  const _$_UseProgramData(
       {@required this.id,
       @required this.channelId,
       @required this.tenantId,
-      this.broadcastAt,
-      @required this.title,
+      this.adminComment,
+      this.adminCommentDisappearAt,
+      @required this.broadcastAt,
       @required this.detail,
       @required this.mainTime,
       @required this.previewTime,
       @required this.release,
-      this.adminComment,
-      this.adminCommentDisappearAt,
-      @required this.tags,
+      @required @JsonKey(name: 'tags') @protected this.rawTags,
       this.isExtensionChargedToSubscribers,
       this.archivedAt,
       @required this.releaseState,
@@ -1510,18 +1497,22 @@ class _$_UseProgramProgramData implements _UseProgramProgramData {
       : assert(id != null),
         assert(channelId != null),
         assert(tenantId != null),
-        assert(title != null),
+        assert(broadcastAt != null),
         assert(detail != null),
         assert(mainTime != null),
         assert(previewTime != null),
         assert(release != null),
-        assert(tags != null),
+        assert(rawTags != null),
         assert(releaseState != null),
         assert(shouldArchive != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Program"),
+        assert(0 <= totalPlayTime),
+        assert(0 <= mainTime),
+        assert(0 <= previewTime);
 
-  factory _$_UseProgramProgramData.fromJson(Map<String, dynamic> json) =>
-      _$_$_UseProgramProgramDataFromJson(json);
+  factory _$_UseProgramData.fromJson(Map<String, dynamic> json) =>
+      _$_$_UseProgramDataFromJson(json);
 
   @override
   final String id;
@@ -1530,9 +1521,11 @@ class _$_UseProgramProgramData implements _UseProgramProgramData {
   @override
   final String tenantId;
   @override
-  final DateTime broadcastAt;
+  final String adminComment;
   @override
-  final String title;
+  final DateTime adminCommentDisappearAt;
+  @override
+  final DateTime broadcastAt;
   @override
   final String detail;
   @override
@@ -1542,12 +1535,10 @@ class _$_UseProgramProgramData implements _UseProgramProgramData {
   @override
   final bool release;
   @override
-  final String adminComment;
+  @JsonKey(name: 'tags')
+  @protected
+  final List<String> rawTags;
   @override
-  final DateTime adminCommentDisappearAt;
-  @override
-  final List<String> tags;
-  @override //todo
   final bool isExtensionChargedToSubscribers;
   @override
   final DateTime archivedAt;
@@ -1561,13 +1552,13 @@ class _$_UseProgramProgramData implements _UseProgramProgramData {
 
   @override
   String toString() {
-    return 'UseProgramProgramData(id: $id, channelId: $channelId, tenantId: $tenantId, broadcastAt: $broadcastAt, title: $title, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, tags: $tags, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, typename: $typename)';
+    return 'UseProgramData(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, rawTags: $rawTags, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _UseProgramProgramData &&
+        (other is _UseProgramData &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.channelId, channelId) ||
@@ -1576,11 +1567,15 @@ class _$_UseProgramProgramData implements _UseProgramProgramData {
             (identical(other.tenantId, tenantId) ||
                 const DeepCollectionEquality()
                     .equals(other.tenantId, tenantId)) &&
+            (identical(other.adminComment, adminComment) ||
+                const DeepCollectionEquality()
+                    .equals(other.adminComment, adminComment)) &&
+            (identical(other.adminCommentDisappearAt, adminCommentDisappearAt) ||
+                const DeepCollectionEquality().equals(
+                    other.adminCommentDisappearAt, adminCommentDisappearAt)) &&
             (identical(other.broadcastAt, broadcastAt) ||
                 const DeepCollectionEquality()
                     .equals(other.broadcastAt, broadcastAt)) &&
-            (identical(other.title, title) ||
-                const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.detail, detail) ||
                 const DeepCollectionEquality().equals(other.detail, detail)) &&
             (identical(other.mainTime, mainTime) ||
@@ -1592,17 +1587,10 @@ class _$_UseProgramProgramData implements _UseProgramProgramData {
             (identical(other.release, release) ||
                 const DeepCollectionEquality()
                     .equals(other.release, release)) &&
-            (identical(other.adminComment, adminComment) ||
+            (identical(other.rawTags, rawTags) ||
                 const DeepCollectionEquality()
-                    .equals(other.adminComment, adminComment)) &&
-            (identical(
-                    other.adminCommentDisappearAt, adminCommentDisappearAt) ||
-                const DeepCollectionEquality().equals(
-                    other.adminCommentDisappearAt, adminCommentDisappearAt)) &&
-            (identical(other.tags, tags) ||
-                const DeepCollectionEquality().equals(other.tags, tags)) &&
-            (identical(other.isExtensionChargedToSubscribers,
-                    isExtensionChargedToSubscribers) ||
+                    .equals(other.rawTags, rawTags)) &&
+            (identical(other.isExtensionChargedToSubscribers, isExtensionChargedToSubscribers) ||
                 const DeepCollectionEquality().equals(
                     other.isExtensionChargedToSubscribers,
                     isExtensionChargedToSubscribers)) &&
@@ -1626,15 +1614,14 @@ class _$_UseProgramProgramData implements _UseProgramProgramData {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(channelId) ^
       const DeepCollectionEquality().hash(tenantId) ^
+      const DeepCollectionEquality().hash(adminComment) ^
+      const DeepCollectionEquality().hash(adminCommentDisappearAt) ^
       const DeepCollectionEquality().hash(broadcastAt) ^
-      const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(detail) ^
       const DeepCollectionEquality().hash(mainTime) ^
       const DeepCollectionEquality().hash(previewTime) ^
       const DeepCollectionEquality().hash(release) ^
-      const DeepCollectionEquality().hash(adminComment) ^
-      const DeepCollectionEquality().hash(adminCommentDisappearAt) ^
-      const DeepCollectionEquality().hash(tags) ^
+      const DeepCollectionEquality().hash(rawTags) ^
       const DeepCollectionEquality().hash(isExtensionChargedToSubscribers) ^
       const DeepCollectionEquality().hash(archivedAt) ^
       const DeepCollectionEquality().hash(releaseState) ^
@@ -1643,39 +1630,37 @@ class _$_UseProgramProgramData implements _UseProgramProgramData {
 
   @JsonKey(ignore: true)
   @override
-  _$UseProgramProgramDataCopyWith<_UseProgramProgramData> get copyWith =>
-      __$UseProgramProgramDataCopyWithImpl<_UseProgramProgramData>(
-          this, _$identity);
+  _$UseProgramDataCopyWith<_UseProgramData> get copyWith =>
+      __$UseProgramDataCopyWithImpl<_UseProgramData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UseProgramProgramDataToJson(this);
+    return _$_$_UseProgramDataToJson(this);
   }
 }
 
-abstract class _UseProgramProgramData implements UseProgramProgramData {
-  const factory _UseProgramProgramData(
+abstract class _UseProgramData implements UseProgramData {
+  const factory _UseProgramData(
           {@required String id,
           @required String channelId,
           @required String tenantId,
-          DateTime broadcastAt,
-          @required String title,
+          String adminComment,
+          DateTime adminCommentDisappearAt,
+          @required DateTime broadcastAt,
           @required String detail,
           @required int mainTime,
           @required int previewTime,
           @required bool release,
-          String adminComment,
-          DateTime adminCommentDisappearAt,
-          @required List<String> tags,
+          @required @JsonKey(name: 'tags') @protected List<String> rawTags,
           bool isExtensionChargedToSubscribers,
           DateTime archivedAt,
           @required String releaseState,
           @required bool shouldArchive,
           @required @JsonKey(name: '__typename') String typename}) =
-      _$_UseProgramProgramData;
+      _$_UseProgramData;
 
-  factory _UseProgramProgramData.fromJson(Map<String, dynamic> json) =
-      _$_UseProgramProgramData.fromJson;
+  factory _UseProgramData.fromJson(Map<String, dynamic> json) =
+      _$_UseProgramData.fromJson;
 
   @override
   String get id;
@@ -1684,9 +1669,11 @@ abstract class _UseProgramProgramData implements UseProgramProgramData {
   @override
   String get tenantId;
   @override
-  DateTime get broadcastAt;
+  String get adminComment;
   @override
-  String get title;
+  DateTime get adminCommentDisappearAt;
+  @override
+  DateTime get broadcastAt;
   @override
   String get detail;
   @override
@@ -1696,12 +1683,10 @@ abstract class _UseProgramProgramData implements UseProgramProgramData {
   @override
   bool get release;
   @override
-  String get adminComment;
+  @JsonKey(name: 'tags')
+  @protected
+  List<String> get rawTags;
   @override
-  DateTime get adminCommentDisappearAt;
-  @override
-  List<String> get tags;
-  @override //todo
   bool get isExtensionChargedToSubscribers;
   @override
   DateTime get archivedAt;
@@ -1714,7 +1699,7 @@ abstract class _UseProgramProgramData implements UseProgramProgramData {
   String get typename;
   @override
   @JsonKey(ignore: true)
-  _$UseProgramProgramDataCopyWith<_UseProgramProgramData> get copyWith;
+  _$UseProgramDataCopyWith<_UseProgramData> get copyWith;
 }
 
 SocketHandout _$SocketHandoutFromJson(Map<String, dynamic> json) {
@@ -1854,7 +1839,8 @@ class _$_SocketHandout implements _SocketHandout {
       : assert(id != null),
         assert(name != null),
         assert(createdAt != null),
-        assert(typename != null);
+        assert(typename != null),
+        assert(typename == "Handout");
 
   factory _$_SocketHandout.fromJson(Map<String, dynamic> json) =>
       _$_$_SocketHandoutFromJson(json);
@@ -1934,243 +1920,6 @@ abstract class _SocketHandout implements SocketHandout {
   _$SocketHandoutCopyWith<_SocketHandout> get copyWith;
 }
 
-SocketVideo _$SocketVideoFromJson(Map<String, dynamic> json) {
-  return _SocketVideo.fromJson(json);
-}
-
-/// @nodoc
-class _$SocketVideoTearOff {
-  const _$SocketVideoTearOff();
-
-// ignore: unused_element
-  _SocketVideo call(
-      {@required String id,
-      @required MediaStatus mediaStatus,
-      String liveUrl,
-      String archiveUrl,
-      @required @JsonKey(name: '__typename') String typename}) {
-    return _SocketVideo(
-      id: id,
-      mediaStatus: mediaStatus,
-      liveUrl: liveUrl,
-      archiveUrl: archiveUrl,
-      typename: typename,
-    );
-  }
-
-// ignore: unused_element
-  SocketVideo fromJson(Map<String, Object> json) {
-    return SocketVideo.fromJson(json);
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $SocketVideo = _$SocketVideoTearOff();
-
-/// @nodoc
-mixin _$SocketVideo {
-  String get id;
-  MediaStatus get mediaStatus;
-  String get liveUrl;
-  String get archiveUrl;
-  @JsonKey(name: '__typename')
-  String get typename;
-
-  Map<String, dynamic> toJson();
-  @JsonKey(ignore: true)
-  $SocketVideoCopyWith<SocketVideo> get copyWith;
-}
-
-/// @nodoc
-abstract class $SocketVideoCopyWith<$Res> {
-  factory $SocketVideoCopyWith(
-          SocketVideo value, $Res Function(SocketVideo) then) =
-      _$SocketVideoCopyWithImpl<$Res>;
-  $Res call(
-      {String id,
-      MediaStatus mediaStatus,
-      String liveUrl,
-      String archiveUrl,
-      @JsonKey(name: '__typename') String typename});
-}
-
-/// @nodoc
-class _$SocketVideoCopyWithImpl<$Res> implements $SocketVideoCopyWith<$Res> {
-  _$SocketVideoCopyWithImpl(this._value, this._then);
-
-  final SocketVideo _value;
-  // ignore: unused_field
-  final $Res Function(SocketVideo) _then;
-
-  @override
-  $Res call({
-    Object id = freezed,
-    Object mediaStatus = freezed,
-    Object liveUrl = freezed,
-    Object archiveUrl = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      mediaStatus: mediaStatus == freezed
-          ? _value.mediaStatus
-          : mediaStatus as MediaStatus,
-      liveUrl: liveUrl == freezed ? _value.liveUrl : liveUrl as String,
-      archiveUrl:
-          archiveUrl == freezed ? _value.archiveUrl : archiveUrl as String,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$SocketVideoCopyWith<$Res>
-    implements $SocketVideoCopyWith<$Res> {
-  factory _$SocketVideoCopyWith(
-          _SocketVideo value, $Res Function(_SocketVideo) then) =
-      __$SocketVideoCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {String id,
-      MediaStatus mediaStatus,
-      String liveUrl,
-      String archiveUrl,
-      @JsonKey(name: '__typename') String typename});
-}
-
-/// @nodoc
-class __$SocketVideoCopyWithImpl<$Res> extends _$SocketVideoCopyWithImpl<$Res>
-    implements _$SocketVideoCopyWith<$Res> {
-  __$SocketVideoCopyWithImpl(
-      _SocketVideo _value, $Res Function(_SocketVideo) _then)
-      : super(_value, (v) => _then(v as _SocketVideo));
-
-  @override
-  _SocketVideo get _value => super._value as _SocketVideo;
-
-  @override
-  $Res call({
-    Object id = freezed,
-    Object mediaStatus = freezed,
-    Object liveUrl = freezed,
-    Object archiveUrl = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_SocketVideo(
-      id: id == freezed ? _value.id : id as String,
-      mediaStatus: mediaStatus == freezed
-          ? _value.mediaStatus
-          : mediaStatus as MediaStatus,
-      liveUrl: liveUrl == freezed ? _value.liveUrl : liveUrl as String,
-      archiveUrl:
-          archiveUrl == freezed ? _value.archiveUrl : archiveUrl as String,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-@JsonSerializable()
-
-/// @nodoc
-class _$_SocketVideo implements _SocketVideo {
-  const _$_SocketVideo(
-      {@required this.id,
-      @required this.mediaStatus,
-      this.liveUrl,
-      this.archiveUrl,
-      @required @JsonKey(name: '__typename') this.typename})
-      : assert(id != null),
-        assert(mediaStatus != null),
-        assert(typename != null);
-
-  factory _$_SocketVideo.fromJson(Map<String, dynamic> json) =>
-      _$_$_SocketVideoFromJson(json);
-
-  @override
-  final String id;
-  @override
-  final MediaStatus mediaStatus;
-  @override
-  final String liveUrl;
-  @override
-  final String archiveUrl;
-  @override
-  @JsonKey(name: '__typename')
-  final String typename;
-
-  @override
-  String toString() {
-    return 'SocketVideo(id: $id, mediaStatus: $mediaStatus, liveUrl: $liveUrl, archiveUrl: $archiveUrl, typename: $typename)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _SocketVideo &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.mediaStatus, mediaStatus) ||
-                const DeepCollectionEquality()
-                    .equals(other.mediaStatus, mediaStatus)) &&
-            (identical(other.liveUrl, liveUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.liveUrl, liveUrl)) &&
-            (identical(other.archiveUrl, archiveUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.archiveUrl, archiveUrl)) &&
-            (identical(other.typename, typename) ||
-                const DeepCollectionEquality()
-                    .equals(other.typename, typename)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(mediaStatus) ^
-      const DeepCollectionEquality().hash(liveUrl) ^
-      const DeepCollectionEquality().hash(archiveUrl) ^
-      const DeepCollectionEquality().hash(typename);
-
-  @JsonKey(ignore: true)
-  @override
-  _$SocketVideoCopyWith<_SocketVideo> get copyWith =>
-      __$SocketVideoCopyWithImpl<_SocketVideo>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_SocketVideoToJson(this);
-  }
-}
-
-abstract class _SocketVideo implements SocketVideo {
-  const factory _SocketVideo(
-      {@required String id,
-      @required MediaStatus mediaStatus,
-      String liveUrl,
-      String archiveUrl,
-      @required @JsonKey(name: '__typename') String typename}) = _$_SocketVideo;
-
-  factory _SocketVideo.fromJson(Map<String, dynamic> json) =
-      _$_SocketVideo.fromJson;
-
-  @override
-  String get id;
-  @override
-  MediaStatus get mediaStatus;
-  @override
-  String get liveUrl;
-  @override
-  String get archiveUrl;
-  @override
-  @JsonKey(name: '__typename')
-  String get typename;
-  @override
-  @JsonKey(ignore: true)
-  _$SocketVideoCopyWith<_SocketVideo> get copyWith;
-}
-
 /// @nodoc
 class _$SocketMsgTypeTearOff {
   const _$SocketMsgTypeTearOff();
@@ -2186,8 +1935,8 @@ class _$SocketMsgTypeTearOff {
   }
 
 // ignore: unused_element
-  _Ka ka() {
-    return const _Ka();
+  _KeepAlive keepAlive() {
+    return const _KeepAlive();
   }
 
 // ignore: unused_element
@@ -2211,7 +1960,7 @@ mixin _$SocketMsgType {
   TResult when<TResult extends Object>({
     @required TResult connectionInit(),
     @required TResult connectionAck(),
-    @required TResult ka(),
+    @required TResult keepAlive(),
     @required TResult startAck(),
     @required TResult data(),
   });
@@ -2219,7 +1968,7 @@ mixin _$SocketMsgType {
   TResult maybeWhen<TResult extends Object>({
     TResult connectionInit(),
     TResult connectionAck(),
-    TResult ka(),
+    TResult keepAlive(),
     TResult startAck(),
     TResult data(),
     @required TResult orElse(),
@@ -2228,7 +1977,7 @@ mixin _$SocketMsgType {
   TResult map<TResult extends Object>({
     @required TResult connectionInit(_ConnectionInit value),
     @required TResult connectionAck(_ConnectionAck value),
-    @required TResult ka(_Ka value),
+    @required TResult keepAlive(_KeepAlive value),
     @required TResult startAck(_StartAck value),
     @required TResult data(_Data value),
   });
@@ -2236,7 +1985,7 @@ mixin _$SocketMsgType {
   TResult maybeMap<TResult extends Object>({
     TResult connectionInit(_ConnectionInit value),
     TResult connectionAck(_ConnectionAck value),
-    TResult ka(_Ka value),
+    TResult keepAlive(_KeepAlive value),
     TResult startAck(_StartAck value),
     TResult data(_Data value),
     @required TResult orElse(),
@@ -2301,13 +2050,13 @@ class _$_ConnectionInit implements _ConnectionInit {
   TResult when<TResult extends Object>({
     @required TResult connectionInit(),
     @required TResult connectionAck(),
-    @required TResult ka(),
+    @required TResult keepAlive(),
     @required TResult startAck(),
     @required TResult data(),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
     return connectionInit();
@@ -2318,7 +2067,7 @@ class _$_ConnectionInit implements _ConnectionInit {
   TResult maybeWhen<TResult extends Object>({
     TResult connectionInit(),
     TResult connectionAck(),
-    TResult ka(),
+    TResult keepAlive(),
     TResult startAck(),
     TResult data(),
     @required TResult orElse(),
@@ -2335,13 +2084,13 @@ class _$_ConnectionInit implements _ConnectionInit {
   TResult map<TResult extends Object>({
     @required TResult connectionInit(_ConnectionInit value),
     @required TResult connectionAck(_ConnectionAck value),
-    @required TResult ka(_Ka value),
+    @required TResult keepAlive(_KeepAlive value),
     @required TResult startAck(_StartAck value),
     @required TResult data(_Data value),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
     return connectionInit(this);
@@ -2352,7 +2101,7 @@ class _$_ConnectionInit implements _ConnectionInit {
   TResult maybeMap<TResult extends Object>({
     TResult connectionInit(_ConnectionInit value),
     TResult connectionAck(_ConnectionAck value),
-    TResult ka(_Ka value),
+    TResult keepAlive(_KeepAlive value),
     TResult startAck(_StartAck value),
     TResult data(_Data value),
     @required TResult orElse(),
@@ -2410,13 +2159,13 @@ class _$_ConnectionAck implements _ConnectionAck {
   TResult when<TResult extends Object>({
     @required TResult connectionInit(),
     @required TResult connectionAck(),
-    @required TResult ka(),
+    @required TResult keepAlive(),
     @required TResult startAck(),
     @required TResult data(),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
     return connectionAck();
@@ -2427,7 +2176,7 @@ class _$_ConnectionAck implements _ConnectionAck {
   TResult maybeWhen<TResult extends Object>({
     TResult connectionInit(),
     TResult connectionAck(),
-    TResult ka(),
+    TResult keepAlive(),
     TResult startAck(),
     TResult data(),
     @required TResult orElse(),
@@ -2444,13 +2193,13 @@ class _$_ConnectionAck implements _ConnectionAck {
   TResult map<TResult extends Object>({
     @required TResult connectionInit(_ConnectionInit value),
     @required TResult connectionAck(_ConnectionAck value),
-    @required TResult ka(_Ka value),
+    @required TResult keepAlive(_KeepAlive value),
     @required TResult startAck(_StartAck value),
     @required TResult data(_Data value),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
     return connectionAck(this);
@@ -2461,7 +2210,7 @@ class _$_ConnectionAck implements _ConnectionAck {
   TResult maybeMap<TResult extends Object>({
     TResult connectionInit(_ConnectionInit value),
     TResult connectionAck(_ConnectionAck value),
-    TResult ka(_Ka value),
+    TResult keepAlive(_KeepAlive value),
     TResult startAck(_StartAck value),
     TResult data(_Data value),
     @required TResult orElse(),
@@ -2479,33 +2228,34 @@ abstract class _ConnectionAck implements SocketMsgType {
 }
 
 /// @nodoc
-abstract class _$KaCopyWith<$Res> {
-  factory _$KaCopyWith(_Ka value, $Res Function(_Ka) then) =
-      __$KaCopyWithImpl<$Res>;
+abstract class _$KeepAliveCopyWith<$Res> {
+  factory _$KeepAliveCopyWith(
+          _KeepAlive value, $Res Function(_KeepAlive) then) =
+      __$KeepAliveCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$KaCopyWithImpl<$Res> extends _$SocketMsgTypeCopyWithImpl<$Res>
-    implements _$KaCopyWith<$Res> {
-  __$KaCopyWithImpl(_Ka _value, $Res Function(_Ka) _then)
-      : super(_value, (v) => _then(v as _Ka));
+class __$KeepAliveCopyWithImpl<$Res> extends _$SocketMsgTypeCopyWithImpl<$Res>
+    implements _$KeepAliveCopyWith<$Res> {
+  __$KeepAliveCopyWithImpl(_KeepAlive _value, $Res Function(_KeepAlive) _then)
+      : super(_value, (v) => _then(v as _KeepAlive));
 
   @override
-  _Ka get _value => super._value as _Ka;
+  _KeepAlive get _value => super._value as _KeepAlive;
 }
 
 /// @nodoc
-class _$_Ka implements _Ka {
-  const _$_Ka();
+class _$_KeepAlive implements _KeepAlive {
+  const _$_KeepAlive();
 
   @override
   String toString() {
-    return 'SocketMsgType.ka()';
+    return 'SocketMsgType.keepAlive()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Ka);
+    return identical(this, other) || (other is _KeepAlive);
   }
 
   @override
@@ -2516,16 +2266,16 @@ class _$_Ka implements _Ka {
   TResult when<TResult extends Object>({
     @required TResult connectionInit(),
     @required TResult connectionAck(),
-    @required TResult ka(),
+    @required TResult keepAlive(),
     @required TResult startAck(),
     @required TResult data(),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
-    return ka();
+    return keepAlive();
   }
 
   @override
@@ -2533,14 +2283,14 @@ class _$_Ka implements _Ka {
   TResult maybeWhen<TResult extends Object>({
     TResult connectionInit(),
     TResult connectionAck(),
-    TResult ka(),
+    TResult keepAlive(),
     TResult startAck(),
     TResult data(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (ka != null) {
-      return ka();
+    if (keepAlive != null) {
+      return keepAlive();
     }
     return orElse();
   }
@@ -2550,16 +2300,16 @@ class _$_Ka implements _Ka {
   TResult map<TResult extends Object>({
     @required TResult connectionInit(_ConnectionInit value),
     @required TResult connectionAck(_ConnectionAck value),
-    @required TResult ka(_Ka value),
+    @required TResult keepAlive(_KeepAlive value),
     @required TResult startAck(_StartAck value),
     @required TResult data(_Data value),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
-    return ka(this);
+    return keepAlive(this);
   }
 
   @override
@@ -2567,21 +2317,21 @@ class _$_Ka implements _Ka {
   TResult maybeMap<TResult extends Object>({
     TResult connectionInit(_ConnectionInit value),
     TResult connectionAck(_ConnectionAck value),
-    TResult ka(_Ka value),
+    TResult keepAlive(_KeepAlive value),
     TResult startAck(_StartAck value),
     TResult data(_Data value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (ka != null) {
-      return ka(this);
+    if (keepAlive != null) {
+      return keepAlive(this);
     }
     return orElse();
   }
 }
 
-abstract class _Ka implements SocketMsgType {
-  const factory _Ka() = _$_Ka;
+abstract class _KeepAlive implements SocketMsgType {
+  const factory _KeepAlive() = _$_KeepAlive;
 }
 
 /// @nodoc
@@ -2622,13 +2372,13 @@ class _$_StartAck implements _StartAck {
   TResult when<TResult extends Object>({
     @required TResult connectionInit(),
     @required TResult connectionAck(),
-    @required TResult ka(),
+    @required TResult keepAlive(),
     @required TResult startAck(),
     @required TResult data(),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
     return startAck();
@@ -2639,7 +2389,7 @@ class _$_StartAck implements _StartAck {
   TResult maybeWhen<TResult extends Object>({
     TResult connectionInit(),
     TResult connectionAck(),
-    TResult ka(),
+    TResult keepAlive(),
     TResult startAck(),
     TResult data(),
     @required TResult orElse(),
@@ -2656,13 +2406,13 @@ class _$_StartAck implements _StartAck {
   TResult map<TResult extends Object>({
     @required TResult connectionInit(_ConnectionInit value),
     @required TResult connectionAck(_ConnectionAck value),
-    @required TResult ka(_Ka value),
+    @required TResult keepAlive(_KeepAlive value),
     @required TResult startAck(_StartAck value),
     @required TResult data(_Data value),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
     return startAck(this);
@@ -2673,7 +2423,7 @@ class _$_StartAck implements _StartAck {
   TResult maybeMap<TResult extends Object>({
     TResult connectionInit(_ConnectionInit value),
     TResult connectionAck(_ConnectionAck value),
-    TResult ka(_Ka value),
+    TResult keepAlive(_KeepAlive value),
     TResult startAck(_StartAck value),
     TResult data(_Data value),
     @required TResult orElse(),
@@ -2728,13 +2478,13 @@ class _$_Data implements _Data {
   TResult when<TResult extends Object>({
     @required TResult connectionInit(),
     @required TResult connectionAck(),
-    @required TResult ka(),
+    @required TResult keepAlive(),
     @required TResult startAck(),
     @required TResult data(),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
     return data();
@@ -2745,7 +2495,7 @@ class _$_Data implements _Data {
   TResult maybeWhen<TResult extends Object>({
     TResult connectionInit(),
     TResult connectionAck(),
-    TResult ka(),
+    TResult keepAlive(),
     TResult startAck(),
     TResult data(),
     @required TResult orElse(),
@@ -2762,13 +2512,13 @@ class _$_Data implements _Data {
   TResult map<TResult extends Object>({
     @required TResult connectionInit(_ConnectionInit value),
     @required TResult connectionAck(_ConnectionAck value),
-    @required TResult ka(_Ka value),
+    @required TResult keepAlive(_KeepAlive value),
     @required TResult startAck(_StartAck value),
     @required TResult data(_Data value),
   }) {
     assert(connectionInit != null);
     assert(connectionAck != null);
-    assert(ka != null);
+    assert(keepAlive != null);
     assert(startAck != null);
     assert(data != null);
     return data(this);
@@ -2779,7 +2529,7 @@ class _$_Data implements _Data {
   TResult maybeMap<TResult extends Object>({
     TResult connectionInit(_ConnectionInit value),
     TResult connectionAck(_ConnectionAck value),
-    TResult ka(_Ka value),
+    TResult keepAlive(_KeepAlive value),
     TResult startAck(_StartAck value),
     TResult data(_Data value),
     @required TResult orElse(),
@@ -2794,4 +2544,153 @@ class _$_Data implements _Data {
 
 abstract class _Data implements SocketMsgType {
   const factory _Data() = _$_Data;
+}
+
+TypeBase _$TypeBaseFromJson(Map<String, dynamic> json) {
+  return _TypeBase.fromJson(json);
+}
+
+/// @nodoc
+class _$TypeBaseTearOff {
+  const _$TypeBaseTearOff();
+
+// ignore: unused_element
+  _TypeBase call({@required @protected @JsonKey(name: 'type') String rawType}) {
+    return _TypeBase(
+      rawType: rawType,
+    );
+  }
+
+// ignore: unused_element
+  TypeBase fromJson(Map<String, Object> json) {
+    return TypeBase.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $TypeBase = _$TypeBaseTearOff();
+
+/// @nodoc
+mixin _$TypeBase {
+  @protected
+  @JsonKey(name: 'type')
+  String get rawType;
+
+  Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
+  $TypeBaseCopyWith<TypeBase> get copyWith;
+}
+
+/// @nodoc
+abstract class $TypeBaseCopyWith<$Res> {
+  factory $TypeBaseCopyWith(TypeBase value, $Res Function(TypeBase) then) =
+      _$TypeBaseCopyWithImpl<$Res>;
+  $Res call({@protected @JsonKey(name: 'type') String rawType});
+}
+
+/// @nodoc
+class _$TypeBaseCopyWithImpl<$Res> implements $TypeBaseCopyWith<$Res> {
+  _$TypeBaseCopyWithImpl(this._value, this._then);
+
+  final TypeBase _value;
+  // ignore: unused_field
+  final $Res Function(TypeBase) _then;
+
+  @override
+  $Res call({
+    Object rawType = freezed,
+  }) {
+    return _then(_value.copyWith(
+      rawType: rawType == freezed ? _value.rawType : rawType as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$TypeBaseCopyWith<$Res> implements $TypeBaseCopyWith<$Res> {
+  factory _$TypeBaseCopyWith(_TypeBase value, $Res Function(_TypeBase) then) =
+      __$TypeBaseCopyWithImpl<$Res>;
+  @override
+  $Res call({@protected @JsonKey(name: 'type') String rawType});
+}
+
+/// @nodoc
+class __$TypeBaseCopyWithImpl<$Res> extends _$TypeBaseCopyWithImpl<$Res>
+    implements _$TypeBaseCopyWith<$Res> {
+  __$TypeBaseCopyWithImpl(_TypeBase _value, $Res Function(_TypeBase) _then)
+      : super(_value, (v) => _then(v as _TypeBase));
+
+  @override
+  _TypeBase get _value => super._value as _TypeBase;
+
+  @override
+  $Res call({
+    Object rawType = freezed,
+  }) {
+    return _then(_TypeBase(
+      rawType: rawType == freezed ? _value.rawType : rawType as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_TypeBase extends _TypeBase {
+  const _$_TypeBase({@required @protected @JsonKey(name: 'type') this.rawType})
+      : assert(rawType != null),
+        super._();
+
+  factory _$_TypeBase.fromJson(Map<String, dynamic> json) =>
+      _$_$_TypeBaseFromJson(json);
+
+  @override
+  @protected
+  @JsonKey(name: 'type')
+  final String rawType;
+
+  @override
+  String toString() {
+    return 'TypeBase(rawType: $rawType)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _TypeBase &&
+            (identical(other.rawType, rawType) ||
+                const DeepCollectionEquality().equals(other.rawType, rawType)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(rawType);
+
+  @JsonKey(ignore: true)
+  @override
+  _$TypeBaseCopyWith<_TypeBase> get copyWith =>
+      __$TypeBaseCopyWithImpl<_TypeBase>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_TypeBaseToJson(this);
+  }
+}
+
+abstract class _TypeBase extends TypeBase {
+  const _TypeBase._() : super._();
+  const factory _TypeBase(
+          {@required @protected @JsonKey(name: 'type') String rawType}) =
+      _$_TypeBase;
+
+  factory _TypeBase.fromJson(Map<String, dynamic> json) = _$_TypeBase.fromJson;
+
+  @override
+  @protected
+  @JsonKey(name: 'type')
+  String get rawType;
+  @override
+  @JsonKey(ignore: true)
+  _$TypeBaseCopyWith<_TypeBase> get copyWith;
 }

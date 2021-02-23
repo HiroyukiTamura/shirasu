@@ -7,7 +7,6 @@ import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/local_json_client.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/result.dart' as r;
 import 'package:shirasu/model/update_user_with_attr_variable.dart'
@@ -20,8 +19,6 @@ import 'message_notifier.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
-
-  SnackBarMessageNotifier get _msgNotifier => reader(kPrvSnackBar);
 
   HiveBody get _hiveAuthBody => hiveAuthRepository?.authData?.body;
 
@@ -102,17 +99,17 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
           //todo log error
           print(e);
           if (mounted)
-            _msgNotifier.notifyMsg(const SnackMsg.networkTimeout(), false);
+            notifySnackMsg(const SnackMsg.networkTimeout());
         } on NetworkDisconnectException catch (e) {
           print(e);
           if (mounted)
-            _msgNotifier.notifyMsg(const SnackMsg.networkDisconnected(), false);
+            notifySnackMsg(const SnackMsg.networkDisconnected());
         } catch (e) {
           print(e);
-          if (mounted) _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+          if (mounted) notifySnackMsg(const SnackMsg.unknown());
         }
       } else {
-        _msgNotifier.notifyMsg(const SnackMsg.unknown(), false);
+        notifySnackMsg(const SnackMsg.unknown());
       }
 
       if (mounted)
@@ -139,6 +136,9 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     _isInLogout = false;
   }
+
+  void notifySnackMsg(SnackMsg snackMsg) =>
+      snackBarMsgNotifier.notifyMsg(snackMsg, false);
 }
 
 class LocationTextNotifier extends StateNotifier<String>

@@ -207,7 +207,7 @@ class _RowBillingBtn extends StatelessWidget {
         url: UrlUtil.channelId2Url(channel.id),
         child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
         snackCallback: (msg) =>
-            context.read(kPrvSnackBar).notifyMsg(msg, false),
+            context.read(kPrvViewModelChannel(channel.id)).notifySnackMsg(msg),
       );
 }
 

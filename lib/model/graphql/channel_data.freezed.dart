@@ -1496,7 +1496,7 @@ class __$ProgramsItemCopyWithImpl<$Res> extends _$ProgramsItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_ProgramsItem implements _ProgramsItem {
+class _$_ProgramsItem extends _ProgramsItem {
   const _$_ProgramsItem(
       {@required this.id,
       @required this.tenantId,
@@ -1513,7 +1513,8 @@ class _$_ProgramsItem implements _ProgramsItem {
         assert(broadcastAt != null),
         assert(totalPlayTime != null),
         assert(typename != null),
-        assert(typename == "Program");
+        assert(typename == "Program"),
+        super._();
 
   factory _$_ProgramsItem.fromJson(Map<String, dynamic> json) =>
       _$_$_ProgramsItemFromJson(json);
@@ -1593,7 +1594,8 @@ class _$_ProgramsItem implements _ProgramsItem {
   }
 }
 
-abstract class _ProgramsItem implements ProgramsItem {
+abstract class _ProgramsItem extends ProgramsItem {
+  const _ProgramsItem._() : super._();
   const factory _ProgramsItem(
           {@required String id,
           @required String tenantId,
@@ -1798,7 +1800,7 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_SubscriptionPlan implements _SubscriptionPlan {
+class _$_SubscriptionPlan extends _SubscriptionPlan {
   const _$_SubscriptionPlan(
       {@required this.id,
       @required this.amount,
@@ -1811,7 +1813,8 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
         assert(currency != null),
         assert(isPurchasable != null),
         assert(typename != null),
-        assert(typename == "SubscriptionPlan");
+        assert(typename == "SubscriptionPlan"),
+        super._();
 
   factory _$_SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$_$_SubscriptionPlanFromJson(json);
@@ -1878,7 +1881,8 @@ class _$_SubscriptionPlan implements _SubscriptionPlan {
   }
 }
 
-abstract class _SubscriptionPlan implements SubscriptionPlan {
+abstract class _SubscriptionPlan extends SubscriptionPlan {
+  const _SubscriptionPlan._() : super._();
   const factory _SubscriptionPlan(
       {@required String id,
       @required int amount,

@@ -610,7 +610,7 @@ class __$NewProgramItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_NewProgramItem implements _NewProgramItem {
+class _$_NewProgramItem extends _NewProgramItem {
   const _$_NewProgramItem(
       {@required this.broadcastAt,
       @required this.channelId,
@@ -633,7 +633,8 @@ class _$_NewProgramItem implements _NewProgramItem {
         assert(totalPlayTime != null),
         assert(channel != null),
         assert(typename != null),
-        assert(typename == "Program");
+        assert(typename == "Program"),
+        super._();
 
   factory _$_NewProgramItem.fromJson(Map<String, dynamic> json) =>
       _$_$_NewProgramItemFromJson(json);
@@ -731,7 +732,8 @@ class _$_NewProgramItem implements _NewProgramItem {
   }
 }
 
-abstract class _NewProgramItem implements NewProgramItem {
+abstract class _NewProgramItem extends NewProgramItem {
+  const _NewProgramItem._() : super._();
   const factory _NewProgramItem(
           {@required DateTime broadcastAt,
           @required String channelId,

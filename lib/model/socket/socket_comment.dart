@@ -112,6 +112,8 @@ abstract class UseProgramData
 
   factory UseProgramData.fromJson(Map<String, dynamic> json) =>
       _$UseProgramDataFromJson(json);
+
+  const UseProgramData._();
 }
 
 @freezed

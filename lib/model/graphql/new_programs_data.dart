@@ -62,6 +62,7 @@ abstract class NewProgramItem with ViewerPlanTypeMixin implements _$NewProgramIt
   factory NewProgramItem.fromJson(Map<String, dynamic> json) =>
       _$NewProgramItemFromJson(json);
 
+  const NewProgramItem._();
 }
 
 @freezed

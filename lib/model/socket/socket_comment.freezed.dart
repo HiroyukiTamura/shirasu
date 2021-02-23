@@ -1476,7 +1476,7 @@ class __$UseProgramDataCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_UseProgramData implements _UseProgramData {
+class _$_UseProgramData extends _UseProgramData {
   const _$_UseProgramData(
       {@required this.id,
       @required this.channelId,
@@ -1509,7 +1509,8 @@ class _$_UseProgramData implements _UseProgramData {
         assert(typename == "Program"),
         assert(0 <= totalPlayTime),
         assert(0 <= mainTime),
-        assert(0 <= previewTime);
+        assert(0 <= previewTime),
+        super._();
 
   factory _$_UseProgramData.fromJson(Map<String, dynamic> json) =>
       _$_$_UseProgramDataFromJson(json);
@@ -1639,7 +1640,8 @@ class _$_UseProgramData implements _UseProgramData {
   }
 }
 
-abstract class _UseProgramData implements UseProgramData {
+abstract class _UseProgramData extends UseProgramData {
+  const _UseProgramData._() : super._();
   const factory _UseProgramData(
           {@required String id,
           @required String channelId,

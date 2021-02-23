@@ -126,6 +126,8 @@ abstract class ProgramsItem
 
   factory ProgramsItem.fromJson(Map<String, dynamic> json) =>
       _$ProgramsItemFromJson(json);
+
+  const ProgramsItem._();
 }
 
 @freezed
@@ -144,6 +146,8 @@ abstract class SubscriptionPlan
 
   factory SubscriptionPlan.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionPlanFromJson(json);
+
+  const SubscriptionPlan._();
 }
 
 @freezed

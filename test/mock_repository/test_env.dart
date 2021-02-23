@@ -11,4 +11,7 @@ class EnvRepositoryTestImpl implements EnvRepository {
 
   @override
   bool get enableVideoPlugin => false;
+
+  @override
+  bool get enableCrashlytics => true;
 }

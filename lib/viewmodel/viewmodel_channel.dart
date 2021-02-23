@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
+import 'package:shirasu/model/result.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -26,28 +27,26 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
   Future<void> initialize() async {
     if (state != const ChannelModel.preInitialized()) return;
 
-    bool authExpired = false;
-    ChannelModel newState;
-    try {
+    final result = await Result.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       final data = await graphQlRepository
           .queryChannelData(_channelId)
           .timeout(GraphQlRepository.TIMEOUT);
-      newState = ChannelModel.success(
+      return ChannelModel.success(
         ChannelDataWrapper(
           data: data,
           loading: false,
         ),
       );
-    } catch (e) {
-      print(e);
-      newState = ChannelModel.error(toErrMsg(e));
-      authExpired = e is UnauthorizedException;
-    }
+    });
 
-    if (!mounted) return;
-    state = newState;
-    if (authExpired) pushAuthExpireScreen();
+    result.when(success: (data) {
+      if (mounted) state = data;
+    }, failure: (e) {
+      print(e);
+      if (mounted) state = ChannelModel.error(toErrMsg(e));
+      if (e is UnauthorizedException) pushAuthExpireScreen();
+    });
   }
 
   Future<void> loadMorePrograms() async =>

@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -27,25 +31,29 @@ final kPrvAppRouterDelegate = Provider<AppRouterDelegate>((ref) =>
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
-  await Hive.initFlutter();
-  Hive
-    ..registerAdapter(HiveAuthDataAdapter())
-    ..registerAdapter(HiveBodyAdapter())
-    ..registerAdapter(HiveDecodedTokenAdapter())
-    ..registerAdapter(HiveClaimsAdapter())
-    ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
+  runZonedGuarded(() async {
+
+    await Hive.initFlutter();
+    Hive
+      ..registerAdapter(HiveAuthDataAdapter())
+      ..registerAdapter(HiveBodyAdapter())
+      ..registerAdapter(HiveDecodedTokenAdapter())
+      ..registerAdapter(HiveClaimsAdapter())
+      ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
     // ..registerAdapter(HiveEncodedAdapter())
     // ..registerAdapter(HiveHeaderAdapter())
-    ..registerAdapter(HiveUserAdapter());
+      ..registerAdapter(HiveUserAdapter());
 
-  await HiveAuthRepositoryImpl.instance().init();
-  await HivePrefRepositoryImpl.instance().init();
-  await GraphQlRepositoryImpl.openHiveStore();
+    await HiveAuthRepositoryImpl.instance().init();
+    await HivePrefRepositoryImpl.instance().init();
+    await GraphQlRepositoryImpl.openHiveStore();
 
-  runApp(
-    ProviderScope(child: MyApp()),
-  );
+    runApp(
+      ProviderScope(child: MyApp()),
+    );
+  }, FirebaseCrashlytics.instance.recordError);
 }
 
 class MyApp extends StatefulHookWidget {

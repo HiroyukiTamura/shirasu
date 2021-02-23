@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
@@ -6,14 +7,11 @@ import 'package:shirasu/screen_main/page_setting/account/email_status_label.dart
 import 'package:test/test.dart';
 
 import '../../../mock_repository/hive_auth_empty.dart';
+import '../../../widget_test_util/json_client.dart';
 import '../../../widget_test_util/test_runner_base.dart';
 import '../../../widget_test_util/test_util.dart';
 
-Future<void> main() async {
-  final runner = _TestRunner();
-  await runner.init();
-  runner.runTest();
-}
+void main() => _TestRunner().runTest();
 
 class _TestRunner extends TestRunnerBase {
   _TestRunner()
@@ -23,19 +21,22 @@ class _TestRunner extends TestRunnerBase {
           ),
         );
 
+  Override createOverride(HiveAuthData authData) =>
+      kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
+        specAuthData: authData,
+      ));
+
   void runTest() => group('Setting_ListItemEmail', () {
         testGoldensSimple(testName: 'verified', overrides: [
-          kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
-            specAuthData: authData,
-          )),
+          createOverride(JsonClient.instance.mHiveAuthData),
         ]);
         testGoldensSimple(testName: 'unverified_twitter', overrides: [
-          kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
-            specAuthData: authData.copyWith.body.decodedToken.user(
+          createOverride(
+            JsonClient.instance.mHiveAuthData.copyWith.body.decodedToken.user(
               emailVerified: false,
               sub: 'twitter',
             ),
-          )),
+          ),
         ]);
       });
 }

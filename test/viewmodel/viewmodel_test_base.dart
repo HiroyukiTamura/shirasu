@@ -27,7 +27,10 @@ import '../mock_repository/graphql_timeout.dart';
 import '../mock_repository/graphql_unauthorized.dart';
 import '../mock_repository/hive_auth_empty.dart';
 import '../mock_repository/hive_pref_empty.dart';
+import '../widget_test_util/json_client.dart';
 import '../widget_test_util/override_util.dart';
+import '../widget_test_util/test_name_common.dart';
+import '../widget_test_util/test_runner_base.dart';
 import '../widget_test_util/test_util.dart';
 
 /// test util for [ViewModelBase]
@@ -36,11 +39,6 @@ class ViewModelTestBase<T> {
     Util.require(
         [prvViewModel, prvDashboardViewModel].filterNotNull().length == 1);
   }
-
-  static const TEST_NAME_NETWORK_DISCONNECTED = 'NetworkDisconnected';
-  static const TEST_NAME_NETWORK_TIMEOUT = 'NetworkTimeout';
-  static const TEST_NAME_ERR_UNKNOWN = 'ErrUnknown';
-  static const TEST_NAME_NORMAL = 'Normal';
 
   final AutoDisposeStateNotifierProvider<ViewModelBase<T>> prvViewModel;
   final AutoDisposeChangeNotifierProvider<ViewModelDashBoard>
@@ -52,34 +50,22 @@ class ViewModelTestBase<T> {
   ]);
 
   List<Override> _graphQlOverrideNormal;
-  FeatureProgramData featureProgramData;
-  NewProgramsData newProgramsData;
-  WatchHistoriesData watchHistoriesData;
-  ViewerWrapper viewerWrapper;
-  HiveAuthData hiveAuthData;
-  ChannelData channelData;
   ChannelData hasNextTokenChannelData;
-  ProgramDetailData programDetail;
-  ListCommentsByProgram commentsByProgram;
+
+  ChannelData get mChannelData => JsonClient.instance.mChannelData;
+  ListCommentsByProgram get mCommentsByProgram => JsonClient.instance.mListCommentsByProgram;
 
   Future<void> init() async {
-    featureProgramData = await kJsonClient.featureProgramData;
-    newProgramsData = await kJsonClient.newProgramsData;
-    watchHistoriesData = await kJsonClient.watchHistoriesData;
-    viewerWrapper = await kJsonClient.viewerWrapper;
-    hiveAuthData = await kJsonClient.hiveAuth;
-    channelData = await kJsonClient.channel;
-    programDetail = await kJsonClient.programDetail;
-    commentsByProgram = await kJsonClient.listCommentsByProgram;
-    hasNextTokenChannelData = channelData.copyWith.channel.programs(
-      nextToken: 'NEXT_TOKEN',
+    hasNextTokenChannelData =
+        mChannelData.copyWith.channel.programs(
+      nextToken: TestRunnerBase.NEXT_TOKEN,
     );
     _graphQlOverrideNormal = kOverrideUtil.createOverrides([
       kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
-        featureProgramData: featureProgramData,
-        newProgramsData: newProgramsData,
-        watchHistoriesData: watchHistoriesData,
-        viewerWrapper: viewerWrapper,
+        featureProgramData: JsonClient.instance.mFeatureProgramData,
+        newProgramsData: JsonClient.instance.mNewProgramsData,
+        watchHistoriesData: JsonClient.instance.mWatchHistoriesData,
+        viewerWrapper: JsonClient.instance.mViewerWrapper,
       )),
     ]);
   }
@@ -90,13 +76,14 @@ class ViewModelTestBase<T> {
     @required dynamic expectPath,
   }) async {
     final container = ProviderContainer(
-      overrides: override + defaultOverride + [kOverrideEmptyHiveAuthRepository],
+      overrides:
+          override + defaultOverride + [kOverrideEmptyHiveAuthRepository],
     );
     final appRouter = container.listen(kPrvAppRouterDelegate).read();
     if (prvViewModel != null) {
       final viewModel = container.listen(prvViewModel).read();
       await viewModel.initialize();
-      await Future.delayed(10.seconds);// todo unknown why, but we must need it
+      await Future.delayed(10.seconds); // todo unknown why, but we must need it
       expect(
           // ignore: invalid_use_of_protected_member
           viewModel.state,
@@ -114,7 +101,7 @@ class ViewModelTestBase<T> {
   }
 
   void testNetworkDisconnected(T expectState) => test(
-      TEST_NAME_NETWORK_DISCONNECTED,
+      TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () async => _testTemplate(
             override: [kOverrideDisconnected],
             expectState: expectState,
@@ -122,7 +109,7 @@ class ViewModelTestBase<T> {
           ));
 
   void testNetworkTimeout(T expectState) => test(
-        TEST_NAME_NETWORK_TIMEOUT,
+        TestNameCommon.ERR_NETWORK_TIMEOUT,
         () async => _testTemplate(
           override: [
             kOverrideConnectedRepositoryConnectedImpl,
@@ -134,7 +121,7 @@ class ViewModelTestBase<T> {
       );
 
   void testAuthExpired(T expectState) => test(
-        'AuthExpired',
+        TestNameCommon.ERR_AUTH_EXPIRED,
         () async => _testTemplate(
           override: [
             kOverrideConnectedRepositoryConnectedImpl,
@@ -146,7 +133,7 @@ class ViewModelTestBase<T> {
       );
 
   void testUnAuth(T expectState) => test(
-        'UnAuth',
+        TestNameCommon.ERR_UN_AUTH,
         () async => _testTemplate(
           override: [
             kOverrideConnectedRepositoryConnectedImpl,
@@ -158,7 +145,7 @@ class ViewModelTestBase<T> {
       );
 
   void testUnknownError(T expectState) => test(
-        TEST_NAME_ERR_UNKNOWN,
+        TestNameCommon.ERR_UNKNOWN,
         () async => _testTemplate(
           override: [
             kOverrideConnectedRepositoryConnectedImpl,
@@ -170,14 +157,14 @@ class ViewModelTestBase<T> {
       );
 
   void testNormal(T expectState) => test(
-      TEST_NAME_NORMAL,
-      () async => _testTemplate(
-        override: [
-          kOverrideConnectedRepositoryConnectedImpl,
-          ..._graphQlOverrideNormal,
-        ],
-        expectState: expectState,
-        expectPath: isNot(isA<PathDataError>()),
-      ),
-    );
+        TestNameCommon.NORMAL,
+        () async => _testTemplate(
+          override: [
+            kOverrideConnectedRepositoryConnectedImpl,
+            ..._graphQlOverrideNormal,
+          ],
+          expectState: expectState,
+          expectPath: isNot(isA<PathDataError>()),
+        ),
+      );
 }

@@ -92,7 +92,6 @@ _$_Claims _$_$_ClaimsFromJson(Map<String, dynamic> json) {
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
-    locale: json['locale'] as String,
     updatedAt: json['updated_at'] == null
         ? null
         : DateTime.parse(json['updated_at'] as String),
@@ -116,7 +115,6 @@ Map<String, dynamic> _$_$_ClaimsToJson(_$_Claims instance) => <String, dynamic>{
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,
-      'locale': instance.locale,
       'updated_at': instance.updatedAt?.toIso8601String(),
       'email': instance.email,
       'email_verified': instance.emailVerified,
@@ -204,7 +202,6 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
-    locale: json['locale'] as String,
     updatedAt: json['updated_at'] == null
         ? null
         : DateTime.parse(json['updated_at'] as String),
@@ -225,7 +222,6 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,
-      'locale': instance.locale,
       'updated_at': instance.updatedAt?.toIso8601String(),
       'email': instance.email,
       'email_verified': instance.emailVerified,

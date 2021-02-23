@@ -5,42 +5,36 @@ import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 import '../../mock_viewmodel/viewmodel_detail_mockable.dart';
+import '../../widget_test_util/json_client.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_util.dart';
 
-Future<void> main() async {
-  final programDetail = await kJsonClient.programDetail;
-
-  final runner = _TestRunner(programDetail);
-  await runner.init();
-  runner.runTest();
-}
+void main() => _TestRunner().runTest();
 
 class _TestRunner extends TestRunnerBase {
-  _TestRunner(this.dummyData)
+  _TestRunner()
       : super(() => PagePriceChart(
-    onClearClicked: (context) {},
-    program: dummyData.program,
-  ));
+              onClearClicked: (context) {},
+              program: JsonClient.instance.mProgramDetailData.program,
+            ));
 
-  final ProgramDetailData dummyData;
-
-  void runTest() => group('ScreenDetailPriceChart', () {
-    testGoldensSimple(
-      testName: 'ScreenDetailPriceChart',
-      overrides: [
-        kPrvViewModelDetail(dummyData.program.id)
-            .overrideWithProvider(ViewModelDetailMockable.createProvider(
-            ModelDetail.initial(true).copyWith(
-              isHandoutUrlRequesting: true,
-              prgDataResult: DetailModelState.success(
-                programDetailData: dummyData,
-                page: const PageSheetModel.hidden(),
-                channelData: channelData,
-              ),
-            ),
-            dummyData.program.id)),
-      ],
-    );
-  });
+  void runTest() => group(
+        'ScreenDetailPriceChart',
+        () => testGoldensSimple(
+          testName: 'ScreenDetailPriceChart',
+          overrides: [
+            kPrvViewModelDetail(mProgramDetailData.program.id)
+                .overrideWithProvider(ViewModelDetailMockable.createProvider(
+                    ModelDetail.initial(true).copyWith(
+                      isHandoutUrlRequesting: true,
+                      prgDataResult: DetailModelState.success(
+                        programDetailData: mProgramDetailData,
+                        page: const PageSheetModel.hidden(),
+                        channelData: mChannelData,
+                      ),
+                    ),
+                    mProgramDetailData.program.id)),
+          ],
+        ),
+      );
 }

@@ -16,6 +16,8 @@ import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
 import '../mock_viewmodel/viewmodel_dashboard_mockable.dart';
+import '../widget_test_util/json_client.dart';
+import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
@@ -41,32 +43,31 @@ Future<void> main() async {
         ..testNormal(
           //todo implement to ViewModelSubscribing, ViewModelWatchHistory
           DashboardModel.success(DataWrapper.initial(ApiData(
-            featureProgramData: testBase.featureProgramData,
-            rawNewProgramsDataList: [testBase.newProgramsData],
+            featureProgramData: JsonClient.instance.mFeatureProgramData,
+            rawNewProgramsDataList: [JsonClient.instance.mNewProgramsData],
           ))),
         ));
 
   /// todo merge with `ViewModelWatchHistory` test
   group('test for ViewModelDashBoard.loadingMore', () {
-    NewProgramsData noNextTokenState;
+    NewProgramsData noNextTokenState = JsonClient.instance.mNewProgramsData;
     NewProgramsData hasNextTokenState;
     DashboardModel successNoNextToken;
     DashboardModel successHasNextToken;
     Override overrideNoNextToken;
     Override overrideHasNextToken;
 
-    setUpAll(() async {
-      hasNextTokenState = await kJsonClient.newProgramsData;
-      final featureProgramData = await kJsonClient.featureProgramData;
+    setUpAll(() {
+      hasNextTokenState = JsonClient.instance.mNewProgramsData;
       noNextTokenState = hasNextTokenState.copyWith.newPrograms(
         nextToken: null,
       );
       successNoNextToken = DashboardModel.success(DataWrapper.initial(ApiData(
-        featureProgramData: featureProgramData,
+        featureProgramData: JsonClient.instance.mFeatureProgramData,
         rawNewProgramsDataList: [noNextTokenState],
       )));
       successHasNextToken = DashboardModel.success(DataWrapper.initial(ApiData(
-        featureProgramData: featureProgramData,
+        featureProgramData: JsonClient.instance.mFeatureProgramData,
         rawNewProgramsDataList: [hasNextTokenState],
       )));
       overrideNoNextToken = kPrvDashboardViewModel.overrideWithProvider(
@@ -75,17 +76,14 @@ Future<void> main() async {
           ViewModelDashBoardMockable.createProvider(successHasNextToken));
     });
 
-    ProviderContainer createProviderContainer(List<Override> list) =>
-        ProviderContainer(
-          overrides: testBase.defaultOverride + list,
-        );
-
     Future<void> testTemplate({
       List<Override> override = const [],
       @required DashboardModel expectedState,
       @required SnackMsg expectedSnack,
     }) async {
-      final container = createProviderContainer(override + testBase.defaultOverride);
+      final container = ProviderContainer(
+        overrides: testBase.defaultOverride + override,
+      );
       final viewModel = container.listen(kPrvDashboardViewModel).read();
       final snackBar = container.listen(kPrvSnackBar).read();
       await viewModel.loadMoreNewPrg();
@@ -97,26 +95,22 @@ Future<void> main() async {
 
     test(
       'StateIsInvalid_CancelLoadingMore',
-      () async {
-        await testTemplate(
-          override: [],
-          expectedState: const DashboardModel.initial(),
-          expectedSnack: null,
-        );
-      },
+      () async => testTemplate(
+        override: [],
+        expectedState: const DashboardModel.initial(),
+        expectedSnack: null,
+      ),
     );
     test(
       'NoNextToken_CancelLoadingMore',
-      () async {
-        await testTemplate(
-          override: [overrideNoNextToken],
-          expectedState: successNoNextToken,
-          expectedSnack: null,
-        );
-      },
+      () async => testTemplate(
+        override: [overrideNoNextToken],
+        expectedState: successNoNextToken,
+        expectedSnack: null,
+      ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_NETWORK_DISCONNECTED,
+      TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () async => testTemplate(
         override: [
           kOverrideDisconnected,
@@ -127,7 +121,7 @@ Future<void> main() async {
       ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_NETWORK_TIMEOUT,
+      TestNameCommon.ERR_NETWORK_TIMEOUT,
       () async => testTemplate(
         override: [
           kOverrideConnectedRepositoryConnectedImpl,
@@ -139,7 +133,7 @@ Future<void> main() async {
       ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_ERR_UNKNOWN,
+      TestNameCommon.ERR_UNKNOWN,
       () async => testTemplate(
         override: [
           kOverrideConnectedRepositoryConnectedImpl,

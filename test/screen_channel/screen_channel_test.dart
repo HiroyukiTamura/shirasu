@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_channel/page_channel_detail.dart';
@@ -13,16 +14,13 @@ import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_channel.dart';
 
 import '../mock_viewmodel/viewmodel_channel_mockable.dart';
+import '../widget_test_util/json_client.dart';
+import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_runner_base.dart';
 import '../widget_test_util/test_util.dart';
 
-Future<void> main() async {
-  final channelId = await kJsonClient.channel.then((it) => it.channel.id);
-
-  final runner = _TestRunner(channelId);
-  await runner.init();
-  runner.runTestScreen();
-}
+void main() =>
+    _TestRunner(JsonClient.instance.mChannelData.channel.id).runTestScreen();
 
 class _TestRunner extends TestRunnerBase {
   _TestRunner(this.channelId)
@@ -34,169 +32,121 @@ class _TestRunner extends TestRunnerBase {
 
   final String channelId;
 
+  Override createOverride(ChannelModel model) =>
+      kPrvViewModelChannel(channelId).overrideWithProvider(
+        ViewModelChannelMockable.createProvider(model, channelId),
+      );
+
   void runTestScreen() {
-    final overrideNormal = kPrvViewModelChannel(channelId).overrideWithProvider(
-      ViewModelChannelMockable.createProvider(
-          ChannelModel.success(
-              ChannelDataWrapper(data: channelData, loading: false)),
-          channelId),
+    final overrideNormal = createOverride(ChannelModel.success(
+        ChannelDataWrapper(data: mChannelData, loading: false)));
+
+    final overrideNoAnnounce = createOverride(
+      ChannelModel.success(ChannelDataWrapper(
+        data: mChannelData.copyWith.channel.announcements(rawItems: []),
+        loading: false,
+      )),
     );
 
-    final overrideNoAnnounce =
-        kPrvViewModelChannel(channelId).overrideWithProvider(
-      ViewModelChannelMockable.createProvider(
-          ChannelModel.success(ChannelDataWrapper(
-            data: channelData.copyWith.channel.announcements(rawItems: []),
-            loading: false,
-          )),
-          channelId),
+    final overrideNonPurchased = createOverride(
+      ChannelModel.success(ChannelDataWrapper(
+        data: mChannelData.copyWith.channel.subscriptionPlan.viewerPurchasedPlan(
+          isActive: false,
+        ),
+        loading: false,
+      )),
     );
 
-    final overrideNonPurchased =
-        kPrvViewModelChannel(channelId).overrideWithProvider(
-      ViewModelChannelMockable.createProvider(
-          ChannelModel.success(ChannelDataWrapper(
-            data: channelData.copyWith.channel.subscriptionPlan
-                .viewerPurchasedPlan(
+    final overrideNoPurchasable = createOverride(
+      ChannelModel.success(ChannelDataWrapper(
+        data: mChannelData.copyWith.channel
+            .subscriptionPlan(isPurchasable: false)
+            .copyWith
+            .channel
+            .subscriptionPlan
+            .viewerPurchasedPlan(
               isActive: false,
             ),
-            loading: false,
-          )),
-          channelId),
-    );
-
-    final overrideNoPurchasable =
-        kPrvViewModelChannel(channelId).overrideWithProvider(
-      ViewModelChannelMockable.createProvider(
-          ChannelModel.success(ChannelDataWrapper(
-            data: channelData.copyWith.channel
-                .subscriptionPlan(isPurchasable: false)
-                .copyWith
-                .channel
-                .subscriptionPlan
-                .viewerPurchasedPlan(
-                  isActive: false,
-                ),
-            loading: false,
-          )),
-          channelId),
+        loading: false,
+      )),
     );
 
     group('ScreenChannel', () {
       testGoldensSimple(
-          testName: 'PreInitialized',
-          overrides: [
-            kPrvViewModelChannel(channelId).overrideWithProvider(
-                ViewModelChannelMockable.createProvider(
-                    const ChannelModel.preInitialized(), channelId)),
-          ],
-          onScenarioCreate: (tester, scenarioWidgetKey) async =>
-              TestUtil.expectFind(
-                scenarioWidgetKey: scenarioWidgetKey,
-                matching: find.byType(CenterCircleProgress),
-                matcher: findsOneWidget,
-              ));
+        testName: TestNameCommon.PRE_INIT,
+        overrides: [
+          createOverride(const ChannelModel.preInitialized()),
+        ],
+        onPostBuild: (tester) =>
+            expect(find.byType(CenterCircleProgress), findsOneWidget),
+      );
       testGoldensSimple(
-          testName: 'ErrUnknown',
-          overrides: [
-            kPrvViewModelChannel(channelId).overrideWithProvider(
-              ViewModelChannelMockable.createProvider(
-                  const ChannelModel.error(ErrorMsgCommon.unknown()),
-                  channelId),
-            ),
-          ],
-          onScenarioCreate: (tester, scenarioWidgetKey) async =>
-              TestUtil.expectFind(
-                scenarioWidgetKey: scenarioWidgetKey,
-                matching: find.byType(PageError),
-                matcher: findsOneWidget,
-              ));
+        testName: TestNameCommon.ERR_UNKNOWN,
+        overrides: [
+          createOverride(const ChannelModel.error(ErrorMsgCommon.unknown()))
+        ],
+        onPostBuild: (tester) {
+          expect(find.byType(PageError), findsOneWidget);
+        },
+      );
       testGoldensSimple(
-          testName: 'Normal_Tab_1st',
-          overrides: [overrideNormal],
-          onScenarioCreate: (tester, scenarioWidgetKey) async =>
-              TestUtil.expectFind(
-                scenarioWidgetKey: scenarioWidgetKey,
-                matching: find.byType(PageChannelDetail),
-                matcher: findsOneWidget,
-              ));
+        testName: 'Normal_Tab_1st',
+        overrides: [overrideNormal],
+        onPostBuild: (tester) {
+          expect(find.byType(PageChannelDetail), findsOneWidget);
+        },
+      );
       testGoldensSimple(
-          testName: 'Normal_Tab_2nd',
-          overrides: [overrideNormal],
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            final tab2nd = find.descendant(
-              of: find.byKey(scenarioWidgetKey),
-              matching: find.text(Strings.CHANNEL_TAB_MOVIE),
-            );
-            await tester.tap(tab2nd);
-            await tester.pumpAndSettle();
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.byType(PageMovieList),
-              matcher: findsOneWidget,
-            );
-          });
+        testName: 'Normal_Tab_2nd',
+        overrides: [overrideNormal],
+        onPostBuild: (tester) async {
+          await tester.tap(find.text(Strings.CHANNEL_TAB_MOVIE));
+          await tester.pumpAndSettle();
+          expect(find.byType(PageMovieList), findsOneWidget);
+        },
+      );
       testGoldensSimple(
-          testName: 'Normal_Tab_3rd',
-          overrides: [overrideNormal],
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            final tab3rd = find.descendant(
-              of: find.byKey(scenarioWidgetKey),
-              matching: find.text(Strings.CHANNEL_TAB_NOTIFICATION),
-            );
-            await tester.tap(tab3rd);
-            await tester.pumpAndSettle();
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.byType(PageNotification),
-              matcher: findsOneWidget,
-            );
-          });
+        testName: 'Normal_Tab_3rd',
+        overrides: [overrideNormal],
+        onPostBuild: (tester) async {
+          await tester.tap(find.text(Strings.CHANNEL_TAB_NOTIFICATION));
+          await tester.pumpAndSettle();
+          expect(find.byType(PageNotification), findsOneWidget);
+        },
+      );
       testGoldensSimple(
-          testName: 'Normal_NoAnnouncements',
-          overrides: [overrideNoAnnounce],
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.text(Strings.CHANNEL_TAB_NOTIFICATION),
-              matcher: findsNothing,
-            );
-          });
+        testName: 'Normal_NoAnnouncements',
+        overrides: [overrideNoAnnounce],
+        onPostBuild: (tester) async {
+          await tester.tap(find.text(Strings.CHANNEL_TAB_NOTIFICATION));
+          await tester.pumpAndSettle();
+          final finder = find.widgetWithText(
+              PageErrText, Strings.CHANNEL_ANNOUNCEMENTS_EMPTY_MSG);
+          expect(finder, findsOneWidget);
+        },
+      );
       testGoldensSimple(
-          testName: 'Normal_Purchased',
-          overrides: [overrideNormal],
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.byType(PurchasedBannerMedium),
-              matcher: findsOneWidget,
-            );
-          });
+        testName: 'Normal_Purchased',
+        overrides: [overrideNormal],
+        onPostBuild: (tester) {
+          expect(find.byType(PurchasedBannerMedium), findsOneWidget);
+        },
+      );
       testGoldensSimple(
-          testName: 'Normal_NonPurchased',
-          overrides: [overrideNonPurchased],
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.byType(BillingBtnMedium),
-              matcher: findsOneWidget,
-            );
-          });
+        testName: 'Normal_NonPurchased',
+        overrides: [overrideNonPurchased],
+        onPostBuild: (tester) {
+          expect(find.byType(BillingBtnMedium), findsOneWidget);
+        },
+      );
       testGoldensSimple(
-          testName: 'Normal_NoPurchasable',
-          overrides: [overrideNoPurchasable],
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.byType(BillingBtnMedium),
-              matcher: findsNothing,
-            );
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.byType(PurchasedBannerMedium),
-              matcher: findsNothing,
-            );
-          });
+        testName: 'Normal_NoPurchasable',
+        overrides: [overrideNoPurchasable],
+        onPostBuild: (tester) {
+          expect(find.byType(BillingBtnMedium), findsNothing);
+          expect(find.byType(PurchasedBannerMedium), findsNothing);
+        },
+      );
     });
   }
 }

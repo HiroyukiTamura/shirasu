@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartx/dartx.dart';
@@ -17,6 +19,7 @@ import 'package:shirasu/ui_common/page_error.dart';
 import '../../mock_repository/connected_connected.dart';
 import '../../mock_repository/graphql_common.dart';
 import '../../mock_repository/hive_pref_empty.dart';
+import '../../widget_test_util/json_client.dart';
 import '../../widget_test_util/test_models.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_runner_on_page_error.dart';
@@ -26,27 +29,15 @@ const _kTestNameNoData = 'NoData';
 const _kTestNameGoldenData = 'GoldenData';
 
 /// test for [PageDashboardInMainScreen]
-Future<void> main() async {
-  final runner = _TestRunner();
-  await runner.init();
-  runner
-    ..runTestGroup('PageDashboardNormalScreen')
-    ..runTestNormal();
-}
+void main() => _TestRunner()
+  ..runTestGroup('PageDashboardNormalScreen')
+  ..runTestNormal();
 
 class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
   _TestRunner()
       : super(() => const Scaffold(
               body: PageDashboardInMainScreen(),
             ));
-
-  FeatureProgramData _mFeatureProgramData;
-  NewProgramsData _mNewProgramsData;
-
-  Future<void> init() async {
-    _mFeatureProgramData = await kJsonClient.featureProgramData;
-    _mNewProgramsData = await kJsonClient.newProgramsData;
-  }
 
   /// todo add test;
   /// 1. subscribing program
@@ -56,64 +47,50 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
           @required String goldenName,
           FeatureProgramData featureProgramData,
           NewProgramsData newProgramsData,
-          Future<void> Function(Key scenarioWidgetKey) onScenarioCreatePost,
+          FutureOr<void> Function(WidgetTester tester) onPost,
           List<Finder> expectOneWidgetList = const [],
           List<Finder> expectNoWidgetList = const [],
-        }) {
-          testGoldensSimple(
+        }) =>
+            testGoldensSimple(
               testName: goldenName,
               overrides: [
                 kOverrideConnectedRepositoryConnectedImpl,
-                kPrvHivePrefRepository.overrideWithValue(
-                    const HivePrefEmptyRepositoryImpl(false)),
                 kPrvGraphqlRepository
                     .overrideWithValue(GraphQlRepositoryCommonImpl(
-                  featureProgramData:
-                      featureProgramData ?? _mFeatureProgramData,
-                  newProgramsData: newProgramsData ?? _mNewProgramsData,
+                  featureProgramData: featureProgramData ??
+                      JsonClient.instance.mFeatureProgramData,
+                  newProgramsData:
+                      newProgramsData ?? JsonClient.instance.mNewProgramsData,
                 )),
+                ...defaultOverride,
               ],
-              onScenarioCreate: (tester, scenarioWidgetKey) async {
+              onPostBuild: (tester) async {
                 await tester.pump(5.seconds);
                 (expectNoWidgetList + [find.byType(PageError)])
-                    .forEach((it) => TestUtil.expectFind(
-                          scenarioWidgetKey: scenarioWidgetKey,
-                          matching: it,
-                          matcher: findsNothing,
-                        ));
-                expectOneWidgetList.forEach((it) => TestUtil.expectFind(
-                      scenarioWidgetKey: scenarioWidgetKey,
-                      matching: it,
-                      matcher: findsOneWidget,
-                    ));
-                if (onScenarioCreatePost != null)
-                  await onScenarioCreatePost(scenarioWidgetKey);
-              });
-        }
+                    .forEach((it) => expect(it, findsNothing));
+                expectOneWidgetList.forEach((it) => expect(it, findsOneWidget));
+                onPost(tester);
+              },
+            );
 
-        void expectChannelItem(Key scenarioWidgetKey, Matcher matcher) {
-          TestUtil.expectFind(
-            scenarioWidgetKey: scenarioWidgetKey,
-            matching: find.descendant(
-              of: find.byType(ChannelListItem),
-              matching: find.byType(CircleCachedNetworkImage),
-            ),
-            matcher: matcher,
-          );
-        }
+        void expectChannelItem(Matcher matcher) => expect(
+              find.descendant(
+                of: find.byType(ChannelListItem),
+                matching: find.byType(CircleCachedNetworkImage),
+              ),
+              matcher,
+            );
 
         void expectHorizontalCarouseChildren({
           @required Key scenarioWidgetKey,
           @required Matcher matcher,
           int index = 0,
-        }) =>
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.descendant(
-                  of: find.byType(HorizontalCarousels).at(index),
-                  matching: find.byType(HorizontalCarouselItem)),
-              matcher: matcher,
-            );
+        }) {
+          final actual = find.descendant(
+              of: find.byType(HorizontalCarousels).at(index),
+              matching: find.byType(HorizontalCarouselItem));
+          expect(actual, matcher);
+        }
 
         void expectUpComingAndSubscribingItemAreNotEmpty(
             Key scenarioWidgetKey) {
@@ -145,7 +122,7 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
             // find.byType(BillboardHeader),
             // find.byType(MovieListItem),
           ],
-          onScenarioCreatePost: (scenarioWidgetKey) async {
+          onPost: (tester) async {
             // expectChannelItem(scenarioWidgetKey, findsWidgets);
             // expectUpComingAndSubscribingItemAreNotEmpty(scenarioWidgetKey);
           },
@@ -164,8 +141,9 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
             find.byType(BillboardHeader),
             find.byType(HorizontalCarousels),
           ],
-          onScenarioCreatePost: (scenarioWidgetKey) async =>
-              expectChannelItem(scenarioWidgetKey, findsNothing),
+          onPost: (tester) {
+            expectChannelItem(findsNothing);
+          },
         );
       });
 }

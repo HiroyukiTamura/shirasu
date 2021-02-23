@@ -8,18 +8,12 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 
 import '../mock_repository/connected_connected.dart';
 import '../mock_repository/graphql_common.dart';
+import 'json_client.dart';
 import 'test_models.dart';
+import 'test_name_common.dart';
 import 'test_runner_base.dart';
-import 'test_util.dart';
 
 mixin TestRunnerOnPageList on TestRunnerBase {
-  @protected
-  static const _TEST_NAME_EMPTY = 'Empty';
-  @protected
-  static const _TEST_NAME_NORMAL = 'Normal';
-  @protected
-  static const WATCH_HISTORY_LAST_TITLE = 'LastTitle';
-
   @protected
   final overrideGraphQlEmpty =
       kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
@@ -35,55 +29,60 @@ mixin TestRunnerOnPageList on TestRunnerBase {
   Override _overrideGraphQlLoadableMoreHistory;
 
   @protected
-  Override get overrideGraphQlLoadableMoreHistory => _overrideGraphQlLoadableMoreHistory;
+  Override get overrideGraphQlLoadableMoreHistory =>
+      _overrideGraphQlLoadableMoreHistory;
 
-  Future<void> initTestOnPageList() async {
-    WatchHistoriesData watchHistoriesData =
-        await kJsonClient.watchHistoriesData;
-    watchHistoriesData = watchHistoriesData.copyWith.viewerUser.watchHistories(
-      rawItems: watchHistoriesData.viewerUser.watchHistories.items +
+  WatchHistoriesData mWatchHistoriesData;
+
+  void initTestOnPageList() {
+    mWatchHistoriesData = JsonClient
+        .instance.mWatchHistoriesData.copyWith.viewerUser
+        .watchHistories(
+      rawItems: JsonClient
+              .instance.mWatchHistoriesData.viewerUser.watchHistories.items +
           [
-            watchHistoriesData.viewerUser.watchHistories.items.last.copyWith
-                .program(title: WATCH_HISTORY_LAST_TITLE)
+            JsonClient.instance.mWatchHistoriesData.viewerUser.watchHistories
+                .items.last.copyWith
+                .program(
+              title: TestNameCommon.WATCH_HISTORY_LAST_TITLE,
+            )
           ],
     );
-    final featureProgramData = await kJsonClient.featureProgramData;
     _overrideNormal =
         kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
-      watchHistoriesData: watchHistoriesData,
-      featureProgramData: featureProgramData,
+      watchHistoriesData: JsonClient.instance.mWatchHistoriesData,
+      featureProgramData: JsonClient.instance.mFeatureProgramData,
     ));
     _overrideGraphQlLoadableMoreHistory =
         kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
-          watchHistoriesData: watchHistoriesData.copyWith.viewerUser.watchHistories(nextToken: 'NEXT_TOKEN'),
-        ));
+      watchHistoriesData: JsonClient
+          .instance.mWatchHistoriesData.copyWith.viewerUser
+          .watchHistories(
+        nextToken: TestRunnerBase.NEXT_TOKEN,
+      ),
+    ));
   }
 
   void runTestOnPageList(String groupName) => group(groupName, () {
         testGoldensSimple(
-          testName: _TEST_NAME_EMPTY,
+          testName: TestNameCommon.EMPTY,
           overrides: [
             overrideGraphQlEmpty,
             kOverrideConnectedRepositoryConnectedImpl
           ],
-          onScenarioCreate: (tester, scenarioWidgetKey) async =>
-              TestUtil.expectFind(
-            scenarioWidgetKey: scenarioWidgetKey,
-            matching: find.byType(EmptyListWidget),
-            matcher: findsOneWidget,
-          ),
+          onPostBuild: (tester) {
+            expect(find.byType(EmptyListWidget), findsOneWidget);
+          },
         );
         testGoldensSimple(
-            testName: _TEST_NAME_NORMAL,
-            overrides: [
-              _overrideNormal,
-              kOverrideConnectedRepositoryConnectedImpl
-            ],
-            onScenarioCreate: (tester, scenarioWidgetKey) async =>
-                TestUtil.expectFind(
-                  scenarioWidgetKey: scenarioWidgetKey,
-                  matching: find.byType(MovieListItem),
-                  matcher: findsWidgets,
-                ));
+          testName: TestNameCommon.NORMAL,
+          overrides: [
+            _overrideNormal,
+            kOverrideConnectedRepositoryConnectedImpl
+          ],
+          onPostBuild: (tester) {
+            expect(find.byType(MovieListItem), findsWidgets);
+          },
+        );
       });
 }

@@ -1,9 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:shirasu/model/auth_data.dart';
-import 'package:shirasu/extension.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
-import '../update_user_with_attr_variable.dart' as attr;
 
 part 'auth_data.g.dart';
 
@@ -263,12 +261,12 @@ abstract class HiveUser with _$HiveUser {
     @required @HiveField(25) String name,
     @required @HiveField(26) String picture,
 
-    @required @HiveField(27)
-    String locale,
-    @required @HiveField(28) DateTime updatedAt,
-    @required @HiveField(29) String email,
-    @required @HiveField(30) bool emailVerified,
-    @required @HiveField(31) String sub,
+    // @required @HiveField(27)
+    // String locale,
+    @required @HiveField(27) DateTime updatedAt,
+    @required @HiveField(28) String email,
+    @required @HiveField(29) bool emailVerified,
+    @required @HiveField(30) String sub,
   }) = _HiveUser;
 
   factory HiveUser.parse(User user) => HiveUser(
@@ -282,7 +280,7 @@ abstract class HiveUser with _$HiveUser {
         name: user.name,
         picture: user.picture,
         updatedAt: user.updatedAt,
-        locale: user.locale,
+        // locale: user.locale,
         email: user.email,
         emailVerified: user.emailVerified,
         sub: user.sub,

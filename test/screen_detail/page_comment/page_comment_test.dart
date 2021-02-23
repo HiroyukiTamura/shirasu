@@ -14,36 +14,34 @@ import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 import '../../mock_viewmodel/viewmodel_detail_mockable.dart';
+import '../../widget_test_util/json_client.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_util.dart';
 
-Future<void> main() async {
-  final programDetail = await kJsonClient.programDetail;
-
-  final runner = _TestRunner(programDetail);
-  await runner.init();
-  runner.runTest();
-}
+void main() => _TestRunner().runTest();
 
 class _TestRunner extends TestRunnerBase {
-  _TestRunner(this.dummyData)
+  _TestRunner()
       : super(() => SafeArea(
               child: Scaffold(
                 body: PageComment(
-                  id: dummyData.program.id,
+                  id: JsonClient.instance.mProgramDetailData.program.id,
                 ),
               ),
             ));
 
-  final ProgramDetailData dummyData;
+  Override overrideViewModel(ModelDetail model) =>
+      kPrvViewModelDetail(mProgramDetailData.program.id)
+          .overrideWithProvider(ViewModelDetailMockable.createProvider(
+        model,
+        mProgramDetailData.program.id,
+      ));
 
   void runTest() => group('ScreenDetailComment', () {
         testGoldensSimple(
           testName: 'ScreenDetailComment_Loading',
           overrides: [
-            kPrvViewModelDetail(dummyData.program.id).overrideWithProvider(
-                ViewModelDetailMockable.createProvider(
-                    ModelDetail.initial(true), dummyData.program.id)),
+            overrideViewModel(ModelDetail.initial(true)),
           ],
           onPostBuild: (tester) =>
               expect(find.byType(CenterCircleProgress), findsOneWidget),
@@ -51,13 +49,10 @@ class _TestRunner extends TestRunnerBase {
         testGoldensSimple(
           testName: 'ScreenDetailComment_Error',
           overrides: [
-            kPrvViewModelDetail(dummyData.program.id)
-                .overrideWithProvider(ViewModelDetailMockable.createProvider(
-                    ModelDetail.initial(true).copyWith(
-                        commentHolder: CommentsHolder.initial(true).copyWith(
-                      state: const CommentsState.error(ErrorMsgCommon.unknown()),
-                    )),
-                    dummyData.program.id)),
+            overrideViewModel(ModelDetail.initial(true).copyWith(
+                commentHolder: CommentsHolder.initial(true).copyWith(
+              state: const CommentsState.error(ErrorMsgCommon.unknown()),
+            )))
           ],
           onPostBuild: (tester) => expect(
               find.widgetWithText(PageErrText, Strings.SNACK_ERR),
@@ -66,13 +61,10 @@ class _TestRunner extends TestRunnerBase {
         testGoldensSimple(
           testName: 'ScreenDetailComment_Success_EmptyComment',
           overrides: [
-            kPrvViewModelDetail(dummyData.program.id)
-                .overrideWithProvider(ViewModelDetailMockable.createProvider(
-                    ModelDetail.initial(true).copyWith(
-                        commentHolder: CommentsHolder.initial(true).copyWith(
-                      state: const CommentsState.success(),
-                    )),
-                    dummyData.program.id)),
+            overrideViewModel(ModelDetail.initial(true).copyWith(
+                commentHolder: CommentsHolder.initial(true).copyWith(
+              state: const CommentsState.success(),
+            ))),
           ],
           onPostBuild: (tester) {
             expect(find.byType(ListView), findsNothing);
@@ -82,16 +74,14 @@ class _TestRunner extends TestRunnerBase {
         testGoldensSimple(
           testName: 'ScreenDetailComment_Success_Normal',
           overrides: [
-            kPrvViewModelDetail(dummyData.program.id)
-                .overrideWithProvider(ViewModelDetailMockable.createProvider(
-                    ModelDetail.initial(true).copyWith(
-                        commentHolder: CommentsHolder.initial(true).copyWith(
-                      state: const CommentsState.success(),
-                    )),
-                    dummyData.program.id)),
-            kPrvPageUiData(dummyData.program.id)
+            overrideViewModel(ModelDetail.initial(true).copyWith(
+                commentHolder: CommentsHolder.initial(true).copyWith(
+              state: const CommentsState.success(),
+            ))),
+            kPrvPageUiData(mProgramDetailData.program.id)
                 .overrideWithValue(StateController(PageUiData(
-              rawComments: listCommentsByProgram.comments.itemsSorted,
+              rawComments: JsonClient
+                  .instance.mListCommentsByProgram.comments.itemsSorted,
               showBottomProgressIndicator: true,
             ))),
           ],

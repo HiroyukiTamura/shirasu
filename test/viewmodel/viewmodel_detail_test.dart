@@ -22,23 +22,23 @@ import '../mock_repository/graphql_timeout.dart';
 import '../mock_repository/graphql_unauthorized.dart';
 import '../mock_repository/hive_auth_empty.dart';
 import '../mock_viewmodel/viewmodel_detail_mockable.dart';
+import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelDetail]
 Future<void> main() async {
-  final program = await kJsonClient.programDetail;
-
   final testBase = ViewModelTestBase<ModelDetail>(
-    prvViewModel: kPrvViewModelDetail(program.program.id),
+    prvViewModel:
+        kPrvViewModelDetail(JsonClient.instance.mProgramDetailData.program.id),
   );
 
   await testBase.init();
 
   final overrideGraphQlCommon =
       kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
-    comments: testBase.commentsByProgram.comments,
-    commentItem: testBase.commentsByProgram.comments.itemsSorted.first,
+    comments: testBase.mCommentsByProgram.comments,
+    commentItem: testBase.mCommentsByProgram.comments.itemsSorted.first,
   ));
 
   group(
@@ -61,11 +61,6 @@ Future<void> main() async {
           const ErrorMsgCommon.unknown(),
         )));
 
-  ProviderContainer createProviderContainer(List<Override> list) =>
-      ProviderContainer(
-        overrides: testBase.defaultOverride + list,
-      );
-
   Future<void> testTemplate({
     List<Override> override = const [],
     ModelDetail defaultState,
@@ -76,9 +71,13 @@ Future<void> main() async {
     // must have original SnackBarMessageNotifier!!
     final snackNtf = SnackBarMessageNotifier();
     final overrideSnackBar = kPrvSnackBar.overrideWithValue(snackNtf);
-    final container = createProviderContainer(override + [overrideSnackBar]);
-    final viewModel =
-        container.listen(kPrvViewModelDetail(program.program.id)).read();
+    final container = ProviderContainer(
+      overrides: testBase.defaultOverride + override,
+    );
+    final viewModel = container
+        .listen(kPrvViewModelDetail(
+            JsonClient.instance.mProgramDetailData.program.id))
+        .read();
     if (defaultState != null) viewModel.state = defaultState;
     await predicate(viewModel);
     final snack = container
@@ -90,8 +89,8 @@ Future<void> main() async {
 
   final specState = ModelDetail.initial(true).copyWith(
       prgDataResult: DetailModelState.success(
-    programDetailData: testBase.programDetail,
-    channelData: testBase.channelData,
+    programDetailData: JsonClient.instance.mProgramDetailData,
+    channelData: JsonClient.instance.mChannelData,
     page: const PageSheetModel.hidden(),
   ));
 
@@ -99,7 +98,7 @@ Future<void> main() async {
     (ref, param) => ViewModelDetailMockable(
       ref.read,
       specState,
-      testBase.programDetail.program.id,
+      JsonClient.instance.mProgramDetailData.program.id,
     ),
   );
 
@@ -212,7 +211,7 @@ Future<void> main() async {
               ViewModelDetail.COMMENT_MAX_ITEM_COUNT);
           expect(
               viewModel.state.commentHolder.comments.last,
-              testBase.commentsByProgram.comments
+              JsonClient.instance.mListCommentsByProgram.comments
                   .items[ViewModelDetail.COMMENT_MAX_ITEM_COUNT - 1]);
         },
       ),
@@ -231,7 +230,7 @@ Future<void> main() async {
         expectedSnack: const SnackMsg.networkDisconnected(),
         predicate: (viewModel) async {
           final url = await viewModel.queryHandOutUrl(
-              testBase.programDetail.program.handouts.items.first.id);
+              JsonClient.instance.mProgramDetailData.program.handouts.items.first.id);
           await Future.delayed(1.seconds);
           expect(url, isNull);
         },
@@ -249,7 +248,7 @@ Future<void> main() async {
         expectedSnack: const SnackMsg.networkTimeout(),
         predicate: (viewModel) async {
           final url = await viewModel.queryHandOutUrl(
-              testBase.programDetail.program.handouts.items.first.id);
+              JsonClient.instance.mProgramDetailData.program.handouts.items.first.id);
           await Future.delayed(10.seconds);
           expect(url, isNull);
         },
@@ -267,7 +266,7 @@ Future<void> main() async {
         expectedSnack: const SnackMsg.unknown(),
         predicate: (viewModel) async {
           final url = await viewModel.queryHandOutUrl(
-              testBase.programDetail.program.handouts.items.first.id);
+              JsonClient.instance.mProgramDetailData.program.handouts.items.first.id);
           await Future.delayed(1.seconds);
           expect(url, isNull);
         },
@@ -285,7 +284,7 @@ Future<void> main() async {
         expectedSnack: null,
         predicate: (viewModel) async {
           final url = await viewModel.queryHandOutUrl(
-              testBase.programDetail.program.handouts.items.first.id);
+              JsonClient.instance.mProgramDetailData.program.handouts.items.first.id);
           await Future.delayed(1.seconds);
           expect(url, GraphQlRepositoryCommonImpl.HANDOUT_URL);
         },
@@ -418,7 +417,7 @@ Future<void> main() async {
       () => testTemplate(
         override: [
           kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
-            specAuthData: testBase.hiveAuthData,
+            specAuthData: JsonClient.instance.mHiveAuthData,
           )),
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideDioTimeout,

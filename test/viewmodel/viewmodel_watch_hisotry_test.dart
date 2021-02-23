@@ -15,6 +15,9 @@ import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
 import '../mock_viewmodel/viewmodel_watch_hisotry_mockable.dart';
+import '../widget_test_util/json_client.dart';
+import '../widget_test_util/test_name_common.dart';
+import '../widget_test_util/test_runner_base.dart';
 import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
@@ -37,38 +40,40 @@ void main() {
         ..testUnknownError(
             const WatchHistoryState.error(ErrorMsgCommon.unknown())));
 
+  Override createViewModel(WatchHistoryState state) =>
+      kPrvViewModelWatchHistory.overrideWithProvider(
+          ViewModelWatchHistoryMockable.createProvider(state));
+
   /// test for [ViewModelWatchHistory.loadMoreWatchHistory]
   group('ViewModelWatchHistory LoadingMore', () {
     WatchHistoriesData dataNoNextToken;
     WatchHistoryState noNextTokenState;
     WatchHistoryState hasNextTokenState;
 
-    setUpAll(() async {
-      dataNoNextToken = await kJsonClient.watchHistoriesData;
+    setUpAll(() {
+      dataNoNextToken = JsonClient.instance.mWatchHistoriesData;
       noNextTokenState = WatchHistoryState.success(WatchHistoriesDataWrapper(
         watchHistories: [dataNoNextToken].toUnmodifiable(),
         isLoadingMore: false,
       ));
       hasNextTokenState = WatchHistoryState.success(WatchHistoriesDataWrapper(
         watchHistories: [
-          dataNoNextToken.copyWith.viewerUser
-              .watchHistories(nextToken: 'NEXT_TOKEN')
+          dataNoNextToken.copyWith.viewerUser.watchHistories(
+            nextToken: TestRunnerBase.NEXT_TOKEN,
+          )
         ].toUnmodifiable(),
         isLoadingMore: false,
       ));
     });
-
-    ProviderContainer createProviderContainer(List<Override> list) =>
-        ProviderContainer(
-          overrides: testBase.defaultOverride + list,
-        );
 
     Future<void> testTemplate({
       List<Override> override = const [],
       @required WatchHistoryState expectedState,
       @required SnackMsg expectedSnack,
     }) async {
-      final container = createProviderContainer(override);
+      final container = ProviderContainer(
+        overrides: testBase.defaultOverride + override,
+      );
       final viewModel = container.listen(kPrvViewModelWatchHistory).read();
       final snackBar = container.listen(kPrvSnackBar).read();
       await viewModel.loadMoreWatchHistory();
@@ -80,80 +85,54 @@ void main() {
 
     test(
       'StateIsInvalid_CancelLoadingMore',
-      () async {
-        final override = kPrvViewModelWatchHistory.overrideWithProvider(
-            ViewModelWatchHistoryMockable.createProvider(null));
-        await testTemplate(
-          override: [override],
-          expectedState: const WatchHistoryState.initial(),
-          expectedSnack: null,
-        );
-      },
+      () async => testTemplate(
+        override: [createViewModel(null)],
+        expectedState: const WatchHistoryState.initial(),
+        expectedSnack: null,
+      ),
     );
     test(
       'NoNextToken_CancelLoadingMore',
-      () async {
-        final override = kPrvViewModelWatchHistory.overrideWithProvider(
-            ViewModelWatchHistoryMockable.createProvider(noNextTokenState));
-        await testTemplate(
-          override: [override],
-          expectedState: noNextTokenState,
-          expectedSnack: null,
-        );
-      },
+      () async => testTemplate(
+        override: [createViewModel(noNextTokenState)],
+        expectedState: noNextTokenState,
+        expectedSnack: null,
+      ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_NETWORK_DISCONNECTED,
-      () async {
-        final overrideViewModel = kPrvViewModelWatchHistory
-            .overrideWithProvider(ViewModelWatchHistoryMockable.createProvider(
-                hasNextTokenState));
-        final overrideList = [
+      TestNameCommon.ERR_NETWORK_DISCONNECTED,
+      () async => testTemplate(
+        override: [
           kOverrideDisconnected,
-          overrideViewModel,
-        ];
-        await testTemplate(
-          override: overrideList,
-          expectedState: hasNextTokenState,
-          expectedSnack: const SnackMsg.networkDisconnected(),
-        );
-      },
+          createViewModel(hasNextTokenState),
+        ],
+        expectedState: hasNextTokenState,
+        expectedSnack: const SnackMsg.networkDisconnected(),
+      ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_NETWORK_TIMEOUT,
-      () async {
-        final overrideViewModel = kPrvViewModelWatchHistory
-            .overrideWithProvider(ViewModelWatchHistoryMockable.createProvider(
-                hasNextTokenState));
-        final overrideList = [
+      TestNameCommon.ERR_NETWORK_TIMEOUT,
+      () async => testTemplate(
+        override: [
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlTimeout,
-          overrideViewModel,
-        ];
-        await testTemplate(
-          override: overrideList,
-          expectedState: hasNextTokenState,
-          expectedSnack: const SnackMsg.networkTimeout(),
-        );
-      },
+          createViewModel(hasNextTokenState),
+        ],
+        expectedState: hasNextTokenState,
+        expectedSnack: const SnackMsg.networkTimeout(),
+      ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_ERR_UNKNOWN,
-      () async {
-        final overrideViewModel = kPrvViewModelWatchHistory
-            .overrideWithProvider(ViewModelWatchHistoryMockable.createProvider(
-                hasNextTokenState));
-        final overrideList = [
+      TestNameCommon.ERR_UNKNOWN,
+      () async => testTemplate(
+        override: [
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlErr,
-          overrideViewModel,
-        ];
-        await testTemplate(
-          override: overrideList,
-          expectedState: hasNextTokenState,
-          expectedSnack: const SnackMsg.unknown(),
-        );
-      },
+          createViewModel(hasNextTokenState),
+        ],
+        expectedState: hasNextTokenState,
+        expectedSnack: const SnackMsg.unknown(),
+      ),
     );
   });
 }

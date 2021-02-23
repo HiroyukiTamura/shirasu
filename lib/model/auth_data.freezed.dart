@@ -819,8 +819,6 @@ class _$ClaimsTearOff {
       @required
           String picture,
       @required
-          String locale,
-      @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       @required
@@ -848,7 +846,6 @@ class _$ClaimsTearOff {
       nickname: nickname,
       name: name,
       picture: picture,
-      locale: locale,
       updatedAt: updatedAt,
       email: email,
       emailVerified: emailVerified,
@@ -891,8 +888,7 @@ mixin _$Claims {
 // @JsonKey(name: 'family_name') @required String familyName,
   String get nickname;
   String get name;
-  String get picture;
-  String get locale;
+  String get picture; // @required String locale,
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   String get email;
@@ -932,7 +928,6 @@ abstract class $ClaimsCopyWith<$Res> {
       String nickname,
       String name,
       String picture,
-      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -966,7 +961,6 @@ class _$ClaimsCopyWithImpl<$Res> implements $ClaimsCopyWith<$Res> {
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -996,7 +990,6 @@ class _$ClaimsCopyWithImpl<$Res> implements $ClaimsCopyWith<$Res> {
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -1047,7 +1040,6 @@ abstract class _$ClaimsCopyWith<$Res> implements $ClaimsCopyWith<$Res> {
       String nickname,
       String name,
       String picture,
-      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -1083,7 +1075,6 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -1113,7 +1104,6 @@ class __$ClaimsCopyWithImpl<$Res> extends _$ClaimsCopyWithImpl<$Res>
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -1162,8 +1152,6 @@ class _$_Claims extends _Claims {
       @required
           this.picture,
       @required
-          this.locale,
-      @required
       @JsonKey(name: 'updated_at')
           this.updatedAt,
       @required
@@ -1190,7 +1178,6 @@ class _$_Claims extends _Claims {
         assert(nickname != null),
         assert(name != null),
         assert(picture != null),
-        assert(locale != null),
         assert(updatedAt != null),
         assert(email != null),
         assert(emailVerified != null),
@@ -1232,9 +1219,7 @@ class _$_Claims extends _Claims {
   final String name;
   @override
   final String picture;
-  @override
-  final String locale;
-  @override
+  @override // @required String locale,
   @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
   @override
@@ -1255,7 +1240,7 @@ class _$_Claims extends _Claims {
 
   @override
   String toString() {
-    return 'Claims(raw: $raw, rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, locale: $locale, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, iss: $iss, sub: $sub, aud: $aud, iat: $iat, exp: $exp)';
+    return 'Claims(raw: $raw, rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, iss: $iss, sub: $sub, aud: $aud, iat: $iat, exp: $exp)';
   }
 
   @override
@@ -1291,15 +1276,14 @@ class _$_Claims extends _Claims {
             (identical(other.picture, picture) ||
                 const DeepCollectionEquality()
                     .equals(other.picture, picture)) &&
-            (identical(other.locale, locale) ||
-                const DeepCollectionEquality().equals(other.locale, locale)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
                     .equals(other.updatedAt, updatedAt)) &&
             (identical(other.email, email) ||
                 const DeepCollectionEquality().equals(other.email, email)) &&
             (identical(other.emailVerified, emailVerified) ||
-                const DeepCollectionEquality().equals(other.emailVerified, emailVerified)) &&
+                const DeepCollectionEquality()
+                    .equals(other.emailVerified, emailVerified)) &&
             (identical(other.iss, iss) || const DeepCollectionEquality().equals(other.iss, iss)) &&
             (identical(other.sub, sub) || const DeepCollectionEquality().equals(other.sub, sub)) &&
             (identical(other.aud, aud) || const DeepCollectionEquality().equals(other.aud, aud)) &&
@@ -1319,7 +1303,6 @@ class _$_Claims extends _Claims {
       const DeepCollectionEquality().hash(nickname) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
-      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(emailVerified) ^
@@ -1371,8 +1354,6 @@ abstract class _Claims extends Claims {
       @required
           String picture,
       @required
-          String locale,
-      @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       @required
@@ -1421,9 +1402,7 @@ abstract class _Claims extends Claims {
   String get name;
   @override
   String get picture;
-  @override
-  String get locale;
-  @override
+  @override // @required String locale,
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   @override
@@ -2163,8 +2142,6 @@ class _$UserTearOff {
       @required
           String picture,
       @required
-          String locale,
-      @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       @required
@@ -2185,7 +2162,6 @@ class _$UserTearOff {
       nickname: nickname,
       name: name,
       picture: picture,
-      locale: locale,
       updatedAt: updatedAt,
       email: email,
       emailVerified: emailVerified,
@@ -2230,8 +2206,7 @@ mixin _$User {
   String get familyName;
   String get nickname;
   String get name;
-  String get picture;
-  String get locale;
+  String get picture; // @required String locale,
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   String get email;
@@ -2271,7 +2246,6 @@ abstract class $UserCopyWith<$Res> {
       String nickname,
       String name,
       String picture,
-      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -2302,7 +2276,6 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -2330,7 +2303,6 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -2381,7 +2353,6 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String nickname,
       String name,
       String picture,
-      String locale,
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       String email,
@@ -2414,7 +2385,6 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -2442,7 +2412,6 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -2492,8 +2461,6 @@ class _$_User implements _User {
       @required
           this.picture,
       @required
-          this.locale,
-      @required
       @JsonKey(name: 'updated_at')
           this.updatedAt,
       @required
@@ -2513,7 +2480,6 @@ class _$_User implements _User {
         assert(nickname != null),
         assert(name != null),
         assert(picture != null),
-        assert(locale != null),
         assert(updatedAt != null),
         assert(email != null),
         assert(emailVerified != null),
@@ -2558,9 +2524,7 @@ class _$_User implements _User {
   final String name;
   @override
   final String picture;
-  @override
-  final String locale;
-  @override
+  @override // @required String locale,
   @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
   @override
@@ -2573,7 +2537,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, givenName: $givenName, familyName: $familyName, nickname: $nickname, name: $name, picture: $picture, locale: $locale, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
+    return 'User(rawHttpsShirasuIoRoles: $rawHttpsShirasuIoRoles, httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, httpsShirasuIoCustomerId: $httpsShirasuIoCustomerId, rawHttpsShirasuIoDistributeds: $rawHttpsShirasuIoDistributeds, rawHttpsShirasuIoTenants: $rawHttpsShirasuIoTenants, givenName: $givenName, familyName: $familyName, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
   }
 
   @override
@@ -2613,9 +2577,8 @@ class _$_User implements _User {
             (identical(other.picture, picture) ||
                 const DeepCollectionEquality()
                     .equals(other.picture, picture)) &&
-            (identical(other.locale, locale) ||
-                const DeepCollectionEquality().equals(other.locale, locale)) &&
-            (identical(other.updatedAt, updatedAt) || const DeepCollectionEquality().equals(other.updatedAt, updatedAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality().equals(other.updatedAt, updatedAt)) &&
             (identical(other.email, email) || const DeepCollectionEquality().equals(other.email, email)) &&
             (identical(other.emailVerified, emailVerified) || const DeepCollectionEquality().equals(other.emailVerified, emailVerified)) &&
             (identical(other.sub, sub) || const DeepCollectionEquality().equals(other.sub, sub)));
@@ -2634,7 +2597,6 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(nickname) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
-      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(emailVerified) ^
@@ -2686,8 +2648,6 @@ abstract class _User implements User {
       @required
           String picture,
       @required
-          String locale,
-      @required
       @JsonKey(name: 'updated_at')
           DateTime updatedAt,
       @required
@@ -2736,9 +2696,7 @@ abstract class _User implements User {
   String get name;
   @override
   String get picture;
-  @override
-  String get locale;
-  @override
+  @override // @required String locale,
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
   @override

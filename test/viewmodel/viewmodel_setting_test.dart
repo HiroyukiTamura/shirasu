@@ -19,6 +19,7 @@ import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
 import '../mock_repository/graphql_unauthorized.dart';
 import '../mock_repository/hive_auth_empty.dart';
+import '../widget_test_util/json_client.dart';
 import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelSetting.initialize] and [ViewModelSetting.postProfile]
@@ -44,7 +45,6 @@ Future<void> main() async {
         ..testUnknownError(
             createSettingModelErr(const ErrorMsgCommon.unknown())));
   group('ViewModelSetting.postProfile', () {
-
     testRunner
       ..testPostWithInvalidClientId()
       ..testPostWhenNetworkDisconnected()
@@ -70,12 +70,17 @@ class _TestRunner extends ViewModelTestBase<SettingModel> {
     container.listen(kPrvSnackBar.state).read();
     container.listen(kPrvHiveAuthUser).read();
     viewModel.state = SettingModel.initial().copyWith(
-      settingModelState: SettingModelState.success(viewerWrapper),
+      settingModelState: SettingModelState.success(JsonClient.instance.mViewerWrapper),
     );
     await viewModel.postProfile();
     await onPost(container);
     expect(appRouter.appState.last, expectPath);
   }
+
+  Override get overrideViewModel =>
+      kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
+        specAuthData: JsonClient.instance.mHiveAuthData,
+      ));
 
   void testPostWithInvalidClientId() => test(
       'PostNewProfile_InvalidClientId_Cancel',
@@ -83,7 +88,9 @@ class _TestRunner extends ViewModelTestBase<SettingModel> {
             override: [
               kOverrideConnectedRepositoryConnectedImpl,
               kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
-                specAuthData: hiveAuthData.copyWith.body.decodedToken.user(
+                specAuthData: JsonClient
+                    .instance.mHiveAuthData.copyWith.body.decodedToken
+                    .user(
                   sub: 'DUMMY_SUB',
                 ),
               )),
@@ -91,7 +98,6 @@ class _TestRunner extends ViewModelTestBase<SettingModel> {
             ],
             expectPath: const PathDataMainPageBase.dashboard(),
             onPost: (container) async {
-              // ignore: invalid_use_of_protected_member
               final snackMsg = container.read(kPrvSnackBar.state).snackMsg;
               expect(snackMsg, const SnackMsg.unknown());
             },
@@ -102,16 +108,13 @@ class _TestRunner extends ViewModelTestBase<SettingModel> {
       () async => _testPostProfile(
             override: [
               kOverrideDisconnected,
-              kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
-                specAuthData: hiveAuthData,
-              )),
+              overrideViewModel,
               kOverrideGraphqlErr,
             ],
             expectPath: const PathDataMainPageBase.dashboard(),
             onPost: (container) async {
               final snackMsg = container.read(kPrvSnackBar.state).snackMsg;
-              expect(snackMsg,
-                  const SnackMsg.networkDisconnected());
+              expect(snackMsg, const SnackMsg.networkDisconnected());
             },
           ));
 
@@ -121,9 +124,7 @@ class _TestRunner extends ViewModelTestBase<SettingModel> {
       () async => _testPostProfile(
             override: [
               kOverrideConnectedRepositoryConnectedImpl,
-              kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
-                specAuthData: hiveAuthData,
-              )),
+              overrideViewModel,
               kOverrideGraphqlTimeout,
             ],
             expectPath: const PathDataMainPageBase.dashboard(),
@@ -138,9 +139,7 @@ class _TestRunner extends ViewModelTestBase<SettingModel> {
       () async => _testPostProfile(
             override: [
               kOverrideConnectedRepositoryConnectedImpl,
-              kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(
-                specAuthData: hiveAuthData,
-              )),
+              overrideViewModel,
               kOverrideGraphqlErr,
             ],
             expectPath: const PathDataMainPageBase.dashboard(),

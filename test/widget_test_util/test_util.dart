@@ -16,8 +16,6 @@ import 'json_client.dart';
 
 typedef OnPostBuild = FutureOr<void> Function(WidgetTester tester);
 
-final kJsonClient = JsonClient();
-
 class TestUtil {
   TestUtil._();
 
@@ -70,11 +68,6 @@ class TestUtil {
       matching: matching,
     );
     expect(actual, matcher);
-  }
-
-  static Future<Map<String, dynamic>> loadJson(String fileName) async {
-    final jsonString = await File(fileName).readAsString();
-    return jsonDecode(jsonString)['data'] as Map<String, dynamic>;
   }
 
   static String fixAssetPath(String assetName) {

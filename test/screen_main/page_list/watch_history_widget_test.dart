@@ -17,6 +17,7 @@ import '../../mock_repository/hive_auth_empty.dart';
 import '../../mock_repository/hive_pref_empty.dart';
 import '../../mock_viewmodel/viewmodel_watch_hisotry_mockable.dart';
 import '../../mock_viewmodel/viewmodel_watch_hisotry_no_loadmore.dart';
+import '../../widget_test_util/test_name_common.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_runner_on_page_error.dart';
 import '../../widget_test_util/test_runner_on_page_list.dart';
@@ -24,9 +25,8 @@ import '../../widget_test_util/test_util.dart';
 
 /// test for [WatchHistoryWidget]
 Future<void> main() async {
-  final runner = _TestRunner();
-  await runner.initTestOnPageList();
-  runner
+  _TestRunner()
+    ..initTestOnPageList()
     ..runTestGroup('WatchHistoryWidget', goldenNamePrefix: 'WatchHistoryWidget')
     ..runTestOnPageList('WatchHistoryWidget')
     ..runTestLoadingMore();
@@ -55,14 +55,13 @@ class _TestRunner extends TestRunnerBase
             overrides: [
               kOverrideConnectedRepositoryConnectedImpl,
               kOverrideEmptyHiveAuthRepository,
-              kPrvHivePrefRepository
-                  .overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
               overrideGraphQl,
               kOverrideViewModelWatchHistoryNoLoadMore,
+              ...defaultOverride,
             ],
-            onScenarioCreate: (tester, scenarioWidgetKey) async {
-              await _scrollToBottom(tester, scenarioWidgetKey);
-              _findLoadMoreCircleProgress(scenarioWidgetKey, findsNothing);
+            onPostBuild: (tester) async {
+              await _scrollToBottom(tester);
+              _findLoadMoreCircleProgress(findsNothing);
             },
           );
 
@@ -71,14 +70,13 @@ class _TestRunner extends TestRunnerBase
             overrides: [
               kOverrideConnectedRepositoryConnectedImpl,
               kOverrideEmptyHiveAuthRepository,
-              kPrvHivePrefRepository
-                  .overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
               overrideGraphQlLoadableMoreHistory,
               kOverrideViewModelWatchHistoryNoLoadMore,
+              ...defaultOverride,
             ],
-            onScenarioCreate: (tester, scenarioWidgetKey) async {
-              await _scrollToBottom(tester, scenarioWidgetKey);
-              _findLoadMoreCircleProgress(scenarioWidgetKey, findsOneWidget);
+            onPostBuild: (tester) async {
+              await _scrollToBottom(tester);
+              _findLoadMoreCircleProgress(findsOneWidget);
             },
           );
 
@@ -103,51 +101,30 @@ class _TestRunner extends TestRunnerBase
       );
 
   /// [WidgetTester.ensureVisible] is not work...
-  static Future<void> _scrollToBottom(
-      WidgetTester tester, Key scenarioWidgetKey) async {
+  static Future<void> _scrollToBottom(WidgetTester tester) async {
     for (int i = 0; i < 10; i++) {
       print('scroll down! i: $i');
-      await _scrollDown(tester, scenarioWidgetKey);
-      final scrollToEnd = await _isScrollToEnd(scenarioWidgetKey);
+      await _scrollDown(tester);
+      final scrollToEnd = await _isScrollToEnd();
       if (scrollToEnd) break;
     }
   }
 
-  static Future<void> _scrollDown(
-          WidgetTester tester, Key scenarioWidgetKey) async =>
-      tester.fling(
-          find.descendant(
-              of: find.byKey(scenarioWidgetKey),
-              matching: find.byType(ListView)),
-          const Offset(0, -500),
-          2000);
+  static Future<void> _scrollDown(WidgetTester tester) async =>
+      tester.fling(find.byType(ListView), const Offset(0, -500), 2000);
 
-  static Future<bool> _isScrollToEnd(Key scenarioWidgetKey) async =>
-      Result.guard(() => TestUtil.expectFind(
-            scenarioWidgetKey: scenarioWidgetKey,
-            matching: find.text(TestRunnerOnPageList.WATCH_HISTORY_LAST_TITLE),
-            matcher: findsOneWidget,
-          )).when(
-        success: (data) => true,
-        failure: (e) => false,
+  static Future<bool> _isScrollToEnd() async => Result.guard(
+        () => expect(
+            find.text(TestNameCommon.WATCH_HISTORY_LAST_TITLE), findsOneWidget),
+      ).when(
+        success: (_) => true,
+        failure: (_) => false,
       );
 
   static void _findLoadMoreCircleProgress(
-      Key scenarioWidgetKey, Matcher matcher) {
-    TestUtil.expectFind(
-      scenarioWidgetKey: scenarioWidgetKey,
-      matching: find.byType(ListView),
-      matcher: findsOneWidget,
-    );
-    TestUtil.expectFind(
-      scenarioWidgetKey: scenarioWidgetKey,
-      matching: find.byType(CenterCircleProgress),
-      matcher: matcher,
-    );
-    TestUtil.expectFind(
-      scenarioWidgetKey: scenarioWidgetKey,
-      matching: find.byType(MovieListItem),
-      matcher: findsWidgets,
-    );
+      Matcher matcher) {
+    expect(find.byType(ListView), findsOneWidget);
+    expect(find.byType(CenterCircleProgress), matcher);
+    expect(find.byType(MovieListItem), findsWidgets);
   }
 }

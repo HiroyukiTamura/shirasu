@@ -248,18 +248,17 @@ class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
       nickname: fields[24] as String,
       name: fields[25] as String,
       picture: fields[26] as String,
-      locale: fields[27] as String,
-      updatedAt: fields[28] as DateTime,
-      email: fields[29] as String,
-      emailVerified: fields[30] as bool,
-      sub: fields[31] as String,
+      updatedAt: fields[27] as DateTime,
+      email: fields[28] as String,
+      emailVerified: fields[29] as bool,
+      sub: fields[30] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_HiveUser obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(8)
       ..writeByte(23)
       ..write(obj.httpsShirasuIoUserAttribute)
       ..writeByte(24)
@@ -269,14 +268,12 @@ class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
       ..writeByte(26)
       ..write(obj.picture)
       ..writeByte(27)
-      ..write(obj.locale)
-      ..writeByte(28)
       ..write(obj.updatedAt)
-      ..writeByte(29)
+      ..writeByte(28)
       ..write(obj.email)
-      ..writeByte(30)
+      ..writeByte(29)
       ..write(obj.emailVerified)
-      ..writeByte(31)
+      ..writeByte(30)
       ..write(obj.sub);
   }
 

@@ -1249,25 +1249,21 @@ class _$HiveUserTearOff {
           String picture,
       @required
       @HiveField(27)
-          String locale,
-      @required
-      @HiveField(28)
           DateTime updatedAt,
       @required
-      @HiveField(29)
+      @HiveField(28)
           String email,
       @required
-      @HiveField(30)
+      @HiveField(29)
           bool emailVerified,
       @required
-      @HiveField(31)
+      @HiveField(30)
           String sub}) {
     return _HiveUser(
       httpsShirasuIoUserAttribute: httpsShirasuIoUserAttribute,
       nickname: nickname,
       name: name,
       picture: picture,
-      locale: locale,
       updatedAt: updatedAt,
       email: email,
       emailVerified: emailVerified,
@@ -1306,16 +1302,15 @@ mixin _$HiveUser {
   @HiveField(25)
   String get name;
   @HiveField(26)
-  String get picture;
+  String get picture; // @required @HiveField(27)
+// String locale,
   @HiveField(27)
-  String get locale;
-  @HiveField(28)
   DateTime get updatedAt;
-  @HiveField(29)
+  @HiveField(28)
   String get email;
-  @HiveField(30)
+  @HiveField(29)
   bool get emailVerified;
-  @HiveField(31)
+  @HiveField(30)
   String get sub;
 
   @JsonKey(ignore: true)
@@ -1336,14 +1331,12 @@ abstract class $HiveUserCopyWith<$Res> {
       @HiveField(26)
           String picture,
       @HiveField(27)
-          String locale,
-      @HiveField(28)
           DateTime updatedAt,
-      @HiveField(29)
+      @HiveField(28)
           String email,
-      @HiveField(30)
+      @HiveField(29)
           bool emailVerified,
-      @HiveField(31)
+      @HiveField(30)
           String sub});
 
   $HiveHttpsShirasuIoUserAttributeCopyWith<$Res>
@@ -1364,7 +1357,6 @@ class _$HiveUserCopyWithImpl<$Res> implements $HiveUserCopyWith<$Res> {
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -1377,7 +1369,6 @@ class _$HiveUserCopyWithImpl<$Res> implements $HiveUserCopyWith<$Res> {
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -1416,14 +1407,12 @@ abstract class _$HiveUserCopyWith<$Res> implements $HiveUserCopyWith<$Res> {
       @HiveField(26)
           String picture,
       @HiveField(27)
-          String locale,
-      @HiveField(28)
           DateTime updatedAt,
-      @HiveField(29)
+      @HiveField(28)
           String email,
-      @HiveField(30)
+      @HiveField(29)
           bool emailVerified,
-      @HiveField(31)
+      @HiveField(30)
           String sub});
 
   @override
@@ -1446,7 +1435,6 @@ class __$HiveUserCopyWithImpl<$Res> extends _$HiveUserCopyWithImpl<$Res>
     Object nickname = freezed,
     Object name = freezed,
     Object picture = freezed,
-    Object locale = freezed,
     Object updatedAt = freezed,
     Object email = freezed,
     Object emailVerified = freezed,
@@ -1459,7 +1447,6 @@ class __$HiveUserCopyWithImpl<$Res> extends _$HiveUserCopyWithImpl<$Res>
       nickname: nickname == freezed ? _value.nickname : nickname as String,
       name: name == freezed ? _value.name : name as String,
       picture: picture == freezed ? _value.picture : picture as String,
-      locale: locale == freezed ? _value.locale : locale as String,
       updatedAt:
           updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
       email: email == freezed ? _value.email : email as String,
@@ -1481,16 +1468,14 @@ class _$_HiveUser extends _HiveUser {
       @required @HiveField(24) this.nickname,
       @required @HiveField(25) this.name,
       @required @HiveField(26) this.picture,
-      @required @HiveField(27) this.locale,
-      @required @HiveField(28) this.updatedAt,
-      @required @HiveField(29) this.email,
-      @required @HiveField(30) this.emailVerified,
-      @required @HiveField(31) this.sub})
+      @required @HiveField(27) this.updatedAt,
+      @required @HiveField(28) this.email,
+      @required @HiveField(29) this.emailVerified,
+      @required @HiveField(30) this.sub})
       : assert(httpsShirasuIoUserAttribute != null),
         assert(nickname != null),
         assert(name != null),
         assert(picture != null),
-        assert(locale != null),
         assert(updatedAt != null),
         assert(email != null),
         assert(emailVerified != null),
@@ -1524,25 +1509,23 @@ class _$_HiveUser extends _HiveUser {
   @override
   @HiveField(26)
   final String picture;
-  @override
+  @override // @required @HiveField(27)
+// String locale,
   @HiveField(27)
-  final String locale;
-  @override
-  @HiveField(28)
   final DateTime updatedAt;
   @override
-  @HiveField(29)
+  @HiveField(28)
   final String email;
   @override
-  @HiveField(30)
+  @HiveField(29)
   final bool emailVerified;
   @override
-  @HiveField(31)
+  @HiveField(30)
   final String sub;
 
   @override
   String toString() {
-    return 'HiveUser(httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, nickname: $nickname, name: $name, picture: $picture, locale: $locale, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
+    return 'HiveUser(httpsShirasuIoUserAttribute: $httpsShirasuIoUserAttribute, nickname: $nickname, name: $name, picture: $picture, updatedAt: $updatedAt, email: $email, emailVerified: $emailVerified, sub: $sub)';
   }
 
   @override
@@ -1562,8 +1545,6 @@ class _$_HiveUser extends _HiveUser {
             (identical(other.picture, picture) ||
                 const DeepCollectionEquality()
                     .equals(other.picture, picture)) &&
-            (identical(other.locale, locale) ||
-                const DeepCollectionEquality().equals(other.locale, locale)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
                     .equals(other.updatedAt, updatedAt)) &&
@@ -1583,7 +1564,6 @@ class _$_HiveUser extends _HiveUser {
       const DeepCollectionEquality().hash(nickname) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
-      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(emailVerified) ^
@@ -1612,18 +1592,15 @@ abstract class _HiveUser extends HiveUser {
           String picture,
       @required
       @HiveField(27)
-          String locale,
-      @required
-      @HiveField(28)
           DateTime updatedAt,
       @required
-      @HiveField(29)
+      @HiveField(28)
           String email,
       @required
-      @HiveField(30)
+      @HiveField(29)
           bool emailVerified,
       @required
-      @HiveField(31)
+      @HiveField(30)
           String sub}) = _$_HiveUser;
 
   @override // @required
@@ -1653,20 +1630,18 @@ abstract class _HiveUser extends HiveUser {
   @override
   @HiveField(26)
   String get picture;
-  @override
+  @override // @required @HiveField(27)
+// String locale,
   @HiveField(27)
-  String get locale;
-  @override
-  @HiveField(28)
   DateTime get updatedAt;
   @override
-  @HiveField(29)
+  @HiveField(28)
   String get email;
   @override
-  @HiveField(30)
+  @HiveField(29)
   bool get emailVerified;
   @override
-  @HiveField(31)
+  @HiveField(30)
   String get sub;
   @override
   @JsonKey(ignore: true)

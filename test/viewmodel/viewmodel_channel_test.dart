@@ -12,12 +12,14 @@ import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
+import '../widget_test_util/json_client.dart';
+import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelChannel]
 Future<void> main() async {
-  final channelId = await kJsonClient.channel.then((it) => it.channel.id);
+  final channelId = JsonClient.instance.mChannelData.channel.id;
 
   final testBase = ViewModelTestBase<ChannelModel>(
     prvViewModel: kPrvViewModelChannel(channelId),
@@ -68,7 +70,9 @@ Future<void> main() async {
       // final snackBar = container.listen(kPrvSnackBar.state).read();
       if (defaultState != null) viewModel.state = defaultState;
       await viewModel.loadMorePrograms();
-      final snack = container.listen(kPrvSnackBar.state).read();//must listen after loadMorePrograms!
+      final snack = container
+          .listen(kPrvSnackBar.state)
+          .read(); //must listen after loadMorePrograms!
       expect(viewModel.state, expectedState);
       // expect(snackBar?.snackMsg, expectedSnack);
       expect(snack?.snackMsg, expectedSnack);
@@ -83,59 +87,51 @@ Future<void> main() async {
     );
     test(
       'StateNowLoadingMore_CancelLoadingMore',
-      () async {
-        return testTemplate(
-          override: [
-            kOverrideGraphqlErr,
-            kOverrideConnectedRepositoryConnectedImpl,
-          ],
-          defaultState: modelLoading,
-          expectedState: modelLoading,
-          expectedSnack: null,
-        );
-      },
+      () async => testTemplate(
+        override: [
+          kOverrideGraphqlErr,
+          kOverrideConnectedRepositoryConnectedImpl,
+        ],
+        defaultState: modelLoading,
+        expectedState: modelLoading,
+        expectedSnack: null,
+      ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_NETWORK_DISCONNECTED,
-      () async {
-        await testTemplate(
-          override: [
-            kOverrideDisconnected,
-            kOverrideGraphqlErr,
-          ],
-          defaultState: modelNonLoading,
-          expectedState: modelNonLoading,
-          expectedSnack: const SnackMsg.networkDisconnected(),
-        );
-      },
+      TestNameCommon.ERR_NETWORK_DISCONNECTED,
+      () async => testTemplate(
+        override: [
+          kOverrideDisconnected,
+          kOverrideGraphqlErr,
+        ],
+        defaultState: modelNonLoading,
+        expectedState: modelNonLoading,
+        expectedSnack: const SnackMsg.networkDisconnected(),
+      ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_NETWORK_TIMEOUT,
-      () async {
-        await testTemplate(
-          override: [
-            kOverrideGraphqlTimeout,
-            kOverrideConnectedRepositoryConnectedImpl,
-          ],
-          defaultState: modelNonLoading,
-          expectedState: modelNonLoading,
-          expectedSnack: const SnackMsg.networkTimeout(),
-        );
-      },
+      TestNameCommon.ERR_NETWORK_TIMEOUT,
+      () async => testTemplate(
+        override: [
+          kOverrideGraphqlTimeout,
+          kOverrideConnectedRepositoryConnectedImpl,
+        ],
+        defaultState: modelNonLoading,
+        expectedState: modelNonLoading,
+        expectedSnack: const SnackMsg.networkTimeout(),
+      ),
     );
     test(
-      ViewModelTestBase.TEST_NAME_ERR_UNKNOWN,
-      () async {
-        await testTemplate(
-          override: [
-            kOverrideGraphqlErr,
-            kOverrideConnectedRepositoryConnectedImpl,
-          ],
-          defaultState: modelNonLoading,
-          expectedState: modelNonLoading,
-          expectedSnack: const SnackMsg.unknown(),
-        );
-      },
+      TestNameCommon.ERR_UNKNOWN,
+      () async => testTemplate(
+        override: [
+          kOverrideGraphqlErr,
+          kOverrideConnectedRepositoryConnectedImpl,
+        ],
+        defaultState: modelNonLoading,
+        expectedState: modelNonLoading,
+        expectedSnack: const SnackMsg.unknown(),
+      ),
     );
   });
 }

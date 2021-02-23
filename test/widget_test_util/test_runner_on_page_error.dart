@@ -21,103 +21,78 @@ import '../mock_repository/hive_auth_empty.dart';
 import '../mock_repository/hive_pref_empty.dart';
 import '../mock_repository/network_image_error.dart';
 import 'override_util.dart';
+import 'test_name_common.dart';
 import 'test_runner_base.dart';
 import 'test_util.dart';
 
 typedef WidgetBuilder = Widget Function();
 
-const _kTestNameErrorNetworkDisconnected = 'ErrorNetworkDisconnected';
-const _kTestNameErrorNetworkTimeout = 'ErrorNetworkTimeout';
-const _kTestNameErrorAuthExpired = 'ErrorAuthExpired';
-const _kTestNameErrorUnAuth = 'ErrorUnAuth';
-const _kTestNameErrorUnknown = 'ErrorUnknown';
-
 typedef OnScenarioCreateTest = Future<void> Function(
     WidgetTester tester, Key scenarioWidgetKey);
 
 mixin TestRunnerOnPageError on TestRunnerBase {
-
   void runTestGroup(String prefix, {String goldenNamePrefix = ''}) =>
       group('$prefix error screen', () {
-        setUpAll(() async {
-          await TestUtil.loadFonts();
-        });
-
         testGoldensSimple(
-          testName: _kTestNameErrorNetworkDisconnected,
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.text(Strings.ERR_NETWORK_DISCONNECTED),
-              matcher: findsOneWidget,
-            );
+          testName: TestNameCommon.ERR_NETWORK_DISCONNECTED,
+          onPostBuild: (tester) async {
+            await tester.pumpAndSettle();
+            expect(find.text(Strings.ERR_NETWORK_DISCONNECTED), findsOneWidget);
           },
-          overrides: [kOverrideDisconnected],
+          overrides: [
+            kOverrideDisconnected,
+            ...defaultOverride,
+          ],
         );
         testGoldensSimple(
-          testName: _kTestNameErrorNetworkTimeout,
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
+          testName: TestNameCommon.ERR_NETWORK_TIMEOUT,
+          onPostBuild: (tester) async {
             await tester.pump(GraphQlRepositoryTimeoutImpl.DELAY + 5.seconds);
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.text(Strings.ERR_NETWORK_TIMEOUT),
-              matcher: findsOneWidget,
-            );
+            expect(find.text(Strings.ERR_NETWORK_TIMEOUT), findsOneWidget);
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
             kOverrideGraphqlTimeout,
+            ...defaultOverride,
           ],
         );
         testGoldensSimple(
-          testName: _kTestNameErrorAuthExpired,
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            await tester.pump(3.seconds);
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.text(Strings.ERR_AUTH_EXPIRED),
-              matcher: findsOneWidget,
-            );
+          testName: TestNameCommon.ERR_AUTH_EXPIRED,
+          onPostBuild: (tester) async {
+            await tester.pumpAndSettle();
+            expect(find.text(Strings.ERR_AUTH_EXPIRED), findsOneWidget);
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
             kOverrideGraphqlUnAuthDetectedByTime,
             kOverrideEmptyHiveAuthRepository,
-            kPrvHivePrefRepository.overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
+            ...defaultOverride,
           ],
         );
         testGoldensSimple(
-          testName: _kTestNameErrorUnAuth,
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            await tester.pump(3.seconds);
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.text(Strings.ERR_UN_AUTH),
-              matcher: findsOneWidget,
-            );
+          testName: TestNameCommon.ERR_UN_AUTH,
+          onPostBuild: (tester) async {
+            await tester.pumpAndSettle();
+            expect(find.text(Strings.ERR_UN_AUTH), findsOneWidget);
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
             kOverrideGraphqlUnAuthNotDetectedByTime,
             kOverrideEmptyHiveAuthRepository,
-            kPrvHivePrefRepository.overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
+            ...defaultOverride,
           ],
         );
         testGoldensSimple(
-          testName: _kTestNameErrorUnknown,
-          onScenarioCreate: (tester, scenarioWidgetKey) async {
-            await tester.pump(3.seconds);
-            TestUtil.expectFind(
-              scenarioWidgetKey: scenarioWidgetKey,
-              matching: find.text(Strings.SNACK_ERR),
-              matcher: findsOneWidget,
-            );
+          testName: TestNameCommon.ERR_UNKNOWN,
+          onPostBuild: (tester) async {
+            await tester.pumpAndSettle();
+            expect(find.text(Strings.SNACK_ERR), findsOneWidget);
           },
           overrides: [
             kOverrideConnectedRepositoryConnectedImpl,
             kOverrideEmptyHiveAuthRepository,
-            kPrvHivePrefRepository.overrideWithValue(const HivePrefEmptyRepositoryImpl(false)),
             kOverrideGraphqlErr,
+            ...defaultOverride,
           ],
         );
       });

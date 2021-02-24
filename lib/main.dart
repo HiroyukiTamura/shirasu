@@ -35,8 +35,6 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   runZonedGuarded(() async {
-    await FirebaseCrashlytics.instance
-        .setCrashlyticsCollectionEnabled(!kDebugMode);
     await Hive.initFlutter();
     Hive
       ..registerAdapter(HiveAuthDataAdapter())

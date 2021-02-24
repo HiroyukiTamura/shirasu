@@ -67,14 +67,14 @@ Future<void> main() async {
       final container = createProviderContainer(override + [overrideSnackBar]);
       final viewModel =
           container.listen(kPrvViewModelChannel(channelId)).read();
-      // final snackBar = container.listen(kPrvSnackBar.state).read();
+      // ignore: invalid_use_of_protected_member
       if (defaultState != null) viewModel.state = defaultState;
       await viewModel.loadMorePrograms();
       final snack = container
           .listen(kPrvSnackBar.state)
           .read(); //must listen after loadMorePrograms!
+      // ignore: invalid_use_of_protected_member
       expect(viewModel.state, expectedState);
-      // expect(snackBar?.snackMsg, expectedSnack);
       expect(snack?.snackMsg, expectedSnack);
     }
 

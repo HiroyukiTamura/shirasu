@@ -18,14 +18,12 @@ abstract class ChannelModel implements _$ChannelModel {
 
   /// throws [TypeError]
   ChannelModel copyWithAdditionalPrograms(ChannelPrograms newOne) {
-    final tResult = this as Success;
-    final channelPrograms =
-        tResult.channelData.data.channel.programs.append(newOne);
+    final channel = (this as Success).channelData.data.channel;
     return ChannelModel.success(
       ChannelDataWrapper(
         data: ChannelData(
-          channel: tResult.channelData.data.channel.copyWith(
-            programs: channelPrograms,
+          channel: channel.copyWith(
+            programs: channel.programs.append(newOne),
           ),
         ),
         loading: false,

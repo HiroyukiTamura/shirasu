@@ -28,7 +28,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
   Future<void> initialize() async {
     if (state != SettingModel.initial()) return;
 
-    final result = await r.Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return graphQlRepository.queryViewer().timeout(GraphQlRepository.TIMEOUT);
     });
@@ -86,7 +86,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
         state = state.copyWith(uploadingProfile: true);
 
-        final result = await r.Result.guardFuture(() async {
+        final result = await logger.guardFuture(() async {
           await connectivityRepository.ensureNotDisconnect();
           return graphQlRepository
               .updateUserWithAttr(variable)
@@ -116,12 +116,9 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     _isInLogout = true;
 
     await hiveAuthRepository.clearAuthData();
-    final result = await r.Result.guardFuture(() async {
+    await logger.guardFuture(() async {
       await FlutterWebviewPlugin().cleanCookies();
       await FlutterWebviewPlugin().clearCache();
-    });
-    result.ifFailure((e) {
-      //todo log error
     });
 
     _isInLogout = false;

@@ -67,7 +67,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(
       prgDataResult: const DetailModelState.loading(),
     );
-    final result = await Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return Util.wait2<ProgramDetailData, ChannelData>(
               () async => graphQlRepository.queryProgramDetail(id),
@@ -109,7 +109,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
-    final result = await Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return dioClient.getSignedCookie(
         prg.id,
@@ -186,7 +186,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     final pageNationKey = state.commentHolder.pageNationKey;
 
-    final result = await Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return graphQlRepository
           .queryComment(
@@ -236,7 +236,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         state.playOutState.currentPos.isNegative) return;
 
     state = state.copyWith(isCommentPosting: true);
-    final result = await Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
       await connectivityRepository.ensureNotDisconnect();
       return graphQlRepository.postComment(
@@ -266,7 +266,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyWith(isHandoutUrlRequesting: true);
 
-    final result = await Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return graphQlRepository
           .queryHandOutUrl(id, handoutId)
@@ -502,7 +502,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (mounted)
       state.prgDataResult.whenSuccess(
           (prgDetailData, channelData, page) async =>
-              Result.guardFuture(() async => NativeClient.startPlayBackGround(
+              logger.guardFuture(() async => NativeClient.startPlayBackGround(
                     url: state.playOutState.hlsMediaUrl,
                     isLiveStream:
                         state.playOutState.videoType == const VideoType.live(),

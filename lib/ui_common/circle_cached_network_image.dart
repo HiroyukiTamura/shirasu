@@ -37,6 +37,7 @@ Widget circleCachedNetworkImage({
                   image: imageProvider,
                   fit: BoxFit.cover,
                   onError: (e, stackTrace) => Util.onImageError(
+                    context,
                     error: e,
                     stackTrace: stackTrace,
                   ),

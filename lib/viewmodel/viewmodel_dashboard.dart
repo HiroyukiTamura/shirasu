@@ -6,6 +6,8 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/connectivity_repository.dart';
 import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
+import 'package:shirasu/client/logger_repository.dart';
+import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/client/network_image_repository.dart';
 import 'package:shirasu/client/network_image_repository_impl.dart';
 import 'package:shirasu/main.dart';
@@ -24,6 +26,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
   GraphQlRepository get _graphQlRepository => reader(kPrvGraphqlRepository);
 
+  LoggerRepository get _logger => reader(kPrvLogger);
+
   NetworkImageRepository get _networkRepository =>
       reader(kPrvNetworkRepository);
 
@@ -31,7 +35,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   Future<void> initialize() async {
     if (state != const DashboardModel.initial()) return;
 
-    final result = await Result.guardFuture(() async {
+    final result = await _logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return Util.wait2(
         _graphQlRepository.queryFeaturedProgramsList,
@@ -50,7 +54,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       if (e is UnauthorizedException) pushAuthExpireScreen();
     });
 
-    await Result.guardFuture(
+    await _logger.guardFuture(
         () async => _networkRepository.requestHeaderImage());
   }
 
@@ -63,7 +67,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
       state = oldState.copyWith.data(loadingMore: true);
 
-      final result = await Result.guardFuture(() async {
+      final result = await _logger.guardFuture(() async {
         await connectivityRepository.ensureNotDisconnect();
         return _graphQlRepository
             .queryNewProgramsList(

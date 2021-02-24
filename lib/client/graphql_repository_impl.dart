@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/auth_wrapper_client.dart';
 import 'package:shirasu/client/graghql_query.dart';
 import 'package:shirasu/client/graphql_repository.dart';
+import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart'
@@ -23,6 +24,7 @@ import 'package:dartx/dartx.dart';
 import 'package:http/http.dart' as http;
 
 import '../util.dart';
+import 'logger_repository.dart';
 
 final kPrvGraphqlRepository = Provider.autoDispose<GraphQlRepository>(
     (ref) => GraphQlRepositoryImpl.instance(ref.read));
@@ -42,6 +44,8 @@ class GraphQlRepositoryImpl with GraphQlRepository {
   final Reader _reader;
 
   AuthClientInterceptor get _interceptor => _reader(kPrvAuthClientInterceptor);
+
+  LoggerRepository get _logger => _reader(kPrvLogger);
 
   static Future<void> openHiveStore() async => HiveStore.open();
 
@@ -109,31 +113,31 @@ class GraphQlRepositoryImpl with GraphQlRepository {
 
   void _handleError(QueryResult result) {
     if (result.hasException) {
-      FirebaseCrashlytics.instance.log(result.exception.toString());
+      _logger.d(result.exception.toString());
 
       for (final error in result.exception.graphqlErrors)
-        FirebaseCrashlytics.instance.log(error.message);
+        _logger.d(error.message);
 
       final linkException = result.exception.linkException;
-      FirebaseCrashlytics.instance.log(linkException.toString());
+      _logger.d(linkException.toString());
 
       if (linkException is ServerException) {
         final statusCode = linkException.parsedResponse.context
             .entry<HttpLinkResponseContext>()
             ?.statusCode;
-        FirebaseCrashlytics.instance.log('statueCode: $statusCode');
+        _logger.d('statueCode: $statusCode');
 
         linkException.parsedResponse.errors
-            .forEach((it) => FirebaseCrashlytics.instance.log(it.toString()));
+            .forEach((it) => _logger.d(it.toString()));
       } else if (linkException is HttpLinkServerException) {
-        FirebaseCrashlytics.instance.log('statueCode: ${linkException.response.statusCode}');
+        _logger.d('statueCode: ${linkException.response.statusCode}');
         if (linkException.response.statusCode.between(400, 499))
           throw const UnauthorizedException(false);
       }
 
       final statusCode =
           result.context.entry<HttpLinkResponseContext>()?.statusCode;
-      FirebaseCrashlytics.instance.log('statueCode: $statusCode');
+      _logger.d('statueCode: $statusCode');
 
       if (linkException.originalException
           is UnauthorizedException)

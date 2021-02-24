@@ -8,13 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/result.dart';
 import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:dartx/dartx.dart';
-
 
 extension IteratableX<E> on Iterable<E> {
   // todo send PR to dartX
@@ -59,7 +59,7 @@ extension BuildContextX on BuildContext {
     final orientations =
         isPortrait ? Util.LANDSCAPE_ORIENTATIONS : DeviceOrientation.values;
 
-    Result.guardFuture(() async {
+    read(kPrvLogger).guardFuture(() async {
       await SystemChrome.setPreferredOrientations(orientations);
       if (isPortrait)
         await SystemChrome.setEnabledSystemUIOverlays([]);

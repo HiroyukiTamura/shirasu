@@ -1,11 +1,8 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/gen/assets.gen.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -45,26 +42,25 @@ class Util {
 
   static Image defaultPrgThumbnail(
       BuildContext context, String url, dynamic error) {
-    onImageError(url: url, error: error);
+    onImageError(context, url: url, error: error);
     return Assets.png.defaultThumbnail.image();
   }
 
   static Widget defaultChannelIcon(
       BuildContext context, String url, dynamic error) {
-    onImageError(url: url, error: error);
+    onImageError(context, url: url, error: error);
     return Assets.svg.defaultChannelIcon.supportWeb().toWidget();
   }
 
   static Widget defaultHandoutThumbnail(
       BuildContext context, String url, dynamic error) {
-    onImageError(url: url, error: error);
+    onImageError(context, url: url, error: error);
     return Assets.jpeg.defaultHandoutThumbnail.image();
   }
 
-  static Future<void> onImageError(
+  static Future<void> onImageError(BuildContext context,
           {String url, dynamic error, StackTrace stackTrace}) async =>
-      FirebaseCrashlytics.instance
-          .recordError(error, stackTrace, reason: 'url: $url');
+      context.read(kPrvLogger).e(error, stackTrace, reason: 'url: $url');
 
   // todo improve logic
   static String sec2Hms(int sec) {

@@ -80,8 +80,10 @@ class JsonClient {
     return ListCommentsByProgram.fromJson(json);
   }
 
-  static Future<Map<String, dynamic>> _loadJson(String fileName,
-      {bool dataOnly}) async {
+  static Future<Map<String, dynamic>> _loadJson(
+    String fileName, {
+    bool dataOnly = true,
+  }) async {
     final path = TestUtil.fixAssetPath(fileName);
     final jsonString = await File(path).readAsString();
     final obj = jsonDecode(jsonString);

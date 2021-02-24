@@ -23,7 +23,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
   Future<void> initialize() async {
     if (state != const FeatureProgramState.initial()) return;
 
-    final result = await Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return graphQlRepository
           .queryFeaturedProgramsList()

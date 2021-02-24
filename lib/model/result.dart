@@ -1,5 +1,9 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/client/logger_repository.dart';
+import 'package:shirasu/client/logger_repository_impl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'result.freezed.dart';
 
@@ -13,20 +17,28 @@ abstract class Result<T> with _$Result<T> {
   const factory Result.failure(dynamic error) = _Failure<T>;
 
   // ignore: prefer_constructors_over_static_methods
-  static Result<T> guard<T>(T Function() body) {
+  static Result<T> guard<T>(
+    LoggerRepository logger,
+    T Function() body, {
+    bool logError = true,
+  }) {
     try {
       return Result.success(body());
     } catch (e) {
+      if (logError) logger.e(e, null);
       return Result.failure(e);
     }
   }
 
-  static Future<Result<T>> guardFuture<T>(Future<T> Function() future,
-      {bool logError = true}) async {
+  static Future<Result<T>> guardFuture<T>(
+    LoggerRepository logger,
+    Future<T> Function() future, {
+    bool logError = true,
+  }) async {
     try {
       return Result.success(await future());
     } catch (e) {
-      if (logError) FirebaseCrashlytics.instance.recordError(e, null);
+      if (logError) logger.e(e, null);
       return Result.failure(e);
     }
   }

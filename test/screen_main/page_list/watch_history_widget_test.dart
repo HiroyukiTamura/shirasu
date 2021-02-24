@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
+import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/model/result.dart';
 import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
@@ -15,6 +16,7 @@ import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 import '../../mock_repository/connected_connected.dart';
 import '../../mock_repository/hive_auth_empty.dart';
 import '../../mock_repository/hive_pref_empty.dart';
+import '../../mock_repository/logger.dart';
 import '../../mock_viewmodel/viewmodel_watch_hisotry_mockable.dart';
 import '../../mock_viewmodel/viewmodel_watch_hisotry_no_loadmore.dart';
 import '../../widget_test_util/test_name_common.dart';
@@ -114,15 +116,16 @@ class _TestRunner extends TestRunnerBase
       tester.fling(find.byType(ListView), const Offset(0, -500), 2000);
 
   static Future<bool> _isScrollToEnd() async => Result.guard(
+        const TestLogger(),
         () => expect(
             find.text(TestNameCommon.WATCH_HISTORY_LAST_TITLE), findsOneWidget),
+        logError: false,
       ).when(
         success: (_) => true,
         failure: (_) => false,
       );
 
-  static void _findLoadMoreCircleProgress(
-      Matcher matcher) {
+  static void _findLoadMoreCircleProgress(Matcher matcher) {
     expect(find.byType(ListView), findsOneWidget);
     expect(find.byType(CenterCircleProgress), matcher);
     expect(find.byType(MovieListItem), findsWidgets);

@@ -120,7 +120,7 @@ Widget _rowHeaderImg({
       child: CustomCachedNetworkImage(
         imageUrl: UrlUtil.getChannelHeaderUrl(channelId),
         errorWidget: (context, url, e) {
-          Util.onImageError(url: url, error: e);
+          Util.onImageError(context, url: url, error: e);
           return const SizedBox.shrink();
         },
       ),

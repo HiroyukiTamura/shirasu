@@ -27,7 +27,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
   Future<void> initialize() async {
     if (state != const ChannelModel.preInitialized()) return;
 
-    final result = await Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       final data = await graphQlRepository
           .queryChannelData(_channelId)
@@ -62,7 +62,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
           loading: true,
         ));
 
-        final result = await Result.guardFuture(() async {
+        final result = await logger.guardFuture(() async {
           await connectivityRepository.ensureNotDisconnect();
 
           return graphQlRepository

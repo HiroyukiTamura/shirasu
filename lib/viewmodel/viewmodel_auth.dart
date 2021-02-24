@@ -10,6 +10,8 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/hive_client.dart';
 import 'package:shirasu/client/local_json_client.dart';
+import 'package:shirasu/client/logger_repository.dart';
+import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
@@ -44,7 +46,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
         (url) async => _lock.synchronized(() async => _onUrlChanged(url)),
       )
       ..onHttpError
-          .listen((e) => FirebaseCrashlytics.instance.recordError(e, null))
+          .listen((e) => logger.e(e, null))
       ..onStateChanged.listen((viewState) async => _onStateChanged(viewState));
   }
 
@@ -83,7 +85,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
 
       if (!_success) {
         // try unescape string and decode json
-        final result = await Result.guardFuture(() async => AuthData.fromJson(
+        final result = await logger.guardFuture(() async => AuthData.fromJson(
             jsonDecode(jsonDecode(storage) as String) as Map<String, dynamic>));
         if (mounted)
           result.ifSuccess((data) async => _hiveClient.putAuthData(data));

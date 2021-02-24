@@ -24,7 +24,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   Future<void> initialize() async {
     if (state != const WatchHistoryState.initial()) return;
 
-    final result = await Result.guardFuture(() async {
+    final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return graphQlRepository
           .queryWatchHistory()
@@ -56,7 +56,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
             isLoadingMore: true,
           ));
 
-          final result = await Result.guardFuture(() async {
+          final result = await logger.guardFuture(() async {
             await connectivityRepository.ensureNotDisconnect();
             return graphQlRepository
                 .queryWatchHistory(

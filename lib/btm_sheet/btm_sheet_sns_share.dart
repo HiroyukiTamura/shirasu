@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/model/result.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'btm_sheet_sns_share.g.dart';
 
@@ -115,7 +117,7 @@ Widget _tileUrl(
 }) =>
     _ListTile(
       onTap: () async {
-        final result = await Result.guardFuture(
+        final result = await context.read(kPrvLogger).guardFuture(
             () async => Clipboard.setData(ClipboardData(text: url)));
         Navigator.of(context).pop();
         final msg = result.when(

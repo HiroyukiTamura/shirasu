@@ -51,7 +51,7 @@ abstract class ProgramUpdate with _$ProgramUpdate {
   const factory ProgramUpdate({
     @required String programId,
     @required String updateType,
-    @required UseProgramData program,
+    @required SocketProgramData program,
     @required CommentWithUser comment,
     @required SocketHandout handout,
     @required DetailPrgItem video,
@@ -84,14 +84,13 @@ abstract class CommentWithUser with _$CommentWithUser {
 
 /// @see [ProgramDetail]
 @freezed
-abstract class UseProgramData
-    with ViewerPlanTypeMixin
-    implements _$UseProgramData {
+abstract class SocketProgramData
+    with _$SocketProgramData {
   @Assert('typename == "Program"')
-  @Assert('0 <= totalPlayTime')
+  // @Assert('0 <= totalPlayTime')
   @Assert('0 <= mainTime')
   @Assert('0 <= previewTime')
-  const factory UseProgramData({
+  const factory SocketProgramData({
     @required String id,
     @required String channelId,
     @required String tenantId,
@@ -108,12 +107,12 @@ abstract class UseProgramData
     @required String releaseState,
     @required bool shouldArchive,
     @required @JsonKey(name: '__typename') String typename,
-  }) = _UseProgramData;
+  }) = _SocketProgramData;
 
-  factory UseProgramData.fromJson(Map<String, dynamic> json) =>
-      _$UseProgramDataFromJson(json);
+  factory SocketProgramData.fromJson(Map<String, dynamic> json) =>
+      _$SocketProgramDataFromJson(json);
 
-  const UseProgramData._();
+  const SocketProgramData._();
 }
 
 @freezed

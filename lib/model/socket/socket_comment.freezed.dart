@@ -550,7 +550,7 @@ class _$ProgramUpdateTearOff {
   _ProgramUpdate call(
       {@required String programId,
       @required String updateType,
-      @required UseProgramData program,
+      @required SocketProgramData program,
       @required CommentWithUser comment,
       @required SocketHandout handout,
       @required DetailPrgItem video,
@@ -582,7 +582,7 @@ const $ProgramUpdate = _$ProgramUpdateTearOff();
 mixin _$ProgramUpdate {
   String get programId;
   String get updateType;
-  UseProgramData get program;
+  SocketProgramData get program;
   CommentWithUser get comment;
   SocketHandout get handout;
   DetailPrgItem get video;
@@ -603,14 +603,14 @@ abstract class $ProgramUpdateCopyWith<$Res> {
   $Res call(
       {String programId,
       String updateType,
-      UseProgramData program,
+      SocketProgramData program,
       CommentWithUser comment,
       SocketHandout handout,
       DetailPrgItem video,
       int totalPlayTime,
       @JsonKey(name: '__typename') String typename});
 
-  $UseProgramDataCopyWith<$Res> get program;
+  $SocketProgramDataCopyWith<$Res> get program;
   $CommentWithUserCopyWith<$Res> get comment;
   $SocketHandoutCopyWith<$Res> get handout;
   $DetailPrgItemCopyWith<$Res> get video;
@@ -640,7 +640,8 @@ class _$ProgramUpdateCopyWithImpl<$Res>
       programId: programId == freezed ? _value.programId : programId as String,
       updateType:
           updateType == freezed ? _value.updateType : updateType as String,
-      program: program == freezed ? _value.program : program as UseProgramData,
+      program:
+          program == freezed ? _value.program : program as SocketProgramData,
       comment: comment == freezed ? _value.comment : comment as CommentWithUser,
       handout: handout == freezed ? _value.handout : handout as SocketHandout,
       video: video == freezed ? _value.video : video as DetailPrgItem,
@@ -652,11 +653,11 @@ class _$ProgramUpdateCopyWithImpl<$Res>
   }
 
   @override
-  $UseProgramDataCopyWith<$Res> get program {
+  $SocketProgramDataCopyWith<$Res> get program {
     if (_value.program == null) {
       return null;
     }
-    return $UseProgramDataCopyWith<$Res>(_value.program, (value) {
+    return $SocketProgramDataCopyWith<$Res>(_value.program, (value) {
       return _then(_value.copyWith(program: value));
     });
   }
@@ -702,7 +703,7 @@ abstract class _$ProgramUpdateCopyWith<$Res>
   $Res call(
       {String programId,
       String updateType,
-      UseProgramData program,
+      SocketProgramData program,
       CommentWithUser comment,
       SocketHandout handout,
       DetailPrgItem video,
@@ -710,7 +711,7 @@ abstract class _$ProgramUpdateCopyWith<$Res>
       @JsonKey(name: '__typename') String typename});
 
   @override
-  $UseProgramDataCopyWith<$Res> get program;
+  $SocketProgramDataCopyWith<$Res> get program;
   @override
   $CommentWithUserCopyWith<$Res> get comment;
   @override
@@ -745,7 +746,8 @@ class __$ProgramUpdateCopyWithImpl<$Res>
       programId: programId == freezed ? _value.programId : programId as String,
       updateType:
           updateType == freezed ? _value.updateType : updateType as String,
-      program: program == freezed ? _value.program : program as UseProgramData,
+      program:
+          program == freezed ? _value.program : program as SocketProgramData,
       comment: comment == freezed ? _value.comment : comment as CommentWithUser,
       handout: handout == freezed ? _value.handout : handout as SocketHandout,
       video: video == freezed ? _value.video : video as DetailPrgItem,
@@ -788,7 +790,7 @@ class _$_ProgramUpdate implements _ProgramUpdate {
   @override
   final String updateType;
   @override
-  final UseProgramData program;
+  final SocketProgramData program;
   @override
   final CommentWithUser comment;
   @override
@@ -862,7 +864,7 @@ abstract class _ProgramUpdate implements ProgramUpdate {
   const factory _ProgramUpdate(
           {@required String programId,
           @required String updateType,
-          @required UseProgramData program,
+          @required SocketProgramData program,
           @required CommentWithUser comment,
           @required SocketHandout handout,
           @required DetailPrgItem video,
@@ -878,7 +880,7 @@ abstract class _ProgramUpdate implements ProgramUpdate {
   @override
   String get updateType;
   @override
-  UseProgramData get program;
+  SocketProgramData get program;
   @override
   CommentWithUser get comment;
   @override
@@ -1212,16 +1214,16 @@ abstract class _CommentWithUser implements CommentWithUser {
   _$CommentWithUserCopyWith<_CommentWithUser> get copyWith;
 }
 
-UseProgramData _$UseProgramDataFromJson(Map<String, dynamic> json) {
-  return _UseProgramData.fromJson(json);
+SocketProgramData _$SocketProgramDataFromJson(Map<String, dynamic> json) {
+  return _SocketProgramData.fromJson(json);
 }
 
 /// @nodoc
-class _$UseProgramDataTearOff {
-  const _$UseProgramDataTearOff();
+class _$SocketProgramDataTearOff {
+  const _$SocketProgramDataTearOff();
 
 // ignore: unused_element
-  _UseProgramData call(
+  _SocketProgramData call(
       {@required String id,
       @required String channelId,
       @required String tenantId,
@@ -1238,7 +1240,7 @@ class _$UseProgramDataTearOff {
       @required String releaseState,
       @required bool shouldArchive,
       @required @JsonKey(name: '__typename') String typename}) {
-    return _UseProgramData(
+    return _SocketProgramData(
       id: id,
       channelId: channelId,
       tenantId: tenantId,
@@ -1259,17 +1261,17 @@ class _$UseProgramDataTearOff {
   }
 
 // ignore: unused_element
-  UseProgramData fromJson(Map<String, Object> json) {
-    return UseProgramData.fromJson(json);
+  SocketProgramData fromJson(Map<String, Object> json) {
+    return SocketProgramData.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $UseProgramData = _$UseProgramDataTearOff();
+const $SocketProgramData = _$SocketProgramDataTearOff();
 
 /// @nodoc
-mixin _$UseProgramData {
+mixin _$SocketProgramData {
   String get id;
   String get channelId;
   String get tenantId;
@@ -1292,14 +1294,14 @@ mixin _$UseProgramData {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $UseProgramDataCopyWith<UseProgramData> get copyWith;
+  $SocketProgramDataCopyWith<SocketProgramData> get copyWith;
 }
 
 /// @nodoc
-abstract class $UseProgramDataCopyWith<$Res> {
-  factory $UseProgramDataCopyWith(
-          UseProgramData value, $Res Function(UseProgramData) then) =
-      _$UseProgramDataCopyWithImpl<$Res>;
+abstract class $SocketProgramDataCopyWith<$Res> {
+  factory $SocketProgramDataCopyWith(
+          SocketProgramData value, $Res Function(SocketProgramData) then) =
+      _$SocketProgramDataCopyWithImpl<$Res>;
   $Res call(
       {String id,
       String channelId,
@@ -1320,13 +1322,13 @@ abstract class $UseProgramDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UseProgramDataCopyWithImpl<$Res>
-    implements $UseProgramDataCopyWith<$Res> {
-  _$UseProgramDataCopyWithImpl(this._value, this._then);
+class _$SocketProgramDataCopyWithImpl<$Res>
+    implements $SocketProgramDataCopyWith<$Res> {
+  _$SocketProgramDataCopyWithImpl(this._value, this._then);
 
-  final UseProgramData _value;
+  final SocketProgramData _value;
   // ignore: unused_field
-  final $Res Function(UseProgramData) _then;
+  final $Res Function(SocketProgramData) _then;
 
   @override
   $Res call({
@@ -1383,11 +1385,11 @@ class _$UseProgramDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$UseProgramDataCopyWith<$Res>
-    implements $UseProgramDataCopyWith<$Res> {
-  factory _$UseProgramDataCopyWith(
-          _UseProgramData value, $Res Function(_UseProgramData) then) =
-      __$UseProgramDataCopyWithImpl<$Res>;
+abstract class _$SocketProgramDataCopyWith<$Res>
+    implements $SocketProgramDataCopyWith<$Res> {
+  factory _$SocketProgramDataCopyWith(
+          _SocketProgramData value, $Res Function(_SocketProgramData) then) =
+      __$SocketProgramDataCopyWithImpl<$Res>;
   @override
   $Res call(
       {String id,
@@ -1409,15 +1411,15 @@ abstract class _$UseProgramDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$UseProgramDataCopyWithImpl<$Res>
-    extends _$UseProgramDataCopyWithImpl<$Res>
-    implements _$UseProgramDataCopyWith<$Res> {
-  __$UseProgramDataCopyWithImpl(
-      _UseProgramData _value, $Res Function(_UseProgramData) _then)
-      : super(_value, (v) => _then(v as _UseProgramData));
+class __$SocketProgramDataCopyWithImpl<$Res>
+    extends _$SocketProgramDataCopyWithImpl<$Res>
+    implements _$SocketProgramDataCopyWith<$Res> {
+  __$SocketProgramDataCopyWithImpl(
+      _SocketProgramData _value, $Res Function(_SocketProgramData) _then)
+      : super(_value, (v) => _then(v as _SocketProgramData));
 
   @override
-  _UseProgramData get _value => super._value as _UseProgramData;
+  _SocketProgramData get _value => super._value as _SocketProgramData;
 
   @override
   $Res call({
@@ -1438,7 +1440,7 @@ class __$UseProgramDataCopyWithImpl<$Res>
     Object shouldArchive = freezed,
     Object typename = freezed,
   }) {
-    return _then(_UseProgramData(
+    return _then(_SocketProgramData(
       id: id == freezed ? _value.id : id as String,
       channelId: channelId == freezed ? _value.channelId : channelId as String,
       tenantId: tenantId == freezed ? _value.tenantId : tenantId as String,
@@ -1476,8 +1478,8 @@ class __$UseProgramDataCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_UseProgramData extends _UseProgramData {
-  const _$_UseProgramData(
+class _$_SocketProgramData extends _SocketProgramData {
+  const _$_SocketProgramData(
       {@required this.id,
       @required this.channelId,
       @required this.tenantId,
@@ -1507,13 +1509,12 @@ class _$_UseProgramData extends _UseProgramData {
         assert(shouldArchive != null),
         assert(typename != null),
         assert(typename == "Program"),
-        assert(0 <= totalPlayTime),
         assert(0 <= mainTime),
         assert(0 <= previewTime),
         super._();
 
-  factory _$_UseProgramData.fromJson(Map<String, dynamic> json) =>
-      _$_$_UseProgramDataFromJson(json);
+  factory _$_SocketProgramData.fromJson(Map<String, dynamic> json) =>
+      _$_$_SocketProgramDataFromJson(json);
 
   @override
   final String id;
@@ -1553,13 +1554,13 @@ class _$_UseProgramData extends _UseProgramData {
 
   @override
   String toString() {
-    return 'UseProgramData(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, rawTags: $rawTags, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, typename: $typename)';
+    return 'SocketProgramData(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, rawTags: $rawTags, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _UseProgramData &&
+        (other is _SocketProgramData &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.channelId, channelId) ||
@@ -1631,18 +1632,18 @@ class _$_UseProgramData extends _UseProgramData {
 
   @JsonKey(ignore: true)
   @override
-  _$UseProgramDataCopyWith<_UseProgramData> get copyWith =>
-      __$UseProgramDataCopyWithImpl<_UseProgramData>(this, _$identity);
+  _$SocketProgramDataCopyWith<_SocketProgramData> get copyWith =>
+      __$SocketProgramDataCopyWithImpl<_SocketProgramData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UseProgramDataToJson(this);
+    return _$_$_SocketProgramDataToJson(this);
   }
 }
 
-abstract class _UseProgramData extends UseProgramData {
-  const _UseProgramData._() : super._();
-  const factory _UseProgramData(
+abstract class _SocketProgramData extends SocketProgramData {
+  const _SocketProgramData._() : super._();
+  const factory _SocketProgramData(
           {@required String id,
           @required String channelId,
           @required String tenantId,
@@ -1659,10 +1660,10 @@ abstract class _UseProgramData extends UseProgramData {
           @required String releaseState,
           @required bool shouldArchive,
           @required @JsonKey(name: '__typename') String typename}) =
-      _$_UseProgramData;
+      _$_SocketProgramData;
 
-  factory _UseProgramData.fromJson(Map<String, dynamic> json) =
-      _$_UseProgramData.fromJson;
+  factory _SocketProgramData.fromJson(Map<String, dynamic> json) =
+      _$_SocketProgramData.fromJson;
 
   @override
   String get id;
@@ -1701,7 +1702,7 @@ abstract class _UseProgramData extends UseProgramData {
   String get typename;
   @override
   @JsonKey(ignore: true)
-  _$UseProgramDataCopyWith<_UseProgramData> get copyWith;
+  _$SocketProgramDataCopyWith<_SocketProgramData> get copyWith;
 }
 
 SocketHandout _$SocketHandoutFromJson(Map<String, dynamic> json) {

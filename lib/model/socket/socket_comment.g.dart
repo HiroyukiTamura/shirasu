@@ -57,7 +57,7 @@ _$_ProgramUpdate _$_$_ProgramUpdateFromJson(Map<String, dynamic> json) {
     updateType: json['updateType'] as String,
     program: json['program'] == null
         ? null
-        : UseProgramData.fromJson(json['program'] as Map<String, dynamic>),
+        : SocketProgramData.fromJson(json['program'] as Map<String, dynamic>),
     comment: json['comment'] == null
         ? null
         : CommentWithUser.fromJson(json['comment'] as Map<String, dynamic>),
@@ -111,8 +111,8 @@ Map<String, dynamic> _$_$_CommentWithUserToJson(_$_CommentWithUser instance) =>
       '__typename': instance.typename,
     };
 
-_$_UseProgramData _$_$_UseProgramDataFromJson(Map<String, dynamic> json) {
-  return _$_UseProgramData(
+_$_SocketProgramData _$_$_SocketProgramDataFromJson(Map<String, dynamic> json) {
+  return _$_SocketProgramData(
     id: json['id'] as String,
     channelId: json['channelId'] as String,
     tenantId: json['tenantId'] as String,
@@ -139,7 +139,8 @@ _$_UseProgramData _$_$_UseProgramDataFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_UseProgramDataToJson(_$_UseProgramData instance) =>
+Map<String, dynamic> _$_$_SocketProgramDataToJson(
+        _$_SocketProgramData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'channelId': instance.channelId,

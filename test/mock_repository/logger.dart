@@ -1,4 +1,4 @@
-import 'package:shirasu/client/logger_repository.dart';
+import 'package:shirasu/repository/logger_repository.dart';
 
 class TestLogger with LoggerRepository {
 

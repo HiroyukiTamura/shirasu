@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/connectivity_repository.dart';
-import 'package:shirasu/client/graphql_repository.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
-import 'package:shirasu/client/local_json_client.dart';
+import 'package:shirasu/repository/connectivity_repository.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/hive_auth_repository.dart';
+import 'package:shirasu/repository/local_json_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/result.dart' as r;
 import 'package:shirasu/model/update_user_with_attr_variable.dart'

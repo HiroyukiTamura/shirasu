@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/graphql_repository_impl.dart';
+import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/ui_common/empty_list_widget.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/url_util.dart';
+import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/btm_sheet/video_payment_btm_sheet.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';

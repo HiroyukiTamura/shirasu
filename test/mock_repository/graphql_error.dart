@@ -1,4 +1,4 @@
-import 'package:shirasu/client/graphql_repository_impl.dart';
+import 'package:shirasu/repository/graphql_repository_impl.dart';
 
 import '../widget_test_util/exception.dart';
 import 'graphql_allin.dart';

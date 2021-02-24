@@ -1,5 +1,5 @@
-import 'package:shirasu/client/graphql_repository.dart';
-import 'package:shirasu/client/graphql_repository_impl.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:dartx/dartx.dart';
 
 import 'graphql_allin.dart';

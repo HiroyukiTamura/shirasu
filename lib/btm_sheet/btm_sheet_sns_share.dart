@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:shirasu/client/logger_repository_impl.dart';
+import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/model/result.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util.dart';

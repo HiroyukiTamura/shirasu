@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/client/hive_pref_repository.dart';
+import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/result_token_refresh.dart';

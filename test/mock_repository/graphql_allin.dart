@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:shirasu/client/graphql_repository.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';

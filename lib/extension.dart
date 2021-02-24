@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/client/logger_repository_impl.dart';
+import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/result.dart';

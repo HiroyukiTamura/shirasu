@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/env_repository.dart';
-import 'package:shirasu/client/logger_repository_impl.dart';
-import 'package:shirasu/client/network_image_repository_impl.dart';
+import 'package:shirasu/repository/env_repository.dart';
+import 'package:shirasu/repository/logger_repository_impl.dart';
+import 'package:shirasu/repository/network_image_repository_impl.dart';
 
 import '../mock_repository/logger.dart';
 import '../mock_repository/network_image_error.dart';

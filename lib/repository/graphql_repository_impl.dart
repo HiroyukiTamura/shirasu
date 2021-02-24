@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/graghql_query.dart';
-import 'package:shirasu/client/graphql_repository.dart';
-import 'package:shirasu/client/logger_repository_impl.dart';
-import 'package:shirasu/client/url_util.dart';
+import 'package:shirasu/repository/graghql_query.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/logger_repository_impl.dart';
+import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart'
     show ProgramDetailData;

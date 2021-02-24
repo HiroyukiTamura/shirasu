@@ -1,4 +1,4 @@
-import 'package:shirasu/client/env_repository.dart';
+import 'package:shirasu/repository/env_repository.dart';
 
 class EnvRepositoryTestImpl implements EnvRepository {
   const EnvRepositoryTestImpl();

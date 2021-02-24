@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:shirasu/client/dio_client.dart';
-import 'package:shirasu/client/dio_repository.dart';
+import 'package:shirasu/repository/dio_client.dart';
+import 'package:shirasu/repository/dio_repository.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 

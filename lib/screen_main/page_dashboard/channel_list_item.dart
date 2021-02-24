@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:shirasu/client/url_util.dart';
+import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/util.dart';

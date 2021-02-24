@@ -1,5 +1,5 @@
-import 'package:shirasu/client/connectivity_repository.dart';
-import 'package:shirasu/client/connectivity_repository_impl.dart';
+import 'package:shirasu/repository/connectivity_repository.dart';
+import 'package:shirasu/repository/connectivity_repository_impl.dart';
 
 final kOverrideConnectedRepositoryConnectedImpl = kPrvConnectivityRepository
     .overrideWithValue(const _ConnectedRepositoryConnectedImpl());

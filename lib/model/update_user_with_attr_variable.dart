@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/client/local_json_client.dart';
+import 'package:shirasu/repository/local_json_client.dart';
 
 part 'update_user_with_attr_variable.freezed.dart';
 

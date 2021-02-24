@@ -1,6 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/client/connectivity_repository.dart';
+import 'package:shirasu/repository/connectivity_repository.dart';
 
 final kPrvConnectivityRepository = Provider.autoDispose<ConnectivityRepository>(
     (ref) => ConnectivityRepositoryImpl());

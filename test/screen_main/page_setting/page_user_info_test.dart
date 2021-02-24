@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shirasu/client/graphql_repository_impl.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
+import 'package:shirasu/repository/graphql_repository_impl.dart';
+import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 

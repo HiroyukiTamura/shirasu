@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:intl/intl.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
+import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 import '../list_item.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/graphql_repository_impl.dart';
-import 'package:shirasu/client/hive_pref_repository.dart';
+import 'package:shirasu/repository/graphql_repository_impl.dart';
+import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';

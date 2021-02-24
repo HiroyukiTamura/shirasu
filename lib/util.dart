@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:shirasu/client/logger_repository_impl.dart';
+import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';

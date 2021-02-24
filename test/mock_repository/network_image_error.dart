@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:shirasu/client/network_image_repository.dart';
+import 'package:shirasu/repository/network_image_repository.dart';
 
 import '../widget_test_util/exception.dart';
 

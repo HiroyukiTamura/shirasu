@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 
 // import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/client/connectivity_repository.dart';
-import 'package:shirasu/client/graphql_repository.dart';
-import 'package:shirasu/client/native_client.dart';
-import 'package:shirasu/client/url_util.dart';
+import 'package:shirasu/repository/connectivity_repository.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/native_client.dart';
+import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';

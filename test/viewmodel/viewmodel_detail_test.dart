@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/connectivity_repository_impl.dart';
-import 'package:shirasu/client/graphql_repository_impl.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
+import 'package:shirasu/repository/connectivity_repository_impl.dart';
+import 'package:shirasu/repository/graphql_repository_impl.dart';
+import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';

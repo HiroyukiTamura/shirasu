@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
+import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';

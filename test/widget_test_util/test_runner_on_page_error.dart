@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/connectivity_repository_impl.dart';
-import 'package:shirasu/client/graphql_repository_impl.dart';
-import 'package:shirasu/client/hive_auth_repository.dart';
-import 'package:shirasu/client/hive_client.dart';
-import 'package:shirasu/client/hive_pref_repository.dart';
-import 'package:shirasu/client/network_image_repository_impl.dart';
+import 'package:shirasu/repository/connectivity_repository_impl.dart';
+import 'package:shirasu/repository/graphql_repository_impl.dart';
+import 'package:shirasu/repository/hive_auth_repository.dart';
+import 'package:shirasu/repository/hive_client.dart';
+import 'package:shirasu/repository/hive_pref_repository.dart';
+import 'package:shirasu/repository/network_image_repository_impl.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/resource/strings.dart';
 

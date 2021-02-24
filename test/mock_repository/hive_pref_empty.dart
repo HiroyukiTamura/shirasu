@@ -1,4 +1,4 @@
-import 'package:shirasu/client/hive_pref_repository.dart';
+import 'package:shirasu/repository/hive_pref_repository.dart';
 
 class HivePrefEmptyRepositoryImpl with HivePrefRepository {
 

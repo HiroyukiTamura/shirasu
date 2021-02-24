@@ -82,7 +82,7 @@ Widget _listView({
   @required ChannelPrograms channelPrograms,
   @required bool showLoadingIndicator,
 }) {
-  int itemCount = channelPrograms.items.length;
+  var itemCount = channelPrograms.items.length;
   if (showLoadingIndicator) itemCount++;
 
   return ListView.builder(

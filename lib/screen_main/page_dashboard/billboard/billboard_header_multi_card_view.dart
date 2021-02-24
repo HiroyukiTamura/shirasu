@@ -41,8 +41,8 @@ class BillboardHeaderMultiCardView extends StatelessWidget {
       child: PageView.builder(
         controller: controller,
         itemBuilder: (context, i) {
-          int start = i == 0 ? 0 : data.items.length ~/ i;
-          int end = min(start + cardCountInPage, data.items.length);
+          final start = i == 0 ? 0 : data.items.length ~/ i;
+          final end = min(start + cardCountInPage, data.items.length);
 
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,

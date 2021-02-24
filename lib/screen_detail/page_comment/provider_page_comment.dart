@@ -47,7 +47,7 @@ final _kUpdateOffset = 1.seconds;
 /// todo change to custom StateNotifier?
 final kPrvPageUiData = StateNotifierProvider.family
     .autoDispose<StateController<PageUiData>, String>((ref, id) {
-  PageUiDataWrapper lastPostedData = PageUiDataWrapper.initial();
+  var lastPostedData = PageUiDataWrapper.initial();
 
   final sc = StateController<PageUiData>(lastPostedData.data);
 

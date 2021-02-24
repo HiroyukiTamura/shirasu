@@ -48,7 +48,7 @@ Future<void> main() async {
 
   /// todo merge with `ViewModelWatchHistory` test
   group('test for ViewModelDashBoard.loadingMore', () {
-    NewProgramsData noNextTokenState = JsonClient.instance.mNewProgramsData;
+    NewProgramsData noNextTokenState;
     NewProgramsData hasNextTokenState;
     DashboardModel successNoNextToken;
     DashboardModel successHasNextToken;

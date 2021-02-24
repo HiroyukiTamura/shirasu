@@ -33,7 +33,7 @@ class RowVideoTime extends StatelessWidget {
     final startStr = DateFormat('yyyy/MM/dd HH:mm').format(broadcastAt);
     final endTime = broadcastAt + mainTime.seconds;
     final endStr = DateFormat('HH:mm').format(endTime);
-    String text = '$startStr${Strings.TIME_PREFIX_START} $endStr${Strings.TIME_PREFIX_END}';
+    var text = '$startStr${Strings.TIME_PREFIX_START} $endStr${Strings.TIME_PREFIX_END}';
     if (endTime.isAfter(DateTime.now())) text += Strings.TIME_PREFIX_PLANNING;
     return text;
   }

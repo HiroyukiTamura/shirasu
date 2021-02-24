@@ -67,7 +67,7 @@ class PageComment extends StatelessWidget {
     if (futureComments.length < ViewModelDetail.COMMENT_PREFETCH_OFFSET) {
       if (commentHolder.loadedMostFutureComment) return;
 
-      Duration duration =
+      var duration =
           futureComments.firstOrNull?.commentTimeDuration ?? currentPos;
 
       duration += 1.milliseconds;
@@ -75,7 +75,7 @@ class PageComment extends StatelessWidget {
     } else if (pastComments.length < ViewModelDetail.COMMENT_PREFETCH_OFFSET) {
       if (commentHolder.loadedMostPastComment) return;
 
-      Duration duration =
+      var duration =
           pastComments.lastOrNull?.commentTimeDuration ?? currentPos;
       duration -= 1.milliseconds;
       await viewModel.loadMoreFutureComment(duration, false);

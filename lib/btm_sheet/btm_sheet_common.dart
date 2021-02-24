@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/ui_common/ui_util.dart';
+import 'package:shirasu/util/types.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 import '../util.dart';

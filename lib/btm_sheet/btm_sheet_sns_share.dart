@@ -7,6 +7,7 @@ import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/model/result.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/util/types.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,10 +17,6 @@ part 'btm_sheet_sns_share.g.dart';
 const double _LIST_TILE_HEIGHT = 56;
 const double _PAD_V = 16;
 
-//todo move
-typedef SnackCallback = void Function(SnackMsg msg);
-
-/// todo deep link for this app
 @swidget
 Widget btmSheetSnsShare({
   @required ShareUrl shareUrl,

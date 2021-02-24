@@ -22,8 +22,8 @@ abstract class UpdateUserWithAttrVariable with _$UpdateUserWithAttrVariable {
     @required String country,
     @required String prefecture,
   }) {
-    int prefectureFixed = LocalJsonClient.isJapan(country) ? int.parse(prefecture) : 0;
-    String jobFixed = job.startsWith('job') ? job.substring(3) : job;
+    final prefectureFixed = LocalJsonClient.isJapan(country) ? int.parse(prefecture) : 0;
+    final jobFixed = job.startsWith('job') ? job.substring(3) : job;
     return UpdateUserWithAttrVariable(
         input: Input(
           user: User(id: userId),

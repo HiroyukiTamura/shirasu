@@ -38,7 +38,7 @@ part 'screen_detail.g.dart';
 
 final _kPrvDetailSnackMsg = Provider.autoDispose<SnackData>((ref) {
   final snackMsgEvent = ref.watch(kPrvSnackBar.state);
-  EdgeInsets margin = Dimens.SNACK_BAR_DEFAULT_MARGIN;
+  var margin = Dimens.SNACK_BAR_DEFAULT_MARGIN;
   if (snackMsgEvent.btmAppBarMargin)
     margin += const EdgeInsets.only(bottom: CommentBtmBar.HEIGHT + 10);
 
@@ -168,7 +168,7 @@ class _ScreenDetailState extends State<ScreenDetail>
     if (state.playOutState.isPlaying) {
       final inMilliseconds = state.playOutState.currentPos.inMilliseconds;
       final cookie = state.playOutState.cookie;
-      bool isLandCape =
+      final isLandCape =
           MediaQuery.of(context).orientation == Orientation.landscape;
 
       final viewModel = context.read(kPrvViewModelDetail(widget.id))
@@ -193,7 +193,7 @@ class _ScreenDetailState extends State<ScreenDetail>
         final conf =
             VideoViewModelConf(widget.id, orientation == Orientation.landscape);
         if (orientation == Orientation.portrait) {
-          double headerH = constraints.maxWidth / Dimens.IMG_RATIO;
+          final headerH = constraints.maxWidth / Dimens.IMG_RATIO;
           final listViewH = constraints.maxHeight - headerH;
           return Stack(
             children: [

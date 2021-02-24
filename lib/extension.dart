@@ -20,7 +20,7 @@ extension IteratableX<E> on Iterable<E> {
   // todo send PR to dartX
   List<E> joinWith(E Function() separator) {
     final list = <E>[];
-    for (int i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
       list.add(elementAt(i));
       if (i != length - 1) list.add(separator());
     }
@@ -59,7 +59,7 @@ extension BuildContextX on BuildContext {
     final orientations =
         isPortrait ? Util.LANDSCAPE_ORIENTATIONS : DeviceOrientation.values;
 
-    read(kPrvLogger).guardFuture(() async {
+    await read(kPrvLogger).guardFuture(() async {
       await SystemChrome.setPreferredOrientations(orientations);
       if (isPortrait)
         await SystemChrome.setEnabledSystemUIOverlays([]);

@@ -44,16 +44,12 @@ class _TestRunner extends TestRunnerBase
           goldenNamePrefix: 'WatchHistoryWidget',
         );
 
-  static const _TEST_NAME_LOADING_MORE = 'LoadingMore';
-  static const _TEST_NAME_NO_LOADING_MORE = 'NoLoadingMore';
-  static const _TEST_NAME_PREFIX_INTEGRATE = 'Integrate';
-
   /// todo implement load more action
   void runTestLoadingMore() => group(
-        'WatchHistoryWidget LoadingMore',
+        'WatchHistoryWidget',
         () {
           testGoldensSimple(
-            testName: _TEST_NAME_NO_LOADING_MORE,
+            testName: 'NoLoadingMore',
             overrides: [
               kOverrideConnectedRepositoryConnectedImpl,
               kOverrideEmptyHiveAuthRepository,
@@ -68,7 +64,7 @@ class _TestRunner extends TestRunnerBase
           );
 
           testGoldensSimple(
-            testName: _TEST_NAME_LOADING_MORE,
+            testName: 'LoadingMore',
             overrides: [
               kOverrideConnectedRepositoryConnectedImpl,
               kOverrideEmptyHiveAuthRepository,
@@ -104,7 +100,7 @@ class _TestRunner extends TestRunnerBase
 
   /// [WidgetTester.ensureVisible] is not work...
   static Future<void> _scrollToBottom(WidgetTester tester) async {
-    for (int i = 0; i < 10; i++) {
+    for (var i = 0; i < 10; i++) {
       print('scroll down! i: $i');
       await _scrollDown(tester);
       final scrollToEnd = await _isScrollToEnd();

@@ -34,7 +34,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runZonedGuarded(() async {
+  await runZonedGuarded(() async {
     await Hive.initFlutter();
     Hive
       ..registerAdapter(HiveAuthDataAdapter())

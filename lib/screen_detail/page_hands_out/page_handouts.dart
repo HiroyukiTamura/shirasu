@@ -59,7 +59,7 @@ class _ScreenHandsOutInner extends HookWidget {
             final createdAt =
                 DateFormat('yyyy.MM.dd HH:mm').format(handout.createdAt);
             final isExtensionOnly = handout.extensionId != null;
-            bool enabled = program.viewerPlanTypeStrict != null &&
+            final enabled = program.viewerPlanTypeStrict != null &&
                 (!isExtensionOnly ||
                     program.isExtensionAvailable(handout.extensionId));
 
@@ -114,7 +114,7 @@ class _ScreenHandsOutInner extends HookWidget {
         .read(kPrvViewModelDetail(program.id))
         .queryHandOutUrl(handoutId);
     if (url != null)
-      Util.launchUrl(
+      await Util.launchUrl(
           context,
           url,
           () => context

@@ -127,7 +127,7 @@ class _PlayerViewState extends State<_PlayerView>
       seek: (diff) async {
         if (!_controller.videoPlayerController.value.initialized) return;
 
-        Duration position = await _controller.videoPlayerController.position;
+        var position = await _controller.videoPlayerController.position;
         if (position == null || !mounted) return;
         position += diff;
         await _controller.seekTo(position);

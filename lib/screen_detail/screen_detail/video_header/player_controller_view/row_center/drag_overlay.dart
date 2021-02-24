@@ -26,7 +26,7 @@ class DragOverlay extends HookWidget {
   Widget build(BuildContext context) {
     useProvider(kPrvDragStartDx); //listen drag start fixme??
 
-    Duration diffDuration = data.diffDuration;
+    var diffDuration = data.diffDuration;
 
     final videoPosWhenDragStart = useProvider(kPrvViewModelDetail(conf.id)
         .state
@@ -39,7 +39,7 @@ class DragOverlay extends HookWidget {
         .state
         .select((it) => it.playOutState.totalDuration));
 
-    Duration aimingPos = videoPosWhenDragStart + diffDuration;
+    var aimingPos = videoPosWhenDragStart + diffDuration;
     if (totalDuration < aimingPos) {
       aimingPos = totalDuration;
       diffDuration = videoPosWhenDragStart - totalDuration;

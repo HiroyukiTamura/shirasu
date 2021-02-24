@@ -90,7 +90,7 @@ class _ContentListView extends HookWidget {
     @required ScrollController sc,
     @required List<WatchHistoriesItem> items,
   }) {
-    int itemCount = items.length;
+    var itemCount = items.length;
     if (showLoadingIndicator) itemCount++;
 
     return ListView.builder(

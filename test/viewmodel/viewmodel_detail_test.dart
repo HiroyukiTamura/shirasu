@@ -79,11 +79,13 @@ Future<void> main() async {
         .listen(kPrvViewModelDetail(
             JsonClient.instance.mProgramDetailData.program.id))
         .read();
+    // ignore: invalid_use_of_protected_member
     if (defaultState != null) viewModel.state = defaultState;
     await predicate(viewModel);
     final snack = container
         .listen(kPrvSnackBar.state)
         .read(); //must listen after predicate!
+    // ignore: invalid_use_of_protected_member
     if (expectedState != null) expect(viewModel.state, expectedState);
     expect(snack?.snackMsg, expectedSnack);
   }
@@ -208,9 +210,11 @@ Future<void> main() async {
         predicate: (viewModel) async {
           await viewModel.loadMoreFutureComment(Duration.zero, true);
           await Future.delayed(1.seconds);
+          // ignore: deprecated_member_use_from_same_package, invalid_use_of_protected_member
           expect(viewModel.state.commentHolder.comments.length,
               ViewModelDetail.COMMENT_MAX_ITEM_COUNT);
           expect(
+              // ignore: deprecated_member_use_from_same_package, invalid_use_of_protected_member
               viewModel.state.commentHolder.comments.last,
               JsonClient.instance.mListCommentsByProgram.comments
                   .items[ViewModelDetail.COMMENT_MAX_ITEM_COUNT - 1]);
@@ -230,8 +234,8 @@ Future<void> main() async {
         expectedState: specState,
         expectedSnack: const SnackMsg.networkDisconnected(),
         predicate: (viewModel) async {
-          final url = await viewModel.queryHandOutUrl(
-              JsonClient.instance.mProgramDetailData.program.handouts.items.first.id);
+          final url = await viewModel.queryHandOutUrl(JsonClient
+              .instance.mProgramDetailData.program.handouts.items.first.id);
           await Future.delayed(1.seconds);
           expect(url, isNull);
         },
@@ -248,8 +252,8 @@ Future<void> main() async {
         expectedState: specState,
         expectedSnack: const SnackMsg.networkTimeout(),
         predicate: (viewModel) async {
-          final url = await viewModel.queryHandOutUrl(
-              JsonClient.instance.mProgramDetailData.program.handouts.items.first.id);
+          final url = await viewModel.queryHandOutUrl(JsonClient
+              .instance.mProgramDetailData.program.handouts.items.first.id);
           await Future.delayed(10.seconds);
           expect(url, isNull);
         },
@@ -266,8 +270,8 @@ Future<void> main() async {
         expectedState: specState,
         expectedSnack: const SnackMsg.unknown(),
         predicate: (viewModel) async {
-          final url = await viewModel.queryHandOutUrl(
-              JsonClient.instance.mProgramDetailData.program.handouts.items.first.id);
+          final url = await viewModel.queryHandOutUrl(JsonClient
+              .instance.mProgramDetailData.program.handouts.items.first.id);
           await Future.delayed(1.seconds);
           expect(url, isNull);
         },
@@ -284,8 +288,8 @@ Future<void> main() async {
         expectedState: specState,
         expectedSnack: null,
         predicate: (viewModel) async {
-          final url = await viewModel.queryHandOutUrl(
-              JsonClient.instance.mProgramDetailData.program.handouts.items.first.id);
+          final url = await viewModel.queryHandOutUrl(JsonClient
+              .instance.mProgramDetailData.program.handouts.items.first.id);
           await Future.delayed(1.seconds);
           expect(url, GraphQlRepositoryCommonImpl.HANDOUT_URL);
         },

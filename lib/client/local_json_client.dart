@@ -65,7 +65,7 @@ class LocalJsonClient {
         location?.countryCode ?? user?.httpsShirasuIoUserAttribute?.country;
     final prefectureCode = location?.prefectureCode ??
         user?.httpsShirasuIoUserAttribute?.prefecture;
-    String countryStr =
+    var countryStr =
         await getCountryName(countryCode) ?? Strings.DEFAULT_EMPTY;
     if (LocalJsonClient.isJapan(countryCode)) {
       final prefectureStr =

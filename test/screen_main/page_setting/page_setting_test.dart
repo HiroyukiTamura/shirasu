@@ -21,7 +21,7 @@ class _TestRunner extends TestRunnerBase {
         );
 
   void runTest() => group('PageSettingInMainScreen', () {
-        List<Override> overrides = [kOverrideViewModelSettingMocked];
+        final overrides = [kOverrideViewModelSettingMocked];
         testGoldensSimple(
           testName: 'UserInfo',
           overrides: overrides,

@@ -10,9 +10,7 @@ part 'header_color_filter.g.dart';
 Widget headerColorFilter({
   @required HeaderData data,
 }) {
-  double scrollRatio = 0;
-  if (!data.wideMode)
-    scrollRatio = useProvider(kPrvScrollRatio(data.height));
+  final scrollRatio = data.wideMode ? 0 : useProvider(kPrvScrollRatio(data.height));
   return Visibility(
     visible: 0 < scrollRatio,
     child: Opacity(

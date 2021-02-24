@@ -34,16 +34,14 @@ class _BillboardHeaderContentState extends State<BillboardHeaderContent>
     with AutomaticKeepAliveClientMixin {
   PageController _pc;
 
-  double get _singleCardViewH {
-    double h = widget.data.height -
-        BillboardHeader.TITLE_H -
-        BillboardHeader.CARD_SPACE * 2 -
-        BillboardHeader.BTM_NOTCH_H_PAD -
-        (widget.data.showIndicator
-            ? BillboardHeader.INDICATOR_H
-            : BillboardHeader.BTM_PADDING);
-    return h;
-  }
+  double get _singleCardViewH =>
+      widget.data.height -
+      BillboardHeader.TITLE_H -
+      BillboardHeader.CARD_SPACE * 2 -
+      BillboardHeader.BTM_NOTCH_H_PAD -
+      (widget.data.showIndicator
+          ? BillboardHeader.INDICATOR_H
+          : BillboardHeader.BTM_PADDING);
 
   @override
   bool get wantKeepAlive => true;
@@ -65,6 +63,7 @@ class _BillboardHeaderContentState extends State<BillboardHeaderContent>
     super.build(context);
 
     ScrollController sc;
+    // ignore: omit_local_variable_types
     double topPadding = 0;
 
     final scrollRatio = useProvider(kPrvScrollRatio(widget.data.height));

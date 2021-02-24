@@ -76,7 +76,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
               GraphQlRepository.TIMEOUT); //todo set timeout on graphQl side?
     });
     if (mounted)
-      result.when(
+      await result.when(
         success: (data) async {
           state = state.copyWith(
             prgDataResult: DetailModelState.success(

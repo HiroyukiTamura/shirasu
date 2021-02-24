@@ -65,7 +65,7 @@ class _ListViewContent extends HookWidget {
     final anyNowBroadcastings =
         featurePrgData?.nowBroadcastings?.items?.isNotEmpty == true;
 
-    int itemCount = _NOW_BROADCASTINGS_LAST;
+    var itemCount = _NOW_BROADCASTINGS_LAST;
 
     if (featurePrgData?.comingBroadcastings?.items?.isNotEmpty == true)
       itemCount += 2;

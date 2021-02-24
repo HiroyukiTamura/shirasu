@@ -47,7 +47,7 @@ class CommentListView extends HookWidget {
 
     if (items.isEmpty) return const SizedBox.shrink();
 
-    int itemCount = items.length;
+    var itemCount = items.length;
     if (data.showBottomProgressIndicator) itemCount++;
 
     return Material(
@@ -115,7 +115,7 @@ class CommentListView extends HookWidget {
           _LOAD_MORE_OFFSET) {
         final mostPastCommentTime = state.commentHolder.mostPastCommentTime;
         if (mostPastCommentTime != null)
-          viewModel.loadMorePastComment(
+          await viewModel.loadMorePastComment(
               mostPastCommentTime - 1.milliseconds, false);
       }
     }
@@ -191,7 +191,7 @@ class CommentBtmBar extends HookWidget {
 Widget _suffixBtn(
   BuildContext context, {
   @required String id,
-  @required Future<void> onPressed(BuildContext context, String text),
+  Future<void> Function(BuildContext context, String text) onPressed,
 }) {
   final text = useProvider(_kPrvTextController).text;
   return IconButton(

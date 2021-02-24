@@ -67,14 +67,14 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
 
         /// [WidgetTester.ensureVisible] is not work...
         Future<void> _scrollDownMultiple(WidgetTester tester, int count) async {
-          for (int i = 0; i < count; i++) {
+          for (var i = 0; i < count; i++) {
             print('scroll down! i: $i');
             await tester.drag(find.byType(ListView), const Offset(0, -700));
           }
         }
 
         /// capture whole screen
-        for (int i = 0; i < 7; i++) {
+        for (var i = 0; i < 7; i++) {
           print('scroll down! i: $i');
           testGoldenTemplate(
             goldenName: 'Normal$i',

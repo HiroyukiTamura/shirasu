@@ -554,7 +554,7 @@ class _$ProgramUpdateTearOff {
       @required CommentWithUser comment,
       @required SocketHandout handout,
       @required DetailPrgItem video,
-      @required dynamic totalPlayTime,
+      @required int totalPlayTime,
       @required @JsonKey(name: '__typename') String typename}) {
     return _ProgramUpdate(
       programId: programId,
@@ -586,7 +586,7 @@ mixin _$ProgramUpdate {
   CommentWithUser get comment;
   SocketHandout get handout;
   DetailPrgItem get video;
-  dynamic get totalPlayTime;
+  int get totalPlayTime;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -607,7 +607,7 @@ abstract class $ProgramUpdateCopyWith<$Res> {
       CommentWithUser comment,
       SocketHandout handout,
       DetailPrgItem video,
-      dynamic totalPlayTime,
+      int totalPlayTime,
       @JsonKey(name: '__typename') String typename});
 
   $UseProgramDataCopyWith<$Res> get program;
@@ -646,7 +646,7 @@ class _$ProgramUpdateCopyWithImpl<$Res>
       video: video == freezed ? _value.video : video as DetailPrgItem,
       totalPlayTime: totalPlayTime == freezed
           ? _value.totalPlayTime
-          : totalPlayTime as dynamic,
+          : totalPlayTime as int,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -706,7 +706,7 @@ abstract class _$ProgramUpdateCopyWith<$Res>
       CommentWithUser comment,
       SocketHandout handout,
       DetailPrgItem video,
-      dynamic totalPlayTime,
+      int totalPlayTime,
       @JsonKey(name: '__typename') String typename});
 
   @override
@@ -751,7 +751,7 @@ class __$ProgramUpdateCopyWithImpl<$Res>
       video: video == freezed ? _value.video : video as DetailPrgItem,
       totalPlayTime: totalPlayTime == freezed
           ? _value.totalPlayTime
-          : totalPlayTime as dynamic,
+          : totalPlayTime as int,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -796,7 +796,7 @@ class _$_ProgramUpdate implements _ProgramUpdate {
   @override
   final DetailPrgItem video;
   @override
-  final dynamic totalPlayTime;
+  final int totalPlayTime;
   @override
   @JsonKey(name: '__typename')
   final String typename;
@@ -866,7 +866,7 @@ abstract class _ProgramUpdate implements ProgramUpdate {
           @required CommentWithUser comment,
           @required SocketHandout handout,
           @required DetailPrgItem video,
-          @required dynamic totalPlayTime,
+          @required int totalPlayTime,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_ProgramUpdate;
 
@@ -886,7 +886,7 @@ abstract class _ProgramUpdate implements ProgramUpdate {
   @override
   DetailPrgItem get video;
   @override
-  dynamic get totalPlayTime;
+  int get totalPlayTime;
   @override
   @JsonKey(name: '__typename')
   String get typename;

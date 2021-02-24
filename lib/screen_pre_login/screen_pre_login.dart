@@ -11,7 +11,7 @@ import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/no_effect_scroll_behavior.dart';
 import 'package:shirasu/ui_common/ui_util.dart';

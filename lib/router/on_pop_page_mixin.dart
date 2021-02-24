@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/router/global_app_state.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 

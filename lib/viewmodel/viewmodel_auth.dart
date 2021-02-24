@@ -16,7 +16,7 @@ import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/result.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:synchronized/synchronized.dart';
 

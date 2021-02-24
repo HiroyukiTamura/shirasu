@@ -6,7 +6,7 @@ import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/ui_common/ui_util.dart';

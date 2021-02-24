@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/router/navigation_value_key_handler.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';

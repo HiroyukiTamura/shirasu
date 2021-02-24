@@ -55,7 +55,7 @@ abstract class ProgramUpdate with _$ProgramUpdate {
     @required CommentWithUser comment,
     @required SocketHandout handout,
     @required DetailPrgItem video,
-    @required dynamic totalPlayTime,
+    @required int totalPlayTime,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramUpdate;
 

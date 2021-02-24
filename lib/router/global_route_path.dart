@@ -3,9 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 
-part 'screen_main_route_path.freezed.dart';
-
-//todo file rename??
+part 'global_route_path.freezed.dart';
 
 @immutable
 abstract class GlobalRoutePathBase {

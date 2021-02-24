@@ -403,7 +403,7 @@ class _$_Invoice extends _Invoice {
         assert(total != null),
         assert(subtotal != null),
         assert(typename != null),
-        assert(typename == Invoice),
+        assert(typename == "Invoice"),
         super._();
 
   factory _$_Invoice.fromJson(Map<String, dynamic> json) =>

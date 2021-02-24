@@ -9,7 +9,7 @@ part of 'comment_list_view.dart';
 /// disable [IconButton] if text is empty
 class _SuffixBtn extends HookWidget {
   /// disable [IconButton] if text is empty
-  const _SuffixBtn({Key key, @required this.id, @required this.onPressed})
+  const _SuffixBtn({Key key, @required this.id, this.onPressed})
       : super(key: key);
 
   /// disable [IconButton] if text is empty

@@ -6,7 +6,7 @@ part 'connection_ack.g.dart';
 
 @freezed
 abstract class ConnectionAck with _$ConnectionAck {
-  @Assert("type = 'connection_ack'")
+  @Assert("type == 'connection_ack'")
   const factory ConnectionAck({
     @required String type,
     @required Payload payload,

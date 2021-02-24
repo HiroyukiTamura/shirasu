@@ -1,5 +1,5 @@
 import 'package:shirasu/router/app_route_information_parser.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 
 class NavigationValueKeyHandler {
 

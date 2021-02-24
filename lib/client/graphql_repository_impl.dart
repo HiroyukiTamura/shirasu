@@ -1,8 +1,6 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/client/auth_wrapper_client.dart';
 import 'package:shirasu/client/graghql_query.dart';
 import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/logger_repository_impl.dart';
@@ -21,15 +19,14 @@ import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:dartx/dartx.dart';
-import 'package:http/http.dart' as http;
 
 import '../util.dart';
+import 'auth_client_interceptor.dart';
 import 'logger_repository.dart';
 
 final kPrvGraphqlRepository = Provider.autoDispose<GraphQlRepository>(
     (ref) => GraphQlRepositoryImpl.instance(ref.read));
 
-/// todo handle timeout
 /// todo operation name?
 class GraphQlRepositoryImpl with GraphQlRepository {
   GraphQlRepositoryImpl._(this._reader) {
@@ -49,7 +46,6 @@ class GraphQlRepositoryImpl with GraphQlRepository {
 
   static Future<void> openHiveStore() async => HiveStore.open();
 
-  /// todo no need client
   GraphQLClient _createClient() {
     final link = Link.from([
       AuthLink(

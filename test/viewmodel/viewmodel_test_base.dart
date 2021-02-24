@@ -5,14 +5,8 @@ import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
-import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
-import 'package:shirasu/model/graphql/new_programs_data.dart';
-import 'package:shirasu/model/graphql/viewer.dart';
-import 'package:shirasu/model/graphql/watch_history_data.dart';
-import 'package:shirasu/model/hive/auth_data.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
@@ -31,7 +25,6 @@ import '../widget_test_util/json_client.dart';
 import '../widget_test_util/override_util.dart';
 import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_runner_base.dart';
-import '../widget_test_util/test_util.dart';
 
 /// test util for [ViewModelBase]
 class ViewModelTestBase<T> {

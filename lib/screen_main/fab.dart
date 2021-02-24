@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

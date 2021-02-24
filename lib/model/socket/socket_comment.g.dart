@@ -67,7 +67,7 @@ _$_ProgramUpdate _$_$_ProgramUpdateFromJson(Map<String, dynamic> json) {
     video: json['video'] == null
         ? null
         : DetailPrgItem.fromJson(json['video'] as Map<String, dynamic>),
-    totalPlayTime: json['totalPlayTime'],
+    totalPlayTime: json['totalPlayTime'] as int,
     typename: json['__typename'] as String,
   );
 }

@@ -6,11 +6,11 @@ import 'package:shirasu/util/exceptions.dart';
 import 'package:synchronized/synchronized.dart';
 
 final kPrvAuthClientInterceptor = Provider.autoDispose<AuthClientInterceptor>(
-    (ref) => AuthClientInterceptor(ref.read));
+    (ref) => AuthClientInterceptor._(ref.read));
 
-//todo file rename
+//todo rename package
 class AuthClientInterceptor {
-  AuthClientInterceptor(this._reader);
+  AuthClientInterceptor._(this._reader);
 
   final _lock = Lock();
 

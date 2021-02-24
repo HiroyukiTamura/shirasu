@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/router/no_animation_page.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_app_state.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 

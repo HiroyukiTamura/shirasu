@@ -12,7 +12,7 @@ import 'package:shirasu/client/logger_repository_impl.dart';
 import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/result.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:dartx/dartx.dart';
 

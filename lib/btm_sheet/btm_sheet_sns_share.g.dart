@@ -6,17 +6,13 @@ part of 'btm_sheet_sns_share.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-/// todo deep link for this app
 class BtmSheetSnsShare extends StatelessWidget {
-  /// todo deep link for this app
   const BtmSheetSnsShare(
       {Key key, @required this.shareUrl, @required this.snackCallback})
       : super(key: key);
 
-  /// todo deep link for this app
   final ShareUrl shareUrl;
 
-  /// todo deep link for this app
   final void Function(SnackMsg) snackCallback;
 
   @override

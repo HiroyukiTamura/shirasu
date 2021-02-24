@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shirasu/client/url_util.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
 import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
+
+import 'global_route_path.dart';
 
 class AppRouteInformationParser
     extends RouteInformationParser<GlobalRoutePathBase> {

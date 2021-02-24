@@ -22,8 +22,6 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
   HiveBody get _hiveAuthBody => hiveAuthRepository?.authData?.body;
 
-  bool _isInLogout = false;
-
   @override
   Future<void> initialize() async {
     if (state != SettingModel.initial()) return;

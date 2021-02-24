@@ -26,8 +26,6 @@ import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_runner_on_page_error.dart';
 import '../../widget_test_util/test_util.dart';
 
-const _kTestNameNoData = 'NoData';
-
 /// test for [PageDashboardInMainScreen]
 void main() => _TestRunner()
   ..runTestGroup('PageDashboardNormalScreen')

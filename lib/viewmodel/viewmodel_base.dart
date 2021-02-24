@@ -13,7 +13,7 @@ import 'package:shirasu/client/dio_client.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/client/logger_repository.dart';
 import 'package:shirasu/client/logger_repository_impl.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:state_notifier/state_notifier.dart';
 

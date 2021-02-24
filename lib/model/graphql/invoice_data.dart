@@ -17,7 +17,7 @@ abstract class InvoiceData with _$InvoiceData {
 
 @freezed
 abstract class Invoice implements _$Invoice, BaseInvoice {
-  @Assert('typename == Invoice')
+  @Assert('typename == "Invoice"')
   const factory Invoice({
     @required String id,
     @required DateTime createdAt,

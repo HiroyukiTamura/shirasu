@@ -7,7 +7,7 @@ import 'package:shirasu/client/connectivity_repository_impl.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
 import 'package:shirasu/client/hive_auth_repository.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_main/page_list/subscribing_widget.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';

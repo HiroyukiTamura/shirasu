@@ -48,7 +48,6 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
   @override
   Future<void> clearAuthData() async => box.clear();
 
-  //todo synchronize??
   @override
   bool get shouldRefresh {
     final tokenPublishedAtUtc = authData?.tokenPublishedAtUtc;

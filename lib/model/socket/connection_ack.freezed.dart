@@ -128,7 +128,7 @@ class _$_ConnectionAck implements _ConnectionAck {
   const _$_ConnectionAck({@required this.type, @required this.payload})
       : assert(type != null),
         assert(payload != null),
-        assert(type = 'connection_ack');
+        assert(type == 'connection_ack');
 
   factory _$_ConnectionAck.fromJson(Map<String, dynamic> json) =>
       _$_$_ConnectionAckFromJson(json);

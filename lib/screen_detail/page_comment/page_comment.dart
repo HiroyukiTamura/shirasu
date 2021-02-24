@@ -22,7 +22,7 @@ import 'comment_list_view.dart';
 part 'page_comment.g.dart';
 
 final _kPrvPositionUpdateEvent = Provider.family.autoDispose<Duration, String>(
-    (ref, id) => ref.watch(kPrvViewModelDetail(id).state).playOutState.currentPos);
+    (ref, id) => ref.watch(kPrvViewModelDetail(id).state).playOutState.currentPosSafe);
 
 class PageComment extends StatelessWidget {
   const PageComment({

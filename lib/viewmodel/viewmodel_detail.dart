@@ -233,7 +233,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   Future<void> postComment(String text) async {
     if (text.isNullOrEmpty ||
         state.isCommentPosting ||
-        state.playOutState.currentPos.isNegative) return;
+        state.playOutState.currentPosSafe == Duration.zero) return;
 
     state = state.copyWith(isCommentPosting: true);
     final result = await logger.guardFuture(() async {
@@ -241,7 +241,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       await connectivityRepository.ensureNotDisconnect();
       return graphQlRepository
           .postComment(
-            commentTime: state.playOutState.currentPos,
+            commentTime: state.playOutState.currentPosSafe,
             programId: id,
             text: text,
           )

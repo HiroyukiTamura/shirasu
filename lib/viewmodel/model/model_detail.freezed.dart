@@ -986,9 +986,9 @@ class _$PlayOutStateTearOff {
       VideoType videoType,
       String cookie,
       bool isPlaying = false,
-      Duration currentPos = Duration.zero,
-      Duration currentPosForUi = Duration.zero,
-      Duration totalDuration = Duration.zero,
+      @protected Duration currentPos = Duration.zero,
+      @protected Duration currentPosForUi = Duration.zero,
+      @protected Duration totalDuration = Duration.zero,
       bool controllerVisibility = false,
       bool isSeekBarDragging = false,
       bool fullScreen = false,
@@ -1027,8 +1027,11 @@ mixin _$PlayOutState {
   VideoType get videoType;
   String get cookie;
   bool get isPlaying;
+  @protected
   Duration get currentPos;
+  @protected
   Duration get currentPosForUi;
+  @protected
   Duration get totalDuration;
   bool get controllerVisibility;
   bool get isSeekBarDragging;
@@ -1052,9 +1055,9 @@ abstract class $PlayOutStateCopyWith<$Res> {
       VideoType videoType,
       String cookie,
       bool isPlaying,
-      Duration currentPos,
-      Duration currentPosForUi,
-      Duration totalDuration,
+      @protected Duration currentPos,
+      @protected Duration currentPosForUi,
+      @protected Duration totalDuration,
       bool controllerVisibility,
       bool isSeekBarDragging,
       bool fullScreen,
@@ -1185,9 +1188,9 @@ abstract class _$PlayOutStateCopyWith<$Res>
       VideoType videoType,
       String cookie,
       bool isPlaying,
-      Duration currentPos,
-      Duration currentPosForUi,
-      Duration totalDuration,
+      @protected Duration currentPos,
+      @protected Duration currentPosForUi,
+      @protected Duration totalDuration,
       bool controllerVisibility,
       bool isSeekBarDragging,
       bool fullScreen,
@@ -1280,9 +1283,9 @@ class _$_PlayOutState extends _PlayOutState {
       this.videoType,
       this.cookie,
       this.isPlaying = false,
-      this.currentPos = Duration.zero,
-      this.currentPosForUi = Duration.zero,
-      this.totalDuration = Duration.zero,
+      @protected this.currentPos = Duration.zero,
+      @protected this.currentPosForUi = Duration.zero,
+      @protected this.totalDuration = Duration.zero,
       this.controllerVisibility = false,
       this.isSeekBarDragging = false,
       this.fullScreen = false,
@@ -1315,12 +1318,15 @@ class _$_PlayOutState extends _PlayOutState {
   final bool isPlaying;
   @JsonKey(defaultValue: Duration.zero)
   @override
+  @protected
   final Duration currentPos;
   @JsonKey(defaultValue: Duration.zero)
   @override
+  @protected
   final Duration currentPosForUi;
   @JsonKey(defaultValue: Duration.zero)
   @override
+  @protected
   final Duration totalDuration;
   @JsonKey(defaultValue: false)
   @override
@@ -1427,9 +1433,9 @@ abstract class _PlayOutState extends PlayOutState {
           VideoType videoType,
           String cookie,
           bool isPlaying,
-          Duration currentPos,
-          Duration currentPosForUi,
-          Duration totalDuration,
+          @protected Duration currentPos,
+          @protected Duration currentPosForUi,
+          @protected Duration totalDuration,
           bool controllerVisibility,
           bool isSeekBarDragging,
           bool fullScreen,
@@ -1449,10 +1455,13 @@ abstract class _PlayOutState extends PlayOutState {
   @override
   bool get isPlaying;
   @override
+  @protected
   Duration get currentPos;
   @override
+  @protected
   Duration get currentPosForUi;
   @override
+  @protected
   Duration get totalDuration;
   @override
   bool get controllerVisibility;

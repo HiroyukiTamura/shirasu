@@ -166,7 +166,7 @@ class _ScreenDetailState extends State<ScreenDetail>
   Future<void> _switchVideoBackground() async {
     final state = context.read(kPrvViewModelDetail(widget.id).state);
     if (state.playOutState.isPlaying) {
-      final inMilliseconds = state.playOutState.currentPos.inMilliseconds;
+      final inMilliseconds = state.playOutState.currentPosSafe.inMilliseconds;
       final cookie = state.playOutState.cookie;
       final isLandCape =
           MediaQuery.of(context).orientation == Orientation.landscape;

@@ -101,9 +101,9 @@ abstract class PlayOutState implements _$PlayOutState {
     VideoType videoType,
     String cookie,
     @Default(false) bool isPlaying,
-    @Default(Duration.zero) Duration currentPos,
-    @Default(Duration.zero) Duration currentPosForUi,
-    @Default(Duration.zero) Duration totalDuration,
+    @Default(Duration.zero) @protected Duration currentPos,
+    @Default(Duration.zero) @protected Duration currentPosForUi,
+    @Default(Duration.zero) @protected Duration totalDuration,
     @Default(false) bool controllerVisibility,
     @Default(false) bool isSeekBarDragging,
     @Default(false) bool fullScreen,
@@ -143,7 +143,11 @@ abstract class PlayOutState implements _$PlayOutState {
       hlsMediaUrl == state?.hlsMediaUrl;
 
   Duration get currentPosForUiSafe =>
-      currentPosForUi.isNegative ? Duration.zero : currentPos;
+      currentPosForUi.isNegative ? Duration.zero : currentPosForUi;
+
+  Duration get currentPosSafe => currentPos.isNegative ? Duration.zero : currentPos;
+
+  Duration get totalDurationSafe => totalDuration.isNegative ? Duration.zero : totalDuration;
 }
 
 /// status of statue of video command.

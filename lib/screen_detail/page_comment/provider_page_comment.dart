@@ -56,7 +56,7 @@ final kPrvPageUiData = StateNotifierProvider.family
     final comments = commentHolder.followTimeLineMode.when(
       notFollow: (futurePos) => commentHolder.getCommentItemsBefore(futurePos),
       follow: () =>
-          commentHolder.getCommentItemsBefore(state.playOutState.currentPos),
+          commentHolder.getCommentItemsBefore(state.playOutState.currentPosSafe),
     );
 
     final data = PageUiData(rawComments: comments, showBottomProgressIndicator: !commentHolder.loadedMostPastComment);

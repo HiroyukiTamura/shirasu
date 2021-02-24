@@ -106,7 +106,7 @@ class CommentListView extends HookWidget {
       final positionOnTop = controller.offset <= 0;
 
       if (!positionOnTop) {
-        final videoPos = state.playOutState.currentPos;
+        final videoPos = state.playOutState.currentPosSafe;
         viewModel
             .notifyFollowTimeLineMode(FollowTimeLineMode.notFollow(videoPos));
       }

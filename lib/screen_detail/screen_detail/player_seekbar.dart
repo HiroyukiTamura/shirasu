@@ -72,7 +72,7 @@ class VideoSeekBar extends HookWidget {
   Widget build(BuildContext context) {
     final max = useProvider(kPrvViewModelDetail(conf.id)
         .state
-        .select((it) => it.playOutState.totalDuration)).inSeconds.toDouble();
+        .select((it) => it.playOutState.totalDurationSafe)).inSeconds.toDouble();
     final value = useProvider(kPrvViewModelDetail(conf.id)
             .state
             .select((it) => it.playOutState.currentPosForUiSafe))

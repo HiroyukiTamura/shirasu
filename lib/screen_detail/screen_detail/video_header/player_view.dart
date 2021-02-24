@@ -252,7 +252,7 @@ class _PlayerViewState extends State<_PlayerView>
           //todo implement
           return Container();
         },
-        startAt: playOutState.currentPos,
+        startAt: playOutState.currentPosSafe,
         controlsConfiguration: const BetterPlayerControlsConfiguration(
           showControls: false,
         ),

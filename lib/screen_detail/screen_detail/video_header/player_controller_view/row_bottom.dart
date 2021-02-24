@@ -44,9 +44,9 @@ Widget _timeText({
   final isSeekBarDragging = useProvider(
       kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.isSeekBarDragging));
   final total =
-      useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.totalDuration));
+      useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.totalDurationSafe));
   final current =
-      useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.currentPosForUi));
+      useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.currentPosForUiSafe));
 
   final totalStr = Util.formatDurationStyled(total);
   final currentStr = Util.formatDurationStyled(current);

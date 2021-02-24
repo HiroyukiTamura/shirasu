@@ -1,5 +1,3 @@
-
-/// todo remove `QUERY` suffix
 class GraphqlQuery {
   const GraphqlQuery._();
 

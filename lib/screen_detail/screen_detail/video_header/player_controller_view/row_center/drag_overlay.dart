@@ -30,14 +30,13 @@ class DragOverlay extends HookWidget {
 
     final videoPosWhenDragStart = useProvider(kPrvViewModelDetail(conf.id)
         .state
-        .select((it) => it.playOutState.currentPosForUi));
+        .select((it) => it.playOutState.currentPosForUiSafe));
     final videoReady = useProvider(kPrvVideoControllerReady(conf.id));
-    if (!videoReady || videoPosWhenDragStart.isNegative)
-      return const SizedBox.shrink();
-
     final totalDuration = useProvider(kPrvViewModelDetail(conf.id)
         .state
-        .select((it) => it.playOutState.totalDuration));
+        .select((it) => it.playOutState.totalDurationSafe));
+    if (!videoReady || videoPosWhenDragStart == Duration.zero)
+      return const SizedBox.shrink();
 
     var aimingPos = videoPosWhenDragStart + diffDuration;
     if (totalDuration < aimingPos) {

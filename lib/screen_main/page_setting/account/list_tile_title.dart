@@ -33,7 +33,7 @@ class ListTileTitle extends StatelessWidget {
         vertical: isCreditCard
             ? ListTileSeem.SEEM_PADDING + _PADDING_VERTICAL
             : _PADDING_VERTICAL,
-      ), //todo extract to dimens
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

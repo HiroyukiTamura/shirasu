@@ -149,18 +149,17 @@ class _ScreenDetailState extends State<ScreenDetail>
         ),
       );
 
-  //todo fixme
   Future<void> _switchVideoForeground() async {
-    // final replyData =
-    //     await context.read(kPrvViewModelDetail(widget.id)).stopBackGroundPlayer();
-    // if (mounted && replyData.wasPlaying) {
-    //   bool isLandCape =
-    //       MediaQuery.of(context).orientation == Orientation.landscape;
-    //   context.read(kPrvViewModelDetail(widget.id)).playOrPause(
-    //         isLandCape,
-    //         VideoControllerCommand.play(replyData.position),
-    //       );
-    // }
+    final replyData =
+        await context.read(kPrvViewModelDetail(widget.id)).stopBackGroundPlayer();
+    if (mounted && replyData.wasPlaying) {
+      final isLandCape =
+          MediaQuery.of(context).orientation == Orientation.landscape;
+      context.read(kPrvViewModelDetail(widget.id)).playOrPause(
+            isLandCape,
+            VideoControllerCommand.play(replyData.position),
+          );
+    }
   }
 
   Future<void> _switchVideoBackground() async {

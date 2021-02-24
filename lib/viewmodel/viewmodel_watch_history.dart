@@ -66,7 +66,6 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
           });
           if (mounted)
             result.when(success: (data) {
-              //todo extract to model class
               final newList = oldData.watchHistories + [data];
               state = WatchHistoryState.success(WatchHistoriesDataWrapper(
                 watchHistories: newList.toUnmodifiable(),

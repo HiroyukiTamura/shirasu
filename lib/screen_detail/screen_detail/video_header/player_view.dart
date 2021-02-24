@@ -10,8 +10,10 @@ import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
+import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:shirasu/extension.dart';
@@ -230,7 +232,6 @@ class _PlayerViewState extends State<_PlayerView>
 
   // endregion
 
-  // todo send issue to BetterPlayer repository
   void _rawVideoPlayerListener() =>
       _getViewModelDetail(context).updateIsBuffering(
         fullScreen: widget.conf.fullScreen,
@@ -246,17 +247,11 @@ class _PlayerViewState extends State<_PlayerView>
       BetterPlayerConfiguration(
         autoPlay: playOutState.isPlaying,
         handleLifecycle: false,
-        //todo why not true??
         fit: BoxFit.contain,
-        errorBuilder: (context, errorMessage) {
-          //todo implement
-          return Container();
-        },
         startAt: playOutState.currentPosSafe,
         controlsConfiguration: const BetterPlayerControlsConfiguration(
           showControls: false,
         ),
-        //todo ugly access
         aspectRatio: Dimens.IMG_RATIO,
         fullScreenAspectRatio: Dimens.IMG_RATIO,
       ),

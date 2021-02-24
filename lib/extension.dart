@@ -35,10 +35,6 @@ extension MapX<K, V> on Map<K, V> {
   UnmodifiableMapView<K, V> toUnmodifiable() => UnmodifiableMapView(this);
 }
 
-extension IntX on int {
-  int ceilFrom1() => this < 1 ? 1 : this;
-}
-
 extension BuildContextX on BuildContext {
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(kPrvAppRouterDelegate).pushPage(path);

@@ -64,9 +64,8 @@ class Util {
 
   // todo improve logic
   static String sec2Hms(int sec) {
-    final duration = Duration(seconds: sec);
     final dateTime = DateTime.fromMillisecondsSinceEpoch(
-      duration.inMilliseconds,
+      sec * 1000,
       isUtc: true,
     );
     return DateFormat('hh:mm:ss').format(dateTime);

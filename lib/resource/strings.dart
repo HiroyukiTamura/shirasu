@@ -48,7 +48,7 @@ class Strings {
   //region SnackBar
   static const SNACK_NO_MORE_ITEM = 'アイテムは他にありません';
 
-  static const SNACK_ERR = '処理に失敗しました';
+  static const SNACK_ERR = '処理に失敗しました';//todo rename
   static const SNACK_CANT_OPEN_URL = 'Webページを開けません';
   static const SNACK_URL_COPIED = 'urlをコピーしました';
 

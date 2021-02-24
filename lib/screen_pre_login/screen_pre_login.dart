@@ -39,7 +39,7 @@ final _kPrvSnackMsg = Provider.autoDispose<SnackData>((ref) {
   );
 });
 
-//todo horizontal screen
+
 class ScreenPreLogin extends StatelessWidget {
   const ScreenPreLogin();
 

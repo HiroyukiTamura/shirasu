@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dartx/dartx.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_video_background/model/replay_data.dart';
 
 // import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -73,7 +74,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
               () async => graphQlRepository.queryProgramDetail(id),
               () async => graphQlRepository.queryChannelData(channelId))
           .timeout(
-              GraphQlRepository.TIMEOUT); //todo set timeout on graphQl side?
+              GraphQlRepository.TIMEOUT);
     });
     if (mounted)
       await result.when(
@@ -514,5 +515,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
                     title: prgDetailData.program.title,
                     subtitle: channelData.channel.name,
                   )));
+  }
+
+  Future<ReplyData> stopBackGroundPlayer() async {
+    final result = await Result.guardFuture(
+        logger, () async => NativeClient.stopBackGround());
+    return result.when(success: (data) => data, failure: (e) => null);
   }
 }

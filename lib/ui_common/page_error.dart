@@ -15,10 +15,6 @@ import 'package:shirasu/util/types.dart';
 
 part 'page_error.g.dart';
 
-/// todo fix layout metrics, colors of image
-/// todo change to listView??
-///
-
 class PageError extends StatelessWidget {
   const PageError({
     Key key,

@@ -68,17 +68,17 @@ class VideoThumbnail extends HookWidget {
 
   /// todo extract
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    final result = context
-        .read(kPrvViewModelDetail(program.id).state)
-        .prgDataResult as DetailStateSuccess;
-    await BtmSheetCommon.showUrlLauncherBtmSheet(
-      context: context,
-      url: UrlUtil.programId2Url(program.id),
-      child: VideoPaymentBtmSheet(result: result),
-      snackCallback: (msg) => context
-          .read(kPrvViewModelDetail(program.id))
-          .commandSnackBar(const SnackMsg.unknown()),
-    );
+    final result =
+        context.read(kPrvViewModelDetail(program.id).state).prgDataResult;
+    if (result is DetailStateSuccess)
+      await BtmSheetCommon.showUrlLauncherBtmSheet(
+        context: context,
+        url: UrlUtil.programId2Url(program.id),
+        child: VideoPaymentBtmSheet(result: result),
+        snackCallback: (msg) => context
+            .read(kPrvViewModelDetail(program.id))
+            .commandSnackBar(const SnackMsg.unknown()),
+      );
   }
 }
 
@@ -96,7 +96,9 @@ Widget _hoverWidget(
   final canPreview = program.previewTime != 0;
 
   if (isPurchased)
-    return isWaiting ? const _HoverText(text: Strings.WAIT_FOR_START) : PlayBtn(onTap: onTap);
+    return isWaiting
+        ? const _HoverText(text: Strings.WAIT_FOR_START)
+        : PlayBtn(onTap: onTap);
 
   if (program.isInVideoArchiving)
     return const _HoverText(text: Strings.PROGRAM_ARCHIVING);
@@ -133,7 +135,10 @@ Widget _previewExistMessage() => const Text(
     );
 
 @swidget
-Widget _hoverText({@required String text,}) => _HoverBackDrop(
+Widget _hoverText({
+  @required String text,
+}) =>
+    _HoverBackDrop(
       child: Text(
         text,
         style: const TextStyle(

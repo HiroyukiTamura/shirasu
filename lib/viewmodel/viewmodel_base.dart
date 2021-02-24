@@ -22,7 +22,7 @@ import 'message_notifier.dart';
 import 'model/error_msg_common.dart';
 
 abstract class ViewModelBase<T> extends StateNotifier<T>
-    with StateTrySetter<T>, ViewModelInitListener, AppRouterLocator {
+    with StateTrySetter<T>, ViewModelInitListener, _CommonLocator {
   ViewModelBase(this._reader, T state) : super(state) {
     initialize();
   }
@@ -41,7 +41,7 @@ abstract class ViewModelBase<T> extends StateNotifier<T>
 
 /// use only in case that we can't use [ViewModelBase]
 abstract class ViewModelBaseChangeNotifier extends ChangeNotifier
-    with ViewModelInitListener, AppRouterLocator {
+    with ViewModelInitListener, _CommonLocator {
   ViewModelBaseChangeNotifier(this.reader) : super() {
     initialize();
   }
@@ -76,9 +76,7 @@ mixin StateTrySetter<T> on StateNotifier<T> {
   }
 }
 
-//todo rename
-//todo implement snackBarProvider
-mixin AppRouterLocator {
+mixin _CommonLocator {
   @protected
   Reader get reader;
 

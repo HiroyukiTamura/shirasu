@@ -7,7 +7,7 @@ import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
 
 import '../../mock_viewmodel/viewmodel_subscribing_mockable.dart';
-import '../../mock_viewmodel/viewmodel_watch_hisotry_mockable.dart';
+import '../../mock_viewmodel/viewmodel_watch_history_mockable.dart';
 import '../../widget_test_util/test_runner_base.dart';
 
 void main() => _TestRunner().runTest();
@@ -23,34 +23,27 @@ class _TestRunner extends TestRunnerBase {
           goldenNamePrefix: 'PageListInMainScreen',
         );
 
-  static const _TEST_NAME_PAGE_SUBSCRIBING = 'PageSubscribing';
-  static const _TEST_NAME_PAGE_CHANGED = 'PageChanged';
-
   void runTest() => group('PageListInMainScreen', () {
-        List<Override> overrides;
-        setUpAll(() {
-          final overrideVmWatchHistory =
-              kPrvViewModelWatchHistory.overrideWithProvider(
-                  ViewModelWatchHistoryMockable.createProvider(null));
-          overrides = [
-            kOverrideViewModelSubscribingMocked,
-            overrideVmWatchHistory,
-          ];
-        });
+        final overrideVmWatchHistory =
+            kPrvViewModelWatchHistory.overrideWithProvider(
+                ViewModelWatchHistoryMockable.createProvider(null));
+
+        final overrides = [
+          kOverrideViewModelSubscribingMocked,
+          overrideVmWatchHistory,
+        ];
         testGoldensSimple(
-          testName: _TEST_NAME_PAGE_SUBSCRIBING,
+          testName: 'PageSubscribing',
           overrides: overrides,
         );
         testGoldensSimple(
-            testName: _TEST_NAME_PAGE_CHANGED,
+            testName: 'PageChanged',
             overrides: overrides,
-            onScenarioCreate: (tester, key) async {
-              final tabBtn = find.descendant(
-                of: find.byKey(key),
-                matching: find.text(Strings.TAB_WATCH_HISTORY),
-              );
+            onPostBuild: (tester) async {
+              final tabBtn =
+                  find.widgetWithText(Tab, Strings.TAB_WATCH_HISTORY);
               await tester.tap(tabBtn);
-              await tester.pump(1.seconds);
+              await tester.pumpAndSettle();
             });
       });
 }

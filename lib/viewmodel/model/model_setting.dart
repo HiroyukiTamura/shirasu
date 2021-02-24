@@ -42,6 +42,7 @@ abstract class SettingModel with _$SettingModel {
   const factory SettingModel({
     @required SettingModelState settingModelState,
     @required bool uploadingProfile,
+    @required bool isInLoggingOut,
     @required EditedUserInfo editedUserInfo,
   }) = _SettingModel;
 
@@ -49,6 +50,7 @@ abstract class SettingModel with _$SettingModel {
         settingModelState: SettingModelState.preInitialized(),
         editedUserInfo: EditedUserInfo(),
         uploadingProfile: false,
+        isInLoggingOut: false,
       );
 }
 

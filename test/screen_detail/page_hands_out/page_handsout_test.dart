@@ -10,6 +10,7 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 import '../../mock_viewmodel/viewmodel_detail_mockable.dart';
 import '../../widget_test_util/json_client.dart';
+import '../../widget_test_util/test_name_common.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_util.dart';
 
@@ -20,7 +21,7 @@ class _TestRunner extends TestRunnerBase {
       : super(() => PageHandouts(
               onClearClicked: (context) {},
               program: JsonClient.instance.mProgramDetailData.program,
-            ));
+            ), goldenNamePrefix: 'ScreenDetailHandout');
 
   Override createViewModel(ModelDetail model) =>
       kPrvViewModelDetail(mProgramDetailData.program.id).overrideWithProvider(
@@ -29,7 +30,7 @@ class _TestRunner extends TestRunnerBase {
 
   void runTest() => group('ScreenDetailHandout', () {
         testGoldensSimple(
-            testName: 'ScreenDetailHandout_HandoutUrlRequesting',
+            testName: 'HandoutUrlRequesting',
             overrides: [
               createViewModel(ModelDetail.initial(true).copyWith(
                 isHandoutUrlRequesting: true,
@@ -43,7 +44,7 @@ class _TestRunner extends TestRunnerBase {
             onPostBuild: (tester) =>
                 expect(find.byType(CenterCircleProgress), findsOneWidget));
         testGoldensSimple(
-            testName: 'ScreenDetailHandout_Normal',
+            testName: TestNameCommon.NORMAL,
             overrides: [
               createViewModel(ModelDetail.initial(true).copyWith(
                 isHandoutUrlRequesting: false,

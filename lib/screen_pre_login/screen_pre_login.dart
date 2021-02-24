@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/env_repository.dart';
 import 'package:shirasu/client/url_util.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -20,6 +21,7 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/extension.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:dartx/dartx.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'screen_pre_login.g.dart';
 
@@ -241,10 +243,14 @@ Widget _note(
       ],
     );
 
-@swidget
+@hwidget
 Widget _animatedBackground(
   BuildContext context,
 ) {
+  final enableAnimation = useProvider(kPrvEnv.select((it) => it.enableAnimation));
+  if (!enableAnimation)
+    return const Placeholder();
+
   final tween = TimelineTween<DefaultAnimationProperties>()
     ..addScene(
       begin: Duration.zero,

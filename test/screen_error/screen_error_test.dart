@@ -9,6 +9,6 @@ void main() => group('ScreenError', () {
           TestRunnerBase(() => const ScreenError(authExpired: true));
       final runner =
           TestRunnerBase(() => const ScreenError(authExpired: false));
-      runnerExpired.testGoldensSimple(testName: 'AuthExpired');
+      runnerExpired.testGoldensSimple(testName: TestNameCommon.ERR_AUTH_EXPIRED);
       runner.testGoldensSimple(testName: TestNameCommon.NORMAL);
     });

@@ -642,10 +642,12 @@ class _$SettingModelTearOff {
   _SettingModel call(
       {@required SettingModelState settingModelState,
       @required bool uploadingProfile,
+      @required bool isInLoggingOut,
       @required EditedUserInfo editedUserInfo}) {
     return _SettingModel(
       settingModelState: settingModelState,
       uploadingProfile: uploadingProfile,
+      isInLoggingOut: isInLoggingOut,
       editedUserInfo: editedUserInfo,
     );
   }
@@ -659,6 +661,7 @@ const $SettingModel = _$SettingModelTearOff();
 mixin _$SettingModel {
   SettingModelState get settingModelState;
   bool get uploadingProfile;
+  bool get isInLoggingOut;
   EditedUserInfo get editedUserInfo;
 
   @JsonKey(ignore: true)
@@ -673,6 +676,7 @@ abstract class $SettingModelCopyWith<$Res> {
   $Res call(
       {SettingModelState settingModelState,
       bool uploadingProfile,
+      bool isInLoggingOut,
       EditedUserInfo editedUserInfo});
 
   $SettingModelStateCopyWith<$Res> get settingModelState;
@@ -691,6 +695,7 @@ class _$SettingModelCopyWithImpl<$Res> implements $SettingModelCopyWith<$Res> {
   $Res call({
     Object settingModelState = freezed,
     Object uploadingProfile = freezed,
+    Object isInLoggingOut = freezed,
     Object editedUserInfo = freezed,
   }) {
     return _then(_value.copyWith(
@@ -700,6 +705,9 @@ class _$SettingModelCopyWithImpl<$Res> implements $SettingModelCopyWith<$Res> {
       uploadingProfile: uploadingProfile == freezed
           ? _value.uploadingProfile
           : uploadingProfile as bool,
+      isInLoggingOut: isInLoggingOut == freezed
+          ? _value.isInLoggingOut
+          : isInLoggingOut as bool,
       editedUserInfo: editedUserInfo == freezed
           ? _value.editedUserInfo
           : editedUserInfo as EditedUserInfo,
@@ -737,6 +745,7 @@ abstract class _$SettingModelCopyWith<$Res>
   $Res call(
       {SettingModelState settingModelState,
       bool uploadingProfile,
+      bool isInLoggingOut,
       EditedUserInfo editedUserInfo});
 
   @override
@@ -759,6 +768,7 @@ class __$SettingModelCopyWithImpl<$Res> extends _$SettingModelCopyWithImpl<$Res>
   $Res call({
     Object settingModelState = freezed,
     Object uploadingProfile = freezed,
+    Object isInLoggingOut = freezed,
     Object editedUserInfo = freezed,
   }) {
     return _then(_SettingModel(
@@ -768,6 +778,9 @@ class __$SettingModelCopyWithImpl<$Res> extends _$SettingModelCopyWithImpl<$Res>
       uploadingProfile: uploadingProfile == freezed
           ? _value.uploadingProfile
           : uploadingProfile as bool,
+      isInLoggingOut: isInLoggingOut == freezed
+          ? _value.isInLoggingOut
+          : isInLoggingOut as bool,
       editedUserInfo: editedUserInfo == freezed
           ? _value.editedUserInfo
           : editedUserInfo as EditedUserInfo,
@@ -780,9 +793,11 @@ class _$_SettingModel implements _SettingModel {
   const _$_SettingModel(
       {@required this.settingModelState,
       @required this.uploadingProfile,
+      @required this.isInLoggingOut,
       @required this.editedUserInfo})
       : assert(settingModelState != null),
         assert(uploadingProfile != null),
+        assert(isInLoggingOut != null),
         assert(editedUserInfo != null);
 
   @override
@@ -790,11 +805,13 @@ class _$_SettingModel implements _SettingModel {
   @override
   final bool uploadingProfile;
   @override
+  final bool isInLoggingOut;
+  @override
   final EditedUserInfo editedUserInfo;
 
   @override
   String toString() {
-    return 'SettingModel(settingModelState: $settingModelState, uploadingProfile: $uploadingProfile, editedUserInfo: $editedUserInfo)';
+    return 'SettingModel(settingModelState: $settingModelState, uploadingProfile: $uploadingProfile, isInLoggingOut: $isInLoggingOut, editedUserInfo: $editedUserInfo)';
   }
 
   @override
@@ -807,6 +824,9 @@ class _$_SettingModel implements _SettingModel {
             (identical(other.uploadingProfile, uploadingProfile) ||
                 const DeepCollectionEquality()
                     .equals(other.uploadingProfile, uploadingProfile)) &&
+            (identical(other.isInLoggingOut, isInLoggingOut) ||
+                const DeepCollectionEquality()
+                    .equals(other.isInLoggingOut, isInLoggingOut)) &&
             (identical(other.editedUserInfo, editedUserInfo) ||
                 const DeepCollectionEquality()
                     .equals(other.editedUserInfo, editedUserInfo)));
@@ -817,6 +837,7 @@ class _$_SettingModel implements _SettingModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(settingModelState) ^
       const DeepCollectionEquality().hash(uploadingProfile) ^
+      const DeepCollectionEquality().hash(isInLoggingOut) ^
       const DeepCollectionEquality().hash(editedUserInfo);
 
   @JsonKey(ignore: true)
@@ -829,12 +850,15 @@ abstract class _SettingModel implements SettingModel {
   const factory _SettingModel(
       {@required SettingModelState settingModelState,
       @required bool uploadingProfile,
+      @required bool isInLoggingOut,
       @required EditedUserInfo editedUserInfo}) = _$_SettingModel;
 
   @override
   SettingModelState get settingModelState;
   @override
   bool get uploadingProfile;
+  @override
+  bool get isInLoggingOut;
   @override
   EditedUserInfo get editedUserInfo;
   @override

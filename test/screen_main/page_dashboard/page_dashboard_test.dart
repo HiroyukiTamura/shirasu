@@ -21,12 +21,12 @@ import '../../mock_repository/graphql_common.dart';
 import '../../mock_repository/hive_pref_empty.dart';
 import '../../widget_test_util/json_client.dart';
 import '../../widget_test_util/test_models.dart';
+import '../../widget_test_util/test_name_common.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_runner_on_page_error.dart';
 import '../../widget_test_util/test_util.dart';
 
 const _kTestNameNoData = 'NoData';
-const _kTestNameGoldenData = 'GoldenData';
 
 /// test for [PageDashboardInMainScreen]
 void main() => _TestRunner()
@@ -35,12 +35,15 @@ void main() => _TestRunner()
 
 class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
   _TestRunner()
-      : super(() => const Scaffold(
-              body: PageDashboardInMainScreen(),
-            ));
+      : super(
+          () => const Scaffold(
+            body: PageDashboardInMainScreen(),
+          ),
+          goldenNamePrefix: 'PageDashboardNormalScreen',
+        );
 
   /// todo add test;
-  /// 1. subscribing program
+  /// 1. loadMore test
   /// 2. now broadcasting program
   void runTestNormal() => group('PageDashboardNormalScreen', () {
         void testGoldenTemplate({
@@ -113,7 +116,7 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
 
         //todo fling and check
         testGoldenTemplate(
-          goldenName: _kTestNameGoldenData,
+          goldenName: TestNameCommon.NORMAL,
           expectOneWidgetList: [
             // find.text(Strings.HEADING_SUBSCRIBING),
             // find.text(Strings.HEADING_UPCOMING),
@@ -129,7 +132,7 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
         );
 
         testGoldenTemplate(
-          goldenName: _kTestNameNoData,
+          goldenName: TestNameCommon.EMPTY,
           featureProgramData: TestModels.FEATURE_PROGRAM_DATA,
           newProgramsData: TestModels.EMPTY_NEW_PROGRAMS,
           expectNoWidgetList: [

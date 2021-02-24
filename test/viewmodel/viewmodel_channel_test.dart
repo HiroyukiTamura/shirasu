@@ -1,6 +1,8 @@
+import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/client/hive_pref_repository.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
@@ -12,9 +14,10 @@ import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
+import '../mock_repository/hive_auth_empty.dart';
+import '../mock_viewmodel/viewmodel_channel_mockable.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
-import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelChannel]
@@ -50,6 +53,10 @@ Future<void> main() async {
       loading: false,
     ));
 
+    final overrideViewModel = kPrvViewModelChannel.overrideWithProvider(
+        (ref, param) => ViewModelChannelMockable(
+            ref.read, null, channelId));
+
     ProviderContainer createProviderContainer(List<Override> list) =>
         ProviderContainer(
           overrides: testBase.defaultOverride + list,
@@ -58,6 +65,7 @@ Future<void> main() async {
     Future<void> testTemplate({
       List<Override> override = const [],
       ChannelModel defaultState,
+      Duration delay = const Duration(seconds: 1),
       @required ChannelModel expectedState,
       @required SnackMsg expectedSnack,
     }) async {
@@ -70,6 +78,7 @@ Future<void> main() async {
       // ignore: invalid_use_of_protected_member
       if (defaultState != null) viewModel.state = defaultState;
       await viewModel.loadMorePrograms();
+      await Future.delayed(delay);
       final snack = container
           .listen(kPrvSnackBar.state)
           .read(); //must listen after loadMorePrograms!
@@ -81,6 +90,7 @@ Future<void> main() async {
     test(
       'StateIsInvalid_CancelLoadingMore',
       () async => testTemplate(
+        override: [overrideViewModel],
         expectedState: const ChannelModel.preInitialized(),
         expectedSnack: null,
       ),
@@ -89,6 +99,7 @@ Future<void> main() async {
       'StateNowLoadingMore_CancelLoadingMore',
       () async => testTemplate(
         override: [
+          overrideViewModel,
           kOverrideGraphqlErr,
           kOverrideConnectedRepositoryConnectedImpl,
         ],
@@ -101,6 +112,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () async => testTemplate(
         override: [
+          overrideViewModel,
           kOverrideDisconnected,
           kOverrideGraphqlErr,
         ],
@@ -113,11 +125,13 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_TIMEOUT,
       () async => testTemplate(
         override: [
+          overrideViewModel,
           kOverrideGraphqlTimeout,
           kOverrideConnectedRepositoryConnectedImpl,
         ],
         defaultState: modelNonLoading,
         expectedState: modelNonLoading,
+        delay: 15.seconds,
         expectedSnack: const SnackMsg.networkTimeout(),
       ),
     );
@@ -125,6 +139,7 @@ Future<void> main() async {
       TestNameCommon.ERR_UNKNOWN,
       () async => testTemplate(
         override: [
+          overrideViewModel,
           kOverrideGraphqlErr,
           kOverrideConnectedRepositoryConnectedImpl,
         ],

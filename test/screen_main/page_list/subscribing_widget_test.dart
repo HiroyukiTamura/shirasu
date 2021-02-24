@@ -6,15 +6,13 @@ import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_runner_on_page_error.dart';
 import '../../widget_test_util/test_runner_on_page_list.dart';
 
-Future<void> main() async {
-  final runner = _TestRunner();
-  await runner.initTestOnPageList();
-  runner
+void main() => _TestRunner()
+    ..initTestOnPageList()
     ..runTestGroup('SubscribingWidget', goldenNamePrefix: 'SubscribingWidget')
     ..runTestOnPageList('SubscribingWidget');
-}
 
-class _TestRunner extends TestRunnerBase with TestRunnerOnPageError, TestRunnerOnPageList {
+class _TestRunner extends TestRunnerBase
+    with TestRunnerOnPageError, TestRunnerOnPageList {
   _TestRunner()
       : super(
           () => const Scaffold(

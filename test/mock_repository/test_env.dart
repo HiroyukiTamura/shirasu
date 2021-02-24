@@ -7,11 +7,8 @@ class EnvRepositoryTestImpl implements EnvRepository {
   bool get enableNetworkImage => false;
 
   @override
-  bool get enableProgressAnimation => false;
-
-  @override
   bool get enableVideoPlugin => false;
 
   @override
-  bool get enableCrashlytics => true;
+  bool get enableAnimation => false;
 }

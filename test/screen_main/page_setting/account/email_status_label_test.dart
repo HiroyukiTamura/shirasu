@@ -19,6 +19,7 @@ class _TestRunner extends TestRunnerBase {
           () => const Scaffold(
             body: ListItemEmail(),
           ),
+          goldenNamePrefix: 'EmailStatusLabel',
         );
 
   Override createOverride(HiveAuthData authData) =>
@@ -26,11 +27,11 @@ class _TestRunner extends TestRunnerBase {
         specAuthData: authData,
       ));
 
-  void runTest() => group('Setting_ListItemEmail', () {
-        testGoldensSimple(testName: 'verified', overrides: [
+  void runTest() => group('EmailStatusLabel', () {
+        testGoldensSimple(testName: 'Verified', overrides: [
           createOverride(JsonClient.instance.mHiveAuthData),
         ]);
-        testGoldensSimple(testName: 'unverified_twitter', overrides: [
+        testGoldensSimple(testName: 'UnverifiedTwitter', overrides: [
           createOverride(
             JsonClient.instance.mHiveAuthData.copyWith.body.decodedToken.user(
               emailVerified: false,

@@ -236,7 +236,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
   }) async {
     final beginTimeFixed = beginTime.isNegative ? Duration.zero : beginTime;
     final endTimeFixed = beginTime.isNegative ? Duration.zero : endTime;
-    Map<String, String> variables = {
+    final variables = <String, String> {
       'programId': programId,
       'beginTime': beginTimeFixed.inMilliseconds.toString(),
       'endTime': endTimeFixed.inMilliseconds.toString(),

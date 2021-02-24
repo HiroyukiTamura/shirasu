@@ -85,6 +85,7 @@ dev_dependencies:
   json_serializable: ^3.5.1
   functional_widget: ^0.8.1
   flutter_launcher_icons: "^0.8.0" # needs quotes @see https://github.com/fluttercommunity/flutter_launcher_icons/issues/220
+  pedantic: ^1.9.0
 
 flutter_icons:
   android: true

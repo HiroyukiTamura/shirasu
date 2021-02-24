@@ -239,11 +239,13 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final result = await logger.guardFuture(() async {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
       await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository.postComment(
-        commentTime: state.playOutState.currentPos,
-        programId: id,
-        text: text,
-      );
+      return graphQlRepository
+          .postComment(
+            commentTime: state.playOutState.currentPos,
+            programId: id,
+            text: text,
+          )
+          .timeout(GraphQlRepository.TIMEOUT);
     });
     if (!mounted) return;
 

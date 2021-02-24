@@ -33,9 +33,6 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
           goldenNamePrefix: 'SettingPageUserInfo',
         );
 
-  /// todo add test;
-  /// 1. subscribing program
-  /// 2. now broadcasting program
   void runTestNormal() => group('SettingPageUserInfo', () {
         void testGoldenTemplate({
           @required String goldenName,
@@ -68,14 +65,11 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
           );
         }
 
-        Future<void> _scrollDown(WidgetTester tester) async =>
-            tester.drag(find.byType(ListView), const Offset(0, -700));
-
         /// [WidgetTester.ensureVisible] is not work...
         Future<void> _scrollDownMultiple(WidgetTester tester, int count) async {
           for (int i = 0; i < count; i++) {
             print('scroll down! i: $i');
-            await _scrollDown(tester);
+            await tester.drag(find.byType(ListView), const Offset(0, -700));
           }
         }
 

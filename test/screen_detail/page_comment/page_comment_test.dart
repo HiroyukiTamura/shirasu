@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_comment/provider_page_comment.dart';
-import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
@@ -15,20 +13,23 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 import '../../mock_viewmodel/viewmodel_detail_mockable.dart';
 import '../../widget_test_util/json_client.dart';
+import '../../widget_test_util/test_name_common.dart';
 import '../../widget_test_util/test_runner_base.dart';
-import '../../widget_test_util/test_util.dart';
 
 void main() => _TestRunner().runTest();
 
 class _TestRunner extends TestRunnerBase {
   _TestRunner()
-      : super(() => SafeArea(
-              child: Scaffold(
-                body: PageComment(
-                  id: JsonClient.instance.mProgramDetailData.program.id,
-                ),
+      : super(
+          () => SafeArea(
+            child: Scaffold(
+              body: PageComment(
+                id: JsonClient.instance.mProgramDetailData.program.id,
               ),
-            ));
+            ),
+          ),
+          goldenNamePrefix: 'ScreenDetailComment',
+        );
 
   Override overrideViewModel(ModelDetail model) =>
       kPrvViewModelDetail(mProgramDetailData.program.id)
@@ -39,7 +40,7 @@ class _TestRunner extends TestRunnerBase {
 
   void runTest() => group('ScreenDetailComment', () {
         testGoldensSimple(
-          testName: 'ScreenDetailComment_Loading',
+          testName: TestNameCommon.STATE_INITIAL,
           overrides: [
             overrideViewModel(ModelDetail.initial(true)),
           ],
@@ -47,7 +48,7 @@ class _TestRunner extends TestRunnerBase {
               expect(find.byType(CenterCircleProgress), findsOneWidget),
         );
         testGoldensSimple(
-          testName: 'ScreenDetailComment_Error',
+          testName: TestNameCommon.STATE_ERR,
           overrides: [
             overrideViewModel(ModelDetail.initial(true).copyWith(
                 commentHolder: CommentsHolder.initial(true).copyWith(
@@ -72,7 +73,7 @@ class _TestRunner extends TestRunnerBase {
           },
         );
         testGoldensSimple(
-          testName: 'ScreenDetailComment_Success_Normal',
+          testName: TestNameCommon.NORMAL,
           overrides: [
             overrideViewModel(ModelDetail.initial(true).copyWith(
                 commentHolder: CommentsHolder.initial(true).copyWith(

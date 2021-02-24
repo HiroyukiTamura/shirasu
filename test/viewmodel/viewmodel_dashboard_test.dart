@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
-import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 
 import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
@@ -18,7 +17,6 @@ import '../mock_repository/graphql_timeout.dart';
 import '../mock_viewmodel/viewmodel_dashboard_mockable.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
-import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelDashBoard]
@@ -56,6 +54,7 @@ Future<void> main() async {
     DashboardModel successHasNextToken;
     Override overrideNoNextToken;
     Override overrideHasNextToken;
+    Override overrideViewModel;
 
     setUpAll(() {
       hasNextTokenState = JsonClient.instance.mNewProgramsData;
@@ -74,12 +73,15 @@ Future<void> main() async {
           ViewModelDashBoardMockable.createProvider(successNoNextToken));
       overrideHasNextToken = kPrvDashboardViewModel.overrideWithProvider(
           ViewModelDashBoardMockable.createProvider(successHasNextToken));
+      overrideViewModel = kPrvDashboardViewModel.overrideWithProvider(
+          ViewModelDashBoardMockable.createProvider(null));
     });
 
     Future<void> testTemplate({
       List<Override> override = const [],
       @required DashboardModel expectedState,
       @required SnackMsg expectedSnack,
+      Duration delay = const Duration(seconds: 1),
     }) async {
       final container = ProviderContainer(
         overrides: testBase.defaultOverride + override,
@@ -87,6 +89,7 @@ Future<void> main() async {
       final viewModel = container.listen(kPrvDashboardViewModel).read();
       final snackBar = container.listen(kPrvSnackBar).read();
       await viewModel.loadMoreNewPrg();
+      await Future.delayed(delay);
       // ignore: invalid_use_of_protected_member
       expect(viewModel.state, expectedState);
       // ignore: invalid_use_of_protected_member
@@ -96,7 +99,7 @@ Future<void> main() async {
     test(
       'StateIsInvalid_CancelLoadingMore',
       () async => testTemplate(
-        override: [],
+        override: [overrideViewModel],
         expectedState: const DashboardModel.initial(),
         expectedSnack: null,
       ),

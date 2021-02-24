@@ -1,4 +1,6 @@
+import 'package:shirasu/client/graphql_repository.dart';
 import 'package:shirasu/client/graphql_repository_impl.dart';
+import 'package:dartx/dartx.dart';
 
 import 'graphql_allin.dart';
 
@@ -9,8 +11,8 @@ class GraphQlRepositoryTimeoutImpl extends GraphqlAllin {
 
   const GraphQlRepositoryTimeoutImpl(): super();
 
-  static const DELAY = Duration(seconds: 15);
+  static Duration get delay => GraphQlRepository.TIMEOUT + 1.seconds;
 
   @override
-  Future<T> process<T>() async => Future.delayed(DELAY);
+  Future<T> process<T>() async => Future.delayed(delay);
 }

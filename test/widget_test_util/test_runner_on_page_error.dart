@@ -47,7 +47,7 @@ mixin TestRunnerOnPageError on TestRunnerBase {
         testGoldensSimple(
           testName: TestNameCommon.ERR_NETWORK_TIMEOUT,
           onPostBuild: (tester) async {
-            await tester.pump(GraphQlRepositoryTimeoutImpl.DELAY + 5.seconds);
+            await tester.pump(GraphQlRepositoryTimeoutImpl.delay);
             expect(find.text(Strings.ERR_NETWORK_TIMEOUT), findsOneWidget);
           },
           overrides: [

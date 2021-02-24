@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 import 'widget_test_util/json_client.dart';

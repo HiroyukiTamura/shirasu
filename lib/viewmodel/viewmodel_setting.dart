@@ -60,7 +60,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
       );
 
   Future<void> postProfile() async {
-    if (state.uploadingProfile) return;
+    if (state.uploadingProfile || state.isInLoggingOut) return;
 
     final sub = _hiveAuthBody?.decodedToken?.user?.sub;
     final attrs =
@@ -111,9 +111,9 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
   }
 
   Future<void> clearHiveAuth() async {
-    if (_isInLogout) return;
+    if (state.uploadingProfile || state.isInLoggingOut) return;
 
-    _isInLogout = true;
+    state = state.copyWith(isInLoggingOut: true);
 
     await hiveAuthRepository.clearAuthData();
     await logger.guardFuture(() async {
@@ -121,7 +121,9 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
       await FlutterWebviewPlugin().clearCache();
     });
 
-    _isInLogout = false;
+    if (mounted) state = state.copyWith(isInLoggingOut: false);
+
+    pushAuthExpireScreen();
   }
 
   void notifySnackMsg(SnackMsg snackMsg) =>

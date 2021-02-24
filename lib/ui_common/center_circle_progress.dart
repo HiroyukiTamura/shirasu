@@ -28,7 +28,7 @@ Widget customCircleProgress({
   Animation<Color> valueColor,
   double strokeWidth = 4,
 }) {
-  final value = useProvider(kPrvEnv).enableProgressAnimation ? null : .5;
+  final value = useProvider(kPrvEnv).enableAnimation ? null : .5;
   return CircularProgressIndicator(
     value: value,
     valueColor: valueColor,

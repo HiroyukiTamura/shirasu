@@ -6,7 +6,7 @@ final kPrvEnv = Provider<EnvRepository>(
 
 mixin EnvRepository {
   bool get enableNetworkImage;
-  bool get enableProgressAnimation;
+  bool get enableAnimation;
   bool get enableVideoPlugin;
 }
 
@@ -18,7 +18,7 @@ class EnvRepositoryImpl with EnvRepository {
   bool get enableNetworkImage => true;
 
   @override
-  bool get enableProgressAnimation => true;
+  bool get enableAnimation => true;
 
   @override
   bool get enableVideoPlugin => true;

@@ -23,6 +23,7 @@ import '../mock_repository/graphql_unauthorized.dart';
 import '../mock_repository/hive_auth_empty.dart';
 import '../mock_viewmodel/viewmodel_detail_mockable.dart';
 import '../widget_test_util/json_client.dart';
+import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
@@ -72,7 +73,7 @@ Future<void> main() async {
     final snackNtf = SnackBarMessageNotifier();
     final overrideSnackBar = kPrvSnackBar.overrideWithValue(snackNtf);
     final container = ProviderContainer(
-      overrides: testBase.defaultOverride + override,
+      overrides: testBase.defaultOverride + override + [overrideSnackBar],
     );
     final viewModel = container
         .listen(kPrvViewModelDetail(
@@ -104,7 +105,7 @@ Future<void> main() async {
 
   group('ViewModelDetail.loadMorePastComment', () {
     test(
-      'networkErr',
+      TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () => testTemplate(
         override: [
           kOverrideDisconnected,
@@ -124,7 +125,7 @@ Future<void> main() async {
     );
 
     test(
-      'networkTimeout',
+      TestNameCommon.ERR_NETWORK_TIMEOUT,
       () => testTemplate(
         override: [
           kOverrideConnectedRepositoryConnectedImpl,
@@ -145,7 +146,7 @@ Future<void> main() async {
     );
 
     test(
-      'unknownErr',
+      TestNameCommon.ERR_UNKNOWN,
       () => testTemplate(
         override: [
           kOverrideConnectedRepositoryConnectedImpl,
@@ -196,7 +197,7 @@ Future<void> main() async {
     );
 
     test(
-      'normal',
+      TestNameCommon.NORMAL,
       () => testTemplate(
         override: [
           overrideViewModel,
@@ -220,7 +221,7 @@ Future<void> main() async {
 
   group('ViewModelDetail.requestHandout', () {
     test(
-      'networkErr',
+      TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () => testTemplate(
         override: [
           kOverrideDisconnected,
@@ -237,7 +238,7 @@ Future<void> main() async {
       ),
     );
     test(
-      'networkTimeoutErr',
+      TestNameCommon.ERR_NETWORK_TIMEOUT,
       () => testTemplate(
         override: [
           kOverrideConnectedRepositoryConnectedImpl,
@@ -255,7 +256,7 @@ Future<void> main() async {
       ),
     );
     test(
-      'networkAuthErr',
+      TestNameCommon.ERR_UN_AUTH,
       () => testTemplate(
         override: [
           kOverrideConnectedRepositoryConnectedImpl,
@@ -273,7 +274,7 @@ Future<void> main() async {
       ),
     );
     test(
-      'normal',
+      TestNameCommon.NORMAL,
       () => testTemplate(
         override: [
           kOverrideConnectedRepositoryConnectedImpl,
@@ -294,7 +295,7 @@ Future<void> main() async {
 
   group('ViewModelDetail.postComment', () {
     test(
-      'networkErr',
+      TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () => testTemplate(
         override: [
           kOverrideDisconnected,
@@ -310,7 +311,7 @@ Future<void> main() async {
       ),
     );
     test(
-      'timeoutErr',
+      TestNameCommon.ERR_NETWORK_TIMEOUT,
       () => testTemplate(
         override: [
           kOverrideGraphqlTimeout,
@@ -326,7 +327,7 @@ Future<void> main() async {
       ),
     );
     test(
-      'unknownErr',
+      TestNameCommon.ERR_UNKNOWN,
       () => testTemplate(
         override: [
           kOverrideGraphqlErr,
@@ -413,7 +414,7 @@ Future<void> main() async {
       ),
     );
     test(
-      'networkTimeoutErr',
+      TestNameCommon.ERR_NETWORK_TIMEOUT,
       () => testTemplate(
         override: [
           kPrvHiveAuthRepository.overrideWithValue(HiveAuthRepositoryCommon(

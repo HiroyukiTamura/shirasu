@@ -20,25 +20,19 @@ class _TestRunner extends TestRunnerBase {
           goldenNamePrefix: 'PageSettingInMainScreen',
         );
 
-  static const _TEST_NAME_PAGE_USER_INFO = 'UserInfo';
-  static const _TEST_NAME_APP_CONFIG = 'AppConfig';
-
   void runTest() => group('PageSettingInMainScreen', () {
         List<Override> overrides = [kOverrideViewModelSettingMocked];
         testGoldensSimple(
-          testName: _TEST_NAME_PAGE_USER_INFO,
+          testName: 'UserInfo',
           overrides: overrides,
         );
         testGoldensSimple(
-            testName: _TEST_NAME_APP_CONFIG,
+            testName: 'AppConfig',
             overrides: overrides,
-            onScenarioCreate: (tester, key) async {
-              final tabBtn = find.descendant(
-                of: find.byKey(key),
-                matching: find.text(Strings.TAB_APP_CONFIG),
-              );
+            onPostBuild: (tester) async {
+              final tabBtn = find.widgetWithText(Tab, Strings.TAB_APP_CONFIG);
               await tester.tap(tabBtn);
-              await tester.pump(1.seconds);
+              await tester.pumpAndSettle();
             });
       });
 }

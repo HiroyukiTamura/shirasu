@@ -10,4 +10,8 @@ class TestNameCommon {
   static const ERR_UN_AUTH = 'ErrUnAuth';
   static const EMPTY = 'Empty';
   static const WATCH_HISTORY_LAST_TITLE = 'LastTitle';
+
+  static const STATE_INITIAL = 'StateInitial';
+  static const STATE_LOADING = 'StateLoading';
+  static const STATE_ERR = 'StateErr';
 }

@@ -9,6 +9,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_view.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
+import 'package:shirasu/ui_common/animated_shower.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
@@ -78,19 +79,15 @@ Widget bufferingIndicator({
       .state
       .select((it) => it.playOutState.isBuffering));
 
-  return Visibility(
+  return AnimatedShower(
     visible: isBuffering,
-    child: Center(
-      child: SizedBox(
-        width: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
-        height: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
-        child: AnimatedOpacity(
-          duration: 100.milliseconds,
-          opacity: isBuffering ? 1 : 0,
-          child: const CenterCircleProgress(
-            valueColor: AlwaysStoppedAnimation(Colors.white),
-          ),
-        ),
+    duration: 100.milliseconds,
+    child: Container(
+      alignment: Alignment.center,
+      width: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
+      height: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
+      child: const CenterCircleProgress(
+        valueColor: AlwaysStoppedAnimation(Colors.white),
       ),
     ),
   );

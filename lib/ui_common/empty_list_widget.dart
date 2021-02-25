@@ -22,7 +22,7 @@ Widget emptyListWidget({
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(.5), //todo refactor
+              color: Colors.white54,
             ),
             child: Icon(
               icon,

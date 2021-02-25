@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/connectivity_repository.dart';
@@ -103,6 +104,7 @@ mixin _CommonLocator {
   @protected
   LoggerRepository get logger => reader(kPrvLogger);
 
+  @protected
   ErrorMsgCommon toErrMsg(dynamic e) {
     if (e is UnauthorizedException)
       return e.detectedByTime
@@ -116,6 +118,7 @@ mixin _CommonLocator {
       return const ErrorMsgCommon.unknown();
   }
 
+  @protected
   SnackMsg toNetworkSnack(dynamic e) {
     if (e is TimeoutException)
       return const SnackMsg.networkTimeout();
@@ -123,5 +126,15 @@ mixin _CommonLocator {
       return const SnackMsg.networkDisconnected();
     else
       return const SnackMsg.unknown();
+  }
+
+  @protected
+  Future<void> clearAuthDataAndWebCache() async {
+    await hiveAuthRepository.clearAuthData();
+    await logger.guardFuture(() async {
+      final webView = FlutterWebviewPlugin();
+      await webView.cleanCookies();
+      await webView.clearCache();
+    });
   }
 }

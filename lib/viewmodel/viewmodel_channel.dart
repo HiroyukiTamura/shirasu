@@ -58,7 +58,6 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
         // we don't check if Disposed
         state = ChannelModel.success(dataWrapper.copyWith(
-          data: dataWrapper.data,
           loading: true,
         ));
 
@@ -80,9 +79,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
               notifySnackMsg(const SnackMsg.noMoreItem());
           }, failure: (e) {
             notifySnackMsg(toNetworkSnack(e));
-            //todo extract to model class
             state = ChannelModel.success(dataWrapper.copyWith(
-              data: dataWrapper.data,
               loading: false,
             ));
           });

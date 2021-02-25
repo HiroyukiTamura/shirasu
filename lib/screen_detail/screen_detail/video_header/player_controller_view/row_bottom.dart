@@ -9,7 +9,9 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/player_controller_view.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirasu/ui_common/animated_shower.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
+import 'package:dartx/dartx.dart';
 
 import '../../../../util.dart';
 import '../../player_seekbar.dart';
@@ -46,6 +48,7 @@ Widget rowBottom({
       : _TimeText(conf: conf);
 }
 
+//todo debug
 @swidget
 Widget _liveText() => Container(
       padding: const EdgeInsets.all(8),
@@ -79,20 +82,16 @@ Widget _timeText({
   final invisible = isSeekBarDragging || total == Duration.zero;
 
   /// immediately hide but show with animation
-  /// todo refactor
-  return AnimatedOpacity(
-    opacity: invisible ? 0 : 1,
-    duration: const Duration(milliseconds: 300),
-    child: Visibility(
-      visible: !invisible,
-      child: Container(
-        padding: padding,
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          '$currentStr / $totalStr',
-          style: const TextStyle(
-            fontSize: FontSize.SMALL,
-          ),
+  return AnimatedShower(
+    duration: 300.milliseconds,
+    visible: !invisible,
+    child: Container(
+      padding: padding,
+      alignment: Alignment.bottomLeft,
+      child: Text(
+        '$currentStr / $totalStr',
+        style: const TextStyle(
+          fontSize: FontSize.SMALL,
         ),
       ),
     ),

@@ -12,6 +12,7 @@ import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/result.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:dartx/dartx.dart';
@@ -45,8 +46,7 @@ extension BuildContextX on BuildContext {
   Future<void> pushChannelPage(String id) async =>
       read(kPrvAppRouterDelegate).pushPage(GlobalRoutePath.channel(id));
 
-  // todo extract dimen
-  bool get isBigScreen => 600 < MediaQuery.of(this).size.width;
+  bool get isBigScreen => Dimens.SCREEN_BREAK_POINT < MediaQuery.of(this).size.width;
 
   Future<void> toggleFullScreenMode() async {
     if (GlobalState.isInFullScreenOperation.inLock) return;

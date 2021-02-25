@@ -197,8 +197,6 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     rawHttpsShirasuIoDistributeds:
         json['https://shirasu.io/distributeds'] as List,
     rawHttpsShirasuIoTenants: json['https://shirasu.io/tenants'] as List,
-    givenName: json['given_name'] as String,
-    familyName: json['family_name'] as String,
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
@@ -217,8 +215,6 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'https://shirasu.io/customerId': instance.httpsShirasuIoCustomerId,
       'https://shirasu.io/distributeds': instance.rawHttpsShirasuIoDistributeds,
       'https://shirasu.io/tenants': instance.rawHttpsShirasuIoTenants,
-      'given_name': instance.givenName,
-      'family_name': instance.familyName,
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,

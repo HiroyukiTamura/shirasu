@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
@@ -30,39 +31,45 @@ Widget playerAnimOpacity({
   );
 }
 
-@swidget
+@hwidget
 Widget videoSeekBarHoverStyle(
   BuildContext context, {
   @required VideoViewModelConf conf,
   @required double topMargin,
-}) =>
-    VideoControllerVis(
-      id: conf.id,
-      child: Padding(
-        padding: EdgeInsets.only(top: topMargin),
-        child: PlayerAnimOpacity(
-          id: conf.id,
-          child: SizedBox(
-            height: Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(width: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
-                Expanded(
-                  child: VideoSeekBar(conf: conf),
-                ),
-                Container(
-                  color: Theme.of(context).sliderTheme.inactiveTrackColor,
-                  height: Theme.of(context).sliderTheme.trackHeight,
-                )
-              ],
+}) {
+  final isLive = useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.videoType == VideoType.live()));
+  return Visibility(
+    visible: isLive,
+    child: VideoControllerVis(
+        id: conf.id,
+        child: Padding(
+          padding: EdgeInsets.only(top: topMargin),
+          child: PlayerAnimOpacity(
+            id: conf.id,
+            child: SizedBox(
+              height: Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(width: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
+                  Expanded(
+                    child: VideoSeekBar(conf: conf),
+                  ),
+                  Container(
+                    color: Theme.of(context).sliderTheme.inactiveTrackColor,
+                    height: Theme.of(context).sliderTheme.trackHeight,
+                  )
+                ],
+              ),
             ),
           ),
         ),
       ),
-    );
+  );
+}
 
 /// we don't support [Slider.label] because we can't style it and there is no useful plugin.
+/// must be showed on VOD.
 class VideoSeekBar extends HookWidget {
   const VideoSeekBar({@required this.conf});
 

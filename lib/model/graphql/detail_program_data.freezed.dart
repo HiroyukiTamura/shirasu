@@ -236,7 +236,7 @@ class _$ProgramDetailTearOff {
           String title,
       @required
           int totalPlayTime,
-      @Deprecated('use [viewerPlanTypeStrict]')
+      @protected
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -316,7 +316,9 @@ mixin _$ProgramDetail {
   List<String> get rawTags;
   String get title;
   int get totalPlayTime;
-  @Deprecated('use [viewerPlanTypeStrict]')
+
+  /// use [viewerPlanTypeStrict]
+  @protected
   String get viewerPlanType;
   bool get isExtensionChargedToSubscribers;
   DateTime get archivedAt;
@@ -360,7 +362,7 @@ abstract class $ProgramDetailCopyWith<$Res> {
           List<String> rawTags,
       String title,
       int totalPlayTime,
-      @Deprecated('use [viewerPlanTypeStrict]')
+      @protected
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -524,7 +526,7 @@ abstract class _$ProgramDetailCopyWith<$Res>
           List<String> rawTags,
       String title,
       int totalPlayTime,
-      @Deprecated('use [viewerPlanTypeStrict]')
+      @protected
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -658,7 +660,7 @@ class _$_ProgramDetail extends _ProgramDetail {
       @required @JsonKey(name: 'tags') @protected this.rawTags,
       @required this.title,
       @required this.totalPlayTime,
-      @Deprecated('use [viewerPlanTypeStrict]') this.viewerPlanType,
+      @protected this.viewerPlanType,
       this.isExtensionChargedToSubscribers,
       this.archivedAt,
       @required this.releaseState,
@@ -726,7 +728,9 @@ class _$_ProgramDetail extends _ProgramDetail {
   @override
   final int totalPlayTime;
   @override
-  @Deprecated('use [viewerPlanTypeStrict]')
+
+  /// use [viewerPlanTypeStrict]
+  @protected
   final String viewerPlanType;
   @override
   final bool isExtensionChargedToSubscribers;
@@ -890,7 +894,7 @@ abstract class _ProgramDetail extends ProgramDetail {
           String title,
       @required
           int totalPlayTime,
-      @Deprecated('use [viewerPlanTypeStrict]')
+      @protected
           String viewerPlanType,
       bool isExtensionChargedToSubscribers,
       DateTime archivedAt,
@@ -948,7 +952,9 @@ abstract class _ProgramDetail extends ProgramDetail {
   @override
   int get totalPlayTime;
   @override
-  @Deprecated('use [viewerPlanTypeStrict]')
+
+  /// use [viewerPlanTypeStrict]
+  @protected
   String get viewerPlanType;
   @override
   bool get isExtensionChargedToSubscribers;

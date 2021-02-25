@@ -377,9 +377,9 @@ class _$SubscriptionPlanTearOff {
 // ignore: unused_element
   _SubscriptionPlan call(
       {@required String id,
-      @Deprecated("do not use") String parentPlanType,
+      @protected String parentPlanType,
       String parentPlanId,
-      @required @Deprecated("do not use") String productType,
+      @required @protected String productType,
       @required String productId,
       @required String name,
       @required int amount,
@@ -417,10 +417,14 @@ const $SubscriptionPlan = _$SubscriptionPlanTearOff();
 /// @nodoc
 mixin _$SubscriptionPlan {
   String get id;
-  @Deprecated("do not use")
+
+  /// [parentPlanTypeStrict]
+  @protected
   String get parentPlanType;
   String get parentPlanId;
-  @Deprecated("do not use")
+
+  /// [productTypeStrict]
+  @protected
   String get productType;
   String get productId;
   String get name;
@@ -444,9 +448,9 @@ abstract class $SubscriptionPlanCopyWith<$Res> {
       _$SubscriptionPlanCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      @Deprecated("do not use") String parentPlanType,
+      @protected String parentPlanType,
       String parentPlanId,
-      @Deprecated("do not use") String productType,
+      @protected String productType,
       String productId,
       String name,
       int amount,
@@ -516,9 +520,9 @@ abstract class _$SubscriptionPlanCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      @Deprecated("do not use") String parentPlanType,
+      @protected String parentPlanType,
       String parentPlanId,
-      @Deprecated("do not use") String productType,
+      @protected String productType,
       String productId,
       String name,
       int amount,
@@ -587,9 +591,9 @@ class __$SubscriptionPlanCopyWithImpl<$Res>
 class _$_SubscriptionPlan extends _SubscriptionPlan {
   const _$_SubscriptionPlan(
       {@required this.id,
-      @Deprecated("do not use") this.parentPlanType,
+      @protected this.parentPlanType,
       this.parentPlanId,
-      @required @Deprecated("do not use") this.productType,
+      @required @protected this.productType,
       @required this.productId,
       @required this.name,
       @required this.amount,
@@ -617,12 +621,16 @@ class _$_SubscriptionPlan extends _SubscriptionPlan {
   @override
   final String id;
   @override
-  @Deprecated("do not use")
+
+  /// [parentPlanTypeStrict]
+  @protected
   final String parentPlanType;
   @override
   final String parentPlanId;
   @override
-  @Deprecated("do not use")
+
+  /// [productTypeStrict]
+  @protected
   final String productType;
   @override
   final String productId;
@@ -717,9 +725,9 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   const _SubscriptionPlan._() : super._();
   const factory _SubscriptionPlan(
           {@required String id,
-          @Deprecated("do not use") String parentPlanType,
+          @protected String parentPlanType,
           String parentPlanId,
-          @required @Deprecated("do not use") String productType,
+          @required @protected String productType,
           @required String productId,
           @required String name,
           @required int amount,
@@ -736,12 +744,16 @@ abstract class _SubscriptionPlan extends SubscriptionPlan {
   @override
   String get id;
   @override
-  @Deprecated("do not use")
+
+  /// [parentPlanTypeStrict]
+  @protected
   String get parentPlanType;
   @override
   String get parentPlanId;
   @override
-  @Deprecated("do not use")
+
+  /// [productTypeStrict]
+  @protected
   String get productType;
   @override
   String get productId;

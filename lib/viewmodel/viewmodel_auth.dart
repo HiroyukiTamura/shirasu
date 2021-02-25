@@ -43,10 +43,9 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
 
     _plugin = FlutterWebviewPlugin()
       ..onUrlChanged.listen(
-        (url) async => _lock.synchronized(() async => _onUrlChanged(url)),
+        (url) async => _onUrlChanged(url),
       )
-      ..onHttpError
-          .listen((e) => logger.e(e, null))
+      ..onHttpError.listen((e) => logger.e(e, null))
       ..onStateChanged.listen((viewState) async => _onStateChanged(viewState));
   }
 
@@ -64,49 +63,35 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
       await _plugin.evalJavascript(_jsClickLoginBtn);
   }
 
-  Future<void> _onUrlChanged(String url) async {
-    trySet(state.copyWith(lastUrl: url));
+  //todo debug
+  Future<void> _onUrlChanged(String url) async => _lock.synchronized(() async {
+        if (!mounted) return;
+        trySet(state.copyWith(lastUrl: url));
 
-    if (_success) return;
+        if (_success) return;
 
-    // url except home page
-    if (url != UrlUtil.URL_HOME && url.startsWith(UrlUtil.URL_HOME)) {
-      final storage = await _plugin.evalJavascript(_jsLocalStorageGetter);
-      if (storage.isEmpty || storage == '\"\"') return;
+        if (url == UrlUtil.URL_HOME || !url.startsWith(UrlUtil.URL_HOME))
+          return;
 
-      // try {
-      //   final authData =
-      //       AuthData.fromJson(jsonDecode(storage) as Map<String, dynamic>);
-      //   await _hiveClient.putAuthData(authData);
-      //   _success = true;
-      // } catch (e) {
-      //   debugPrint(e.toString());
-      // }
+        final storage = await _plugin.evalJavascript(_jsLocalStorageGetter);
+        if (storage.isEmpty || storage == '\"\"') return;
 
-      if (!_success) {
         // try unescape string and decode json
         final result = await logger.guardFuture(() async => AuthData.fromJson(
             jsonDecode(jsonDecode(storage) as String) as Map<String, dynamic>));
+
         if (mounted)
-          result.ifSuccess((data) async => _hiveClient.putAuthData(data));
-        _success = true;
-      }
-
-      if (!mounted) return;
-
-      final delegate = reader(kPrvAppRouterDelegate);
-      if (_success)
-        delegate.reset();
-      else if (_hiveClient.maybeExpired && url == UrlUtil.URL_DASHBOARD) {
-        // todo improve logic
-        await _plugin.clearCache();
-        await _plugin.cleanCookies();
-        pushAuthExpireScreen();
-        //todo show error screen
-      }
-      await _plugin.close();
-    }
-  }
+          await result.when(
+            success: (data) async {
+              await _hiveClient.putAuthData(data);
+              if (mounted) return;
+              _success = true;
+              reader(kPrvAppRouterDelegate).reset();
+              await _plugin.close();
+            },
+            failure: (e) async => _hiveClient.clearAuthData(),
+          );
+      });
 }
 
 @freezed

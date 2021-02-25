@@ -54,8 +54,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       if (e is UnauthorizedException) pushAuthExpireScreen();
     });
 
-    await _logger.guardFuture(
-        () async => _networkRepository.requestHeaderImage());
+    await _logger
+        .guardFuture(() async => _networkRepository.requestHeaderImage());
   }
 
   Future<void> loadMoreNewPrg() async {
@@ -82,8 +82,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
           if (data.newPrograms.items.isEmpty)
             notifySnackMsg(const SnackMsg.noMoreItem());
         }, failure: (e) {
-          // todo merge to viewModelWatchHistory
-          _updateIfStateSuccess((data) => data.copyWith(
+          state.whenSuccess((data) => data.copyWith(
                 loadingMore: false,
               ));
           notifySnackMsg(toNetworkSnack(e));
@@ -91,37 +90,30 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
     }
   }
 
-  void _updateIfStateSuccess(DataWrapper Function(DataWrapper data) editData) {
-    state.maybeWhen(
-      orElse: () {},
-      success: (data) => state = DashboardModel.success(editData(data)),
-    );
-  }
-
   void updateScrollOffset(double offset) {
     if (isMounted)
-      _updateIfStateSuccess((data) => data.copyWith(
+      state.whenSuccess((data) => data.copyWith(
             scrollOffset: offset,
           ));
   }
 
   void updateBillboardHeaderPage(int page) {
     if (isMounted)
-      _updateIfStateSuccess((data) => data.copyWith(
+      state.whenSuccess((data) => data.copyWith(
             billboardHeaderPage: page,
           ));
   }
 
   void updateChannelOffset(double offset) {
     if (isMounted)
-      _updateIfStateSuccess((data) => data.copyWith(
+      state.whenSuccess((data) => data.copyWith(
             channelHorizontalOffset: offset,
           ));
   }
 
   void updateSubscribingCarouselOffset(double offset) {
     if (isMounted)
-      _updateIfStateSuccess((data) => data.copyWith(
+      state.whenSuccess((data) => data.copyWith(
             subscribingChannelOffset: offset,
           ));
   }

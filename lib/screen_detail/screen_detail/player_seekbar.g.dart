@@ -19,7 +19,7 @@ class PlayerAnimOpacity extends HookWidget {
       playerAnimOpacity(child: child, id: id);
 }
 
-class VideoSeekBarHoverStyle extends StatelessWidget {
+class VideoSeekBarHoverStyle extends HookWidget {
   const VideoSeekBarHoverStyle(
       {Key key, @required this.conf, @required this.topMargin})
       : super(key: key);

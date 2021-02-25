@@ -61,12 +61,20 @@ abstract class DashboardModel with _$DashboardModel {
   @protected
   const factory DashboardModel.success(DataWrapper data) = DashboardSuccess;
 
-  const factory DashboardModel.error(ErrorMsgCommon errMsg) = _DashboardModelError;
+  const factory DashboardModel.error(ErrorMsgCommon errMsg) =
+      _DashboardModelError;
 
   const DashboardModel._();
 
   factory DashboardModel.successInitialization(ApiData data) =>
       DashboardModel.success(DataWrapper.initial(data));
+
+  void whenSuccess(void Function(DataWrapper dataWrapper) success) {
+    maybeWhen(
+      orElse: () {},
+      success: success,
+    );
+  }
 
   /// must be this is [DashboardSuccess]
   DashboardModel appendLoadMoreData(NewProgramsData newProgramsData) {

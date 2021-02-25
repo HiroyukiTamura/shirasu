@@ -38,4 +38,6 @@ class Dimens {
   static const EdgeInsets SNACK_BAR_DEFAULT_MARGIN = EdgeInsets.fromLTRB(15, 5, 15, 10);
 
   static const double CAROUSEL_DETAIL_CAPTION_H = 108;
+
+  static const double SCREEN_BREAK_POINT = 600;
 }

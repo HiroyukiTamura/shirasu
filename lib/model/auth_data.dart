@@ -137,14 +137,9 @@ abstract class User with _$User {
     @JsonKey(name: 'https://shirasu.io/customerId') @required String httpsShirasuIoCustomerId,
     @JsonKey(name: 'https://shirasu.io/distributeds') @required @protected List<dynamic> rawHttpsShirasuIoDistributeds,
     @JsonKey(name: 'https://shirasu.io/tenants') @required @protected List<dynamic> rawHttpsShirasuIoTenants,
-    /// use [HttpsShirasuIoUserAttribute.givenName]
-    @JsonKey(name: 'given_name') @required @Deprecated('use [HttpsShirasuIoUserAttribute.givenName]') String givenName,
-    /// use [HttpsShirasuIoUserAttribute.familyName]
-    @JsonKey(name: 'family_name') @required @Deprecated('no need to use') String familyName,
     @required String nickname,
     @required String name,
     @required String picture,
-    // @required String locale,
     @JsonKey(name: 'updated_at') @required DateTime updatedAt,
     @required String email,
     @JsonKey(name: 'email_verified') @required bool emailVerified,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
@@ -12,6 +13,7 @@ import 'package:shirasu/model/result.dart' as r;
 import 'package:shirasu/model/update_user_with_attr_variable.dart'
     show UpdateUserWithAttrVariable;
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
@@ -32,6 +34,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     });
     if (mounted)
       result.when(success: (data) {
+        Util.require(_isUserIdMatchesLocal(data));
         state = state.copyWith(
           settingModelState: SettingModelState.success(data),
         );
@@ -42,6 +45,8 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
         if (e is UnauthorizedException) pushAuthExpireScreen();
       });
   }
+
+  bool _isUserIdMatchesLocal(ViewerWrapper viewerWrapper) => _hiveAuthBody?.decodedToken?.user?.sub == viewerWrapper.viewerUser.id;
 
   void updateBirthDate(DateTime birthDate) =>
       state = state.copyWith.editedUserInfo(birthDate: birthDate);
@@ -72,8 +77,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
       final prefecture =
           state.editedUserInfo?.location?.prefectureCode ?? attrs?.prefecture;
 
-      if (sub == viewerUser.viewerUser.id) {
-        //todo must check on initialize too
+      if (_isUserIdMatchesLocal(viewerUser)) {
         final variable = UpdateUserWithAttrVariable.build(
           userId: sub,
           birthDate: birthDate,
@@ -113,11 +117,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(isInLoggingOut: true);
 
-    await hiveAuthRepository.clearAuthData();
-    await logger.guardFuture(() async {
-      await FlutterWebviewPlugin().cleanCookies();
-      await FlutterWebviewPlugin().clearCache();
-    });
+    await clearAuthDataAndWebCache();
 
     if (mounted) state = state.copyWith(isInLoggingOut: false);
 

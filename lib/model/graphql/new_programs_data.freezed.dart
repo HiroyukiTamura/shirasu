@@ -409,7 +409,7 @@ class _$NewProgramItemTearOff {
       @required String tenantId,
       @required String title,
       @required int totalPlayTime,
-      @visibleForOverriding String viewerPlanType,
+      @protected String viewerPlanType,
       @required NewProgramChannel channel,
       @required @JsonKey(name: '__typename') String typename}) {
     return _NewProgramItem(
@@ -447,7 +447,9 @@ mixin _$NewProgramItem {
   String get tenantId;
   String get title;
   int get totalPlayTime;
-  @visibleForOverriding
+
+  /// use [viewerPlanTypeStrict]
+  @protected
   String get viewerPlanType;
   NewProgramChannel get channel;
   @JsonKey(name: '__typename')
@@ -472,7 +474,7 @@ abstract class $NewProgramItemCopyWith<$Res> {
       String tenantId,
       String title,
       int totalPlayTime,
-      @visibleForOverriding String viewerPlanType,
+      @protected String viewerPlanType,
       NewProgramChannel channel,
       @JsonKey(name: '__typename') String typename});
 
@@ -551,7 +553,7 @@ abstract class _$NewProgramItemCopyWith<$Res>
       String tenantId,
       String title,
       int totalPlayTime,
-      @visibleForOverriding String viewerPlanType,
+      @protected String viewerPlanType,
       NewProgramChannel channel,
       @JsonKey(name: '__typename') String typename});
 
@@ -620,7 +622,7 @@ class _$_NewProgramItem extends _NewProgramItem {
       @required this.tenantId,
       @required this.title,
       @required this.totalPlayTime,
-      @visibleForOverriding this.viewerPlanType,
+      @protected this.viewerPlanType,
       @required this.channel,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(broadcastAt != null),
@@ -656,7 +658,9 @@ class _$_NewProgramItem extends _NewProgramItem {
   @override
   final int totalPlayTime;
   @override
-  @visibleForOverriding
+
+  /// use [viewerPlanTypeStrict]
+  @protected
   final String viewerPlanType;
   @override
   final NewProgramChannel channel;
@@ -743,7 +747,7 @@ abstract class _NewProgramItem extends NewProgramItem {
           @required String tenantId,
           @required String title,
           @required int totalPlayTime,
-          @visibleForOverriding String viewerPlanType,
+          @protected String viewerPlanType,
           @required NewProgramChannel channel,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_NewProgramItem;
@@ -768,7 +772,9 @@ abstract class _NewProgramItem extends NewProgramItem {
   @override
   int get totalPlayTime;
   @override
-  @visibleForOverriding
+
+  /// use [viewerPlanTypeStrict]
+  @protected
   String get viewerPlanType;
   @override
   NewProgramChannel get channel;

@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-enum PlanType { ONETIME, SUBSCRIPTION }
+part 'plan_type.freezed.dart';
 
-class _PlanTypeUtil {
+@freezed
+abstract class PlanType with _$PlanType {
+  const factory PlanType.oneTime() = _OneTime;
+  const factory PlanType.subscription() = _Subscription;
 
-  const _PlanTypeUtil._();
-
-  static PlanType parse(String value) {
+  factory PlanType.parse(String value) {
     if (value == null)
       return null;
 
     switch (value) {
       case 'Onetime':
-        return PlanType.ONETIME;
+        return PlanType.oneTime();
       case 'SubscriptionPlan':
-        return PlanType.SUBSCRIPTION;
+        return PlanType.subscription();
       default:
         throw ArgumentError.value(value);
     }
@@ -25,19 +27,19 @@ mixin ViewerPlanTypeMixin {
   @protected
   String get viewerPlanType;
 
-  PlanType get viewerPlanTypeStrict => _PlanTypeUtil.parse(viewerPlanType);
+  PlanType get viewerPlanTypeStrict => PlanType.parse(viewerPlanType);
 }
 
 mixin PlanTypeMixin {
   @protected
   String get planType;
 
-  PlanType get planTypeStrict => _PlanTypeUtil.parse(planType);
+  PlanType get planTypeStrict => PlanType.parse(planType);
 }
 
 mixin ParentPlanTypeMixin {
   @protected
   String get parentPlanType;
 
-  PlanType get parentPlanTypeStrict => _PlanTypeUtil.parse(parentPlanType);
+  PlanType get parentPlanTypeStrict => PlanType.parse(parentPlanType);
 }

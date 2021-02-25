@@ -4,6 +4,7 @@ enum ProductType { CHANNEL, PROGRAM, LIVE_EXT }
 
 mixin ProductTypeMixin {
 
+  @protected
   String get productType;
 
   ProductType get productTypeStrict {

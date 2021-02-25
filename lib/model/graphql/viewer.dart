@@ -118,7 +118,8 @@ abstract class InvoiceHistoryItem
     @required String currency,
     @required String label,
     @required DateTime createdAt,
-    @required String planType,
+    /// use [planTypeStrict]
+    @required @protected String planType,
     @required String status,
     @required @JsonKey(name: '__typename') String typename,
   }) = _InvoiceHistoryItem;
@@ -171,7 +172,8 @@ abstract class LatestInvoice
     @required String id,
     String description,
     @required DateTime createdAt,
-    @required String planType,
+    /// use [planTypeStrict]
+    @required @protected String planType,
     @required String status,
     @required String hostedInvoiceUrl,
     dynamic nextPaymentAttempt,

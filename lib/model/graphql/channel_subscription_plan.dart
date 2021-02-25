@@ -38,9 +38,13 @@ abstract class SubscriptionPlan
   @Assert('typename == "SubscriptionPlan"')
   const factory SubscriptionPlan({
     @required String id,
-    @Deprecated("do not use") String parentPlanType,
+    /// [parentPlanTypeStrict]
+    @protected
+    String parentPlanType,
     String parentPlanId,
-    @Deprecated("do not use") @required String productType,
+    /// [productTypeStrict]
+    @protected
+    @required String productType,
     @required String productId,
     @required String name,
     @required int amount,

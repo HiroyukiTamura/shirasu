@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -31,37 +32,40 @@ class RowFabs extends StatelessWidget {
       );
 
   /// todo implement
-  /// todo should not show if not purchased??
   @override
-  Widget build(BuildContext context) => basePadding(
-        top: _PADDING_V,
-        bottom: _PADDING_V,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            // const _Fab(icon: Icons.comment),
-            if (program.viewerPlanTypeStrict != null)
-              _Fab(
-                icon: Icons.comment,
-                onPressed: () => _onClickCommentBtn(context),
-              ),
+  Widget build(BuildContext context) {
+    final maybeVod = useProvider(kPrvViewModelDetail(program.id).state.select(
+        (it) => it.playOutState.videoType /*nullable*/ != VideoType.live()));
+    return basePadding(
+      top: _PADDING_V,
+      bottom: _PADDING_V,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          // const _Fab(icon: Icons.comment),
+          if (program.viewerPlanTypeStrict != null && maybeVod)
             _Fab(
-              icon: Icons.credit_card,
-              onPressed: () => _onClickPaymentBtn(context),
+              icon: Icons.comment,
+              onPressed: () => _onClickCommentBtn(context),
             ),
-            if (program.handouts.items.isNotEmpty)
-              _Fab(
-                icon: Icons.text_snippet,
-                onPressed: () => _onClickHandoutsBtn(context),
-              ),
-            // const _Fab(icon: Icons.alarm_add),
+          _Fab(
+            icon: Icons.credit_card,
+            onPressed: () => _onClickPaymentBtn(context),
+          ),
+          if (program.handouts.items.isNotEmpty)
             _Fab(
-              icon: Icons.share,
-              onPressed: () => _onClickShareBtn(context),
+              icon: Icons.text_snippet,
+              onPressed: () => _onClickHandoutsBtn(context),
             ),
-          ],
-        ),
-      );
+          // const _Fab(icon: Icons.alarm_add),
+          _Fab(
+            icon: Icons.share,
+            onPressed: () => _onClickShareBtn(context),
+          ),
+        ],
+      ),
+    );
+  }
 
   void _onClickShareBtn(BuildContext context) => context
       .read(kPrvViewModelDetail(program.id))

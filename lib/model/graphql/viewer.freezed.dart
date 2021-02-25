@@ -1280,7 +1280,7 @@ class _$InvoiceHistoryItemTearOff {
       @required String currency,
       @required String label,
       @required DateTime createdAt,
-      @required String planType,
+      @required @protected String planType,
       @required String status,
       @required @JsonKey(name: '__typename') String typename}) {
     return _InvoiceHistoryItem(
@@ -1312,6 +1312,9 @@ mixin _$InvoiceHistoryItem {
   String get currency;
   String get label;
   DateTime get createdAt;
+
+  /// use [planTypeStrict]
+  @protected
   String get planType;
   String get status;
   @JsonKey(name: '__typename')
@@ -1333,7 +1336,7 @@ abstract class $InvoiceHistoryItemCopyWith<$Res> {
       String currency,
       String label,
       DateTime createdAt,
-      String planType,
+      @protected String planType,
       String status,
       @JsonKey(name: '__typename') String typename});
 }
@@ -1385,7 +1388,7 @@ abstract class _$InvoiceHistoryItemCopyWith<$Res>
       String currency,
       String label,
       DateTime createdAt,
-      String planType,
+      @protected String planType,
       String status,
       @JsonKey(name: '__typename') String typename});
 }
@@ -1436,7 +1439,7 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
       @required this.currency,
       @required this.label,
       @required this.createdAt,
-      @required this.planType,
+      @required @protected this.planType,
       @required this.status,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
@@ -1464,6 +1467,9 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   @override
   final DateTime createdAt;
   @override
+
+  /// use [planTypeStrict]
+  @protected
   final String planType;
   @override
   final String status;
@@ -1533,7 +1539,7 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
           @required String currency,
           @required String label,
           @required DateTime createdAt,
-          @required String planType,
+          @required @protected String planType,
           @required String status,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_InvoiceHistoryItem;
@@ -1552,6 +1558,9 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   @override
   DateTime get createdAt;
   @override
+
+  /// use [planTypeStrict]
+  @protected
   String get planType;
   @override
   String get status;
@@ -2104,7 +2113,7 @@ class _$LatestInvoiceTearOff {
       {@required String id,
       String description,
       @required DateTime createdAt,
-      @required String planType,
+      @required @protected String planType,
       @required String status,
       @required String hostedInvoiceUrl,
       dynamic nextPaymentAttempt,
@@ -2136,6 +2145,9 @@ mixin _$LatestInvoice {
   String get id;
   String get description;
   DateTime get createdAt;
+
+  /// use [planTypeStrict]
+  @protected
   String get planType;
   String get status;
   String get hostedInvoiceUrl;
@@ -2157,7 +2169,7 @@ abstract class $LatestInvoiceCopyWith<$Res> {
       {String id,
       String description,
       DateTime createdAt,
-      String planType,
+      @protected String planType,
       String status,
       String hostedInvoiceUrl,
       dynamic nextPaymentAttempt,
@@ -2214,7 +2226,7 @@ abstract class _$LatestInvoiceCopyWith<$Res>
       {String id,
       String description,
       DateTime createdAt,
-      String planType,
+      @protected String planType,
       String status,
       String hostedInvoiceUrl,
       dynamic nextPaymentAttempt,
@@ -2270,7 +2282,7 @@ class _$_LatestInvoice extends _LatestInvoice {
       {@required this.id,
       this.description,
       @required this.createdAt,
-      @required this.planType,
+      @required @protected this.planType,
       @required this.status,
       @required this.hostedInvoiceUrl,
       this.nextPaymentAttempt,
@@ -2294,6 +2306,9 @@ class _$_LatestInvoice extends _LatestInvoice {
   @override
   final DateTime createdAt;
   @override
+
+  /// use [planTypeStrict]
+  @protected
   final String planType;
   @override
   final String status;
@@ -2367,7 +2382,7 @@ abstract class _LatestInvoice extends LatestInvoice {
           {@required String id,
           String description,
           @required DateTime createdAt,
-          @required String planType,
+          @required @protected String planType,
           @required String status,
           @required String hostedInvoiceUrl,
           dynamic nextPaymentAttempt,
@@ -2384,6 +2399,9 @@ abstract class _LatestInvoice extends LatestInvoice {
   @override
   DateTime get createdAt;
   @override
+
+  /// use [planTypeStrict]
+  @protected
   String get planType;
   @override
   String get status;

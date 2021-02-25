@@ -16,7 +16,7 @@ class ListTileInvoiceHistory extends StatelessWidget {
   final InvoiceHistoryItem invoiceHistoryItem;
 
   String get _paymentText {
-    final planTypeStr = Strings.planType2Str(invoiceHistoryItem.planType);
+    final planTypeStr = Strings.planType2Str(invoiceHistoryItem.planTypeStrict);
     return '${invoiceHistoryItem.total}${invoiceHistoryItem.currencyAsSuffix} $planTypeStr';
   }
 

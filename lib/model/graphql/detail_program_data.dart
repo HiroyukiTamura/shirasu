@@ -47,7 +47,9 @@ abstract class ProgramDetail
     @required @JsonKey(name: 'tags') @protected List<String> rawTags,
     @required String title,
     @required int totalPlayTime,
-    @Deprecated('use [viewerPlanTypeStrict]') String viewerPlanType,
+    /// use [viewerPlanTypeStrict]
+    @protected
+    String viewerPlanType,
     bool isExtensionChargedToSubscribers,
     DateTime archivedAt,
     @required String releaseState,
@@ -94,8 +96,8 @@ abstract class ProgramDetail
 
     final isMainVideoAvailable =
         onetimePlanMain?.viewerPurchasedPlan?.isActive == true ||
-            (onetimePlanMain?.parentPlanTypeStrict == PlanType.SUBSCRIPTION &&
-                viewerPlanTypeStrict == PlanType.SUBSCRIPTION);
+            (onetimePlanMain?.parentPlanTypeStrict == PlanType.subscription() &&
+                viewerPlanTypeStrict == PlanType.subscription());
     return isMainVideoAvailable ? mainPrgItem : null;
   }
 
@@ -120,7 +122,7 @@ abstract class ProgramDetail
       (it) => it.isMain && it.videoTypeStrict == const VideoType.archived());
 
   bool get _isAllExtensionAvailableAsSubscriber =>
-      viewerPlanTypeStrict == PlanType.SUBSCRIPTION &&
+      viewerPlanTypeStrict == PlanType.subscription() &&
       isExtensionChargedToSubscribers != true;
 
   /// if [extensionId] is invalid, returns false

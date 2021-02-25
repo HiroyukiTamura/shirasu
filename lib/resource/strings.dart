@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 
 //todo split per screen
 @immutable
@@ -10,8 +11,7 @@ class Strings {
   //region Intro
   static const INTRO_TITLE_1ST = 'SHIRASU';
   static const INTRO_DESC_1ST = 'このアプリは、動画配信プラットフォーム「シラス」の非公式アプリです。';
-  static const INTRO_DESC_1ST_2 =
-      'バックグラウンド再生はもちろん、配信開始の通知や動画の購入・検索することができます。';
+  static const INTRO_DESC_1ST_2 = 'バックグラウンド再生はもちろん、配信開始の通知や動画の購入・検索することができます。';
 
   static const INTRO_TITLE_2ND = 'このアプリは非公式です';
   static const INTRO_DESC_2ND = 'このアプリは、シラスと無関係の個人が開発・運営しています。';
@@ -19,8 +19,7 @@ class Strings {
       '公式の対応によっては予告なくサービスを停止することがありますので、あらかじめご了承ください。';
 
   static const INTRO_TITLE_3RD = 'セキュアで\n透明性の高いアプリ';
-  static const INTRO_DESC_3RD =
-      'すべてのソースコードをGitHub上で公開しており、誰でも開発に参加することができます。';
+  static const INTRO_DESC_3RD = 'すべてのソースコードをGitHub上で公開しており、誰でも開発に参加することができます。';
   static const INTRO_DESC_3RD_2 =
       '決済は認証は公式Webページを通じて行い、アプリはパスワードや個人情報を一切保持しません。';
 
@@ -48,7 +47,7 @@ class Strings {
   //region SnackBar
   static const SNACK_NO_MORE_ITEM = 'アイテムは他にありません';
 
-  static const SNACK_ERR = '処理に失敗しました';//todo rename
+  static const SNACK_ERR = '処理に失敗しました'; //todo rename
   static const SNACK_CANT_OPEN_URL = 'Webページを開けません';
   static const SNACK_URL_COPIED = 'urlをコピーしました';
 
@@ -72,16 +71,10 @@ class Strings {
 
   static const SUFFIX_YEN = '円';
 
-  static String planType2Str(String planType) {
-    switch (planType) {
-      case 'SubscriptionPlan':
-        return '月額';
-      case 'OneTimePlan':
-        return '単品';
-      default:
-        throw Exception('unexpected planType :: $planType');
-    }
-  }
+  static String planType2Str(PlanType planType) => planType.when(
+        oneTime: () => '月額',
+        subscription: () => '単品',
+      );
 
   static const MONTHLY = '月額';
   static const SUBSCRIBED = 'チャンネル購読済み';
@@ -94,6 +87,7 @@ class Strings {
   static const TIME_UNIT_SEC = '秒';
   static const BTM_SHEET_COMMENT_LABEL = 'このコメントが投稿された時間に移動';
   static const COMMENT_TEXT_FILED_HINT = 'コメント入力';
+  static const PLAYER_CONTROLLER_LABEL_LIVE = 'LIVE';
 
 //endregion
 
@@ -172,7 +166,8 @@ class Strings {
       '冒頭を無料で見ることができます。\n番組開始後に冒頭無料視聴をお選びください。';
 
   /// ref: users.pages.Program.components.ProgramNotice.saving
-  static const PROGRAM_ARCHIVING = 'この放送は終了しました。アーカイブ動画への変換中です。\n視聴可能になるまで、少々お待ちください。';
+  static const PROGRAM_ARCHIVING =
+      'この放送は終了しました。アーカイブ動画への変換中です。\n視聴可能になるまで、少々お待ちください。';
 
   static const CURRENT_PERIOD_END_AT_LABEL = '次回更新日';
   static const SUBSCRIPTION_START_DATE = '購読開始日';
@@ -248,6 +243,7 @@ class Strings {
  all of this app is licensed under CC BY-NC-SA 4.0 license''';
 
   static const LICENSE_VALUE_LOTTIE = 'Animation by LottieFiles on LottieFiles';
+
 //endregion
 
 //region screen_price_chart

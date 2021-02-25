@@ -51,7 +51,8 @@ abstract class NewProgramItem with ViewerPlanTypeMixin implements _$NewProgramIt
     @required String tenantId,
     @required String title,
     @required int totalPlayTime,
-    @visibleForOverriding
+    /// use [viewerPlanTypeStrict]
+    @protected
     String viewerPlanType,
     @required NewProgramChannel channel,
     @JsonKey(name: '__typename')

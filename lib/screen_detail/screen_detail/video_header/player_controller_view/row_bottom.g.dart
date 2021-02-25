@@ -15,6 +15,13 @@ class RowBottom extends HookWidget {
   Widget build(BuildContext _context) => rowBottom(conf: conf);
 }
 
+class _LiveText extends StatelessWidget {
+  const _LiveText({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext _context) => _liveText();
+}
+
 class _TimeText extends HookWidget {
   const _TimeText(
       {Key key, @required this.conf, this.padding = const EdgeInsets.all(8)})

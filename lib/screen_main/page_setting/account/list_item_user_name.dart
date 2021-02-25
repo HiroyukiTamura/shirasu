@@ -19,8 +19,8 @@ class ListItemUserName extends HookWidget {
 
     var userName =
         '${attr.familyName} ${attr.givenName}';
-    if (attr.familyNameReading != null &&
-        attr.givenNameReading != null)
+    if (attr.familyNameReading?.isNotEmpty == true &&
+        attr.givenNameReading?.isNotEmpty == true)
       userName +=
           '(${attr.familyNameReading} ${attr.givenNameReading})';
     return userName;

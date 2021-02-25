@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
-import 'package:shirasu/global_state.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/result.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -36,6 +35,8 @@ extension MapX<K, V> on Map<K, V> {
   UnmodifiableMapView<K, V> toUnmodifiable() => UnmodifiableMapView(this);
 }
 
+final _kIsInFullScreenOperation = Lock();
+
 extension BuildContextX on BuildContext {
   Future<void> pushPage(GlobalRoutePath path) async =>
       read(kPrvAppRouterDelegate).pushPage(path);
@@ -49,7 +50,7 @@ extension BuildContextX on BuildContext {
   bool get isBigScreen => Dimens.SCREEN_BREAK_POINT < MediaQuery.of(this).size.width;
 
   Future<void> toggleFullScreenMode() async {
-    if (GlobalState.isInFullScreenOperation.inLock) return;
+    if (_kIsInFullScreenOperation.locked) return;
 
     final isPortrait = MediaQuery.of(this).orientation == Orientation.portrait;
     final orientations =

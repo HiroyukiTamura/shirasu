@@ -11,7 +11,7 @@ class CircleCachedNetworkImage extends StatelessWidget {
   /// must not be null either of [imageUrl] or [errorWidget]
   const CircleCachedNetworkImage(
       {Key key,
-      this.imageUrl,
+      @required this.imageUrl,
       @required this.size,
       this.onTap,
       this.errorWidget})

@@ -239,8 +239,9 @@ class Strings {
 //endregion
 
 //region license
-  static const LICENSE_LEGAL_APP = '''Except where otherwise noted,
- all of this app is licensed under CC BY-NC-SA 4.0 license''';
+  static const LICENSE_LEGAL_APP = '''
+Except where otherwise noted,
+all of this app is licensed under CC BY-NC-SA 4.0 license''';
 
   static const LICENSE_VALUE_LOTTIE = 'Animation by LottieFiles on LottieFiles';
 
@@ -251,7 +252,8 @@ class Strings {
   static const ARCHIVE_PRICE_TABLE_TITLE = '番組価格';
 
   /// ref: users.pages.Program.components.ArchivePriceTable.note
-  static const ARCHIVE_PRICE_TABLE_NOTE = '''※表記は全て「税込」となります
+  static const ARCHIVE_PRICE_TABLE_NOTE = '''
+※表記は全て「税込」となります
 ※延長は直前の本編あるいは延長を購入していないと視聴することができません。
 ※延長1回目の購入は本編の購入のあと、延長2回目の購入は1回目までの購入のあととなります。''';
 

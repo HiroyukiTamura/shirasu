@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
-import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/router/global_route_path.dart';
 

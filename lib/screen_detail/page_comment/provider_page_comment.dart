@@ -4,10 +4,9 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
-import 'package:tuple/tuple.dart';
 import 'package:shirasu/extension.dart';
-
-import '../../viewmodel/model/model_detail.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
+import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 
 part 'provider_page_comment.freezed.dart';
 
@@ -26,7 +25,7 @@ abstract class PageUiData with _$PageUiData {
 }
 
 /// data set for comment [PageCommentInner].
-/// [comments] is only for display UI. do not use for business logic.
+/// comments is only for display UI. do not use for business logic.
 @freezed
 abstract class PageUiDataWrapper with _$PageUiDataWrapper {
   const factory PageUiDataWrapper({
@@ -54,7 +53,7 @@ final kPrvPageUiData = StateNotifierProvider.family
   final removeListener = ref.watch(kPrvViewModelDetail(id)).addListener((state) {
     final commentHolder = state.commentHolder;
     final comments = commentHolder.followTimeLineMode.when(
-      notFollow: (futurePos) => commentHolder.getCommentItemsBefore(futurePos),
+      notFollow: commentHolder.getCommentItemsBefore,
       follow: () =>
           commentHolder.getCommentItemsBefore(state.playOutState.currentPosSafe),
     );

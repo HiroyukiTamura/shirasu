@@ -78,9 +78,9 @@ Future<void> main() async {
     });
 
     Future<void> testTemplate({
-      List<Override> override = const [],
       @required DashboardModel expectedState,
       @required SnackMsg expectedSnack,
+      List<Override> override = const [],
       Duration delay = const Duration(seconds: 1),
     }) async {
       final container = ProviderContainer(

@@ -3,11 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/repository/native_client.dart';
-import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
@@ -21,18 +18,15 @@ import 'package:shirasu/screen_detail/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_header.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
-import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-import '../../main.dart';
-import 'btm_sheet.dart';
+import 'package:shirasu/main.dart';
+import 'package:shirasu/screen_detail/screen_detail/btm_sheet.dart';
 
 part 'screen_detail.g.dart';
 
@@ -76,7 +70,7 @@ final _kPrvFabVisibility = Provider.family.autoDispose<bool, String>((ref, id) {
 });
 
 class ScreenDetail extends StatefulHookWidget {
-  const ScreenDetail({Key key, @required this.id}) : super(key: key);
+  const ScreenDetail({@required this.id, Key key}) : super(key: key);
 
   final String id;
 
@@ -119,7 +113,6 @@ class _ScreenDetailState extends State<ScreenDetail>
     }
   }
 
-  /// not implement [BtmSheetResolution]
   @override
   Widget build(BuildContext context) => SafeArea(
         child: SnackEventListener(
@@ -150,8 +143,9 @@ class _ScreenDetailState extends State<ScreenDetail>
       );
 
   Future<void> _switchVideoForeground() async {
-    final replyData =
-        await context.read(kPrvViewModelDetail(widget.id)).stopBackGroundPlayer();
+    final replyData = await context
+        .read(kPrvViewModelDetail(widget.id))
+        .stopBackGroundPlayer();
     if (mounted && replyData.wasPlaying) {
       final isLandCape =
           MediaQuery.of(context).orientation == Orientation.landscape;
@@ -257,8 +251,8 @@ class _Fab extends HookWidget {
 
 class _BottomPanel extends HookWidget {
   const _BottomPanel({
-    Key key,
     @required this.program,
+    Key key,
   }) : super(key: key);
 
   final ProgramDetail program;

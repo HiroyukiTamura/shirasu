@@ -5,7 +5,6 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
@@ -37,7 +36,7 @@ Widget videoSeekBarHoverStyle(
   @required VideoViewModelConf conf,
   @required double topMargin,
 }) {
-  final isLive = useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.videoType == VideoType.live()));
+  final isLive = useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.videoType == const VideoType.live()));
   return Visibility(
     visible: isLive,
     child: VideoControllerVis(
@@ -49,7 +48,6 @@ Widget videoSeekBarHoverStyle(
             child: SizedBox(
               height: Dimens.VIDEO_SEEK_BAR_HOVER_STYLE_H,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(width: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
                   Expanded(

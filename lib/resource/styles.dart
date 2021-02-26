@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/player_slider_track_shape.dart';
 

@@ -1,3 +1,4 @@
+// ignore_for_file: always_put_required_named_parameters_first
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/mixins/currency_mixin.dart';
@@ -7,8 +8,7 @@ import 'package:shirasu/model/graphql/mixins/product_type.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/extension.dart';
-
-import 'channel_data.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
 
 part 'detail_program_data.freezed.dart';
 
@@ -96,8 +96,8 @@ abstract class ProgramDetail
 
     final isMainVideoAvailable =
         onetimePlanMain?.viewerPurchasedPlan?.isActive == true ||
-            (onetimePlanMain?.parentPlanTypeStrict == PlanType.subscription() &&
-                viewerPlanTypeStrict == PlanType.subscription());
+            (onetimePlanMain?.parentPlanTypeStrict == const PlanType.subscription() &&
+                viewerPlanTypeStrict == const PlanType.subscription());
     return isMainVideoAvailable ? mainPrgItem : null;
   }
 
@@ -122,7 +122,7 @@ abstract class ProgramDetail
       (it) => it.isMain && it.videoTypeStrict == const VideoType.archived());
 
   bool get _isAllExtensionAvailableAsSubscriber =>
-      viewerPlanTypeStrict == PlanType.subscription() &&
+      viewerPlanTypeStrict == const PlanType.subscription() &&
       isExtensionChargedToSubscribers != true;
 
   /// if [extensionId] is invalid, returns false

@@ -13,7 +13,7 @@ class NativeClient {
     @required String cookie,
     @required String title,
     @required String subtitle,
-  }) async => await FlutterVideoBackground.startPlayBackGround(
+  }) async => FlutterVideoBackground.startPlayBackGround(
       url: url,
       isLiveStream: isLiveStream,
       position: position.toString(),

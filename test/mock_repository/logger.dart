@@ -1,7 +1,7 @@
+// ignore_for_file: avoid_print
 import 'package:shirasu/repository/logger_repository.dart';
 
 class TestLogger with LoggerRepository {
-
   const TestLogger();
 
   @override
@@ -10,7 +10,7 @@ class TestLogger with LoggerRepository {
   }
 
   @override
-  void e(exception, StackTrace stack, {reason}) {
+  void e(dynamic exception, StackTrace stack, {dynamic reason}) {
     print(exception);
     print(stack);
   }

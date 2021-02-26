@@ -8,8 +8,8 @@ class PlayerSliderTrackShape extends RoundedRectSliderTrackShape {
   @override
   Rect getPreferredRect({
     @required RenderBox parentBox,
-    Offset offset = Offset.zero,
     @required SliderThemeData sliderTheme,
+    Offset offset = Offset.zero,
     bool isEnabled = false,
     bool isDiscrete = false,
   }) {

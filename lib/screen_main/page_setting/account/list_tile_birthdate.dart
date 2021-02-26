@@ -5,9 +5,8 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/viewmodel/viewmodel_setting.dart';
-import '../list_item.dart';
-import '../page_setting.dart';
+import 'package:shirasu/screen_main/page_setting/list_item.dart';
+import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 
 class ListTileBirthDate extends HookWidget {
   const ListTileBirthDate({Key key}) : super(key: key);

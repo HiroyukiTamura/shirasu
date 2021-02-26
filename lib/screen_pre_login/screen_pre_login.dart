@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/env_repository.dart';
@@ -9,7 +8,6 @@ import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';

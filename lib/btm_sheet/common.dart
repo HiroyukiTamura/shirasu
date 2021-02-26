@@ -7,8 +7,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/text_styles.dart';
 
-import '../main.dart';
-
 part 'common.g.dart';
 
 @hwidget
@@ -28,11 +26,11 @@ Widget _heading({
 
 class ListBtmSheetContent<T> extends StatelessWidget {
   const ListBtmSheetContent({
-    Key key,
     @required this.items,
     @required this.onTap,
     @required this.textBuilder,
     @required this.isSelected,
+    Key key,
   }) : super(key: key);
 
   final List<T> items;

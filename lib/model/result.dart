@@ -1,9 +1,6 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/repository/logger_repository.dart';
-import 'package:shirasu/repository/logger_repository_impl.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'result.freezed.dart';
 

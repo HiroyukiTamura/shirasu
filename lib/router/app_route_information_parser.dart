@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shirasu/repository/url_util.dart';
-import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
-
-import 'global_route_path.dart';
+import 'package:shirasu/router/global_route_path.dart';
 
 class AppRouteInformationParser
     extends RouteInformationParser<GlobalRoutePathBase> {
@@ -60,11 +58,11 @@ class AppRouteInformationParser
   static String restoreLocation(GlobalRoutePathBase configuration) =>
       configuration.wrappedWhen(
         intro: () => 'intro',
-        error: (bool authExpired) => 'error',
+        error: (authExpired) => 'error',
         channel: (channelId) => '/c/$channelId',
-        program: (programId) => UrlUtil.programId2UrlSegment(programId),
+        program: UrlUtil.programId2UrlSegment,
         dashboard: () => 'dashboard',
-        subscribing: (PageListTabPage initialPage) =>
+        subscribing: (initialPage) =>
             'subscribing/$initialPage',
         setting: () => 'setting',
         ossLicense: () => 'oss_license',

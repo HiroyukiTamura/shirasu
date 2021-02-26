@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/extension.dart';
 
 part 'auth_data.freezed.dart';
 part 'auth_data.g.dart';

@@ -1,23 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
-import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
-import 'package:shirasu/screen_detail/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
-import 'package:shirasu/screen_detail/screen_detail/video_header/player_view.dart';
-import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
-import 'package:shirasu/ui_common/center_circle_progress.dart';
-import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 import '../../mock_viewmodel/viewmodel_detail_mockable.dart';
 import '../../widget_test_util/json_client.dart';
 import '../../widget_test_util/test_runner_base.dart';
-import '../../widget_test_util/test_util.dart';
 
 void main() =>
     _TestRunner(JsonClient.instance.mProgramDetailData).runScreenTest();

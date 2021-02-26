@@ -41,7 +41,7 @@ class ItemTable extends StatelessWidget {
         first: Strings.ARCHIVE_PRICE_TABLE_MAIN_TYPE,
         second: Util.sec2Hms(program.mainTime),
         third: price,
-        fourth: mainType.parentPlanTypeStrict == PlanType.subscription()//todo fix
+        fourth: mainType.parentPlanTypeStrict == const PlanType.subscription()//todo fix
             ? Strings.ARCHIVE_PRICE_TABLE_FREE
             : '${mainType.amountWithTax}${mainType.currencyAsSuffix}',
       );
@@ -77,8 +77,11 @@ class ItemTable extends StatelessWidget {
 
   static TableRow _tableRow({
     String first,
+    // ignore: always_put_required_named_parameters_first
     @required String second,
+    // ignore: always_put_required_named_parameters_first
     @required String third,
+    // ignore: always_put_required_named_parameters_first
     @required String fourth,
     Decoration decoration,
   }) =>

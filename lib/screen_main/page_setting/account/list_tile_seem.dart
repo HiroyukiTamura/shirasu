@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class ListTileSeem extends StatelessWidget {
   const ListTileSeem({
-    Key key,
     @required this.paddingTop,
     @required this.paddingBtm,
+    Key key,
   }) : super(key: key);
 
   final bool paddingTop;

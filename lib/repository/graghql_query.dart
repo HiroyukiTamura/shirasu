@@ -314,7 +314,7 @@ fragment UserChannelPageChannelAnnouncementData on ChannelAnnouncement {
 }
   ''';
 
-  static const QUERY_VIEWER = r'''
+  static const QUERY_VIEWER = '''
 query GetViewer {
     viewer {
         paymentMethods {

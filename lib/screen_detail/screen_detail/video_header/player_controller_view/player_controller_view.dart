@@ -1,9 +1,6 @@
-import 'package:better_player/better_player.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -15,7 +12,6 @@ import 'package:shirasu/screen_detail/screen_detail/video_header/player_controll
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/row_center.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_center/seek_btn.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
-import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/player_controller_view/row_top.dart';
@@ -83,18 +79,15 @@ class PlayerControllerView extends HookWidget {
                     overflow: Overflow.visible,
                     children: [
                       RowTop(
-                        onTapFullScreenBtn: (context) =>
-                            _onTapFullScreenBtn(context),
+                        onTapFullScreenBtn: _onTapFullScreenBtn,
                         conf: conf,
                         onTapSpeedBtn: _onTapSpeedBtn,
                       ),
                       RowCenter(
                         conf: conf,
-                        onTapRewindBtn: (context) => _onTapRewindBtn(context),
-                        onTapFastForwardBtn: (context) =>
-                            _onTapFastForwardBtn(context),
-                        onTapPlayToggleBtn: (context) =>
-                            _onTapPlayToggleBtn(context),
+                        onTapRewindBtn: _onTapRewindBtn,
+                        onTapFastForwardBtn: _onTapFastForwardBtn,
+                        onTapPlayToggleBtn: _onTapPlayToggleBtn,
                       ),
                       RowBottom(
                         conf: conf,

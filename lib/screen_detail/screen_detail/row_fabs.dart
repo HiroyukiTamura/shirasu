@@ -3,15 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/repository/url_util.dart';
-import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/padding_row.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
-import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 part 'row_fabs.g.dart';
 
@@ -35,7 +32,7 @@ class RowFabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final maybeVod = useProvider(kPrvViewModelDetail(program.id).state.select(
-        (it) => it.playOutState.videoType /*nullable*/ != VideoType.live()));
+        (it) => it.playOutState.videoType /*nullable*/ != const VideoType.live()));
     return basePadding(
       top: _PADDING_V,
       bottom: _PADDING_V,

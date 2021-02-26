@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,10 +10,8 @@ import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
-import 'package:shirasu/screen_detail/page_base/item_heading.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/util.dart';
@@ -37,8 +34,8 @@ Widget pageHandouts({
 
 class _ScreenHandsOutInner extends HookWidget {
   _ScreenHandsOutInner({
-    Key key,
     @required this.program,
+    Key key,
   })  : assert(program.handouts.items.isNotEmpty),
         super(key: key);
 

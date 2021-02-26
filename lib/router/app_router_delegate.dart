@@ -14,8 +14,7 @@ import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/screen_oss_license/screen_oss_license.dart';
 import 'package:shirasu/screen_pre_login/screen_pre_login.dart';
 import 'package:tuple/tuple.dart';
-
-import 'on_pop_page_mixin.dart';
+import 'package:shirasu/router/on_pop_page_mixin.dart';
 
 class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
   AppRouterDelegate(Reader reader)
@@ -29,7 +28,7 @@ class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
         .map<Tuple2<String, Widget>>((pathData) {
           final screen = pathData.wrappedWhenRough(
             intro: () => ScreenIntro(),
-            error: (bool authExpired) => ScreenError(authExpired: authExpired),
+            error: (authExpired) => ScreenError(authExpired: authExpired),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
             ossLicense: () => const ScreenOssLicense(),

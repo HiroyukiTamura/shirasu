@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:shirasu/gen/assets.gen.dart';
-import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/local/country_data.dart';
 import 'package:shirasu/model/local/prefecture_data.dart';
@@ -28,7 +27,6 @@ class LocalJsonClient {
   Future<String> get jsLocalStorageGetter async => _jsLocalStorageGetter ??=
       await rootBundle.loadString(Assets.js.localStorageGetter);
 
-  /// [countryCode] : ex. JP
   Future<CountryData> getCountryData() async => _countryData ??= await _loadCountryData();
 
   Future<PrefectureData> getPrefectureData() async => _prefectureData ??= await _loadPrefectureData();

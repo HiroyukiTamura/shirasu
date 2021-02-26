@@ -38,9 +38,9 @@ class HeaderData {
 
 class BillboardHeader extends StatelessWidget {
   const BillboardHeader._({
-    Key key,
     @required this.data,
     @required this.onTapItem,
+    Key key,
   }) : super(key: key);
 
   factory BillboardHeader.build({
@@ -89,7 +89,7 @@ class BillboardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Stack(
         children: [
-          Container(
+          SizedBox(
             height: data.height,
             child: Stack(
               fit: StackFit.expand,

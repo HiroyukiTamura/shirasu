@@ -14,8 +14,8 @@ part 'list_tile_subscribed_channel.g.dart';
 Widget listTileSubscribedChannel({
   @required SubscribedChannel subscribedChannel,
 }) {
-  final text =
-      '''${Strings.SUBSCRIPTION_START_DATE}: ${DateFormat('yyyy/MM/dd').format(subscribedChannel.subscribedAt)}
+  final text = '''
+${Strings.SUBSCRIPTION_START_DATE}: ${DateFormat('yyyy/MM/dd').format(subscribedChannel.subscribedAt)}
 ${Strings.CURRENT_PERIOD_END_AT_LABEL}: ${DateFormat('yyyy/MM/dd').format(subscribedChannel.currentPeriodEndAt)}''';
 
   return ListTile(

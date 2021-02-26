@@ -3,25 +3,21 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/repository/connectivity_repository_impl.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/router/global_route_path.dart';
-import 'package:shirasu/screen_main/page_list/subscribing_widget.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
-import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 
 import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_common.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
-import '../mock_repository/graphql_unauthorized.dart';
 import '../mock_repository/hive_auth_empty.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
@@ -70,9 +66,9 @@ class _TestRunner extends ViewModelTestBase<SettingModel> {
     @required List<Override> override,
     @required GlobalRoutePathBase expectPath,
     @required FutureOr<void> Function(ViewModelSetting viewModel) onPre,
+    @required SnackMsg expectedSnack,
     FutureOr<void> Function(ProviderContainer container) onPost,
     Duration delay = const Duration(seconds: 1),
-    @required SnackMsg expectedSnack,
     SettingModel expectModel,
   }) async {
     final container = ProviderContainer(

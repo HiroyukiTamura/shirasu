@@ -4,19 +4,13 @@ import 'package:dartx/dartx.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_video_background/model/replay_data.dart';
-
-// import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/native_client.dart';
 import 'package:shirasu/repository/url_util.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/model/graphql/list_comments_by_program.dart';
-import 'package:shirasu/model/graphql/mixins/media_status.dart';
-import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/model/result.dart';
@@ -29,8 +23,6 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:shirasu/extension.dart';
-
-import 'model/model_detail.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(Reader reader, this.id)
@@ -165,7 +157,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       );
 
   /// synchronous operation by [_shouldLoadMoreComment] checks [CommentsState.isSuccessOrLoading]
-  /// [forceRun] : if true, force to request comments although [CommentsHolder.isRenewing] is true
+  /// [runAsRenewing] : if true, force to request comments although [CommentsHolder.isRenewing] is true
   /// note; must check is mounted before call this method.
   Future<void> _loadMoreComment({
     @required Duration beginTime,

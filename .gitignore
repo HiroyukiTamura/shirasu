@@ -42,3 +42,4 @@ app.*.map.json
 
 # ref: https://pub.dev/packages/golden_toolkit#add-the-failures-folder-to-gitignore
 **/failures/*.png
+/private/

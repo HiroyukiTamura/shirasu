@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
@@ -16,10 +15,10 @@ part 'billboard_expanded.g.dart';
 @Deprecated('use horizontal carousel only. this widget is too big.')
 class BillboardExpanded extends StatelessWidget {
   BillboardExpanded({
-    Key key,
     @required this.item,
     @required this.btmPadding,
     @required this.onTap,
+    Key key,
   })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
         _channelLogoUrl = UrlUtil.getChannelLogoUrl(item.channelId),
         super(key: key);

@@ -5,15 +5,14 @@ import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/ui_common/images.dart';
-
-import 'custom_cached_network_image.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 
 part 'circle_cached_network_image.g.dart';
 
 /// must not be null either of [imageUrl] or [errorWidget]
 @swidget
 Widget circleCachedNetworkImage({
-  String imageUrl,
+  @required String imageUrl,
   @required double size,
   GestureTapCallback onTap,
   LoadingErrorWidgetBuilder errorWidget,

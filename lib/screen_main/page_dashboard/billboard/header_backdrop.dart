@@ -31,9 +31,9 @@ Widget backDrop({
 
 class _BackDropInner extends StatefulHookWidget {
   const _BackDropInner({
-    Key key,
     @required this.height,
     @required this.width,
+    Key key,
   }) : super(key: key);
 
   final double height;
@@ -53,8 +53,6 @@ class _BackDropInnerState extends State<_BackDropInner>
     final pos = context.read(kPrvDashboardViewModel).headerBackDropScrollPos;
     _controller = ScrollController(
       initialScrollOffset: 10000 < pos ? 0 : pos,
-      // restore position if it's not too far
-      keepScrollOffset: true,
     )..addListener(() async => _onScroll());
   }
 

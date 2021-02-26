@@ -18,7 +18,6 @@ import '../mock_viewmodel/viewmodel_watch_history_mockable.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_runner_base.dart';
-import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelSubscribing]
@@ -67,9 +66,9 @@ void main() {
     });
 
     Future<void> testTemplate({
-      List<Override> override = const [],
       @required WatchHistoryState expectedState,
       @required SnackMsg expectedSnack,
+      List<Override> override = const [],
     }) async {
       final container = ProviderContainer(
         overrides: testBase.defaultOverride + override,

@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,19 +12,18 @@ import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/extension.dart';
-
-import 'custom_cached_network_image.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 
 part 'movie_list_item.g.dart';
 
 class MovieListItemBase extends StatelessWidget {
   const MovieListItemBase({
-    Key key,
     @required this.program,
     @required this.onTap,
     @required this.titleHeight,
     @required this.titleStyle,
     @required this.subTitleStyle,
+    Key key,
   }) : super(key: key);
 
   final BaseProgram program;

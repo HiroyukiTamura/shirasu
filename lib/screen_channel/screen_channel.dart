@@ -52,8 +52,8 @@ Widget screenChannel(
 
 class _Content extends HookWidget {
   const _Content({
-    Key key,
     @required this.channel,
+    Key key,
   }) : super(key: key);
 
   final Channel channel;

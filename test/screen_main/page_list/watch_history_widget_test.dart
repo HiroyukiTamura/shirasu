@@ -1,29 +1,19 @@
-import 'package:dartx/dartx.dart';
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/repository/hive_auth_repository.dart';
-import 'package:shirasu/repository/hive_pref_repository.dart';
-import 'package:shirasu/repository/logger_repository_impl.dart';
-import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/model/result.dart';
 import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
-import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 
 import '../../mock_repository/connected_connected.dart';
 import '../../mock_repository/hive_auth_empty.dart';
-import '../../mock_repository/hive_pref_empty.dart';
 import '../../mock_repository/logger.dart';
-import '../../mock_viewmodel/viewmodel_watch_history_mockable.dart';
 import '../../mock_viewmodel/viewmodel_watch_history_no_loadmore.dart';
 import '../../widget_test_util/test_name_common.dart';
 import '../../widget_test_util/test_runner_base.dart';
 import '../../widget_test_util/test_runner_on_page_error.dart';
 import '../../widget_test_util/test_runner_on_page_list.dart';
-import '../../widget_test_util/test_util.dart';
 
 /// test for [WatchHistoryWidget]
 Future<void> main() async {

@@ -6,6 +6,7 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 part 'material_tab_view.g.dart';
 
 const double _INDICATOR_WIDTH = 24;
+/// ref: default value of [MaterialIndicator.topLeftRadius], [MaterialIndicator.topRightRadius]
 const double _INDICATOR_RADIUS = 5;
 
 @swidget
@@ -22,15 +23,12 @@ Widget materialTabView({
             builder: (context, constrains) => TabBar(
                   indicator: MaterialIndicator(
                     color: Theme.of(context).accentColor,
-                    topLeftRadius: _INDICATOR_RADIUS,
-                    topRightRadius: _INDICATOR_RADIUS,
                     bottomLeftRadius: _INDICATOR_RADIUS,
                     bottomRightRadius: _INDICATOR_RADIUS,
                     horizontalPadding:
                         (constrains.maxWidth / tabs.length - _INDICATOR_WIDTH) /
                             2,
                     strokeWidth: 1,
-                    tabPosition: TabPosition.bottom,
                   ),
                   tabs: tabs,
                 )),

@@ -10,7 +10,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/main.dart';
-import 'package:shirasu/model/result.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util.dart';
@@ -22,7 +21,8 @@ extension IteratableX<E> on Iterable<E> {
     final list = <E>[];
     for (var i = 0; i < length; i++) {
       list.add(elementAt(i));
-      if (i != length - 1) list.add(separator());
+      if (i != length - 1)
+        list.add(separator());
     }
 
     return list;

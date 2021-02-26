@@ -1,5 +1,5 @@
+// ignore_for_file: avoid_print
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -11,8 +11,6 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:path/path.dart' as p;
 import 'package:file/local.dart';
-
-import 'json_client.dart';
 
 typedef OnPostBuild = FutureOr<void> Function(WidgetTester tester);
 
@@ -101,7 +99,7 @@ class TestUtil {
             .readAsBytes()
             .then((bytes) => ByteData.view(Uint8List.fromList(bytes).buffer));
         })
-        .forEach((it) => fontLoader.addFont(it));
+        .forEach(fontLoader.addFont);
 
     await fontLoader.load();
   }

@@ -12,9 +12,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/ui_common/animated_shower.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:dartx/dartx.dart';
-
-import '../../../../util.dart';
-import '../../player_seekbar.dart';
+import 'package:shirasu/util.dart';
+import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 
 part 'row_bottom.g.dart';
 
@@ -24,8 +23,8 @@ Widget rowBottom({
 }) {
   final isLive = useProvider(kPrvViewModelDetail(conf.id)
       .state
-      .select((it) => it.playOutState.videoType == VideoType.live()));
-  if (isLive) return _LiveText();
+      .select((it) => it.playOutState.videoType == const VideoType.live()));
+  if (isLive) return const _LiveText();
 
   return conf.fullScreen
       ? Column(
@@ -53,9 +52,9 @@ Widget rowBottom({
 Widget _liveText() => Container(
       padding: const EdgeInsets.all(8),
       alignment: Alignment.bottomCenter,
-      child: Text(
+      child: const Text(
         Strings.PLAYER_CONTROLLER_LABEL_LIVE,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.red,
         ),
       ),

@@ -17,10 +17,9 @@ import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:state_notifier/state_notifier.dart';
-
-import '../main.dart';
-import 'message_notifier.dart';
-import 'model/error_msg_common.dart';
+import 'package:shirasu/main.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
 abstract class ViewModelBase<T> extends StateNotifier<T>
     with StateTrySetter<T>, ViewModelInitListener, _CommonLocator {

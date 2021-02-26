@@ -6,21 +6,19 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/extension.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/util/types.dart';
-import 'package:shirasu/viewmodel/model/model_channel.dart';
 
 part 'page_movie_list.g.dart';
 
 class PageMovieList extends HookWidget {
   const PageMovieList({
-    Key key,
     @required this.channelId,
     @required this.onTapItem,
+    Key key,
   }) : super(key: key);
 
   final OnTapItem onTapItem;

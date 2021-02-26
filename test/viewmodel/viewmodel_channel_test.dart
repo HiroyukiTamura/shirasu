@@ -2,7 +2,6 @@ import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
@@ -14,7 +13,6 @@ import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
-import '../mock_repository/hive_auth_empty.dart';
 import '../mock_viewmodel/viewmodel_channel_mockable.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
@@ -63,11 +61,11 @@ Future<void> main() async {
         );
 
     Future<void> testTemplate({
+      @required ChannelModel expectedState,
+      @required SnackMsg expectedSnack,
       List<Override> override = const [],
       ChannelModel defaultState,
       Duration delay = const Duration(seconds: 1),
-      @required ChannelModel expectedState,
-      @required SnackMsg expectedSnack,
     }) async {
       // must have original SnackBarMessageNotifier!!
       final snackNtf = SnackBarMessageNotifier();

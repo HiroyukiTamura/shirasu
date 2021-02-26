@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,7 +9,6 @@ import 'package:shirasu/btm_sheet/video_payment_btm_sheet.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/play_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
@@ -39,10 +37,10 @@ Widget loadingThumbnail({@required String id}) => Stack(
 
 class VideoThumbnail extends HookWidget {
   const VideoThumbnail({
-    Key key,
     @required this.program,
     this.onTap,
     this.onTapPreviewBtn,
+    Key key,
   }) : super(key: key);
 
   final VoidCallback onTap;

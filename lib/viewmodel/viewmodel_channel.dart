@@ -1,16 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
-import 'package:shirasu/model/result.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-
-import 'model/model_channel.dart';
+import 'package:shirasu/viewmodel/model/model_channel.dart';
 
 class ViewModelChannel extends ViewModelBase<ChannelModel> {
   ViewModelChannel(Reader reader, this._channelId)

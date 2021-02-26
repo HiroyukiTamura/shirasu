@@ -2,21 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart' hide Result;
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
-import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/repository/local_json_client.dart';
-import 'package:shirasu/repository/logger_repository.dart';
-import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
-import 'package:shirasu/model/result.dart';
-import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:synchronized/synchronized.dart';
 
@@ -31,7 +25,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
   String _jsClickLoginBtn;
   String _jsLocalStorageGetter;
 
-  CancelableOperation<Null> _cancelable;
+  CancelableOperation<void> _cancelable;
 
   FlutterWebviewPlugin _plugin;
 

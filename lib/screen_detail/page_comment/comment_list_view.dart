@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -18,8 +17,7 @@ import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
-
-import '../../util.dart';
+import 'package:shirasu/util.dart';
 
 part 'comment_list_view.g.dart';
 
@@ -28,8 +26,8 @@ final _kPrvTextController = Provider.autoDispose<TextEditingController>(
 
 class CommentListView extends HookWidget {
   const CommentListView({
-    Key key,
     @required this.id,
+    Key key,
   }) : super(key: key);
 
   final String id;
@@ -148,12 +146,7 @@ class CommentBtmBar extends HookWidget {
               maxLength: ViewModelDetail.COMMENT_MAX_LETTER_LEN,
               maxLines: null,
               textInputAction: TextInputAction.send,
-              buildCounter: (
-                context, {
-                int currentLength,
-                bool isFocused,
-                int maxLength,
-              }) =>
+              buildCounter: (context, {currentLength, isFocused, maxLength}) =>
                   null,
               style: TextStyles.DEFAULT_H,
               inputFormatters: [

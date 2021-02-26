@@ -6,9 +6,8 @@ import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
-
-import 'auth_client_interceptor.dart';
-import 'dio_repository.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
+import 'package:shirasu/repository/dio_repository.dart';
 
 final kPrvDioRepository =
     Provider.autoDispose<DioRepository>((ref) => DioRepositoryImpl._(ref.read));

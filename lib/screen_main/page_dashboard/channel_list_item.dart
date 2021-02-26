@@ -7,18 +7,17 @@ import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/extension.dart';
 
+const double _kSize = 72;
+const double _kPadding = 24;
+
 typedef OnTapChannel = void Function(BuildContext context, String channelId);
 
 class ChannelListItem extends StatefulWidget {
-
   const ChannelListItem({
-    Key key,
     @required this.channels,
     @required this.onTap,
+    Key key,
   }) : super(key: key);
-
-  static const double _SIZE = 72;
-  static const double _PADDING = 24;
 
   final Channels channels;
   final OnTapChannel onTap;
@@ -27,8 +26,8 @@ class ChannelListItem extends StatefulWidget {
   _ChannelListItemState createState() => _ChannelListItemState();
 }
 
-class _ChannelListItemState extends State<ChannelListItem> with AutomaticKeepAliveClientMixin {
-
+class _ChannelListItemState extends State<ChannelListItem>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -38,17 +37,19 @@ class _ChannelListItemState extends State<ChannelListItem> with AutomaticKeepAli
 
     return Container(
       margin: const EdgeInsets.only(top: 8, bottom: 36),
-      height: ChannelListItem._SIZE,
+      height: _kSize,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: ChannelListItem._PADDING),
+        padding:
+            const EdgeInsets.symmetric(horizontal: _kPadding),
         itemCount: widget.channels.items.length,
         scrollDirection: Axis.horizontal,
-        separatorBuilder: (context, i) => const SizedBox(width: ChannelListItem._PADDING),
+        separatorBuilder: (context, i) =>
+            const SizedBox(width: _kPadding),
         itemBuilder: (context, i) {
           final id = widget.channels.items[i].id;
           return CircleCachedNetworkImage(
             onTap: () => context.pushChannelPage(id),
-            size: ChannelListItem._SIZE,
+            size: _kSize,
             imageUrl: UrlUtil.getChannelLogoUrl(id),
             errorWidget: Util.defaultChannelIcon,
           );

@@ -9,7 +9,6 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/model/auth_data.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'email_status_label.g.dart';
@@ -95,7 +94,7 @@ extension on HiveUser {
 }
 
 class EmailStatusLabel extends StatelessWidget {
-  EmailStatusLabel({Key key, @required this.isVerified})
+  EmailStatusLabel({@required this.isVerified, Key key})
       : text = isVerified ? Strings.EMAIL_VERIFIED : Strings.EMAIL_NOT_VERIFIED,
         color = isVerified ? Styles.labelNormal : Styles.labelCaution,
         super(key: key);

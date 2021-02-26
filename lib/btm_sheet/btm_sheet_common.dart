@@ -1,20 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/ui_common/ui_util.dart';
 import 'package:shirasu/util/types.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
-
-import '../util.dart';
 
 class BtmSheetCommon extends StatelessWidget {
   const BtmSheetCommon._({
-    Key key,
     @required this.child,
     @required this.positiveBtnString,
     @required this.url,
     @required this.snackCallback,
+    Key key,
   }) : super(key: key);
 
   final Widget child;
@@ -75,9 +73,9 @@ class BtmSheetCommon extends StatelessWidget {
   static Future<void> showUrlLauncherBtmSheet({
     @required BuildContext context,
     @required String url,
-    String positiveBtnString = Strings.OPEN_WEB,
     @required Widget child,
     @required SnackCallback snackCallback,
+    String positiveBtnString = Strings.OPEN_WEB,
   }) async =>
       showModalBottomSheet(
           context: Scaffold

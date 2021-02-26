@@ -1,4 +1,3 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,10 +9,8 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/screen_main_router_delegate.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
-
-import '../main.dart';
-import 'fab.dart';
+import 'package:shirasu/main.dart';
+import 'package:shirasu/screen_main/fab.dart';
 
 part 'screen_main.g.dart';
 

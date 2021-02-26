@@ -1,4 +1,3 @@
-import 'package:async/async.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
@@ -131,7 +130,7 @@ abstract class PathDataMainPageBase
       case 2:
         return const PathDataMainPageBase.setting();
       default:
-        throw Exception('unexpected index $index');
+        throw ArgumentError.value(index);
     }
   }
 
@@ -139,6 +138,6 @@ abstract class PathDataMainPageBase
 
   int get pageIndex => when(
       dashboard: () => 0,
-      subscribing: (PageListTabPage initialPage) => 1,
+      subscribing: (initialPage) => 1,
       setting: () => 2);
 }

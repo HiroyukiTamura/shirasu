@@ -26,7 +26,7 @@ abstract class CommonRouterDelegate<T> extends RouterDelegate<T> with ChangeNoti
   Navigator createNavigator(List<Page> pages) => Navigator(
         key: navigatorKey,
         pages: pages,
-        onPopPage: (route, result) => _onPopPage(route, result),
+        onPopPage: _onPopPage,
       );
 
   bool _onPopPage(Route<dynamic> route, dynamic result) {

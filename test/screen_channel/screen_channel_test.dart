@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_movie_list.dart';
@@ -17,7 +16,6 @@ import '../mock_viewmodel/viewmodel_channel_mockable.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_runner_base.dart';
-import '../widget_test_util/test_util.dart';
 
 void main() =>
     _TestRunner(JsonClient.instance.mChannelData.channel.id).runTestScreen();

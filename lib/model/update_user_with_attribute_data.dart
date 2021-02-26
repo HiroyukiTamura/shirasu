@@ -1,3 +1,4 @@
+// ignore_for_file: always_put_required_named_parameters_first
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/extension.dart';

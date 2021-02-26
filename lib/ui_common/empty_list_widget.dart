@@ -20,7 +20,7 @@ Widget emptyListWidget({
         children: [
           Container(
             padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white54,
             ),

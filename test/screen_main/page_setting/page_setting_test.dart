@@ -1,7 +1,5 @@
-import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 

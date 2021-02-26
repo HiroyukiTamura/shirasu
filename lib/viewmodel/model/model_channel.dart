@@ -1,8 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
-
-import 'error_msg_common.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
 part 'model_channel.freezed.dart';
 

@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
-import 'package:shirasu/model/result.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
@@ -50,10 +49,10 @@ Widget btmSheetSnsShare({
 
 class _ListTile extends StatelessWidget {
   const _ListTile({
-    Key key,
     @required this.onTap,
     @required this.title,
     @required this.icon,
+    Key key,
   }) : super(key: key);
 
   final void Function() onTap;

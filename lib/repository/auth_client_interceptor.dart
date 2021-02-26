@@ -20,7 +20,8 @@ class AuthClientInterceptor {
 
   /// @throw [UnauthorizedException]
   void _ensureNotExpired() {
-    if (_hiveAuthRepository.maybeExpired) throw const UnauthorizedException(true);
+    if (_hiveAuthRepository.maybeExpired)
+      throw const UnauthorizedException(true);
   }
 
   Future<String> refreshAuthTokenIfNeeded() async =>

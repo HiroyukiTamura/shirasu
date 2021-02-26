@@ -4,19 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/url_util.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
-import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
-
-import '../../screen_main.dart';
 
 part 'page_app_config.g.dart';
 

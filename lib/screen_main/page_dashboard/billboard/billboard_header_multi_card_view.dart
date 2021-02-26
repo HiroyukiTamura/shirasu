@@ -13,10 +13,10 @@ import 'package:shirasu/util/types.dart';
 /// @see [BuildContextX.isBigScreen]
 class BillboardHeaderMultiCardView extends StatelessWidget {
   const BillboardHeaderMultiCardView({
-    Key key,
     @required this.data,
     @required this.onTapItem,
     @required this.controller,
+    Key key,
   }) : super(key: key);
 
   static const double WIDTH = 360;

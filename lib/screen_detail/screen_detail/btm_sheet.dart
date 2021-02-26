@@ -18,9 +18,9 @@ final _kPrvBtmSheetEvent = Provider.family.autoDispose<BtmSheetState, String>(
 
 class BtmSheetEventListener extends StatelessWidget {
   const BtmSheetEventListener({
-    Key key,
     @required this.child,
     @required this.id,
+    Key key,
   }) : super(key: key);
 
   final Widget child;

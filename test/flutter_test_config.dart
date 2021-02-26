@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 import 'widget_test_util/json_client.dart';
 
 /// ref: https://github.com/eBay/flutter_glove_box/blob/master/packages/golden_toolkit/test/flutter_test_config.dart
-Future<void> main(FutureOr<void> testMain()) async =>
+Future<void> main(FutureOr<void> Function() testMain) async =>
     GoldenToolkit.runWithConfiguration(
       () async {
         await loadAppFonts();

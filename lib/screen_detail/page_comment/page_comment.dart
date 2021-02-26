@@ -2,22 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/model/graphql/list_comments_by_program.dart';
-import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
-import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/ui_common/page_error.dart';
-import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
-import 'package:tuple/tuple.dart';
-
-import 'comment_list_view.dart';
+import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 
 part 'page_comment.g.dart';
 
@@ -26,8 +18,8 @@ final _kPrvPositionUpdateEvent = Provider.family.autoDispose<Duration, String>(
 
 class PageComment extends StatelessWidget {
   const PageComment({
-    Key key,
     @required this.id,
+    Key key,
   }) : super(key: key);
 
   final String id;
@@ -36,7 +28,7 @@ class PageComment extends StatelessWidget {
   Widget build(BuildContext context) => ProviderListener(
         provider: _kPrvPositionUpdateEvent(id),
         onChange: _onChange,
-        child: _PageCommentInner(id: id),
+        child: PageCommentInner(id: id),
       );
 
   Future<void> _onChange(BuildContext context, Duration currentPos) async {
@@ -83,8 +75,9 @@ class PageComment extends StatelessWidget {
   }
 }
 
+@protected
 @hwidget
-Widget _pageCommentInner({
+Widget pageCommentInner({
   @required String id,
 }) =>
     useProvider(

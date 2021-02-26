@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/resource/font_size.dart';
-import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
 
@@ -26,7 +25,6 @@ Widget itemHeading(
       ),
       padding: const EdgeInsets.only(top: 12, bottom: 4),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ItemPadding(
@@ -43,10 +41,7 @@ Widget itemHeading(
           RawMaterialButton(
             onPressed: onClearClicked,
             elevation: 0,
-            constraints: const BoxConstraints(
-              minWidth: 0,
-              minHeight: 0,
-            ),
+            constraints: const BoxConstraints(),
             shape: const CircleBorder(),
             child: const Padding(
               padding: EdgeInsets.all(8),

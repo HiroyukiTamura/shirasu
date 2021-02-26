@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/network_image_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
-
-import 'logger_repository.dart';
+import 'package:shirasu/repository/logger_repository.dart';
 
 final kPrvNetworkRepository = Provider.autoDispose<NetworkImageRepository>(
     (ref) => NetworkImageRepositoryImpl._(ref.read));

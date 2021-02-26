@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/account/list_item_user_name.dart';
 import 'package:shirasu/screen_main/page_setting/app_config/page_app_config.dart';
 import 'package:shirasu/screen_main/page_setting/account/email_status_label.dart';

@@ -6,10 +6,9 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/screen_detail/screen_detail/video_header/video_thumbnail.dart';
 import 'package:shirasu/util/types.dart';
-
-import '../../../screen_detail.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:dartx/dartx.dart';
 
 part 'play_or_pause_icon.g.dart';
 
@@ -21,7 +20,7 @@ Widget _playOrPauseIcon({
   @required String id,
 }) {
   final ac = useAnimationController(
-    duration: const Duration(milliseconds: 300),
+    duration: 300.milliseconds,
     upperBound: .3,
   );
   return ProviderListener<bool>(

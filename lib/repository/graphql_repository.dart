@@ -35,10 +35,10 @@ mixin GraphQlRepository {
 
   Future<Comments> queryComment({
     @required String programId,
-    String nextToken,
     @required Duration beginTime,
     @required Duration endTime,
     @required SortDirection sortDirection,
+    String nextToken,
   });
 
   Future<CommentItem> postComment({

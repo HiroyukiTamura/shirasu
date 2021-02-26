@@ -33,7 +33,7 @@ Widget videoHeader({
       .state
       .select((it) => it.playOutState.videoPlayerState));
 
-  return Container(
+  return SizedBox(
     height: height,
     child: Stack(
       children: [

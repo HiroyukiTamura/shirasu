@@ -1,11 +1,8 @@
-import 'dart:convert';
-
+// ignore_for_file: always_put_required_named_parameters_first
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-import 'package:shirasu/model/graphql/mixins/media_status.dart';
-import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 
 part 'socket_comment.freezed.dart';
 

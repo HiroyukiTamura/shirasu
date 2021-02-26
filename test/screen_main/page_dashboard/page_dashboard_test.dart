@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
-import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -18,7 +17,6 @@ import 'package:shirasu/ui_common/page_error.dart';
 
 import '../../mock_repository/connected_connected.dart';
 import '../../mock_repository/graphql_common.dart';
-import '../../mock_repository/hive_pref_empty.dart';
 import '../../widget_test_util/json_client.dart';
 import '../../widget_test_util/test_models.dart';
 import '../../widget_test_util/test_name_common.dart';
@@ -103,7 +101,7 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
           expectHorizontalCarouseChildren(
             scenarioWidgetKey: scenarioWidgetKey,
             matcher: findsWidgets,
-            index: 0,
+            index: 0, // ignore: avoid_redundant_argument_values
           );
           expectHorizontalCarouseChildren(
             scenarioWidgetKey: scenarioWidgetKey,

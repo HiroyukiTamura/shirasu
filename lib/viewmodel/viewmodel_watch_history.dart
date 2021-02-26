@@ -3,16 +3,13 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
-import 'package:shirasu/model/result.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/extension.dart';
-
-import 'message_notifier.dart';
-import 'model/error_msg_common.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
 part 'viewmodel_watch_history.freezed.dart';
 

@@ -1,18 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/repository/url_util.dart';
-import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
@@ -67,7 +61,7 @@ class _HorizontalCarouselsState extends State<HorizontalCarousels>
             horizontal: Dimens.DASHBOARD_OUTER_MARGIN),
         itemCount: widget.list.length,
         scrollDirection: Axis.horizontal,
-        separatorBuilder: (BuildContext context, int index) =>
+        separatorBuilder: (context, index) =>
             const SizedBox(width: _kSeparatorMargin),
         itemBuilder: (context, index) => HorizontalCarouselItem(
           item: widget.list[index],

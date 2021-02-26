@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/router/no_animation_page.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
-import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
-
-import 'on_pop_page_mixin.dart';
+import 'package:shirasu/router/on_pop_page_mixin.dart';
 
 class ScreenMainRouterDelegate
     extends CommonRouterDelegate<PathDataMainPageBase> {
@@ -20,7 +18,7 @@ class ScreenMainRouterDelegate
     final path = appState.findLastMainPagePath;
     final screen = path.when(
       dashboard: () => const PageDashboardInMainScreen(),
-      subscribing: (PageListTabPage initialPage) =>
+      subscribing: (initialPage) =>
           PageListInMainScreen(initialPage: initialPage),
       setting: () => const PageSettingInMainScreen(),
     );

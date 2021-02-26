@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/resource/styles.dart';
-
-import 'font_size.dart';
+import 'package:shirasu/resource/font_size.dart';
 
 class TextHeight {
   static const TEXT_HEIGHT = 1.3;

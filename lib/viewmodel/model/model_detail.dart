@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -9,8 +8,7 @@ import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dartx/dartx.dart';
-
-import '../viewmodel_detail.dart';
+import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 
 part 'model_detail.freezed.dart';
 

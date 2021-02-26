@@ -4,7 +4,6 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/strings.dart';

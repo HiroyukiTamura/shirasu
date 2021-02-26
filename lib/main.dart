@@ -4,12 +4,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
@@ -21,7 +19,6 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_route_information_parser.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 /// must via access from ViewModel
 final kPrvSnackBar = StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(

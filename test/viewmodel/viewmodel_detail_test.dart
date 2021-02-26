@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/repository/connectivity_repository_impl.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/main.dart';
@@ -24,7 +23,6 @@ import '../mock_repository/hive_auth_empty.dart';
 import '../mock_viewmodel/viewmodel_detail_mockable.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
-import '../widget_test_util/test_util.dart';
 import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelDetail]
@@ -63,11 +61,11 @@ Future<void> main() async {
         )));
 
   Future<void> testTemplate({
+    @required Future<void> Function(ViewModelDetail viewModel) predicate,
+    @required SnackMsg expectedSnack,
     List<Override> override = const [],
     ModelDetail defaultState,
-    @required Future<void> Function(ViewModelDetail viewModel) predicate,
     ModelDetail expectedState,
-    @required SnackMsg expectedSnack,
   }) async {
     // must have original SnackBarMessageNotifier!!
     final snackNtf = SnackBarMessageNotifier();

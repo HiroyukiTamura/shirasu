@@ -2,22 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_main/page_setting/account/list_tile_seem.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
-import 'package:shirasu/screen_main/screen_main.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ListTileTitle extends StatelessWidget {
   const ListTileTitle({
-    Key key,
     @required this.title,
     @required this.showEmptyText,
     @required this.isCreditCard,
+    Key key,
   }) : super(key: key);
 
   final String title;

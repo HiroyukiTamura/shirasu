@@ -5,13 +5,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/channel_list_item.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_expanded.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/heading.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
@@ -98,7 +95,7 @@ class _ListViewContent extends HookWidget {
               if (index == 0) {
                 return anyNowBroadcastings
                     ? BillboardHeader.build(
-                        onTapItem: (BuildContext context, String prgId) async =>
+                        onTapItem: (context, prgId) async =>
                             context.pushProgramPage(prgId),
                         items: featurePrgData.nowBroadcastings.items,
                         constraints: constraints,
@@ -141,17 +138,13 @@ class _ListViewContent extends HookWidget {
                     ? const Heading(text: Strings.HEADING_CHANNEL)
                     : ChannelListItem(
                         channels: featurePrgData.channels,
-                        onTap: (BuildContext context, String channelId) async =>
+                        onTap: (context, channelId) async =>
                             context.pushChannelPage(channelId),
                       );
               } else if (index < itemCount || !showLoadingIndicator) {
                 final i = index - channelsLast;
 
-                if (i == 0)
-                  return const Heading(
-                    text: Strings.HEADING_NEW_PRG,
-                    verticalPadding: 16,
-                  );
+                if (i == 0) return const Heading(text: Strings.HEADING_NEW_PRG);
 
                 final item = newPrgData[i - 1];
                 return MovieListItem(

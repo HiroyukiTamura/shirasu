@@ -7,7 +7,6 @@ import 'package:shirasu/model/local/prefecture_data.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:shirasu/viewmodel/viewmodel_setting.dart';
 
 part 'viewmodel_user_location_dialog.freezed.dart';
 

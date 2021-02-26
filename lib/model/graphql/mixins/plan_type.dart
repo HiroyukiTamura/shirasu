@@ -14,9 +14,9 @@ abstract class PlanType with _$PlanType {
 
     switch (value) {
       case 'Onetime':
-        return PlanType.oneTime();
+        return const PlanType.oneTime();
       case 'SubscriptionPlan':
-        return PlanType.subscription();
+        return const PlanType.subscription();
       default:
         throw ArgumentError.value(value);
     }

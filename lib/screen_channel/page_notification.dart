@@ -5,12 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 
 class PageNotification extends StatelessWidget {
-  const PageNotification({Key key, @required this.announcements})
+  const PageNotification({@required this.announcements, Key key})
       : super(key: key);
 
   final UnmodifiableListView<AnnouncementsItem> announcements;

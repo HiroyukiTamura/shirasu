@@ -1,22 +1,16 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/logger_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/network_image_repository.dart';
 import 'package:shirasu/repository/network_image_repository_impl.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/model/result.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
-import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
 class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {

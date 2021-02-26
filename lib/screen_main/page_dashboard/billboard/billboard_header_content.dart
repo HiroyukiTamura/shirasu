@@ -10,7 +10,6 @@ import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.da
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_multi_card_view.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_single_card.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/util/types.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -18,9 +17,9 @@ part 'billboard_header_content.g.dart';
 
 class BillboardHeaderContent extends StatefulHookWidget {
   const BillboardHeaderContent({
-    Key key,
     @required this.data,
     @required this.onTapItem,
+    Key key,
   }) : super(key: key);
 
   final HeaderData data;

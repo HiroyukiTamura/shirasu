@@ -19,10 +19,9 @@ import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:dartx/dartx.dart';
-
-import '../util.dart';
-import 'auth_client_interceptor.dart';
-import 'logger_repository.dart';
+import 'package:shirasu/util.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
+import 'package:shirasu/repository/logger_repository.dart';
 
 final kPrvGraphqlRepository = Provider.autoDispose<GraphQlRepository>(
     (ref) => GraphQlRepositoryImpl.instance(ref.read));
@@ -225,10 +224,10 @@ class GraphQlRepositoryImpl with GraphQlRepository {
   @override
   Future<Comments> queryComment({
     @required String programId,
-    String nextToken,
     @required Duration beginTime,
     @required Duration endTime,
     @required SortDirection sortDirection,
+    String nextToken,
   }) async {
     final beginTimeFixed = beginTime.isNegative ? Duration.zero : beginTime;
     final endTimeFixed = beginTime.isNegative ? Duration.zero : endTime;

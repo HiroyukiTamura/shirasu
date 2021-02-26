@@ -5537,6 +5537,11 @@ class _$BtmSheetStateTearOff {
       position,
     );
   }
+
+// ignore: unused_element
+  _BtmSheetStatePayment payment() {
+    return const _BtmSheetStatePayment();
+  }
 }
 
 /// @nodoc
@@ -5552,6 +5557,7 @@ mixin _$BtmSheetState {
     @required TResult resolution(),
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
+    @required TResult payment(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -5560,6 +5566,7 @@ mixin _$BtmSheetState {
     TResult resolution(),
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
+    TResult payment(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -5569,6 +5576,7 @@ mixin _$BtmSheetState {
     @required TResult resolution(_BtmSheetStateResolution value),
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -5577,6 +5585,7 @@ mixin _$BtmSheetState {
     TResult resolution(_BtmSheetStateResolution value),
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
     @required TResult orElse(),
   });
 }
@@ -5642,12 +5651,14 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     @required TResult resolution(),
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
+    @required TResult payment(),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return none();
   }
 
@@ -5659,6 +5670,7 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     TResult resolution(),
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
+    TResult payment(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5676,12 +5688,14 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     @required TResult resolution(_BtmSheetStateResolution value),
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return none(this);
   }
 
@@ -5693,6 +5707,7 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     TResult resolution(_BtmSheetStateResolution value),
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5751,12 +5766,14 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     @required TResult resolution(),
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
+    @required TResult payment(),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return playSpeed();
   }
 
@@ -5768,6 +5785,7 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     TResult resolution(),
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
+    TResult payment(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5785,12 +5803,14 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     @required TResult resolution(_BtmSheetStateResolution value),
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return playSpeed(this);
   }
 
@@ -5802,6 +5822,7 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     TResult resolution(_BtmSheetStateResolution value),
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5861,12 +5882,14 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     @required TResult resolution(),
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
+    @required TResult payment(),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return resolution();
   }
 
@@ -5878,6 +5901,7 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     TResult resolution(),
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
+    TResult payment(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5895,12 +5919,14 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     @required TResult resolution(_BtmSheetStateResolution value),
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return resolution(this);
   }
 
@@ -5912,6 +5938,7 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     TResult resolution(_BtmSheetStateResolution value),
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6005,12 +6032,14 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     @required TResult resolution(),
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
+    @required TResult payment(),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return share(shareUrl);
   }
 
@@ -6022,6 +6051,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     TResult resolution(),
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
+    TResult payment(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6039,12 +6069,14 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     @required TResult resolution(_BtmSheetStateResolution value),
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return share(this);
   }
 
@@ -6056,6 +6088,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     TResult resolution(_BtmSheetStateResolution value),
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6144,12 +6177,14 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     @required TResult resolution(),
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
+    @required TResult payment(),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return commentSelect(position);
   }
 
@@ -6161,6 +6196,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     TResult resolution(),
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
+    TResult payment(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6178,12 +6214,14 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     @required TResult resolution(_BtmSheetStateResolution value),
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
     assert(resolution != null);
     assert(share != null);
     assert(commentSelect != null);
+    assert(payment != null);
     return commentSelect(this);
   }
 
@@ -6195,6 +6233,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     TResult resolution(_BtmSheetStateResolution value),
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6212,6 +6251,121 @@ abstract class BtmSheetStateCommentSelect implements BtmSheetState {
   Duration get position;
   @JsonKey(ignore: true)
   $BtmSheetStateCommentSelectCopyWith<BtmSheetStateCommentSelect> get copyWith;
+}
+
+/// @nodoc
+abstract class _$BtmSheetStatePaymentCopyWith<$Res> {
+  factory _$BtmSheetStatePaymentCopyWith(_BtmSheetStatePayment value,
+          $Res Function(_BtmSheetStatePayment) then) =
+      __$BtmSheetStatePaymentCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$BtmSheetStatePaymentCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements _$BtmSheetStatePaymentCopyWith<$Res> {
+  __$BtmSheetStatePaymentCopyWithImpl(
+      _BtmSheetStatePayment _value, $Res Function(_BtmSheetStatePayment) _then)
+      : super(_value, (v) => _then(v as _BtmSheetStatePayment));
+
+  @override
+  _BtmSheetStatePayment get _value => super._value as _BtmSheetStatePayment;
+}
+
+/// @nodoc
+class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
+  const _$_BtmSheetStatePayment();
+
+  @override
+  String toString() {
+    return 'BtmSheetState.payment()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _BtmSheetStatePayment);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+    @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
+    @required TResult commentSelect(Duration position),
+    @required TResult payment(),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    assert(payment != null);
+    return payment();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    TResult resolution(),
+    TResult share(ShareUrl shareUrl),
+    TResult commentSelect(Duration position),
+    TResult payment(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (payment != null) {
+      return payment();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    assert(payment != null);
+    return payment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (payment != null) {
+      return payment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BtmSheetStatePayment implements BtmSheetState {
+  const factory _BtmSheetStatePayment() = _$_BtmSheetStatePayment;
 }
 
 /// @nodoc

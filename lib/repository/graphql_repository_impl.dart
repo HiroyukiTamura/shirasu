@@ -134,7 +134,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
           result.context.entry<HttpLinkResponseContext>()?.statusCode;
       _logger.d('statueCode: $statusCode');
 
-      if (linkException.originalException
+      if (linkException?.originalException
           is UnauthorizedException)
         throw result.exception.linkException.originalException;
     }

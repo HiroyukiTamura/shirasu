@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/repository/url_util.dart';
@@ -12,7 +13,7 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'row_fabs.g.dart';
 
-class RowFabs extends StatelessWidget {
+class RowFabs extends HookWidget {
   const RowFabs({
     @required this.program,
     Key key,
@@ -32,15 +33,14 @@ class RowFabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final maybeVod = useProvider(kPrvViewModelDetail(program.id).state.select(
-        (it) => it.playOutState.videoType /*nullable*/ != const VideoType.live()));
+        (it) => it.playOutState.videoType /*nullable*/ != const VideoType.archived()));
     return basePadding(
       top: _PADDING_V,
       bottom: _PADDING_V,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          // const _Fab(icon: Icons.comment),
-          if (program.viewerPlanTypeStrict != null && maybeVod)
+          if (program.isPurchased && maybeVod)
             _Fab(
               icon: Icons.comment,
               onPressed: () => _onClickCommentBtn(context),

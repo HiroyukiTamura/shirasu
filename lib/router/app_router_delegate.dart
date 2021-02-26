@@ -27,7 +27,7 @@ class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
     final pageList = appState.list
         .map<Tuple2<String, Widget>>((pathData) {
           final screen = pathData.wrappedWhenRough(
-            intro: () => ScreenIntro(),
+            intro: () => const ScreenIntro(),
             error: (authExpired) => ScreenError(authExpired: authExpired),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),

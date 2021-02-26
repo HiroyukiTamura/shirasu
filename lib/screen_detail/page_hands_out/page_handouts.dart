@@ -56,7 +56,7 @@ class _ScreenHandsOutInner extends HookWidget {
             final createdAt =
                 DateFormat('yyyy.MM.dd HH:mm').format(handout.createdAt);
             final isExtensionOnly = handout.extensionId != null;
-            final enabled = program.viewerPlanTypeStrict != null &&
+            final enabled = program.isPurchased &&
                 (!isExtensionOnly ||
                     program.isExtensionAvailable(handout.extensionId));
 

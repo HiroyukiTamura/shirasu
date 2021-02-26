@@ -68,10 +68,11 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
           return;
 
         final storage = await _plugin.evalJavascript(_jsLocalStorageGetter);
-        if (storage.isEmpty || storage == '\"\"') return;
+        if (storage.isEmpty) return;
 
+        // todo debug
         // try unescape string and decode json
-        final result = await logger.guardFuture(() async => AuthData.fromJson(
+        final result = logger.guard(() => AuthData.fromJson(
             jsonDecode(jsonDecode(storage) as String) as Map<String, dynamic>));
 
         if (mounted)

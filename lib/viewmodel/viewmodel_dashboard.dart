@@ -48,8 +48,9 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       if (e is UnauthorizedException) pushAuthExpireScreen();
     });
 
-    await _logger
+    final resultImg = await _logger
         .guardFuture(() async => _networkRepository.requestHeaderImage());
+    resultImg.ifSuccess((data) => headerImage = data);
   }
 
   Future<void> loadMoreNewPrg() async {

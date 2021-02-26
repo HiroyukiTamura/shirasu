@@ -1,21 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/viewmodel/model/model_detail.dart';
 
-part 'video_payment_btm_sheet.g.dart';
+part 'btm_sheet_video_payment.g.dart';
 
-const _kSubTextStyle = TextStyle(fontSize: FontSize.S18);
+const _kSubTextStyle = TextStyle(fontSize: FontSize.S16);
 
 @swidget
-Widget videoPaymentBtmSheet(
+Widget btmSheetVideoPayment(
   BuildContext context, {
-  @required DetailStateSuccess result,
+  @required ProgramDetail program,
+  @required ChannelData channelData,
 }) {
-  final program = result.programDetailData.program;
-  final subscriptionPlan = result.channelData.channel.subscriptionPlan;
+  final subscriptionPlan = channelData.channel.subscriptionPlan;
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[

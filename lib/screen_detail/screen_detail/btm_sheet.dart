@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_video_payment.dart';
 import 'package:shirasu/btm_sheet/common.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
+import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -58,6 +61,23 @@ class BtmSheetEventListener extends StatelessWidget {
               context.read(kPrvViewModelDetail(id)).commandSnackBar(snackMsg),
         ),
       ),
+      payment: () async =>
+          context.read(kPrvViewModelDetail(id).state).prgDataResult.whenSuccess(
+                (programDetailData, channelData, _) async => _showBtmSheet(
+                  context,
+                  (context) => BtmSheetCommon(
+                    snackCallback: (snackMsg) => context
+                        .read(kPrvViewModelDetail(id))
+                        .commandSnackBar(snackMsg),
+                    positiveBtnString: Strings.OPEN_WEB,
+                    url: UrlUtil.channelId2Url(id),
+                    child: BtmSheetVideoPayment(
+                      program: programDetailData.program,
+                      channelData: channelData,
+                    ),
+                  ),
+                ),
+              ),
     );
   }
 
@@ -100,7 +120,9 @@ Widget btmSheetCommentSelected(
     TextBtmSheetContent(
       text: Strings.BTM_SHEET_COMMENT_LABEL,
       onTap: () {
-        context.read(kPrvViewModelDetail(id)).seekToWithBtmSheet(false, position);
+        context
+            .read(kPrvViewModelDetail(id))
+            .seekToWithBtmSheet(false, position);
         Navigator.of(context).pop();
       },
     );

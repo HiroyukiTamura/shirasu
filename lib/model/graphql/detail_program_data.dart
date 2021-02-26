@@ -25,6 +25,7 @@ abstract class ProgramDetailData with _$ProgramDetailData {
       _$ProgramDetailDataFromJson(json);
 }
 
+/// if [previewPrgItem] == null then [previewTime] == 0
 @freezed
 abstract class ProgramDetail
     with ViewerPlanTypeMixin
@@ -85,6 +86,10 @@ abstract class ProgramDetail
   OnetimePlan get onetimePlanMain => onetimePlans.firstOrNullWhere(
         (it) => it.productTypeStrict == ProductType.PROGRAM,
       );
+
+  bool get canPreview => previewTime != 0 && previewPrgItem != null;
+
+  bool get isPurchased => viewerPlanTypeStrict != null;
 
   DetailPrgItem get itemToPlay {
     if (archivedAt?.isBefore(DateTime.now()) != true) return nowLivePrgItem;

@@ -49,6 +49,12 @@ class GlobalAppState extends ChangeNotifier {
     if (last == const GlobalRoutePath.auth() &&
         path == const GlobalRoutePath.auth()) return;
 
+    if (path == const GlobalRoutePath.auth()) {
+      _list = [const GlobalRoutePath.preLogin(), path];
+      notifyListeners();
+      return;
+    }
+
     if (last == const GlobalRoutePath.auth() && path is PathDataError)
       _list.removeLast();
 

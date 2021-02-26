@@ -5,7 +5,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
-import 'package:shirasu/btm_sheet/video_payment_btm_sheet.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_video_payment.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -66,17 +66,24 @@ class VideoThumbnail extends HookWidget {
 
   /// todo extract
   Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    final result =
-        context.read(kPrvViewModelDetail(program.id).state).prgDataResult;
-    if (result is DetailStateSuccess)
-      await BtmSheetCommon.showUrlLauncherBtmSheet(
-        context: context,
-        url: UrlUtil.programId2Url(program.id),
-        child: VideoPaymentBtmSheet(result: result),
-        snackCallback: (msg) => context
-            .read(kPrvViewModelDetail(program.id))
-            .commandSnackBar(const SnackMsg.unknown()),
-      );
+    context.read(kPrvViewModelDetail(program.id)).commandModal(const BtmSheetState.payment());
+    // context
+    //   .read(kPrvViewModelDetail(program.id).state)
+    //   .prgDataResult
+    //   .whenSuccess((programDetailData, channelData, _) async {
+    //     context.read(kPrvViewModelDetail(program.id)).commandModal(const BtmSheetState.payment());
+    //     return BtmSheetCommon.showUrlLauncherBtmSheet(
+    //         context: context,
+    //         url: UrlUtil.programId2Url(program.id),
+    //         child: VideoPaymentBtmSheet(
+    //           program: program,
+    //           channelData: channelData,
+    //         ),
+    //         snackCallback: (msg) => context
+    //             .read(kPrvViewModelDetail(program.id))
+    //             .commandSnackBar(const SnackMsg.unknown()),
+    //       );
+    //   });
   }
 }
 
@@ -90,10 +97,9 @@ Widget _hoverWidget(
 }) {
   final isWaiting = DateTime.now().isBefore(program.broadcastAt);
   final isPurchasable = program.onetimePlanMain != null;
-  final isPurchased = program.viewerPlanTypeStrict != null;
-  final canPreview = program.previewTime != 0;
+  final canPreview = program.canPreview;
 
-  if (isPurchased)
+  if (program.isPurchased)
     return isWaiting
         ? const _HoverText(text: Strings.WAIT_FOR_START)
         : PlayBtn(onTap: onTap);
@@ -182,7 +188,7 @@ Widget _hoverBackDrop({
       child: Container(
         padding: const EdgeInsets.all(16),
         alignment: Alignment.center,
-        color: Colors.black.withOpacity(.7),//todo extract
+        color: Colors.black.withOpacity(.7), //todo extract
         child: child,
       ),
     );

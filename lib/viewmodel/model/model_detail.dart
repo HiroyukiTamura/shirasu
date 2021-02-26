@@ -385,6 +385,8 @@ abstract class BtmSheetState with _$BtmSheetState {
 
   const factory BtmSheetState.commentSelect(Duration position) =
       BtmSheetStateCommentSelect;
+
+  const factory BtmSheetState.payment() = _BtmSheetStatePayment;
 }
 
 @freezed

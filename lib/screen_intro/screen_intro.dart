@@ -14,6 +14,9 @@ import 'package:shirasu/ui_common/images.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ScreenIntro extends StatefulWidget {
+
+  const ScreenIntro();
+
   @override
   _ScreenIntroState createState() => _ScreenIntroState();
 

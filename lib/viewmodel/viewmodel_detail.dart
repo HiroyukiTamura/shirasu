@@ -78,7 +78,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
               page: const PageSheetModel.hidden(),
             ),
           );
-          return _initComments(Duration.zero);
+          if (data.item1.program.isPurchased)
+           return _initComments(Duration.zero);
         },
         failure: (e) {
           if (mounted) state = state.copyAsPrgDataResultErr(toErrMsg(e));

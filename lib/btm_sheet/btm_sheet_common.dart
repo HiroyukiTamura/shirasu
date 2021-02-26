@@ -7,7 +7,7 @@ import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 class BtmSheetCommon extends StatelessWidget {
-  const BtmSheetCommon._({
+  const BtmSheetCommon({
     @required this.child,
     @required this.positiveBtnString,
     @required this.url,
@@ -82,7 +82,7 @@ class BtmSheetCommon extends StatelessWidget {
               .of(context)
               .context,
           builder: (context) =>
-              BtmSheetCommon._(
+              BtmSheetCommon(
                 positiveBtnString: Strings.OPEN_WEB,
                 snackCallback: snackCallback,
                 url: url,

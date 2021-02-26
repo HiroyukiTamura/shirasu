@@ -13,8 +13,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'btm_sheet_sns_share.g.dart';
 
-const double _LIST_TILE_HEIGHT = 56;
-const double _PAD_V = 16;
+const double _kListTileHeight = 56;
+const double _kPadV = 16;
 
 @swidget
 Widget btmSheetSnsShare({
@@ -39,9 +39,9 @@ Widget btmSheetSnsShare({
     )
   ];
   return SizedBox(
-    height: _LIST_TILE_HEIGHT * children.length + _PAD_V * 2,
+    height: _kListTileHeight * children.length + _kPadV * 2,
     child: ListView(
-      padding: const EdgeInsets.symmetric(vertical: _PAD_V),
+      padding: const EdgeInsets.symmetric(vertical: _kPadV),
       children: children,
     ),
   );

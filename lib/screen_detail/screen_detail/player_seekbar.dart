@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/screen_detail/screen_detail/video_header/video_controller_vis.dart';
@@ -35,11 +34,10 @@ Widget videoSeekBarHoverStyle(
   BuildContext context, {
   @required VideoViewModelConf conf,
   @required double topMargin,
-}) {
-  final isLive = useProvider(kPrvViewModelDetail(conf.id).state.select((it) => it.playOutState.videoType == const VideoType.live()));
-  return Visibility(
-    visible: isLive,
-    child: VideoControllerVis(
+}) =>
+    Visibility(
+      visible: useProvider(kPrvIsArch(conf.id)),
+      child: VideoControllerVis(
         id: conf.id,
         child: Padding(
           padding: EdgeInsets.only(top: topMargin),
@@ -63,8 +61,7 @@ Widget videoSeekBarHoverStyle(
           ),
         ),
       ),
-  );
-}
+    );
 
 /// we don't support [Slider.label] because we can't style it and there is no useful plugin.
 /// must be showed on VOD.
@@ -76,8 +73,10 @@ class VideoSeekBar extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final max = useProvider(kPrvViewModelDetail(conf.id)
-        .state
-        .select((it) => it.playOutState.totalDurationSafe)).inSeconds.toDouble();
+            .state
+            .select((it) => it.playOutState.totalDurationSafe))
+        .inSeconds
+        .toDouble();
     final value = useProvider(kPrvViewModelDetail(conf.id)
             .state
             .select((it) => it.playOutState.currentPosForUiSafe))

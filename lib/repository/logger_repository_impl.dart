@@ -1,5 +1,5 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/logger_repository.dart';
 
 final kPrvLogger = Provider<LoggerRepository>((ref) => const LoggerRepositoryImpl._());

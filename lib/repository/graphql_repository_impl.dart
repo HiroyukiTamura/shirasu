@@ -1,6 +1,9 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/graghql_query.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
@@ -22,6 +25,7 @@ import 'package:dartx/dartx.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/logger_repository.dart';
+import 'package:shirasu/extension.dart';
 
 final kPrvGraphqlRepository = Provider.autoDispose<GraphQlRepository>(
     (ref) => GraphQlRepositoryImpl.instance(ref.read));
@@ -134,9 +138,14 @@ class GraphQlRepositoryImpl with GraphQlRepository {
           result.context.entry<HttpLinkResponseContext>()?.statusCode;
       _logger.d('statueCode: $statusCode');
 
-      if (linkException?.originalException
-          is UnauthorizedException)
+      final originalException = linkException?.originalException;
+      if (originalException is UnauthorizedException) {
         throw result.exception.linkException.originalException;
+      } else if (originalException is DioError) {
+        if (originalException.isTimeoutErr)
+          throw TimeoutException(originalException.message);
+        else if (originalException.response.statusCode == 403) throw const UnauthorizedException(false);
+      }
     }
   }
 

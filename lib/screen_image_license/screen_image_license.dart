@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
@@ -43,6 +43,7 @@ Widget screenImageLicense(BuildContext context) => SafeArea(
       ),
     );
 
+//todo app icon
 class _ListTileRobot extends StatelessWidget {
   const _ListTileRobot({Key key}) : super(key: key);
 

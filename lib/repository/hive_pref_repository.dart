@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/hive_client.dart';
 
 final kPrvHivePrefRepository = Provider<HivePrefRepository>((ref) => HivePrefRepositoryImpl.instance());

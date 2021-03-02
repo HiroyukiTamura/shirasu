@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/main.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/logger_repository.dart';
@@ -25,6 +26,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   NetworkImageRepository get _networkRepository =>
       reader(kPrvNetworkRepository);
 
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
+
   @override
   Future<void> initialize() async {
     if (state != const DashboardModel.initial()) return;
@@ -34,7 +37,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       return Util.wait2(
         _graphQlRepository.queryFeaturedProgramsList,
         _graphQlRepository.queryNewProgramsList,
-      ).timeout(GraphQlRepository.TIMEOUT);
+      );//fixme @temp
     });
     if (!isMounted) return;
     result.when(success: (data) {
@@ -45,7 +48,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       state = DashboardModel.successInitialization(apiData);
     }, failure: (e) {
       state = DashboardModel.error(toErrMsg(e));
-      if (e is UnauthorizedException) pushAuthExpireScreen();
+      if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
     });
 
     final resultImg = await _logger
@@ -114,5 +117,5 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   }
 
   void notifySnackMsg(SnackMsg snackMsg) =>
-      snackBarMsgNotifier.notifyMsg(snackMsg, false);
+      _snackBarMsgNotifier.notifyMsg(snackMsg, false);
 }

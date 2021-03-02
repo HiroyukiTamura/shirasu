@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -63,14 +63,14 @@ class PageComment extends StatelessWidget {
           futureComments.firstOrNull?.commentTimeDuration ?? currentPos;
 
       duration += 1.milliseconds;
-      await viewModel.loadMorePastComment(duration, false);
+      await viewModel.loadMoreFutureComment(duration, false);
     } else if (pastComments.length < ViewModelDetail.COMMENT_PREFETCH_OFFSET) {
       if (commentHolder.loadedMostPastComment) return;
 
       var duration =
           pastComments.lastOrNull?.commentTimeDuration ?? currentPos;
       duration -= 1.milliseconds;
-      await viewModel.loadMoreFutureComment(duration, false);
+      await viewModel.loadMorePastComment(duration, false);
     }
   }
 }

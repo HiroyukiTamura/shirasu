@@ -19,6 +19,11 @@ class Util {
     DeviceOrientation.landscapeLeft,
   ];
 
+  static const PORTRAIT_ORIENTATIONS = [
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ];
+
   static Future<Tuple2<T, S>> wait2<T, S>(
       Future<T> Function() predicate1, Future<S> Function() predicate2) async {
     T t;

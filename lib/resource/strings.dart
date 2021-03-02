@@ -167,7 +167,7 @@ class Strings {
 
   /// ref: users.pages.Program.components.ProgramNotice.saving
   static const PROGRAM_ARCHIVING =
-      'この放送は終了しました。アーカイブ動画への変換中です。\n視聴可能になるまで、少々お待ちください。';
+      'アーカイブ動画への変換中です。\n視聴可能になるまで、少々お待ちください。';
 
   static const CURRENT_PERIOD_END_AT_LABEL = '次回更新日';
   static const SUBSCRIPTION_START_DATE = '購読開始日';

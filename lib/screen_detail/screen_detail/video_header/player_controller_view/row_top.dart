@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/text_styles.dart';
@@ -22,12 +21,12 @@ Widget rowTop(
   @required OnTap onTapSpeedBtn,
   @required VideoViewModelConf conf,
 }) {
-  final title = useProvider(kPrvViewModelDetail(conf.id)
-      .state
-      .select((it) {
-        final result = it.prgDataResult;
-        return result is DetailStateSuccess ? result.programDetailData.program.title : null;
-      }));
+  final title = useProvider(kPrvViewModelDetail(conf.id).state.select((it) {
+    final result = it.prgDataResult;
+    return result is DetailStateSuccess
+        ? result.programDetailData.program.title
+        : null;
+  }));
   return Visibility(
     visible: title != null,
     child: Padding(
@@ -50,10 +49,13 @@ Widget rowTop(
                 ),
               ),
             ),
-          _IconButton(
-            icon: MdiIcons.playSpeed,
-            onPressed: onTapSpeedBtn,
-            fullScreen: conf.fullScreen,
+          Visibility(
+            visible: useProvider(kPrvIsArch(conf.id)),
+            child: _IconButton(
+              icon: MdiIcons.playSpeed,
+              onPressed: onTapSpeedBtn,
+              fullScreen: conf.fullScreen,
+            ),
           ),
           //todo implement
           Visibility(

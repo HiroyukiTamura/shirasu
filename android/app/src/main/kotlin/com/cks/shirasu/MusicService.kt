@@ -20,14 +20,8 @@ class MusicService : MediaBrowserServiceCompat() {
             R.string.err_channel_desc,
             R.drawable.baseline_error_white_24dp,
     ) {
-        override fun getContentTitle(exceptionType: Int, lastPlayed: MediaMetadataCompat?): CharSequence {
-            val resId = when (exceptionType) {
-                ExoPlaybackException.TYPE_TIMEOUT -> R.string.err_ntf_title_timeout
-                ExoPlaybackException.TYPE_OUT_OF_MEMORY -> R.string.err_ntf_title_oom
-                else -> R.string.err_ntf_title_unknown
-            }
-            return getString(resId)
-        }
+        override fun getContentTitle(exceptionType: Int, lastPlayed: MediaMetadataCompat?): CharSequence =
+                getString(R.string.err_ntf_title_unknown)
 
         override fun getContentText(exceptionType: Int, lastPlayed: MediaMetadataCompat?): CharSequence? = lastPlayed?.title
     }

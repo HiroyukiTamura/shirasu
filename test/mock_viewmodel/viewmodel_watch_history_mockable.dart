@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod/src/framework.dart';
 import 'package:shirasu/viewmodel/viewmodel_watch_history.dart';
 

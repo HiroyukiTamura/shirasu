@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/connectivity_repository_impl.dart';
 import 'package:shirasu/repository/dio_repository.dart';
@@ -14,6 +13,7 @@ import 'package:shirasu/repository/dio_client.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/logger_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -81,8 +81,12 @@ mixin _CommonLocator {
   Reader get reader;
 
   @protected
-  void pushAuthExpireScreen() =>
-      reader(kPrvAppRouterDelegate).pushPage(const GlobalRoutePath.error(true));
+  void pushAuthErrScreen(bool authExpired) {
+    final errText =
+        authExpired ? Strings.ERR_AUTH_EXPIRED : Strings.ERR_UN_AUTH;
+    reader(kPrvAppRouterDelegate)
+        .pushPage(GlobalRoutePath.error(true, errText));
+  }
 
   @protected
   GraphQlRepository get graphQlRepository => reader(kPrvGraphqlRepository);
@@ -96,9 +100,6 @@ mixin _CommonLocator {
 
   @protected
   HiveAuthRepository get hiveAuthRepository => reader(kPrvHiveAuthRepository);
-
-  @protected
-  SnackBarMessageNotifier get snackBarMsgNotifier => reader(kPrvSnackBar);
 
   @protected
   LoggerRepository get logger => reader(kPrvLogger);
@@ -125,15 +126,5 @@ mixin _CommonLocator {
       return const SnackMsg.networkDisconnected();
     else
       return const SnackMsg.unknown();
-  }
-
-  @protected
-  Future<void> clearAuthDataAndWebCache() async {
-    await hiveAuthRepository.clearAuthData();
-    await logger.guardFuture(() async {
-      final webView = FlutterWebviewPlugin();
-      await webView.cleanCookies();
-      await webView.clearCache();
-    });
   }
 }

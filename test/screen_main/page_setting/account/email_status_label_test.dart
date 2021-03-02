@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/screen_main/page_setting/account/email_status_label.dart';

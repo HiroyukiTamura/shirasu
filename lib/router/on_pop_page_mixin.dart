@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/router/global_app_state.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';

@@ -7,10 +7,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_riverpod/all.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
@@ -21,6 +20,7 @@ import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 /// must via access from ViewModel
+/// todo move
 final kPrvSnackBar = StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
     (ref) => SnackBarMessageNotifier());
 

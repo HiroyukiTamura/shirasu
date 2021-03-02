@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_route_path.dart';
 
 class AppRouteInformationParser
@@ -48,7 +49,7 @@ class AppRouteInformationParser
         break;
     }
 
-    return const GlobalRoutePath.error(false);
+    return const GlobalRoutePath.error(false, Strings.SNACK_ERR);
   }
 
   @override
@@ -58,7 +59,7 @@ class AppRouteInformationParser
   static String restoreLocation(GlobalRoutePathBase configuration) =>
       configuration.wrappedWhen(
         intro: () => 'intro',
-        error: (authExpired) => 'error',
+        error: (authExpired, errText) => 'error',
         channel: (channelId) => '/c/$channelId',
         program: UrlUtil.programId2UrlSegment,
         dashboard: () => 'dashboard',

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';

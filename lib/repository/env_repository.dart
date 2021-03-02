@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final kPrvEnv = Provider<EnvRepository>(
   (ref) => const EnvRepositoryImpl(),

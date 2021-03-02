@@ -1,7 +1,6 @@
-import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
-import 'package:flutter_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ViewModelDashBoardMockable extends ViewModelDashBoard {
   ViewModelDashBoardMockable(

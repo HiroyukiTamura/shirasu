@@ -45,6 +45,7 @@ class _PlayerViewState extends State<_PlayerView>
     with AfterLayoutMixin<_PlayerView> {
   BetterPlayerController _controller;
   BetterPlayerDataSource _dataSource;
+  bool _deactivate = false;
 
   @override
   void initState() {
@@ -59,12 +60,20 @@ class _PlayerViewState extends State<_PlayerView>
   void dispose() {
     _controller.videoPlayerController
         .removeListener(_rawVideoPlayerListener); //must invoke
-    super.dispose();
     _controller.dispose();
+    super.dispose(); //must be btm
   }
 
   @override
-  Widget build(BuildContext context) => ColoredBox(
+  void deactivate() {
+    super.deactivate();
+    _deactivate = true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _deactivate = false;
+    return ColoredBox(
         color: Colors.black,
         child: Stack(
           children: [
@@ -90,13 +99,15 @@ class _PlayerViewState extends State<_PlayerView>
           ],
         ),
       );
+  }
 
   @override
   void afterFirstLayout(BuildContext context) {
     _getViewModelDetail(context)
         .takePriority(fullScreen: widget.conf.fullScreen);
+    context.forceFullScreenIfHorizontalScreen();
     _controller.setupDataSource(_dataSource).then((value) {
-      if (mounted)
+      if (mounted && !_deactivate)
         _controller.videoPlayerController.addListener(_rawVideoPlayerListener);
     });
   }
@@ -126,7 +137,7 @@ class _PlayerViewState extends State<_PlayerView>
         if (!_controller.videoPlayerController.value.initialized) return;
 
         var position = await _controller.videoPlayerController.position;
-        if (position == null || !mounted) return;
+        if (position == null || !mounted || _deactivate) return;
         position += diff;
         await _controller.seekTo(position);
       },
@@ -150,7 +161,7 @@ class _PlayerViewState extends State<_PlayerView>
 
   // region PlayerEventListener
   void _playerEventListener(BetterPlayerEvent event) {
-    if (!mounted) return;
+    if (!mounted || _deactivate) return;
 
     switch (event.betterPlayerEventType) {
       case BetterPlayerEventType.initialized:
@@ -228,11 +239,13 @@ class _PlayerViewState extends State<_PlayerView>
 
   // endregion
 
-  void _rawVideoPlayerListener() =>
+  void _rawVideoPlayerListener() {
+    if (mounted && !_deactivate)
       _getViewModelDetail(context).updateIsBuffering(
         fullScreen: widget.conf.fullScreen,
         isBuffering: _controller.isBuffering(),
       );
+  }
 
   static BetterPlayerController _createController(
       PlayOutState playOutState, String id) {

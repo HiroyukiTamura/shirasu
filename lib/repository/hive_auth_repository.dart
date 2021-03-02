@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/result_token_refresh.dart';

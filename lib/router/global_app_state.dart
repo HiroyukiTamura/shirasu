@@ -1,10 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/router/global_route_path.dart';
+import 'package:dartx/dartx.dart';
 
-final kPrvGlobalAppState = Provider<GlobalAppState>((ref) => GlobalAppState.instance(ref.read));
+final kPrvGlobalAppState =
+    Provider<GlobalAppState>((ref) => GlobalAppState.instance(ref.read));
 
 // todo synchronize?
 class GlobalAppState extends ChangeNotifier {
@@ -22,14 +24,13 @@ class GlobalAppState extends ChangeNotifier {
 
   GlobalRoutePathBase get last => list.last;
 
-  PathDataMainPageBase get findLastMainPagePath =>
-      list.firstWhere((it) => it is PathDataMainPageBase)
-          as PathDataMainPageBase;
+  PathDataMainPageBase get findLastMainPagePath => list.firstOrNullWhere(
+        (it) => it is PathDataMainPageBase,
+      );
 
   bool get _isLoggedOut => _hiveAuthRepository.isEmpty;
 
-  bool get _isInitialLaunch =>
-      _hivePrefRepository.isInitialLaunchApp;
+  bool get _isInitialLaunch => _hivePrefRepository.isInitialLaunchApp;
 
   List<GlobalRoutePathBase> get list {
     if (_isInitialLaunch) return _list = [const GlobalRoutePath.intro()];
@@ -46,8 +47,13 @@ class GlobalAppState extends ChangeNotifier {
 
   //todo fix
   void push(GlobalRoutePathBase path) {
-    if (last == const GlobalRoutePath.auth() &&
-        path == const GlobalRoutePath.auth()) return;
+    if (last == path) return;
+
+    if (path == const GlobalRoutePath.preLogin()) {
+      _list = [const GlobalRoutePath.preLogin()];
+      notifyListeners();
+      return;
+    }
 
     if (path == const GlobalRoutePath.auth()) {
       _list = [const GlobalRoutePath.preLogin(), path];

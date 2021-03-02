@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_movie_list.dart';

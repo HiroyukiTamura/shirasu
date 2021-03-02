@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 part 'msg_ntf_listener.g.dart';

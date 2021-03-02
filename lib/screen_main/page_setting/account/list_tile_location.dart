@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/dialog/user_location_dialog.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
-import 'package:flutter_riverpod/all.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
-import 'package:riverpod/all.dart';
 
 import 'package:shirasu/screen_main/page_setting/list_item.dart';
 

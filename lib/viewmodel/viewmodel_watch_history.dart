@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/util/exceptions.dart';
@@ -10,12 +10,15 @@ import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
+import 'package:shirasu/main.dart';
 
 part 'viewmodel_watch_history.freezed.dart';
 
 class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   ViewModelWatchHistory(Reader reader)
       : super(reader, const WatchHistoryState.initial());
+
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
 
   @override
   Future<void> initialize() async {
@@ -36,7 +39,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
             ));
     }, failure: (e) {
       state = WatchHistoryState.error(toErrMsg(e));
-      if (e is UnauthorizedException) pushAuthExpireScreen();
+      if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
     });
   }
 
@@ -82,7 +85,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
       );
 
   void notifySnackMsg(SnackMsg snackMsg) =>
-      snackBarMsgNotifier.notifyMsg(snackMsg, false);
+      _snackBarMsgNotifier.notifyMsg(snackMsg, false);
 }
 
 @protected

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -32,14 +32,17 @@ final kPrvViewModelSetting =
     StateNotifierProvider.autoDispose<ViewModelSetting>(
         (ref) => ViewModelSetting(ref.read));
 
-@swidget
-Widget pageSettingInMainScreen() => const MaterialTabView(
-      tabs: [
-        Tab(text: Strings.TAB_USER_INFO),
-        Tab(text: Strings.TAB_APP_CONFIG)
-      ],
-      pages: [PageUserInfo(), PageAppConfig()],
-    );
+@hwidget
+Widget pageSettingInMainScreen() =>
+    useProvider(kPrvViewModelSetting.state.select((it) => it.isInLoggingOut))
+        ? const CenterCircleProgress()
+        : const MaterialTabView(
+            tabs: [
+              Tab(text: Strings.TAB_USER_INFO),
+              Tab(text: Strings.TAB_APP_CONFIG)
+            ],
+            pages: [PageUserInfo(), PageAppConfig()],
+          );
 
 class PageUserInfo extends HookWidget {
   const PageUserInfo({Key key}) : super(key: key);

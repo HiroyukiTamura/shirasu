@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -21,10 +20,8 @@ part 'row_bottom.g.dart';
 Widget rowBottom({
   @required VideoViewModelConf conf,
 }) {
-  final isLive = useProvider(kPrvViewModelDetail(conf.id)
-      .state
-      .select((it) => it.playOutState.videoType == const VideoType.live()));
-  if (isLive) return const _LiveText();
+  final isArchive = useProvider(kPrvIsArch(conf.id));
+  if (!isArchive) return const _LiveText();
 
   return conf.fullScreen
       ? Column(
@@ -56,6 +53,7 @@ Widget _liveText() => Container(
         Strings.PLAYER_CONTROLLER_LABEL_LIVE,
         style: TextStyle(
           color: Colors.red,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

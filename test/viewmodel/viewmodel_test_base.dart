@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/viewmodel_dashboard.dart';
 import 'package:dartx/dartx.dart';
-import 'package:flutter_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
@@ -121,7 +121,7 @@ class ViewModelTestBase<T> {
             kOverrideGraphqlUnAuthDetectedByTime,
           ],
           expectState: expectState,
-          expectPath: const GlobalRoutePath.error(true),
+          expectPath: const GlobalRoutePath.error(true, Strings.ERR_UN_AUTH),
         ),
       );
 
@@ -133,7 +133,7 @@ class ViewModelTestBase<T> {
             kOverrideGraphqlUnAuthNotDetectedByTime,
           ],
           expectState: expectState,
-          expectPath: const GlobalRoutePath.error(true),
+          expectPath: const GlobalRoutePath.error(true, Strings.ERR_UN_AUTH),
         ),
       );
 

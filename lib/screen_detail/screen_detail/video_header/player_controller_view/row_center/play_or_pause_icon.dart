@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -52,6 +52,7 @@ Widget playOrPauseBtn(
     alignment: Alignment.center,
     child: Visibility(
       visible: !isBuffering,
+      maintainState: true,//for animation
       child: Material(
         clipBehavior: Clip.antiAlias,
         shape: const CircleBorder(),

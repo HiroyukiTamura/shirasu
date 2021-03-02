@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';

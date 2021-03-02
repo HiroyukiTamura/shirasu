@@ -13,7 +13,7 @@ abstract class PlanType with _$PlanType {
       return null;
 
     switch (value) {
-      case 'Onetime':
+      case 'OneTimePlan':
         return const PlanType.oneTime();
       case 'SubscriptionPlan':
         return const PlanType.subscription();

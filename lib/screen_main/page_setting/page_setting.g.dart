@@ -6,7 +6,7 @@ part of 'page_setting.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class PageSettingInMainScreen extends StatelessWidget {
+class PageSettingInMainScreen extends HookWidget {
   const PageSettingInMainScreen({Key key}) : super(key: key);
 
   @override

@@ -9,7 +9,7 @@ part 'result.freezed.dart';
 abstract class Result<T> with _$Result<T> {
   const Result._();
 
-  const factory Result.success(T data) = _Success<T>;
+  const factory Result.success([T data]) = _Success<T>;
 
   const factory Result.failure(dynamic error) = _Failure<T>;
 

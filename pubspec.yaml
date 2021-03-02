@@ -30,14 +30,13 @@ dependencies:
   url_launcher: ^5.7.10
   cached_network_image: ^2.5.0
   flutter_webview_plugin: ^0.3.11
-  webview_flutter: ^1.0.7
   font_awesome_flutter: ^8.11.0
   material_design_icons_flutter: 4.0.5855
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   introduction_screen: ^1.0.9
   flutter_svg: ^0.19.1
-  graphql_flutter: ^4.0.0
+  graphql_flutter: ^4.0.1
   freezed_annotation: ^0.12.0
   json_annotation: ^3.1.0
   hooks_riverpod: ^0.12.3
@@ -55,13 +54,13 @@ dependencies:
   quiver: ^2.1.5
   sliding_up_panel: ^1.0.2
   dartx: ^0.5.0
-  better_player: ^0.0.49
+  better_player: ^0.0.60
   circular_reveal_animation: ^1.1.5
   flutter_custom_clippers: ^1.1.2
   double_tap_player_view: ^1.0.6
   lottie: ^0.7.0+1
   uuid: ^2.2.2
-  simple_animations: ^2.5.0
+  simple_animations: ^2.5.1
   connectivity: ^2.0.2
   auto_size_text: ^2.1.0
   # firebase

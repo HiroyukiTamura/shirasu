@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:shirasu/resource/text_styles.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:shirasu/screen_detail/screen_detail/padding_row.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
-import 'package:shirasu/util.dart';
+import 'package:shirasu/ui_common/common_linkify.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,23 +16,10 @@ Widget rowVideoDesc(
   @required String id,
 }) =>
     BasePadding(
-      child: Linkify(
-        onOpen: (link) async => Util.launchUrl(
-          context,
-          link.url,
-          () => context
-              .read(kPrvViewModelDetail(id))
-              .commandSnackBar(const SnackMsg.unknown()),
-        ),
+      child: CommonLinkify(
         text: text,
-        style: TextStyles.defaultFontSizeAndHeight(
-          color: Colors.white,
-        ),
-        linkStyle: TextStyles.defaultFontSizeAndHeight(
-          color: Theme.of(context).primaryColor,
-        ),
-        options: LinkifyOptions(
-          humanize: false,
-        ),
+        onLaunchUrlErr: () => context
+            .read(kPrvViewModelDetail(id))
+            .commandSnackBar(const SnackMsg.unknown()),
       ),
     );

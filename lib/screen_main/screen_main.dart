@@ -74,7 +74,7 @@ Widget _mainBottomNavigationBar(BuildContext context) => BottomNavigationBar(
       unselectedFontSize: FontSize.DEFAULT,
       onTap: (index) async => context.read(_kPrvRouterDelegate).swapPage(index),
       currentIndex:
-          useProvider(_kPrvRouterDelegate.select((it) => it.pageIndex)),
+          useProvider(_kPrvRouterDelegate.select((it) => it.pageIndex)) ?? 0,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

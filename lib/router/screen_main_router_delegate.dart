@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/router/no_animation_page.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_route_path.dart';
@@ -15,7 +15,10 @@ class ScreenMainRouterDelegate
 
   @override
   Widget build(BuildContext context) {
-    final path = appState.findLastMainPagePath;
+    final path = appState?.findLastMainPagePath;
+
+    if (path == null) return const SizedBox.shrink();
+
     final screen = path.when(
       dashboard: () => const PageDashboardInMainScreen(),
       subscribing: (initialPage) =>
@@ -35,7 +38,7 @@ class ScreenMainRouterDelegate
   Future<void> setNewRoutePath(PathDataMainPageBase configuration) async =>
       throw Exception("don't setNewRoutePath $configuration");
 
-  int get pageIndex => appState.findLastMainPagePath.pageIndex;
+  int get pageIndex => appState.findLastMainPagePath?.pageIndex;
 
   PathDataMainPageBase get page => appState.findLastMainPagePath;
 

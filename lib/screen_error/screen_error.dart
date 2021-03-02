@@ -9,14 +9,18 @@ import 'package:shirasu/extension.dart';
 part 'screen_error.g.dart';
 
 @swidget
-Widget screenError({@required bool authExpired}) => SafeArea(
+Widget screenError({
+  @required bool showLoginBtn,
+  @required String errText,
+}) =>
+    SafeArea(
       child: Scaffold(
-        body: authExpired
+        body: showLoginBtn
             ? PageError(
                 onTapLoginBtn: (context) =>
                     context.pushPage(const GlobalRoutePath.auth()),
-                text: Strings.ERR_AUTH_EXPIRED,
+                text: errText,
               )
-            : const PageError(),
+            : PageError(text: errText),
       ),
     );

@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
@@ -9,17 +10,25 @@ import 'package:shirasu/repository/local_json_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart'
     show UpdateUserWithAttrVariable;
+import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/main.dart';
+import 'package:dartx/dartx.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
 
+  FlutterWebviewPlugin _webView;
+
   HiveBody get _hiveAuthBody => hiveAuthRepository?.authData?.body;
+
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
 
   @override
   Future<void> initialize() async {
@@ -39,11 +48,12 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
         state = state.copyWith(
           settingModelState: SettingModelState.error(toErrMsg(e)),
         );
-        if (e is UnauthorizedException) pushAuthExpireScreen();
+        if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
       });
   }
 
-  bool _isUserIdMatchesLocal(ViewerWrapper viewerWrapper) => _hiveAuthBody?.decodedToken?.user?.sub == viewerWrapper.viewerUser.id;
+  bool _isUserIdMatchesLocal(ViewerWrapper viewerWrapper) =>
+      _hiveAuthBody?.decodedToken?.user?.sub == viewerWrapper.viewerUser.id;
 
   void updateBirthDate(DateTime birthDate) =>
       state = state.copyWith.editedUserInfo(birthDate: birthDate);
@@ -114,15 +124,37 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(isInLoggingOut: true);
 
-    await clearAuthDataAndWebCache();
+    await logger.guardFuture(() async {
+      _webView = FlutterWebviewPlugin();
+      await _webView.launch(
+        UrlUtil.URL_HOME,
+        clearCache: true,
+        clearCookies: true,
+        hidden: true,
+      );
+      await Future.delayed(1.seconds);//must need
+      await _webView.evalJavascript('window.localStorage.clear();');
+      await Future.delayed(500.milliseconds);//must need
+      await _webView.close();
+    });
 
-    if (mounted) state = state.copyWith(isInLoggingOut: false);
+    if (!mounted) return;
 
-    pushAuthExpireScreen();
+    await hiveAuthRepository.clearAuthData();
+
+    state = state.copyWith(isInLoggingOut: false);
+    await reader(kPrvAppRouterDelegate).pushPage(
+        const GlobalRoutePath.preLogin());
   }
 
   void notifySnackMsg(SnackMsg snackMsg) =>
-      snackBarMsgNotifier.notifyMsg(snackMsg, false);
+      _snackBarMsgNotifier.notifyMsg(snackMsg, false);
+
+  @override
+  void dispose() {
+    _webView?.dispose();
+    super.dispose();
+  }
 }
 
 class LocationTextNotifier extends StateNotifier<String>

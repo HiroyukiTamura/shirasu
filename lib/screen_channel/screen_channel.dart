@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/all.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
@@ -17,10 +16,11 @@ import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/ui_common/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/extension.dart';
 
 part 'screen_channel.g.dart';
@@ -29,7 +29,17 @@ final kPrvViewModelChannel = StateNotifierProvider.autoDispose
     .family<ViewModelChannel, String>(
         (ref, id) => ViewModelChannel(ref.read, id));
 
-const double _CHANNEL_LOGO_SIZE = 32;
+final kPrvSnackBarChannel = StateNotifierProvider.family
+    .autoDispose<SnackBarMessageNotifier, String>(
+        (ref, id) => SnackBarMessageNotifier());
+
+final _kPrvDetailSnackMsg =
+    Provider.family.autoDispose<SnackData, String>((ref, id) {
+  final snackMsgEvent = ref.watch(kPrvSnackBarChannel(id).state);
+  return SnackData(snackMsgEvent.snackMsg, Dimens.SNACK_BAR_DEFAULT_MARGIN);
+});
+
+const double _kChannelLogoSize = 32;
 
 @hwidget
 Widget screenChannel(
@@ -38,13 +48,16 @@ Widget screenChannel(
 }) =>
     SafeArea(
       child: Scaffold(
-        body: useProvider(kPrvViewModelChannel(channelId).state).when(
-          preInitialized: () => const CenterCircleProgress(),
-          error: (errMsg) => PageError(
-            text: errMsg.value,
-          ),
-          success: (dataWrapper) => _Content(
-            channel: dataWrapper.data.channel,
+        body: SnackEventListener(
+          provider: _kPrvDetailSnackMsg(channelId),
+          child: useProvider(kPrvViewModelChannel(channelId).state).when(
+            preInitialized: () => const CenterCircleProgress(),
+            error: (errMsg) => PageError(
+              text: errMsg.value,
+            ),
+            success: (dataWrapper) => _Content(
+              channel: dataWrapper.data.channel,
+            ),
           ),
         ),
       ),
@@ -69,31 +82,45 @@ class _Content extends HookWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _RowHeaderImg(
-          channelId: channel.id,
-        ),
-        const SizedBox(height: 24),
+        if (context.isThinScreen)
+          const SizedBox(height: 16)
+        else
+          Padding(
+            padding: const EdgeInsets.only(bottom: 24),
+            child: _RowHeaderImg(
+              channelId: channel.id,
+            ),
+          ),
         _RowChannelName(
           channel: channel,
         ),
         const SizedBox(height: 16),
-        _RowBillingBtn(
-          channel: channel,
-        ),
-        const SizedBox(height: 16),
+        if (!context.isThinScreen)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: _RowBillingBtn(
+              channel: channel,
+            ),
+          ),
         _RowTab(controller: tabController),
         const _RowSeem(),
         Expanded(
           child: TabBarView(
             controller: tabController,
             children: [
-              PageChannelDetail(text: channel.detail),
+              PageChannelDetail(
+                text: channel.detail,
+                id: channel.id,
+              ),
               PageMovieList(
                 onTapItem: (context, prgId) async =>
                     context.pushProgramPage(prgId),
                 channelId: channel.id,
               ),
-              PageNotification(announcements: channel.announcementAvailable),
+              PageNotification(
+                announcements: channel.announcementAvailable,
+                id: channel.id,
+              ),
             ],
           ),
         )
@@ -131,8 +158,8 @@ Widget _rowChannelName({@required Channel channel}) => ContentCell(
       child: Row(
         children: [
           CustomCachedNetworkImage(
-            height: _CHANNEL_LOGO_SIZE,
-            width: _CHANNEL_LOGO_SIZE,
+            height: _kChannelLogoSize,
+            width: _kChannelLogoSize,
             imageUrl: UrlUtil.getChannelLogoUrl(channel.id),
             errorWidget: Util.defaultChannelIcon,
           ),

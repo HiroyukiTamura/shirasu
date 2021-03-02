@@ -1,7 +1,7 @@
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/main.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/util/exceptions.dart';
@@ -32,7 +32,7 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
             : FeatureProgramState.success(data);
       }, failure: (e) {
         state = FeatureProgramState.error(toErrMsg(e));
-        if (e is UnauthorizedException) pushAuthExpireScreen();
+        if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
       });
   }
 }

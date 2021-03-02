@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -82,13 +82,8 @@ Widget bufferingIndicator({
   return AnimatedShower(
     visible: isBuffering,
     duration: 100.milliseconds,
-    child: Container(
-      alignment: Alignment.center,
-      width: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
-      height: Dimens.VIDEO_PLAY_PAUSE_BTN_W,
-      child: const CenterCircleProgress(
-        valueColor: AlwaysStoppedAnimation(Colors.white),
-      ),
+    child: const CenterCircleProgress(
+      valueColor: AlwaysStoppedAnimation(Colors.white),
     ),
   );
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/network_image_repository.dart';
 import 'package:shirasu/repository/url_util.dart';

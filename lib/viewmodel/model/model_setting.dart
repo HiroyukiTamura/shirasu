@@ -17,7 +17,7 @@ abstract class SettingModelState with _$SettingModelState {
   void whenSuccess(void Function(ViewerWrapper data) predicate) {
     maybeWhen(
       orElse: () {},
-      success: (ViewerWrapper data) => predicate(data),
+      success: (data) => predicate(data),
     );
   }
 }

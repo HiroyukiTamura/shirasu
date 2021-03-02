@@ -1,6 +1,6 @@
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

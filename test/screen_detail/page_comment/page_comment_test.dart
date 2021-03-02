@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';

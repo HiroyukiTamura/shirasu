@@ -14,6 +14,7 @@ import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/model/result.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/util/single_timer.dart';
@@ -53,6 +54,8 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         success: (prgDetailData, _, __) => prgDetailData.program.itemToPlay,
       );
 
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBarDetail);
+
   @override
   Future<void> initialize() async {
     if (state.prgDataResult != const DetailModelState.preInitialized()) return;
@@ -83,7 +86,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         },
         failure: (e) {
           if (mounted) state = state.copyAsPrgDataResultErr(toErrMsg(e));
-          if (e is UnauthorizedException) pushAuthExpireScreen();
+          if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
         },
       );
   }
@@ -345,16 +348,14 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
             );
   }
 
+  /// [currentPos] may negative and nullable
+  /// [totalDuration] may negative and nullable
   void setVideoDurations({
     @required bool fullScreen,
     @required Duration currentPos,
     @required Duration totalDuration,
     @required bool applyCurrentPosUi,
   }) {
-    assert(!currentPos.isNegative);
-    assert(!totalDuration.isNegative);
-    assert(currentPos < totalDuration);
-
     if (fullScreen == state.playOutState.fullScreen)
       state = applyCurrentPosUi
           ? state.copyWith.playOutState(
@@ -490,7 +491,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
           state.commentHolder.followTimeLineMode ==
               const FollowTimeLineMode.follow(),
     );
-    snackBarMsgNotifier.notifyMsg(snackMsg, isCommentAppBarShown);
+    _snackBarMsgNotifier.notifyMsg(snackMsg, isCommentAppBarShown);
   }
 
   /// provide old values as param; [position], [cookie]

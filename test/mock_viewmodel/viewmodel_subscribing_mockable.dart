@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/screen_main/page_list/subscribing_widget.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
 

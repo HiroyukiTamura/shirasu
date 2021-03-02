@@ -99,9 +99,9 @@ abstract class PlayOutState implements _$PlayOutState {
     VideoType videoType,
     String cookie,
     @Default(false) bool isPlaying,
-    @Default(Duration.zero) @protected Duration currentPos,
-    @Default(Duration.zero) @protected Duration currentPosForUi,
-    @Default(Duration.zero) @protected Duration totalDuration,
+    @nullable @protected Duration currentPos,
+    @nullable @protected Duration currentPosForUi,
+    @nullable @protected Duration totalDuration,
     @Default(false) bool controllerVisibility,
     @Default(false) bool isSeekBarDragging,
     @Default(false) bool fullScreen,
@@ -141,11 +141,11 @@ abstract class PlayOutState implements _$PlayOutState {
       hlsMediaUrl == state?.hlsMediaUrl;
 
   Duration get currentPosForUiSafe =>
-      currentPosForUi.isNegative ? Duration.zero : currentPosForUi;
+      currentPosForUi?.isNegative != true ? currentPosForUi : Duration.zero;
 
-  Duration get currentPosSafe => currentPos.isNegative ? Duration.zero : currentPos;
+  Duration get currentPosSafe => currentPos?.isNegative != true ? currentPos : Duration.zero;
 
-  Duration get totalDurationSafe => totalDuration.isNegative ? Duration.zero : totalDuration;
+  Duration get totalDurationSafe => totalDuration?.isNegative != true ? totalDuration : Duration.zero;
 }
 
 /// status of statue of video command.
@@ -295,13 +295,13 @@ abstract class CommentsHolder implements _$CommentsHolder {
 
   UnmodifiableListView<CommentItem> getCommentItemsBefore(Duration duration) {
     final list =
-        _commentSorted(true).filter((it) => it.commentTimeDuration < duration);
+        _commentSorted(true).where((it) => it.commentTimeDuration < duration);
     return IteratableX(list).toUnmodifiable();
   }
 
   List<CommentItem> getCommentItemsAfter(Duration duration) {
     final list =
-        _commentSorted(true).filter((it) => duration < it.commentTimeDuration);
+        _commentSorted(true).where((it) => duration < it.commentTimeDuration);
     return IterableX(list).toUnmodifiable();
   }
 

@@ -14,7 +14,7 @@ class _$ResultTearOff {
   const _$ResultTearOff();
 
 // ignore: unused_element
-  _Success<T> success<T>(T data) {
+  _Success<T> success<T>([T data]) {
     return _Success<T>(
       data,
     );
@@ -102,9 +102,7 @@ class __$SuccessCopyWithImpl<T, $Res> extends _$ResultCopyWithImpl<T, $Res>
 
 /// @nodoc
 class _$_Success<T> extends _Success<T> {
-  const _$_Success(this.data)
-      : assert(data != null),
-        super._();
+  const _$_Success([this.data]) : super._();
 
   @override
   final T data;
@@ -184,7 +182,7 @@ class _$_Success<T> extends _Success<T> {
 
 abstract class _Success<T> extends Result<T> {
   const _Success._() : super._();
-  const factory _Success(T data) = _$_Success<T>;
+  const factory _Success([T data]) = _$_Success<T>;
 
   T get data;
   @JsonKey(ignore: true)

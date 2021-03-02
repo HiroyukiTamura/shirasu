@@ -21,8 +21,7 @@ extension IteratableX<E> on Iterable<E> {
     final list = <E>[];
     for (var i = 0; i < length; i++) {
       list.add(elementAt(i));
-      if (i != length - 1)
-        list.add(separator());
+      if (i != length - 1) list.add(separator());
     }
 
     return list;
@@ -47,22 +46,37 @@ extension BuildContextX on BuildContext {
   Future<void> pushChannelPage(String id) async =>
       read(kPrvAppRouterDelegate).pushPage(GlobalRoutePath.channel(id));
 
-  bool get isBigScreen => Dimens.SCREEN_BREAK_POINT < MediaQuery.of(this).size.width;
+  bool get isBigScreen =>
+      Dimens.SCREEN_BREAK_POINT < MediaQuery.of(this).size.width;
+
+  bool get isThinScreen =>
+      Dimens.SCREEN_BREAK_POINT_Y_SML < MediaQuery.of(this).size.width;
 
   Future<void> toggleFullScreenMode() async {
     if (_kIsInFullScreenOperation.locked) return;
 
     final isPortrait = MediaQuery.of(this).orientation == Orientation.portrait;
     final orientations =
-        isPortrait ? Util.LANDSCAPE_ORIENTATIONS : DeviceOrientation.values;
+        isPortrait ? Util.LANDSCAPE_ORIENTATIONS : Util.PORTRAIT_ORIENTATIONS;
 
     await read(kPrvLogger).guardFuture(() async {
       await SystemChrome.setPreferredOrientations(orientations);
-      if (isPortrait)
+      if (isPortrait) {
+        await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
         await SystemChrome.setEnabledSystemUIOverlays([]);
-      else
+      } else {
         await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+      }
     });
+  }
+
+  Future<void> forceFullScreenIfHorizontalScreen() async {
+    if (_kIsInFullScreenOperation.locked) return;
+
+    final landscape = MediaQuery.of(this).orientation == Orientation.landscape;
+    if (landscape)
+      await read(kPrvLogger)
+          .guardFuture(() async => SystemChrome.setEnabledSystemUIOverlays([]));
   }
 }
 

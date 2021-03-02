@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -32,8 +31,7 @@ class RowFabs extends HookWidget {
   /// todo implement
   @override
   Widget build(BuildContext context) {
-    final maybeVod = useProvider(kPrvViewModelDetail(program.id).state.select(
-        (it) => it.playOutState.videoType /*nullable*/ != const VideoType.archived()));
+    final maybeVod = useProvider(kPrvIsArch(program.id));
     return basePadding(
       top: _PADDING_V,
       bottom: _PADDING_V,

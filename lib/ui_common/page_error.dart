@@ -15,11 +15,12 @@ class PageError extends StatelessWidget {
   const PageError({
     Key key,
     this.onTapLoginBtn,
-    this.text = Strings.SNACK_ERR,
-  }) : super(key: key);
+    String text,
+  })  : _text = text ?? Strings.SNACK_ERR,
+        super(key: key);
 
   final OnTap onTapLoginBtn;
-  final String text;
+  final String _text;
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -36,7 +37,7 @@ class PageError extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  text,
+                  _text,
                   style: const TextStyle(
                     fontSize: FontSize.S16,
                     color: Styles.COLOR_TEXT_SUB,

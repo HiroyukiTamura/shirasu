@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -17,6 +18,8 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
   final String _channelId;
 
   int tabIndex = 0;
+
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBarChannel(_channelId));
 
   @override
   Future<void> initialize() async {
@@ -40,7 +43,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         state = data;
       }, failure: (e) {
         state = ChannelModel.error(toErrMsg(e));
-        if (e is UnauthorizedException) pushAuthExpireScreen();
+        if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
       });
   }
 
@@ -81,5 +84,5 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
       });
 
   void notifySnackMsg(SnackMsg snackMsg) =>
-      snackBarMsgNotifier.notifyMsg(snackMsg, false);
+      _snackBarMsgNotifier.notifyMsg(snackMsg, false);
 }

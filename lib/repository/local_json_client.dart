@@ -27,9 +27,11 @@ class LocalJsonClient {
   Future<String> get jsLocalStorageGetter async => _jsLocalStorageGetter ??=
       await rootBundle.loadString(Assets.js.localStorageGetter);
 
-  Future<CountryData> getCountryData() async => _countryData ??= await _loadCountryData();
+  Future<CountryData> getCountryData() async =>
+      _countryData ??= await _loadCountryData();
 
-  Future<PrefectureData> getPrefectureData() async => _prefectureData ??= await _loadPrefectureData();
+  Future<PrefectureData> getPrefectureData() async =>
+      _prefectureData ??= await _loadPrefectureData();
 
   static Future<CountryData> _loadCountryData() async {
     final string = await rootBundle.loadString(Assets.json.country);
@@ -63,8 +65,7 @@ class LocalJsonClient {
         location?.countryCode ?? user?.httpsShirasuIoUserAttribute?.country;
     final prefectureCode = location?.prefectureCode ??
         user?.httpsShirasuIoUserAttribute?.prefecture;
-    var countryStr =
-        await getCountryName(countryCode) ?? Strings.DEFAULT_EMPTY;
+    var countryStr = await getCountryName(countryCode) ?? Strings.DEFAULT_EMPTY;
     if (LocalJsonClient.isJapan(countryCode)) {
       final prefectureStr =
           await getPrefectureName(prefectureCode) ?? Strings.DEFAULT_EMPTY;

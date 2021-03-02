@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/router/navigation_value_key_handler.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
@@ -28,7 +28,7 @@ class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
         .map<Tuple2<String, Widget>>((pathData) {
           final screen = pathData.wrappedWhenRough(
             intro: () => const ScreenIntro(),
-            error: (authExpired) => ScreenError(authExpired: authExpired),
+            error: (showLoginBtn, errText) => ScreenError(showLoginBtn: showLoginBtn, errText: errText,),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
             ossLicense: () => const ScreenOssLicense(),

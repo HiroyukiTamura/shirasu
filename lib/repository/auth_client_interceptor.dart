@@ -1,9 +1,9 @@
-import 'package:hooks_riverpod/all.dart';
 import 'package:shirasu/repository/dio_client.dart';
 import 'package:shirasu/repository/dio_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:synchronized/synchronized.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final kPrvAuthClientInterceptor = Provider.autoDispose<AuthClientInterceptor>(
     (ref) => AuthClientInterceptor._(ref.read));

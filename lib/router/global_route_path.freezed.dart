@@ -19,9 +19,10 @@ class _$GlobalRoutePathTearOff {
   }
 
 // ignore: unused_element
-  PathDataError error(bool authExpired) {
+  PathDataError error(bool showLoginBtn, String errText) {
     return PathDataError(
-      authExpired,
+      showLoginBtn,
+      errText,
     );
   }
 
@@ -69,7 +70,7 @@ mixin _$GlobalRoutePath {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -80,7 +81,7 @@ mixin _$GlobalRoutePath {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -171,7 +172,7 @@ class _$_PathDataIntro implements _PathDataIntro {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -194,7 +195,7 @@ class _$_PathDataIntro implements _PathDataIntro {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -263,7 +264,7 @@ abstract class $PathDataErrorCopyWith<$Res> {
   factory $PathDataErrorCopyWith(
           PathDataError value, $Res Function(PathDataError) then) =
       _$PathDataErrorCopyWithImpl<$Res>;
-  $Res call({bool authExpired});
+  $Res call({bool showLoginBtn, String errText});
 }
 
 /// @nodoc
@@ -279,38 +280,48 @@ class _$PathDataErrorCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object authExpired = freezed,
+    Object showLoginBtn = freezed,
+    Object errText = freezed,
   }) {
     return _then(PathDataError(
-      authExpired == freezed ? _value.authExpired : authExpired as bool,
+      showLoginBtn == freezed ? _value.showLoginBtn : showLoginBtn as bool,
+      errText == freezed ? _value.errText : errText as String,
     ));
   }
 }
 
 /// @nodoc
 class _$PathDataError implements PathDataError {
-  const _$PathDataError(this.authExpired) : assert(authExpired != null);
+  const _$PathDataError(this.showLoginBtn, this.errText)
+      : assert(showLoginBtn != null),
+        assert(errText != null);
 
   @override
-  final bool authExpired;
+  final bool showLoginBtn;
+  @override
+  final String errText;
 
   @override
   String toString() {
-    return 'GlobalRoutePath.error(authExpired: $authExpired)';
+    return 'GlobalRoutePath.error(showLoginBtn: $showLoginBtn, errText: $errText)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is PathDataError &&
-            (identical(other.authExpired, authExpired) ||
+            (identical(other.showLoginBtn, showLoginBtn) ||
                 const DeepCollectionEquality()
-                    .equals(other.authExpired, authExpired)));
+                    .equals(other.showLoginBtn, showLoginBtn)) &&
+            (identical(other.errText, errText) ||
+                const DeepCollectionEquality().equals(other.errText, errText)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(authExpired);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(showLoginBtn) ^
+      const DeepCollectionEquality().hash(errText);
 
   @JsonKey(ignore: true)
   @override
@@ -321,7 +332,7 @@ class _$PathDataError implements PathDataError {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -337,14 +348,14 @@ class _$PathDataError implements PathDataError {
     assert(imgLicense != null);
     assert(auth != null);
     assert(preLogin != null);
-    return error(authExpired);
+    return error(showLoginBtn, errText);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -355,7 +366,7 @@ class _$PathDataError implements PathDataError {
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error(authExpired);
+      return error(showLoginBtn, errText);
     }
     return orElse();
   }
@@ -405,9 +416,11 @@ class _$PathDataError implements PathDataError {
 }
 
 abstract class PathDataError implements GlobalRoutePath {
-  const factory PathDataError(bool authExpired) = _$PathDataError;
+  const factory PathDataError(bool showLoginBtn, String errText) =
+      _$PathDataError;
 
-  bool get authExpired;
+  bool get showLoginBtn;
+  String get errText;
   @JsonKey(ignore: true)
   $PathDataErrorCopyWith<PathDataError> get copyWith;
 }
@@ -475,7 +488,7 @@ class _$_PathDataChannel implements _PathDataChannel {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -498,7 +511,7 @@ class _$_PathDataChannel implements _PathDataChannel {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -629,7 +642,7 @@ class _$PathDataProgram implements PathDataProgram {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -652,7 +665,7 @@ class _$PathDataProgram implements PathDataProgram {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -760,7 +773,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -783,7 +796,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -887,7 +900,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -910,7 +923,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -1014,7 +1027,7 @@ class _$_PathDataAuth implements _PathDataAuth {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -1037,7 +1050,7 @@ class _$_PathDataAuth implements _PathDataAuth {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),
@@ -1141,7 +1154,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult intro(),
-    @required TResult error(bool authExpired),
+    @required TResult error(bool showLoginBtn, String errText),
     @required TResult channel(String channelId),
     @required TResult program(String programId),
     @required TResult ossLicense(),
@@ -1164,7 +1177,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult intro(),
-    TResult error(bool authExpired),
+    TResult error(bool showLoginBtn, String errText),
     TResult channel(String channelId),
     TResult program(String programId),
     TResult ossLicense(),

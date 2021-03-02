@@ -6,7 +6,7 @@ part of 'row_center.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class RowCenter extends StatelessWidget {
+class RowCenter extends HookWidget {
   const RowCenter(
       {Key key,
       @required this.conf,

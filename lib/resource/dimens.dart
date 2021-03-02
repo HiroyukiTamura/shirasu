@@ -40,4 +40,6 @@ class Dimens {
   static const double CAROUSEL_DETAIL_CAPTION_H = 108;
 
   static const double SCREEN_BREAK_POINT = 600;
+
+  static const double SCREEN_BREAK_POINT_Y_SML = 100;
 }

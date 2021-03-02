@@ -117,8 +117,8 @@ Widget _tileUrl(
             () async => Clipboard.setData(ClipboardData(text: url)));
         Navigator.of(context).pop();
         final msg = result.when(
-          success: (_) => const SnackMsg.unknown(),
-          failure: (e) => const SnackMsg.urlCopied(),
+          success: (_) => const SnackMsg.urlCopied(),
+          failure: (e) => const SnackMsg.unknown(),
         );
         snackCallback(msg);
       },

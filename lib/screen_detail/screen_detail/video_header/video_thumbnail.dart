@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/url_util.dart';
-import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
-import 'package:shirasu/btm_sheet/btm_sheet_video_payment.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -16,7 +14,6 @@ import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/ui_util.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'video_thumbnail.g.dart';
@@ -24,10 +21,12 @@ part 'video_thumbnail.g.dart';
 @swidget
 Widget loadingThumbnail({@required String id}) => Stack(
       children: [
-        CustomCachedNetworkImage(
-          fit: BoxFit.cover,
-          imageUrl: UrlUtil.getThumbnailUrl(id),
-          errorWidget: Util.defaultPrgThumbnail,
+        Center(
+          child: CustomCachedNetworkImage(
+            fit: BoxFit.cover,
+            imageUrl: UrlUtil.getThumbnailUrl(id),
+            errorWidget: Util.defaultPrgThumbnail,
+          ),
         ),
         const CenterCircleProgress(
           valueColor: AlwaysStoppedAnimation(Colors.white),
@@ -50,10 +49,12 @@ class VideoThumbnail extends HookWidget {
   @override
   Widget build(BuildContext context) => Stack(
         children: [
-          CustomCachedNetworkImage(
-            fit: BoxFit.cover,
-            imageUrl: UrlUtil.getThumbnailUrl(program.id),
-            errorWidget: Util.defaultPrgThumbnail,
+          Center(
+            child: CustomCachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: UrlUtil.getThumbnailUrl(program.id),
+              errorWidget: Util.defaultPrgThumbnail,
+            ),
           ),
           _HoverWidget(
             program: program,
@@ -64,27 +65,9 @@ class VideoThumbnail extends HookWidget {
         ],
       );
 
-  /// todo extract
-  Future<void> _onClickPurchaseBtn(BuildContext context) async {
-    context.read(kPrvViewModelDetail(program.id)).commandModal(const BtmSheetState.payment());
-    // context
-    //   .read(kPrvViewModelDetail(program.id).state)
-    //   .prgDataResult
-    //   .whenSuccess((programDetailData, channelData, _) async {
-    //     context.read(kPrvViewModelDetail(program.id)).commandModal(const BtmSheetState.payment());
-    //     return BtmSheetCommon.showUrlLauncherBtmSheet(
-    //         context: context,
-    //         url: UrlUtil.programId2Url(program.id),
-    //         child: VideoPaymentBtmSheet(
-    //           program: program,
-    //           channelData: channelData,
-    //         ),
-    //         snackCallback: (msg) => context
-    //             .read(kPrvViewModelDetail(program.id))
-    //             .commandSnackBar(const SnackMsg.unknown()),
-    //       );
-    //   });
-  }
+  Future<void> _onClickPurchaseBtn(BuildContext context) async => context
+      .read(kPrvViewModelDetail(program.id))
+      .commandModal(const BtmSheetState.payment());
 }
 
 @swidget
@@ -99,13 +82,13 @@ Widget _hoverWidget(
   final isPurchasable = program.onetimePlanMain != null;
   final canPreview = program.canPreview;
 
-  if (program.isPurchased)
+  if (program.isPurchased) {
+    if (program.isInVideoArchiving)
+      return const _HoverText(text: Strings.PROGRAM_ARCHIVING);
     return isWaiting
         ? const _HoverText(text: Strings.WAIT_FOR_START)
         : PlayBtn(onTap: onTap);
-
-  if (program.isInVideoArchiving)
-    return const _HoverText(text: Strings.PROGRAM_ARCHIVING);
+  }
 
   return _HoverBackDrop(
     child: IntrinsicWidth(
@@ -145,6 +128,7 @@ Widget _hoverText({
     _HoverBackDrop(
       child: Text(
         text,
+        textAlign: TextAlign.center,
         style: const TextStyle(
           fontSize: FontSize.S16,
           color: Colors.white,

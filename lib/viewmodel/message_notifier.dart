@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:uuid/uuid.dart';
 import 'package:shirasu/viewmodel/model/notification_msg.dart';

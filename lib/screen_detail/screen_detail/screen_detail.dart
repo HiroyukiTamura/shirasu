@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/all.dart';
-import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
@@ -21,23 +21,32 @@ import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/screen_detail/screen_detail/btm_sheet.dart';
 
 part 'screen_detail.g.dart';
 
+/// must via access from ViewModel
+final kPrvSnackBarDetail =
+    StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
+        (ref) => SnackBarMessageNotifier());
+
 final _kPrvDetailSnackMsg = Provider.autoDispose<SnackData>((ref) {
-  final snackMsgEvent = ref.watch(kPrvSnackBar.state);
+  final snackMsgEvent = ref.watch(kPrvSnackBarDetail.state);
   var margin = Dimens.SNACK_BAR_DEFAULT_MARGIN;
   if (snackMsgEvent.btmAppBarMargin)
     margin += const EdgeInsets.only(bottom: CommentBtmBar.HEIGHT + 10);
 
   return SnackData(snackMsgEvent.snackMsg, margin);
 });
+
+final kPrvIsArch = Provider.family.autoDispose<bool, String>((ref, id) =>
+    ref.watch(kPrvViewModelDetail(id).state).playOutState.videoType ==
+    const VideoType.archived());
 
 final kPrvViewModelDetail = StateNotifierProvider.autoDispose
     .family<ViewModelDetail, String>(
@@ -203,6 +212,7 @@ class _ScreenDetailState extends State<ScreenDetail>
                   _PlayerBodyWrapper(
                     height: listViewH,
                     data: programDetailData,
+                    btmPadding: headerH,
                   )
                 ],
               ),
@@ -281,15 +291,19 @@ class _BottomPanel extends HookWidget {
 Widget _playerBodyWrapper({
   @required double height,
   @required ProgramDetailData data,
+  @required double btmPadding,
 }) =>
     height < 0
         ? const SizedBox.shrink()
-        : _PlayerBody(height: height, data: data);
+        : _PlayerBody(height: height, data: data, btmPadding: btmPadding);
+
+const double _kListViewBtmPadding = 24;
 
 @hwidget
 Widget _playerBody(
   BuildContext context, {
   @required double height,
+  @required double btmPadding,
   @required ProgramDetailData data,
 }) =>
     SizedBox(
@@ -301,25 +315,29 @@ Widget _playerBody(
             useProvider(kPrvViewModelDetail(data.program.id)).panelController,
         color: Theme.of(context).scaffoldBackgroundColor,
         panel: _BottomPanel(program: data.program),
-        body: ListView(
-          padding: const EdgeInsets.only(bottom: 24),
-          children: [
-            RowChannel(
-              title: data.program.channel.name,
-              channelId: data.program.channel.id,
-            ),
-            RowVideoTitle(text: data.program.title),
-            RowVideoTime(
-              broadcastAt: data.program.broadcastAt,
-              totalPlayTime: data.program.totalPlayTime,
-            ),
-            RowVideoTags(textList: data.program.tags),
-            RowFabs(program: data.program),
-            RowVideoDesc(
-              text: data.program.detail,
-              id: data.program.id,
-            )
-          ],
+        body: Padding(
+          padding: EdgeInsets.only(bottom: btmPadding + _kListViewBtmPadding),
+          //i don't why, but it's needed
+          child: ListView(
+            padding: const EdgeInsets.only(bottom: _kListViewBtmPadding),
+            children: [
+              RowChannel(
+                title: data.program.channel.name,
+                channelId: data.program.channel.id,
+              ),
+              RowVideoTitle(text: data.program.title),
+              RowVideoTime(
+                broadcastAt: data.program.broadcastAt,
+                totalPlayTime: data.program.totalPlayTime,
+              ),
+              RowVideoTags(textList: data.program.tags),
+              RowFabs(program: data.program),
+              RowVideoDesc(
+                text: data.program.detail,
+                id: data.program.id,
+              ),
+            ],
+          ),
         ),
       ),
     );

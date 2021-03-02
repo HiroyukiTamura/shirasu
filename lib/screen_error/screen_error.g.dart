@@ -7,10 +7,15 @@ part of 'screen_error.dart';
 // **************************************************************************
 
 class ScreenError extends StatelessWidget {
-  const ScreenError({Key key, @required this.authExpired}) : super(key: key);
+  const ScreenError(
+      {Key key, @required this.showLoginBtn, @required this.errText})
+      : super(key: key);
 
-  final bool authExpired;
+  final bool showLoginBtn;
+
+  final String errText;
 
   @override
-  Widget build(BuildContext _context) => screenError(authExpired: authExpired);
+  Widget build(BuildContext _context) =>
+      screenError(showLoginBtn: showLoginBtn, errText: errText);
 }

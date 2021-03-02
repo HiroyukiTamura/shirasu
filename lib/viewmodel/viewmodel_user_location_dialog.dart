@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/local_json_client.dart';
 import 'package:shirasu/model/local/country_data.dart';

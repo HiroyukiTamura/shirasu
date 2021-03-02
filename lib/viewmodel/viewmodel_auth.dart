@@ -5,7 +5,7 @@ import 'package:async/async.dart' hide Result;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/local_json_client.dart';
 import 'package:shirasu/repository/url_util.dart';
@@ -54,7 +54,8 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
     debugPrint('${viewState.url}, ${viewState.type}');
     if (viewState.type == WebViewState.finishLoad &&
         viewState.url == UrlUtil.URL_HOME)
-      await _plugin.evalJavascript(_jsClickLoginBtn);
+      await logger
+          .guardFuture(() async => _plugin.evalJavascript(_jsClickLoginBtn));
   }
 
   //todo debug
@@ -79,7 +80,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
           await result.when(
             success: (data) async {
               await _hiveClient.putAuthData(data);
-              if (mounted) return;
+              if (!mounted) return;
               _success = true;
               reader(kPrvAppRouterDelegate).reset();
               await _plugin.close();

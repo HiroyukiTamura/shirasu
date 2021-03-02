@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/env_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/gen/assets.gen.dart';
@@ -77,7 +77,7 @@ class ScreenPreLogin extends StatelessWidget {
                         text: Strings.PRE_LOGIN_REGISTER_BTN_VALUE,
                         btnColor: Colors.white,
                         textColor: Theme.of(context).primaryColor,
-                        onTap: () => _launchUrl(context, UrlUtil.URL_HOME),
+                        onTap: () => _launchUrl(context, 'fff'),
                       ),
                       _Button(
                         text: Strings.PRE_LOGIN_LOGIN_BTN_VALUE,

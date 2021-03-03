@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lp/gen/fonts.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/resources/urls.dart';
 import 'package:lp/ui/screen_main/heading.dart';
 import 'package:lp/ui/screen_main/util.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SectionContact extends StatelessWidget {
   const SectionContact();

@@ -12,4 +12,7 @@ class Urls {
   static const JIRA = 'https://www.atlassian.com/software/jira';
   static const FIGMA = 'https://www.figma.com/';
   static const POSTMAN = 'https://www.postman.com/';
+
+  static const CONTACT_EMAIL = 'hiroyuktamura@gmail.com';
+  static const CONTACT_TWITTER = 'https://twitter.com/freqmodu874';
 }

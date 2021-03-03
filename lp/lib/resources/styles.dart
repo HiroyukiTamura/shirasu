@@ -17,4 +17,5 @@ class CustomColor {
   CustomColor._();
 
   static const SWIFT = Color(0xfffc3d39);
+  static const TEXT_SUB = Color(0xffcdcfd5);
 }

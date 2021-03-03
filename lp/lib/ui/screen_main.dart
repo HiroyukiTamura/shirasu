@@ -6,6 +6,7 @@ import 'package:lp/gen/fonts.gen.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/ui/screen_main/heading.dart';
+import 'package:lp/ui/screen_main/section_contact.dart';
 import 'package:lp/ui/screen_main/tech_stack.dart';
 
 class ScreenMain extends StatelessWidget {
@@ -374,78 +375,12 @@ class ScreenMain extends StatelessWidget {
                   ),
                 ),
               ),
-              Center(
+              const Center(
                 child: SizedBox(
                   width: 1248,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 96),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 96,
-                        ),
-                        Text(
-                          'お問い合わせ',
-                          style: TextStyle(
-                            height: 1.7,
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 48),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Icon(
-                              Icons.mail,
-                              color: Color(0xffcdcfd5),
-                            ),
-                          ),
-                          label: Padding(
-                            padding: const EdgeInsets.only(
-                              right: 16,
-                              top: 16,
-                              bottom: 16,
-                            ),
-                            child: Text(
-                              'hiroyuktamura@gmail.com',
-                              style: TextStyle(
-                                height: 1,
-                                fontSize: 14,
-                                color: Color(0xffcdcfd5),
-                              ),
-                            ),
-                          ),
-                        ),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Icon(
-                              FontAwesomeIcons.twitter,
-                              color: Color(0xffcdcfd5),
-                            ),
-                          ),
-                          label: Padding(
-                            padding: const EdgeInsets.only(
-                              right: 16,
-                              top: 16,
-                              bottom: 16,
-                            ),
-                            child: Text(
-                              '@freqmodu874',
-                              style: TextStyle(
-                                height: 1,
-                                fontSize: 14,
-                                color: Color(0xffcdcfd5),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 96),
+                    child: SectionContact(),
                   ),
                 ),
               ),

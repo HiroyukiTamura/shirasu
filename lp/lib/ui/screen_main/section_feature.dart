@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lp/resources/strings.dart';
-import 'package:lp/resources/styles.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:dartx/dartx.dart';
 import 'file:///D:/AndroidStudioProject/shirasu2/lp/lib/ui/screen_main/card_gray.dart';

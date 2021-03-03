@@ -14,9 +14,7 @@ class SectionFooter extends StatelessWidget {
         child: Center(
           child: RichText(
             text: TextSpan(
-                style: const TextStyle(
-                  color: CustomColor.TEXT_SUB,
-                ),
+                style: Theme.of(context).textTheme.bodyText2,
                 children: [
                   const TextSpan(text: 'Except as otherwise '),
                   const TextSpan(text: 'noted, '),
@@ -25,10 +23,9 @@ class SectionFooter extends StatelessWidget {
                     context,
                     text: 'Apache License 2.0',
                     url: Urls.LICENSE_APACHE,
-                    style: const TextStyle(
-                      height: 1,
-                      color: CustomColor.LINK,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: CustomColor.LINK,
+                        ),
                   ),
                 ]),
           ),

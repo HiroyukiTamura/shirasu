@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:dartx/dartx.dart';
+import 'package:lp/ui/screen_main/heading.dart';
 import 'package:lp/ui/screen_main/responsive_builder.dart';
 import 'card_gray.dart';
 
@@ -61,20 +62,11 @@ class _FeatureItem extends StatelessWidget {
     final textFrag = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          heading,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-          ),
-        ),
+        Heading(heading: heading),
         const SizedBox(height: 16),
         Text(
           description,
-          style: TextStyle(
-            color: Color(0xff9C9FAB),
-            height: 1.7,
-          ),
+          style: Theme.of(context).textTheme.bodyText2,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 16),

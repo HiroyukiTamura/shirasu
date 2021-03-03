@@ -54,6 +54,11 @@ flutter:
         - asset: fonts/TT-UDShinGoPro-Medium.ttf
         - asset: fonts/TT-UDShinGoPro-Bold.ttf
           weight: 700
+    - family: NotoSansJp
+      fonts:
+        - asset: fonts/NotoSansJP-Medium.otf
+        - asset: fonts/NotoSansJP-Bold.otf
+          weight: 700
   assets:
     - assets/svg/
     - assets/png/

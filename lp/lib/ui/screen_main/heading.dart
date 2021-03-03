@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lp/resources/styles.dart';
 
 class Heading extends StatelessWidget {
   const Heading({required this.heading});
@@ -9,10 +10,6 @@ class Heading extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         heading,
-        style: const TextStyle(
-          height: 1.7,
-          fontSize: 24,
-          color: Colors.white,
-        ),
+        style: Styles.HEADING,
       );
 }

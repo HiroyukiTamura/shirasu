@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lp/gen/fonts.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/resources/urls.dart';
@@ -64,11 +65,7 @@ class _ListButton extends StatelessWidget {
           ),
           child: Text(
             label,
-            style: const TextStyle(
-              height: 1,
-              fontSize: 14,
-              color: CustomColor.TEXT_SUB,
-            ),
+            style: Styles.BUTTON_CONTACT,
           ),
         ),
       );

@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:lp/gen/fonts.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
-import 'package:lp/resources/urls.dart';
 import 'package:lp/ui/screen_main/responsive_builder.dart';
 import 'package:lp/ui/screen_main/section_header_label.dart';
-import 'package:lp/ui/screen_main/util.dart';
 import 'package:url_launcher/link.dart';
 import 'package:lp/ui/screen_main/card_gray.dart';
 
@@ -23,11 +20,7 @@ class SectionHeader extends StatelessWidget {
     final descFrag = [
       const Text(
         Strings.APP_NAME,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 36,
-          fontFamily: FontFamily.shingo,
-        ),
+        style: Styles.APP_TITLE,
       ),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -42,31 +35,25 @@ class SectionHeader extends StatelessWidget {
       const SizedBox(height: 8),
       const _RowStoreBadge(),
       const SizedBox(height: 20),
-      const Text(
+      Text(
         Strings.DESC_HEADING,
-        style: TextStyle(
-          height: 1.7,
-          color: CustomColor.TEXT_SUB,
-        ),
+        style: Theme.of(context).textTheme.bodyText2,
       ),
       const SizedBox(height: 32),
       CardGray(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
           child: Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.info,
                 color: CustomColor.TEXT_SUB,
               ),
-              SizedBox(width: 24),
+              const SizedBox(width: 24),
               Expanded(
                 child: Text(
                   Strings.NOTE_HEADING,
-                  style: TextStyle(
-                    height: 1.7,
-                    color: CustomColor.TEXT_SUB,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
             ],
@@ -107,9 +94,7 @@ class SectionHeader extends StatelessWidget {
                   children: descFrag,
                 ),
               ),
-              Expanded(
-                child: illustrationFrag,
-              ),
+              Expanded(child: illustrationFrag),
             ],
           ),
         ),

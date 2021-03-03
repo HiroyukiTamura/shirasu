@@ -29,6 +29,7 @@ class CustomColor {
   CustomColor._();
 
   static const BACK_GROUND = Color(0xff0D0E19);
+  static const BACK_GROUND_CARD = Color(0xff1A1D2B);
   static const SWIFT = Color(0xfffc3d39);
   static const TEXT_SUB = Color(0xffcdcfd5);
 }

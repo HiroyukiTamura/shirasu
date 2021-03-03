@@ -7,18 +7,52 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsPngGen {
+  const $AssetsPngGen();
+
+  AssetGenImage get badgeAmazonStore =>
+      const AssetGenImage('assets/png/badge_amazon_store.png');
+  AssetGenImage get sample => const AssetGenImage('assets/png/sample.png');
+}
+
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
+  SvgGenImage get badgeAmazonStore =>
+      const SvgGenImage('assets/svg/badge_amazon_store.svg');
   SvgGenImage get badgeAppStore =>
       const SvgGenImage('assets/svg/badge_app_store.svg');
   SvgGenImage get badgeGooglePlay =>
       const SvgGenImage('assets/svg/badge_google_play.svg');
+  SvgGenImage get logoAnalytics =>
+      const SvgGenImage('assets/svg/logo_analytics.svg');
+  SvgGenImage get logoCrashlytics =>
+      const SvgGenImage('assets/svg/logo_crashlytics.svg');
+  SvgGenImage get logoDart => const SvgGenImage('assets/svg/logo_dart.svg');
+  SvgGenImage get logoFigma => const SvgGenImage('assets/svg/logo_figma.svg');
+  SvgGenImage get logoFlutter =>
+      const SvgGenImage('assets/svg/logo_flutter.svg');
+  SvgGenImage get logoGraphql =>
+      const SvgGenImage('assets/svg/logo_graphql.svg');
+  SvgGenImage get logoHosting =>
+      const SvgGenImage('assets/svg/logo_hosting.svg');
+  SvgGenImage get logoJira => const SvgGenImage('assets/svg/logo_jira.svg');
+  SvgGenImage get logoKotlin => const SvgGenImage('assets/svg/logo_kotlin.svg');
+  SvgGenImage get logoPostman =>
+      const SvgGenImage('assets/svg/logo_postman.svg');
+  SvgGenImage get logoSwift => const SvgGenImage('assets/svg/logo_swift.svg');
+  SvgGenImage get undrawAudio =>
+      const SvgGenImage('assets/svg/undraw_audio.svg');
+  SvgGenImage get undrawOnlinePayments =>
+      const SvgGenImage('assets/svg/undraw_online_payments.svg');
+  SvgGenImage get undrawSecurity =>
+      const SvgGenImage('assets/svg/undraw_security.svg');
 }
 
 class Assets {
   Assets._();
 
+  static const $AssetsPngGen png = $AssetsPngGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
 }
 

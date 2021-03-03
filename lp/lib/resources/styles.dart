@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lp/gen/fonts.gen.dart';
 
 class Styles {
@@ -11,4 +10,11 @@ class Styles {
     scaffoldBackgroundColor: Color(0xff0D0E19),
     textTheme: ThemeData.dark().textTheme.apply(fontFamily: FontFamily.shingo),
   );
+}
+
+class CustomColor {
+
+  CustomColor._();
+
+  static const SWIFT = Color(0xfffc3d39);
 }

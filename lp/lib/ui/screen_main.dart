@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lp/gen/fonts.gen.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:lp/resources/strings.dart';
+import 'package:lp/ui/screen_main/heading.dart';
+import 'package:lp/ui/screen_main/tech_stack.dart';
 
 class ScreenMain extends StatelessWidget {
   @override
@@ -318,83 +320,12 @@ class ScreenMain extends StatelessWidget {
                   ),
                 ),
               ),
-              Center(
+              const Center(
                 child: SizedBox(
                   width: 1248,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 96),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 96,
-                        ),
-                        Text(
-                          '技術スタック',
-                          style: TextStyle(
-                            height: 1.7,
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 40),
-                        Wrap(
-                          runSpacing: 24,
-                          children: [
-                            IconButton(
-                              iconSize: 48,
-                              icon: const Icon(FontAwesomeIcons.github),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: SvgPicture.asset('assets/svg/logo_flutter.svg'),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: SvgPicture.asset('assets/svg/logo_dart.svg'),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: SvgPicture.asset('assets/svg/logo_kotlin.svg'),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: SvgPicture.asset('assets/svg/logo_crashlytics.svg'),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: SvgPicture.asset('assets/svg/logo_hosting.svg'),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: SvgPicture.asset('assets/svg/logo_analytics.svg'),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: const Icon(FontAwesomeIcons.swift, color: Color(0xfffc3d39),),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: SvgPicture.asset('assets/svg/logo_jira.svg'),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              iconSize: 48,
-                              icon: SvgPicture.asset('assets/svg/logo_figma.svg'),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 96),
+                    child: TechStack(),
                   ),
                 ),
               ),

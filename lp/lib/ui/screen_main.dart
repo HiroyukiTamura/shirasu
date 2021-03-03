@@ -7,6 +7,7 @@ import 'package:lp/gen/assets.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/ui/screen_main/heading.dart';
 import 'package:lp/ui/screen_main/section_contact.dart';
+import 'package:lp/ui/screen_main/section_dev_resource.dart';
 import 'package:lp/ui/screen_main/section_policy.dart';
 import 'package:lp/ui/screen_main/tech_stack.dart';
 
@@ -230,95 +231,12 @@ class ScreenMain extends StatelessWidget {
                   ),
                 ),
               ),
-              Center(
+              const Center(
                 child: SizedBox(
                   width: 1248,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 96),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 96,
-                        ),
-                        Text(
-                          '開発リソース',
-                          style: TextStyle(
-                            height: 1.7,
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 40),
-                        Wrap(
-                          children: [
-                            TextButton.icon(
-                              icon: Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: Icon(
-                                  FontAwesomeIcons.github,
-                                  color: Colors.white,
-                                  size: 36,
-                                ),
-                              ),
-                              onPressed: () {},
-                              label: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 24, 24, 24),
-                                child: Text(
-                                  'GitHub',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            TextButton.icon(
-                              icon: Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: Icon(
-                                  FontAwesomeIcons.figma,
-                                  color: Colors.white,
-                                  size: 36,
-                                ),
-                              ),
-                              onPressed: () {},
-                              label: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 24, 24, 24),
-                                child: Text(
-                                  'Figma',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            TextButton.icon(
-                              icon: Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: Icon(
-                                  FontAwesomeIcons.jira,
-                                  color: Colors.white,
-                                  size: 36,
-                                ),
-                              ),
-                              onPressed: () {},
-                              label: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 24, 24, 24),
-                                child: Text(
-                                  'JIRA',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 96),
+                    child: SectionDevResource(),
                   ),
                 ),
               ),

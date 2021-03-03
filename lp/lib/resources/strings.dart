@@ -5,6 +5,10 @@ class Strings {
   static const HEADING_TECH_STACK = '技術スタック';
   static const HEADING_CONTACT = 'お問い合わせ';
   static const HEADING_POLICY = 'プライバシーポリシー';
+  static const HEADING_DEV_RESOURCE = '開発リソース';
+  static const GITHUB = 'GitHub';
+  static const FIGMA = 'Figma';
+  static const JIRA = 'JIRA';
   static const POLICY_ANALYTICS_LINK_BTN_VALUE = 'Google analytics プライバシーポリシー';
   static const POLICY_CRASHLYTICS_LINK_BTN_VALUE = 'Firebase Crashlytics データ処理規約';
 

@@ -18,4 +18,8 @@ class Urls {
 
   static const POLICY_ANALYTICS = 'https://policies.google.com/technologies/partner-sites';
   static const POLICY_CRASHLYTICS = 'https://firebase.google.com/terms/crashlytics-app-distribution-data-processing-terms/';
+
+  static const REPO_GITHUB = 'https://github.com/HiroyukTamura/shirasu';
+  static const REPO_FIGMA = 'https://www.figma.com/file/LOMIPRZxv89m9M1CmLFUQt/shirasu?node-id=26%3A2';
+  static const REPO_JIRA = 'https://freqmodu874.atlassian.net/browse/SHIR/';
 }

@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:lp/gen/fonts.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
+import 'package:lp/resources/urls.dart';
 import 'package:lp/ui/screen_main/responsive_builder.dart';
+import 'package:lp/ui/screen_main/section_header_label.dart';
+import 'package:lp/ui/screen_main/util.dart';
 import 'package:url_launcher/link.dart';
-
-import 'card_gray.dart';
+import 'package:lp/ui/screen_main/card_gray.dart';
 
 class SectionHeader extends StatelessWidget {
   const SectionHeader({required this.screenHeight});
@@ -79,7 +82,7 @@ class SectionHeader extends StatelessWidget {
         alignment: Alignment.topLeft,
       ),
     );
-    const padding = EdgeInsets.symmetric(vertical: 48);
+    const padding = EdgeInsets.only(bottom: SectionHeaderLabel.HEIGHT);
     return ResponsiveBuilder(
       smallScreen: (context) => Padding(
         padding: padding,
@@ -92,7 +95,7 @@ class SectionHeader extends StatelessWidget {
         ),
       ),
       wideScreen: (context) => SizedBox(
-        height: screenHeight,
+        height: screenHeight - SectionHeaderLabel.HEIGHT,
         child: Padding(
           padding: padding,
           child: Row(
@@ -116,7 +119,6 @@ class SectionHeader extends StatelessWidget {
 }
 
 class _RowStoreBadge extends StatelessWidget {
-
   const _RowStoreBadge();
 
   @override

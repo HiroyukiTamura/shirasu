@@ -24,5 +24,8 @@ class Urls {
   static const REPO_FIGMA = 'https://www.figma.com/file/LOMIPRZxv89m9M1CmLFUQt/shirasu?node-id=26%3A2';
   static const REPO_JIRA = 'https://freqmodu874.atlassian.net/browse/SHIR/';
 
+  static const SHARE_TWITTER = '';//todo implement
+  static const SHARE_LINE = '';//todo implement
+
   static const LICENSE_APACHE = 'https://www.apache.org/licenses/LICENSE-2.0';
 }

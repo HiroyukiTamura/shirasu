@@ -5,6 +5,7 @@ import 'package:lp/ui/screen_main/section_dev_resource.dart';
 import 'package:lp/ui/screen_main/section_feature.dart';
 import 'package:lp/ui/screen_main/section_footer.dart';
 import 'package:lp/ui/screen_main/section_header.dart';
+import 'package:lp/ui/screen_main/section_header_label.dart';
 import 'package:lp/ui/screen_main/section_policy.dart';
 import 'package:lp/ui/screen_main/section_tech_stack.dart';
 
@@ -13,12 +14,16 @@ class ScreenMain extends StatelessWidget {
   Widget build(BuildContext context) => LayoutBuilder(
       builder: (context, constraints) => ListView(
             children: [
+              const SectionHeaderLabel(),
               Center(
                 child: SizedBox(
                   width: 1024,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 96),
-                    child: SectionHeader(screenHeight: constraints.maxHeight,),
+                    child: SectionHeader(
+                      screenHeight:
+                          constraints.maxHeight,
+                    ),
                   ),
                 ),
               ),

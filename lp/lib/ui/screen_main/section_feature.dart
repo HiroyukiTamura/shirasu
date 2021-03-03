@@ -6,18 +6,14 @@ import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:dartx/dartx.dart';
+import 'file:///D:/AndroidStudioProject/shirasu2/lp/lib/ui/screen_main/card_gray.dart';
 
 class SectionFeature extends StatelessWidget {
 
   const SectionFeature();
 
   @override
-  Widget build(BuildContext context) => Card(
-        elevation: 12,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        color: CustomColor.BACK_GROUND_CARD,
+  Widget build(BuildContext context) => CardGray(
         child: Padding(
           padding: const EdgeInsets.all(96),
           child: Column(

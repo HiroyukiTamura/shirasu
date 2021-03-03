@@ -19,6 +19,12 @@ class Strings {
   static const DESC_FEATURE_NO_AD = '''
 アプリ本体には広告・課金が必要な機能は一切ありません
 また、アプリ運営者は認証や決済かかわる個人情報を保持しません。''';
+  static const DESC_HEADING = '''
+このアプリは、動画配信プラットフォーム「シラス」の非公式アプリです。
+長時間番組もバックグラウンド再生可能
+公式サービスが提供するほぼすべての機能を提供します  
+''';
+  static const NOTE_HEADING = 'このアプリは「シラス」とは無関係の個人が開発しており、公式の対応によっては予告なく運用を停止する場合があります。';
   static const GITHUB = 'GitHub';
   static const FIGMA = 'Figma';
   static const JIRA = 'JIRA';

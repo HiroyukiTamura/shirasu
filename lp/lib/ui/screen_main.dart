@@ -11,7 +11,7 @@ import 'package:lp/ui/screen_main/section_dev_resource.dart';
 import 'package:lp/ui/screen_main/section_feature.dart';
 import 'package:lp/ui/screen_main/section_header.dart';
 import 'package:lp/ui/screen_main/section_policy.dart';
-import 'package:lp/ui/screen_main/tech_stack.dart';
+import 'package:lp/ui/screen_main/section_tech_stack.dart';
 
 class ScreenMain extends StatelessWidget {
   @override
@@ -20,17 +20,16 @@ class ScreenMain extends StatelessWidget {
             children: [
               Center(
                 child: SizedBox(
-                  width: 1248,
-                  height: constraints.maxHeight,
+                  width: 1024,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 96),
-                    child: SectionHeader(),
+                    child: SectionHeader(screenHeight: constraints.maxHeight,),
                   ),
                 ),
               ),
               const Center(
                 child: SizedBox(
-                  width: 1248,
+                  width: 1024,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 96),
                     child: SectionFeature(),
@@ -39,7 +38,7 @@ class ScreenMain extends StatelessWidget {
               ),
               const Center(
                 child: SizedBox(
-                  width: 1248,
+                  width: 1024,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 96),
                     child: SectionDevResource(),
@@ -48,16 +47,16 @@ class ScreenMain extends StatelessWidget {
               ),
               const Center(
                 child: SizedBox(
-                  width: 1248,
+                  width: 1024,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 96),
-                    child: TechStack(),
+                    child: SectionTechStack(),
                   ),
                 ),
               ),
               Center(
                 child: SizedBox(
-                  width: 1248,
+                  width: 1024,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 96),
                     child: SectionPolicy(),
@@ -66,7 +65,7 @@ class ScreenMain extends StatelessWidget {
               ),
               const Center(
                 child: SizedBox(
-                  width: 1248,
+                  width: 1024,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 96),
                     child: SectionContact(),

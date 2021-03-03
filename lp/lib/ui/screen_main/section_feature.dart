@@ -1,12 +1,13 @@
+import 'package:breakpoint/breakpoint.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:dartx/dartx.dart';
-import 'file:///D:/AndroidStudioProject/shirasu2/lp/lib/ui/screen_main/card_gray.dart';
+import 'package:lp/ui/screen_main/responsive_builder.dart';
+import 'card_gray.dart';
 
 class SectionFeature extends StatelessWidget {
-
   const SectionFeature();
 
   @override
@@ -58,43 +59,53 @@ class _FeatureItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textFrag = Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            heading,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            description,
-            style: TextStyle(
-              color: Color(0xff9C9FAB),
-              height: 1.7,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: trailing,
-          )
-        ].filterNotNull().toList().cast<Widget>(),
-      ),
-    );
-    final illustrationFrag = Expanded(
-      child: SizedBox(
-        height: 160,
-        child: illustration,
-      ),
-    );
-    final children =
-        reverse ? [textFrag, illustrationFrag] : [illustrationFrag, textFrag];
-    return Row(
+    final textFrag = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: children,
+      children: [
+        Text(
+          heading,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          description,
+          style: TextStyle(
+            color: Color(0xff9C9FAB),
+            height: 1.7,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: trailing,
+        )
+      ].filterNotNull().toList().cast<Widget>(),
+    );
+    final illustrationFrag = SizedBox(
+      height: 160,
+      child: illustration,
+    );
+    return ResponsiveBuilder(
+      smallScreen: (context) => Column(
+        children: [
+          textFrag,
+          const SizedBox(height: 24),
+          illustrationFrag,
+        ],
+      ),
+      wideScreen: (context) {
+        final textExpanded = Expanded(child: textFrag);
+        final illustrationExpanded = Expanded(child: illustrationFrag);
+        final children = reverse
+            ? [textExpanded, illustrationExpanded]
+            : [illustrationExpanded, textExpanded];
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        );
+      },
     );
   }
 }

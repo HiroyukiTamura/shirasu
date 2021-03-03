@@ -9,9 +9,9 @@ import 'package:lp/ui/screen_main/util.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:lp/gen/assets.gen.dart';
 
-class TechStack extends StatelessWidget {
+class SectionTechStack extends StatelessWidget {
 
-  const TechStack();
+  const SectionTechStack();
 
   @override
   Widget build(BuildContext context) => Column(
@@ -23,10 +23,6 @@ class TechStack extends StatelessWidget {
           Wrap(
             runSpacing: 24,
             children: [
-              const _Icon(
-                icon: Icon(FontAwesomeIcons.github),
-                url: Urls.GITHUB,
-              ),
               _Icon(
                 icon: Assets.svg.logoFlutter.svg(),
                 url: Urls.FLUTTER,
@@ -38,6 +34,17 @@ class TechStack extends StatelessWidget {
               _Icon(
                 icon: Assets.svg.logoKotlin.svg(),
                 url: Urls.KOTLIN,
+              ),
+              const _Icon(
+                icon: Icon(
+                  FontAwesomeIcons.swift,
+                  color: CustomColor.SWIFT,
+                ),
+                url: Urls.SWIFT,
+              ),
+              _Icon(
+                icon: Assets.svg.logoGraphql.svg(),
+                url: Urls.GRAPHQL,
               ),
               _Icon(
                 icon: Assets.svg.logoCrashlytics.svg(),
@@ -52,11 +59,8 @@ class TechStack extends StatelessWidget {
                 url: Urls.FIREBASE_ANALYTICS,
               ),
               const _Icon(
-                icon: Icon(
-                  FontAwesomeIcons.swift,
-                  color: CustomColor.SWIFT,
-                ),
-                url: Urls.SWIFT,
+                icon: Icon(FontAwesomeIcons.github),
+                url: Urls.GITHUB,
               ),
               _Icon(
                 icon: Assets.svg.logoJira.svg(),

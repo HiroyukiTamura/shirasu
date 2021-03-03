@@ -22,7 +22,7 @@ class SectionContact extends StatelessWidget {
           SizedBox(height: 48),
           _ListButton(
             iconData: Icons.mail,
-            url: Urls.CONTACT_EMAIL,
+            url: 'mailto:${Urls.CONTACT_EMAIL}',
             label: Urls.CONTACT_EMAIL,
           ),
           _ListButton(

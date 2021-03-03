@@ -1,4 +1,3 @@
-import 'package:breakpoint/breakpoint.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lp/resources/strings.dart';

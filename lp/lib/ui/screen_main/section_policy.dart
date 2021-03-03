@@ -23,7 +23,7 @@ class SectionPolicy extends StatelessWidget {
             context,
             children: [
               const TextSpan(text: '本アプリは、Googleが提供する解析サービスである'),
-              _linkText(
+              linkText(
                 context,
                 text: 'Google Analytics',
                 url: Urls.FIREBASE_ANALYTICS,
@@ -40,7 +40,7 @@ class SectionPolicy extends StatelessWidget {
             context,
             children: [
               const TextSpan(text: '本アプリは、Googleが提供する解析サービスである'),
-              _linkText(
+              linkText(
                 context,
                 text: 'Firebase Crashlytics',
                 url: Urls.FIREBASE_CRASHLYTICS,
@@ -53,24 +53,6 @@ class SectionPolicy extends StatelessWidget {
             btnLabel: Strings.POLICY_CRASHLYTICS_LINK_BTN_VALUE,
           ),
         ],
-      );
-
-  static WidgetSpan _linkText(
-    BuildContext context, {
-    required String text,
-    required String url,
-  }) =>
-      WidgetSpan(
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () async => launchUrl(url),
-            child: Text(
-              text,
-              style: Styles.BODY_TEXT_LINK,
-            ),
-          ),
-        ),
       );
 
   static List<Widget> _policyText(

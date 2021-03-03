@@ -16,10 +16,16 @@ class Styles {
           color: CustomColor.TEXT_SUB,
           height: 1.7,
         )),
+    primaryTextTheme: ThemeData.dark()
+        .primaryTextTheme
+        .apply(fontFamily: FontFamily.shingo),
+    accentTextTheme: ThemeData.dark()
+        .accentTextTheme
+        .apply(fontFamily: FontFamily.shingo),
   );
 
   static const BODY_TEXT_LINK = TextStyle(
-    color: Colors.blue,
+    color: CustomColor.LINK,
     height: 1.7,
     fontFamily: FontFamily.shingo,
   );
@@ -32,4 +38,5 @@ class CustomColor {
   static const BACK_GROUND_CARD = Color(0xff1A1D2B);
   static const SWIFT = Color(0xfffc3d39);
   static const TEXT_SUB = Color(0xffcdcfd5);
+  static const LINK = Colors.blue;
 }

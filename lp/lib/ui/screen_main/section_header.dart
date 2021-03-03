@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:lp/gen/assets.gen.dart';
 import 'package:lp/gen/fonts.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/ui/screen_main/responsive_builder.dart';
+import 'package:url_launcher/link.dart';
 
 import 'card_gray.dart';
 
@@ -35,17 +37,8 @@ class SectionHeader extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 8),
-      Wrap(
-        runSpacing: 24,
-        spacing: 24,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          const SizedBox.shrink(),
-          Assets.svg.badgeGooglePlay.svg(),
-          Assets.svg.badgeAppStore.svg(),
-        ],
-      ),
-      const SizedBox(height: 24),
+      const _RowStoreBadge(),
+      const SizedBox(height: 20),
       const Text(
         Strings.DESC_HEADING,
         style: TextStyle(
@@ -81,7 +74,7 @@ class SectionHeader extends StatelessWidget {
     final illustrationFrag = SizedBox(
       height: 600,
       child: Image.asset(
-        'assets/png/sample.png',//todo implement
+        'assets/png/sample.png', //todo implement
         fit: BoxFit.contain,
         alignment: Alignment.topLeft,
       ),
@@ -120,4 +113,50 @@ class SectionHeader extends StatelessWidget {
       ),
     );
   }
+}
+
+class _RowStoreBadge extends StatelessWidget {
+
+  const _RowStoreBadge();
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Wrap(
+          spacing: 24,
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            //todo implement url
+            _StoreBadge(
+              uri: null,
+              child: Assets.svg.badgeGooglePlay.svg(),
+            ),
+            //todo implement url
+            _StoreBadge(
+              uri: null,
+              child: Assets.svg.badgeAppStore.svg(),
+            ),
+          ],
+        ),
+      );
+}
+
+class _StoreBadge extends StatelessWidget {
+  const _StoreBadge({
+    required this.uri,
+    required this.child,
+  });
+
+  final Uri? uri;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Link(
+          uri: uri,
+          builder: (context, _) => child,
+        ),
+      );
 }

@@ -7,6 +7,7 @@ import 'package:lp/gen/assets.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/ui/screen_main/heading.dart';
 import 'package:lp/ui/screen_main/section_contact.dart';
+import 'package:lp/ui/screen_main/section_policy.dart';
 import 'package:lp/ui/screen_main/tech_stack.dart';
 
 class ScreenMain extends StatelessWidget {
@@ -335,43 +336,7 @@ class ScreenMain extends StatelessWidget {
                   width: 1248,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 96),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 96,
-                        ),
-                        Text(
-                          'プライバシーポリシー',
-                          style: TextStyle(
-                            height: 1.7,
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 48),
-                        Text(
-                          '''
-本アプリでは、バグ情報の収集・利用状況解析のためにGoogle Firebase Analyticsを使用する場合があります。
-
-取得する情報、利用目的、第三者への提供等の詳細につきましては、以下のプライバシーポリシーのリンクよりご確認ください。
-                        ''',
-                          style: TextStyle(
-                            height: 1.7,
-                            fontSize: 14,
-                            color: Color(0xffcdcfd5),
-                          ),
-                        ),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Firebase Analytics',
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            ))
-                      ],
-                    ),
+                    child: SectionPolicy(),
                   ),
                 ),
               ),

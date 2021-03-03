@@ -15,4 +15,7 @@ class Urls {
 
   static const CONTACT_EMAIL = 'hiroyuktamura@gmail.com';
   static const CONTACT_TWITTER = 'https://twitter.com/freqmodu874';
+
+  static const POLICY_ANALYTICS = 'https://policies.google.com/technologies/partner-sites';
+  static const POLICY_CRASHLYTICS = 'https://firebase.google.com/terms/crashlytics-app-distribution-data-processing-terms/';
 }

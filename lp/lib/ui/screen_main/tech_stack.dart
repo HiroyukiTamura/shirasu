@@ -5,6 +5,7 @@ import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/resources/urls.dart';
 import 'package:lp/ui/screen_main/heading.dart';
+import 'package:lp/ui/screen_main/util.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:lp/gen/assets.gen.dart';
 
@@ -86,8 +87,6 @@ class _Icon extends StatelessWidget {
   Widget build(BuildContext context) => IconButton(
       iconSize: 48,
       icon: icon,
-      onPressed: () async {
-        if (await canLaunch(url)) await launch(url);
-      },
+      onPressed: () async => launchUrl(url),
     );
 }

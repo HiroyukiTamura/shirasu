@@ -5,6 +5,7 @@ import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/resources/urls.dart';
 import 'package:lp/ui/screen_main/heading.dart';
+import 'package:lp/ui/screen_main/util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SectionContact extends StatelessWidget {
@@ -47,9 +48,7 @@ class _ListButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TextButton.icon(
-        onPressed: () async {
-          if (await canLaunch(url)) await launch(url);
-        },
+        onPressed: () async => launchUrl(url),
         icon: Padding(
           padding: const EdgeInsets.all(16),
           child: Icon(

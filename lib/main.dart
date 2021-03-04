@@ -58,7 +58,7 @@ class MyApp extends StatefulHookWidget {
   MyAppState createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp> with TickerProviderStateMixin {
+class MyAppState extends State<MyApp> {
   static final _analytics = FirebaseAnalytics();
 
   @override

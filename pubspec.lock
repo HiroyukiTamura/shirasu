@@ -451,9 +451,11 @@ packages:
   flutter_video_background:
     dependency: "direct main"
     description:
-      path: "/Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "86efded15ec3ef4ae930da6963f29aee435b9a35"
+      url: "https://github.com/HiroyukTamura/flutter_video_background"
+    source: git
     version: "0.0.1"
   flutter_web_plugins:
     dependency: transitive

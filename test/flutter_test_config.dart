@@ -6,7 +6,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'widget_test_util/json_client.dart';
 
 /// ref: https://github.com/eBay/flutter_glove_box/blob/master/packages/golden_toolkit/test/flutter_test_config.dart
-Future<void> main(FutureOr<void> Function() testMain) async =>
+Future<void> testExecutable(FutureOr<void> Function() testMain) async =>
     GoldenToolkit.runWithConfiguration(
       () async {
         await loadAppFonts();

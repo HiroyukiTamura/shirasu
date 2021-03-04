@@ -1343,7 +1343,7 @@ class _$ProgramsItemTearOff {
       @required String title,
       @required DateTime broadcastAt,
       @required int totalPlayTime,
-      @Deprecated("do not use!") String viewerPlanType,
+      @Deprecated('do not use!') String viewerPlanType,
       @required @JsonKey(name: '__typename') String typename}) {
     return _ProgramsItem(
       id: id,
@@ -1375,7 +1375,7 @@ mixin _$ProgramsItem {
   String get title;
   DateTime get broadcastAt;
   int get totalPlayTime; //todo send PR to freezed; the string "don't use!" throws error if the factory has assertion
-  @Deprecated("do not use!")
+  @Deprecated('do not use!')
   String get viewerPlanType;
   @JsonKey(name: '__typename')
   String get typename;
@@ -1397,7 +1397,7 @@ abstract class $ProgramsItemCopyWith<$Res> {
       String title,
       DateTime broadcastAt,
       int totalPlayTime,
-      @Deprecated("do not use!") String viewerPlanType,
+      @Deprecated('do not use!') String viewerPlanType,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1452,7 +1452,7 @@ abstract class _$ProgramsItemCopyWith<$Res>
       String title,
       DateTime broadcastAt,
       int totalPlayTime,
-      @Deprecated("do not use!") String viewerPlanType,
+      @Deprecated('do not use!') String viewerPlanType,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1506,7 +1506,7 @@ class _$_ProgramsItem extends _ProgramsItem {
       @required this.title,
       @required this.broadcastAt,
       @required this.totalPlayTime,
-      @Deprecated("do not use!") this.viewerPlanType,
+      @Deprecated('do not use!') this.viewerPlanType,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(tenantId != null),
@@ -1534,7 +1534,7 @@ class _$_ProgramsItem extends _ProgramsItem {
   @override
   final int totalPlayTime;
   @override //todo send PR to freezed; the string "don't use!" throws error if the factory has assertion
-  @Deprecated("do not use!")
+  @Deprecated('do not use!')
   final String viewerPlanType;
   @override
   @JsonKey(name: '__typename')
@@ -1605,7 +1605,7 @@ abstract class _ProgramsItem extends ProgramsItem {
           @required String title,
           @required DateTime broadcastAt,
           @required int totalPlayTime,
-          @Deprecated("do not use!") String viewerPlanType,
+          @Deprecated('do not use!') String viewerPlanType,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_ProgramsItem;
 
@@ -1625,7 +1625,7 @@ abstract class _ProgramsItem extends ProgramsItem {
   @override
   int get totalPlayTime;
   @override //todo send PR to freezed; the string "don't use!" throws error if the factory has assertion
-  @Deprecated("do not use!")
+  @Deprecated('do not use!')
   String get viewerPlanType;
   @override
   @JsonKey(name: '__typename')

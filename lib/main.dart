@@ -69,7 +69,6 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
           body: Router(
             backButtonDispatcher: RootBackButtonDispatcher(),
             routerDelegate: useProvider(kPrvAppRouterDelegate),
-            routeInformationParser: AppRouteInformationParser.instance,
           ),
         ),
         localizationsDelegates: const [

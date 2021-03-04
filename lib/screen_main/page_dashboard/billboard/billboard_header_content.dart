@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header.dart';
@@ -142,9 +141,9 @@ Widget _indicator({
 Widget _title() => Container(
       alignment: Alignment.center,
       height: BillboardHeader.TITLE_H,
-      child: Text(
+      child: const Text(
         Strings.HEADING_NOW_ON_AIR,
-        style: GoogleFonts.roboto(
+        style: TextStyle(
           fontSize: FontSize.S28,
           color: Colors.white,
           fontWeight: FontWeight.bold,

@@ -121,7 +121,7 @@ class ViewModelTestBase<T> {
             kOverrideGraphqlUnAuthDetectedByTime,
           ],
           expectState: expectState,
-          expectPath: const GlobalRoutePath.error(true, Strings.ERR_UN_AUTH),
+          expectPath: const GlobalRoutePath.error(true, Strings.ERR_AUTH_EXPIRED),
         ),
       );
 

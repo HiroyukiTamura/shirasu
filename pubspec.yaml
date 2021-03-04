@@ -67,7 +67,7 @@ dependencies:
   firebase_crashlytics: ^0.4.0+1
   firebase_analytics: ^7.0.1
   flutter_video_background:
-    path: /Volumes/SSD-PGMU3/data/StudioProjects/flutter_movie_background
+    path: /Users/hiroyukitamura/StudioProjects/flutter_movie_background
 
 dev_dependencies:
   hive_generator: ^0.8.2

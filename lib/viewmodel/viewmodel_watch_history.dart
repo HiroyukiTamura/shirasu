@@ -44,7 +44,7 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   }
 
   Future<void> loadMoreWatchHistory() async => state.maybeWhen(
-        orElse: null,
+        orElse: () {},
         success: (oldData) async {
           final nextToken =
               oldData.watchHistories.last.viewerUser.watchHistories.nextToken;

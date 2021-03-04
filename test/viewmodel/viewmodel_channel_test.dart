@@ -69,7 +69,7 @@ Future<void> main() async {
     }) async {
       // must have original SnackBarMessageNotifier!!
       final snackNtf = SnackBarMessageNotifier();
-      final overrideSnackBar = kPrvSnackBar.overrideWithValue(snackNtf);
+      final overrideSnackBar = kPrvSnackBarChannel(channelId).overrideWithValue(snackNtf);
       final container = createProviderContainer(override + [overrideSnackBar]);
       final viewModel =
           container.listen(kPrvViewModelChannel(channelId)).read();
@@ -78,7 +78,7 @@ Future<void> main() async {
       await viewModel.loadMorePrograms();
       await Future.delayed(delay);
       final snack = container
-          .listen(kPrvSnackBar.state)
+          .listen(kPrvSnackBarChannel(channelId).state)
           .read(); //must listen after loadMorePrograms!
       // ignore: invalid_use_of_protected_member
       expect(viewModel.state, expectedState);

@@ -69,7 +69,7 @@ Future<void> main() async {
   }) async {
     // must have original SnackBarMessageNotifier!!
     final snackNtf = SnackBarMessageNotifier();
-    final overrideSnackBar = kPrvSnackBar.overrideWithValue(snackNtf);
+    final overrideSnackBar = kPrvSnackBarDetail.overrideWithValue(snackNtf);
     final container = ProviderContainer(
       overrides: testBase.defaultOverride + override + [overrideSnackBar],
     );
@@ -81,7 +81,7 @@ Future<void> main() async {
     if (defaultState != null) viewModel.state = defaultState;
     await predicate(viewModel);
     final snack = container
-        .listen(kPrvSnackBar.state)
+        .listen(kPrvSnackBarDetail.state)
         .read(); //must listen after predicate!
     // ignore: invalid_use_of_protected_member
     if (expectedState != null) expect(viewModel.state, expectedState);

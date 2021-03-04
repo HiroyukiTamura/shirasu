@@ -37,7 +37,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       return Util.wait2(
         _graphQlRepository.queryFeaturedProgramsList,
         _graphQlRepository.queryNewProgramsList,
-      );//fixme @temp
+      ).timeout(GraphQlRepository.TIMEOUT);
     });
     if (!isMounted) return;
     result.when(success: (data) {

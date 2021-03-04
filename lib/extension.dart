@@ -49,8 +49,7 @@ extension BuildContextX on BuildContext {
   bool get isBigScreen =>
       Dimens.SCREEN_BREAK_POINT < MediaQuery.of(this).size.width;
 
-  bool get isThinScreen =>
-      Dimens.SCREEN_BREAK_POINT_Y_SML < MediaQuery.of(this).size.width;
+  bool get isThinScreen => MediaQuery.of(this).size.height < Dimens.SCREEN_BREAK_POINT_Y_SML;
 
   Future<void> toggleFullScreenMode() async {
     if (_kIsInFullScreenOperation.locked) return;

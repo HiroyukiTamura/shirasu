@@ -148,12 +148,14 @@ Widget _horizontalCarouselDetailCaption(
               color: Theme.of(context).accentColor,
             ),
           ),
-          Center(
-            child: Text(
-              item.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+          Expanded(
+            child: Center(
+              child: Text(
+                item.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+              ),
             ),
           ),
           Row(

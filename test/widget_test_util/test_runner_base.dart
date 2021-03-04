@@ -38,6 +38,8 @@ class TestRunnerBase {
     List<Override> overrides = const [],
     OnScenarioCreateTest onScenarioCreate,
     OnPostBuild onPostBuild,
+    List<Device> devices = const [],
+    bool skip = false,
   }) =>
       testGoldens(
         testName,
@@ -54,11 +56,16 @@ class TestRunnerBase {
 
           if (onPostBuild != null) await onPostBuild(tester);
 
+          var testDevices = devices;
+          if (testDevices?.isNotEmpty != true)
+            testDevices = TestUtil.allDevices;
+
           await multiScreenGolden(
             tester,
             '$goldenNamePrefix$testName',
-            devices: TestUtil.allDevices,
+            devices: testDevices,
           );
         },
+        skip: skip,
       );
 }

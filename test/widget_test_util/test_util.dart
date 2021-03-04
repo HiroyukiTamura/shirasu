@@ -36,6 +36,18 @@ class TestUtil {
     _iphone11HorizontalTextBig,
   ];
 
+  static final bigHeightDevices = [
+    Device.phone,
+    Device.iphone11,
+    Device.tabletPortrait,
+    Device.tabletLandscape,
+  ];
+
+  static final smallHeightDevices = [
+    _phoneHorizontal,
+    _iphone11HorizontalTextBig,
+  ];
+
   static Future<void> matchGolden({
     @required WidgetTester tester,
     @required String goldenName,

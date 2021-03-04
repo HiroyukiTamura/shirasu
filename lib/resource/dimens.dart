@@ -41,5 +41,5 @@ class Dimens {
 
   static const double SCREEN_BREAK_POINT = 600;
 
-  static const double SCREEN_BREAK_POINT_Y_SML = 100;
+  static const double SCREEN_BREAK_POINT_Y_SML = 600;
 }

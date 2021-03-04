@@ -33,11 +33,11 @@ class UserLocationDialog extends HookWidget {
                 initialized: () => const _UserLocationDialogContent(),
                 orElse: () => const SizedBox.shrink()),
         actions: [
-          FlatButton(
+          TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text(Strings.DIALOG_CANCEL),
           ),
-          FlatButton(
+          TextButton(
             onPressed: () {
               final data = context.read(_viewModelProvider.state).data;
               final result =

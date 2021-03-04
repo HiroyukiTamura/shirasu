@@ -288,10 +288,10 @@ abstract class CommentsHolder implements _$CommentsHolder {
   }
 
   Duration get mostPastCommentTime =>
-      _commentSorted(true).lastOrNull?.commentTimeDuration;
+      IterableX(_commentSorted(true)).lastOrNull?.commentTimeDuration;
 
   Duration get mostFutureCommentTime =>
-      _commentSorted(true).firstOrNull?.commentTimeDuration;
+      IterableX(_commentSorted(true)).firstOrNull?.commentTimeDuration;
 
   UnmodifiableListView<CommentItem> getCommentItemsBefore(Duration duration) {
     final list =
@@ -299,7 +299,7 @@ abstract class CommentsHolder implements _$CommentsHolder {
     return IteratableX(list).toUnmodifiable();
   }
 
-  List<CommentItem> getCommentItemsAfter(Duration duration) {
+  UnmodifiableListView<CommentItem> getCommentItemsAfter(Duration duration) {
     final list =
         _commentSorted(true).where((it) => duration < it.commentTimeDuration);
     return IterableX(list).toUnmodifiable();

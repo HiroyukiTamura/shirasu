@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lp/gen/assets.gen.dart';
-import 'package:lp/gen/fonts.gen.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/ui/screen_main/responsive_builder.dart';

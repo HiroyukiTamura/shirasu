@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/painting/box_fit.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:shirasu/repository/env_repository.dart';
-import 'package:shirasu/gen/assets.gen.dart';
 
 class EnvRepositoryTestImpl implements EnvRepository {
   const EnvRepositoryTestImpl();
@@ -24,19 +23,14 @@ class EnvRepositoryTestImpl implements EnvRepository {
     LoadingErrorWidgetBuilder errorWidget,
     ImageWidgetBuilder imageBuilder,
     String semanticLabel,
-  }) =>
-      _image(imageUrl).image(
-        fit: BoxFit.cover,
-        width: width,
-        height: height,
-      );
+  }) => SizedBox(height: height, width: width, child: const Placeholder(),);
 
-  static AssetGenImage _image(String imageUrl) {
-    if (imageUrl.contains('genron-genron-20201127'))
-      return Assets.jpeg.dummyImagePeople;
-    else if (imageUrl.contains('tsujita-beobachter-20201127'))
-      return Assets.jpeg.dummyImageEngineer;
-    else
-      return Assets.jpeg.dummyThmubnailImage;
-  }
+  // static AssetGenImage _image(String imageUrl) {
+  //   if (imageUrl.contains('genron-genron-20201127'))
+  //     return Assets.jpeg.dummyImagePeople;
+  //   else if (imageUrl.contains('tsujita-beobachter-20201127'))
+  //     return Assets.jpeg.dummyImageEngineer;
+  //   else
+  //     return Assets.jpeg.dummyThmubnailImage;
+  // }
 }

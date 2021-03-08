@@ -6,7 +6,6 @@ import 'package:lp/resources/styles.dart';
 import 'package:lp/resources/urls.dart';
 import 'package:lp/ui/screen_main/heading.dart';
 import 'package:lp/ui/screen_main/util.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:lp/gen/assets.gen.dart';
 
 class SectionTechStack extends StatelessWidget {
@@ -55,12 +54,24 @@ class SectionTechStack extends StatelessWidget {
                 url: Urls.FIREBASE_HOSTING,
               ),
               _Icon(
+                icon: Assets.svg.logoPerformance.svg(),
+                url: Urls.FIREBASE_PERFORMANCE,
+              ),
+              _Icon(
                 icon: Assets.svg.logoAnalytics.svg(),
                 url: Urls.FIREBASE_ANALYTICS,
               ),
               const _Icon(
                 icon: Icon(FontAwesomeIcons.github),
                 url: Urls.GITHUB,
+              ),
+              _Icon(
+                icon: Assets.png.logoGithubActions.image(),
+                url: Urls.GITHUB_ACTIONS,
+              ),
+              _Icon(
+                icon: Assets.png.logoGitGuardian.image(),
+                url: Urls.GIT_GUARDIAN,
               ),
               _Icon(
                 icon: Assets.svg.logoJira.svg(),

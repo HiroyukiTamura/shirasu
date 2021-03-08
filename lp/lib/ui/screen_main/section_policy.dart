@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lp/resources/strings.dart';
-import 'package:lp/resources/styles.dart';
 import 'package:lp/resources/urls.dart';
 import 'package:lp/ui/screen_main/heading.dart';
 import 'package:lp/ui/screen_main/util.dart';
@@ -72,7 +71,7 @@ class SectionPolicy extends StatelessWidget {
         TextButton(
           onPressed: () async => launchUrl(url),
           child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Text(btnLabel),
           ),
         ),

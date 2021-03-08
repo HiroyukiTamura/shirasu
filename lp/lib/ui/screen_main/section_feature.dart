@@ -5,7 +5,7 @@ import 'package:lp/gen/assets.gen.dart';
 import 'package:dartx/dartx.dart';
 import 'package:lp/ui/screen_main/heading.dart';
 import 'package:lp/ui/screen_main/responsive_builder.dart';
-import 'card_gray.dart';
+import 'package:lp/ui/screen_main/card_gray.dart';
 
 class SectionFeature extends StatelessWidget {
   const SectionFeature();

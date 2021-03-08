@@ -12,6 +12,10 @@ class $AssetsPngGen {
 
   AssetGenImage get badgeAmazonStore =>
       const AssetGenImage('assets/png/badge_amazon_store.png');
+  AssetGenImage get logoGitGuardian =>
+      const AssetGenImage('assets/png/logo_git_guardian.png');
+  AssetGenImage get logoGithubActions =>
+      const AssetGenImage('assets/png/logo_github_actions.png');
   AssetGenImage get sample => const AssetGenImage('assets/png/sample.png');
 }
 
@@ -29,6 +33,8 @@ class $AssetsSvgGen {
   SvgGenImage get logoCrashlytics =>
       const SvgGenImage('assets/svg/logo_crashlytics.svg');
   SvgGenImage get logoDart => const SvgGenImage('assets/svg/logo_dart.svg');
+  SvgGenImage get logoFastlane =>
+      const SvgGenImage('assets/svg/logo_fastlane.svg');
   SvgGenImage get logoFigma => const SvgGenImage('assets/svg/logo_figma.svg');
   SvgGenImage get logoFlutter =>
       const SvgGenImage('assets/svg/logo_flutter.svg');
@@ -38,6 +44,8 @@ class $AssetsSvgGen {
       const SvgGenImage('assets/svg/logo_hosting.svg');
   SvgGenImage get logoJira => const SvgGenImage('assets/svg/logo_jira.svg');
   SvgGenImage get logoKotlin => const SvgGenImage('assets/svg/logo_kotlin.svg');
+  SvgGenImage get logoPerformance =>
+      const SvgGenImage('assets/svg/logo_performance.svg');
   SvgGenImage get logoPostman =>
       const SvgGenImage('assets/svg/logo_postman.svg');
   SvgGenImage get logoSwift => const SvgGenImage('assets/svg/logo_swift.svg');

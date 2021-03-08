@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
-import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 
 part 'seek_btn.g.dart';
 

@@ -1,8 +1,6 @@
 gradle-wrapper.jar
 /.gradle
 /captures/
-/gradlew
-/gradlew.bat
 /local.properties
 GeneratedPluginRegistrant.java
 
@@ -10,3 +8,6 @@ GeneratedPluginRegistrant.java
 # See https://flutter.dev/docs/deployment/android#reference-the-keystore-from-the-app
 key.properties
 /app/google-services.json
+/private/
+/app/signingConfigs/
+/app/proguard-rules.pro

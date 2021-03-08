@@ -66,10 +66,12 @@ class MovieListItemBase extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        DateFormat('yyyy/MM/dd HH:mm')
-                            .format(program.broadcastAt),
-                        style: subTitleStyle,
+                      Expanded(
+                        child: Text(
+                          DateFormat('yyyy/MM/dd HH:mm')
+                              .format(program.broadcastAt),
+                          style: subTitleStyle,
+                        ),
                       ),
                     ],
                   ),

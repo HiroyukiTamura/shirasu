@@ -17,18 +17,12 @@ Widget customCachedNetworkImage({
   LoadingErrorWidgetBuilder errorWidget,
   ImageWidgetBuilder imageBuilder,
 }) =>
-    useProvider(kPrvEnv).enableNetworkImage
-        ? CachedNetworkImage(
-            imageUrl: imageUrl,
-            height: height,
-            width: width,
-            fit: fit,
-            imageBuilder: imageBuilder,
-            errorWidget: errorWidget,
-            placeholder: placeholder,
-          )
-        : SizedBox(
-            width: width,
-            height: height,
-            child: const Placeholder(),
-          );
+    useProvider(kPrvEnv).networkImage(
+      imageUrl: imageUrl,
+      height: height,
+      width: width,
+      fit: fit,
+      imageBuilder: imageBuilder,
+      errorWidget: errorWidget,
+      placeholder: placeholder,
+    );

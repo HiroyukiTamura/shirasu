@@ -10,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/ui_common/image_painter.dart';
+import 'package:shirasu/repository/env_repository.dart';
 
 part 'header_backdrop.g.dart';
 
@@ -73,7 +74,10 @@ class _BackDropInnerState extends State<_BackDropInner>
       );
 
   @override
-  void afterFirstLayout(BuildContext context) => _startScroll();
+  void afterFirstLayout(BuildContext context) {
+    if (context.read(kPrvEnv).enableAnimation)
+      _startScroll();
+  }
 
   Future<void> _onScroll() async =>
       context.read(kPrvDashboardViewModel).headerBackDropScrollPos =

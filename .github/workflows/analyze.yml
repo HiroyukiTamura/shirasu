@@ -19,7 +19,7 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
 
-  lint:
+  android_lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

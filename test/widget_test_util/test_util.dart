@@ -21,15 +21,20 @@ class TestUtil {
     name: 'phone - Horizontal',
     size: Device.phone.size.flipped,
   );
-  static final _iphone11HorizontalTextBig = Device.phone.copyWith(
+  static final _iphone11HorizontalTextBig = Device.iphone11.copyWith(
     name: 'iphone11 - horizontal - text big',
     size: Device.iphone11.size.flipped,
     textScale: 2.5,
   );
+  static const _iphone12 = Device(
+    name: 'iphone12',
+    size: Size(452, 844),
+    safeArea: EdgeInsets.only(top: 44, bottom: 34),
+  );
 
   static final allDevices = [
     Device.phone,
-    Device.iphone11,
+    _iphone12,
     Device.tabletPortrait,
     Device.tabletLandscape,
     _phoneHorizontal,
@@ -95,22 +100,17 @@ class TestUtil {
       return path;
   }
 
-  // todo notworks...
-  static Future<void> loadFonts() async {
-
+  static Future<void> overrideRoboto() async {
     final fontLoader = FontLoader('Roboto');
 
-    final path = _fixTestPath('resources/fonts/roboto');
+    final path = _fixTestPath('resources/fonts/noto_sans_ckj_jp');
 
     Directory(path)
         .listSync()
-        .where((it) => it.path.endsWith('.ttf'))
-        .map((it) {
-          print(it.path);
-          return File(it.path)
+        .where((it) => it.path.endsWith('.otf'))
+        .map((it) => File(it.path)
             .readAsBytes()
-            .then((bytes) => ByteData.view(Uint8List.fromList(bytes).buffer));
-        })
+            .then((bytes) => ByteData.view(Uint8List.fromList(bytes).buffer)))
         .forEach(fontLoader.addFont);
 
     await fontLoader.load();

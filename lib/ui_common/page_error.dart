@@ -8,6 +8,7 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/ui_common/ui_util.dart';
 import 'package:shirasu/util/types.dart';
+import 'package:shirasu/extension.dart';
 
 part 'page_error.g.dart';
 
@@ -23,7 +24,9 @@ class PageError extends StatelessWidget {
   final String _text;
 
   @override
-  Widget build(BuildContext context) => SafeArea(
+  Widget build(BuildContext context) {
+    final double iconSize = context.isThinScreen ? 80 : 160;
+    return SafeArea(
         child: SizedBox.expand(
           child: Padding(
             padding: const EdgeInsets.all(48),
@@ -32,8 +35,8 @@ class PageError extends StatelessWidget {
               children: [
                 Assets.svg.roboto.svg(
                   color: Styles.COLOR_TEXT_SUB,
-                  width: 160,
-                  height: 160,
+                  width: iconSize,
+                  height: iconSize,
                 ),
                 const SizedBox(height: 24),
                 Text(
@@ -50,6 +53,7 @@ class PageError extends StatelessWidget {
           ),
         ),
       );
+  }
 }
 
 @swidget

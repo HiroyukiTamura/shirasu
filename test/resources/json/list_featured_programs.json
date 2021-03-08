@@ -1,7 +1,59 @@
 {
   "data": {
     "nowBroadcastings": {
-      "items": [],
+      "items": [
+        {
+          "broadcastAt": "2020-11-28T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201128",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-28T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "ホットスポット最後の楽園 ドラゴン息づくロストワールド東南アジアウォーレシア",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "スーパーチャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-28T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201128",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-28T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "磯野真穂×小松理虔×東畑開人「コントロールの倫理とケアの倫理――不確実さ、不真面目さ、不安定さ」 @mahoisono @riken_komatsu @ktowhata #ゲンロン201128",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-28T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201128",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-28T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "磯野真穂×小松理虔×東畑開人「コントロールの倫理とケアの倫理――不確実さ、不真面目さ、不安定さ」 @mahoisono @riken_komatsu @ktowhata #ゲンロン201128",
+          "totalPlayTime": 10800,
+          "viewerPlanType": "SubscriptionPlan",
+          "channel": {
+            "id": "genron",
+            "name": "ゲンロン完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        }
+      ],
       "__typename": "SearchableProgramConnection"
     },
     "comingBroadcastings": {
@@ -13,12 +65,12 @@
           "mainTime": 10800,
           "releasedAt": "2020-11-27T10:00:00.000Z",
           "tenantId": "genron",
-          "title": "小田部胤久×宮﨑裕助「カント『判断力批判』からみる美学史と現代思想――『美学』刊行記念」 @parages #ゲンロン201127",
+          "title": "そして「みんなのうた」は生まれた～６０年を彩った名曲秘話「北風小僧の寒太郎」",
           "totalPlayTime": 10800,
           "viewerPlanType": "SubscriptionPlan",
           "channel": {
             "id": "genron",
-            "name": "ゲンロン完全中継チャンネル",
+            "name": "スーパーチャンネル",
             "__typename": "Channel"
           },
           "__typename": "Program"
@@ -30,12 +82,12 @@
           "mainTime": 7200,
           "releasedAt": "2020-11-27T10:30:00.000Z",
           "tenantId": "tsujita",
-          "title": "【オープン記念】「国威発揚ウォッチ」チャンネルは何をめざし、何をするか？　時事ニュースに触れながら、プロパガンダと評論の未来を語り尽くす初放送！",
+          "title": "中国　広がる“鬼城”の闇",
           "totalPlayTime": 7200,
           "viewerPlanType": null,
           "channel": {
             "id": "beobachter",
-            "name": "辻田真佐憲の国威発揚ウォッチ",
+            "name": "ウォッチ・オンデマンド",
             "__typename": "Channel"
           },
           "__typename": "Program"

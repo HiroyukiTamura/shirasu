@@ -4,12 +4,13 @@ import 'dart:io';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 import 'widget_test_util/json_client.dart';
+import 'widget_test_util/test_util.dart';
 
 /// ref: https://github.com/eBay/flutter_glove_box/blob/master/packages/golden_toolkit/test/flutter_test_config.dart
 Future<void> testExecutable(FutureOr<void> Function() testMain) async =>
     GoldenToolkit.runWithConfiguration(
       () async {
-        await loadAppFonts();
+        await TestUtil.overrideRoboto();
         await JsonClient.instance.init();
         await testMain();
       },

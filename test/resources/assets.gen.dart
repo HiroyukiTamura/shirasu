@@ -4,11 +4,12 @@
 /// *****************************************************
 
 import 'package:flutter/widgets.dart';
+import '../widget_test_util/test_util.dart';
 
 class $JpegGen {
   const $JpegGen();
 
-  AssetGenImage get dummyImage => const AssetGenImage('jpeg/dummy_image.jpg');
+  AssetGenImage get dummyThumbnailCity => AssetGenImage(TestUtil.fixAssetPath('jpeg/dummy_thumbnail_city.jpg'));
 }
 
 class $JsonGen {

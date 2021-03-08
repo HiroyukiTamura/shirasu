@@ -9,7 +9,7 @@
     <application
         android:name=".MainApplication"
         android:icon="@mipmap/ic_launcher"
-        android:label="shirasu">
+        android:label="SAWARA">
 
         <activity
             android:name=".MainActivity"

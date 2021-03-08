@@ -6,10 +6,10 @@ import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 class Strings {
   const Strings._();
 
-  static const APP_NAME = 'SHIRASU';
+  static const APP_NAME = 'UNAGI';
 
   //region Intro
-  static const INTRO_TITLE_1ST = 'SHIRASU';
+  static const INTRO_TITLE_1ST = 'UNAGI';
   static const INTRO_DESC_1ST = 'このアプリは、動画配信プラットフォーム「シラス」の非公式アプリです。';
   static const INTRO_DESC_1ST_2 = 'バックグラウンド再生はもちろん、配信開始の通知や動画の購入・検索することができます。';
 

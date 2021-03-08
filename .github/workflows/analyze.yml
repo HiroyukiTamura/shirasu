@@ -17,14 +17,15 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter pub get
-      - run: flutter analyze
+      - run: flutter analyze --fatal-infos
 
   android_lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run Inspection
-        run: ./gradlew lint
+      - run: cd android
+      - run: gradlew lint
       - name: Upload results Artifact
         uses: actions/upload-artifact@v2
         if: success() || failure()

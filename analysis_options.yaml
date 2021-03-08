@@ -1,11 +1,6 @@
 #include: package:pedantic/analysis_options.yaml
 
 analyzer:
-  errors:
-    # 'flutter analyze' exits with 1 even on 'info':
-    # https://github.com/flutter/flutter/issues/20855
-    todo: ignore
-
   exclude:
     - "bin/cache/**"
     # the following two are relative to the stocks example and the flutter package respectively

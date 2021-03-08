@@ -1,20 +1,7 @@
 name: shirasu
 description: A new Flutter application.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0
 repository: https://github.com/HiroyukTamura/shirasu
 
@@ -22,34 +9,45 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  # flutter, dart official
   async: ^2.4.2
   cached_network_image: ^2.5.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  intl:
   http: ^0.12.2
+  # google
+  json_annotation: ^3.1.0
+  # Remi
+  freezed_annotation: ^0.12.0
+  hooks_riverpod: ^0.12.3
+  flutter_hooks: ^0.15.0
+  # flutter community
+  after_layout: ^1.0.7+2
+  connectivity: ^2.0.2
   url_launcher: ^5.7.10
   flutter_webview_plugin: ^0.3.11
   font_awesome_flutter: ^8.11.0
-  material_design_icons_flutter: 4.0.5855
+  # firebase
+  firebase_core: ^0.7.0
+  firebase_crashlytics: ^0.4.0+1
+  firebase_analytics: ^7.0.1
+  firebase_performance: ^0.5.0+1
+  # hive
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
+
+  # others
   introduction_screen: ^1.0.9
   flutter_svg: 0.19.3
   graphql_flutter: ^4.0.1
-  freezed_annotation: ^0.12.0
-  json_annotation: ^3.1.0
-  hooks_riverpod: ^0.12.3
-  flutter_hooks: ^0.15.0
-  intl:
   flutter_linkify: ^4.0.2
   dio: ^3.0.10
-  tuple: ^1.0.3
   tab_indicator_styler: ^1.0.0
   smooth_page_indicator: ^0.2.0
   synchronized: ^2.2.0+2
-  after_layout: ^1.0.7+2
   functional_widget_annotation: ^0.8.0
   sliding_up_panel: ^1.0.2
   dartx: ^0.5.0
@@ -60,12 +58,6 @@ dependencies:
   lottie: ^0.7.0+1
   uuid: ^2.2.2
   simple_animations: ^2.5.1
-  connectivity: ^2.0.2
-  auto_size_text: ^2.1.0
-  # firebase
-  firebase_core: ^0.7.0
-  firebase_crashlytics: ^0.4.0+1
-  firebase_analytics: ^7.0.1
   flutter_video_background:
     git: https://github.com/HiroyukTamura/flutter_video_background
 
@@ -89,7 +81,6 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/png/app_logo.png"
-
 
 flutter_gen:
   integrations:

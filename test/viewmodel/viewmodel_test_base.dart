@@ -59,6 +59,7 @@ class ViewModelTestBase<T> {
         newProgramsData: JsonClient.instance.mNewProgramsData,
         watchHistoriesData: JsonClient.instance.mWatchHistoriesData,
         viewerWrapper: JsonClient.instance.mViewerWrapper,
+        listSubscribedPrograms: JsonClient.instance.mListSubscribedPrograms,
       )),
     ]);
   }

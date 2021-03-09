@@ -19,6 +19,7 @@ mixin TestRunnerOnPageList on TestRunnerBase {
       kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
     watchHistoriesData: TestModels.EMPTY_WATCH_HISTORIES_DATA,
     featureProgramData: TestModels.FEATURE_PROGRAM_DATA,
+    listSubscribedPrograms: TestModels.EMPTY_LIST_SUBSCRIBED_PROGRAMS,
   ));
 
   Override _overrideNormal;
@@ -52,9 +53,11 @@ mixin TestRunnerOnPageList on TestRunnerBase {
         kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
       watchHistoriesData: JsonClient.instance.mWatchHistoriesData,
       featureProgramData: JsonClient.instance.mFeatureProgramData,
+      listSubscribedPrograms: JsonClient.instance.mListSubscribedPrograms,
     ));
     _overrideGraphQlLoadableMoreHistory =
         kPrvGraphqlRepository.overrideWithValue(GraphQlRepositoryCommonImpl(
+      listSubscribedPrograms: JsonClient.instance.mListSubscribedPrograms,
       watchHistoriesData: JsonClient
           .instance.mWatchHistoriesData.copyWith.viewerUser
           .watchHistories(

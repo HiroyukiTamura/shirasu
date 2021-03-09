@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_video_background/flutter_video_background.dart';
 import 'package:flutter_video_background/model/replay_data.dart';

@@ -24,8 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Inspection
-      working-directory: ./android
-      run: ./gradlew lint
+        working-directory: ./android
+        run: ./gradlew lint
       - name: Upload results Artifact
         uses: actions/upload-artifact@v2
         if: success() || failure()

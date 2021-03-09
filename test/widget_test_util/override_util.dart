@@ -12,7 +12,7 @@ final OverrideUtil kOverrideUtil = OverrideUtil._();
 class OverrideUtil {
   OverrideUtil._();
 
-  final _overrideEnvTest = kPrvEnv.overrideWithValue(const EnvRepositoryTestImpl());
+  final _overrideEnvTest = kPrvEnv.overrideWithValue(EnvRepositoryTestImpl());
   final _overrideNetworkTest = kPrvNetworkRepository
       .overrideWithValue(NetworkImageRepositoryErrorImpl());
   final _overrideLogger = kPrvLogger.overrideWithValue(const TestLogger());

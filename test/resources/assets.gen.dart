@@ -19,6 +19,7 @@ class $JsonGen {
   String get channelSubscriptionPlan => 'json/channel_subscription_plan.json';
   String get listCommentsByProgram => 'json/list_comments_by_program.json';
   String get listFeaturedPrograms => 'json/list_featured_programs.json';
+  String get listSubscribingPrograms => 'json/list_subscribing_programs.json';
   String get listNewPrograms => 'json/list_new_programs.json';
   String get listPaymentMethods => 'json/list_payment_methods.json';
   String get localstorage => 'json/localstorage.json';

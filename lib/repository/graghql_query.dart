@@ -1,6 +1,45 @@
 class GraphqlQuery {
   const GraphqlQuery._();
 
+  static const QUERY_SUBSCRIPTION_PROGRAM = r'''
+query ListSubscribedPrograms($nextToken: String) {
+    viewerUser: viewerUser {
+        id
+        subscribedPrograms: subscribedPrograms(limit: 12, nextToken: $nextToken) {
+            items {
+                ...DashboardProgram
+                __typename
+            }
+            nextToken
+            __typename
+        }
+        __typename
+    }
+}
+fragment DashboardProgram on Program {
+    broadcastAt
+    channelId
+    id
+    mainTime
+    releasedAt
+    releasedAt
+    tenantId
+    title
+    totalPlayTime
+    viewerPlanType
+    channel {
+        ...DashboardChannel
+        __typename
+    }
+    __typename
+}
+fragment DashboardChannel on Channel {
+    id
+    name
+    __typename
+}  
+''';
+
   static const QUERY_FEATURED_PROGRAMS = r'''
 query ListProgramsAndChannels(
     $now: String!
@@ -23,19 +62,14 @@ query ListProgramsAndChannels(
         __typename
     }
     comingBroadcastings: searchPrograms(
-        filter: { release: { eq: true }, broadcastAt: { gte: $now, lte: $nowPlus7D } }
+        filter: {
+            release: { eq: true }
+            broadcastAt: { gte: $now, lte: $nowPlus7D }
+        }
         sort: { field: broadcastAt, direction: asc }
         limit: 100
     ) {
         items {
-            ...DashboardProgram
-            __typename
-        }
-        __typename
-    }
-    viewerUser: viewerUser {
-        id
-        subscribedPrograms {
             ...DashboardProgram
             __typename
         }

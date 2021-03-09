@@ -20,13 +20,11 @@ class _$FeatureProgramDataTearOff {
   _FeatureProgramData call(
       {@required Broadcastings nowBroadcastings,
       @required Broadcastings comingBroadcastings,
-      @required Channels channels,
-      @required ViewerUser viewerUser}) {
+      @required Channels channels}) {
     return _FeatureProgramData(
       nowBroadcastings: nowBroadcastings,
       comingBroadcastings: comingBroadcastings,
       channels: channels,
-      viewerUser: viewerUser,
     );
   }
 
@@ -45,7 +43,6 @@ mixin _$FeatureProgramData {
   Broadcastings get nowBroadcastings;
   Broadcastings get comingBroadcastings;
   Channels get channels;
-  ViewerUser get viewerUser;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -60,13 +57,11 @@ abstract class $FeatureProgramDataCopyWith<$Res> {
   $Res call(
       {Broadcastings nowBroadcastings,
       Broadcastings comingBroadcastings,
-      Channels channels,
-      ViewerUser viewerUser});
+      Channels channels});
 
   $BroadcastingsCopyWith<$Res> get nowBroadcastings;
   $BroadcastingsCopyWith<$Res> get comingBroadcastings;
   $ChannelsCopyWith<$Res> get channels;
-  $ViewerUserCopyWith<$Res> get viewerUser;
 }
 
 /// @nodoc
@@ -83,7 +78,6 @@ class _$FeatureProgramDataCopyWithImpl<$Res>
     Object nowBroadcastings = freezed,
     Object comingBroadcastings = freezed,
     Object channels = freezed,
-    Object viewerUser = freezed,
   }) {
     return _then(_value.copyWith(
       nowBroadcastings: nowBroadcastings == freezed
@@ -93,8 +87,6 @@ class _$FeatureProgramDataCopyWithImpl<$Res>
           ? _value.comingBroadcastings
           : comingBroadcastings as Broadcastings,
       channels: channels == freezed ? _value.channels : channels as Channels,
-      viewerUser:
-          viewerUser == freezed ? _value.viewerUser : viewerUser as ViewerUser,
     ));
   }
 
@@ -127,16 +119,6 @@ class _$FeatureProgramDataCopyWithImpl<$Res>
       return _then(_value.copyWith(channels: value));
     });
   }
-
-  @override
-  $ViewerUserCopyWith<$Res> get viewerUser {
-    if (_value.viewerUser == null) {
-      return null;
-    }
-    return $ViewerUserCopyWith<$Res>(_value.viewerUser, (value) {
-      return _then(_value.copyWith(viewerUser: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -149,8 +131,7 @@ abstract class _$FeatureProgramDataCopyWith<$Res>
   $Res call(
       {Broadcastings nowBroadcastings,
       Broadcastings comingBroadcastings,
-      Channels channels,
-      ViewerUser viewerUser});
+      Channels channels});
 
   @override
   $BroadcastingsCopyWith<$Res> get nowBroadcastings;
@@ -158,8 +139,6 @@ abstract class _$FeatureProgramDataCopyWith<$Res>
   $BroadcastingsCopyWith<$Res> get comingBroadcastings;
   @override
   $ChannelsCopyWith<$Res> get channels;
-  @override
-  $ViewerUserCopyWith<$Res> get viewerUser;
 }
 
 /// @nodoc
@@ -178,7 +157,6 @@ class __$FeatureProgramDataCopyWithImpl<$Res>
     Object nowBroadcastings = freezed,
     Object comingBroadcastings = freezed,
     Object channels = freezed,
-    Object viewerUser = freezed,
   }) {
     return _then(_FeatureProgramData(
       nowBroadcastings: nowBroadcastings == freezed
@@ -188,8 +166,6 @@ class __$FeatureProgramDataCopyWithImpl<$Res>
           ? _value.comingBroadcastings
           : comingBroadcastings as Broadcastings,
       channels: channels == freezed ? _value.channels : channels as Channels,
-      viewerUser:
-          viewerUser == freezed ? _value.viewerUser : viewerUser as ViewerUser,
     ));
   }
 }
@@ -202,12 +178,10 @@ class _$_FeatureProgramData extends _FeatureProgramData
   const _$_FeatureProgramData(
       {@required this.nowBroadcastings,
       @required this.comingBroadcastings,
-      @required this.channels,
-      @required this.viewerUser})
+      @required this.channels})
       : assert(nowBroadcastings != null),
         assert(comingBroadcastings != null),
         assert(channels != null),
-        assert(viewerUser != null),
         super._();
 
   factory _$_FeatureProgramData.fromJson(Map<String, dynamic> json) =>
@@ -219,12 +193,10 @@ class _$_FeatureProgramData extends _FeatureProgramData
   final Broadcastings comingBroadcastings;
   @override
   final Channels channels;
-  @override
-  final ViewerUser viewerUser;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FeatureProgramData(nowBroadcastings: $nowBroadcastings, comingBroadcastings: $comingBroadcastings, channels: $channels, viewerUser: $viewerUser)';
+    return 'FeatureProgramData(nowBroadcastings: $nowBroadcastings, comingBroadcastings: $comingBroadcastings, channels: $channels)';
   }
 
   @override
@@ -234,8 +206,7 @@ class _$_FeatureProgramData extends _FeatureProgramData
       ..add(DiagnosticsProperty('type', 'FeatureProgramData'))
       ..add(DiagnosticsProperty('nowBroadcastings', nowBroadcastings))
       ..add(DiagnosticsProperty('comingBroadcastings', comingBroadcastings))
-      ..add(DiagnosticsProperty('channels', channels))
-      ..add(DiagnosticsProperty('viewerUser', viewerUser));
+      ..add(DiagnosticsProperty('channels', channels));
   }
 
   @override
@@ -250,10 +221,7 @@ class _$_FeatureProgramData extends _FeatureProgramData
                     .equals(other.comingBroadcastings, comingBroadcastings)) &&
             (identical(other.channels, channels) ||
                 const DeepCollectionEquality()
-                    .equals(other.channels, channels)) &&
-            (identical(other.viewerUser, viewerUser) ||
-                const DeepCollectionEquality()
-                    .equals(other.viewerUser, viewerUser)));
+                    .equals(other.channels, channels)));
   }
 
   @override
@@ -261,8 +229,7 @@ class _$_FeatureProgramData extends _FeatureProgramData
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(nowBroadcastings) ^
       const DeepCollectionEquality().hash(comingBroadcastings) ^
-      const DeepCollectionEquality().hash(channels) ^
-      const DeepCollectionEquality().hash(viewerUser);
+      const DeepCollectionEquality().hash(channels);
 
   @JsonKey(ignore: true)
   @override
@@ -280,8 +247,7 @@ abstract class _FeatureProgramData extends FeatureProgramData {
   const factory _FeatureProgramData(
       {@required Broadcastings nowBroadcastings,
       @required Broadcastings comingBroadcastings,
-      @required Channels channels,
-      @required ViewerUser viewerUser}) = _$_FeatureProgramData;
+      @required Channels channels}) = _$_FeatureProgramData;
 
   factory _FeatureProgramData.fromJson(Map<String, dynamic> json) =
       _$_FeatureProgramData.fromJson;
@@ -292,8 +258,6 @@ abstract class _FeatureProgramData extends FeatureProgramData {
   Broadcastings get comingBroadcastings;
   @override
   Channels get channels;
-  @override
-  ViewerUser get viewerUser;
   @override
   @JsonKey(ignore: true)
   _$FeatureProgramDataCopyWith<_FeatureProgramData> get copyWith;
@@ -1081,245 +1045,6 @@ abstract class _Channel implements Channel {
   @override
   @JsonKey(ignore: true)
   _$ChannelCopyWith<_Channel> get copyWith;
-}
-
-ViewerUser _$ViewerUserFromJson(Map<String, dynamic> json) {
-  return _ViewerUser.fromJson(json);
-}
-
-/// @nodoc
-class _$ViewerUserTearOff {
-  const _$ViewerUserTearOff();
-
-// ignore: unused_element
-  _ViewerUser call(
-      {@required
-          String id,
-      @required
-      @JsonKey(name: 'subscribedPrograms')
-      @protected
-          List<Item> rawSubscribedPrograms,
-      @required
-      @JsonKey(name: '__typename')
-          String typename}) {
-    return _ViewerUser(
-      id: id,
-      rawSubscribedPrograms: rawSubscribedPrograms,
-      typename: typename,
-    );
-  }
-
-// ignore: unused_element
-  ViewerUser fromJson(Map<String, Object> json) {
-    return ViewerUser.fromJson(json);
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $ViewerUser = _$ViewerUserTearOff();
-
-/// @nodoc
-mixin _$ViewerUser {
-  String get id;
-  @JsonKey(name: 'subscribedPrograms')
-  @protected
-  List<Item> get rawSubscribedPrograms;
-  @JsonKey(name: '__typename')
-  String get typename;
-
-  Map<String, dynamic> toJson();
-  @JsonKey(ignore: true)
-  $ViewerUserCopyWith<ViewerUser> get copyWith;
-}
-
-/// @nodoc
-abstract class $ViewerUserCopyWith<$Res> {
-  factory $ViewerUserCopyWith(
-          ViewerUser value, $Res Function(ViewerUser) then) =
-      _$ViewerUserCopyWithImpl<$Res>;
-  $Res call(
-      {String id,
-      @JsonKey(name: 'subscribedPrograms')
-      @protected
-          List<Item> rawSubscribedPrograms,
-      @JsonKey(name: '__typename')
-          String typename});
-}
-
-/// @nodoc
-class _$ViewerUserCopyWithImpl<$Res> implements $ViewerUserCopyWith<$Res> {
-  _$ViewerUserCopyWithImpl(this._value, this._then);
-
-  final ViewerUser _value;
-  // ignore: unused_field
-  final $Res Function(ViewerUser) _then;
-
-  @override
-  $Res call({
-    Object id = freezed,
-    Object rawSubscribedPrograms = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      rawSubscribedPrograms: rawSubscribedPrograms == freezed
-          ? _value.rawSubscribedPrograms
-          : rawSubscribedPrograms as List<Item>,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$ViewerUserCopyWith<$Res> implements $ViewerUserCopyWith<$Res> {
-  factory _$ViewerUserCopyWith(
-          _ViewerUser value, $Res Function(_ViewerUser) then) =
-      __$ViewerUserCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {String id,
-      @JsonKey(name: 'subscribedPrograms')
-      @protected
-          List<Item> rawSubscribedPrograms,
-      @JsonKey(name: '__typename')
-          String typename});
-}
-
-/// @nodoc
-class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
-    implements _$ViewerUserCopyWith<$Res> {
-  __$ViewerUserCopyWithImpl(
-      _ViewerUser _value, $Res Function(_ViewerUser) _then)
-      : super(_value, (v) => _then(v as _ViewerUser));
-
-  @override
-  _ViewerUser get _value => super._value as _ViewerUser;
-
-  @override
-  $Res call({
-    Object id = freezed,
-    Object rawSubscribedPrograms = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_ViewerUser(
-      id: id == freezed ? _value.id : id as String,
-      rawSubscribedPrograms: rawSubscribedPrograms == freezed
-          ? _value.rawSubscribedPrograms
-          : rawSubscribedPrograms as List<Item>,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-@JsonSerializable()
-
-/// @nodoc
-class _$_ViewerUser extends _ViewerUser with DiagnosticableTreeMixin {
-  const _$_ViewerUser(
-      {@required
-          this.id,
-      @required
-      @JsonKey(name: 'subscribedPrograms')
-      @protected
-          this.rawSubscribedPrograms,
-      @required
-      @JsonKey(name: '__typename')
-          this.typename})
-      : assert(id != null),
-        assert(rawSubscribedPrograms != null),
-        assert(typename != null),
-        assert(typename == "User"),
-        super._();
-
-  factory _$_ViewerUser.fromJson(Map<String, dynamic> json) =>
-      _$_$_ViewerUserFromJson(json);
-
-  @override
-  final String id;
-  @override
-  @JsonKey(name: 'subscribedPrograms')
-  @protected
-  final List<Item> rawSubscribedPrograms;
-  @override
-  @JsonKey(name: '__typename')
-  final String typename;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ViewerUser(id: $id, rawSubscribedPrograms: $rawSubscribedPrograms, typename: $typename)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ViewerUser'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('rawSubscribedPrograms', rawSubscribedPrograms))
-      ..add(DiagnosticsProperty('typename', typename));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _ViewerUser &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.rawSubscribedPrograms, rawSubscribedPrograms) ||
-                const DeepCollectionEquality().equals(
-                    other.rawSubscribedPrograms, rawSubscribedPrograms)) &&
-            (identical(other.typename, typename) ||
-                const DeepCollectionEquality()
-                    .equals(other.typename, typename)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(rawSubscribedPrograms) ^
-      const DeepCollectionEquality().hash(typename);
-
-  @JsonKey(ignore: true)
-  @override
-  _$ViewerUserCopyWith<_ViewerUser> get copyWith =>
-      __$ViewerUserCopyWithImpl<_ViewerUser>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_ViewerUserToJson(this);
-  }
-}
-
-abstract class _ViewerUser extends ViewerUser {
-  const _ViewerUser._() : super._();
-  const factory _ViewerUser(
-      {@required
-          String id,
-      @required
-      @JsonKey(name: 'subscribedPrograms')
-      @protected
-          List<Item> rawSubscribedPrograms,
-      @required
-      @JsonKey(name: '__typename')
-          String typename}) = _$_ViewerUser;
-
-  factory _ViewerUser.fromJson(Map<String, dynamic> json) =
-      _$_ViewerUser.fromJson;
-
-  @override
-  String get id;
-  @override
-  @JsonKey(name: 'subscribedPrograms')
-  @protected
-  List<Item> get rawSubscribedPrograms;
-  @override
-  @JsonKey(name: '__typename')
-  String get typename;
-  @override
-  @JsonKey(ignore: true)
-  _$ViewerUserCopyWith<_ViewerUser> get copyWith;
 }
 
 Channels _$ChannelsFromJson(Map<String, dynamic> json) {

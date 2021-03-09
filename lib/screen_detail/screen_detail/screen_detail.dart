@@ -27,6 +27,7 @@ import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:shirasu/screen_detail/screen_detail/btm_sheet.dart';
+import 'dart:io' show Platform;
 
 part 'screen_detail.g.dart';
 
@@ -109,6 +110,9 @@ class _ScreenDetailState extends State<ScreenDetail>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!Platform.isAndroid)
+      return;
+
     switch (state) {
       case AppLifecycleState.resumed:
         _switchVideoForeground();

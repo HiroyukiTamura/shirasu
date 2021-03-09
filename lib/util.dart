@@ -35,6 +35,19 @@ class Util {
     return Tuple2(t, s);
   }
 
+  static Future<Tuple3<S,T, U>> wait3<S,T, U>(
+      Future<S> Function() predicate1, Future<T> Function() predicate2, Future<U> Function() predicate3) async {
+    S s;
+    T t;
+    U u;
+    await Future.wait([
+      predicate1().then((it) => s = it),
+      predicate2().then((it) => t = it),
+      predicate3().then((it) => u = it),
+    ]);
+    return Tuple3(s, t, u);
+  }
+
   static Future<void> launchUrl(
       BuildContext context, String url, VoidCallback onUrlInvalid) async {
     if (!await canLaunch(url)) {

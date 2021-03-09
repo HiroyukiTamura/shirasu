@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -15,6 +16,7 @@ abstract class ApiData implements _$ApiData {
   const factory ApiData({
     @required FeatureProgramData featureProgramData,
     @protected @required List<NewProgramsData> rawNewProgramsDataList,
+    @required ListSubscribedPrograms listSubscribedPrograms
   }) = _ApiData;
 
   const ApiData._();

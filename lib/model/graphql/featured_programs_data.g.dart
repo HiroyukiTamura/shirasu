@@ -20,9 +20,6 @@ _$_FeatureProgramData _$_$_FeatureProgramDataFromJson(
     channels: json['channels'] == null
         ? null
         : Channels.fromJson(json['channels'] as Map<String, dynamic>),
-    viewerUser: json['viewerUser'] == null
-        ? null
-        : ViewerUser.fromJson(json['viewerUser'] as Map<String, dynamic>),
   );
 }
 
@@ -32,7 +29,6 @@ Map<String, dynamic> _$_$_FeatureProgramDataToJson(
       'nowBroadcastings': instance.nowBroadcastings,
       'comingBroadcastings': instance.comingBroadcastings,
       'channels': instance.channels,
-      'viewerUser': instance.viewerUser,
     };
 
 _$_Broadcastings _$_$_BroadcastingsFromJson(Map<String, dynamic> json) {
@@ -99,24 +95,6 @@ Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      '__typename': instance.typename,
-    };
-
-_$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
-  return _$_ViewerUser(
-    id: json['id'] as String,
-    rawSubscribedPrograms: (json['subscribedPrograms'] as List)
-        ?.map(
-            (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    typename: json['__typename'] as String,
-  );
-}
-
-Map<String, dynamic> _$_$_ViewerUserToJson(_$_ViewerUser instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'subscribedPrograms': instance.rawSubscribedPrograms,
       '__typename': instance.typename,
     };
 

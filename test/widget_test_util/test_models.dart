@@ -1,4 +1,5 @@
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
+import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart' hide ViewerUser;
@@ -23,17 +24,19 @@ class TestModels {
     typename: 'ModelChannelConnection',
   );
 
-  static const EMPTY_VIEWER_USER = ViewerUser(
-    rawSubscribedPrograms: [],
-    id: '',
-    typename: 'User',
+  static const EMPTY_LIST_SUBSCRIBED_PROGRAMS = ListSubscribedPrograms(
+    viewerUser: ViewerUser(
+      subscribedPrograms:
+          ProgramCollection(rawItems: [], typename: 'ProgramCollection'),
+      id: 'DUMMY_ID',
+      typename: 'User',
+    ),
   );
 
   static const FEATURE_PROGRAM_DATA = FeatureProgramData(
     nowBroadcastings: EMPTY_BROAD_CASTINGS,
     comingBroadcastings: EMPTY_BROAD_CASTINGS,
     channels: EMPTY_CHANNEL,
-    viewerUser: EMPTY_VIEWER_USER,
   );
 
   static const EMPTY_WATCH_HISTORIES_DATA = WatchHistoriesData(

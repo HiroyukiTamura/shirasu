@@ -6,6 +6,7 @@ import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
+import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
@@ -25,6 +26,7 @@ class JsonClient {
   HiveAuthData mHiveAuthData;
   ProgramDetailData mProgramDetailData;
   ListCommentsByProgram mListCommentsByProgram;
+  ListSubscribedPrograms mListSubscribedPrograms;
 
   static final JsonClient instance = JsonClient._();
 
@@ -37,6 +39,7 @@ class JsonClient {
     mHiveAuthData = await _hiveAuth;
     mProgramDetailData = await _programDetail;
     mListCommentsByProgram = await _listCommentsByProgram;
+    mListSubscribedPrograms = await _listSubscribedPrograms;
   }
 
   Future<FeatureProgramData> get _featureProgramData async {
@@ -78,6 +81,11 @@ class JsonClient {
   Future<ListCommentsByProgram> get _listCommentsByProgram async {
     final json = await _loadJson(Assets.json.listCommentsByProgram);
     return ListCommentsByProgram.fromJson(json);
+  }
+
+  Future<ListSubscribedPrograms> get _listSubscribedPrograms async {
+    final json = await _loadJson(Assets.json.listSubscribingPrograms);
+    return ListSubscribedPrograms.fromJson(json);
   }
 
   static Future<Map<String, dynamic>> _loadJson(

@@ -3,35 +3,35 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
-import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
 part 'viewmodel_subscribing.freezed.dart';
 
-class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
+class ViewModelSubscribing extends ViewModelBase<SubscribingProgramState> {
   ViewModelSubscribing(Reader reader)
-      : super(reader, const FeatureProgramState.initial());
+      : super(reader, const SubscribingProgramState.initial());
 
   @override
   Future<void> initialize() async {
-    if (state != const FeatureProgramState.initial()) return;
+    if (state != const SubscribingProgramState.initial()) return;
 
     final result = await logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
       return graphQlRepository
-          .queryFeaturedProgramsList()
+          .querySubscribedProgramsList()
           .timeout(GraphQlRepository.TIMEOUT);
     });
     if (mounted)
       result.when(success: (data) {
-        state = data.viewerUser.subscribedPrograms.isEmpty
-            ? const FeatureProgramState.resultEmpty()
-            : FeatureProgramState.success(data);
+        state = data.viewerUser.subscribedPrograms.items.isEmpty
+            ? const SubscribingProgramState.resultEmpty()
+            : SubscribingProgramState.success(data);
       }, failure: (e) {
-        state = FeatureProgramState.error(toErrMsg(e));
+        state = SubscribingProgramState.error(toErrMsg(e));
         if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
       });
   }
@@ -39,15 +39,15 @@ class ViewModelSubscribing extends ViewModelBase<FeatureProgramState> {
 
 @protected
 @freezed
-abstract class FeatureProgramState with _$FeatureProgramState {
-  const factory FeatureProgramState.initial() = _FeatureProgramStateInitial;
+abstract class SubscribingProgramState with _$SubscribingProgramState {
+  const factory SubscribingProgramState.initial() = _SubscribingProgramStateInitial;
 
-  const factory FeatureProgramState.resultEmpty() =
-      _FeatureProgramStateResultEmpty;
+  const factory SubscribingProgramState.resultEmpty() =
+      _SubscribingProgramStateResultEmpty;
 
-  const factory FeatureProgramState.success(
-      FeatureProgramData featureProgramData) = _FeatureProgramStateSuccess;
+  const factory SubscribingProgramState.success(
+      ListSubscribedPrograms listSubscribedPrograms) = _SubscribingProgramStateSuccess;
 
-  const factory FeatureProgramState.error(ErrorMsgCommon errorMsg) =
-      _FeatureProgramStateError;
+  const factory SubscribingProgramState.error(ErrorMsgCommon errorMsg) =
+      _SubscribingProgramStateError;
 }

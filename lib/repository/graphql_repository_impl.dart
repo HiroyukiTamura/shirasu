@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/repository/graghql_query.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
@@ -274,5 +275,14 @@ class GraphQlRepositoryImpl with GraphQlRepository {
       operationName: 'PostComment',
     );
     return PostedComment.fromJson(result.data).comment;
+  }
+
+  @override
+  Future<ListSubscribedPrograms> querySubscribedProgramsList() async {
+    final result = await _query(
+      GraphqlQuery.QUERY_SUBSCRIPTION_PROGRAM,
+      operationName: 'ListSubscribedPrograms',
+    );
+    return ListSubscribedPrograms.fromJson(result.data);
   }
 }

@@ -67,7 +67,7 @@ class _ListViewContent extends HookWidget {
       itemCount += 2;
     final comingBroadcastingsLast = itemCount;
 
-    if (featurePrgData?.viewerUser?.subscribedPrograms?.isNotEmpty == true)
+    if (data?.listSubscribedPrograms?.viewerUser?.subscribedPrograms?.items?.isNotEmpty == true)
       itemCount += 2;
 
     final subscribingLast = itemCount;
@@ -122,7 +122,7 @@ class _ListViewContent extends HookWidget {
                 return i == 0
                     ? const Heading(text: Strings.HEADING_SUBSCRIBING)
                     : HorizontalCarousels(
-                        list: featurePrgData.viewerUser.subscribedPrograms,
+                        list: data?.listSubscribedPrograms?.viewerUser?.subscribedPrograms?.items,
                         maxWidth: constraints.maxWidth,
                         constraints: constraints,
                         detailCaption: true,

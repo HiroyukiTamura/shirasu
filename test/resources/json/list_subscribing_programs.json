@@ -1,0 +1,218 @@
+{
+  "data": {
+    "viewerUser": {
+      "id": "google-oauth2|109431228853603579684",
+      "subscribedPrograms": {
+        "items": [
+          {
+            "broadcastAt": "2021-03-26T10:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210326",
+            "mainTime": 10800,
+            "releasedAt": "2021-03-26T10:00:00.000Z",
+            "tenantId": "genron",
+            "title": "石田英敬×高橋啓 司会＝吉川浩満「仁義なきフランス現代思想――『言語の七番目の機能』刊行記念」 #ゲンロン210326",
+            "totalPlayTime": 10800,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-03-24T10:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210324",
+            "mainTime": 10800,
+            "releasedAt": "2021-03-24T10:00:00.000Z",
+            "tenantId": "genron",
+            "title": "古田徹也 聞き手＝斎藤哲也「『はじめてのウィトゲンシュタイン』刊行記念（仮）」 #ゲンロン210324",
+            "totalPlayTime": 10800,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-03-19T10:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210319",
+            "mainTime": 10800,
+            "releasedAt": "2021-03-19T10:00:00.000Z",
+            "tenantId": "genron",
+            "title": "稲葉振一郎×河野真太郎「ポップカルチャーを社会的に読解する――ジェンダー、資本主義、労働」 #ゲンロン210319",
+            "totalPlayTime": 10800,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-03-12T10:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210212",
+            "mainTime": 10800,
+            "releasedAt": "2021-03-12T10:00:00.000Z",
+            "tenantId": "genron",
+            "title": "鴻巣友季子×東浩紀×上田洋子「『風と共に去りぬ』とアメリカ（仮）」 #ゲンロン210312",
+            "totalPlayTime": 10800,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-03-11T10:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210311",
+            "mainTime": 10800,
+            "releasedAt": "2021-03-11T10:00:00.000Z",
+            "tenantId": "genron",
+            "title": "平田オリザ×小松理虔×上田洋子「震災から10年、物語で地域は動くのか――『新復興論 増補版』刊行記念」 @ORIZA_ERST_CF @riken_komatsu @yuvmsk #ゲンロン210311",
+            "totalPlayTime": 10800,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-03-08T10:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210308",
+            "mainTime": 14122,
+            "releasedAt": "2021-03-08T10:00:00.000Z",
+            "tenantId": "genron",
+            "title": "片岡一郎×山本貴光×渡邉大輔「映画を拡張する声と説明芸術――『活動写真弁史』刊行記念」 @katsudobenshi @yakumoizuru @diesuke_w #ゲンロン210308",
+            "totalPlayTime": 14122,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-03-08T02:30:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210308e",
+            "mainTime": 21600,
+            "releasedAt": "2021-03-08T02:30:00.000Z",
+            "tenantId": "genron",
+            "title": "大井昌和×さやわか×東浩紀「全　世　界　最　速　シン・エヴァ・レビュー生放送！　さようなら、ぼくたちのエヴァンゲリオン。」 @ooimasakazu @someru @hazuma #ゲンロン210308e",
+            "totalPlayTime": 24300,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-03-05T10:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210305",
+            "mainTime": 16822,
+            "releasedAt": "2021-03-05T10:00:00.000Z",
+            "tenantId": "genron",
+            "title": "大山顕×菊地浩平×三宅隆太「コロナの現実とホラーの可能性、あるいは人形というメディア」 @sohsai @kikuchiko @ScriptDoctorMR #ゲンロン210305",
+            "totalPlayTime": 16822,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-03-04T15:10:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210304233540",
+            "mainTime": 6300,
+            "releasedAt": "2021-03-04T15:10:00.000Z",
+            "tenantId": "genron",
+            "title": "なんか突発2",
+            "totalPlayTime": 12368,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-02-28T17:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210301",
+            "mainTime": 7200,
+            "releasedAt": "2021-02-28T17:00:00.000Z",
+            "tenantId": "genron",
+            "title": "大井昌和×さやわか×東浩紀「シン・エヴァ公開までついに1週間！ カウントダウン特別企画、まさかの深夜突発！ おれたちは本当に青春を終わらせられるのか！？ 」 @ooimasakazu @someru @hazuma #ゲンロン210301",
+            "totalPlayTime": 10800,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-02-28T11:00:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210228a",
+            "mainTime": 21600,
+            "releasedAt": "2021-02-28T11:00:00.000Z",
+            "tenantId": "genron",
+            "title": "大井昌和×さやわか×ふみふみこ「ジェンダー、国家、SF――『大奥』完結で考えるマンガの力」【ニッポンのマンガ #11】 @ooimasakazu @someru @fumifumiko23235 #ゲンロン210228",
+            "totalPlayTime": 21600,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          },
+          {
+            "broadcastAt": "2021-02-24T16:15:00.000Z",
+            "channelId": "genron",
+            "id": "genron-genron-20210225",
+            "mainTime": 7200,
+            "releasedAt": "2021-02-24T16:15:00.000Z",
+            "tenantId": "genron",
+            "title": "東浩紀、深夜突発す：ゲンロン12の話などもろもろ",
+            "totalPlayTime": 15600,
+            "viewerPlanType": "SubscriptionPlan",
+            "channel": {
+              "id": "genron",
+              "name": "スーパー完全中継チャンネル",
+              "__typename": "Channel"
+            },
+            "__typename": "Program"
+          }
+        ],
+        "nextToken": "H4sIAAAAAAAAA6tWSk/NK8rPU7KqVkrOSMzLS83xTFGygonqKGUieLpQysjAyNDAyMgUKFuUmpOaWJya4lgCVAUS1zUw0jUyCTE0szI0tTIw0DMwMIhSqq0FABiDVa9nAAAA",
+        "__typename": "ProgramCollection"
+      },
+      "__typename": "User"
+    }
+  }
+}

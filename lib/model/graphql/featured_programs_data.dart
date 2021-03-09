@@ -14,7 +14,6 @@ abstract class FeatureProgramData implements _$FeatureProgramData {
     @required Broadcastings nowBroadcastings,
     @required Broadcastings comingBroadcastings,
     @required Channels channels,
-    @required ViewerUser viewerUser,
   }) = _FeatureProgramData;
 
   factory FeatureProgramData.fromJson(Map<String, dynamic> json) =>
@@ -84,26 +83,6 @@ abstract class Channel with _$Channel implements BaseChannel {
 
   factory Channel.fromJson(Map<String, dynamic> json) =>
       _$ChannelFromJson(json);
-}
-
-@freezed
-abstract class ViewerUser with _$ViewerUser implements BaseUser {
-
-  @Assert('typename == "User"')
-  const factory ViewerUser({
-    @required String id,
-    @required @JsonKey(name: 'subscribedPrograms') @protected List<Item> rawSubscribedPrograms,
-    @JsonKey(name: '__typename')
-    @required
-        String typename,
-  }) = _ViewerUser;
-
-  factory ViewerUser.fromJson(Map<String, dynamic> json) =>
-      _$ViewerUserFromJson(json);
-
-  const ViewerUser._();
-
-  UnmodifiableListView<Item> get subscribedPrograms => rawSubscribedPrograms.toUnmodifiable();
 }
 
 @freezed

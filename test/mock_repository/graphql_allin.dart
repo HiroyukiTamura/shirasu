@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -12,7 +13,6 @@ import 'package:shirasu/model/update_user_with_attr_variable.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 
 abstract class GraphqlAllin implements GraphQlRepository {
-
   const GraphqlAllin();
 
   @protected
@@ -73,4 +73,8 @@ abstract class GraphqlAllin implements GraphQlRepository {
   Future<UserWithAttributeData> updateUserWithAttr(
           UpdateUserWithAttrVariable variable) async =>
       process<UserWithAttributeData>();
+
+  @override
+  Future<ListSubscribedPrograms> querySubscribedProgramsList() async =>
+      process<ListSubscribedPrograms>();
 }

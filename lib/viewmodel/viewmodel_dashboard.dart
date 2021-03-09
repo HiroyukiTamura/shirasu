@@ -34,9 +34,10 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
     final result = await _logger.guardFuture(() async {
       await connectivityRepository.ensureNotDisconnect();
-      return Util.wait2(
+      return Util.wait3(
         _graphQlRepository.queryFeaturedProgramsList,
         _graphQlRepository.queryNewProgramsList,
+        _graphQlRepository.querySubscribedProgramsList,
       ).timeout(GraphQlRepository.TIMEOUT);
     });
     if (!isMounted) return;
@@ -44,6 +45,7 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
       final apiData = ApiData(
         featureProgramData: data.item1,
         rawNewProgramsDataList: [data.item2],
+        listSubscribedPrograms: data.item3,
       );
       state = DashboardModel.successInitialization(apiData);
     }, failure: (e) {

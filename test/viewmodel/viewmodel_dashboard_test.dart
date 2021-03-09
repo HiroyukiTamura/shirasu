@@ -43,6 +43,7 @@ Future<void> main() async {
           DashboardModel.success(DataWrapper.initial(ApiData(
             featureProgramData: JsonClient.instance.mFeatureProgramData,
             rawNewProgramsDataList: [JsonClient.instance.mNewProgramsData],
+            listSubscribedPrograms: JsonClient.instance.mListSubscribedPrograms,
           ))),
         ));
 
@@ -64,10 +65,12 @@ Future<void> main() async {
       successNoNextToken = DashboardModel.success(DataWrapper.initial(ApiData(
         featureProgramData: JsonClient.instance.mFeatureProgramData,
         rawNewProgramsDataList: [noNextTokenState],
+        listSubscribedPrograms: JsonClient.instance.mListSubscribedPrograms,
       )));
       successHasNextToken = DashboardModel.success(DataWrapper.initial(ApiData(
         featureProgramData: JsonClient.instance.mFeatureProgramData,
         rawNewProgramsDataList: [hasNextTokenState],
+        listSubscribedPrograms: JsonClient.instance.mListSubscribedPrograms,
       )));
       overrideNoNextToken = kPrvDashboardViewModel.overrideWithProvider(
           ViewModelDashBoardMockable.createProvider(successNoNextToken));

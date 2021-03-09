@@ -69,7 +69,22 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
           return;
 
         final storage = await _plugin.evalJavascript(_jsLocalStorageGetter);
-        if (storage.isEmpty) return;
+        if (storage.isEmpty || _success) return;
+
+        await logger
+            .guard(() =>
+                AuthData.fromJson(jsonDecode(storage) as Map<String, dynamic>))
+            .when(
+              success: (data) async => _onSuccessLogin(data),
+              failure: (_) => logger
+                  .guard(() => AuthData.fromJson(
+                      jsonDecode(jsonDecode(storage) as String)
+                          as Map<String, dynamic>))
+                  .when(
+                    success: (data) async => _onSuccessLogin(data),
+                    failure: (_) async => _hiveClient.clearAuthData(),
+                  ),
+            );
 
         // todo debug
         // try unescape string and decode json
@@ -88,6 +103,15 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
             failure: (e) async => _hiveClient.clearAuthData(),
           );
       });
+
+  Future<void> _onSuccessLogin(AuthData data) async {
+    if (_success) return;
+    _success = true;
+    await _hiveClient.putAuthData(data);
+    if (!mounted) return;
+    reader(kPrvAppRouterDelegate).reset();
+    await _plugin.close();
+  }
 }
 
 @freezed

@@ -27,15 +27,15 @@ Widget subscribingWidget() => useProvider(kPrvViewModelSubscribing.state).when(
         text: Strings.SUBSCRIBING_EMPTY_MSG,
         icon: Icons.video_collection,
       ),
-      success: (programData) => ListView.builder(
+      success: (data) => ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 16),
         itemBuilder: (context, i) {
-          final item = programData.viewerUser.subscribedPrograms[i];
+          final item = data.viewerUser.subscribedPrograms.items[i];
           return MovieListItem(
             program: item,
             onTap: () async => context.pushProgramPage(item.id),
           );
         },
-        itemCount: programData.viewerUser.subscribedPrograms.length,
+        itemCount: data.viewerUser.subscribedPrograms.items.length,
       ),
     );

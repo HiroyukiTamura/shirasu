@@ -10,29 +10,30 @@ part of 'viewmodel_subscribing.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-class _$FeatureProgramStateTearOff {
-  const _$FeatureProgramStateTearOff();
+class _$SubscribingProgramStateTearOff {
+  const _$SubscribingProgramStateTearOff();
 
 // ignore: unused_element
-  _FeatureProgramStateInitial initial() {
-    return const _FeatureProgramStateInitial();
+  _SubscribingProgramStateInitial initial() {
+    return const _SubscribingProgramStateInitial();
   }
 
 // ignore: unused_element
-  _FeatureProgramStateResultEmpty resultEmpty() {
-    return const _FeatureProgramStateResultEmpty();
+  _SubscribingProgramStateResultEmpty resultEmpty() {
+    return const _SubscribingProgramStateResultEmpty();
   }
 
 // ignore: unused_element
-  _FeatureProgramStateSuccess success(FeatureProgramData featureProgramData) {
-    return _FeatureProgramStateSuccess(
-      featureProgramData,
+  _SubscribingProgramStateSuccess success(
+      ListSubscribedPrograms listSubscribedPrograms) {
+    return _SubscribingProgramStateSuccess(
+      listSubscribedPrograms,
     );
   }
 
 // ignore: unused_element
-  _FeatureProgramStateError error(ErrorMsgCommon errorMsg) {
-    return _FeatureProgramStateError(
+  _SubscribingProgramStateError error(ErrorMsgCommon errorMsg) {
+    return _SubscribingProgramStateError(
       errorMsg,
     );
   }
@@ -40,92 +41,94 @@ class _$FeatureProgramStateTearOff {
 
 /// @nodoc
 // ignore: unused_element
-const $FeatureProgramState = _$FeatureProgramStateTearOff();
+const $SubscribingProgramState = _$SubscribingProgramStateTearOff();
 
 /// @nodoc
-mixin _$FeatureProgramState {
+mixin _$SubscribingProgramState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult success(ListSubscribedPrograms listSubscribedPrograms),
     @required TResult error(ErrorMsgCommon errorMsg),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(FeatureProgramData featureProgramData),
+    TResult success(ListSubscribedPrograms listSubscribedPrograms),
     TResult error(ErrorMsgCommon errorMsg),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult initial(_FeatureProgramStateInitial value),
-    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    @required TResult success(_FeatureProgramStateSuccess value),
-    @required TResult error(_FeatureProgramStateError value),
+    @required TResult initial(_SubscribingProgramStateInitial value),
+    @required TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    @required TResult success(_SubscribingProgramStateSuccess value),
+    @required TResult error(_SubscribingProgramStateError value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult initial(_FeatureProgramStateInitial value),
-    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    TResult success(_FeatureProgramStateSuccess value),
-    TResult error(_FeatureProgramStateError value),
+    TResult initial(_SubscribingProgramStateInitial value),
+    TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    TResult success(_SubscribingProgramStateSuccess value),
+    TResult error(_SubscribingProgramStateError value),
     @required TResult orElse(),
   });
 }
 
 /// @nodoc
-abstract class $FeatureProgramStateCopyWith<$Res> {
-  factory $FeatureProgramStateCopyWith(
-          FeatureProgramState value, $Res Function(FeatureProgramState) then) =
-      _$FeatureProgramStateCopyWithImpl<$Res>;
+abstract class $SubscribingProgramStateCopyWith<$Res> {
+  factory $SubscribingProgramStateCopyWith(SubscribingProgramState value,
+          $Res Function(SubscribingProgramState) then) =
+      _$SubscribingProgramStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FeatureProgramStateCopyWithImpl<$Res>
-    implements $FeatureProgramStateCopyWith<$Res> {
-  _$FeatureProgramStateCopyWithImpl(this._value, this._then);
+class _$SubscribingProgramStateCopyWithImpl<$Res>
+    implements $SubscribingProgramStateCopyWith<$Res> {
+  _$SubscribingProgramStateCopyWithImpl(this._value, this._then);
 
-  final FeatureProgramState _value;
+  final SubscribingProgramState _value;
   // ignore: unused_field
-  final $Res Function(FeatureProgramState) _then;
+  final $Res Function(SubscribingProgramState) _then;
 }
 
 /// @nodoc
-abstract class _$FeatureProgramStateInitialCopyWith<$Res> {
-  factory _$FeatureProgramStateInitialCopyWith(
-          _FeatureProgramStateInitial value,
-          $Res Function(_FeatureProgramStateInitial) then) =
-      __$FeatureProgramStateInitialCopyWithImpl<$Res>;
+abstract class _$SubscribingProgramStateInitialCopyWith<$Res> {
+  factory _$SubscribingProgramStateInitialCopyWith(
+          _SubscribingProgramStateInitial value,
+          $Res Function(_SubscribingProgramStateInitial) then) =
+      __$SubscribingProgramStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$FeatureProgramStateInitialCopyWithImpl<$Res>
-    extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements _$FeatureProgramStateInitialCopyWith<$Res> {
-  __$FeatureProgramStateInitialCopyWithImpl(_FeatureProgramStateInitial _value,
-      $Res Function(_FeatureProgramStateInitial) _then)
-      : super(_value, (v) => _then(v as _FeatureProgramStateInitial));
+class __$SubscribingProgramStateInitialCopyWithImpl<$Res>
+    extends _$SubscribingProgramStateCopyWithImpl<$Res>
+    implements _$SubscribingProgramStateInitialCopyWith<$Res> {
+  __$SubscribingProgramStateInitialCopyWithImpl(
+      _SubscribingProgramStateInitial _value,
+      $Res Function(_SubscribingProgramStateInitial) _then)
+      : super(_value, (v) => _then(v as _SubscribingProgramStateInitial));
 
   @override
-  _FeatureProgramStateInitial get _value =>
-      super._value as _FeatureProgramStateInitial;
+  _SubscribingProgramStateInitial get _value =>
+      super._value as _SubscribingProgramStateInitial;
 }
 
 /// @nodoc
-class _$_FeatureProgramStateInitial implements _FeatureProgramStateInitial {
-  const _$_FeatureProgramStateInitial();
+class _$_SubscribingProgramStateInitial
+    implements _SubscribingProgramStateInitial {
+  const _$_SubscribingProgramStateInitial();
 
   @override
   String toString() {
-    return 'FeatureProgramState.initial()';
+    return 'SubscribingProgramState.initial()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _FeatureProgramStateInitial);
+    return identical(this, other) || (other is _SubscribingProgramStateInitial);
   }
 
   @override
@@ -136,7 +139,7 @@ class _$_FeatureProgramStateInitial implements _FeatureProgramStateInitial {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult success(ListSubscribedPrograms listSubscribedPrograms),
     @required TResult error(ErrorMsgCommon errorMsg),
   }) {
     assert(initial != null);
@@ -151,7 +154,7 @@ class _$_FeatureProgramStateInitial implements _FeatureProgramStateInitial {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(FeatureProgramData featureProgramData),
+    TResult success(ListSubscribedPrograms listSubscribedPrograms),
     TResult error(ErrorMsgCommon errorMsg),
     @required TResult orElse(),
   }) {
@@ -165,10 +168,10 @@ class _$_FeatureProgramStateInitial implements _FeatureProgramStateInitial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult initial(_FeatureProgramStateInitial value),
-    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    @required TResult success(_FeatureProgramStateSuccess value),
-    @required TResult error(_FeatureProgramStateError value),
+    @required TResult initial(_SubscribingProgramStateInitial value),
+    @required TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    @required TResult success(_SubscribingProgramStateSuccess value),
+    @required TResult error(_SubscribingProgramStateError value),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
@@ -180,10 +183,10 @@ class _$_FeatureProgramStateInitial implements _FeatureProgramStateInitial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult initial(_FeatureProgramStateInitial value),
-    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    TResult success(_FeatureProgramStateSuccess value),
-    TResult error(_FeatureProgramStateError value),
+    TResult initial(_SubscribingProgramStateInitial value),
+    TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    TResult success(_SubscribingProgramStateSuccess value),
+    TResult error(_SubscribingProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -194,45 +197,48 @@ class _$_FeatureProgramStateInitial implements _FeatureProgramStateInitial {
   }
 }
 
-abstract class _FeatureProgramStateInitial implements FeatureProgramState {
-  const factory _FeatureProgramStateInitial() = _$_FeatureProgramStateInitial;
+abstract class _SubscribingProgramStateInitial
+    implements SubscribingProgramState {
+  const factory _SubscribingProgramStateInitial() =
+      _$_SubscribingProgramStateInitial;
 }
 
 /// @nodoc
-abstract class _$FeatureProgramStateResultEmptyCopyWith<$Res> {
-  factory _$FeatureProgramStateResultEmptyCopyWith(
-          _FeatureProgramStateResultEmpty value,
-          $Res Function(_FeatureProgramStateResultEmpty) then) =
-      __$FeatureProgramStateResultEmptyCopyWithImpl<$Res>;
+abstract class _$SubscribingProgramStateResultEmptyCopyWith<$Res> {
+  factory _$SubscribingProgramStateResultEmptyCopyWith(
+          _SubscribingProgramStateResultEmpty value,
+          $Res Function(_SubscribingProgramStateResultEmpty) then) =
+      __$SubscribingProgramStateResultEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$FeatureProgramStateResultEmptyCopyWithImpl<$Res>
-    extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements _$FeatureProgramStateResultEmptyCopyWith<$Res> {
-  __$FeatureProgramStateResultEmptyCopyWithImpl(
-      _FeatureProgramStateResultEmpty _value,
-      $Res Function(_FeatureProgramStateResultEmpty) _then)
-      : super(_value, (v) => _then(v as _FeatureProgramStateResultEmpty));
+class __$SubscribingProgramStateResultEmptyCopyWithImpl<$Res>
+    extends _$SubscribingProgramStateCopyWithImpl<$Res>
+    implements _$SubscribingProgramStateResultEmptyCopyWith<$Res> {
+  __$SubscribingProgramStateResultEmptyCopyWithImpl(
+      _SubscribingProgramStateResultEmpty _value,
+      $Res Function(_SubscribingProgramStateResultEmpty) _then)
+      : super(_value, (v) => _then(v as _SubscribingProgramStateResultEmpty));
 
   @override
-  _FeatureProgramStateResultEmpty get _value =>
-      super._value as _FeatureProgramStateResultEmpty;
+  _SubscribingProgramStateResultEmpty get _value =>
+      super._value as _SubscribingProgramStateResultEmpty;
 }
 
 /// @nodoc
-class _$_FeatureProgramStateResultEmpty
-    implements _FeatureProgramStateResultEmpty {
-  const _$_FeatureProgramStateResultEmpty();
+class _$_SubscribingProgramStateResultEmpty
+    implements _SubscribingProgramStateResultEmpty {
+  const _$_SubscribingProgramStateResultEmpty();
 
   @override
   String toString() {
-    return 'FeatureProgramState.resultEmpty()';
+    return 'SubscribingProgramState.resultEmpty()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _FeatureProgramStateResultEmpty);
+    return identical(this, other) ||
+        (other is _SubscribingProgramStateResultEmpty);
   }
 
   @override
@@ -243,7 +249,7 @@ class _$_FeatureProgramStateResultEmpty
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult success(ListSubscribedPrograms listSubscribedPrograms),
     @required TResult error(ErrorMsgCommon errorMsg),
   }) {
     assert(initial != null);
@@ -258,7 +264,7 @@ class _$_FeatureProgramStateResultEmpty
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(FeatureProgramData featureProgramData),
+    TResult success(ListSubscribedPrograms listSubscribedPrograms),
     TResult error(ErrorMsgCommon errorMsg),
     @required TResult orElse(),
   }) {
@@ -272,10 +278,10 @@ class _$_FeatureProgramStateResultEmpty
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult initial(_FeatureProgramStateInitial value),
-    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    @required TResult success(_FeatureProgramStateSuccess value),
-    @required TResult error(_FeatureProgramStateError value),
+    @required TResult initial(_SubscribingProgramStateInitial value),
+    @required TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    @required TResult success(_SubscribingProgramStateSuccess value),
+    @required TResult error(_SubscribingProgramStateError value),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
@@ -287,10 +293,10 @@ class _$_FeatureProgramStateResultEmpty
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult initial(_FeatureProgramStateInitial value),
-    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    TResult success(_FeatureProgramStateSuccess value),
-    TResult error(_FeatureProgramStateError value),
+    TResult initial(_SubscribingProgramStateInitial value),
+    TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    TResult success(_SubscribingProgramStateSuccess value),
+    TResult error(_SubscribingProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -301,103 +307,106 @@ class _$_FeatureProgramStateResultEmpty
   }
 }
 
-abstract class _FeatureProgramStateResultEmpty implements FeatureProgramState {
-  const factory _FeatureProgramStateResultEmpty() =
-      _$_FeatureProgramStateResultEmpty;
+abstract class _SubscribingProgramStateResultEmpty
+    implements SubscribingProgramState {
+  const factory _SubscribingProgramStateResultEmpty() =
+      _$_SubscribingProgramStateResultEmpty;
 }
 
 /// @nodoc
-abstract class _$FeatureProgramStateSuccessCopyWith<$Res> {
-  factory _$FeatureProgramStateSuccessCopyWith(
-          _FeatureProgramStateSuccess value,
-          $Res Function(_FeatureProgramStateSuccess) then) =
-      __$FeatureProgramStateSuccessCopyWithImpl<$Res>;
-  $Res call({FeatureProgramData featureProgramData});
+abstract class _$SubscribingProgramStateSuccessCopyWith<$Res> {
+  factory _$SubscribingProgramStateSuccessCopyWith(
+          _SubscribingProgramStateSuccess value,
+          $Res Function(_SubscribingProgramStateSuccess) then) =
+      __$SubscribingProgramStateSuccessCopyWithImpl<$Res>;
+  $Res call({ListSubscribedPrograms listSubscribedPrograms});
 
-  $FeatureProgramDataCopyWith<$Res> get featureProgramData;
+  $ListSubscribedProgramsCopyWith<$Res> get listSubscribedPrograms;
 }
 
 /// @nodoc
-class __$FeatureProgramStateSuccessCopyWithImpl<$Res>
-    extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements _$FeatureProgramStateSuccessCopyWith<$Res> {
-  __$FeatureProgramStateSuccessCopyWithImpl(_FeatureProgramStateSuccess _value,
-      $Res Function(_FeatureProgramStateSuccess) _then)
-      : super(_value, (v) => _then(v as _FeatureProgramStateSuccess));
+class __$SubscribingProgramStateSuccessCopyWithImpl<$Res>
+    extends _$SubscribingProgramStateCopyWithImpl<$Res>
+    implements _$SubscribingProgramStateSuccessCopyWith<$Res> {
+  __$SubscribingProgramStateSuccessCopyWithImpl(
+      _SubscribingProgramStateSuccess _value,
+      $Res Function(_SubscribingProgramStateSuccess) _then)
+      : super(_value, (v) => _then(v as _SubscribingProgramStateSuccess));
 
   @override
-  _FeatureProgramStateSuccess get _value =>
-      super._value as _FeatureProgramStateSuccess;
+  _SubscribingProgramStateSuccess get _value =>
+      super._value as _SubscribingProgramStateSuccess;
 
   @override
   $Res call({
-    Object featureProgramData = freezed,
+    Object listSubscribedPrograms = freezed,
   }) {
-    return _then(_FeatureProgramStateSuccess(
-      featureProgramData == freezed
-          ? _value.featureProgramData
-          : featureProgramData as FeatureProgramData,
+    return _then(_SubscribingProgramStateSuccess(
+      listSubscribedPrograms == freezed
+          ? _value.listSubscribedPrograms
+          : listSubscribedPrograms as ListSubscribedPrograms,
     ));
   }
 
   @override
-  $FeatureProgramDataCopyWith<$Res> get featureProgramData {
-    if (_value.featureProgramData == null) {
+  $ListSubscribedProgramsCopyWith<$Res> get listSubscribedPrograms {
+    if (_value.listSubscribedPrograms == null) {
       return null;
     }
-    return $FeatureProgramDataCopyWith<$Res>(_value.featureProgramData,
+    return $ListSubscribedProgramsCopyWith<$Res>(_value.listSubscribedPrograms,
         (value) {
-      return _then(_value.copyWith(featureProgramData: value));
+      return _then(_value.copyWith(listSubscribedPrograms: value));
     });
   }
 }
 
 /// @nodoc
-class _$_FeatureProgramStateSuccess implements _FeatureProgramStateSuccess {
-  const _$_FeatureProgramStateSuccess(this.featureProgramData)
-      : assert(featureProgramData != null);
+class _$_SubscribingProgramStateSuccess
+    implements _SubscribingProgramStateSuccess {
+  const _$_SubscribingProgramStateSuccess(this.listSubscribedPrograms)
+      : assert(listSubscribedPrograms != null);
 
   @override
-  final FeatureProgramData featureProgramData;
+  final ListSubscribedPrograms listSubscribedPrograms;
 
   @override
   String toString() {
-    return 'FeatureProgramState.success(featureProgramData: $featureProgramData)';
+    return 'SubscribingProgramState.success(listSubscribedPrograms: $listSubscribedPrograms)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _FeatureProgramStateSuccess &&
-            (identical(other.featureProgramData, featureProgramData) ||
-                const DeepCollectionEquality()
-                    .equals(other.featureProgramData, featureProgramData)));
+        (other is _SubscribingProgramStateSuccess &&
+            (identical(other.listSubscribedPrograms, listSubscribedPrograms) ||
+                const DeepCollectionEquality().equals(
+                    other.listSubscribedPrograms, listSubscribedPrograms)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(featureProgramData);
+      const DeepCollectionEquality().hash(listSubscribedPrograms);
 
   @JsonKey(ignore: true)
   @override
-  _$FeatureProgramStateSuccessCopyWith<_FeatureProgramStateSuccess>
-      get copyWith => __$FeatureProgramStateSuccessCopyWithImpl<
-          _FeatureProgramStateSuccess>(this, _$identity);
+  _$SubscribingProgramStateSuccessCopyWith<_SubscribingProgramStateSuccess>
+      get copyWith => __$SubscribingProgramStateSuccessCopyWithImpl<
+          _SubscribingProgramStateSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult success(ListSubscribedPrograms listSubscribedPrograms),
     @required TResult error(ErrorMsgCommon errorMsg),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
     assert(success != null);
     assert(error != null);
-    return success(featureProgramData);
+    return success(listSubscribedPrograms);
   }
 
   @override
@@ -405,13 +414,13 @@ class _$_FeatureProgramStateSuccess implements _FeatureProgramStateSuccess {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(FeatureProgramData featureProgramData),
+    TResult success(ListSubscribedPrograms listSubscribedPrograms),
     TResult error(ErrorMsgCommon errorMsg),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
-      return success(featureProgramData);
+      return success(listSubscribedPrograms);
     }
     return orElse();
   }
@@ -419,10 +428,10 @@ class _$_FeatureProgramStateSuccess implements _FeatureProgramStateSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult initial(_FeatureProgramStateInitial value),
-    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    @required TResult success(_FeatureProgramStateSuccess value),
-    @required TResult error(_FeatureProgramStateError value),
+    @required TResult initial(_SubscribingProgramStateInitial value),
+    @required TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    @required TResult success(_SubscribingProgramStateSuccess value),
+    @required TResult error(_SubscribingProgramStateError value),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
@@ -434,10 +443,10 @@ class _$_FeatureProgramStateSuccess implements _FeatureProgramStateSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult initial(_FeatureProgramStateInitial value),
-    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    TResult success(_FeatureProgramStateSuccess value),
-    TResult error(_FeatureProgramStateError value),
+    TResult initial(_SubscribingProgramStateInitial value),
+    TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    TResult success(_SubscribingProgramStateSuccess value),
+    TResult error(_SubscribingProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -448,43 +457,47 @@ class _$_FeatureProgramStateSuccess implements _FeatureProgramStateSuccess {
   }
 }
 
-abstract class _FeatureProgramStateSuccess implements FeatureProgramState {
-  const factory _FeatureProgramStateSuccess(
-      FeatureProgramData featureProgramData) = _$_FeatureProgramStateSuccess;
+abstract class _SubscribingProgramStateSuccess
+    implements SubscribingProgramState {
+  const factory _SubscribingProgramStateSuccess(
+          ListSubscribedPrograms listSubscribedPrograms) =
+      _$_SubscribingProgramStateSuccess;
 
-  FeatureProgramData get featureProgramData;
+  ListSubscribedPrograms get listSubscribedPrograms;
   @JsonKey(ignore: true)
-  _$FeatureProgramStateSuccessCopyWith<_FeatureProgramStateSuccess>
+  _$SubscribingProgramStateSuccessCopyWith<_SubscribingProgramStateSuccess>
       get copyWith;
 }
 
 /// @nodoc
-abstract class _$FeatureProgramStateErrorCopyWith<$Res> {
-  factory _$FeatureProgramStateErrorCopyWith(_FeatureProgramStateError value,
-          $Res Function(_FeatureProgramStateError) then) =
-      __$FeatureProgramStateErrorCopyWithImpl<$Res>;
+abstract class _$SubscribingProgramStateErrorCopyWith<$Res> {
+  factory _$SubscribingProgramStateErrorCopyWith(
+          _SubscribingProgramStateError value,
+          $Res Function(_SubscribingProgramStateError) then) =
+      __$SubscribingProgramStateErrorCopyWithImpl<$Res>;
   $Res call({ErrorMsgCommon errorMsg});
 
   $ErrorMsgCommonCopyWith<$Res> get errorMsg;
 }
 
 /// @nodoc
-class __$FeatureProgramStateErrorCopyWithImpl<$Res>
-    extends _$FeatureProgramStateCopyWithImpl<$Res>
-    implements _$FeatureProgramStateErrorCopyWith<$Res> {
-  __$FeatureProgramStateErrorCopyWithImpl(_FeatureProgramStateError _value,
-      $Res Function(_FeatureProgramStateError) _then)
-      : super(_value, (v) => _then(v as _FeatureProgramStateError));
+class __$SubscribingProgramStateErrorCopyWithImpl<$Res>
+    extends _$SubscribingProgramStateCopyWithImpl<$Res>
+    implements _$SubscribingProgramStateErrorCopyWith<$Res> {
+  __$SubscribingProgramStateErrorCopyWithImpl(
+      _SubscribingProgramStateError _value,
+      $Res Function(_SubscribingProgramStateError) _then)
+      : super(_value, (v) => _then(v as _SubscribingProgramStateError));
 
   @override
-  _FeatureProgramStateError get _value =>
-      super._value as _FeatureProgramStateError;
+  _SubscribingProgramStateError get _value =>
+      super._value as _SubscribingProgramStateError;
 
   @override
   $Res call({
     Object errorMsg = freezed,
   }) {
-    return _then(_FeatureProgramStateError(
+    return _then(_SubscribingProgramStateError(
       errorMsg == freezed ? _value.errorMsg : errorMsg as ErrorMsgCommon,
     ));
   }
@@ -501,21 +514,22 @@ class __$FeatureProgramStateErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_FeatureProgramStateError implements _FeatureProgramStateError {
-  const _$_FeatureProgramStateError(this.errorMsg) : assert(errorMsg != null);
+class _$_SubscribingProgramStateError implements _SubscribingProgramStateError {
+  const _$_SubscribingProgramStateError(this.errorMsg)
+      : assert(errorMsg != null);
 
   @override
   final ErrorMsgCommon errorMsg;
 
   @override
   String toString() {
-    return 'FeatureProgramState.error(errorMsg: $errorMsg)';
+    return 'SubscribingProgramState.error(errorMsg: $errorMsg)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _FeatureProgramStateError &&
+        (other is _SubscribingProgramStateError &&
             (identical(other.errorMsg, errorMsg) ||
                 const DeepCollectionEquality()
                     .equals(other.errorMsg, errorMsg)));
@@ -527,16 +541,16 @@ class _$_FeatureProgramStateError implements _FeatureProgramStateError {
 
   @JsonKey(ignore: true)
   @override
-  _$FeatureProgramStateErrorCopyWith<_FeatureProgramStateError> get copyWith =>
-      __$FeatureProgramStateErrorCopyWithImpl<_FeatureProgramStateError>(
-          this, _$identity);
+  _$SubscribingProgramStateErrorCopyWith<_SubscribingProgramStateError>
+      get copyWith => __$SubscribingProgramStateErrorCopyWithImpl<
+          _SubscribingProgramStateError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult resultEmpty(),
-    @required TResult success(FeatureProgramData featureProgramData),
+    @required TResult success(ListSubscribedPrograms listSubscribedPrograms),
     @required TResult error(ErrorMsgCommon errorMsg),
   }) {
     assert(initial != null);
@@ -551,7 +565,7 @@ class _$_FeatureProgramStateError implements _FeatureProgramStateError {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult resultEmpty(),
-    TResult success(FeatureProgramData featureProgramData),
+    TResult success(ListSubscribedPrograms listSubscribedPrograms),
     TResult error(ErrorMsgCommon errorMsg),
     @required TResult orElse(),
   }) {
@@ -565,10 +579,10 @@ class _$_FeatureProgramStateError implements _FeatureProgramStateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult initial(_FeatureProgramStateInitial value),
-    @required TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    @required TResult success(_FeatureProgramStateSuccess value),
-    @required TResult error(_FeatureProgramStateError value),
+    @required TResult initial(_SubscribingProgramStateInitial value),
+    @required TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    @required TResult success(_SubscribingProgramStateSuccess value),
+    @required TResult error(_SubscribingProgramStateError value),
   }) {
     assert(initial != null);
     assert(resultEmpty != null);
@@ -580,10 +594,10 @@ class _$_FeatureProgramStateError implements _FeatureProgramStateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult initial(_FeatureProgramStateInitial value),
-    TResult resultEmpty(_FeatureProgramStateResultEmpty value),
-    TResult success(_FeatureProgramStateSuccess value),
-    TResult error(_FeatureProgramStateError value),
+    TResult initial(_SubscribingProgramStateInitial value),
+    TResult resultEmpty(_SubscribingProgramStateResultEmpty value),
+    TResult success(_SubscribingProgramStateSuccess value),
+    TResult error(_SubscribingProgramStateError value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -594,11 +608,13 @@ class _$_FeatureProgramStateError implements _FeatureProgramStateError {
   }
 }
 
-abstract class _FeatureProgramStateError implements FeatureProgramState {
-  const factory _FeatureProgramStateError(ErrorMsgCommon errorMsg) =
-      _$_FeatureProgramStateError;
+abstract class _SubscribingProgramStateError
+    implements SubscribingProgramState {
+  const factory _SubscribingProgramStateError(ErrorMsgCommon errorMsg) =
+      _$_SubscribingProgramStateError;
 
   ErrorMsgCommon get errorMsg;
   @JsonKey(ignore: true)
-  _$FeatureProgramStateErrorCopyWith<_FeatureProgramStateError> get copyWith;
+  _$SubscribingProgramStateErrorCopyWith<_SubscribingProgramStateError>
+      get copyWith;
 }

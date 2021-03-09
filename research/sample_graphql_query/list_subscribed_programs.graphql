@@ -1,0 +1,36 @@
+query ListSubscribedPrograms($nextToken: String) {
+    viewerUser: viewerUser {
+        id
+        subscribedPrograms: subscribedPrograms(limit: 12, nextToken: $nextToken) {
+            items {
+                ...DashboardProgram
+                __typename
+            }
+            nextToken
+            __typename
+        }
+        __typename
+    }
+}
+fragment DashboardProgram on Program {
+    broadcastAt
+    channelId
+    id
+    mainTime
+    releasedAt
+    releasedAt
+    tenantId
+    title
+    totalPlayTime
+    viewerPlanType
+    channel {
+        ...DashboardChannel
+        __typename
+    }
+    __typename
+}
+fragment DashboardChannel on Channel {
+    id
+    name
+    __typename
+}

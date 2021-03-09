@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartx/dartx.dart';
+import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
@@ -46,6 +47,7 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
           @required String goldenName,
           FeatureProgramData featureProgramData,
           NewProgramsData newProgramsData,
+          ListSubscribedPrograms listSubscribedPrograms,
           FutureOr<void> Function(WidgetTester tester) onPost,
           List<Finder> expectOneWidgetList = const [],
           List<Finder> expectNoWidgetList = const [],
@@ -60,6 +62,7 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
                       JsonClient.instance.mFeatureProgramData,
                   newProgramsData:
                       newProgramsData ?? JsonClient.instance.mNewProgramsData,
+                  listSubscribedPrograms: listSubscribedPrograms ?? JsonClient.instance.mListSubscribedPrograms,
                 )),
                 ...defaultOverride,
               ],
@@ -131,6 +134,7 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
           goldenName: TestNameCommon.EMPTY,
           featureProgramData: TestModels.FEATURE_PROGRAM_DATA,
           newProgramsData: TestModels.EMPTY_NEW_PROGRAMS,
+          listSubscribedPrograms: TestModels.EMPTY_LIST_SUBSCRIBED_PROGRAMS,
           expectNoWidgetList: [
             find.byType(MovieListItem),
             find.text(Strings.HEADING_SUBSCRIBING),

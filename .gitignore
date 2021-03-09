@@ -44,3 +44,4 @@ app.*.map.json
 **/failures/*.png
 /private/
 **/GoogleService-Info.plist
+/ios/fastlane/metadata/

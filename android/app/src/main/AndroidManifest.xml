@@ -9,7 +9,7 @@
     <application
         android:name=".MainApplication"
         android:icon="@mipmap/ic_launcher"
-        android:label="SAWARA">
+        android:label="UNAGI">
 
         <activity
             android:name=".MainActivity"

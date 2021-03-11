@@ -1,7 +1,10 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
@@ -10,24 +13,22 @@ import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
+import 'package:shirasu/screen_detail/screen_detail/btm_sheet.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_fabs.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_desc.dart';
-import 'package:shirasu/screen_detail/screen_detail/row_video_time.dart';
-import 'package:shirasu/screen_detail/screen_detail/video_header/video_header.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_tags.dart';
+import 'package:shirasu/screen_detail/screen_detail/row_video_time.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_video_title.dart';
+import 'package:shirasu/screen_detail/screen_detail/video_header/video_header.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:shirasu/screen_detail/screen_detail/btm_sheet.dart';
-import 'dart:io' show Platform;
 
 part 'screen_detail.g.dart';
 

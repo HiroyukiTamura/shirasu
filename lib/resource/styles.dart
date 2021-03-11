@@ -42,7 +42,6 @@ class Styles {
     primaryColor: PRIMARY_COLOR,
     accentColor: PRIMARY_COLOR,
     primaryColorDark: PRIMARY_COLOR_DARK,
-    cursorColor: Colors.white,
     scaffoldBackgroundColor: BACK_COLOR,
     appBarTheme: const AppBarTheme(color: Colors.black),
     primaryTextTheme: const TextTheme(
@@ -65,5 +64,8 @@ class Styles {
       activeTrackColor: PRIMARY_COLOR,
       thumbColor: PRIMARY_COLOR,
     ),
+    textSelectionTheme: ThemeData.dark().textSelectionTheme.copyWith(
+      cursorColor: Colors.white,
+    )
   );
 }

@@ -66,12 +66,14 @@ Widget _loginBtn(
       constraints: const BoxConstraints(
         minWidth: 200,
       ),
-      child: RaisedButton(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: kCircleBorderRadius,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: kCircleBorderRadius,
+          ),
+          primary: Theme.of(context).primaryColor,
         ),
-        color: Theme.of(context).primaryColor,
         onPressed: () => onTapLoginBtn(context),
         child: const Text(
           Strings.LOGIN_BTN_VALUE,

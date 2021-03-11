@@ -37,7 +37,6 @@ final _kPrvSnackMsg = Provider.autoDispose<SnackData>((ref) {
   );
 });
 
-
 class ScreenPreLogin extends StatelessWidget {
   const ScreenPreLogin();
 
@@ -195,15 +194,17 @@ Widget _button(
 }) =>
     SizedBox(
       width: double.infinity,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: kCircleBorderRadius,
-        ),
-        color: btnColor,
+      child: ElevatedButton(
         onPressed: onTap,
-        padding: EdgeInsets.symmetric(
-          vertical: 4,
-          horizontal: Theme.of(context).buttonTheme.padding.horizontal,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: kCircleBorderRadius,
+          ),
+          primary: btnColor,
+          padding: EdgeInsets.symmetric(
+            vertical: 4,
+            horizontal: Theme.of(context).buttonTheme.padding.horizontal,
+          ),
         ),
         child: Text(
           text,
@@ -245,9 +246,9 @@ Widget _note(
 Widget _animatedBackground(
   BuildContext context,
 ) {
-  final enableAnimation = useProvider(kPrvEnv.select((it) => it.enableAnimation));
-  if (!enableAnimation)
-    return const Placeholder();
+  final enableAnimation =
+      useProvider(kPrvEnv.select((it) => it.enableAnimation));
+  if (!enableAnimation) return const Placeholder();
 
   final tween = TimelineTween<DefaultAnimationProperties>()
     ..addScene(

@@ -4,8 +4,6 @@ name: FlutterTest
 
 on:
   pull_request:
-    branches:
-      - main
 
 jobs:
   flutter_test:

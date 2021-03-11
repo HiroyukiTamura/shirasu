@@ -141,14 +141,16 @@ Widget _hoverBtn({
   @required String label,
   @required VoidCallback onPressed,
 }) =>
-    RaisedButton.icon(
+    ElevatedButton.icon(
       onPressed: onPressed,
-      padding: const EdgeInsets.all(16),
-      shape: RoundedRectangleBorder(
-        borderRadius: kCircleBorderRadius,
-        side: const BorderSide(color: Colors.white),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(
+          borderRadius: kCircleBorderRadius,
+          side: const BorderSide(color: Colors.white),
+        ),
+        primary: Colors.black,
       ),
-      color: Colors.black,
       label: Padding(
         padding: const EdgeInsets.only(right: 8),
         child: Text(

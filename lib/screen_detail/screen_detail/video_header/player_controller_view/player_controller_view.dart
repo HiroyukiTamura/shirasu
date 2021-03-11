@@ -76,7 +76,7 @@ class PlayerControllerView extends HookWidget {
                   ),
                   color: Styles.BARRIER,
                   child: Stack(
-                    overflow: Overflow.visible,
+                    clipBehavior: Clip.none,
                     children: [
                       RowTop(
                         onTapFullScreenBtn: _onTapFullScreenBtn,

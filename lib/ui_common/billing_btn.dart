@@ -117,16 +117,20 @@ Widget _buttonMedium(
   @required Icon icon,
   @required String text,
 }) =>
-    RaisedButton.icon(
-      color: Colors.transparent,
-      icon: icon,
-      padding: const EdgeInsets.symmetric(
-          horizontal: Dimens.MARGIN_OUTLINE, vertical: 8),
-      onPressed: onTap,
-      shape: RoundedRectangleBorder(
-        borderRadius: kCircleBorderRadius,
-        side: BorderSide(color: Theme.of(context).primaryColor),
+    ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.transparent,
+        padding: const EdgeInsets.symmetric(
+          horizontal: Dimens.MARGIN_OUTLINE,
+          vertical: 8,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: kCircleBorderRadius,
+          side: BorderSide(color: Theme.of(context).primaryColor),
+        ),
       ),
+      icon: icon,
+      onPressed: onTap,
       label: Text(
         text,
         maxLines: 1,

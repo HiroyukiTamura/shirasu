@@ -2,8 +2,6 @@ name: FlutterAnalyzer
 
 on:
   pull_request:
-    branches:
-      - main
 
 jobs:
   flutter_analyze:

@@ -26,7 +26,7 @@ Widget snackEventListener({
           margin: data.margin,
           behavior: SnackBarBehavior.floating,
         );
-        Scaffold.of(context)
+        ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(snackBar);
       },

@@ -8,6 +8,7 @@ import 'package:lp/ui/screen_main/responsive_builder.dart';
 import 'package:lp/ui/screen_main/section_header_label.dart';
 import 'package:url_launcher/link.dart';
 import 'package:lp/ui/screen_main/card_gray.dart';
+import 'package:lp/resources/urls.dart';
 
 class SectionHeader extends StatelessWidget {
   const SectionHeader({required this.screenHeight});
@@ -62,10 +63,11 @@ class SectionHeader extends StatelessWidget {
     ];
     final illustrationFrag = SizedBox(
       height: 600,
-      child: Image.asset(
-        'assets/png/sample.png', //todo implement
-        fit: BoxFit.contain,
-        alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 48),
+        child: Assets.png.sample.image(
+          fit: BoxFit.contain,
+        ),
       ),
     );
     const padding = EdgeInsets.only(bottom: SectionHeaderLabel.HEIGHT);
@@ -80,22 +82,23 @@ class SectionHeader extends StatelessWidget {
           ],
         ),
       ),
-      wideScreen: (context) => SizedBox(
+      wideScreen: (context) => Container(
         height: screenHeight - SectionHeaderLabel.HEIGHT,
-        child: Padding(
-          padding: padding,
-          child: Row(
-            children: [
-              Expanded(
+        padding: padding,
+        child: Row(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: descFrag,
                 ),
               ),
-              Expanded(child: illustrationFrag),
-            ],
-          ),
+            ),
+            Expanded(child: illustrationFrag),
+          ],
         ),
       ),
     );
@@ -113,9 +116,8 @@ class _RowStoreBadge extends StatelessWidget {
           alignment: WrapAlignment.center,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            //todo implement url
             _StoreBadge(
-              uri: null,
+              uri: Urls.unagiGooglePlay,
               child: Assets.svg.badgeGooglePlay.svg(),
             ),
             //todo implement url

@@ -3,7 +3,8 @@ import 'package:lp/resources/strings.dart';
 class Urls {
   const Urls._();
 
-  static const unagiGooglePlay = 'https://play.google.com/store/apps/details?id=com.cks.shirasu';
+  static const unagiGooglePlay =
+      'https://play.google.com/store/apps/details?id=com.cks.shirasu';
 
   static const GITHUB = 'https://github.com/';
   static const GITHUB_ACTIONS = 'https://github.com/features/actions';
@@ -38,16 +39,17 @@ class Urls {
   static const REPO_FIGMA =
       'https://www.figma.com/file/LOMIPRZxv89m9M1CmLFUQt/shirasu?node-id=26%3A2';
   static const REPO_JIRA = 'https://freqmodu874.atlassian.net/browse/SHIR/';
+  static const LP = 'https://shirasu-fbda2.web.app/';
 
   static final shareTwitter =
       Uri.parse('http://twitter.com/share').replace(queryParameters: {
-    'url': '', //todo implement
+    'url': LP,
     'hashtag': Strings.APP_NAME,
   }).toString();
   static final shareLine =
       Uri.parse('https://social-plugins.line.me/lineit/share')
           .replace(queryParameters: {
-    'url': '', //todo implement
+    'url': LP,
   }).toString();
 
   static const LICENSE_APACHE = 'https://www.apache.org/licenses/LICENSE-2.0';

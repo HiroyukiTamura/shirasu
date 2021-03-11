@@ -3,8 +3,7 @@ import 'package:lp/resources/strings.dart';
 class Urls {
   const Urls._();
 
-  static final unagiGooglePlay = Uri.parse(
-      'https://play.google.com/store/apps/details?id=com.cks.shirasu');
+  static const unagiGooglePlay = 'https://play.google.com/store/apps/details?id=com.cks.shirasu';
 
   static const GITHUB = 'https://github.com/';
   static const GITHUB_ACTIONS = 'https://github.com/features/actions';

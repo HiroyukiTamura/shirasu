@@ -9,6 +9,7 @@ import 'package:lp/ui/screen_main/section_header_label.dart';
 import 'package:url_launcher/link.dart';
 import 'package:lp/ui/screen_main/card_gray.dart';
 import 'package:lp/resources/urls.dart';
+import 'util.dart';
 
 class SectionHeader extends StatelessWidget {
   const SectionHeader({required this.screenHeight});
@@ -117,12 +118,12 @@ class _RowStoreBadge extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             _StoreBadge(
-              uri: Urls.unagiGooglePlay,
+              url: Urls.unagiGooglePlay,
               child: Assets.svg.badgeGooglePlay.svg(),
             ),
             //todo implement url
             _StoreBadge(
-              uri: null,
+              url: '',
               child: Assets.svg.badgeAppStore.svg(),
             ),
           ],
@@ -132,19 +133,25 @@ class _RowStoreBadge extends StatelessWidget {
 
 class _StoreBadge extends StatelessWidget {
   const _StoreBadge({
-    required this.uri,
+    required this.url,
     required this.child,
   });
 
-  final Uri? uri;
+  final String url;
   final Widget child;
 
   @override
-  Widget build(BuildContext context) => MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: Link(
-          uri: uri,
-          builder: (context, _) => child,
+  Widget build(BuildContext context) => Container(
+        constraints: const BoxConstraints(
+          maxWidth: 150,
+        ),
+        alignment: Alignment.center,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => launchUrl(url),
+            child: child,
+          ),
         ),
       );
 }

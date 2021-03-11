@@ -1,91 +1,95 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:intl/intl.dart';
-import 'package:shirasu/main.dart';
-import 'package:shirasu/model/base_model.dart';
-import 'package:shirasu/model/payment_methods_list.dart';
-import 'package:shirasu/model/viewer.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
-import 'package:shirasu/resource/text_styles.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
-import 'package:shirasu/screen_main/page_setting/email_status_label.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_birthdate.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_job.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_load_more.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_payment_method.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_invoice_history.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_seem.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_subscribed_channel.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_title.dart';
-import 'package:shirasu/screen_main/page_setting/list_tile_top.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_item_user_name.dart';
+import 'package:shirasu/screen_main/page_setting/app_config/page_app_config.dart';
+import 'package:shirasu/screen_main/page_setting/account/email_status_label.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_birthdate.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_job.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_load_more.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_location.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_title.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_payment_method.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_invoice_history.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_seem.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_subscribed_channel.dart';
+import 'package:shirasu/screen_main/page_setting/account/list_tile_top.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/material_tab_view.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_setting.dart';
-import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/extension.dart';
 
-final settingViewModelProvider =
-    ChangeNotifierProvider.autoDispose<ViewModelSetting>(
-        (_) => ViewModelSetting());
+part 'page_setting.g.dart';
 
-class PageSettingInMainScreen extends StatefulHookWidget {
-  const PageSettingInMainScreen({Key key}) : super(key: key);
+final kPrvViewModelSetting =
+    StateNotifierProvider.autoDispose<ViewModelSetting>(
+        (ref) => ViewModelSetting(ref.read));
+
+@hwidget
+Widget pageSettingInMainScreen() =>
+    useProvider(kPrvViewModelSetting.state.select((it) => it.isInLoggingOut))
+        ? const CenterCircleProgress()
+        : const MaterialTabView(
+            tabs: [
+              Tab(text: Strings.TAB_USER_INFO),
+              Tab(text: Strings.TAB_APP_CONFIG)
+            ],
+            pages: [PageUserInfo(), PageAppConfig()],
+          );
+
+class PageUserInfo extends HookWidget {
+  const PageUserInfo({Key key}) : super(key: key);
 
   @override
-  PageSettingInMainScreenState createState() => PageSettingInMainScreenState();
-}
-
-class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
-    with AfterLayoutMixin<PageSettingInMainScreen> {
-  @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(settingViewModelProvider).initialize();
-
-  @override
-  Widget build(BuildContext context) =>
-      useProvider(settingViewModelProvider.select((it) => it.state)).when(
+  Widget build(BuildContext context) => useProvider(
+          kPrvViewModelSetting.state.select((it) => it.settingModelState)).when(
         preInitialized: () => const CenterCircleProgress(),
-        loading: () => const CenterCircleProgress(),
-        error: () => const PageError(), //todo implement
-        success: (data, locationStr) => ListView.builder(
+        error: (msg) => PageError(
+          text: msg.value,
+        ),
+        success: (data) => ListView.builder(
           padding:
               const EdgeInsets.symmetric(vertical: Dimens.SETTING_OUTER_MARGIN),
           itemBuilder: (context, i) {
             final threshHolds = _Thresholds();
 
             if (i <= threshHolds.threshold)
-              return _genListItemAboveCreditCard(
-                context,
-                data.viewerUser,
-                locationStr,
-                i,
-              );
+              return _genListItemAboveCreditCard(context, data, i);
 
             threshHolds.swap(data.viewer.paymentMethods.length);
 
             if (i <= threshHolds.threshold)
               return ListTilePaymentMethod(
-                paymentMethod: data.viewer
-                        .paymentMethods[i - threshHolds.preThreshHold - 1]
-                    as BasePaymentMethod,
-              ); //todo why cast?
+                paymentMethod: data
+                    .viewer.paymentMethods[i - threshHolds.preThreshHold - 1],
+              );
 
             threshHolds.swap(2);
 
             if (i <= threshHolds.threshold) {
-              switch (i - threshHolds.preThreshHold - 1) {
+              final index = i - threshHolds.preThreshHold - 1;
+              switch (index) {
                 case 0:
-                  return const ListTileSeem();
-                case 1:
-                  return _componentTitle(
-                    title: Strings.TITLE_SUBSCRIBED_CHANNELS,
+                  return ListTileSeem(
+                    paddingTop: data.viewer.paymentMethods.isNotEmpty,
+                    paddingBtm: true,
                   );
+                case 1:
+                  return ListTileTitle(
+                    title: Strings.TITLE_SUBSCRIBED_CHANNELS,
+                    showEmptyText: data.viewerUser.subscribedChannels.isEmpty,
+                    isCreditCard: false,
+                  );
+                default:
+                  throw ArgumentError.value(index);
               }
-              throw Exception();
             }
 
             threshHolds.swap(data.viewerUser.subscribedChannels.length);
@@ -100,15 +104,22 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
             threshHolds.swap(2);
 
             if (i <= threshHolds.threshold) {
-              switch (i - threshHolds.preThreshHold - 1) {
+              final index = i - threshHolds.preThreshHold - 1;
+              switch (index) {
                 case 0:
-                  return const ListTileSeem();
-                case 1:
-                  return _componentTitle(
-                    title: Strings.TITLE_PURCHASE_HISTORY,
+                  return const ListTileSeem(
+                    paddingBtm: true,
+                    paddingTop: true,
                   );
+                case 1:
+                  return ListTileTitle(
+                    title: Strings.TITLE_PURCHASE_HISTORY,
+                    showEmptyText: data.viewerUser.invoiceHistory.items.isEmpty,
+                    isCreditCard: false,
+                  );
+                default:
+                  throw ArgumentError.value(index);
               }
-              throw Exception();
             }
 
             threshHolds.swap(data.viewerUser.invoiceHistory.items.length);
@@ -123,15 +134,22 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
             threshHolds.swap(2);
 
             if (i <= threshHolds.threshold) {
-              switch (i - threshHolds.preThreshHold - 1) {
+              final index = i - threshHolds.preThreshHold - 1;
+              switch (index) {
                 case 0:
-                  return const ListTileSeem();
-                case 1:
-                  return _componentTitle(
-                    title: Strings.TITLE_WATCH_HISTORY,
+                  return const ListTileSeem(
+                    paddingBtm: true,
+                    paddingTop: true,
                   );
+                case 1:
+                  return ListTileTitle(
+                    title: Strings.TITLE_WATCH_HISTORY,
+                    showEmptyText: data.viewerUser.watchHistories.items.isEmpty,
+                    isCreditCard: false,
+                  );
+                default:
+                  throw ArgumentError.value(index);
               }
-              throw Exception();
             }
 
             threshHolds.swap(data.viewerUser.watchHistories.items.length);
@@ -141,11 +159,8 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
               final program =
                   data.viewerUser.watchHistories.items[index].program;
               return MovieListItem(
-                program: program as BaseProgram, //todo why cast?
-                onTap: () async => context
-                    .read(appRouterProvider)
-                    .delegate
-                    .pushPage(GlobalRoutePath.program(program.id)),
+                program: program,
+                onTap: () async => context.pushProgramPage(program.id),
               );
             }
 
@@ -159,87 +174,40 @@ class PageSettingInMainScreenState extends State<PageSettingInMainScreen>
         ),
       );
 
-  static Widget listItem(
-          {@required String title,
-          @required String subTitle,
-          GestureTapCallback onTap}) =>
-      ListTile(
-        title: Text(title),
-        subtitle: Text(
-          subTitle,
-          style: TextStyles.SETTING_SUBTITLE,
-        ),
-        onTap: onTap,
-      );
-
-  static Widget _componentTitle({@required String title}) => Padding(
-        padding: const EdgeInsets.only(
-          right: 16,
-          left: 16,
-          bottom: 16,
-          top: 8,
-        ),
-        child: Text(
-          title,
-          style: TextStyles.SETTING_COMPONENT_TITLE,
-        ),
-      );
-
-  static Widget listItemUserName(User user) {
-    String userName =
-        '${user.httpsShirasuIoUserAttribute.familyName} ${user.httpsShirasuIoUserAttribute.givenName}';
-    if (user.httpsShirasuIoUserAttribute.familyNameReading != null &&
-        user.httpsShirasuIoUserAttribute.givenNameReading != null)
-      userName +=
-          '(${user.httpsShirasuIoUserAttribute.familyNameReading} ${user.httpsShirasuIoUserAttribute.givenNameReading})';
-
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(
-          horizontal: Dimens.SETTING_OUTER_MARGIN, vertical: 8),
-      title: const Text(Strings.FULL_NAME_LABEL),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            userName,
-            style: TextStyles.SETTING_SUBTITLE,
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            Strings.FULL_NAME_NOTICE,
-            style: TextStyle(height: 1.3),
-          )
-        ],
-      ),
-    );
-  }
-
-  static Widget _genListItemAboveCreditCard(BuildContext context,
-      ViewerUser viewerUser, String locationStr, int index) {
+  static Widget _genListItemAboveCreditCard(
+    BuildContext context,
+    ViewerWrapper viewer,
+    int index,
+  ) {
     switch (index) {
       case 0:
-        return ListTileTop(iconUrl: viewerUser.icon, userName: viewerUser.name);
-      case 1:
-        return listItemUserName(ViewModelSetting.dummyUser);
-      case 2:
-        return ListItemEmail(
-          user: ViewModelSetting.dummyUser,
+        return ListTileTop(
+          iconUrl: viewer.viewerUser.icon,
+          userName: viewer.viewerUser.name,
         );
+      case 1:
+        return const ListItemUserName();
+      case 2:
+        return const ListItemEmail();
       case 3:
         return const ListTileBirthDate();
       case 4:
         return const ListTileJob();
       case 5:
-        return listItem(
-          title: Strings.PLACE_LABEL,
-          subTitle: locationStr,
-        );
+        return const ListTileLocation();
       case 6:
-        return const ListTileSeem();
+        return const ListTileSeem(
+          paddingBtm: false,
+          paddingTop: true,
+        );
       case 7:
-        return _componentTitle(title: Strings.TITLE_CREDIT_CARD);
+        return ListTileTitle(
+          title: Strings.TITLE_CREDIT_CARD,
+          showEmptyText: viewer.viewer.paymentMethods.isEmpty,
+          isCreditCard: true,
+        );
       default:
-        throw Exception('unexpected index: $index');
+        throw ArgumentError.value(index);
     }
   }
 }

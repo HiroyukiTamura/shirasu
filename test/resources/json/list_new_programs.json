@@ -1,0 +1,180 @@
+{
+  "data": {
+    "newPrograms": {
+      "items": [
+        {
+          "broadcastAt": "2020-11-14T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201114",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-14T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "夏目房之介×伊藤剛×さやわか「マンガの『線』を総括する」【『ゲンロン11』刊行記念】 @fusa811 @GoITO @someru #ゲンロン201114",
+          "totalPlayTime": 10800,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-13T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201113",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-13T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "猪瀬直樹×石戸諭×速水健朗「猪瀬直樹『公』刊行記念イベント（仮）」",
+          "totalPlayTime": 10800,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-09T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201109",
+          "mainTime": 10800,
+          "releasedAt": "2020-11-09T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "大井昌和×さやわか×渡邉大輔「ノーランとポストシネマ、あるいはサブカルの地平線――メメント・テネット・21世紀」 @ooimasakazu @someru @diesuke_w #ゲンロン201109",
+          "totalPlayTime": 10800,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-11-04T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201104",
+          "mainTime": 11515,
+          "releasedAt": "2020-11-04T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "飯沢耕太郎×大山顕「写真・東京・スマホ――いま都市を撮るとは」 @sohsai #ゲンロン201104",
+          "totalPlayTime": 11515,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-10-25T11:30:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201025",
+          "mainTime": 8439,
+          "releasedAt": "2020-10-25T11:30:00.000Z",
+          "tenantId": "genron",
+          "title": "桂大介×東浩紀（司会＝上田洋子）「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma @yuvmsk #ゲンロン201025",
+          "totalPlayTime": 19239,
+          "viewerPlanType": "OneTimePlan",
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-10-30T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201030",
+          "mainTime": 16583,
+          "releasedAt": "2020-10-30T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "青山周平×市川紘司×上田洋子「中国における都市・建築・暮らし」【コロナ禍の世界から #4】 @ichikawakoji @yuvmsk #ゲンロン201030",
+          "totalPlayTime": 16583,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-10-27T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201027",
+          "mainTime": 19200,
+          "releasedAt": "2020-10-27T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "國分功一郎×東浩紀「哲学にとって愚かさとはなにか――原子力と中動態をめぐって」【『ゲンロン11』刊行記念】 @lethal_notion @hazuma #ゲンロン201027",
+          "totalPlayTime": 22800,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-10-23T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201023",
+          "mainTime": 10159,
+          "releasedAt": "2020-10-23T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "安藤礼二×中島隆博「井筒俊彦をこえて――『あたらしい東洋哲学』はどこにあるのか」【『ゲンロン11』刊行記念】 #ゲンロン201023",
+          "totalPlayTime": 10159,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-10-20T10:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201020",
+          "mainTime": 12704,
+          "releasedAt": "2020-10-20T10:00:00.000Z",
+          "tenantId": "genron",
+          "title": "相沢沙呼×小川哲　司会＝堀内大助「ミステリーの謎、SFの不思議――エンタメ小説の最前線に迫る！」 @sakomoko @hrchdsk #ゲンロン201020",
+          "totalPlayTime": 12704,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        },
+        {
+          "broadcastAt": "2020-10-19T12:00:00.000Z",
+          "channelId": "genron",
+          "id": "genron-genron-20201019",
+          "mainTime": 10813,
+          "releasedAt": "2020-10-19T12:00:00.000Z",
+          "tenantId": "genron",
+          "title": "さやわか×辻田真佐憲×東浩紀「シラスの未来、配信の未来、データの未来（後）」 @someru @reichsneet @hazuma #ゲンロン201019",
+          "totalPlayTime": 25213,
+          "viewerPlanType": null,
+          "channel": {
+            "id": "genron",
+            "name": "スーパー完全中継チャンネル",
+            "__typename": "Channel"
+          },
+          "__typename": "Program"
+        }
+      ],
+      "nextToken": "1603081386461",
+      "__typename": "SearchableProgramConnection"
+    }
+  }
+}

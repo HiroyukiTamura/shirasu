@@ -23,13 +23,13 @@ Map<String, dynamic> _$_$_AuthDataToJson(_$_AuthData instance) =>
 
 _$_Body _$_$_BodyFromJson(Map<String, dynamic> json) {
   return _$_Body(
-    clientId: json['clientId'] as String,
-    accessToken: json['accessToken'] as String,
-    refreshToken: json['refreshToken'] as String,
-    idToken: json['idToken'] as String,
+    clientId: json['client_id'] as String,
+    accessToken: json['access_token'] as String,
+    refreshToken: json['refresh_token'] as String,
+    idToken: json['id_token'] as String,
     scope: json['scope'] as String,
-    expiresIn: json['expiresIn'] as int,
-    tokenType: json['tokenType'] as String,
+    expiresIn: json['expires_in'] as int,
+    tokenType: json['token_type'] as String,
     decodedToken: json['decodedToken'] == null
         ? null
         : DecodedToken.fromJson(json['decodedToken'] as Map<String, dynamic>),
@@ -38,13 +38,13 @@ _$_Body _$_$_BodyFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$_$_BodyToJson(_$_Body instance) => <String, dynamic>{
-      'clientId': instance.clientId,
-      'accessToken': instance.accessToken,
-      'refreshToken': instance.refreshToken,
-      'idToken': instance.idToken,
+      'client_id': instance.clientId,
+      'access_token': instance.accessToken,
+      'refresh_token': instance.refreshToken,
+      'id_token': instance.idToken,
       'scope': instance.scope,
-      'expiresIn': instance.expiresIn,
-      'tokenType': instance.tokenType,
+      'expires_in': instance.expiresIn,
+      'token_type': instance.tokenType,
       'decodedToken': instance.decodedToken,
       'audience': instance.audience,
     };
@@ -76,59 +76,53 @@ Map<String, dynamic> _$_$_DecodedTokenToJson(_$_DecodedToken instance) =>
 
 _$_Claims _$_$_ClaimsFromJson(Map<String, dynamic> json) {
   return _$_Claims(
-    raw: json['raw'] as String,
-    httpsShirasuIoRoles: (json['httpsShirasuIoRoles'] as List)
+    raw: json['__raw'] as String,
+    rawHttpsShirasuIoRoles: (json['https://shirasu.io/roles'] as List)
         ?.map((e) => e as String)
         ?.toList(),
-    httpsShirasuIoUserAttribute: json['httpsShirasuIoUserAttribute'] == null
+    httpsShirasuIoUserAttribute: json['https://shirasu.io/userAttribute'] ==
+            null
         ? null
         : HttpsShirasuIoUserAttribute.fromJson(
-            json['httpsShirasuIoUserAttribute'] as Map<String, dynamic>),
-    httpsShirasuIoCustomerId: json['httpsShirasuIoCustomerId'] as String,
-    httpsShirasuIoDistributeds: json['httpsShirasuIoDistributeds'] as List,
-    httpsShirasuIoTenants: json['httpsShirasuIoTenants'] as List,
-    givenName: json['givenName'] as String,
-    familyName: json['familyName'] as String,
+            json['https://shirasu.io/userAttribute'] as Map<String, dynamic>),
+    httpsShirasuIoCustomerId: json['https://shirasu.io/customerId'] as String,
+    rawHttpsShirasuIoDistributeds:
+        json['https://shirasu.io/distributeds'] as List,
+    rawHttpsShirasuIoTenants: json['https://shirasu.io/tenants'] as List,
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
-    locale: json['locale'] as String,
-    updatedAt: json['updatedAt'] == null
+    updatedAt: json['updated_at'] == null
         ? null
-        : DateTime.parse(json['updatedAt'] as String),
+        : DateTime.parse(json['updated_at'] as String),
     email: json['email'] as String,
-    emailVerified: json['emailVerified'] as bool,
+    emailVerified: json['email_verified'] as bool,
     iss: json['iss'] as String,
     sub: json['sub'] as String,
     aud: json['aud'] as String,
     iat: json['iat'] as int,
     exp: json['exp'] as int,
-    nonce: json['nonce'] as String,
   );
 }
 
 Map<String, dynamic> _$_$_ClaimsToJson(_$_Claims instance) => <String, dynamic>{
-      'raw': instance.raw,
-      'httpsShirasuIoRoles': instance.httpsShirasuIoRoles,
-      'httpsShirasuIoUserAttribute': instance.httpsShirasuIoUserAttribute,
-      'httpsShirasuIoCustomerId': instance.httpsShirasuIoCustomerId,
-      'httpsShirasuIoDistributeds': instance.httpsShirasuIoDistributeds,
-      'httpsShirasuIoTenants': instance.httpsShirasuIoTenants,
-      'givenName': instance.givenName,
-      'familyName': instance.familyName,
+      '__raw': instance.raw,
+      'https://shirasu.io/roles': instance.rawHttpsShirasuIoRoles,
+      'https://shirasu.io/userAttribute': instance.httpsShirasuIoUserAttribute,
+      'https://shirasu.io/customerId': instance.httpsShirasuIoCustomerId,
+      'https://shirasu.io/distributeds': instance.rawHttpsShirasuIoDistributeds,
+      'https://shirasu.io/tenants': instance.rawHttpsShirasuIoTenants,
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,
-      'locale': instance.locale,
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
       'email': instance.email,
-      'emailVerified': instance.emailVerified,
+      'email_verified': instance.emailVerified,
       'iss': instance.iss,
       'sub': instance.sub,
       'aud': instance.aud,
       'iat': instance.iat,
       'exp': instance.exp,
-      'nonce': instance.nonce,
     };
 
 _$_HttpsShirasuIoUserAttribute _$_$_HttpsShirasuIoUserAttributeFromJson(
@@ -138,7 +132,7 @@ _$_HttpsShirasuIoUserAttribute _$_$_HttpsShirasuIoUserAttributeFromJson(
         ? null
         : DateTime.parse(json['birthDate'] as String),
     job: json['job'] as String,
-    country: json['country'] as String,
+    rawCountry: json['country'] as String,
     prefecture: json['prefecture'] as String,
     familyName: json['familyName'] as String,
     givenName: json['givenName'] as String,
@@ -152,7 +146,7 @@ Map<String, dynamic> _$_$_HttpsShirasuIoUserAttributeToJson(
     <String, dynamic>{
       'birthDate': instance.birthDate?.toIso8601String(),
       'job': instance.job,
-      'country': instance.country,
+      'country': instance.rawCountry,
       'prefecture': instance.prefecture,
       'familyName': instance.familyName,
       'givenName': instance.givenName,
@@ -191,45 +185,41 @@ Map<String, dynamic> _$_$_HeaderToJson(_$_Header instance) => <String, dynamic>{
 
 _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
   return _$_User(
-    httpsShirasuIoRoles: (json['httpsShirasuIoRoles'] as List)
+    rawHttpsShirasuIoRoles: (json['https://shirasu.io/roles'] as List)
         ?.map((e) => e as String)
         ?.toList(),
-    httpsShirasuIoUserAttribute: json['httpsShirasuIoUserAttribute'] == null
+    httpsShirasuIoUserAttribute: json['https://shirasu.io/userAttribute'] ==
+            null
         ? null
         : HttpsShirasuIoUserAttribute.fromJson(
-            json['httpsShirasuIoUserAttribute'] as Map<String, dynamic>),
-    httpsShirasuIoCustomerId: json['httpsShirasuIoCustomerId'] as String,
-    httpsShirasuIoDistributeds: json['httpsShirasuIoDistributeds'] as List,
-    httpsShirasuIoTenants: json['httpsShirasuIoTenants'] as List,
-    givenName: json['givenName'] as String,
-    familyName: json['familyName'] as String,
+            json['https://shirasu.io/userAttribute'] as Map<String, dynamic>),
+    httpsShirasuIoCustomerId: json['https://shirasu.io/customerId'] as String,
+    rawHttpsShirasuIoDistributeds:
+        json['https://shirasu.io/distributeds'] as List,
+    rawHttpsShirasuIoTenants: json['https://shirasu.io/tenants'] as List,
     nickname: json['nickname'] as String,
     name: json['name'] as String,
     picture: json['picture'] as String,
-    locale: json['locale'] as String,
-    updatedAt: json['updatedAt'] == null
+    updatedAt: json['updated_at'] == null
         ? null
-        : DateTime.parse(json['updatedAt'] as String),
+        : DateTime.parse(json['updated_at'] as String),
     email: json['email'] as String,
-    emailVerified: json['emailVerified'] as bool,
+    emailVerified: json['email_verified'] as bool,
     sub: json['sub'] as String,
   );
 }
 
 Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
-      'httpsShirasuIoRoles': instance.httpsShirasuIoRoles,
-      'httpsShirasuIoUserAttribute': instance.httpsShirasuIoUserAttribute,
-      'httpsShirasuIoCustomerId': instance.httpsShirasuIoCustomerId,
-      'httpsShirasuIoDistributeds': instance.httpsShirasuIoDistributeds,
-      'httpsShirasuIoTenants': instance.httpsShirasuIoTenants,
-      'givenName': instance.givenName,
-      'familyName': instance.familyName,
+      'https://shirasu.io/roles': instance.rawHttpsShirasuIoRoles,
+      'https://shirasu.io/userAttribute': instance.httpsShirasuIoUserAttribute,
+      'https://shirasu.io/customerId': instance.httpsShirasuIoCustomerId,
+      'https://shirasu.io/distributeds': instance.rawHttpsShirasuIoDistributeds,
+      'https://shirasu.io/tenants': instance.rawHttpsShirasuIoTenants,
       'nickname': instance.nickname,
       'name': instance.name,
       'picture': instance.picture,
-      'locale': instance.locale,
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
       'email': instance.email,
-      'emailVerified': instance.emailVerified,
+      'email_verified': instance.emailVerified,
       'sub': instance.sub,
     };

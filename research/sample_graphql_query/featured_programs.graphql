@@ -19,19 +19,14 @@ query ListProgramsAndChannels(
         __typename
     }
     comingBroadcastings: searchPrograms(
-        filter: { release: { eq: true }, broadcastAt: { gte: $now, lte: $nowPlus7D } }
+        filter: {
+            release: { eq: true }
+            broadcastAt: { gte: $now, lte: $nowPlus7D }
+        }
         sort: { field: broadcastAt, direction: asc }
         limit: 100
     ) {
         items {
-            ...DashboardProgram
-            __typename
-        }
-        __typename
-    }
-    viewerUser: viewerUser {
-        id
-        subscribedPrograms {
             ...DashboardProgram
             __typename
         }
@@ -49,6 +44,7 @@ query ListProgramsAndChannels(
         __typename
     }
 }
+
 fragment DashboardProgram on Program {
     broadcastAt
     channelId

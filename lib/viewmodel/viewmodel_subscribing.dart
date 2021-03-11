@@ -1,108 +1,53 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:http/http.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/model/featured_programs_data.dart';
-import 'package:shirasu/model/watch_history_data.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:shirasu/viewmodel/viewmodel_dashboard.dart' show ApiClientResult;
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
 part 'viewmodel_subscribing.freezed.dart';
 
-class ViewModelSubscribing extends DisposableValueNotifier<FeatureProgramState> with ViewModelBase {
-
-  ViewModelSubscribing() : super(const FeatureProgramStatePreInitialized());
-
-  final _apiClient = ApiClient(Client());
+class ViewModelSubscribing extends ViewModelBase<SubscribingProgramState> {
+  ViewModelSubscribing(Reader reader)
+      : super(reader, const SubscribingProgramState.initial());
 
   @override
   Future<void> initialize() async {
-    if (value is FeatureProgramStateSuccess || value is FeatureProgramStateLoading)
-      return;
+    if (state != const SubscribingProgramState.initial()) return;
 
-    try {
-      final data = await _apiClient.queryFeaturedProgramsList();
-      value = FeatureProgramStateSuccess(data);
-    } catch (e) {
-      print(e);
-      value = const FeatureProgramStateError();
-    }
+    final result = await logger.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return graphQlRepository
+          .querySubscribedProgramsList()
+          .timeout(GraphQlRepository.TIMEOUT);
+    });
+    if (mounted)
+      result.when(success: (data) {
+        state = data.viewerUser.subscribedPrograms.items.isEmpty
+            ? const SubscribingProgramState.resultEmpty()
+            : SubscribingProgramState.success(data);
+      }, failure: (e) {
+        state = SubscribingProgramState.error(toErrMsg(e));
+        if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
+      });
   }
 }
 
-class ViewModelWatchHistory extends DisposableValueNotifier<WatchHistoryState> with ViewModelBase {
-
-  ViewModelWatchHistory() : super(const StatePreInitialized());
-
-  final _apiClient = ApiClient(Client());
-
-  @override
-  Future<void> initialize() async {
-    if (value is StateSuccess || value is StateLoading)
-      return;
-
-    try {
-      value = const StateLoading();
-      final data = await _apiClient.queryWatchHistory();
-      value = StateSuccess([data]);
-    } catch (e) {
-      print(e);
-      value = const StateError();
-    }
-
-    notifyListeners();
-  }
-
-
-  Future<void> loadMoreWatchHistory() async {
-    final oldState = value;
-    if (oldState is StateSuccess) {
-      final nextToken = oldState.watchHistories.last.viewerUser.watchHistories.nextToken;
-      if (nextToken == null)
-        return;
-
-      value = StateLoadingMore(oldState.watchHistories);
-
-      try {
-        final newOne = await _apiClient.queryWatchHistory(
-          nextToken: nextToken,
-        );
-
-        if (!isDisposed)
-          return ApiClientResult.CANCELED;
-
-        oldState.watchHistories.add(newOne);
-        value = StateSuccess(oldState.watchHistories);
-
-        if (newOne.viewerUser.watchHistories.items.isEmpty) {
-          //todo show SnackBar
-        }
-
-        return;
-
-      } catch (e) {
-        debugPrint(e.toString());
-        //todo show SnackBar
-      }
-    }
-  }
-}
-
+@protected
 @freezed
-abstract class FeatureProgramState with _$FeatureProgramState {
-  const factory FeatureProgramState.preInitialized() = FeatureProgramStatePreInitialized;
-  const factory FeatureProgramState.loading() = FeatureProgramStateLoading;
-  const factory FeatureProgramState.resultEmpty() = FeatureProgramStateResultEmpty;
-  const factory FeatureProgramState.success(FeatureProgramData featureProgramData) = FeatureProgramStateSuccess;
-  const factory FeatureProgramState.error() = FeatureProgramStateError;
-}
+abstract class SubscribingProgramState with _$SubscribingProgramState {
+  const factory SubscribingProgramState.initial() = _SubscribingProgramStateInitial;
 
-@freezed
-abstract class WatchHistoryState with _$WatchHistoryState {
-  const factory WatchHistoryState.preInitialized() = StatePreInitialized;
-  const factory WatchHistoryState.loading() = StateLoading;
-  const factory WatchHistoryState.resultEmpty() = StateResultEmpty;
-  const factory WatchHistoryState.success(List<WatchHistoriesData> watchHistories) = StateSuccess;
-  const factory WatchHistoryState.loadingMore(List<WatchHistoriesData> watchHistories) = StateLoadingMore;
-  const factory WatchHistoryState.error() = StateError;
+  const factory SubscribingProgramState.resultEmpty() =
+      _SubscribingProgramStateResultEmpty;
+
+  const factory SubscribingProgramState.success(
+      ListSubscribedPrograms listSubscribedPrograms) = _SubscribingProgramStateSuccess;
+
+  const factory SubscribingProgramState.error(ErrorMsgCommon errorMsg) =
+      _SubscribingProgramStateError;
 }

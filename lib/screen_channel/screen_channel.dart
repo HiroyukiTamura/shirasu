@@ -1,157 +1,246 @@
-import 'package:after_layout/after_layout.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/all.dart';
-import 'package:hooks_riverpod/all.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/di/url_util.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
-import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_channel/content_cell.dart';
 import 'package:shirasu/screen_channel/page_channel_detail.dart';
 import 'package:shirasu/screen_channel/page_movie_list.dart';
 import 'package:shirasu/screen_channel/page_notification.dart';
-import 'package:shirasu/screen_detail/billing_btn.dart';
+import 'package:shirasu/ui_common/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
+import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_channel.dart';
+import 'package:shirasu/extension.dart';
 
-final _channelProvider = ChangeNotifierProvider.autoDispose
-    .family<ViewModelChannel, String>((ref, id) => ViewModelChannel(id));
+part 'screen_channel.g.dart';
 
-class ScreenChannel extends StatefulHookWidget {
-  const ScreenChannel({Key key, @required this.channelId}) : super(key: key);
+final kPrvViewModelChannel = StateNotifierProvider.autoDispose
+    .family<ViewModelChannel, String>(
+        (ref, id) => ViewModelChannel(ref.read, id));
 
-  final String channelId;
+final kPrvSnackBarChannel = StateNotifierProvider.family
+    .autoDispose<SnackBarMessageNotifier, String>(
+        (ref, id) => SnackBarMessageNotifier());
+
+final _kPrvDetailSnackMsg =
+    Provider.family.autoDispose<SnackData, String>((ref, id) {
+  final snackMsgEvent = ref.watch(kPrvSnackBarChannel(id).state);
+  return SnackData(snackMsgEvent.snackMsg, Dimens.SNACK_BAR_DEFAULT_MARGIN);
+});
+
+const double _kChannelLogoSize = 32;
+
+@hwidget
+Widget screenChannel(
+  BuildContext context, {
+  @required String channelId,
+}) =>
+    SafeArea(
+      child: Scaffold(
+        body: SnackEventListener(
+          provider: _kPrvDetailSnackMsg(channelId),
+          child: useProvider(kPrvViewModelChannel(channelId).state).when(
+            preInitialized: () => const CenterCircleProgress(),
+            error: (errMsg) => PageError(
+              text: errMsg.value,
+            ),
+            success: (dataWrapper) => _Content(
+              channel: dataWrapper.data.channel,
+            ),
+          ),
+        ),
+      ),
+    );
+
+class _Content extends HookWidget {
+  const _Content({
+    @required this.channel,
+    Key key,
+  }) : super(key: key);
+
+  final Channel channel;
 
   @override
-  _ScreenChannelState createState() => _ScreenChannelState(channelId);
+  Widget build(BuildContext context) {
+    final tabController = useTabController(
+      initialLength: 3,
+      initialIndex: useProvider(kPrvViewModelChannel(channel.id)).tabIndex,
+    );
+    _initTabListener(context, tabController);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (context.isThinScreen)
+          const SizedBox(height: 16)
+        else
+          Padding(
+            padding: const EdgeInsets.only(bottom: 24),
+            child: _RowHeaderImg(
+              channelId: channel.id,
+            ),
+          ),
+        _RowChannelName(
+          channel: channel,
+        ),
+        const SizedBox(height: 16),
+        if (!context.isThinScreen)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: _RowBillingBtn(
+              channel: channel,
+            ),
+          ),
+        _RowTab(controller: tabController),
+        const _RowSeem(),
+        Expanded(
+          child: TabBarView(
+            controller: tabController,
+            children: [
+              PageChannelDetail(
+                text: channel.detail,
+                id: channel.id,
+              ),
+              PageMovieList(
+                onTapItem: (context, prgId) async =>
+                    context.pushProgramPage(prgId),
+                channelId: channel.id,
+              ),
+              PageNotification(
+                announcements: channel.announcementAvailable,
+                id: channel.id,
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  void _initTabListener(BuildContext context, TabController tabController) =>
+      useEffect(() {
+        void listener() =>
+            context.read(kPrvViewModelChannel(channel.id)).tabIndex =
+                tabController.index;
+        tabController.addListener(listener);
+        return () => tabController.removeListener(listener);
+      }, [tabController]);
 }
 
-class _ScreenChannelState extends State<ScreenChannel>
-    with AfterLayoutMixin<ScreenChannel> {
-  _ScreenChannelState(this._channelId)
-      : _headerUrl = UrlUtil.getChannelHeaderUrl(_channelId),
-        _logoUrl = UrlUtil.getChannelLogoUrl(_channelId);
+@swidget
+Widget _rowHeaderImg({
+  @required String channelId,
+}) =>
+    AspectRatio(
+      aspectRatio: Dimens.HEADER_ASPECT,
+      child: CustomCachedNetworkImage(
+        imageUrl: UrlUtil.getChannelHeaderUrl(channelId),
+        errorWidget: (context, url, e) {
+          Util.onImageError(context, url: url, error: e);
+          return const SizedBox.shrink();
+        },
+      ),
+    );
 
-  static const double _CHANNEL_LOGO_SIZE = 32;
-  static const _BILLING_PROMO_CHANNEL = '月額6600円で購読';
+@swidget
+Widget _rowChannelName({@required Channel channel}) => ContentCell(
+      child: Row(
+        children: [
+          CustomCachedNetworkImage(
+            height: _kChannelLogoSize,
+            width: _kChannelLogoSize,
+            imageUrl: UrlUtil.getChannelLogoUrl(channel.id),
+            errorWidget: Util.defaultChannelIcon,
+          ),
+          const SizedBox(width: 24),
+          Text(
+            channel.name,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
+      ),
+    );
 
-  final String _channelId;
-  final String _headerUrl;
-  final String _logoUrl;
+class _RowBillingBtn extends StatelessWidget {
+  const _RowBillingBtn({Key key, this.channel}) : super(key: key);
 
-  int _tabIndex = 0;
+  final Channel channel;
 
   @override
-  void afterFirstLayout(BuildContext context) =>
-      context.read(_channelProvider(_channelId)).initialize();
-
-  @override
-  Widget build(BuildContext context) =>
-      Scaffold(
-        body: useProvider(_channelProvider(_channelId)).value.when(
-          preInitialized: () => const CenterCircleProgress(),
-          loading: () => const CenterCircleProgress(),
-          error: () => const PageError(),
-          success: (channelData) {
-            final isAnnouncementEmpty = channelData.channel
-                .announcements.items.isEmpty;
-            final initialLength = isAnnouncementEmpty ? 2 : 3;
-            final tabController = useTabController(
-                initialLength: initialLength, initialIndex: _tabIndex);
-            tabController.addListener(() => _tabIndex = tabController.index);
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AspectRatio(
-                  aspectRatio: Dimens.HEADER_ASPECT,
-                  child: CachedNetworkImage(imageUrl: _headerUrl),
+  Widget build(BuildContext context) => ContentCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (channel.subscriptionPlan?.viewerPurchasedPlan?.isActive == true)
+              PurchasedBannerMedium(
+                onTap: () async => _onTapSubscribeBtn(context),
+              )
+            else if (channel.subscriptionPlan?.isPurchasable == true)
+              BillingBtnMedium(
+                amountWithTax: channel.subscriptionPlan.amountWithTax,
+                currencyAsSuffix: channel.subscriptionPlan.currencyAsSuffix,
+                onTap: () async => _onTapSubscribeBtn(context),
+              )
+            else
+              const SizedBox.shrink(),
+            Visibility(
+              visible: false,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.add_alert,
+                  color: Styles.COLOR_TEXT_SUB,
                 ),
-                const SizedBox(height: 24),
-                ContentCell(
-                  child: Row(
-                    children: [
-                      CachedNetworkImage(
-                        height: _CHANNEL_LOGO_SIZE,
-                        width: _CHANNEL_LOGO_SIZE,
-                        imageUrl: _logoUrl,
-                      ),
-                      const SizedBox(width: 24),
-                      Text(
-                        channelData.channel.name,
-                        style: TextStyles.CHANNEL_NAME,
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ContentCell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (channelData.channel.subscriptionPlan
-                          ?.viewerPurchasedPlan?.isActive ==
-                          true)
-                        PurchasedBannerMedium()
-                      else
-                        if (channelData.channel.subscriptionPlan
-                            ?.isPurchasable)
-                          const BillingBtnMedium(
-                              text: _BILLING_PROMO_CHANNEL) //todo fix
-                        else
-                          const SizedBox.shrink(),
-                      IconButton(
-                        icon: Icon(
-                          Icons.add_alert,
-                          color: Styles.colorTextSub,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ContentCell(
-                  child: TabBar(
-                      labelColor: Colors.white,
-                      controller: tabController,
-                      isScrollable: true,
-                      tabs: [
-                        const Tab(text: Strings.CHANNEL_TAB_DESC),
-                        const Tab(text: Strings.CHANNEL_TAB_MOVIE),
-                        if (!isAnnouncementEmpty)
-                          const Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
-                      ]),
-                ),
-                SizedBox(
-                  height: .5,
-                  child: ColoredBox(
-                    color: Colors.white.withOpacity(.7),
-                  ),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      PageChannelDetail(text: channelData.channel
-                          .detail),
-                      PageMovieList(channelPrograms: channelData.channel
-                          .programs),
-                      if (!isAnnouncementEmpty)
-                        PageNotification(
-                            announcements:
-                            channelData.channel.announcements),
-                    ],
-                  ),
-                )
-              ],
-            );
-          },
+                onPressed: () {}, //todo implement
+              ),
+            ),
+          ],
         ),
       );
+
+  Future<void> _onTapSubscribeBtn(BuildContext context) async =>
+      BtmSheetCommon.showUrlLauncherBtmSheet(
+        context: context,
+        url: UrlUtil.channelId2Url(channel.id),
+        child: const Text(Strings.BTM_SHEET_MSG_CREDIT_CARD),
+        snackCallback: (msg) =>
+            context.read(kPrvViewModelChannel(channel.id)).notifySnackMsg(msg),
+      );
 }
+
+@swidget
+Widget _rowTab({
+  @required TabController controller,
+}) =>
+    ContentCell(
+      child: TabBar(
+          labelColor: Colors.white,
+          controller: controller,
+          isScrollable: true,
+          tabs: const [
+            Tab(text: Strings.CHANNEL_TAB_DESC),
+            Tab(text: Strings.CHANNEL_TAB_MOVIE),
+            Tab(text: Strings.CHANNEL_TAB_NOTIFICATION),
+          ]),
+    );
+
+@swidget
+Widget _rowSeem() => const SizedBox(
+      height: .5,
+      child: ColoredBox(
+        color: Styles.COLOR_TEXT_SUB,
+      ),
+    );

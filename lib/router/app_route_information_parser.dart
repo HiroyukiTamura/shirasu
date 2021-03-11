@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shirasu/router/screen_main_route_path.dart';
-import 'package:shirasu/screen_main/page_subscribing/page_subscribing.dart';
+import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/router/global_route_path.dart';
 
 class AppRouteInformationParser
     extends RouteInformationParser<GlobalRoutePathBase> {
+  const AppRouteInformationParser._();
+
+  static const AppRouteInformationParser instance =
+      AppRouteInformationParser._();
+
   @override
   Future<GlobalRoutePathBase> parseRouteInformation(
       RouteInformation routeInformation) async {
@@ -43,7 +49,7 @@ class AppRouteInformationParser
         break;
     }
 
-    return const GlobalRoutePath.error();
+    return const GlobalRoutePath.error(false, Strings.SNACK_ERR);
   }
 
   @override
@@ -51,18 +57,18 @@ class AppRouteInformationParser
       RouteInformation(location: restoreLocation(configuration));
 
   static String restoreLocation(GlobalRoutePathBase configuration) =>
-      GlobalRoutePathBase.wrappedWhen(
-        configuration,
+      configuration.wrappedWhen(
         intro: () => 'intro',
-        error: () => 'error',
-        editBirthDate: (BirthDateIntentData data) => 'edit_birth_date',
+        error: (authExpired, errText) => 'error',
         channel: (channelId) => '/c/$channelId',
-        program: (programId) {
-          final list = programId.split('-');
-          return '/t/${list[0]}/c/${list[1]}/p/${list[2]}';
-        },
+        program: UrlUtil.programId2UrlSegment,
         dashboard: () => 'dashboard',
-        subscribing: (SubscribingTabPage initialPage) => 'subscribing/$initialPage',
+        subscribing: (initialPage) =>
+            'subscribing/$initialPage',
         setting: () => 'setting',
+        ossLicense: () => 'oss_license',
+        imgLicense: () => 'img_license',
+        auth: () => 'auth',
+        preLogin: () => 'pre_login',
       );
 }

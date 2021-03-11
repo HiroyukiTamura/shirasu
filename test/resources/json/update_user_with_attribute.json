@@ -1,0 +1,41 @@
+{
+  "data": {
+    "updateUserWithAttribute": {
+      "user": {
+        "id": "auth0|5fac20c0bf46b2006e143633",
+        "name": "HiroyukTamura",
+        "icon": "https://s.gravatar.com/avatar/889fee99b3b542284a6c73dfa5f2e7fe?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fhi.png",
+        "createdAt": "2020-11-11T17:38:44.067Z",
+        "updatedAt": "2020-12-06T10:07:55.245Z",
+        "roles": [
+          "user"
+        ],
+        "tenants": {
+          "nextToken": null,
+          "__typename": "ModelTenantUserConnection"
+        },
+        "comments": {
+          "nextToken": null,
+          "__typename": "ModelCommentConnection"
+        },
+        "reviews": {
+          "nextToken": null,
+          "__typename": "ModelReviewConnection"
+        },
+        "__typename": "User"
+      },
+      "attr": {
+        "id": "auth0|5fac20c0bf46b2006e143633",
+        "email": "hiroyuktamura@gmail.com",
+        "birthDate": "1993-11-15T00:00:00.000Z",
+        "job": "InformationTechnology",
+        "country": "JP",
+        "prefecture": 13,
+        "createdAt": "2020-11-11T17:38:44.067Z",
+        "updatedAt": "2020-12-06T10:07:55.245Z",
+        "__typename": "UserAttribute"
+      },
+      "__typename": "UserWithAttribute"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+name: FlutterAnalyzer
+
+on:
+  pull_request:
+
+jobs:
+  flutter_analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos --no-fatal-warnings

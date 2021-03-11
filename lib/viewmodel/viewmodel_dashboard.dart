@@ -1,77 +1,123 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:http/http.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/model/dashboard_model.dart';
-import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
+import 'dart:async';
+
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/main.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/graphql_repository_impl.dart';
+import 'package:shirasu/repository/logger_repository.dart';
+import 'package:shirasu/repository/logger_repository_impl.dart';
+import 'package:shirasu/repository/network_image_repository.dart';
+import 'package:shirasu/repository/network_image_repository_impl.dart';
+import 'package:shirasu/util/exceptions.dart';
+import 'package:shirasu/viewmodel/model/dashboard_model.dart';
+import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 
-class ViewModelDashBoard extends DisposableValueNotifier<DashboardModelState> with ViewModelBase {
-  ViewModelDashBoard() : super(const DashboardModelState.preInitialized());
+class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
+  ViewModelDashBoard(Reader reader) : super(reader);
 
-  final _apiClient = ApiClient(Client());
-  bool _isLoadMoreCommanded = false;
+  double headerBackDropScrollPos = 0;
+
+  GraphQlRepository get _graphQlRepository => reader(kPrvGraphqlRepository);
+
+  LoggerRepository get _logger => reader(kPrvLogger);
+
+  NetworkImageRepository get _networkRepository =>
+      reader(kPrvNetworkRepository);
+
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
 
   @override
   Future<void> initialize() async {
-    DashboardModelState state;
-    try {
-      final featureProgramData = await _apiClient.queryFeaturedProgramsList();
-      final newProgramsData = await _apiClient.queryNewProgramsList();
+    if (state != const DashboardModel.initial()) return;
 
-      state = DashboardModelState.success(DashboardModel(
-        featureProgramData: featureProgramData,
-        newProgramsData: newProgramsData,
-      ));
-    } catch (e) {
-      print(e);
-      state = const StateError();
-    }
+    final result = await _logger.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return Util.wait3(
+        _graphQlRepository.queryFeaturedProgramsList,
+        _graphQlRepository.queryNewProgramsList,
+        _graphQlRepository.querySubscribedProgramsList,
+      ).timeout(GraphQlRepository.TIMEOUT);
+    });
+    if (!isMounted) return;
+    result.when(success: (data) {
+      final apiData = ApiData(
+        featureProgramData: data.item1,
+        rawNewProgramsDataList: [data.item2],
+        listSubscribedPrograms: data.item3,
+      );
+      state = DashboardModel.successInitialization(apiData);
+    }, failure: (e) {
+      state = DashboardModel.error(toErrMsg(e));
+      if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
+    });
 
-    if (!isDisposed) {
-      value = state;
-      notifyListeners();
+    final resultImg = await _logger
+        .guardFuture(() async => _networkRepository.requestHeaderImage());
+    resultImg.ifSuccess((data) => headerImage = data);
+  }
+
+  Future<void> loadMoreNewPrg() async {
+    final oldState = state;
+    if (oldState is DashboardSuccess) {
+      final nextToken = oldState
+          .data.apiData.newProgramsDataList?.last?.newPrograms?.nextToken;
+      if (nextToken == null) return;
+
+      state = oldState.copyWith.data(loadingMore: true);
+
+      final result = await _logger.guardFuture(() async {
+        await connectivityRepository.ensureNotDisconnect();
+        return _graphQlRepository
+            .queryNewProgramsList(
+              nextToken: nextToken,
+            )
+            .timeout(GraphQlRepository.TIMEOUT);
+      });
+      if (isMounted)
+        result.when(success: (data) {
+          state = state.appendLoadMoreData(data);
+
+          if (data.newPrograms.items.isEmpty)
+            notifySnackMsg(const SnackMsg.noMoreItem());
+        }, failure: (e) {
+          state.whenSuccess((data) => data.copyWith(
+                loadingMore: false,
+              ));
+          notifySnackMsg(toNetworkSnack(e));
+        });
     }
   }
 
-  //todo exclusion control
-  Future<ApiClientResult> loadMoreNewPrg() async {
-    if (_isLoadMoreCommanded)
-      return ApiClientResult.CANCELED;
-
-    _isLoadMoreCommanded = true;
-
-    final v = value;
-    if (v is StateSuccess) {
-      final nextToken = v.dashboardModel.newProgramsDataList?.last?.newPrograms?.nextToken;
-      if (nextToken == null)
-        return ApiClientResult.FAILURE;
-
-      try {
-        final newProgramsData = await _apiClient.queryNewProgramsList(
-          nextToken: nextToken,
-        );
-        v.dashboardModel.appendNewPrograms(newProgramsData);
-        notifyListeners();
-        if (newProgramsData.newPrograms.items.isEmpty)
-          return ApiClientResult.NO_MORE;
-
-        return ApiClientResult.SUCCESS;
-
-      } catch (e) {
-        debugPrint(e.toString());
-        return ApiClientResult.FAILURE;
-      } finally {
-        _isLoadMoreCommanded = false;
-      }
-
-    } else
-      return ApiClientResult.FAILURE;
+  void updateScrollOffset(double offset) {
+    if (isMounted)
+      state.whenSuccess((data) => data.copyWith(
+            scrollOffset: offset,
+          ));
   }
-}
 
-enum ApiClientResult {
-  SUCCESS, FAILURE, NO_MORE, CANCELED,
-}
+  void updateBillboardHeaderPage(int page) {
+    if (isMounted)
+      state.whenSuccess((data) => data.copyWith(
+            billboardHeaderPage: page,
+          ));
+  }
 
+  void updateChannelOffset(double offset) {
+    if (isMounted)
+      state.whenSuccess((data) => data.copyWith(
+            channelHorizontalOffset: offset,
+          ));
+  }
+
+  void updateSubscribingCarouselOffset(double offset) {
+    if (isMounted)
+      state.whenSuccess((data) => data.copyWith(
+            subscribingChannelOffset: offset,
+          ));
+  }
+
+  void notifySnackMsg(SnackMsg snackMsg) =>
+      _snackBarMsgNotifier.notifyMsg(snackMsg, false);
+}

@@ -41,10 +41,11 @@ const $SignedCookieResult = _$SignedCookieResultTearOff();
 mixin _$SignedCookieResult {
   bool get ok;
   String get url;
-  DateTime get signLimitAt;
+  DateTime get signLimitAt; //todo rotate cookie?
   DateTime get now;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SignedCookieResultCopyWith<SignedCookieResult> get copyWith;
 }
 
@@ -137,7 +138,7 @@ class _$_SignedCookieResult implements _SignedCookieResult {
   final String url;
   @override
   final DateTime signLimitAt;
-  @override
+  @override //todo rotate cookie?
   final DateTime now;
 
   @override
@@ -168,6 +169,7 @@ class _$_SignedCookieResult implements _SignedCookieResult {
       const DeepCollectionEquality().hash(signLimitAt) ^
       const DeepCollectionEquality().hash(now);
 
+  @JsonKey(ignore: true)
   @override
   _$SignedCookieResultCopyWith<_SignedCookieResult> get copyWith =>
       __$SignedCookieResultCopyWithImpl<_SignedCookieResult>(this, _$identity);
@@ -194,8 +196,9 @@ abstract class _SignedCookieResult implements SignedCookieResult {
   String get url;
   @override
   DateTime get signLimitAt;
-  @override
+  @override //todo rotate cookie?
   DateTime get now;
   @override
+  @JsonKey(ignore: true)
   _$SignedCookieResultCopyWith<_SignedCookieResult> get copyWith;
 }

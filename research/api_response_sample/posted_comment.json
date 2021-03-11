@@ -1,0 +1,17 @@
+{
+  "data": {
+    "comment": {
+      "id": "c4dabc35-0f43-4304-b886-1dace7aa6ecd",
+      "text": "うむ",
+      "commentTime": 15086928,
+      "userId": "google-oauth2|109431228853603579684",
+      "user": {
+        "id": "google-oauth2|109431228853603579684",
+        "name": "HiroyukiTamura",
+        "icon": "https://shirasu-storage-product.s3.amazonaws.com/public/users/google-oauth2%7C109431228853603579684/icon-1605868213782-563163654447",
+        "__typename": "User"
+      },
+      "__typename": "Comment"
+    }
+  }
+}

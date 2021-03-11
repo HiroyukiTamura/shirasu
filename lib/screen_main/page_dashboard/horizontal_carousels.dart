@@ -1,103 +1,180 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shirasu/di/url_util.dart';
-import 'package:shirasu/model/featured_programs_data.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:intl/intl.dart';
+import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/ui_common/circle_cached_network_image.dart';
+import 'package:shirasu/ui_common/custom_cached_network_image.dart';
+import 'package:shirasu/ui_common/stacked_inkwell.dart';
+import 'package:shirasu/util.dart';
+import 'package:shirasu/util/types.dart';
 
-class _HorizontalCarouselItem extends StatelessWidget {
-  _HorizontalCarouselItem({
-    Key key,
-    @required this.item,
-    @required this.width,
-    @required this.onTap,
-  })  : _thumbnailUrl = UrlUtil.getThumbnailUrl(item.id),
-        super(key: key);
+part 'horizontal_carousels.g.dart';
 
-  final Item item;
-  final double width;
-  final String _thumbnailUrl;
-  final void Function(Item) onTap;
+const double _kSeparatorMargin = Dimens.DASHBOARD_OUTER_MARGIN;
+const double _kMaxWidth = 300;
 
-  @override
-  Widget build(BuildContext context) => InkWell(
-        onTap: () => onTap(item),
-        child: Container(
-          height: double.infinity,
-          width: width,
-          decoration: BoxDecoration(
-            color: Styles.cardBackground,
-            borderRadius: BorderRadius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AspectRatio(
-                  aspectRatio: Dimens.IMG_RATIO,
-                  child: CachedNetworkImage(imageUrl: _thumbnailUrl)),
-              Expanded(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      item.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      );
-}
-
-class HorizontalCarousels extends StatelessWidget {
+class HorizontalCarousels extends StatefulWidget {
   const HorizontalCarousels({
-    Key key,
-    @required this.list,
-    @required this.columnCount,
-    @required this.maxWidth,
-    @required this.onTap,
-  }) : super(key: key);
+    this.list,
+    this.constraints,
+    this.maxWidth,
+    this.detailCaption,
+    this.onTapItem,
+  });
 
   final List<Item> list;
-  final void Function(Item) onTap;
-  final int columnCount;
+  final BoxConstraints constraints;
   final double maxWidth;
-  static const double SEPARATOR_MARGIN = 16;
+  final bool detailCaption;
+  final OnTapItem onTapItem;
 
   @override
-  Widget build(BuildContext context) {
-    final inScreenItemCount = columnCount - 1 + 7 / 16;
-    final nonMarginTotalWidth = maxWidth -
-        Dimens.DASHBOARD_OUTER_MARGIN -
-        (columnCount - 1) * HorizontalCarousels.SEPARATOR_MARGIN;
-    final width = nonMarginTotalWidth / inScreenItemCount;
-    final height = width / Dimens.IMG_RATIO + 56;
+  _HorizontalCarouselsState createState() => _HorizontalCarouselsState();
+}
 
-    return SizedBox(
+class _HorizontalCarouselsState extends State<HorizontalCarousels>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    final columnCount = (widget.constraints.maxWidth / _kMaxWidth).ceil();
+    final inScreenItemCount = columnCount - 1 + (1 - 1 / Dimens.IMG_RATIO);
+    final nonMarginTotalWidth = widget.maxWidth -
+        Dimens.DASHBOARD_OUTER_MARGIN -
+        (columnCount - 1) * _kSeparatorMargin;
+    final width = nonMarginTotalWidth / inScreenItemCount;
+    final height =
+        width / Dimens.IMG_RATIO + Dimens.CAROUSEL_DETAIL_CAPTION_H;
+
+    return Container(
+      margin: const EdgeInsets.only(top: 16, bottom: 32),
       height: height,
       width: double.infinity,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(
             horizontal: Dimens.DASHBOARD_OUTER_MARGIN),
-        itemCount: list.length,
+        itemCount: widget.list.length,
         scrollDirection: Axis.horizontal,
-        separatorBuilder: (BuildContext context, int index) =>
-            const SizedBox(width: SEPARATOR_MARGIN),
-        itemBuilder: (context, index) {
-          return _HorizontalCarouselItem(
-            item: list[index],
-            width: width,
-            onTap: onTap,
-          );
-        },
+        separatorBuilder: (context, index) =>
+            const SizedBox(width: _kSeparatorMargin),
+        itemBuilder: (context, index) => HorizontalCarouselItem(
+          item: widget.list[index],
+          width: width,
+          onTapItem: widget.onTapItem,
+          detailCaption: widget.detailCaption,
+        ),
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
+
+@swidget
+Widget horizontalCarouselItem(
+  BuildContext context, {
+  @required Item item,
+  @required double width,
+  @required bool detailCaption,
+  @required OnTapItem onTapItem,
+  Color backGround,
+}) =>
+    ClipRRect(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
+      ),
+      child: StackedInkWell(
+        onTap: () => onTapItem(context, item.id),
+        child: Container(
+          width: width,
+          color: backGround ?? Styles.cardBackground,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AspectRatio(
+                aspectRatio: Dimens.IMG_RATIO,
+                child: CustomCachedNetworkImage(
+                  imageUrl: UrlUtil.getThumbnailUrl(item.id),
+                  errorWidget: Util.defaultPrgThumbnail,
+                ),
+              ),
+              Expanded(
+                child: detailCaption
+                    ? _HorizontalCarouselDetailCaption(item: item)
+                    : _CaptionTitle(item: item),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+@swidget
+Widget _captionTitle({@required Item item}) => Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      alignment: Alignment.center,
+      child: Text(
+        item.title,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+      ),
+    );
+
+@swidget
+Widget _horizontalCarouselDetailCaption(
+  BuildContext context, {
+  @required Item item,
+}) =>
+    Container(
+      height: Dimens.CAROUSEL_DETAIL_CAPTION_H,
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: TextStyles.s13TextHSingle(
+              color: Theme.of(context).accentColor,
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Text(
+                item.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              CircleCachedNetworkImage(
+                imageUrl: UrlUtil.getChannelLogoUrl(item.channelId),
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  item.channel.name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyles.s13TextHSingle(),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );

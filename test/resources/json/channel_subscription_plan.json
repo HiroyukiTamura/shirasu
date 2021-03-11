@@ -1,0 +1,21 @@
+{
+  "data": {
+    "channel": {
+      "subscriptionPlan": {
+        "id": "price_1HcpJXG1x5cV2jHOJqhaapY0",
+        "parentPlanType": null,
+        "parentPlanId": null,
+        "productType": "Channel",
+        "productId": "genron",
+        "name": "スーパー完全中継チャンネル",
+        "amount": 6000,
+        "currency": "jpy",
+        "interval": "month",
+        "intervalCount": 1,
+        "isPurchasable": true,
+        "__typename": "SubscriptionPlan"
+      },
+      "__typename": "Channel"
+    }
+  }
+}

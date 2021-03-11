@@ -1,138 +1,188 @@
-import 'dart:convert';
+import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:http/http.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/gen/assets.gen.dart';
-import 'package:shirasu/model/country_data.dart';
-import 'package:shirasu/model/prefecture_data.dart';
-import 'package:shirasu/model/viewer.dart';
-import 'package:shirasu/model/auth_data.dart';
-import 'package:shirasu/resource/strings.dart';
+import 'package:async/async.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/graphql/viewer.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/hive_auth_repository.dart';
+import 'package:shirasu/repository/local_json_client.dart';
+import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/model/update_user_with_attr_variable.dart'
+    show UpdateUserWithAttrVariable;
+import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/router/global_route_path.dart';
+import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/util.dart';
+import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/model/model_setting.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/main.dart';
+import 'package:dartx/dartx.dart';
 
-part 'viewmodel_setting.freezed.dart';
+class ViewModelSetting extends ViewModelBase<SettingModel> {
+  ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
 
-class ViewModelSetting extends DisposableChangeNotifier with ViewModelBase {
-  final apiClient = ApiClient(Client());
-  EditedUserInfo editedUserInfo = EditedUserInfo.empty();
-  SettingModelState state = const SettingModelState.preInitialized();
+  FlutterWebviewPlugin _webView;
 
-  static final User dummyUser = User(
-    email: 'hogehoge@gmail.com',
-    emailVerified: true,
-    givenName: '太郎',
-    httpsShirasuIoCustomerId: '',
-    nickname: 'NICK_NAME',
-    sub: 'auth0|xxxx',
-    familyName: '山田',
-    httpsShirasuIoRoles: [],
-    httpsShirasuIoDistributeds: [],
-    updatedAt: DateTime.now(),
-    httpsShirasuIoTenants: [],
-    locale: '',
-    name: '',
-    picture: '',
-    httpsShirasuIoUserAttribute: HttpsShirasuIoUserAttribute(
-      birthDate: DateTime.now(),
-      job: 'jobAcademia',
-      country: 'jp',
-      familyName: '山田',
-      givenName: '太郎',
-      familyNameReading: 'やまだ',
-      givenNameReading: 'たろう',
-      prefecture: '13',
-    ),
-  );
+  HiveBody get _hiveAuthBody => hiveAuthRepository?.authData?.body;
 
-  /// todo should be synchronized?
-  /// todo check is disposed
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
+
   @override
   Future<void> initialize() async {
-    if (state is StateSuccess) return;
+    if (state != SettingModel.initial()) return;
 
-    SettingModelState newState;
-    try {
-      final viewer = await apiClient.queryViewer();
-      final locationStr = await _genLocationStr(dummyUser);
-      newState = StateSuccess(viewer, locationStr);
-    } catch (e) {
-      print(e);
-      newState = const StateError();
-    }
-
-    if (!isDisposed) {
-      state = newState;
-      notifyListeners();
-    }
+    final result = await logger.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return graphQlRepository.queryViewer().timeout(GraphQlRepository.TIMEOUT);
+    });
+    if (mounted)
+      result.when(success: (data) {
+        Util.require(_isUserIdMatchesLocal(data));
+        state = state.copyWith(
+          settingModelState: SettingModelState.success(data),
+        );
+      }, failure: (e) {
+        state = state.copyWith(
+          settingModelState: SettingModelState.error(toErrMsg(e)),
+        );
+        if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
+      });
   }
 
-  void updateBirthDate(DateTime birthDate) {
-    editedUserInfo = editedUserInfo.copyWith(birthDate: birthDate);
-    notifyListeners();
+  bool _isUserIdMatchesLocal(ViewerWrapper viewerWrapper) =>
+      _hiveAuthBody?.decodedToken?.user?.sub == viewerWrapper.viewerUser.id;
+
+  void updateBirthDate(DateTime birthDate) =>
+      state = state.copyWith.editedUserInfo(birthDate: birthDate);
+
+  void updateJobCode(String jobCode) =>
+      state = state.copyWith.editedUserInfo(jobCode: jobCode);
+
+  void updateUserLocation(String countryCode, String prefectureCode) =>
+      state = state.copyWith.editedUserInfo(
+        location: Location(
+          countryCode: countryCode,
+          prefectureCode: prefectureCode,
+        ),
+      );
+
+  Future<void> postProfile() async {
+    if (state.uploadingProfile || state.isInLoggingOut) return;
+
+    final sub = _hiveAuthBody?.decodedToken?.user?.sub;
+    final attrs =
+        _hiveAuthBody?.decodedToken?.user?.httpsShirasuIoUserAttribute;
+
+    state.settingModelState.whenSuccess((viewerUser) async {
+      final birthDate = state.editedUserInfo?.birthDate ?? attrs.birthDate;
+      final job = state.editedUserInfo?.jobCode ?? attrs.job;
+      final country =
+          state.editedUserInfo?.location?.countryCode ?? attrs.country;
+      final prefecture =
+          state.editedUserInfo?.location?.prefectureCode ?? attrs?.prefecture;
+
+      if (_isUserIdMatchesLocal(viewerUser)) {
+        final variable = UpdateUserWithAttrVariable.build(
+          userId: sub,
+          birthDate: birthDate,
+          job: job,
+          country: country,
+          prefecture: prefecture,
+        );
+
+        state = state.copyWith(uploadingProfile: true);
+
+        final result = await logger.guardFuture(() async {
+          await connectivityRepository.ensureNotDisconnect();
+          return graphQlRepository
+              .updateUserWithAttr(variable)
+              .timeout(GraphQlRepository.TIMEOUT);
+        });
+        if (mounted)
+          await result.when(
+              success: (data) async => hiveAuthRepository.updateProfile(data),
+              failure: (e) {
+                notifySnackMsg(toNetworkSnack(e));
+              });
+      } else {
+        notifySnackMsg(const SnackMsg.unknown());
+      }
+
+      if (mounted)
+        state = state.copyWith(
+          uploadingProfile: false,
+          editedUserInfo: EditedUserInfo.empty(),
+        );
+    });
   }
 
-  void updateJobCode(String jobCode) {
-    editedUserInfo = editedUserInfo.copyWith(jobCode: jobCode);
-    notifyListeners();
+  Future<void> clearHiveAuth() async {
+    if (state.uploadingProfile || state.isInLoggingOut) return;
+
+    state = state.copyWith(isInLoggingOut: true);
+
+    await logger.guardFuture(() async {
+      _webView = FlutterWebviewPlugin();
+      await _webView.launch(
+        UrlUtil.URL_HOME,
+        clearCache: true,
+        clearCookies: true,
+        hidden: true,
+      );
+      await Future.delayed(1.seconds);//must need
+      await _webView.evalJavascript('window.localStorage.clear();');
+      await Future.delayed(500.milliseconds);//must need
+      await _webView.close();
+    });
+
+    if (!mounted) return;
+
+    await hiveAuthRepository.clearAuthData();
+
+    state = state.copyWith(isInLoggingOut: false);
+    await reader(kPrvAppRouterDelegate).pushPage(
+        const GlobalRoutePath.preLogin());
   }
 
-  /// [countryCode] : ex. JP
-  static Future<String> _getCountryName(String countryCode) async {
-    final string = await rootBundle.loadString(Assets.json.country);
-    final json = jsonDecode(string);
-    return CountryData.fromJson(json as Map<String, dynamic>)
-        .countries[countryCode.toUpperCase()];
-  }
+  void notifySnackMsg(SnackMsg snackMsg) =>
+      _snackBarMsgNotifier.notifyMsg(snackMsg, false);
 
-  /// [prefectureCode] : 1 ~ 47
-  static Future<String> _getPrefectureName(String prefectureCode) async {
-    final string = await rootBundle.loadString(Assets.json.prefecture);
-    final json = jsonDecode(string);
-    return PrefectureData.fromJson(json as Map<String, dynamic>)
-        .prefecture
-        .firstWhere((it) => it.code == int.tryParse(prefectureCode),
-            orElse: () => null)
-        ?.name;
-  }
-
-  static Future<String> _genLocationStr(User user) async {
-    String countryStr =
-        await _getCountryName(user.httpsShirasuIoUserAttribute.country) ??
-            Strings.DEFAULT_EMPTY;
-    if (user.httpsShirasuIoUserAttribute.country.toUpperCase() == 'JP') {
-      final prefectureStr = await _getPrefectureName(
-              user.httpsShirasuIoUserAttribute.prefecture) ??
-          Strings.DEFAULT_EMPTY;
-      countryStr += ' $prefectureStr';
-    }
-    return countryStr;
+  @override
+  void dispose() {
+    _webView?.dispose();
+    super.dispose();
   }
 }
 
-@freezed
-abstract class SettingModelState with _$SettingModelState {
-  const factory SettingModelState.preInitialized() = StatePreInitialized;
+class LocationTextNotifier extends StateNotifier<String>
+    with StateTrySetter<String> {
+  LocationTextNotifier(AutoDisposeProviderReference ref)
+      : _reader = ref.read,
+        super('') {
+    final removeListener = ref
+        .watch<ViewModelSetting>(kPrvViewModelSetting)
+        .addListener(
+            (state) async => _updateLocation(state.editedUserInfo.location));
+    ref.onDispose(removeListener);
+  }
 
-  const factory SettingModelState.loading() = StateLoading;
+  final Reader _reader;
 
-  const factory SettingModelState.success(Viewer data, String locationStr) =
-      StateSuccess;
+  final LocalJsonClient _jsonClient = LocalJsonClient.instance();
 
-  const factory SettingModelState.error() = StateError;
-}
+  CancelableOperation<String> _completer;
 
-@freezed
-abstract class EditedUserInfo implements _$EditedUserInfo {
-  
-  const factory EditedUserInfo({DateTime birthDate, String jobCode}) =
-      _EditedUserInfo;
+  HiveUser get localUser => _reader(kPrvHiveAuthUser);
 
-  factory EditedUserInfo.empty() => const EditedUserInfo();
-
-  const EditedUserInfo._();
-
-  bool get isEdited => birthDate != null || jobCode != null;
+  /// cancel old future if it's not completed
+  Future<void> _updateLocation(Location location) async {
+    if (_completer?.isCompleted == false) await _completer.cancel();
+    _completer = CancelableOperation.fromFuture(
+        _jsonClient.genLocationStr(_reader(kPrvHiveAuthUser), location));
+    final text = await _completer.value;
+    trySet(text);
+  }
 }

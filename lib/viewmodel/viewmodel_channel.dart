@@ -1,38 +1,88 @@
-import 'package:flutter/cupertino.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:http/http.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/model/channel_data.dart';
+import 'dart:async';
+
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/screen_channel/screen_channel.dart';
+import 'package:shirasu/util/exceptions.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/model/model_channel.dart';
 
-part 'viewmodel_channel.freezed.dart';
+class ViewModelChannel extends ViewModelBase<ChannelModel> {
+  ViewModelChannel(Reader reader, this._channelId)
+      : super(
+          reader,
+          const ChannelModel.preInitialized(),
+        );
 
-class ViewModelChannel extends DisposableValueNotifier<ChannelDataResult> with ViewModelBase {
-  ViewModelChannel(this._channelId) : super(const PreInitialized());
-
-  final apiClient = ApiClient(Client());
   final String _channelId;
+
+  int tabIndex = 0;
+
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBarChannel(_channelId));
 
   @override
   Future<void> initialize() async {
-    if (value is Success || value is Loading)
-      return;
+    if (state != const ChannelModel.preInitialized()) return;
 
-    try {
-      value = const ChannelDataResult.loading();
-      final data = await apiClient.queryChannelData(_channelId);
-      value = ChannelDataResult.success(data);
-    } catch (e) {
-      print(e);
-      value = const ChannelDataResult.error();
-    }
+    final result = await logger.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      final data = await graphQlRepository
+          .queryChannelData(_channelId)
+          .timeout(GraphQlRepository.TIMEOUT);
+      return ChannelModel.success(
+        ChannelDataWrapper(
+          data: data,
+          loading: false,
+        ),
+      );
+    });
+
+    if (mounted)
+      result.when(success: (data) {
+        state = data;
+      }, failure: (e) {
+        state = ChannelModel.error(toErrMsg(e));
+        if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
+      });
   }
-}
 
-@freezed
-abstract class ChannelDataResult with _$ChannelDataResult {
-  const factory ChannelDataResult.preInitialized() = PreInitialized;
-  const factory ChannelDataResult.loading() = Loading;
-  const factory ChannelDataResult.success(ChannelData channelData) = Success;
-  const factory ChannelDataResult.error() = Error;
+  Future<void> loadMorePrograms() async =>
+      state.whenSuccess((dataWrapper) async {
+        if (dataWrapper.loading) return;
+
+        final nextToken = dataWrapper.data.channel.programs.nextToken;
+        if (nextToken == null) return;
+
+        // we don't check if Disposed
+        state = ChannelModel.success(dataWrapper.copyWith(
+          loading: true,
+        ));
+
+        final result = await logger.guardFuture(() async {
+          await connectivityRepository.ensureNotDisconnect();
+
+          return graphQlRepository
+              .queryChannelData(
+                _channelId,
+                nextToken: nextToken,
+              )
+              .timeout(GraphQlRepository.TIMEOUT);
+        });
+        if (mounted)
+          result.when(success: (data) {
+            state = state.copyWithAdditionalPrograms(data.channel.programs);
+
+            if (data.channel.programs.items.isEmpty)
+              notifySnackMsg(const SnackMsg.noMoreItem());
+          }, failure: (e) {
+            notifySnackMsg(toNetworkSnack(e));
+            state = ChannelModel.success(dataWrapper.copyWith(
+              loading: false,
+            ));
+          });
+      });
+
+  void notifySnackMsg(SnackMsg snackMsg) =>
+      _snackBarMsgNotifier.notifyMsg(snackMsg, false);
 }

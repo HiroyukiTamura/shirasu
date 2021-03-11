@@ -17,13 +17,13 @@ abstract class AuthData with _$AuthData {
 @freezed
 abstract class Body with _$Body {
   const factory Body({
-    @required String clientId,
-    @required String accessToken,
-    @required String refreshToken,
-    @required String idToken,
+    @JsonKey(name: 'client_id') @required String clientId,
+    @JsonKey(name: 'access_token') @required String accessToken,
+    @JsonKey(name: 'refresh_token') @required String refreshToken,
+    @JsonKey(name: 'id_token') @required String idToken,
     @required String scope,
-    @required int expiresIn,
-    @required String tokenType,
+    @JsonKey(name: 'expires_in') @required int expiresIn,
+    @JsonKey(name: 'token_type') @required String tokenType,
     @required DecodedToken decodedToken,
     @required String audience,
   }) = _Body;
@@ -48,39 +48,47 @@ abstract class DecodedToken with _$DecodedToken {
 @freezed
 abstract class Claims with _$Claims {
   const factory Claims({
-    @required String raw,
-    @required List<String> httpsShirasuIoRoles,
-    @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-    @required String httpsShirasuIoCustomerId,
-    @required List<dynamic> httpsShirasuIoDistributeds,
-    @required List<dynamic> httpsShirasuIoTenants,
-    @required String givenName,
-    @required String familyName,
+    @JsonKey(name: '__raw') @required String raw,
+    @JsonKey(name: 'https://shirasu.io/roles') @required @protected List<String> rawHttpsShirasuIoRoles,
+    @JsonKey(name: 'https://shirasu.io/userAttribute') @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+    @JsonKey(name: 'https://shirasu.io/customerId') @required String httpsShirasuIoCustomerId,
+    @JsonKey(name: 'https://shirasu.io/distributeds') @required @protected List<dynamic> rawHttpsShirasuIoDistributeds,
+    @JsonKey(name: 'https://shirasu.io/tenants') @required @protected List<dynamic> rawHttpsShirasuIoTenants,
+    // @JsonKey(name: 'given_name') @required String givenName,
+    // @JsonKey(name: 'family_name') @required String familyName,
     @required String nickname,
     @required String name,
     @required String picture,
-    @required String locale,
-    @required DateTime updatedAt,
+    // @required String locale,
+    @JsonKey(name: 'updated_at') @required DateTime updatedAt,
     @required String email,
-    @required bool emailVerified,
+    @JsonKey(name: 'email_verified') @required bool emailVerified,
     @required String iss,
     @required String sub,
     @required String aud,
     @required int iat,
     @required int exp,
-    @required String nonce,
+    // @required String nonce,
   }) = _Claims;
 
   factory Claims.fromJson(Map<String, dynamic> json) =>
       _$ClaimsFromJson(json);
+
+  const Claims._();
+
+  // UnmodifiableListView<String> get httpsShirasuIoRoles => rawHttpsShirasuIoRoles.toUnmodifiable();
+
+  // UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds => rawHttpsShirasuIoDistributeds.toUnmodifiable();
+
+  // UnmodifiableListView<dynamic> get httpsShirasuIoTenants => rawHttpsShirasuIoTenants.toUnmodifiable();
 }
 
 @freezed
-abstract class HttpsShirasuIoUserAttribute with _$HttpsShirasuIoUserAttribute {
+abstract class HttpsShirasuIoUserAttribute implements _$HttpsShirasuIoUserAttribute {
   const factory HttpsShirasuIoUserAttribute({
     @required DateTime birthDate,
     @required String job,
-    @required String country,
+    @required @JsonKey(name: 'country') @protected String rawCountry,
     @required String prefecture,
     @required String familyName,
     @required String givenName,
@@ -88,8 +96,12 @@ abstract class HttpsShirasuIoUserAttribute with _$HttpsShirasuIoUserAttribute {
     @required String givenNameReading,
   }) = _HttpsShirasuIoUserAttribute;
 
+  const HttpsShirasuIoUserAttribute._();
+
   factory HttpsShirasuIoUserAttribute.fromJson(Map<String, dynamic> json) =>
       _$HttpsShirasuIoUserAttributeFromJson(json);
+
+  String get country => rawCountry.toUpperCase();
 }
 
 @freezed
@@ -119,23 +131,28 @@ abstract class Header with _$Header {
 @freezed
 abstract class User with _$User {
   const factory User({
-    @required List<String> httpsShirasuIoRoles,
-    @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-    @required String httpsShirasuIoCustomerId,
-    @required List<dynamic> httpsShirasuIoDistributeds,
-    @required List<dynamic> httpsShirasuIoTenants,
-    @required String givenName,
-    @required String familyName,
+    @JsonKey(name: 'https://shirasu.io/roles') @required @protected List<String> rawHttpsShirasuIoRoles,
+    @JsonKey(name: 'https://shirasu.io/userAttribute') @required HttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+    @JsonKey(name: 'https://shirasu.io/customerId') @required String httpsShirasuIoCustomerId,
+    @JsonKey(name: 'https://shirasu.io/distributeds') @required @protected List<dynamic> rawHttpsShirasuIoDistributeds,
+    @JsonKey(name: 'https://shirasu.io/tenants') @required @protected List<dynamic> rawHttpsShirasuIoTenants,
     @required String nickname,
     @required String name,
     @required String picture,
-    @required String locale,
-    @required DateTime updatedAt,
+    @JsonKey(name: 'updated_at') @required DateTime updatedAt,
     @required String email,
-    @required bool emailVerified,
+    @JsonKey(name: 'email_verified') @required bool emailVerified,
     @required String sub,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);
+
+  // const User._();
+  //
+  // UnmodifiableListView<String> get httpsShirasuIoRoles => rawHttpsShirasuIoRoles.toUnmodifiable();
+  //
+  // UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds => rawHttpsShirasuIoDistributeds.toUnmodifiable();
+  //
+  // UnmodifiableListView<dynamic> get httpsShirasuIoTenants => rawHttpsShirasuIoTenants.toUnmodifiable();
 }

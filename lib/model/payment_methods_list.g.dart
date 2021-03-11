@@ -23,7 +23,7 @@ Map<String, dynamic> _$_$_PaymentMethodsDataToJson(
 
 _$_Viewer _$_$_ViewerFromJson(Map<String, dynamic> json) {
   return _$_Viewer(
-    paymentMethods: (json['paymentMethods'] as List)
+    rawPaymentMethods: (json['paymentMethods'] as List)
         ?.map((e) => e == null
             ? null
             : PaymentMethod.fromJson(e as Map<String, dynamic>))
@@ -33,7 +33,7 @@ _$_Viewer _$_$_ViewerFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$_$_ViewerToJson(_$_Viewer instance) => <String, dynamic>{
-      'paymentMethods': instance.paymentMethods,
+      'paymentMethods': instance.rawPaymentMethods,
       '__typename': instance.typename,
     };
 

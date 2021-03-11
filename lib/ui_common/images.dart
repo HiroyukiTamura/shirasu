@@ -3,9 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 
-@immutable
-class GenImage {
-  const GenImage._({
+class _GenImage {
+  const _GenImage._({
     this.assetGenImage,
     this.svgGenImage,
   });
@@ -67,22 +66,22 @@ class GenImage {
         filterQuality: filterQuality,
       );
     else
-      throw UnimplementedError(toString());
+      throw UnsupportedError(toString());
   }
 }
 
-extension ext on SvgGenImage {
+extension SvgGenImageX on SvgGenImage {
   /// assets/svg/undraw_warning_cyit.svg
-  GenImage supportWeb() {
+  _GenImage supportWeb() {
     if (kIsWeb) {
       final imgPath = path
           .replaceAll('/svg/', '/png/')
           .replaceAll('.svg', '.png');
-      return GenImage._(
+      return _GenImage._(
         assetGenImage: AssetGenImage(imgPath),
       );
     } else
-      return GenImage._(
+      return _GenImage._(
         svgGenImage: this,
       );
   }

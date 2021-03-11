@@ -1,142 +1,519 @@
+import 'dart:async';
+
+import 'package:dartx/dartx.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_playout/player_state.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:http/http.dart';
-import 'package:shirasu/di/api_client.dart';
-import 'package:shirasu/di/dio_client.dart';
-import 'package:shirasu/model/dashboard_model.dart';
-import 'package:shirasu/model/detail_program_data.dart';
-import 'package:shirasu/model/media_status.dart';
-import 'package:shirasu/model/video_type.dart';
+import 'package:flutter_video_background/model/replay_data.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/repository/connectivity_repository.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/native_client.dart';
+import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:shirasu/model/graphql/sort_direction.dart';
+import 'package:shirasu/model/result.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/util.dart';
+import 'package:shirasu/util/exceptions.dart';
+import 'package:shirasu/util/single_timer.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:shirasu/extension.dart';
 
-part 'viewmodel_detail.freezed.dart';
+class ViewModelDetail extends ViewModelBase<ModelDetail> {
+  ViewModelDetail(Reader reader, this.id)
+      : channelId = UrlUtil.programId2channelId(id),
+        super(reader, ModelDetail.initial(true)) {
+    _hideTimer = SingleTimer(_hideController, 2.seconds);
+  }
 
-class ViewModelDetail extends DisposableChangeNotifier with ViewModelBase {
-  ViewModelDetail(this.id): super();
+  static const SEC_FAST_SEEK_BY_BTN = Duration(seconds: 30);
+  static const SEC_FAST_SEEK_BY_DOUBLE_TAP = Duration(seconds: 10);
+  static const COMMENT_PREFETCH_OFFSET = 100;
+  static const COMMENT_MAX_ITEM_COUNT = 500;
+  static const COMMENT_MAX_LETTER_LEN = 150;
 
-  final _apiClient = ApiClient(Client());
-  final _dioClient = DioClient();
+  final panelController = PanelController();
   final String id;
+  final String channelId;
 
-  DetailModelState prgDataResult = const DetailModelState.preInitialized();
-  PlayOutState playOutState = PlayOutState.initial();
+  SingleTimer _hideTimer;
+
+  DetailPrgItem get _previewArchivedVideoData => state.prgDataResult.maybeWhen(
+      orElse: () => null,
+      success: (prgDetailData, _, __) => prgDetailData.program.previewPrgItem);
+
+  /// warning! returns null if archive is not available and the live streaming is ended
+  DetailPrgItem get _availableVideoData => state.prgDataResult.maybeWhen(
+        orElse: () => null,
+        success: (prgDetailData, _, __) => prgDetailData.program.itemToPlay,
+      );
+
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBarDetail);
 
   @override
   Future<void> initialize() async {
-    if (prgDataResult is StateSuccess) return;
+    if (state.prgDataResult != const DetailModelState.preInitialized()) return;
 
-    DetailModelState state;
-    try {
-      notifyIfNotDisposed(() => prgDataResult = const DetailModelState.loading());
-      final result = await _apiClient.queryProgramDetail(id);
-      state = DetailModelState.success(result);
-    } catch (e) {
-      print(e);
-      state = const DetailModelState.error();
-    }
-
-    notifyIfNotDisposed(() => prgDataResult = state);
+    state = state.copyWith(
+      prgDataResult: const DetailModelState.loading(),
+    );
+    final result = await logger.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return Util.wait2<ProgramDetailData, ChannelData>(
+              () async => graphQlRepository.queryProgramDetail(id),
+              () async => graphQlRepository.queryChannelData(channelId))
+          .timeout(
+              GraphQlRepository.TIMEOUT);
+    });
+    if (mounted)
+      await result.when(
+        success: (data) async {
+          state = state.copyWith(
+            prgDataResult: DetailModelState.success(
+              programDetailData: data.item1,
+              channelData: data.item2,
+              page: const PageSheetModel.hidden(),
+            ),
+          );
+          if (data.item1.program.isPurchased)
+           return _initComments(Duration.zero);
+        },
+        failure: (e) {
+          if (mounted) state = state.copyAsPrgDataResultErr(toErrMsg(e));
+          if (e is UnauthorizedException) pushAuthErrScreen(e.detectedByTime);
+        },
+      );
   }
 
-  DetailPrgItem _findAvailableVideoData() {
-    final v = prgDataResult;
-    if (v is StateSuccess) {
-      final archivedAt = v.data.program.archivedAt;
+  Future<void> playVideo(bool preview) async {
+    if (state.playOutState.commandedState !=
+        const PlayerCommandedState.prePlay()) return;
 
-      //todo shouldn't written in DetailProgramData?
-      DetailPrgItem detailPrgItem;
-      if (archivedAt?.isBefore(DateTime.now()) == true)
-        detailPrgItem = v.data.program.videos.items.firstWhere(
-            (it) => it.videoTypeStrict == VideoType.ARCHIVED,
-            orElse: () => null);
-
-      detailPrgItem ??= v.data.program.videos.items.firstWhere(
-          (it) =>
-              it.videoTypeStrict == VideoType.LIVE &&
-              it.mediaStatusStrict != MediaStatus.ENDED,
-          orElse: () => null);
-
-      return detailPrgItem;
-    } else
-      return null;
-  }
-
-  Future<void> playVideo() async {
-    final prg = _findAvailableVideoData();
-    if (prg == null) return; // todo handle error
-
-    playOutState = PlayOutState.initialize(prg.urlAvailable, prg.videoTypeStrict);
-    notifyListeners();
-
-    String cookie;
-    try {
-      cookie = await _dioClient.getSignedCookie(
-          prg.id, prg.videoTypeStrict, ApiClient.DUMMY_AUTH);
-      debugPrint(cookie);
-    } catch (e) {
-      print(e);
-    }
-
-    if (cookie == null)
+    final prg = preview ? _previewArchivedVideoData : _availableVideoData;
+    if (prg == null) {
+      state = state.copyWith.playOutState(
+        commandedState:
+            const PlayerCommandedState.error(ErrorMsgCommon.unknown()),
+      );
       return;
+    }
 
-    playOutState = PlayOutState.play(prg.urlAvailable, prg.videoTypeStrict, cookie);
+    state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
-    notifyListeners();
+    final result = await logger.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return dioClient.getSignedCookie(
+        prg.id,
+        prg.videoTypeStrict,
+        hiveAuthRepository.authData.body.idToken,
+      );
+    });
+    if (mounted)
+      state = result.when(
+        success: (cookie) =>
+            state.copyAsPlay(prg.urlAvailable, prg.videoTypeStrict, cookie),
+        failure: (e) {
+          ErrorMsgCommon msg = const ErrorMsgCommon.unknown();
+          if (e is NetworkDisconnectException)
+            msg = const ErrorMsgCommon.networkDisconnected();
+          else if (e is DioError && e.isTimeoutErr)
+            msg = const ErrorMsgCommon.networkTimeout();
+          return state.copyWith.playOutState(
+            commandedState: PlayerCommandedState.error(msg), //todo fix
+          );
+        },
+      );
   }
-}
 
-@freezed
-abstract class DetailModelState with _$DetailModelState {
-  const factory DetailModelState.preInitialized() = PreInitialized;
-  const factory DetailModelState.loading() = StateLoading;
-  const factory DetailModelState.success(ProgramDetailData data) = StateSuccess;
-  const factory DetailModelState.error() = StateError;
-}
+  Future<void> _initComments(Duration currentPos) async {
+    if (mounted) await loadMorePastComment(currentPos, true);
+    if (mounted) await loadMoreFutureComment(currentPos, true);
+    if (mounted)
+      state = state.copyWith.commentHolder(
+        isRenewing: false,
+      );
+  }
 
-class PlayOutState {
-  const PlayOutState._({
-    @required this.commandedState,
-    @required this.playerState,
-    this.hlsMediaUrl,
-    this.videoType,
-    this.cookie,
-  });
-
-  factory PlayOutState.initial() => const PlayOutState._(
-        commandedState: PlayerCommandedState.PRE_PLAY,
-        playerState: PlayerState.PLAYING,
+  Future<void> loadMoreFutureComment(
+          Duration currentPos, bool runAsRenewing) async =>
+      _loadMoreComment(
+        beginTime: currentPos,
+        endTime: 1.days,
+        sortDirection: const SortDirection.asc(),
+        loadingState: const LoadingState.feature(),
+        runAsRenewing: runAsRenewing,
       );
 
-  factory PlayOutState.initialize(String hlsMediaUrl, VideoType videoType) =>
-      PlayOutState._(
-        commandedState: PlayerCommandedState.INITIALIZING,
-        playerState: PlayerState.PLAYING,
-        hlsMediaUrl: hlsMediaUrl,
-        videoType: videoType,
+  Future<void> loadMorePastComment(
+          Duration currentPos, bool runAsRenewing) async =>
+      _loadMoreComment(
+        beginTime: Duration.zero,
+        endTime: currentPos,
+        sortDirection: const SortDirection.desc(),
+        loadingState: const LoadingState.past(),
+        runAsRenewing: runAsRenewing,
       );
 
-  factory PlayOutState.play(
-      String hlsMediaUrl, VideoType videoType, String cookie) => PlayOutState._(
-      commandedState: PlayerCommandedState.POST_PLAY,
-      playerState: PlayerState.PLAYING,
-      hlsMediaUrl: hlsMediaUrl,
-      videoType: videoType,
-      cookie: cookie,
+  /// synchronous operation by [_shouldLoadMoreComment] checks [CommentsState.isSuccessOrLoading]
+  /// [runAsRenewing] : if true, force to request comments although [CommentsHolder.isRenewing] is true
+  /// note; must check is mounted before call this method.
+  Future<void> _loadMoreComment({
+    @required Duration beginTime,
+    @required Duration endTime,
+    @required SortDirection sortDirection,
+    @required LoadingState loadingState,
+    @required bool runAsRenewing,
+  }) async {
+    final shouldRun = _shouldLoadMoreComment(
+      beginTime: beginTime,
+      endTime: endTime,
+      runAsRenewing: runAsRenewing,
+    );
+    if (!shouldRun) return;
+
+    state = state.copyWith.commentHolder(
+      state: CommentsState.loadingMore(loadingState),
     );
 
-  final PlayerCommandedState commandedState;
-  final PlayerState playerState;
-  final String hlsMediaUrl;
-  final VideoType videoType;
-  final String cookie;
-}
+    final pageNationKey = state.commentHolder.pageNationKey;
 
-enum PlayerCommandedState {
-  PLAY_ERROR,
-  PRE_PLAY,
-  POST_PLAY,
-  INITIALIZING,
-  ERROR,
+    final result = await logger.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return graphQlRepository
+          .queryComment(
+            programId: id,
+            beginTime: beginTime,
+            endTime: endTime,
+            sortDirection: sortDirection,
+          )
+          .timeout(GraphQlRepository.TIMEOUT);
+    });
+    if (mounted && pageNationKey == state.commentHolder.pageNationKey)
+      result.when(
+        success: (object) => state = state.copyWith(
+          commentHolder: state.commentHolder
+              .copyAsAddSingleCommentHolder(object, loadingState),
+        ),
+        failure: (e) => state = state.copyWith.commentHolder(
+          state: CommentsState.error(toErrMsg(e)),
+        ),
+      );
+  }
+
+  void notifyFollowTimeLineMode(FollowTimeLineMode followTimeLineMode) =>
+      state = state.copyWith.commentHolder(
+        followTimeLineMode: followTimeLineMode,
+      );
+
+  bool _shouldLoadMoreComment({
+    @required Duration beginTime,
+    @required Duration endTime,
+    @required bool runAsRenewing,
+  }) =>
+      beginTime != endTime &&
+      (runAsRenewing || !state.commentHolder.isRenewing) &&
+      state.commentHolder.state.isSuccessOrLoading;
+
+  Future<void> renewAllComment(Duration currentPos) async {
+    if (state.commentHolder.isRenewing) return;
+
+    state = state.copyWith(commentHolder: CommentsHolder.initial(false));
+    await _initComments(currentPos);
+  }
+
+  Future<void> postComment(String text) async {
+    if (text.isNullOrEmpty ||
+        state.isCommentPosting ||
+        state.playOutState.currentPosSafe == Duration.zero) return;
+
+    state = state.copyWith(isCommentPosting: true);
+    final result = await logger.guardFuture(() async {
+      Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
+      await connectivityRepository.ensureNotDisconnect();
+      return graphQlRepository
+          .postComment(
+            commentTime: state.playOutState.currentPosSafe,
+            programId: id,
+            text: text,
+          )
+          .timeout(GraphQlRepository.TIMEOUT);
+    });
+    if (!mounted) return;
+
+    state = state.copyWith(isCommentPosting: false);
+    result.when(
+      success: (posted) {
+        if (!state.commentHolder.isRenewing)
+          state = state.copyWith(
+            commentHolder: state.commentHolder.copyAsAddUserComment(posted),
+          );
+      },
+      failure: (e) {
+        commandSnackBar(toNetworkSnack(e));
+      },
+    );
+  }
+
+  Future<String> queryHandOutUrl(String handoutId) async {
+    if (state.isHandoutUrlRequesting) return null;
+
+    state = state.copyWith(isHandoutUrlRequesting: true);
+
+    final result = await logger.guardFuture(() async {
+      await connectivityRepository.ensureNotDisconnect();
+      return graphQlRepository
+          .queryHandOutUrl(id, handoutId)
+          .timeout(GraphQlRepository.TIMEOUT);
+    });
+    if (!mounted) return null;
+    final url = result.when(
+        success: (url) => url,
+        failure: (e) {
+          commandSnackBar(toNetworkSnack(e));
+          return null;
+        });
+    state = state.copyWith(
+      isHandoutUrlRequesting: false,
+    );
+    return url;
+  }
+
+  Future<bool> togglePage(PageSheetModel pageSheet) async {
+    if (!mounted) return false;
+
+    final newOne = state.copyAsPageSheet(pageSheet);
+    if (newOne == null) return false;
+
+    state = newOne;
+
+    if (!panelController.isAttached) return false;
+
+    if (pageSheet == const PageSheetModel.hidden()) {
+      if (panelController.isPanelClosed)
+        return false;
+      else
+        await panelController.close();
+    } else
+      await panelController.open();
+
+    return true;
+  }
+
+  /// force update [state.playOutState.fullScreen]
+  void takePriority({
+    @required bool fullScreen,
+  }) =>
+      state = state.copyWith.playOutState(
+        fullScreen: fullScreen,
+        videoPlayerState: const VideoPlayerState.preInitialized(),
+      );
+
+  void setAsVideoControllerInitialized({
+    @required bool fullScreen,
+    @required Duration totalDuration,
+  }) {
+    assert(!totalDuration.isNegative);
+
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        fullScreen: fullScreen,
+        totalDuration: totalDuration,
+        videoPlayerState: const VideoPlayerState.ready(),
+      );
+  }
+
+  void setCurrentPos({
+    @required bool fullScreen,
+    @required Duration currentPos,
+    @required bool applyCurrentPosUi,
+  }) {
+    assert(!currentPos.isNegative);
+
+    if (fullScreen == state.playOutState.fullScreen)
+      state = applyCurrentPosUi
+          ? state.copyWith.playOutState(
+              currentPos: currentPos,
+              currentPosForUi: currentPos,
+              fullScreen: fullScreen,
+            )
+          : state.copyWith.playOutState(
+              currentPos: currentPos,
+              fullScreen: fullScreen,
+            );
+  }
+
+  /// [currentPos] may negative and nullable
+  /// [totalDuration] may negative and nullable
+  void setVideoDurations({
+    @required bool fullScreen,
+    @required Duration currentPos,
+    @required Duration totalDuration,
+    @required bool applyCurrentPosUi,
+  }) {
+    if (fullScreen == state.playOutState.fullScreen)
+      state = applyCurrentPosUi
+          ? state.copyWith.playOutState(
+              currentPos: currentPos,
+              currentPosForUi: currentPos,
+              totalDuration: totalDuration,
+              fullScreen: fullScreen,
+            )
+          : state.copyWith.playOutState(
+              currentPos: currentPos,
+              totalDuration: totalDuration,
+              fullScreen: fullScreen,
+            );
+  }
+
+  void setVideoIsPlaying({
+    @required bool fullScreen,
+    @required bool isPlaying,
+  }) {
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(
+        isPlaying: isPlaying,
+      );
+  }
+
+  /// allow commands any time though [videoPlayerState] is not ready
+  void _commandVideoController({
+    @required bool fullScreen,
+    @required bool renewHideTimer,
+    @required LastControllerCommand command,
+  }) {
+    if (fullScreen != state.playOutState.fullScreen) return;
+    state = state.copyWith.playOutState(
+      lastControllerCommandHolder: LastControllerCommandHolder.create(command),
+    );
+    if (renewHideTimer) _hideTimer.renew();
+  }
+
+  /// todo check [fullScreen]?
+  void updateVideoPlayerState({
+    @required bool fullScreen,
+    @required VideoPlayerState videoPlayerState,
+  }) =>
+      state = state.copyWith.playOutState(
+        videoPlayerState: videoPlayerState,
+      );
+
+  void _hideController() {
+    if (mounted)
+      state = state.copyWith.playOutState(controllerVisibility: false);
+  }
+
+  void hide() {
+    _hideTimer.cancel();
+    _hideController();
+  }
+
+  void toggleVisibility() {
+    if (state.playOutState.videoPlayerState != const VideoPlayerState.ready())
+      return;
+
+    final controllerVisibility = state.playOutState.controllerVisibility;
+    controllerVisibility ? _hideTimer.cancel() : _hideTimer.renew();
+    state = state.copyWith.playOutState(
+      controllerVisibility: !controllerVisibility,
+    );
+  }
+
+  /// must be [mounted] == true && [state.isInitialized] == true
+  void seek(bool fullScreen, Duration diff) => _commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seek(diff),
+        renewHideTimer: true,
+      );
+
+  /// must be [mounted] == true && [state.isInitialized] == true
+  void seekToWithBtmSheet(bool fullScreen, Duration duration) =>
+      _commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seekTo(duration),
+        renewHideTimer: true,
+      );
+
+  /// must be [mounted] == true && [state.isInitialized] == true
+  void seekToWithSlider(
+      bool fullScreen, Duration duration, bool applyController, bool endDrag) {
+    if (fullScreen != state.playOutState.fullScreen) return;
+
+    _hideTimer.renew();
+
+    state = state.copyWith.playOutState(
+      isSeekBarDragging: !endDrag,
+    );
+    setCurrentPos(
+      fullScreen: fullScreen,
+      currentPos: duration,
+      applyCurrentPosUi: true,
+    );
+    if (applyController)
+      _commandVideoController(
+        fullScreen: fullScreen,
+        command: LastControllerCommand.seekTo(duration),
+        renewHideTimer: false,
+      );
+  }
+
+  void playOrPause(bool fullScreen, VideoControllerCommand command) =>
+      _commandVideoController(
+        fullScreen: fullScreen,
+        command: command.converted,
+        renewHideTimer: true,
+      );
+
+  void updateIsBuffering({
+    @required bool fullScreen,
+    @required bool isBuffering,
+  }) {
+    if (fullScreen == state.playOutState.fullScreen)
+      state = state.copyWith.playOutState(isBuffering: isBuffering);
+  }
+
+  void commandModal(BtmSheetState btmSheetState) =>
+      state = state.copyWith(btmSheetState: btmSheetState);
+
+  void clearModal() =>
+      state = state.copyWith(btmSheetState: const BtmSheetState.none());
+
+  void commandSnackBar(SnackMsg snackMsg) {
+    final isCommentAppBarShown = state.prgDataResult.maybeWhen(
+      orElse: () => false,
+      success: (_, __, page) =>
+          page == const PageSheetModel.comment() &&
+          state.commentHolder.followTimeLineMode ==
+              const FollowTimeLineMode.follow(),
+    );
+    _snackBarMsgNotifier.notifyMsg(snackMsg, isCommentAppBarShown);
+  }
+
+  /// provide old values as param; [position], [cookie]
+  Future<void> startPlayBackground(int position, String cookie) async {
+    if (mounted)
+      state.prgDataResult.whenSuccess(
+          (prgDetailData, channelData, page) async =>
+              logger.guardFuture(() async => NativeClient.startPlayBackGround(
+                    url: state.playOutState.hlsMediaUrl,
+                    isLiveStream:
+                        state.playOutState.videoType == const VideoType.live(),
+                    position: position,
+                    iconUrl: UrlUtil.getThumbnailUrl(id),
+                    cookie: cookie,
+                    title: prgDetailData.program.title,
+                    subtitle: channelData.channel.name,
+                  )));
+  }
+
+  Future<ReplyData> stopBackGroundPlayer() async {
+    final result = await Result.guardFuture(
+        logger, () async => NativeClient.stopBackGround());
+    return result.when(success: (data) => data, failure: (e) => null);
+  }
 }

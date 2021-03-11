@@ -22,7 +22,7 @@ environment:
 
 dependencies:
   firebase_core: 1.0.1
-  firebase_analytics: ^7.1.1
+#  firebase_analytics: ^7.1.1 not null safety yet
   flutter:
     sdk: flutter
   flutter_localizations:

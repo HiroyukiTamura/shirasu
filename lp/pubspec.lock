@@ -190,6 +190,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.0"
+  firebase:
+    dependency: transitive
+    description:
+      name: firebase
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.0.0"
+  firebase_analytics:
+    dependency: "direct main"
+    description:
+      name: firebase_analytics
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.1.1"
+  firebase_analytics_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_analytics_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  firebase_analytics_web:
+    dependency: transitive
+    description:
+      name: firebase_analytics_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0+1"
   firebase_core:
     dependency: "direct main"
     description:
@@ -385,6 +413,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
+  package_info:
+    dependency: transitive
+    description:
+      name: package_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   path:
     dependency: transitive
     description:
@@ -497,6 +532,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.8"
+  sentry:
+    dependency: transitive
+    description:
+      name: sentry
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.0-nullsafety.0"
+  sentry_flutter:
+    dependency: "direct main"
+    description:
+      name: sentry_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.0-nullsafety.0"
   shelf:
     dependency: transitive
     description:
@@ -635,6 +684,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   vector_math:
     dependency: transitive
     description:
@@ -685,5 +741,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0-259.16.beta <3.0.0"
+  dart: ">=2.12.0 <3.0.0"
   flutter: ">=1.24.0-7.0"

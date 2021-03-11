@@ -2,9 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:sentry/sentry.dart';
 
 Future<void> launchUrl(String url) async {
-  if (await canLaunch(url)) await launch(url);
+  if (await canLaunch(url))
+    try {
+      await launch(url);
+    } catch (e) {
+      await Sentry.captureException(e);
+    }
 }
 
 WidgetSpan linkText(

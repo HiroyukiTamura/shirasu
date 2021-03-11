@@ -40,6 +40,7 @@ class Urls {
       'https://www.figma.com/file/LOMIPRZxv89m9M1CmLFUQt/shirasu?node-id=26%3A2';
   static const REPO_JIRA = 'https://freqmodu874.atlassian.net/browse/SHIR/';
   static const LP = 'https://shirasu-fbda2.web.app/';
+  static const SENTRY_DSN = 'https://bbd475d433724e46b8e2f342b35a107f@o327530.ingest.sentry.io/5672361';
 
   static final shareTwitter =
       Uri.parse('http://twitter.com/share').replace(queryParameters: {

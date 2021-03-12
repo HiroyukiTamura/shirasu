@@ -21,6 +21,7 @@ class UrlUtil {
   static const URL_IMG_LICENSE_ICONS_MIND = 'https://iconscout.com/contributors/icons-mind';
   static const URL_IMG_LICENSE_LOTTIE = 'https://lottiefiles.com/marketplace/multimedia-icons';
   static const URL_OAUTH_TOKEN = 'https://shirasu.auth0.com/oauth/token';
+  static const URL_LP = 'https://shirasu-fbda2.web.app/';
 
   static String getThumbnailUrl(String itemId) =>
       p.join(_URL_BASE, 'public/programs', itemId, 'thumbnail');

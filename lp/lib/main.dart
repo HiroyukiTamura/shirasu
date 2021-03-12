@@ -9,6 +9,7 @@ import 'package:lp/resources/styles.dart';
 import 'package:lp/ui/screen_main.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:lp/resources/urls.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +17,9 @@ Future<void> main() async {
 
   await SentryFlutter.init(
     (options) => options.dsn = Urls.SENTRY_DSN,
-    appRunner: () => runApp(MyApp()),
+    appRunner: () => runApp(ProviderScope(
+      child: MyApp(),
+    )),
   );
 }
 

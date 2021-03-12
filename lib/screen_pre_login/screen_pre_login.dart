@@ -94,7 +94,7 @@ class ScreenPreLogin extends StatelessWidget {
                           _FooterText(
                             text: Strings.FOOTER_BTN_PRIVACY_VALUE,
                             onTap: () => _launchUrl(
-                                context, UrlUtil.URL_GITHUB), //todo fix
+                                context, UrlUtil.URL_LP_POLICY),
                           ),
                         ],
                       ),
@@ -155,7 +155,6 @@ Widget _footerText(
       ),
     );
 
-//todo update logo style
 @swidget
 Widget _headerLogo() => Semantics(
       label: Strings.CD_LOGO,

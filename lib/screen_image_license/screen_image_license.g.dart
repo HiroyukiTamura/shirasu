@@ -13,9 +13,15 @@ class ScreenImageLicense extends StatelessWidget {
   Widget build(BuildContext _context) => screenImageLicense(_context);
 }
 
-class _ListTileLottie extends StatelessWidget {
-  const _ListTileLottie({Key key}) : super(key: key);
+class _ListTile extends StatelessWidget {
+  const _ListTile({Key key, @required this.title, @required this.url})
+      : super(key: key);
+
+  final String title;
+
+  final String url;
 
   @override
-  Widget build(BuildContext _context) => _listTileLottie(_context);
+  Widget build(BuildContext _context) =>
+      _listTile(_context, title: title, url: url);
 }

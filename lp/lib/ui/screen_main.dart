@@ -9,6 +9,7 @@ import 'package:lp/ui/screen_main/section_header_label.dart';
 import 'package:lp/ui/screen_main/section_policy.dart';
 import 'package:lp/ui/screen_main/section_tech_stack.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:lp/extensions.dart';
 
 class ScreenMain extends StatefulWidget {
   @override
@@ -93,7 +94,7 @@ class _SectionWrapper extends StatelessWidget {
   Widget build(BuildContext context) => Center(
         child: Container(
           width: 1024,
-          padding: const EdgeInsets.symmetric(horizontal: 96),
+          padding: EdgeInsets.symmetric(horizontal: context.isNarrowScreen ? 16 : 96),
           child: child,
         ),
       );

@@ -6,10 +6,9 @@ import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/ui/screen_main/responsive_builder.dart';
 import 'package:lp/ui/screen_main/section_header_label.dart';
-import 'package:url_launcher/link.dart';
 import 'package:lp/ui/screen_main/card_gray.dart';
 import 'package:lp/resources/urls.dart';
-import 'util.dart';
+import 'package:lp/ui/screen_main/util.dart';
 
 class SectionHeader extends StatelessWidget {
   const SectionHeader({required this.screenHeight});

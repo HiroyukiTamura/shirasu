@@ -48,3 +48,4 @@ app.*.map.json
 /firestore.rules
 /firestore.indexes.json
 .firebaserc
+firebase.json

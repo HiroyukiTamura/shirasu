@@ -6,7 +6,7 @@ import {AssetsRepositoryImpl} from "./repository/assetsRepositoryImpl";
 
 admin.initializeApp();
 
-export const crawlAndSendFcm = functions.region("asia-northeast1")
+export const crawlAndSendFcm = functions
     .pubsub.schedule("every 1 minutes").onRun(async () => {
       const networkRepo = new NetworkRepositoryImpl(new AssetsRepositoryImpl());
       const firestoreRepo = new FirestoreRepositoryImpl();

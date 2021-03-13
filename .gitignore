@@ -45,3 +45,6 @@ app.*.map.json
 /private/
 **/GoogleService-Info.plist
 /ios/fastlane/metadata/
+/firestore.rules
+/firestore.indexes.json
+.firebaserc

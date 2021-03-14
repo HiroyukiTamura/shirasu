@@ -37,8 +37,7 @@ platform :android do
   end
 end
 
-lane :alpha do
+lane :beta_deploy do
   gradle(task: 'assemble', build_type: 'Release')
-  upload_to_play_store(track: 'alpha')
-  slack(message: 'Successfully distributed a new alpha build')
+  upload_to_play_store(track: 'beta', release_status: 'draft')
 end

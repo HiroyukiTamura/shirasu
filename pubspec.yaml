@@ -1,8 +1,8 @@
 name: shirasu
-description: A new Flutter application.
+description: A unofficial client app for SHIRASU
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/HiroyukTamura/shirasu
 
 environment:

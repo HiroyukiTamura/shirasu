@@ -6,6 +6,7 @@ import 'package:dartx/dartx.dart';
 import 'package:lp/ui/screen_main/heading.dart';
 import 'package:lp/ui/screen_main/responsive_builder.dart';
 import 'package:lp/ui/screen_main/card_gray.dart';
+import 'package:lp/extensions.dart';
 
 class SectionFeature extends StatelessWidget {
   const SectionFeature();
@@ -13,7 +14,7 @@ class SectionFeature extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CardGray(
         child: Padding(
-          padding: const EdgeInsets.all(96),
+          padding: EdgeInsets.all(context.isNarrowScreen ? 16 : 96),
           child: Column(
             children: [
               _FeatureItem(

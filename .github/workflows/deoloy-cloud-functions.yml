@@ -20,7 +20,7 @@ jobs:
         with:
           name: crawlAndSendFcm
           runtime: nodejs12
-          source_dir: src
+          source_dir: functions/src
           event_trigger_type: google.pubsub.topic.publish
           event_trigger_resource: projects/shirasu-fbda2/topics/firebase-schedule-crawlAndSendFcm-us-central1
           event_trigger_service: pubsub.googleapis.com

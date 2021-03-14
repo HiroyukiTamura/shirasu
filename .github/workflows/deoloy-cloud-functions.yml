@@ -1,0 +1,25 @@
+name: Deploy Cloud Functinos on merge
+
+'on':
+  push:
+    branches:
+      - release-cloud-functions
+
+jobs:
+  deploy_cloud_functinos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - uses: actions/checkout@v2
+      - id: Deploy
+        uses: google-github-actions/deploy-cloud-functions@main
+        with:
+          name: crawlAndSendFcm
+          runtime: nodejs12
+          event_trigger_type: google.pubsub.topic.publish
+          event_trigger_resource: projects/shirasu-fbda2/topics/firebase-schedule-crawlAndSendFcm-us-central1
+          event_trigger_service: pubsub.googleapis.com

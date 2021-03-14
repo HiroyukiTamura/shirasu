@@ -22,11 +22,11 @@ class SectionHeaderLabel extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(FontAwesomeIcons.twitter),
-              onPressed: () async => launchUrl(Urls.SHARE_TWITTER),
+              onPressed: () async => launchUrl(Urls.shareTwitter),
             ),
             IconButton(
               icon: const Icon(FontAwesomeIcons.line),
-              onPressed: () async => launchUrl(Urls.SHARE_LINE),
+              onPressed: () async => launchUrl(Urls.shareLine),
             ),
           ],
         ),

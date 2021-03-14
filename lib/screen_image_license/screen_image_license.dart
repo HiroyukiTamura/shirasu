@@ -35,17 +35,45 @@ Widget screenImageLicense(BuildContext context) => SafeArea(
           provider: _kPrvSnackData,
           child: ListView(
             children: const [
-              _ListTileRobot(),
-              _ListTileLottie(),
+              _ListTileAutoText(
+                text1st: 'Roboto',
+                url1st: UrlUtil.URL_IMG_LICENSE_ROBOTO,
+                text2nd: 'Icons Mind',
+                url2nd: UrlUtil.URL_IMG_LICENSE_ICONS_MIND,
+              ),
+              _ListTileAutoText(
+                text1st: 'eel',
+                url1st: UrlUtil.URL_IMG_LICENSE_EEL,
+                text2nd: 'Turkkub',
+                url2nd: UrlUtil.URL_IMG_LICENSE_TURKKUB,
+              ),
+              _ListTile(
+                title: 'Background vector created by drawnhy97 - www.freepik.com',
+                url: UrlUtil.URL_IMG_LICENSE_BG_FREEPIK,
+              ),
+              _ListTile(
+                title: 'Animation by LottieFiles on LottieFiles',
+                url: UrlUtil.URL_IMG_LICENSE_LOTTIE,
+              ),
             ],
           ),
         ),
       ),
     );
 
-//todo app icon
-class _ListTileRobot extends StatelessWidget {
-  const _ListTileRobot({Key key}) : super(key: key);
+class _ListTileAutoText extends StatelessWidget {
+  const _ListTileAutoText({
+    @required this.text1st,
+    @required this.text2nd,
+    @required this.url1st,
+    @required this.url2nd,
+    Key key,
+  }) : super(key: key);
+
+  final String text1st;
+  final String url1st;
+  final String text2nd;
+  final String url2nd;
 
   @override
   Widget build(BuildContext context) => ListTile(
@@ -57,14 +85,14 @@ class _ListTileRobot extends StatelessWidget {
             children: [
               _autoLink(
                 context: context,
-                text: 'Roboto',
-                url: UrlUtil.URL_IMG_LICENSE_ROBOTO,
+                text: text1st,
+                url: url1st,
               ),
               const TextSpan(text: ' by '),
               _autoLink(
                 context: context,
-                text: 'Icons Mind',
-                url: UrlUtil.URL_IMG_LICENSE_ICONS_MIND,
+                text: text2nd,
+                url: url2nd,
               ),
             ],
           ),
@@ -88,9 +116,12 @@ class _ListTileRobot extends StatelessWidget {
 }
 
 @swidget
-Widget _listTileLottie(BuildContext context) => ListTile(
-      title: const Text(Strings.LICENSE_VALUE_LOTTIE),
-      onTap: () async => context.launchUrl(UrlUtil.URL_IMG_LICENSE_LOTTIE),
+Widget _listTile(BuildContext context, {
+  @required String title,
+  @required String url,
+}) => ListTile(
+      title: Text(title),
+      onTap: () async => context.launchUrl(url),
     );
 
 extension on BuildContext {

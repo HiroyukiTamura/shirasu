@@ -24,3 +24,4 @@ ignore:
   - "**/*.g.dart"
   - "**/*.freezed.dart"
   - "**/*.gen.dart"
+  - "lp/*"

@@ -20,6 +20,7 @@ module.exports = {
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
     "/src/model/graphql/resultNewprograms.ts",
+    "/test/**/*",
   ],
   plugins: [
     "@typescript-eslint",

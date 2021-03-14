@@ -76,7 +76,7 @@ class ScreenPreLogin extends StatelessWidget {
                         text: Strings.PRE_LOGIN_REGISTER_BTN_VALUE,
                         btnColor: Colors.white,
                         textColor: Theme.of(context).primaryColor,
-                        onTap: () => _launchUrl(context, 'fff'),
+                        onTap: () => _launchUrl(context, UrlUtil.URL_HOME),
                       ),
                       _Button(
                         text: Strings.PRE_LOGIN_LOGIN_BTN_VALUE,

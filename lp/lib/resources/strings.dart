@@ -1,6 +1,7 @@
 class Strings {
   const Strings._();
 
+
   static const APP_NAME = 'UNAGI - シラス非公式アプリ';
   static const HEADING_TECH_STACK = '技術スタック';
   static const HEADING_CONTACT = 'お問い合わせ';

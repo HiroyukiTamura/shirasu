@@ -21,3 +21,21 @@ platform :ios do
     # add actions here: https://docs.fastlane.tools/actions
   end
 end
+
+lane :deploy do
+  desc "deploy a new ios build to App Store"
+  get_certificates           # invokes cert
+  get_provisioning_profile   # invokes sigh
+  gym(
+    scheme: "Runner",
+    configuration: "Release",
+    export_method: "app-store"
+  )
+  deliver(
+    submit_for_review: false,
+    skip_screenshots: true,
+    skip_metadata: true,
+    phased_release: false,
+    automatic_release: true,
+  )
+end

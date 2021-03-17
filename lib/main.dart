@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,10 +14,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/repository/ntf_message_repository.dart';
+import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/model/ntf_data.dart';
 
 /// must via access from ViewModel
 /// todo move
@@ -61,6 +66,13 @@ class MyAppState extends State<MyApp> {
   static final _analytics = FirebaseAnalytics();
 
   @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.instance.getInitialMessage().then(_handleNtf);
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleNtf);
+  }
+
+  @override
   Widget build(BuildContext context) => MaterialApp(
         title: Strings.APP_NAME,
         theme: Styles.theme,
@@ -82,4 +94,6 @@ class MyAppState extends State<MyApp> {
           FirebaseAnalyticsObserver(analytics: _analytics),
         ],
       );
+
+  Future<void> _handleNtf(RemoteMessage message) async => context.read(kPrvNtfMessage).handleNtf(message);
 }

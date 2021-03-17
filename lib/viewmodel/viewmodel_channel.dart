@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
@@ -85,4 +86,17 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
   void notifySnackMsg(SnackMsg snackMsg) =>
       _snackBarMsgNotifier.notifyMsg(snackMsg, false);
+
+  Future<void> requestPermission() async {
+
+    final grant = await FirebaseMessaging.instance.requestPermission();
+    switch (grant.authorizationStatus) {
+      case AuthorizationStatus.authorized:
+      case AuthorizationStatus.provisional:
+      FirebaseMessaging.instance.getInitialMessage();
+        break;
+      default:
+        return;
+    }
+  }
 }

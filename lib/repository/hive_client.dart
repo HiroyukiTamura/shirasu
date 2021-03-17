@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
@@ -106,6 +107,7 @@ class HivePrefRepositoryImpl extends HiveClient<dynamic>
   static const _KEY_INITIAL_LAUNCH_APP = 'INITIAL_LAUNCH_APP';
   static const KEY_PLAY_SPEED = 'PLAY_SPEED';
   static const KEY_RESOLUTION = 'RESOLUTION';
+  static const _KEY_FCM_TOPIC = 'FCM_TOPIC';
   static const List<double> PLAY_SPEED = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
   static const List<int> RESOLUTIONS = [480, 720, 1080];
   static HivePrefRepositoryImpl _instance;
@@ -137,4 +139,34 @@ class HivePrefRepositoryImpl extends HiveClient<dynamic>
   @override
   Future<void> setInitialLaunchApp() async =>
       box.put(_KEY_INITIAL_LAUNCH_APP, false);
+
+  @override
+  Future<HiveFcmTopic> get subscribingFcmTopic async => box.get(
+        _KEY_FCM_TOPIC,
+        defaultValue: const HiveFcmTopic(),
+      );
+
+  @override
+  Future<void> subscribeChannelFcmTopic(HiveFcmChannelData data) async {
+    final topic = await subscribingFcmTopic;
+    await box.put(_KEY_FCM_TOPIC, topic.appendChannelData(data));
+  }
+
+  @override
+  Future<void> subscribePrgFcmTopic(HiveFcmProgramData data) async {
+    final topic = await subscribingFcmTopic;
+    await box.put(_KEY_FCM_TOPIC, topic.appendProgramData(data));
+  }
+
+  @override
+  Future<void> unsubscribeChannelFcmTopic(String channelId) async {
+    final topic = await subscribingFcmTopic;
+    await box.put(_KEY_FCM_TOPIC, topic.removeChannelData(channelId));
+  }
+
+  @override
+  Future<void> unsubscribePrgFcmTopic(String programId) async {
+    final topic = await subscribingFcmTopic;
+    await box.put(_KEY_FCM_TOPIC, topic.removeProgramData(programId));
+  }
 }

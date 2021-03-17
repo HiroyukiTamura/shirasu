@@ -197,15 +197,12 @@ class _RowBillingBtn extends StatelessWidget {
               )
             else
               const SizedBox.shrink(),
-            Visibility(
-              visible: false,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.add_alert,
-                  color: Styles.COLOR_TEXT_SUB,
-                ),
-                onPressed: () {}, //todo implement
+            IconButton(
+              icon: const Icon(
+                Icons.add_alert,
+                color: Styles.COLOR_TEXT_SUB,
               ),
+              onPressed: () {}, //todo implement
             ),
           ],
         ),

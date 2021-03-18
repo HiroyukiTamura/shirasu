@@ -14,12 +14,13 @@ abstract class SettingModelState with _$SettingModelState {
 
   const SettingModelState._();
 
-  void whenSuccess(void Function(ViewerWrapper data) predicate) {
-    maybeWhen(
-      orElse: () {},
-      success: (data) => predicate(data),
-    );
-  }
+  @optionalTypeArgs
+  TResult whenSuccess<TResult extends Object>(
+          TResult Function(ViewerWrapper data) predicate) =>
+      maybeWhen(
+        orElse: () => null,
+        success: (data) => predicate(data),
+      );
 }
 
 @freezed

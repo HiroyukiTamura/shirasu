@@ -80,27 +80,18 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
                   .guard(() => AuthData.fromJson(
                       jsonDecode(jsonDecode(storage) as String)
                           as Map<String, dynamic>))
-                  .when(
-                    success: (data) async => _onSuccessLogin(data),
-                    failure: (_) async => _hiveClient.clearAuthData(),
+                  .ifSuccessFuture(
+                    (data) async => _onSuccessLogin(data),
                   ),
             );
 
-        // todo debug
         // try unescape string and decode json
         final result = logger.guard(() => AuthData.fromJson(
             jsonDecode(jsonDecode(storage) as String) as Map<String, dynamic>));
 
         if (mounted)
-          await result.when(
-            success: (data) async {
-              await _hiveClient.putAuthData(data);
-              if (!mounted) return;
-              _success = true;
-              reader(kPrvAppRouterDelegate).reset();
-              await _plugin.close();
-            },
-            failure: (e) async => _hiveClient.clearAuthData(),
+          await result.ifSuccessFuture(
+              (data) async => _onSuccessLogin(data),
           );
       });
 

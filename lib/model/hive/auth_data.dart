@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
+import 'package:flutter/material.dart';
+import 'package:dartx/dartx.dart';
 
 part 'auth_data.g.dart';
 
@@ -14,22 +16,19 @@ abstract class HiveAuthData with _$HiveAuthData {
   @HiveType(typeId: 0)
   const factory HiveAuthData({
     @required @HiveField(0) HiveBody body,
-    @required @HiveField(1) @protected int rawExpiresAt,
-    @required @HiveField(2) DateTime tokenPublishedAtUtc,
+    // @required @HiveField(1) @protected int rawExpiresAt,
+    @required @HiveField(2) DateTime tokenPublishedAt,
   }) = _HiveAuthData;
 
   factory HiveAuthData.parse(AuthData authData) => HiveAuthData(
-        body: HiveBody.parse(authData.body),
-        rawExpiresAt: authData.expiresAt,
-        tokenPublishedAtUtc: DateTime.now().toUtc(),
-      );
+      body: HiveBody.parse(authData.body),
+      // rawExpiresAt: authData.expiresAt,
+      tokenPublishedAt: DateTime.now(),
+    );
 
   const HiveAuthData._();
 
-  DateTime get expiresAtUtc => DateTime.fromMillisecondsSinceEpoch(
-        rawExpiresAt * 1000,
-        isUtc: true,
-      );
+  DateTime get expiresAt => tokenPublishedAt.add(body.expiresIn.seconds);
 
   HiveAuthData copyWithEditResult(UserWithAttribute attr) =>
       copyWith.body.decodedToken(
@@ -152,14 +151,14 @@ abstract class HiveClaims implements _$HiveClaims {
 
   const HiveClaims._();
 
-  // UnmodifiableListView<String> get httpsShirasuIoRoles =>
-  //     rawHttpsShirasuIoRoles.toUnmodifiable();
+// UnmodifiableListView<String> get httpsShirasuIoRoles =>
+//     rawHttpsShirasuIoRoles.toUnmodifiable();
 
-  // UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds =>
-  //     rawHttpsShirasuIoDistributeds.toUnmodifiable();
+// UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds =>
+//     rawHttpsShirasuIoDistributeds.toUnmodifiable();
 
-  // UnmodifiableListView<dynamic> get httpsShirasuIoTenants =>
-  //     rawHttpsShirasuIoTenants.toUnmodifiable();
+// UnmodifiableListView<dynamic> get httpsShirasuIoTenants =>
+//     rawHttpsShirasuIoTenants.toUnmodifiable();
 }
 
 /// hive model for [HttpsShirasuIoUserAttribute]
@@ -298,12 +297,12 @@ abstract class HiveUser with _$HiveUser {
         updatedAt: data.user.updatedAt,
       );
 
-  // UnmodifiableListView<String> get httpsShirasuIoRoles =>
-  //     rawHttpsShirasuIoRoles.toUnmodifiable();
+// UnmodifiableListView<String> get httpsShirasuIoRoles =>
+//     rawHttpsShirasuIoRoles.toUnmodifiable();
 
-  // UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds =>
-  //     rawHttpsShirasuIoDistributeds.toUnmodifiable();
+// UnmodifiableListView<dynamic> get httpsShirasuIoDistributeds =>
+//     rawHttpsShirasuIoDistributeds.toUnmodifiable();
 
-  // UnmodifiableListView<dynamic> get httpsShirasuIoTenants =>
-  //     rawHttpsShirasuIoTenants.toUnmodifiable();
+// UnmodifiableListView<dynamic> get httpsShirasuIoTenants =>
+//     rawHttpsShirasuIoTenants.toUnmodifiable();
 }

@@ -50,6 +50,8 @@ class Strings {
   static const SNACK_ERR = '処理に失敗しました'; //todo rename
   static const SNACK_CANT_OPEN_URL = 'Webページを開けません';
   static const SNACK_URL_COPIED = 'urlをコピーしました';
+  static const SNACK_FCM_SUBSCRIBE = '配信開始の通知を設定しました';
+  static const SNACK_FCM_UNSUBSCRIBE = '配信開始の通知を解除しました';
 
   //endregion
 
@@ -236,6 +238,9 @@ class Strings {
   static const SHARE_FACEBOOK = 'facebookで共有';
   static const COPY_URL = 'URLをコピー';
 
+  static const BTM_SHEET_FCM_PROGRAM = 'この番組の配信通知を設定';
+  static const BTM_SHEET_FCM_CHANNEL = 'このチャンネルの配信通知を設定';
+
 //endregion
 
 //region license
@@ -287,6 +292,7 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const ERR_NETWORK_DISCONNECTED = 'ネットワークに接続していません';
   static const ERR_AUTH_EXPIRED = 'ログイン期限が切れました';
   static const ERR_UN_AUTH = 'ログインに失敗しました';
+
 
   static const LOGIN_BTN_VALUE = 'ログイン';
 

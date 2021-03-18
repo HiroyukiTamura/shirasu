@@ -36,6 +36,10 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
 
   const factory SnackMsg.networkTimeout() = _SnackMsgNetworkTimeout;
 
+  const factory SnackMsg.fcmSubscribe() = _SnackMsgFcmSubscribe;
+
+  const factory SnackMsg.fcmUnsubscribe() = _SnackMsgFcmUnsubscribe;
+
   const SnackMsg._();
 
   @override
@@ -46,5 +50,7 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
         urlCopied: () => Strings.SNACK_URL_COPIED,
         networkTimeout: () => Strings.ERR_NETWORK_TIMEOUT,
         networkDisconnected: () => Strings.ERR_NETWORK_DISCONNECTED,
+        fcmUnsubscribe: () => Strings.SNACK_FCM_UNSUBSCRIBE,
+        fcmSubscribe: () => Strings.SNACK_FCM_SUBSCRIBE,
       );
 }

@@ -32,6 +32,11 @@ extension IteratableX<E> on Iterable<E> {
 
 extension MapX<K, V> on Map<K, V> {
   UnmodifiableMapView<K, V> toUnmodifiable() => UnmodifiableMapView(this);
+
+  Map<K, V> operator +(Map<K, V> other) => {
+      ...this,
+      ...other
+    };
 }
 
 final _kIsInFullScreenOperation = Lock();

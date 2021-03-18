@@ -29,12 +29,13 @@ abstract class ChannelModel implements _$ChannelModel {
     );
   }
 
-  void whenSuccess(void Function(ChannelDataWrapper channelData) predicate) {
-    maybeWhen(
-      orElse: () {},
-      success: (channelData) => predicate(channelData),
-    );
-  }
+  @optionalTypeArgs
+  TResult whenSuccess<TResult extends Object>(
+          TResult Function(ChannelDataWrapper channelData) predicate) =>
+      maybeWhen(
+        orElse: () => null,
+        success: (channelData) => predicate(channelData),
+      );
 }
 
 @protected

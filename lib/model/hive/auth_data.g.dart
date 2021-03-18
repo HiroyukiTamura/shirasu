@@ -18,21 +18,18 @@ class HiveAuthDataAdapter extends TypeAdapter<_$_HiveAuthData> {
     };
     return _$_HiveAuthData(
       body: fields[0] as HiveBody,
-      rawExpiresAt: fields[1] as int,
-      tokenPublishedAtUtc: fields[2] as DateTime,
+      tokenPublishedAt: fields[2] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_HiveAuthData obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.body)
-      ..writeByte(1)
-      ..write(obj.rawExpiresAt)
       ..writeByte(2)
-      ..write(obj.tokenPublishedAtUtc);
+      ..write(obj.tokenPublishedAt);
   }
 
   @override

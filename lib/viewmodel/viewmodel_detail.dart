@@ -5,9 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/native_client.dart';
+import 'package:shirasu/repository/ntf_message_repository.dart';
+import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -54,7 +57,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         success: (prgDetailData, _, __) => prgDetailData.program.itemToPlay,
       );
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBarDetail);
+  /// must access from [commandSnackBar] only.
+  SnackBarMessageNotifier get _snackBarMsgNotifier =>
+      reader(kPrvSnackBarDetail);
+
+  NtfMessageRepository get _fcmRepository => reader(kPrvNtfMessage);
 
   @override
   Future<void> initialize() async {
@@ -68,8 +75,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       return Util.wait2<ProgramDetailData, ChannelData>(
               () async => graphQlRepository.queryProgramDetail(id),
               () async => graphQlRepository.queryChannelData(channelId))
-          .timeout(
-              GraphQlRepository.TIMEOUT);
+          .timeout(GraphQlRepository.TIMEOUT);
     });
     if (mounted)
       await result.when(
@@ -82,7 +88,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
             ),
           );
           if (data.item1.program.isPurchased)
-           return _initComments(Duration.zero);
+            return _initComments(Duration.zero);
         },
         failure: (e) {
           if (mounted) state = state.copyAsPrgDataResultErr(toErrMsg(e));
@@ -497,7 +503,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   /// provide old values as param; [position], [cookie]
   Future<void> startPlayBackground(int position, String cookie) async {
     if (mounted)
-      state.prgDataResult.whenSuccess(
+      await state.prgDataResult.whenSuccess(
           (prgDetailData, channelData, page) async =>
               logger.guardFuture(() async => NativeClient.startPlayBackGround(
                     url: state.playOutState.hlsMediaUrl,
@@ -515,5 +521,24 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final result = await Result.guardFuture(
         logger, () async => NativeClient.stopBackGround());
     return result.when(success: (data) => data, failure: (e) => null);
+  }
+
+  Future<void> subscribeChannel() async => await state.prgDataResult.whenSuccess((_, channelData, __) async {
+      final hiveData = HiveFcmChannelData.parse(channelData.channel);
+      await _fcmRepository.subscribeChannel(hiveData);
+      if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
+    });
+
+  Future<void> subscribeProgram() async => await state.prgDataResult.whenSuccess((programData, _, __) async {
+    final hiveData = HiveFcmProgramData.parse(programData.program);
+    await _fcmRepository.subscribeProgram(hiveData);
+    if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
+  });
+
+  Future<void> unSubscribeChannel() async {
+    final success = await _fcmRepository.unsubscribeChannel(channelId);
+    if (!mounted) return;
+    if (!success) await _fcmRepository.unsubscribeProgram(id);
+    commandSnackBar(const SnackMsg.fcmUnsubscribe());
   }
 }

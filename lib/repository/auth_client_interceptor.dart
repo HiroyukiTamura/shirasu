@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shirasu/repository/dio_client.dart';
 import 'package:shirasu/repository/dio_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
@@ -30,6 +31,8 @@ class AuthClientInterceptor {
 
         final shouldRefresh = _hiveAuthRepository.shouldRefresh;
         if (shouldRefresh == true) {
+          //todo fix
+          debugPrint('refresh!!!');
           final body = _hiveAuthRepository.authData.body;
           final result = await _dioRepository.requestRenewToken(
               body.clientId, body.refreshToken);

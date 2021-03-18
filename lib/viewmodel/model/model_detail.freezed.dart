@@ -5545,6 +5545,14 @@ class _$BtmSheetStateTearOff {
   _BtmSheetStatePayment payment() {
     return const _BtmSheetStatePayment();
   }
+
+// ignore: unused_element
+  _BtmSheetStateFcmMenu fcmMenu(String channelId, String programId) {
+    return _BtmSheetStateFcmMenu(
+      channelId,
+      programId,
+    );
+  }
 }
 
 /// @nodoc
@@ -5561,6 +5569,7 @@ mixin _$BtmSheetState {
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -5570,6 +5579,7 @@ mixin _$BtmSheetState {
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -5580,6 +5590,7 @@ mixin _$BtmSheetState {
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -5589,6 +5600,7 @@ mixin _$BtmSheetState {
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
     @required TResult orElse(),
   });
 }
@@ -5655,6 +5667,7 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5662,6 +5675,7 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return none();
   }
 
@@ -5674,6 +5688,7 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5692,6 +5707,7 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5699,6 +5715,7 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return none(this);
   }
 
@@ -5711,6 +5728,7 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5770,6 +5788,7 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5777,6 +5796,7 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return playSpeed();
   }
 
@@ -5789,6 +5809,7 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5807,6 +5828,7 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5814,6 +5836,7 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return playSpeed(this);
   }
 
@@ -5826,6 +5849,7 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5886,6 +5910,7 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5893,6 +5918,7 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return resolution();
   }
 
@@ -5905,6 +5931,7 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5923,6 +5950,7 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5930,6 +5958,7 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return resolution(this);
   }
 
@@ -5942,6 +5971,7 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6036,6 +6066,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6043,6 +6074,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return share(shareUrl);
   }
 
@@ -6055,6 +6087,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6073,6 +6106,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6080,6 +6114,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return share(this);
   }
 
@@ -6092,6 +6127,7 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6181,6 +6217,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6188,6 +6225,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return commentSelect(position);
   }
 
@@ -6200,6 +6238,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6218,6 +6257,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6225,6 +6265,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return commentSelect(this);
   }
 
@@ -6237,6 +6278,7 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6301,6 +6343,7 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     @required TResult share(ShareUrl shareUrl),
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6308,6 +6351,7 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return payment();
   }
 
@@ -6320,6 +6364,7 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     TResult share(ShareUrl shareUrl),
     TResult commentSelect(Duration position),
     TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6338,6 +6383,7 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     @required TResult share(_BtmSheetStateShare value),
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6345,6 +6391,7 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     assert(share != null);
     assert(commentSelect != null);
     assert(payment != null);
+    assert(fcmMenu != null);
     return payment(this);
   }
 
@@ -6357,6 +6404,7 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     TResult share(_BtmSheetStateShare value),
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6369,6 +6417,168 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
 
 abstract class _BtmSheetStatePayment implements BtmSheetState {
   const factory _BtmSheetStatePayment() = _$_BtmSheetStatePayment;
+}
+
+/// @nodoc
+abstract class _$BtmSheetStateFcmMenuCopyWith<$Res> {
+  factory _$BtmSheetStateFcmMenuCopyWith(_BtmSheetStateFcmMenu value,
+          $Res Function(_BtmSheetStateFcmMenu) then) =
+      __$BtmSheetStateFcmMenuCopyWithImpl<$Res>;
+  $Res call({String channelId, String programId});
+}
+
+/// @nodoc
+class __$BtmSheetStateFcmMenuCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements _$BtmSheetStateFcmMenuCopyWith<$Res> {
+  __$BtmSheetStateFcmMenuCopyWithImpl(
+      _BtmSheetStateFcmMenu _value, $Res Function(_BtmSheetStateFcmMenu) _then)
+      : super(_value, (v) => _then(v as _BtmSheetStateFcmMenu));
+
+  @override
+  _BtmSheetStateFcmMenu get _value => super._value as _BtmSheetStateFcmMenu;
+
+  @override
+  $Res call({
+    Object channelId = freezed,
+    Object programId = freezed,
+  }) {
+    return _then(_BtmSheetStateFcmMenu(
+      channelId == freezed ? _value.channelId : channelId as String,
+      programId == freezed ? _value.programId : programId as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_BtmSheetStateFcmMenu implements _BtmSheetStateFcmMenu {
+  const _$_BtmSheetStateFcmMenu(this.channelId, this.programId)
+      : assert(channelId != null),
+        assert(programId != null);
+
+  @override
+  final String channelId;
+  @override
+  final String programId;
+
+  @override
+  String toString() {
+    return 'BtmSheetState.fcmMenu(channelId: $channelId, programId: $programId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _BtmSheetStateFcmMenu &&
+            (identical(other.channelId, channelId) ||
+                const DeepCollectionEquality()
+                    .equals(other.channelId, channelId)) &&
+            (identical(other.programId, programId) ||
+                const DeepCollectionEquality()
+                    .equals(other.programId, programId)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(channelId) ^
+      const DeepCollectionEquality().hash(programId);
+
+  @JsonKey(ignore: true)
+  @override
+  _$BtmSheetStateFcmMenuCopyWith<_BtmSheetStateFcmMenu> get copyWith =>
+      __$BtmSheetStateFcmMenuCopyWithImpl<_BtmSheetStateFcmMenu>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+    @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
+    @required TResult commentSelect(Duration position),
+    @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    assert(payment != null);
+    assert(fcmMenu != null);
+    return fcmMenu(channelId, programId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    TResult resolution(),
+    TResult share(ShareUrl shareUrl),
+    TResult commentSelect(Duration position),
+    TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (fcmMenu != null) {
+      return fcmMenu(channelId, programId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    assert(payment != null);
+    assert(fcmMenu != null);
+    return fcmMenu(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (fcmMenu != null) {
+      return fcmMenu(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BtmSheetStateFcmMenu implements BtmSheetState {
+  const factory _BtmSheetStateFcmMenu(String channelId, String programId) =
+      _$_BtmSheetStateFcmMenu;
+
+  String get channelId;
+  String get programId;
+  @JsonKey(ignore: true)
+  _$BtmSheetStateFcmMenuCopyWith<_BtmSheetStateFcmMenu> get copyWith;
 }
 
 /// @nodoc

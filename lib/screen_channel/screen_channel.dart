@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
@@ -197,13 +198,7 @@ class _RowBillingBtn extends StatelessWidget {
               )
             else
               const SizedBox.shrink(),
-            IconButton(
-              icon: const Icon(
-                Icons.add_alert,
-                color: Styles.COLOR_TEXT_SUB,
-              ),
-              onPressed: () {}, //todo implement
-            ),
+            _AlertBtn(channelId: channel.id),
           ],
         ),
       );
@@ -241,3 +236,28 @@ Widget _rowSeem() => const SizedBox(
         color: Styles.COLOR_TEXT_SUB,
       ),
     );
+
+//todo styling
+@hwidget
+Widget _alertBtn(BuildContext context, {
+  @required String channelId,
+}) {
+  final bool isFcmSubscribing =
+      useProvider(kPrvHiveFcmChannelSubscribeUpdate(channelId)).maybeWhen(
+    orElse: () => false,
+    data: (it) => it,
+  );
+  return isFcmSubscribing ? IconButton(
+    icon: Icon(
+      Icons.notifications,
+      color: Theme.of(context).primaryColor,
+    ),
+    onPressed: () async => context.read(kPrvViewModelChannel(channelId)).unSubscribeChannel(),
+  ) : IconButton(
+    icon: const Icon(
+      Icons.add_alert,
+      color: Styles.COLOR_TEXT_SUB,
+    ),
+    onPressed: () async => context.read(kPrvViewModelChannel(channelId)).subscribeChannel(),
+  );
+}

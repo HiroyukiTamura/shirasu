@@ -6,11 +6,13 @@ mixin NtfMessageRepository {
 
   Future<void> subscribeChannel(HiveFcmChannelData data);
 
-  Future<void> unsubscribeChannel(String channelId);
+  Future<bool> unsubscribeChannel(String channelId);
 
   Future<void> subscribeProgram(HiveFcmProgramData data);
 
   Future<void> unsubscribeProgram(String programId);
+
+  Future<void> unsubscribeOutDatedPrgTopic();
 
   Future<bool> checkPermission();
 }

@@ -50,15 +50,22 @@ class NtfMessageRepositoryImpl with NtfMessageRepository {
   }
 
   @override
-  Future<void> unsubscribeChannel(String channelId) async {
+  Future<bool> unsubscribeChannel(String channelId) async {
     await FirebaseMessaging.instance.unsubscribeFromTopic(channelId);
-    await _hivePref.unsubscribeChannelFcmTopic(channelId);
+    return _hivePref.unsubscribeChannelFcmTopic(channelId);
   }
 
   @override
   Future<void> unsubscribeProgram(String programId) async {
     await FirebaseMessaging.instance.unsubscribeFromTopic(programId);
     await _hivePref.unsubscribePrgFcmTopic(programId);
+  }
+
+  @override
+  Future<void> unsubscribeOutDatedPrgTopic() async {
+    final outDatedTopics = await _hivePref.outdatedPrgFcmTopic;
+    for (final topic in outDatedTopics)
+      await unsubscribeProgram(topic.topic);
   }
 }
 
@@ -67,5 +74,5 @@ extension on HiveFcmProgramData {
 }
 
 extension on HiveFcmChannelData {
-  String get topic => 'program_$id';
+  String get topic => 'channel_$id';
 }

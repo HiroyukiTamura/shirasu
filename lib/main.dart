@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
@@ -45,7 +46,10 @@ Future<void> main() async {
       ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
       // ..registerAdapter(HiveEncodedAdapter())
       // ..registerAdapter(HiveHeaderAdapter())
-      ..registerAdapter(HiveUserAdapter());
+      ..registerAdapter(HiveUserAdapter())
+      ..registerAdapter(HiveFcmTopicAdapter())
+      ..registerAdapter(HiveFcmChannelDataAdapter())
+      ..registerAdapter(HiveFcmProgramDataAdapter());
 
     await HiveAuthRepositoryImpl.instance().init();
     await HivePrefRepositoryImpl.instance().init();
@@ -70,6 +74,7 @@ class MyAppState extends State<MyApp> {
     super.initState();
     FirebaseMessaging.instance.getInitialMessage().then(_handleNtf);
     FirebaseMessaging.onMessageOpenedApp.listen(_handleNtf);
+    context.read(kPrvNtfMessage).unsubscribeOutDatedPrgTopic();
   }
 
   @override

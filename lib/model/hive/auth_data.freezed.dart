@@ -16,12 +16,10 @@ class _$HiveAuthDataTearOff {
 // ignore: unused_element
   _HiveAuthData call(
       {@required @HiveField(0) HiveBody body,
-      @required @HiveField(1) @protected int rawExpiresAt,
-      @required @HiveField(2) DateTime tokenPublishedAtUtc}) {
+      @required @HiveField(2) DateTime tokenPublishedAt}) {
     return _HiveAuthData(
       body: body,
-      rawExpiresAt: rawExpiresAt,
-      tokenPublishedAtUtc: tokenPublishedAtUtc,
+      tokenPublishedAt: tokenPublishedAt,
     );
   }
 }
@@ -33,12 +31,9 @@ const $HiveAuthData = _$HiveAuthDataTearOff();
 /// @nodoc
 mixin _$HiveAuthData {
   @HiveField(0)
-  HiveBody get body;
-  @HiveField(1)
-  @protected
-  int get rawExpiresAt;
+  HiveBody get body; // @required @HiveField(1) @protected int rawExpiresAt,
   @HiveField(2)
-  DateTime get tokenPublishedAtUtc;
+  DateTime get tokenPublishedAt;
 
   @JsonKey(ignore: true)
   $HiveAuthDataCopyWith<HiveAuthData> get copyWith;
@@ -50,9 +45,7 @@ abstract class $HiveAuthDataCopyWith<$Res> {
           HiveAuthData value, $Res Function(HiveAuthData) then) =
       _$HiveAuthDataCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(0) HiveBody body,
-      @HiveField(1) @protected int rawExpiresAt,
-      @HiveField(2) DateTime tokenPublishedAtUtc});
+      {@HiveField(0) HiveBody body, @HiveField(2) DateTime tokenPublishedAt});
 
   $HiveBodyCopyWith<$Res> get body;
 }
@@ -68,16 +61,13 @@ class _$HiveAuthDataCopyWithImpl<$Res> implements $HiveAuthDataCopyWith<$Res> {
   @override
   $Res call({
     Object body = freezed,
-    Object rawExpiresAt = freezed,
-    Object tokenPublishedAtUtc = freezed,
+    Object tokenPublishedAt = freezed,
   }) {
     return _then(_value.copyWith(
       body: body == freezed ? _value.body : body as HiveBody,
-      rawExpiresAt:
-          rawExpiresAt == freezed ? _value.rawExpiresAt : rawExpiresAt as int,
-      tokenPublishedAtUtc: tokenPublishedAtUtc == freezed
-          ? _value.tokenPublishedAtUtc
-          : tokenPublishedAtUtc as DateTime,
+      tokenPublishedAt: tokenPublishedAt == freezed
+          ? _value.tokenPublishedAt
+          : tokenPublishedAt as DateTime,
     ));
   }
 
@@ -100,9 +90,7 @@ abstract class _$HiveAuthDataCopyWith<$Res>
       __$HiveAuthDataCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(0) HiveBody body,
-      @HiveField(1) @protected int rawExpiresAt,
-      @HiveField(2) DateTime tokenPublishedAtUtc});
+      {@HiveField(0) HiveBody body, @HiveField(2) DateTime tokenPublishedAt});
 
   @override
   $HiveBodyCopyWith<$Res> get body;
@@ -121,16 +109,13 @@ class __$HiveAuthDataCopyWithImpl<$Res> extends _$HiveAuthDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object body = freezed,
-    Object rawExpiresAt = freezed,
-    Object tokenPublishedAtUtc = freezed,
+    Object tokenPublishedAt = freezed,
   }) {
     return _then(_HiveAuthData(
       body: body == freezed ? _value.body : body as HiveBody,
-      rawExpiresAt:
-          rawExpiresAt == freezed ? _value.rawExpiresAt : rawExpiresAt as int,
-      tokenPublishedAtUtc: tokenPublishedAtUtc == freezed
-          ? _value.tokenPublishedAtUtc
-          : tokenPublishedAtUtc as DateTime,
+      tokenPublishedAt: tokenPublishedAt == freezed
+          ? _value.tokenPublishedAt
+          : tokenPublishedAt as DateTime,
     ));
   }
 }
@@ -142,27 +127,21 @@ class __$HiveAuthDataCopyWithImpl<$Res> extends _$HiveAuthDataCopyWithImpl<$Res>
 class _$_HiveAuthData extends _HiveAuthData {
   const _$_HiveAuthData(
       {@required @HiveField(0) this.body,
-      @required @HiveField(1) @protected this.rawExpiresAt,
-      @required @HiveField(2) this.tokenPublishedAtUtc})
+      @required @HiveField(2) this.tokenPublishedAt})
       : assert(body != null),
-        assert(rawExpiresAt != null),
-        assert(tokenPublishedAtUtc != null),
+        assert(tokenPublishedAt != null),
         super._();
 
   @override
   @HiveField(0)
   final HiveBody body;
-  @override
-  @HiveField(1)
-  @protected
-  final int rawExpiresAt;
-  @override
+  @override // @required @HiveField(1) @protected int rawExpiresAt,
   @HiveField(2)
-  final DateTime tokenPublishedAtUtc;
+  final DateTime tokenPublishedAt;
 
   @override
   String toString() {
-    return 'HiveAuthData(body: $body, rawExpiresAt: $rawExpiresAt, tokenPublishedAtUtc: $tokenPublishedAtUtc)';
+    return 'HiveAuthData(body: $body, tokenPublishedAt: $tokenPublishedAt)';
   }
 
   @override
@@ -171,20 +150,16 @@ class _$_HiveAuthData extends _HiveAuthData {
         (other is _HiveAuthData &&
             (identical(other.body, body) ||
                 const DeepCollectionEquality().equals(other.body, body)) &&
-            (identical(other.rawExpiresAt, rawExpiresAt) ||
+            (identical(other.tokenPublishedAt, tokenPublishedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.rawExpiresAt, rawExpiresAt)) &&
-            (identical(other.tokenPublishedAtUtc, tokenPublishedAtUtc) ||
-                const DeepCollectionEquality()
-                    .equals(other.tokenPublishedAtUtc, tokenPublishedAtUtc)));
+                    .equals(other.tokenPublishedAt, tokenPublishedAt)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(body) ^
-      const DeepCollectionEquality().hash(rawExpiresAt) ^
-      const DeepCollectionEquality().hash(tokenPublishedAtUtc);
+      const DeepCollectionEquality().hash(tokenPublishedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -196,19 +171,14 @@ abstract class _HiveAuthData extends HiveAuthData {
   const _HiveAuthData._() : super._();
   const factory _HiveAuthData(
       {@required @HiveField(0) HiveBody body,
-      @required @HiveField(1) @protected int rawExpiresAt,
-      @required @HiveField(2) DateTime tokenPublishedAtUtc}) = _$_HiveAuthData;
+      @required @HiveField(2) DateTime tokenPublishedAt}) = _$_HiveAuthData;
 
   @override
   @HiveField(0)
   HiveBody get body;
-  @override
-  @HiveField(1)
-  @protected
-  int get rawExpiresAt;
-  @override
+  @override // @required @HiveField(1) @protected int rawExpiresAt,
   @HiveField(2)
-  DateTime get tokenPublishedAtUtc;
+  DateTime get tokenPublishedAt;
   @override
   @JsonKey(ignore: true)
   _$HiveAuthDataCopyWith<_HiveAuthData> get copyWith;

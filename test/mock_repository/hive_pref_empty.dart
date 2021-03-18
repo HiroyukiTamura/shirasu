@@ -1,3 +1,6 @@
+import 'dart:collection';
+
+import 'package:collection/src/unmodifiable_wrappers.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 
@@ -26,7 +29,7 @@ class HivePrefEmptyRepositoryImpl with HivePrefRepository {
   Future<HiveFcmTopic> get subscribingFcmTopic => throw UnimplementedError();
 
   @override
-  Future<void> unsubscribeChannelFcmTopic(String channelId) async {}
+  Future<bool> unsubscribeChannelFcmTopic(String channelId) async => true;
 
   @override
   Future<void> unsubscribePrgFcmTopic(String programId) async {}
@@ -36,4 +39,13 @@ class HivePrefEmptyRepositoryImpl with HivePrefRepository {
 
   @override
   Future<void> subscribePrgFcmTopic(HiveFcmProgramData data) async {}
+
+  @override
+  Future<bool> isFcmTopicChannelSubscribing(String channelId) async => false;
+
+  @override
+  Future<bool> isFcmTopicProgramSubscribing(String channelId) async => false;
+
+  @override
+  Future<UnmodifiableSetView<HiveFcmProgramData>> get outdatedPrgFcmTopic async => UnmodifiableSetView({});
 }

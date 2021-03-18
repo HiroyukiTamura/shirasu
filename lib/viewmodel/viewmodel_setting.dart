@@ -76,7 +76,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     final attrs =
         _hiveAuthBody?.decodedToken?.user?.httpsShirasuIoUserAttribute;
 
-    state.settingModelState.whenSuccess((viewerUser) async {
+    await state.settingModelState.whenSuccess((viewerUser) async {
       final birthDate = state.editedUserInfo?.birthDate ?? attrs.birthDate;
       final job = state.editedUserInfo?.jobCode ?? attrs.job;
       final country =

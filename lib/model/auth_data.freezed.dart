@@ -17,7 +17,12 @@ class _$AuthDataTearOff {
   const _$AuthDataTearOff();
 
 // ignore: unused_element
-  _AuthData call({@required Body body, @required int expiresAt}) {
+  _AuthData call(
+      {@required
+          Body body,
+      @required
+      @Deprecated('this value do not means expiration time of auth token. use body.expires_in')
+          int expiresAt}) {
     return _AuthData(
       body: body,
       expiresAt: expiresAt,
@@ -37,6 +42,8 @@ const $AuthData = _$AuthDataTearOff();
 /// @nodoc
 mixin _$AuthData {
   Body get body;
+  @Deprecated(
+      'this value do not means expiration time of auth token. use body.expires_in')
   int get expiresAt;
 
   Map<String, dynamic> toJson();
@@ -48,7 +55,10 @@ mixin _$AuthData {
 abstract class $AuthDataCopyWith<$Res> {
   factory $AuthDataCopyWith(AuthData value, $Res Function(AuthData) then) =
       _$AuthDataCopyWithImpl<$Res>;
-  $Res call({Body body, int expiresAt});
+  $Res call(
+      {Body body,
+      @Deprecated('this value do not means expiration time of auth token. use body.expires_in')
+          int expiresAt});
 
   $BodyCopyWith<$Res> get body;
 }
@@ -88,7 +98,10 @@ abstract class _$AuthDataCopyWith<$Res> implements $AuthDataCopyWith<$Res> {
   factory _$AuthDataCopyWith(_AuthData value, $Res Function(_AuthData) then) =
       __$AuthDataCopyWithImpl<$Res>;
   @override
-  $Res call({Body body, int expiresAt});
+  $Res call(
+      {Body body,
+      @Deprecated('this value do not means expiration time of auth token. use body.expires_in')
+          int expiresAt});
 
   @override
   $BodyCopyWith<$Res> get body;
@@ -119,7 +132,12 @@ class __$AuthDataCopyWithImpl<$Res> extends _$AuthDataCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_AuthData implements _AuthData {
-  const _$_AuthData({@required this.body, @required this.expiresAt})
+  const _$_AuthData(
+      {@required
+          this.body,
+      @required
+      @Deprecated('this value do not means expiration time of auth token. use body.expires_in')
+          this.expiresAt})
       : assert(body != null),
         assert(expiresAt != null);
 
@@ -129,6 +147,8 @@ class _$_AuthData implements _AuthData {
   @override
   final Body body;
   @override
+  @Deprecated(
+      'this value do not means expiration time of auth token. use body.expires_in')
   final int expiresAt;
 
   @override
@@ -165,14 +185,20 @@ class _$_AuthData implements _AuthData {
 }
 
 abstract class _AuthData implements AuthData {
-  const factory _AuthData({@required Body body, @required int expiresAt}) =
-      _$_AuthData;
+  const factory _AuthData(
+      {@required
+          Body body,
+      @required
+      @Deprecated('this value do not means expiration time of auth token. use body.expires_in')
+          int expiresAt}) = _$_AuthData;
 
   factory _AuthData.fromJson(Map<String, dynamic> json) = _$_AuthData.fromJson;
 
   @override
   Body get body;
   @override
+  @Deprecated(
+      'this value do not means expiration time of auth token. use body.expires_in')
   int get expiresAt;
   @override
   @JsonKey(ignore: true)

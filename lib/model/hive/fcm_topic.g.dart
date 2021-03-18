@@ -8,7 +8,7 @@ part of 'fcm_topic.dart';
 
 class HiveFcmTopicAdapter extends TypeAdapter<_$_HiveFcmTopic> {
   @override
-  final int typeId = 100;
+  final int typeId = 10;
 
   @override
   _$_HiveFcmTopic read(BinaryReader reader) {
@@ -17,8 +17,10 @@ class HiveFcmTopicAdapter extends TypeAdapter<_$_HiveFcmTopic> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveFcmTopic(
-      rawSubscribingChannels: (fields[100] as List)?.cast<HiveFcmChannelData>(),
-      rawSubscribingPrograms: (fields[101] as List)?.cast<HiveFcmProgramData>(),
+      rawSubscribingChannels:
+          (fields[100] as Map)?.cast<String, HiveFcmChannelData>(),
+      rawSubscribingPrograms:
+          (fields[101] as Map)?.cast<String, HiveFcmProgramData>(),
     );
   }
 
@@ -27,9 +29,9 @@ class HiveFcmTopicAdapter extends TypeAdapter<_$_HiveFcmTopic> {
     writer
       ..writeByte(2)
       ..writeByte(100)
-      ..write(obj.rawSubscribingChannels?.toList())
+      ..write(obj.rawSubscribingChannels)
       ..writeByte(101)
-      ..write(obj.rawSubscribingPrograms?.toList());
+      ..write(obj.rawSubscribingPrograms);
   }
 
   @override
@@ -45,7 +47,7 @@ class HiveFcmTopicAdapter extends TypeAdapter<_$_HiveFcmTopic> {
 
 class HiveFcmChannelDataAdapter extends TypeAdapter<_$_HiveFcmChannelData> {
   @override
-  final int typeId = 200;
+  final int typeId = 11;
 
   @override
   _$_HiveFcmChannelData read(BinaryReader reader) {
@@ -54,8 +56,8 @@ class HiveFcmChannelDataAdapter extends TypeAdapter<_$_HiveFcmChannelData> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveFcmChannelData(
-      id: fields[200] as String,
-      name: fields[201] as String,
+      id: fields[110] as String,
+      name: fields[111] as String,
     );
   }
 
@@ -63,9 +65,9 @@ class HiveFcmChannelDataAdapter extends TypeAdapter<_$_HiveFcmChannelData> {
   void write(BinaryWriter writer, _$_HiveFcmChannelData obj) {
     writer
       ..writeByte(2)
-      ..writeByte(200)
+      ..writeByte(110)
       ..write(obj.id)
-      ..writeByte(201)
+      ..writeByte(111)
       ..write(obj.name);
   }
 
@@ -82,7 +84,7 @@ class HiveFcmChannelDataAdapter extends TypeAdapter<_$_HiveFcmChannelData> {
 
 class HiveFcmProgramDataAdapter extends TypeAdapter<_$_HiveFcmProgramData> {
   @override
-  final int typeId = 300;
+  final int typeId = 12;
 
   @override
   _$_HiveFcmProgramData read(BinaryReader reader) {
@@ -91,9 +93,9 @@ class HiveFcmProgramDataAdapter extends TypeAdapter<_$_HiveFcmProgramData> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveFcmProgramData(
-      id: fields[300] as String,
-      title: fields[301] as String,
-      broadcastAt: fields[302] as DateTime,
+      id: fields[120] as String,
+      title: fields[121] as String,
+      broadcastAt: fields[122] as DateTime,
     );
   }
 
@@ -101,11 +103,11 @@ class HiveFcmProgramDataAdapter extends TypeAdapter<_$_HiveFcmProgramData> {
   void write(BinaryWriter writer, _$_HiveFcmProgramData obj) {
     writer
       ..writeByte(3)
-      ..writeByte(300)
+      ..writeByte(120)
       ..write(obj.id)
-      ..writeByte(301)
+      ..writeByte(121)
       ..write(obj.title)
-      ..writeByte(302)
+      ..writeByte(122)
       ..write(obj.broadcastAt);
   }
 

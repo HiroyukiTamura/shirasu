@@ -1,3 +1,6 @@
+import 'dart:collection';
+
+import 'package:collection/src/unmodifiable_wrappers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -49,25 +52,19 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
 
   @override
   bool get shouldRefresh {
-    final tokenPublishedAtUtc = authData?.tokenPublishedAtUtc;
-    return tokenPublishedAtUtc == null
+    final tokenPublishedAt = authData?.tokenPublishedAt;
+    return tokenPublishedAt == null
         ? null
-        : (tokenPublishedAtUtc + 3.hours).isBefore(DateTime.now().toUtc());
+        : (tokenPublishedAt + 3.hours).isBefore(DateTime.now());
   }
 
   @override
-  bool get maybeExpired {
-    final expiredAt = authData?.expiresAtUtc;
-    return expiredAt == null || expiredAt.isBefore(DateTime.now().toUtc());
-  }
+  bool get maybeExpired => authData?.expiresAt?.isBefore(DateTime.now()) != false;
 
   @override
   Future<void> appendRefreshedToken(ResultTokenRefresh result) async {
-    final nowUtc = DateTime.now().toUtc();
-    final unixSec = nowUtc.millisecondsSinceEpoch ~/ 1000;
     final data = authData.copyWith(
-        rawExpiresAt: result.expiresIn + unixSec,
-        tokenPublishedAtUtc: nowUtc,
+        tokenPublishedAt: DateTime.now(),
         body: authData.body.copyWith(
           expiresIn: result.expiresIn,
           accessToken: result.accessToken,
@@ -107,7 +104,7 @@ class HivePrefRepositoryImpl extends HiveClient<dynamic>
   static const _KEY_INITIAL_LAUNCH_APP = 'INITIAL_LAUNCH_APP';
   static const KEY_PLAY_SPEED = 'PLAY_SPEED';
   static const KEY_RESOLUTION = 'RESOLUTION';
-  static const _KEY_FCM_TOPIC = 'FCM_TOPIC';
+  static const KEY_FCM_TOPIC = 'FCM_TOPIC';
   static const List<double> PLAY_SPEED = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
   static const List<int> RESOLUTIONS = [480, 720, 1080];
   static HivePrefRepositoryImpl _instance;
@@ -142,31 +139,56 @@ class HivePrefRepositoryImpl extends HiveClient<dynamic>
 
   @override
   Future<HiveFcmTopic> get subscribingFcmTopic async => box.get(
-        _KEY_FCM_TOPIC,
-        defaultValue: const HiveFcmTopic(),
+        KEY_FCM_TOPIC,
+        defaultValue: HiveFcmTopic.initial(),
       );
 
   @override
   Future<void> subscribeChannelFcmTopic(HiveFcmChannelData data) async {
     final topic = await subscribingFcmTopic;
-    await box.put(_KEY_FCM_TOPIC, topic.appendChannelData(data));
+    await box.put(KEY_FCM_TOPIC, topic.appendChannelData(data));
   }
 
   @override
   Future<void> subscribePrgFcmTopic(HiveFcmProgramData data) async {
     final topic = await subscribingFcmTopic;
-    await box.put(_KEY_FCM_TOPIC, topic.appendProgramData(data));
+    await box.put(KEY_FCM_TOPIC, topic.appendProgramData(data));
   }
 
   @override
-  Future<void> unsubscribeChannelFcmTopic(String channelId) async {
+  Future<bool> unsubscribeChannelFcmTopic(String channelId) async {
     final topic = await subscribingFcmTopic;
-    await box.put(_KEY_FCM_TOPIC, topic.removeChannelData(channelId));
+    if (!topic.hasChannel(channelId)) return false;
+
+    await box.put(KEY_FCM_TOPIC, topic.removeChannelData(channelId));
+    return true;
   }
 
   @override
   Future<void> unsubscribePrgFcmTopic(String programId) async {
     final topic = await subscribingFcmTopic;
-    await box.put(_KEY_FCM_TOPIC, topic.removeProgramData(programId));
+    await box.put(KEY_FCM_TOPIC, topic.removeProgramData(programId));
+  }
+
+  /// return items older than 1 week
+  @override
+  Future<UnmodifiableSetView<HiveFcmProgramData>> get outdatedPrgFcmTopic async {
+    final topics = await subscribingFcmTopic;
+    final set = topics.subscribingPrograms.values
+        .where((it) => it.broadcastAt < DateTime.now() - 1.weeks)
+        .toSet();
+    return UnmodifiableSetView(set);
+  }
+
+  @override
+  Future<bool> isFcmTopicChannelSubscribing(String channelId) async {
+    final topics = await subscribingFcmTopic;
+    return topics.hasChannel(channelId);
+  }
+
+  @override
+  Future<bool> isFcmTopicProgramSubscribing(String programId) async {
+    final topics = await subscribingFcmTopic;
+    return topics.hasProgram(programId);
   }
 }

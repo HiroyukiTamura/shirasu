@@ -49,3 +49,13 @@ class _RowSeem extends StatelessWidget {
   @override
   Widget build(BuildContext _context) => _rowSeem();
 }
+
+class _AlertBtn extends HookWidget {
+  const _AlertBtn({Key key, @required this.channelId}) : super(key: key);
+
+  final String channelId;
+
+  @override
+  Widget build(BuildContext _context) =>
+      _alertBtn(_context, channelId: channelId);
+}

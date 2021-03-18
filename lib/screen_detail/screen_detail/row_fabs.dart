@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:shirasu/model/hive/fcm_topic.dart';
+import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -28,7 +30,7 @@ class RowFabs extends HookWidget {
         urlFaceBook: UrlUtil.programId2FaceBookUrl(program.id).toString(),
       );
 
-  /// todo implement
+  /// todo overflow
   @override
   Widget build(BuildContext context) {
     final maybeVod = useProvider(kPrvIsArch(program.id));
@@ -52,7 +54,12 @@ class RowFabs extends HookWidget {
               icon: Icons.text_snippet,
               onPressed: () => _onClickHandoutsBtn(context),
             ),
-          // const _Fab(icon: Icons.alarm_add),
+          _AlertIcon(
+            programId: program.id,
+            channelId: program.channelId,
+            onTapAsCommandOn: () => _onClickAlertAsCommandOn(context),
+            onTapAsCommandOff: () async => _onClickAlertAsCommandOff(context),
+          ),
           _Fab(
             icon: Icons.share,
             onPressed: () => _onClickShareBtn(context),
@@ -77,28 +84,68 @@ class RowFabs extends HookWidget {
   Future<void> _onClickHandoutsBtn(BuildContext context) async => context
       .read(kPrvViewModelDetail(program.id))
       .togglePage(const PageSheetModel.handouts());
+
+  void _onClickAlertAsCommandOn(BuildContext context) {
+    final command = BtmSheetState.fcmMenu(program.channelId, program.id);
+    context.read(kPrvViewModelDetail(program.id)).commandModal(command);
+  }
+
+  Future<void> _onClickAlertAsCommandOff(BuildContext context) async =>
+      context.read(kPrvViewModelDetail(program.id)).unSubscribeChannel();
+}
+
+@hwidget
+Widget _alertIcon(
+  BuildContext context, {
+  @required String programId,
+  @required String channelId,
+  @required VoidCallback onTapAsCommandOn,
+  @required VoidCallback onTapAsCommandOff,
+}) {
+  final msg = PrgIdAndChannelId(
+    programId: programId,
+    channelId: channelId,
+  );
+  final isFcmSubscribing =
+      useProvider(kPrvHiveFcmSubscribeUpdate(msg)).maybeWhen(
+    orElse: () => false,
+    data: (it) => it != const FcmSubscribingStatus.none(),
+  );
+  return isFcmSubscribing
+      ? _Fab(
+          icon: Icons.notifications,
+          onPressed: onTapAsCommandOff,
+          fabColor: Theme.of(context).primaryColor,
+          iconColor: Colors.white,
+        )
+      : _Fab(
+          icon: Icons.add_alert,
+          onPressed: onTapAsCommandOn,
+        );
 }
 
 @swidget
 Widget _fab({
-  IconData icon,
+  @required IconData icon,
+  Color iconColor = Colors.black,
+  Color fabColor,
   VoidCallback onPressed,
 }) =>
     RawMaterialButton(
       onPressed: onPressed,
       elevation: 0,
       constraints: const BoxConstraints(
-        minWidth: 54,
+        minWidth: 36,
         minHeight: 36,
       ),
-      fillColor: Styles.detailFab,
+      fillColor: fabColor ?? Styles.detailFab,
       shape: const CircleBorder(),
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Icon(
           icon,
           size: 24,
-          color: Colors.black,
+          color: iconColor,
         ),
       ),
     );

@@ -67,8 +67,9 @@ class _ListViewContent extends HookWidget {
       itemCount += 2;
     final comingBroadcastingsLast = itemCount;
 
-    if (data?.listSubscribedPrograms?.viewerUser?.subscribedPrograms?.items?.isNotEmpty == true)
-      itemCount += 2;
+    if (data?.listSubscribedPrograms?.viewerUser?.subscribedPrograms?.items
+            ?.isNotEmpty ==
+        true) itemCount += 2;
 
     final subscribingLast = itemCount;
 
@@ -122,7 +123,8 @@ class _ListViewContent extends HookWidget {
                 return i == 0
                     ? const Heading(text: Strings.HEADING_SUBSCRIBING)
                     : HorizontalCarousels(
-                        list: data?.listSubscribedPrograms?.viewerUser?.subscribedPrograms?.items,
+                        list: data?.listSubscribedPrograms?.viewerUser
+                            ?.subscribedPrograms?.items,
                         maxWidth: constraints.maxWidth,
                         constraints: constraints,
                         detailCaption: true,
@@ -147,8 +149,10 @@ class _ListViewContent extends HookWidget {
 
                 final item = newPrgData[i - 1];
                 return MovieListItem(
-                  program: item,
                   onTap: () async => context.pushProgramPage(item.id),
+                  title: item.title,
+                  id: item.id,
+                  broadcastAt: item.broadcastAt,
                 );
               } else
                 return const CenterCircleProgress();

@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/secure_storage_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shirasu/screen_auth/screen_auth_scratch.dart';
+import 'package:shirasu/util.dart';
 
 final kPrvSecureStorageRepository =
     Provider.autoDispose<SecureStorageRepository>((ref) => SecureStorageRepositoryImpl._instance);
@@ -16,7 +17,7 @@ const _kKeyPASSWORD = 'PASSWORD';
 class SecureStorageRepositoryImpl with SecureStorageRepository {
   @protected
   SecureStorageRepositoryImpl._()
-      : assert(defaultTargetPlatform == TargetPlatform.iOS);
+      : assert(Util.useScratchAuth);
 
   static const _storage = FlutterSecureStorage();
 

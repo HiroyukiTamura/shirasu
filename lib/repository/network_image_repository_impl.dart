@@ -15,19 +15,22 @@ class NetworkImageRepositoryImpl with NetworkImageRepository {
   NetworkImageRepositoryImpl._(this._reader);
 
   final Reader _reader;
-  Completer<ui.Image> completer = Completer<ui.Image>();
+  final _completer = Completer<ui.Image>();
 
   LoggerRepository get _logger => _reader(kPrvLogger);
 
   @override
-  Future<ui.Image> requestHeaderImage() async {
+  Future<ui.Image> requestHeaderImage() {
+    if (_completer.isCompleted)
+      return _completer.future; // I don't why, but must needed...
+
     const CachedNetworkImageProvider(UrlUtil.URL_HEADER_BACKDROP)
         .resolve(const ImageConfiguration())
         .addListener(
-          ImageStreamListener((info, _) => completer.complete(info.image),
+          ImageStreamListener((info, _) => _completer.complete(info.image),
               onError: (e, stackTrace) =>
                   _logger.e(e, stackTrace)),
         );
-    return completer.future;
+    return _completer.future;
   }
 }

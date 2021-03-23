@@ -11,6 +11,8 @@ import 'package:shirasu/util/exceptions.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../util.dart';
+
 final kPrvAuthClientInterceptor = Provider.autoDispose<AuthClientInterceptor>(
     (ref) => AuthClientInterceptor._(ref.read));
 
@@ -38,8 +40,12 @@ class AuthClientInterceptor {
   /// iOS -> try to re login
   Future<String> refreshAuthTokenIfNeeded() async =>
       _kLock.synchronized(() async {
-        if (defaultTargetPlatform == TargetPlatform.iOS) {
+        if (Util.useScratchAuth) {
           if (_hiveAuthRepository.maybeExpired) {
+
+            //todo fix
+            debugPrint('refresh!!!');
+
             final email = await _secureStorage.email;
             final pass = await _secureStorage.password;
             if (email?.isNotEmpty == true && pass?.isNotEmpty == true) {

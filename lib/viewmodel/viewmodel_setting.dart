@@ -126,7 +126,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(isInLoggingOut: true);
 
-    if (defaultTargetPlatform != TargetPlatform.iOS)
+    if (!Util.useScratchAuth)
       await logger.guardFuture(() async {
         _webView = FlutterWebviewPlugin();
         await _webView.launch(
@@ -147,7 +147,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(isInLoggingOut: false);
     await reader(kPrvAppRouterDelegate)
-        .pushPage(const GlobalRoutePath.preLogin());
+        .pushPage(const GlobalRoutePath.preLogin());//todo change to reset?
   }
 
   void notifySnackMsg(SnackMsg snackMsg) =>

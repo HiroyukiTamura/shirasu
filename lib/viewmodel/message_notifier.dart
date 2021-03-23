@@ -40,6 +40,8 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
 
   const factory SnackMsg.fcmUnsubscribe() = _SnackMsgFcmUnsubscribe;
 
+  const factory SnackMsg.loginInputInvalid() = _SnackMsgLoginInputInvalid;
+
   const SnackMsg._();
 
   @override
@@ -52,5 +54,6 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
         networkDisconnected: () => Strings.ERR_NETWORK_DISCONNECTED,
         fcmUnsubscribe: () => Strings.SNACK_FCM_UNSUBSCRIBE,
         fcmSubscribe: () => Strings.SNACK_FCM_SUBSCRIBE,
+        loginInputInvalid: () => Strings.SNACK_ERR_INVALID_AUTH_INPUT,
       );
 }

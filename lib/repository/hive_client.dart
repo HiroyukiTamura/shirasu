@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
+import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
@@ -41,10 +42,7 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
   HiveAuthData get authData => box.get(_KEY_AUTH_DATA);
 
   @override
-  Future<void> putAuthData(AuthData authData) async =>
-      _putAuthData(HiveAuthData.parse(authData));
-
-  Future<void> _putAuthData(HiveAuthData data) async =>
+  Future<void> putAuthData(HiveAuthData data) async =>
       box.put(_KEY_AUTH_DATA, data);
 
   @override
@@ -72,13 +70,13 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
           idToken: result.idToken,
           scope: result.scope,
         ));
-    await _putAuthData(data);
+    await putAuthData(data);
   }
 
   @override
   Future<void> updateProfile(UserWithAttributeData data) async {
     final hiveUser = authData.copyWithEditResult(data.updateUserWithAttribute);
-    await _putAuthData(hiveUser);
+    await putAuthData(hiveUser);
   }
 }
 

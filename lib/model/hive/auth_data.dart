@@ -1,9 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shirasu/model/auth_data.dart';
+import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:flutter/material.dart';
 import 'package:dartx/dartx.dart';
+import 'package:shirasu/util.dart';
 
 part 'auth_data.g.dart';
 
@@ -21,10 +24,19 @@ abstract class HiveAuthData with _$HiveAuthData {
   }) = _HiveAuthData;
 
   factory HiveAuthData.parse(AuthData authData) => HiveAuthData(
-      body: HiveBody.parse(authData.body),
-      // rawExpiresAt: authData.expiresAt,
-      tokenPublishedAt: DateTime.now(),
-    );
+        body: HiveBody.parse(authData.body),
+        // rawExpiresAt: authData.expiresAt,
+        tokenPublishedAt: DateTime.now(),
+      );
+
+  factory HiveAuthData.fromDioLogin({
+    @required LoginResult loginResult,
+  }) =>
+      HiveAuthData(
+        body: HiveBody.fromDioLogin(loginResult),
+        // rawExpiresAt: authData.expiresAt,
+        tokenPublishedAt: DateTime.now(),
+      );
 
   const HiveAuthData._();
 
@@ -64,6 +76,25 @@ abstract class HiveBody with _$HiveBody {
         decodedToken: HiveDecodedToken.parse(body.decodedToken),
         audience: body.audience,
       );
+
+  factory HiveBody.fromDioLogin(LoginResult source) {
+    final jwt = JwtDecoder.decode(source.idToken);
+    final user = User.fromJson(jwt);
+
+    return HiveBody(
+      clientId: Util.AUTH0_CLIENT_ID,
+      accessToken: source.accessToken,
+      refreshToken: source.refreshToken,
+      idToken: source.idToken,
+      scope: source.scope,
+      expiresIn: source.expiresIn,
+      tokenType: source.tokenType,
+      decodedToken: HiveDecodedToken(
+        user: HiveUser.parse(user),
+      ),
+      audience: 'default',
+    );
+  }
 }
 
 /// hive model for [DecodedToken]
@@ -74,82 +105,82 @@ abstract class HiveDecodedToken with _$HiveDecodedToken {
   const factory HiveDecodedToken({
     // @required @HiveField(11) HiveEncoded encoded,
     // @required @HiveField(12) HiveHeader header,
-    @required @HiveField(12) HiveClaims claims,
+    // @required @HiveField(12) HiveClaims claims,
     @required @HiveField(13) HiveUser user,
   }) = _HiveDecodedToken;
 
   factory HiveDecodedToken.parse(DecodedToken decodedToken) => HiveDecodedToken(
         // encoded: HiveEncoded.parse(decodedToken.encoded),
         // header: HiveHeader.parse(decodedToken.header),
-        claims: HiveClaims.parse(decodedToken.claims),
+        // claims: HiveClaims.parse(decodedToken.claims),
         user: HiveUser.parse(decodedToken.user),
       );
 }
 
-/// hive model for [Claims]
-@freezed
-abstract class HiveClaims implements _$HiveClaims {
-  @HiveType(typeId: 3)
-  @protected
-  const factory HiveClaims({
-    // @required @HiveField(15) String raw,
-    // @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
-    @required
-    @HiveField(14)
-        HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
-    // @required @HiveField(18) String httpsShirasuIoCustomerId,
-    // @required
-    // @HiveField(19)
-    // @protected
-    //     List<dynamic> rawHttpsShirasuIoDistributeds,
-    // @required @HiveField(20) @protected List<dynamic> rawHttpsShirasuIoTenants,
+// /// hive model for [Claims]
+// @freezed
+// abstract class HiveClaims implements _$HiveClaims {
+//   @HiveType(typeId: 3)
+//   @protected
+//   const factory HiveClaims({
+// @required @HiveField(15) String raw,
+// @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
+// @required
+// @HiveField(14)
+//     HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+// @required @HiveField(18) String httpsShirasuIoCustomerId,
+// @required
+// @HiveField(19)
+// @protected
+//     List<dynamic> rawHttpsShirasuIoDistributeds,
+// @required @HiveField(20) @protected List<dynamic> rawHttpsShirasuIoTenants,
 
-    // @HiveField(21)
-    // String givenName,
-    // @HiveField(22)
-    // String familyName,
-    // @required @HiveField(23) String nickname,
-    // @required @HiveField(24) String name,
-    // @required @HiveField(25) String picture,
+// @HiveField(21)
+// String givenName,
+// @HiveField(22)
+// String familyName,
+// @required @HiveField(23) String nickname,
+// @required @HiveField(24) String name,
+// @required @HiveField(25) String picture,
 
-    // @HiveField(26)
-    // String locale,
-    // @required @HiveField(27) DateTime updatedAt,
-    // @required @HiveField(28) String email,
-    // @required @HiveField(29) bool emailVerified,
-    // @required @HiveField(30) String iss,
-    // @required @HiveField(31) String sub,
-    // @required @HiveField(32) String aud,
-    // @required @HiveField(33) int iat,
-    // @required @HiveField(34) int exp,
-  }) = _HiveClaims;
+// @HiveField(26)
+// String locale,
+// @required @HiveField(27) DateTime updatedAt,
+// @required @HiveField(28) String email,
+// @required @HiveField(29) bool emailVerified,
+// @required @HiveField(30) String iss,
+// @required @HiveField(31) String sub,
+// @required @HiveField(32) String aud,
+// @required @HiveField(33) int iat,
+// @required @HiveField(34) int exp,
+// }) = _HiveClaims;
 
-  factory HiveClaims.parse(Claims claims) => HiveClaims(
-        // raw: claims.raw,
-        // rawHttpsShirasuIoRoles: claims.httpsShirasuIoRoles,
-        httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
-            claims.httpsShirasuIoUserAttribute),
-        // httpsShirasuIoCustomerId: claims.httpsShirasuIoCustomerId,
-        // rawHttpsShirasuIoDistributeds: claims.httpsShirasuIoDistributeds,
-        // rawHttpsShirasuIoTenants: claims.httpsShirasuIoTenants,
-        // givenName: claims.givenName,
-        // familyName: claims.familyName,
-        // nickname: claims.nickname,
-        // name: claims.name,
-        // picture: claims.picture,
-        // locale: claims.locale,
-        // updatedAt: claims.updatedAt,
-        // email: claims.email,
-        // emailVerified: claims.emailVerified,
-        // iss: claims.iss,
-        // sub: claims.sub,
-        // aud: claims.aud,
-        // iat: claims.iat,
-        // exp: claims.exp,
-        // nonce: claims.nonce,
-      );
+// factory HiveClaims.parse(Claims claims) => HiveClaims(
+// raw: claims.raw,
+// rawHttpsShirasuIoRoles: claims.httpsShirasuIoRoles,
+// httpsShirasuIoUserAttribute: HiveHttpsShirasuIoUserAttribute.parse(
+//     claims.httpsShirasuIoUserAttribute),
+// httpsShirasuIoCustomerId: claims.httpsShirasuIoCustomerId,
+// rawHttpsShirasuIoDistributeds: claims.httpsShirasuIoDistributeds,
+// rawHttpsShirasuIoTenants: claims.httpsShirasuIoTenants,
+// givenName: claims.givenName,
+// familyName: claims.familyName,
+// nickname: claims.nickname,
+// name: claims.name,
+// picture: claims.picture,
+// locale: claims.locale,
+// updatedAt: claims.updatedAt,
+// email: claims.email,
+// emailVerified: claims.emailVerified,
+// iss: claims.iss,
+// sub: claims.sub,
+// aud: claims.aud,
+// iat: claims.iat,
+// exp: claims.exp,
+// nonce: claims.nonce,
+// );
 
-  const HiveClaims._();
+// const HiveClaims._();
 
 // UnmodifiableListView<String> get httpsShirasuIoRoles =>
 //     rawHttpsShirasuIoRoles.toUnmodifiable();
@@ -159,7 +190,7 @@ abstract class HiveClaims implements _$HiveClaims {
 
 // UnmodifiableListView<dynamic> get httpsShirasuIoTenants =>
 //     rawHttpsShirasuIoTenants.toUnmodifiable();
-}
+// }
 
 /// hive model for [HttpsShirasuIoUserAttribute]
 @freezed

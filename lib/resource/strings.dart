@@ -52,6 +52,7 @@ class Strings {
   static const SNACK_URL_COPIED = 'urlをコピーしました';
   static const SNACK_FCM_SUBSCRIBE = '配信開始の通知を設定しました';
   static const SNACK_FCM_UNSUBSCRIBE = '配信開始の通知を解除しました';
+  static const SNACK_ERR_INVALID_AUTH_INPUT = 'メールアドレスまたはパスワードが違います';
 
   //endregion
 
@@ -214,6 +215,16 @@ class Strings {
   //region screen_auth
   static const APP_BAR_LOGIN = 'ログイン';
 
+  static const TEXT_FIELD_HINT_EMAIL = 'メールアドレス';
+  static const TEXT_FIELD_HINT_PASSWORD = 'パスワード';
+
+  //endregion
+
+  //region screen_auth_scratch
+  static const TEXT_FILED_ERR_LABEL_PW_EMPTY = 'パスワードを入力してください';
+  static const TEXT_FILED_ERR_LABEL_EMAIL_EMPTY = 'メールアドレスを入力してください';
+  static const TEXT_FILED_ERR_LABEL_EMAIL_INVALID = '無効なメールアドレス';
+  static const IOS_LOGIN_NOTE = '$APP_NAME iOS版ではメールアドレス以外のログインには対応しておりません。あらかじめご了承ください。';
   //endregion
 
 //region dialog

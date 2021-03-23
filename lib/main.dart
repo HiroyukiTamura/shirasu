@@ -15,14 +15,11 @@ import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
-import 'package:shirasu/repository/ntf_message_repository.dart';
 import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
-import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
-import 'package:shirasu/model/ntf_data.dart';
 
 /// must via access from ViewModel
 /// todo move
@@ -42,7 +39,7 @@ Future<void> main() async {
       ..registerAdapter(HiveAuthDataAdapter())
       ..registerAdapter(HiveBodyAdapter())
       ..registerAdapter(HiveDecodedTokenAdapter())
-      ..registerAdapter(HiveClaimsAdapter())
+      // ..registerAdapter(HiveClaimsAdapter())
       ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
       // ..registerAdapter(HiveEncodedAdapter())
       // ..registerAdapter(HiveHeaderAdapter())

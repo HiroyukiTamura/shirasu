@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
@@ -124,27 +126,28 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(isInLoggingOut: true);
 
-    await logger.guardFuture(() async {
-      _webView = FlutterWebviewPlugin();
-      await _webView.launch(
-        UrlUtil.URL_HOME,
-        clearCache: true,
-        clearCookies: true,
-        hidden: true,
-      );
-      await Future.delayed(1.seconds);//must need
-      await _webView.evalJavascript('window.localStorage.clear();');
-      await Future.delayed(500.milliseconds);//must need
-      await _webView.close();
-    });
+    if (defaultTargetPlatform != TargetPlatform.iOS)
+      await logger.guardFuture(() async {
+        _webView = FlutterWebviewPlugin();
+        await _webView.launch(
+          UrlUtil.URL_HOME,
+          clearCache: true,
+          clearCookies: true,
+          hidden: true,
+        );
+        await Future.delayed(1.seconds); //must need
+        await _webView.evalJavascript('window.localStorage.clear();');
+        await Future.delayed(500.milliseconds); //must need
+        await _webView.close();
+      });
 
     if (!mounted) return;
 
     await hiveAuthRepository.clearAuthData();
 
     state = state.copyWith(isInLoggingOut: false);
-    await reader(kPrvAppRouterDelegate).pushPage(
-        const GlobalRoutePath.preLogin());
+    await reader(kPrvAppRouterDelegate)
+        .pushPage(const GlobalRoutePath.preLogin());
   }
 
   void notifySnackMsg(SnackMsg snackMsg) =>

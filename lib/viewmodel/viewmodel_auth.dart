@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/local_json_client.dart';
 import 'package:shirasu/repository/url_util.dart';
@@ -46,7 +47,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
   @override
   void dispose() {
     super.dispose();
-    _plugin.dispose();
+    _plugin?.dispose();
     _cancelable?.cancel();
   }
 
@@ -91,14 +92,14 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
 
         if (mounted)
           await result.ifSuccessFuture(
-              (data) async => _onSuccessLogin(data),
+            (data) async => _onSuccessLogin(data),
           );
       });
 
   Future<void> _onSuccessLogin(AuthData data) async {
     if (_success) return;
     _success = true;
-    await _hiveClient.putAuthData(data);
+    await _hiveClient.putAuthData(HiveAuthData.parse(data));
     if (!mounted) return;
     reader(kPrvAppRouterDelegate).reset();
     await _plugin.close();

@@ -30,7 +30,7 @@ class HiveAuthRepositoryCommon with HiveAuthRepository {
   bool get maybeExpired => throw UnExpectedException();
 
   @override
-  Future<void> putAuthData(AuthData authData) => throw UnExpectedException();
+  Future<void> putAuthData(HiveAuthData authData) => throw UnExpectedException();
 
   @override
   bool get shouldRefresh => throw UnExpectedException();

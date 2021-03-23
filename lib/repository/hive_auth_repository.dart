@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:shirasu/repository/hive_client.dart';
@@ -12,7 +13,7 @@ final kPrvHiveAuthUser = Provider<HiveUser>((ref) => ref.watch(kPrvHiveAuthRepos
 mixin HiveAuthRepository {
   HiveAuthData get authData;
 
-  Future<void> putAuthData(AuthData authData);
+  Future<void> putAuthData(HiveAuthData authData);
 
   Future<void> clearAuthData();
 

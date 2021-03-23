@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
+import 'dart:convert';
+import 'dart:math';
 
 import 'package:better_player/better_player.dart';
 import 'package:dio/dio.dart';
@@ -14,6 +16,7 @@ import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:dartx/dartx.dart';
+import 'package:crypto/crypto.dart';
 
 extension IteratableX<E> on Iterable<E> {
   // todo send PR to dartX
@@ -33,10 +36,7 @@ extension IteratableX<E> on Iterable<E> {
 extension MapX<K, V> on Map<K, V> {
   UnmodifiableMapView<K, V> toUnmodifiable() => UnmodifiableMapView(this);
 
-  Map<K, V> operator +(Map<K, V> other) => {
-      ...this,
-      ...other
-    };
+  Map<K, V> operator +(Map<K, V> other) => {...this, ...other};
 }
 
 final _kIsInFullScreenOperation = Lock();
@@ -54,7 +54,8 @@ extension BuildContextX on BuildContext {
   bool get isBigScreen =>
       Dimens.SCREEN_BREAK_POINT < MediaQuery.of(this).size.width;
 
-  bool get isThinScreen => MediaQuery.of(this).size.height < Dimens.SCREEN_BREAK_POINT_Y_SML;
+  bool get isThinScreen =>
+      MediaQuery.of(this).size.height < Dimens.SCREEN_BREAK_POINT_Y_SML;
 
   Future<void> toggleFullScreenMode() async {
     if (_kIsInFullScreenOperation.locked) return;
@@ -112,4 +113,22 @@ extension DioErrorX on DioError {
         return false;
     }
   }
+}
+
+final _random = Random();
+
+extension StringX on String {
+  String toRandomString(int length) {
+    final itr = Iterable.generate(length, (_) {
+      final i = _random.nextInt(length);
+      return codeUnitAt(i);
+    });
+    return String.fromCharCodes(itr);
+  }
+
+  String toBase64() => base64Encode(utf8.encode(this));
+
+  Digest toSha256() => sha256.convert(utf8.encode(this));
+
+  Uri toUri() => Uri.parse(this);
 }

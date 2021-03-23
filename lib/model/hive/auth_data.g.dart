@@ -112,7 +112,6 @@ class HiveDecodedTokenAdapter extends TypeAdapter<_$_HiveDecodedToken> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveDecodedToken(
-      claims: fields[12] as HiveClaims,
       user: fields[13] as HiveUser,
     );
   }
@@ -120,9 +119,7 @@ class HiveDecodedTokenAdapter extends TypeAdapter<_$_HiveDecodedToken> {
   @override
   void write(BinaryWriter writer, _$_HiveDecodedToken obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(12)
-      ..write(obj.claims)
+      ..writeByte(1)
       ..writeByte(13)
       ..write(obj.user);
   }
@@ -134,41 +131,6 @@ class HiveDecodedTokenAdapter extends TypeAdapter<_$_HiveDecodedToken> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is HiveDecodedTokenAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class HiveClaimsAdapter extends TypeAdapter<_$_HiveClaims> {
-  @override
-  final int typeId = 3;
-
-  @override
-  _$_HiveClaims read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return _$_HiveClaims(
-      httpsShirasuIoUserAttribute:
-          fields[14] as HiveHttpsShirasuIoUserAttribute,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, _$_HiveClaims obj) {
-    writer
-      ..writeByte(1)
-      ..writeByte(14)
-      ..write(obj.httpsShirasuIoUserAttribute);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is HiveClaimsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -53,7 +53,8 @@ class Strings {
   static const SNACK_FCM_SUBSCRIBE = '配信開始の通知を設定しました';
   static const SNACK_FCM_UNSUBSCRIBE = '配信開始の通知を解除しました';
   static const SNACK_ERR_INVALID_AUTH_INPUT = 'メールアドレスまたはパスワードが違います';
-
+  static const SNACK_ERR_FCM_PERMISSION = '通知を受け取るには設定で許可を与えてください';
+  static const SNACK_ACTION_FCM_PERMISSION = '設定する';
   //endregion
 
   //region ScreenMeta

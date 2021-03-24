@@ -1,7 +1,7 @@
 import admin from "firebase-admin";
 import {FirestoreRepository} from "./firestoreRepository";
 import {ProgramItem} from "../model/graphql/resultNewprograms";
-import {FcmQue, FcmQueStatus, FcmQueUtil} from "../model/firestore/fcmQue";
+import {Action, FcmQue, FcmQueStatus, FcmQueUtil} from "../model/firestore/fcmQue";
 
 export class FirestoreRepositoryImpl implements FirestoreRepository {
   private readonly db = admin.firestore();
@@ -52,9 +52,14 @@ export class FirestoreRepositoryImpl implements FirestoreRepository {
     const errPrgIds: string[] = [];
     for (const fcmMsgData of fcmMsgDataList) {
       try {
-        const payload = FcmQueUtil.toFcmPayload(fcmMsgData);
-        await admin.messaging().sendToTopic(`channel_${fcmMsgData.channelId}`, payload);
-        await admin.messaging().sendToTopic(`program_${fcmMsgData.programId}`, payload);
+        await admin.messaging().sendToTopic(
+            FcmQueUtil.toTopicChannel(fcmMsgData),
+            FcmQueUtil.toFcmPayload(fcmMsgData, Action.OPEN_CHANNEL),
+        );
+        await admin.messaging().sendToTopic(
+            FcmQueUtil.toTopicProgram(fcmMsgData),
+            FcmQueUtil.toFcmPayload(fcmMsgData, Action.OPEN_PROGRAM)
+        );
         console.log("fcm sent!", fcmMsgData.channelName, fcmMsgData.programTitle);
       } catch (e) {
         errPrgIds.push(fcmMsgData.programId);

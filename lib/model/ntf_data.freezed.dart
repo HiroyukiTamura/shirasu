@@ -18,10 +18,13 @@ class _$NtfDataTearOff {
 
 // ignore: unused_element
   _NtfData call(
-      {@required String programId, @required @protected String action}) {
+      {@required @protected String action,
+      String channelId,
+      String programId}) {
     return _NtfData(
-      programId: programId,
       action: action,
+      channelId: channelId,
+      programId: programId,
     );
   }
 
@@ -37,9 +40,10 @@ const $NtfData = _$NtfDataTearOff();
 
 /// @nodoc
 mixin _$NtfData {
-  String get programId;
   @protected
   String get action;
+  String get channelId;
+  String get programId;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -50,7 +54,7 @@ mixin _$NtfData {
 abstract class $NtfDataCopyWith<$Res> {
   factory $NtfDataCopyWith(NtfData value, $Res Function(NtfData) then) =
       _$NtfDataCopyWithImpl<$Res>;
-  $Res call({String programId, @protected String action});
+  $Res call({@protected String action, String channelId, String programId});
 }
 
 /// @nodoc
@@ -63,12 +67,14 @@ class _$NtfDataCopyWithImpl<$Res> implements $NtfDataCopyWith<$Res> {
 
   @override
   $Res call({
-    Object programId = freezed,
     Object action = freezed,
+    Object channelId = freezed,
+    Object programId = freezed,
   }) {
     return _then(_value.copyWith(
-      programId: programId == freezed ? _value.programId : programId as String,
       action: action == freezed ? _value.action : action as String,
+      channelId: channelId == freezed ? _value.channelId : channelId as String,
+      programId: programId == freezed ? _value.programId : programId as String,
     ));
   }
 }
@@ -78,7 +84,7 @@ abstract class _$NtfDataCopyWith<$Res> implements $NtfDataCopyWith<$Res> {
   factory _$NtfDataCopyWith(_NtfData value, $Res Function(_NtfData) then) =
       __$NtfDataCopyWithImpl<$Res>;
   @override
-  $Res call({String programId, @protected String action});
+  $Res call({@protected String action, String channelId, String programId});
 }
 
 /// @nodoc
@@ -92,12 +98,14 @@ class __$NtfDataCopyWithImpl<$Res> extends _$NtfDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object programId = freezed,
     Object action = freezed,
+    Object channelId = freezed,
+    Object programId = freezed,
   }) {
     return _then(_NtfData(
-      programId: programId == freezed ? _value.programId : programId as String,
       action: action == freezed ? _value.action : action as String,
+      channelId: channelId == freezed ? _value.channelId : channelId as String,
+      programId: programId == freezed ? _value.programId : programId as String,
     ));
   }
 }
@@ -106,41 +114,47 @@ class __$NtfDataCopyWithImpl<$Res> extends _$NtfDataCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_NtfData extends _NtfData {
-  const _$_NtfData({@required this.programId, @required @protected this.action})
-      : assert(programId != null),
-        assert(action != null),
+  const _$_NtfData(
+      {@required @protected this.action, this.channelId, this.programId})
+      : assert(action != null),
         super._();
 
   factory _$_NtfData.fromJson(Map<String, dynamic> json) =>
       _$_$_NtfDataFromJson(json);
 
   @override
-  final String programId;
-  @override
   @protected
   final String action;
+  @override
+  final String channelId;
+  @override
+  final String programId;
 
   @override
   String toString() {
-    return 'NtfData(programId: $programId, action: $action)';
+    return 'NtfData(action: $action, channelId: $channelId, programId: $programId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _NtfData &&
+            (identical(other.action, action) ||
+                const DeepCollectionEquality().equals(other.action, action)) &&
+            (identical(other.channelId, channelId) ||
+                const DeepCollectionEquality()
+                    .equals(other.channelId, channelId)) &&
             (identical(other.programId, programId) ||
                 const DeepCollectionEquality()
-                    .equals(other.programId, programId)) &&
-            (identical(other.action, action) ||
-                const DeepCollectionEquality().equals(other.action, action)));
+                    .equals(other.programId, programId)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(programId) ^
-      const DeepCollectionEquality().hash(action);
+      const DeepCollectionEquality().hash(action) ^
+      const DeepCollectionEquality().hash(channelId) ^
+      const DeepCollectionEquality().hash(programId);
 
   @JsonKey(ignore: true)
   @override
@@ -156,16 +170,19 @@ class _$_NtfData extends _NtfData {
 abstract class _NtfData extends NtfData {
   const _NtfData._() : super._();
   const factory _NtfData(
-      {@required String programId,
-      @required @protected String action}) = _$_NtfData;
+      {@required @protected String action,
+      String channelId,
+      String programId}) = _$_NtfData;
 
   factory _NtfData.fromJson(Map<String, dynamic> json) = _$_NtfData.fromJson;
 
   @override
-  String get programId;
-  @override
   @protected
   String get action;
+  @override
+  String get channelId;
+  @override
+  String get programId;
   @override
   @JsonKey(ignore: true)
   _$NtfDataCopyWith<_NtfData> get copyWith;
@@ -176,15 +193,22 @@ class _$NtfActionTearOff {
   const _$NtfActionTearOff();
 
 // ignore: unused_element
-  _OpenProgram openProgram(dynamic programId) {
-    return _OpenProgram(
-      programId,
+  _OpenChannel openChannel({@required String channelId}) {
+    return _OpenChannel(
+      channelId: channelId,
     );
   }
 
 // ignore: unused_element
-  _UNKNOWN unknown() {
-    return const _UNKNOWN();
+  _OpenProgram openProgram({@required String programId}) {
+    return _OpenProgram(
+      programId: programId,
+    );
+  }
+
+// ignore: unused_element
+  _Unknown unknown() {
+    return const _Unknown();
   }
 }
 
@@ -196,24 +220,28 @@ const $NtfAction = _$NtfActionTearOff();
 mixin _$NtfAction {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult openProgram(dynamic programId),
+    @required TResult openChannel(String channelId),
+    @required TResult openProgram(String programId),
     @required TResult unknown(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult openProgram(dynamic programId),
+    TResult openChannel(String channelId),
+    TResult openProgram(String programId),
     TResult unknown(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
+    @required TResult openChannel(_OpenChannel value),
     @required TResult openProgram(_OpenProgram value),
-    @required TResult unknown(_UNKNOWN value),
+    @required TResult unknown(_Unknown value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
+    TResult openChannel(_OpenChannel value),
     TResult openProgram(_OpenProgram value),
-    TResult unknown(_UNKNOWN value),
+    TResult unknown(_Unknown value),
     @required TResult orElse(),
   });
 }
@@ -234,11 +262,134 @@ class _$NtfActionCopyWithImpl<$Res> implements $NtfActionCopyWith<$Res> {
 }
 
 /// @nodoc
+abstract class _$OpenChannelCopyWith<$Res> {
+  factory _$OpenChannelCopyWith(
+          _OpenChannel value, $Res Function(_OpenChannel) then) =
+      __$OpenChannelCopyWithImpl<$Res>;
+  $Res call({String channelId});
+}
+
+/// @nodoc
+class __$OpenChannelCopyWithImpl<$Res> extends _$NtfActionCopyWithImpl<$Res>
+    implements _$OpenChannelCopyWith<$Res> {
+  __$OpenChannelCopyWithImpl(
+      _OpenChannel _value, $Res Function(_OpenChannel) _then)
+      : super(_value, (v) => _then(v as _OpenChannel));
+
+  @override
+  _OpenChannel get _value => super._value as _OpenChannel;
+
+  @override
+  $Res call({
+    Object channelId = freezed,
+  }) {
+    return _then(_OpenChannel(
+      channelId: channelId == freezed ? _value.channelId : channelId as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_OpenChannel implements _OpenChannel {
+  const _$_OpenChannel({@required this.channelId}) : assert(channelId != null);
+
+  @override
+  final String channelId;
+
+  @override
+  String toString() {
+    return 'NtfAction.openChannel(channelId: $channelId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _OpenChannel &&
+            (identical(other.channelId, channelId) ||
+                const DeepCollectionEquality()
+                    .equals(other.channelId, channelId)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(channelId);
+
+  @JsonKey(ignore: true)
+  @override
+  _$OpenChannelCopyWith<_OpenChannel> get copyWith =>
+      __$OpenChannelCopyWithImpl<_OpenChannel>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult openChannel(String channelId),
+    @required TResult openProgram(String programId),
+    @required TResult unknown(),
+  }) {
+    assert(openChannel != null);
+    assert(openProgram != null);
+    assert(unknown != null);
+    return openChannel(channelId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult openChannel(String channelId),
+    TResult openProgram(String programId),
+    TResult unknown(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (openChannel != null) {
+      return openChannel(channelId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult openChannel(_OpenChannel value),
+    @required TResult openProgram(_OpenProgram value),
+    @required TResult unknown(_Unknown value),
+  }) {
+    assert(openChannel != null);
+    assert(openProgram != null);
+    assert(unknown != null);
+    return openChannel(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult openChannel(_OpenChannel value),
+    TResult openProgram(_OpenProgram value),
+    TResult unknown(_Unknown value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (openChannel != null) {
+      return openChannel(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OpenChannel implements NtfAction {
+  const factory _OpenChannel({@required String channelId}) = _$_OpenChannel;
+
+  String get channelId;
+  @JsonKey(ignore: true)
+  _$OpenChannelCopyWith<_OpenChannel> get copyWith;
+}
+
+/// @nodoc
 abstract class _$OpenProgramCopyWith<$Res> {
   factory _$OpenProgramCopyWith(
           _OpenProgram value, $Res Function(_OpenProgram) then) =
       __$OpenProgramCopyWithImpl<$Res>;
-  $Res call({dynamic programId});
+  $Res call({String programId});
 }
 
 /// @nodoc
@@ -256,17 +407,17 @@ class __$OpenProgramCopyWithImpl<$Res> extends _$NtfActionCopyWithImpl<$Res>
     Object programId = freezed,
   }) {
     return _then(_OpenProgram(
-      programId == freezed ? _value.programId : programId,
+      programId: programId == freezed ? _value.programId : programId as String,
     ));
   }
 }
 
 /// @nodoc
 class _$_OpenProgram implements _OpenProgram {
-  const _$_OpenProgram(this.programId) : assert(programId != null);
+  const _$_OpenProgram({@required this.programId}) : assert(programId != null);
 
   @override
-  final dynamic programId;
+  final String programId;
 
   @override
   String toString() {
@@ -294,9 +445,11 @@ class _$_OpenProgram implements _OpenProgram {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult openProgram(dynamic programId),
+    @required TResult openChannel(String channelId),
+    @required TResult openProgram(String programId),
     @required TResult unknown(),
   }) {
+    assert(openChannel != null);
     assert(openProgram != null);
     assert(unknown != null);
     return openProgram(programId);
@@ -305,7 +458,8 @@ class _$_OpenProgram implements _OpenProgram {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult openProgram(dynamic programId),
+    TResult openChannel(String channelId),
+    TResult openProgram(String programId),
     TResult unknown(),
     @required TResult orElse(),
   }) {
@@ -319,9 +473,11 @@ class _$_OpenProgram implements _OpenProgram {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
+    @required TResult openChannel(_OpenChannel value),
     @required TResult openProgram(_OpenProgram value),
-    @required TResult unknown(_UNKNOWN value),
+    @required TResult unknown(_Unknown value),
   }) {
+    assert(openChannel != null);
     assert(openProgram != null);
     assert(unknown != null);
     return openProgram(this);
@@ -330,8 +486,9 @@ class _$_OpenProgram implements _OpenProgram {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
+    TResult openChannel(_OpenChannel value),
     TResult openProgram(_OpenProgram value),
-    TResult unknown(_UNKNOWN value),
+    TResult unknown(_Unknown value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -343,32 +500,32 @@ class _$_OpenProgram implements _OpenProgram {
 }
 
 abstract class _OpenProgram implements NtfAction {
-  const factory _OpenProgram(dynamic programId) = _$_OpenProgram;
+  const factory _OpenProgram({@required String programId}) = _$_OpenProgram;
 
-  dynamic get programId;
+  String get programId;
   @JsonKey(ignore: true)
   _$OpenProgramCopyWith<_OpenProgram> get copyWith;
 }
 
 /// @nodoc
-abstract class _$UNKNOWNCopyWith<$Res> {
-  factory _$UNKNOWNCopyWith(_UNKNOWN value, $Res Function(_UNKNOWN) then) =
-      __$UNKNOWNCopyWithImpl<$Res>;
+abstract class _$UnknownCopyWith<$Res> {
+  factory _$UnknownCopyWith(_Unknown value, $Res Function(_Unknown) then) =
+      __$UnknownCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$UNKNOWNCopyWithImpl<$Res> extends _$NtfActionCopyWithImpl<$Res>
-    implements _$UNKNOWNCopyWith<$Res> {
-  __$UNKNOWNCopyWithImpl(_UNKNOWN _value, $Res Function(_UNKNOWN) _then)
-      : super(_value, (v) => _then(v as _UNKNOWN));
+class __$UnknownCopyWithImpl<$Res> extends _$NtfActionCopyWithImpl<$Res>
+    implements _$UnknownCopyWith<$Res> {
+  __$UnknownCopyWithImpl(_Unknown _value, $Res Function(_Unknown) _then)
+      : super(_value, (v) => _then(v as _Unknown));
 
   @override
-  _UNKNOWN get _value => super._value as _UNKNOWN;
+  _Unknown get _value => super._value as _Unknown;
 }
 
 /// @nodoc
-class _$_UNKNOWN implements _UNKNOWN {
-  const _$_UNKNOWN();
+class _$_Unknown implements _Unknown {
+  const _$_Unknown();
 
   @override
   String toString() {
@@ -377,7 +534,7 @@ class _$_UNKNOWN implements _UNKNOWN {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _UNKNOWN);
+    return identical(this, other) || (other is _Unknown);
   }
 
   @override
@@ -386,9 +543,11 @@ class _$_UNKNOWN implements _UNKNOWN {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult openProgram(dynamic programId),
+    @required TResult openChannel(String channelId),
+    @required TResult openProgram(String programId),
     @required TResult unknown(),
   }) {
+    assert(openChannel != null);
     assert(openProgram != null);
     assert(unknown != null);
     return unknown();
@@ -397,7 +556,8 @@ class _$_UNKNOWN implements _UNKNOWN {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult openProgram(dynamic programId),
+    TResult openChannel(String channelId),
+    TResult openProgram(String programId),
     TResult unknown(),
     @required TResult orElse(),
   }) {
@@ -411,9 +571,11 @@ class _$_UNKNOWN implements _UNKNOWN {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
+    @required TResult openChannel(_OpenChannel value),
     @required TResult openProgram(_OpenProgram value),
-    @required TResult unknown(_UNKNOWN value),
+    @required TResult unknown(_Unknown value),
   }) {
+    assert(openChannel != null);
     assert(openProgram != null);
     assert(unknown != null);
     return unknown(this);
@@ -422,8 +584,9 @@ class _$_UNKNOWN implements _UNKNOWN {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
+    TResult openChannel(_OpenChannel value),
     TResult openProgram(_OpenProgram value),
-    TResult unknown(_UNKNOWN value),
+    TResult unknown(_Unknown value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -434,6 +597,6 @@ class _$_UNKNOWN implements _UNKNOWN {
   }
 }
 
-abstract class _UNKNOWN implements NtfAction {
-  const factory _UNKNOWN() = _$_UNKNOWN;
+abstract class _Unknown implements NtfAction {
+  const factory _Unknown() = _$_Unknown;
 }

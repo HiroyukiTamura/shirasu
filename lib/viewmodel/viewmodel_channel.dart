@@ -93,25 +93,26 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
   void notifySnackMsg(SnackMsg snackMsg) =>
       _snackBarMsgNotifier.notifyMsg(snackMsg, false);
 
-  Future<void> subscribeChannel() async => state.maybeWhen(
-      orElse: () {},
-      success: (data) async {
-        final permission = await _fcmRepository.requestPermission();
-        if (!permission)
-          return;
+  Future<void> subscribeChannel() async => await state.whenSuccess(
+        (data) async {
+          final permission = await _fcmRepository.requestPermission();
+          if (!mounted) return;
 
-        await _fcmRepository
-          .subscribeChannel(HiveFcmChannelData.parse(data.data.channel));
-        notifySnackMsg(const SnackMsg.fcmSubscribe());
-      },
-    );
+          if (permission) {
+            await _fcmRepository
+                .subscribeChannel(HiveFcmChannelData.parse(data.data.channel));
+            if (mounted) notifySnackMsg(const SnackMsg.fcmSubscribe());
+          } else {
+            notifySnackMsg(const SnackMsg.fcmPermissionDenied());
+          }
+        },
+      );
 
   Future<void> unSubscribeChannel() async => state.maybeWhen(
-      orElse: () {},
-      success: (data) async {
-        await _fcmRepository
-          .unsubscribeChannel(_channelId);
-        notifySnackMsg(const SnackMsg.fcmUnsubscribe());
-      },
-    );
+        orElse: () {},
+        success: (data) async {
+          await _fcmRepository.unsubscribeChannel(_channelId);
+          notifySnackMsg(const SnackMsg.fcmUnsubscribe());
+        },
+      );
 }

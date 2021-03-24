@@ -29,10 +29,11 @@ class NtfMessageRepositoryImpl with NtfMessageRepository {
   @override
   Future<void> handleNtf(RemoteMessage message) async {
     if (message?.data != null)
-      return NtfData.fromJson(message.data).ntfAction.maybeWhen(
-            orElse: () {},
+      return NtfData.fromJson(message.data).ntfAction.when(
+            unknown: () {},
             openProgram: (programId) async =>
                 _appRouter.pushPage(GlobalRoutePath.program(programId)),
+            openChannel: (channelId) async => _appRouter.pushPage(GlobalRoutePath.channel(channelId)),
           );
   }
 
@@ -63,8 +64,7 @@ class NtfMessageRepositoryImpl with NtfMessageRepository {
   @override
   Future<void> unsubscribeOutDatedPrgTopic() async {
     final outDatedTopics = await _hivePref.outdatedPrgFcmTopic;
-    for (final topic in outDatedTopics)
-      await unsubscribeProgram(topic.topic);
+    for (final topic in outDatedTopics) await unsubscribeProgram(topic.topic);
   }
 }
 

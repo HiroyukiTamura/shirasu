@@ -523,28 +523,35 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     return result.when(success: (data) => data, failure: (e) => null);
   }
 
-  Future<void> subscribeChannel() async => await state.prgDataResult.whenSuccess((_, channelData, __) async {
-      final hiveData = HiveFcmChannelData.parse(channelData.channel);
-      final permission = await _fcmRepository.requestPermission();
-      if (!permission)
-        return;
-      await _fcmRepository.subscribeChannel(hiveData);
-      if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
-    });
+  Future<void> subscribeChannel() async =>
+      await state.prgDataResult.whenSuccess((_, channelData, __) async {
+        final hiveData = HiveFcmChannelData.parse(channelData.channel);
+        final permission = await _fcmRepository.requestPermission();
+        if (!mounted) return;
+        if (permission) {
+          await _fcmRepository.subscribeChannel(hiveData);
+          if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
+        } else {
+          commandSnackBar(const SnackMsg.fcmPermissionDenied());
+        }
+      });
 
-  Future<void> subscribeProgram() async => await state.prgDataResult.whenSuccess((programData, _, __) async {
-    final hiveData = HiveFcmProgramData.parse(programData.program);
-    final permission = await _fcmRepository.requestPermission();
-    if (!permission)
-      return;
-    await _fcmRepository.subscribeProgram(hiveData);
-    if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
-  });
+  Future<void> subscribeProgram() async =>
+      await state.prgDataResult.whenSuccess((programData, _, __) async {
+        final hiveData = HiveFcmProgramData.parse(programData.program);
+        final permission = await _fcmRepository.requestPermission();
+        if (!mounted) return;
+        if (permission) {
+          await _fcmRepository.subscribeProgram(hiveData);
+          if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
+        } else {
+          commandSnackBar(const SnackMsg.fcmPermissionDenied());
+        }
+      });
 
   Future<void> unSubscribeChannel() async {
     final success = await _fcmRepository.unsubscribeChannel(channelId);
-    if (!mounted) return;
-    if (!success) await _fcmRepository.unsubscribeProgram(id);
-    commandSnackBar(const SnackMsg.fcmUnsubscribe());
+    if (mounted && !success) await _fcmRepository.unsubscribeProgram(id);
+    if (mounted) commandSnackBar(const SnackMsg.fcmUnsubscribe());
   }
 }

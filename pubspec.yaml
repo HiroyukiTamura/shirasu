@@ -49,6 +49,7 @@ dependencies:
   cookie_jar: ^1.0.1
 
   # others
+  app_settings: ^4.1.0
   flutter_secure_storage: ^4.1.0
   flutter_inappwebview: ^5.1.0+4
   flutter_keyboard_visibility: ^4.0.4

@@ -42,6 +42,8 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
 
   const factory SnackMsg.loginInputInvalid() = _SnackMsgLoginInputInvalid;
 
+  const factory SnackMsg.fcmPermissionDenied() = _SnackMsgFcmPermissionDenied;
+
   const SnackMsg._();
 
   @override
@@ -55,5 +57,6 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
         fcmUnsubscribe: () => Strings.SNACK_FCM_UNSUBSCRIBE,
         fcmSubscribe: () => Strings.SNACK_FCM_SUBSCRIBE,
         loginInputInvalid: () => Strings.SNACK_ERR_INVALID_AUTH_INPUT,
+        fcmPermissionDenied: () => Strings.SNACK_ERR_FCM_PERMISSION,
       );
 }

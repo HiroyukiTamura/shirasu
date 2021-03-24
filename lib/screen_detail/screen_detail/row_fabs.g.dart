@@ -31,6 +31,26 @@ class _AlertIcon extends HookWidget {
       onTapAsCommandOff: onTapAsCommandOff);
 }
 
+class _AlertOff extends StatelessWidget {
+  const _AlertOff({Key key, @required this.onTapAsCommandOn}) : super(key: key);
+
+  final void Function() onTapAsCommandOn;
+
+  @override
+  Widget build(BuildContext _context) =>
+      _alertOff(_context, onTapAsCommandOn: onTapAsCommandOn);
+}
+
+class _AlertOn extends StatelessWidget {
+  const _AlertOn({Key key, @required this.onTapAsCommandOff}) : super(key: key);
+
+  final void Function() onTapAsCommandOff;
+
+  @override
+  Widget build(BuildContext _context) =>
+      _alertOn(_context, onTapAsCommandOff: onTapAsCommandOff);
+}
+
 class _Fab extends StatelessWidget {
   const _Fab(
       {Key key,

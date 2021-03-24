@@ -10,8 +10,7 @@ import 'package:shirasu/repository/secure_storage_repository_impl.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../util.dart';
+import 'package:shirasu/util.dart';
 
 final kPrvAuthClientInterceptor = Provider.autoDispose<AuthClientInterceptor>(
     (ref) => AuthClientInterceptor._(ref.read));
@@ -57,12 +56,9 @@ class AuthClientInterceptor {
                 loginResult: loginResult,
               ));
             }
-          } else
-            throw const UnauthorizedException(true);
-
+          }
         } else {
           _ensureNotExpired();
-
           final shouldRefresh = _hiveAuthRepository.shouldRefresh;
           if (shouldRefresh == true) {
             //todo fix

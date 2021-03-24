@@ -180,21 +180,21 @@ class Strings {
   static const DEFAULT_EMPTY = '---';
 
   static const Map<String, String> JOB_MAP = {
-    'jobAcademia': '大学関係',
-    'jobBroadcasting': '放送関係',
-    'jobCivilServant': '公務員',
-    'jobCreatorOrArtist': 'クリエイター・アーティスト',
-    'jobHumanitiesStudent': '学生（文系）',
-    'jobInformationTechnology': 'IT関係',
-    'jobOther': 'その他',
-    'jobOtherEducation': 'その他教育関係',
-    'jobOtherEmployeeOrExecutive': 'その他会社員・会社役員',
-    'jobOtherStudent': '学生（その他）',
-    'jobPartTime': 'フリーター',
-    'jobPublishing': '出版関係',
-    'jobScienceStudent': '学生（理系）',
-    'jobSelfEmployed': '自営業',
-    'jobUnemployed': '無職',
+    'Academia': '大学関係',
+    'Broadcasting': '放送関係',
+    'CivilServant': '公務員',
+    'CreatorOrArtist': 'クリエイター・アーティスト',
+    'HumanitiesStudent': '学生（文系）',
+    'InformationTechnology': 'IT関係',
+    'Other': 'その他',
+    'OtherEducation': 'その他教育関係',
+    'OtherEmployeeOrExecutive': 'その他会社員・会社役員',
+    'OtherStudent': '学生（その他）',
+    'PartTime': 'フリーター',
+    'Publishing': '出版関係',
+    'ScienceStudent': '学生（理系）',
+    'SelfEmployed': '自営業',
+    'Unemployed': '無職',
   };
 
   static const NO_ITEM_SUFFIX = 'はありません';

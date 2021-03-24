@@ -39,7 +39,7 @@ Future<void> main() async {
       ..registerAdapter(HiveAuthDataAdapter())
       ..registerAdapter(HiveBodyAdapter())
       ..registerAdapter(HiveDecodedTokenAdapter())
-      // ..registerAdapter(HiveClaimsAdapter())
+      ..registerAdapter(HiveClaimsAdapter())
       ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
       // ..registerAdapter(HiveEncodedAdapter())
       // ..registerAdapter(HiveHeaderAdapter())

@@ -16,10 +16,10 @@ class _$HiveAuthDataTearOff {
 // ignore: unused_element
   _HiveAuthData call(
       {@required @HiveField(0) HiveBody body,
-      @required @HiveField(2) DateTime tokenPublishedAt}) {
+      @required @HiveField(1) DateTime expiresAt}) {
     return _HiveAuthData(
       body: body,
-      tokenPublishedAt: tokenPublishedAt,
+      expiresAt: expiresAt,
     );
   }
 }
@@ -31,9 +31,9 @@ const $HiveAuthData = _$HiveAuthDataTearOff();
 /// @nodoc
 mixin _$HiveAuthData {
   @HiveField(0)
-  HiveBody get body; // @required @HiveField(1) @protected int rawExpiresAt,
-  @HiveField(2)
-  DateTime get tokenPublishedAt;
+  HiveBody get body;
+  @HiveField(1)
+  DateTime get expiresAt;
 
   @JsonKey(ignore: true)
   $HiveAuthDataCopyWith<HiveAuthData> get copyWith;
@@ -44,8 +44,7 @@ abstract class $HiveAuthDataCopyWith<$Res> {
   factory $HiveAuthDataCopyWith(
           HiveAuthData value, $Res Function(HiveAuthData) then) =
       _$HiveAuthDataCopyWithImpl<$Res>;
-  $Res call(
-      {@HiveField(0) HiveBody body, @HiveField(2) DateTime tokenPublishedAt});
+  $Res call({@HiveField(0) HiveBody body, @HiveField(1) DateTime expiresAt});
 
   $HiveBodyCopyWith<$Res> get body;
 }
@@ -61,13 +60,12 @@ class _$HiveAuthDataCopyWithImpl<$Res> implements $HiveAuthDataCopyWith<$Res> {
   @override
   $Res call({
     Object body = freezed,
-    Object tokenPublishedAt = freezed,
+    Object expiresAt = freezed,
   }) {
     return _then(_value.copyWith(
       body: body == freezed ? _value.body : body as HiveBody,
-      tokenPublishedAt: tokenPublishedAt == freezed
-          ? _value.tokenPublishedAt
-          : tokenPublishedAt as DateTime,
+      expiresAt:
+          expiresAt == freezed ? _value.expiresAt : expiresAt as DateTime,
     ));
   }
 
@@ -89,8 +87,7 @@ abstract class _$HiveAuthDataCopyWith<$Res>
           _HiveAuthData value, $Res Function(_HiveAuthData) then) =
       __$HiveAuthDataCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {@HiveField(0) HiveBody body, @HiveField(2) DateTime tokenPublishedAt});
+  $Res call({@HiveField(0) HiveBody body, @HiveField(1) DateTime expiresAt});
 
   @override
   $HiveBodyCopyWith<$Res> get body;
@@ -109,13 +106,12 @@ class __$HiveAuthDataCopyWithImpl<$Res> extends _$HiveAuthDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object body = freezed,
-    Object tokenPublishedAt = freezed,
+    Object expiresAt = freezed,
   }) {
     return _then(_HiveAuthData(
       body: body == freezed ? _value.body : body as HiveBody,
-      tokenPublishedAt: tokenPublishedAt == freezed
-          ? _value.tokenPublishedAt
-          : tokenPublishedAt as DateTime,
+      expiresAt:
+          expiresAt == freezed ? _value.expiresAt : expiresAt as DateTime,
     ));
   }
 }
@@ -127,21 +123,21 @@ class __$HiveAuthDataCopyWithImpl<$Res> extends _$HiveAuthDataCopyWithImpl<$Res>
 class _$_HiveAuthData extends _HiveAuthData {
   const _$_HiveAuthData(
       {@required @HiveField(0) this.body,
-      @required @HiveField(2) this.tokenPublishedAt})
+      @required @HiveField(1) this.expiresAt})
       : assert(body != null),
-        assert(tokenPublishedAt != null),
+        assert(expiresAt != null),
         super._();
 
   @override
   @HiveField(0)
   final HiveBody body;
-  @override // @required @HiveField(1) @protected int rawExpiresAt,
-  @HiveField(2)
-  final DateTime tokenPublishedAt;
+  @override
+  @HiveField(1)
+  final DateTime expiresAt;
 
   @override
   String toString() {
-    return 'HiveAuthData(body: $body, tokenPublishedAt: $tokenPublishedAt)';
+    return 'HiveAuthData(body: $body, expiresAt: $expiresAt)';
   }
 
   @override
@@ -150,16 +146,16 @@ class _$_HiveAuthData extends _HiveAuthData {
         (other is _HiveAuthData &&
             (identical(other.body, body) ||
                 const DeepCollectionEquality().equals(other.body, body)) &&
-            (identical(other.tokenPublishedAt, tokenPublishedAt) ||
+            (identical(other.expiresAt, expiresAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.tokenPublishedAt, tokenPublishedAt)));
+                    .equals(other.expiresAt, expiresAt)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(body) ^
-      const DeepCollectionEquality().hash(tokenPublishedAt);
+      const DeepCollectionEquality().hash(expiresAt);
 
   @JsonKey(ignore: true)
   @override
@@ -171,14 +167,14 @@ abstract class _HiveAuthData extends HiveAuthData {
   const _HiveAuthData._() : super._();
   const factory _HiveAuthData(
       {@required @HiveField(0) HiveBody body,
-      @required @HiveField(2) DateTime tokenPublishedAt}) = _$_HiveAuthData;
+      @required @HiveField(1) DateTime expiresAt}) = _$_HiveAuthData;
 
   @override
   @HiveField(0)
   HiveBody get body;
-  @override // @required @HiveField(1) @protected int rawExpiresAt,
-  @HiveField(2)
-  DateTime get tokenPublishedAt;
+  @override
+  @HiveField(1)
+  DateTime get expiresAt;
   @override
   @JsonKey(ignore: true)
   _$HiveAuthDataCopyWith<_HiveAuthData> get copyWith;
@@ -527,8 +523,11 @@ class _$HiveDecodedTokenTearOff {
   const _$HiveDecodedTokenTearOff();
 
 // ignore: unused_element
-  _HiveDecodedToken call({@required @HiveField(13) HiveUser user}) {
+  _HiveDecodedToken call(
+      {@required @HiveField(12) HiveClaims claims,
+      @required @HiveField(13) HiveUser user}) {
     return _HiveDecodedToken(
+      claims: claims,
       user: user,
     );
   }
@@ -542,7 +541,8 @@ const $HiveDecodedToken = _$HiveDecodedTokenTearOff();
 mixin _$HiveDecodedToken {
 // @required @HiveField(11) HiveEncoded encoded,
 // @required @HiveField(12) HiveHeader header,
-// @required @HiveField(12) HiveClaims claims,
+  @HiveField(12)
+  HiveClaims get claims;
   @HiveField(13)
   HiveUser get user;
 
@@ -555,8 +555,9 @@ abstract class $HiveDecodedTokenCopyWith<$Res> {
   factory $HiveDecodedTokenCopyWith(
           HiveDecodedToken value, $Res Function(HiveDecodedToken) then) =
       _$HiveDecodedTokenCopyWithImpl<$Res>;
-  $Res call({@HiveField(13) HiveUser user});
+  $Res call({@HiveField(12) HiveClaims claims, @HiveField(13) HiveUser user});
 
+  $HiveClaimsCopyWith<$Res> get claims;
   $HiveUserCopyWith<$Res> get user;
 }
 
@@ -571,11 +572,23 @@ class _$HiveDecodedTokenCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object claims = freezed,
     Object user = freezed,
   }) {
     return _then(_value.copyWith(
+      claims: claims == freezed ? _value.claims : claims as HiveClaims,
       user: user == freezed ? _value.user : user as HiveUser,
     ));
+  }
+
+  @override
+  $HiveClaimsCopyWith<$Res> get claims {
+    if (_value.claims == null) {
+      return null;
+    }
+    return $HiveClaimsCopyWith<$Res>(_value.claims, (value) {
+      return _then(_value.copyWith(claims: value));
+    });
   }
 
   @override
@@ -596,8 +609,10 @@ abstract class _$HiveDecodedTokenCopyWith<$Res>
           _HiveDecodedToken value, $Res Function(_HiveDecodedToken) then) =
       __$HiveDecodedTokenCopyWithImpl<$Res>;
   @override
-  $Res call({@HiveField(13) HiveUser user});
+  $Res call({@HiveField(12) HiveClaims claims, @HiveField(13) HiveUser user});
 
+  @override
+  $HiveClaimsCopyWith<$Res> get claims;
   @override
   $HiveUserCopyWith<$Res> get user;
 }
@@ -615,9 +630,11 @@ class __$HiveDecodedTokenCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object claims = freezed,
     Object user = freezed,
   }) {
     return _then(_HiveDecodedToken(
+      claims: claims == freezed ? _value.claims : claims as HiveClaims,
       user: user == freezed ? _value.user : user as HiveUser,
     ));
   }
@@ -628,31 +645,40 @@ class __$HiveDecodedTokenCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_HiveDecodedToken implements _HiveDecodedToken {
-  const _$_HiveDecodedToken({@required @HiveField(13) this.user})
-      : assert(user != null);
+  const _$_HiveDecodedToken(
+      {@required @HiveField(12) this.claims,
+      @required @HiveField(13) this.user})
+      : assert(claims != null),
+        assert(user != null);
 
   @override // @required @HiveField(11) HiveEncoded encoded,
 // @required @HiveField(12) HiveHeader header,
-// @required @HiveField(12) HiveClaims claims,
+  @HiveField(12)
+  final HiveClaims claims;
+  @override
   @HiveField(13)
   final HiveUser user;
 
   @override
   String toString() {
-    return 'HiveDecodedToken(user: $user)';
+    return 'HiveDecodedToken(claims: $claims, user: $user)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _HiveDecodedToken &&
+            (identical(other.claims, claims) ||
+                const DeepCollectionEquality().equals(other.claims, claims)) &&
             (identical(other.user, user) ||
                 const DeepCollectionEquality().equals(other.user, user)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(claims) ^
+      const DeepCollectionEquality().hash(user);
 
   @JsonKey(ignore: true)
   @override
@@ -661,17 +687,298 @@ class _$_HiveDecodedToken implements _HiveDecodedToken {
 }
 
 abstract class _HiveDecodedToken implements HiveDecodedToken {
-  const factory _HiveDecodedToken({@required @HiveField(13) HiveUser user}) =
-      _$_HiveDecodedToken;
+  const factory _HiveDecodedToken(
+      {@required @HiveField(12) HiveClaims claims,
+      @required @HiveField(13) HiveUser user}) = _$_HiveDecodedToken;
 
   @override // @required @HiveField(11) HiveEncoded encoded,
 // @required @HiveField(12) HiveHeader header,
-// @required @HiveField(12) HiveClaims claims,
+  @HiveField(12)
+  HiveClaims get claims;
+  @override
   @HiveField(13)
   HiveUser get user;
   @override
   @JsonKey(ignore: true)
   _$HiveDecodedTokenCopyWith<_HiveDecodedToken> get copyWith;
+}
+
+HiveClaims _$HiveClaimsFromJson(Map<String, dynamic> json) {
+  return _HiveClaims.fromJson(json);
+}
+
+/// @nodoc
+class _$HiveClaimsTearOff {
+  const _$HiveClaimsTearOff();
+
+// ignore: unused_element
+  _HiveClaims call(
+      {@required @HiveField(30) String iss,
+      @required @HiveField(32) String aud,
+      @required @HiveField(33) int iat,
+      @required @HiveField(34) int exp}) {
+    return _HiveClaims(
+      iss: iss,
+      aud: aud,
+      iat: iat,
+      exp: exp,
+    );
+  }
+
+// ignore: unused_element
+  HiveClaims fromJson(Map<String, Object> json) {
+    return HiveClaims.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $HiveClaims = _$HiveClaimsTearOff();
+
+/// @nodoc
+mixin _$HiveClaims {
+// @required
+// @HiveField(14)
+//     HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+// @required @HiveField(15) String raw,
+// @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
+// @required @HiveField(18) String httpsShirasuIoCustomerId,
+// @required
+// @HiveField(19)
+// @protected
+//     List<dynamic> rawHttpsShirasuIoDistributeds,
+// @required @HiveField(20) @protected List<dynamic> rawHttpsShirasuIoTenants,
+// @HiveField(21) String givenName,
+// @HiveField(22) String familyName,
+// @required @HiveField(23) String nickname,
+// @required @HiveField(24) String name,
+// @required @HiveField(25) String picture,
+// @HiveField(26) String locale,
+// @required @HiveField(27) DateTime updatedAt,
+// @required @HiveField(28) String email,
+// @required @HiveField(29) bool emailVerified,
+  @HiveField(30)
+  String get iss; // @required @HiveField(31) String sub,
+  @HiveField(32)
+  String get aud;
+  @HiveField(33)
+  int get iat;
+  @HiveField(34)
+  int get exp;
+
+  Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
+  $HiveClaimsCopyWith<HiveClaims> get copyWith;
+}
+
+/// @nodoc
+abstract class $HiveClaimsCopyWith<$Res> {
+  factory $HiveClaimsCopyWith(
+          HiveClaims value, $Res Function(HiveClaims) then) =
+      _$HiveClaimsCopyWithImpl<$Res>;
+  $Res call(
+      {@HiveField(30) String iss,
+      @HiveField(32) String aud,
+      @HiveField(33) int iat,
+      @HiveField(34) int exp});
+}
+
+/// @nodoc
+class _$HiveClaimsCopyWithImpl<$Res> implements $HiveClaimsCopyWith<$Res> {
+  _$HiveClaimsCopyWithImpl(this._value, this._then);
+
+  final HiveClaims _value;
+  // ignore: unused_field
+  final $Res Function(HiveClaims) _then;
+
+  @override
+  $Res call({
+    Object iss = freezed,
+    Object aud = freezed,
+    Object iat = freezed,
+    Object exp = freezed,
+  }) {
+    return _then(_value.copyWith(
+      iss: iss == freezed ? _value.iss : iss as String,
+      aud: aud == freezed ? _value.aud : aud as String,
+      iat: iat == freezed ? _value.iat : iat as int,
+      exp: exp == freezed ? _value.exp : exp as int,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$HiveClaimsCopyWith<$Res> implements $HiveClaimsCopyWith<$Res> {
+  factory _$HiveClaimsCopyWith(
+          _HiveClaims value, $Res Function(_HiveClaims) then) =
+      __$HiveClaimsCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@HiveField(30) String iss,
+      @HiveField(32) String aud,
+      @HiveField(33) int iat,
+      @HiveField(34) int exp});
+}
+
+/// @nodoc
+class __$HiveClaimsCopyWithImpl<$Res> extends _$HiveClaimsCopyWithImpl<$Res>
+    implements _$HiveClaimsCopyWith<$Res> {
+  __$HiveClaimsCopyWithImpl(
+      _HiveClaims _value, $Res Function(_HiveClaims) _then)
+      : super(_value, (v) => _then(v as _HiveClaims));
+
+  @override
+  _HiveClaims get _value => super._value as _HiveClaims;
+
+  @override
+  $Res call({
+    Object iss = freezed,
+    Object aud = freezed,
+    Object iat = freezed,
+    Object exp = freezed,
+  }) {
+    return _then(_HiveClaims(
+      iss: iss == freezed ? _value.iss : iss as String,
+      aud: aud == freezed ? _value.aud : aud as String,
+      iat: iat == freezed ? _value.iat : iat as int,
+      exp: exp == freezed ? _value.exp : exp as int,
+    ));
+  }
+}
+
+@JsonSerializable()
+@HiveType(typeId: 3)
+@protected
+
+/// @nodoc
+class _$_HiveClaims implements _HiveClaims {
+  const _$_HiveClaims(
+      {@required @HiveField(30) this.iss,
+      @required @HiveField(32) this.aud,
+      @required @HiveField(33) this.iat,
+      @required @HiveField(34) this.exp})
+      : assert(iss != null),
+        assert(aud != null),
+        assert(iat != null),
+        assert(exp != null);
+
+  factory _$_HiveClaims.fromJson(Map<String, dynamic> json) =>
+      _$_$_HiveClaimsFromJson(json);
+
+  @override // @required
+// @HiveField(14)
+//     HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+// @required @HiveField(15) String raw,
+// @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
+// @required @HiveField(18) String httpsShirasuIoCustomerId,
+// @required
+// @HiveField(19)
+// @protected
+//     List<dynamic> rawHttpsShirasuIoDistributeds,
+// @required @HiveField(20) @protected List<dynamic> rawHttpsShirasuIoTenants,
+// @HiveField(21) String givenName,
+// @HiveField(22) String familyName,
+// @required @HiveField(23) String nickname,
+// @required @HiveField(24) String name,
+// @required @HiveField(25) String picture,
+// @HiveField(26) String locale,
+// @required @HiveField(27) DateTime updatedAt,
+// @required @HiveField(28) String email,
+// @required @HiveField(29) bool emailVerified,
+  @HiveField(30)
+  final String iss;
+  @override // @required @HiveField(31) String sub,
+  @HiveField(32)
+  final String aud;
+  @override
+  @HiveField(33)
+  final int iat;
+  @override
+  @HiveField(34)
+  final int exp;
+
+  @override
+  String toString() {
+    return 'HiveClaims(iss: $iss, aud: $aud, iat: $iat, exp: $exp)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _HiveClaims &&
+            (identical(other.iss, iss) ||
+                const DeepCollectionEquality().equals(other.iss, iss)) &&
+            (identical(other.aud, aud) ||
+                const DeepCollectionEquality().equals(other.aud, aud)) &&
+            (identical(other.iat, iat) ||
+                const DeepCollectionEquality().equals(other.iat, iat)) &&
+            (identical(other.exp, exp) ||
+                const DeepCollectionEquality().equals(other.exp, exp)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(iss) ^
+      const DeepCollectionEquality().hash(aud) ^
+      const DeepCollectionEquality().hash(iat) ^
+      const DeepCollectionEquality().hash(exp);
+
+  @JsonKey(ignore: true)
+  @override
+  _$HiveClaimsCopyWith<_HiveClaims> get copyWith =>
+      __$HiveClaimsCopyWithImpl<_HiveClaims>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_HiveClaimsToJson(this);
+  }
+}
+
+abstract class _HiveClaims implements HiveClaims {
+  const factory _HiveClaims(
+      {@required @HiveField(30) String iss,
+      @required @HiveField(32) String aud,
+      @required @HiveField(33) int iat,
+      @required @HiveField(34) int exp}) = _$_HiveClaims;
+
+  factory _HiveClaims.fromJson(Map<String, dynamic> json) =
+      _$_HiveClaims.fromJson;
+
+  @override // @required
+// @HiveField(14)
+//     HiveHttpsShirasuIoUserAttribute httpsShirasuIoUserAttribute,
+// @required @HiveField(15) String raw,
+// @required @HiveField(16) @protected List<String> rawHttpsShirasuIoRoles,
+// @required @HiveField(18) String httpsShirasuIoCustomerId,
+// @required
+// @HiveField(19)
+// @protected
+//     List<dynamic> rawHttpsShirasuIoDistributeds,
+// @required @HiveField(20) @protected List<dynamic> rawHttpsShirasuIoTenants,
+// @HiveField(21) String givenName,
+// @HiveField(22) String familyName,
+// @required @HiveField(23) String nickname,
+// @required @HiveField(24) String name,
+// @required @HiveField(25) String picture,
+// @HiveField(26) String locale,
+// @required @HiveField(27) DateTime updatedAt,
+// @required @HiveField(28) String email,
+// @required @HiveField(29) bool emailVerified,
+  @HiveField(30)
+  String get iss;
+  @override // @required @HiveField(31) String sub,
+  @HiveField(32)
+  String get aud;
+  @override
+  @HiveField(33)
+  int get iat;
+  @override
+  @HiveField(34)
+  int get exp;
+  @override
+  @JsonKey(ignore: true)
+  _$HiveClaimsCopyWith<_HiveClaims> get copyWith;
 }
 
 /// @nodoc

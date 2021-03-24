@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,30 +10,8 @@ import 'package:shirasu/repository/hive_client.dart';
 final kPrvHivePrefRepository =
     Provider<HivePrefRepository>((ref) => HivePrefRepositoryImpl.instance());
 
-final _kPrvHiveSubscribingFcmTopic = FutureProvider<HiveFcmTopic>(
-    (ref) => ref.watch(kPrvHivePrefRepository).subscribingFcmTopic);
-
-//todo refactor
-final kPrvHiveFcmChannelSubscribeUpdate =
-    StreamProvider.family.autoDispose<bool, String>((ref, channelId) async* {
-  final initial = await ref.watch(_kPrvHiveSubscribingFcmTopic.future);
-  yield initial.hasChannel(channelId);
-  yield* Hive.box<dynamic>(HivePrefRepositoryImpl.NAME)
-      .watch(key: HivePrefRepositoryImpl.KEY_FCM_TOPIC)
-      .map((event) => (event.value as HiveFcmTopic).hasChannel(channelId));
-});
-
-final kPrvHiveFcmSubscribeUpdate = StreamProvider.family
-    .autoDispose<FcmSubscribingStatus, PrgIdAndChannelId>((ref, msg) async* {
-  final initial = await ref.watch(_kPrvHiveSubscribingFcmTopic.future);
-  yield initial.status(msg.programId, msg.channelId);
-  yield* Hive.box<dynamic>(HivePrefRepositoryImpl.NAME)
-      .watch(key: HivePrefRepositoryImpl.KEY_FCM_TOPIC)
-      .map((event) {
-    final topic = event.value as HiveFcmTopic;
-    return topic.status(msg.programId, msg.channelId);
-  });
-});
+final kPrvHiveFcmTopicListener = Provider<ValueListenable<Box<dynamic>>>(
+        (ref) => ref.watch(kPrvHivePrefRepository).fcmTopicListener);
 
 mixin HivePrefRepository {
   bool get isInitialLaunchApp;
@@ -65,4 +44,6 @@ mixin HivePrefRepository {
   Future<bool> isFcmTopicChannelSubscribing(String channelId);
 
   Future<bool> isFcmTopicProgramSubscribing(String programId);
+
+  ValueListenable<Box<dynamic>> get fcmTopicListener;
 }

@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:collection/src/unmodifiable_wrappers.dart';
+import 'package:flutter/src/foundation/change_notifier.dart';
+import 'package:hive/hive.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 
@@ -48,4 +50,7 @@ class HivePrefEmptyRepositoryImpl with HivePrefRepository {
 
   @override
   Future<UnmodifiableSetView<HiveFcmProgramData>> get outdatedPrgFcmTopic async => UnmodifiableSetView({});
+
+  @override
+  ValueListenable<Box> get fcmTopicListener => throw UnimplementedError();
 }

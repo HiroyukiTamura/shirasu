@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:hive/hive.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
@@ -10,7 +11,11 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/padding_row.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/ui_common/hive_fcm_topic_listenable.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
+
+import '../../model/hive/fcm_topic.dart';
+import '../../repository/hive_client.dart';
 
 part 'row_fabs.g.dart';
 
@@ -101,28 +106,35 @@ Widget _alertIcon(
   @required String channelId,
   @required VoidCallback onTapAsCommandOn,
   @required VoidCallback onTapAsCommandOff,
-}) {
-  final msg = PrgIdAndChannelId(
-    programId: programId,
-    channelId: channelId,
-  );
-  final isFcmSubscribing =
-      useProvider(kPrvHiveFcmSubscribeUpdate(msg)).maybeWhen(
-    orElse: () => false,
-    data: (it) => it != const FcmSubscribingStatus.none(),
-  );
-  return isFcmSubscribing
-      ? _Fab(
-          icon: Icons.notifications,
-          onPressed: onTapAsCommandOff,
-          fabColor: Theme.of(context).primaryColor,
-          iconColor: Colors.white,
-        )
-      : _Fab(
-          icon: Icons.add_alert,
-          onPressed: onTapAsCommandOn,
-        );
-}
+}) =>
+    HiveFcmTopicListenable(
+      builder: (context, topic, child) => topic.status(programId, channelId) ==
+              const FcmSubscribingStatus.none()
+          ? _AlertOff(onTapAsCommandOn: onTapAsCommandOn)
+          : _AlertOn(onTapAsCommandOff: onTapAsCommandOff),
+    );
+
+@swidget
+Widget _alertOff(
+  BuildContext context, {
+  @required VoidCallback onTapAsCommandOn,
+}) =>
+    _Fab(
+      icon: Icons.add_alert,
+      onPressed: onTapAsCommandOn,
+    );
+
+@swidget
+Widget _alertOn(
+  BuildContext context, {
+  @required VoidCallback onTapAsCommandOff,
+}) =>
+    _Fab(
+      icon: Icons.notifications,
+      onPressed: onTapAsCommandOff,
+      fabColor: Theme.of(context).primaryColor,
+      iconColor: Colors.white,
+    );
 
 @swidget
 Widget _fab({

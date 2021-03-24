@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:collection/src/unmodifiable_wrappers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
@@ -13,6 +14,9 @@ import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
+
+import '../util.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 abstract class HiveClient<T> {
   const HiveClient(this._boxName);
@@ -50,26 +54,26 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
 
   @override
   bool get shouldRefresh {
-    final tokenPublishedAt = authData?.tokenPublishedAt;
-    return tokenPublishedAt == null
-        ? null
-        : (tokenPublishedAt + 3.hours).isBefore(DateTime.now());
+    final expiresAt = authData?.expiresAt;
+    return expiresAt == null ? null : (expiresAt - 3.hours) < DateTime.now();
   }
 
   @override
-  bool get maybeExpired => authData?.expiresAt?.isBefore(DateTime.now()) != false;
+  bool get maybeExpired => authData?.isExpired == true;
 
   @override
   Future<void> appendRefreshedToken(ResultTokenRefresh result) async {
+    final body = authData.body.copyWith(
+      expiresIn: result.expiresIn,
+      accessToken: result.accessToken,
+      tokenType: result.tokenType,
+      idToken: result.idToken,
+      scope: result.scope,
+    );
     final data = authData.copyWith(
-        tokenPublishedAt: DateTime.now(),
-        body: authData.body.copyWith(
-          expiresIn: result.expiresIn,
-          accessToken: result.accessToken,
-          tokenType: result.tokenType,
-          idToken: result.idToken,
-          scope: result.scope,
-        ));
+      expiresAt: HiveAuthData.calcExpiresAt(body),
+      body: body,
+    );
     await putAuthData(data);
   }
 
@@ -106,6 +110,9 @@ class HivePrefRepositoryImpl extends HiveClient<dynamic>
   static const List<double> PLAY_SPEED = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
   static const List<int> RESOLUTIONS = [480, 720, 1080];
   static HivePrefRepositoryImpl _instance;
+
+  @override
+  ValueListenable<Box> get fcmTopicListener => box.listenable(keys: [HivePrefRepositoryImpl.KEY_FCM_TOPIC]);
 
   @override
   bool get isInitialLaunchApp =>
@@ -170,7 +177,8 @@ class HivePrefRepositoryImpl extends HiveClient<dynamic>
 
   /// return items older than 1 week
   @override
-  Future<UnmodifiableSetView<HiveFcmProgramData>> get outdatedPrgFcmTopic async {
+  Future<UnmodifiableSetView<HiveFcmProgramData>>
+      get outdatedPrgFcmTopic async {
     final topics = await subscribingFcmTopic;
     final set = topics.subscribingPrograms.values
         .where((it) => it.broadcastAt < DateTime.now() - 1.weeks)

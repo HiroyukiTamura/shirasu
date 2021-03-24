@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/hive/fcm_topic.dart';
+import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
@@ -17,6 +20,7 @@ import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/ui_common/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
+import 'package:shirasu/ui_common/hive_fcm_topic_listenable.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/util.dart';
@@ -237,27 +241,42 @@ Widget _rowSeem() => const SizedBox(
       ),
     );
 
-//todo styling
+/// todo refactor??
 @hwidget
-Widget _alertBtn(BuildContext context, {
+Widget _alertBtn(
+  BuildContext context, {
   @required String channelId,
-}) {
-  final bool isFcmSubscribing =
-      useProvider(kPrvHiveFcmChannelSubscribeUpdate(channelId)).maybeWhen(
-    orElse: () => false,
-    data: (it) => it,
-  );
-  return isFcmSubscribing ? IconButton(
-    icon: Icon(
-      Icons.notifications,
-      color: Theme.of(context).primaryColor,
-    ),
-    onPressed: () async => context.read(kPrvViewModelChannel(channelId)).unSubscribeChannel(),
-  ) : IconButton(
-    icon: const Icon(
-      Icons.add_alert,
-      color: Styles.COLOR_TEXT_SUB,
-    ),
-    onPressed: () async => context.read(kPrvViewModelChannel(channelId)).subscribeChannel(),
-  );
-}
+}) =>
+    HiveFcmTopicListenable(
+      builder: (context, value, child) => value.hasChannel(channelId)
+          ? _AlertOn(channelId: channelId)
+          : _AlertOff(channelId: channelId),
+    );
+
+@swidget
+Widget _alertOff(
+  BuildContext context, {
+  @required String channelId,
+}) =>
+    IconButton(
+      icon: const Icon(
+        Icons.add_alert,
+        color: Styles.COLOR_TEXT_SUB,
+      ),
+      onPressed: () async =>
+          context.read(kPrvViewModelChannel(channelId)).subscribeChannel(),
+    );
+
+@swidget
+Widget _alertOn(
+  BuildContext context, {
+  @required String channelId,
+}) =>
+    IconButton(
+      icon: Icon(
+        Icons.notifications,
+        color: Theme.of(context).primaryColor,
+      ),
+      onPressed: () async =>
+          context.read(kPrvViewModelChannel(channelId)).unSubscribeChannel(),
+    );

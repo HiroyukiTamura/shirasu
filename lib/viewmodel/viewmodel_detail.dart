@@ -525,12 +525,18 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
   Future<void> subscribeChannel() async => await state.prgDataResult.whenSuccess((_, channelData, __) async {
       final hiveData = HiveFcmChannelData.parse(channelData.channel);
+      final permission = await _fcmRepository.requestPermission();
+      if (!permission)
+        return;
       await _fcmRepository.subscribeChannel(hiveData);
       if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
     });
 
   Future<void> subscribeProgram() async => await state.prgDataResult.whenSuccess((programData, _, __) async {
     final hiveData = HiveFcmProgramData.parse(programData.program);
+    final permission = await _fcmRepository.requestPermission();
+    if (!permission)
+      return;
     await _fcmRepository.subscribeProgram(hiveData);
     if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
   });

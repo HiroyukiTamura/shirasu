@@ -21,10 +21,9 @@ class NtfMessageRepositoryImpl with NtfMessageRepository {
   HivePrefRepository get _hivePref => _reader(kPrvHivePrefRepository);
 
   @override
-  Future<bool> checkPermission() async {
+  Future<bool> requestPermission() async {
     final settings = await FirebaseMessaging.instance.requestPermission();
-    return settings.authorizationStatus == AuthorizationStatus.authorized ||
-        settings.authorizationStatus == AuthorizationStatus.provisional;
+    return settings.authorizationStatus == AuthorizationStatus.authorized;
   }
 
   @override

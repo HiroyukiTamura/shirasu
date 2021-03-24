@@ -96,6 +96,10 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
   Future<void> subscribeChannel() async => state.maybeWhen(
       orElse: () {},
       success: (data) async {
+        final permission = await _fcmRepository.requestPermission();
+        if (!permission)
+          return;
+
         await _fcmRepository
           .subscribeChannel(HiveFcmChannelData.parse(data.data.channel));
         notifySnackMsg(const SnackMsg.fcmSubscribe());

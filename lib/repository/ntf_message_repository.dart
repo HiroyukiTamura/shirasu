@@ -14,5 +14,5 @@ mixin NtfMessageRepository {
 
   Future<void> unsubscribeOutDatedPrgTopic();
 
-  Future<bool> checkPermission();
+  Future<bool> requestPermission();
 }

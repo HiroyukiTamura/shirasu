@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:collection';
+import 'dart:ui';
 
 import 'package:collection/src/unmodifiable_wrappers.dart';
 import 'package:flutter/src/foundation/change_notifier.dart';
@@ -49,8 +51,109 @@ class HivePrefEmptyRepositoryImpl with HivePrefRepository {
   Future<bool> isFcmTopicProgramSubscribing(String channelId) async => false;
 
   @override
-  Future<UnmodifiableSetView<HiveFcmProgramData>> get outdatedPrgFcmTopic async => UnmodifiableSetView({});
+  Future<UnmodifiableSetView<HiveFcmProgramData>>
+      get outdatedPrgFcmTopic async => UnmodifiableSetView({});
 
   @override
-  ValueListenable<Box> get fcmTopicListener => throw UnimplementedError();
+  ValueListenable<Box> get fcmTopicListener => _DummyValueListenable();
+}
+
+class _DummyValueListenable extends ValueListenable<Box> {
+  @override
+  Box get value => _DummyBox();
+
+  @override
+  void addListener(VoidCallback listener) {}
+
+  @override
+  void removeListener(VoidCallback listener) {}
+}
+
+class _DummyBox extends Box<dynamic> {
+  @override
+  Future<int> add(dynamic value) async => 0;
+
+  @override
+  Future<Iterable<int>> addAll(Iterable values) async => [];
+
+  @override
+  Future<int> clear() async => 0;
+
+  @override
+  Future<void> close() async {}
+
+  @override
+  Future<void> compact() async {}
+
+  @override
+  bool containsKey(dynamic key) => false;
+
+  @override
+  Future<void> delete(dynamic key) async {}
+
+  @override
+  Future<void> deleteAll(Iterable keys) async {}
+
+  @override
+  Future<void> deleteAt(int index) async {}
+
+  @override
+  Future<void> deleteFromDisk() async {}
+
+  @override
+  dynamic get(dynamic key, {dynamic defaultValue}) => defaultValue;
+
+  @override
+  dynamic getAt(int index) => null;
+
+  @override
+  bool get isEmpty => true;
+
+  @override
+  bool get isNotEmpty => false;
+
+  @override
+  bool get isOpen => true;
+
+  @override
+  dynamic keyAt(int index) => null;
+
+  @override
+  Iterable get keys => [];
+
+  @override
+  bool get lazy => true;
+
+  @override
+  int get length => 0;
+
+  @override
+  String get name => 'DUMMY';
+
+  @override
+  String get path => 'DUMMY';
+
+  @override
+  Future<void> put(dynamic key, dynamic value) async {
+  }
+
+  @override
+  Future<void> putAll(Map entries) async {
+  }
+
+  @override
+  Future<void> putAt(int index, dynamic value) async {
+  }
+
+  @override
+  Map toMap() => {};
+
+  @override
+  Iterable get values => [];
+
+  @override
+  Iterable valuesBetween({dynamic startKey, dynamic endKey}) => [];
+
+  @override
+  Stream<BoxEvent> watch({dynamic key}) => StreamController().stream;
 }

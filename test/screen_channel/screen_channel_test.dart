@@ -75,6 +75,7 @@ class _TestRunner extends TestRunnerBase {
         testName: TestNameCommon.PRE_INIT,
         overrides: [
           createOverride(const ChannelModel.preInitialized()),
+          ...defaultOverride,
         ],
         onPostBuild: (tester) =>
             expect(find.byType(CenterCircleProgress), findsOneWidget),
@@ -82,7 +83,8 @@ class _TestRunner extends TestRunnerBase {
       testGoldensSimple(
         testName: TestNameCommon.ERR_UNKNOWN,
         overrides: [
-          createOverride(const ChannelModel.error(ErrorMsgCommon.unknown()))
+          createOverride(const ChannelModel.error(ErrorMsgCommon.unknown())),
+          ...defaultOverride,
         ],
         onPostBuild: (tester) {
           expect(find.byType(PageError), findsOneWidget);
@@ -90,14 +92,14 @@ class _TestRunner extends TestRunnerBase {
       );
       testGoldensSimple(
         testName: 'Normal_Tab_1st',
-        overrides: [overrideNormal],
+        overrides: [overrideNormal, ...defaultOverride],
         onPostBuild: (tester) {
           expect(find.byType(PageChannelDetail), findsOneWidget);
         },
       );
       testGoldensSimple(
         testName: 'Normal_Tab_2nd',
-        overrides: [overrideNormal],
+        overrides: [overrideNormal, ...defaultOverride],
         onPostBuild: (tester) async {
           await tester.tap(find.text(Strings.CHANNEL_TAB_MOVIE));
           await tester.pumpAndSettle();
@@ -106,7 +108,7 @@ class _TestRunner extends TestRunnerBase {
       );
       testGoldensSimple(
         testName: 'Normal_Tab_3rd',
-        overrides: [overrideNormal],
+        overrides: [overrideNormal, ...defaultOverride],
         onPostBuild: (tester) async {
           await tester.tap(find.text(Strings.CHANNEL_TAB_NOTIFICATION));
           await tester.pumpAndSettle();
@@ -115,7 +117,7 @@ class _TestRunner extends TestRunnerBase {
       );
       testGoldensSimple(
         testName: 'Normal_NoAnnouncements',
-        overrides: [overrideNoAnnounce],
+        overrides: [overrideNoAnnounce, ...defaultOverride],
         onPostBuild: (tester) async {
           await tester.tap(find.text(Strings.CHANNEL_TAB_NOTIFICATION));
           await tester.pumpAndSettle();
@@ -126,7 +128,7 @@ class _TestRunner extends TestRunnerBase {
       );
       testGoldensSimple(
         testName: 'Normal_Purchased_Portrait',
-        overrides: [overrideNormal],
+        overrides: [overrideNormal, ...defaultOverride],
         devices: TestUtil.bigHeightDevices,
         onPostBuild: (tester) {
           expect(find.byType(PurchasedBannerMedium), findsOneWidget);
@@ -134,7 +136,7 @@ class _TestRunner extends TestRunnerBase {
       );
       testGoldensSimple(
         testName: 'Normal_Purchased_Landscape',
-        overrides: [overrideNormal],
+        overrides: [overrideNormal, ...defaultOverride],
         devices: TestUtil.smallHeightDevices,
         skip: true,
         onPostBuild: (tester) {
@@ -144,14 +146,14 @@ class _TestRunner extends TestRunnerBase {
       );
       testGoldensSimple(
         testName: 'Normal_NonPurchased',
-        overrides: [overrideNonPurchased],
+        overrides: [overrideNonPurchased, ...defaultOverride],
         onPostBuild: (tester) {
           expect(find.byType(BillingBtnMedium), findsOneWidget);
         },
       );
       testGoldensSimple(
         testName: 'Normal_NoPurchasable',
-        overrides: [overrideNoPurchasable],
+        overrides: [overrideNoPurchasable, ...defaultOverride],
         onPostBuild: (tester) {
           expect(find.byType(BillingBtnMedium), findsNothing);
           expect(find.byType(PurchasedBannerMedium), findsNothing);

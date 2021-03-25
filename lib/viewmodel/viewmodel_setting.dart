@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/viewer.dart';

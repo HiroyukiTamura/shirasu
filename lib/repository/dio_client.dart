@@ -6,7 +6,6 @@ import 'package:dio/dio.dart' hide Lock;
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shirasu/model/network/auth_user_data_query.dart';
 import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/url_util.dart';

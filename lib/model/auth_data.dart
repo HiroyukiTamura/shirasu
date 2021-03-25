@@ -7,7 +7,7 @@ part 'auth_data.g.dart';
 abstract class AuthData with _$AuthData {
   const factory AuthData({
     @required Body body,
-    @Deprecated('this value do not means expiration time of auth token. use body.expires_in') @required int expiresAt,
+    @required int expiresAt,
   }) = _AuthData;
 
   factory AuthData.fromJson(Map<String, dynamic> json) =>

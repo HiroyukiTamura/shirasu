@@ -28,44 +28,43 @@ class _TestRunner extends TestRunnerBase {
 
   final ProgramDetailData dummyData;
 
-  Override createViewModelOverride(ModelDetail model) =>
-      kPrvViewModelDetail(dummyData.program.id).overrideWithProvider(
-          ViewModelDetailMockable.createProvider(model, dummyData.program.id));
+  List<Override> createViewModelOverride(ModelDetail model) => [
+        kPrvViewModelDetail(dummyData.program.id).overrideWithProvider(
+            ViewModelDetailMockable.createProvider(
+                model, dummyData.program.id)),
+        ...defaultOverride,
+      ];
 
   void runScreenTest() => group('ScreenDetailHeader', () {
         testGoldensSimple(
           testName: 'PlayerCommandedState.initializing',
-          overrides: [
-            createViewModelOverride(ModelDetail.initial(true)
-                .copyWith(
-                  prgDataResult: DetailModelState.success(
-                    programDetailData: dummyData,
-                    page: const PageSheetModel.hidden(),
-                    channelData: JsonClient.instance.mChannelData,
-                  ),
-                )
-                .copyWith
-                .playOutState(
-                  commandedState: const PlayerCommandedState.initializing(),
-                )),
-          ],
+          overrides: createViewModelOverride(ModelDetail.initial(true)
+              .copyWith(
+                prgDataResult: DetailModelState.success(
+                  programDetailData: dummyData,
+                  page: const PageSheetModel.hidden(),
+                  channelData: JsonClient.instance.mChannelData,
+                ),
+              )
+              .copyWith
+              .playOutState(
+                commandedState: const PlayerCommandedState.initializing(),
+              )),
           onPostBuild: (tester) {
             expect(find.byType(LoadingThumbnail), findsOneWidget);
           },
         );
         testGoldensSimple(
           testName: 'PlayerCommandedState.prePlay_BeforeBroadcast',
-          overrides: [
-            createViewModelOverride(ModelDetail.initial(true).copyWith(
-              prgDataResult: DetailModelState.success(
-                programDetailData: dummyData.copyWith.program(
-                  broadcastAt: DateTime.now().add(1.days),
-                ),
-                page: const PageSheetModel.hidden(),
-                channelData: JsonClient.instance.mChannelData,
+          overrides: createViewModelOverride(ModelDetail.initial(true).copyWith(
+            prgDataResult: DetailModelState.success(
+              programDetailData: dummyData.copyWith.program(
+                broadcastAt: DateTime.now().add(1.days),
               ),
-            )),
-          ],
+              page: const PageSheetModel.hidden(),
+              channelData: JsonClient.instance.mChannelData,
+            ),
+          )),
           onPostBuild: (tester) {
             expect(find.byType(VideoThumbnail), findsOneWidget);
             expect(find.text(Strings.WAIT_FOR_START), findsOneWidget);
@@ -74,15 +73,13 @@ class _TestRunner extends TestRunnerBase {
         );
         testGoldensSimple(
           testName: 'PlayerCommandedState.prePlay_BeforeBroadcast_Purchased',
-          overrides: [
-            createViewModelOverride(ModelDetail.initial(true).copyWith(
-              prgDataResult: DetailModelState.success(
-                programDetailData: dummyData,
-                page: const PageSheetModel.hidden(),
-                channelData: JsonClient.instance.mChannelData,
-              ),
-            )),
-          ],
+          overrides: createViewModelOverride(ModelDetail.initial(true).copyWith(
+            prgDataResult: DetailModelState.success(
+              programDetailData: dummyData,
+              page: const PageSheetModel.hidden(),
+              channelData: JsonClient.instance.mChannelData,
+            ),
+          )),
           onPostBuild: (tester) {
             expect(find.byType(VideoThumbnail), findsOneWidget);
             expect(find.byType(PlayBtn), findsOneWidget);
@@ -91,18 +88,16 @@ class _TestRunner extends TestRunnerBase {
         );
         testGoldensSimple(
           testName: 'PlayerCommandedState.prePlay_BeforeBroadcast_UnPurchased',
-          overrides: [
-            createViewModelOverride(ModelDetail.initial(true).copyWith(
-              prgDataResult: DetailModelState.success(
-                programDetailData: dummyData.copyWith.program(
-                  broadcastAt: DateTime.now().add(1.days),
-                  viewerPlanType: null,
-                ),
-                page: const PageSheetModel.hidden(),
-                channelData: JsonClient.instance.mChannelData,
+          overrides: createViewModelOverride(ModelDetail.initial(true).copyWith(
+            prgDataResult: DetailModelState.success(
+              programDetailData: dummyData.copyWith.program(
+                broadcastAt: DateTime.now().add(1.days),
+                viewerPlanType: null,
               ),
-            )),
-          ],
+              page: const PageSheetModel.hidden(),
+              channelData: JsonClient.instance.mChannelData,
+            ),
+          )),
           onPostBuild: (tester) {
             expect(find.byType(VideoThumbnail), findsOneWidget);
             expect(find.text(Strings.PURCHASE_BTN_TEXT), findsOneWidget);
@@ -112,18 +107,16 @@ class _TestRunner extends TestRunnerBase {
         testGoldensSimple(
           testName:
               'PlayerCommandedState.prePlay_BeforeBroadcast_UnPurchased_CanPreview',
-          overrides: [
-            createViewModelOverride(ModelDetail.initial(true).copyWith(
-              prgDataResult: DetailModelState.success(
-                programDetailData: dummyData.copyWith.program(
-                  broadcastAt: DateTime.now().add(1.days),
-                  viewerPlanType: null,
-                ),
-                page: const PageSheetModel.hidden(),
-                channelData: JsonClient.instance.mChannelData,
+          overrides: createViewModelOverride(ModelDetail.initial(true).copyWith(
+            prgDataResult: DetailModelState.success(
+              programDetailData: dummyData.copyWith.program(
+                broadcastAt: DateTime.now().add(1.days),
+                viewerPlanType: null,
               ),
-            )),
-          ],
+              page: const PageSheetModel.hidden(),
+              channelData: JsonClient.instance.mChannelData,
+            ),
+          )),
           onPostBuild: (tester) {
             expect(find.byType(VideoThumbnail), findsOneWidget);
             expect(find.text(Strings.PURCHASE_BTN_TEXT), findsOneWidget);
@@ -134,17 +127,15 @@ class _TestRunner extends TestRunnerBase {
         testGoldensSimple(
           testName:
               'PlayerCommandedState.prePlay_AfterBroadcast_UnPurchased_CanPreview',
-          overrides: [
-            createViewModelOverride(ModelDetail.initial(true).copyWith(
-              prgDataResult: DetailModelState.success(
-                programDetailData: dummyData.copyWith.program(
-                  viewerPlanType: null,
-                ),
-                page: const PageSheetModel.hidden(),
-                channelData: JsonClient.instance.mChannelData,
+          overrides: createViewModelOverride(ModelDetail.initial(true).copyWith(
+            prgDataResult: DetailModelState.success(
+              programDetailData: dummyData.copyWith.program(
+                viewerPlanType: null,
               ),
-            )),
-          ],
+              page: const PageSheetModel.hidden(),
+              channelData: JsonClient.instance.mChannelData,
+            ),
+          )),
           onPostBuild: (tester) {
             expect(find.byType(VideoThumbnail), findsOneWidget);
             expect(find.text(Strings.PURCHASE_BTN_TEXT), findsOneWidget);
@@ -154,22 +145,20 @@ class _TestRunner extends TestRunnerBase {
         );
         testGoldensSimple(
           testName: 'PlayerCommandedState.postPlay_VideoBuffering',
-          overrides: [
-            createViewModelOverride(ModelDetail.initial(true)
-                .copyWith(
-                  prgDataResult: DetailModelState.success(
-                    programDetailData: dummyData,
-                    page: const PageSheetModel.hidden(),
-                    channelData: JsonClient.instance.mChannelData,
-                  ),
-                )
-                .copyWith
-                .playOutState(
-                  commandedState: const PlayerCommandedState.postPlay(),
-                  videoPlayerState: const VideoPlayerState.ready(),
-                  isBuffering: true,
-                )),
-          ],
+          overrides: createViewModelOverride(ModelDetail.initial(true)
+              .copyWith(
+                prgDataResult: DetailModelState.success(
+                  programDetailData: dummyData,
+                  page: const PageSheetModel.hidden(),
+                  channelData: JsonClient.instance.mChannelData,
+                ),
+              )
+              .copyWith
+              .playOutState(
+                commandedState: const PlayerCommandedState.postPlay(),
+                videoPlayerState: const VideoPlayerState.ready(),
+                isBuffering: true,
+              )),
           onPostBuild: (tester) {
             expect(find.byType(BufferingIndicator), findsOneWidget);
             expect(find.byType(PlayerViewWrapper), findsOneWidget);
@@ -177,21 +166,19 @@ class _TestRunner extends TestRunnerBase {
         );
         testGoldensSimple(
           testName: 'PlayerCommandedState.postPlay_VideoErr',
-          overrides: [
-            createViewModelOverride(ModelDetail.initial(true)
-                .copyWith(
-                  prgDataResult: DetailModelState.success(
-                    programDetailData: dummyData,
-                    page: const PageSheetModel.hidden(),
-                    channelData: JsonClient.instance.mChannelData,
-                  ),
-                )
-                .copyWith
-                .playOutState(
-                  videoPlayerState: const VideoPlayerState.error('ERR_MSG'),
-                  commandedState: const PlayerCommandedState.postPlay(),
-                )),
-          ],
+          overrides: createViewModelOverride(ModelDetail.initial(true)
+              .copyWith(
+                prgDataResult: DetailModelState.success(
+                  programDetailData: dummyData,
+                  page: const PageSheetModel.hidden(),
+                  channelData: JsonClient.instance.mChannelData,
+                ),
+              )
+              .copyWith
+              .playOutState(
+                videoPlayerState: const VideoPlayerState.error('ERR_MSG'),
+                commandedState: const PlayerCommandedState.postPlay(),
+              )),
           onPostBuild: (tester) {
             expect(find.byType(PageErrText), findsOneWidget);
             expect(find.byType(PlayerViewWrapper), findsOneWidget);

@@ -6,14 +6,11 @@ import 'package:shirasu/main.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
-import 'package:shirasu/repository/secure_storage_repository.dart';
-import 'package:shirasu/repository/secure_storage_repository_impl.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/screen_auth/screen_auth_scratch.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
-import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_auth_scratch.dart';
 import 'package:shirasu/extension.dart';
@@ -23,9 +20,6 @@ class ViewModelAuthScratch extends ViewModelBase<ModelAuthScratch> {
   ViewModelAuthScratch(reader) : super(reader, ModelAuthScratch.initial());
 
   HiveAuthRepository get _hiveClient => reader(kPrvHiveAuthRepository);
-
-  SecureStorageRepository get _secureStorage =>
-      reader(kPrvSecureStorageRepository);
 
   SnackBarMessageNotifier get _snackBarMsgNotifier =>
       reader(kPrvSnackAuthScratch);

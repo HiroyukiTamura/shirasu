@@ -2,20 +2,16 @@ import 'dart:collection';
 
 import 'package:collection/src/unmodifiable_wrappers.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/change_notifier.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
-import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
-import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
-
-import '../util.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 abstract class HiveClient<T> {
@@ -112,7 +108,8 @@ class HivePrefRepositoryImpl extends HiveClient<dynamic>
   static HivePrefRepositoryImpl _instance;
 
   @override
-  ValueListenable<Box> get fcmTopicListener => box.listenable(keys: [HivePrefRepositoryImpl.KEY_FCM_TOPIC]);
+  ValueListenable<Box> get fcmTopicListener =>
+      box.listenable(keys: [HivePrefRepositoryImpl.KEY_FCM_TOPIC]);
 
   @override
   bool get isInitialLaunchApp =>

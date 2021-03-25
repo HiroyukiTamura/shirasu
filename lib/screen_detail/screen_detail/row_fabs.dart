@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:hive/hive.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
-import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -13,9 +11,6 @@ import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/ui_common/hive_fcm_topic_listenable.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
-
-import '../../model/hive/fcm_topic.dart';
-import '../../repository/hive_client.dart';
 
 part 'row_fabs.g.dart';
 

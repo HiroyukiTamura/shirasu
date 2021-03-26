@@ -41,10 +41,6 @@ class AuthClientInterceptor {
       _kLock.synchronized(() async {
         if (Util.useScratchAuth) {
           if (_hiveAuthRepository.maybeExpired) {
-
-            //todo fix
-            debugPrint('refresh!!!');
-
             final email = await _secureStorage.email;
             final pass = await _secureStorage.password;
             if (email?.isNotEmpty == true && pass?.isNotEmpty == true) {

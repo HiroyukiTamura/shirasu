@@ -1,8 +1,8 @@
 import {ApolloClient, gql, HttpLink, InMemoryCache} from "@apollo/client";
 import {AssetsRepository} from "./assetsRepository";
 import {NetworkRepository} from "./networkRepository";
-import fetch from "cross-fetch";
 import {ConvertNewPrograms, ResultNewPrograms} from "../model/graphql/resultNewprograms";
+import fetch from "isomorphic-fetch";
 
 export class NetworkRepositoryImpl implements NetworkRepository {
 

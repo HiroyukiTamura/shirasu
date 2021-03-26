@@ -18,21 +18,18 @@ class HiveAuthDataAdapter extends TypeAdapter<_$_HiveAuthData> {
     };
     return _$_HiveAuthData(
       body: fields[0] as HiveBody,
-      rawExpiresAt: fields[1] as int,
-      tokenPublishedAtUtc: fields[2] as DateTime,
+      expiresAt: fields[1] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_HiveAuthData obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.body)
       ..writeByte(1)
-      ..write(obj.rawExpiresAt)
-      ..writeByte(2)
-      ..write(obj.tokenPublishedAtUtc);
+      ..write(obj.expiresAt);
   }
 
   @override
@@ -152,17 +149,25 @@ class HiveClaimsAdapter extends TypeAdapter<_$_HiveClaims> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_HiveClaims(
-      httpsShirasuIoUserAttribute:
-          fields[14] as HiveHttpsShirasuIoUserAttribute,
+      iss: fields[30] as String,
+      aud: fields[32] as String,
+      iat: fields[33] as int,
+      exp: fields[34] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_HiveClaims obj) {
     writer
-      ..writeByte(1)
-      ..writeByte(14)
-      ..write(obj.httpsShirasuIoUserAttribute);
+      ..writeByte(4)
+      ..writeByte(30)
+      ..write(obj.iss)
+      ..writeByte(32)
+      ..write(obj.aud)
+      ..writeByte(33)
+      ..write(obj.iat)
+      ..writeByte(34)
+      ..write(obj.exp);
   }
 
   @override
@@ -287,3 +292,24 @@ class HiveUserAdapter extends TypeAdapter<_$_HiveUser> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$_HiveClaims _$_$_HiveClaimsFromJson(Map<String, dynamic> json) {
+  return _$_HiveClaims(
+    iss: json['iss'] as String,
+    aud: json['aud'] as String,
+    iat: json['iat'] as int,
+    exp: json['exp'] as int,
+  );
+}
+
+Map<String, dynamic> _$_$_HiveClaimsToJson(_$_HiveClaims instance) =>
+    <String, dynamic>{
+      'iss': instance.iss,
+      'aud': instance.aud,
+      'iat': instance.iat,
+      'exp': instance.exp,
+    };

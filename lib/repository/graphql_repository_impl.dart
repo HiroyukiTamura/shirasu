@@ -145,7 +145,10 @@ class GraphQlRepositoryImpl with GraphQlRepository {
       } else if (originalException is DioError) {
         if (originalException.isTimeoutErr)
           throw TimeoutException(originalException.message);
-        else if (originalException.response.statusCode == 403) throw const UnauthorizedException(false);
+        else if (originalException.response.statusCode == 403) {
+          _logger.d(originalException.response.data.toString());
+          throw const UnauthorizedException(false);
+        }
       }
     }
   }

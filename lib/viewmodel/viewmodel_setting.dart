@@ -76,7 +76,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     final attrs =
         _hiveAuthBody?.decodedToken?.user?.httpsShirasuIoUserAttribute;
 
-    state.settingModelState.whenSuccess((viewerUser) async {
+    await state.settingModelState.whenSuccess((viewerUser) async {
       final birthDate = state.editedUserInfo?.birthDate ?? attrs.birthDate;
       final job = state.editedUserInfo?.jobCode ?? attrs.job;
       final country =
@@ -124,27 +124,28 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(isInLoggingOut: true);
 
-    await logger.guardFuture(() async {
-      _webView = FlutterWebviewPlugin();
-      await _webView.launch(
-        UrlUtil.URL_HOME,
-        clearCache: true,
-        clearCookies: true,
-        hidden: true,
-      );
-      await Future.delayed(1.seconds);//must need
-      await _webView.evalJavascript('window.localStorage.clear();');
-      await Future.delayed(500.milliseconds);//must need
-      await _webView.close();
-    });
+    if (!Util.useScratchAuth)
+      await logger.guardFuture(() async {
+        _webView = FlutterWebviewPlugin();
+        await _webView.launch(
+          UrlUtil.URL_HOME,
+          clearCache: true,
+          clearCookies: true,
+          hidden: true,
+        );
+        await Future.delayed(1.seconds); //must need
+        await _webView.evalJavascript('window.localStorage.clear();');
+        await Future.delayed(500.milliseconds); //must need
+        await _webView.close();
+      });
 
     if (!mounted) return;
 
     await hiveAuthRepository.clearAuthData();
 
     state = state.copyWith(isInLoggingOut: false);
-    await reader(kPrvAppRouterDelegate).pushPage(
-        const GlobalRoutePath.preLogin());
+    await reader(kPrvAppRouterDelegate)
+        .pushPage(const GlobalRoutePath.preLogin());//todo change to reset?
   }
 
   void notifySnackMsg(SnackMsg snackMsg) =>

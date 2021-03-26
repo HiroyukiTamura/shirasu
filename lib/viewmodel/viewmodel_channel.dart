@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/ntf_message_repository.dart';
+import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
@@ -19,7 +22,10 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
   int tabIndex = 0;
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBarChannel(_channelId));
+  SnackBarMessageNotifier get _snackBarMsgNotifier =>
+      reader(kPrvSnackBarChannel(_channelId));
+
+  NtfMessageRepository get _fcmRepository => reader(kPrvNtfMessage);
 
   @override
   Future<void> initialize() async {
@@ -85,4 +91,27 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
 
   void notifySnackMsg(SnackMsg snackMsg) =>
       _snackBarMsgNotifier.notifyMsg(snackMsg, false);
+
+  Future<void> subscribeChannel() async => await state.whenSuccess(
+        (data) async {
+          final permission = await _fcmRepository.requestPermission();
+          if (!mounted) return;
+
+          if (permission) {
+            await _fcmRepository
+                .subscribeChannel(HiveFcmChannelData.parse(data.data.channel));
+            if (mounted) notifySnackMsg(const SnackMsg.fcmSubscribe());
+          } else {
+            notifySnackMsg(const SnackMsg.fcmPermissionDenied());
+          }
+        },
+      );
+
+  Future<void> unSubscribeChannel() async => state.maybeWhen(
+        orElse: () {},
+        success: (data) async {
+          await _fcmRepository.unsubscribeChannel(_channelId);
+          notifySnackMsg(const SnackMsg.fcmUnsubscribe());
+        },
+      );
 }

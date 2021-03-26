@@ -27,9 +27,9 @@ export class FcmQueUtil {
   /**
    * todo localize [body] with {@link NotificationMessagePayload.bodyLocKey}
    */
-  static toFcmPayload(fcmQue: FcmQue): {
+  static toFcmPayload(fcmQue: FcmQue, action: Action): {
     notification: { title: string; body: string };
-    data: { programTitle: string; channelName: string; programId: string; channelId: string }
+    data: { programTitle: string; channelName: string; programId: string; channelId: string, action: string }
   } {
     return {
       notification: {
@@ -41,11 +41,24 @@ export class FcmQueUtil {
         programTitle: fcmQue.programTitle,
         channelId: fcmQue.channelId,
         channelName: fcmQue.channelName,
+        action: action,
       },
     };
+  }
+
+  static toTopicChannel(que: FcmQue): string {
+    return `channel_${que.channelId}`;
+  }
+
+  static toTopicProgram(que: FcmQue): string {
+    return `program_${que.programId}`;
   }
 }
 
 export enum FcmQueStatus {
   NONE, MESSAGING, ERROR, SUCCESS,
+}
+
+export enum Action {
+  OPEN_PROGRAM = "OPEN_PROGRAM", OPEN_CHANNEL = "OPEN_CHANNEL",
 }

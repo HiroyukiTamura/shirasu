@@ -53,6 +53,7 @@ class Styles {
       contentTextStyle: TextStyle(
         color: Colors.white,
       ),
+      actionTextColor: PRIMARY_COLOR,
       behavior: SnackBarBehavior.floating,
     ),
     sliderTheme: ThemeData.dark().sliderTheme.copyWith(

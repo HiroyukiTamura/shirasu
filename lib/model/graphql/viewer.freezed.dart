@@ -702,30 +702,20 @@ class _$ViewerUserTearOff {
 
 // ignore: unused_element
   _ViewerUser call(
-      {@required
-          String id,
-      @required
-          String name,
-      @required
-          String icon,
-      @required
-          InvoiceHistory invoiceHistory,
-      @required
-          WatchHistories watchHistories,
-      @required
-      @JsonKey(name: 'subscribedChannels')
-      @protected
-          List<SubscribedChannel> rawSubscribedChannels,
-      @required
-      @JsonKey(name: '__typename')
-          String typename}) {
+      {@required String id,
+      @required String name,
+      @required String icon,
+      @required InvoiceHistory invoiceHistory,
+      @required WatchHistories watchHistories,
+      @required SubscribedChannels subscribedChannels,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _ViewerUser(
       id: id,
       name: name,
       icon: icon,
       invoiceHistory: invoiceHistory,
       watchHistories: watchHistories,
-      rawSubscribedChannels: rawSubscribedChannels,
+      subscribedChannels: subscribedChannels,
       typename: typename,
     );
   }
@@ -747,9 +737,7 @@ mixin _$ViewerUser {
   String get icon;
   InvoiceHistory get invoiceHistory;
   WatchHistories get watchHistories;
-  @JsonKey(name: 'subscribedChannels')
-  @protected
-  List<SubscribedChannel> get rawSubscribedChannels;
+  SubscribedChannels get subscribedChannels;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -769,14 +757,12 @@ abstract class $ViewerUserCopyWith<$Res> {
       String icon,
       InvoiceHistory invoiceHistory,
       WatchHistories watchHistories,
-      @JsonKey(name: 'subscribedChannels')
-      @protected
-          List<SubscribedChannel> rawSubscribedChannels,
-      @JsonKey(name: '__typename')
-          String typename});
+      SubscribedChannels subscribedChannels,
+      @JsonKey(name: '__typename') String typename});
 
   $InvoiceHistoryCopyWith<$Res> get invoiceHistory;
   $WatchHistoriesCopyWith<$Res> get watchHistories;
+  $SubscribedChannelsCopyWith<$Res> get subscribedChannels;
 }
 
 /// @nodoc
@@ -794,7 +780,7 @@ class _$ViewerUserCopyWithImpl<$Res> implements $ViewerUserCopyWith<$Res> {
     Object icon = freezed,
     Object invoiceHistory = freezed,
     Object watchHistories = freezed,
-    Object rawSubscribedChannels = freezed,
+    Object subscribedChannels = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
@@ -807,9 +793,9 @@ class _$ViewerUserCopyWithImpl<$Res> implements $ViewerUserCopyWith<$Res> {
       watchHistories: watchHistories == freezed
           ? _value.watchHistories
           : watchHistories as WatchHistories,
-      rawSubscribedChannels: rawSubscribedChannels == freezed
-          ? _value.rawSubscribedChannels
-          : rawSubscribedChannels as List<SubscribedChannel>,
+      subscribedChannels: subscribedChannels == freezed
+          ? _value.subscribedChannels
+          : subscribedChannels as SubscribedChannels,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -833,6 +819,17 @@ class _$ViewerUserCopyWithImpl<$Res> implements $ViewerUserCopyWith<$Res> {
       return _then(_value.copyWith(watchHistories: value));
     });
   }
+
+  @override
+  $SubscribedChannelsCopyWith<$Res> get subscribedChannels {
+    if (_value.subscribedChannels == null) {
+      return null;
+    }
+    return $SubscribedChannelsCopyWith<$Res>(_value.subscribedChannels,
+        (value) {
+      return _then(_value.copyWith(subscribedChannels: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -847,16 +844,15 @@ abstract class _$ViewerUserCopyWith<$Res> implements $ViewerUserCopyWith<$Res> {
       String icon,
       InvoiceHistory invoiceHistory,
       WatchHistories watchHistories,
-      @JsonKey(name: 'subscribedChannels')
-      @protected
-          List<SubscribedChannel> rawSubscribedChannels,
-      @JsonKey(name: '__typename')
-          String typename});
+      SubscribedChannels subscribedChannels,
+      @JsonKey(name: '__typename') String typename});
 
   @override
   $InvoiceHistoryCopyWith<$Res> get invoiceHistory;
   @override
   $WatchHistoriesCopyWith<$Res> get watchHistories;
+  @override
+  $SubscribedChannelsCopyWith<$Res> get subscribedChannels;
 }
 
 /// @nodoc
@@ -876,7 +872,7 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
     Object icon = freezed,
     Object invoiceHistory = freezed,
     Object watchHistories = freezed,
-    Object rawSubscribedChannels = freezed,
+    Object subscribedChannels = freezed,
     Object typename = freezed,
   }) {
     return _then(_ViewerUser(
@@ -889,9 +885,9 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
       watchHistories: watchHistories == freezed
           ? _value.watchHistories
           : watchHistories as WatchHistories,
-      rawSubscribedChannels: rawSubscribedChannels == freezed
-          ? _value.rawSubscribedChannels
-          : rawSubscribedChannels as List<SubscribedChannel>,
+      subscribedChannels: subscribedChannels == freezed
+          ? _value.subscribedChannels
+          : subscribedChannels as SubscribedChannels,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -902,29 +898,19 @@ class __$ViewerUserCopyWithImpl<$Res> extends _$ViewerUserCopyWithImpl<$Res>
 /// @nodoc
 class _$_ViewerUser extends _ViewerUser {
   const _$_ViewerUser(
-      {@required
-          this.id,
-      @required
-          this.name,
-      @required
-          this.icon,
-      @required
-          this.invoiceHistory,
-      @required
-          this.watchHistories,
-      @required
-      @JsonKey(name: 'subscribedChannels')
-      @protected
-          this.rawSubscribedChannels,
-      @required
-      @JsonKey(name: '__typename')
-          this.typename})
+      {@required this.id,
+      @required this.name,
+      @required this.icon,
+      @required this.invoiceHistory,
+      @required this.watchHistories,
+      @required this.subscribedChannels,
+      @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(name != null),
         assert(icon != null),
         assert(invoiceHistory != null),
         assert(watchHistories != null),
-        assert(rawSubscribedChannels != null),
+        assert(subscribedChannels != null),
         assert(typename != null),
         assert(typename == "User"),
         super._();
@@ -943,16 +929,14 @@ class _$_ViewerUser extends _ViewerUser {
   @override
   final WatchHistories watchHistories;
   @override
-  @JsonKey(name: 'subscribedChannels')
-  @protected
-  final List<SubscribedChannel> rawSubscribedChannels;
+  final SubscribedChannels subscribedChannels;
   @override
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'ViewerUser(id: $id, name: $name, icon: $icon, invoiceHistory: $invoiceHistory, watchHistories: $watchHistories, rawSubscribedChannels: $rawSubscribedChannels, typename: $typename)';
+    return 'ViewerUser(id: $id, name: $name, icon: $icon, invoiceHistory: $invoiceHistory, watchHistories: $watchHistories, subscribedChannels: $subscribedChannels, typename: $typename)';
   }
 
   @override
@@ -971,9 +955,9 @@ class _$_ViewerUser extends _ViewerUser {
             (identical(other.watchHistories, watchHistories) ||
                 const DeepCollectionEquality()
                     .equals(other.watchHistories, watchHistories)) &&
-            (identical(other.rawSubscribedChannels, rawSubscribedChannels) ||
-                const DeepCollectionEquality().equals(
-                    other.rawSubscribedChannels, rawSubscribedChannels)) &&
+            (identical(other.subscribedChannels, subscribedChannels) ||
+                const DeepCollectionEquality()
+                    .equals(other.subscribedChannels, subscribedChannels)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -987,7 +971,7 @@ class _$_ViewerUser extends _ViewerUser {
       const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(invoiceHistory) ^
       const DeepCollectionEquality().hash(watchHistories) ^
-      const DeepCollectionEquality().hash(rawSubscribedChannels) ^
+      const DeepCollectionEquality().hash(subscribedChannels) ^
       const DeepCollectionEquality().hash(typename);
 
   @JsonKey(ignore: true)
@@ -1004,23 +988,13 @@ class _$_ViewerUser extends _ViewerUser {
 abstract class _ViewerUser extends ViewerUser {
   const _ViewerUser._() : super._();
   const factory _ViewerUser(
-      {@required
-          String id,
-      @required
-          String name,
-      @required
-          String icon,
-      @required
-          InvoiceHistory invoiceHistory,
-      @required
-          WatchHistories watchHistories,
-      @required
-      @JsonKey(name: 'subscribedChannels')
-      @protected
-          List<SubscribedChannel> rawSubscribedChannels,
-      @required
-      @JsonKey(name: '__typename')
-          String typename}) = _$_ViewerUser;
+      {@required String id,
+      @required String name,
+      @required String icon,
+      @required InvoiceHistory invoiceHistory,
+      @required WatchHistories watchHistories,
+      @required SubscribedChannels subscribedChannels,
+      @required @JsonKey(name: '__typename') String typename}) = _$_ViewerUser;
 
   factory _ViewerUser.fromJson(Map<String, dynamic> json) =
       _$_ViewerUser.fromJson;
@@ -1036,15 +1010,212 @@ abstract class _ViewerUser extends ViewerUser {
   @override
   WatchHistories get watchHistories;
   @override
-  @JsonKey(name: 'subscribedChannels')
-  @protected
-  List<SubscribedChannel> get rawSubscribedChannels;
+  SubscribedChannels get subscribedChannels;
   @override
   @JsonKey(name: '__typename')
   String get typename;
   @override
   @JsonKey(ignore: true)
   _$ViewerUserCopyWith<_ViewerUser> get copyWith;
+}
+
+SubscribedChannels _$SubscribedChannelsFromJson(Map<String, dynamic> json) {
+  return _SubscribedChannels.fromJson(json);
+}
+
+/// @nodoc
+class _$SubscribedChannelsTearOff {
+  const _$SubscribedChannelsTearOff();
+
+// ignore: unused_element
+  _SubscribedChannels call(
+      {@required
+      @JsonKey(name: 'items')
+      @protected
+          List<SubscribedChannel> rawItems,
+      @required
+      @JsonKey(name: '__typename')
+          String typename}) {
+    return _SubscribedChannels(
+      rawItems: rawItems,
+      typename: typename,
+    );
+  }
+
+// ignore: unused_element
+  SubscribedChannels fromJson(Map<String, Object> json) {
+    return SubscribedChannels.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $SubscribedChannels = _$SubscribedChannelsTearOff();
+
+/// @nodoc
+mixin _$SubscribedChannels {
+  @JsonKey(name: 'items')
+  @protected
+  List<SubscribedChannel> get rawItems;
+  @JsonKey(name: '__typename')
+  String get typename;
+
+  Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
+  $SubscribedChannelsCopyWith<SubscribedChannels> get copyWith;
+}
+
+/// @nodoc
+abstract class $SubscribedChannelsCopyWith<$Res> {
+  factory $SubscribedChannelsCopyWith(
+          SubscribedChannels value, $Res Function(SubscribedChannels) then) =
+      _$SubscribedChannelsCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: 'items') @protected List<SubscribedChannel> rawItems,
+      @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class _$SubscribedChannelsCopyWithImpl<$Res>
+    implements $SubscribedChannelsCopyWith<$Res> {
+  _$SubscribedChannelsCopyWithImpl(this._value, this._then);
+
+  final SubscribedChannels _value;
+  // ignore: unused_field
+  final $Res Function(SubscribedChannels) _then;
+
+  @override
+  $Res call({
+    Object rawItems = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_value.copyWith(
+      rawItems: rawItems == freezed
+          ? _value.rawItems
+          : rawItems as List<SubscribedChannel>,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$SubscribedChannelsCopyWith<$Res>
+    implements $SubscribedChannelsCopyWith<$Res> {
+  factory _$SubscribedChannelsCopyWith(
+          _SubscribedChannels value, $Res Function(_SubscribedChannels) then) =
+      __$SubscribedChannelsCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: 'items') @protected List<SubscribedChannel> rawItems,
+      @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class __$SubscribedChannelsCopyWithImpl<$Res>
+    extends _$SubscribedChannelsCopyWithImpl<$Res>
+    implements _$SubscribedChannelsCopyWith<$Res> {
+  __$SubscribedChannelsCopyWithImpl(
+      _SubscribedChannels _value, $Res Function(_SubscribedChannels) _then)
+      : super(_value, (v) => _then(v as _SubscribedChannels));
+
+  @override
+  _SubscribedChannels get _value => super._value as _SubscribedChannels;
+
+  @override
+  $Res call({
+    Object rawItems = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_SubscribedChannels(
+      rawItems: rawItems == freezed
+          ? _value.rawItems
+          : rawItems as List<SubscribedChannel>,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_SubscribedChannels extends _SubscribedChannels {
+  const _$_SubscribedChannels(
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(rawItems != null),
+        assert(typename != null),
+        assert(typename == "SubscribedChannelCollection"),
+        super._();
+
+  factory _$_SubscribedChannels.fromJson(Map<String, dynamic> json) =>
+      _$_$_SubscribedChannelsFromJson(json);
+
+  @override
+  @JsonKey(name: 'items')
+  @protected
+  final List<SubscribedChannel> rawItems;
+  @override
+  @JsonKey(name: '__typename')
+  final String typename;
+
+  @override
+  String toString() {
+    return 'SubscribedChannels(rawItems: $rawItems, typename: $typename)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _SubscribedChannels &&
+            (identical(other.rawItems, rawItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.rawItems, rawItems)) &&
+            (identical(other.typename, typename) ||
+                const DeepCollectionEquality()
+                    .equals(other.typename, typename)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(rawItems) ^
+      const DeepCollectionEquality().hash(typename);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SubscribedChannelsCopyWith<_SubscribedChannels> get copyWith =>
+      __$SubscribedChannelsCopyWithImpl<_SubscribedChannels>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_SubscribedChannelsToJson(this);
+  }
+}
+
+abstract class _SubscribedChannels extends SubscribedChannels {
+  const _SubscribedChannels._() : super._();
+  const factory _SubscribedChannels(
+      {@required
+      @JsonKey(name: 'items')
+      @protected
+          List<SubscribedChannel> rawItems,
+      @required
+      @JsonKey(name: '__typename')
+          String typename}) = _$_SubscribedChannels;
+
+  factory _SubscribedChannels.fromJson(Map<String, dynamic> json) =
+      _$_SubscribedChannels.fromJson;
+
+  @override
+  @JsonKey(name: 'items')
+  @protected
+  List<SubscribedChannel> get rawItems;
+  @override
+  @JsonKey(name: '__typename')
+  String get typename;
+  @override
+  @JsonKey(ignore: true)
+  _$SubscribedChannelsCopyWith<_SubscribedChannels> get copyWith;
 }
 
 InvoiceHistory _$InvoiceHistoryFromJson(Map<String, dynamic> json) {
@@ -1061,13 +1232,11 @@ class _$InvoiceHistoryTearOff {
       @JsonKey(name: 'items')
       @protected
           List<InvoiceHistoryItem> rawItems,
-      String nextToken,
       @required
       @JsonKey(name: '__typename')
           String typename}) {
     return _InvoiceHistory(
       rawItems: rawItems,
-      nextToken: nextToken,
       typename: typename,
     );
   }
@@ -1087,7 +1256,6 @@ mixin _$InvoiceHistory {
   @JsonKey(name: 'items')
   @protected
   List<InvoiceHistoryItem> get rawItems;
-  String get nextToken;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -1103,7 +1271,6 @@ abstract class $InvoiceHistoryCopyWith<$Res> {
       _$InvoiceHistoryCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'items') @protected List<InvoiceHistoryItem> rawItems,
-      String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1119,14 +1286,12 @@ class _$InvoiceHistoryCopyWithImpl<$Res>
   @override
   $Res call({
     Object rawItems = freezed,
-    Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
       rawItems: rawItems == freezed
           ? _value.rawItems
           : rawItems as List<InvoiceHistoryItem>,
-      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1141,7 +1306,6 @@ abstract class _$InvoiceHistoryCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: 'items') @protected List<InvoiceHistoryItem> rawItems,
-      String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1159,14 +1323,12 @@ class __$InvoiceHistoryCopyWithImpl<$Res>
   @override
   $Res call({
     Object rawItems = freezed,
-    Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_InvoiceHistory(
       rawItems: rawItems == freezed
           ? _value.rawItems
           : rawItems as List<InvoiceHistoryItem>,
-      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1178,7 +1340,6 @@ class __$InvoiceHistoryCopyWithImpl<$Res>
 class _$_InvoiceHistory extends _InvoiceHistory {
   const _$_InvoiceHistory(
       {@required @JsonKey(name: 'items') @protected this.rawItems,
-      this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(rawItems != null),
         assert(typename != null),
@@ -1193,14 +1354,12 @@ class _$_InvoiceHistory extends _InvoiceHistory {
   @protected
   final List<InvoiceHistoryItem> rawItems;
   @override
-  final String nextToken;
-  @override
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'InvoiceHistory(rawItems: $rawItems, nextToken: $nextToken, typename: $typename)';
+    return 'InvoiceHistory(rawItems: $rawItems, typename: $typename)';
   }
 
   @override
@@ -1210,9 +1369,6 @@ class _$_InvoiceHistory extends _InvoiceHistory {
             (identical(other.rawItems, rawItems) ||
                 const DeepCollectionEquality()
                     .equals(other.rawItems, rawItems)) &&
-            (identical(other.nextToken, nextToken) ||
-                const DeepCollectionEquality()
-                    .equals(other.nextToken, nextToken)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -1222,7 +1378,6 @@ class _$_InvoiceHistory extends _InvoiceHistory {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(rawItems) ^
-      const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
   @JsonKey(ignore: true)
@@ -1243,7 +1398,6 @@ abstract class _InvoiceHistory extends InvoiceHistory {
       @JsonKey(name: 'items')
       @protected
           List<InvoiceHistoryItem> rawItems,
-      String nextToken,
       @required
       @JsonKey(name: '__typename')
           String typename}) = _$_InvoiceHistory;
@@ -1255,8 +1409,6 @@ abstract class _InvoiceHistory extends InvoiceHistory {
   @JsonKey(name: 'items')
   @protected
   List<InvoiceHistoryItem> get rawItems;
-  @override
-  String get nextToken;
   @override
   @JsonKey(name: '__typename')
   String get typename;
@@ -1316,7 +1468,8 @@ mixin _$InvoiceHistoryItem {
   /// use [planTypeStrict]
   @protected
   String get planType;
-  String get status;
+  String
+      get status; // @required @JsonKey(name: 'products') @protected List<Product> rawProducts,
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -1473,7 +1626,7 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   final String planType;
   @override
   final String status;
-  @override
+  @override // @required @JsonKey(name: 'products') @protected List<Product> rawProducts,
   @JsonKey(name: '__typename')
   final String typename;
 
@@ -1564,7 +1717,7 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   String get planType;
   @override
   String get status;
-  @override
+  @override // @required @JsonKey(name: 'products') @protected List<Product> rawProducts,
   @JsonKey(name: '__typename')
   String get typename;
   @override
@@ -1582,20 +1735,24 @@ class _$SubscribedChannelTearOff {
 
 // ignore: unused_element
   _SubscribedChannel call(
-      {@required DateTime subscribedAt,
+      {@required String id,
+      @required DateTime subscribedAt,
       @required DateTime currentPeriodEndAt,
       @required Channel channel,
       @required bool isActive,
       @required String latestInvoiceId,
       @required LatestInvoice latestInvoice,
+      @required String defaultPaymentMethodId,
       @required @JsonKey(name: '__typename') String typename}) {
     return _SubscribedChannel(
+      id: id,
       subscribedAt: subscribedAt,
       currentPeriodEndAt: currentPeriodEndAt,
       channel: channel,
       isActive: isActive,
       latestInvoiceId: latestInvoiceId,
       latestInvoice: latestInvoice,
+      defaultPaymentMethodId: defaultPaymentMethodId,
       typename: typename,
     );
   }
@@ -1612,12 +1769,14 @@ const $SubscribedChannel = _$SubscribedChannelTearOff();
 
 /// @nodoc
 mixin _$SubscribedChannel {
+  String get id;
   DateTime get subscribedAt;
   DateTime get currentPeriodEndAt;
   Channel get channel;
   bool get isActive;
   String get latestInvoiceId;
   LatestInvoice get latestInvoice;
+  String get defaultPaymentMethodId;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -1632,12 +1791,14 @@ abstract class $SubscribedChannelCopyWith<$Res> {
           SubscribedChannel value, $Res Function(SubscribedChannel) then) =
       _$SubscribedChannelCopyWithImpl<$Res>;
   $Res call(
-      {DateTime subscribedAt,
+      {String id,
+      DateTime subscribedAt,
       DateTime currentPeriodEndAt,
       Channel channel,
       bool isActive,
       String latestInvoiceId,
       LatestInvoice latestInvoice,
+      String defaultPaymentMethodId,
       @JsonKey(name: '__typename') String typename});
 
   $ChannelCopyWith<$Res> get channel;
@@ -1655,15 +1816,18 @@ class _$SubscribedChannelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object id = freezed,
     Object subscribedAt = freezed,
     Object currentPeriodEndAt = freezed,
     Object channel = freezed,
     Object isActive = freezed,
     Object latestInvoiceId = freezed,
     Object latestInvoice = freezed,
+    Object defaultPaymentMethodId = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed ? _value.id : id as String,
       subscribedAt: subscribedAt == freezed
           ? _value.subscribedAt
           : subscribedAt as DateTime,
@@ -1678,6 +1842,9 @@ class _$SubscribedChannelCopyWithImpl<$Res>
       latestInvoice: latestInvoice == freezed
           ? _value.latestInvoice
           : latestInvoice as LatestInvoice,
+      defaultPaymentMethodId: defaultPaymentMethodId == freezed
+          ? _value.defaultPaymentMethodId
+          : defaultPaymentMethodId as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1711,12 +1878,14 @@ abstract class _$SubscribedChannelCopyWith<$Res>
       __$SubscribedChannelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime subscribedAt,
+      {String id,
+      DateTime subscribedAt,
       DateTime currentPeriodEndAt,
       Channel channel,
       bool isActive,
       String latestInvoiceId,
       LatestInvoice latestInvoice,
+      String defaultPaymentMethodId,
       @JsonKey(name: '__typename') String typename});
 
   @override
@@ -1738,15 +1907,18 @@ class __$SubscribedChannelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object id = freezed,
     Object subscribedAt = freezed,
     Object currentPeriodEndAt = freezed,
     Object channel = freezed,
     Object isActive = freezed,
     Object latestInvoiceId = freezed,
     Object latestInvoice = freezed,
+    Object defaultPaymentMethodId = freezed,
     Object typename = freezed,
   }) {
     return _then(_SubscribedChannel(
+      id: id == freezed ? _value.id : id as String,
       subscribedAt: subscribedAt == freezed
           ? _value.subscribedAt
           : subscribedAt as DateTime,
@@ -1761,6 +1933,9 @@ class __$SubscribedChannelCopyWithImpl<$Res>
       latestInvoice: latestInvoice == freezed
           ? _value.latestInvoice
           : latestInvoice as LatestInvoice,
+      defaultPaymentMethodId: defaultPaymentMethodId == freezed
+          ? _value.defaultPaymentMethodId
+          : defaultPaymentMethodId as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1771,25 +1946,31 @@ class __$SubscribedChannelCopyWithImpl<$Res>
 /// @nodoc
 class _$_SubscribedChannel implements _SubscribedChannel {
   const _$_SubscribedChannel(
-      {@required this.subscribedAt,
+      {@required this.id,
+      @required this.subscribedAt,
       @required this.currentPeriodEndAt,
       @required this.channel,
       @required this.isActive,
       @required this.latestInvoiceId,
       @required this.latestInvoice,
+      @required this.defaultPaymentMethodId,
       @required @JsonKey(name: '__typename') this.typename})
-      : assert(subscribedAt != null),
+      : assert(id != null),
+        assert(subscribedAt != null),
         assert(currentPeriodEndAt != null),
         assert(channel != null),
         assert(isActive != null),
         assert(latestInvoiceId != null),
         assert(latestInvoice != null),
+        assert(defaultPaymentMethodId != null),
         assert(typename != null),
         assert(typename == "SubscribedChannel");
 
   factory _$_SubscribedChannel.fromJson(Map<String, dynamic> json) =>
       _$_$_SubscribedChannelFromJson(json);
 
+  @override
+  final String id;
   @override
   final DateTime subscribedAt;
   @override
@@ -1803,18 +1984,22 @@ class _$_SubscribedChannel implements _SubscribedChannel {
   @override
   final LatestInvoice latestInvoice;
   @override
+  final String defaultPaymentMethodId;
+  @override
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'SubscribedChannel(subscribedAt: $subscribedAt, currentPeriodEndAt: $currentPeriodEndAt, channel: $channel, isActive: $isActive, latestInvoiceId: $latestInvoiceId, latestInvoice: $latestInvoice, typename: $typename)';
+    return 'SubscribedChannel(id: $id, subscribedAt: $subscribedAt, currentPeriodEndAt: $currentPeriodEndAt, channel: $channel, isActive: $isActive, latestInvoiceId: $latestInvoiceId, latestInvoice: $latestInvoice, defaultPaymentMethodId: $defaultPaymentMethodId, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _SubscribedChannel &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.subscribedAt, subscribedAt) ||
                 const DeepCollectionEquality()
                     .equals(other.subscribedAt, subscribedAt)) &&
@@ -1833,6 +2018,9 @@ class _$_SubscribedChannel implements _SubscribedChannel {
             (identical(other.latestInvoice, latestInvoice) ||
                 const DeepCollectionEquality()
                     .equals(other.latestInvoice, latestInvoice)) &&
+            (identical(other.defaultPaymentMethodId, defaultPaymentMethodId) ||
+                const DeepCollectionEquality().equals(
+                    other.defaultPaymentMethodId, defaultPaymentMethodId)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -1841,12 +2029,14 @@ class _$_SubscribedChannel implements _SubscribedChannel {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(subscribedAt) ^
       const DeepCollectionEquality().hash(currentPeriodEndAt) ^
       const DeepCollectionEquality().hash(channel) ^
       const DeepCollectionEquality().hash(isActive) ^
       const DeepCollectionEquality().hash(latestInvoiceId) ^
       const DeepCollectionEquality().hash(latestInvoice) ^
+      const DeepCollectionEquality().hash(defaultPaymentMethodId) ^
       const DeepCollectionEquality().hash(typename);
 
   @JsonKey(ignore: true)
@@ -1862,18 +2052,22 @@ class _$_SubscribedChannel implements _SubscribedChannel {
 
 abstract class _SubscribedChannel implements SubscribedChannel {
   const factory _SubscribedChannel(
-          {@required DateTime subscribedAt,
+          {@required String id,
+          @required DateTime subscribedAt,
           @required DateTime currentPeriodEndAt,
           @required Channel channel,
           @required bool isActive,
           @required String latestInvoiceId,
           @required LatestInvoice latestInvoice,
+          @required String defaultPaymentMethodId,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_SubscribedChannel;
 
   factory _SubscribedChannel.fromJson(Map<String, dynamic> json) =
       _$_SubscribedChannel.fromJson;
 
+  @override
+  String get id;
   @override
   DateTime get subscribedAt;
   @override
@@ -1886,6 +2080,8 @@ abstract class _SubscribedChannel implements SubscribedChannel {
   String get latestInvoiceId;
   @override
   LatestInvoice get latestInvoice;
+  @override
+  String get defaultPaymentMethodId;
   @override
   @JsonKey(name: '__typename')
   String get typename;
@@ -1906,12 +2102,10 @@ class _$ChannelTearOff {
   _Channel call(
       {@required String id,
       @required String name,
-      dynamic icon,
       @required @JsonKey(name: '__typename') String typename}) {
     return _Channel(
       id: id,
       name: name,
-      icon: icon,
       typename: typename,
     );
   }
@@ -1930,7 +2124,6 @@ const $Channel = _$ChannelTearOff();
 mixin _$Channel {
   String get id;
   String get name;
-  dynamic get icon;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -1944,10 +2137,7 @@ abstract class $ChannelCopyWith<$Res> {
   factory $ChannelCopyWith(Channel value, $Res Function(Channel) then) =
       _$ChannelCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      String name,
-      dynamic icon,
-      @JsonKey(name: '__typename') String typename});
+      {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1962,13 +2152,11 @@ class _$ChannelCopyWithImpl<$Res> implements $ChannelCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object icon = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      icon: icon == freezed ? _value.icon : icon as dynamic,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1980,10 +2168,7 @@ abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
       __$ChannelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      String name,
-      dynamic icon,
-      @JsonKey(name: '__typename') String typename});
+      {String id, String name, @JsonKey(name: '__typename') String typename});
 }
 
 /// @nodoc
@@ -1999,13 +2184,11 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object icon = freezed,
     Object typename = freezed,
   }) {
     return _then(_Channel(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      icon: icon == freezed ? _value.icon : icon as dynamic,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -2018,7 +2201,6 @@ class _$_Channel implements _Channel {
   const _$_Channel(
       {@required this.id,
       @required this.name,
-      this.icon,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(name != null),
@@ -2033,14 +2215,12 @@ class _$_Channel implements _Channel {
   @override
   final String name;
   @override
-  final dynamic icon;
-  @override
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'Channel(id: $id, name: $name, icon: $icon, typename: $typename)';
+    return 'Channel(id: $id, name: $name, typename: $typename)';
   }
 
   @override
@@ -2051,8 +2231,6 @@ class _$_Channel implements _Channel {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.icon, icon) ||
-                const DeepCollectionEquality().equals(other.icon, icon)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -2063,7 +2241,6 @@ class _$_Channel implements _Channel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(typename);
 
   @JsonKey(ignore: true)
@@ -2081,7 +2258,6 @@ abstract class _Channel implements Channel {
   const factory _Channel(
       {@required String id,
       @required String name,
-      dynamic icon,
       @required @JsonKey(name: '__typename') String typename}) = _$_Channel;
 
   factory _Channel.fromJson(Map<String, dynamic> json) = _$_Channel.fromJson;
@@ -2090,8 +2266,6 @@ abstract class _Channel implements Channel {
   String get id;
   @override
   String get name;
-  @override
-  dynamic get icon;
   @override
   @JsonKey(name: '__typename')
   String get typename;

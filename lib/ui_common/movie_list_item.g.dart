@@ -7,16 +7,25 @@ part of 'movie_list_item.dart';
 // **************************************************************************
 
 class MovieListItem extends StatelessWidget {
-  const MovieListItem({Key key, @required this.program, @required this.onTap})
+  const MovieListItem(
+      {Key key,
+      @required this.id,
+      @required this.title,
+      @required this.broadcastAt,
+      @required this.onTap})
       : super(key: key);
 
-  final BaseProgram program;
+  final String id;
+
+  final String title;
+
+  final DateTime broadcastAt;
 
   final void Function() onTap;
 
   @override
-  Widget build(BuildContext _context) =>
-      movieListItem(_context, program: program, onTap: onTap);
+  Widget build(BuildContext _context) => movieListItem(_context,
+      id: id, title: title, broadcastAt: broadcastAt, onTap: onTap);
 }
 
 class MovieListBigItem extends StatelessWidget {

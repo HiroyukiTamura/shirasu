@@ -99,7 +99,9 @@ Widget _listView({
       else {
         final program = channelPrograms.items[i];
         return MovieListItem(
-          program: program,
+          id: program.id,
+          broadcastAt: program.broadcastAt,
+          title: program.title,
           onTap: () async => context.pushProgramPage(program.id),
         );
       }

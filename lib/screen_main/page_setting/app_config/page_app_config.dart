@@ -14,6 +14,7 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 
 part 'page_app_config.g.dart';
 
+// todo notification setting
 @swidget
 Widget pageAppConfig(BuildContext context) => ListView(
       children: [

@@ -55,5 +55,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+    	<string>com.cks.shirasu</string>
+    </array>
 </dict>
 </plist>

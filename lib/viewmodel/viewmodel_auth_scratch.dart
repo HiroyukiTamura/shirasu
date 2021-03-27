@@ -15,6 +15,7 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_auth_scratch.dart';
 import 'package:shirasu/extension.dart';
 import 'package:dartx/dartx.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelAuthScratch extends ViewModelBase<ModelAuthScratch> {
   ViewModelAuthScratch(reader) : super(reader, ModelAuthScratch.initial());
@@ -51,16 +52,17 @@ class ViewModelAuthScratch extends ViewModelBase<ModelAuthScratch> {
       loginState: const LoginState.loading(),
     );
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      final loginResult = await dioClient.login2Shirasu(LoginData(
-        username: userName,
-        password: password,
-      ));
-      await _hiveClient.putAuthData(HiveAuthData.fromDioLogin(
-        loginResult: loginResult,
-      ));
-    });
+    final result = await logger
+        .guardFuture(() async => authOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              final loginResult = await dioClient.login2Shirasu(LoginData(
+                username: userName,
+                password: password,
+              ));
+              await _hiveClient.putAuthData(HiveAuthData.fromDioLogin(
+                loginResult: loginResult,
+              ));
+            }));
 
     if (mounted)
       await result.when(success: (_) async {
@@ -68,9 +70,8 @@ class ViewModelAuthScratch extends ViewModelBase<ModelAuthScratch> {
           loginState: const LoginState.success(),
         );
         _btnController.success();
-        await Future.delayed(1.seconds);// wait for animation
+        await Future.delayed(1.seconds); // wait for animation
         _router.reset();
-
       }, failure: (e) {
         if (e is UnauthorizedException)
           _commandSnack(const SnackMsg.loginInputInvalid());

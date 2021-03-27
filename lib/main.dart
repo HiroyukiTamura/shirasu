@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:background_fetch/background_fetch.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,10 +16,13 @@ import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
+import 'package:shirasu/util.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 /// must via access from ViewModel
@@ -28,6 +32,8 @@ final kPrvSnackBar = StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
 
 final kPrvAppRouterDelegate =
     Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref.read));
+
+Future<void> backgroundFetchHeadlessTask(HeadlessTask task) async => backgroundFetchTask(task.taskId);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,6 +78,30 @@ class MyAppState extends State<MyApp> {
     FirebaseMessaging.instance.getInitialMessage().then(_handleNtf);
     FirebaseMessaging.onMessageOpenedApp.listen(_handleNtf);
     context.read(kPrvNtfMessage).unsubscribeOutDatedPrgTopic();
+    _initBackgroundTask();
+  }
+
+  Future<void> _initBackgroundTask() async {
+    if (Util.useScratchAuth) return;
+
+    await context.read(kPrvLogger).guardFuture(() async {
+      final int status = await BackgroundFetch.configure(
+          BackgroundFetchConfig(
+            minimumFetchInterval: 15,//todo fix
+            stopOnTerminate: false,
+            enableHeadless: true,
+            requiresBatteryNotLow: false,
+            requiresCharging: false,
+            requiresStorageNotLow: false,
+            requiresDeviceIdle: false,
+            requiredNetworkType: NetworkType.NONE,
+          ), backgroundFetchTask, backgroundTaskTimeout);
+      Util.require(status == BackgroundFetch.STATUS_AVAILABLE);
+      final startResult = await BackgroundFetch.start();
+      Util.require(startResult == BackgroundFetch.STATUS_AVAILABLE);
+    });
+
+    await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
   }
 
   @override
@@ -97,5 +127,6 @@ class MyAppState extends State<MyApp> {
         ],
       );
 
-  Future<void> _handleNtf(RemoteMessage message) async => context.read(kPrvNtfMessage).handleNtf(message);
+  Future<void> _handleNtf(RemoteMessage message) async =>
+      context.read(kPrvNtfMessage).handleNtf(message);
 }

@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/repository/graghql_query.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
+import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
@@ -24,7 +25,6 @@ import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/util.dart';
-import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/logger_repository.dart';
 import 'package:shirasu/extension.dart';
 
@@ -44,16 +44,16 @@ class GraphQlRepositoryImpl with GraphQlRepository {
 
   final Reader _reader;
 
-  AuthClientInterceptor get _interceptor => _reader(kPrvAuthClientInterceptor);
-
   LoggerRepository get _logger => _reader(kPrvLogger);
+
+  HiveAuthRepository get _hiveAuthRepository => _reader(kPrvHiveAuthRepository);
 
   static Future<void> openHiveStore() async => HiveStore.open();
 
   GraphQLClient _createClient() {
     final link = Link.from([
       AuthLink(
-        getToken: () async => _interceptor.refreshAuthTokenIfNeeded(),
+        getToken: () => _hiveAuthRepository.authData?.body?.idToken,
       ),
       HttpLink(
         UrlUtil.URL_GRAPHQL,

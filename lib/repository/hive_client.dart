@@ -6,13 +6,14 @@ import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
+import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
-import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 
 abstract class HiveClient<T> {
   const HiveClient(this._boxName);
@@ -41,10 +42,12 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
   @override
   HiveAuthData get authData => box.get(_KEY_AUTH_DATA);
 
+  /// must run under [authOperationLock]
   @override
   Future<void> putAuthData(HiveAuthData data) async =>
       box.put(_KEY_AUTH_DATA, data);
 
+  /// must run under [authOperationLock]
   @override
   Future<void> clearAuthData() async => box.clear();
 
@@ -57,8 +60,9 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
   @override
   bool get maybeExpired => authData?.isExpired == true;
 
+  /// must run under [authOperationLock]
   @override
-  Future<void> appendRefreshedToken(ResultTokenRefresh result) async {
+  Future<void> appendRefreshedToken(LoginResult result) async {
     final body = authData.body.copyWith(
       expiresIn: result.expiresIn,
       accessToken: result.accessToken,
@@ -73,6 +77,7 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
     await putAuthData(data);
   }
 
+  /// must run under [authOperationLock]
   @override
   Future<void> updateProfile(UserWithAttributeData data) async {
     final hiveUser = authData.copyWithEditResult(data.updateUserWithAttribute);

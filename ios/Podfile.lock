@@ -1,6 +1,8 @@
 PODS:
   - "app_settings (3.0.0+1)":
     - Flutter
+  - background_fetch (0.7.1):
+    - Flutter
   - better_player (0.0.1):
     - Flutter
     - KTVHTTPCache (~> 2.0.0)
@@ -183,6 +185,7 @@ PODS:
 
 DEPENDENCIES:
   - app_settings (from `.symlinks/plugins/app_settings/ios`)
+  - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
   - better_player (from `.symlinks/plugins/better_player/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - Firebase/Analytics
@@ -236,6 +239,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   app_settings:
     :path: ".symlinks/plugins/app_settings/ios"
+  background_fetch:
+    :path: ".symlinks/plugins/background_fetch/ios"
   better_player:
     :path: ".symlinks/plugins/better_player/ios"
   connectivity:
@@ -275,6 +280,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_settings: d103828c9f5d515c4df9ee754dabd443f7cedcf3
+  background_fetch: f77e9d12c29db274e83565952268ec846eac7252
   better_player: a4383402f457e53720525888c0fc5d337ef6ba11
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467

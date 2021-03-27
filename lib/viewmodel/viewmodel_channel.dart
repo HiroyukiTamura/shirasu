@@ -10,6 +10,7 @@ import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_channel.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelChannel extends ViewModelBase<ChannelModel> {
   ViewModelChannel(Reader reader, this._channelId)
@@ -32,10 +33,13 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
     if (state != const ChannelModel.preInitialized()) return;
 
     final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      final data = await graphQlRepository
-          .queryChannelData(_channelId)
-          .timeout(GraphQlRepository.TIMEOUT);
+      final data = await authOperationLock.synchronized(() async {
+        await connectivityRepository.ensureNotDisconnect();
+        await interceptor.refreshAuthTokenIfNeeded();
+        return graphQlRepository
+            .queryChannelData(_channelId)
+            .timeout(GraphQlRepository.TIMEOUT);
+      });
       return ChannelModel.success(
         ChannelDataWrapper(
           data: data,
@@ -65,16 +69,17 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
           loading: true,
         ));
 
-        final result = await logger.guardFuture(() async {
-          await connectivityRepository.ensureNotDisconnect();
-
-          return graphQlRepository
-              .queryChannelData(
-                _channelId,
-                nextToken: nextToken,
-              )
-              .timeout(GraphQlRepository.TIMEOUT);
-        });
+        final result = await logger
+            .guardFuture(() async => authOperationLock.synchronized(() async {
+                  await connectivityRepository.ensureNotDisconnect();
+                  await interceptor.refreshAuthTokenIfNeeded();
+                  return graphQlRepository
+                      .queryChannelData(
+                        _channelId,
+                        nextToken: nextToken,
+                      )
+                      .timeout(GraphQlRepository.TIMEOUT);
+                }));
         if (mounted)
           result.when(success: (data) {
             state = state.copyWithAdditionalPrograms(data.channel.programs);

@@ -1,6 +1,6 @@
+import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
-import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import '../widget_test_util/exception.dart';
 
@@ -13,7 +13,7 @@ class HiveAuthRepositoryCommon with HiveAuthRepository {
   final HiveAuthData specAuthData;
 
   @override
-  Future<void> appendRefreshedToken(ResultTokenRefresh result) =>
+  Future<void> appendRefreshedToken(LoginResult result) =>
       throw UnExpectedException();
 
   @override

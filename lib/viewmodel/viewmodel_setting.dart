@@ -21,6 +21,9 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/main.dart';
 import 'package:dartx/dartx.dart';
 
+import 'background_task.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
+
 class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
 
@@ -30,14 +33,20 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
   SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
 
+  AuthClientInterceptor get _interceptor => reader(kPrvAuthClientInterceptor);
+
   @override
   Future<void> initialize() async {
     if (state != SettingModel.initial()) return;
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository.queryViewer().timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => authOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await _interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .queryViewer()
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (mounted)
       result.when(success: (data) {
         Util.require(_isUserIdMatchesLocal(data));
@@ -95,18 +104,21 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
         state = state.copyWith(uploadingProfile: true);
 
-        final result = await logger.guardFuture(() async {
-          await connectivityRepository.ensureNotDisconnect();
-          return graphQlRepository
-              .updateUserWithAttr(variable)
-              .timeout(GraphQlRepository.TIMEOUT);
+        await authOperationLock.synchronized(() async {
+          final result = await logger.guardFuture(() async {
+            await connectivityRepository.ensureNotDisconnect();
+            await _interceptor.refreshAuthTokenIfNeeded();
+            return graphQlRepository
+                .updateUserWithAttr(variable)
+                .timeout(GraphQlRepository.TIMEOUT);
+          });
+          if (mounted)
+            await result.when(
+                success: (data) async => hiveAuthRepository.updateProfile(data),
+                failure: (e) {
+                  notifySnackMsg(toNetworkSnack(e));
+                });
         });
-        if (mounted)
-          await result.when(
-              success: (data) async => hiveAuthRepository.updateProfile(data),
-              failure: (e) {
-                notifySnackMsg(toNetworkSnack(e));
-              });
       } else {
         notifySnackMsg(const SnackMsg.unknown());
       }
@@ -141,11 +153,12 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     if (!mounted) return;
 
-    await hiveAuthRepository.clearAuthData();
+    await authOperationLock
+        .synchronized(() async => hiveAuthRepository.clearAuthData());
 
     state = state.copyWith(isInLoggingOut: false);
     await reader(kPrvAppRouterDelegate)
-        .pushPage(const GlobalRoutePath.preLogin());//todo change to reset?
+        .pushPage(const GlobalRoutePath.preLogin()); //todo change to reset?
   }
 
   void notifySnackMsg(SnackMsg snackMsg) =>

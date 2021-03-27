@@ -11,6 +11,7 @@ import 'package:shirasu/extension.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/main.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 
 part 'viewmodel_watch_history.freezed.dart';
 
@@ -24,12 +25,14 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   Future<void> initialize() async {
     if (state != const WatchHistoryState.initial()) return;
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .queryWatchHistory()
-          .timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => authOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .queryWatchHistory()
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     result.when(success: (data) {
       state = data.viewerUser.watchHistories.items.isEmpty
           ? const WatchHistoryState.resultEmpty()
@@ -56,14 +59,16 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
             isLoadingMore: true,
           ));
 
-          final result = await logger.guardFuture(() async {
-            await connectivityRepository.ensureNotDisconnect();
-            return graphQlRepository
-                .queryWatchHistory(
-                  nextToken: nextToken,
-                )
-                .timeout(GraphQlRepository.TIMEOUT);
-          });
+          final result = await logger
+              .guardFuture(() async => authOperationLock.synchronized(() async {
+                    await connectivityRepository.ensureNotDisconnect();
+                    await interceptor.refreshAuthTokenIfNeeded();
+                    return graphQlRepository
+                        .queryWatchHistory(
+                          nextToken: nextToken,
+                        )
+                        .timeout(GraphQlRepository.TIMEOUT);
+                  }));
           if (mounted)
             result.when(success: (data) {
               final newList = oldData.watchHistories + [data];

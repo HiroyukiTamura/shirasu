@@ -26,6 +26,7 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(Reader reader, this.id)
@@ -69,13 +70,15 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(
       prgDataResult: const DetailModelState.loading(),
     );
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return Util.wait2<ProgramDetailData, ChannelData>(
-              () async => graphQlRepository.queryProgramDetail(id),
-              () async => graphQlRepository.queryChannelData(channelId))
-          .timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => authOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return Util.wait2<ProgramDetailData, ChannelData>(
+                      () async => graphQlRepository.queryProgramDetail(id),
+                      () async => graphQlRepository.queryChannelData(channelId))
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (mounted)
       await result.when(
         success: (data) async {
@@ -111,14 +114,16 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return dioClient.getSignedCookie(
-        prg.id,
-        prg.videoTypeStrict,
-        hiveAuthRepository.authData.body.idToken,
-      );
-    });
+    final result = await logger
+        .guardFuture(() async => authOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return dioClient.getSignedCookie(
+                prg.id,
+                prg.videoTypeStrict,
+                hiveAuthRepository.authData.body.idToken,
+              );
+            }));
     if (mounted)
       state = result.when(
         success: (cookie) =>
@@ -188,17 +193,19 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     final pageNationKey = state.commentHolder.pageNationKey;
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .queryComment(
-            programId: id,
-            beginTime: beginTime,
-            endTime: endTime,
-            sortDirection: sortDirection,
-          )
-          .timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => authOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .queryComment(
+                    programId: id,
+                    beginTime: beginTime,
+                    endTime: endTime,
+                    sortDirection: sortDirection,
+                  )
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (mounted && pageNationKey == state.commentHolder.pageNationKey)
       result.when(
         success: (object) => state = state.copyWith(
@@ -240,14 +247,17 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(isCommentPosting: true);
     final result = await logger.guardFuture(() async {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .postComment(
-            commentTime: state.playOutState.currentPosSafe,
-            programId: id,
-            text: text,
-          )
-          .timeout(GraphQlRepository.TIMEOUT);
+      return authOperationLock.synchronized(() async {
+        await connectivityRepository.ensureNotDisconnect();
+        await interceptor.refreshAuthTokenIfNeeded();
+        return graphQlRepository
+            .postComment(
+              commentTime: state.playOutState.currentPosSafe,
+              programId: id,
+              text: text,
+            )
+            .timeout(GraphQlRepository.TIMEOUT);
+      });
     });
     if (!mounted) return;
 
@@ -270,12 +280,14 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyWith(isHandoutUrlRequesting: true);
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .queryHandOutUrl(id, handoutId)
-          .timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => authOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .queryHandOutUrl(id, handoutId)
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (!mounted) return null;
     final url = result.when(
         success: (url) => url,

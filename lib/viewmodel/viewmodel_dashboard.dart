@@ -13,6 +13,7 @@ import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   ViewModelDashBoard(Reader reader) : super(reader);
@@ -32,14 +33,16 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   Future<void> initialize() async {
     if (state != const DashboardModel.initial()) return;
 
-    final result = await _logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return Util.wait3(
-        _graphQlRepository.queryFeaturedProgramsList,
-        _graphQlRepository.queryNewProgramsList,
-        _graphQlRepository.querySubscribedProgramsList,
-      ).timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await _logger
+        .guardFuture(() async => authOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return Util.wait3(
+                _graphQlRepository.queryFeaturedProgramsList,
+                _graphQlRepository.queryNewProgramsList,
+                _graphQlRepository.querySubscribedProgramsList,
+              ).timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (!isMounted) return;
     result.when(success: (data) {
       final apiData = ApiData(
@@ -67,14 +70,16 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
       state = oldState.copyWith.data(loadingMore: true);
 
-      final result = await _logger.guardFuture(() async {
-        await connectivityRepository.ensureNotDisconnect();
-        return _graphQlRepository
-            .queryNewProgramsList(
-              nextToken: nextToken,
-            )
-            .timeout(GraphQlRepository.TIMEOUT);
-      });
+      final result = await _logger
+          .guardFuture(() async => authOperationLock.synchronized(() async {
+                await connectivityRepository.ensureNotDisconnect();
+                await interceptor.refreshAuthTokenIfNeeded();
+                return _graphQlRepository
+                    .queryNewProgramsList(
+                      nextToken: nextToken,
+                    )
+                    .timeout(GraphQlRepository.TIMEOUT);
+              }));
       if (isMounted)
         result.when(success: (data) {
           state = state.appendLoadMoreData(data);

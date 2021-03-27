@@ -10,7 +10,6 @@ import 'package:shirasu/model/network/auth_user_data_query.dart';
 import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
-import 'package:shirasu/model/result_token_refresh.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
 import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/dio_repository.dart';
@@ -19,6 +18,7 @@ import 'package:dartx/dartx.dart';
 import 'package:shirasu/util.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:shirasu/util/exceptions.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 
 final kPrvDioRepository =
     Provider.autoDispose<DioRepository>((ref) => DioRepositoryImpl._(ref.read));
@@ -79,24 +79,7 @@ class DioRepositoryImpl with DioRepository, _CookieDioManager {
     }).join('; ');
   }
 
-  /// auth0 API doc: https://auth0.com/docs/tokens/refresh-tokens/use-refresh-tokens
-  @override
-  Future<ResultTokenRefresh> requestRenewToken(
-      String clientId, String refreshToken) async {
-    final result = await _dio.post<Map<String, dynamic>>(
-      UrlUtil.URL_OAUTH_TOKEN,
-      data: {
-        'grant_type': 'refresh_token',
-        'client_id': clientId,
-        'refresh_token': refreshToken,
-      },
-      options: Options(headers: {
-        HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
-      }),
-    );
-    return ResultTokenRefresh.fromJson(result.data);
-  }
-
+  /// must under [authOperationLock]
   @override
   Future<LoginResult> login2Shirasu(LoginData loginData) async =>
       synchronizedCookie((dio) async {
@@ -191,6 +174,29 @@ class DioRepositoryImpl with DioRepository, _CookieDioManager {
     if (!result.hasRedirectCode) throw ArgumentError.value(result.statusCode);
 
     return result.redirectUrl(UrlUtil.URL_AUTH_BASE).toUri();
+  }
+
+  /// must run under [authOperationLock]
+  static Future<LoginResult> renewToken({
+    @required String clientId,
+    @required String refreshToken,
+    @required String audience,
+  }) async {
+    final result = await Dio().post<Map<String, dynamic>>(
+      UrlUtil.URL_OAUTH_TOKEN,
+      data: {
+        'grant_type': 'refresh_token',
+        'client_id': clientId,
+        'refresh_token': refreshToken,
+        'scope': 'openid profile email offline_access',
+        'audience': audience,
+      },
+      options: Options(headers: {
+        HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
+      }),
+    );
+    print(result.data);
+    return LoginResult.fromJson(result.data);
   }
 }
 

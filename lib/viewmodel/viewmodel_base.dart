@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/connectivity_repository_impl.dart';
 import 'package:shirasu/repository/dio_repository.dart';
@@ -103,6 +104,9 @@ mixin _CommonLocator {
 
   @protected
   LoggerRepository get logger => reader(kPrvLogger);
+
+  @protected
+  AuthClientInterceptor get interceptor => reader(kPrvAuthClientInterceptor);
 
   @protected
   ErrorMsgCommon toErrMsg(dynamic e) {

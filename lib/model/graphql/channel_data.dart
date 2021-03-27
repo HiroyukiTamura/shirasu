@@ -25,7 +25,6 @@ abstract class Channel with _$Channel implements BaseChannel {
   const factory Channel({
     @required String id,
     @required String name,
-    @Deprecated('no need to use') dynamic icon,
     String twitterUrl,
     String facebookUrl,
     String textOnPurchaseScreen,

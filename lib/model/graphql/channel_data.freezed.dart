@@ -178,7 +178,6 @@ class _$ChannelTearOff {
   _Channel call(
       {@required String id,
       @required String name,
-      @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
       String textOnPurchaseScreen,
@@ -190,7 +189,6 @@ class _$ChannelTearOff {
     return _Channel(
       id: id,
       name: name,
-      icon: icon,
       twitterUrl: twitterUrl,
       facebookUrl: facebookUrl,
       textOnPurchaseScreen: textOnPurchaseScreen,
@@ -216,8 +214,6 @@ const $Channel = _$ChannelTearOff();
 mixin _$Channel {
   String get id;
   String get name;
-  @Deprecated('no need to use')
-  dynamic get icon;
   String get twitterUrl;
   String get facebookUrl;
   String get textOnPurchaseScreen;
@@ -240,7 +236,6 @@ abstract class $ChannelCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
       String textOnPurchaseScreen,
@@ -267,7 +262,6 @@ class _$ChannelCopyWithImpl<$Res> implements $ChannelCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object icon = freezed,
     Object twitterUrl = freezed,
     Object facebookUrl = freezed,
     Object textOnPurchaseScreen = freezed,
@@ -280,7 +274,6 @@ class _$ChannelCopyWithImpl<$Res> implements $ChannelCopyWith<$Res> {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      icon: icon == freezed ? _value.icon : icon as dynamic,
       twitterUrl:
           twitterUrl == freezed ? _value.twitterUrl : twitterUrl as String,
       facebookUrl:
@@ -340,7 +333,6 @@ abstract class _$ChannelCopyWith<$Res> implements $ChannelCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
       String textOnPurchaseScreen,
@@ -371,7 +363,6 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object icon = freezed,
     Object twitterUrl = freezed,
     Object facebookUrl = freezed,
     Object textOnPurchaseScreen = freezed,
@@ -384,7 +375,6 @@ class __$ChannelCopyWithImpl<$Res> extends _$ChannelCopyWithImpl<$Res>
     return _then(_Channel(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      icon: icon == freezed ? _value.icon : icon as dynamic,
       twitterUrl:
           twitterUrl == freezed ? _value.twitterUrl : twitterUrl as String,
       facebookUrl:
@@ -413,7 +403,6 @@ class _$_Channel extends _Channel {
   const _$_Channel(
       {@required this.id,
       @required this.name,
-      @Deprecated('no need to use') this.icon,
       this.twitterUrl,
       this.facebookUrl,
       this.textOnPurchaseScreen,
@@ -440,9 +429,6 @@ class _$_Channel extends _Channel {
   @override
   final String name;
   @override
-  @Deprecated('no need to use')
-  final dynamic icon;
-  @override
   final String twitterUrl;
   @override
   final String facebookUrl;
@@ -462,7 +448,7 @@ class _$_Channel extends _Channel {
 
   @override
   String toString() {
-    return 'Channel(id: $id, name: $name, icon: $icon, twitterUrl: $twitterUrl, facebookUrl: $facebookUrl, textOnPurchaseScreen: $textOnPurchaseScreen, detail: $detail, typename: $typename, subscriptionPlan: $subscriptionPlan, programs: $programs, announcements: $announcements)';
+    return 'Channel(id: $id, name: $name, twitterUrl: $twitterUrl, facebookUrl: $facebookUrl, textOnPurchaseScreen: $textOnPurchaseScreen, detail: $detail, typename: $typename, subscriptionPlan: $subscriptionPlan, programs: $programs, announcements: $announcements)';
   }
 
   @override
@@ -473,8 +459,6 @@ class _$_Channel extends _Channel {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.icon, icon) ||
-                const DeepCollectionEquality().equals(other.icon, icon)) &&
             (identical(other.twitterUrl, twitterUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.twitterUrl, twitterUrl)) &&
@@ -505,7 +489,6 @@ class _$_Channel extends _Channel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(twitterUrl) ^
       const DeepCollectionEquality().hash(facebookUrl) ^
       const DeepCollectionEquality().hash(textOnPurchaseScreen) ^
@@ -531,7 +514,6 @@ abstract class _Channel extends Channel {
   const factory _Channel(
       {@required String id,
       @required String name,
-      @Deprecated('no need to use') dynamic icon,
       String twitterUrl,
       String facebookUrl,
       String textOnPurchaseScreen,
@@ -547,9 +529,6 @@ abstract class _Channel extends Channel {
   String get id;
   @override
   String get name;
-  @override
-  @Deprecated('no need to use')
-  dynamic get icon;
   @override
   String get twitterUrl;
   @override

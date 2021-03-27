@@ -23,7 +23,6 @@ _$_Channel _$_$_ChannelFromJson(Map<String, dynamic> json) {
   return _$_Channel(
     id: json['id'] as String,
     name: json['name'] as String,
-    icon: json['icon'],
     twitterUrl: json['twitterUrl'] as String,
     facebookUrl: json['facebookUrl'] as String,
     textOnPurchaseScreen: json['textOnPurchaseScreen'] as String,
@@ -46,7 +45,6 @@ Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'icon': instance.icon,
       'twitterUrl': instance.twitterUrl,
       'facebookUrl': instance.facebookUrl,
       'textOnPurchaseScreen': instance.textOnPurchaseScreen,

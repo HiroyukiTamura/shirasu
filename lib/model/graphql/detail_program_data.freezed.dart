@@ -999,14 +999,12 @@ class _$DetailPrgChannelTearOff {
       {@required String id,
       @required String tenantId,
       @required String name,
-      dynamic icon,
       @required String textOnPurchaseScreen,
       @required @JsonKey(name: '__typename') String typename}) {
     return _DetailPrgChannel(
       id: id,
       tenantId: tenantId,
       name: name,
-      icon: icon,
       textOnPurchaseScreen: textOnPurchaseScreen,
       typename: typename,
     );
@@ -1027,7 +1025,6 @@ mixin _$DetailPrgChannel {
   String get id;
   String get tenantId;
   String get name;
-  dynamic get icon;
   String get textOnPurchaseScreen;
   @JsonKey(name: '__typename')
   String get typename;
@@ -1046,7 +1043,6 @@ abstract class $DetailPrgChannelCopyWith<$Res> {
       {String id,
       String tenantId,
       String name,
-      dynamic icon,
       String textOnPurchaseScreen,
       @JsonKey(name: '__typename') String typename});
 }
@@ -1065,7 +1061,6 @@ class _$DetailPrgChannelCopyWithImpl<$Res>
     Object id = freezed,
     Object tenantId = freezed,
     Object name = freezed,
-    Object icon = freezed,
     Object textOnPurchaseScreen = freezed,
     Object typename = freezed,
   }) {
@@ -1073,7 +1068,6 @@ class _$DetailPrgChannelCopyWithImpl<$Res>
       id: id == freezed ? _value.id : id as String,
       tenantId: tenantId == freezed ? _value.tenantId : tenantId as String,
       name: name == freezed ? _value.name : name as String,
-      icon: icon == freezed ? _value.icon : icon as dynamic,
       textOnPurchaseScreen: textOnPurchaseScreen == freezed
           ? _value.textOnPurchaseScreen
           : textOnPurchaseScreen as String,
@@ -1093,7 +1087,6 @@ abstract class _$DetailPrgChannelCopyWith<$Res>
       {String id,
       String tenantId,
       String name,
-      dynamic icon,
       String textOnPurchaseScreen,
       @JsonKey(name: '__typename') String typename});
 }
@@ -1114,7 +1107,6 @@ class __$DetailPrgChannelCopyWithImpl<$Res>
     Object id = freezed,
     Object tenantId = freezed,
     Object name = freezed,
-    Object icon = freezed,
     Object textOnPurchaseScreen = freezed,
     Object typename = freezed,
   }) {
@@ -1122,7 +1114,6 @@ class __$DetailPrgChannelCopyWithImpl<$Res>
       id: id == freezed ? _value.id : id as String,
       tenantId: tenantId == freezed ? _value.tenantId : tenantId as String,
       name: name == freezed ? _value.name : name as String,
-      icon: icon == freezed ? _value.icon : icon as dynamic,
       textOnPurchaseScreen: textOnPurchaseScreen == freezed
           ? _value.textOnPurchaseScreen
           : textOnPurchaseScreen as String,
@@ -1139,7 +1130,6 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
       {@required this.id,
       @required this.tenantId,
       @required this.name,
-      this.icon,
       @required this.textOnPurchaseScreen,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
@@ -1159,8 +1149,6 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
   @override
   final String name;
   @override
-  final dynamic icon;
-  @override
   final String textOnPurchaseScreen;
   @override
   @JsonKey(name: '__typename')
@@ -1168,7 +1156,7 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
 
   @override
   String toString() {
-    return 'DetailPrgChannel(id: $id, tenantId: $tenantId, name: $name, icon: $icon, textOnPurchaseScreen: $textOnPurchaseScreen, typename: $typename)';
+    return 'DetailPrgChannel(id: $id, tenantId: $tenantId, name: $name, textOnPurchaseScreen: $textOnPurchaseScreen, typename: $typename)';
   }
 
   @override
@@ -1182,8 +1170,6 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
                     .equals(other.tenantId, tenantId)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.icon, icon) ||
-                const DeepCollectionEquality().equals(other.icon, icon)) &&
             (identical(other.textOnPurchaseScreen, textOnPurchaseScreen) ||
                 const DeepCollectionEquality().equals(
                     other.textOnPurchaseScreen, textOnPurchaseScreen)) &&
@@ -1198,7 +1184,6 @@ class _$_DetailPrgChannel implements _DetailPrgChannel {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(tenantId) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(icon) ^
       const DeepCollectionEquality().hash(textOnPurchaseScreen) ^
       const DeepCollectionEquality().hash(typename);
 
@@ -1218,7 +1203,6 @@ abstract class _DetailPrgChannel implements DetailPrgChannel {
           {@required String id,
           @required String tenantId,
           @required String name,
-          dynamic icon,
           @required String textOnPurchaseScreen,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_DetailPrgChannel;
@@ -1232,8 +1216,6 @@ abstract class _DetailPrgChannel implements DetailPrgChannel {
   String get tenantId;
   @override
   String get name;
-  @override
-  dynamic get icon;
   @override
   String get textOnPurchaseScreen;
   @override

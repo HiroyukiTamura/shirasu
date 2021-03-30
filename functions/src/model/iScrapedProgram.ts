@@ -1,6 +1,10 @@
 import * as Joi from "joi";
 
-export interface IScrapedProgram {
+export interface AlgoliaObj {
+  objectID: string;
+}
+
+export interface IScrapedProgram extends AlgoliaObj {
   broadcastAt: Date;
   programTitle: string;
   channelTitle: string;
@@ -24,5 +28,7 @@ export class ScrapedProgram implements IScrapedProgram {
       broadcastAt: Joi.date(),
     }).validate(this);
   }
+
+  objectID: string = this.programUrl;
 }
 

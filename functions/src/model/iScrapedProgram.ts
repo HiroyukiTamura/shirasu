@@ -1,15 +1,22 @@
 import * as Joi from "joi";
 
-export interface AlgoliaObj {
+interface AlgoliaObjBase {
   objectID: string;
 }
 
-export interface IScrapedProgram extends AlgoliaObj {
+export interface IScrapedProgram extends AlgoliaObjBase {
   broadcastAt: Date;
   programTitle: string;
   channelTitle: string;
   channelUrl: string;
   programUrl: string;
+}
+
+interface IAlgoliaObj extends IScrapedProgram {
+    programTitleHiragana: string;
+    programTitleKatakana: string;
+    channelTitleHiragana: string;
+    channelTitleKatakana: string;
 }
 
 export class ScrapedProgram implements IScrapedProgram {
@@ -32,3 +39,43 @@ export class ScrapedProgram implements IScrapedProgram {
   objectID: string = this.programUrl;
 }
 
+export class AlgoliaObj extends ScrapedProgram implements IAlgoliaObj {
+    constructor(
+        broadcastAt: Date,
+        channelTitle: string,
+        channelUrl: string,
+        programTitle: string,
+        programUrl: string,
+    public programTitleHiragana: string,
+    public programTitleKatakana: string,
+    public channelTitleHiragana: string,
+    public channelTitleKatakana: string,
+    ) {
+        super(broadcastAt, channelTitle, channelUrl, programTitle, programUrl);
+        Joi.object().keys({
+            channelTitleHiragana: Joi.string().required(),
+            channelTitleKatakana: Joi.string().required(),
+            programTitleHiragana: Joi.string().required(),
+            programTitleKatakana: Joi.string().required(),
+        }).validate(this);
+    }
+
+    static appendReading(obj: IScrapedProgram,
+                         programTitleHiragana: string,
+                         programTitleKatakana: string,
+                         channelTitleHiragana: string,
+                         channelTitleKatakana: string,
+                         ): AlgoliaObj {
+        return new AlgoliaObj(
+            obj.broadcastAt,
+            obj.channelTitle,
+            obj.channelUrl,
+            obj.programTitle,
+            obj.programUrl,
+            programTitleHiragana,
+            programTitleKatakana,
+            channelTitleHiragana,
+            channelTitleHiragana
+        );
+    }
+}

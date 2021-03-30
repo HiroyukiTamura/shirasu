@@ -2,6 +2,7 @@ import functions from "firebase-functions";
 import algoliasearch from "algoliasearch";
 import {IScrapedProgram} from "../model/iScrapedProgram";
 
+
 export class AlgoriaRepositoryImpl {
 
   private static readonly ALGOLIA_INDEX_NAME = "program";

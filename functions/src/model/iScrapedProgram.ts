@@ -17,6 +17,28 @@ interface IAlgoliaObj extends IScrapedProgram {
     programTitleKatakana: string;
     channelTitleHiragana: string;
     channelTitleKatakana: string;
+    tagList: ITagObj[];
+}
+
+export interface ITagObj {
+  tag: string;
+  tagHiragana: string;
+  tagKatakana: string;
+}
+
+export class TagObj implements ITagObj {
+
+  constructor(
+      public tag: string,
+      public tagHiragana: string,
+      public tagKatakana: string,
+  ) {
+    Joi.object().keys({
+      tag: Joi.string().required(),
+      tagHiragana: Joi.string().required().allow(""),
+      tagKatakana: Joi.string().required().allow(""),
+    }).validate(this);
+  }
 }
 
 export class ScrapedProgram implements IScrapedProgram {
@@ -27,7 +49,9 @@ export class ScrapedProgram implements IScrapedProgram {
     public programTitle: string,
     public programUrl: string
   ) {
+    this.objectID = this.programUrl;
     Joi.object().keys({
+      objectID: Joi.string().required(),
       channelTitle: Joi.string().required(),
       channelUrl: Joi.string().required().uri(),
       programTitle: Joi.string().required(),
@@ -36,46 +60,59 @@ export class ScrapedProgram implements IScrapedProgram {
     }).validate(this);
   }
 
-  objectID: string = this.programUrl;
+  objectID: string;
+
+  /**
+   * ex. https://shirasu.io/t/genron/c/genron/p/20210326
+   * => genron-genron-20210326
+   */
+  toProgramId(): string {
+    const pathList = new URL(this.objectID).pathname.split("/");
+    return `${pathList[2]}-${pathList[4]}-${pathList[6]}`;
+  }
 }
 
 export class AlgoliaObj extends ScrapedProgram implements IAlgoliaObj {
-    constructor(
-        broadcastAt: Date,
-        channelTitle: string,
-        channelUrl: string,
-        programTitle: string,
-        programUrl: string,
+  constructor(
+      broadcastAt: Date,
+      channelTitle: string,
+      channelUrl: string,
+      programTitle: string,
+      programUrl: string,
     public programTitleHiragana: string,
     public programTitleKatakana: string,
     public channelTitleHiragana: string,
     public channelTitleKatakana: string,
-    ) {
-        super(broadcastAt, channelTitle, channelUrl, programTitle, programUrl);
-        Joi.object().keys({
-            channelTitleHiragana: Joi.string().required(),
-            channelTitleKatakana: Joi.string().required(),
-            programTitleHiragana: Joi.string().required(),
-            programTitleKatakana: Joi.string().required(),
-        }).validate(this);
-    }
+      public tagList: TagObj[],
+  ) {
+    super(broadcastAt, channelTitle, channelUrl, programTitle, programUrl);
+    Joi.object().keys({
+      channelTitleHiragana: Joi.string().required().allow(""),
+      channelTitleKatakana: Joi.string().required().allow(""),
+      programTitleHiragana: Joi.string().required().allow(""),
+      programTitleKatakana: Joi.string().required().allow(""),
+      tagList: Joi.array().required(),
+    }).validate(this);
+  }
 
-    static appendReading(obj: IScrapedProgram,
-                         programTitleHiragana: string,
-                         programTitleKatakana: string,
-                         channelTitleHiragana: string,
-                         channelTitleKatakana: string,
-                         ): AlgoliaObj {
-        return new AlgoliaObj(
-            obj.broadcastAt,
-            obj.channelTitle,
-            obj.channelUrl,
-            obj.programTitle,
-            obj.programUrl,
-            programTitleHiragana,
-            programTitleKatakana,
-            channelTitleHiragana,
-            channelTitleHiragana
-        );
-    }
+  static appendReading(obj: IScrapedProgram,
+      programTitleHiragana: string,
+      programTitleKatakana: string,
+      channelTitleHiragana: string,
+      channelTitleKatakana: string,
+      tagList: TagObj[],
+  ): AlgoliaObj {
+    return new AlgoliaObj(
+        obj.broadcastAt,
+        obj.channelTitle,
+        obj.channelUrl,
+        obj.programTitle,
+        obj.programUrl,
+        programTitleHiragana,
+        programTitleKatakana,
+        channelTitleHiragana,
+        channelTitleKatakana,
+        tagList,
+    );
+  }
 }

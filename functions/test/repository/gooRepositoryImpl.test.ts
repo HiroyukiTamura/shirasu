@@ -1,37 +1,29 @@
 import {describe, it} from "mocha";
 import {expect} from "chai";
 import {GooApiRepositoryImpl} from "../../src/repository/gooApiRepositoryImpl";
-import {ReadingType} from "../../src/model/goo/requestPayload";
-import * as admin from 'firebase-admin';
-import * as functions from 'firebase-functions';
 
 /**
  * {@see GooApiRepositoryImpl}
  */
 describe("NetworkRepositoryImpl", () => {
 
-    require('firebase-functions-test')();
-    admin.initializeApp(functions.config().firebase);
-
-    const gooApiRepository = new GooApiRepositoryImpl();
+    const repository = new GooApiRepositoryImpl(process.env.YAHOO_API_APP_ID!);
 
     const dummyText = 'Windowsでコンピューターの世界が広がります。1234567890';
-    const outputHiragana = 'うぃんどーずで こんぴゅーたーの せかいが ひろがります。 じゅーにおくさんぜんよんひゃくごじゅーろくまんななせんはっぴゃくきゅーじゅー';
-    const outputKatakana = 'ウィンドーズデ コンピューターノ セカイガ ヒロガリマス。 ジューニオクサンゼンヨンヒャクゴジューロクマンナナセンハッピャクキュージュー';
+    const outputHiragana = 'Windowsでこんぴゅーたーのせかいがひろがります。1234567890';
 
     /**
-     * {@see NetworkRepositoryImpl.requestNewPrograms}
+     * {@see GooApiRepositoryImpl.requestReading}
      */
-    it("requestChannel_hiragana", async () => {
-        const result = await gooApiRepository.requestReading(dummyText, ReadingType.Hiragana);
-        expect(result).to.be.string(outputHiragana);
-    });
+    describe('requestReading', () => {
+        it("normal response", async () => {
+            const result = await repository.requestReading(dummyText);
+            expect(result).to.be.string(outputHiragana);
+        });
 
-    /**
-     * {@see NetworkRepositoryImpl.requestNewPrograms}
-     */
-    it("requestChannel_katakana", async () => {
-        const result = await gooApiRepository.requestReading(dummyText, ReadingType.Katakana);
-        expect(result).to.be.string(outputKatakana);
+        it("invalid input", async () => {
+            const result = await repository.requestReading('');
+            expect(result).to.be.string('');
+        });
     });
 });

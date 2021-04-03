@@ -1,11 +1,12 @@
 import {ApolloClient, gql, HttpLink, InMemoryCache} from "@apollo/client";
 import {AssetsRepository} from "./assetsRepository";
 import {NetworkRepository} from "./networkRepository";
-import {ConvertNewPrograms, ResultNewPrograms} from "../model/graphql/resultNewprograms";
+import {NewProgramsParser, ResultNewPrograms} from "../model/graphql/resultNewprograms";
 import fetch from "isomorphic-fetch";
 import cheerio from "cheerio";
 import moment from "moment";
-import {IScrapedProgram, ScrapedProgram} from "../model/iScrapedProgram";
+import {ScrapedProgram} from "../model/iScrapedProgram";
+import {DetailProgramsParser, ResultDetailProgram} from "../model/graphql/resultDetailProgram";
 
 export class NetworkRepositoryImpl implements NetworkRepository {
 
@@ -37,10 +38,24 @@ export class NetworkRepositoryImpl implements NetworkRepository {
     });
     if (result.error)
       console.error(result.error);
-    return ConvertNewPrograms.toResultNewPrograms(JSON.stringify(result.data));
+    return NewProgramsParser.instance.parseJson(JSON.stringify(result.data));
   }
 
-  async crawlAllProgram(): Promise<IScrapedProgram[]> {
+  async requestProgramDetail(id: string): Promise<ResultDetailProgram> {
+    const queryString = await this.assetsRepository.loadQueryGetProgram();
+    const result = await NetworkRepositoryImpl.CLIENT.query<string>({
+      query: gql(queryString),
+      fetchPolicy: "no-cache",
+      variables: {
+        "id": id,
+      },
+    });
+    if (result.error)
+      console.error(result.error);
+    return DetailProgramsParser.instance.parseJson(JSON.stringify(result.data));
+  }
+
+  async crawlAllProgram(): Promise<ScrapedProgram[]> {
     const response = await fetch(NetworkRepositoryImpl.GENRON_ALPHA_SHIRASU);
     const text = await response.text();
     const $ = cheerio.load(text);
@@ -61,11 +76,11 @@ export class NetworkRepositoryImpl implements NetworkRepository {
         throw Error("programUrl is undefined");
       return new ScrapedProgram(
           time.toDate(),
-          programTitle,
           channelTitle,
           channelUrl,
+          programTitle,
           programUrl,
       );
-    }).get() as IScrapedProgram[];
+    }).get() as ScrapedProgram[];
   }
 }

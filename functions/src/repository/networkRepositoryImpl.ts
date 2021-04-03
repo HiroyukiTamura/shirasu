@@ -5,8 +5,8 @@ import {NewProgramsParser, ResultNewPrograms} from "../model/graphql/resultNewpr
 import fetch from "isomorphic-fetch";
 import cheerio from "cheerio";
 import moment from "moment";
-import {ScrapedProgram} from "../model/iScrapedProgram";
 import {DetailProgramsParser, ResultDetailProgram} from "../model/graphql/resultDetailProgram";
+import {ScrapedProgram} from "../model/algolia/algoliaObj";
 
 export class NetworkRepositoryImpl implements NetworkRepository {
 

@@ -1,9 +1,9 @@
-import {GooApiRepository} from "./gooApiRepository";
+import {ReadingApiRepository} from "./readingApiRepository";
 import fetch from "isomorphic-fetch";
 import cheerio from "cheerio";
 import * as emojiRegex from "emoji-regex";
 
-export class GooApiRepositoryImpl implements GooApiRepository {
+export class ReadingApiRepositoryImpl implements ReadingApiRepository {
 
     private static readonly URL = "https://jlp.yahooapis.jp/FuriganaService/V1/furigana";
     private emojiRegexText = emojiRegex.default();
@@ -16,7 +16,7 @@ export class GooApiRepositoryImpl implements GooApiRepository {
         appid: this.appId,
         sentence: this.validateText(sentence),
       });
-      const url = `${GooApiRepositoryImpl.URL}?${params}`;
+      const url = `${ReadingApiRepositoryImpl.URL}?${params}`;
       const response = await fetch(url);
       if (!response.ok) {
         if (response.status === 503) {
@@ -37,6 +37,9 @@ export class GooApiRepositoryImpl implements GooApiRepository {
 
     /**
      * yahoo API can't handle `-`, `～`, emoji
+     * NOTE: the api returns https status code 503
+     * when the input text has a character that is not included to JIS X 0208.
+     * @see https://developer.yahoo.co.jp/webapi/jlp/furigana/v1/furigana.html
      */
     private validateText(text: string): string {
       let validated = text.replace(/\s+|—|～/g, "");

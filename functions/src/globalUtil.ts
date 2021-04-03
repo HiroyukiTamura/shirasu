@@ -4,6 +4,10 @@ export class GlobalUtil {
     return new Promise(r => setTimeout(r, ms));
   }
 
+  static sleep1s(): Promise<void> {
+    return this.sleep(1000);
+  }
+
   /**
    * @see https://qiita.com/mimoe/items/855c112625d39b066c9a
    */

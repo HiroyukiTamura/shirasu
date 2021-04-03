@@ -1,55 +1,42 @@
 import * as Joi from "joi";
+import {ITagObj, TagObj} from "./tagObj";
 
+/**
+ * @link objectID === programId
+ */
 interface AlgoliaObjBase {
-  objectID: string;
+  readonly objectID: string;
 }
 
+/**
+ * @link programUrl : ex. https://shirasu.io/t/genron/c/genron/p/20210329
+ * @link channelUrl : ex. https://shirasu.io/c/genron
+ */
 export interface IScrapedProgram extends AlgoliaObjBase {
-  broadcastAt: Date;
-  programTitle: string;
-  channelTitle: string;
-  channelUrl: string;
-  programUrl: string;
+  readonly broadcastAt: Date;
+  readonly programTitle: string;
+  readonly channelTitle: string;
+  readonly channelUrl: string;
+  readonly programUrl: string;
 }
 
 interface IAlgoliaObj extends IScrapedProgram {
-    programTitleHiragana: string;
-    programTitleKatakana: string;
-    channelTitleHiragana: string;
-    channelTitleKatakana: string;
-    tagList: ITagObj[];
-}
-
-export interface ITagObj {
-  tag: string;
-  tagHiragana: string;
-  tagKatakana: string;
-}
-
-export class TagObj implements ITagObj {
-
-  constructor(
-      public tag: string,
-      public tagHiragana: string,
-      public tagKatakana: string,
-  ) {
-    Joi.object().keys({
-      tag: Joi.string().required(),
-      tagHiragana: Joi.string().required().allow(""),
-      tagKatakana: Joi.string().required().allow(""),
-    }).validate(this);
-  }
+    readonly programTitleHiragana: string;
+    readonly programTitleKatakana: string;
+    readonly channelTitleHiragana: string;
+    readonly channelTitleKatakana: string;
+    readonly tagList: ITagObj[];
 }
 
 export class ScrapedProgram implements IScrapedProgram {
   constructor(
-    public broadcastAt: Date,
-    public channelTitle: string,
-    public channelUrl: string,
-    public programTitle: string,
-    public programUrl: string
+    readonly broadcastAt: Date,
+    readonly channelTitle: string,
+    readonly channelUrl: string,
+    readonly programTitle: string,
+    readonly programUrl: string
   ) {
-    this.objectID = this.programUrl;
+    this.objectID = this.toProgramId();
     Joi.object().keys({
       objectID: Joi.string().required(),
       channelTitle: Joi.string().required(),
@@ -60,7 +47,7 @@ export class ScrapedProgram implements IScrapedProgram {
     }).validate(this);
   }
 
-  objectID: string;
+  readonly objectID: string;
 
   /**
    * ex. https://shirasu.io/t/genron/c/genron/p/20210326
@@ -79,11 +66,11 @@ export class AlgoliaObj extends ScrapedProgram implements IAlgoliaObj {
       channelUrl: string,
       programTitle: string,
       programUrl: string,
-    public programTitleHiragana: string,
-    public programTitleKatakana: string,
-    public channelTitleHiragana: string,
-    public channelTitleKatakana: string,
-      public tagList: TagObj[],
+      readonly programTitleHiragana: string,
+      readonly programTitleKatakana: string,
+      readonly channelTitleHiragana: string,
+      readonly channelTitleKatakana: string,
+      readonly tagList: TagObj[],
   ) {
     super(broadcastAt, channelTitle, channelUrl, programTitle, programUrl);
     Joi.object().keys({

@@ -1,7 +1,7 @@
 import algoliasearch from "algoliasearch";
-import {AlgoliaObj} from "../model/iScrapedProgram";
 import {SearchIndex} from "algoliasearch/dist/algoliasearch";
 import {ObjectWithObjectID} from "@algolia/client-search";
+import {AlgoliaObj} from "../model/algolia/algoliaObj";
 
 export class AlgoriaRepositoryImpl {
 

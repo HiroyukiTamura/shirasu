@@ -1,19 +1,19 @@
 import {describe, it} from "mocha";
 import {expect} from "chai";
-import {GooApiRepositoryImpl} from "../../src/repository/gooApiRepositoryImpl";
+import {ReadingApiRepositoryImpl} from "../../src/repository/gooApiRepositoryImpl";
 
 /**
- * {@see GooApiRepositoryImpl}
+ * {@see ReadingApiRepositoryImpl}
  */
 describe("NetworkRepositoryImpl", () => {
 
-    const repository = new GooApiRepositoryImpl(process.env.YAHOO_API_APP_ID!);
+    const repository = new ReadingApiRepositoryImpl(process.env.YAHOO_API_APP_ID!);
 
     const dummyText = 'Windowsでコンピューターの世界が広がります。1234567890';
     const outputHiragana = 'Windowsでこんぴゅーたーのせかいがひろがります。1234567890';
 
     /**
-     * {@see GooApiRepositoryImpl.requestReading}
+     * {@see ReadingApiRepositoryImpl.requestReading}
      */
     describe('requestReading', () => {
         it("normal response", async () => {

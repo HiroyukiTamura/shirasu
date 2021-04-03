@@ -1,11 +1,11 @@
 import {ResultNewPrograms} from "../model/graphql/resultNewprograms";
-import {IScrapedProgram} from "../model/iScrapedProgram";
 import {ResultDetailProgram} from "../model/graphql/resultDetailProgram";
+import {ScrapedProgram} from "../model/algolia/algoliaObj";
 
 export interface NetworkRepository {
   requestNewPrograms(): Promise<ResultNewPrograms>
 
-  crawlAllProgram(): Promise<IScrapedProgram[]>
+  crawlAllProgram(): Promise<ScrapedProgram[]>
 
   requestProgramDetail(id: string): Promise<ResultDetailProgram>
 }

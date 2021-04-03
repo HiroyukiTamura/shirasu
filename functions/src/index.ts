@@ -8,4 +8,4 @@ export const crawlAndSendFcm = functions
     .pubsub.schedule("every 1 minutes").onRun(async () => new Controller().crawlAndSendFcm());
 
 export const crawlAndUpdateAlgolia = functions
-    .pubsub.schedule("every 1 days").onRun(async () => new Controller().crawlAndUpdateAlgolia());
+    .pubsub.schedule("0 4 * * *").onRun(async () => new Controller().crawlAndUpdateAlgolia());

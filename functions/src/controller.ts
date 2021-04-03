@@ -21,6 +21,7 @@ export class Controller {
   }
 
   async crawlAndUpdateAlgolia(): Promise<void> {
+    await this.algoliaRepo.clearAll();
     const allPrograms = await this.networkRepo.crawlAllProgram();
     const allProgramIds = allPrograms.map((it) => it.objectID);
     const nonStoredPrgIds = await this.algoliaRepo.filterNotExists(allProgramIds);

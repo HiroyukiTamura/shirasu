@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {JsonParser} from "./jsonParser";
 
 export class NewProgramsParser extends JsonParser {
@@ -26,31 +27,31 @@ export class NewProgramsParser extends JsonParser {
   protected typeMap(): any {
     return {
       "ResultNewPrograms": JsonParser.o([
-      {json: "newPrograms", js: "newPrograms", typ: JsonParser.r("NewPrograms")},
-    ], "any"),
+        {json: "newPrograms", js: "newPrograms", typ: JsonParser.r("NewPrograms")},
+      ], "any"),
       "NewPrograms": JsonParser.o([
-      {json: "items", js: "items", typ: JsonParser.a(JsonParser.r("ProgramItem"))},
-      {json: "nextToken", js: "nextToken", typ: JsonParser.u("", null, undefined)},
+        {json: "items", js: "items", typ: JsonParser.a(JsonParser.r("ProgramItem"))},
+        {json: "nextToken", js: "nextToken", typ: JsonParser.u("", null, undefined)},
       // {json: "__typename", js: "__typename", typ: ""},
-    ], "any"),
+      ], "any"),
       "ProgramItem": JsonParser.o([
-      {json: "broadcastAt", js: "broadcastAt", typ: Date},
-      {json: "channelId", js: "channelId", typ: ""},
-      {json: "id", js: "id", typ: ""},
-      {json: "mainTime", js: "mainTime", typ: 0},
-      {json: "releasedAt", js: "releasedAt", typ: Date},
-      {json: "tenantId", js: "tenantId", typ: ""},
-      {json: "title", js: "title", typ: ""},
-      // {json: "totalPlayTime", js: "totalPlayTime", typ: 0},
-      // {json: "viewerPlanType", js: "viewerPlanType", typ: u(null, "")},
-      {json: "channel", js: "channel", typ: JsonParser.r("Channel")},
+        {json: "broadcastAt", js: "broadcastAt", typ: Date},
+        {json: "channelId", js: "channelId", typ: ""},
+        {json: "id", js: "id", typ: ""},
+        {json: "mainTime", js: "mainTime", typ: 0},
+        {json: "releasedAt", js: "releasedAt", typ: Date},
+        {json: "tenantId", js: "tenantId", typ: ""},
+        {json: "title", js: "title", typ: ""},
+        // {json: "totalPlayTime", js: "totalPlayTime", typ: 0},
+        // {json: "viewerPlanType", js: "viewerPlanType", typ: u(null, "")},
+        {json: "channel", js: "channel", typ: JsonParser.r("Channel")},
       // {json: "__typename", js: "__typename", typ: r("ItemTypename")},
-    ], "any"),
+      ], "any"),
       "Channel": JsonParser.o([
-      {json: "id", js: "id", typ: ""},
-      {json: "name", js: "name", typ: ""},
+        {json: "id", js: "id", typ: ""},
+        {json: "name", js: "name", typ: ""},
       // {json: "__typename", js: "__typename", typ: r("ChannelTypename")},
-    ], "any"),
+      ], "any"),
       // "ItemTypename": [
       //     "Program",
       // ],

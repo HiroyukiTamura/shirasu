@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import {JsonParser} from "./jsonParser";
 
 export class DetailProgramsParser extends JsonParser {

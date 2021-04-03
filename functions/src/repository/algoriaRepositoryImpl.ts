@@ -13,6 +13,10 @@ export class AlgoriaRepositoryImpl {
         .initIndex(AlgoriaRepositoryImpl.ALGOLIA_INDEX_NAME);
   }
 
+  async clearAll(): Promise<void> {
+    await this.client.clearObjects();
+  }
+
   async saveObjects(entries: AlgoliaObj[]): Promise<void> {
     await this.client.saveObjects(entries);
   }

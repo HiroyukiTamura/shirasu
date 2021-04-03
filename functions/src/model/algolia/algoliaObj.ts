@@ -49,7 +49,7 @@ export class ScrapedProgram implements IScrapedProgram {
    * => genron-genron-20210326
    */
   toProgramId(): string {
-    const pathList = new URL(this.objectID).pathname.split("/");
+    const pathList = new URL(this.programUrl).pathname.split("/");
     return `${pathList[2]}-${pathList[4]}-${pathList[6]}`;
   }
 }

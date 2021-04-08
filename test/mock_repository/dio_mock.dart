@@ -3,8 +3,16 @@ import 'package:shirasu/model/algolia/algolia_response.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/dio_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final kPrvDioRepository = Provider.autoDispose.family<DioRepository, AlgoliaResponse>((ref, algoliaResp) => DioRepositoryMock(algoliaResp));
 
 class DioRepositoryMock with DioRepository {
+
+  DioRepositoryMock(this.specResp);
+  
+  final AlgoliaResponse specResp;
+  
   @override
   Future<String> getSignedCookie(String videoId, VideoType videoType, String auth) {
     throw UnimplementedError();
@@ -16,8 +24,6 @@ class DioRepositoryMock with DioRepository {
   }
 
   @override
-  Future<AlgoliaResponse> searchAlgolia({CancelToken cancelToken, String query, int length}) async {
-    return AlgoliaResponse();
-  }
+  Future<AlgoliaResponse> searchAlgolia({CancelToken cancelToken, String query, int length}) async => specResp;
 
 }

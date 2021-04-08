@@ -27,6 +27,7 @@ import '../widget_test_util/json_client.dart';
 import '../widget_test_util/override_util.dart';
 import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_runner_base.dart';
+import '../widget_test_util/test_util.dart';
 
 /// test util for [ViewModelBase]
 class ViewModelTestBase<T> {

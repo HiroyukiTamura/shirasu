@@ -30,15 +30,12 @@ Future<void> main() async {
     test(TestNameCommon.ERR_NETWORK_TIMEOUT,
         () async => testRunner.networkAlgoliaTimeoutOnSubmit());
     test('${TestNameCommon.ERR_NETWORK_TIMEOUT}OnGraphQL',
-            () async => testRunner.networkAlgoliaTimeoutGraphqlOnSubmit());
+        () async => testRunner.networkAlgoliaTimeoutGraphqlOnSubmit());
+  });
 
-    // return testRunner
-    // ..testNetworkDisconnected(
-    //     createSearchModelErr(const ErrorMsgCommon.networkDisconnected()))
-    // ..testNetworkTimeout(
-    //     createSearchModelErr(const ErrorMsgCommon.networkTimeout()))
-    // ..testUnknownError(
-    //     createSearchModelErr(const ErrorMsgCommon.unknown()));
+  group('ViewModelSearch.onTextChange', () {
+    test(TestNameCommon.ERR_UNKNOWN,
+        () async => testRunner.errorOnTextChange());
   });
 }
 
@@ -97,14 +94,26 @@ class _TestRunner extends ViewModelTestBase<ModelSearch> {
       );
 
   Future<void> networkAlgoliaTimeoutGraphqlOnSubmit() async => testTemplate(
-    override: [
-      kOverrideConnectedRepositoryConnectedImpl,
-      kOverrideGraphqlTimeout,
-      kOverrideHiveSearchEmpty,
-      _overrideTextController
-    ],
-    delay: 10.seconds,
-    expectedModel: _errModel(const ErrorMsgCommon.networkTimeout()),
-    predicate: (viewModel) async => viewModel.submit(false),
-  );
+        override: [
+          kOverrideConnectedRepositoryConnectedImpl,
+          kOverrideGraphqlTimeout,
+          kOverrideHiveSearchEmpty,
+          _overrideTextController
+        ],
+        delay: 10.seconds,
+        expectedModel: _errModel(const ErrorMsgCommon.networkTimeout()),
+        predicate: (viewModel) async => viewModel.submit(false),
+      );
+
+  Future<void> errorOnTextChange() async => testTemplate(
+        override: [
+          kOverrideDisconnected,
+          kOverrideHiveSearchEmpty,
+          _overrideTextController
+        ],
+        expectedModel: ModelSearch(
+          textLen: _DUMMY_QUERY.length,
+        ),
+        predicate: (viewModel) async => viewModel.onTextChange(),
+      );
 }

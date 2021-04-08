@@ -9,11 +9,13 @@ import 'package:shirasu/repository/hive_history_repository_impl.dart';
 
 import 'hive_pref_empty.dart';
 
-final kOverrideHiveSearchEmpty = kPrvHiveHistoryRepository.overrideWithValue(const HiveSearchHistoryEmpty());
+final kOverrideHiveSearchEmpty = kPrvHiveHistoryRepository.overrideWithValue(HiveSearchHistoryMock());
 
-class HiveSearchHistoryEmpty with HiveHistoryRepository {
+class HiveSearchHistoryMock with HiveHistoryRepository {
 
-  const HiveSearchHistoryEmpty();
+  HiveSearchHistoryMock({this.initialValues = const []});
+
+  final List<HiveSearchHistoryItem> initialValues;
 
   @override
   Future<void> putSearchHistory(String text) async {}
@@ -22,6 +24,6 @@ class HiveSearchHistoryEmpty with HiveHistoryRepository {
   ValueListenable<Box<HiveSearchHistory>> get valueListener => DummyValueListenable();
 
   @override
-  Future<UnmodifiableListView<HiveSearchHistoryItem>> get values async => <HiveSearchHistoryItem>[].toUnmodifiable();
+  Future<UnmodifiableListView<HiveSearchHistoryItem>> get values async => initialValues.toUnmodifiable();
 
 }

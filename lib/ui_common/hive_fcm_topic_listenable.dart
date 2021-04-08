@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/model/hive/search_history.dart';
 import 'package:shirasu/repository/hive_client.dart';
-import 'package:shirasu/repository/hive_history_repository.dart';
 import 'package:shirasu/repository/hive_history_repository_impl.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

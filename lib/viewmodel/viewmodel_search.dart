@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart' hide Lock;
 import 'package:flutter/cupertino.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/algolia/algolia_response.dart';
-import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/hive_history_repository.dart';
 import 'package:shirasu/repository/hive_history_repository_impl.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -11,20 +12,31 @@ import 'package:synchronized/synchronized.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart';
 import 'package:dartx/dartx.dart';
 
+final kPrvSearchTextController = Provider.autoDispose<TextEditingController>(
+    (ref) => TextEditingController());
+
 class ViewModelSearch extends ViewModelBase<ModelSearch> {
   ViewModelSearch(reader) : super(reader, ModelSearch()) {
-    controller.addListener(_onTextChange);
+    controller.addListener(onTextChange);
     textFiledFocus.addListener(_onTextFiledFocused);
   }
 
   final textFiledFocus = FocusNode();
-  final controller = TextEditingController();
   var _cancelToken = CancelToken();
   var _cancelTokenSearch = CancelToken();
   final _requestLock = Lock();
   final _requestSearchLock = Lock();
 
   HiveHistoryRepository get _searchHistory => reader(kPrvHiveHistoryRepository);
+
+  TextEditingController get controller => reader(kPrvSearchTextController);
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+    textFiledFocus.removeListener(onTextChange);
+  }
 
   void clearTextField() => controller.clear();
 
@@ -36,42 +48,6 @@ class ViewModelSearch extends ViewModelBase<ModelSearch> {
       ..selection = TextSelection.fromPosition(TextPosition(
         offset: controller.text.length,
       ));
-  }
-
-  Future<void> _onTextChange() async {
-    if (!mounted) return;
-
-    state = state.copyWith(
-      textLen: controller.text.length,
-    );
-    return _requestLock.synchronized(() async {
-      _cancelRequest();
-      List<SuggestItem> suggests = [];
-      final queryText = controller.text;
-      if (queryText.isNotEmpty == true) {
-        final result = await logger.guardFuture(
-          () async {
-            final response = await dioClient.searchAlgolia(
-              cancelToken: _cancelToken,
-              query: queryText,
-              length: 20,
-            );
-            return response.toSuggestList();
-          },
-          logError: false,
-        );
-        result.when(
-          success: (data) => suggests = data,
-          failure: (e) {
-            if (!(e is DioError && CancelToken.isCancel(e))) logger.e(e, null);
-          },
-        );
-      }
-      if (mounted)
-        state = state.copyWith(
-          rawSuggestList: suggests,
-        );
-    });
   }
 
   void _onTextFiledFocused() {
@@ -89,6 +65,46 @@ class ViewModelSearch extends ViewModelBase<ModelSearch> {
     state = state.copyWith(
       searchResult: const SearchResult.noDisplay(),
     );
+  }
+
+  @visibleForTesting
+  Future<void> onTextChange() async {
+    if (!mounted) return;
+
+    final queryText = controller.text;
+    state = state.copyWith(
+      textLen: queryText.length,
+    );
+    return _requestLock.synchronized(() async {
+      _cancelRequest();
+      List<SuggestItem> suggests = [];
+      if (queryText.isNotEmpty == true) {
+        final result = await logger.guardFuture(
+          () async {
+            await connectivityRepository.ensureNotDisconnect();
+            final response = await dioClient
+                .searchAlgolia(
+                  cancelToken: _cancelToken,
+                  query: queryText,
+                )
+                .timeout(GraphQlRepository.TIMEOUT);
+            return response.toSuggestList();
+          },
+          logError: false,
+        );
+        result.when(
+          success: (data) => suggests = data,
+          failure: (e) {
+            if (!(e is DioError && CancelToken.isCancel(e))) logger.e(e, null);
+            // we don't show any snackBar
+          },
+        );
+      }
+      if (mounted)
+        state = state.copyWith(
+          rawSuggestList: suggests,
+        );
+    });
   }
 
   Future<void> submit(bool searchByTag) async {
@@ -110,43 +126,48 @@ class ViewModelSearch extends ViewModelBase<ModelSearch> {
         );
         // todo pagination
         final result = await logger.guardFuture(
-          () async => dioClient.searchAlgolia(
-            cancelToken: _cancelTokenSearch,
-            query: queryText,
-          ),
+          () async {
+            await connectivityRepository.ensureNotDisconnect();
+            return dioClient
+                .searchAlgolia(
+                  cancelToken: _cancelTokenSearch,
+                  query: queryText,
+                )
+                .timeout(GraphQlRepository.TIMEOUT);
+          },
           logError: false,
         );
         if (!mounted) return;
         final searchResult = await result.when<FutureOr<SearchResult>>(
           success: (data) async {
             final content = data.toSearchResultItem(searchByTag);
-            final channelDataList = await Future.wait(content.channels.map(
-                (it) async =>
-                    graphQlRepository.queryChannelData(it.hit.channelId)));
-            final searchContent = content.copyWith(
-              channelDataList: channelDataList,
+            final result = await logger.guardFuture(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              final channelDataList = await Future.wait(content.channels.map(
+                      (it) async =>
+                          graphQlRepository.queryChannelData(it.hit.channelId)))
+                  .timeout(GraphQlRepository.TIMEOUT);
+              return content.copyWith(
+                channelDataList: channelDataList,
+              );
+            });
+            return result.when(
+              success: (searchContent) => SearchResult.success(searchContent),
+              failure: (e) => SearchResult.error(toErrMsg(e)),
             );
-            return SearchResult.success(searchContent);
           },
           failure: (e) {
             if (e is DioError && CancelToken.isCancel(e))
               return const SearchResult.canceled();
 
             logger.e(e, null);
-            return const SearchResult.error();
+            return SearchResult.error(toErrMsg(e));
           },
         );
         state = state.copyWith(
           searchResult: searchResult,
         );
       });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    controller.dispose();
-    textFiledFocus.dispose();
   }
 }
 

@@ -49,4 +49,16 @@ class EnvRepositoryTestImpl implements EnvRepository {
     // else
     //   return Assets.jpeg.dummyThmubnailImage;
   }
+
+  @override
+  // TODO: implement algoliaApiKey
+  String get algoliaApiKey => throw UnimplementedError();
+
+  @override
+  // TODO: implement algoliaId
+  String get algoliaId => throw UnimplementedError();
+
+  @override
+  Future<void> load() async {
+  }
 }

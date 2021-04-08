@@ -4,6 +4,7 @@ import 'package:shirasu/viewmodel/model/notification_msg.dart';
 
 part 'error_msg_common.freezed.dart';
 
+/// todo refactor about snack and err message
 @freezed
 abstract class ErrorMsgCommon with _$ErrorMsgCommon, NotificationMsg {
   const factory ErrorMsgCommon.unknown() = _ErrorMsgCommonUnknown;

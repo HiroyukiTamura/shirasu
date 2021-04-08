@@ -231,8 +231,10 @@ class _$SearchResultTearOff {
   }
 
 // ignore: unused_element
-  _SearchResultError error() {
-    return const _SearchResultError();
+  _SearchResultError error(ErrorMsgCommon msg) {
+    return _SearchResultError(
+      msg,
+    );
   }
 
 // ignore: unused_element
@@ -252,7 +254,7 @@ mixin _$SearchResult {
     @required TResult noDisplay(),
     @required TResult success(SearchResultContent content),
     @required TResult loading(),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
     @required TResult canceled(),
   });
   @optionalTypeArgs
@@ -260,7 +262,7 @@ mixin _$SearchResult {
     TResult noDisplay(),
     TResult success(SearchResultContent content),
     TResult loading(),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     TResult canceled(),
     @required TResult orElse(),
   });
@@ -341,7 +343,7 @@ class _$_SearchResultNoDisplay implements _SearchResultNoDisplay {
     @required TResult noDisplay(),
     @required TResult success(SearchResultContent content),
     @required TResult loading(),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
     @required TResult canceled(),
   }) {
     assert(noDisplay != null);
@@ -358,7 +360,7 @@ class _$_SearchResultNoDisplay implements _SearchResultNoDisplay {
     TResult noDisplay(),
     TResult success(SearchResultContent content),
     TResult loading(),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     TResult canceled(),
     @required TResult orElse(),
   }) {
@@ -484,7 +486,7 @@ class _$SearchResultSuccess implements SearchResultSuccess {
     @required TResult noDisplay(),
     @required TResult success(SearchResultContent content),
     @required TResult loading(),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
     @required TResult canceled(),
   }) {
     assert(noDisplay != null);
@@ -501,7 +503,7 @@ class _$SearchResultSuccess implements SearchResultSuccess {
     TResult noDisplay(),
     TResult success(SearchResultContent content),
     TResult loading(),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     TResult canceled(),
     @required TResult orElse(),
   }) {
@@ -598,7 +600,7 @@ class _$_SearchResultLoading implements _SearchResultLoading {
     @required TResult noDisplay(),
     @required TResult success(SearchResultContent content),
     @required TResult loading(),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
     @required TResult canceled(),
   }) {
     assert(noDisplay != null);
@@ -615,7 +617,7 @@ class _$_SearchResultLoading implements _SearchResultLoading {
     TResult noDisplay(),
     TResult success(SearchResultContent content),
     TResult loading(),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     TResult canceled(),
     @required TResult orElse(),
   }) {
@@ -670,6 +672,9 @@ abstract class _$SearchResultErrorCopyWith<$Res> {
   factory _$SearchResultErrorCopyWith(
           _SearchResultError value, $Res Function(_SearchResultError) then) =
       __$SearchResultErrorCopyWithImpl<$Res>;
+  $Res call({ErrorMsgCommon msg});
+
+  $ErrorMsgCommonCopyWith<$Res> get msg;
 }
 
 /// @nodoc
@@ -682,24 +687,55 @@ class __$SearchResultErrorCopyWithImpl<$Res>
 
   @override
   _SearchResultError get _value => super._value as _SearchResultError;
+
+  @override
+  $Res call({
+    Object msg = freezed,
+  }) {
+    return _then(_SearchResultError(
+      msg == freezed ? _value.msg : msg as ErrorMsgCommon,
+    ));
+  }
+
+  @override
+  $ErrorMsgCommonCopyWith<$Res> get msg {
+    if (_value.msg == null) {
+      return null;
+    }
+    return $ErrorMsgCommonCopyWith<$Res>(_value.msg, (value) {
+      return _then(_value.copyWith(msg: value));
+    });
+  }
 }
 
 /// @nodoc
 class _$_SearchResultError implements _SearchResultError {
-  const _$_SearchResultError();
+  const _$_SearchResultError(this.msg) : assert(msg != null);
+
+  @override
+  final ErrorMsgCommon msg;
 
   @override
   String toString() {
-    return 'SearchResult.error()';
+    return 'SearchResult.error(msg: $msg)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _SearchResultError);
+    return identical(this, other) ||
+        (other is _SearchResultError &&
+            (identical(other.msg, msg) ||
+                const DeepCollectionEquality().equals(other.msg, msg)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(msg);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SearchResultErrorCopyWith<_SearchResultError> get copyWith =>
+      __$SearchResultErrorCopyWithImpl<_SearchResultError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -707,7 +743,7 @@ class _$_SearchResultError implements _SearchResultError {
     @required TResult noDisplay(),
     @required TResult success(SearchResultContent content),
     @required TResult loading(),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
     @required TResult canceled(),
   }) {
     assert(noDisplay != null);
@@ -715,7 +751,7 @@ class _$_SearchResultError implements _SearchResultError {
     assert(loading != null);
     assert(error != null);
     assert(canceled != null);
-    return error();
+    return error(msg);
   }
 
   @override
@@ -724,13 +760,13 @@ class _$_SearchResultError implements _SearchResultError {
     TResult noDisplay(),
     TResult success(SearchResultContent content),
     TResult loading(),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     TResult canceled(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error();
+      return error(msg);
     }
     return orElse();
   }
@@ -771,7 +807,11 @@ class _$_SearchResultError implements _SearchResultError {
 }
 
 abstract class _SearchResultError implements SearchResult {
-  const factory _SearchResultError() = _$_SearchResultError;
+  const factory _SearchResultError(ErrorMsgCommon msg) = _$_SearchResultError;
+
+  ErrorMsgCommon get msg;
+  @JsonKey(ignore: true)
+  _$SearchResultErrorCopyWith<_SearchResultError> get copyWith;
 }
 
 /// @nodoc
@@ -816,7 +856,7 @@ class _$_SearchResultCanceled implements _SearchResultCanceled {
     @required TResult noDisplay(),
     @required TResult success(SearchResultContent content),
     @required TResult loading(),
-    @required TResult error(),
+    @required TResult error(ErrorMsgCommon msg),
     @required TResult canceled(),
   }) {
     assert(noDisplay != null);
@@ -833,7 +873,7 @@ class _$_SearchResultCanceled implements _SearchResultCanceled {
     TResult noDisplay(),
     TResult success(SearchResultContent content),
     TResult loading(),
-    TResult error(),
+    TResult error(ErrorMsgCommon msg),
     TResult canceled(),
     @required TResult orElse(),
   }) {

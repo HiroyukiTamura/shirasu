@@ -18,6 +18,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function(String programId) program,
     @required Result Function() dashboard,
     @required Result Function(PageListTabPage initialPage) subscribing,
+    @required Result Function() search,
     @required Result Function() setting,
     @required Result Function() ossLicense,
     @required Result Function() imgLicense,
@@ -40,6 +41,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         dashboard: dashboard,
         subscribing: subscribing,
         setting: setting,
+        search: () {},
       );
     else
       throw ArgumentError.value('unexpected routePath type: $runtimeType');
@@ -88,7 +90,8 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
 abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.intro() = _PathDataIntro;
 
-  const factory GlobalRoutePath.error(bool showLoginBtn, String errText) = PathDataError;
+  const factory GlobalRoutePath.error(bool showLoginBtn, String errText) =
+      PathDataError;
 
   const factory GlobalRoutePath.channel(String channelId) = _PathDataChannel;
 
@@ -118,6 +121,8 @@ abstract class PathDataMainPageBase
   const factory PathDataMainPageBase.subscribing(PageListTabPage index) =
       _PathDataMainPageSubscribing;
 
+  const factory PathDataMainPageBase.search() = _PathDataMainPageSearch;
+
   const factory PathDataMainPageBase.setting() = _PathDataMainPageSetting;
 
   factory PathDataMainPageBase.fromIndex(int index) {
@@ -128,6 +133,8 @@ abstract class PathDataMainPageBase
         return const PathDataMainPageBase.subscribing(
             PageListInMainScreen.PAGE_INDEX_DEFAULT);
       case 2:
+        return const PathDataMainPageBase.search();
+      case 3:
         return const PathDataMainPageBase.setting();
       default:
         throw ArgumentError.value(index);
@@ -137,7 +144,9 @@ abstract class PathDataMainPageBase
   const PathDataMainPageBase._();
 
   int get pageIndex => when(
-      dashboard: () => 0,
-      subscribing: (initialPage) => 1,
-      setting: () => 2);
+        dashboard: () => 0,
+        subscribing: (initialPage) => 1,
+        search: () => 2,
+        setting: () => 3,
+      );
 }

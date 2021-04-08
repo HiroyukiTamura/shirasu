@@ -104,6 +104,12 @@ class Strings {
 
 //endregion
 
+
+  //region ScreenSearch
+  static const HINT_SEARCH = '検索';
+  static const SEARCH_RESULT_EMPTY = 'キーワードに一致する結果が見つかりませんでした';
+  //endregion
+
 //region ScreenMain PageSetting
 
   /// ref: users.pages.UserAccount.components.UserAccountInformation.nameLabel

@@ -65,6 +65,7 @@ class AppRouteInformationParser
         dashboard: () => 'dashboard',
         subscribing: (initialPage) =>
             'subscribing/$initialPage',
+        search: () => 'search',
         setting: () => 'setting',
         ossLicense: () => 'oss_license',
         imgLicense: () => 'img_license',

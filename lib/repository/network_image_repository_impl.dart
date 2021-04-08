@@ -27,9 +27,9 @@ class NetworkImageRepositoryImpl with NetworkImageRepository {
     const CachedNetworkImageProvider(UrlUtil.URL_HEADER_BACKDROP)
         .resolve(const ImageConfiguration())
         .addListener(
-          ImageStreamListener((info, _) => _completer.complete(info.image),
-              onError: (e, stackTrace) =>
-                  _logger.e(e, stackTrace)),
+          ImageStreamListener((info, _) {
+            if (!_completer.isCompleted) _completer.complete(info.image);
+          }, onError: (e, stackTrace) => _logger.e(e, stackTrace)),
         );
     return _completer.future;
   }

@@ -110,7 +110,9 @@ class _ListViewContent extends HookWidget {
                   return const Heading(text: Strings.HEADING_UPCOMING);
 
                 return HorizontalCarousels(
-                  list: featurePrgData.comingBroadcastings.items,
+                  list: featurePrgData.comingBroadcastings.items
+                      .map((it) => HorizontalCarouselItemConf.from(it))
+                      .toList(),
                   maxWidth: constraints.maxWidth,
                   constraints: constraints,
                   detailCaption: true,
@@ -124,7 +126,9 @@ class _ListViewContent extends HookWidget {
                     ? const Heading(text: Strings.HEADING_SUBSCRIBING)
                     : HorizontalCarousels(
                         list: data?.listSubscribedPrograms?.viewerUser
-                            ?.subscribedPrograms?.items,
+                            ?.subscribedPrograms?.items
+                            ?.map((it) => HorizontalCarouselItemConf.from(it))
+                            ?.toList(),
                         maxWidth: constraints.maxWidth,
                         constraints: constraints,
                         detailCaption: true,

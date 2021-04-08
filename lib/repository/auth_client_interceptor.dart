@@ -24,12 +24,6 @@ class AuthClientInterceptor {
 
   final Reader _reader;
 
-  /// @throw [UnauthorizedException]
-  void _ensureNotExpired() {
-    if (_hiveAuthRepository.maybeExpired)
-      throw const UnauthorizedException(true);
-  }
-
   /// iOS -> try to re login
   Future<String> refreshAuthTokenIfNeeded() async {
     if (Util.useScratchAuth) {
@@ -46,8 +40,6 @@ class AuthClientInterceptor {
           ));
         }
       }
-    } else {
-      _ensureNotExpired();
     }
 
     return _hiveAuthRepository.authData?.body?.idToken;

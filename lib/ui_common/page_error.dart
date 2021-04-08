@@ -41,6 +41,7 @@ class PageError extends StatelessWidget {
                 const SizedBox(height: 24),
                 Text(
                   _text,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: FontSize.S16,
                     color: Styles.COLOR_TEXT_SUB,

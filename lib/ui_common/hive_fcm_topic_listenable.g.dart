@@ -16,3 +16,14 @@ class HiveFcmTopicListenable extends HookWidget {
   Widget build(BuildContext _context) =>
       hiveFcmTopicListenable(builder: builder);
 }
+
+class HiveSearchHistoryListenable extends HookWidget {
+  const HiveSearchHistoryListenable({Key key, @required this.builder})
+      : super(key: key);
+
+  final Widget Function(BuildContext, HiveSearchHistory, Widget) builder;
+
+  @override
+  Widget build(BuildContext _context) =>
+      hiveSearchHistoryListenable(builder: builder);
+}

@@ -32,8 +32,7 @@ class BillboardHeaderMultiCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height =
-        WIDTH / Dimens.IMG_RATIO + Dimens.CAROUSEL_DETAIL_CAPTION_H;
+    final height = WIDTH / Dimens.IMG_RATIO + Dimens.CAROUSEL_DETAIL_CAPTION_H;
     final cardCountInPage = data.constraints.maxWidth ~/ WIDTH;
     final pageCount = (data.items.length / cardCountInPage).ceil();
     return SizedBox(
@@ -49,7 +48,7 @@ class BillboardHeaderMultiCardView extends StatelessWidget {
             children: data.items
                 .sublist(start, end)
                 .map<Widget>((item) => HorizontalCarouselItem(
-              item: item,
+              conf: HorizontalCarouselItemConf.from(item),
               onTapItem: onTapItem,
               detailCaption: true,
               width: WIDTH,

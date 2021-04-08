@@ -63,11 +63,12 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
   //todo debug
   Future<void> _onUrlChanged(String url) async => _lock.synchronized(() async {
         if (!mounted) return;
+
         trySet(state.copyWith(lastUrl: url));
 
         if (_success) return;
 
-        if (url == UrlUtil.URL_HOME || !url.startsWith(UrlUtil.URL_HOME))
+        if (url != UrlUtil.URL_DASHBOARD)
           return;
 
         final storage = await _plugin.evalJavascript(_jsLocalStorageGetter);
@@ -101,7 +102,10 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
     if (_success) return;
     _success = true;
     await authOperationLock.synchronized(
-        () async => _hiveClient.putAuthData(HiveAuthData.parse(data)));
+        () async {
+          debugPrint(data.toString());
+          return _hiveClient.putAuthData(HiveAuthData.parse(data));
+        });
     if (!mounted) return;
     reader(kPrvAppRouterDelegate).reset();
     await _plugin.close();

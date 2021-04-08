@@ -84,10 +84,10 @@ Widget _mainBottomNavigationBar(BuildContext context) => BottomNavigationBar(
           icon: Icon(Icons.playlist_play_rounded),
           label: Strings.NAV_ITEM_LIST,
         ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.search),
-        //   label: Strings.NAV_ITEM_SEARCH,
-        // ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: Strings.NAV_ITEM_SEARCH,
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: Strings.NAV_ITEM_CONFIG,

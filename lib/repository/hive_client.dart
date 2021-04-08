@@ -51,11 +51,11 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
   @override
   Future<void> clearAuthData() async => box.clear();
 
-  @override
-  bool get shouldRefresh {
-    final expiresAt = authData?.expiresAt;
-    return expiresAt == null ? null : (expiresAt - 3.hours) < DateTime.now();
-  }
+  // @override
+  // bool get shouldRefresh {
+  //   final expiresAt = authData?.expiresAt;
+  //   return expiresAt == null ? null : (expiresAt - 3.hours) < DateTime.now();
+  // }
 
   @override
   bool get maybeExpired => authData?.isExpired == true;
@@ -66,6 +66,7 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
     final body = authData.body.copyWith(
       expiresIn: result.expiresIn,
       accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
       tokenType: result.tokenType,
       idToken: result.idToken,
       scope: result.scope,

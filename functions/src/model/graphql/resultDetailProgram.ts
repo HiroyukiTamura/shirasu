@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {JsonParser} from "./jsonParser";
+import Joi from "joi";
 
 export class DetailProgramsParser extends JsonParser {
 
@@ -10,8 +11,21 @@ export class DetailProgramsParser extends JsonParser {
 
   static instance = new DetailProgramsParser();
 
+  // todo implement validation to other model
   parseJson(json: string): ResultDetailProgram {
-    return super.cast<ResultDetailProgram>(JSON.parse(json), JsonParser.r("ResultDetailProgram"));
+    const gen = super.cast<ResultDetailProgram>(JSON.parse(json), JsonParser.r("ResultDetailProgram"));
+    const schema = Joi.object().keys({
+      program: Joi.object().keys({
+        id: Joi.string().required(),
+        channelId: Joi.string().required(),
+        tags: Joi.array().items(Joi.string()).required(),
+        title: Joi.string().required(),
+      }),
+    }).options({
+      allowUnknown: true,
+    });
+    Joi.assert(gen, schema);
+    return gen;
   }
 
   protected typeMap(): any {

@@ -74,6 +74,7 @@ dependencies:
   lottie: ^0.7.0+1
   uuid: ^2.2.2
   simple_animations: ^2.5.1
+  flutter_dotenv: ^3.1.0
   flutter_video_background:
     git: https://github.com/HiroyukTamura/flutter_video_background
 
@@ -113,3 +114,4 @@ flutter:
     - assets/json/
     - assets/lottie/
     - assets/js/
+    - assets/.env

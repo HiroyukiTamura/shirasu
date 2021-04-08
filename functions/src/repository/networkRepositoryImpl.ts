@@ -59,7 +59,7 @@ export class NetworkRepositoryImpl implements NetworkRepository {
     const response = await fetch(NetworkRepositoryImpl.GENRON_ALPHA_SHIRASU);
     const text = await response.text();
     const $ = cheerio.load(text);
-    return $("#footable_23754 tbody tr").map((i, ele) => {
+    const scrapedPrograms = $("#footable_23754 tbody tr").map((i, ele) => {
       const $column0 = $(ele).find("td:nth-child(1) > a");
       const channelUrl = $column0.attr("href");
       const channelTitle = $column0.text();
@@ -82,5 +82,7 @@ export class NetworkRepositoryImpl implements NetworkRepository {
           programUrl,
       );
     }).get() as ScrapedProgram[];
+    // explicit 404 page
+    return scrapedPrograms.filter((it) => it.toProgramId() !== "someru-someru-20210226205626");
   }
 }

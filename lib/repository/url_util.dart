@@ -94,4 +94,6 @@ class UrlUtil {
 
   static String programId2channelId(String programId) =>
       programId.split('-')[1];
+
+  static String algoliaUrl(String algoliaId) => 'https://$algoliaId-dsn.algolia.net/1/indexes/program/query';
 }

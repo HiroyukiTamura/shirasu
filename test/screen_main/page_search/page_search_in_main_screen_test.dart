@@ -87,6 +87,7 @@ class _TestRunner extends TestRunnerBase {
               kOverrideHiveSearchEmpty,
               kPrvDioRepository.overrideWithValue(
                   DioRepositoryMock(JsonClient.instance.mAlgoliaResponse)),
+              kOverrideGraphqlErr,
             ],
             onPostBuild: (tester) async {
               await _inputTextFiled(tester);
@@ -102,6 +103,7 @@ class _TestRunner extends TestRunnerBase {
               kOverrideHiveSearchEmpty,
               kPrvDioRepository.overrideWithValue(
                   DioRepositoryMock(JsonClient.instance.mAlgoliaResponse)),
+              kOverrideGraphqlErr,
             ],
             onPostBuild: (tester) async {
               await _inputTextFiled(tester);

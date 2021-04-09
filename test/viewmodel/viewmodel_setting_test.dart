@@ -1,3 +1,5 @@
+@Timeout(Duration(minutes: 1))
+
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';

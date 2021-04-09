@@ -26,13 +26,10 @@ class HiveAuthRepositoryCommon with HiveAuthRepository {
   bool get isEmpty => false;
 
   @override
-  bool get maybeExpired => throw UnExpectedException();
+  bool get maybeExpired => false;
 
   @override
   Future<void> putAuthData(HiveAuthData authData) => throw UnExpectedException();
-
-  @override
-  bool get shouldRefresh => throw UnExpectedException();
 
   @override
   Future<void> updateProfile(UserWithAttributeData authData) async {}

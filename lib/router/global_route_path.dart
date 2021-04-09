@@ -41,7 +41,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         dashboard: dashboard,
         subscribing: subscribing,
         setting: setting,
-        search: () {},
+        search: search,
       );
     else
       throw ArgumentError.value('unexpected routePath type: $runtimeType');

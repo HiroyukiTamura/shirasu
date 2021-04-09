@@ -213,8 +213,6 @@ class DioRepositoryImpl with DioRepository, _CookieDioManager {
     @required String query,
     int length,
   }) async {
-    print('searchAlgolia');
-
     final data = <String, dynamic>{
       'query': query,
     };

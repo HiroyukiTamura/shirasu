@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/repository/dio_client.dart';
 import 'package:shirasu/screen_main/page_search/screen_search.dart';
-import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart';
 import 'package:shirasu/viewmodel/viewmodel_search.dart';
@@ -12,10 +12,12 @@ import 'package:dartx/dartx.dart';
 
 import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
+import '../mock_repository/dio_mock.dart';
 import '../mock_repository/dio_timeout.dart';
 import '../mock_repository/graphql_timeout.dart';
 import '../mock_repository/hive_auth_empty.dart';
 import '../mock_repository/hive_search_history_empty.dart';
+import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
 import 'viewmodel_test_base.dart';
 
@@ -98,9 +100,11 @@ class _TestRunner extends ViewModelTestBase<ModelSearch> {
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlTimeout,
           kOverrideHiveSearchEmpty,
+          kPrvDioRepository.overrideWithValue(
+              DioRepositoryMock(JsonClient.instance.mAlgoliaResponse)),
           _overrideTextController
         ],
-        delay: 10.seconds,
+        delay: 13.seconds,
         expectedModel: _errModel(const ErrorMsgCommon.networkTimeout()),
         predicate: (viewModel) async => viewModel.submit(false),
       );

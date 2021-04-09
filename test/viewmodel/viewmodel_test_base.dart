@@ -27,7 +27,6 @@ import '../widget_test_util/json_client.dart';
 import '../widget_test_util/override_util.dart';
 import '../widget_test_util/test_name_common.dart';
 import '../widget_test_util/test_runner_base.dart';
-import '../widget_test_util/test_util.dart';
 
 /// test util for [ViewModelBase]
 class ViewModelTestBase<T> {
@@ -80,7 +79,7 @@ class ViewModelTestBase<T> {
     if (prvViewModel != null) {
       final viewModel = container.listen(prvViewModel).read();
       await viewModel.initialize();
-      await Future.delayed(10.seconds); // todo unknown why, but we must need it
+      await Future.delayed(13.seconds);
       expect(
           // ignore: invalid_use_of_protected_member
           viewModel.state,

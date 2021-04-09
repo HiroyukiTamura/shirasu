@@ -1,3 +1,5 @@
+@Timeout(Duration(minutes: 1))
+
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';

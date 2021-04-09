@@ -55,12 +55,12 @@ class HivePrefEmptyRepositoryImpl with HivePrefRepository {
       get outdatedPrgFcmTopic async => UnmodifiableSetView({});
 
   @override
-  ValueListenable<Box> get fcmTopicListener => _DummyValueListenable();
+  ValueListenable<Box> get fcmTopicListener => DummyValueListenable();
 }
 
-class _DummyValueListenable extends ValueListenable<Box> {
+class DummyValueListenable<T> extends ValueListenable<Box<T>> {
   @override
-  Box get value => _DummyBox();
+  Box<T> get value => _DummyBox();
 
   @override
   void addListener(VoidCallback listener) {}
@@ -69,9 +69,9 @@ class _DummyValueListenable extends ValueListenable<Box> {
   void removeListener(VoidCallback listener) {}
 }
 
-class _DummyBox extends Box<dynamic> {
+class _DummyBox<T> extends Box<T> {
   @override
-  Future<int> add(dynamic value) async => 0;
+  Future<int> add(T value) async => 0;
 
   @override
   Future<Iterable<int>> addAll(Iterable values) async => [];
@@ -101,10 +101,10 @@ class _DummyBox extends Box<dynamic> {
   Future<void> deleteFromDisk() async {}
 
   @override
-  dynamic get(dynamic key, {dynamic defaultValue}) => defaultValue;
+  T get(dynamic key, {T defaultValue}) => defaultValue;
 
   @override
-  dynamic getAt(int index) => null;
+  T getAt(int index) => null;
 
   @override
   bool get isEmpty => true;
@@ -116,7 +116,7 @@ class _DummyBox extends Box<dynamic> {
   bool get isOpen => true;
 
   @override
-  dynamic keyAt(int index) => null;
+  T keyAt(int index) => null;
 
   @override
   Iterable get keys => [];
@@ -125,7 +125,7 @@ class _DummyBox extends Box<dynamic> {
   bool get lazy => true;
 
   @override
-  int get length => 0;
+  int get length => values.length;
 
   @override
   String get name => 'DUMMY';
@@ -146,13 +146,13 @@ class _DummyBox extends Box<dynamic> {
   }
 
   @override
-  Map toMap() => {};
+  Map<dynamic, T> toMap() => {};
 
   @override
-  Iterable get values => [];
+  Iterable<T> get values => [];
 
   @override
-  Iterable valuesBetween({dynamic startKey, dynamic endKey}) => [];
+  Iterable<T> valuesBetween({dynamic startKey, dynamic endKey}) => [];
 
   @override
   Stream<BoxEvent> watch({dynamic key}) => StreamController().stream;

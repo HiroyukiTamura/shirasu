@@ -6,8 +6,10 @@ import 'package:dio/dio.dart' hide Lock;
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/model/algolia/algolia_response.dart';
 import 'package:shirasu/model/network/auth_user_data_query.dart';
 import 'package:shirasu/model/network/result_login.dart';
+import 'package:shirasu/repository/env_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/signed_cookie_result.dart';
@@ -32,7 +34,9 @@ const _kAuth0Version =
 class DioRepositoryImpl with DioRepository, _CookieDioManager {
   DioRepositoryImpl._(this._reader);
 
-  final Dio _dio = Dio();
+  final _dio = Dio();
+
+  final algoliaCancelToken = CancelToken();
 
   final Reader _reader;
 
@@ -43,6 +47,8 @@ class DioRepositoryImpl with DioRepository, _CookieDioManager {
 
   AuthClientInterceptor get _authClientInterceptor =>
       _reader(kPrvAuthClientInterceptor);
+
+  EnvRepository get _envRepo => _reader(kPrvEnv);
 
   /// @see https://github.com/auth0/auth0-spa-js/blob/4b674b28dc122457e4f1e0bbd71af113e378579d/src/utils.ts#L147
   static String _randomAuth0Str() =>
@@ -120,7 +126,8 @@ class DioRepositoryImpl with DioRepository, _CookieDioManager {
         debugPrint(e);
       }
       if (e.response.statusCode == 400)
-        throw const UnauthorizedException(false);// throws 400 if email or pass is incorrect
+        throw const UnauthorizedException(
+            false); // throws 400 if email or pass is incorrect
       rethrow;
     }
   }
@@ -166,7 +173,7 @@ class DioRepositoryImpl with DioRepository, _CookieDioManager {
         'code_challenge': codeChallenge,
         'code_challenge_method': 'S256',
         'auth0Client': _kAuth0Version,
-        'redirect_uri': UrlUtil.URL_AUTH0_CALLBACK,//must have last slash
+        'redirect_uri': UrlUtil.URL_AUTH0_CALLBACK, //must have last slash
       },
       options: _noRedirectOption,
     );
@@ -195,8 +202,34 @@ class DioRepositoryImpl with DioRepository, _CookieDioManager {
         HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded'
       }),
     );
-    print(result.data);
+    debugPrint(result.data.toString());
     return LoginResult.fromJson(result.data);
+  }
+
+  @override
+  Future<AlgoliaResponse> searchAlgolia({
+    @required CancelToken cancelToken,
+    @required String query,
+    int length,
+  }) async {
+    final data = <String, dynamic>{
+      'query': query,
+    };
+    if (length != null) {
+      data['length'] = length;
+      data['offset'] = 0;
+    }
+    final response = await _dio.post<Map<String, dynamic>>(
+      UrlUtil.algoliaUrl(_envRepo.algoliaId),
+      data: jsonEncode(data),
+      options: Options(headers: {
+        'x-algolia-api-key': _envRepo.algoliaApiKey,
+        'x-algolia-application-id': _envRepo.algoliaId,
+        HttpHeaders.contentTypeHeader: ContentType.json,
+      }),
+      cancelToken: cancelToken,
+    );
+    return AlgoliaResponse.fromJson(response.data);
   }
 }
 

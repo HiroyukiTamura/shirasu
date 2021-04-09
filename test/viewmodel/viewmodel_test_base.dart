@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
@@ -77,7 +79,7 @@ class ViewModelTestBase<T> {
     if (prvViewModel != null) {
       final viewModel = container.listen(prvViewModel).read();
       await viewModel.initialize();
-      await Future.delayed(10.seconds); // todo unknown why, but we must need it
+      await Future.delayed(13.seconds);
       expect(
           // ignore: invalid_use_of_protected_member
           viewModel.state,

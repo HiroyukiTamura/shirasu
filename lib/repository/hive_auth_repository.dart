@@ -15,8 +15,6 @@ mixin HiveAuthRepository {
 
   Future<void> clearAuthData();
 
-  bool get shouldRefresh;
-
   bool get maybeExpired;
 
   bool get isEmpty;

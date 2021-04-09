@@ -10,7 +10,7 @@ import 'package:shirasu/repository/connectivity_repository_impl.dart';
 import 'package:shirasu/repository/dio_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
-import 'package:shirasu/repository/dio_client.dart';
+import 'package:shirasu/repository/dio_repository_impl.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/logger_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';

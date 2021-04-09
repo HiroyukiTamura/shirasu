@@ -13,9 +13,11 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
+import 'package:shirasu/model/hive/search_history.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/repository/hive_history_repository_impl.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -24,6 +26,7 @@ import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/background_task.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/repository/env_repository.dart';
 
 /// must via access from ViewModel
 /// todo move
@@ -33,14 +36,17 @@ final kPrvSnackBar = StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
 final kPrvAppRouterDelegate =
     Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref.read));
 
-Future<void> backgroundFetchHeadlessTask(HeadlessTask task) async => backgroundFetchTask(task.taskId);
+Future<void> backgroundFetchHeadlessTask(HeadlessTask task) async =>
+    backgroundFetchTask(task.taskId);
 
+/// todo splash screen
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   await runZonedGuarded(() async {
     await Hive.initFlutter();
+    await const EnvRepositoryImpl().load();
     Hive
       ..registerAdapter(HiveAuthDataAdapter())
       ..registerAdapter(HiveBodyAdapter())
@@ -52,10 +58,13 @@ Future<void> main() async {
       ..registerAdapter(HiveUserAdapter())
       ..registerAdapter(HiveFcmTopicAdapter())
       ..registerAdapter(HiveFcmChannelDataAdapter())
-      ..registerAdapter(HiveFcmProgramDataAdapter());
+      ..registerAdapter(HiveFcmProgramDataAdapter())
+      ..registerAdapter(HiveSearchHistoryItemAdapter())
+      ..registerAdapter(HiveSearchHistoryAdapter());
 
     await HiveAuthRepositoryImpl.instance().init();
     await HivePrefRepositoryImpl.instance().init();
+    await HiveHistoryRepositoryImpl.instance().init();
     await GraphQlRepositoryImpl.openHiveStore();
 
     runApp(
@@ -87,7 +96,8 @@ class MyAppState extends State<MyApp> {
     await context.read(kPrvLogger).guardFuture(() async {
       final int status = await BackgroundFetch.configure(
           BackgroundFetchConfig(
-            minimumFetchInterval: 15,//todo fix
+            minimumFetchInterval: 15,
+            //todo fix
             stopOnTerminate: false,
             enableHeadless: true,
             requiresBatteryNotLow: false,
@@ -95,7 +105,9 @@ class MyAppState extends State<MyApp> {
             requiresStorageNotLow: false,
             requiresDeviceIdle: false,
             requiredNetworkType: NetworkType.NONE,
-          ), backgroundFetchTask, backgroundTaskTimeout);
+          ),
+          backgroundFetchTask,
+          backgroundTaskTimeout);
       Util.require(status == BackgroundFetch.STATUS_AVAILABLE);
       final startResult = await BackgroundFetch.start();
       Util.require(startResult == BackgroundFetch.STATUS_AVAILABLE);

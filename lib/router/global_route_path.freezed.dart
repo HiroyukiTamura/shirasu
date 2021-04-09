@@ -1258,6 +1258,11 @@ class _$PathDataMainPageBaseTearOff {
   }
 
 // ignore: unused_element
+  _PathDataMainPageSearch search() {
+    return const _PathDataMainPageSearch();
+  }
+
+// ignore: unused_element
   _PathDataMainPageSetting setting() {
     return const _PathDataMainPageSetting();
   }
@@ -1273,12 +1278,14 @@ mixin _$PathDataMainPageBase {
   TResult when<TResult extends Object>({
     @required TResult dashboard(),
     @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
     @required TResult setting(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult dashboard(),
     TResult subscribing(PageListTabPage index),
+    TResult search(),
     TResult setting(),
     @required TResult orElse(),
   });
@@ -1286,12 +1293,14 @@ mixin _$PathDataMainPageBase {
   TResult map<TResult extends Object>({
     @required TResult dashboard(_PathDataMainPageDashBoard value),
     @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
     @required TResult setting(_PathDataMainPageSetting value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult dashboard(_PathDataMainPageDashBoard value),
     TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
     TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   });
@@ -1356,10 +1365,12 @@ class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
   TResult when<TResult extends Object>({
     @required TResult dashboard(),
     @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
     @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return dashboard();
   }
@@ -1369,6 +1380,7 @@ class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
   TResult maybeWhen<TResult extends Object>({
     TResult dashboard(),
     TResult subscribing(PageListTabPage index),
+    TResult search(),
     TResult setting(),
     @required TResult orElse(),
   }) {
@@ -1384,10 +1396,12 @@ class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
   TResult map<TResult extends Object>({
     @required TResult dashboard(_PathDataMainPageDashBoard value),
     @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
     @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return dashboard(this);
   }
@@ -1397,6 +1411,7 @@ class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
   TResult maybeMap<TResult extends Object>({
     TResult dashboard(_PathDataMainPageDashBoard value),
     TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
     TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {
@@ -1482,10 +1497,12 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   TResult when<TResult extends Object>({
     @required TResult dashboard(),
     @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
     @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return subscribing(index);
   }
@@ -1495,6 +1512,7 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   TResult maybeWhen<TResult extends Object>({
     TResult dashboard(),
     TResult subscribing(PageListTabPage index),
+    TResult search(),
     TResult setting(),
     @required TResult orElse(),
   }) {
@@ -1510,10 +1528,12 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   TResult map<TResult extends Object>({
     @required TResult dashboard(_PathDataMainPageDashBoard value),
     @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
     @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return subscribing(this);
   }
@@ -1523,6 +1543,7 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   TResult maybeMap<TResult extends Object>({
     TResult dashboard(_PathDataMainPageDashBoard value),
     TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
     TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {
@@ -1543,6 +1564,110 @@ abstract class _PathDataMainPageSubscribing extends PathDataMainPageBase {
   @JsonKey(ignore: true)
   _$PathDataMainPageSubscribingCopyWith<_PathDataMainPageSubscribing>
       get copyWith;
+}
+
+/// @nodoc
+abstract class _$PathDataMainPageSearchCopyWith<$Res> {
+  factory _$PathDataMainPageSearchCopyWith(_PathDataMainPageSearch value,
+          $Res Function(_PathDataMainPageSearch) then) =
+      __$PathDataMainPageSearchCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PathDataMainPageSearchCopyWithImpl<$Res>
+    extends _$PathDataMainPageBaseCopyWithImpl<$Res>
+    implements _$PathDataMainPageSearchCopyWith<$Res> {
+  __$PathDataMainPageSearchCopyWithImpl(_PathDataMainPageSearch _value,
+      $Res Function(_PathDataMainPageSearch) _then)
+      : super(_value, (v) => _then(v as _PathDataMainPageSearch));
+
+  @override
+  _PathDataMainPageSearch get _value => super._value as _PathDataMainPageSearch;
+}
+
+/// @nodoc
+class _$_PathDataMainPageSearch extends _PathDataMainPageSearch {
+  const _$_PathDataMainPageSearch() : super._();
+
+  @override
+  String toString() {
+    return 'PathDataMainPageBase.search()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PathDataMainPageSearch);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult dashboard(),
+    @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
+    @required TResult setting(),
+  }) {
+    assert(dashboard != null);
+    assert(subscribing != null);
+    assert(search != null);
+    assert(setting != null);
+    return search();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult dashboard(),
+    TResult subscribing(PageListTabPage index),
+    TResult search(),
+    TResult setting(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (search != null) {
+      return search();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult dashboard(_PathDataMainPageDashBoard value),
+    @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
+    @required TResult setting(_PathDataMainPageSetting value),
+  }) {
+    assert(dashboard != null);
+    assert(subscribing != null);
+    assert(search != null);
+    assert(setting != null);
+    return search(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult dashboard(_PathDataMainPageDashBoard value),
+    TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
+    TResult setting(_PathDataMainPageSetting value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (search != null) {
+      return search(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PathDataMainPageSearch extends PathDataMainPageBase {
+  const _PathDataMainPageSearch._() : super._();
+  const factory _PathDataMainPageSearch() = _$_PathDataMainPageSearch;
 }
 
 /// @nodoc
@@ -1587,10 +1712,12 @@ class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
   TResult when<TResult extends Object>({
     @required TResult dashboard(),
     @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
     @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return setting();
   }
@@ -1600,6 +1727,7 @@ class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
   TResult maybeWhen<TResult extends Object>({
     TResult dashboard(),
     TResult subscribing(PageListTabPage index),
+    TResult search(),
     TResult setting(),
     @required TResult orElse(),
   }) {
@@ -1615,10 +1743,12 @@ class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
   TResult map<TResult extends Object>({
     @required TResult dashboard(_PathDataMainPageDashBoard value),
     @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
     @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return setting(this);
   }
@@ -1628,6 +1758,7 @@ class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
   TResult maybeMap<TResult extends Object>({
     TResult dashboard(_PathDataMainPageDashBoard value),
     TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
     TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {

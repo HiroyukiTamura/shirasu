@@ -122,13 +122,10 @@ class GraphQlRepositoryImpl with GraphQlRepository {
       _logger.d(linkException.toString());
 
       if (linkException is ServerException) {
-        final statusCode = linkException.parsedResponse.context
-            .entry<HttpLinkResponseContext>()
-            ?.statusCode;
-        _logger.d('statueCode: $statusCode');
-
-        linkException.parsedResponse.errors
-            .forEach((it) => _logger.d(it.toString()));
+        final isTokenExpired = linkException.parsedResponse.errors.any((error) => error.message.toLowerCase()
+              .startsWith('token has expired'));
+        if (isTokenExpired)
+          throw const UnauthorizedException(true);
       } else if (linkException is HttpLinkServerException) {
         _logger.d('statueCode: ${linkException.response.statusCode}');
         if (linkException.response.statusCode.between(400, 499))
@@ -244,7 +241,7 @@ class GraphQlRepositoryImpl with GraphQlRepository {
   }) async {
     final beginTimeFixed = beginTime.isNegative ? Duration.zero : beginTime;
     final endTimeFixed = beginTime.isNegative ? Duration.zero : endTime;
-    final variables = <String, String> {
+    final variables = <String, String>{
       'programId': programId,
       'beginTime': beginTimeFixed.inMilliseconds.toString(),
       'endTime': endTimeFixed.inMilliseconds.toString(),

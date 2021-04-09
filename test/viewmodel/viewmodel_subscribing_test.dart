@@ -1,3 +1,5 @@
+@Timeout(Duration(minutes: 1))
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shirasu/screen_main/page_list/subscribing_widget.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';

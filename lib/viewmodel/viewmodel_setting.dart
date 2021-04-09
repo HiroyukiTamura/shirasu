@@ -20,9 +20,7 @@ import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/main.dart';
 import 'package:dartx/dartx.dart';
-
-import 'background_task.dart';
-import 'package:shirasu/repository/auth_client_interceptor.dart';
+import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
@@ -33,8 +31,6 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
   SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
 
-  AuthClientInterceptor get _interceptor => reader(kPrvAuthClientInterceptor);
-
   @override
   Future<void> initialize() async {
     if (state != SettingModel.initial()) return;
@@ -42,7 +38,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     final result = await logger
         .guardFuture(() async => authOperationLock.synchronized(() async {
               await connectivityRepository.ensureNotDisconnect();
-              await _interceptor.refreshAuthTokenIfNeeded();
+              await interceptor.refreshAuthTokenIfNeeded();
               return graphQlRepository
                   .queryViewer()
                   .timeout(GraphQlRepository.TIMEOUT);
@@ -107,7 +103,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
         await authOperationLock.synchronized(() async {
           final result = await logger.guardFuture(() async {
             await connectivityRepository.ensureNotDisconnect();
-            await _interceptor.refreshAuthTokenIfNeeded();
+            await interceptor.refreshAuthTokenIfNeeded();
             return graphQlRepository
                 .updateUserWithAttr(variable)
                 .timeout(GraphQlRepository.TIMEOUT);

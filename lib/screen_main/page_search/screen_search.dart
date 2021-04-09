@@ -40,7 +40,7 @@ Widget _searchTextField(BuildContext context) => TextField(
       focusNode: useProvider(kPrvVmSearch.select((it) => it)).textFiledFocus,
       autofocus: true,
       textInputAction: TextInputAction.search,
-      controller: useProvider(kPrvVmSearch.select((it) => it)).controller,
+      controller: useProvider(kPrvSearchTextController),
       decoration: InputDecoration(
         hintText: Strings.HINT_SEARCH,
         border: InputBorder.none,

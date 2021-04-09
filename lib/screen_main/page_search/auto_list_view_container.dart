@@ -25,25 +25,26 @@ Widget autoListListViewContainer() {
 
 @hwidget
 Widget _historyListView() => HiveSearchHistoryListenable(
-  builder: (context, value, child) => ListView(
-    children: value.sortedValues
-        .map((it) => _SuggestItem(value: it.text))
-        .toList(),
-  ),
-);
+      builder: (context, value, child) => ListView(
+        children: value.sortedValues
+            .map((it) => SuggestItem(value: it.text))
+            .toList(),
+      ),
+    );
 
 @hwidget
 Widget _suggestionListView() => ListView(
-  children: useProvider(kPrvVmSearch.state.select((it) => it.suggestList))
-      .map((it) => _SuggestItem(
-    type: it.type,
-    value: it.data.value,
-  ))
-      .toList(),
-);
+      children: useProvider(kPrvVmSearch.state.select((it) => it.suggestList))
+          .map((it) => SuggestItem(
+                type: it.type,
+                value: it.data.value,
+              ))
+          .toList(),
+    );
 
-class _SuggestItem extends HookWidget {
-  const _SuggestItem({
+@visibleForTesting
+class SuggestItem extends HookWidget {
+  const SuggestItem({
     @required this.value,
     this.type,
     Key key,
@@ -77,9 +78,9 @@ class _SuggestItem extends HookWidget {
         final span = TextSpan(
           text: text,
           style: Theme.of(context).textTheme.subtitle1.copyWith(
-            fontWeight: bold ? FontWeight.bold : null,
-            color: textColor,
-          ),
+                fontWeight: bold ? FontWeight.bold : null,
+                color: textColor,
+              ),
         );
         children.add(span);
       }
@@ -118,13 +119,13 @@ class _SuggestItem extends HookWidget {
       leading: type == null
           ? null
           : Icon(
-        type.when(
-          tag: () => Icons.local_offer,
-          channelTitle: () => Icons.portrait,
-          programTitle: () => Icons.movie,
-        ),
-        color: textColor,
-      ),
+              type.when(
+                tag: () => Icons.local_offer,
+                channelTitle: () => Icons.portrait,
+                programTitle: () => Icons.movie,
+              ),
+              color: textColor,
+            ),
       title: title,
       trailing: IconButton(
         color: textColor,

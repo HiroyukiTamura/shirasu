@@ -12,8 +12,12 @@ import 'package:synchronized/synchronized.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart';
 import 'package:dartx/dartx.dart';
 
-final kPrvSearchTextController = Provider.autoDispose<TextEditingController>(
-    (ref) => TextEditingController());
+final kPrvSearchTextController =
+    Provider.autoDispose<TextEditingController>((ref) {
+  final controller = TextEditingController();
+  ref.onDispose(controller.dispose);
+  return controller;
+});
 
 class ViewModelSearch extends ViewModelBase<ModelSearch> {
   ViewModelSearch(reader) : super(reader, ModelSearch()) {
@@ -34,7 +38,6 @@ class ViewModelSearch extends ViewModelBase<ModelSearch> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
     textFiledFocus.removeListener(onTextChange);
   }
 
@@ -71,7 +74,7 @@ class ViewModelSearch extends ViewModelBase<ModelSearch> {
   Future<void> onTextChange() async {
     if (!mounted) return;
 
-    final queryText = controller.text;
+    final queryText = controller.text ?? '';
     state = state.copyWith(
       textLen: queryText.length,
     );

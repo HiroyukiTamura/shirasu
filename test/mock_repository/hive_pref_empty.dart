@@ -71,7 +71,7 @@ class DummyValueListenable<T> extends ValueListenable<Box<T>> {
 
 class _DummyBox<T> extends Box<T> {
   @override
-  Future<int> add(dynamic value) async => 0;
+  Future<int> add(T value) async => 0;
 
   @override
   Future<Iterable<int>> addAll(Iterable values) async => [];
@@ -101,7 +101,7 @@ class _DummyBox<T> extends Box<T> {
   Future<void> deleteFromDisk() async {}
 
   @override
-  T get(dynamic key, {dynamic defaultValue}) => defaultValue;
+  T get(dynamic key, {T defaultValue}) => defaultValue;
 
   @override
   T getAt(int index) => null;
@@ -116,7 +116,7 @@ class _DummyBox<T> extends Box<T> {
   bool get isOpen => true;
 
   @override
-  dynamic keyAt(int index) => null;
+  T keyAt(int index) => null;
 
   @override
   Iterable get keys => [];
@@ -125,7 +125,7 @@ class _DummyBox<T> extends Box<T> {
   bool get lazy => true;
 
   @override
-  int get length => 0;
+  int get length => values.length;
 
   @override
   String get name => 'DUMMY';

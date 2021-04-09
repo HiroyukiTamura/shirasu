@@ -3,9 +3,6 @@ import 'package:shirasu/model/algolia/algolia_response.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/dio_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final kPrvDioRepository = Provider.autoDispose.family<DioRepository, AlgoliaResponse>((ref, algoliaResp) => DioRepositoryMock(algoliaResp));
 
 class DioRepositoryMock with DioRepository {
 

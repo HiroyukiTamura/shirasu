@@ -1,6 +1,6 @@
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/network/result_login.dart';
-import 'package:shirasu/repository/dio_client.dart';
+import 'package:shirasu/repository/dio_repository_impl.dart';
 import 'package:shirasu/repository/dio_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/secure_storage_repository.dart';

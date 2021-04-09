@@ -1,5 +1,5 @@
 name: shirasu
-description: A unofficial client app for SHIRASU
+description: An unofficial client app for SHIRASU
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.3

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shirasu/model/hive/search_history.dart';
-import 'package:shirasu/repository/dio_client.dart';
+import 'package:shirasu/repository/dio_repository_impl.dart';
 import 'package:shirasu/repository/hive_history_repository_impl.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/resource/strings.dart';

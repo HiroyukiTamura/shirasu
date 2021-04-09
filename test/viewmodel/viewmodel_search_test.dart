@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/repository/dio_client.dart';
+import 'package:shirasu/repository/dio_repository_impl.dart';
 import 'package:shirasu/screen_main/page_search/screen_search.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart';

@@ -31,7 +31,6 @@ final kPrvDioRepository =
 const _kAuth0Version =
     'eyJuYW1lIjoiYXV0aDAtc3BhLWpzIiwidmVyc2lvbiI6IjEuMTMuNiJ9';
 
-/// todo rename file
 class DioRepositoryImpl with DioRepository, _CookieDioManager {
   DioRepositoryImpl._(this._reader);
 

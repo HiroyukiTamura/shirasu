@@ -16,8 +16,11 @@ import 'package:shirasu/screen_pre_login/screen_pre_login.dart';
 import 'package:tuple/tuple.dart';
 import 'package:shirasu/router/on_pop_page_mixin.dart';
 
+final kPrvAppRouterDelegate =
+    Provider<AppRouterDelegate>((ref) => AppRouterDelegate._(ref.read));
+
 class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
-  AppRouterDelegate(Reader reader)
+  AppRouterDelegate._(Reader reader)
       : super(GlobalKey<NavigatorState>(), reader) {
     appState.addListener(notifyListeners);
   }
@@ -28,7 +31,10 @@ class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
         .map<Tuple2<String, Widget>>((pathData) {
           final screen = pathData.wrappedWhenRough(
             intro: () => const ScreenIntro(),
-            error: (showLoginBtn, errText) => ScreenError(showLoginBtn: showLoginBtn, errText: errText,),
+            error: (showLoginBtn, errText) => ScreenError(
+              showLoginBtn: showLoginBtn,
+              errText: errText,
+            ),
             channel: (channelId) => ScreenChannel(channelId: channelId),
             program: (programId) => ScreenDetail(id: programId),
             ossLicense: () => const ScreenOssLicense(),

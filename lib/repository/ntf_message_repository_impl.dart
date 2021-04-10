@@ -4,7 +4,6 @@ import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/model/ntf_data.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/repository/ntf_message_repository.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/global_route_path.dart';
 

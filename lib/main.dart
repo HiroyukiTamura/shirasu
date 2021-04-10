@@ -33,9 +33,6 @@ import 'package:shirasu/repository/env_repository.dart';
 final kPrvSnackBar = StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
     (ref) => SnackBarMessageNotifier());
 
-final kPrvAppRouterDelegate =
-    Provider<AppRouterDelegate>((ref) => AppRouterDelegate(ref.read));
-
 Future<void> backgroundFetchHeadlessTask(HeadlessTask task) async =>
     backgroundFetchTask(task.taskId);
 

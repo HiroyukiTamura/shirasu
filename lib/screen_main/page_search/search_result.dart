@@ -8,6 +8,7 @@ import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_main/page_dashboard/billboard/billboard_header_multi_card_view.dart';
 import 'package:shirasu/screen_main/page_dashboard/horizontal_carousels.dart';
@@ -17,7 +18,6 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart';
 import 'package:shirasu/extension.dart';
-import 'package:shirasu/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'search_result.g.dart';

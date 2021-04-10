@@ -2,7 +2,7 @@ name: shirasu
 description: An unofficial client app for SHIRASU
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.4
+version: 1.0.4+5
 repository: https://github.com/HiroyukTamura/shirasu
 
 environment:

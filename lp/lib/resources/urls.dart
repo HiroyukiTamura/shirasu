@@ -26,6 +26,8 @@ class Urls {
   static const POSTMAN = 'https://www.postman.com/';
   static const GRAPHQL = 'https://graphql.org/';
   static const FASTLANE = 'https://fastlane.tools/';
+  static const ALGOLIA = 'https://www.algolia.com/';
+  static const SENTRY = 'https://sentry.io/';
 
   static const CONTACT_EMAIL = 'hiroyuktamura@gmail.com';
   static const CONTACT_TWITTER = 'https://twitter.com/freqmodu874';

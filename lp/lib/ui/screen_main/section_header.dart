@@ -18,12 +18,16 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final descFrag = [
-      const Text(
-        Strings.APP_NAME,
-        style: Styles.APP_TITLE,
+      const Center(
+        child: Text(
+          Strings.APP_NAME,
+          textAlign: TextAlign.center,
+          style: Styles.APP_TITLE,
+        ),
       ),
-      Padding(
+      Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
+        alignment: Alignment.center,
         child: SizedBox(
           height: 2,
           width: 96,
@@ -110,7 +114,8 @@ class _RowStoreBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Center(
         child: Wrap(
           spacing: 24,
           alignment: WrapAlignment.center,
@@ -120,14 +125,9 @@ class _RowStoreBadge extends StatelessWidget {
               url: Urls.unagiGooglePlay,
               child: Assets.svg.badgeGooglePlay.svg(),
             ),
-            //todo implement url
-            _StoreBadge(
-              url: '',
-              child: Assets.svg.badgeAppStore.svg(),
-            ),
           ],
         ),
-      );
+      ));
 }
 
 class _StoreBadge extends StatelessWidget {

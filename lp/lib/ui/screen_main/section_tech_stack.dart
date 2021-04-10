@@ -85,6 +85,14 @@ class SectionTechStack extends StatelessWidget {
                 icon: Assets.svg.logoPostman.svg(),
                 url: Urls.POSTMAN,
               ),
+              _Icon(
+                icon: Assets.svg.logoAlgolia.svg(),
+                url: Urls.POSTMAN,
+              ),
+              _Icon(
+                icon: Assets.svg.logoSentry.svg(),
+                url: Urls.SENTRY,
+              ),
             ],
           ),
         ],

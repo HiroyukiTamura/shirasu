@@ -10,7 +10,6 @@ import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/local_json_client.dart';
 import 'package:shirasu/repository/url_util.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';

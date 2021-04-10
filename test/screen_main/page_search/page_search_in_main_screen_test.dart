@@ -6,7 +6,7 @@ import 'package:shirasu/repository/hive_history_repository_impl.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/screen_main/page_search/auto_list_view_container.dart';
-import 'package:shirasu/screen_main/page_search/screen_search.dart';
+import 'package:shirasu/screen_main/page_search/page_search.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart' hide SuggestItem;

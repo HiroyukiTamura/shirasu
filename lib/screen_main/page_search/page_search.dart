@@ -10,7 +10,7 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/viewmodel_search.dart';
 import 'package:shirasu/screen_main/page_search/auto_list_view_container.dart';
 
-part 'screen_search.g.dart';
+part 'page_search.g.dart';
 
 final kPrvVmSearch = StateNotifierProvider.autoDispose<ViewModelSearch>(
     (ref) => ViewModelSearch(ref.read));

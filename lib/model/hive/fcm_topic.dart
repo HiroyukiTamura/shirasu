@@ -33,6 +33,8 @@ abstract class HiveFcmTopic with _$HiveFcmTopic {
         rawSubscribingPrograms: {},
       );
 
+  bool get isEmpty => rawSubscribingChannels.isEmpty && rawSubscribingPrograms.isEmpty;
+
   UnmodifiableMapView<String, HiveFcmChannelData> get subscribingChannels =>
       rawSubscribingChannels.toUnmodifiable();
 

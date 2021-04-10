@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';

@@ -22,6 +22,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() setting,
     @required Result Function() ossLicense,
     @required Result Function() imgLicense,
+    @required Result Function() fcm,
     @required Result Function() auth,
     @required Result Function() preLogin,
   }) {
@@ -35,6 +36,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         imgLicense: imgLicense,
         auth: auth,
         preLogin: preLogin,
+        fcm: fcm,
       );
     else if (this is PathDataMainPageBase)
       return (this as PathDataMainPageBase).when(
@@ -55,6 +57,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() mainPage,
     @required Result Function() ossLicense,
     @required Result Function() imgLicense,
+    @required Result Function() fcm,
     @required Result Function() auth,
     @required Result Function() preLogin,
   }) {
@@ -69,6 +72,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         auth: auth,
         preLogin: preLogin,
         imgLicense: imgLicense,
+        fcm: fcm,
       );
     else
       throw ArgumentError.value('unexpected routePath type: $runtimeType');
@@ -100,6 +104,8 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.ossLicense() = _PathDataOssLicense;
 
   const factory GlobalRoutePath.imgLicense() = _PathDataImgLicense;
+
+  const factory GlobalRoutePath.fcm() = _PathDataFcm;
 
   const factory GlobalRoutePath.auth() = _PathDataAuth;
 

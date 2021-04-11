@@ -339,5 +339,6 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
 
   //region ScreenFcm
   static const APP_BAR_SCREEN_FCM = '通知設定';
+  static const EMPTY_FCM = '設定している番組通知はありません';
 //endregion
 }

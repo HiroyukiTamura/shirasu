@@ -93,7 +93,7 @@ class MyAppState extends State<MyApp> {
     await context.read(kPrvLogger).guardFuture(() async {
       final int status = await BackgroundFetch.configure(
           BackgroundFetchConfig(
-            minimumFetchInterval: 15,
+            minimumFetchInterval: 60,
             //todo fix
             stopOnTerminate: false,
             enableHeadless: true,

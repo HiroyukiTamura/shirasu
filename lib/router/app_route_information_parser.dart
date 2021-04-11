@@ -71,5 +71,6 @@ class AppRouteInformationParser
         imgLicense: () => 'img_license',
         auth: () => 'auth',
         preLogin: () => 'pre_login',
+        fcm: () => 'fcm',
       );
 }

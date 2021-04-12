@@ -18,10 +18,12 @@ import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_fcm.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:meta/meta.dart';
 
 part 'screen_fcm.g.dart';
 
-final _kPrvViewModel = StateNotifierProvider.autoDispose<ViewModelFcm>(
+@visibleForTesting
+final kPrvFcmViewModel = StateNotifierProvider.autoDispose<ViewModelFcm>(
     (ref) => ViewModelFcm(ref.read));
 
 final kPrvFcmSnackBar =
@@ -112,10 +114,10 @@ class ScreenFcm extends HookWidget {
       context.pushProgramPage(id);
 
   void _onDismissPrg(BuildContext context, String prgId) =>
-      context.read(_kPrvViewModel).unsubscribePrgFcmTopic(prgId);
+      context.read(kPrvFcmViewModel).unsubscribePrgFcmTopic(prgId);
 
   void _onDismissChannel(BuildContext context, String channelId) =>
-      context.read(_kPrvViewModel).unsubscribeChannelFcmTopic(channelId);
+      context.read(kPrvFcmViewModel).unsubscribeChannelFcmTopic(channelId);
 
   String _keyPrg(String id) => 'program_$id';
 

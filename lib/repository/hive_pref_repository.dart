@@ -34,6 +34,7 @@ mixin HivePrefRepository {
 
   Future<void> subscribePrgFcmTopic(HiveFcmProgramData data);
 
+  /// todo return boolean? see [unsubscribeChannelFcmTopic]
   Future<void> unsubscribePrgFcmTopic(String programId);
 
   Future<void> subscribeChannelFcmTopic(HiveFcmChannelData data);

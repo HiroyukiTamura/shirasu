@@ -11,13 +11,13 @@ class ViewModelFcm extends ViewModelBase<String> {
   SnackBarMessageNotifier get _snackBarMsgNotifier =>
       reader(kPrvFcmSnackBar);
 
-  void unsubscribeChannelFcmTopic(String id) {
-    _hiveRepo.unsubscribeChannelFcmTopic(id);
+  Future<void> unsubscribeChannelFcmTopic(String id) async {
+    await _hiveRepo.unsubscribeChannelFcmTopic(id);
     _commandSnack();
   }
 
-  void unsubscribePrgFcmTopic(String id) {
-    _hiveRepo.unsubscribePrgFcmTopic(id);
+  Future<void> unsubscribePrgFcmTopic(String id) async {
+    await _hiveRepo.unsubscribePrgFcmTopic(id);
     _commandSnack();
   }
 

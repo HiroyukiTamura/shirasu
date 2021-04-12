@@ -13,7 +13,7 @@ import 'package:shirasu/model/update_user_with_attribute_data.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shirasu/viewmodel/background_task.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 
 abstract class HiveClient<T> {
   const HiveClient(this._boxName);
@@ -39,6 +39,8 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
   static const _KEY_AUTH_DATA = 'AUTH_DATA';
   static HiveAuthRepositoryImpl _instance;
 
+  bool get isOpen => box.isOpen;
+
   @override
   HiveAuthData get authData => box.get(_KEY_AUTH_DATA);
 
@@ -54,7 +56,7 @@ class HiveAuthRepositoryImpl extends HiveClient<HiveAuthData>
   @override
   bool get maybeExpired => authData?.isExpired == true;
 
-  /// must run under [authOperationLock]
+  /// must run under [kAuthOperationLock]
   @override
   Future<void> appendRefreshedToken(LoginResult result) async {
     final body = authData.body.copyWith(

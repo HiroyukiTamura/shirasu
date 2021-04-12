@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/extension.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/screen_main/page_list/watch_history_widget.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:shirasu/viewmodel/viewmodel_subscribing.dart';
@@ -76,7 +76,7 @@ void main() {
         overrides: testBase.defaultOverride + override,
       );
       final viewModel = container.listen(kPrvViewModelWatchHistory).read();
-      final snackBar = container.listen(kPrvSnackBar).read();
+      final snackBar = container.listen(kPrvMainScreenSnackBar).read();
       await viewModel.loadMoreWatchHistory();
       // ignore: invalid_use_of_protected_member
       expect(viewModel.state, expectedState);

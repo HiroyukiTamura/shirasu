@@ -7,6 +7,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/local_json_client.dart';
 import 'package:shirasu/repository/url_util.dart';
@@ -14,7 +15,6 @@ import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:synchronized/synchronized.dart';
-import 'package:shirasu/viewmodel/background_task.dart';
 
 part 'viewmodel_auth.freezed.dart';
 
@@ -99,7 +99,7 @@ class ViewModelAuth extends ViewModelBase<AuthModel> {
   Future<void> _onSuccessLogin(AuthData data) async {
     if (_success) return;
     _success = true;
-    await authOperationLock.synchronized(() async {
+    await kAuthOperationLock.synchronized(() async {
       debugPrint(data.toString());
       return _hiveClient.putAuthData(HiveAuthData.parse(data));
     });

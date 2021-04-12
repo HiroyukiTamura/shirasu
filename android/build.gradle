@@ -19,9 +19,6 @@ allprojects {
         google()
         // do not remove without update to AGP 4.2 Beta05 @see https://qiita.com/takke/items/67a7f21cdcec0f13d7c8
         jcenter()
-        maven {
-            url "${project(':background_fetch').projectDir}/libs"
-        }
     }
 }
 

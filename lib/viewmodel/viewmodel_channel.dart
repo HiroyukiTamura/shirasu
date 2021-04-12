@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/ntf_message_repository.dart';
 import 'package:shirasu/repository/ntf_message_repository_impl.dart';
@@ -10,7 +11,6 @@ import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_channel.dart';
-import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelChannel extends ViewModelBase<ChannelModel> {
   ViewModelChannel(Reader reader, this._channelId)
@@ -33,7 +33,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
     if (state != const ChannelModel.preInitialized()) return;
 
     final result = await logger.guardFuture(() async {
-      final data = await authOperationLock.synchronized(() async {
+      final data = await kAuthOperationLock.synchronized(() async {
         await connectivityRepository.ensureNotDisconnect();
         await interceptor.refreshAuthTokenIfNeeded();
         return graphQlRepository
@@ -70,7 +70,7 @@ class ViewModelChannel extends ViewModelBase<ChannelModel> {
         ));
 
         final result = await logger
-            .guardFuture(() async => authOperationLock.synchronized(() async {
+            .guardFuture(() async => kAuthOperationLock.synchronized(() async {
                   await connectivityRepository.ensureNotDisconnect();
                   await interceptor.refreshAuthTokenIfNeeded();
                   return graphQlRepository

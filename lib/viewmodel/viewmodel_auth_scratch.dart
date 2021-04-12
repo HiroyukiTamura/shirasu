@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/network/result_login.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
@@ -14,7 +15,6 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_auth_scratch.dart';
 import 'package:shirasu/extension.dart';
 import 'package:dartx/dartx.dart';
-import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelAuthScratch extends ViewModelBase<ModelAuthScratch> {
   ViewModelAuthScratch(reader) : super(reader, ModelAuthScratch.initial());
@@ -52,7 +52,7 @@ class ViewModelAuthScratch extends ViewModelBase<ModelAuthScratch> {
     );
 
     final result = await logger
-        .guardFuture(() async => authOperationLock.synchronized(() async {
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
               await connectivityRepository.ensureNotDisconnect();
               final loginResult = await dioClient.login2Shirasu(LoginData(
                 username: userName,

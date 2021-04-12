@@ -20,7 +20,6 @@ import 'package:dartx/dartx.dart';
 import 'package:shirasu/util.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:shirasu/util/exceptions.dart';
-import 'package:shirasu/viewmodel/background_task.dart';
 
 final kPrvDioRepository =
     Provider.autoDispose<DioRepository>((ref) => DioRepositoryImpl._(ref.read));

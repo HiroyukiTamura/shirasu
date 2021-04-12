@@ -32,7 +32,7 @@
     "react": "^17.0.2"
   },
   "devDependencies": {
-    "@types/algoliasearch": "^3.34.11",
+    "@types/algoliasearch": "^4.0.0",
     "@types/chai": "^4.2.16",
     "@types/cheerio": "^0.22.28",
     "@types/encoding-japanese": "^1.0.17",

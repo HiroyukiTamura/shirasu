@@ -1,19 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:lp/extensions.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 
-class ResponsiveBuilder extends StatelessWidget {
-  const ResponsiveBuilder({
-    required this.smallScreen,
-    required this.wideScreen,
-  });
+part 'responsive_builder.g.dart';
 
-  final WidgetBuilder smallScreen;
-  final WidgetBuilder wideScreen;
-
-  @override
-  Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constraint) => context.isWideScreen
-            ? wideScreen(context)
-            : smallScreen(context),
-      );
+@swidget
+Widget responsiveBuilder({
+  required WidgetBuilder smallScreen,
+  required WidgetBuilder wideScreen,
+}) {
+  return LayoutBuilder(
+    builder: (context, constraint) => context.isWideScreen
+        ? wideScreen(context)
+        : smallScreen(context),
+  );
 }

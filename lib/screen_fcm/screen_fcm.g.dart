@@ -12,7 +12,7 @@ class _Title extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext _context) => _title(text: text);
+  Widget build(BuildContext _context) => _title(_context, text: text);
 }
 
 class _ChannelListTile extends StatelessWidget {
@@ -20,6 +20,8 @@ class _ChannelListTile extends StatelessWidget {
       {Key key,
       @required this.id,
       @required this.title,
+      @required this.keyValue,
+      @required this.onTap,
       @required this.onDismissed})
       : super(key: key);
 
@@ -27,11 +29,19 @@ class _ChannelListTile extends StatelessWidget {
 
   final String title;
 
+  final String keyValue;
+
+  final void Function() onTap;
+
   final void Function(DismissDirection) onDismissed;
 
   @override
   Widget build(BuildContext _context) => _channelListTile(_context,
-      id: id, title: title, onDismissed: onDismissed);
+      id: id,
+      title: title,
+      keyValue: keyValue,
+      onTap: onTap,
+      onDismissed: onDismissed);
 }
 
 class _Dismissible extends StatelessWidget {

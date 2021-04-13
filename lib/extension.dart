@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:better_player/better_player.dart';
 import 'package:dio/dio.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -83,14 +82,6 @@ extension BuildContextX on BuildContext {
       await read(kPrvLogger)
           .guardFuture(() async => SystemChrome.setEnabledSystemUIOverlays([]));
   }
-}
-
-extension BetterPlayerEventX on BetterPlayerEvent {
-  String get exception => parameters['exception'] as String;
-
-  Duration get progress => parameters['progress'] as Duration;
-
-  Duration get duration => parameters['duration'] as Duration;
 }
 
 extension SwipeDataX on SwipeData {

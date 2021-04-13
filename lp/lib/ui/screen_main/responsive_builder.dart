@@ -8,10 +8,8 @@ part 'responsive_builder.g.dart';
 Widget responsiveBuilder({
   required WidgetBuilder smallScreen,
   required WidgetBuilder wideScreen,
-}) {
-  return LayoutBuilder(
-    builder: (context, constraint) => context.isWideScreen
-        ? wideScreen(context)
-        : smallScreen(context),
-  );
-}
+}) =>
+    LayoutBuilder(
+      builder: (context, constraint) =>
+          context.isWideScreen ? wideScreen(context) : smallScreen(context),
+    );

@@ -14,7 +14,8 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 part 'section_header.g.dart';
 
 @swidget
-Widget sectionHeader(BuildContext context, {
+Widget sectionHeader(
+  BuildContext context, {
   required double screenHeight,
 }) {
   final descFrag = [
@@ -208,8 +209,7 @@ class SectionHeader extends StatelessWidget {
 }
 
 @swidget
-Widget _rowStoreBadge() {
-  return Padding(
+Widget _rowStoreBadge() => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Center(
         child: Wrap(
@@ -223,25 +223,24 @@ Widget _rowStoreBadge() {
             ),
           ],
         ),
-      ));
-}
+      ),
+    );
 
 @swidget
 Widget _storeBadge({
   required String url,
   required Widget child,
-}) {
-  return Container(
-    constraints: const BoxConstraints(
-      maxWidth: 150,
-    ),
-    alignment: Alignment.center,
-    child: MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => launchUrl(url),
-        child: child,
+}) =>
+    Container(
+      constraints: const BoxConstraints(
+        maxWidth: 150,
       ),
-    ),
-  );
-}
+      alignment: Alignment.center,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () => launchUrl(url),
+          child: child,
+        ),
+      ),
+    );

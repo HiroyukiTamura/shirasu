@@ -12,8 +12,8 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 part 'section_feature.g.dart';
 
 @swidget
-Widget sectionFeature(BuildContext context) {
-  return CardGray(
+Widget sectionFeature(BuildContext context) =>
+  CardGray(
     child: Padding(
       padding: EdgeInsets.all(context.isNarrowScreen ? 16 : 96),
       child: Column(
@@ -42,7 +42,6 @@ Widget sectionFeature(BuildContext context) {
       ),
     ),
   );
-}
 
 @swidget
 Widget _featureItem(BuildContext context, {

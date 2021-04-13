@@ -90,13 +90,12 @@ class _ScreenMainState extends State<ScreenMain> {
 Widget _sectionWrapper(
   BuildContext context, {
   required Widget child,
-}) {
-  return Center(
-    child: Container(
-      width: 1024,
-      padding:
-          EdgeInsets.symmetric(horizontal: context.isNarrowScreen ? 16 : 96),
-      child: child,
-    ),
-  );
-}
+}) =>
+    Center(
+      child: Container(
+        width: 1024,
+        padding:
+            EdgeInsets.symmetric(horizontal: context.isNarrowScreen ? 16 : 96),
+        child: child,
+      ),
+    );

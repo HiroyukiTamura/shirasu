@@ -154,8 +154,8 @@ class _$_AppPageMain extends _AppPageMain {
 }
 
 abstract class _AppPageMain extends AppPage {
-  const _AppPageMain._() : super._();
   const factory _AppPageMain() = _$_AppPageMain;
+  const _AppPageMain._() : super._();
 }
 
 /// @nodoc
@@ -239,6 +239,6 @@ class _$_AppPageSub extends _AppPageSub {
 }
 
 abstract class _AppPageSub extends AppPage {
-  const _AppPageSub._() : super._();
   const factory _AppPageSub() = _$_AppPageSub;
+  const _AppPageSub._() : super._();
 }

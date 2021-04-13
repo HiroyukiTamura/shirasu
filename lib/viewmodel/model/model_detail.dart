@@ -9,6 +9,7 @@ import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
+import 'package:shirasu/extension.dart';
 
 part 'model_detail.freezed.dart';
 
@@ -140,11 +141,11 @@ abstract class PlayOutState implements _$PlayOutState {
       hlsMediaUrl == state?.hlsMediaUrl;
 
   Duration get currentPosForUiSafe =>
-      currentPosForUi?.isNegative != true ? currentPosForUi : Duration.zero;
+      currentPosForUi?.isPositive == true ? currentPosForUi : Duration.zero;
 
-  Duration get currentPosSafe => currentPos?.isNegative != true ? currentPos : Duration.zero;
+  Duration get currentPosSafe => currentPos?.isPositive == true ? currentPos : Duration.zero;
 
-  Duration get totalDurationSafe => totalDuration?.isNegative != true ? totalDuration : Duration.zero;
+  Duration get totalDurationSafe => totalDuration?.isPositive == true ? totalDuration : Duration.zero;
 }
 
 /// status of statue of video command.

@@ -104,6 +104,8 @@ extension DioErrorX on DioError {
         return false;
     }
   }
+
+  bool get is403Error => type == DioErrorType.RESPONSE && response.statusCode == 403;
 }
 
 final _random = Random();
@@ -122,4 +124,8 @@ extension StringX on String {
   Digest toSha256() => sha256.convert(utf8.encode(this));
 
   Uri toUri() => Uri.parse(this);
+}
+
+extension DurationX on Duration {
+  bool get isPositive => !isNegative;
 }

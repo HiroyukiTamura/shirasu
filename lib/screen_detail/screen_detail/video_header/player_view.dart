@@ -44,7 +44,7 @@ class _PlayerViewState extends State<_PlayerView>
     with AfterLayoutMixin<_PlayerView> {
   VideoPlayerController _controller;
   bool _deactivate = false;
-  VideoPlayerValue _lastVideoValue;
+  VideoPlayerValue _lastVideoValue = VideoPlayerValue.uninitialized();
 
   bool get _isInitialized =>_controller.value.isInitialized;
 
@@ -100,11 +100,12 @@ class _PlayerViewState extends State<_PlayerView>
     _getViewModelDetail(context)
         .takePriority(fullScreen: widget.conf.fullScreen);
     context.forceFullScreenIfHorizontalScreen();
-    _controller.initialize();
-    // _controller.setupDataSource(_dataSource).then((value) {
-    //   if (mounted && !_deactivate)
-    //     _controller.videoPlayerController.addListener(_rawVideoPlayerListener);
-    // });
+    _initVideoController();
+  }
+
+  Future<void> _initVideoController() async {
+    await _controller.initialize();
+    await _controller.play();
   }
 
   VideoPlayerController _createVideoController() {

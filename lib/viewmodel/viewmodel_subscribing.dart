@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
-import 'package:shirasu/viewmodel/background_task.dart';
 
 part 'viewmodel_subscribing.freezed.dart';
 
@@ -21,7 +21,7 @@ class ViewModelSubscribing extends ViewModelBase<SubscribingProgramState> {
     if (state != const SubscribingProgramState.initial()) return;
 
     final result = await logger
-        .guardFuture(() async => authOperationLock.synchronized(() async {
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
               await connectivityRepository.ensureNotDisconnect();
               await interceptor.refreshAuthTokenIfNeeded();
               return graphQlRepository

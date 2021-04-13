@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/native_client.dart';
 import 'package:shirasu/repository/ntf_message_repository.dart';
@@ -26,7 +27,6 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:shirasu/extension.dart';
-import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelDetail extends ViewModelBase<ModelDetail> {
   ViewModelDetail(Reader reader, this.id)
@@ -71,7 +71,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
       prgDataResult: const DetailModelState.loading(),
     );
     final result = await logger
-        .guardFuture(() async => authOperationLock.synchronized(() async {
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
               await connectivityRepository.ensureNotDisconnect();
               await interceptor.refreshAuthTokenIfNeeded();
               return Util.wait2<ProgramDetailData, ChannelData>(
@@ -115,7 +115,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
     final result = await logger
-        .guardFuture(() async => authOperationLock.synchronized(() async {
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
               await connectivityRepository.ensureNotDisconnect();
               await interceptor.refreshAuthTokenIfNeeded();
               return dioClient.getSignedCookie(
@@ -194,7 +194,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final pageNationKey = state.commentHolder.pageNationKey;
 
     final result = await logger
-        .guardFuture(() async => authOperationLock.synchronized(() async {
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
               await connectivityRepository.ensureNotDisconnect();
               await interceptor.refreshAuthTokenIfNeeded();
               return graphQlRepository
@@ -247,7 +247,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(isCommentPosting: true);
     final result = await logger.guardFuture(() async {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
-      return authOperationLock.synchronized(() async {
+      return kAuthOperationLock.synchronized(() async {
         await connectivityRepository.ensureNotDisconnect();
         await interceptor.refreshAuthTokenIfNeeded();
         return graphQlRepository
@@ -281,7 +281,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(isHandoutUrlRequesting: true);
 
     final result = await logger
-        .guardFuture(() async => authOperationLock.synchronized(() async {
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
               await connectivityRepository.ensureNotDisconnect();
               await interceptor.refreshAuthTokenIfNeeded();
               return graphQlRepository

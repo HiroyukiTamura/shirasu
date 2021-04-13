@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/algolia/algolia_response.dart';
-import 'package:shirasu/screen_main/page_search/screen_search.dart';
+import 'package:shirasu/screen_main/page_search/page_search.dart';
 import 'package:shirasu/ui_common/hive_fcm_topic_listenable.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart';
 

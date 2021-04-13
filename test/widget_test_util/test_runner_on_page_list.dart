@@ -8,6 +8,7 @@ import 'package:shirasu/ui_common/movie_list_item.dart';
 
 import '../mock_repository/connected_connected.dart';
 import '../mock_repository/graphql_common.dart';
+import '../mock_repository/hive_auth_empty.dart';
 import 'json_client.dart';
 import 'test_models.dart';
 import 'test_name_common.dart';
@@ -70,6 +71,7 @@ mixin TestRunnerOnPageList on TestRunnerBase {
         testGoldensSimple(
           testName: TestNameCommon.EMPTY,
           overrides: [
+            kOverrideEmptyHiveAuthRepository,
             overrideGraphQlEmpty,
             kOverrideConnectedRepositoryConnectedImpl
           ],
@@ -80,6 +82,7 @@ mixin TestRunnerOnPageList on TestRunnerBase {
         testGoldensSimple(
           testName: TestNameCommon.NORMAL,
           overrides: [
+            kOverrideEmptyHiveAuthRepository,
             _overrideNormal,
             kOverrideConnectedRepositoryConnectedImpl
           ],

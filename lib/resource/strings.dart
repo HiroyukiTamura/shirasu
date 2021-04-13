@@ -212,6 +212,7 @@ class Strings {
 
   static const ITEM_TITLE_MOVIE_QUALITY = '画質 - Wifi回線時';
   static const ITEM_TITLE_MOVIE_QUALITY_MOBILE = '画質 - モバイル回線時';
+  static const ITEM_TITLE_FCM = '番組通知';
   static const ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
   static const ITEM_TITLE_IMAGE_LICENCE = '画像ライセンス';
   static const ITEM_TITLE_GITHUB = 'GitHub';
@@ -335,4 +336,11 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const TIME_PREFIX_START = '開始';
   static const TIME_PREFIX_END = '終了';
   static const TIME_PREFIX_PLANNING = '予定';
+
+  //region ScreenFcm
+  static const APP_BAR_SCREEN_FCM = '通知設定';
+  static const EMPTY_FCM = '設定している番組通知はありません';
+  static const SCREEN_FCM_CAPTION_CHANNEL = 'チャンネル';
+  static const SCREEN_FCM_CAPTION_PRG = '番組';
+//endregion
 }

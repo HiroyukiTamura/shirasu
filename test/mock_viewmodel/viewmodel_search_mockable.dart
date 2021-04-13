@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod/src/framework.dart';
-import 'package:shirasu/screen_main/page_search/screen_search.dart';
+import 'package:shirasu/screen_main/page_search/page_search.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart';
 import 'package:shirasu/viewmodel/viewmodel_search.dart';
 

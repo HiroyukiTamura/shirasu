@@ -37,6 +37,11 @@ Widget pageAppConfig(BuildContext context) => ListView(
           ),
         ),
         _ListItem(
+          icon: Icons.notifications,
+          title: Strings.ITEM_TITLE_FCM,
+          onTap: () async => context.pushPage(const GlobalRoutePath.fcm()),
+        ),
+        _ListItem(
           icon: Icons.logout,
           title: Strings.ITEM_TITLE_LOGOUT,
           onTap: () async =>

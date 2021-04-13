@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'screen_search.dart';
+part of 'page_search.dart';
 
 // **************************************************************************
 // FunctionalWidgetGenerator

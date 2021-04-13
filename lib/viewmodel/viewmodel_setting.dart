@@ -4,6 +4,7 @@ import 'package:async/async.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/local_json_client.dart';
@@ -11,16 +12,16 @@ import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart'
     show UpdateUserWithAttrVariable;
 import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
-import 'package:shirasu/main.dart';
 import 'package:dartx/dartx.dart';
-import 'package:shirasu/viewmodel/background_task.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
   ViewModelSetting(Reader reader) : super(reader, SettingModel.initial());
@@ -29,14 +30,14 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
   HiveBody get _hiveAuthBody => hiveAuthRepository?.authData?.body;
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvMainScreenSnackBar);
 
   @override
   Future<void> initialize() async {
     if (state != SettingModel.initial()) return;
 
     final result = await logger
-        .guardFuture(() async => authOperationLock.synchronized(() async {
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
               await connectivityRepository.ensureNotDisconnect();
               await interceptor.refreshAuthTokenIfNeeded();
               return graphQlRepository
@@ -100,7 +101,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
         state = state.copyWith(uploadingProfile: true);
 
-        await authOperationLock.synchronized(() async {
+        await kAuthOperationLock.synchronized(() async {
           final result = await logger.guardFuture(() async {
             await connectivityRepository.ensureNotDisconnect();
             await interceptor.refreshAuthTokenIfNeeded();
@@ -149,7 +150,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     if (!mounted) return;
 
-    await authOperationLock
+    await kAuthOperationLock
         .synchronized(() async => hiveAuthRepository.clearAuthData());
 
     state = state.copyWith(isInLoggingOut: false);

@@ -109,6 +109,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideDisconnected,
           overrideViewModel,
         ],
@@ -129,6 +130,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_TIMEOUT,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlTimeout,
           overrideViewModel,
@@ -201,6 +203,7 @@ Future<void> main() async {
       TestNameCommon.NORMAL,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           overrideViewModel,
           kOverrideConnectedRepositoryConnectedImpl,
           overrideGraphQlCommon,
@@ -227,6 +230,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideDisconnected,
           overrideViewModel,
         ],
@@ -244,6 +248,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_TIMEOUT,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlTimeout,
           overrideViewModel,
@@ -262,6 +267,7 @@ Future<void> main() async {
       TestNameCommon.ERR_UN_AUTH,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlUnAuthNotDetectedByTime,
           overrideViewModel,
@@ -280,6 +286,7 @@ Future<void> main() async {
       TestNameCommon.NORMAL,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideConnectedRepositoryConnectedImpl,
           overrideViewModel,
           overrideGraphQlCommon,
@@ -301,6 +308,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_DISCONNECTED,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideDisconnected,
           overrideGraphQlCommon,
           overrideViewModel,
@@ -317,6 +325,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_TIMEOUT,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideGraphqlTimeout,
           overrideViewModel,
           kOverrideConnectedRepositoryConnectedImpl
@@ -333,6 +342,7 @@ Future<void> main() async {
       TestNameCommon.ERR_UNKNOWN,
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideGraphqlErr,
           overrideViewModel,
           kOverrideConnectedRepositoryConnectedImpl
@@ -352,6 +362,7 @@ Future<void> main() async {
         final defaultState = specState.copyWith(isCommentPosting: true);
         return testTemplate(
           override: [
+            kOverrideEmptyHiveAuthRepository,
             kOverrideGraphqlErr,
             overrideViewModel,
             kOverrideConnectedRepositoryConnectedImpl
@@ -375,6 +386,7 @@ Future<void> main() async {
         );
         return testTemplate(
           override: [
+            kOverrideEmptyHiveAuthRepository,
             overrideGraphQlCommon,
             overrideViewModel,
             kOverrideConnectedRepositoryConnectedImpl
@@ -396,6 +408,7 @@ Future<void> main() async {
       'networkErr',
       () => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideDisconnected,
           overrideGraphQlCommon,
           overrideViewModel,

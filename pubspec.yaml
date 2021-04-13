@@ -74,6 +74,7 @@ dependencies:
   uuid: ^2.2.2
   simple_animations: ^2.5.1
   flutter_dotenv: ^3.1.0
+  sentry_flutter:
   flutter_video_background:
     git: https://github.com/HiroyukTamura/flutter_video_background
 

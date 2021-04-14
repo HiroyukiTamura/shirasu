@@ -14,11 +14,8 @@ class _$AuthModelTearOff {
   const _$AuthModelTearOff();
 
 // ignore: unused_element
-  _AuthModel call({String lastUrl, WebViewState viewState}) {
-    return _AuthModel(
-      lastUrl: lastUrl,
-      viewState: viewState,
-    );
+  _AuthModel call() {
+    return const _AuthModel();
   }
 }
 
@@ -27,19 +24,12 @@ class _$AuthModelTearOff {
 const $AuthModel = _$AuthModelTearOff();
 
 /// @nodoc
-mixin _$AuthModel {
-  String get lastUrl;
-  WebViewState get viewState;
-
-  @JsonKey(ignore: true)
-  $AuthModelCopyWith<AuthModel> get copyWith;
-}
+mixin _$AuthModel {}
 
 /// @nodoc
 abstract class $AuthModelCopyWith<$Res> {
   factory $AuthModelCopyWith(AuthModel value, $Res Function(AuthModel) then) =
       _$AuthModelCopyWithImpl<$Res>;
-  $Res call({String lastUrl, WebViewState viewState});
 }
 
 /// @nodoc
@@ -49,27 +39,13 @@ class _$AuthModelCopyWithImpl<$Res> implements $AuthModelCopyWith<$Res> {
   final AuthModel _value;
   // ignore: unused_field
   final $Res Function(AuthModel) _then;
-
-  @override
-  $Res call({
-    Object lastUrl = freezed,
-    Object viewState = freezed,
-  }) {
-    return _then(_value.copyWith(
-      lastUrl: lastUrl == freezed ? _value.lastUrl : lastUrl as String,
-      viewState:
-          viewState == freezed ? _value.viewState : viewState as WebViewState,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$AuthModelCopyWith<$Res> implements $AuthModelCopyWith<$Res> {
+abstract class _$AuthModelCopyWith<$Res> {
   factory _$AuthModelCopyWith(
           _AuthModel value, $Res Function(_AuthModel) then) =
       __$AuthModelCopyWithImpl<$Res>;
-  @override
-  $Res call({String lastUrl, WebViewState viewState});
 }
 
 /// @nodoc
@@ -80,68 +56,26 @@ class __$AuthModelCopyWithImpl<$Res> extends _$AuthModelCopyWithImpl<$Res>
 
   @override
   _AuthModel get _value => super._value as _AuthModel;
-
-  @override
-  $Res call({
-    Object lastUrl = freezed,
-    Object viewState = freezed,
-  }) {
-    return _then(_AuthModel(
-      lastUrl: lastUrl == freezed ? _value.lastUrl : lastUrl as String,
-      viewState:
-          viewState == freezed ? _value.viewState : viewState as WebViewState,
-    ));
-  }
 }
 
 /// @nodoc
-class _$_AuthModel extends _AuthModel {
-  const _$_AuthModel({this.lastUrl, this.viewState}) : super._();
-
-  @override
-  final String lastUrl;
-  @override
-  final WebViewState viewState;
+class _$_AuthModel implements _AuthModel {
+  const _$_AuthModel();
 
   @override
   String toString() {
-    return 'AuthModel(lastUrl: $lastUrl, viewState: $viewState)';
+    return 'AuthModel()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _AuthModel &&
-            (identical(other.lastUrl, lastUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastUrl, lastUrl)) &&
-            (identical(other.viewState, viewState) ||
-                const DeepCollectionEquality()
-                    .equals(other.viewState, viewState)));
+    return identical(this, other) || (other is _AuthModel);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(lastUrl) ^
-      const DeepCollectionEquality().hash(viewState);
-
-  @JsonKey(ignore: true)
-  @override
-  _$AuthModelCopyWith<_AuthModel> get copyWith =>
-      __$AuthModelCopyWithImpl<_AuthModel>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 }
 
-abstract class _AuthModel extends AuthModel {
-  const _AuthModel._() : super._();
-  const factory _AuthModel({String lastUrl, WebViewState viewState}) =
-      _$_AuthModel;
-
-  @override
-  String get lastUrl;
-  @override
-  WebViewState get viewState;
-  @override
-  @JsonKey(ignore: true)
-  _$AuthModelCopyWith<_AuthModel> get copyWith;
+abstract class _AuthModel implements AuthModel {
+  const factory _AuthModel() = _$_AuthModel;
 }

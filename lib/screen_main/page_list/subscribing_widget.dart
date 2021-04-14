@@ -32,7 +32,9 @@ Widget subscribingWidget() => useProvider(kPrvViewModelSubscribing.state).when(
         itemBuilder: (context, i) {
           final item = data.viewerUser.subscribedPrograms.items[i];
           return MovieListItem(
-            program: item,
+            id: item.id,
+            title: item.title,
+            broadcastAt: item.broadcastAt,
             onTap: () async => context.pushProgramPage(item.id),
           );
         },

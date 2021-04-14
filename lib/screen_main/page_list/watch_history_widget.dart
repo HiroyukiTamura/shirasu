@@ -100,7 +100,9 @@ class _ContentListView extends HookWidget {
           return const CenterCircleProgress();
         final program = items[i].program;
         return MovieListItem(
-          program: program,
+          id: program.id,
+          title: program.title,
+          broadcastAt: program.broadcastAt,
           onTap: () async => context.pushProgramPage(program.id),
         );
       },

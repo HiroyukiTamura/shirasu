@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
@@ -14,6 +14,7 @@ import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
+import '../mock_repository/hive_auth_empty.dart';
 import '../mock_viewmodel/viewmodel_dashboard_mockable.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
@@ -90,7 +91,7 @@ Future<void> main() async {
         overrides: testBase.defaultOverride + override,
       );
       final viewModel = container.listen(kPrvDashboardViewModel).read();
-      final snackBar = container.listen(kPrvSnackBar).read();
+      final snackBar = container.listen(kPrvMainScreenSnackBar).read();
       await viewModel.loadMoreNewPrg();
       await Future.delayed(delay);
       // ignore: invalid_use_of_protected_member
@@ -130,6 +131,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_TIMEOUT,
       () async => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlTimeout,
           overrideHasNextToken,
@@ -142,6 +144,7 @@ Future<void> main() async {
       TestNameCommon.ERR_UNKNOWN,
       () async => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           kOverrideConnectedRepositoryConnectedImpl,
           kOverrideGraphqlErr,
           overrideHasNextToken,

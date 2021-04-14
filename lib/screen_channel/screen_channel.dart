@@ -16,6 +16,7 @@ import 'package:shirasu/screen_channel/page_notification.dart';
 import 'package:shirasu/ui_common/billing_btn.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
+import 'package:shirasu/ui_common/hive_fcm_topic_listenable.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/util.dart';
@@ -197,16 +198,7 @@ class _RowBillingBtn extends StatelessWidget {
               )
             else
               const SizedBox.shrink(),
-            Visibility(
-              visible: false,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.add_alert,
-                  color: Styles.COLOR_TEXT_SUB,
-                ),
-                onPressed: () {}, //todo implement
-              ),
-            ),
+            _AlertBtn(channelId: channel.id),
           ],
         ),
       );
@@ -243,4 +235,44 @@ Widget _rowSeem() => const SizedBox(
       child: ColoredBox(
         color: Styles.COLOR_TEXT_SUB,
       ),
+    );
+
+/// todo refactor??
+@hwidget
+Widget _alertBtn(
+  BuildContext context, {
+  @required String channelId,
+}) =>
+    HiveFcmTopicListenable(
+      builder: (context, value, child) => value.hasChannel(channelId)
+          ? _AlertOn(channelId: channelId)
+          : _AlertOff(channelId: channelId),
+    );
+
+@swidget
+Widget _alertOff(
+  BuildContext context, {
+  @required String channelId,
+}) =>
+    IconButton(
+      icon: const Icon(
+        Icons.add_alert,
+        color: Styles.COLOR_TEXT_SUB,
+      ),
+      onPressed: () async =>
+          context.read(kPrvViewModelChannel(channelId)).subscribeChannel(),
+    );
+
+@swidget
+Widget _alertOn(
+  BuildContext context, {
+  @required String channelId,
+}) =>
+    IconButton(
+      icon: Icon(
+        Icons.notifications,
+        color: Theme.of(context).primaryColor,
+      ),
+      onPressed: () async =>
+          context.read(kPrvViewModelChannel(channelId)).unSubscribeChannel(),
     );

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/router/no_animation_page.dart';
 import 'package:shirasu/screen_main/page_dashboard/page_dashboard.dart';
 import 'package:shirasu/router/global_route_path.dart';
+import 'package:shirasu/screen_main/page_search/page_search.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
 import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 import 'package:shirasu/router/on_pop_page_mixin.dart';
@@ -24,6 +25,7 @@ class ScreenMainRouterDelegate
       subscribing: (initialPage) =>
           PageListInMainScreen(initialPage: initialPage),
       setting: () => const PageSettingInMainScreen(),
+      search: () => const PageSearchInMainScreen(),
     );
 
     final page = NoAnimationPage(

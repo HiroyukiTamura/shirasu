@@ -36,7 +36,6 @@ class TestRunnerBase {
   void testGoldensSimple({
     @required String testName,
     List<Override> overrides = const [],
-    OnScenarioCreateTest onScenarioCreate,
     OnPostBuild onPostBuild,
     List<Device> devices = const [],
     bool skip = false,

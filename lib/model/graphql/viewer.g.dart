@@ -75,11 +75,10 @@ _$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
         ? null
         : WatchHistories.fromJson(
             json['watchHistories'] as Map<String, dynamic>),
-    rawSubscribedChannels: (json['subscribedChannels'] as List)
-        ?.map((e) => e == null
-            ? null
-            : SubscribedChannel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    subscribedChannels: json['subscribedChannels'] == null
+        ? null
+        : SubscribedChannels.fromJson(
+            json['subscribedChannels'] as Map<String, dynamic>),
     typename: json['__typename'] as String,
   );
 }
@@ -91,7 +90,26 @@ Map<String, dynamic> _$_$_ViewerUserToJson(_$_ViewerUser instance) =>
       'icon': instance.icon,
       'invoiceHistory': instance.invoiceHistory,
       'watchHistories': instance.watchHistories,
-      'subscribedChannels': instance.rawSubscribedChannels,
+      'subscribedChannels': instance.subscribedChannels,
+      '__typename': instance.typename,
+    };
+
+_$_SubscribedChannels _$_$_SubscribedChannelsFromJson(
+    Map<String, dynamic> json) {
+  return _$_SubscribedChannels(
+    rawItems: (json['items'] as List)
+        ?.map((e) => e == null
+            ? null
+            : SubscribedChannel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    typename: json['__typename'] as String,
+  );
+}
+
+Map<String, dynamic> _$_$_SubscribedChannelsToJson(
+        _$_SubscribedChannels instance) =>
+    <String, dynamic>{
+      'items': instance.rawItems,
       '__typename': instance.typename,
     };
 
@@ -102,7 +120,6 @@ _$_InvoiceHistory _$_$_InvoiceHistoryFromJson(Map<String, dynamic> json) {
             ? null
             : InvoiceHistoryItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    nextToken: json['nextToken'] as String,
     typename: json['__typename'] as String,
   );
 }
@@ -110,7 +127,6 @@ _$_InvoiceHistory _$_$_InvoiceHistoryFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_InvoiceHistoryToJson(_$_InvoiceHistory instance) =>
     <String, dynamic>{
       'items': instance.rawItems,
-      'nextToken': instance.nextToken,
       '__typename': instance.typename,
     };
 
@@ -145,6 +161,7 @@ Map<String, dynamic> _$_$_InvoiceHistoryItemToJson(
 
 _$_SubscribedChannel _$_$_SubscribedChannelFromJson(Map<String, dynamic> json) {
   return _$_SubscribedChannel(
+    id: json['id'] as String,
     subscribedAt: json['subscribedAt'] == null
         ? null
         : DateTime.parse(json['subscribedAt'] as String),
@@ -159,6 +176,7 @@ _$_SubscribedChannel _$_$_SubscribedChannelFromJson(Map<String, dynamic> json) {
     latestInvoice: json['latestInvoice'] == null
         ? null
         : LatestInvoice.fromJson(json['latestInvoice'] as Map<String, dynamic>),
+    defaultPaymentMethodId: json['defaultPaymentMethodId'] as String,
     typename: json['__typename'] as String,
   );
 }
@@ -166,12 +184,14 @@ _$_SubscribedChannel _$_$_SubscribedChannelFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_SubscribedChannelToJson(
         _$_SubscribedChannel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'subscribedAt': instance.subscribedAt?.toIso8601String(),
       'currentPeriodEndAt': instance.currentPeriodEndAt?.toIso8601String(),
       'channel': instance.channel,
       'isActive': instance.isActive,
       'latestInvoiceId': instance.latestInvoiceId,
       'latestInvoice': instance.latestInvoice,
+      'defaultPaymentMethodId': instance.defaultPaymentMethodId,
       '__typename': instance.typename,
     };
 
@@ -179,7 +199,6 @@ _$_Channel _$_$_ChannelFromJson(Map<String, dynamic> json) {
   return _$_Channel(
     id: json['id'] as String,
     name: json['name'] as String,
-    icon: json['icon'],
     typename: json['__typename'] as String,
   );
 }
@@ -188,7 +207,6 @@ Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'icon': instance.icon,
       '__typename': instance.typename,
     };
 

@@ -18,6 +18,7 @@ import 'package:shirasu/ui_common/page_error.dart';
 
 import '../../mock_repository/connected_connected.dart';
 import '../../mock_repository/graphql_common.dart';
+import '../../mock_repository/hive_auth_empty.dart';
 import '../../widget_test_util/json_client.dart';
 import '../../widget_test_util/test_models.dart';
 import '../../widget_test_util/test_name_common.dart';
@@ -55,6 +56,7 @@ class _TestRunner extends TestRunnerBase with TestRunnerOnPageError {
             testGoldensSimple(
               testName: goldenName,
               overrides: [
+                kOverrideEmptyHiveAuthRepository,
                 kOverrideConnectedRepositoryConnectedImpl,
                 kPrvGraphqlRepository
                     .overrideWithValue(GraphQlRepositoryCommonImpl(

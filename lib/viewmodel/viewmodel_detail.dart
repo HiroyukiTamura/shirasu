@@ -5,9 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_video_background/model/replay_data.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/repository/connectivity_repository.dart';
+import 'package:shirasu/model/hive/fcm_topic.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/native_client.dart';
+import 'package:shirasu/repository/ntf_message_repository.dart';
+import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -54,7 +57,11 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
         success: (prgDetailData, _, __) => prgDetailData.program.itemToPlay,
       );
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBarDetail);
+  /// must access from [commandSnackBar] only.
+  SnackBarMessageNotifier get _snackBarMsgNotifier =>
+      reader(kPrvSnackBarDetail);
+
+  NtfMessageRepository get _fcmRepository => reader(kPrvNtfMessage);
 
   @override
   Future<void> initialize() async {
@@ -63,14 +70,15 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(
       prgDataResult: const DetailModelState.loading(),
     );
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return Util.wait2<ProgramDetailData, ChannelData>(
-              () async => graphQlRepository.queryProgramDetail(id),
-              () async => graphQlRepository.queryChannelData(channelId))
-          .timeout(
-              GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return Util.wait2<ProgramDetailData, ChannelData>(
+                      () async => graphQlRepository.queryProgramDetail(id),
+                      () async => graphQlRepository.queryChannelData(channelId))
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (mounted)
       await result.when(
         success: (data) async {
@@ -82,7 +90,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
             ),
           );
           if (data.item1.program.isPurchased)
-           return _initComments(Duration.zero);
+            return _initComments(Duration.zero);
         },
         failure: (e) {
           if (mounted) state = state.copyAsPrgDataResultErr(toErrMsg(e));
@@ -106,14 +114,16 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyAsInitialize(prg.urlAvailable, prg.videoTypeStrict);
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return dioClient.getSignedCookie(
-        prg.id,
-        prg.videoTypeStrict,
-        hiveAuthRepository.authData.body.idToken,
-      );
-    });
+    final result = await logger
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return dioClient.getSignedCookie(
+                prg.id,
+                prg.videoTypeStrict,
+                hiveAuthRepository.authData.body.idToken,
+              );
+            }));
     if (mounted)
       state = result.when(
         success: (cookie) =>
@@ -183,17 +193,19 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     final pageNationKey = state.commentHolder.pageNationKey;
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .queryComment(
-            programId: id,
-            beginTime: beginTime,
-            endTime: endTime,
-            sortDirection: sortDirection,
-          )
-          .timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .queryComment(
+                    programId: id,
+                    beginTime: beginTime,
+                    endTime: endTime,
+                    sortDirection: sortDirection,
+                  )
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (mounted && pageNationKey == state.commentHolder.pageNationKey)
       result.when(
         success: (object) => state = state.copyWith(
@@ -235,14 +247,17 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     state = state.copyWith(isCommentPosting: true);
     final result = await logger.guardFuture(() async {
       Util.require(text.length <= COMMENT_MAX_LETTER_LEN);
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .postComment(
-            commentTime: state.playOutState.currentPosSafe,
-            programId: id,
-            text: text,
-          )
-          .timeout(GraphQlRepository.TIMEOUT);
+      return kAuthOperationLock.synchronized(() async {
+        await connectivityRepository.ensureNotDisconnect();
+        await interceptor.refreshAuthTokenIfNeeded();
+        return graphQlRepository
+            .postComment(
+              commentTime: state.playOutState.currentPosSafe,
+              programId: id,
+              text: text,
+            )
+            .timeout(GraphQlRepository.TIMEOUT);
+      });
     });
     if (!mounted) return;
 
@@ -265,12 +280,14 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
 
     state = state.copyWith(isHandoutUrlRequesting: true);
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .queryHandOutUrl(id, handoutId)
-          .timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .queryHandOutUrl(id, handoutId)
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (!mounted) return null;
     final url = result.when(
         success: (url) => url,
@@ -497,7 +514,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
   /// provide old values as param; [position], [cookie]
   Future<void> startPlayBackground(int position, String cookie) async {
     if (mounted)
-      state.prgDataResult.whenSuccess(
+      await state.prgDataResult.whenSuccess(
           (prgDetailData, channelData, page) async =>
               logger.guardFuture(() async => NativeClient.startPlayBackGround(
                     url: state.playOutState.hlsMediaUrl,
@@ -515,5 +532,37 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     final result = await Result.guardFuture(
         logger, () async => NativeClient.stopBackGround());
     return result.when(success: (data) => data, failure: (e) => null);
+  }
+
+  Future<void> subscribeChannel() async =>
+      await state.prgDataResult.whenSuccess((_, channelData, __) async {
+        final hiveData = HiveFcmChannelData.parse(channelData.channel);
+        final permission = await _fcmRepository.requestPermission();
+        if (!mounted) return;
+        if (permission) {
+          await _fcmRepository.subscribeChannel(hiveData);
+          if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
+        } else {
+          commandSnackBar(const SnackMsg.fcmPermissionDenied());
+        }
+      });
+
+  Future<void> subscribeProgram() async =>
+      await state.prgDataResult.whenSuccess((programData, _, __) async {
+        final hiveData = HiveFcmProgramData.parse(programData.program);
+        final permission = await _fcmRepository.requestPermission();
+        if (!mounted) return;
+        if (permission) {
+          await _fcmRepository.subscribeProgram(hiveData);
+          if (mounted) commandSnackBar(const SnackMsg.fcmSubscribe());
+        } else {
+          commandSnackBar(const SnackMsg.fcmPermissionDenied());
+        }
+      });
+
+  Future<void> unSubscribeChannel() async {
+    final success = await _fcmRepository.unsubscribeChannel(channelId);
+    if (mounted && !success) await _fcmRepository.unsubscribeProgram(id);
+    if (mounted) commandSnackBar(const SnackMsg.fcmUnsubscribe());
   }
 }

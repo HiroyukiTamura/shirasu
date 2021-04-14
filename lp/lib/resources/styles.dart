@@ -34,7 +34,8 @@ class Styles {
 
   static const APP_TITLE = TextStyle(
     color: Colors.white,
-    fontSize: 36,
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
     fontFamily: FontFamily.shingo,
   );
 

@@ -26,6 +26,7 @@ mixin TestRunnerOnPageError on TestRunnerBase {
             expect(find.text(Strings.ERR_NETWORK_DISCONNECTED), findsOneWidget);
           },
           overrides: [
+            kOverrideEmptyHiveAuthRepository,
             kOverrideDisconnected,
             ...defaultOverride,
           ],
@@ -37,6 +38,7 @@ mixin TestRunnerOnPageError on TestRunnerBase {
             expect(find.text(Strings.ERR_NETWORK_TIMEOUT), findsOneWidget);
           },
           overrides: [
+            kOverrideEmptyHiveAuthRepository,
             kOverrideConnectedRepositoryConnectedImpl,
             kOverrideGraphqlTimeout,
             ...defaultOverride,

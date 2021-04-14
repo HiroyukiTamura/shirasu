@@ -1,6 +1,8 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 
 part 'msg_ntf_listener.g.dart';
@@ -23,6 +25,16 @@ Widget snackEventListener({
 
         final snackBar = SnackBar(
           content: Text(data.snackMsg.value),
+          action: data.snackMsg.maybeWhen(
+            orElse: () => null,
+            fcmPermissionDenied: () => SnackBarAction(
+              label: Strings.SNACK_ACTION_FCM_PERMISSION,
+              onPressed: () async {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                await AppSettings.openNotificationSettings();
+              },
+            ),
+          ),
           margin: data.margin,
           behavior: SnackBarBehavior.floating,
         );

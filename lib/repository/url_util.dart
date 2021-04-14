@@ -8,9 +8,11 @@ class UrlUtil {
       'https://itvvnowbibekdj7la2nlxgkuva.appsync-api.ap-northeast-1.amazonaws.com/graphql';
   static const URL_HOME = 'https://shirasu.io/';
   static const URL_AUTH_BASE = 'https://shirasu.auth0.com/';
+  static final urlAuthLogin = Uri.parse('https://shirasu.auth0.com/u/login');
   static const URL_AUTH_GOOGLE_BASE = 'https://accounts.google.com/';
   static const URL_ACCOUNT = 'https://shirasu.io/account';
   static const URL_DASHBOARD = 'https://shirasu.io/dashboard';
+  static const URL_AUTH0_CALLBACK = 'https://shirasu.io/callback/';
   static const URL_HEADER_BACKDROP =
       'https://shirasu.io/top/kv_mix.a70089e9.jpg';
   static const URL_SIGNED_COOKIE =
@@ -92,4 +94,6 @@ class UrlUtil {
 
   static String programId2channelId(String programId) =>
       programId.split('-')[1];
+
+  static String algoliaUrl(String algoliaId) => 'https://$algoliaId-dsn.algolia.net/1/indexes/program/query';
 }

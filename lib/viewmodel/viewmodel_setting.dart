@@ -4,6 +4,7 @@ import 'package:async/async.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/local_json_client.dart';
@@ -11,14 +12,15 @@ import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart'
     show UpdateUserWithAttrVariable;
 import 'package:shirasu/repository/url_util.dart';
+import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_main/page_setting/page_setting.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/viewmodel/model/model_setting.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
-import 'package:shirasu/main.dart';
 import 'package:dartx/dartx.dart';
 
 class ViewModelSetting extends ViewModelBase<SettingModel> {
@@ -28,16 +30,20 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
   HiveBody get _hiveAuthBody => hiveAuthRepository?.authData?.body;
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvMainScreenSnackBar);
 
   @override
   Future<void> initialize() async {
     if (state != SettingModel.initial()) return;
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository.queryViewer().timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .queryViewer()
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (mounted)
       result.when(success: (data) {
         Util.require(_isUserIdMatchesLocal(data));
@@ -76,7 +82,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
     final attrs =
         _hiveAuthBody?.decodedToken?.user?.httpsShirasuIoUserAttribute;
 
-    state.settingModelState.whenSuccess((viewerUser) async {
+    await state.settingModelState.whenSuccess((viewerUser) async {
       final birthDate = state.editedUserInfo?.birthDate ?? attrs.birthDate;
       final job = state.editedUserInfo?.jobCode ?? attrs.job;
       final country =
@@ -95,18 +101,21 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
         state = state.copyWith(uploadingProfile: true);
 
-        final result = await logger.guardFuture(() async {
-          await connectivityRepository.ensureNotDisconnect();
-          return graphQlRepository
-              .updateUserWithAttr(variable)
-              .timeout(GraphQlRepository.TIMEOUT);
+        await kAuthOperationLock.synchronized(() async {
+          final result = await logger.guardFuture(() async {
+            await connectivityRepository.ensureNotDisconnect();
+            await interceptor.refreshAuthTokenIfNeeded();
+            return graphQlRepository
+                .updateUserWithAttr(variable)
+                .timeout(GraphQlRepository.TIMEOUT);
+          });
+          if (mounted)
+            await result.when(
+                success: (data) async => hiveAuthRepository.updateProfile(data),
+                failure: (e) {
+                  notifySnackMsg(toNetworkSnack(e));
+                });
         });
-        if (mounted)
-          await result.when(
-              success: (data) async => hiveAuthRepository.updateProfile(data),
-              failure: (e) {
-                notifySnackMsg(toNetworkSnack(e));
-              });
       } else {
         notifySnackMsg(const SnackMsg.unknown());
       }
@@ -124,27 +133,29 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(isInLoggingOut: true);
 
-    await logger.guardFuture(() async {
-      _webView = FlutterWebviewPlugin();
-      await _webView.launch(
-        UrlUtil.URL_HOME,
-        clearCache: true,
-        clearCookies: true,
-        hidden: true,
-      );
-      await Future.delayed(1.seconds);//must need
-      await _webView.evalJavascript('window.localStorage.clear();');
-      await Future.delayed(500.milliseconds);//must need
-      await _webView.close();
-    });
+    if (!Util.useScratchAuth)
+      await logger.guardFuture(() async {
+        _webView = FlutterWebviewPlugin();
+        await _webView.launch(
+          UrlUtil.URL_HOME,
+          clearCache: true,
+          clearCookies: true,
+          hidden: true,
+        );
+        await Future.delayed(1.seconds); //must need
+        await _webView.evalJavascript('window.localStorage.clear();');
+        await Future.delayed(500.milliseconds); //must need
+        await _webView.close();
+      });
 
     if (!mounted) return;
 
-    await hiveAuthRepository.clearAuthData();
+    await kAuthOperationLock
+        .synchronized(() async => hiveAuthRepository.clearAuthData());
 
     state = state.copyWith(isInLoggingOut: false);
-    await reader(kPrvAppRouterDelegate).pushPage(
-        const GlobalRoutePath.preLogin());
+    await reader(kPrvAppRouterDelegate)
+        .pushPage(const GlobalRoutePath.preLogin()); //todo change to reset?
   }
 
   void notifySnackMsg(SnackMsg snackMsg) =>

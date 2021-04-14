@@ -26,3 +26,22 @@ class BtmSheetCommentSelected extends HookWidget {
   Widget build(BuildContext _context) =>
       btmSheetCommentSelected(_context, id: id, position: position);
 }
+
+class BtmSheetFcmMenu extends HookWidget {
+  const BtmSheetFcmMenu(
+      {Key key,
+      @required this.channelId,
+      @required this.programId,
+      @required this.onTap})
+      : super(key: key);
+
+  final String channelId;
+
+  final String programId;
+
+  final void Function(FcmSubscribingStatus) onTap;
+
+  @override
+  Widget build(BuildContext _context) => btmSheetFcmMenu(_context,
+      channelId: channelId, programId: programId, onTap: onTap);
+}

@@ -15,6 +15,7 @@ class $JpegGen {
 class $JsonGen {
   const $JsonGen();
 
+  String get algoliaResponse => 'json/algolia_response.json';
   String get channel => 'json/channel.json';
   String get channelSubscriptionPlan => 'json/channel_subscription_plan.json';
   String get listCommentsByProgram => 'json/list_comments_by_program.json';

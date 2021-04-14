@@ -9,7 +9,8 @@ analyzer:
     - "**/*.freezed.dart"
     - "**/*/assets.gen.dart"
     - "lp/*"
-
+  errors:
+    missing_required_param: error
 
 linter:
   rules:

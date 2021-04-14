@@ -14,6 +14,7 @@ import 'package:shirasu/viewmodel/message_notifier.dart';
 
 part 'page_app_config.g.dart';
 
+// todo notification setting
 @swidget
 Widget pageAppConfig(BuildContext context) => ListView(
       children: [
@@ -34,6 +35,11 @@ Widget pageAppConfig(BuildContext context) => ListView(
             title: Strings.ITEM_TITLE_MOVIE_QUALITY_MOBILE,
             onTap: () {},
           ),
+        ),
+        _ListItem(
+          icon: Icons.notifications,
+          title: Strings.ITEM_TITLE_FCM,
+          onTap: () async => context.pushPage(const GlobalRoutePath.fcm()),
         ),
         _ListItem(
           icon: Icons.logout,

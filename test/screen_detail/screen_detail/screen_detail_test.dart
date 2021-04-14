@@ -31,12 +31,14 @@ class _TestRunner extends TestRunnerBase {
   void runScreenTest() => group('ScreenDetail', () {
         testGoldensSimple(testName: 'Initial', overrides: [
           createOverride(ModelDetail.initial(true)),
+          ...defaultOverride
         ]);
         testGoldensSimple(testName: 'Error', overrides: [
           createOverride(ModelDetail.initial(true).copyWith(
             prgDataResult:
                 const DetailModelState.error(ErrorMsgCommon.unknown()),
-          ))
+          )),
+          ...defaultOverride
         ]);
         testGoldensSimple(testName: 'Success', overrides: [
           createOverride(
@@ -47,7 +49,8 @@ class _TestRunner extends TestRunnerBase {
                 channelData: JsonClient.instance.mChannelData,
               ),
             ),
-          )
+          ),
+          ...defaultOverride,
         ]);
         testGoldensSimple(
             testName: 'EmptyTag',
@@ -59,6 +62,7 @@ class _TestRunner extends TestRunnerBase {
                   channelData: mChannelData,
                 ),
               )),
+              ...defaultOverride,
             ],
             onPostBuild: (tester) {
               expect(find.byType(VideoTagChip), findsNothing);

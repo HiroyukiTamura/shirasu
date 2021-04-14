@@ -4,20 +4,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/connectivity_repository.dart';
 import 'package:shirasu/repository/connectivity_repository_impl.dart';
 import 'package:shirasu/repository/dio_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
-import 'package:shirasu/repository/dio_client.dart';
+import 'package:shirasu/repository/dio_repository_impl.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/logger_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:state_notifier/state_notifier.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
@@ -103,6 +104,9 @@ mixin _CommonLocator {
 
   @protected
   LoggerRepository get logger => reader(kPrvLogger);
+
+  @protected
+  AuthClientInterceptor get interceptor => reader(kPrvAuthClientInterceptor);
 
   @protected
   ErrorMsgCommon toErrMsg(dynamic e) {

@@ -20,8 +20,6 @@ abstract class BaseProgram extends _GraphQlModel {
   String get channelId;
 
   String get title;
-
-  DateTime get broadcastAt;
 }
 
 @immutable
@@ -114,6 +112,12 @@ abstract class BaseWatchHistory extends _GraphQlModel {}
 
 @immutable
 abstract class BaseSubscribedChannel extends _GraphQlModel {}
+
+@immutable
+abstract class BaseSubscribedChannels extends _GraphQlModel {}
+
+@immutable
+abstract class BaseLiveExtension extends _GraphQlModel{}
 
 @immutable
 abstract class BaseModelWatchHistoryConnection extends _GraphQlModel {}

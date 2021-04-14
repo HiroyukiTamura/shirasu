@@ -10,6 +10,9 @@ import 'package:lp/ui/screen_main/section_policy.dart';
 import 'package:lp/ui/screen_main/section_tech_stack.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:lp/extensions.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+
+part 'screen_main.g.dart';
 
 class ScreenMain extends StatefulWidget {
   @override
@@ -83,19 +86,16 @@ class _ScreenMainState extends State<ScreenMain> {
   }
 }
 
-class _SectionWrapper extends StatelessWidget {
-  const _SectionWrapper({
-    required this.child,
-  });
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => Center(
-        child: Container(
-          width: 1024,
-          padding: EdgeInsets.symmetric(horizontal: context.isNarrowScreen ? 16 : 96),
-          child: child,
-        ),
-      );
-}
+@swidget
+Widget _sectionWrapper(
+  BuildContext context, {
+  required Widget child,
+}) =>
+    Center(
+      child: Container(
+        width: 1024,
+        padding:
+            EdgeInsets.symmetric(horizontal: context.isNarrowScreen ? 16 : 96),
+        child: child,
+      ),
+    );

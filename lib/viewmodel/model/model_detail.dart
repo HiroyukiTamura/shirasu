@@ -78,16 +78,15 @@ abstract class DetailModelState with _$DetailModelState {
 
   const DetailModelState._();
 
-  void whenSuccess(
-    void Function(ProgramDetailData programDetailData, ChannelData channelData,
+  @optionalTypeArgs
+  TResult whenSuccess<TResult extends Object>(
+      TResult Function(ProgramDetailData programDetailData, ChannelData channelData,
             PageSheetModel page)
         success,
-  ) {
-    maybeWhen(
-      orElse: () {},
+  ) => maybeWhen(
+      orElse: () => null,
       success: success,
     );
-  }
 }
 
 @freezed
@@ -387,6 +386,8 @@ abstract class BtmSheetState with _$BtmSheetState {
       BtmSheetStateCommentSelect;
 
   const factory BtmSheetState.payment() = _BtmSheetStatePayment;
+
+  const factory BtmSheetState.fcmMenu(String channelId, String programId) = _BtmSheetStateFcmMenu;
 }
 
 @freezed

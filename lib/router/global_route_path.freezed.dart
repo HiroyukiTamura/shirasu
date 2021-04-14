@@ -51,6 +51,11 @@ class _$GlobalRoutePathTearOff {
   }
 
 // ignore: unused_element
+  _PathDataFcm fcm() {
+    return const _PathDataFcm();
+  }
+
+// ignore: unused_element
   _PathDataAuth auth() {
     return const _PathDataAuth();
   }
@@ -75,6 +80,7 @@ mixin _$GlobalRoutePath {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   });
@@ -86,6 +92,7 @@ mixin _$GlobalRoutePath {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -98,6 +105,7 @@ mixin _$GlobalRoutePath {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   });
@@ -109,6 +117,7 @@ mixin _$GlobalRoutePath {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -177,6 +186,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -186,6 +196,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return intro();
@@ -200,6 +211,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -220,6 +232,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -229,6 +242,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return intro(this);
@@ -243,6 +257,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -337,6 +352,7 @@ class _$PathDataError implements PathDataError {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -346,6 +362,7 @@ class _$PathDataError implements PathDataError {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return error(showLoginBtn, errText);
@@ -360,6 +377,7 @@ class _$PathDataError implements PathDataError {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -380,6 +398,7 @@ class _$PathDataError implements PathDataError {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -389,6 +408,7 @@ class _$PathDataError implements PathDataError {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return error(this);
@@ -403,6 +423,7 @@ class _$PathDataError implements PathDataError {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -493,6 +514,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -502,6 +524,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return channel(channelId);
@@ -516,6 +539,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -536,6 +560,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -545,6 +570,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return channel(this);
@@ -559,6 +585,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -647,6 +674,7 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -656,6 +684,7 @@ class _$PathDataProgram implements PathDataProgram {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return program(programId);
@@ -670,6 +699,7 @@ class _$PathDataProgram implements PathDataProgram {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -690,6 +720,7 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -699,6 +730,7 @@ class _$PathDataProgram implements PathDataProgram {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return program(this);
@@ -713,6 +745,7 @@ class _$PathDataProgram implements PathDataProgram {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -778,6 +811,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -787,6 +821,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return ossLicense();
@@ -801,6 +836,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -821,6 +857,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -830,6 +867,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return ossLicense(this);
@@ -844,6 +882,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -905,6 +944,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -914,6 +954,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return imgLicense();
@@ -928,6 +969,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -948,6 +990,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -957,6 +1000,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return imgLicense(this);
@@ -971,6 +1015,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -985,6 +1030,139 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
 
 abstract class _PathDataImgLicense implements GlobalRoutePath {
   const factory _PathDataImgLicense() = _$_PathDataImgLicense;
+}
+
+/// @nodoc
+abstract class _$PathDataFcmCopyWith<$Res> {
+  factory _$PathDataFcmCopyWith(
+          _PathDataFcm value, $Res Function(_PathDataFcm) then) =
+      __$PathDataFcmCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PathDataFcmCopyWithImpl<$Res>
+    extends _$GlobalRoutePathCopyWithImpl<$Res>
+    implements _$PathDataFcmCopyWith<$Res> {
+  __$PathDataFcmCopyWithImpl(
+      _PathDataFcm _value, $Res Function(_PathDataFcm) _then)
+      : super(_value, (v) => _then(v as _PathDataFcm));
+
+  @override
+  _PathDataFcm get _value => super._value as _PathDataFcm;
+}
+
+/// @nodoc
+class _$_PathDataFcm implements _PathDataFcm {
+  const _$_PathDataFcm();
+
+  @override
+  String toString() {
+    return 'GlobalRoutePath.fcm()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PathDataFcm);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(bool showLoginBtn, String errText),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult ossLicense(),
+    @required TResult imgLicense(),
+    @required TResult fcm(),
+    @required TResult auth(),
+    @required TResult preLogin(),
+  }) {
+    assert(intro != null);
+    assert(error != null);
+    assert(channel != null);
+    assert(program != null);
+    assert(ossLicense != null);
+    assert(imgLicense != null);
+    assert(fcm != null);
+    assert(auth != null);
+    assert(preLogin != null);
+    return fcm();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(bool showLoginBtn, String errText),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult ossLicense(),
+    TResult imgLicense(),
+    TResult fcm(),
+    TResult auth(),
+    TResult preLogin(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (fcm != null) {
+      return fcm();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(_PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
+    @required TResult auth(_PathDataAuth value),
+    @required TResult preLogin(_PathDataPreLogin value),
+  }) {
+    assert(intro != null);
+    assert(error != null);
+    assert(channel != null);
+    assert(program != null);
+    assert(ossLicense != null);
+    assert(imgLicense != null);
+    assert(fcm != null);
+    assert(auth != null);
+    assert(preLogin != null);
+    return fcm(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(_PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(_PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
+    TResult auth(_PathDataAuth value),
+    TResult preLogin(_PathDataPreLogin value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (fcm != null) {
+      return fcm(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PathDataFcm implements GlobalRoutePath {
+  const factory _PathDataFcm() = _$_PathDataFcm;
 }
 
 /// @nodoc
@@ -1032,6 +1210,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -1041,6 +1220,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return auth();
@@ -1055,6 +1235,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -1075,6 +1256,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -1084,6 +1266,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return auth(this);
@@ -1098,6 +1281,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -1159,6 +1343,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     @required TResult program(String programId),
     @required TResult ossLicense(),
     @required TResult imgLicense(),
+    @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -1168,6 +1353,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return preLogin();
@@ -1182,6 +1368,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     TResult program(String programId),
     TResult ossLicense(),
     TResult imgLicense(),
+    TResult fcm(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -1202,6 +1389,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     @required TResult program(PathDataProgram value),
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -1211,6 +1399,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     assert(program != null);
     assert(ossLicense != null);
     assert(imgLicense != null);
+    assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
     return preLogin(this);
@@ -1225,6 +1414,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     TResult program(PathDataProgram value),
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -1258,6 +1448,11 @@ class _$PathDataMainPageBaseTearOff {
   }
 
 // ignore: unused_element
+  _PathDataMainPageSearch search() {
+    return const _PathDataMainPageSearch();
+  }
+
+// ignore: unused_element
   _PathDataMainPageSetting setting() {
     return const _PathDataMainPageSetting();
   }
@@ -1273,12 +1468,14 @@ mixin _$PathDataMainPageBase {
   TResult when<TResult extends Object>({
     @required TResult dashboard(),
     @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
     @required TResult setting(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult dashboard(),
     TResult subscribing(PageListTabPage index),
+    TResult search(),
     TResult setting(),
     @required TResult orElse(),
   });
@@ -1286,12 +1483,14 @@ mixin _$PathDataMainPageBase {
   TResult map<TResult extends Object>({
     @required TResult dashboard(_PathDataMainPageDashBoard value),
     @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
     @required TResult setting(_PathDataMainPageSetting value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult dashboard(_PathDataMainPageDashBoard value),
     TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
     TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   });
@@ -1356,10 +1555,12 @@ class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
   TResult when<TResult extends Object>({
     @required TResult dashboard(),
     @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
     @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return dashboard();
   }
@@ -1369,6 +1570,7 @@ class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
   TResult maybeWhen<TResult extends Object>({
     TResult dashboard(),
     TResult subscribing(PageListTabPage index),
+    TResult search(),
     TResult setting(),
     @required TResult orElse(),
   }) {
@@ -1384,10 +1586,12 @@ class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
   TResult map<TResult extends Object>({
     @required TResult dashboard(_PathDataMainPageDashBoard value),
     @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
     @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return dashboard(this);
   }
@@ -1397,6 +1601,7 @@ class _$_PathDataMainPageDashBoard extends _PathDataMainPageDashBoard {
   TResult maybeMap<TResult extends Object>({
     TResult dashboard(_PathDataMainPageDashBoard value),
     TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
     TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {
@@ -1482,10 +1687,12 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   TResult when<TResult extends Object>({
     @required TResult dashboard(),
     @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
     @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return subscribing(index);
   }
@@ -1495,6 +1702,7 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   TResult maybeWhen<TResult extends Object>({
     TResult dashboard(),
     TResult subscribing(PageListTabPage index),
+    TResult search(),
     TResult setting(),
     @required TResult orElse(),
   }) {
@@ -1510,10 +1718,12 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   TResult map<TResult extends Object>({
     @required TResult dashboard(_PathDataMainPageDashBoard value),
     @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
     @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return subscribing(this);
   }
@@ -1523,6 +1733,7 @@ class _$_PathDataMainPageSubscribing extends _PathDataMainPageSubscribing {
   TResult maybeMap<TResult extends Object>({
     TResult dashboard(_PathDataMainPageDashBoard value),
     TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
     TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {
@@ -1543,6 +1754,110 @@ abstract class _PathDataMainPageSubscribing extends PathDataMainPageBase {
   @JsonKey(ignore: true)
   _$PathDataMainPageSubscribingCopyWith<_PathDataMainPageSubscribing>
       get copyWith;
+}
+
+/// @nodoc
+abstract class _$PathDataMainPageSearchCopyWith<$Res> {
+  factory _$PathDataMainPageSearchCopyWith(_PathDataMainPageSearch value,
+          $Res Function(_PathDataMainPageSearch) then) =
+      __$PathDataMainPageSearchCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PathDataMainPageSearchCopyWithImpl<$Res>
+    extends _$PathDataMainPageBaseCopyWithImpl<$Res>
+    implements _$PathDataMainPageSearchCopyWith<$Res> {
+  __$PathDataMainPageSearchCopyWithImpl(_PathDataMainPageSearch _value,
+      $Res Function(_PathDataMainPageSearch) _then)
+      : super(_value, (v) => _then(v as _PathDataMainPageSearch));
+
+  @override
+  _PathDataMainPageSearch get _value => super._value as _PathDataMainPageSearch;
+}
+
+/// @nodoc
+class _$_PathDataMainPageSearch extends _PathDataMainPageSearch {
+  const _$_PathDataMainPageSearch() : super._();
+
+  @override
+  String toString() {
+    return 'PathDataMainPageBase.search()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PathDataMainPageSearch);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult dashboard(),
+    @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
+    @required TResult setting(),
+  }) {
+    assert(dashboard != null);
+    assert(subscribing != null);
+    assert(search != null);
+    assert(setting != null);
+    return search();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult dashboard(),
+    TResult subscribing(PageListTabPage index),
+    TResult search(),
+    TResult setting(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (search != null) {
+      return search();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult dashboard(_PathDataMainPageDashBoard value),
+    @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
+    @required TResult setting(_PathDataMainPageSetting value),
+  }) {
+    assert(dashboard != null);
+    assert(subscribing != null);
+    assert(search != null);
+    assert(setting != null);
+    return search(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult dashboard(_PathDataMainPageDashBoard value),
+    TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
+    TResult setting(_PathDataMainPageSetting value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (search != null) {
+      return search(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PathDataMainPageSearch extends PathDataMainPageBase {
+  const _PathDataMainPageSearch._() : super._();
+  const factory _PathDataMainPageSearch() = _$_PathDataMainPageSearch;
 }
 
 /// @nodoc
@@ -1587,10 +1902,12 @@ class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
   TResult when<TResult extends Object>({
     @required TResult dashboard(),
     @required TResult subscribing(PageListTabPage index),
+    @required TResult search(),
     @required TResult setting(),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return setting();
   }
@@ -1600,6 +1917,7 @@ class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
   TResult maybeWhen<TResult extends Object>({
     TResult dashboard(),
     TResult subscribing(PageListTabPage index),
+    TResult search(),
     TResult setting(),
     @required TResult orElse(),
   }) {
@@ -1615,10 +1933,12 @@ class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
   TResult map<TResult extends Object>({
     @required TResult dashboard(_PathDataMainPageDashBoard value),
     @required TResult subscribing(_PathDataMainPageSubscribing value),
+    @required TResult search(_PathDataMainPageSearch value),
     @required TResult setting(_PathDataMainPageSetting value),
   }) {
     assert(dashboard != null);
     assert(subscribing != null);
+    assert(search != null);
     assert(setting != null);
     return setting(this);
   }
@@ -1628,6 +1948,7 @@ class _$_PathDataMainPageSetting extends _PathDataMainPageSetting {
   TResult maybeMap<TResult extends Object>({
     TResult dashboard(_PathDataMainPageDashBoard value),
     TResult subscribing(_PathDataMainPageSubscribing value),
+    TResult search(_PathDataMainPageSearch value),
     TResult setting(_PathDataMainPageSetting value),
     @required TResult orElse(),
   }) {

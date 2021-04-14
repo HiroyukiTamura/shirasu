@@ -53,15 +53,20 @@ Future<void> main() async {
   await GraphQlRepositoryImpl.openHiveStore();
 
   if (kIsWeb)
-    await SentryFlutter.init(
-      (options) {
-        options.dsn =
-            'https://bbd475d433724e46b8e2f342b35a107f@o327530.ingest.sentry.io/5672361';
-      },
-      appRunner: () => runApp(ProviderScope(
-        child: MyApp(),
-      )),
-    );
+    await runZonedGuarded(
+        () async => SentryFlutter.init(
+              (options) {
+                options.dsn =
+                    'https://bbd475d433724e46b8e2f342b35a107f@o327530.ingest.sentry.io/5672361';
+              },
+              appRunner: () => runApp(ProviderScope(
+                child: MyApp(),
+              )),
+            ),
+        (exception, stackTrace) async => Sentry.captureException(
+              exception,
+              stackTrace: stackTrace,
+            ));
   else
     await runZonedGuarded(
         () async => runApp(

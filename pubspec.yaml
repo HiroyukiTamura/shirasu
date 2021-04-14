@@ -94,7 +94,6 @@ dev_dependencies:
   flutter_launcher_icons: "^0.8.0" # needs quotes @see https://github.com/fluttercommunity/flutter_launcher_icons/issues/220
   grinder: ^0.8.6
 
-
 flutter_icons:
   android: true
   ios: true

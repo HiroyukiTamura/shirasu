@@ -72,5 +72,7 @@ class AppRouteInformationParser
         auth: () => 'auth',
         preLogin: () => 'pre_login',
         fcm: () => 'fcm',
+        webNoSupport: () => 'no_web',
+        pwaGuide: () => 'pwa_guide',
       );
 }

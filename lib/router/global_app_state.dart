@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:dartx/dartx.dart';
+import 'package:shirasu/web/js_delegate.dart';
+import 'package:shirasu/web/web_platform_check.dart';
 
 final kPrvGlobalAppState =
     Provider<GlobalAppState>((ref) => GlobalAppState.instance(ref.read));
@@ -34,6 +37,13 @@ class GlobalAppState extends ChangeNotifier {
   bool get _isInitialLaunch => _hivePrefRepository.isInitialLaunchApp;
 
   List<GlobalRoutePathBase> get list {
+    if (kIsWeb) {
+      if (!WebPlatformCheck().isIos)
+        return _list = [const GlobalRoutePath.webNoSupport()];
+      if (!WebPlatformCheck().isIosPwa)
+        return _list = [];
+    }
+
     if (_isInitialLaunch) return _list = [const GlobalRoutePath.intro()];
 
     if (_list.isEmpty) {

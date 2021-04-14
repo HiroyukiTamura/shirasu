@@ -55,6 +55,7 @@ class Strings {
   static const SNACK_ERR_INVALID_AUTH_INPUT = 'メールアドレスまたはパスワードが違います';
   static const SNACK_ERR_FCM_PERMISSION = '通知を受け取るには設定で許可を与えてください';
   static const SNACK_ACTION_FCM_PERMISSION = '設定する';
+
   //endregion
 
   //region ScreenMeta
@@ -104,10 +105,10 @@ class Strings {
 
 //endregion
 
-
   //region ScreenSearch
   static const HINT_SEARCH = '検索';
   static const SEARCH_RESULT_EMPTY = 'キーワードに一致する結果が見つかりませんでした';
+
   //endregion
 
 //region ScreenMain PageSetting
@@ -176,8 +177,7 @@ class Strings {
       '冒頭を無料で見ることができます。\n番組開始後に冒頭無料視聴をお選びください。';
 
   /// ref: users.pages.Program.components.ProgramNotice.saving
-  static const PROGRAM_ARCHIVING =
-      'アーカイブ動画への変換中です。\n視聴可能になるまで、少々お待ちください。';
+  static const PROGRAM_ARCHIVING = 'アーカイブ動画への変換中です。\n視聴可能になるまで、少々お待ちください。';
 
   static const CURRENT_PERIOD_END_AT_LABEL = '次回更新日';
   static const SUBSCRIPTION_START_DATE = '購読開始日';
@@ -232,7 +232,9 @@ class Strings {
   static const TEXT_FILED_ERR_LABEL_PW_EMPTY = 'パスワードを入力してください';
   static const TEXT_FILED_ERR_LABEL_EMAIL_EMPTY = 'メールアドレスを入力してください';
   static const TEXT_FILED_ERR_LABEL_EMAIL_INVALID = '無効なメールアドレス';
-  static const IOS_LOGIN_NOTE = '$APP_NAME iOS版ではメールアドレス以外のログインには対応しておりません。あらかじめご了承ください。';
+  static const IOS_LOGIN_NOTE =
+      '$APP_NAME iOS版ではメールアドレス以外のログインには対応しておりません。あらかじめご了承ください。';
+
   //endregion
 
 //region dialog
@@ -312,7 +314,6 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const ERR_AUTH_EXPIRED = 'ログイン期限が切れました';
   static const ERR_UN_AUTH = 'ログインに失敗しました';
 
-
   static const LOGIN_BTN_VALUE = 'ログイン';
 
   //region screenPreLogin
@@ -342,5 +343,10 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const EMPTY_FCM = '設定している番組通知はありません';
   static const SCREEN_FCM_CAPTION_CHANNEL = 'チャンネル';
   static const SCREEN_FCM_CAPTION_PRG = '番組';
+
+//endregion
+
+//region ScreenWebNoSupport
+  static const SCREEN_WEB_NO_SUPPORT = 'web版は提供しておりません。\nネイティブアプリをご利用ください。';
 //endregion
 }

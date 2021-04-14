@@ -44,6 +44,8 @@ class $AssetsPngGen {
       const AssetGenImage('assets/png/default_channel.png');
   AssetGenImage get defaultThumbnail =>
       const AssetGenImage('assets/png/default_thumbnail.jpeg');
+  AssetGenImage get googlePlayBadge =>
+      const AssetGenImage('assets/png/google-play-badge.png');
   AssetGenImage get logoOfficial =>
       const AssetGenImage('assets/png/logo_official.png');
   AssetGenImage get logoOfficialShadow =>

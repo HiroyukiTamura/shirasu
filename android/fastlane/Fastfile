@@ -37,8 +37,14 @@ platform :android do
   end
 end
 
-lane :alpha do
+lane :beta_deploy do
+  Dir.chdir "../.." do sh("flutter", "build", "appbundle") end # Call Flutter Build
   gradle(task: 'assemble', build_type: 'Release')
-  upload_to_play_store(track: 'alpha')
-  slack(message: 'Successfully distributed a new alpha build')
+  upload_to_play_store(
+    track: 'beta',
+    aab: '../build/app/outputs/bundle/release/app-release.aab',
+    release_status: 'draft',
+    skip_upload_apk: true,
+    version_code: flutter_version()["version_code"],
+  )
 end

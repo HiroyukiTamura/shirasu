@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:shirasu/model/algolia/algolia_response.dart';
 import 'package:shirasu/model/auth_data.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -27,6 +28,7 @@ class JsonClient {
   ProgramDetailData mProgramDetailData;
   ListCommentsByProgram mListCommentsByProgram;
   ListSubscribedPrograms mListSubscribedPrograms;
+  AlgoliaResponse mAlgoliaResponse;
 
   static final JsonClient instance = JsonClient._();
 
@@ -40,6 +42,7 @@ class JsonClient {
     mProgramDetailData = await _programDetail;
     mListCommentsByProgram = await _listCommentsByProgram;
     mListSubscribedPrograms = await _listSubscribedPrograms;
+    mAlgoliaResponse = await _algoliaResponse;
   }
 
   Future<FeatureProgramData> get _featureProgramData async {
@@ -86,6 +89,11 @@ class JsonClient {
   Future<ListSubscribedPrograms> get _listSubscribedPrograms async {
     final json = await _loadJson(Assets.json.listSubscribingPrograms);
     return ListSubscribedPrograms.fromJson(json);
+  }
+
+  Future<AlgoliaResponse> get _algoliaResponse async {
+    final json = await _loadJson(Assets.json.algoliaResponse, dataOnly: false);
+    return AlgoliaResponse.fromJson(json);
   }
 
   static Future<Map<String, dynamic>> _loadJson(

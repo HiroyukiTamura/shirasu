@@ -49,3 +49,4 @@ app.*.map.json
 /firestore.indexes.json
 .firebaserc
 firebase.json
+/assets/.env

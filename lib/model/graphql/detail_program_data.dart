@@ -157,7 +157,6 @@ abstract class DetailPrgChannel with _$DetailPrgChannel implements BaseChannel {
     @required String id,
     @required String tenantId,
     @required String name,
-    dynamic icon,
     @required String textOnPurchaseScreen,
     @required @JsonKey(name: '__typename') String typename,
   }) = _DetailPrgChannel;

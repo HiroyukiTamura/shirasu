@@ -1,3 +1,5 @@
+@Timeout(Duration(minutes: 1))
+
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,6 +14,7 @@ import '../mock_repository/connected_connected.dart';
 import '../mock_repository/connected_disconnect.dart';
 import '../mock_repository/graphql_error.dart';
 import '../mock_repository/graphql_timeout.dart';
+import '../mock_repository/hive_auth_empty.dart';
 import '../mock_viewmodel/viewmodel_channel_mockable.dart';
 import '../widget_test_util/json_client.dart';
 import '../widget_test_util/test_name_common.dart';
@@ -122,6 +125,7 @@ Future<void> main() async {
       TestNameCommon.ERR_NETWORK_TIMEOUT,
       () async => testTemplate(
         override: [
+          kOverrideEmptyHiveAuthRepository,
           overrideViewModel,
           kOverrideGraphqlTimeout,
           kOverrideConnectedRepositoryConnectedImpl,

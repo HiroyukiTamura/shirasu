@@ -1,11 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
-import 'package:shirasu/main.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -77,7 +79,7 @@ class ViewModelTestBase<T> {
     if (prvViewModel != null) {
       final viewModel = container.listen(prvViewModel).read();
       await viewModel.initialize();
-      await Future.delayed(10.seconds); // todo unknown why, but we must need it
+      await Future.delayed(13.seconds);
       expect(
           // ignore: invalid_use_of_protected_member
           viewModel.state,

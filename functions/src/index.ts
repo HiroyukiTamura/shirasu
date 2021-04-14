@@ -1,16 +1,18 @@
 import * as functions from "firebase-functions";
 import admin from "firebase-admin";
-import {FirestoreRepositoryImpl} from "./repository/firestoreRepositoryImpl";
-import {NetworkRepositoryImpl} from "./repository/networkRepositoryImpl";
-import {AssetsRepositoryImpl} from "./repository/assetsRepositoryImpl";
+import {Controller} from "./controller";
 
 admin.initializeApp();
 
+const algoliaAppId = functions.config().env.algolia_app_id;
+const algoliaApiKey = functions.config().env.algolia_api_key;
+
 export const crawlAndSendFcm = functions
-    .pubsub.schedule("every 1 minutes").onRun(async () => {
-      const networkRepo = new NetworkRepositoryImpl(new AssetsRepositoryImpl());
-      const firestoreRepo = new FirestoreRepositoryImpl();
-      const programs = await networkRepo.requestNewPrograms();
-      await firestoreRepo.addFcmQueAndCleanUpLog(programs.newPrograms.items);
-      return firestoreRepo.checkQueAndSendFcm();
-    });
+    .pubsub.schedule("every 1 minutes").onRun(async () =>
+      new Controller(algoliaAppId, algoliaApiKey).crawlAndSendFcm()
+    );
+
+export const crawlAndUpdateAlgolia = functions
+    .pubsub.schedule("0 4 * * *").onRun(async () =>
+      new Controller(algoliaAppId, algoliaApiKey).crawlAndUpdateAlgolia()
+    );

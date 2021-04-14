@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/main.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/logger_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/network_image_repository.dart';
 import 'package:shirasu/repository/network_image_repository_impl.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/model/dashboard_model.dart';
 import 'package:shirasu/util.dart';
@@ -26,20 +27,22 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   NetworkImageRepository get _networkRepository =>
       reader(kPrvNetworkRepository);
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvMainScreenSnackBar);
 
   @override
   Future<void> initialize() async {
     if (state != const DashboardModel.initial()) return;
 
-    final result = await _logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return Util.wait3(
-        _graphQlRepository.queryFeaturedProgramsList,
-        _graphQlRepository.queryNewProgramsList,
-        _graphQlRepository.querySubscribedProgramsList,
-      ).timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await _logger
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return Util.wait3(
+                _graphQlRepository.queryFeaturedProgramsList,
+                _graphQlRepository.queryNewProgramsList,
+                _graphQlRepository.querySubscribedProgramsList,
+              ).timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (!isMounted) return;
     result.when(success: (data) {
       final apiData = ApiData(
@@ -67,14 +70,16 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
 
       state = oldState.copyWith.data(loadingMore: true);
 
-      final result = await _logger.guardFuture(() async {
-        await connectivityRepository.ensureNotDisconnect();
-        return _graphQlRepository
-            .queryNewProgramsList(
-              nextToken: nextToken,
-            )
-            .timeout(GraphQlRepository.TIMEOUT);
-      });
+      final result = await _logger
+          .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+                await connectivityRepository.ensureNotDisconnect();
+                await interceptor.refreshAuthTokenIfNeeded();
+                return _graphQlRepository
+                    .queryNewProgramsList(
+                      nextToken: nextToken,
+                    )
+                    .timeout(GraphQlRepository.TIMEOUT);
+              }));
       if (isMounted)
         result.when(success: (data) {
           state = state.appendLoadMoreData(data);

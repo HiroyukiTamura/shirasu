@@ -7,16 +7,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lp/resources/strings.dart';
 import 'package:lp/resources/styles.dart';
 import 'package:lp/ui/screen_main.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:lp/resources/urls.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runZonedGuarded(() {
-    runApp(MyApp());
-  }, (err, stack) {
-    //todo log error
-  });
+  await SentryFlutter.init(
+    (options) => options.dsn = Urls.SENTRY_DSN,
+    appRunner: () => runApp(ProviderScope(
+      child: MyApp(),
+    )),
+  );
 }
 
 class MyApp extends StatefulWidget {

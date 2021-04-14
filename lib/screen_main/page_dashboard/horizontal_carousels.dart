@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/repository/url_util.dart';
@@ -15,19 +16,41 @@ import 'package:shirasu/util/types.dart';
 
 part 'horizontal_carousels.g.dart';
 
+part 'horizontal_carousels.freezed.dart';
+
 const double _kSeparatorMargin = Dimens.DASHBOARD_OUTER_MARGIN;
 const double _kMaxWidth = 300;
 
+@freezed
+abstract class HorizontalCarouselItemConf with _$HorizontalCarouselItemConf {
+  const factory HorizontalCarouselItemConf({
+    @required String prgId,
+    @required String channelId,
+    @required String channelName,
+    @required String prgTitle,
+    @required DateTime broadcastAt,
+  }) = _HorizontalCarouselItemConf;
+
+  factory HorizontalCarouselItemConf.from(Item item) =>
+      HorizontalCarouselItemConf(
+        channelId: item.channelId,
+        prgId: item.id,
+        channelName: item.channel.name,
+        prgTitle: item.title,
+        broadcastAt: item.broadcastAt,
+      );
+}
+
 class HorizontalCarousels extends StatefulWidget {
   const HorizontalCarousels({
-    this.list,
-    this.constraints,
-    this.maxWidth,
-    this.detailCaption,
-    this.onTapItem,
+    @required this.list,
+    @required this.constraints,
+    @required this.maxWidth,
+    @required this.detailCaption,
+    @required this.onTapItem,
   });
 
-  final List<Item> list;
+  final List<HorizontalCarouselItemConf> list;
   final BoxConstraints constraints;
   final double maxWidth;
   final bool detailCaption;
@@ -49,8 +72,10 @@ class _HorizontalCarouselsState extends State<HorizontalCarousels>
         Dimens.DASHBOARD_OUTER_MARGIN -
         (columnCount - 1) * _kSeparatorMargin;
     final width = nonMarginTotalWidth / inScreenItemCount;
-    final height =
-        width / Dimens.IMG_RATIO + Dimens.CAROUSEL_DETAIL_CAPTION_H;
+    final height = width / Dimens.IMG_RATIO +
+        (widget.detailCaption
+            ? Dimens.CAROUSEL_DETAIL_CAPTION_H
+            : Dimens.CAROUSEL_DETAIL_CAPTION_H_SML);
 
     return Container(
       margin: const EdgeInsets.only(top: 16, bottom: 32),
@@ -64,10 +89,10 @@ class _HorizontalCarouselsState extends State<HorizontalCarousels>
         separatorBuilder: (context, index) =>
             const SizedBox(width: _kSeparatorMargin),
         itemBuilder: (context, index) => HorizontalCarouselItem(
-          item: widget.list[index],
           width: width,
           onTapItem: widget.onTapItem,
           detailCaption: widget.detailCaption,
+          conf: widget.list[index],
         ),
       ),
     );
@@ -80,7 +105,7 @@ class _HorizontalCarouselsState extends State<HorizontalCarousels>
 @swidget
 Widget horizontalCarouselItem(
   BuildContext context, {
-  @required Item item,
+  @required HorizontalCarouselItemConf conf,
   @required double width,
   @required bool detailCaption,
   @required OnTapItem onTapItem,
@@ -91,7 +116,7 @@ Widget horizontalCarouselItem(
         Radius.circular(Dimens.DASHBOARD_ITEM_RADIUS),
       ),
       child: StackedInkWell(
-        onTap: () => onTapItem(context, item.id),
+        onTap: () => onTapItem(context, conf.prgId),
         child: Container(
           width: width,
           color: backGround ?? Styles.cardBackground,
@@ -101,14 +126,14 @@ Widget horizontalCarouselItem(
               AspectRatio(
                 aspectRatio: Dimens.IMG_RATIO,
                 child: CustomCachedNetworkImage(
-                  imageUrl: UrlUtil.getThumbnailUrl(item.id),
+                  imageUrl: UrlUtil.getThumbnailUrl(conf.prgId),
                   errorWidget: Util.defaultPrgThumbnail,
                 ),
               ),
               Expanded(
                 child: detailCaption
-                    ? _HorizontalCarouselDetailCaption(item: item)
-                    : _CaptionTitle(item: item),
+                    ? _HorizontalCarouselDetailCaption(conf: conf)
+                    : _CaptionTitle(prgTitle: conf.prgTitle),
               ),
             ],
           ),
@@ -117,11 +142,11 @@ Widget horizontalCarouselItem(
     );
 
 @swidget
-Widget _captionTitle({@required Item item}) => Container(
+Widget _captionTitle({@required String prgTitle}) => Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       alignment: Alignment.center,
       child: Text(
-        item.title,
+        prgTitle,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
         style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
@@ -131,7 +156,7 @@ Widget _captionTitle({@required Item item}) => Container(
 @swidget
 Widget _horizontalCarouselDetailCaption(
   BuildContext context, {
-  @required Item item,
+  @required HorizontalCarouselItemConf conf,
 }) =>
     Container(
       height: Dimens.CAROUSEL_DETAIL_CAPTION_H,
@@ -141,7 +166,7 @@ Widget _horizontalCarouselDetailCaption(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
+            DateFormat('yyyy/MM/dd HH:mm').format(conf.broadcastAt),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: TextStyles.s13TextHSingle(
@@ -151,7 +176,7 @@ Widget _horizontalCarouselDetailCaption(
           Expanded(
             child: Center(
               child: Text(
-                item.title,
+                conf.prgTitle,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.DASHBOARD_BILLBOARD_CHANNEL_NAME,
@@ -161,13 +186,13 @@ Widget _horizontalCarouselDetailCaption(
           Row(
             children: [
               CircleCachedNetworkImage(
-                imageUrl: UrlUtil.getChannelLogoUrl(item.channelId),
+                imageUrl: UrlUtil.getChannelLogoUrl(conf.channelId),
                 size: 20,
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  item.channel.name,
+                  conf.channelName,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: TextStyles.s13TextHSingle(),

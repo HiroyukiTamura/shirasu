@@ -76,7 +76,7 @@ class ScreenPreLogin extends StatelessWidget {
                         text: Strings.PRE_LOGIN_REGISTER_BTN_VALUE,
                         btnColor: Colors.white,
                         textColor: Theme.of(context).primaryColor,
-                        onTap: () => _launchUrl(context, 'fff'),
+                        onTap: () => _launchUrl(context, UrlUtil.URL_HOME),
                       ),
                       _Button(
                         text: Strings.PRE_LOGIN_LOGIN_BTN_VALUE,
@@ -94,7 +94,7 @@ class ScreenPreLogin extends StatelessWidget {
                           _FooterText(
                             text: Strings.FOOTER_BTN_PRIVACY_VALUE,
                             onTap: () => _launchUrl(
-                                context, UrlUtil.URL_GITHUB), //todo fix
+                                context, UrlUtil.URL_LP_POLICY),
                           ),
                         ],
                       ),
@@ -155,7 +155,6 @@ Widget _footerText(
       ),
     );
 
-//todo update logo style
 @swidget
 Widget _headerLogo() => Semantics(
       label: Strings.CD_LOGO,

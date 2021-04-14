@@ -9,6 +9,8 @@ import 'package:lp/ui/screen_main/util.dart';
 class SectionPolicy extends StatelessWidget {
   const SectionPolicy();
 
+  static const ID = 'policy';
+
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,

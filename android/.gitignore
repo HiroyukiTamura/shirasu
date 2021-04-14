@@ -10,3 +10,4 @@ key.properties
 /private/
 /app/signingConfigs/
 /app/proguard-rules.pro
+/fastlane/report.xml

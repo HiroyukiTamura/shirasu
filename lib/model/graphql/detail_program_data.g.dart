@@ -107,7 +107,6 @@ _$_DetailPrgChannel _$_$_DetailPrgChannelFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     tenantId: json['tenantId'] as String,
     name: json['name'] as String,
-    icon: json['icon'],
     textOnPurchaseScreen: json['textOnPurchaseScreen'] as String,
     typename: json['__typename'] as String,
   );
@@ -119,7 +118,6 @@ Map<String, dynamic> _$_$_DetailPrgChannelToJson(
       'id': instance.id,
       'tenantId': instance.tenantId,
       'name': instance.name,
-      'icon': instance.icon,
       'textOnPurchaseScreen': instance.textOnPurchaseScreen,
       '__typename': instance.typename,
     };

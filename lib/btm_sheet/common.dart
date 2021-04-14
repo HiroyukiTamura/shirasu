@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
@@ -53,7 +52,9 @@ class ListBtmSheetContent<T> extends StatelessWidget {
                           children: [
                             _Heading(isSelected: () => isSelected(item)),
                             const SizedBox(width: 16),
-                            _text(item: item)
+                            Expanded(
+                              child: _text(item: item),
+                            )
                           ],
                         ),
                       ),

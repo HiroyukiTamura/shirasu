@@ -365,7 +365,6 @@ query GetViewer {
                 ...UserAccountInvoiceData
                 __typename
             }
-            nextToken
             __typename
         }
         watchHistories(limit: 3, sortDirection: DESC) {
@@ -376,7 +375,10 @@ query GetViewer {
             __typename
         }
         subscribedChannels {
-            ...UserAccountSubscribedChannelData
+            items {
+                ...UserAccountSubscribedChannelData
+                __typename
+            }
             __typename
         }
         __typename
@@ -403,6 +405,24 @@ fragment UserAccountInvoiceData on Invoice {
     createdAt
     planType
     status
+    products {
+        id
+        ... on Channel {
+            name
+            __typename
+        }
+        ... on Program {
+            title
+            tenantId
+            channelId
+            __typename
+        }
+        ... on LiveExtension {
+            programId
+            __typename
+        }
+        __typename
+    }
     __typename
 }
 fragment UserAccountPageWatchHistoryData on WatchHistory {
@@ -420,12 +440,12 @@ fragment UserAccountPageWatchHistoryData on WatchHistory {
     __typename
 }
 fragment UserAccountSubscribedChannelData on SubscribedChannel {
+    id
     subscribedAt
     currentPeriodEndAt
     channel {
         id
         name
-        icon
         __typename
     }
     isActive
@@ -440,6 +460,7 @@ fragment UserAccountSubscribedChannelData on SubscribedChannel {
         nextPaymentAttempt
         __typename
     }
+    defaultPaymentMethodId
     __typename
 }
   ''';

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
@@ -19,12 +20,14 @@ class ViewModelSubscribing extends ViewModelBase<SubscribingProgramState> {
   Future<void> initialize() async {
     if (state != const SubscribingProgramState.initial()) return;
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .querySubscribedProgramsList()
-          .timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .querySubscribedProgramsList()
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     if (mounted)
       result.when(success: (data) {
         state = data.viewerUser.subscribedPrograms.items.isEmpty
@@ -40,13 +43,15 @@ class ViewModelSubscribing extends ViewModelBase<SubscribingProgramState> {
 @protected
 @freezed
 abstract class SubscribingProgramState with _$SubscribingProgramState {
-  const factory SubscribingProgramState.initial() = _SubscribingProgramStateInitial;
+  const factory SubscribingProgramState.initial() =
+      _SubscribingProgramStateInitial;
 
   const factory SubscribingProgramState.resultEmpty() =
       _SubscribingProgramStateResultEmpty;
 
   const factory SubscribingProgramState.success(
-      ListSubscribedPrograms listSubscribedPrograms) = _SubscribingProgramStateSuccess;
+          ListSubscribedPrograms listSubscribedPrograms) =
+      _SubscribingProgramStateSuccess;
 
   const factory SubscribingProgramState.error(ErrorMsgCommon errorMsg) =
       _SubscribingProgramStateError;

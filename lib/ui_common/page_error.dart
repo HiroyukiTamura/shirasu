@@ -30,25 +30,30 @@ class PageError extends StatelessWidget {
         child: SizedBox.expand(
           child: Padding(
             padding: const EdgeInsets.all(48),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Assets.svg.roboto.svg(
-                  color: Styles.COLOR_TEXT_SUB,
-                  width: iconSize,
-                  height: iconSize,
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Assets.svg.roboto.svg(
+                      color: Styles.COLOR_TEXT_SUB,
+                      width: iconSize,
+                      height: iconSize,
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      _text,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: FontSize.S16,
+                        color: Styles.COLOR_TEXT_SUB,
+                      ),
+                    ),
+                    if (onTapLoginBtn != null)
+                      _LoginBtn(onTapLoginBtn: onTapLoginBtn),
+                  ],
                 ),
-                const SizedBox(height: 24),
-                Text(
-                  _text,
-                  style: const TextStyle(
-                    fontSize: FontSize.S16,
-                    color: Styles.COLOR_TEXT_SUB,
-                  ),
-                ),
-                if (onTapLoginBtn != null)
-                  _LoginBtn(onTapLoginBtn: onTapLoginBtn),
-              ],
+              ),
             ),
           ),
         ),

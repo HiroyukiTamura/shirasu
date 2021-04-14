@@ -84,7 +84,7 @@ class PageUserInfo extends HookWidget {
                 case 1:
                   return ListTileTitle(
                     title: Strings.TITLE_SUBSCRIBED_CHANNELS,
-                    showEmptyText: data.viewerUser.subscribedChannels.isEmpty,
+                    showEmptyText: data.viewerUser.subscribedChannels.items.isEmpty,
                     isCreditCard: false,
                   );
                 default:
@@ -92,12 +92,12 @@ class PageUserInfo extends HookWidget {
               }
             }
 
-            threshHolds.swap(data.viewerUser.subscribedChannels.length);
+            threshHolds.swap(data.viewerUser.subscribedChannels.items.length);
 
             if (i <= threshHolds.threshold) {
               final index = i - threshHolds.preThreshHold - 1;
               return ListTileSubscribedChannel(
-                subscribedChannel: data.viewerUser.subscribedChannels[index],
+                subscribedChannel: data.viewerUser.subscribedChannels.items[index],
               );
             }
 
@@ -159,7 +159,9 @@ class PageUserInfo extends HookWidget {
               final program =
                   data.viewerUser.watchHistories.items[index].program;
               return MovieListItem(
-                program: program,
+                id: program.id,
+                title: program.title,
+                broadcastAt: program.broadcastAt,
                 onTap: () async => context.pushProgramPage(program.id),
               );
             }
@@ -168,7 +170,7 @@ class PageUserInfo extends HookWidget {
           },
           itemCount: 15 +
               data.viewer.paymentMethods.length +
-              data.viewerUser.subscribedChannels.length +
+              data.viewerUser.subscribedChannels.items.length +
               data.viewerUser.invoiceHistory.items.length +
               data.viewerUser.watchHistories.items.length,
         ),

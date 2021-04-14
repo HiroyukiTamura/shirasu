@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_video_payment.dart';
 import 'package:shirasu/btm_sheet/common.dart';
+import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
@@ -43,41 +44,66 @@ class BtmSheetEventListener extends StatelessWidget {
       },
       playSpeed: () async => _showBtmSheet(
         context,
-        (context) => const BtmSheetPlaySpeed(),
+        (context) => const SafeArea(child: BtmSheetPlaySpeed()),
       ),
       resolution: () => throw UnimplementedError(),
       commentSelect: (position) async => _showBtmSheet(
         context,
-        (context) => BtmSheetCommentSelected(
-          position: position,
-          id: id,
+        (context) => SafeArea(
+          child: BtmSheetCommentSelected(
+            position: position,
+            id: id,
+          ),
         ),
       ),
       share: (shareUrl) async => _showBtmSheet(
         context,
-        (context) => BtmSheetSnsShare(
-          shareUrl: shareUrl,
-          snackCallback: (snackMsg) =>
-              context.read(kPrvViewModelDetail(id)).commandSnackBar(snackMsg),
+        (context) => SafeArea(
+          child: BtmSheetSnsShare(
+            shareUrl: shareUrl,
+            snackCallback: (snackMsg) =>
+                context.read(kPrvViewModelDetail(id)).commandSnackBar(snackMsg),
+          ),
         ),
       ),
       payment: () async =>
           context.read(kPrvViewModelDetail(id).state).prgDataResult.whenSuccess(
                 (programDetailData, channelData, _) async => _showBtmSheet(
                   context,
-                  (context) => BtmSheetCommon(
-                    snackCallback: (snackMsg) => context
-                        .read(kPrvViewModelDetail(id))
-                        .commandSnackBar(snackMsg),
-                    positiveBtnString: Strings.OPEN_WEB,
-                    url: UrlUtil.channelId2Url(id),
-                    child: BtmSheetVideoPayment(
-                      program: programDetailData.program,
-                      channelData: channelData,
+                  (context) => SafeArea(
+                    child: BtmSheetCommon(
+                      snackCallback: (snackMsg) => context
+                          .read(kPrvViewModelDetail(id))
+                          .commandSnackBar(snackMsg),
+                      positiveBtnString: Strings.OPEN_WEB,
+                      url: UrlUtil.channelId2Url(id),
+                      child: BtmSheetVideoPayment(
+                        program: programDetailData.program,
+                        channelData: channelData,
+                      ),
                     ),
                   ),
                 ),
               ),
+
+      /// only for [ScreenDetail]
+      fcmMenu: (channelId, programId) async => _showBtmSheet(
+        context,
+        (context) => SafeArea(
+          child: BtmSheetFcmMenu(
+            channelId: channelId,
+            programId: programId,
+            onTap: (status) async {
+              Navigator.pop(context);
+              final viewModel = context.read(kPrvViewModelDetail(programId));
+              await status.when(
+                  channel: () async => viewModel.subscribeChannel(),
+                  program: () async => viewModel.subscribeProgram(),
+                  none: () => throw ArgumentError.value(status));
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -102,7 +128,9 @@ Widget btmSheetPlaySpeed(BuildContext context) => ListBtmSheetContent<double>(
       },
       isSelected: (speed) {
         final currentSpeed = useProvider(kPrvHivePlaySpeedUpdate).data?.value ??
-            context.read(kPrvHivePrefRepository).playSpeed;
+            context
+                .read(kPrvHivePrefRepository)
+                .playSpeed; //todo is good pattern?
         return speed == currentSpeed;
       },
       onTap: (speed) async {
@@ -125,4 +153,44 @@ Widget btmSheetCommentSelected(
             .seekToWithBtmSheet(false, position);
         Navigator.of(context).pop();
       },
+    );
+
+//todo refactor
+@hwidget
+Widget btmSheetFcmMenu(
+  BuildContext context, {
+  @required String channelId,
+  @required String programId,
+  @required void Function(FcmSubscribingStatus status) onTap,
+}) =>
+    ListView(
+      shrinkWrap: true,
+      children: [
+        SizedBox(
+          height: 56,
+          child: ListTile(
+            onTap: () => onTap(const FcmSubscribingStatus.channel()),
+            title: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                Strings.BTM_SHEET_FCM_CHANNEL,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 64,
+          child: ListTile(
+            onTap: () => onTap(const FcmSubscribingStatus.program()),
+            title: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                Strings.BTM_SHEET_FCM_PROGRAM,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        )
+      ],
     );

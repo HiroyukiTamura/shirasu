@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
+import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
@@ -23,7 +24,7 @@ ${Strings.CURRENT_PERIOD_END_AT_LABEL}: ${DateFormat('yyyy/MM/dd').format(subscr
     leading: CircleCachedNetworkImage(
       size: 40,
       errorWidget: Util.defaultChannelIcon,
-      imageUrl: subscribedChannel.channel.icon as String,
+      imageUrl: UrlUtil.channelId2Url(subscribedChannel.channel.id),
     ),
     title: Text(subscribedChannel.channel.name),
     subtitle: Padding(

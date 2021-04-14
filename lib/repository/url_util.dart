@@ -8,9 +8,11 @@ class UrlUtil {
       'https://itvvnowbibekdj7la2nlxgkuva.appsync-api.ap-northeast-1.amazonaws.com/graphql';
   static const URL_HOME = 'https://shirasu.io/';
   static const URL_AUTH_BASE = 'https://shirasu.auth0.com/';
+  static final urlAuthLogin = Uri.parse('https://shirasu.auth0.com/u/login');
   static const URL_AUTH_GOOGLE_BASE = 'https://accounts.google.com/';
   static const URL_ACCOUNT = 'https://shirasu.io/account';
   static const URL_DASHBOARD = 'https://shirasu.io/dashboard';
+  static const URL_AUTH0_CALLBACK = 'https://shirasu.io/callback/';
   static const URL_HEADER_BACKDROP =
       'https://shirasu.io/top/kv_mix.a70089e9.jpg';
   static const URL_SIGNED_COOKIE =
@@ -18,9 +20,13 @@ class UrlUtil {
   static const URL_GITHUB = 'https://github.com/HiroyukTamura/shirasu';
   static const URL_DEFAULT_HANDOUT_THUMBNAIL = 'https://shirasu.io/static/img/defaultImage/default-handout-thumbnail.jpeg';
   static const URL_IMG_LICENSE_ROBOTO = 'https://iconscout.com/icons/roboto';
+  static const URL_IMG_LICENSE_EEL = 'https://thenounproject.com/term/eel/1881757/';
+  static const URL_IMG_LICENSE_TURKKUB = 'https://thenounproject.com/Turkkub/';
+  static const URL_IMG_LICENSE_BG_FREEPIK = 'https://www.freepik.com/vectors/background';
   static const URL_IMG_LICENSE_ICONS_MIND = 'https://iconscout.com/contributors/icons-mind';
   static const URL_IMG_LICENSE_LOTTIE = 'https://lottiefiles.com/marketplace/multimedia-icons';
   static const URL_OAUTH_TOKEN = 'https://shirasu.auth0.com/oauth/token';
+  static const URL_LP_POLICY = 'https://shirasu-fbda2.web.app/#policy';
 
   static String getThumbnailUrl(String itemId) =>
       p.join(_URL_BASE, 'public/programs', itemId, 'thumbnail');
@@ -88,4 +94,6 @@ class UrlUtil {
 
   static String programId2channelId(String programId) =>
       programId.split('-')[1];
+
+  static String algoliaUrl(String algoliaId) => 'https://$algoliaId-dsn.algolia.net/1/indexes/program/query';
 }

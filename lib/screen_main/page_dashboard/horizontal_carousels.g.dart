@@ -9,14 +9,14 @@ part of 'horizontal_carousels.dart';
 class HorizontalCarouselItem extends StatelessWidget {
   const HorizontalCarouselItem(
       {Key key,
-      @required this.item,
+      @required this.conf,
       @required this.width,
       @required this.detailCaption,
       @required this.onTapItem,
       this.backGround})
       : super(key: key);
 
-  final Item item;
+  final HorizontalCarouselItemConf conf;
 
   final double width;
 
@@ -28,7 +28,7 @@ class HorizontalCarouselItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext _context) => horizontalCarouselItem(_context,
-      item: item,
+      conf: conf,
       width: width,
       detailCaption: detailCaption,
       onTapItem: onTapItem,
@@ -36,21 +36,21 @@ class HorizontalCarouselItem extends StatelessWidget {
 }
 
 class _CaptionTitle extends StatelessWidget {
-  const _CaptionTitle({Key key, @required this.item}) : super(key: key);
+  const _CaptionTitle({Key key, @required this.prgTitle}) : super(key: key);
 
-  final Item item;
+  final String prgTitle;
 
   @override
-  Widget build(BuildContext _context) => _captionTitle(item: item);
+  Widget build(BuildContext _context) => _captionTitle(prgTitle: prgTitle);
 }
 
 class _HorizontalCarouselDetailCaption extends StatelessWidget {
-  const _HorizontalCarouselDetailCaption({Key key, @required this.item})
+  const _HorizontalCarouselDetailCaption({Key key, @required this.conf})
       : super(key: key);
 
-  final Item item;
+  final HorizontalCarouselItemConf conf;
 
   @override
   Widget build(BuildContext _context) =>
-      _horizontalCarouselDetailCaption(_context, item: item);
+      _horizontalCarouselDetailCaption(_context, conf: conf);
 }

@@ -15,9 +15,9 @@ Install _fastlane_ using
 or alternatively using `brew install fastlane`
 
 # Available Actions
-### alpha
+### beta_deploy
 ```
-fastlane alpha
+fastlane beta_deploy
 ```
 
 

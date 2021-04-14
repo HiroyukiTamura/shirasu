@@ -12,6 +12,7 @@ final kPrvGlobalAppState =
 class GlobalAppState extends ChangeNotifier {
   GlobalAppState._(this._reader);
 
+  // todo can delete
   factory GlobalAppState.instance(Reader reader) => GlobalAppState._(reader);
 
   List<GlobalRoutePathBase> _list = [];

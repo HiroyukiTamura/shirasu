@@ -50,7 +50,11 @@ class Strings {
   static const SNACK_ERR = '処理に失敗しました'; //todo rename
   static const SNACK_CANT_OPEN_URL = 'Webページを開けません';
   static const SNACK_URL_COPIED = 'urlをコピーしました';
-
+  static const SNACK_FCM_SUBSCRIBE = '配信開始の通知を設定しました';
+  static const SNACK_FCM_UNSUBSCRIBE = '配信開始の通知を解除しました';
+  static const SNACK_ERR_INVALID_AUTH_INPUT = 'メールアドレスまたはパスワードが違います';
+  static const SNACK_ERR_FCM_PERMISSION = '通知を受け取るには設定で許可を与えてください';
+  static const SNACK_ACTION_FCM_PERMISSION = '設定する';
   //endregion
 
   //region ScreenMeta
@@ -99,6 +103,12 @@ class Strings {
   static const SUBSCRIBING_EMPTY_MSG = '動画を購読すると、番組一覧がこの画面に表示されます。';
 
 //endregion
+
+
+  //region ScreenSearch
+  static const HINT_SEARCH = '検索';
+  static const SEARCH_RESULT_EMPTY = 'キーワードに一致する結果が見つかりませんでした';
+  //endregion
 
 //region ScreenMain PageSetting
 
@@ -177,21 +187,21 @@ class Strings {
   static const DEFAULT_EMPTY = '---';
 
   static const Map<String, String> JOB_MAP = {
-    'jobAcademia': '大学関係',
-    'jobBroadcasting': '放送関係',
-    'jobCivilServant': '公務員',
-    'jobCreatorOrArtist': 'クリエイター・アーティスト',
-    'jobHumanitiesStudent': '学生（文系）',
-    'jobInformationTechnology': 'IT関係',
-    'jobOther': 'その他',
-    'jobOtherEducation': 'その他教育関係',
-    'jobOtherEmployeeOrExecutive': 'その他会社員・会社役員',
-    'jobOtherStudent': '学生（その他）',
-    'jobPartTime': 'フリーター',
-    'jobPublishing': '出版関係',
-    'jobScienceStudent': '学生（理系）',
-    'jobSelfEmployed': '自営業',
-    'jobUnemployed': '無職',
+    'Academia': '大学関係',
+    'Broadcasting': '放送関係',
+    'CivilServant': '公務員',
+    'CreatorOrArtist': 'クリエイター・アーティスト',
+    'HumanitiesStudent': '学生（文系）',
+    'InformationTechnology': 'IT関係',
+    'Other': 'その他',
+    'OtherEducation': 'その他教育関係',
+    'OtherEmployeeOrExecutive': 'その他会社員・会社役員',
+    'OtherStudent': '学生（その他）',
+    'PartTime': 'フリーター',
+    'Publishing': '出版関係',
+    'ScienceStudent': '学生（理系）',
+    'SelfEmployed': '自営業',
+    'Unemployed': '無職',
   };
 
   static const NO_ITEM_SUFFIX = 'はありません';
@@ -202,6 +212,7 @@ class Strings {
 
   static const ITEM_TITLE_MOVIE_QUALITY = '画質 - Wifi回線時';
   static const ITEM_TITLE_MOVIE_QUALITY_MOBILE = '画質 - モバイル回線時';
+  static const ITEM_TITLE_FCM = '番組通知';
   static const ITEM_TITLE_OSS_LICENCE = 'OSSライセンス';
   static const ITEM_TITLE_IMAGE_LICENCE = '画像ライセンス';
   static const ITEM_TITLE_GITHUB = 'GitHub';
@@ -212,6 +223,16 @@ class Strings {
   //region screen_auth
   static const APP_BAR_LOGIN = 'ログイン';
 
+  static const TEXT_FIELD_HINT_EMAIL = 'メールアドレス';
+  static const TEXT_FIELD_HINT_PASSWORD = 'パスワード';
+
+  //endregion
+
+  //region screen_auth_scratch
+  static const TEXT_FILED_ERR_LABEL_PW_EMPTY = 'パスワードを入力してください';
+  static const TEXT_FILED_ERR_LABEL_EMAIL_EMPTY = 'メールアドレスを入力してください';
+  static const TEXT_FILED_ERR_LABEL_EMAIL_INVALID = '無効なメールアドレス';
+  static const IOS_LOGIN_NOTE = '$APP_NAME iOS版ではメールアドレス以外のログインには対応しておりません。あらかじめご了承ください。';
   //endregion
 
 //region dialog
@@ -236,14 +257,15 @@ class Strings {
   static const SHARE_FACEBOOK = 'facebookで共有';
   static const COPY_URL = 'URLをコピー';
 
+  static const BTM_SHEET_FCM_PROGRAM = 'この番組の配信通知を設定';
+  static const BTM_SHEET_FCM_CHANNEL = 'このチャンネルの配信通知を設定';
+
 //endregion
 
 //region license
   static const LICENSE_LEGAL_APP = '''
 Except where otherwise noted,
 all of this app is licensed under CC BY-NC-SA 4.0 license''';
-
-  static const LICENSE_VALUE_LOTTIE = 'Animation by LottieFiles on LottieFiles';
 
 //endregion
 
@@ -290,6 +312,7 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const ERR_AUTH_EXPIRED = 'ログイン期限が切れました';
   static const ERR_UN_AUTH = 'ログインに失敗しました';
 
+
   static const LOGIN_BTN_VALUE = 'ログイン';
 
   //region screenPreLogin
@@ -313,4 +336,11 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const TIME_PREFIX_START = '開始';
   static const TIME_PREFIX_END = '終了';
   static const TIME_PREFIX_PLANNING = '予定';
+
+  //region ScreenFcm
+  static const APP_BAR_SCREEN_FCM = '通知設定';
+  static const EMPTY_FCM = '設定している番組通知はありません';
+  static const SCREEN_FCM_CAPTION_CHANNEL = 'チャンネル';
+  static const SCREEN_FCM_CAPTION_PRG = '番組';
+//endregion
 }

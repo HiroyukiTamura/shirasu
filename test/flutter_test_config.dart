@@ -14,6 +14,7 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async =>
         await JsonClient.instance.init();
         await testMain();
       },
+      ///todo set default devices
       config: GoldenToolkitConfiguration(
         // Currently, goldens are not generated/validated in CI for this repo. We have settled on the goldens for this package
         // being captured/validated by developers running on MacOSX. We may revisit this in the future if there is a reason to invest

@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/repository/auth_client_interceptor.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
+import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/util/exceptions.dart';
 import 'package:shirasu/viewmodel/viewmodel_base.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
-import 'package:shirasu/main.dart';
 
 part 'viewmodel_watch_history.freezed.dart';
 
@@ -18,18 +19,20 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
   ViewModelWatchHistory(Reader reader)
       : super(reader, const WatchHistoryState.initial());
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvSnackBar);
+  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvMainScreenSnackBar);
 
   @override
   Future<void> initialize() async {
     if (state != const WatchHistoryState.initial()) return;
 
-    final result = await logger.guardFuture(() async {
-      await connectivityRepository.ensureNotDisconnect();
-      return graphQlRepository
-          .queryWatchHistory()
-          .timeout(GraphQlRepository.TIMEOUT);
-    });
+    final result = await logger
+        .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+              await connectivityRepository.ensureNotDisconnect();
+              await interceptor.refreshAuthTokenIfNeeded();
+              return graphQlRepository
+                  .queryWatchHistory()
+                  .timeout(GraphQlRepository.TIMEOUT);
+            }));
     result.when(success: (data) {
       state = data.viewerUser.watchHistories.items.isEmpty
           ? const WatchHistoryState.resultEmpty()
@@ -56,14 +59,16 @@ class ViewModelWatchHistory extends ViewModelBase<WatchHistoryState> {
             isLoadingMore: true,
           ));
 
-          final result = await logger.guardFuture(() async {
-            await connectivityRepository.ensureNotDisconnect();
-            return graphQlRepository
-                .queryWatchHistory(
-                  nextToken: nextToken,
-                )
-                .timeout(GraphQlRepository.TIMEOUT);
-          });
+          final result = await logger
+              .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+                    await connectivityRepository.ensureNotDisconnect();
+                    await interceptor.refreshAuthTokenIfNeeded();
+                    return graphQlRepository
+                        .queryWatchHistory(
+                          nextToken: nextToken,
+                        )
+                        .timeout(GraphQlRepository.TIMEOUT);
+                  }));
           if (mounted)
             result.when(success: (data) {
               final newList = oldData.watchHistories + [data];

@@ -4,4 +4,7 @@ extension BuildContextX on BuildContext {
   bool get isWideScreen =>
       1024 <
       MediaQuery.of(this).size.width - MediaQuery.of(this).padding.horizontal;
+
+  bool get isNarrowScreen =>
+          MediaQuery.of(this).size.width - MediaQuery.of(this).padding.horizontal < 480;
 }

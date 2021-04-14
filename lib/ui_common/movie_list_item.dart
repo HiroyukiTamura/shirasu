@@ -18,19 +18,23 @@ part 'movie_list_item.g.dart';
 
 class MovieListItemBase extends StatelessWidget {
   const MovieListItemBase({
-    @required this.program,
     @required this.onTap,
     @required this.titleHeight,
     @required this.titleStyle,
     @required this.subTitleStyle,
+    @required this.id,
+    @required this.title,
+    @required this.broadcastAt,
     Key key,
   }) : super(key: key);
 
-  final BaseProgram program;
   final GestureTapCallback onTap;
   final double titleHeight;
   final TextStyle titleStyle;
   final TextStyle subTitleStyle;
+  final String id;
+  final String title;
+  final DateTime broadcastAt;
 
   static const double PADDING = 8;
 
@@ -44,7 +48,7 @@ class MovieListItemBase extends StatelessWidget {
             child: Row(
               children: [
                 CustomCachedNetworkImage(
-                  imageUrl: UrlUtil.getThumbnailUrl(program.id),
+                  imageUrl: UrlUtil.getThumbnailUrl(id),
                   width: titleHeight * Dimens.IMG_RATIO,
                   errorWidget: Util.defaultPrgThumbnail,
                 ),
@@ -56,10 +60,10 @@ class MovieListItemBase extends StatelessWidget {
                       Container(
                         // avoid overflow
                         constraints: BoxConstraints(
-                          maxHeight: titleHeight /2,
+                          maxHeight: titleHeight / 2,
                         ),
                         child: Text(
-                          program.title,
+                          title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: titleStyle,
@@ -68,8 +72,7 @@ class MovieListItemBase extends StatelessWidget {
                       const SizedBox(height: 4),
                       Expanded(
                         child: Text(
-                          DateFormat('yyyy/MM/dd HH:mm')
-                              .format(program.broadcastAt),
+                          DateFormat('yyyy/MM/dd HH:mm').format(broadcastAt),
                           style: subTitleStyle,
                         ),
                       ),
@@ -86,12 +89,16 @@ class MovieListItemBase extends StatelessWidget {
 @swidget
 Widget movieListItem(
   BuildContext context, {
-  @required BaseProgram program,
+  @required String id,
+  @required String title,
+  @required DateTime broadcastAt,
   @required GestureTapCallback onTap,
 }) =>
     context.isBigScreen
         ? MovieListItemBase(
-            program: program,
+            id: id,
+            title: title,
+            broadcastAt: broadcastAt,
             onTap: onTap,
             titleHeight: 96,
             titleStyle: TextStyles.LIST_MOVIE_TITLE_THICK,
@@ -101,7 +108,9 @@ Widget movieListItem(
             ),
           )
         : MovieListItemBase(
-            program: program,
+            id: id,
+            title: title,
+            broadcastAt: broadcastAt,
             onTap: onTap,
             titleHeight: 72,
             titleStyle: TextStyles.listMovieTitle,

@@ -53,6 +53,13 @@ abstract class Result<T> with _$Result<T> {
     );
   }
 
+  Future<void> ifSuccessFuture(Future<void> Function(T data) body) async => await maybeWhen(
+      success: (data) async => body(data),
+      orElse: () {
+        // no-op
+      },
+    );
+
   void ifFailure(Function(dynamic e) body) {
     maybeWhen(
       failure: (e) => body(e),

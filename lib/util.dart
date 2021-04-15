@@ -7,7 +7,6 @@ import 'package:shirasu/gen/assets.gen.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/ui_common/images.dart';
 import 'package:dartx/dartx.dart';
 
 class Util {

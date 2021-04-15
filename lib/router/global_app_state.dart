@@ -5,8 +5,7 @@ import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:dartx/dartx.dart';
-import 'package:shirasu/web/js_delegate.dart';
-import 'package:shirasu/web/web_platform_check.dart';
+import 'package:shirasu/platform_checker/platform_checker.dart';
 
 final kPrvGlobalAppState =
     Provider<GlobalAppState>((ref) => GlobalAppState.instance(ref.read));
@@ -38,9 +37,10 @@ class GlobalAppState extends ChangeNotifier {
 
   List<GlobalRoutePathBase> get list {
     if (kIsWeb) {
-      if (!WebPlatformCheck().isIos)
+      final checker = PlatformChecker.create();
+      if (!checker.isIos)
         return _list = [const GlobalRoutePath.webNoSupport()];
-      if (!WebPlatformCheck().isIosPwa)
+      if (!checker.isIosPwa)
         return _list = [];
     }
 

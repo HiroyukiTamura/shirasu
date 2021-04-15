@@ -9,7 +9,6 @@ import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/viewmodel/viewmodel_detail.dart';
-import 'package:shirasu/extension.dart';
 
 part 'model_detail.freezed.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shirasu/gen/fonts.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/player_slider_track_shape.dart';
 
@@ -26,47 +27,49 @@ class Styles {
   static const PRIMARY_COLOR_DARK = Color(0xff0078D4);
   static const ACCENT_COLOR_DARK = Color(0xffd45c00);
   static final cardBackground = Colors.white.withOpacity(.1);
+  static const _SLIDER_BG = Color(0xFF323232);
 
   static final introDot = Colors.white.withOpacity(.8);
 
   static final theme = _createTheme(const PlayerSliderTrackShape());
   static final fullScreenTheme = _createTheme(null);
 
-  static ThemeData _createTheme(SliderTrackShape sliderTrackShape) => ThemeData.dark().copyWith(
-    // This makes the visual density adapt to the platform that you run
-    // the app on. For desktop platforms, the controls will be smaller and
-    // closer together (more dense) than on mobile platforms.
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    brightness: Brightness.dark,
-    primaryColorBrightness: Brightness.dark,
-    primaryColor: PRIMARY_COLOR,
-    accentColor: PRIMARY_COLOR,
-    primaryColorDark: PRIMARY_COLOR_DARK,
-    scaffoldBackgroundColor: BACK_COLOR,
-    appBarTheme: const AppBarTheme(color: Colors.black),
-    primaryTextTheme: const TextTheme(
-      headline6: TextStyle(color: Colors.white),
-      bodyText1: TextStyle(color: Colors.white),
-    ),
-    snackBarTheme: const SnackBarThemeData(
-      backgroundColor: Color(0xFF323232),
-      contentTextStyle: TextStyle(
-        color: Colors.white,
-      ),
-      actionTextColor: PRIMARY_COLOR,
-      behavior: SnackBarBehavior.floating,
-    ),
-    sliderTheme: ThemeData.dark().sliderTheme.copyWith(
-      inactiveTrackColor: Colors.grey,
-      trackHeight: 3,
-      trackShape: sliderTrackShape,
-      thumbShape: const RoundSliderThumbShape(
-          enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
-      activeTrackColor: PRIMARY_COLOR,
-      thumbColor: PRIMARY_COLOR,
-    ),
-    textSelectionTheme: ThemeData.dark().textSelectionTheme.copyWith(
-      cursorColor: Colors.white,
-    )
-  );
+  static ThemeData _createTheme(SliderTrackShape sliderTrackShape) => ThemeData(
+        brightness: Brightness.dark,
+        fontFamily: FontFamily.notoSansJp,
+        // This makes the visual density adapt to the platform that you run
+        // the app on. For desktop platforms, the controls will be smaller and
+        // closer together (more dense) than on mobile platforms.
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColorBrightness: Brightness.dark,
+        primaryColor: PRIMARY_COLOR,
+        accentColor: PRIMARY_COLOR,
+        primaryColorDark: PRIMARY_COLOR_DARK,
+        scaffoldBackgroundColor: BACK_COLOR,
+        appBarTheme: const AppBarTheme(color: Colors.black),
+        primaryTextTheme: const TextTheme(
+          headline6: TextStyle(color: Colors.white),
+          bodyText1: TextStyle(color: Colors.white),
+        ),
+        snackBarTheme: const SnackBarThemeData(
+          backgroundColor: _SLIDER_BG,
+          contentTextStyle: TextStyle(
+            color: Colors.white,
+          ),
+          actionTextColor: PRIMARY_COLOR,
+          behavior: SnackBarBehavior.floating,
+        ),
+        sliderTheme: ThemeData.dark().sliderTheme.copyWith(
+              inactiveTrackColor: Colors.grey,
+              trackHeight: 3,
+              trackShape: sliderTrackShape,
+              thumbShape: const RoundSliderThumbShape(
+                  enabledThumbRadius: Dimens.VIDEO_SLIDER_THUMB_RADIUS),
+              activeTrackColor: PRIMARY_COLOR,
+              thumbColor: PRIMARY_COLOR,
+            ),
+        textSelectionTheme: ThemeData.dark().textSelectionTheme.copyWith(
+              cursorColor: Colors.white,
+            ),
+      );
 }

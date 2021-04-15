@@ -1,8 +1,8 @@
 import 'package:shirasu/platform_checker/platform_checker.dart';
-import 'package:shirasu/platform_checker/platform_checker_stub.dart' as stub;
+import 'package:shirasu/platform_checker/platform_check_web.dart' as stub;
 
-/// override [stub.getPlatformChecker]
-PlatformChecker get getPlatformChecker => _PlatformCheckNoWeb();
+/// shared with [stub.getPlatformChecker]
+PlatformChecker getPlatformChecker() => _PlatformCheckNoWeb();
 
 class _PlatformCheckNoWeb implements PlatformChecker {
   @override

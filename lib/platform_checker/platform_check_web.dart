@@ -3,9 +3,9 @@ import 'package:shirasu/platform_checker/js_delegate.dart';
 import 'package:shirasu/platform_checker/platform_checker.dart';
 import 'package:universal_html/html.dart';
 import 'package:shirasu/util.dart';
-import 'package:shirasu/platform_checker/platform_checker_stub.dart' as stub;
+import 'package:shirasu/platform_checker/platform_check_no_web.dart' as stub;
 
-/// override [stub.getPlatformChecker]
+/// shared with [stub.getPlatformChecker]
 PlatformChecker getPlatformChecker() => _PlatformCheckWeb();
 
 class _PlatformCheckWeb implements PlatformChecker {

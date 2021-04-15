@@ -637,7 +637,7 @@ class _$HighlightResultTearOff {
       @required
           MatchResult programTitle,
       @protected
-      @JsonKey(name: 'tagList', defaultValue: [])
+      @JsonKey(name: 'tagList', defaultValue: const [])
           List<MatchResult> rawTagList}) {
     return _HighlightResult(
       channelTitle: channelTitle,
@@ -661,7 +661,7 @@ mixin _$HighlightResult {
   MatchResult get channelTitle;
   MatchResult get programTitle;
   @protected
-  @JsonKey(name: 'tagList', defaultValue: [])
+  @JsonKey(name: 'tagList', defaultValue: const [])
   List<MatchResult> get rawTagList;
 
   Map<String, dynamic> toJson();
@@ -678,7 +678,7 @@ abstract class $HighlightResultCopyWith<$Res> {
       {MatchResult channelTitle,
       MatchResult programTitle,
       @protected
-      @JsonKey(name: 'tagList', defaultValue: [])
+      @JsonKey(name: 'tagList', defaultValue: const [])
           List<MatchResult> rawTagList});
 
   $MatchResultCopyWith<$Res> get channelTitle;
@@ -745,7 +745,7 @@ abstract class _$HighlightResultCopyWith<$Res>
       {MatchResult channelTitle,
       MatchResult programTitle,
       @protected
-      @JsonKey(name: 'tagList', defaultValue: [])
+      @JsonKey(name: 'tagList', defaultValue: const [])
           List<MatchResult> rawTagList});
 
   @override
@@ -790,9 +790,13 @@ class __$HighlightResultCopyWithImpl<$Res>
 /// @nodoc
 class _$_HighlightResult extends _HighlightResult {
   const _$_HighlightResult(
-      {@required this.channelTitle,
-      @required this.programTitle,
-      @protected @JsonKey(name: 'tagList', defaultValue: []) this.rawTagList})
+      {@required
+          this.channelTitle,
+      @required
+          this.programTitle,
+      @protected
+      @JsonKey(name: 'tagList', defaultValue: const [])
+          this.rawTagList})
       : assert(channelTitle != null),
         assert(programTitle != null),
         super._();
@@ -806,7 +810,7 @@ class _$_HighlightResult extends _HighlightResult {
   final MatchResult programTitle;
   @override
   @protected
-  @JsonKey(name: 'tagList', defaultValue: [])
+  @JsonKey(name: 'tagList', defaultValue: const [])
   final List<MatchResult> rawTagList;
 
   @override
@@ -855,7 +859,7 @@ abstract class _HighlightResult extends HighlightResult {
       @required
           MatchResult programTitle,
       @protected
-      @JsonKey(name: 'tagList', defaultValue: [])
+      @JsonKey(name: 'tagList', defaultValue: const [])
           List<MatchResult> rawTagList}) = _$_HighlightResult;
 
   factory _HighlightResult.fromJson(Map<String, dynamic> json) =
@@ -867,7 +871,7 @@ abstract class _HighlightResult extends HighlightResult {
   MatchResult get programTitle;
   @override
   @protected
-  @JsonKey(name: 'tagList', defaultValue: [])
+  @JsonKey(name: 'tagList', defaultValue: const [])
   List<MatchResult> get rawTagList;
   @override
   @JsonKey(ignore: true)

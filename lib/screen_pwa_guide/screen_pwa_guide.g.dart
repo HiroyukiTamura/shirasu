@@ -12,10 +12,3 @@ class ScreenPwaGuide extends StatelessWidget {
   @override
   Widget build(BuildContext _context) => screenPwaGuide();
 }
-
-class _HeaderLogo extends StatelessWidget {
-  const _HeaderLogo({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext _context) => _headerLogo();
-}

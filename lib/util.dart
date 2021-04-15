@@ -72,7 +72,7 @@ class Util {
   static Widget defaultChannelIcon(
       BuildContext context, String url, dynamic error) {
     onImageError(context, url: url, error: error);
-    return Assets.svg.defaultChannelIcon.supportWeb().toWidget();
+    return Assets.svg.defaultChannelIcon.svg();
   }
 
   static Widget defaultHandoutThumbnail(

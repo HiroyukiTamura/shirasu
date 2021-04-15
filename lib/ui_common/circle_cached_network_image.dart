@@ -20,10 +20,10 @@ Widget circleCachedNetworkImage({
   assert(imageUrl != null || errorWidget != null);
 
   return imageUrl == null
-      ? Assets.svg.defaultChannelIcon.supportWeb().toWidget(
-            width: size,
-            height: size,
-          )
+      ? Assets.svg.defaultChannelIcon.svg(
+          width: size,
+          height: size,
+        )
       : CustomCachedNetworkImage(
           imageUrl: imageUrl,
           height: size,

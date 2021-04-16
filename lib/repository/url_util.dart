@@ -4,6 +4,7 @@ class UrlUtil {
   const UrlUtil._();
 
   static const URL_GOOGLE_PLAY = 'https://play.google.com/store/apps/details?id=com.cks.shirasu';
+  static const URL_APP_WEB_HOSTING = 'https://app-e6d06.web.app/';
   static const _URL_BASE = 'https://shirasu-storage-product.s3.amazonaws.com';
   static const URL_GRAPHQL =
       'https://itvvnowbibekdj7la2nlxgkuva.appsync-api.ap-northeast-1.amazonaws.com/graphql';

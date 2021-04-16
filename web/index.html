@@ -41,14 +41,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="sk-chase">
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
+<div id="outer">
+    <div id="inner">
+        <div class="sk-chase">
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+        </div>
+    </div>
 </div>
+
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('flutter-first-frame', function () {

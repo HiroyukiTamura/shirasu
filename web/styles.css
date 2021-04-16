@@ -2,6 +2,18 @@ body {
     background-color: #181818;
 }
 
+#outer {
+    position: relative;
+}
+
+#inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
 .sk-chase {
     width: 40px;
     height: 40px;

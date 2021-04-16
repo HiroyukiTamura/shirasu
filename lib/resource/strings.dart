@@ -351,7 +351,7 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
 //endregion
 
 //region ScreenFcmGuide
-  static const SCREEN_FCM_GUIDE_1 = 'アプリを利用するには、iPhone/iPadのSafariでこの画面を開いて、画面下の';
-  static const SCREEN_FCM_GUIDE_2 = 'をタップ・「ホーム画面に追加」を選択してください。';
+  static const SCREEN_FCM_GUIDE_1 = 'iPhone/iPadのSafariでこの画面を開いて、画面下の';
+  static const SCREEN_FCM_GUIDE_2 = 'をタップ・「ホーム画面に追加」を選択してください。\nホーム画面から起動するとアプリが動作します。';
 //endregion
 }

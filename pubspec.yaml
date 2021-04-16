@@ -108,7 +108,6 @@ flutter_gen:
 
 flutter:
   uses-material-design: true
-  # @see
   fonts:
     - family: NotoSansJp
       fonts:

@@ -14,7 +14,6 @@ import 'package:shirasu/screen_intro/screen_intro.dart';
 import 'package:shirasu/screen_main/screen_main.dart';
 import 'package:shirasu/screen_oss_license/screen_oss_license.dart';
 import 'package:shirasu/screen_pre_login/screen_pre_login.dart';
-import 'package:shirasu/screen_pwa_guide/screen_pwa_guide.dart';
 import 'package:shirasu/screen_web_no_support/screen_web_no_support.dart';
 import 'package:tuple/tuple.dart';
 import 'package:shirasu/router/on_pop_page_mixin.dart';
@@ -47,7 +46,6 @@ class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
             preLogin: () => const ScreenPreLogin(),
             fcm: () => const ScreenFcm(),
             webNoSupport: () => const ScreenWebNoSupport(),
-            pwaGuide: () => const ScreenPwaGuide(),
           );
           final location = NavigationValueKeyHandler.getValueKey(pathData);
           return Tuple2(location, screen);

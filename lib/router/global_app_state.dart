@@ -38,10 +38,8 @@ class GlobalAppState extends ChangeNotifier {
   List<GlobalRoutePathBase> get list {
     if (kIsWeb) {
       final checker = PlatformChecker.create();
-      // if (!checker.isIos)
-      //   return _list = [const GlobalRoutePath.webNoSupport()];
       if (!checker.isIosPwa)
-        return _list = [const GlobalRoutePath.pwaGuide()];
+        return _list = [const GlobalRoutePath.webNoSupport()];
     }
 
     if (_isInitialLaunch) return _list = [const GlobalRoutePath.intro()];

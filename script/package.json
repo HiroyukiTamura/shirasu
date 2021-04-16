@@ -1,0 +1,21 @@
+{
+  "name": "shirasu",
+  "version": "1.0.0",
+  "engines": {
+    "node": "12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HiroyukTamura/shirasu.git"
+  },
+  "author": "HiroyukiTamura",
+  "bugs": {
+    "url": "https://github.com/HiroyukTamura/shirasu/issues"
+  },
+  "homepage": "https://github.com/HiroyukTamura/shirasu#readme",
+  "private": true,
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0"
+  }
+}

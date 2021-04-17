@@ -100,12 +100,12 @@ Widget _tileAndroid(
     _ListTile(
       leading: Icons.android,
       title: 'Android',
-      subtitle: MouseRegion(
-        cursor: SystemMouseCursors.click, //todo refactor
-        child: Container(
-          width: 160,
-          height: 64,
-          alignment: Alignment.topLeft,
+      subtitle: Container(
+        width: 160,
+        height: 64,
+        alignment: Alignment.topLeft,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click, //todo refactor
           child: GestureDetector(
             onTap: () => onTapBtn(context),
             child: Assets.png.googlePlayBadge.image(),

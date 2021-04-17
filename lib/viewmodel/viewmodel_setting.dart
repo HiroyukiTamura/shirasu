@@ -5,6 +5,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/repository/auth_client_interceptor.dart';
+import 'package:shirasu/repository/env_repository.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/local_json_client.dart';
@@ -133,7 +134,7 @@ class ViewModelSetting extends ViewModelBase<SettingModel> {
 
     state = state.copyWith(isInLoggingOut: true);
 
-    if (!Util.useScratchAuth)
+    if (!EnvRepositoryImpl.useScratchAuth)
       await logger.guardFuture(() async {
         _webView = FlutterWebviewPlugin();
         await _webView.launch(

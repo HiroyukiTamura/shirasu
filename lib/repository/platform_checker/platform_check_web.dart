@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
-import 'package:shirasu/platform_checker/js_delegate.dart';
-import 'package:shirasu/platform_checker/platform_checker.dart';
+import 'package:shirasu/repository/platform_checker/platform_checker_repository.dart';
 import 'package:universal_html/html.dart';
 import 'package:shirasu/util.dart';
-import 'package:shirasu/platform_checker/platform_check_no_web.dart' as stub;
+import 'package:shirasu/repository/platform_checker/platform_check_no_web.dart' as stub;
+import 'package:shirasu/repository/platform_checker/js_delegate.dart';
 
 /// shared with [stub.getPlatformChecker]
-PlatformChecker getPlatformChecker() => _PlatformCheckWeb();
+PlatformCheckerRepository getPlatformChecker() => _PlatformCheckWeb();
 
-class _PlatformCheckWeb implements PlatformChecker {
+class _PlatformCheckWeb implements PlatformCheckerRepository {
   _PlatformCheckWeb() {
     Util.require(kIsWeb);
   }

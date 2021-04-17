@@ -19,6 +19,7 @@ import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/repository/hive_history_repository_impl.dart';
+import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -52,7 +53,7 @@ Future<void> main() async {
   await HiveHistoryRepositoryImpl.instance().init();
   await GraphQlRepositoryImpl.openHiveStore();
 
-  if (kIsWeb)
+  if (LoggerRepositoryImpl.CRASHLYTICS_ENABLE)
     await runZonedGuarded(
         () async => SentryFlutter.init(
               (options) {

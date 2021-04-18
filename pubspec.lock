@@ -522,11 +522,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "86efded15ec3ef4ae930da6963f29aee435b9a35"
+      ref: "54bf52fe951ad7a0ccb0f62154d9c4a49868770f"
+      resolved-ref: "54bf52fe951ad7a0ccb0f62154d9c4a49868770f"
       url: "https://github.com/HiroyukTamura/flutter_video_background"
     source: git
-    version: "0.0.1"
+    version: "1.0.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

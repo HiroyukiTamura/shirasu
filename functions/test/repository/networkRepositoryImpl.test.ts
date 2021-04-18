@@ -16,8 +16,7 @@ describe("NetworkRepositoryImpl", () => {
    */
   it("requestChannel_normal", async () => {
     const result = await networkRepository.requestNewPrograms();
-    expect(result.newPrograms.nextToken).to.not.null;
-    expect(result.newPrograms.items).to.not.empty;
+    expect(result).to.not.empty;
   });
 
   /**

@@ -4,7 +4,6 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
-import 'package:shirasu/ui_common/images.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 
 part 'circle_cached_network_image.g.dart';

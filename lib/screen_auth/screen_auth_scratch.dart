@@ -5,7 +5,6 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:shirasu/repository/secure_storage_repository.dart';
 import 'package:shirasu/repository/secure_storage_repository_impl.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shirasu/gen/fonts.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/player_slider_track_shape.dart';
 
@@ -36,7 +35,6 @@ class Styles {
 
   static ThemeData _createTheme(SliderTrackShape sliderTrackShape) => ThemeData(
         brightness: Brightness.dark,
-        fontFamily: FontFamily.notoSansJp,
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.

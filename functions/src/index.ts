@@ -7,6 +7,7 @@ admin.initializeApp();
 const algoliaAppId = functions.config().env.algolia_app_id;
 const algoliaApiKey = functions.config().env.algolia_api_key;
 
+
 export const crawlAndSendFcm = functions
     .runWith({
       timeoutSeconds: 240,

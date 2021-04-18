@@ -10,11 +10,9 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_intro/body_widget.dart';
-import 'package:shirasu/ui_common/images.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ScreenIntro extends StatefulWidget {
-
   const ScreenIntro();
 
   @override
@@ -89,9 +87,9 @@ class ScreenIntro extends StatefulWidget {
         bodyWidget: BodyWidget(
           stringList: textList,
         ),
-        image: svgGenImage.supportWeb().toWidget(
-              semanticLabel: imageLabel,
-            ),
+        image: svgGenImage.svg(
+          semanticsLabel: imageLabel,
+        ),
       );
 }
 

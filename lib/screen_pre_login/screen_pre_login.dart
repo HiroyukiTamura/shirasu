@@ -2,28 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/repository/env_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
-import 'package:shirasu/gen/assets.gen.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/global_route_path.dart';
+import 'package:shirasu/ui_common/branding.dart';
 import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/no_effect_scroll_behavior.dart';
 import 'package:shirasu/ui_common/ui_util.dart';
-import 'package:shirasu/ui_common/images.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/extension.dart';
-import 'package:simple_animations/simple_animations.dart';
-import 'package:dartx/dartx.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'screen_pre_login.g.dart';
-
-final _kAnimationDuration = 10.seconds;
 
 final _kPrvSnackBarMsgNotifier =
     StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
@@ -53,7 +46,7 @@ class ScreenPreLogin extends StatelessWidget {
             provider: _kPrvSnackMsg,
             child: Stack(
               children: [
-                const _AnimatedBackground(),
+                const AnimatedBackground(),
                 Padding(
                   padding: const EdgeInsets.only(
                     right: 24,
@@ -93,8 +86,8 @@ class ScreenPreLogin extends StatelessWidget {
                           ),
                           _FooterText(
                             text: Strings.FOOTER_BTN_PRIVACY_VALUE,
-                            onTap: () => _launchUrl(
-                                context, UrlUtil.URL_LP_POLICY),
+                            onTap: () =>
+                                _launchUrl(context, UrlUtil.URL_LP_POLICY),
                           ),
                         ],
                       ),
@@ -114,7 +107,7 @@ class ScreenPreLogin extends StatelessWidget {
             ))
         .joinWith(() => const SizedBox(height: 16));
     return [
-      const _HeaderLogo(),
+      const HeaderLogo(),
       const SizedBox(
         height: 48,
       ),
@@ -151,34 +144,6 @@ Widget _footerText(
               fontSize: 14,
             ),
           ),
-        ),
-      ),
-    );
-
-@swidget
-Widget _headerLogo() => Semantics(
-      label: Strings.CD_LOGO,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Assets.svg.logoOfficial.svg(
-              height: 48,
-              color: Colors.white,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Icon(
-                Icons.clear_rounded,
-                color: Colors.white,
-                size: 40,
-              ),
-            ),
-            Assets.svg.appLogoContent.supportWeb().toWidget(
-                  height: 60,
-                ),
-          ],
         ),
       ),
     );
@@ -240,41 +205,3 @@ Widget _note(
         ),
       ],
     );
-
-@hwidget
-Widget _animatedBackground(
-  BuildContext context,
-) {
-  final enableAnimation =
-      useProvider(kPrvEnv.select((it) => it.enableAnimation));
-  if (!enableAnimation) return const Placeholder();
-
-  final tween = TimelineTween<DefaultAnimationProperties>()
-    ..addScene(
-      begin: Duration.zero,
-      end: _kAnimationDuration,
-    ).animate(
-      DefaultAnimationProperties.color,
-      tween: ColorTween(
-        begin: Theme.of(context).primaryColor,
-        end: Theme.of(context).primaryColorDark,
-      ),
-    );
-
-  return MirrorAnimation<TimelineValue<DefaultAnimationProperties>>(
-    tween: tween, // Pass in tween
-    duration: tween.duration, // Obtain duration
-    builder: (context, child, value) => Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [
-            value.get(DefaultAnimationProperties.color),
-            Theme.of(context).scaffoldBackgroundColor,
-          ],
-        ),
-      ),
-    ),
-  );
-}

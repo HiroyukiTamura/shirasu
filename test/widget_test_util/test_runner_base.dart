@@ -10,7 +10,6 @@ import 'package:shirasu/resource/styles.dart';
 import '../mock_repository/hive_pref_empty.dart';
 import 'json_client.dart';
 import 'override_util.dart';
-import 'test_runner_on_page_error.dart';
 import 'test_util.dart';
 
 typedef WidgetBuilder = Widget Function();

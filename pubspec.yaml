@@ -33,6 +33,7 @@ dependencies:
   flutter_webview_plugin: ^0.3.11
   font_awesome_flutter: ^8.11.0
   material_design_icons_flutter: 4.0.5855
+  video_player: ^2.1.1
   # firebase
   firebase_core: ^0.7.0
   firebase_crashlytics: ^0.4.0+1
@@ -66,7 +67,6 @@ dependencies:
   functional_widget_annotation: ^0.8.0
   sliding_up_panel: ^1.0.2
   dartx: ^0.5.0
-  better_player: ^0.0.60
   circular_reveal_animation: ^1.1.5
   flutter_custom_clippers: ^1.1.2
   double_tap_player_view: ^1.0.6
@@ -75,7 +75,9 @@ dependencies:
   simple_animations: ^2.5.1
   flutter_dotenv: ^3.1.0
   flutter_video_background:
-    git: https://github.com/HiroyukTamura/flutter_video_background
+    git:
+      url: https://github.com/HiroyukTamura/flutter_video_background
+      ref: 54bf52fe951ad7a0ccb0f62154d9c4a49868770f
 
 
 dev_dependencies:

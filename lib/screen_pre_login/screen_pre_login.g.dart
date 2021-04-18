@@ -19,13 +19,6 @@ class _FooterText extends StatelessWidget {
       _footerText(_context, text: text, onTap: onTap);
 }
 
-class _HeaderLogo extends StatelessWidget {
-  const _HeaderLogo({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext _context) => _headerLogo();
-}
-
 class _Button extends StatelessWidget {
   const _Button(
       {Key key,
@@ -55,11 +48,4 @@ class _Note extends StatelessWidget {
 
   @override
   Widget build(BuildContext _context) => _note(_context, text: text);
-}
-
-class _AnimatedBackground extends HookWidget {
-  const _AnimatedBackground({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext _context) => _animatedBackground(_context);
 }

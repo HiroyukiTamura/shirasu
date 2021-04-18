@@ -69,20 +69,3 @@ class _GenImage {
       throw UnsupportedError(toString());
   }
 }
-
-extension SvgGenImageX on SvgGenImage {
-  /// assets/svg/undraw_warning_cyit.svg
-  _GenImage supportWeb() {
-    if (kIsWeb) {
-      final imgPath = path
-          .replaceAll('/svg/', '/png/')
-          .replaceAll('.svg', '.png');
-      return _GenImage._(
-        assetGenImage: AssetGenImage(imgPath),
-      );
-    } else
-      return _GenImage._(
-        svgGenImage: this,
-      );
-  }
-}

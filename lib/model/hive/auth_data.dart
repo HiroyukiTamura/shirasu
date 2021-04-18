@@ -50,7 +50,7 @@ abstract class HiveAuthData with _$HiveAuthData {
   static DateTime calcExpiresAt(HiveBody body) {
     final expiresInTime =
         DateTime.now().millisecondsSinceEpoch / 1000 + body.expiresIn;
-    final epochMills = min(expiresInTime, body.decodedToken.claims.exp) * 1000;
+    final epochMills = max(expiresInTime.toInt(), body.decodedToken.claims.exp) * 1000;
     return DateTime.fromMillisecondsSinceEpoch(epochMills);
   }
 

@@ -7,7 +7,6 @@ import 'package:shirasu/gen/assets.gen.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shirasu/ui_common/images.dart';
 import 'package:dartx/dartx.dart';
 
 class Util {
@@ -16,8 +15,6 @@ class Util {
   static const JP_TAX_RATIO = 0.1;
   /// ref: https://github.com/HiroyukTamura/shirasu/blob/369e058a76c41018adb55c94499f448cbe6de6fb/research/dashboard/main.js#L4416
   static const AUTH0_CLIENT_ID = 'kyjTJ5lQ7RU7mAyeSmX8nLYcxVRtA3nB';
-
-  static final useScratchAuth = defaultTargetPlatform == TargetPlatform.iOS;
 
   static const LANDSCAPE_ORIENTATIONS = [
     DeviceOrientation.landscapeRight,
@@ -72,7 +69,7 @@ class Util {
   static Widget defaultChannelIcon(
       BuildContext context, String url, dynamic error) {
     onImageError(context, url: url, error: error);
-    return Assets.svg.defaultChannelIcon.supportWeb().toWidget();
+    return Assets.svg.defaultChannelIcon.svg();
   }
 
   static Widget defaultHandoutThumbnail(

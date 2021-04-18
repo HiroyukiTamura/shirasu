@@ -11,14 +11,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/model/hive/search_history.dart';
 import 'package:shirasu/repository/graphql_repository_impl.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
 import 'package:shirasu/repository/hive_history_repository_impl.dart';
-import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/repository/ntf_message_repository_impl.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -52,29 +50,14 @@ Future<void> main() async {
   await HiveHistoryRepositoryImpl.instance().init();
   await GraphQlRepositoryImpl.openHiveStore();
 
-  if (LoggerRepositoryImpl.CRASHLYTICS_ENABLE)
-    await runZonedGuarded(
-        () async => SentryFlutter.init(
-              (options) {
-                options.dsn =
-                    'https://bbd475d433724e46b8e2f342b35a107f@o327530.ingest.sentry.io/5672361';
-              },
-              appRunner: () => runApp(ProviderScope(
-                child: MyApp(),
-              )),
-            ),
-        (exception, stackTrace) async => Sentry.captureException(
-              exception,
-              stackTrace: stackTrace,
-            ));
-  else
-    await runZonedGuarded(
-        () async => runApp(
-              ProviderScope(
-                child: MyApp(),
-              ),
-            ),
-        FirebaseCrashlytics.instance.recordError);
+  await runZonedGuarded(
+    () async => runApp(
+      ProviderScope(
+        child: MyApp(),
+      ),
+    ),
+    FirebaseCrashlytics.instance.recordError,
+  );
 }
 
 class MyApp extends StatefulHookWidget {

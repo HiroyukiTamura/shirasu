@@ -2,6 +2,8 @@ import admin from "firebase-admin";
 import {FirestoreRepository} from "./firestoreRepository";
 import {ProgramItem} from "../model/graphql/resultNewprograms";
 import {Action, FcmQue, FcmQueStatus, FcmQueUtil} from "../model/firestore/fcmQue";
+import {firestore} from "firebase-admin/lib/firestore";
+import QuerySnapshot = firestore.QuerySnapshot;
 
 export class FirestoreRepositoryImpl implements FirestoreRepository {
   private readonly db = admin.firestore();
@@ -21,7 +23,7 @@ export class FirestoreRepositoryImpl implements FirestoreRepository {
           fcmQues.push(que);
         }
       }
-      const snapSuccess = await this.collection.where("status", "==", FcmQueStatus.SUCCESS).get();
+      const snapSuccess = await t.get(this.collection.where("status", "==", FcmQueStatus.SUCCESS));
       for (const doc of snapSuccess.docs)
         await t.delete(doc.ref);
       for (const fcmQue of fcmQues)
@@ -70,12 +72,18 @@ export class FirestoreRepositoryImpl implements FirestoreRepository {
 
   private async writeFcmLogAsComplete(fcmMsgDataList: FcmQue[], errPrgIds: string[]): Promise<void> {
     return this.db.runTransaction(async (t) => {
+      const snapshotList: Array<QuerySnapshot<firestore.DocumentData>> = [];
       for (const fcmMsgData of fcmMsgDataList) {
         const query = this.collection
             .where("programId", "==", fcmMsgData.programId)
             .where("status", "==", FcmQueStatus.MESSAGING)
             .limit(1);
         const snapshot = await t.get(query);
+        snapshotList.push(snapshot);
+      }
+      for (let i = 0; i < snapshotList.length; i++) {
+        const snapshot = snapshotList[i];
+        const fcmMsgData = fcmMsgDataList[i];
         if (!snapshot.empty) {
           const status = errPrgIds.includes(fcmMsgData.programId) ? FcmQueStatus.ERROR : FcmQueStatus.SUCCESS;
           await t.update(snapshot.docs[0].ref, "status", status);

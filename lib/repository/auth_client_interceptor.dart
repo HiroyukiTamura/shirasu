@@ -6,9 +6,10 @@ import 'package:shirasu/repository/dio_repository.dart';
 import 'package:shirasu/repository/env_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
-import 'package:shirasu/repository/secure_storage/secure_storage_repository.dart';
+import 'package:shirasu/repository/secure_storage_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/hive_client.dart';
+import 'package:shirasu/repository/secure_storage_repository_impl.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:shirasu/repository/logger_repository.dart';
 

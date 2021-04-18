@@ -5,7 +5,6 @@ import 'package:shirasu/repository/hive_auth_repository.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:dartx/dartx.dart';
-import 'package:shirasu/repository/platform_checker/platform_checker_repository.dart';
 
 final kPrvGlobalAppState =
     Provider<GlobalAppState>((ref) => GlobalAppState.instance(ref.read));

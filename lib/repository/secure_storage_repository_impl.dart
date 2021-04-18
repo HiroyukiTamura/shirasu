@@ -1,12 +1,13 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/repository/env_repository.dart';
-import 'package:shirasu/repository/secure_storage/secure_storage_repository.dart';
+import 'package:shirasu/repository/secure_storage_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shirasu/screen_auth/screen_auth_scratch.dart';
-import 'package:shirasu/repository/secure_storage/secure_storage_repository_impl_web.dart' as stub;
 
-/// shared with [stub.getSecureStorageRepository]
-SecureStorageRepository getSecureStorageRepository() => SecureStorageRepositoryImpl._instance;
+final kPrvSecureStorageRepository =
+    Provider.autoDispose<SecureStorageRepository>(
+        (_) => SecureStorageRepositoryImpl._instance);
 
 /// must only for ios.
 /// must use with [ScreenAuthScratch].

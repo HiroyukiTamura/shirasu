@@ -3,5 +3,6 @@
   "expires_in": 86400,
   "scope": "openid offline_access",
   "id_token": "eyJ...0NE",
-  "token_type": "Bearer"
+  "token_type": "Bearer",
+  "refresh_token": "flA...O2j"
 }

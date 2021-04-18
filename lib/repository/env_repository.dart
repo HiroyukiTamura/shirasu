@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as env;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -30,6 +31,8 @@ mixin EnvRepository {
 
 class EnvRepositoryImpl with EnvRepository {
   const EnvRepositoryImpl();
+
+  static final useScratchAuth = defaultTargetPlatform != TargetPlatform.android;
 
   @override
   bool get enableAnimation => true;

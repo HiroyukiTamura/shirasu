@@ -23,38 +23,42 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/repository/env_repository.dart';
 
+
 /// todo splash screen
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  await runZonedGuarded(() async {
-    await Hive.initFlutter();
-    await const EnvRepositoryImpl().load();
-    Hive
-      ..registerAdapter(HiveAuthDataAdapter())
-      ..registerAdapter(HiveBodyAdapter())
-      ..registerAdapter(HiveDecodedTokenAdapter())
-      ..registerAdapter(HiveClaimsAdapter())
-      ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
-      // ..registerAdapter(HiveEncodedAdapter())
-      // ..registerAdapter(HiveHeaderAdapter())
-      ..registerAdapter(HiveUserAdapter())
-      ..registerAdapter(HiveFcmTopicAdapter())
-      ..registerAdapter(HiveFcmChannelDataAdapter())
-      ..registerAdapter(HiveFcmProgramDataAdapter())
-      ..registerAdapter(HiveSearchHistoryItemAdapter())
-      ..registerAdapter(HiveSearchHistoryAdapter());
+  await Hive.initFlutter();
+  await const EnvRepositoryImpl().load();
+  Hive
+    ..registerAdapter(HiveAuthDataAdapter())
+    ..registerAdapter(HiveBodyAdapter())
+    ..registerAdapter(HiveDecodedTokenAdapter())
+    ..registerAdapter(HiveClaimsAdapter())
+    ..registerAdapter(HiveHttpsShirasuIoUserAttributeAdapter())
+    // ..registerAdapter(HiveEncodedAdapter())
+    // ..registerAdapter(HiveHeaderAdapter())
+    ..registerAdapter(HiveUserAdapter())
+    ..registerAdapter(HiveFcmTopicAdapter())
+    ..registerAdapter(HiveFcmChannelDataAdapter())
+    ..registerAdapter(HiveFcmProgramDataAdapter())
+    ..registerAdapter(HiveSearchHistoryItemAdapter())
+    ..registerAdapter(HiveSearchHistoryAdapter());
 
-    await HiveAuthRepositoryImpl.instance().init();
-    await HivePrefRepositoryImpl.instance().init();
-    await HiveHistoryRepositoryImpl.instance().init();
-    await GraphQlRepositoryImpl.openHiveStore();
+  await HiveAuthRepositoryImpl.instance().init();
+  await HivePrefRepositoryImpl.instance().init();
+  await HiveHistoryRepositoryImpl.instance().init();
+  await GraphQlRepositoryImpl.openHiveStore();
 
-    runApp(
-      ProviderScope(child: MyApp()),
-    );
-  }, FirebaseCrashlytics.instance.recordError);
+  await runZonedGuarded(
+    () async => runApp(
+      ProviderScope(
+        child: MyApp(),
+      ),
+    ),
+    FirebaseCrashlytics.instance.recordError,
+  );
 }
 
 class MyApp extends StatefulHookWidget {

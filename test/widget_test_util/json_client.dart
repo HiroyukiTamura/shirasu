@@ -12,6 +12,7 @@ import 'package:shirasu/model/graphql/new_programs_data.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/model/hive/auth_data.dart';
+import 'package:shirasu/model/network/result_login.dart';
 
 import '../resources/assets.gen.dart';
 import '../widget_test_util/test_util.dart';
@@ -29,6 +30,7 @@ class JsonClient {
   ListCommentsByProgram mListCommentsByProgram;
   ListSubscribedPrograms mListSubscribedPrograms;
   AlgoliaResponse mAlgoliaResponse;
+  LoginResult mLoginResult;
 
   static final JsonClient instance = JsonClient._();
 
@@ -43,6 +45,7 @@ class JsonClient {
     mListCommentsByProgram = await _listCommentsByProgram;
     mListSubscribedPrograms = await _listSubscribedPrograms;
     mAlgoliaResponse = await _algoliaResponse;
+    mLoginResult = await _tokenRefreshResult;
   }
 
   Future<FeatureProgramData> get _featureProgramData async {
@@ -94,6 +97,11 @@ class JsonClient {
   Future<AlgoliaResponse> get _algoliaResponse async {
     final json = await _loadJson(Assets.json.algoliaResponse, dataOnly: false);
     return AlgoliaResponse.fromJson(json);
+  }
+
+  Future<LoginResult> get _tokenRefreshResult async {
+    final json = await _loadJson(Assets.json.tokenRefreshResult, dataOnly: false);
+    return LoginResult.fromJson(json);
   }
 
   static Future<Map<String, dynamic>> _loadJson(

@@ -106,24 +106,6 @@ flutter_gen:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: NotoSansJp
-      fonts:
-        - asset: fonts/NotoSansCJKjp-Black.otf
-          weight: 900
-        - asset: fonts/NotoSansCJKjp-Bold.otf
-          weight: 700
-        - asset: fonts/NotoSansCJKjp-Medium.otf
-          weight: 500
-        - asset: fonts/NotoSansCJKjp-Regular.otf
-          weight: 400
-          # weight must be 100s
-#        - asset: fonts/NotoSansCJKjp-DemiLight.otf
-#          weight: 350
-        - asset: fonts/NotoSansCJKjp-Light.otf
-          weight: 300
-        - asset: fonts/NotoSansCJKjp-Thin.otf
-          weight: 100
   assets:
     - assets/png/
     - assets/jpeg/

@@ -44,6 +44,8 @@ class $AssetsPngGen {
       const AssetGenImage('assets/png/default_channel.png');
   AssetGenImage get defaultThumbnail =>
       const AssetGenImage('assets/png/default_thumbnail.jpeg');
+  AssetGenImage get googlePlayBadge =>
+      const AssetGenImage('assets/png/google-play-badge.png');
   AssetGenImage get logoOfficial =>
       const AssetGenImage('assets/png/logo_official.png');
   AssetGenImage get logoOfficialShadow =>
@@ -66,6 +68,8 @@ class $AssetsSvgGen {
       const SvgGenImage('assets/svg/app_logo_content.svg');
   SvgGenImage get defaultChannelIcon =>
       const SvgGenImage('assets/svg/default-channel-icon.svg');
+  SvgGenImage get iconIosShare =>
+      const SvgGenImage('assets/svg/icon_ios_share.svg');
   SvgGenImage get logoOfficial =>
       const SvgGenImage('assets/svg/logo_official.svg');
   SvgGenImage get logoOfficialShadow =>

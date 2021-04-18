@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:better_player/better_player.dart';
 import 'package:dio/dio.dart';
 import 'package:double_tap_player_view/double_tap_player_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,14 +84,6 @@ extension BuildContextX on BuildContext {
   }
 }
 
-extension BetterPlayerEventX on BetterPlayerEvent {
-  String get exception => parameters['exception'] as String;
-
-  Duration get progress => parameters['progress'] as Duration;
-
-  Duration get duration => parameters['duration'] as Duration;
-}
-
 extension SwipeDataX on SwipeData {
   static const double _FACTOR_DX2SEC = 1;
 
@@ -113,6 +104,8 @@ extension DioErrorX on DioError {
         return false;
     }
   }
+
+  bool get is403Error => type == DioErrorType.RESPONSE && response.statusCode == 403;
 }
 
 final _random = Random();
@@ -131,4 +124,8 @@ extension StringX on String {
   Digest toSha256() => sha256.convert(utf8.encode(this));
 
   Uri toUri() => Uri.parse(this);
+}
+
+extension DurationX on Duration {
+  bool get isPositive => !isNegative;
 }

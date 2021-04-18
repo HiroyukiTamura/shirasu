@@ -27,7 +27,8 @@ class ViewModelDashBoard extends ViewModelBaseChangeNotifier with MutableState {
   NetworkImageRepository get _networkRepository =>
       reader(kPrvNetworkRepository);
 
-  SnackBarMessageNotifier get _snackBarMsgNotifier => reader(kPrvMainScreenSnackBar);
+  SnackBarMessageNotifier get _snackBarMsgNotifier =>
+      reader(kPrvMainScreenSnackBar);
 
   @override
   Future<void> initialize() async {

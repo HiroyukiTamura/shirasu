@@ -183,7 +183,8 @@ class DioRepositoryImpl with DioRepository, _CookieDioManager {
   }
 
   /// must run under [authOperationLock]
-  static Future<LoginResult> renewToken({
+  @override
+  Future<LoginResult> renewToken({
     @required String clientId,
     @required String refreshToken,
     @required String audience,

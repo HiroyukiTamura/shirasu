@@ -4,14 +4,16 @@ import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:shirasu/model/network/result_login.dart';
 import 'package:shirasu/repository/dio_repository.dart';
 
-class DioRepositoryMock with DioRepository {
+import '../widget_test_util/json_client.dart';
 
+class DioRepositoryMock with DioRepository {
   DioRepositoryMock(this.specResp);
-  
+
   final AlgoliaResponse specResp;
-  
+
   @override
-  Future<String> getSignedCookie(String videoId, VideoType videoType, String auth) {
+  Future<String> getSignedCookie(
+      String videoId, VideoType videoType, String auth) {
     throw UnimplementedError();
   }
 
@@ -21,6 +23,15 @@ class DioRepositoryMock with DioRepository {
   }
 
   @override
-  Future<AlgoliaResponse> searchAlgolia({CancelToken cancelToken, String query, int length}) async => specResp;
+  Future<AlgoliaResponse> searchAlgolia(
+          {CancelToken cancelToken, String query, int length}) async =>
+      specResp;
 
+  @override
+  Future<LoginResult> renewToken({
+    String clientId,
+    String refreshToken,
+    String audience,
+  }) async =>
+      JsonClient.instance.mLoginResult;
 }

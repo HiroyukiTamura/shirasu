@@ -28,6 +28,8 @@ class $AssetsSvgGen {
       const SvgGenImage('assets/svg/badge_app_store.svg');
   SvgGenImage get badgeGooglePlay =>
       const SvgGenImage('assets/svg/badge_google_play.svg');
+  SvgGenImage get logoAlgolia =>
+      const SvgGenImage('assets/svg/logo_algolia.svg');
   SvgGenImage get logoAnalytics =>
       const SvgGenImage('assets/svg/logo_analytics.svg');
   SvgGenImage get logoCrashlytics =>
@@ -48,13 +50,14 @@ class $AssetsSvgGen {
       const SvgGenImage('assets/svg/logo_performance.svg');
   SvgGenImage get logoPostman =>
       const SvgGenImage('assets/svg/logo_postman.svg');
+  SvgGenImage get logoSentry => const SvgGenImage('assets/svg/logo_sentry.svg');
   SvgGenImage get logoSwift => const SvgGenImage('assets/svg/logo_swift.svg');
   SvgGenImage get undrawAudio =>
       const SvgGenImage('assets/svg/undraw_audio.svg');
   SvgGenImage get undrawOnlinePayments =>
       const SvgGenImage('assets/svg/undraw_online_payments.svg');
-  SvgGenImage get undrawSecurity =>
-      const SvgGenImage('assets/svg/undraw_security.svg');
+  SvgGenImage get undrawSearch =>
+      const SvgGenImage('assets/svg/undraw_search.svg');
 }
 
 class Assets {

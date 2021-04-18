@@ -1,19 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lp/resources/styles.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 
-class CardGray extends StatelessWidget {
-  const CardGray({required this.child});
+part 'card_gray.g.dart';
 
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => Card(
-        elevation: 16,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        color: CustomColor.BACK_GROUND_CARD,
-        child: child,
-      );
-}
+@swidget
+Widget cardGray({required Widget child}) => Card(
+      elevation: 16,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      color: CustomColor.BACK_GROUND_CARD,
+      child: child,
+    );

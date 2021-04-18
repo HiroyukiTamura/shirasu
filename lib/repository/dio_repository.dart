@@ -15,4 +15,10 @@ mixin DioRepository {
     @required String query,
     int length,
   });
+
+  Future<LoginResult> renewToken({
+    @required String clientId,
+    @required String refreshToken,
+    @required String audience,
+  });
 }

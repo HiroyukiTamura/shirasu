@@ -1,5 +1,4 @@
 @Timeout(Duration(minutes: 1))
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -101,6 +100,16 @@ Future<void> main() async {
       ref.read,
       specState,
       JsonClient.instance.mProgramDetailData.program.id,
+    ),
+  );
+
+  final _playingState = specState.copyWith(
+    playOutState: PlayOutState.play(
+      'DUMMY_URL',
+      const VideoType.archived(),
+      'DUMMY_COOKIE',
+    ).copyWith(
+      currentPos: 1.minutes,
     ),
   );
 
@@ -313,7 +322,7 @@ Future<void> main() async {
           overrideGraphQlCommon,
           overrideViewModel,
         ],
-        expectedState: specState,
+        defaultState: _playingState,
         expectedSnack: const SnackMsg.networkDisconnected(),
         predicate: (viewModel) async {
           await viewModel.postComment('TEXT');
@@ -330,7 +339,7 @@ Future<void> main() async {
           overrideViewModel,
           kOverrideConnectedRepositoryConnectedImpl
         ],
-        expectedState: specState,
+        defaultState: _playingState,
         expectedSnack: const SnackMsg.networkTimeout(),
         predicate: (viewModel) async {
           await viewModel.postComment('TEXT');
@@ -347,7 +356,7 @@ Future<void> main() async {
           overrideViewModel,
           kOverrideConnectedRepositoryConnectedImpl
         ],
-        expectedState: specState,
+        defaultState: _playingState,
         expectedSnack: const SnackMsg.unknown(),
         predicate: (viewModel) async {
           await viewModel.postComment('TEXT');
@@ -359,7 +368,9 @@ Future<void> main() async {
     test(
       'IsCommentPosting_Cancel',
       () {
-        final defaultState = specState.copyWith(isCommentPosting: true);
+        final defaultState = specState.copyWith(
+          isCommentPosting: true,
+        );
         return testTemplate(
           override: [
             kOverrideEmptyHiveAuthRepository,

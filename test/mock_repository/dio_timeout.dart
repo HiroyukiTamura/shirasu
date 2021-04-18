@@ -28,4 +28,9 @@ class _DioRepositoryTimeOutImpl with DioRepository {
     int length,
   }) =>
       throw TimeoutException('');
+
+  @override
+  Future<LoginResult> renewToken(
+          {String clientId, String refreshToken, String audience}) =>
+      throw TimeoutException('');
 }

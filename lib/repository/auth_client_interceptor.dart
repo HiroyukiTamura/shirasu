@@ -53,7 +53,7 @@ class AuthClientInterceptor {
       } else {
         final localAuthData = HiveAuthRepositoryImpl.instance();
         final authData = localAuthData.authData;
-        final result = await DioRepositoryImpl.renewToken(
+        final result = await _dioRepository.renewToken(
           clientId: authData.body.clientId,
           refreshToken: authData.body.refreshToken,
           audience: authData.body.audience,

@@ -36,13 +36,6 @@ class GlobalAppState extends ChangeNotifier {
   bool get _isInitialLaunch => _hivePrefRepository.isInitialLaunchApp;
 
   List<GlobalRoutePathBase> get list {
-    // fixme temp
-    // if (kIsWeb) {
-    //   final checker = PlatformChecker.create();
-    //   if (!checker.isIosPwa)
-    //     return _list = [const GlobalRoutePath.webNoSupport()];
-    // }
-
     if (_isInitialLaunch) return _list = [const GlobalRoutePath.intro()];
 
     if (_list.isEmpty) {

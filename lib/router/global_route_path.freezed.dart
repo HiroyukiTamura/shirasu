@@ -56,11 +56,6 @@ class _$GlobalRoutePathTearOff {
   }
 
 // ignore: unused_element
-  _PathDataWebNoSupport webNoSupport() {
-    return const _PathDataWebNoSupport();
-  }
-
-// ignore: unused_element
   _PathDataAuth auth() {
     return const _PathDataAuth();
   }
@@ -86,7 +81,6 @@ mixin _$GlobalRoutePath {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   });
@@ -99,7 +93,6 @@ mixin _$GlobalRoutePath {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -113,7 +106,6 @@ mixin _$GlobalRoutePath {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   });
@@ -126,7 +118,6 @@ mixin _$GlobalRoutePath {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -196,7 +187,6 @@ class _$_PathDataIntro implements _PathDataIntro {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -207,7 +197,6 @@ class _$_PathDataIntro implements _PathDataIntro {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return intro();
@@ -223,7 +212,6 @@ class _$_PathDataIntro implements _PathDataIntro {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -245,7 +233,6 @@ class _$_PathDataIntro implements _PathDataIntro {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -256,7 +243,6 @@ class _$_PathDataIntro implements _PathDataIntro {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return intro(this);
@@ -272,7 +258,6 @@ class _$_PathDataIntro implements _PathDataIntro {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -368,7 +353,6 @@ class _$PathDataError implements PathDataError {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -379,7 +363,6 @@ class _$PathDataError implements PathDataError {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return error(showLoginBtn, errText);
@@ -395,7 +378,6 @@ class _$PathDataError implements PathDataError {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -417,7 +399,6 @@ class _$PathDataError implements PathDataError {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -428,7 +409,6 @@ class _$PathDataError implements PathDataError {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return error(this);
@@ -444,7 +424,6 @@ class _$PathDataError implements PathDataError {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -536,7 +515,6 @@ class _$_PathDataChannel implements _PathDataChannel {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -547,7 +525,6 @@ class _$_PathDataChannel implements _PathDataChannel {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return channel(channelId);
@@ -563,7 +540,6 @@ class _$_PathDataChannel implements _PathDataChannel {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -585,7 +561,6 @@ class _$_PathDataChannel implements _PathDataChannel {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -596,7 +571,6 @@ class _$_PathDataChannel implements _PathDataChannel {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return channel(this);
@@ -612,7 +586,6 @@ class _$_PathDataChannel implements _PathDataChannel {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -702,7 +675,6 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -713,7 +685,6 @@ class _$PathDataProgram implements PathDataProgram {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return program(programId);
@@ -729,7 +700,6 @@ class _$PathDataProgram implements PathDataProgram {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -751,7 +721,6 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -762,7 +731,6 @@ class _$PathDataProgram implements PathDataProgram {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return program(this);
@@ -778,7 +746,6 @@ class _$PathDataProgram implements PathDataProgram {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -845,7 +812,6 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -856,7 +822,6 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return ossLicense();
@@ -872,7 +837,6 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -894,7 +858,6 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -905,7 +868,6 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return ossLicense(this);
@@ -921,7 +883,6 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -984,7 +945,6 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -995,7 +955,6 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return imgLicense();
@@ -1011,7 +970,6 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -1033,7 +991,6 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -1044,7 +1001,6 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return imgLicense(this);
@@ -1060,7 +1016,6 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -1123,7 +1078,6 @@ class _$_PathDataFcm implements _PathDataFcm {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -1134,7 +1088,6 @@ class _$_PathDataFcm implements _PathDataFcm {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return fcm();
@@ -1150,7 +1103,6 @@ class _$_PathDataFcm implements _PathDataFcm {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -1172,7 +1124,6 @@ class _$_PathDataFcm implements _PathDataFcm {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -1183,7 +1134,6 @@ class _$_PathDataFcm implements _PathDataFcm {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return fcm(this);
@@ -1199,7 +1149,6 @@ class _$_PathDataFcm implements _PathDataFcm {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -1214,145 +1163,6 @@ class _$_PathDataFcm implements _PathDataFcm {
 
 abstract class _PathDataFcm implements GlobalRoutePath {
   const factory _PathDataFcm() = _$_PathDataFcm;
-}
-
-/// @nodoc
-abstract class _$PathDataWebNoSupportCopyWith<$Res> {
-  factory _$PathDataWebNoSupportCopyWith(_PathDataWebNoSupport value,
-          $Res Function(_PathDataWebNoSupport) then) =
-      __$PathDataWebNoSupportCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$PathDataWebNoSupportCopyWithImpl<$Res>
-    extends _$GlobalRoutePathCopyWithImpl<$Res>
-    implements _$PathDataWebNoSupportCopyWith<$Res> {
-  __$PathDataWebNoSupportCopyWithImpl(
-      _PathDataWebNoSupport _value, $Res Function(_PathDataWebNoSupport) _then)
-      : super(_value, (v) => _then(v as _PathDataWebNoSupport));
-
-  @override
-  _PathDataWebNoSupport get _value => super._value as _PathDataWebNoSupport;
-}
-
-/// @nodoc
-class _$_PathDataWebNoSupport implements _PathDataWebNoSupport {
-  const _$_PathDataWebNoSupport();
-
-  @override
-  String toString() {
-    return 'GlobalRoutePath.webNoSupport()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _PathDataWebNoSupport);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult intro(),
-    @required TResult error(bool showLoginBtn, String errText),
-    @required TResult channel(String channelId),
-    @required TResult program(String programId),
-    @required TResult ossLicense(),
-    @required TResult imgLicense(),
-    @required TResult fcm(),
-    @required TResult webNoSupport(),
-    @required TResult auth(),
-    @required TResult preLogin(),
-  }) {
-    assert(intro != null);
-    assert(error != null);
-    assert(channel != null);
-    assert(program != null);
-    assert(ossLicense != null);
-    assert(imgLicense != null);
-    assert(fcm != null);
-    assert(webNoSupport != null);
-    assert(auth != null);
-    assert(preLogin != null);
-    return webNoSupport();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult intro(),
-    TResult error(bool showLoginBtn, String errText),
-    TResult channel(String channelId),
-    TResult program(String programId),
-    TResult ossLicense(),
-    TResult imgLicense(),
-    TResult fcm(),
-    TResult webNoSupport(),
-    TResult auth(),
-    TResult preLogin(),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (webNoSupport != null) {
-      return webNoSupport();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult intro(_PathDataIntro value),
-    @required TResult error(PathDataError value),
-    @required TResult channel(_PathDataChannel value),
-    @required TResult program(PathDataProgram value),
-    @required TResult ossLicense(_PathDataOssLicense value),
-    @required TResult imgLicense(_PathDataImgLicense value),
-    @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
-    @required TResult auth(_PathDataAuth value),
-    @required TResult preLogin(_PathDataPreLogin value),
-  }) {
-    assert(intro != null);
-    assert(error != null);
-    assert(channel != null);
-    assert(program != null);
-    assert(ossLicense != null);
-    assert(imgLicense != null);
-    assert(fcm != null);
-    assert(webNoSupport != null);
-    assert(auth != null);
-    assert(preLogin != null);
-    return webNoSupport(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult intro(_PathDataIntro value),
-    TResult error(PathDataError value),
-    TResult channel(_PathDataChannel value),
-    TResult program(PathDataProgram value),
-    TResult ossLicense(_PathDataOssLicense value),
-    TResult imgLicense(_PathDataImgLicense value),
-    TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
-    TResult auth(_PathDataAuth value),
-    TResult preLogin(_PathDataPreLogin value),
-    @required TResult orElse(),
-  }) {
-    assert(orElse != null);
-    if (webNoSupport != null) {
-      return webNoSupport(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _PathDataWebNoSupport implements GlobalRoutePath {
-  const factory _PathDataWebNoSupport() = _$_PathDataWebNoSupport;
 }
 
 /// @nodoc
@@ -1401,7 +1211,6 @@ class _$_PathDataAuth implements _PathDataAuth {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -1412,7 +1221,6 @@ class _$_PathDataAuth implements _PathDataAuth {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return auth();
@@ -1428,7 +1236,6 @@ class _$_PathDataAuth implements _PathDataAuth {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -1450,7 +1257,6 @@ class _$_PathDataAuth implements _PathDataAuth {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -1461,7 +1267,6 @@ class _$_PathDataAuth implements _PathDataAuth {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return auth(this);
@@ -1477,7 +1282,6 @@ class _$_PathDataAuth implements _PathDataAuth {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),
@@ -1540,7 +1344,6 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     @required TResult ossLicense(),
     @required TResult imgLicense(),
     @required TResult fcm(),
-    @required TResult webNoSupport(),
     @required TResult auth(),
     @required TResult preLogin(),
   }) {
@@ -1551,7 +1354,6 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return preLogin();
@@ -1567,7 +1369,6 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     TResult ossLicense(),
     TResult imgLicense(),
     TResult fcm(),
-    TResult webNoSupport(),
     TResult auth(),
     TResult preLogin(),
     @required TResult orElse(),
@@ -1589,7 +1390,6 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     @required TResult ossLicense(_PathDataOssLicense value),
     @required TResult imgLicense(_PathDataImgLicense value),
     @required TResult fcm(_PathDataFcm value),
-    @required TResult webNoSupport(_PathDataWebNoSupport value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
   }) {
@@ -1600,7 +1400,6 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     assert(ossLicense != null);
     assert(imgLicense != null);
     assert(fcm != null);
-    assert(webNoSupport != null);
     assert(auth != null);
     assert(preLogin != null);
     return preLogin(this);
@@ -1616,7 +1415,6 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     TResult ossLicense(_PathDataOssLicense value),
     TResult imgLicense(_PathDataImgLicense value),
     TResult fcm(_PathDataFcm value),
-    TResult webNoSupport(_PathDataWebNoSupport value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
     @required TResult orElse(),

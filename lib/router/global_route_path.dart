@@ -25,7 +25,6 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() fcm,
     @required Result Function() auth,
     @required Result Function() preLogin,
-    @required Result Function() webNoSupport,
   }) {
     if (this is GlobalRoutePath)
       return (this as GlobalRoutePath).when(
@@ -38,7 +37,6 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         auth: auth,
         preLogin: preLogin,
         fcm: fcm,
-        webNoSupport: webNoSupport,
       );
     else if (this is PathDataMainPageBase)
       return (this as PathDataMainPageBase).when(
@@ -62,7 +60,6 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() fcm,
     @required Result Function() auth,
     @required Result Function() preLogin,
-    @required Result Function() webNoSupport,
   }) {
     if (this is PathDataMainPageBase) return mainPage();
     if (this is GlobalRoutePath)
@@ -76,7 +73,6 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         preLogin: preLogin,
         imgLicense: imgLicense,
         fcm: fcm,
-        webNoSupport: webNoSupport,
       );
     else
       throw ArgumentError.value('unexpected routePath type: $runtimeType');
@@ -110,8 +106,6 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.imgLicense() = _PathDataImgLicense;
 
   const factory GlobalRoutePath.fcm() = _PathDataFcm;
-
-  const factory GlobalRoutePath.webNoSupport() = _PathDataWebNoSupport;
 
   const factory GlobalRoutePath.auth() = _PathDataAuth;
 

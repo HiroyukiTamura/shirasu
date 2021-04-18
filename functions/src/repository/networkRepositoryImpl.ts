@@ -1,7 +1,7 @@
 import {ApolloClient, gql, HttpLink, InMemoryCache} from "@apollo/client";
 import {AssetsRepository} from "./assetsRepository";
 import {NetworkRepository} from "./networkRepository";
-import {NewProgramsParser, ResultNewPrograms} from "../model/graphql/resultNewprograms";
+import {NewProgramsParser, ProgramItem} from "../model/graphql/resultNewprograms";
 import fetch from "isomorphic-fetch";
 import cheerio from "cheerio";
 import moment from "moment";
@@ -30,7 +30,7 @@ export class NetworkRepositoryImpl implements NetworkRepository {
     }),
   });
 
-  async requestNewPrograms(): Promise<ResultNewPrograms> {
+  async requestNewPrograms(): Promise<ProgramItem[]> {
     const queryString = await this.assetsRepository.loadQueryNewPrograms();
     const result = await NetworkRepositoryImpl.CLIENT.query<string>({
       query: gql(queryString),

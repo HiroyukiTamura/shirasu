@@ -20,7 +20,7 @@ export class Controller {
 
   async crawlAndSendFcm(): Promise<void> {
     const programs = await this.networkRepo.requestNewPrograms();
-    await this.firestoreRepo.addFcmQueAndCleanUpLog(programs.newPrograms.items);
+    await this.firestoreRepo.addFcmQueAndCleanUpLog(programs);
     return this.firestoreRepo.checkQueAndSendFcm();
   }
 

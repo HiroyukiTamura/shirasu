@@ -18,7 +18,7 @@ export class FirestoreRepositoryImpl implements FirestoreRepository {
       const fcmQues: FcmQue[] = [];
       for (const item of items) {
         const snapshot = await t.get(this.collection.where("programId", "==", item.id));
-        if (snapshot.empty) {
+        if (snapshot.empty && Date.now() < item.broadcastAt.getTime()) {
           const que = FcmQueUtil.createFcmQue(item);
           fcmQues.push(que);
         }

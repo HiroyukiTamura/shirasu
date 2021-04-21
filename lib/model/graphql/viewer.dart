@@ -1,10 +1,8 @@
-// ignore_for_file: always_put_required_named_parameters_first
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
 import 'package:shirasu/extension.dart';
-
-import 'invoice_history.dart';
+import 'package:shirasu/model/graphql/invoice_history.dart';
 
 part 'viewer.freezed.dart';
 
@@ -64,7 +62,7 @@ abstract class PaymentMethod with _$PaymentMethod implements BasePaymentMethod {
 }
 
 @freezed
-abstract class ViewerUser with _$ViewerUser implements BaseViewer {
+abstract class ViewerUser with _$ViewerUser implements BaseUser {
   @Assert('typename == "User"')
   const factory ViewerUser({
     @required String id,

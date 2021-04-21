@@ -38,10 +38,9 @@ abstract class InvoiceHistoryItem
   const factory InvoiceHistoryItem({
     @required String id,
     @required int total,
-    @required int subTotal,
+    @required int subtotal,
     @required int tax,
     @required int discountAmount,
-    String hostedInvoiceUrl,
     @required String currency,
     @required String label,
     @required DateTime createdAt,
@@ -51,6 +50,7 @@ abstract class InvoiceHistoryItem
     @required String status,
     // @required @JsonKey(name: 'products') @protected List<Product> rawProducts,
     @required @JsonKey(name: '__typename') String typename,
+    String hostedInvoiceUrl,
   }) = _InvoiceHistoryItem;
 
   factory InvoiceHistoryItem.fromJson(Map<String, dynamic> json) =>
@@ -66,7 +66,7 @@ abstract class InvoiceHistoryItem
 abstract class Discount with _$Discount implements BaseDiscount {
   @Assert('typename == "Discount"')
   const factory Discount({
-    Coupon coupon,
+    @required Coupon coupon,
     @required @JsonKey(name: '__typename') String typename,
   }) = _Discount;
 

@@ -24,7 +24,7 @@ ${Strings.CURRENT_PERIOD_END_AT_LABEL}: ${DateFormat('yyyy/MM/dd').format(subscr
     leading: CircleCachedNetworkImage(
       size: 40,
       errorWidget: Util.defaultChannelIcon,
-      imageUrl: UrlUtil.channelId2Url(subscribedChannel.channel.id),
+      imageUrl: UrlUtil.getChannelLogoUrl(subscribedChannel.channel.id),
     ),
     title: Text(subscribedChannel.channel.name),
     subtitle: Padding(

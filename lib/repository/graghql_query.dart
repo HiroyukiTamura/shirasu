@@ -152,7 +152,7 @@ fragment DashboardChannel on Channel {
   ''';
 
   static const QUERY_DETAIL_PROGRAMS = r'''
-query GetProgram($id: ID!) {
+query GetProgram($id: ID!, $reviewsNextToken: String) {
     viewer {
         name
         icon
@@ -184,6 +184,14 @@ query GetProgram($id: ID!) {
             nextToken
             __typename
         }
+        reviews(limit: 10, state: open, nextToken: $reviewsNextToken) {
+            items {
+                ...UserPageReviewData
+                __typename
+            }
+            nextToken
+            __typename
+        }
         onetimePlans {
             ...UserPageOneTimePlanData
             __typename
@@ -210,8 +218,51 @@ fragment UserPageProgramData on Program {
     archivedAt
     releaseState
     shouldArchive
+    myReview {
+        ...UserPageReviewData
+        state
+        __typename
+    }
     extensions {
         ...UserPageLiveExtensionData
+        __typename
+    }
+    __typename
+}
+fragment UserPageReviewData on Review {
+    id
+    body
+    createdAt
+    user {
+        id
+        name
+        icon
+        __typename
+    }
+    __typename
+}
+fragment UserPageLiveExtensionData on LiveExtension {
+    id
+    extensionTime
+    oneTimePlanId
+    oneTimePlan {
+        ...UserPageOneTimePlanData
+        __typename
+    }
+    __typename
+}
+fragment UserPageOneTimePlanData on OneTimePlan {
+    id
+    parentPlanType
+    parentPlanId
+    productType
+    productId
+    name
+    amount
+    currency
+    isPurchasable
+    viewerPurchasedPlan {
+        isActive
         __typename
     }
     __typename

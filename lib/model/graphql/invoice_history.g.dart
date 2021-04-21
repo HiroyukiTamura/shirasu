@@ -28,10 +28,9 @@ _$_InvoiceHistoryItem _$_$_InvoiceHistoryItemFromJson(
   return _$_InvoiceHistoryItem(
     id: json['id'] as String,
     total: json['total'] as int,
-    subTotal: json['subTotal'] as int,
+    subtotal: json['subtotal'] as int,
     tax: json['tax'] as int,
     discountAmount: json['discountAmount'] as int,
-    hostedInvoiceUrl: json['hostedInvoiceUrl'] as String,
     currency: json['currency'] as String,
     label: json['label'] as String,
     createdAt: json['createdAt'] == null
@@ -40,6 +39,7 @@ _$_InvoiceHistoryItem _$_$_InvoiceHistoryItemFromJson(
     planType: json['planType'] as String,
     status: json['status'] as String,
     typename: json['__typename'] as String,
+    hostedInvoiceUrl: json['hostedInvoiceUrl'] as String,
   );
 }
 
@@ -48,16 +48,16 @@ Map<String, dynamic> _$_$_InvoiceHistoryItemToJson(
     <String, dynamic>{
       'id': instance.id,
       'total': instance.total,
-      'subTotal': instance.subTotal,
+      'subtotal': instance.subtotal,
       'tax': instance.tax,
       'discountAmount': instance.discountAmount,
-      'hostedInvoiceUrl': instance.hostedInvoiceUrl,
       'currency': instance.currency,
       'label': instance.label,
       'createdAt': instance.createdAt?.toIso8601String(),
       'planType': instance.planType,
       'status': instance.status,
       '__typename': instance.typename,
+      'hostedInvoiceUrl': instance.hostedInvoiceUrl,
     };
 
 _$_Discount _$_$_DiscountFromJson(Map<String, dynamic> json) {

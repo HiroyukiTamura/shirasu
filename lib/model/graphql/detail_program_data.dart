@@ -332,8 +332,8 @@ abstract class ReviewsItem with _$ReviewsItem implements BaseReview {
 }
 
 @freezed
-abstract class Reviewer with _$Reviewer implements BaseViewer {
-  @Assert('typename == "Viewer"')
+abstract class Reviewer with _$Reviewer implements BaseUser {
+  @Assert('typename == "User"')
   const factory Reviewer({
     @required String id,
     @required String name,

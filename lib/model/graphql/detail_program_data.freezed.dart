@@ -3439,7 +3439,7 @@ class _$_Reviewer implements _Reviewer {
         assert(name != null),
         assert(icon != null),
         assert(typename != null),
-        assert(typename == "Viewer");
+        assert(typename == "User");
 
   factory _$_Reviewer.fromJson(Map<String, dynamic> json) =>
       _$_$_ReviewerFromJson(json);

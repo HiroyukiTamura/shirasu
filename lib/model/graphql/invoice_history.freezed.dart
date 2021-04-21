@@ -219,29 +219,29 @@ class _$InvoiceHistoryItemTearOff {
   _InvoiceHistoryItem call(
       {@required String id,
       @required int total,
-      @required int subTotal,
+      @required int subtotal,
       @required int tax,
       @required int discountAmount,
-      String hostedInvoiceUrl,
       @required String currency,
       @required String label,
       @required DateTime createdAt,
       @required @protected String planType,
       @required String status,
-      @required @JsonKey(name: '__typename') String typename}) {
+      @required @JsonKey(name: '__typename') String typename,
+      String hostedInvoiceUrl}) {
     return _InvoiceHistoryItem(
       id: id,
       total: total,
-      subTotal: subTotal,
+      subtotal: subtotal,
       tax: tax,
       discountAmount: discountAmount,
-      hostedInvoiceUrl: hostedInvoiceUrl,
       currency: currency,
       label: label,
       createdAt: createdAt,
       planType: planType,
       status: status,
       typename: typename,
+      hostedInvoiceUrl: hostedInvoiceUrl,
     );
   }
 
@@ -259,10 +259,9 @@ const $InvoiceHistoryItem = _$InvoiceHistoryItemTearOff();
 mixin _$InvoiceHistoryItem {
   String get id;
   int get total;
-  int get subTotal;
+  int get subtotal;
   int get tax;
   int get discountAmount;
-  String get hostedInvoiceUrl;
   String get currency;
   String get label;
   DateTime get createdAt;
@@ -274,6 +273,7 @@ mixin _$InvoiceHistoryItem {
       get status; // @required @JsonKey(name: 'products') @protected List<Product> rawProducts,
   @JsonKey(name: '__typename')
   String get typename;
+  String get hostedInvoiceUrl;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -288,16 +288,16 @@ abstract class $InvoiceHistoryItemCopyWith<$Res> {
   $Res call(
       {String id,
       int total,
-      int subTotal,
+      int subtotal,
       int tax,
       int discountAmount,
-      String hostedInvoiceUrl,
       String currency,
       String label,
       DateTime createdAt,
       @protected String planType,
       String status,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename') String typename,
+      String hostedInvoiceUrl});
 }
 
 /// @nodoc
@@ -313,28 +313,25 @@ class _$InvoiceHistoryItemCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object total = freezed,
-    Object subTotal = freezed,
+    Object subtotal = freezed,
     Object tax = freezed,
     Object discountAmount = freezed,
-    Object hostedInvoiceUrl = freezed,
     Object currency = freezed,
     Object label = freezed,
     Object createdAt = freezed,
     Object planType = freezed,
     Object status = freezed,
     Object typename = freezed,
+    Object hostedInvoiceUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       total: total == freezed ? _value.total : total as int,
-      subTotal: subTotal == freezed ? _value.subTotal : subTotal as int,
+      subtotal: subtotal == freezed ? _value.subtotal : subtotal as int,
       tax: tax == freezed ? _value.tax : tax as int,
       discountAmount: discountAmount == freezed
           ? _value.discountAmount
           : discountAmount as int,
-      hostedInvoiceUrl: hostedInvoiceUrl == freezed
-          ? _value.hostedInvoiceUrl
-          : hostedInvoiceUrl as String,
       currency: currency == freezed ? _value.currency : currency as String,
       label: label == freezed ? _value.label : label as String,
       createdAt:
@@ -342,6 +339,9 @@ class _$InvoiceHistoryItemCopyWithImpl<$Res>
       planType: planType == freezed ? _value.planType : planType as String,
       status: status == freezed ? _value.status : status as String,
       typename: typename == freezed ? _value.typename : typename as String,
+      hostedInvoiceUrl: hostedInvoiceUrl == freezed
+          ? _value.hostedInvoiceUrl
+          : hostedInvoiceUrl as String,
     ));
   }
 }
@@ -356,16 +356,16 @@ abstract class _$InvoiceHistoryItemCopyWith<$Res>
   $Res call(
       {String id,
       int total,
-      int subTotal,
+      int subtotal,
       int tax,
       int discountAmount,
-      String hostedInvoiceUrl,
       String currency,
       String label,
       DateTime createdAt,
       @protected String planType,
       String status,
-      @JsonKey(name: '__typename') String typename});
+      @JsonKey(name: '__typename') String typename,
+      String hostedInvoiceUrl});
 }
 
 /// @nodoc
@@ -383,28 +383,25 @@ class __$InvoiceHistoryItemCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object total = freezed,
-    Object subTotal = freezed,
+    Object subtotal = freezed,
     Object tax = freezed,
     Object discountAmount = freezed,
-    Object hostedInvoiceUrl = freezed,
     Object currency = freezed,
     Object label = freezed,
     Object createdAt = freezed,
     Object planType = freezed,
     Object status = freezed,
     Object typename = freezed,
+    Object hostedInvoiceUrl = freezed,
   }) {
     return _then(_InvoiceHistoryItem(
       id: id == freezed ? _value.id : id as String,
       total: total == freezed ? _value.total : total as int,
-      subTotal: subTotal == freezed ? _value.subTotal : subTotal as int,
+      subtotal: subtotal == freezed ? _value.subtotal : subtotal as int,
       tax: tax == freezed ? _value.tax : tax as int,
       discountAmount: discountAmount == freezed
           ? _value.discountAmount
           : discountAmount as int,
-      hostedInvoiceUrl: hostedInvoiceUrl == freezed
-          ? _value.hostedInvoiceUrl
-          : hostedInvoiceUrl as String,
       currency: currency == freezed ? _value.currency : currency as String,
       label: label == freezed ? _value.label : label as String,
       createdAt:
@@ -412,6 +409,9 @@ class __$InvoiceHistoryItemCopyWithImpl<$Res>
       planType: planType == freezed ? _value.planType : planType as String,
       status: status == freezed ? _value.status : status as String,
       typename: typename == freezed ? _value.typename : typename as String,
+      hostedInvoiceUrl: hostedInvoiceUrl == freezed
+          ? _value.hostedInvoiceUrl
+          : hostedInvoiceUrl as String,
     ));
   }
 }
@@ -423,19 +423,19 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   const _$_InvoiceHistoryItem(
       {@required this.id,
       @required this.total,
-      @required this.subTotal,
+      @required this.subtotal,
       @required this.tax,
       @required this.discountAmount,
-      this.hostedInvoiceUrl,
       @required this.currency,
       @required this.label,
       @required this.createdAt,
       @required @protected this.planType,
       @required this.status,
-      @required @JsonKey(name: '__typename') this.typename})
+      @required @JsonKey(name: '__typename') this.typename,
+      this.hostedInvoiceUrl})
       : assert(id != null),
         assert(total != null),
-        assert(subTotal != null),
+        assert(subtotal != null),
         assert(tax != null),
         assert(discountAmount != null),
         assert(currency != null),
@@ -455,13 +455,11 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   @override
   final int total;
   @override
-  final int subTotal;
+  final int subtotal;
   @override
   final int tax;
   @override
   final int discountAmount;
-  @override
-  final String hostedInvoiceUrl;
   @override
   final String currency;
   @override
@@ -478,10 +476,12 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   @override // @required @JsonKey(name: 'products') @protected List<Product> rawProducts,
   @JsonKey(name: '__typename')
   final String typename;
+  @override
+  final String hostedInvoiceUrl;
 
   @override
   String toString() {
-    return 'InvoiceHistoryItem(id: $id, total: $total, subTotal: $subTotal, tax: $tax, discountAmount: $discountAmount, hostedInvoiceUrl: $hostedInvoiceUrl, currency: $currency, label: $label, createdAt: $createdAt, planType: $planType, status: $status, typename: $typename)';
+    return 'InvoiceHistoryItem(id: $id, total: $total, subtotal: $subtotal, tax: $tax, discountAmount: $discountAmount, currency: $currency, label: $label, createdAt: $createdAt, planType: $planType, status: $status, typename: $typename, hostedInvoiceUrl: $hostedInvoiceUrl)';
   }
 
   @override
@@ -492,17 +492,14 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.total, total) ||
                 const DeepCollectionEquality().equals(other.total, total)) &&
-            (identical(other.subTotal, subTotal) ||
+            (identical(other.subtotal, subtotal) ||
                 const DeepCollectionEquality()
-                    .equals(other.subTotal, subTotal)) &&
+                    .equals(other.subtotal, subtotal)) &&
             (identical(other.tax, tax) ||
                 const DeepCollectionEquality().equals(other.tax, tax)) &&
             (identical(other.discountAmount, discountAmount) ||
                 const DeepCollectionEquality()
                     .equals(other.discountAmount, discountAmount)) &&
-            (identical(other.hostedInvoiceUrl, hostedInvoiceUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.hostedInvoiceUrl, hostedInvoiceUrl)) &&
             (identical(other.currency, currency) ||
                 const DeepCollectionEquality()
                     .equals(other.currency, currency)) &&
@@ -518,7 +515,10 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
                 const DeepCollectionEquality().equals(other.status, status)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
-                    .equals(other.typename, typename)));
+                    .equals(other.typename, typename)) &&
+            (identical(other.hostedInvoiceUrl, hostedInvoiceUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.hostedInvoiceUrl, hostedInvoiceUrl)));
   }
 
   @override
@@ -526,16 +526,16 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(total) ^
-      const DeepCollectionEquality().hash(subTotal) ^
+      const DeepCollectionEquality().hash(subtotal) ^
       const DeepCollectionEquality().hash(tax) ^
       const DeepCollectionEquality().hash(discountAmount) ^
-      const DeepCollectionEquality().hash(hostedInvoiceUrl) ^
       const DeepCollectionEquality().hash(currency) ^
       const DeepCollectionEquality().hash(label) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(planType) ^
       const DeepCollectionEquality().hash(status) ^
-      const DeepCollectionEquality().hash(typename);
+      const DeepCollectionEquality().hash(typename) ^
+      const DeepCollectionEquality().hash(hostedInvoiceUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -551,19 +551,18 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
 abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   const _InvoiceHistoryItem._() : super._();
   const factory _InvoiceHistoryItem(
-          {@required String id,
-          @required int total,
-          @required int subTotal,
-          @required int tax,
-          @required int discountAmount,
-          String hostedInvoiceUrl,
-          @required String currency,
-          @required String label,
-          @required DateTime createdAt,
-          @required @protected String planType,
-          @required String status,
-          @required @JsonKey(name: '__typename') String typename}) =
-      _$_InvoiceHistoryItem;
+      {@required String id,
+      @required int total,
+      @required int subtotal,
+      @required int tax,
+      @required int discountAmount,
+      @required String currency,
+      @required String label,
+      @required DateTime createdAt,
+      @required @protected String planType,
+      @required String status,
+      @required @JsonKey(name: '__typename') String typename,
+      String hostedInvoiceUrl}) = _$_InvoiceHistoryItem;
 
   factory _InvoiceHistoryItem.fromJson(Map<String, dynamic> json) =
       _$_InvoiceHistoryItem.fromJson;
@@ -573,13 +572,11 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   @override
   int get total;
   @override
-  int get subTotal;
+  int get subtotal;
   @override
   int get tax;
   @override
   int get discountAmount;
-  @override
-  String get hostedInvoiceUrl;
   @override
   String get currency;
   @override
@@ -597,6 +594,8 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   @JsonKey(name: '__typename')
   String get typename;
   @override
+  String get hostedInvoiceUrl;
+  @override
   @JsonKey(ignore: true)
   _$InvoiceHistoryItemCopyWith<_InvoiceHistoryItem> get copyWith;
 }
@@ -611,7 +610,8 @@ class _$DiscountTearOff {
 
 // ignore: unused_element
   _Discount call(
-      {Coupon coupon, @required @JsonKey(name: '__typename') String typename}) {
+      {@required Coupon coupon,
+      @required @JsonKey(name: '__typename') String typename}) {
     return _Discount(
       coupon: coupon,
       typename: typename,
@@ -715,8 +715,10 @@ class __$DiscountCopyWithImpl<$Res> extends _$DiscountCopyWithImpl<$Res>
 /// @nodoc
 class _$_Discount implements _Discount {
   const _$_Discount(
-      {this.coupon, @required @JsonKey(name: '__typename') this.typename})
-      : assert(typename != null),
+      {@required this.coupon,
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(coupon != null),
+        assert(typename != null),
         assert(typename == "Discount");
 
   factory _$_Discount.fromJson(Map<String, dynamic> json) =>
@@ -763,7 +765,7 @@ class _$_Discount implements _Discount {
 
 abstract class _Discount implements Discount {
   const factory _Discount(
-      {Coupon coupon,
+      {@required Coupon coupon,
       @required @JsonKey(name: '__typename') String typename}) = _$_Discount;
 
   factory _Discount.fromJson(Map<String, dynamic> json) = _$_Discount.fromJson;

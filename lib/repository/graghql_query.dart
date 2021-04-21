@@ -360,7 +360,7 @@ query GetViewer {
     }
     viewerUser: viewerUser {
         ...UserAccountPageUserData
-        invoiceHistory {
+        invoiceHistory(limit: 3) {
             items {
                 ...UserAccountInvoiceData
                 __typename
@@ -400,11 +400,22 @@ fragment UserAccountPageUserData on User {
 fragment UserAccountInvoiceData on Invoice {
     id
     total
+    subtotal
+    tax
+    discountAmount
     currency
     label
     createdAt
     planType
     status
+    hostedInvoiceUrl
+    discount {
+        coupon {
+            durationInMonths
+            __typename
+        }
+        __typename
+    }
     products {
         id
         ... on Channel {

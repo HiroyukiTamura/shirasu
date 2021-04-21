@@ -94,6 +94,12 @@ abstract class BaseInvoice extends _GraphQlModel with PlanTypeMixin {
 abstract class BaseModelCommentConnection extends _GraphQlModel {}
 
 @immutable
+abstract class BaseDiscount extends _GraphQlModel {}
+
+@immutable
+abstract class BaseCoupon extends _GraphQlModel {}
+
+@immutable
 abstract class BaseComment extends _GraphQlModel {}
 
 @immutable

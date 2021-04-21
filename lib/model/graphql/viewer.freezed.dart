@@ -1429,6 +1429,10 @@ class _$InvoiceHistoryItemTearOff {
   _InvoiceHistoryItem call(
       {@required String id,
       @required int total,
+      @required int subTotal,
+      @required int tax,
+      @required int discountAmount,
+      String hostedInvoiceUrl,
       @required String currency,
       @required String label,
       @required DateTime createdAt,
@@ -1438,6 +1442,10 @@ class _$InvoiceHistoryItemTearOff {
     return _InvoiceHistoryItem(
       id: id,
       total: total,
+      subTotal: subTotal,
+      tax: tax,
+      discountAmount: discountAmount,
+      hostedInvoiceUrl: hostedInvoiceUrl,
       currency: currency,
       label: label,
       createdAt: createdAt,
@@ -1461,6 +1469,10 @@ const $InvoiceHistoryItem = _$InvoiceHistoryItemTearOff();
 mixin _$InvoiceHistoryItem {
   String get id;
   int get total;
+  int get subTotal;
+  int get tax;
+  int get discountAmount;
+  String get hostedInvoiceUrl;
   String get currency;
   String get label;
   DateTime get createdAt;
@@ -1486,6 +1498,10 @@ abstract class $InvoiceHistoryItemCopyWith<$Res> {
   $Res call(
       {String id,
       int total,
+      int subTotal,
+      int tax,
+      int discountAmount,
+      String hostedInvoiceUrl,
       String currency,
       String label,
       DateTime createdAt,
@@ -1507,6 +1523,10 @@ class _$InvoiceHistoryItemCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object total = freezed,
+    Object subTotal = freezed,
+    Object tax = freezed,
+    Object discountAmount = freezed,
+    Object hostedInvoiceUrl = freezed,
     Object currency = freezed,
     Object label = freezed,
     Object createdAt = freezed,
@@ -1517,6 +1537,14 @@ class _$InvoiceHistoryItemCopyWithImpl<$Res>
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       total: total == freezed ? _value.total : total as int,
+      subTotal: subTotal == freezed ? _value.subTotal : subTotal as int,
+      tax: tax == freezed ? _value.tax : tax as int,
+      discountAmount: discountAmount == freezed
+          ? _value.discountAmount
+          : discountAmount as int,
+      hostedInvoiceUrl: hostedInvoiceUrl == freezed
+          ? _value.hostedInvoiceUrl
+          : hostedInvoiceUrl as String,
       currency: currency == freezed ? _value.currency : currency as String,
       label: label == freezed ? _value.label : label as String,
       createdAt:
@@ -1538,6 +1566,10 @@ abstract class _$InvoiceHistoryItemCopyWith<$Res>
   $Res call(
       {String id,
       int total,
+      int subTotal,
+      int tax,
+      int discountAmount,
+      String hostedInvoiceUrl,
       String currency,
       String label,
       DateTime createdAt,
@@ -1561,6 +1593,10 @@ class __$InvoiceHistoryItemCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object total = freezed,
+    Object subTotal = freezed,
+    Object tax = freezed,
+    Object discountAmount = freezed,
+    Object hostedInvoiceUrl = freezed,
     Object currency = freezed,
     Object label = freezed,
     Object createdAt = freezed,
@@ -1571,6 +1607,14 @@ class __$InvoiceHistoryItemCopyWithImpl<$Res>
     return _then(_InvoiceHistoryItem(
       id: id == freezed ? _value.id : id as String,
       total: total == freezed ? _value.total : total as int,
+      subTotal: subTotal == freezed ? _value.subTotal : subTotal as int,
+      tax: tax == freezed ? _value.tax : tax as int,
+      discountAmount: discountAmount == freezed
+          ? _value.discountAmount
+          : discountAmount as int,
+      hostedInvoiceUrl: hostedInvoiceUrl == freezed
+          ? _value.hostedInvoiceUrl
+          : hostedInvoiceUrl as String,
       currency: currency == freezed ? _value.currency : currency as String,
       label: label == freezed ? _value.label : label as String,
       createdAt:
@@ -1589,6 +1633,10 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   const _$_InvoiceHistoryItem(
       {@required this.id,
       @required this.total,
+      @required this.subTotal,
+      @required this.tax,
+      @required this.discountAmount,
+      this.hostedInvoiceUrl,
       @required this.currency,
       @required this.label,
       @required this.createdAt,
@@ -1597,6 +1645,9 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(total != null),
+        assert(subTotal != null),
+        assert(tax != null),
+        assert(discountAmount != null),
         assert(currency != null),
         assert(label != null),
         assert(createdAt != null),
@@ -1613,6 +1664,14 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
   final String id;
   @override
   final int total;
+  @override
+  final int subTotal;
+  @override
+  final int tax;
+  @override
+  final int discountAmount;
+  @override
+  final String hostedInvoiceUrl;
   @override
   final String currency;
   @override
@@ -1632,7 +1691,7 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
 
   @override
   String toString() {
-    return 'InvoiceHistoryItem(id: $id, total: $total, currency: $currency, label: $label, createdAt: $createdAt, planType: $planType, status: $status, typename: $typename)';
+    return 'InvoiceHistoryItem(id: $id, total: $total, subTotal: $subTotal, tax: $tax, discountAmount: $discountAmount, hostedInvoiceUrl: $hostedInvoiceUrl, currency: $currency, label: $label, createdAt: $createdAt, planType: $planType, status: $status, typename: $typename)';
   }
 
   @override
@@ -1643,6 +1702,17 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.total, total) ||
                 const DeepCollectionEquality().equals(other.total, total)) &&
+            (identical(other.subTotal, subTotal) ||
+                const DeepCollectionEquality()
+                    .equals(other.subTotal, subTotal)) &&
+            (identical(other.tax, tax) ||
+                const DeepCollectionEquality().equals(other.tax, tax)) &&
+            (identical(other.discountAmount, discountAmount) ||
+                const DeepCollectionEquality()
+                    .equals(other.discountAmount, discountAmount)) &&
+            (identical(other.hostedInvoiceUrl, hostedInvoiceUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.hostedInvoiceUrl, hostedInvoiceUrl)) &&
             (identical(other.currency, currency) ||
                 const DeepCollectionEquality()
                     .equals(other.currency, currency)) &&
@@ -1666,6 +1736,10 @@ class _$_InvoiceHistoryItem extends _InvoiceHistoryItem {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(total) ^
+      const DeepCollectionEquality().hash(subTotal) ^
+      const DeepCollectionEquality().hash(tax) ^
+      const DeepCollectionEquality().hash(discountAmount) ^
+      const DeepCollectionEquality().hash(hostedInvoiceUrl) ^
       const DeepCollectionEquality().hash(currency) ^
       const DeepCollectionEquality().hash(label) ^
       const DeepCollectionEquality().hash(createdAt) ^
@@ -1689,6 +1763,10 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   const factory _InvoiceHistoryItem(
           {@required String id,
           @required int total,
+          @required int subTotal,
+          @required int tax,
+          @required int discountAmount,
+          String hostedInvoiceUrl,
           @required String currency,
           @required String label,
           @required DateTime createdAt,
@@ -1704,6 +1782,14 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   String get id;
   @override
   int get total;
+  @override
+  int get subTotal;
+  @override
+  int get tax;
+  @override
+  int get discountAmount;
+  @override
+  String get hostedInvoiceUrl;
   @override
   String get currency;
   @override
@@ -1723,6 +1809,354 @@ abstract class _InvoiceHistoryItem extends InvoiceHistoryItem {
   @override
   @JsonKey(ignore: true)
   _$InvoiceHistoryItemCopyWith<_InvoiceHistoryItem> get copyWith;
+}
+
+Discount _$DiscountFromJson(Map<String, dynamic> json) {
+  return _Discount.fromJson(json);
+}
+
+/// @nodoc
+class _$DiscountTearOff {
+  const _$DiscountTearOff();
+
+// ignore: unused_element
+  _Discount call(
+      {Coupon coupon, @required @JsonKey(name: '__typename') String typename}) {
+    return _Discount(
+      coupon: coupon,
+      typename: typename,
+    );
+  }
+
+// ignore: unused_element
+  Discount fromJson(Map<String, Object> json) {
+    return Discount.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $Discount = _$DiscountTearOff();
+
+/// @nodoc
+mixin _$Discount {
+  Coupon get coupon;
+  @JsonKey(name: '__typename')
+  String get typename;
+
+  Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
+  $DiscountCopyWith<Discount> get copyWith;
+}
+
+/// @nodoc
+abstract class $DiscountCopyWith<$Res> {
+  factory $DiscountCopyWith(Discount value, $Res Function(Discount) then) =
+      _$DiscountCopyWithImpl<$Res>;
+  $Res call({Coupon coupon, @JsonKey(name: '__typename') String typename});
+
+  $CouponCopyWith<$Res> get coupon;
+}
+
+/// @nodoc
+class _$DiscountCopyWithImpl<$Res> implements $DiscountCopyWith<$Res> {
+  _$DiscountCopyWithImpl(this._value, this._then);
+
+  final Discount _value;
+  // ignore: unused_field
+  final $Res Function(Discount) _then;
+
+  @override
+  $Res call({
+    Object coupon = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_value.copyWith(
+      coupon: coupon == freezed ? _value.coupon : coupon as Coupon,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+
+  @override
+  $CouponCopyWith<$Res> get coupon {
+    if (_value.coupon == null) {
+      return null;
+    }
+    return $CouponCopyWith<$Res>(_value.coupon, (value) {
+      return _then(_value.copyWith(coupon: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$DiscountCopyWith<$Res> implements $DiscountCopyWith<$Res> {
+  factory _$DiscountCopyWith(_Discount value, $Res Function(_Discount) then) =
+      __$DiscountCopyWithImpl<$Res>;
+  @override
+  $Res call({Coupon coupon, @JsonKey(name: '__typename') String typename});
+
+  @override
+  $CouponCopyWith<$Res> get coupon;
+}
+
+/// @nodoc
+class __$DiscountCopyWithImpl<$Res> extends _$DiscountCopyWithImpl<$Res>
+    implements _$DiscountCopyWith<$Res> {
+  __$DiscountCopyWithImpl(_Discount _value, $Res Function(_Discount) _then)
+      : super(_value, (v) => _then(v as _Discount));
+
+  @override
+  _Discount get _value => super._value as _Discount;
+
+  @override
+  $Res call({
+    Object coupon = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_Discount(
+      coupon: coupon == freezed ? _value.coupon : coupon as Coupon,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_Discount implements _Discount {
+  const _$_Discount(
+      {this.coupon, @required @JsonKey(name: '__typename') this.typename})
+      : assert(typename != null),
+        assert(typename == "Discount");
+
+  factory _$_Discount.fromJson(Map<String, dynamic> json) =>
+      _$_$_DiscountFromJson(json);
+
+  @override
+  final Coupon coupon;
+  @override
+  @JsonKey(name: '__typename')
+  final String typename;
+
+  @override
+  String toString() {
+    return 'Discount(coupon: $coupon, typename: $typename)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Discount &&
+            (identical(other.coupon, coupon) ||
+                const DeepCollectionEquality().equals(other.coupon, coupon)) &&
+            (identical(other.typename, typename) ||
+                const DeepCollectionEquality()
+                    .equals(other.typename, typename)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(coupon) ^
+      const DeepCollectionEquality().hash(typename);
+
+  @JsonKey(ignore: true)
+  @override
+  _$DiscountCopyWith<_Discount> get copyWith =>
+      __$DiscountCopyWithImpl<_Discount>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_DiscountToJson(this);
+  }
+}
+
+abstract class _Discount implements Discount {
+  const factory _Discount(
+      {Coupon coupon,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Discount;
+
+  factory _Discount.fromJson(Map<String, dynamic> json) = _$_Discount.fromJson;
+
+  @override
+  Coupon get coupon;
+  @override
+  @JsonKey(name: '__typename')
+  String get typename;
+  @override
+  @JsonKey(ignore: true)
+  _$DiscountCopyWith<_Discount> get copyWith;
+}
+
+Coupon _$CouponFromJson(Map<String, dynamic> json) {
+  return _Coupon.fromJson(json);
+}
+
+/// @nodoc
+class _$CouponTearOff {
+  const _$CouponTearOff();
+
+// ignore: unused_element
+  _Coupon call(
+      {int durationInMonths,
+      @required @JsonKey(name: '__typename') String typename}) {
+    return _Coupon(
+      durationInMonths: durationInMonths,
+      typename: typename,
+    );
+  }
+
+// ignore: unused_element
+  Coupon fromJson(Map<String, Object> json) {
+    return Coupon.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $Coupon = _$CouponTearOff();
+
+/// @nodoc
+mixin _$Coupon {
+  int get durationInMonths;
+  @JsonKey(name: '__typename')
+  String get typename;
+
+  Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
+  $CouponCopyWith<Coupon> get copyWith;
+}
+
+/// @nodoc
+abstract class $CouponCopyWith<$Res> {
+  factory $CouponCopyWith(Coupon value, $Res Function(Coupon) then) =
+      _$CouponCopyWithImpl<$Res>;
+  $Res call(
+      {int durationInMonths, @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
+  _$CouponCopyWithImpl(this._value, this._then);
+
+  final Coupon _value;
+  // ignore: unused_field
+  final $Res Function(Coupon) _then;
+
+  @override
+  $Res call({
+    Object durationInMonths = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_value.copyWith(
+      durationInMonths: durationInMonths == freezed
+          ? _value.durationInMonths
+          : durationInMonths as int,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
+  factory _$CouponCopyWith(_Coupon value, $Res Function(_Coupon) then) =
+      __$CouponCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int durationInMonths, @JsonKey(name: '__typename') String typename});
+}
+
+/// @nodoc
+class __$CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
+    implements _$CouponCopyWith<$Res> {
+  __$CouponCopyWithImpl(_Coupon _value, $Res Function(_Coupon) _then)
+      : super(_value, (v) => _then(v as _Coupon));
+
+  @override
+  _Coupon get _value => super._value as _Coupon;
+
+  @override
+  $Res call({
+    Object durationInMonths = freezed,
+    Object typename = freezed,
+  }) {
+    return _then(_Coupon(
+      durationInMonths: durationInMonths == freezed
+          ? _value.durationInMonths
+          : durationInMonths as int,
+      typename: typename == freezed ? _value.typename : typename as String,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_Coupon implements _Coupon {
+  const _$_Coupon(
+      {this.durationInMonths,
+      @required @JsonKey(name: '__typename') this.typename})
+      : assert(typename != null),
+        assert(typename == "Coupon");
+
+  factory _$_Coupon.fromJson(Map<String, dynamic> json) =>
+      _$_$_CouponFromJson(json);
+
+  @override
+  final int durationInMonths;
+  @override
+  @JsonKey(name: '__typename')
+  final String typename;
+
+  @override
+  String toString() {
+    return 'Coupon(durationInMonths: $durationInMonths, typename: $typename)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Coupon &&
+            (identical(other.durationInMonths, durationInMonths) ||
+                const DeepCollectionEquality()
+                    .equals(other.durationInMonths, durationInMonths)) &&
+            (identical(other.typename, typename) ||
+                const DeepCollectionEquality()
+                    .equals(other.typename, typename)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(durationInMonths) ^
+      const DeepCollectionEquality().hash(typename);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CouponCopyWith<_Coupon> get copyWith =>
+      __$CouponCopyWithImpl<_Coupon>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CouponToJson(this);
+  }
+}
+
+abstract class _Coupon implements Coupon {
+  const factory _Coupon(
+      {int durationInMonths,
+      @required @JsonKey(name: '__typename') String typename}) = _$_Coupon;
+
+  factory _Coupon.fromJson(Map<String, dynamic> json) = _$_Coupon.fromJson;
+
+  @override
+  int get durationInMonths;
+  @override
+  @JsonKey(name: '__typename')
+  String get typename;
+  @override
+  @JsonKey(ignore: true)
+  _$CouponCopyWith<_Coupon> get copyWith;
 }
 
 SubscribedChannel _$SubscribedChannelFromJson(Map<String, dynamic> json) {

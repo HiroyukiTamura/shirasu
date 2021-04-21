@@ -1,3 +1,4 @@
+//todo split file
 // ignore_for_file: always_put_required_named_parameters_first
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
@@ -133,6 +134,10 @@ abstract class InvoiceHistoryItem
   const factory InvoiceHistoryItem({
     @required String id,
     @required int total,
+    @required int subTotal,
+    @required int tax,
+    @required int discountAmount,
+    String hostedInvoiceUrl,
     @required String currency,
     @required String label,
     @required DateTime createdAt,
@@ -151,6 +156,28 @@ abstract class InvoiceHistoryItem
 
   // todo implement `Product` after update freezed to 1.4.0 or above
   // UnmodifiableListView<Product> get products => rawProducts.toUnmodifiable();
+}
+
+@freezed
+abstract class Discount with _$Discount implements BaseDiscount {
+  @Assert('typename == "Discount"')
+  const factory Discount({
+    Coupon coupon,
+    @required @JsonKey(name: '__typename') String typename,
+  }) = _Discount;
+
+  factory Discount.fromJson(Map<String, dynamic> json) => _$DiscountFromJson(json);
+}
+
+@freezed
+abstract class Coupon with _$Coupon implements BaseCoupon {
+  @Assert('typename == "Coupon"')
+  const factory Coupon({
+    int durationInMonths,
+    @required @JsonKey(name: '__typename') String typename,
+  }) = _Coupon;
+
+  factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
 }
 
 // //region Product

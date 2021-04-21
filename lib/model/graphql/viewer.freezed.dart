@@ -760,6 +760,7 @@ abstract class $ViewerUserCopyWith<$Res> {
       SubscribedChannels subscribedChannels,
       @JsonKey(name: '__typename') String typename});
 
+  $InvoiceHistoryCopyWith<$Res> get invoiceHistory;
   $WatchHistoriesCopyWith<$Res> get watchHistories;
   $SubscribedChannelsCopyWith<$Res> get subscribedChannels;
 }
@@ -800,6 +801,16 @@ class _$ViewerUserCopyWithImpl<$Res> implements $ViewerUserCopyWith<$Res> {
   }
 
   @override
+  $InvoiceHistoryCopyWith<$Res> get invoiceHistory {
+    if (_value.invoiceHistory == null) {
+      return null;
+    }
+    return $InvoiceHistoryCopyWith<$Res>(_value.invoiceHistory, (value) {
+      return _then(_value.copyWith(invoiceHistory: value));
+    });
+  }
+
+  @override
   $WatchHistoriesCopyWith<$Res> get watchHistories {
     if (_value.watchHistories == null) {
       return null;
@@ -836,6 +847,8 @@ abstract class _$ViewerUserCopyWith<$Res> implements $ViewerUserCopyWith<$Res> {
       SubscribedChannels subscribedChannels,
       @JsonKey(name: '__typename') String typename});
 
+  @override
+  $InvoiceHistoryCopyWith<$Res> get invoiceHistory;
   @override
   $WatchHistoriesCopyWith<$Res> get watchHistories;
   @override

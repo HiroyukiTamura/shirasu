@@ -67,7 +67,10 @@ _$_ViewerUser _$_$_ViewerUserFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     icon: json['icon'] as String,
-    invoiceHistory: json['invoiceHistory'],
+    invoiceHistory: json['invoiceHistory'] == null
+        ? null
+        : InvoiceHistory.fromJson(
+            json['invoiceHistory'] as Map<String, dynamic>),
     watchHistories: json['watchHistories'] == null
         ? null
         : WatchHistories.fromJson(

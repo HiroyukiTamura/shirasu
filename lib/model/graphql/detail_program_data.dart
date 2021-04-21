@@ -48,9 +48,9 @@ abstract class ProgramDetail
     @required @JsonKey(name: 'tags') @protected List<String> rawTags,
     @required String title,
     @required int totalPlayTime,
+
     /// use [viewerPlanTypeStrict]
-    @protected
-    String viewerPlanType,
+    @protected String viewerPlanType,
     bool isExtensionChargedToSubscribers,
     DateTime archivedAt,
     @required String releaseState,
@@ -66,6 +66,10 @@ abstract class ProgramDetail
     @protected
     @JsonKey(name: 'onetimePlans')
         List<OnetimePlan> rawOnetimePlans,
+    @required Reviews reviews,
+
+    ///todo impalement
+    dynamic myReview,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramDetail;
 
@@ -101,7 +105,8 @@ abstract class ProgramDetail
 
     final isMainVideoAvailable =
         onetimePlanMain?.viewerPurchasedPlan?.isActive == true ||
-            (onetimePlanMain?.parentPlanTypeStrict == const PlanType.subscription() &&
+            (onetimePlanMain?.parentPlanTypeStrict ==
+                    const PlanType.subscription() &&
                 viewerPlanTypeStrict == const PlanType.subscription());
     return isMainVideoAvailable ? mainPrgItem : null;
   }
@@ -294,6 +299,50 @@ abstract class Extension with _$Extension implements BaseExtension {
 
   factory Extension.fromJson(Map<String, dynamic> json) =>
       _$ExtensionFromJson(json);
+}
+
+@freezed
+abstract class Reviews with _$Reviews implements BaseReviewConnection {
+  @Assert('typename == "ReviewConnection"')
+  const factory Reviews({
+    @protected @required @JsonKey(name: 'items') List<ReviewsItem> rawItems,
+    String nextToken,
+    @required @JsonKey(name: '__typename') String typename,
+  }) = _Reviews;
+
+  factory Reviews.fromJson(Map<String, dynamic> json) =>
+      _$ReviewsFromJson(json);
+
+  const Reviews._();
+}
+
+@freezed
+abstract class ReviewsItem with _$ReviewsItem implements BaseReview {
+  @Assert('typename == "Review"')
+  const factory ReviewsItem({
+    @required String id,
+    @required String body,
+    @required DateTime createdAt,
+    @required Reviewer user,
+    @required @JsonKey(name: '__typename') String typename,
+  }) = _ReviewsItem;
+
+  factory ReviewsItem.fromJson(Map<String, dynamic> json) =>
+      _$ReviewsItemFromJson(json);
+}
+
+@freezed
+abstract class Reviewer with _$Reviewer implements BaseViewer {
+  @Assert('typename == "Viewer"')
+  const factory Reviewer({
+    @required String id,
+    @required String name,
+    @required String icon,
+    @required @JsonKey(name: '__typename') String typename,
+  }) = _Reviewer;
+
+  factory Reviewer.fromJson(Map<String, dynamic> json) =>
+      _$ReviewerFromJson(json);
 }
 
 @freezed

@@ -136,3 +136,9 @@ abstract class BaseUserWithAttribute extends _GraphQlModel {}
 
 @immutable
 abstract class BaseUserAttribute extends _GraphQlModel {}
+
+@immutable
+abstract class BaseReviewConnection extends _GraphQlModel {}
+
+@immutable
+abstract class BaseReview extends _GraphQlModel {}

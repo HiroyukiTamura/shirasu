@@ -2056,6 +2056,11 @@ class _$PageSheetModelTearOff {
   _PageSheetModelComment comment() {
     return const _PageSheetModelComment();
   }
+
+// ignore: unused_element
+  _PageSheetModelReview review() {
+    return const _PageSheetModelReview();
+  }
 }
 
 /// @nodoc
@@ -2070,6 +2075,7 @@ mixin _$PageSheetModel {
     @required TResult handouts(),
     @required TResult pricing(),
     @required TResult comment(),
+    @required TResult review(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -2077,6 +2083,7 @@ mixin _$PageSheetModel {
     TResult handouts(),
     TResult pricing(),
     TResult comment(),
+    TResult review(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -2085,6 +2092,7 @@ mixin _$PageSheetModel {
     @required TResult handouts(_PageSheetModelHandouts value),
     @required TResult pricing(_PageSheetModelPricing value),
     @required TResult comment(_PageSheetModelComment value),
+    @required TResult review(_PageSheetModelReview value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -2092,6 +2100,7 @@ mixin _$PageSheetModel {
     TResult handouts(_PageSheetModelHandouts value),
     TResult pricing(_PageSheetModelPricing value),
     TResult comment(_PageSheetModelComment value),
+    TResult review(_PageSheetModelReview value),
     @required TResult orElse(),
   });
 }
@@ -2156,11 +2165,13 @@ class _$_PageSheetModelHidden implements _PageSheetModelHidden {
     @required TResult handouts(),
     @required TResult pricing(),
     @required TResult comment(),
+    @required TResult review(),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
     assert(comment != null);
+    assert(review != null);
     return hidden();
   }
 
@@ -2171,6 +2182,7 @@ class _$_PageSheetModelHidden implements _PageSheetModelHidden {
     TResult handouts(),
     TResult pricing(),
     TResult comment(),
+    TResult review(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2187,11 +2199,13 @@ class _$_PageSheetModelHidden implements _PageSheetModelHidden {
     @required TResult handouts(_PageSheetModelHandouts value),
     @required TResult pricing(_PageSheetModelPricing value),
     @required TResult comment(_PageSheetModelComment value),
+    @required TResult review(_PageSheetModelReview value),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
     assert(comment != null);
+    assert(review != null);
     return hidden(this);
   }
 
@@ -2202,6 +2216,7 @@ class _$_PageSheetModelHidden implements _PageSheetModelHidden {
     TResult handouts(_PageSheetModelHandouts value),
     TResult pricing(_PageSheetModelPricing value),
     TResult comment(_PageSheetModelComment value),
+    TResult review(_PageSheetModelReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2259,11 +2274,13 @@ class _$_PageSheetModelHandouts implements _PageSheetModelHandouts {
     @required TResult handouts(),
     @required TResult pricing(),
     @required TResult comment(),
+    @required TResult review(),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
     assert(comment != null);
+    assert(review != null);
     return handouts();
   }
 
@@ -2274,6 +2291,7 @@ class _$_PageSheetModelHandouts implements _PageSheetModelHandouts {
     TResult handouts(),
     TResult pricing(),
     TResult comment(),
+    TResult review(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2290,11 +2308,13 @@ class _$_PageSheetModelHandouts implements _PageSheetModelHandouts {
     @required TResult handouts(_PageSheetModelHandouts value),
     @required TResult pricing(_PageSheetModelPricing value),
     @required TResult comment(_PageSheetModelComment value),
+    @required TResult review(_PageSheetModelReview value),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
     assert(comment != null);
+    assert(review != null);
     return handouts(this);
   }
 
@@ -2305,6 +2325,7 @@ class _$_PageSheetModelHandouts implements _PageSheetModelHandouts {
     TResult handouts(_PageSheetModelHandouts value),
     TResult pricing(_PageSheetModelPricing value),
     TResult comment(_PageSheetModelComment value),
+    TResult review(_PageSheetModelReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2362,11 +2383,13 @@ class _$_PageSheetModelPricing implements _PageSheetModelPricing {
     @required TResult handouts(),
     @required TResult pricing(),
     @required TResult comment(),
+    @required TResult review(),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
     assert(comment != null);
+    assert(review != null);
     return pricing();
   }
 
@@ -2377,6 +2400,7 @@ class _$_PageSheetModelPricing implements _PageSheetModelPricing {
     TResult handouts(),
     TResult pricing(),
     TResult comment(),
+    TResult review(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2393,11 +2417,13 @@ class _$_PageSheetModelPricing implements _PageSheetModelPricing {
     @required TResult handouts(_PageSheetModelHandouts value),
     @required TResult pricing(_PageSheetModelPricing value),
     @required TResult comment(_PageSheetModelComment value),
+    @required TResult review(_PageSheetModelReview value),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
     assert(comment != null);
+    assert(review != null);
     return pricing(this);
   }
 
@@ -2408,6 +2434,7 @@ class _$_PageSheetModelPricing implements _PageSheetModelPricing {
     TResult handouts(_PageSheetModelHandouts value),
     TResult pricing(_PageSheetModelPricing value),
     TResult comment(_PageSheetModelComment value),
+    TResult review(_PageSheetModelReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2465,11 +2492,13 @@ class _$_PageSheetModelComment implements _PageSheetModelComment {
     @required TResult handouts(),
     @required TResult pricing(),
     @required TResult comment(),
+    @required TResult review(),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
     assert(comment != null);
+    assert(review != null);
     return comment();
   }
 
@@ -2480,6 +2509,7 @@ class _$_PageSheetModelComment implements _PageSheetModelComment {
     TResult handouts(),
     TResult pricing(),
     TResult comment(),
+    TResult review(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2496,11 +2526,13 @@ class _$_PageSheetModelComment implements _PageSheetModelComment {
     @required TResult handouts(_PageSheetModelHandouts value),
     @required TResult pricing(_PageSheetModelPricing value),
     @required TResult comment(_PageSheetModelComment value),
+    @required TResult review(_PageSheetModelReview value),
   }) {
     assert(hidden != null);
     assert(handouts != null);
     assert(pricing != null);
     assert(comment != null);
+    assert(review != null);
     return comment(this);
   }
 
@@ -2511,6 +2543,7 @@ class _$_PageSheetModelComment implements _PageSheetModelComment {
     TResult handouts(_PageSheetModelHandouts value),
     TResult pricing(_PageSheetModelPricing value),
     TResult comment(_PageSheetModelComment value),
+    TResult review(_PageSheetModelReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2523,6 +2556,115 @@ class _$_PageSheetModelComment implements _PageSheetModelComment {
 
 abstract class _PageSheetModelComment implements PageSheetModel {
   const factory _PageSheetModelComment() = _$_PageSheetModelComment;
+}
+
+/// @nodoc
+abstract class _$PageSheetModelReviewCopyWith<$Res> {
+  factory _$PageSheetModelReviewCopyWith(_PageSheetModelReview value,
+          $Res Function(_PageSheetModelReview) then) =
+      __$PageSheetModelReviewCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PageSheetModelReviewCopyWithImpl<$Res>
+    extends _$PageSheetModelCopyWithImpl<$Res>
+    implements _$PageSheetModelReviewCopyWith<$Res> {
+  __$PageSheetModelReviewCopyWithImpl(
+      _PageSheetModelReview _value, $Res Function(_PageSheetModelReview) _then)
+      : super(_value, (v) => _then(v as _PageSheetModelReview));
+
+  @override
+  _PageSheetModelReview get _value => super._value as _PageSheetModelReview;
+}
+
+/// @nodoc
+class _$_PageSheetModelReview implements _PageSheetModelReview {
+  const _$_PageSheetModelReview();
+
+  @override
+  String toString() {
+    return 'PageSheetModel.review()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PageSheetModelReview);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult hidden(),
+    @required TResult handouts(),
+    @required TResult pricing(),
+    @required TResult comment(),
+    @required TResult review(),
+  }) {
+    assert(hidden != null);
+    assert(handouts != null);
+    assert(pricing != null);
+    assert(comment != null);
+    assert(review != null);
+    return review();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult hidden(),
+    TResult handouts(),
+    TResult pricing(),
+    TResult comment(),
+    TResult review(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (review != null) {
+      return review();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult hidden(_PageSheetModelHidden value),
+    @required TResult handouts(_PageSheetModelHandouts value),
+    @required TResult pricing(_PageSheetModelPricing value),
+    @required TResult comment(_PageSheetModelComment value),
+    @required TResult review(_PageSheetModelReview value),
+  }) {
+    assert(hidden != null);
+    assert(handouts != null);
+    assert(pricing != null);
+    assert(comment != null);
+    assert(review != null);
+    return review(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult hidden(_PageSheetModelHidden value),
+    TResult handouts(_PageSheetModelHandouts value),
+    TResult pricing(_PageSheetModelPricing value),
+    TResult comment(_PageSheetModelComment value),
+    TResult review(_PageSheetModelReview value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (review != null) {
+      return review(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PageSheetModelReview implements PageSheetModel {
+  const factory _PageSheetModelReview() = _$_PageSheetModelReview;
 }
 
 /// @nodoc

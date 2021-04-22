@@ -810,7 +810,7 @@ const $Coupon = _$CouponTearOff();
 
 /// @nodoc
 mixin _$Coupon {
-  int get durationInMonths;
+  int get durationInMonths; // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -896,7 +896,7 @@ class _$_Coupon implements _Coupon {
 
   @override
   final int durationInMonths;
-  @override
+  @override // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   final String typename;
 
@@ -943,7 +943,7 @@ abstract class _Coupon implements Coupon {
 
   @override
   int get durationInMonths;
-  @override
+  @override // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   String get typename;
   @override

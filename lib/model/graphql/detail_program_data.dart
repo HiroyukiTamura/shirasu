@@ -314,6 +314,9 @@ abstract class Reviews with _$Reviews implements BaseReviewConnection {
       _$ReviewsFromJson(json);
 
   const Reviews._();
+
+  // todo refactor
+  UnmodifiableListView<ReviewsItem> get items => IteratableX(rawItems).toUnmodifiable();
 }
 
 @freezed

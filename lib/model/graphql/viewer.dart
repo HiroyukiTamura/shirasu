@@ -143,7 +143,6 @@ abstract class LatestInvoice
   @Assert('typename == "Invoice"')
   const factory LatestInvoice({
     @required String id,
-    String description,
     @required DateTime createdAt,
 
     /// use [planTypeStrict]
@@ -151,6 +150,8 @@ abstract class LatestInvoice
     @required String status,
     @required String hostedInvoiceUrl,
     dynamic nextPaymentAttempt,
+    String description,
+    // ignore: always_put_required_named_parameters_first
     @required @JsonKey(name: '__typename') String typename,
   }) = _LatestInvoice;
 
@@ -166,11 +167,12 @@ abstract class WatchHistories
     implements BaseModelWatchHistoryConnection {
   @Assert('typename == "ModelWatchHistoryConnection"')
   const factory WatchHistories({
-    String nextToken,
     @required
     @JsonKey(name: 'items')
     @protected
         List<WatchHistoriesItem> rawItems,
+    String nextToken,
+    // ignore: always_put_required_named_parameters_first
     @required @JsonKey(name: '__typename') String typename,
   }) = _WatchHistories;
 

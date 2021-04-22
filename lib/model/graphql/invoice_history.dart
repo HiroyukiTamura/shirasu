@@ -78,6 +78,7 @@ abstract class Coupon with _$Coupon implements BaseCoupon {
   @Assert('typename == "Coupon"')
   const factory Coupon({
     int durationInMonths,
+    // ignore: always_put_required_named_parameters_first
     @required @JsonKey(name: '__typename') String typename,
   }) = _Coupon;
 

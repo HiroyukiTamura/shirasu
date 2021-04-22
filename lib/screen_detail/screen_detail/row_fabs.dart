@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/url_util.dart';
@@ -45,6 +46,12 @@ class RowFabs extends HookWidget {
               icon: Icons.comment,
               onPressed: () => _onClickCommentBtn(context),
             ),
+          _AlertIcon(
+            programId: program.id,
+            channelId: program.channelId,
+            onTapAsCommandOn: () => _onClickAlertAsCommandOn(context),
+            onTapAsCommandOff: () async => _onClickAlertAsCommandOff(context),
+          ),
           _Fab(
             icon: Icons.credit_card,
             onPressed: () => _onClickPaymentBtn(context),
@@ -54,11 +61,10 @@ class RowFabs extends HookWidget {
               icon: Icons.text_snippet,
               onPressed: () => _onClickHandoutsBtn(context),
             ),
-          _AlertIcon(
-            programId: program.id,
-            channelId: program.channelId,
-            onTapAsCommandOn: () => _onClickAlertAsCommandOn(context),
-            onTapAsCommandOff: () async => _onClickAlertAsCommandOff(context),
+          _Fab(
+            icon: FontAwesomeIcons.fileSignature,
+            onPressed: () => _onClickReviewBtn(context),
+            iconSize: 20,
           ),
           _Fab(
             icon: Icons.share,
@@ -84,6 +90,10 @@ class RowFabs extends HookWidget {
   Future<void> _onClickHandoutsBtn(BuildContext context) async => context
       .read(kPrvViewModelDetail(program.id))
       .togglePage(const PageSheetModel.handouts());
+
+  Future<void> _onClickReviewBtn(BuildContext context) async => context
+      .read(kPrvViewModelDetail(program.id))
+      .togglePage(const PageSheetModel.review());
 
   void _onClickAlertAsCommandOn(BuildContext context) {
     final command = BtmSheetState.fcmMenu(program.channelId, program.id);
@@ -132,9 +142,11 @@ Widget _alertOn(
     );
 
 @swidget
-Widget _fab({
+Widget _fab(
+  BuildContext context, {
   @required IconData icon,
-  Color iconColor = Colors.black,
+  Color iconColor,
+  double iconSize = 24,
   Color fabColor,
   VoidCallback onPressed,
 }) =>
@@ -147,12 +159,14 @@ Widget _fab({
       ),
       fillColor: fabColor ?? Styles.detailFab,
       shape: const CircleBorder(),
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Icon(
-          icon,
-          size: 24,
-          color: iconColor,
+      child: SizedBox.fromSize(
+        size: const Size.square(40),
+        child: Center(
+          child: Icon(
+            icon,
+            size: iconSize,
+            color: iconColor ?? Theme.of(context).scaffoldBackgroundColor,
+          ),
         ),
       ),
     );

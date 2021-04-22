@@ -1778,21 +1778,21 @@ class _$LatestInvoiceTearOff {
 // ignore: unused_element
   _LatestInvoice call(
       {@required String id,
-      String description,
       @required DateTime createdAt,
       @required @protected String planType,
       @required String status,
       @required String hostedInvoiceUrl,
       dynamic nextPaymentAttempt,
+      String description,
       @required @JsonKey(name: '__typename') String typename}) {
     return _LatestInvoice(
       id: id,
-      description: description,
       createdAt: createdAt,
       planType: planType,
       status: status,
       hostedInvoiceUrl: hostedInvoiceUrl,
       nextPaymentAttempt: nextPaymentAttempt,
+      description: description,
       typename: typename,
     );
   }
@@ -1810,7 +1810,6 @@ const $LatestInvoice = _$LatestInvoiceTearOff();
 /// @nodoc
 mixin _$LatestInvoice {
   String get id;
-  String get description;
   DateTime get createdAt;
 
   /// use [planTypeStrict]
@@ -1819,6 +1818,7 @@ mixin _$LatestInvoice {
   String get status;
   String get hostedInvoiceUrl;
   dynamic get nextPaymentAttempt;
+  String get description; // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -1834,12 +1834,12 @@ abstract class $LatestInvoiceCopyWith<$Res> {
       _$LatestInvoiceCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      String description,
       DateTime createdAt,
       @protected String planType,
       String status,
       String hostedInvoiceUrl,
       dynamic nextPaymentAttempt,
+      String description,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1855,18 +1855,16 @@ class _$LatestInvoiceCopyWithImpl<$Res>
   @override
   $Res call({
     Object id = freezed,
-    Object description = freezed,
     Object createdAt = freezed,
     Object planType = freezed,
     Object status = freezed,
     Object hostedInvoiceUrl = freezed,
     Object nextPaymentAttempt = freezed,
+    Object description = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
-      description:
-          description == freezed ? _value.description : description as String,
       createdAt:
           createdAt == freezed ? _value.createdAt : createdAt as DateTime,
       planType: planType == freezed ? _value.planType : planType as String,
@@ -1877,6 +1875,8 @@ class _$LatestInvoiceCopyWithImpl<$Res>
       nextPaymentAttempt: nextPaymentAttempt == freezed
           ? _value.nextPaymentAttempt
           : nextPaymentAttempt as dynamic,
+      description:
+          description == freezed ? _value.description : description as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1891,12 +1891,12 @@ abstract class _$LatestInvoiceCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      String description,
       DateTime createdAt,
       @protected String planType,
       String status,
       String hostedInvoiceUrl,
       dynamic nextPaymentAttempt,
+      String description,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -1914,18 +1914,16 @@ class __$LatestInvoiceCopyWithImpl<$Res>
   @override
   $Res call({
     Object id = freezed,
-    Object description = freezed,
     Object createdAt = freezed,
     Object planType = freezed,
     Object status = freezed,
     Object hostedInvoiceUrl = freezed,
     Object nextPaymentAttempt = freezed,
+    Object description = freezed,
     Object typename = freezed,
   }) {
     return _then(_LatestInvoice(
       id: id == freezed ? _value.id : id as String,
-      description:
-          description == freezed ? _value.description : description as String,
       createdAt:
           createdAt == freezed ? _value.createdAt : createdAt as DateTime,
       planType: planType == freezed ? _value.planType : planType as String,
@@ -1936,6 +1934,8 @@ class __$LatestInvoiceCopyWithImpl<$Res>
       nextPaymentAttempt: nextPaymentAttempt == freezed
           ? _value.nextPaymentAttempt
           : nextPaymentAttempt as dynamic,
+      description:
+          description == freezed ? _value.description : description as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -1947,12 +1947,12 @@ class __$LatestInvoiceCopyWithImpl<$Res>
 class _$_LatestInvoice extends _LatestInvoice {
   const _$_LatestInvoice(
       {@required this.id,
-      this.description,
       @required this.createdAt,
       @required @protected this.planType,
       @required this.status,
       @required this.hostedInvoiceUrl,
       this.nextPaymentAttempt,
+      this.description,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(createdAt != null),
@@ -1969,8 +1969,6 @@ class _$_LatestInvoice extends _LatestInvoice {
   @override
   final String id;
   @override
-  final String description;
-  @override
   final DateTime createdAt;
   @override
 
@@ -1984,12 +1982,14 @@ class _$_LatestInvoice extends _LatestInvoice {
   @override
   final dynamic nextPaymentAttempt;
   @override
+  final String description;
+  @override // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'LatestInvoice(id: $id, description: $description, createdAt: $createdAt, planType: $planType, status: $status, hostedInvoiceUrl: $hostedInvoiceUrl, nextPaymentAttempt: $nextPaymentAttempt, typename: $typename)';
+    return 'LatestInvoice(id: $id, createdAt: $createdAt, planType: $planType, status: $status, hostedInvoiceUrl: $hostedInvoiceUrl, nextPaymentAttempt: $nextPaymentAttempt, description: $description, typename: $typename)';
   }
 
   @override
@@ -1998,9 +1998,6 @@ class _$_LatestInvoice extends _LatestInvoice {
         (other is _LatestInvoice &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.description, description) ||
-                const DeepCollectionEquality()
-                    .equals(other.description, description)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -2015,6 +2012,9 @@ class _$_LatestInvoice extends _LatestInvoice {
             (identical(other.nextPaymentAttempt, nextPaymentAttempt) ||
                 const DeepCollectionEquality()
                     .equals(other.nextPaymentAttempt, nextPaymentAttempt)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -2024,12 +2024,12 @@ class _$_LatestInvoice extends _LatestInvoice {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(planType) ^
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(hostedInvoiceUrl) ^
       const DeepCollectionEquality().hash(nextPaymentAttempt) ^
+      const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(typename);
 
   @JsonKey(ignore: true)
@@ -2047,12 +2047,12 @@ abstract class _LatestInvoice extends LatestInvoice {
   const _LatestInvoice._() : super._();
   const factory _LatestInvoice(
           {@required String id,
-          String description,
           @required DateTime createdAt,
           @required @protected String planType,
           @required String status,
           @required String hostedInvoiceUrl,
           dynamic nextPaymentAttempt,
+          String description,
           @required @JsonKey(name: '__typename') String typename}) =
       _$_LatestInvoice;
 
@@ -2061,8 +2061,6 @@ abstract class _LatestInvoice extends LatestInvoice {
 
   @override
   String get id;
-  @override
-  String get description;
   @override
   DateTime get createdAt;
   @override
@@ -2077,6 +2075,8 @@ abstract class _LatestInvoice extends LatestInvoice {
   @override
   dynamic get nextPaymentAttempt;
   @override
+  String get description;
+  @override // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   String get typename;
   @override
@@ -2094,17 +2094,17 @@ class _$WatchHistoriesTearOff {
 
 // ignore: unused_element
   _WatchHistories call(
-      {String nextToken,
-      @required
+      {@required
       @JsonKey(name: 'items')
       @protected
           List<WatchHistoriesItem> rawItems,
+      String nextToken,
       @required
       @JsonKey(name: '__typename')
           String typename}) {
     return _WatchHistories(
-      nextToken: nextToken,
       rawItems: rawItems,
+      nextToken: nextToken,
       typename: typename,
     );
   }
@@ -2121,10 +2121,10 @@ const $WatchHistories = _$WatchHistoriesTearOff();
 
 /// @nodoc
 mixin _$WatchHistories {
-  String get nextToken;
   @JsonKey(name: 'items')
   @protected
   List<WatchHistoriesItem> get rawItems;
+  String get nextToken; // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -2139,8 +2139,8 @@ abstract class $WatchHistoriesCopyWith<$Res> {
           WatchHistories value, $Res Function(WatchHistories) then) =
       _$WatchHistoriesCopyWithImpl<$Res>;
   $Res call(
-      {String nextToken,
-      @JsonKey(name: 'items') @protected List<WatchHistoriesItem> rawItems,
+      {@JsonKey(name: 'items') @protected List<WatchHistoriesItem> rawItems,
+      String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -2155,15 +2155,15 @@ class _$WatchHistoriesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object nextToken = freezed,
     Object rawItems = freezed,
+    Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
-      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       rawItems: rawItems == freezed
           ? _value.rawItems
           : rawItems as List<WatchHistoriesItem>,
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -2177,8 +2177,8 @@ abstract class _$WatchHistoriesCopyWith<$Res>
       __$WatchHistoriesCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String nextToken,
-      @JsonKey(name: 'items') @protected List<WatchHistoriesItem> rawItems,
+      {@JsonKey(name: 'items') @protected List<WatchHistoriesItem> rawItems,
+      String nextToken,
       @JsonKey(name: '__typename') String typename});
 }
 
@@ -2195,15 +2195,15 @@ class __$WatchHistoriesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object nextToken = freezed,
     Object rawItems = freezed,
+    Object nextToken = freezed,
     Object typename = freezed,
   }) {
     return _then(_WatchHistories(
-      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       rawItems: rawItems == freezed
           ? _value.rawItems
           : rawItems as List<WatchHistoriesItem>,
+      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -2214,8 +2214,8 @@ class __$WatchHistoriesCopyWithImpl<$Res>
 /// @nodoc
 class _$_WatchHistories extends _WatchHistories {
   const _$_WatchHistories(
-      {this.nextToken,
-      @required @JsonKey(name: 'items') @protected this.rawItems,
+      {@required @JsonKey(name: 'items') @protected this.rawItems,
+      this.nextToken,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(rawItems != null),
         assert(typename != null),
@@ -2226,30 +2226,30 @@ class _$_WatchHistories extends _WatchHistories {
       _$_$_WatchHistoriesFromJson(json);
 
   @override
-  final String nextToken;
-  @override
   @JsonKey(name: 'items')
   @protected
   final List<WatchHistoriesItem> rawItems;
   @override
+  final String nextToken;
+  @override // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'WatchHistories(nextToken: $nextToken, rawItems: $rawItems, typename: $typename)';
+    return 'WatchHistories(rawItems: $rawItems, nextToken: $nextToken, typename: $typename)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _WatchHistories &&
-            (identical(other.nextToken, nextToken) ||
-                const DeepCollectionEquality()
-                    .equals(other.nextToken, nextToken)) &&
             (identical(other.rawItems, rawItems) ||
                 const DeepCollectionEquality()
                     .equals(other.rawItems, rawItems)) &&
+            (identical(other.nextToken, nextToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.nextToken, nextToken)) &&
             (identical(other.typename, typename) ||
                 const DeepCollectionEquality()
                     .equals(other.typename, typename)));
@@ -2258,8 +2258,8 @@ class _$_WatchHistories extends _WatchHistories {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(rawItems) ^
+      const DeepCollectionEquality().hash(nextToken) ^
       const DeepCollectionEquality().hash(typename);
 
   @JsonKey(ignore: true)
@@ -2276,11 +2276,11 @@ class _$_WatchHistories extends _WatchHistories {
 abstract class _WatchHistories extends WatchHistories {
   const _WatchHistories._() : super._();
   const factory _WatchHistories(
-      {String nextToken,
-      @required
+      {@required
       @JsonKey(name: 'items')
       @protected
           List<WatchHistoriesItem> rawItems,
+      String nextToken,
       @required
       @JsonKey(name: '__typename')
           String typename}) = _$_WatchHistories;
@@ -2289,12 +2289,12 @@ abstract class _WatchHistories extends WatchHistories {
       _$_WatchHistories.fromJson;
 
   @override
-  String get nextToken;
-  @override
   @JsonKey(name: 'items')
   @protected
   List<WatchHistoriesItem> get rawItems;
   @override
+  String get nextToken;
+  @override // ignore: always_put_required_named_parameters_first
   @JsonKey(name: '__typename')
   String get typename;
   @override

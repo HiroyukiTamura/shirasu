@@ -13,6 +13,7 @@ import 'package:shirasu/screen_detail/page_comment/comment_list_view.dart';
 import 'package:shirasu/screen_detail/page_comment/page_comment.dart';
 import 'package:shirasu/screen_detail/page_hands_out/page_handouts.dart';
 import 'package:shirasu/screen_detail/page_price_chart/page_price_chart.dart';
+import 'package:shirasu/screen_detail/page_review/page_review.dart';
 import 'package:shirasu/screen_detail/screen_detail/btm_sheet.dart';
 import 'package:shirasu/screen_detail/screen_detail/player_seekbar.dart';
 import 'package:shirasu/screen_detail/screen_detail/row_channel.dart';
@@ -111,8 +112,7 @@ class _ScreenDetailState extends State<ScreenDetail>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (!Platform.isAndroid)
-      return;
+    if (!Platform.isAndroid) return;
 
     switch (state) {
       case AppLifecycleState.resumed:
@@ -266,29 +266,35 @@ class _Fab extends HookWidget {
 
 class _BottomPanel extends HookWidget {
   const _BottomPanel({
-    @required this.program,
+    @required this.programData,
     Key key,
   }) : super(key: key);
 
-  final ProgramDetail program;
+  final ProgramDetailData programData;
+
+  ProgramDetail get _program => programData.program;
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_kPrvBtmSheetExpanded(program.id)).when(
+      useProvider(_kPrvBtmSheetExpanded(_program.id)).when(
         hidden: () => const SizedBox.shrink(),
         handouts: () => PageHandouts(
-          program: program,
+          program: _program,
           onClearClicked: _onClearClicked,
         ),
         pricing: () => PagePriceChart(
-          program: program,
+          program: _program,
           onClearClicked: _onClearClicked,
         ),
-        comment: () => PageComment(id: program.id),
+        comment: () => PageComment(id: _program.id),
+        review: () => PageReview(
+          onClearClicked: _onClearClicked,
+          programData: programData,
+        ),
       );
 
   Future<void> _onClearClicked(BuildContext context) async => context
-      .read(kPrvViewModelDetail(program.id))
+      .read(kPrvViewModelDetail(_program.id))
       .togglePage(const PageSheetModel.hidden());
 }
 
@@ -319,7 +325,7 @@ Widget _playerBody(
         controller:
             useProvider(kPrvViewModelDetail(data.program.id)).panelController,
         color: Theme.of(context).scaffoldBackgroundColor,
-        panel: _BottomPanel(program: data.program),
+        panel: _BottomPanel(programData: data),
         body: Padding(
           padding: EdgeInsets.only(bottom: btmPadding + _kListViewBtmPadding),
           //i don't why, but it's needed
@@ -337,6 +343,7 @@ Widget _playerBody(
               ),
               RowVideoTags(textList: data.program.tags),
               RowFabs(program: data.program),
+              // todo fix text height
               RowVideoDesc(
                 text: data.program.detail,
                 id: data.program.id,

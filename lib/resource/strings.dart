@@ -309,6 +309,17 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
 
 //endregion
 
+  //region PageReview
+  /// ref: "users.pages.Program.components.ReviewModal.review"
+  static const HEADER_REVIEW = 'レビュー';
+
+  /// ref: "users.pages.Program.components.ReviewSection.writeReview"
+  static const BTN_WRITE_REVIEW = 'レビューを入力...';
+
+  /// ref: "users.pages.Program.components.ReviewSection.listIsEmpty"
+  static const REVIEW_IS_EMPTY = 'まだレビューはありません';
+  //endregion
+
   static const ERR_NETWORK_TIMEOUT = '接続がタイムアウトしました';
   static const ERR_NETWORK_DISCONNECTED = 'ネットワークに接続していません';
   static const ERR_AUTH_EXPIRED = 'ログイン期限が切れました';

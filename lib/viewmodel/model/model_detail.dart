@@ -172,6 +172,8 @@ abstract class PageSheetModel with _$PageSheetModel {
   const factory PageSheetModel.pricing() = _PageSheetModelPricing;
 
   const factory PageSheetModel.comment() = _PageSheetModelComment;
+
+  const factory PageSheetModel.review() = _PageSheetModelReview;
 }
 
 @freezed

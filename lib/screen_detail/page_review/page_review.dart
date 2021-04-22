@@ -7,9 +7,13 @@ import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/extension.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/util/types.dart';
 
 part 'page_review.g.dart';
 
@@ -27,6 +31,7 @@ Widget pageReview({
         _WriteReviewBtn(
           programId: program.id,
           viewerIconUrl: programData.viewer.icon,
+          onTap: (context) => context.pushPage(GlobalRoutePath.editReview(program)),
         ),
         Container(
           height: .2,
@@ -55,21 +60,23 @@ Widget _writeReviewBtn(
   BuildContext context, {
   @required String viewerIconUrl,
   @required String programId,
+  @required OnTap onTap,
 }) =>
-    ListTile(
-      onTap: () {
-        //todo input layout
-      },
-      minVerticalPadding: 8,
-      leading: CircleCachedNetworkImage(
-        size: 40,
-        imageUrl: viewerIconUrl,
-      ),
-      title: const Text(
-        Strings.BTN_WRITE_REVIEW,
-        style: TextStyle(
-          fontSize: FontSize.DEFAULT,
-          color: Styles.COLOR_TEXT_SUB,
+    Material(
+      color: Theme.of(context).scaffoldBackgroundColor,//for ripple effect
+      child: ListTile(
+        onTap: () => onTap(context),
+        minVerticalPadding: 8,
+        leading: CircleCachedNetworkImage(
+          size: 40,
+          imageUrl: viewerIconUrl,
+        ),
+        title: const Text(
+          Strings.BTN_WRITE_REVIEW,
+          style: TextStyle(
+            fontSize: FontSize.DEFAULT,
+            color: Styles.COLOR_TEXT_SUB,
+          ),
         ),
       ),
     );

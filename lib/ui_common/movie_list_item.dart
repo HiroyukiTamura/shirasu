@@ -18,13 +18,13 @@ part 'movie_list_item.g.dart';
 
 class MovieListItemBase extends StatelessWidget {
   const MovieListItemBase({
-    @required this.onTap,
     @required this.titleHeight,
     @required this.titleStyle,
     @required this.subTitleStyle,
     @required this.id,
     @required this.title,
     @required this.broadcastAt,
+    this.onTap,
     Key key,
   }) : super(key: key);
 
@@ -92,7 +92,7 @@ Widget movieListItem(
   @required String id,
   @required String title,
   @required DateTime broadcastAt,
-  @required GestureTapCallback onTap,
+  GestureTapCallback onTap,
 }) =>
     context.isBigScreen
         ? MovieListItemBase(
@@ -123,36 +123,29 @@ Widget movieListItem(
 @swidget
 Widget movieListBigItem({
   @required BaseProgram program,
-  @required GestureTapCallback onTap,
 }) =>
-    StackedInkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: Dimens.IMG_RATIO,
-              child: CachedNetworkImage(
-                imageUrl: UrlUtil.getThumbnailUrl(program.id),
-                errorWidget: Util.defaultPrgThumbnail,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 8,
-                left: 8,
-                top: 8,
-              ),
-              child: Text(
-                program.title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 4,
-                style: TextStyles.defaultFontSizeAndHeight(),
-              ),
-            )
-          ],
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AspectRatio(
+          aspectRatio: Dimens.IMG_RATIO,
+          child: CachedNetworkImage(
+            imageUrl: UrlUtil.getThumbnailUrl(program.id),
+            errorWidget: Util.defaultPrgThumbnail,
+          ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(
+            right: 8,
+            left: 8,
+            top: 8,
+          ),
+          child: Text(
+            program.title,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 4,
+            style: TextStyles.defaultFontSizeAndHeight(),
+          ),
+        )
+      ],
     );

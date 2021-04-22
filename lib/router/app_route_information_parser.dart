@@ -72,5 +72,6 @@ class AppRouteInformationParser
         auth: () => 'auth',
         preLogin: () => 'pre_login',
         fcm: () => 'fcm',
+        editReview: (_) => 'review_edit',
       );
 }

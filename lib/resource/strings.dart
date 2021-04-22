@@ -318,6 +318,7 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
 
   /// ref: "users.pages.Program.components.ReviewSection.listIsEmpty"
   static const REVIEW_IS_EMPTY = 'まだレビューはありません';
+
   //endregion
 
   static const ERR_NETWORK_TIMEOUT = '接続がタイムアウトしました';
@@ -355,5 +356,12 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const SCREEN_FCM_CAPTION_CHANNEL = 'チャンネル';
   static const SCREEN_FCM_CAPTION_PRG = '番組';
 
+//endregion
+
+//region ScreenEditReview
+  static const EDIT_REVIEW_HINT = 'レビューを書きこんでください';
+
+  /// ref: "hooks.useValidator.utils.useErrorMessages.textLength"
+  static String textLengthValidation(int min, int max) => '$min文字以上$max文字以下で入力してください';
 //endregion
 }

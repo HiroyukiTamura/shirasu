@@ -22,16 +22,21 @@ class PageReview extends StatelessWidget {
 
 class _WriteReviewBtn extends StatelessWidget {
   const _WriteReviewBtn(
-      {Key key, @required this.viewerIconUrl, @required this.programId})
+      {Key key,
+      @required this.viewerIconUrl,
+      @required this.programId,
+      @required this.onTap})
       : super(key: key);
 
   final String viewerIconUrl;
 
   final String programId;
 
+  final void Function(BuildContext) onTap;
+
   @override
   Widget build(BuildContext _context) => _writeReviewBtn(_context,
-      viewerIconUrl: viewerIconUrl, programId: programId);
+      viewerIconUrl: viewerIconUrl, programId: programId, onTap: onTap);
 }
 
 class _NoWidget extends StatelessWidget {

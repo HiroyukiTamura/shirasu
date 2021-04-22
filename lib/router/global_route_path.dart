@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 
 part 'global_route_path.freezed.dart';
@@ -25,6 +26,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() fcm,
     @required Result Function() auth,
     @required Result Function() preLogin,
+    @required Result Function(ProgramDetail program) editReview,
   }) {
     if (this is GlobalRoutePath)
       return (this as GlobalRoutePath).when(
@@ -37,6 +39,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         auth: auth,
         preLogin: preLogin,
         fcm: fcm,
+        editReview: editReview,
       );
     else if (this is PathDataMainPageBase)
       return (this as PathDataMainPageBase).when(
@@ -60,6 +63,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() fcm,
     @required Result Function() auth,
     @required Result Function() preLogin,
+    @required Result Function(ProgramDetail programDetail) editReview,
   }) {
     if (this is PathDataMainPageBase) return mainPage();
     if (this is GlobalRoutePath)
@@ -73,6 +77,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
         preLogin: preLogin,
         imgLicense: imgLicense,
         fcm: fcm,
+        editReview: editReview,
       );
     else
       throw ArgumentError.value('unexpected routePath type: $runtimeType');
@@ -110,6 +115,8 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
   const factory GlobalRoutePath.auth() = _PathDataAuth;
 
   const factory GlobalRoutePath.preLogin() = _PathDataPreLogin;
+
+  const factory GlobalRoutePath.editReview(ProgramDetail program) = _PathDataEditReview;
 
   factory GlobalRoutePath.buildProgram({
     @required String channelId,

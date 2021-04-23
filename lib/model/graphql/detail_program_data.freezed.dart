@@ -260,7 +260,8 @@ class _$ProgramDetailTearOff {
           List<OnetimePlan> rawOnetimePlans,
       @required
           Reviews reviews,
-      dynamic myReview,
+      MyReview myReview,
+      ReviewsItem focusedReview,
       @required
       @JsonKey(name: '__typename')
           String typename}) {
@@ -290,6 +291,7 @@ class _$ProgramDetailTearOff {
       rawOnetimePlans: rawOnetimePlans,
       reviews: reviews,
       myReview: myReview,
+      focusedReview: focusedReview,
       typename: typename,
     );
   }
@@ -339,9 +341,8 @@ mixin _$ProgramDetail {
   @JsonKey(name: 'onetimePlans')
   List<OnetimePlan> get rawOnetimePlans;
   Reviews get reviews;
-
-  ///todo impalement
-  dynamic get myReview;
+  MyReview get myReview;
+  ReviewsItem get focusedReview;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -387,7 +388,8 @@ abstract class $ProgramDetailCopyWith<$Res> {
       @JsonKey(name: 'onetimePlans')
           List<OnetimePlan> rawOnetimePlans,
       Reviews reviews,
-      dynamic myReview,
+      MyReview myReview,
+      ReviewsItem focusedReview,
       @JsonKey(name: '__typename')
           String typename});
 
@@ -395,6 +397,8 @@ abstract class $ProgramDetailCopyWith<$Res> {
   $HandoutsCopyWith<$Res> get handouts;
   $VideoHandoutsCopyWith<$Res> get videos;
   $ReviewsCopyWith<$Res> get reviews;
+  $MyReviewCopyWith<$Res> get myReview;
+  $ReviewsItemCopyWith<$Res> get focusedReview;
 }
 
 /// @nodoc
@@ -433,6 +437,7 @@ class _$ProgramDetailCopyWithImpl<$Res>
     Object rawOnetimePlans = freezed,
     Object reviews = freezed,
     Object myReview = freezed,
+    Object focusedReview = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
@@ -483,7 +488,10 @@ class _$ProgramDetailCopyWithImpl<$Res>
           ? _value.rawOnetimePlans
           : rawOnetimePlans as List<OnetimePlan>,
       reviews: reviews == freezed ? _value.reviews : reviews as Reviews,
-      myReview: myReview == freezed ? _value.myReview : myReview as dynamic,
+      myReview: myReview == freezed ? _value.myReview : myReview as MyReview,
+      focusedReview: focusedReview == freezed
+          ? _value.focusedReview
+          : focusedReview as ReviewsItem,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -527,6 +535,26 @@ class _$ProgramDetailCopyWithImpl<$Res>
       return _then(_value.copyWith(reviews: value));
     });
   }
+
+  @override
+  $MyReviewCopyWith<$Res> get myReview {
+    if (_value.myReview == null) {
+      return null;
+    }
+    return $MyReviewCopyWith<$Res>(_value.myReview, (value) {
+      return _then(_value.copyWith(myReview: value));
+    });
+  }
+
+  @override
+  $ReviewsItemCopyWith<$Res> get focusedReview {
+    if (_value.focusedReview == null) {
+      return null;
+    }
+    return $ReviewsItemCopyWith<$Res>(_value.focusedReview, (value) {
+      return _then(_value.copyWith(focusedReview: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -568,7 +596,8 @@ abstract class _$ProgramDetailCopyWith<$Res>
       @JsonKey(name: 'onetimePlans')
           List<OnetimePlan> rawOnetimePlans,
       Reviews reviews,
-      dynamic myReview,
+      MyReview myReview,
+      ReviewsItem focusedReview,
       @JsonKey(name: '__typename')
           String typename});
 
@@ -580,6 +609,10 @@ abstract class _$ProgramDetailCopyWith<$Res>
   $VideoHandoutsCopyWith<$Res> get videos;
   @override
   $ReviewsCopyWith<$Res> get reviews;
+  @override
+  $MyReviewCopyWith<$Res> get myReview;
+  @override
+  $ReviewsItemCopyWith<$Res> get focusedReview;
 }
 
 /// @nodoc
@@ -620,6 +653,7 @@ class __$ProgramDetailCopyWithImpl<$Res>
     Object rawOnetimePlans = freezed,
     Object reviews = freezed,
     Object myReview = freezed,
+    Object focusedReview = freezed,
     Object typename = freezed,
   }) {
     return _then(_ProgramDetail(
@@ -670,7 +704,10 @@ class __$ProgramDetailCopyWithImpl<$Res>
           ? _value.rawOnetimePlans
           : rawOnetimePlans as List<OnetimePlan>,
       reviews: reviews == freezed ? _value.reviews : reviews as Reviews,
-      myReview: myReview == freezed ? _value.myReview : myReview as dynamic,
+      myReview: myReview == freezed ? _value.myReview : myReview as MyReview,
+      focusedReview: focusedReview == freezed
+          ? _value.focusedReview
+          : focusedReview as ReviewsItem,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -706,6 +743,7 @@ class _$_ProgramDetail extends _ProgramDetail {
       @required @protected @JsonKey(name: 'onetimePlans') this.rawOnetimePlans,
       @required this.reviews,
       this.myReview,
+      this.focusedReview,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(channelId != null),
@@ -794,16 +832,16 @@ class _$_ProgramDetail extends _ProgramDetail {
   @override
   final Reviews reviews;
   @override
-
-  ///todo impalement
-  final dynamic myReview;
+  final MyReview myReview;
+  @override
+  final ReviewsItem focusedReview;
   @override
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'ProgramDetail(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, rawTags: $rawTags, title: $title, totalPlayTime: $totalPlayTime, viewerPlanType: $viewerPlanType, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, rawExtensions: $rawExtensions, channel: $channel, handouts: $handouts, videos: $videos, rawOnetimePlans: $rawOnetimePlans, reviews: $reviews, myReview: $myReview, typename: $typename)';
+    return 'ProgramDetail(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, rawTags: $rawTags, title: $title, totalPlayTime: $totalPlayTime, viewerPlanType: $viewerPlanType, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, rawExtensions: $rawExtensions, channel: $channel, handouts: $handouts, videos: $videos, rawOnetimePlans: $rawOnetimePlans, reviews: $reviews, myReview: $myReview, focusedReview: $focusedReview, typename: $typename)';
   }
 
   @override
@@ -868,6 +906,7 @@ class _$_ProgramDetail extends _ProgramDetail {
             (identical(other.rawOnetimePlans, rawOnetimePlans) || const DeepCollectionEquality().equals(other.rawOnetimePlans, rawOnetimePlans)) &&
             (identical(other.reviews, reviews) || const DeepCollectionEquality().equals(other.reviews, reviews)) &&
             (identical(other.myReview, myReview) || const DeepCollectionEquality().equals(other.myReview, myReview)) &&
+            (identical(other.focusedReview, focusedReview) || const DeepCollectionEquality().equals(other.focusedReview, focusedReview)) &&
             (identical(other.typename, typename) || const DeepCollectionEquality().equals(other.typename, typename)));
   }
 
@@ -899,6 +938,7 @@ class _$_ProgramDetail extends _ProgramDetail {
       const DeepCollectionEquality().hash(rawOnetimePlans) ^
       const DeepCollectionEquality().hash(reviews) ^
       const DeepCollectionEquality().hash(myReview) ^
+      const DeepCollectionEquality().hash(focusedReview) ^
       const DeepCollectionEquality().hash(typename);
 
   @JsonKey(ignore: true)
@@ -965,7 +1005,8 @@ abstract class _ProgramDetail extends ProgramDetail {
           List<OnetimePlan> rawOnetimePlans,
       @required
           Reviews reviews,
-      dynamic myReview,
+      MyReview myReview,
+      ReviewsItem focusedReview,
       @required
       @JsonKey(name: '__typename')
           String typename}) = _$_ProgramDetail;
@@ -1031,9 +1072,9 @@ abstract class _ProgramDetail extends ProgramDetail {
   @override
   Reviews get reviews;
   @override
-
-  ///todo impalement
-  dynamic get myReview;
+  MyReview get myReview;
+  @override
+  ReviewsItem get focusedReview;
   @override
   @JsonKey(name: '__typename')
   String get typename;
@@ -2859,661 +2900,6 @@ abstract class _Extension implements Extension {
   @override
   @JsonKey(ignore: true)
   _$ExtensionCopyWith<_Extension> get copyWith;
-}
-
-Reviews _$ReviewsFromJson(Map<String, dynamic> json) {
-  return _Reviews.fromJson(json);
-}
-
-/// @nodoc
-class _$ReviewsTearOff {
-  const _$ReviewsTearOff();
-
-// ignore: unused_element
-  _Reviews call(
-      {@required @protected @JsonKey(name: 'items') List<ReviewsItem> rawItems,
-      String nextToken,
-      @required @JsonKey(name: '__typename') String typename}) {
-    return _Reviews(
-      rawItems: rawItems,
-      nextToken: nextToken,
-      typename: typename,
-    );
-  }
-
-// ignore: unused_element
-  Reviews fromJson(Map<String, Object> json) {
-    return Reviews.fromJson(json);
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $Reviews = _$ReviewsTearOff();
-
-/// @nodoc
-mixin _$Reviews {
-  @protected
-  @JsonKey(name: 'items')
-  List<ReviewsItem> get rawItems;
-  String get nextToken;
-  @JsonKey(name: '__typename')
-  String get typename;
-
-  Map<String, dynamic> toJson();
-  @JsonKey(ignore: true)
-  $ReviewsCopyWith<Reviews> get copyWith;
-}
-
-/// @nodoc
-abstract class $ReviewsCopyWith<$Res> {
-  factory $ReviewsCopyWith(Reviews value, $Res Function(Reviews) then) =
-      _$ReviewsCopyWithImpl<$Res>;
-  $Res call(
-      {@protected @JsonKey(name: 'items') List<ReviewsItem> rawItems,
-      String nextToken,
-      @JsonKey(name: '__typename') String typename});
-}
-
-/// @nodoc
-class _$ReviewsCopyWithImpl<$Res> implements $ReviewsCopyWith<$Res> {
-  _$ReviewsCopyWithImpl(this._value, this._then);
-
-  final Reviews _value;
-  // ignore: unused_field
-  final $Res Function(Reviews) _then;
-
-  @override
-  $Res call({
-    Object rawItems = freezed,
-    Object nextToken = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_value.copyWith(
-      rawItems:
-          rawItems == freezed ? _value.rawItems : rawItems as List<ReviewsItem>,
-      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$ReviewsCopyWith<$Res> implements $ReviewsCopyWith<$Res> {
-  factory _$ReviewsCopyWith(_Reviews value, $Res Function(_Reviews) then) =
-      __$ReviewsCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {@protected @JsonKey(name: 'items') List<ReviewsItem> rawItems,
-      String nextToken,
-      @JsonKey(name: '__typename') String typename});
-}
-
-/// @nodoc
-class __$ReviewsCopyWithImpl<$Res> extends _$ReviewsCopyWithImpl<$Res>
-    implements _$ReviewsCopyWith<$Res> {
-  __$ReviewsCopyWithImpl(_Reviews _value, $Res Function(_Reviews) _then)
-      : super(_value, (v) => _then(v as _Reviews));
-
-  @override
-  _Reviews get _value => super._value as _Reviews;
-
-  @override
-  $Res call({
-    Object rawItems = freezed,
-    Object nextToken = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_Reviews(
-      rawItems:
-          rawItems == freezed ? _value.rawItems : rawItems as List<ReviewsItem>,
-      nextToken: nextToken == freezed ? _value.nextToken : nextToken as String,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-@JsonSerializable()
-
-/// @nodoc
-class _$_Reviews extends _Reviews {
-  const _$_Reviews(
-      {@required @protected @JsonKey(name: 'items') this.rawItems,
-      this.nextToken,
-      @required @JsonKey(name: '__typename') this.typename})
-      : assert(rawItems != null),
-        assert(typename != null),
-        assert(typename == "ReviewConnection"),
-        super._();
-
-  factory _$_Reviews.fromJson(Map<String, dynamic> json) =>
-      _$_$_ReviewsFromJson(json);
-
-  @override
-  @protected
-  @JsonKey(name: 'items')
-  final List<ReviewsItem> rawItems;
-  @override
-  final String nextToken;
-  @override
-  @JsonKey(name: '__typename')
-  final String typename;
-
-  @override
-  String toString() {
-    return 'Reviews(rawItems: $rawItems, nextToken: $nextToken, typename: $typename)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Reviews &&
-            (identical(other.rawItems, rawItems) ||
-                const DeepCollectionEquality()
-                    .equals(other.rawItems, rawItems)) &&
-            (identical(other.nextToken, nextToken) ||
-                const DeepCollectionEquality()
-                    .equals(other.nextToken, nextToken)) &&
-            (identical(other.typename, typename) ||
-                const DeepCollectionEquality()
-                    .equals(other.typename, typename)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(rawItems) ^
-      const DeepCollectionEquality().hash(nextToken) ^
-      const DeepCollectionEquality().hash(typename);
-
-  @JsonKey(ignore: true)
-  @override
-  _$ReviewsCopyWith<_Reviews> get copyWith =>
-      __$ReviewsCopyWithImpl<_Reviews>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_ReviewsToJson(this);
-  }
-}
-
-abstract class _Reviews extends Reviews {
-  const _Reviews._() : super._();
-  const factory _Reviews(
-      {@required @protected @JsonKey(name: 'items') List<ReviewsItem> rawItems,
-      String nextToken,
-      @required @JsonKey(name: '__typename') String typename}) = _$_Reviews;
-
-  factory _Reviews.fromJson(Map<String, dynamic> json) = _$_Reviews.fromJson;
-
-  @override
-  @protected
-  @JsonKey(name: 'items')
-  List<ReviewsItem> get rawItems;
-  @override
-  String get nextToken;
-  @override
-  @JsonKey(name: '__typename')
-  String get typename;
-  @override
-  @JsonKey(ignore: true)
-  _$ReviewsCopyWith<_Reviews> get copyWith;
-}
-
-ReviewsItem _$ReviewsItemFromJson(Map<String, dynamic> json) {
-  return _ReviewsItem.fromJson(json);
-}
-
-/// @nodoc
-class _$ReviewsItemTearOff {
-  const _$ReviewsItemTearOff();
-
-// ignore: unused_element
-  _ReviewsItem call(
-      {@required String id,
-      @required String body,
-      @required DateTime createdAt,
-      @required Reviewer user,
-      @required @JsonKey(name: '__typename') String typename}) {
-    return _ReviewsItem(
-      id: id,
-      body: body,
-      createdAt: createdAt,
-      user: user,
-      typename: typename,
-    );
-  }
-
-// ignore: unused_element
-  ReviewsItem fromJson(Map<String, Object> json) {
-    return ReviewsItem.fromJson(json);
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $ReviewsItem = _$ReviewsItemTearOff();
-
-/// @nodoc
-mixin _$ReviewsItem {
-  String get id;
-  String get body;
-  DateTime get createdAt;
-  Reviewer get user;
-  @JsonKey(name: '__typename')
-  String get typename;
-
-  Map<String, dynamic> toJson();
-  @JsonKey(ignore: true)
-  $ReviewsItemCopyWith<ReviewsItem> get copyWith;
-}
-
-/// @nodoc
-abstract class $ReviewsItemCopyWith<$Res> {
-  factory $ReviewsItemCopyWith(
-          ReviewsItem value, $Res Function(ReviewsItem) then) =
-      _$ReviewsItemCopyWithImpl<$Res>;
-  $Res call(
-      {String id,
-      String body,
-      DateTime createdAt,
-      Reviewer user,
-      @JsonKey(name: '__typename') String typename});
-
-  $ReviewerCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class _$ReviewsItemCopyWithImpl<$Res> implements $ReviewsItemCopyWith<$Res> {
-  _$ReviewsItemCopyWithImpl(this._value, this._then);
-
-  final ReviewsItem _value;
-  // ignore: unused_field
-  final $Res Function(ReviewsItem) _then;
-
-  @override
-  $Res call({
-    Object id = freezed,
-    Object body = freezed,
-    Object createdAt = freezed,
-    Object user = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      body: body == freezed ? _value.body : body as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
-      user: user == freezed ? _value.user : user as Reviewer,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-
-  @override
-  $ReviewerCopyWith<$Res> get user {
-    if (_value.user == null) {
-      return null;
-    }
-    return $ReviewerCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$ReviewsItemCopyWith<$Res>
-    implements $ReviewsItemCopyWith<$Res> {
-  factory _$ReviewsItemCopyWith(
-          _ReviewsItem value, $Res Function(_ReviewsItem) then) =
-      __$ReviewsItemCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {String id,
-      String body,
-      DateTime createdAt,
-      Reviewer user,
-      @JsonKey(name: '__typename') String typename});
-
-  @override
-  $ReviewerCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class __$ReviewsItemCopyWithImpl<$Res> extends _$ReviewsItemCopyWithImpl<$Res>
-    implements _$ReviewsItemCopyWith<$Res> {
-  __$ReviewsItemCopyWithImpl(
-      _ReviewsItem _value, $Res Function(_ReviewsItem) _then)
-      : super(_value, (v) => _then(v as _ReviewsItem));
-
-  @override
-  _ReviewsItem get _value => super._value as _ReviewsItem;
-
-  @override
-  $Res call({
-    Object id = freezed,
-    Object body = freezed,
-    Object createdAt = freezed,
-    Object user = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_ReviewsItem(
-      id: id == freezed ? _value.id : id as String,
-      body: body == freezed ? _value.body : body as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
-      user: user == freezed ? _value.user : user as Reviewer,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-@JsonSerializable()
-
-/// @nodoc
-class _$_ReviewsItem implements _ReviewsItem {
-  const _$_ReviewsItem(
-      {@required this.id,
-      @required this.body,
-      @required this.createdAt,
-      @required this.user,
-      @required @JsonKey(name: '__typename') this.typename})
-      : assert(id != null),
-        assert(body != null),
-        assert(createdAt != null),
-        assert(user != null),
-        assert(typename != null),
-        assert(typename == "Review");
-
-  factory _$_ReviewsItem.fromJson(Map<String, dynamic> json) =>
-      _$_$_ReviewsItemFromJson(json);
-
-  @override
-  final String id;
-  @override
-  final String body;
-  @override
-  final DateTime createdAt;
-  @override
-  final Reviewer user;
-  @override
-  @JsonKey(name: '__typename')
-  final String typename;
-
-  @override
-  String toString() {
-    return 'ReviewsItem(id: $id, body: $body, createdAt: $createdAt, user: $user, typename: $typename)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _ReviewsItem &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.body, body) ||
-                const DeepCollectionEquality().equals(other.body, body)) &&
-            (identical(other.createdAt, createdAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)) &&
-            (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)) &&
-            (identical(other.typename, typename) ||
-                const DeepCollectionEquality()
-                    .equals(other.typename, typename)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(body) ^
-      const DeepCollectionEquality().hash(createdAt) ^
-      const DeepCollectionEquality().hash(user) ^
-      const DeepCollectionEquality().hash(typename);
-
-  @JsonKey(ignore: true)
-  @override
-  _$ReviewsItemCopyWith<_ReviewsItem> get copyWith =>
-      __$ReviewsItemCopyWithImpl<_ReviewsItem>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_ReviewsItemToJson(this);
-  }
-}
-
-abstract class _ReviewsItem implements ReviewsItem {
-  const factory _ReviewsItem(
-      {@required String id,
-      @required String body,
-      @required DateTime createdAt,
-      @required Reviewer user,
-      @required @JsonKey(name: '__typename') String typename}) = _$_ReviewsItem;
-
-  factory _ReviewsItem.fromJson(Map<String, dynamic> json) =
-      _$_ReviewsItem.fromJson;
-
-  @override
-  String get id;
-  @override
-  String get body;
-  @override
-  DateTime get createdAt;
-  @override
-  Reviewer get user;
-  @override
-  @JsonKey(name: '__typename')
-  String get typename;
-  @override
-  @JsonKey(ignore: true)
-  _$ReviewsItemCopyWith<_ReviewsItem> get copyWith;
-}
-
-Reviewer _$ReviewerFromJson(Map<String, dynamic> json) {
-  return _Reviewer.fromJson(json);
-}
-
-/// @nodoc
-class _$ReviewerTearOff {
-  const _$ReviewerTearOff();
-
-// ignore: unused_element
-  _Reviewer call(
-      {@required String id,
-      @required String name,
-      @required String icon,
-      @required @JsonKey(name: '__typename') String typename}) {
-    return _Reviewer(
-      id: id,
-      name: name,
-      icon: icon,
-      typename: typename,
-    );
-  }
-
-// ignore: unused_element
-  Reviewer fromJson(Map<String, Object> json) {
-    return Reviewer.fromJson(json);
-  }
-}
-
-/// @nodoc
-// ignore: unused_element
-const $Reviewer = _$ReviewerTearOff();
-
-/// @nodoc
-mixin _$Reviewer {
-  String get id;
-  String get name;
-  String get icon;
-  @JsonKey(name: '__typename')
-  String get typename;
-
-  Map<String, dynamic> toJson();
-  @JsonKey(ignore: true)
-  $ReviewerCopyWith<Reviewer> get copyWith;
-}
-
-/// @nodoc
-abstract class $ReviewerCopyWith<$Res> {
-  factory $ReviewerCopyWith(Reviewer value, $Res Function(Reviewer) then) =
-      _$ReviewerCopyWithImpl<$Res>;
-  $Res call(
-      {String id,
-      String name,
-      String icon,
-      @JsonKey(name: '__typename') String typename});
-}
-
-/// @nodoc
-class _$ReviewerCopyWithImpl<$Res> implements $ReviewerCopyWith<$Res> {
-  _$ReviewerCopyWithImpl(this._value, this._then);
-
-  final Reviewer _value;
-  // ignore: unused_field
-  final $Res Function(Reviewer) _then;
-
-  @override
-  $Res call({
-    Object id = freezed,
-    Object name = freezed,
-    Object icon = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      name: name == freezed ? _value.name : name as String,
-      icon: icon == freezed ? _value.icon : icon as String,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$ReviewerCopyWith<$Res> implements $ReviewerCopyWith<$Res> {
-  factory _$ReviewerCopyWith(_Reviewer value, $Res Function(_Reviewer) then) =
-      __$ReviewerCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {String id,
-      String name,
-      String icon,
-      @JsonKey(name: '__typename') String typename});
-}
-
-/// @nodoc
-class __$ReviewerCopyWithImpl<$Res> extends _$ReviewerCopyWithImpl<$Res>
-    implements _$ReviewerCopyWith<$Res> {
-  __$ReviewerCopyWithImpl(_Reviewer _value, $Res Function(_Reviewer) _then)
-      : super(_value, (v) => _then(v as _Reviewer));
-
-  @override
-  _Reviewer get _value => super._value as _Reviewer;
-
-  @override
-  $Res call({
-    Object id = freezed,
-    Object name = freezed,
-    Object icon = freezed,
-    Object typename = freezed,
-  }) {
-    return _then(_Reviewer(
-      id: id == freezed ? _value.id : id as String,
-      name: name == freezed ? _value.name : name as String,
-      icon: icon == freezed ? _value.icon : icon as String,
-      typename: typename == freezed ? _value.typename : typename as String,
-    ));
-  }
-}
-
-@JsonSerializable()
-
-/// @nodoc
-class _$_Reviewer implements _Reviewer {
-  const _$_Reviewer(
-      {@required this.id,
-      @required this.name,
-      @required this.icon,
-      @required @JsonKey(name: '__typename') this.typename})
-      : assert(id != null),
-        assert(name != null),
-        assert(icon != null),
-        assert(typename != null),
-        assert(typename == "User");
-
-  factory _$_Reviewer.fromJson(Map<String, dynamic> json) =>
-      _$_$_ReviewerFromJson(json);
-
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String icon;
-  @override
-  @JsonKey(name: '__typename')
-  final String typename;
-
-  @override
-  String toString() {
-    return 'Reviewer(id: $id, name: $name, icon: $icon, typename: $typename)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Reviewer &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.icon, icon) ||
-                const DeepCollectionEquality().equals(other.icon, icon)) &&
-            (identical(other.typename, typename) ||
-                const DeepCollectionEquality()
-                    .equals(other.typename, typename)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(icon) ^
-      const DeepCollectionEquality().hash(typename);
-
-  @JsonKey(ignore: true)
-  @override
-  _$ReviewerCopyWith<_Reviewer> get copyWith =>
-      __$ReviewerCopyWithImpl<_Reviewer>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_ReviewerToJson(this);
-  }
-}
-
-abstract class _Reviewer implements Reviewer {
-  const factory _Reviewer(
-      {@required String id,
-      @required String name,
-      @required String icon,
-      @required @JsonKey(name: '__typename') String typename}) = _$_Reviewer;
-
-  factory _Reviewer.fromJson(Map<String, dynamic> json) = _$_Reviewer.fromJson;
-
-  @override
-  String get id;
-  @override
-  String get name;
-  @override
-  String get icon;
-  @override
-  @JsonKey(name: '__typename')
-  String get typename;
-  @override
-  @JsonKey(ignore: true)
-  _$ReviewerCopyWith<_Reviewer> get copyWith;
 }
 
 Viewer _$ViewerFromJson(Map<String, dynamic> json) {

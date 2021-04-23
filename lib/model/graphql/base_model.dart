@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:shirasu/model/graphql/mixins/plan_type.dart';
+import 'package:shirasu/model/graphql/review.dart';
 
 @immutable
 abstract class _GraphQlModel {
@@ -67,18 +68,7 @@ abstract class BaseExtension extends _GraphQlModel {}
 abstract class BaseViewer extends _GraphQlModel {}
 
 @immutable
-abstract class BasePaymentMethod extends _GraphQlModel {
-  String get id;
-
-  /// ex.visa
-  String get brand;
-
-  /// ex.1234
-  String get last4;
-
-  /// ex. 02/25
-  String get expirationDate;
-}
+abstract class BasePaymentMethod extends _GraphQlModel {}
 
 @immutable
 abstract class BaseInvoice extends _GraphQlModel with PlanTypeMixin {
@@ -141,4 +131,9 @@ abstract class BaseUserAttribute extends _GraphQlModel {}
 abstract class BaseReviewConnection extends _GraphQlModel {}
 
 @immutable
-abstract class BaseReview extends _GraphQlModel {}
+abstract class BaseReview extends _GraphQlModel {
+  String get id;
+  String get body;
+  DateTime get createdAt;
+  Reviewer get user;
+}

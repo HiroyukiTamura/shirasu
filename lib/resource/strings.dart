@@ -362,6 +362,16 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const EDIT_REVIEW_HINT = 'レビューを書きこんでください';
 
   /// ref: "hooks.useValidator.utils.useErrorMessages.textLength"
-  static String textLengthValidation(int min, int max) => '$min文字以上$max文字以下で入力してください';
+  static String textLengthValidation(int min, int max) =>
+      '$min文字以上$max文字以下で入力してください';
+
+  /// ref: "users.pages.Program.components.ReviewSection.stateInReview"
+  static const REVIEW_STATE_IN_REVIEW = '承認待ち';
+
+  /// ref: "users.pages.Program.components.ReviewSection.stateNg"
+  static const REVIEW_STATE_NG = '承認されませんでした';
+
+  /// ref: "users.pages.Program.components.ReviewSection.stateOpen"
+  static const REVIEW_STATE_OPEN = '公開';
 //endregion
 }

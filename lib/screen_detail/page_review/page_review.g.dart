@@ -20,23 +20,18 @@ class PageReview extends StatelessWidget {
       pageReview(onClearClicked: onClearClicked, programData: programData);
 }
 
-class _WriteReviewBtn extends StatelessWidget {
-  const _WriteReviewBtn(
-      {Key key,
-      @required this.viewerIconUrl,
-      @required this.programId,
-      @required this.onTap})
+class _ItemInputReview extends StatelessWidget {
+  const _ItemInputReview(
+      {Key key, @required this.viewerIconUrl, @required this.onTap})
       : super(key: key);
 
   final String viewerIconUrl;
 
-  final String programId;
-
   final void Function(BuildContext) onTap;
 
   @override
-  Widget build(BuildContext _context) => _writeReviewBtn(_context,
-      viewerIconUrl: viewerIconUrl, programId: programId, onTap: onTap);
+  Widget build(BuildContext _context) =>
+      _itemInputReview(_context, viewerIconUrl: viewerIconUrl, onTap: onTap);
 }
 
 class _NoWidget extends StatelessWidget {
@@ -47,10 +42,24 @@ class _NoWidget extends StatelessWidget {
 }
 
 class _ReviewItem extends StatelessWidget {
-  const _ReviewItem({Key key, @required this.item}) : super(key: key);
+  const _ReviewItem({Key key, @required this.item, this.status})
+      : super(key: key);
 
-  final ReviewsItem item;
+  final BaseReview item;
+
+  final ReviewState status;
 
   @override
-  Widget build(BuildContext _context) => _reviewItem(item: item);
+  Widget build(BuildContext _context) =>
+      _reviewItem(_context, item: item, status: status);
+}
+
+class _ReviewStateLabel extends StatelessWidget {
+  const _ReviewStateLabel({Key key, @required this.state}) : super(key: key);
+
+  final ReviewState state;
+
+  @override
+  Widget build(BuildContext _context) =>
+      _reviewStateLabel(_context, state: state);
 }

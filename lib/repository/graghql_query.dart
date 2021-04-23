@@ -152,7 +152,7 @@ fragment DashboardChannel on Channel {
   ''';
 
   static const QUERY_DETAIL_PROGRAMS = r'''
-query GetProgram($id: ID!, $reviewsNextToken: String) {
+query GetProgram($id: ID!, $focusedReviewAuthorName: String, $reviewsNextToken: String) {
     viewer {
         name
         icon
@@ -190,6 +190,10 @@ query GetProgram($id: ID!, $reviewsNextToken: String) {
                 __typename
             }
             nextToken
+            __typename
+        }
+        focusedReview: review(authorName: $focusedReviewAuthorName) {
+            ...UserPageReviewData
             __typename
         }
         onetimePlans {

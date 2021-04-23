@@ -71,7 +71,12 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
     reviews: json['reviews'] == null
         ? null
         : Reviews.fromJson(json['reviews'] as Map<String, dynamic>),
-    myReview: json['myReview'],
+    myReview: json['myReview'] == null
+        ? null
+        : MyReview.fromJson(json['myReview'] as Map<String, dynamic>),
+    focusedReview: json['focusedReview'] == null
+        ? null
+        : ReviewsItem.fromJson(json['focusedReview'] as Map<String, dynamic>),
     typename: json['__typename'] as String,
   );
 }
@@ -105,6 +110,7 @@ Map<String, dynamic> _$_$_ProgramDetailToJson(_$_ProgramDetail instance) =>
       'onetimePlans': instance.rawOnetimePlans,
       'reviews': instance.reviews,
       'myReview': instance.myReview,
+      'focusedReview': instance.focusedReview,
       '__typename': instance.typename,
     };
 
@@ -261,64 +267,6 @@ Map<String, dynamic> _$_$_ExtensionToJson(_$_Extension instance) =>
       'extensionTime': instance.extensionTime,
       'oneTimePlanId': instance.oneTimePlanId,
       'oneTimePlan': instance.oneTimePlan,
-      '__typename': instance.typename,
-    };
-
-_$_Reviews _$_$_ReviewsFromJson(Map<String, dynamic> json) {
-  return _$_Reviews(
-    rawItems: (json['items'] as List)
-        ?.map((e) =>
-            e == null ? null : ReviewsItem.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    nextToken: json['nextToken'] as String,
-    typename: json['__typename'] as String,
-  );
-}
-
-Map<String, dynamic> _$_$_ReviewsToJson(_$_Reviews instance) =>
-    <String, dynamic>{
-      'items': instance.rawItems,
-      'nextToken': instance.nextToken,
-      '__typename': instance.typename,
-    };
-
-_$_ReviewsItem _$_$_ReviewsItemFromJson(Map<String, dynamic> json) {
-  return _$_ReviewsItem(
-    id: json['id'] as String,
-    body: json['body'] as String,
-    createdAt: json['createdAt'] == null
-        ? null
-        : DateTime.parse(json['createdAt'] as String),
-    user: json['user'] == null
-        ? null
-        : Reviewer.fromJson(json['user'] as Map<String, dynamic>),
-    typename: json['__typename'] as String,
-  );
-}
-
-Map<String, dynamic> _$_$_ReviewsItemToJson(_$_ReviewsItem instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'body': instance.body,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'user': instance.user,
-      '__typename': instance.typename,
-    };
-
-_$_Reviewer _$_$_ReviewerFromJson(Map<String, dynamic> json) {
-  return _$_Reviewer(
-    id: json['id'] as String,
-    name: json['name'] as String,
-    icon: json['icon'] as String,
-    typename: json['__typename'] as String,
-  );
-}
-
-Map<String, dynamic> _$_$_ReviewerToJson(_$_Reviewer instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'icon': instance.icon,
       '__typename': instance.typename,
     };
 

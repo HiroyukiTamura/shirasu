@@ -9,6 +9,7 @@ import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/review.dart';
 
 part 'detail_program_data.freezed.dart';
 
@@ -67,9 +68,8 @@ abstract class ProgramDetail
     @JsonKey(name: 'onetimePlans')
         List<OnetimePlan> rawOnetimePlans,
     @required Reviews reviews,
-
-    ///todo impalement
-    dynamic myReview,
+    MyReview myReview,
+    ReviewsItem focusedReview,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramDetail;
 
@@ -299,53 +299,6 @@ abstract class Extension with _$Extension implements BaseExtension {
 
   factory Extension.fromJson(Map<String, dynamic> json) =>
       _$ExtensionFromJson(json);
-}
-
-@freezed
-abstract class Reviews with _$Reviews implements BaseReviewConnection {
-  @Assert('typename == "ReviewConnection"')
-  const factory Reviews({
-    @protected @required @JsonKey(name: 'items') List<ReviewsItem> rawItems,
-    String nextToken,
-    @required @JsonKey(name: '__typename') String typename,
-  }) = _Reviews;
-
-  factory Reviews.fromJson(Map<String, dynamic> json) =>
-      _$ReviewsFromJson(json);
-
-  const Reviews._();
-
-  // todo refactor
-  UnmodifiableListView<ReviewsItem> get items => IteratableX(rawItems).toUnmodifiable();
-}
-
-@freezed
-abstract class ReviewsItem with _$ReviewsItem implements BaseReview {
-  @Assert('typename == "Review"')
-  const factory ReviewsItem({
-    @required String id,
-    @required String body,
-    @required DateTime createdAt,
-    @required Reviewer user,
-    @required @JsonKey(name: '__typename') String typename,
-  }) = _ReviewsItem;
-
-  factory ReviewsItem.fromJson(Map<String, dynamic> json) =>
-      _$ReviewsItemFromJson(json);
-}
-
-@freezed
-abstract class Reviewer with _$Reviewer implements BaseUser {
-  @Assert('typename == "User"')
-  const factory Reviewer({
-    @required String id,
-    @required String name,
-    @required String icon,
-    @required @JsonKey(name: '__typename') String typename,
-  }) = _Reviewer;
-
-  factory Reviewer.fromJson(Map<String, dynamic> json) =>
-      _$ReviewerFromJson(json);
 }
 
 @freezed

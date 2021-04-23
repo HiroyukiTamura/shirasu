@@ -14,61 +14,72 @@ import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/extension.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
 
 part 'page_review.g.dart';
 
-@swidget
-Widget pageReview(
-  BuildContext context, {
-  @required OnClearClicked onClearClicked,
-  @required ProgramDetailData programData,
-}) {
-  final program = programData.program;
-  return DraggableSheet(
-    heading: Strings.HEADER_REVIEW,
-    onClearClicked: onClearClicked,
-    child: Material(
-      color: Theme.of(context).scaffoldBackgroundColor, //for ripple effect
-      child: ListView(
-        children: [
-          if (program.myReview == null)
-            _ItemInputReview(
-              viewerIconUrl: programData.viewer.icon,
-              onTap: (context) =>
-                  context.pushPage(GlobalRoutePath.editReview(program)),
-            )
-          else
+class PageReview extends StatelessWidget {
+  const PageReview({
+    @required this.programData,
+    @required this.onClearClicked,
+  });
+
+  final OnClearClicked onClearClicked;
+  final ProgramDetailData programData;
+
+  @override
+  Widget build(BuildContext context) {
+    final program = programData.program;
+    final children = [
+      if (program.myReview == null)
+        _ItemInputReview(
+          viewerIconUrl: programData.viewer.icon,
+          onTap: _onTapInputReviewBtn,
+        )
+      else
+        _ReviewItem(
+          item: program.myReview,
+          onTap: () => _onTapReviewItem(context, program.myReview),
+        ),
+      if (program.reviews.items.isEmpty && program.myReview == null)
+        const _NoWidget()
+      else
+        ...program.reviews.items.where((it) => it.id != program.myReview?.id)
+            .map<Widget>((it) =>
             _ReviewItem(
-              item: program.myReview,
-              status: program.myReview.state,
-            ),
-          Container(
-            height: .2,
-            color: Colors.white,
-          ),
-          if (program.reviews.items.isEmpty && program.myReview == null)
-            const _NoWidget()
-          else
-            ...program.reviews.items
-                .map<Widget>((it) => _ReviewItem(item: it))
-                .joinWith(() => Container(
-                      height: 48,
-                      alignment: Alignment.center,
-                      child: Container(
-                        height: .2,
-                        color: Colors.white,
-                      ),
-                    )),
-        ],
+              item: it,
+              onTap: () => _onTapReviewItem(context, it),
+            )),
+    ];
+    return DraggableSheet(
+      heading: Strings.HEADER_REVIEW,
+      onClearClicked: onClearClicked,
+      child: Material(
+        color: Theme
+            .of(context)
+            .scaffoldBackgroundColor, //for ripple effect
+        child: ListView.separated(
+          separatorBuilder: (context, i) =>
+              Container(
+                height: .2,
+                color: Colors.white,
+              ),
+          itemBuilder: (context, i) => children[i],
+          itemCount: children.length,
+        ),
       ),
-    ),
-  );
+    );
+  }
+
+  void _onTapInputReviewBtn(BuildContext context) =>
+      context.pushPage(GlobalRoutePath.editReview(programData.program));
+
+  void _onTapReviewItem(BuildContext context, BaseReview review) {}
 }
 
 @swidget
-Widget _itemInputReview(
-  BuildContext context, {
+Widget _itemInputReview(BuildContext context, {
   @required String viewerIconUrl,
   @required OnTap onTap,
 }) =>
@@ -86,7 +97,8 @@ Widget _itemInputReview(
     );
 
 @swidget
-Widget _noWidget() => Container(
+Widget _noWidget() =>
+    Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
       child: const Text(
@@ -99,8 +111,7 @@ Widget _noWidget() => Container(
     );
 
 @swidget
-Widget _reviewItem(
-  BuildContext context, {
+Widget _reviewItem(BuildContext context, {
   @required BaseReview item,
   @required VoidCallback onTap,
 }) =>
@@ -149,13 +160,18 @@ Widget _reviewItem(
     );
 
 @swidget
-Widget _reviewStateLabel(
-  BuildContext context, {
+Widget _reviewStateLabel(BuildContext context, {
   @required ReviewState state,
 }) {
   final color = state.when(
-    inReview: () => Theme.of(context).primaryColorDark,
-    open: () => Theme.of(context).primaryColor,
+    inReview: () =>
+    Theme
+        .of(context)
+        .primaryColorDark,
+    open: () =>
+    Theme
+        .of(context)
+        .primaryColor,
     ng: () => Styles.labelCaution,
   );
   final icon = state.when(
@@ -191,7 +207,9 @@ Widget _reviewStateLabel(
 }
 
 @swidget
-Widget _userIcon({@required String iconUrl}) => CircleCachedNetworkImage(
+Widget _userIcon({@required String iconUrl}) =>
+    CircleCachedNetworkImage(
       size: 40,
-      imageUrl: iconUrl, //todo default user icon
+      imageUrl: iconUrl,
+      errorWidget: Util.defaultUserIcon,
     );

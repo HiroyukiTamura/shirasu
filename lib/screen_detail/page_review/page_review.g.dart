@@ -6,20 +6,6 @@ part of 'page_review.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class PageReview extends StatelessWidget {
-  const PageReview(
-      {Key key, @required this.onClearClicked, @required this.programData})
-      : super(key: key);
-
-  final dynamic Function(BuildContext) onClearClicked;
-
-  final ProgramDetailData programData;
-
-  @override
-  Widget build(BuildContext _context) => pageReview(_context,
-      onClearClicked: onClearClicked, programData: programData);
-}
-
 class _ItemInputReview extends StatelessWidget {
   const _ItemInputReview(
       {Key key, @required this.viewerIconUrl, @required this.onTap})

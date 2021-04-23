@@ -188,6 +188,7 @@ Widget _horizontalCarouselDetailCaption(
               CircleCachedNetworkImage(
                 imageUrl: UrlUtil.getChannelLogoUrl(conf.channelId),
                 size: 20,
+                errorWidget: Util.defaultChannelIcon,
               ),
               const SizedBox(width: 8),
               Expanded(

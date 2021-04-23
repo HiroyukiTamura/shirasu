@@ -16,6 +16,7 @@ import 'package:shirasu/screen_main/page_search/page_search.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
 import 'package:shirasu/ui_common/page_error.dart';
+import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/model/model_search.dart';
 import 'package:shirasu/extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -97,6 +98,7 @@ Widget _sectionChannel(
                   leading: CircleCachedNetworkImage(
                     imageUrl: UrlUtil.getChannelLogoUrl(it.hit.channelId),
                     size: 32,
+                    errorWidget: Util.defaultChannelIcon,
                   ),
                   onTap: () => context
                       .read(kPrvAppRouterDelegate)

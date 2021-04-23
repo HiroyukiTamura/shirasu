@@ -16,8 +16,8 @@ class PageReview extends StatelessWidget {
   final ProgramDetailData programData;
 
   @override
-  Widget build(BuildContext _context) =>
-      pageReview(onClearClicked: onClearClicked, programData: programData);
+  Widget build(BuildContext _context) => pageReview(_context,
+      onClearClicked: onClearClicked, programData: programData);
 }
 
 class _ItemInputReview extends StatelessWidget {
@@ -42,16 +42,16 @@ class _NoWidget extends StatelessWidget {
 }
 
 class _ReviewItem extends StatelessWidget {
-  const _ReviewItem({Key key, @required this.item, this.status})
+  const _ReviewItem({Key key, @required this.item, @required this.onTap})
       : super(key: key);
 
   final BaseReview item;
 
-  final ReviewState status;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext _context) =>
-      _reviewItem(_context, item: item, status: status);
+      _reviewItem(_context, item: item, onTap: onTap);
 }
 
 class _ReviewStateLabel extends StatelessWidget {
@@ -62,4 +62,13 @@ class _ReviewStateLabel extends StatelessWidget {
   @override
   Widget build(BuildContext _context) =>
       _reviewStateLabel(_context, state: state);
+}
+
+class _UserIcon extends StatelessWidget {
+  const _UserIcon({Key key, @required this.iconUrl}) : super(key: key);
+
+  final String iconUrl;
+
+  @override
+  Widget build(BuildContext _context) => _userIcon(iconUrl: iconUrl);
 }

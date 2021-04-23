@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/review_state.dart';
+import 'package:shirasu/model/graphql/review.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -18,7 +19,8 @@ import 'package:shirasu/util/types.dart';
 part 'page_review.g.dart';
 
 @swidget
-Widget pageReview({
+Widget pageReview(
+  BuildContext context, {
   @required OnClearClicked onClearClicked,
   @required ProgramDetailData programData,
 }) {
@@ -26,37 +28,40 @@ Widget pageReview({
   return DraggableSheet(
     heading: Strings.HEADER_REVIEW,
     onClearClicked: onClearClicked,
-    child: ListView(
-      children: [
-        if (program.myReview == null)
-          _ItemInputReview(
-            viewerIconUrl: programData.viewer.icon,
-            onTap: (context) =>
-                context.pushPage(GlobalRoutePath.editReview(program)),
-          )
-        else
-          _ReviewItem(
-            item: program.myReview,
-            status: program.myReview.state,
+    child: Material(
+      color: Theme.of(context).scaffoldBackgroundColor, //for ripple effect
+      child: ListView(
+        children: [
+          if (program.myReview == null)
+            _ItemInputReview(
+              viewerIconUrl: programData.viewer.icon,
+              onTap: (context) =>
+                  context.pushPage(GlobalRoutePath.editReview(program)),
+            )
+          else
+            _ReviewItem(
+              item: program.myReview,
+              status: program.myReview.state,
+            ),
+          Container(
+            height: .2,
+            color: Colors.white,
           ),
-        Container(
-          height: .2,
-          color: Colors.white,
-        ),
-        if (program.reviews.items.isEmpty && program.myReview == null)
-          const _NoWidget()
-        else
-          ...program.reviews.items
-              .map<Widget>((it) => _ReviewItem(item: it))
-              .joinWith(() => Container(
-                    height: 48,
-                    alignment: Alignment.center,
-                    child: Container(
-                      height: .2,
-                      color: Colors.white,
-                    ),
-                  )),
-      ],
+          if (program.reviews.items.isEmpty && program.myReview == null)
+            const _NoWidget()
+          else
+            ...program.reviews.items
+                .map<Widget>((it) => _ReviewItem(item: it))
+                .joinWith(() => Container(
+                      height: 48,
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: .2,
+                        color: Colors.white,
+                      ),
+                    )),
+        ],
+      ),
     ),
   );
 }
@@ -67,21 +72,15 @@ Widget _itemInputReview(
   @required String viewerIconUrl,
   @required OnTap onTap,
 }) =>
-    Material(
-      color: Theme.of(context).scaffoldBackgroundColor, //for ripple effect
-      child: ListTile(
-        onTap: () => onTap(context),
-        minVerticalPadding: 8,
-        leading: CircleCachedNetworkImage(
-          size: 40,
-          imageUrl: viewerIconUrl,
-        ),
-        title: const Text(
-          Strings.BTN_WRITE_REVIEW,
-          style: TextStyle(
-            fontSize: FontSize.DEFAULT,
-            color: Styles.COLOR_TEXT_SUB,
-          ),
+    ListTile(
+      onTap: () => onTap(context),
+      minVerticalPadding: 8,
+      leading: _UserIcon(iconUrl: viewerIconUrl),
+      title: const Text(
+        Strings.BTN_WRITE_REVIEW,
+        style: TextStyle(
+          fontSize: FontSize.DEFAULT,
+          color: Styles.COLOR_TEXT_SUB,
         ),
       ),
     );
@@ -103,15 +102,13 @@ Widget _noWidget() => Container(
 Widget _reviewItem(
   BuildContext context, {
   @required BaseReview item,
-  ReviewState status,
+  @required VoidCallback onTap,
 }) =>
     ListTile(
       minVerticalPadding: 16,
       isThreeLine: true,
-      leading: CircleCachedNetworkImage(
-        size: 40,
-        imageUrl: item.user.icon, //todo default user icon
-      ),
+      leading: _UserIcon(iconUrl: item.user.icon),
+      onTap: onTap,
       title: Row(
         children: [
           Expanded(
@@ -137,7 +134,8 @@ Widget _reviewItem(
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (status != null) _ReviewStateLabel(state: status),
+          if (item is MyReview && item.state != null)
+            _ReviewStateLabel(state: item.state),
           Text(
             item.body,
             style: const TextStyle(
@@ -160,6 +158,16 @@ Widget _reviewStateLabel(
     open: () => Theme.of(context).primaryColor,
     ng: () => Styles.labelCaution,
   );
+  final icon = state.when(
+    inReview: () => Icons.spellcheck,
+    open: () => Icons.check_circle,
+    ng: () => Icons.warning,
+  );
+  final text = state.when(
+    inReview: () => Strings.REVIEW_STATE_IN_REVIEW,
+    open: () => Strings.REVIEW_STATE_OPEN,
+    ng: () => Strings.REVIEW_STATE_NG,
+  );
   return Padding(
     padding: const EdgeInsets.only(top: 4, bottom: 8),
     child: RichText(
@@ -170,24 +178,20 @@ Widget _reviewStateLabel(
           children: [
             WidgetSpan(
               child: Icon(
-                state.when(
-                  inReview: () => Icons.spellcheck,
-                  open: () => Icons.check_circle,
-                  ng: () => Icons.warning,
-                ),
+                icon,
                 size: 16,
                 color: color,
               ),
             ),
             const WidgetSpan(child: SizedBox(width: 4)),
-            TextSpan(
-              text: state.when(
-                inReview: () => Strings.REVIEW_STATE_IN_REVIEW,
-                open: () => Strings.REVIEW_STATE_OPEN,
-                ng: () => Strings.REVIEW_STATE_NG,
-              ),
-            ),
+            TextSpan(text: text),
           ]),
     ),
   );
 }
+
+@swidget
+Widget _userIcon({@required String iconUrl}) => CircleCachedNetworkImage(
+      size: 40,
+      imageUrl: iconUrl, //todo default user icon
+    );

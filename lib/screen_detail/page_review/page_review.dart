@@ -45,26 +45,23 @@ class PageReview extends StatelessWidget {
       if (program.reviews.items.isEmpty && program.myReview == null)
         const _NoWidget()
       else
-        ...program.reviews.items.where((it) => it.id != program.myReview?.id)
-            .map<Widget>((it) =>
-            _ReviewItem(
-              item: it,
-              onTap: () => _onTapReviewItem(context, it),
-            )),
+        ...program.reviews.items
+            .where((it) => it.id != program.myReview?.id)
+            .map<Widget>((it) => _ReviewItem(
+                  item: it,
+                  onTap: () => _onTapReviewItem(context, it),
+                )),
     ];
     return DraggableSheet(
       heading: Strings.HEADER_REVIEW,
       onClearClicked: onClearClicked,
       child: Material(
-        color: Theme
-            .of(context)
-            .scaffoldBackgroundColor, //for ripple effect
+        color: Theme.of(context).scaffoldBackgroundColor, //for ripple effect
         child: ListView.separated(
-          separatorBuilder: (context, i) =>
-              Container(
-                height: .2,
-                color: Colors.white,
-              ),
+          separatorBuilder: (context, i) => Container(
+            height: .2,
+            color: Colors.white,
+          ),
           itemBuilder: (context, i) => children[i],
           itemCount: children.length,
         ),
@@ -79,7 +76,8 @@ class PageReview extends StatelessWidget {
 }
 
 @swidget
-Widget _itemInputReview(BuildContext context, {
+Widget _itemInputReview(
+  BuildContext context, {
   @required String viewerIconUrl,
   @required OnTap onTap,
 }) =>
@@ -97,8 +95,7 @@ Widget _itemInputReview(BuildContext context, {
     );
 
 @swidget
-Widget _noWidget() =>
-    Container(
+Widget _noWidget() => Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
       child: const Text(
@@ -111,7 +108,8 @@ Widget _noWidget() =>
     );
 
 @swidget
-Widget _reviewItem(BuildContext context, {
+Widget _reviewItem(
+  BuildContext context, {
   @required BaseReview item,
   @required VoidCallback onTap,
 }) =>
@@ -160,18 +158,13 @@ Widget _reviewItem(BuildContext context, {
     );
 
 @swidget
-Widget _reviewStateLabel(BuildContext context, {
+Widget _reviewStateLabel(
+  BuildContext context, {
   @required ReviewState state,
 }) {
   final color = state.when(
-    inReview: () =>
-    Theme
-        .of(context)
-        .primaryColorDark,
-    open: () =>
-    Theme
-        .of(context)
-        .primaryColor,
+    inReview: () => Theme.of(context).primaryColorDark,
+    open: () => Theme.of(context).primaryColor,
     ng: () => Styles.labelCaution,
   );
   final icon = state.when(
@@ -186,29 +179,56 @@ Widget _reviewStateLabel(BuildContext context, {
   );
   return Padding(
     padding: const EdgeInsets.only(top: 4, bottom: 8),
-    child: RichText(
-      text: TextSpan(
-          style: TextStyle(
-            color: color,
-          ),
-          children: [
-            WidgetSpan(
-              child: Icon(
-                icon,
-                size: 16,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(
+              style: TextStyle(
                 color: color,
               ),
+              children: [
+                WidgetSpan(
+                  child: Icon(
+                    icon,
+                    size: 16,
+                    color: color,
+                  ),
+                ),
+                const WidgetSpan(child: SizedBox(width: 4)),
+                TextSpan(text: text),
+              ]),
+        ),
+        if (state == const ReviewState.inReview())
+          Padding(
+            padding: const EdgeInsets.only(top: 16, bottom: 8),
+            child: Container(
+              margin: const EdgeInsets.only(left: 8),
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    width: 2,
+                    color: color,
+                  ),
+                ),
+              ),
+              padding: const EdgeInsets.only(left: 10),
+              child: const Text(
+                Strings.REVIEW_NOTE,
+                style: TextStyle(
+                  color: Styles.COLOR_TEXT_SUB,
+                  fontSize: FontSize.S13,
+                ),
+              ),
             ),
-            const WidgetSpan(child: SizedBox(width: 4)),
-            TextSpan(text: text),
-          ]),
+          ),
+      ],
     ),
   );
 }
 
 @swidget
-Widget _userIcon({@required String iconUrl}) =>
-    CircleCachedNetworkImage(
+Widget _userIcon({@required String iconUrl}) => CircleCachedNetworkImage(
       size: 40,
       imageUrl: iconUrl,
       errorWidget: Util.defaultUserIcon,

@@ -5,6 +5,7 @@ import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/mixins/video_type.dart';
+import 'package:shirasu/model/graphql/review.dart';
 import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dartx/dartx.dart';
@@ -390,6 +391,10 @@ abstract class BtmSheetState with _$BtmSheetState {
   const factory BtmSheetState.payment() = _BtmSheetStatePayment;
 
   const factory BtmSheetState.fcmMenu(String channelId, String programId) = _BtmSheetStateFcmMenu;
+
+  const factory BtmSheetState.shareReview(String programId, ReviewsItem item, String programTitle) = _BtmSheetStateShareReview;
+
+  const factory BtmSheetState.myReviewMenu(String viewerId, String programId) = _BtmSheetStateMyReviewMenu;
 }
 
 @freezed
@@ -400,12 +405,13 @@ abstract class FollowTimeLineMode with _$FollowTimeLineMode {
   const factory FollowTimeLineMode.follow() = _FollowTimeLineModeFollow;
 }
 
+/// todo move to btmSheet file
 @freezed
 abstract class ShareUrl with _$ShareUrl {
   const factory ShareUrl({
     @required String urlTwitter,
-    @required String urlFaceBook,
     @required String url,
+    String urlFaceBook,
   }) = _ShareUrl;
 }
 

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
+import 'package:shirasu/btm_sheet/btm_sheet_review.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_video_payment.dart';
 import 'package:shirasu/btm_sheet/common.dart';
+import 'package:shirasu/model/graphql/review.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
@@ -104,6 +106,32 @@ class BtmSheetEventListener extends StatelessWidget {
           ),
         ),
       ),
+      myReviewMenu: (programId, userId) async => _showBtmSheet(
+        context,
+        (context) => SafeArea(
+          child: BtmSheetMyReview(onTapEdit: () {
+            // todo implement
+          }, onTapDelete: () {
+            // todo implement
+          },),
+        ),
+      ),
+      shareReview: (programId, item, programTitle) async => _showBtmSheet(
+        context,
+        (context) => SafeArea(
+            child: BtmSheetSnsShare(
+          shareUrl: ShareUrl(
+            url: UrlUtil.programId2ReviewUrl(programId, item.user.id),
+            urlTwitter: UrlUtil.getUserReviewTwitterUrl(
+              title: programTitle,
+              programId: programId,
+              reviewerId: item.user.id,
+            ).toString(),
+          ),
+          snackCallback: (snackMsg) =>
+              context.read(kPrvViewModelDetail(id)).commandSnackBar(snackMsg),
+        )),
+      ),
     );
   }
 
@@ -145,7 +173,8 @@ Widget btmSheetCommentSelected(
   @required String id,
   @required Duration position,
 }) =>
-    TextBtmSheetContent(
+    BtmSheetListItem(
+      icon: Icons.access_time,
       text: Strings.BTM_SHEET_COMMENT_LABEL,
       onTap: () {
         context

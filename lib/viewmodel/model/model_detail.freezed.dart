@@ -5692,6 +5692,24 @@ class _$BtmSheetStateTearOff {
       programId,
     );
   }
+
+// ignore: unused_element
+  _BtmSheetStateShareReview shareReview(
+      String programId, ReviewsItem item, String programTitle) {
+    return _BtmSheetStateShareReview(
+      programId,
+      item,
+      programTitle,
+    );
+  }
+
+// ignore: unused_element
+  _BtmSheetStateMyReviewMenu myReviewMenu(String viewerId, String programId) {
+    return _BtmSheetStateMyReviewMenu(
+      viewerId,
+      programId,
+    );
+  }
 }
 
 /// @nodoc
@@ -5709,6 +5727,10 @@ mixin _$BtmSheetState {
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
     @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -5719,6 +5741,9 @@ mixin _$BtmSheetState {
     TResult commentSelect(Duration position),
     TResult payment(),
     TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -5730,6 +5755,8 @@ mixin _$BtmSheetState {
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
     @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -5740,6 +5767,8 @@ mixin _$BtmSheetState {
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
     TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
     @required TResult orElse(),
   });
 }
@@ -5807,6 +5836,10 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
     @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5815,6 +5848,8 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return none();
   }
 
@@ -5828,6 +5863,9 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     TResult commentSelect(Duration position),
     TResult payment(),
     TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5847,6 +5885,8 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
     @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5855,6 +5895,8 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return none(this);
   }
 
@@ -5868,6 +5910,8 @@ class _$_BtmSheetStateNone implements _BtmSheetStateNone {
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
     TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5928,6 +5972,10 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
     @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5936,6 +5984,8 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return playSpeed();
   }
 
@@ -5949,6 +5999,9 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     TResult commentSelect(Duration position),
     TResult payment(),
     TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -5968,6 +6021,8 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
     @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -5976,6 +6031,8 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return playSpeed(this);
   }
 
@@ -5989,6 +6046,8 @@ class _$_BtmSheetStatePlaySpeed implements _BtmSheetStatePlaySpeed {
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
     TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6050,6 +6109,10 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
     @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6058,6 +6121,8 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return resolution();
   }
 
@@ -6071,6 +6136,9 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     TResult commentSelect(Duration position),
     TResult payment(),
     TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6090,6 +6158,8 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
     @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6098,6 +6168,8 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return resolution(this);
   }
 
@@ -6111,6 +6183,8 @@ class _$_BtmSheetStateResolution implements _BtmSheetStateResolution {
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
     TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6206,6 +6280,10 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
     @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6214,6 +6292,8 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return share(shareUrl);
   }
 
@@ -6227,6 +6307,9 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     TResult commentSelect(Duration position),
     TResult payment(),
     TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6246,6 +6329,8 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
     @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6254,6 +6339,8 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return share(this);
   }
 
@@ -6267,6 +6354,8 @@ class _$_BtmSheetStateShare implements _BtmSheetStateShare {
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
     TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6357,6 +6446,10 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
     @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6365,6 +6458,8 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return commentSelect(position);
   }
 
@@ -6378,6 +6473,9 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     TResult commentSelect(Duration position),
     TResult payment(),
     TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6397,6 +6495,8 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
     @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6405,6 +6505,8 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return commentSelect(this);
   }
 
@@ -6418,6 +6520,8 @@ class _$BtmSheetStateCommentSelect implements BtmSheetStateCommentSelect {
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
     TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6483,6 +6587,10 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
     @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6491,6 +6599,8 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return payment();
   }
 
@@ -6504,6 +6614,9 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     TResult commentSelect(Duration position),
     TResult payment(),
     TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6523,6 +6636,8 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
     @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6531,6 +6646,8 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return payment(this);
   }
 
@@ -6544,6 +6661,8 @@ class _$_BtmSheetStatePayment implements _BtmSheetStatePayment {
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
     TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6639,6 +6758,10 @@ class _$_BtmSheetStateFcmMenu implements _BtmSheetStateFcmMenu {
     @required TResult commentSelect(Duration position),
     @required TResult payment(),
     @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6647,6 +6770,8 @@ class _$_BtmSheetStateFcmMenu implements _BtmSheetStateFcmMenu {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return fcmMenu(channelId, programId);
   }
 
@@ -6660,6 +6785,9 @@ class _$_BtmSheetStateFcmMenu implements _BtmSheetStateFcmMenu {
     TResult commentSelect(Duration position),
     TResult payment(),
     TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6679,6 +6807,8 @@ class _$_BtmSheetStateFcmMenu implements _BtmSheetStateFcmMenu {
     @required TResult commentSelect(BtmSheetStateCommentSelect value),
     @required TResult payment(_BtmSheetStatePayment value),
     @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
   }) {
     assert(none != null);
     assert(playSpeed != null);
@@ -6687,6 +6817,8 @@ class _$_BtmSheetStateFcmMenu implements _BtmSheetStateFcmMenu {
     assert(commentSelect != null);
     assert(payment != null);
     assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
     return fcmMenu(this);
   }
 
@@ -6700,6 +6832,8 @@ class _$_BtmSheetStateFcmMenu implements _BtmSheetStateFcmMenu {
     TResult commentSelect(BtmSheetStateCommentSelect value),
     TResult payment(_BtmSheetStatePayment value),
     TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -6718,6 +6852,386 @@ abstract class _BtmSheetStateFcmMenu implements BtmSheetState {
   String get programId;
   @JsonKey(ignore: true)
   _$BtmSheetStateFcmMenuCopyWith<_BtmSheetStateFcmMenu> get copyWith;
+}
+
+/// @nodoc
+abstract class _$BtmSheetStateShareReviewCopyWith<$Res> {
+  factory _$BtmSheetStateShareReviewCopyWith(_BtmSheetStateShareReview value,
+          $Res Function(_BtmSheetStateShareReview) then) =
+      __$BtmSheetStateShareReviewCopyWithImpl<$Res>;
+  $Res call({String programId, ReviewsItem item, String programTitle});
+
+  $ReviewsItemCopyWith<$Res> get item;
+}
+
+/// @nodoc
+class __$BtmSheetStateShareReviewCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements _$BtmSheetStateShareReviewCopyWith<$Res> {
+  __$BtmSheetStateShareReviewCopyWithImpl(_BtmSheetStateShareReview _value,
+      $Res Function(_BtmSheetStateShareReview) _then)
+      : super(_value, (v) => _then(v as _BtmSheetStateShareReview));
+
+  @override
+  _BtmSheetStateShareReview get _value =>
+      super._value as _BtmSheetStateShareReview;
+
+  @override
+  $Res call({
+    Object programId = freezed,
+    Object item = freezed,
+    Object programTitle = freezed,
+  }) {
+    return _then(_BtmSheetStateShareReview(
+      programId == freezed ? _value.programId : programId as String,
+      item == freezed ? _value.item : item as ReviewsItem,
+      programTitle == freezed ? _value.programTitle : programTitle as String,
+    ));
+  }
+
+  @override
+  $ReviewsItemCopyWith<$Res> get item {
+    if (_value.item == null) {
+      return null;
+    }
+    return $ReviewsItemCopyWith<$Res>(_value.item, (value) {
+      return _then(_value.copyWith(item: value));
+    });
+  }
+}
+
+/// @nodoc
+class _$_BtmSheetStateShareReview implements _BtmSheetStateShareReview {
+  const _$_BtmSheetStateShareReview(
+      this.programId, this.item, this.programTitle)
+      : assert(programId != null),
+        assert(item != null),
+        assert(programTitle != null);
+
+  @override
+  final String programId;
+  @override
+  final ReviewsItem item;
+  @override
+  final String programTitle;
+
+  @override
+  String toString() {
+    return 'BtmSheetState.shareReview(programId: $programId, item: $item, programTitle: $programTitle)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _BtmSheetStateShareReview &&
+            (identical(other.programId, programId) ||
+                const DeepCollectionEquality()
+                    .equals(other.programId, programId)) &&
+            (identical(other.item, item) ||
+                const DeepCollectionEquality().equals(other.item, item)) &&
+            (identical(other.programTitle, programTitle) ||
+                const DeepCollectionEquality()
+                    .equals(other.programTitle, programTitle)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(programId) ^
+      const DeepCollectionEquality().hash(item) ^
+      const DeepCollectionEquality().hash(programTitle);
+
+  @JsonKey(ignore: true)
+  @override
+  _$BtmSheetStateShareReviewCopyWith<_BtmSheetStateShareReview> get copyWith =>
+      __$BtmSheetStateShareReviewCopyWithImpl<_BtmSheetStateShareReview>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+    @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
+    @required TResult commentSelect(Duration position),
+    @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    assert(payment != null);
+    assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
+    return shareReview(programId, item, programTitle);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    TResult resolution(),
+    TResult share(ShareUrl shareUrl),
+    TResult commentSelect(Duration position),
+    TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (shareReview != null) {
+      return shareReview(programId, item, programTitle);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    assert(payment != null);
+    assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
+    return shareReview(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (shareReview != null) {
+      return shareReview(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BtmSheetStateShareReview implements BtmSheetState {
+  const factory _BtmSheetStateShareReview(
+          String programId, ReviewsItem item, String programTitle) =
+      _$_BtmSheetStateShareReview;
+
+  String get programId;
+  ReviewsItem get item;
+  String get programTitle;
+  @JsonKey(ignore: true)
+  _$BtmSheetStateShareReviewCopyWith<_BtmSheetStateShareReview> get copyWith;
+}
+
+/// @nodoc
+abstract class _$BtmSheetStateMyReviewMenuCopyWith<$Res> {
+  factory _$BtmSheetStateMyReviewMenuCopyWith(_BtmSheetStateMyReviewMenu value,
+          $Res Function(_BtmSheetStateMyReviewMenu) then) =
+      __$BtmSheetStateMyReviewMenuCopyWithImpl<$Res>;
+  $Res call({String viewerId, String programId});
+}
+
+/// @nodoc
+class __$BtmSheetStateMyReviewMenuCopyWithImpl<$Res>
+    extends _$BtmSheetStateCopyWithImpl<$Res>
+    implements _$BtmSheetStateMyReviewMenuCopyWith<$Res> {
+  __$BtmSheetStateMyReviewMenuCopyWithImpl(_BtmSheetStateMyReviewMenu _value,
+      $Res Function(_BtmSheetStateMyReviewMenu) _then)
+      : super(_value, (v) => _then(v as _BtmSheetStateMyReviewMenu));
+
+  @override
+  _BtmSheetStateMyReviewMenu get _value =>
+      super._value as _BtmSheetStateMyReviewMenu;
+
+  @override
+  $Res call({
+    Object viewerId = freezed,
+    Object programId = freezed,
+  }) {
+    return _then(_BtmSheetStateMyReviewMenu(
+      viewerId == freezed ? _value.viewerId : viewerId as String,
+      programId == freezed ? _value.programId : programId as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_BtmSheetStateMyReviewMenu implements _BtmSheetStateMyReviewMenu {
+  const _$_BtmSheetStateMyReviewMenu(this.viewerId, this.programId)
+      : assert(viewerId != null),
+        assert(programId != null);
+
+  @override
+  final String viewerId;
+  @override
+  final String programId;
+
+  @override
+  String toString() {
+    return 'BtmSheetState.myReviewMenu(viewerId: $viewerId, programId: $programId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _BtmSheetStateMyReviewMenu &&
+            (identical(other.viewerId, viewerId) ||
+                const DeepCollectionEquality()
+                    .equals(other.viewerId, viewerId)) &&
+            (identical(other.programId, programId) ||
+                const DeepCollectionEquality()
+                    .equals(other.programId, programId)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(viewerId) ^
+      const DeepCollectionEquality().hash(programId);
+
+  @JsonKey(ignore: true)
+  @override
+  _$BtmSheetStateMyReviewMenuCopyWith<_BtmSheetStateMyReviewMenu>
+      get copyWith =>
+          __$BtmSheetStateMyReviewMenuCopyWithImpl<_BtmSheetStateMyReviewMenu>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult none(),
+    @required TResult playSpeed(),
+    @required TResult resolution(),
+    @required TResult share(ShareUrl shareUrl),
+    @required TResult commentSelect(Duration position),
+    @required TResult payment(),
+    @required TResult fcmMenu(String channelId, String programId),
+    @required
+        TResult shareReview(
+            String programId, ReviewsItem item, String programTitle),
+    @required TResult myReviewMenu(String viewerId, String programId),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    assert(payment != null);
+    assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
+    return myReviewMenu(viewerId, programId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult none(),
+    TResult playSpeed(),
+    TResult resolution(),
+    TResult share(ShareUrl shareUrl),
+    TResult commentSelect(Duration position),
+    TResult payment(),
+    TResult fcmMenu(String channelId, String programId),
+    TResult shareReview(
+        String programId, ReviewsItem item, String programTitle),
+    TResult myReviewMenu(String viewerId, String programId),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (myReviewMenu != null) {
+      return myReviewMenu(viewerId, programId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult none(_BtmSheetStateNone value),
+    @required TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    @required TResult resolution(_BtmSheetStateResolution value),
+    @required TResult share(_BtmSheetStateShare value),
+    @required TResult commentSelect(BtmSheetStateCommentSelect value),
+    @required TResult payment(_BtmSheetStatePayment value),
+    @required TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    @required TResult shareReview(_BtmSheetStateShareReview value),
+    @required TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
+  }) {
+    assert(none != null);
+    assert(playSpeed != null);
+    assert(resolution != null);
+    assert(share != null);
+    assert(commentSelect != null);
+    assert(payment != null);
+    assert(fcmMenu != null);
+    assert(shareReview != null);
+    assert(myReviewMenu != null);
+    return myReviewMenu(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult none(_BtmSheetStateNone value),
+    TResult playSpeed(_BtmSheetStatePlaySpeed value),
+    TResult resolution(_BtmSheetStateResolution value),
+    TResult share(_BtmSheetStateShare value),
+    TResult commentSelect(BtmSheetStateCommentSelect value),
+    TResult payment(_BtmSheetStatePayment value),
+    TResult fcmMenu(_BtmSheetStateFcmMenu value),
+    TResult shareReview(_BtmSheetStateShareReview value),
+    TResult myReviewMenu(_BtmSheetStateMyReviewMenu value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (myReviewMenu != null) {
+      return myReviewMenu(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _BtmSheetStateMyReviewMenu implements BtmSheetState {
+  const factory _BtmSheetStateMyReviewMenu(String viewerId, String programId) =
+      _$_BtmSheetStateMyReviewMenu;
+
+  String get viewerId;
+  String get programId;
+  @JsonKey(ignore: true)
+  _$BtmSheetStateMyReviewMenuCopyWith<_BtmSheetStateMyReviewMenu> get copyWith;
 }
 
 /// @nodoc
@@ -7002,13 +7516,11 @@ class _$ShareUrlTearOff {
 
 // ignore: unused_element
   _ShareUrl call(
-      {@required String urlTwitter,
-      @required String urlFaceBook,
-      @required String url}) {
+      {@required String urlTwitter, @required String url, String urlFaceBook}) {
     return _ShareUrl(
       urlTwitter: urlTwitter,
-      urlFaceBook: urlFaceBook,
       url: url,
+      urlFaceBook: urlFaceBook,
     );
   }
 }
@@ -7020,8 +7532,8 @@ const $ShareUrl = _$ShareUrlTearOff();
 /// @nodoc
 mixin _$ShareUrl {
   String get urlTwitter;
-  String get urlFaceBook;
   String get url;
+  String get urlFaceBook;
 
   @JsonKey(ignore: true)
   $ShareUrlCopyWith<ShareUrl> get copyWith;
@@ -7031,7 +7543,7 @@ mixin _$ShareUrl {
 abstract class $ShareUrlCopyWith<$Res> {
   factory $ShareUrlCopyWith(ShareUrl value, $Res Function(ShareUrl) then) =
       _$ShareUrlCopyWithImpl<$Res>;
-  $Res call({String urlTwitter, String urlFaceBook, String url});
+  $Res call({String urlTwitter, String url, String urlFaceBook});
 }
 
 /// @nodoc
@@ -7045,15 +7557,15 @@ class _$ShareUrlCopyWithImpl<$Res> implements $ShareUrlCopyWith<$Res> {
   @override
   $Res call({
     Object urlTwitter = freezed,
-    Object urlFaceBook = freezed,
     Object url = freezed,
+    Object urlFaceBook = freezed,
   }) {
     return _then(_value.copyWith(
       urlTwitter:
           urlTwitter == freezed ? _value.urlTwitter : urlTwitter as String,
+      url: url == freezed ? _value.url : url as String,
       urlFaceBook:
           urlFaceBook == freezed ? _value.urlFaceBook : urlFaceBook as String,
-      url: url == freezed ? _value.url : url as String,
     ));
   }
 }
@@ -7063,7 +7575,7 @@ abstract class _$ShareUrlCopyWith<$Res> implements $ShareUrlCopyWith<$Res> {
   factory _$ShareUrlCopyWith(_ShareUrl value, $Res Function(_ShareUrl) then) =
       __$ShareUrlCopyWithImpl<$Res>;
   @override
-  $Res call({String urlTwitter, String urlFaceBook, String url});
+  $Res call({String urlTwitter, String url, String urlFaceBook});
 }
 
 /// @nodoc
@@ -7078,15 +7590,15 @@ class __$ShareUrlCopyWithImpl<$Res> extends _$ShareUrlCopyWithImpl<$Res>
   @override
   $Res call({
     Object urlTwitter = freezed,
-    Object urlFaceBook = freezed,
     Object url = freezed,
+    Object urlFaceBook = freezed,
   }) {
     return _then(_ShareUrl(
       urlTwitter:
           urlTwitter == freezed ? _value.urlTwitter : urlTwitter as String,
+      url: url == freezed ? _value.url : url as String,
       urlFaceBook:
           urlFaceBook == freezed ? _value.urlFaceBook : urlFaceBook as String,
-      url: url == freezed ? _value.url : url as String,
     ));
   }
 }
@@ -7094,23 +7606,20 @@ class __$ShareUrlCopyWithImpl<$Res> extends _$ShareUrlCopyWithImpl<$Res>
 /// @nodoc
 class _$_ShareUrl implements _ShareUrl {
   const _$_ShareUrl(
-      {@required this.urlTwitter,
-      @required this.urlFaceBook,
-      @required this.url})
+      {@required this.urlTwitter, @required this.url, this.urlFaceBook})
       : assert(urlTwitter != null),
-        assert(urlFaceBook != null),
         assert(url != null);
 
   @override
   final String urlTwitter;
   @override
-  final String urlFaceBook;
-  @override
   final String url;
+  @override
+  final String urlFaceBook;
 
   @override
   String toString() {
-    return 'ShareUrl(urlTwitter: $urlTwitter, urlFaceBook: $urlFaceBook, url: $url)';
+    return 'ShareUrl(urlTwitter: $urlTwitter, url: $url, urlFaceBook: $urlFaceBook)';
   }
 
   @override
@@ -7120,19 +7629,19 @@ class _$_ShareUrl implements _ShareUrl {
             (identical(other.urlTwitter, urlTwitter) ||
                 const DeepCollectionEquality()
                     .equals(other.urlTwitter, urlTwitter)) &&
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)) &&
             (identical(other.urlFaceBook, urlFaceBook) ||
                 const DeepCollectionEquality()
-                    .equals(other.urlFaceBook, urlFaceBook)) &&
-            (identical(other.url, url) ||
-                const DeepCollectionEquality().equals(other.url, url)));
+                    .equals(other.urlFaceBook, urlFaceBook)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(urlTwitter) ^
-      const DeepCollectionEquality().hash(urlFaceBook) ^
-      const DeepCollectionEquality().hash(url);
+      const DeepCollectionEquality().hash(url) ^
+      const DeepCollectionEquality().hash(urlFaceBook);
 
   @JsonKey(ignore: true)
   @override
@@ -7143,15 +7652,15 @@ class _$_ShareUrl implements _ShareUrl {
 abstract class _ShareUrl implements ShareUrl {
   const factory _ShareUrl(
       {@required String urlTwitter,
-      @required String urlFaceBook,
-      @required String url}) = _$_ShareUrl;
+      @required String url,
+      String urlFaceBook}) = _$_ShareUrl;
 
   @override
   String get urlTwitter;
   @override
-  String get urlFaceBook;
-  @override
   String get url;
+  @override
+  String get urlFaceBook;
   @override
   @JsonKey(ignore: true)
   _$ShareUrlCopyWith<_ShareUrl> get copyWith;

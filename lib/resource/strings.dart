@@ -94,6 +94,15 @@ class Strings {
   static const COMMENT_TEXT_FILED_HINT = 'コメント入力';
   static const PLAYER_CONTROLLER_LABEL_LIVE = 'LIVE';
 
+  /// ref: "users.pages.Program.components.ReviewSection.reviewShareText"
+  static String textReviewTwitterShare(String userId, String prgTitle) =>
+      '$userIdさんがレビューを投稿しました！「$prgTitle」';
+
+  /// replace of "users.pages.Program.components.ReviewSection.rewriteReview"
+  static const String BTM_SHEET_REVIEW_EDIT = '編集';
+  /// replace of "users.pages.Program.components.ReviewSection.removeReview"
+  static const String BTM_SHEET_REVIEW_DELETE = '削除';
+
 //endregion
 
 //region ScreenMain PageSubscribing
@@ -373,5 +382,9 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
 
   /// ref: "users.pages.Program.components.ReviewSection.stateOpen"
   static const REVIEW_STATE_OPEN = '公開';
+
+  /// ref: "users.pages.Program.components.ReviewSection.reviewNote"
+  static const REVIEW_NOTE =
+      'この投稿はまだ投稿者にしか見えていません。レビューは配信者の承認を得たもののみが公開されます。内容によっては公開が承認されず差し戻されることがあります。確認をお待ちください。';
 //endregion
 }

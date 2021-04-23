@@ -99,12 +99,13 @@ class ListBtmSheetContent<T> extends StatelessWidget {
 //     );
 
 @swidget
-Widget textBtmSheetContent({
+Widget btmSheetListItem({
+  @required IconData icon,
   @required String text,
   @required VoidCallback onTap,
 }) =>
     ListTile(
-      leading: const Icon(Icons.access_time),
+      leading: Icon(icon),
       title: Text(
         text,
         style: TextStyles.SINGLE_LINE_DEFAULT,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
@@ -12,6 +13,7 @@ import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/util/types.dart';
 import 'package:shirasu/viewmodel/model/model_edit_review.dart';
 import 'package:shirasu/viewmodel/viewmodel_edit_review.dart';
+import 'package:shirasu/gen/assets.gen.dart';
 
 part 'screen_edit_review.g.dart';
 
@@ -32,10 +34,7 @@ class ScreenEditReview extends HookWidget {
           ),
           floatingActionButton:
               useProvider(kPrvVmEditReview(programId).state.select(
-                        (it) =>
-                            it.state !=
-                                const ReviewModelState.preInitialized() &&
-                            it.isValidLength,
+                        (it) => it.showFab,
                       ))
                   ? _Fab(onTap: _onTapFab) //todo
                   : null,
@@ -78,26 +77,47 @@ Widget _body({
       ),
     );
 
-@swidget
+@hwidget
 Widget _fab(
   BuildContext context, {
+  @required String programId,
   @required OnTap onTap,
 }) =>
-    FloatingActionButton(
-      onPressed: () => onTap(context),
-      child: const Icon(
-        Icons.send,
-        color: Colors.white,
+    useProvider(kPrvVmEditReview(programId).state.select((it) => it.state))
+        .maybeWhen(
+      success: () => FloatingActionButton(
+        onPressed: null,
+        child: Lottie.asset(
+          Assets.lottie.pausePlay,
+        ),
       ),
+      loading: () => Stack(
+        children: const [
+          CenterCircleProgress(), //todo sizing
+          Center(
+            child: FloatingActionButton(
+              onPressed: null,
+              child: SizedBox.shrink(),
+            ),
+          ),
+        ],
+      ),
+      initialized: () => FloatingActionButton(
+        onPressed: () => onTap(context),
+        child: const Icon(
+          Icons.send,
+          color: Colors.white,
+        ),
+      ),
+      orElse: () => const SizedBox.shrink(),
     );
 
 @hwidget
 Widget _textField(
   BuildContext context, {
   @required String programId,
-
   @required Function(BuildContext context, String text) onChanged,
-      String initialValue,
+  String initialValue,
 }) {
   final border = OutlineInputBorder(
     borderSide: BorderSide(

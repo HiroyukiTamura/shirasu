@@ -31,6 +31,7 @@ class $AssetsJsonGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  String get check => 'assets/lottie/check.json';
   String get fastForward => 'assets/lottie/fast_forward.json';
   String get pausePlay => 'assets/lottie/pause_play.json';
   String get rewind => 'assets/lottie/rewind.json';
@@ -90,6 +91,7 @@ class $AssetsSvgGen {
 class Assets {
   Assets._();
 
+  static const String env = 'assets/.env';
   static const $AssetsJpegGen jpeg = $AssetsJpegGen();
   static const $AssetsJsGen js = $AssetsJsGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
@@ -99,26 +101,23 @@ class Assets {
 }
 
 class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName)
-      : _assetName = assetName,
-        super(assetName);
-  final String _assetName;
+  const AssetGenImage(String assetName) : super(assetName);
 
   Image image({
-    Key key,
-    ImageFrameBuilder frameBuilder,
-    ImageLoadingBuilder loadingBuilder,
-    ImageErrorWidgetBuilder errorBuilder,
-    String semanticLabel,
+    Key? key,
+    ImageFrameBuilder? frameBuilder,
+    ImageLoadingBuilder? loadingBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    String? semanticLabel,
     bool excludeFromSemantics = false,
-    double width,
-    double height,
-    Color color,
-    BlendMode colorBlendMode,
-    BoxFit fit,
+    double? width,
+    double? height,
+    Color? color,
+    BlendMode? colorBlendMode,
+    BoxFit? fit,
     AlignmentGeometry alignment = Alignment.center,
     ImageRepeat repeat = ImageRepeat.noRepeat,
-    Rect centerSlice,
+    Rect? centerSlice,
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
@@ -147,7 +146,7 @@ class AssetGenImage extends AssetImage {
     );
   }
 
-  String get path => _assetName;
+  String get path => assetName;
 }
 
 class SvgGenImage {
@@ -156,19 +155,19 @@ class SvgGenImage {
   final String _assetName;
 
   SvgPicture svg({
-    Key key,
+    Key? key,
     bool matchTextDirection = false,
-    AssetBundle bundle,
-    String package,
-    double width,
-    double height,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
     BoxFit fit = BoxFit.contain,
     AlignmentGeometry alignment = Alignment.center,
     bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder placeholderBuilder,
-    Color color,
+    WidgetBuilder? placeholderBuilder,
+    Color? color,
     BlendMode colorBlendMode = BlendMode.srcIn,
-    String semanticsLabel,
+    String? semanticsLabel,
     bool excludeFromSemantics = false,
     Clip clipBehavior = Clip.hardEdge,
   }) {

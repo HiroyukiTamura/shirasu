@@ -28,6 +28,16 @@ abstract class ModelEditReview with _$ModelEditReview {
         initializeError: (errMsg) => ReviewUiState.initializeError(errMsg),
         orElse: () => ReviewUiState.initialized(programData),
       );
+
+  bool get showFab {
+    final editable = state.maybeWhen(
+      initialized: () => true,
+      loading: () => true,
+      success: () => true,
+      orElse: () => false,
+    );
+    return editable && isValidLength;
+  }
 }
 
 @freezed

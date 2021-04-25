@@ -187,7 +187,7 @@ Widget _reviewItem(
           ),
           const SizedBox(width: 16),
           Text(
-            DateFormat('yyyy/MM/dd HH:mm').format(item.createdAt),
+            item.createdAt.formatLocalYmdHm(),
             style: const TextStyle(
               color: Styles.COLOR_TEXT_SUB,
               fontSize: FontSize.S13,

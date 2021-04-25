@@ -16,6 +16,7 @@ import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/extension.dart';
 
 part 'page_handouts.g.dart';
 
@@ -54,7 +55,7 @@ class _ScreenHandsOutInner extends HookWidget {
           itemBuilder: (context, index) {
             final handout = program.handouts.items[index];
             final createdAt =
-                DateFormat('yyyy.MM.dd HH:mm').format(handout.createdAt);
+                handout.createdAt.formatLocalYmdHm();
             final isExtensionOnly = handout.extensionId != null;
             final enabled = program.isPurchased &&
                 (!isExtensionOnly ||

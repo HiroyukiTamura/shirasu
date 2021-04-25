@@ -8,6 +8,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/extension.dart';
 
 part 'list_tile_subscribed_channel.g.dart';
 
@@ -16,8 +17,8 @@ Widget listTileSubscribedChannel({
   @required SubscribedChannel subscribedChannel,
 }) {
   final text = '''
-${Strings.SUBSCRIPTION_START_DATE}: ${DateFormat('yyyy/MM/dd').format(subscribedChannel.subscribedAt)}
-${Strings.CURRENT_PERIOD_END_AT_LABEL}: ${DateFormat('yyyy/MM/dd').format(subscribedChannel.currentPeriodEndAt)}''';
+${Strings.SUBSCRIPTION_START_DATE}: ${subscribedChannel.subscribedAt.formatLocalYmd()}
+${Strings.CURRENT_PERIOD_END_AT_LABEL}: ${subscribedChannel.currentPeriodEndAt.formatLocalYmd()}''';
 
   return ListTile(
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),

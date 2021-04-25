@@ -13,6 +13,7 @@ import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
+import 'package:shirasu/extension.dart';
 
 part 'horizontal_carousels.g.dart';
 
@@ -166,7 +167,7 @@ Widget _horizontalCarouselDetailCaption(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            DateFormat('yyyy/MM/dd HH:mm').format(conf.broadcastAt),
+            conf.broadcastAt.formatLocalYmdHm(),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: TextStyles.s13TextHSingle(

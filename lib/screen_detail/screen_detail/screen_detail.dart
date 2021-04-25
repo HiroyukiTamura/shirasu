@@ -216,7 +216,7 @@ class _ScreenDetailState extends State<ScreenDetail>
                   ),
                   _PlayerBodyWrapper(
                     height: listViewH,
-                    data: programDetailData,
+                    program: programDetailData.program,
                     btmPadding: headerH,
                   )
                 ],
@@ -266,47 +266,49 @@ class _Fab extends HookWidget {
 
 class _BottomPanel extends HookWidget {
   const _BottomPanel({
-    @required this.programData,
+    @required this.program,
     Key key,
   }) : super(key: key);
 
-  final ProgramDetailData programData;
-
-  ProgramDetail get _program => programData.program;
+  final ProgramDetail program;
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_kPrvBtmSheetExpanded(_program.id)).when(
+      useProvider(_kPrvBtmSheetExpanded(program.id)).when(
         hidden: () => const SizedBox.shrink(),
         handouts: () => PageHandouts(
-          program: _program,
+          program: program,
           onClearClicked: _onClearClicked,
         ),
         pricing: () => PagePriceChart(
-          program: _program,
+          program: program,
           onClearClicked: _onClearClicked,
         ),
-        comment: () => PageComment(id: _program.id),
+        comment: () => PageComment(id: program.id),
         review: () => PageReview(
           onClearClicked: _onClearClicked,
-          programData: programData,
+          program: program,
         ),
       );
 
   Future<void> _onClearClicked(BuildContext context) async => context
-      .read(kPrvViewModelDetail(_program.id))
+      .read(kPrvViewModelDetail(program.id))
       .togglePage(const PageSheetModel.hidden());
 }
 
 @swidget
 Widget _playerBodyWrapper({
   @required double height,
-  @required ProgramDetailData data,
+  @required ProgramDetail program,
   @required double btmPadding,
 }) =>
     height < 0
         ? const SizedBox.shrink()
-        : _PlayerBody(height: height, data: data, btmPadding: btmPadding);
+        : _PlayerBody(
+            height: height,
+            program: program,
+            btmPadding: btmPadding,
+          );
 
 const double _kListViewBtmPadding = 24;
 
@@ -315,7 +317,7 @@ Widget _playerBody(
   BuildContext context, {
   @required double height,
   @required double btmPadding,
-  @required ProgramDetailData data,
+  @required ProgramDetail program,
 }) =>
     SizedBox(
       height: height,
@@ -323,9 +325,9 @@ Widget _playerBody(
         minHeight: 0,
         maxHeight: height,
         controller:
-            useProvider(kPrvViewModelDetail(data.program.id)).panelController,
+            useProvider(kPrvViewModelDetail(program.id)).panelController,
         color: Theme.of(context).scaffoldBackgroundColor,
-        panel: _BottomPanel(programData: data),
+        panel: _BottomPanel(program: program),
         body: Padding(
           padding: EdgeInsets.only(bottom: btmPadding + _kListViewBtmPadding),
           //i don't why, but it's needed
@@ -333,20 +335,20 @@ Widget _playerBody(
             padding: const EdgeInsets.only(bottom: _kListViewBtmPadding),
             children: [
               RowChannel(
-                title: data.program.channel.name,
-                channelId: data.program.channel.id,
+                title: program.channel.name,
+                channelId: program.channel.id,
               ),
-              RowVideoTitle(text: data.program.title),
+              RowVideoTitle(text: program.title),
               RowVideoTime(
-                broadcastAt: data.program.broadcastAt,
-                totalPlayTime: data.program.totalPlayTime,
+                broadcastAt: program.broadcastAt,
+                totalPlayTime: program.totalPlayTime,
               ),
-              RowVideoTags(textList: data.program.tags),
-              RowFabs(program: data.program),
+              RowVideoTags(textList: program.tags),
+              RowFabs(program: program),
               // todo fix text height
               RowVideoDesc(
-                text: data.program.detail,
-                id: data.program.id,
+                text: program.detail,
+                id: program.id,
               ),
             ],
           ),

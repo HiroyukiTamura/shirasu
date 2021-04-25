@@ -13,9 +13,11 @@ import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';
 import 'package:shirasu/repository/hive_pref_repository.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/resource/strings.dart';
+import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
+import 'package:shirasu/extension.dart';
 
 part 'btm_sheet.g.dart';
 
@@ -106,14 +108,13 @@ class BtmSheetEventListener extends StatelessWidget {
           ),
         ),
       ),
-      myReviewMenu: (programId, userId) async => _showBtmSheet(
+      myReviewMenu: (viewerId, programId) async => _showBtmSheet(
         context,
         (context) => SafeArea(
-          child: BtmSheetMyReview(onTapEdit: () {
-            // todo implement
-          }, onTapDelete: () {
-            // todo implement
-          },),
+          child: BtmSheetMyReview(
+            onTapEdit: () => context.pushPage(GlobalRoutePath.editReview(programId)), //todo hide BtmSheet
+            onTapDelete: () async => context.read(kPrvViewModelDetail(programId)).deleteReview(),
+          ),
         ),
       ),
       shareReview: (programId, item, programTitle) async => _showBtmSheet(
@@ -175,7 +176,7 @@ Widget btmSheetCommentSelected(
 }) =>
     BtmSheetListItem(
       icon: Icons.access_time,
-      text: Strings.BTM_SHEET_COMMENT_LABEL,
+      title: Strings.BTM_SHEET_COMMENT_LABEL,
       onTap: () {
         context
             .read(kPrvViewModelDetail(id))

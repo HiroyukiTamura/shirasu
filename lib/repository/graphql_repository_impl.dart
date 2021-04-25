@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
+import 'package:shirasu/model/graphql/remove_review_data.dart';
+import 'package:shirasu/model/graphql/review.dart';
 import 'package:shirasu/repository/graghql_query.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/repository/hive_auth_repository.dart';
@@ -284,5 +286,28 @@ class GraphQlRepositoryImpl with GraphQlRepository {
       operationName: 'ListSubscribedPrograms',
     );
     return ListSubscribedPrograms.fromJson(result.data);
+  }
+
+  @override
+  Future<ReviewData> postReview({String programId, String text}) async {
+    final result = await _mutate(
+      GraphqlQuery.MUTATE_POST_REVIEW,
+      variables: {
+        'programId': programId,
+        'body': text,
+      },
+    );
+    return ReviewData.fromJson(result.data);
+  }
+
+  @override
+  Future<RemoveReviewData> deleteReview({@required String reviewId}) async {
+    final result = await _mutate(
+      GraphqlQuery.MUTATE_REMOVE_REVIEW,
+      variables: {
+        'reviewId': reviewId,
+      },
+    );
+    return RemoveReviewData.fromJson(result.data);
   }
 }

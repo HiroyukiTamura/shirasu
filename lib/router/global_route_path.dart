@@ -26,7 +26,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() fcm,
     @required Result Function() auth,
     @required Result Function() preLogin,
-    @required Result Function(ProgramDetail program) editReview,
+    @required Result Function(String programId) editReview,
   }) {
     if (this is GlobalRoutePath)
       return (this as GlobalRoutePath).when(
@@ -63,7 +63,7 @@ extension GlobalRoutePathBaseX on GlobalRoutePathBase {
     @required Result Function() fcm,
     @required Result Function() auth,
     @required Result Function() preLogin,
-    @required Result Function(ProgramDetail programDetail) editReview,
+    @required Result Function(String programId) editReview,
   }) {
     if (this is PathDataMainPageBase) return mainPage();
     if (this is GlobalRoutePath)
@@ -116,7 +116,7 @@ abstract class GlobalRoutePath with _$GlobalRoutePath, GlobalRoutePathBase {
 
   const factory GlobalRoutePath.preLogin() = _PathDataPreLogin;
 
-  const factory GlobalRoutePath.editReview(ProgramDetail program) = _PathDataEditReview;
+  const factory GlobalRoutePath.editReview(String programId) = _PathDataEditReview;
 
   factory GlobalRoutePath.buildProgram({
     @required String channelId,

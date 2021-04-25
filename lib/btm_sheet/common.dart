@@ -99,7 +99,7 @@ class ListBtmSheetContent<T> extends StatelessWidget {
 //     );
 
 @swidget
-Widget btmSheetListItem({
+Widget btmSheetListItemSingle({
   @required IconData icon,
   @required String text,
   @required VoidCallback onTap,

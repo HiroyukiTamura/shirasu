@@ -56,6 +56,9 @@ class Strings {
   static const SNACK_ERR_FCM_PERMISSION = '通知を受け取るには設定で許可を与えてください';
   static const SNACK_ACTION_FCM_PERMISSION = '設定する';
 
+  /// ref: "users.pages.Program.components.ReviewSection.notifyReviewRemoved"
+  static const SNACK_ACTION_DELETE_REVIEW = 'レビューを削除しました';
+
   //endregion
 
   //region ScreenMeta
@@ -100,6 +103,7 @@ class Strings {
 
   /// replace of "users.pages.Program.components.ReviewSection.rewriteReview"
   static const String BTM_SHEET_REVIEW_EDIT = '編集';
+
   /// replace of "users.pages.Program.components.ReviewSection.removeReview"
   static const String BTM_SHEET_REVIEW_DELETE = '削除';
 
@@ -386,5 +390,8 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   /// ref: "users.pages.Program.components.ReviewSection.reviewNote"
   static const REVIEW_NOTE =
       'この投稿はまだ投稿者にしか見えていません。レビューは配信者の承認を得たもののみが公開されます。内容によっては公開が承認されず差し戻されることがあります。確認をお待ちください。';
+
+  /// ref: "users.pages.Program.components.ReviewModal.writeReview"
+  static const APP_BAR_EDIT_REVIEW = 'レビュー記入';
 //endregion
 }

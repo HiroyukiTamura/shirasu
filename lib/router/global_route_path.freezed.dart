@@ -66,9 +66,9 @@ class _$GlobalRoutePathTearOff {
   }
 
 // ignore: unused_element
-  _PathDataEditReview editReview(ProgramDetail program) {
+  _PathDataEditReview editReview(String programId) {
     return _PathDataEditReview(
-      program,
+      programId,
     );
   }
 }
@@ -90,7 +90,7 @@ mixin _$GlobalRoutePath {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -103,7 +103,7 @@ mixin _$GlobalRoutePath {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -200,7 +200,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -227,7 +227,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -372,7 +372,7 @@ class _$PathDataError implements PathDataError {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -399,7 +399,7 @@ class _$PathDataError implements PathDataError {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -540,7 +540,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -567,7 +567,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -706,7 +706,7 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -733,7 +733,7 @@ class _$PathDataProgram implements PathDataProgram {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -849,7 +849,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -876,7 +876,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -988,7 +988,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1015,7 +1015,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1127,7 +1127,7 @@ class _$_PathDataFcm implements _PathDataFcm {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1154,7 +1154,7 @@ class _$_PathDataFcm implements _PathDataFcm {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1266,7 +1266,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1293,7 +1293,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1405,7 +1405,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1432,7 +1432,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1501,9 +1501,7 @@ abstract class _$PathDataEditReviewCopyWith<$Res> {
   factory _$PathDataEditReviewCopyWith(
           _PathDataEditReview value, $Res Function(_PathDataEditReview) then) =
       __$PathDataEditReviewCopyWithImpl<$Res>;
-  $Res call({ProgramDetail program});
-
-  $ProgramDetailCopyWith<$Res> get program;
+  $Res call({String programId});
 }
 
 /// @nodoc
@@ -1519,47 +1517,38 @@ class __$PathDataEditReviewCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object program = freezed,
+    Object programId = freezed,
   }) {
     return _then(_PathDataEditReview(
-      program == freezed ? _value.program : program as ProgramDetail,
+      programId == freezed ? _value.programId : programId as String,
     ));
-  }
-
-  @override
-  $ProgramDetailCopyWith<$Res> get program {
-    if (_value.program == null) {
-      return null;
-    }
-    return $ProgramDetailCopyWith<$Res>(_value.program, (value) {
-      return _then(_value.copyWith(program: value));
-    });
   }
 }
 
 /// @nodoc
 class _$_PathDataEditReview implements _PathDataEditReview {
-  const _$_PathDataEditReview(this.program) : assert(program != null);
+  const _$_PathDataEditReview(this.programId) : assert(programId != null);
 
   @override
-  final ProgramDetail program;
+  final String programId;
 
   @override
   String toString() {
-    return 'GlobalRoutePath.editReview(program: $program)';
+    return 'GlobalRoutePath.editReview(programId: $programId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _PathDataEditReview &&
-            (identical(other.program, program) ||
-                const DeepCollectionEquality().equals(other.program, program)));
+            (identical(other.programId, programId) ||
+                const DeepCollectionEquality()
+                    .equals(other.programId, programId)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(program);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(programId);
 
   @JsonKey(ignore: true)
   @override
@@ -1578,7 +1567,7 @@ class _$_PathDataEditReview implements _PathDataEditReview {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
-    @required TResult editReview(ProgramDetail program),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1590,7 +1579,7 @@ class _$_PathDataEditReview implements _PathDataEditReview {
     assert(auth != null);
     assert(preLogin != null);
     assert(editReview != null);
-    return editReview(this.program);
+    return editReview(programId);
   }
 
   @override
@@ -1605,12 +1594,12 @@ class _$_PathDataEditReview implements _PathDataEditReview {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
-    TResult editReview(ProgramDetail program),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (editReview != null) {
-      return editReview(this.program);
+      return editReview(programId);
     }
     return orElse();
   }
@@ -1666,10 +1655,9 @@ class _$_PathDataEditReview implements _PathDataEditReview {
 }
 
 abstract class _PathDataEditReview implements GlobalRoutePath {
-  const factory _PathDataEditReview(ProgramDetail program) =
-      _$_PathDataEditReview;
+  const factory _PathDataEditReview(String programId) = _$_PathDataEditReview;
 
-  ProgramDetail get program;
+  String get programId;
   @JsonKey(ignore: true)
   _$PathDataEditReviewCopyWith<_PathDataEditReview> get copyWith;
 }

@@ -6,6 +6,31 @@ part of 'page_review.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
+class _ReviewListView extends StatelessWidget {
+  const _ReviewListView(
+      {Key key,
+      @required this.program,
+      @required this.showMyReview,
+      @required this.onTapInputReviewBtn,
+      @required this.onTapReviewItem})
+      : super(key: key);
+
+  final ProgramDetail program;
+
+  final bool showMyReview;
+
+  final void Function(BuildContext) onTapInputReviewBtn;
+
+  final void Function(BuildContext, BaseReview) onTapReviewItem;
+
+  @override
+  Widget build(BuildContext _context) => _reviewListView(_context,
+      program: program,
+      showMyReview: showMyReview,
+      onTapInputReviewBtn: onTapInputReviewBtn,
+      onTapReviewItem: onTapReviewItem);
+}
+
 class _ItemInputReview extends StatelessWidget {
   const _ItemInputReview(
       {Key key, @required this.viewerIconUrl, @required this.onTap})

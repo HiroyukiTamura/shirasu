@@ -1,19 +1,19 @@
-mutation PostReview($programId: ID!, $body: String!) {
-    reivew: postReview(input: {programId: $programId, body: $body}) {
-        ...UserPageReviewData
-        __typename
+    mutation PostReview($programId: ID!, $body: String!) {
+        reivew: postReview(input: {programId: $programId, body: $body}) {
+            ...UserPageReviewData
+            __typename
+        }
     }
-}
 
-fragment UserPageReviewData on Review {
-    id
-    body
-    createdAt
-    user {
+    fragment UserPageReviewData on Review {
         id
-        name
-        icon
+        body
+        createdAt
+        user {
+            id
+            name
+            icon
+            __typename
+        }
         __typename
     }
-    __typename
-}

@@ -602,7 +602,7 @@ mutation UpdateUserWithAttribute($input: UpdateUserWithAttributeInput) {
 }
   ''';
 
-  static const String MUTATE_HAND_OUT_URL = r'''
+  static const MUTATE_HAND_OUT_URL = r'''
 mutation GetSignedUrl(
     $operation: S3Operation!
     $key: String!
@@ -619,7 +619,7 @@ mutation GetSignedUrl(
     )
 }''';
 
-  static const String QUERY_COMMENTS = r'''
+  static const QUERY_COMMENTS = r'''
 query ListCommentsByProgram(
     $programId: ID!
     $beginTime: Int!
@@ -678,6 +678,33 @@ fragment UseProgramCommentData on Comment {
     __typename
   }
   __typename
+}
+''';
+
+  static const MUTATE_POST_REVIEW = r'''
+mutation PostReview($programId: ID!, $body: String!) {
+    reivew: postReview(input: {programId: $programId, body: $body}) {
+        ...UserPageReviewData
+        __typename
+    }
+}
+fragment UserPageReviewData on Review {
+    id
+    body
+    createdAt
+    user {
+        id
+        name
+        icon
+        __typename
+    }
+    __typename
+}
+''';
+
+  static const MUTATE_REMOVE_REVIEW = r'''
+mutation RemoveReview($reviewId: ID!) {
+    removeReview(id: $reviewId)
 }
 ''';
 }

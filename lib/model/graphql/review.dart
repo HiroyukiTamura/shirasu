@@ -8,6 +8,16 @@ part 'review.freezed.dart';
 part 'review.g.dart';
 
 @freezed
+abstract class ReviewData with _$ReviewData {
+  const factory ReviewData({
+    @required ReviewsItem review,
+  }) = _ReviewData;
+
+  factory ReviewData.fromJson(Map<String, dynamic> json) =>
+      _$ReviewDataFromJson(json);
+}
+
+@freezed
 abstract class Reviews with _$Reviews implements BaseReviewConnection {
   @Assert('typename == "ReviewConnection"')
   const factory Reviews({

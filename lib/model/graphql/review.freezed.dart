@@ -8,6 +8,163 @@ part of 'review.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+ReviewData _$ReviewDataFromJson(Map<String, dynamic> json) {
+  return _ReviewData.fromJson(json);
+}
+
+/// @nodoc
+class _$ReviewDataTearOff {
+  const _$ReviewDataTearOff();
+
+// ignore: unused_element
+  _ReviewData call({@required ReviewsItem review}) {
+    return _ReviewData(
+      review: review,
+    );
+  }
+
+// ignore: unused_element
+  ReviewData fromJson(Map<String, Object> json) {
+    return ReviewData.fromJson(json);
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $ReviewData = _$ReviewDataTearOff();
+
+/// @nodoc
+mixin _$ReviewData {
+  ReviewsItem get review;
+
+  Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
+  $ReviewDataCopyWith<ReviewData> get copyWith;
+}
+
+/// @nodoc
+abstract class $ReviewDataCopyWith<$Res> {
+  factory $ReviewDataCopyWith(
+          ReviewData value, $Res Function(ReviewData) then) =
+      _$ReviewDataCopyWithImpl<$Res>;
+  $Res call({ReviewsItem review});
+
+  $ReviewsItemCopyWith<$Res> get review;
+}
+
+/// @nodoc
+class _$ReviewDataCopyWithImpl<$Res> implements $ReviewDataCopyWith<$Res> {
+  _$ReviewDataCopyWithImpl(this._value, this._then);
+
+  final ReviewData _value;
+  // ignore: unused_field
+  final $Res Function(ReviewData) _then;
+
+  @override
+  $Res call({
+    Object review = freezed,
+  }) {
+    return _then(_value.copyWith(
+      review: review == freezed ? _value.review : review as ReviewsItem,
+    ));
+  }
+
+  @override
+  $ReviewsItemCopyWith<$Res> get review {
+    if (_value.review == null) {
+      return null;
+    }
+    return $ReviewsItemCopyWith<$Res>(_value.review, (value) {
+      return _then(_value.copyWith(review: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$ReviewDataCopyWith<$Res> implements $ReviewDataCopyWith<$Res> {
+  factory _$ReviewDataCopyWith(
+          _ReviewData value, $Res Function(_ReviewData) then) =
+      __$ReviewDataCopyWithImpl<$Res>;
+  @override
+  $Res call({ReviewsItem review});
+
+  @override
+  $ReviewsItemCopyWith<$Res> get review;
+}
+
+/// @nodoc
+class __$ReviewDataCopyWithImpl<$Res> extends _$ReviewDataCopyWithImpl<$Res>
+    implements _$ReviewDataCopyWith<$Res> {
+  __$ReviewDataCopyWithImpl(
+      _ReviewData _value, $Res Function(_ReviewData) _then)
+      : super(_value, (v) => _then(v as _ReviewData));
+
+  @override
+  _ReviewData get _value => super._value as _ReviewData;
+
+  @override
+  $Res call({
+    Object review = freezed,
+  }) {
+    return _then(_ReviewData(
+      review: review == freezed ? _value.review : review as ReviewsItem,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_ReviewData implements _ReviewData {
+  const _$_ReviewData({@required this.review}) : assert(review != null);
+
+  factory _$_ReviewData.fromJson(Map<String, dynamic> json) =>
+      _$_$_ReviewDataFromJson(json);
+
+  @override
+  final ReviewsItem review;
+
+  @override
+  String toString() {
+    return 'ReviewData(review: $review)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ReviewData &&
+            (identical(other.review, review) ||
+                const DeepCollectionEquality().equals(other.review, review)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(review);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ReviewDataCopyWith<_ReviewData> get copyWith =>
+      __$ReviewDataCopyWithImpl<_ReviewData>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ReviewDataToJson(this);
+  }
+}
+
+abstract class _ReviewData implements ReviewData {
+  const factory _ReviewData({@required ReviewsItem review}) = _$_ReviewData;
+
+  factory _ReviewData.fromJson(Map<String, dynamic> json) =
+      _$_ReviewData.fromJson;
+
+  @override
+  ReviewsItem get review;
+  @override
+  @JsonKey(ignore: true)
+  _$ReviewDataCopyWith<_ReviewData> get copyWith;
+}
+
 Reviews _$ReviewsFromJson(Map<String, dynamic> json) {
   return _Reviews.fromJson(json);
 }

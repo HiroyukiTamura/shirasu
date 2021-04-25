@@ -19,6 +19,7 @@ class _$ModelDetailTearOff {
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
       @required bool isCommentPosting,
+      @required MyReviewUpdatingState myReviewUpdatingState,
       @required CommentsHolder commentHolder,
       @required BtmSheetState btmSheetState}) {
     return _ModelDetail(
@@ -26,6 +27,7 @@ class _$ModelDetailTearOff {
       playOutState: playOutState,
       isHandoutUrlRequesting: isHandoutUrlRequesting,
       isCommentPosting: isCommentPosting,
+      myReviewUpdatingState: myReviewUpdatingState,
       commentHolder: commentHolder,
       btmSheetState: btmSheetState,
     );
@@ -42,6 +44,7 @@ mixin _$ModelDetail {
   PlayOutState get playOutState;
   bool get isHandoutUrlRequesting;
   bool get isCommentPosting;
+  MyReviewUpdatingState get myReviewUpdatingState;
   CommentsHolder get commentHolder;
   BtmSheetState get btmSheetState;
 
@@ -59,11 +62,13 @@ abstract class $ModelDetailCopyWith<$Res> {
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
       bool isCommentPosting,
+      MyReviewUpdatingState myReviewUpdatingState,
       CommentsHolder commentHolder,
       BtmSheetState btmSheetState});
 
   $DetailModelStateCopyWith<$Res> get prgDataResult;
   $PlayOutStateCopyWith<$Res> get playOutState;
+  $MyReviewUpdatingStateCopyWith<$Res> get myReviewUpdatingState;
   $CommentsHolderCopyWith<$Res> get commentHolder;
   $BtmSheetStateCopyWith<$Res> get btmSheetState;
 }
@@ -82,6 +87,7 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
     Object isCommentPosting = freezed,
+    Object myReviewUpdatingState = freezed,
     Object commentHolder = freezed,
     Object btmSheetState = freezed,
   }) {
@@ -98,6 +104,9 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
       isCommentPosting: isCommentPosting == freezed
           ? _value.isCommentPosting
           : isCommentPosting as bool,
+      myReviewUpdatingState: myReviewUpdatingState == freezed
+          ? _value.myReviewUpdatingState
+          : myReviewUpdatingState as MyReviewUpdatingState,
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
           : commentHolder as CommentsHolder,
@@ -124,6 +133,17 @@ class _$ModelDetailCopyWithImpl<$Res> implements $ModelDetailCopyWith<$Res> {
     }
     return $PlayOutStateCopyWith<$Res>(_value.playOutState, (value) {
       return _then(_value.copyWith(playOutState: value));
+    });
+  }
+
+  @override
+  $MyReviewUpdatingStateCopyWith<$Res> get myReviewUpdatingState {
+    if (_value.myReviewUpdatingState == null) {
+      return null;
+    }
+    return $MyReviewUpdatingStateCopyWith<$Res>(_value.myReviewUpdatingState,
+        (value) {
+      return _then(_value.copyWith(myReviewUpdatingState: value));
     });
   }
 
@@ -160,6 +180,7 @@ abstract class _$ModelDetailCopyWith<$Res>
       PlayOutState playOutState,
       bool isHandoutUrlRequesting,
       bool isCommentPosting,
+      MyReviewUpdatingState myReviewUpdatingState,
       CommentsHolder commentHolder,
       BtmSheetState btmSheetState});
 
@@ -167,6 +188,8 @@ abstract class _$ModelDetailCopyWith<$Res>
   $DetailModelStateCopyWith<$Res> get prgDataResult;
   @override
   $PlayOutStateCopyWith<$Res> get playOutState;
+  @override
+  $MyReviewUpdatingStateCopyWith<$Res> get myReviewUpdatingState;
   @override
   $CommentsHolderCopyWith<$Res> get commentHolder;
   @override
@@ -189,6 +212,7 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
     Object playOutState = freezed,
     Object isHandoutUrlRequesting = freezed,
     Object isCommentPosting = freezed,
+    Object myReviewUpdatingState = freezed,
     Object commentHolder = freezed,
     Object btmSheetState = freezed,
   }) {
@@ -205,6 +229,9 @@ class __$ModelDetailCopyWithImpl<$Res> extends _$ModelDetailCopyWithImpl<$Res>
       isCommentPosting: isCommentPosting == freezed
           ? _value.isCommentPosting
           : isCommentPosting as bool,
+      myReviewUpdatingState: myReviewUpdatingState == freezed
+          ? _value.myReviewUpdatingState
+          : myReviewUpdatingState as MyReviewUpdatingState,
       commentHolder: commentHolder == freezed
           ? _value.commentHolder
           : commentHolder as CommentsHolder,
@@ -224,12 +251,14 @@ class _$_ModelDetail extends _ModelDetail {
       @required this.playOutState,
       @required this.isHandoutUrlRequesting,
       @required this.isCommentPosting,
+      @required this.myReviewUpdatingState,
       @required this.commentHolder,
       @required this.btmSheetState})
       : assert(prgDataResult != null),
         assert(playOutState != null),
         assert(isHandoutUrlRequesting != null),
         assert(isCommentPosting != null),
+        assert(myReviewUpdatingState != null),
         assert(commentHolder != null),
         assert(btmSheetState != null),
         super._();
@@ -243,13 +272,15 @@ class _$_ModelDetail extends _ModelDetail {
   @override
   final bool isCommentPosting;
   @override
+  final MyReviewUpdatingState myReviewUpdatingState;
+  @override
   final CommentsHolder commentHolder;
   @override
   final BtmSheetState btmSheetState;
 
   @override
   String toString() {
-    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, isCommentPosting: $isCommentPosting, commentHolder: $commentHolder, btmSheetState: $btmSheetState)';
+    return 'ModelDetail(prgDataResult: $prgDataResult, playOutState: $playOutState, isHandoutUrlRequesting: $isHandoutUrlRequesting, isCommentPosting: $isCommentPosting, myReviewUpdatingState: $myReviewUpdatingState, commentHolder: $commentHolder, btmSheetState: $btmSheetState)';
   }
 
   @override
@@ -268,6 +299,9 @@ class _$_ModelDetail extends _ModelDetail {
             (identical(other.isCommentPosting, isCommentPosting) ||
                 const DeepCollectionEquality()
                     .equals(other.isCommentPosting, isCommentPosting)) &&
+            (identical(other.myReviewUpdatingState, myReviewUpdatingState) ||
+                const DeepCollectionEquality().equals(
+                    other.myReviewUpdatingState, myReviewUpdatingState)) &&
             (identical(other.commentHolder, commentHolder) ||
                 const DeepCollectionEquality()
                     .equals(other.commentHolder, commentHolder)) &&
@@ -283,6 +317,7 @@ class _$_ModelDetail extends _ModelDetail {
       const DeepCollectionEquality().hash(playOutState) ^
       const DeepCollectionEquality().hash(isHandoutUrlRequesting) ^
       const DeepCollectionEquality().hash(isCommentPosting) ^
+      const DeepCollectionEquality().hash(myReviewUpdatingState) ^
       const DeepCollectionEquality().hash(commentHolder) ^
       const DeepCollectionEquality().hash(btmSheetState);
 
@@ -299,6 +334,7 @@ abstract class _ModelDetail extends ModelDetail {
       @required PlayOutState playOutState,
       @required bool isHandoutUrlRequesting,
       @required bool isCommentPosting,
+      @required MyReviewUpdatingState myReviewUpdatingState,
       @required CommentsHolder commentHolder,
       @required BtmSheetState btmSheetState}) = _$_ModelDetail;
 
@@ -310,6 +346,8 @@ abstract class _ModelDetail extends ModelDetail {
   bool get isHandoutUrlRequesting;
   @override
   bool get isCommentPosting;
+  @override
+  MyReviewUpdatingState get myReviewUpdatingState;
   @override
   CommentsHolder get commentHolder;
   @override
@@ -7901,4 +7939,378 @@ class _$_Past implements _Past {
 
 abstract class _Past implements LoadingState {
   const factory _Past() = _$_Past;
+}
+
+/// @nodoc
+class _$MyReviewUpdatingStateTearOff {
+  const _$MyReviewUpdatingStateTearOff();
+
+// ignore: unused_element
+  _MyReviewUpdatingStateNormal normal() {
+    return const _MyReviewUpdatingStateNormal();
+  }
+
+// ignore: unused_element
+  _MyReviewUpdatingStateDeleting deleting() {
+    return const _MyReviewUpdatingStateDeleting();
+  }
+
+// ignore: unused_element
+  _MyReviewUpdatingStateDeleted deleted() {
+    return const _MyReviewUpdatingStateDeleted();
+  }
+}
+
+/// @nodoc
+// ignore: unused_element
+const $MyReviewUpdatingState = _$MyReviewUpdatingStateTearOff();
+
+/// @nodoc
+mixin _$MyReviewUpdatingState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult normal(),
+    @required TResult deleting(),
+    @required TResult deleted(),
+  });
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult normal(),
+    TResult deleting(),
+    TResult deleted(),
+    @required TResult orElse(),
+  });
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult normal(_MyReviewUpdatingStateNormal value),
+    @required TResult deleting(_MyReviewUpdatingStateDeleting value),
+    @required TResult deleted(_MyReviewUpdatingStateDeleted value),
+  });
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult normal(_MyReviewUpdatingStateNormal value),
+    TResult deleting(_MyReviewUpdatingStateDeleting value),
+    TResult deleted(_MyReviewUpdatingStateDeleted value),
+    @required TResult orElse(),
+  });
+}
+
+/// @nodoc
+abstract class $MyReviewUpdatingStateCopyWith<$Res> {
+  factory $MyReviewUpdatingStateCopyWith(MyReviewUpdatingState value,
+          $Res Function(MyReviewUpdatingState) then) =
+      _$MyReviewUpdatingStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$MyReviewUpdatingStateCopyWithImpl<$Res>
+    implements $MyReviewUpdatingStateCopyWith<$Res> {
+  _$MyReviewUpdatingStateCopyWithImpl(this._value, this._then);
+
+  final MyReviewUpdatingState _value;
+  // ignore: unused_field
+  final $Res Function(MyReviewUpdatingState) _then;
+}
+
+/// @nodoc
+abstract class _$MyReviewUpdatingStateNormalCopyWith<$Res> {
+  factory _$MyReviewUpdatingStateNormalCopyWith(
+          _MyReviewUpdatingStateNormal value,
+          $Res Function(_MyReviewUpdatingStateNormal) then) =
+      __$MyReviewUpdatingStateNormalCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$MyReviewUpdatingStateNormalCopyWithImpl<$Res>
+    extends _$MyReviewUpdatingStateCopyWithImpl<$Res>
+    implements _$MyReviewUpdatingStateNormalCopyWith<$Res> {
+  __$MyReviewUpdatingStateNormalCopyWithImpl(
+      _MyReviewUpdatingStateNormal _value,
+      $Res Function(_MyReviewUpdatingStateNormal) _then)
+      : super(_value, (v) => _then(v as _MyReviewUpdatingStateNormal));
+
+  @override
+  _MyReviewUpdatingStateNormal get _value =>
+      super._value as _MyReviewUpdatingStateNormal;
+}
+
+/// @nodoc
+class _$_MyReviewUpdatingStateNormal implements _MyReviewUpdatingStateNormal {
+  const _$_MyReviewUpdatingStateNormal();
+
+  @override
+  String toString() {
+    return 'MyReviewUpdatingState.normal()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _MyReviewUpdatingStateNormal);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult normal(),
+    @required TResult deleting(),
+    @required TResult deleted(),
+  }) {
+    assert(normal != null);
+    assert(deleting != null);
+    assert(deleted != null);
+    return normal();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult normal(),
+    TResult deleting(),
+    TResult deleted(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (normal != null) {
+      return normal();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult normal(_MyReviewUpdatingStateNormal value),
+    @required TResult deleting(_MyReviewUpdatingStateDeleting value),
+    @required TResult deleted(_MyReviewUpdatingStateDeleted value),
+  }) {
+    assert(normal != null);
+    assert(deleting != null);
+    assert(deleted != null);
+    return normal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult normal(_MyReviewUpdatingStateNormal value),
+    TResult deleting(_MyReviewUpdatingStateDeleting value),
+    TResult deleted(_MyReviewUpdatingStateDeleted value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (normal != null) {
+      return normal(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MyReviewUpdatingStateNormal implements MyReviewUpdatingState {
+  const factory _MyReviewUpdatingStateNormal() = _$_MyReviewUpdatingStateNormal;
+}
+
+/// @nodoc
+abstract class _$MyReviewUpdatingStateDeletingCopyWith<$Res> {
+  factory _$MyReviewUpdatingStateDeletingCopyWith(
+          _MyReviewUpdatingStateDeleting value,
+          $Res Function(_MyReviewUpdatingStateDeleting) then) =
+      __$MyReviewUpdatingStateDeletingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$MyReviewUpdatingStateDeletingCopyWithImpl<$Res>
+    extends _$MyReviewUpdatingStateCopyWithImpl<$Res>
+    implements _$MyReviewUpdatingStateDeletingCopyWith<$Res> {
+  __$MyReviewUpdatingStateDeletingCopyWithImpl(
+      _MyReviewUpdatingStateDeleting _value,
+      $Res Function(_MyReviewUpdatingStateDeleting) _then)
+      : super(_value, (v) => _then(v as _MyReviewUpdatingStateDeleting));
+
+  @override
+  _MyReviewUpdatingStateDeleting get _value =>
+      super._value as _MyReviewUpdatingStateDeleting;
+}
+
+/// @nodoc
+class _$_MyReviewUpdatingStateDeleting
+    implements _MyReviewUpdatingStateDeleting {
+  const _$_MyReviewUpdatingStateDeleting();
+
+  @override
+  String toString() {
+    return 'MyReviewUpdatingState.deleting()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _MyReviewUpdatingStateDeleting);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult normal(),
+    @required TResult deleting(),
+    @required TResult deleted(),
+  }) {
+    assert(normal != null);
+    assert(deleting != null);
+    assert(deleted != null);
+    return deleting();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult normal(),
+    TResult deleting(),
+    TResult deleted(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (deleting != null) {
+      return deleting();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult normal(_MyReviewUpdatingStateNormal value),
+    @required TResult deleting(_MyReviewUpdatingStateDeleting value),
+    @required TResult deleted(_MyReviewUpdatingStateDeleted value),
+  }) {
+    assert(normal != null);
+    assert(deleting != null);
+    assert(deleted != null);
+    return deleting(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult normal(_MyReviewUpdatingStateNormal value),
+    TResult deleting(_MyReviewUpdatingStateDeleting value),
+    TResult deleted(_MyReviewUpdatingStateDeleted value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (deleting != null) {
+      return deleting(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MyReviewUpdatingStateDeleting implements MyReviewUpdatingState {
+  const factory _MyReviewUpdatingStateDeleting() =
+      _$_MyReviewUpdatingStateDeleting;
+}
+
+/// @nodoc
+abstract class _$MyReviewUpdatingStateDeletedCopyWith<$Res> {
+  factory _$MyReviewUpdatingStateDeletedCopyWith(
+          _MyReviewUpdatingStateDeleted value,
+          $Res Function(_MyReviewUpdatingStateDeleted) then) =
+      __$MyReviewUpdatingStateDeletedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$MyReviewUpdatingStateDeletedCopyWithImpl<$Res>
+    extends _$MyReviewUpdatingStateCopyWithImpl<$Res>
+    implements _$MyReviewUpdatingStateDeletedCopyWith<$Res> {
+  __$MyReviewUpdatingStateDeletedCopyWithImpl(
+      _MyReviewUpdatingStateDeleted _value,
+      $Res Function(_MyReviewUpdatingStateDeleted) _then)
+      : super(_value, (v) => _then(v as _MyReviewUpdatingStateDeleted));
+
+  @override
+  _MyReviewUpdatingStateDeleted get _value =>
+      super._value as _MyReviewUpdatingStateDeleted;
+}
+
+/// @nodoc
+class _$_MyReviewUpdatingStateDeleted implements _MyReviewUpdatingStateDeleted {
+  const _$_MyReviewUpdatingStateDeleted();
+
+  @override
+  String toString() {
+    return 'MyReviewUpdatingState.deleted()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _MyReviewUpdatingStateDeleted);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult normal(),
+    @required TResult deleting(),
+    @required TResult deleted(),
+  }) {
+    assert(normal != null);
+    assert(deleting != null);
+    assert(deleted != null);
+    return deleted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult normal(),
+    TResult deleting(),
+    TResult deleted(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (deleted != null) {
+      return deleted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult normal(_MyReviewUpdatingStateNormal value),
+    @required TResult deleting(_MyReviewUpdatingStateDeleting value),
+    @required TResult deleted(_MyReviewUpdatingStateDeleted value),
+  }) {
+    assert(normal != null);
+    assert(deleting != null);
+    assert(deleted != null);
+    return deleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult normal(_MyReviewUpdatingStateNormal value),
+    TResult deleting(_MyReviewUpdatingStateDeleting value),
+    TResult deleted(_MyReviewUpdatingStateDeleted value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (deleted != null) {
+      return deleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MyReviewUpdatingStateDeleted implements MyReviewUpdatingState {
+  const factory _MyReviewUpdatingStateDeleted() =
+      _$_MyReviewUpdatingStateDeleted;
 }

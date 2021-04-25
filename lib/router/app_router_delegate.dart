@@ -45,7 +45,7 @@ class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
             imgLicense: () => const ScreenImageLicense(),
             preLogin: () => const ScreenPreLogin(),
             fcm: () => const ScreenFcm(),
-            editReview: (program) => ScreenEditReview(program: program),
+            editReview: (programId) => ScreenEditReview(programId: programId),
           );
           final location = NavigationValueKeyHandler.getValueKey(pathData);
           return Tuple2(location, screen);

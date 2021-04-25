@@ -5,6 +5,8 @@ import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/model/graphql/list_comments_by_program.dart';
 import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
 import 'package:shirasu/model/graphql/new_programs_data.dart';
+import 'package:shirasu/model/graphql/remove_review_data.dart';
+import 'package:shirasu/model/graphql/review.dart';
 import 'package:shirasu/model/graphql/sort_direction.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
@@ -26,8 +28,7 @@ mixin GraphQlRepository {
   Future<ChannelData> queryChannelData(String channelId,
       {String nextToken});
 
-  Future<WatchHistoriesData> queryWatchHistory(
-      {String nextToken, int limit});
+  Future<WatchHistoriesData> queryWatchHistory({String nextToken, int limit});
 
   Future<ViewerWrapper> queryViewer();
 
@@ -48,5 +49,14 @@ mixin GraphQlRepository {
     @required Duration commentTime,
     @required String programId,
     @required String text,
+  });
+
+  Future<ReviewData> postReview({
+    @required String programId,
+    @required String text,
+  });
+
+  Future<RemoveReviewData> deleteReview({
+    @required String reviewId,
   });
 }

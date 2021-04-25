@@ -15,8 +15,8 @@ class _Heading extends HookWidget {
   Widget build(BuildContext _context) => _heading(isSelected: isSelected);
 }
 
-class BtmSheetListItem extends StatelessWidget {
-  const BtmSheetListItem(
+class BtmSheetListItemSingle extends StatelessWidget {
+  const BtmSheetListItemSingle(
       {Key key, @required this.icon, @required this.text, @required this.onTap})
       : super(key: key);
 
@@ -28,5 +28,5 @@ class BtmSheetListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext _context) =>
-      btmSheetListItem(icon: icon, text: text, onTap: onTap);
+      btmSheetListItemSingle(icon: icon, text: text, onTap: onTap);
 }

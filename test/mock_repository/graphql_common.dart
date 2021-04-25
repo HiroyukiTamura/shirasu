@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
+import 'package:shirasu/model/graphql/remove_review_data.dart';
+import 'package:shirasu/model/graphql/review.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -24,6 +27,8 @@ class GraphQlRepositoryCommonImpl with GraphQlRepository {
     this.watchHistoriesData,
     this.userWithAttributeData,
     this.listSubscribedPrograms,
+    this.reviewData,
+    this.removeReviewData,
   });
 
   static const HANDOUT_URL = 'HANDOUT_URL';
@@ -38,6 +43,8 @@ class GraphQlRepositoryCommonImpl with GraphQlRepository {
   final WatchHistoriesData watchHistoriesData;
   final UserWithAttributeData userWithAttributeData;
   final ListSubscribedPrograms listSubscribedPrograms;
+  final ReviewData reviewData;
+  final RemoveReviewData removeReviewData;
 
   @override
   Future<CommentItem> postComment({
@@ -93,4 +100,10 @@ class GraphQlRepositoryCommonImpl with GraphQlRepository {
 
   @override
   Future<ListSubscribedPrograms> querySubscribedProgramsList() async => listSubscribedPrograms;
+
+  @override
+  Future<ReviewData> postReview({@required String programId, @required String text}) async => reviewData;
+
+  @override
+  Future<RemoveReviewData> deleteReview({@required String reviewId}) async => removeReviewData;
 }

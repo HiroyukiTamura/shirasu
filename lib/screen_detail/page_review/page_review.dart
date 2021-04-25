@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:shirasu/btm_sheet/common.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/review_state.dart';
@@ -12,67 +13,106 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_detail/page_base/item_base.dart';
+import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/circle_cached_network_image.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shirasu/viewmodel/model/model_detail.dart';
 
 part 'page_review.g.dart';
 
+/// todo show dialog when pop screen; save review or not
 class PageReview extends StatelessWidget {
   const PageReview({
-    @required this.programData,
     @required this.onClearClicked,
+    @required this.program,
   });
 
   final OnClearClicked onClearClicked;
-  final ProgramDetailData programData;
+  final ProgramDetail program;
+
+  String get _id => program.id;
 
   @override
-  Widget build(BuildContext context) {
-    final program = programData.program;
-    final children = [
-      if (program.myReview == null)
-        _ItemInputReview(
-          viewerIconUrl: programData.viewer.icon,
-          onTap: _onTapInputReviewBtn,
-        )
-      else
-        _ReviewItem(
-          item: program.myReview,
-          onTap: () => _onTapReviewItem(context, program.myReview),
-        ),
-      if (program.reviews.items.isEmpty && program.myReview == null)
-        const _NoWidget()
-      else
-        ...program.reviews.items
-            .where((it) => it.id != program.myReview?.id)
-            .map<Widget>((it) => _ReviewItem(
-                  item: it,
-                  onTap: () => _onTapReviewItem(context, it),
-                )),
-    ];
-    return DraggableSheet(
-      heading: Strings.HEADER_REVIEW,
-      onClearClicked: onClearClicked,
-      child: Material(
-        color: Theme.of(context).scaffoldBackgroundColor, //for ripple effect
-        child: ListView.separated(
-          separatorBuilder: (context, i) => Container(
-            height: .2,
-            color: Colors.white,
+  Widget build(BuildContext context) => DraggableSheet(
+        heading: Strings.HEADER_REVIEW,
+        onClearClicked: onClearClicked,
+        child: useProvider(kPrvViewModelDetail(_id)
+            .state
+            .select((it) => it.myReviewUpdatingState)).when(
+          normal: () => _ReviewListView(
+            program: program,
+            showMyReview: true,
+            onTapReviewItem: _onTapReviewItem,
+            onTapInputReviewBtn: _onTapInputReviewBtn,
           ),
-          itemBuilder: (context, i) => children[i],
-          itemCount: children.length,
+          deleting: () => const CenterCircleProgress(),
+          deleted: () => _ReviewListView(
+            program: program,
+            showMyReview: false,
+            onTapReviewItem: _onTapReviewItem,
+            onTapInputReviewBtn: _onTapInputReviewBtn,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   void _onTapInputReviewBtn(BuildContext context) =>
-      context.pushPage(GlobalRoutePath.editReview(programData.program));
+      context.pushPage(GlobalRoutePath.editReview(_id));
 
-  void _onTapReviewItem(BuildContext context, BaseReview review) {}
+  void _onTapReviewItem(BuildContext context, BaseReview review) {
+    final viewModel = context.read(kPrvViewModelDetail(_id));
+    final btmSheet = review is MyReview
+        ? BtmSheetState.myReviewMenu(review.id, _id)
+        : BtmSheetState.shareReview(_id, review, program.title);
+    viewModel.commandModal(btmSheet);
+  }
+}
+
+@swidget
+Widget _reviewListView(
+  BuildContext context, {
+  @required ProgramDetail program,
+  @required bool showMyReview,
+  @required OnTap onTapInputReviewBtn,
+  @required
+      void Function(BuildContext context, BaseReview review) onTapReviewItem,
+}) {
+  final myReview = showMyReview ? program.myReview : null;
+  final children = [
+    if (myReview == null)
+      _ItemInputReview(
+        viewerIconUrl: myReview.user.icon,
+        onTap: onTapInputReviewBtn,
+      )
+    else
+      _ReviewItem(
+        item: myReview,
+        onTap: () => onTapReviewItem(context, myReview),
+      ),
+    if (program.reviews.items.isEmpty && myReview == null)
+      const _NoWidget()
+    else
+      ...program.reviews.items
+          .where((it) => it.id != myReview?.id)
+          .map<Widget>((it) => _ReviewItem(
+                item: it,
+                onTap: () => onTapReviewItem(context, it),
+              )),
+  ];
+  return Material(
+    color: Theme.of(context).scaffoldBackgroundColor, //for ripple effect
+    child: ListView.separated(
+      separatorBuilder: (context, i) => Container(
+        height: .2,
+        color: Colors.white,
+      ),
+      itemBuilder: (context, i) => children[i],
+      itemCount: children.length,
+    ),
+  );
 }
 
 @swidget

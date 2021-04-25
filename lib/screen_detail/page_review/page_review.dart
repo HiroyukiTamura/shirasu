@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:shirasu/btm_sheet/common.dart';
 import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/model/graphql/mixins/review_state.dart';
@@ -25,16 +25,16 @@ import 'package:shirasu/viewmodel/model/model_detail.dart';
 part 'page_review.g.dart';
 
 /// todo show dialog when pop screen; save review or not
-class PageReview extends StatelessWidget {
+class PageReview extends HookWidget {
   const PageReview({
     @required this.onClearClicked,
-    @required this.program,
+    @required this.programData,
   });
 
   final OnClearClicked onClearClicked;
-  final ProgramDetail program;
+  final ProgramDetailData programData;
 
-  String get _id => program.id;
+  String get _id => programData.program.id;
 
   @override
   Widget build(BuildContext context) => DraggableSheet(
@@ -44,14 +44,14 @@ class PageReview extends StatelessWidget {
             .state
             .select((it) => it.myReviewUpdatingState)).when(
           normal: () => _ReviewListView(
-            program: program,
+            programData: programData,
             showMyReview: true,
             onTapReviewItem: _onTapReviewItem,
             onTapInputReviewBtn: _onTapInputReviewBtn,
           ),
           deleting: () => const CenterCircleProgress(),
           deleted: () => _ReviewListView(
-            program: program,
+            programData: programData,
             showMyReview: false,
             onTapReviewItem: _onTapReviewItem,
             onTapInputReviewBtn: _onTapInputReviewBtn,
@@ -66,7 +66,7 @@ class PageReview extends StatelessWidget {
     final viewModel = context.read(kPrvViewModelDetail(_id));
     final btmSheet = review is MyReview
         ? BtmSheetState.myReviewMenu(review.id, _id)
-        : BtmSheetState.shareReview(_id, review, program.title);
+        : BtmSheetState.shareReview(_id, review, programData.program.title);
     viewModel.commandModal(btmSheet);
   }
 }
@@ -74,26 +74,37 @@ class PageReview extends StatelessWidget {
 @swidget
 Widget _reviewListView(
   BuildContext context, {
-  @required ProgramDetail program,
+  @required ProgramDetailData programData,
   @required bool showMyReview,
   @required OnTap onTapInputReviewBtn,
   @required
       void Function(BuildContext context, BaseReview review) onTapReviewItem,
 }) {
+  final program = programData.program;
   final myReview = showMyReview ? program.myReview : null;
+  Widget topItem;
+  if (program.isPurchased) {
+    topItem = myReview == null
+        ? _ItemInputReview(
+            viewerIconUrl: programData.viewer.icon,
+            onTap: onTapInputReviewBtn,
+          )
+        : _ReviewItem(
+            item: myReview,
+            onTap: () => onTapReviewItem(context, myReview),
+          );
+  } else {
+    topItem = const _Note(
+      text: Strings.REVIEW_NOTE_PURCHASE_REQUESTED,
+    );
+  }
+
   final children = [
-    if (myReview == null)
-      _ItemInputReview(
-        viewerIconUrl: myReview.user.icon,
-        onTap: onTapInputReviewBtn,
-      )
-    else
-      _ReviewItem(
-        item: myReview,
-        onTap: () => onTapReviewItem(context, myReview),
-      ),
+    topItem,
     if (program.reviews.items.isEmpty && myReview == null)
-      const _NoWidget()
+      const _Note(
+        text: Strings.REVIEW_IS_EMPTY,
+      )
     else
       ...program.reviews.items
           .where((it) => it.id != myReview?.id)
@@ -135,12 +146,15 @@ Widget _itemInputReview(
     );
 
 @swidget
-Widget _noWidget() => Container(
+Widget _note({
+  @required String text,
+}) =>
+    Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
-      child: const Text(
-        Strings.REVIEW_IS_EMPTY,
-        style: TextStyle(
+      child: Text(
+        text,
+        style: const TextStyle(
           fontSize: FontSize.S13,
           color: Styles.COLOR_TEXT_SUB,
         ),
@@ -164,6 +178,7 @@ Widget _reviewItem(
             child: Text(
               item.user.name,
               style: const TextStyle(
+                // todo refactor
                 color: Styles.COLOR_TEXT_SUB,
                 fontSize: FontSize.S13,
                 fontWeight: FontWeight.bold,
@@ -254,7 +269,7 @@ Widget _reviewStateLabel(
               ),
               padding: const EdgeInsets.only(left: 10),
               child: const Text(
-                Strings.REVIEW_NOTE,
+                Strings.REVIEW_NOTE_WAITING,
                 style: TextStyle(
                   color: Styles.COLOR_TEXT_SUB,
                   fontSize: FontSize.S13,

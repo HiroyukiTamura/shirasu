@@ -216,7 +216,7 @@ class _ScreenDetailState extends State<ScreenDetail>
                   ),
                   _PlayerBodyWrapper(
                     height: listViewH,
-                    program: programDetailData.program,
+                    programData: programDetailData,
                     btmPadding: headerH,
                   )
                 ],
@@ -266,47 +266,49 @@ class _Fab extends HookWidget {
 
 class _BottomPanel extends HookWidget {
   const _BottomPanel({
-    @required this.program,
+    @required this.programData,
     Key key,
   }) : super(key: key);
 
-  final ProgramDetail program;
+  final ProgramDetailData programData;
+
+  ProgramDetail get _program => programData.program;
 
   @override
   Widget build(BuildContext context) =>
-      useProvider(_kPrvBtmSheetExpanded(program.id)).when(
+      useProvider(_kPrvBtmSheetExpanded(_program.id)).when(
         hidden: () => const SizedBox.shrink(),
         handouts: () => PageHandouts(
-          program: program,
+          program: _program,
           onClearClicked: _onClearClicked,
         ),
         pricing: () => PagePriceChart(
-          program: program,
+          program: _program,
           onClearClicked: _onClearClicked,
         ),
-        comment: () => PageComment(id: program.id),
+        comment: () => PageComment(id: _program.id),
         review: () => PageReview(
           onClearClicked: _onClearClicked,
-          program: program,
+          programData: programData,
         ),
       );
 
   Future<void> _onClearClicked(BuildContext context) async => context
-      .read(kPrvViewModelDetail(program.id))
+      .read(kPrvViewModelDetail(_program.id))
       .togglePage(const PageSheetModel.hidden());
 }
 
 @swidget
 Widget _playerBodyWrapper({
   @required double height,
-  @required ProgramDetail program,
+  @required ProgramDetailData programData,
   @required double btmPadding,
 }) =>
     height < 0
         ? const SizedBox.shrink()
         : _PlayerBody(
             height: height,
-            program: program,
+            programData: programData,
             btmPadding: btmPadding,
           );
 
@@ -317,41 +319,46 @@ Widget _playerBody(
   BuildContext context, {
   @required double height,
   @required double btmPadding,
-  @required ProgramDetail program,
-}) =>
-    SizedBox(
-      height: height,
-      child: SlidingUpPanel(
-        minHeight: 0,
-        maxHeight: height,
-        controller:
-            useProvider(kPrvViewModelDetail(program.id)).panelController,
-        color: Theme.of(context).scaffoldBackgroundColor,
-        panel: _BottomPanel(program: program),
-        body: Padding(
-          padding: EdgeInsets.only(bottom: btmPadding + _kListViewBtmPadding),
-          //i don't why, but it's needed
-          child: ListView(
-            padding: const EdgeInsets.only(bottom: _kListViewBtmPadding),
-            children: [
-              RowChannel(
-                title: program.channel.name,
-                channelId: program.channel.id,
-              ),
-              RowVideoTitle(text: program.title),
-              RowVideoTime(
-                broadcastAt: program.broadcastAt,
-                totalPlayTime: program.totalPlayTime,
-              ),
-              RowVideoTags(textList: program.tags),
-              RowFabs(program: program),
-              // todo fix text height
-              RowVideoDesc(
-                text: program.detail,
-                id: program.id,
-              ),
-            ],
+  @required ProgramDetailData programData,
+}) {
+  final program = programData.program;
+  return SizedBox(
+    height: height,
+    child: SlidingUpPanel(
+      minHeight: 0,
+      maxHeight: height,
+      controller: useProvider(kPrvViewModelDetail(program.id)).panelController,
+      color: Theme.of(context).scaffoldBackgroundColor,
+      panel: _BottomPanel(programData: programData),
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: btmPadding + _kListViewBtmPadding,
+        ),
+        //i don't why, but it's needed
+        child: ListView(
+          padding: const EdgeInsets.only(
+            bottom: _kListViewBtmPadding,
           ),
+          children: [
+            RowChannel(
+              title: program.channel.name,
+              channelId: program.channel.id,
+            ),
+            RowVideoTitle(text: program.title),
+            RowVideoTime(
+              broadcastAt: program.broadcastAt,
+              totalPlayTime: program.totalPlayTime,
+            ),
+            RowVideoTags(textList: program.tags),
+            RowFabs(program: program),
+            // todo fix text height
+            RowVideoDesc(
+              text: program.detail,
+              id: program.id,
+            ),
+          ],
         ),
       ),
-    );
+    ),
+  );
+}

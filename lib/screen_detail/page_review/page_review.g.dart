@@ -9,13 +9,13 @@ part of 'page_review.dart';
 class _ReviewListView extends StatelessWidget {
   const _ReviewListView(
       {Key key,
-      @required this.program,
+      @required this.programData,
       @required this.showMyReview,
       @required this.onTapInputReviewBtn,
       @required this.onTapReviewItem})
       : super(key: key);
 
-  final ProgramDetail program;
+  final ProgramDetailData programData;
 
   final bool showMyReview;
 
@@ -25,7 +25,7 @@ class _ReviewListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext _context) => _reviewListView(_context,
-      program: program,
+      programData: programData,
       showMyReview: showMyReview,
       onTapInputReviewBtn: onTapInputReviewBtn,
       onTapReviewItem: onTapReviewItem);
@@ -45,11 +45,13 @@ class _ItemInputReview extends StatelessWidget {
       _itemInputReview(_context, viewerIconUrl: viewerIconUrl, onTap: onTap);
 }
 
-class _NoWidget extends StatelessWidget {
-  const _NoWidget({Key key}) : super(key: key);
+class _Note extends StatelessWidget {
+  const _Note({Key key, @required this.text}) : super(key: key);
+
+  final String text;
 
   @override
-  Widget build(BuildContext _context) => _noWidget();
+  Widget build(BuildContext _context) => _note(text: text);
 }
 
 class _ReviewItem extends StatelessWidget {

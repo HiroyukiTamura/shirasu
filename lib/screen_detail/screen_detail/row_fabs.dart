@@ -12,6 +12,7 @@ import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shirasu/ui_common/hive_fcm_topic_listenable.dart';
 import 'package:shirasu/viewmodel/model/model_detail.dart';
+import 'package:dartx/dartx.dart';
 
 part 'row_fabs.g.dart';
 
@@ -61,11 +62,12 @@ class RowFabs extends HookWidget {
               icon: Icons.text_snippet,
               onPressed: () => _onClickHandoutsBtn(context),
             ),
-          _Fab(
-            icon: FontAwesomeIcons.fileSignature,
-            onPressed: () => _onClickReviewBtn(context),
-            iconSize: 20,
-          ),
+          if (program.broadcastAt < DateTime.now())
+            _Fab(
+              icon: FontAwesomeIcons.fileSignature,
+              onPressed: () => _onClickReviewBtn(context),
+              iconSize: 20,
+            ),
           _Fab(
             icon: Icons.share,
             onPressed: () => _onClickShareBtn(context),

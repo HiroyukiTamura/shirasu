@@ -10,19 +10,19 @@ class _PlayerBodyWrapper extends StatelessWidget {
   const _PlayerBodyWrapper(
       {Key key,
       @required this.height,
-      @required this.program,
+      @required this.programData,
       @required this.btmPadding})
       : super(key: key);
 
   final double height;
 
-  final ProgramDetail program;
+  final ProgramDetailData programData;
 
   final double btmPadding;
 
   @override
   Widget build(BuildContext _context) => _playerBodyWrapper(
-      height: height, program: program, btmPadding: btmPadding);
+      height: height, programData: programData, btmPadding: btmPadding);
 }
 
 class _PlayerBody extends HookWidget {
@@ -30,16 +30,16 @@ class _PlayerBody extends HookWidget {
       {Key key,
       @required this.height,
       @required this.btmPadding,
-      @required this.program})
+      @required this.programData})
       : super(key: key);
 
   final double height;
 
   final double btmPadding;
 
-  final ProgramDetail program;
+  final ProgramDetailData programData;
 
   @override
   Widget build(BuildContext _context) => _playerBody(_context,
-      height: height, btmPadding: btmPadding, program: program);
+      height: height, btmPadding: btmPadding, programData: programData);
 }

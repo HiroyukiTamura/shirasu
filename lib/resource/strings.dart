@@ -388,10 +388,13 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const REVIEW_STATE_OPEN = '公開';
 
   /// ref: "users.pages.Program.components.ReviewSection.reviewNote"
-  static const REVIEW_NOTE =
+  static const REVIEW_NOTE_WAITING =
       'この投稿はまだ投稿者にしか見えていません。レビューは配信者の承認を得たもののみが公開されます。内容によっては公開が承認されず差し戻されることがあります。確認をお待ちください。';
 
   /// ref: "users.pages.Program.components.ReviewModal.writeReview"
   static const APP_BAR_EDIT_REVIEW = 'レビュー記入';
+
+  /// ref: "users.pages.Program.components.ReviewSection.purchaseRequired"
+  static const REVIEW_NOTE_PURCHASE_REQUESTED = 'レビューを投稿するためには、購入またはチャンネル購読をする必要があります';
 //endregion
 }

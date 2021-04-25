@@ -103,6 +103,7 @@ abstract class ProgramDetail
     if (lastExtensionIndex != -1)
       return _lastArchivedExtensionPrgItem(lastExtensionIndex);
 
+    // todo is good logic??
     final isMainVideoAvailable =
         onetimePlanMain?.viewerPurchasedPlan?.isActive == true ||
             (onetimePlanMain?.parentPlanTypeStrict ==

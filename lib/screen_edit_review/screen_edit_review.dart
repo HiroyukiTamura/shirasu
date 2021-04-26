@@ -4,22 +4,42 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shirasu/model/graphql/detail_program_data.dart';
+import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/ui_common/center_circle_progress.dart';
 import 'package:shirasu/ui_common/movie_list_item.dart';
+import 'package:shirasu/ui_common/msg_ntf_listener.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/util/types.dart';
+import 'package:shirasu/viewmodel/message_notifier.dart';
 import 'package:shirasu/viewmodel/model/model_edit_review.dart';
 import 'package:shirasu/viewmodel/viewmodel_edit_review.dart';
 import 'package:shirasu/gen/assets.gen.dart';
 
 part 'screen_edit_review.g.dart';
 
+@visibleForTesting
 final kPrvVmEditReview = StateNotifierProvider.family
     .autoDispose<ViewModelEditReview, String>(
         (ref, programId) => ViewModelEditReview(ref.read, programId));
+
+/// must via access from [ViewModelEditReview]
+final kPrvSnackBarEditReview =
+    StateNotifierProvider.autoDispose<SnackBarMessageNotifier>(
+        (ref) => SnackBarMessageNotifier());
+
+final _kPrvSnackMsg = Provider.autoDispose<SnackData>((ref) {
+  final snackMsgEvent = ref.watch(kPrvSnackBarEditReview.state);
+  return SnackData(snackMsgEvent.snackMsg, Dimens.SNACK_BAR_DEFAULT_MARGIN);
+});
+
+/// must via access from [ViewModelEditReview]
+final kPrvPopCommand = Provider.autoDispose<StateController<bool>>(
+    (ref) => StateController(false));
+
+final _kPrvPopCommand =
+    Provider.autoDispose<bool>((ref) => ref.watch(kPrvPopCommand).state);
 
 class ScreenEditReview extends HookWidget {
   const ScreenEditReview({@required this.programId, Key key}) : super(key: key);
@@ -38,9 +58,16 @@ class ScreenEditReview extends HookWidget {
                       ))
                   ? _Fab(onTap: _onTapFab) //todo
                   : null,
-          body: _Body(
-            programId: programId,
-            onChanged: _onTextFiledChange,
+          body: SnackEventListener(
+            provider: _kPrvSnackMsg,
+            child: ProviderListener(
+              provider: _kPrvPopCommand,
+              onChange: _onPopCommand,
+              child: _Body(
+                programId: programId,
+                onChanged: _onTextFiledChange,
+              ),
+            ),
           ),
         ),
       );
@@ -50,6 +77,10 @@ class ScreenEditReview extends HookWidget {
 
   void _onTextFiledChange(BuildContext context, String text) =>
       context.read(kPrvVmEditReview(programId)).onTextChange(text);
+
+  void _onPopCommand(BuildContext context, bool pop) {
+    if (pop) Navigator.pop(context);
+  }
 }
 
 @hwidget
@@ -89,6 +120,7 @@ Widget _fab(
         onPressed: null,
         child: Lottie.asset(
           Assets.lottie.pausePlay,
+          // todo fix animation time
         ),
       ),
       loading: () => Stack(

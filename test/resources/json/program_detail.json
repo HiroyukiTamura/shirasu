@@ -1,71 +1,65 @@
 {
   "data": {
     "viewer": {
-      "name": "NAME",
+      "name": "HiroyukiTamura",
       "icon": "https://shirasu-storage-product.s3.amazonaws.com/public/users/google-oauth2%7C109431228853603579684/icon-1605868213782-563163654447",
       "__typename": "Viewer"
     },
     "program": {
-      "id": "genron-genron-20201025",
+      "id": "genron-genron-20201027",
       "channelId": "genron",
       "tenantId": "genron",
-      "adminComment": "",
-      "adminCommentDisappearAt": "2020-10-25T12:28:11.955Z",
-      "broadcastAt": "2020-10-25T11:30:00.000Z",
-      "detail": "☆ 当番組のご購入・ご視聴は、2021年4月25日まで可能です。\n\n※ 生放送された番組は、放送終了後から半年間、アーカイブ動画（録画）として番組を公開しています。放送終了後も、番組の単独購入は可能です。\n\n■\n\nゲンロン主導で開発し、10月19日にオープンした新配信プラットフォーム「シラス」。ゲンロンはオープンと同時に「スーパー完全中継チャンネル」シラス版を開設。同日には、来月チャンネル開設予定のさやわか、辻田真佐憲両氏を招いて記念配信を行った。\n\nところがそんな初配信で、最初の2時間ほど映像がガタつくというトラブルが発生。予想以上のアクセスでの障害で、配信中に解決したもののやはり不安は残る。そこでゲンロン／シラスでは、急遽テスト配信の実施を決定した。\n\nシラスは「すべて有料配信」を旨とするが、今回はなんと、先着1500名限定で【完全無料】！　視聴希望者は、シラスのアカウントを作成したあと、購入画面で本ページ下部に記されたクーポンを適用すれば無料で視聴可能だ（1500名を超えると550円での販売となります）。\n\n今回の配信はテスト配信。基本的には負荷テストなのでどこで切れるかわからないし、もしかして途中で番組立て直しもあるかもしれない。だからこその先着無料なので、承知のうえでご参加いただきたい。タイムシフトもない（ない！）。\n\nトーク内容は前回の続き。今回はCTOの桂大介氏が番組冒頭から登場。桂氏は、前回配信後半でゲスト出演はしたものの、トラブル対応で憔悴したうえにアルコールも回りほとんどプレゼンができなかった。そんな彼に今度こそ「配信とデータの未来」について語ってもらう。そもそも思い出してみれば、東もあの日はあまりの緊張で舌が回っていなかった。今回こそ、「情報唯物論的等価交換」の本義が語られるのかもしれない。\n\nシラス爆誕の第2の瞬間を見逃すな！\n\n■\n\nクーポンコード「genron1025」\n上記のクーポンが適用できない場合、「genron102502」をご利用ください。\nどちらのクーポンも適用できなくなった場合、上限となります。通常価格での視聴となりますので、ご了承ください。\n\n番組購入画面で上記文字列をクーポン欄に記入し、番組価格がゼロ円になっていることを確認のうえ、決済ボタンを押してください。\nクーポンの有効期限は2020/10/25 23:59です。\n\nシラスのアカウント登録には、有効なクレジットカードの入力が必須です。クーポンを適用するまえに、必ずアカウントを登録し、クレカ番号の入力をお済ませください。\n\n■\n\n本番組はテスト番組です。\nクーポン配布終了後の有料購入の場合は、上記注意書きを読んだうえで、途中の切断、立て直しなどの可能性があることを十分承知したうえでご購入ください。番組終了後の返金には一切応じることができません。\n\n■\n\n10月19日の「シラスの未来、配信の未来、データの未来」の前半は「スーパー完全中継チャンネル：ニコ生版」で放送されました（無料、下記のYouTubeアドレスでも公開中）。\nhttps://youtu.be/n3rm4aaH0m8\n\n10月19日の「シラスの未来、配信の未来、データの未来」の後半は「スーパー完全中継チャンネル：シラス版」で放送されました（有料）。\nhttps://shirasu.io/t/genron/c/genron/p/20201019",
-      "mainTime": 8439,
-      "previewTime": 1800,
+      "adminComment": "ノシ",
+      "adminCommentDisappearAt": "2020-10-27T16:19:26.937Z",
+      "broadcastAt": "2020-10-27T10:00:00.000Z",
+      "detail": "ゲンロンαにイベントの無料レポート記事を掲載しています。ぜひお読みください。\n（標準語ver.）https://genron-alpha.com/article20201107_01/\n（関西弁ver.）https://genron-alpha.com/article20201107_02/\n\n無料ダイジェスト動画はこちら！\nhttps://youtu.be/obAc-Rcf4YA\n\n☆ 当番組のご購入・ご視聴は、2021年4月28日正午まで可能です。\n\n※ 生放送された番組は、放送終了後から半年間、アーカイブ動画（録画）として番組を公開しています。放送終了後も、番組の単独購入は可能です。\n\n■\n\n『ゲンロン11』好評販売中！！\n特設サイト： https://genron-tomonokai.com/genron11\nゲンロンショップ ： https://genron.co.jp/shop/products/detail/487\nAmazon： https://amzn.to/3nqK09z\n\n■\n\n東浩紀による『ゲンロン11』の巻頭論文「悪の愚かさについて２、あるいは原発事故と中動態の記憶」。\n同論考は國分功一郎氏の『中動態の世界』と『原子力時代における哲学』を重要な参照項としつつ、\n「加害の無意味さ」を記憶することの重要性を訴えている。\n\n同論考を読んだ國分氏から申し出をいただき、ふたりの対談が実現した。\n対談は約3年ぶり。\n『新対話篇』に収録された前回は、ポリティカル・コレクトネスを越えた普遍的な「正義」が話題の中心となった。\n\n『中動態の世界』で被害者の側から中動態を考え、\n『原子力時代における哲学』で原子力を乗り越える哲学をハイデガーに見出した國分氏。\n彼は東の問題提起をどう受け取ったのか。\n哲学の臨界に位置する「愚かさ」について、ふたりの哲学者が徹底的に語り合う。\n\n※ 放送のみ（会場は無観客）のイベントです。\n\n\n哲学にとって愚かさとはなにか – ゲンロンカフェ\nhttps://genron-cafe.jp/event/20201027/",
+      "mainTime": 19200,
+      "previewTime": 0,
       "release": true,
       "tags": [
-        "ゲンロンカフェ（特別配信）",
-        "桂大介",
+        "ゲンロンカフェ（思想）",
+        "國分功一郎",
         "東浩紀",
-        "上田洋子",
-        "シラス",
-        "情報唯物論的等価交換",
-        "テスト配信"
+        "ゲンロン11",
+        "哲学",
+        "中動態",
+        "悪の愚かさについて２、あるいは原発事故と中動態の記憶",
+        "中動態の世界",
+        "原子力時代における哲学",
+        "原発事故"
       ],
-      "title": "桂大介×東浩紀（司会＝上田洋子）「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma @yuvmsk #ゲンロン201025",
-      "totalPlayTime": 19239,
+      "title": "國分功一郎×東浩紀「哲学にとって愚かさとはなにか――原子力と中動態をめぐって」【『ゲンロン11』刊行記念】 @lethal_notion @hazuma #ゲンロン201027",
+      "totalPlayTime": 22800,
       "viewerPlanType": "SubscriptionPlan",
-      "isExtensionChargedToSubscribers": true,
-      "archivedAt": "2020-10-25T18:29:00.939Z",
+      "isExtensionChargedToSubscribers": false,
+      "archivedAt": "2020-10-28T11:18:55.180Z",
       "releaseState": "open",
       "shouldArchive": true,
+      "myReview": {
+        "id": "genron-genron-20201027:google-oauth2|109431228853603579684",
+        "body": "お二人の本を読んで学生時代を過ごした身としてはなんていうか非常に感慨深いものがあります...!!\n著作を読んだり本屋やカルチャーセンターのイベントに参加する以外に、今は動画でこうして見れるのですね...\n個人的には、\b酒なしでもっとお二人の議論を聞きたかったです笑",
+        "createdAt": "2021-04-25T05:21:19.424Z",
+        "user": {
+          "id": "google-oauth2|109431228853603579684",
+          "name": "HiroyukiTamura",
+          "icon": "https://shirasu-storage-product.s3.amazonaws.com/public/users/google-oauth2%7C109431228853603579684/icon-1605868213782-563163654447",
+          "__typename": "User"
+        },
+        "__typename": "Review",
+        "state": "open"
+      },
       "extensions": [
         {
-          "id": "genron-genron-20201025:extension001",
-          "extensionTime": 7200,
-          "oneTimePlanId": "genron-genron-20201025:extension001",
-          "oneTimePlan": {
-            "id": "genron-genron-20201025:extension001",
-            "parentPlanType": null,
-            "parentPlanId": null,
-            "productType": "LiveExtension",
-            "productId": "genron-genron-20201025:extension001",
-            "name": "桂大介×東浩紀（司会＝上田洋子）「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma @yuvmsk #ゲンロン201025 延長1回",
-            "amount": 300,
-            "currency": "jpy",
-            "isPurchasable": true,
-            "viewerPurchasedPlan": {
-              "isActive": true,
-              "__typename": "PurchasedPlan"
-            },
-            "__typename": "OneTimePlan"
-          },
-          "__typename": "LiveExtension"
-        },
-        {
-          "id": "genron-genron-20201025:extension002",
+          "id": "genron-genron-20201027:extension001",
           "extensionTime": 3600,
-          "oneTimePlanId": "genron-genron-20201025:extension002",
+          "oneTimePlanId": "genron-genron-20201027:extension001",
           "oneTimePlan": {
-            "id": "genron-genron-20201025:extension002",
+            "id": "genron-genron-20201027:extension001",
             "parentPlanType": null,
             "parentPlanId": null,
             "productType": "LiveExtension",
-            "productId": "genron-genron-20201025:extension002",
-            "name": "桂大介×東浩紀（司会＝上田洋子）「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma @yuvmsk #ゲンロン201025 延長2回",
+            "productId": "genron-genron-20201027:extension001",
+            "name": "國分功一郎×東浩紀「哲学にとって愚かさとはなにか――原子力と中動態をめぐって」【『ゲンロン11』刊行記念】 @lethal_notion @hazuma #ゲンロン201027 延長1回",
             "amount": 150,
             "currency": "jpy",
             "isPurchasable": true,
@@ -79,102 +73,109 @@
       "channel": {
         "id": "genron",
         "tenantId": "genron",
-        "name": "スーパー完全中継チャンネル",
+        "name": "ゲンロン完全中継チャンネル",
         "icon": null,
         "textOnPurchaseScreen": "番組は一度の購入で、放送後半年間アーカイブ（録画）をご視聴いただけます。延長部分の視聴には別料金が必要な場合があります。",
         "__typename": "Channel"
       },
       "handouts": {
-        "items": [
-          {
-            "id": "13ad0ace-a948-4612-86be-aaaaaaaa",
-            "programId": "genron-genron-20201025",
-            "extensionId": null,
-            "name": "DUMMY.pdf",
-            "createdAt": "2020-10-25T16:09:27.795Z",
-            "__typename": "Handout"
-          },
-          {
-            "id": "13ad0ace-a948-4612-86be-dc5bf517c992",
-            "programId": "genron-genron-20201025",
-            "extensionId": "genron-genron-20201025:extension002",
-            "name": "20201019シラス開設記念.pdf",
-            "createdAt": "2020-10-25T16:09:27.795Z",
-            "__typename": "Handout"
-          },
-          {
-            "id": "b1caf637-7ffd-4df7-9ce3-e02cfb09c87d",
-            "programId": "genron-genron-20201025",
-            "extensionId": "genron-genron-20201025:extension001",
-            "name": "シラス_桂_20201025.pdf",
-            "createdAt": "2020-10-25T13:55:19.328Z",
-            "__typename": "Handout"
-          }
-        ],
+        "items": [],
         "nextToken": null,
         "__typename": "ModelHandoutConnection"
       },
       "videos": {
         "items": [
           {
-            "id": "genron-genron-20201025:ext.1",
-            "videoType": "ArchivedVideo",
-            "mediaStatus": null,
-            "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/ext.1/index.m3u8",
-            "__typename": "Video"
-          },
-          {
-            "id": "genron-genron-20201025:ext.0",
-            "videoType": "ArchivedVideo",
-            "mediaStatus": null,
-            "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/ext.0/index.m3u8",
-            "__typename": "Video"
-          },
-          {
-            "id": "genron-genron-20201025:free",
-            "videoType": "ArchivedVideo",
-            "mediaStatus": null,
-            "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/free/index.m3u8",
-            "__typename": "Video"
-          },
-          {
-            "id": "b9714e7d-1cd9-4bc4-bb8f-9fe484c55c31",
+            "id": "6db1f10d-cd14-42a3-902e-ab48e79f740d",
             "videoType": "LiveVideo",
             "mediaStatus": "ENDED",
-            "liveUrl": "https://video.shirasu.io/d485df5d-4d53-4544-8836-ae412fe31ece-fv3pjhlnqje2rilqhxaag65ate-product/live.m3u8",
+            "liveUrl": "https://video.shirasu.io/bc8fb057-b726-41f4-8061-8ee93fb2a6d7-fv3pjhlnqje2rilqhxaag65ate-product/live.m3u8",
             "archiveUrl": null,
             "__typename": "Video"
           },
           {
-            "id": "genron-genron-20201025:main",
+            "id": "genron-genron-20201027:main",
             "videoType": "ArchivedVideo",
             "mediaStatus": null,
             "liveUrl": null,
-            "archiveUrl": "https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/main/index.m3u8",
+            "archiveUrl": "https://video.shirasu.io/private/hls/bc8fb057-b726-41f4-8061-8ee93fb2a6d7/main/index.m3u8",
+            "__typename": "Video"
+          },
+          {
+            "id": "genron-genron-20201027:ext.0",
+            "videoType": "ArchivedVideo",
+            "mediaStatus": null,
+            "liveUrl": null,
+            "archiveUrl": "https://video.shirasu.io/private/hls/bc8fb057-b726-41f4-8061-8ee93fb2a6d7/ext.0/index.m3u8",
+            "__typename": "Video"
+          },
+          {
+            "id": "genron-genron-20201027:free",
+            "videoType": "ArchivedVideo",
+            "mediaStatus": null,
+            "liveUrl": null,
+            "archiveUrl": "https://video.shirasu.io/private/hls/bc8fb057-b726-41f4-8061-8ee93fb2a6d7/free/index.m3u8",
             "__typename": "Video"
           }
         ],
         "nextToken": null,
         "__typename": "ModelVideoConnection"
       },
+      "reviews": {
+        "items": [
+          {
+            "id": "genron-genron-20201027:google-oauth2|109431228853603579684",
+            "body": "お二人の本を読んで学生時代を過ごした身としてはなんていうか非常に感慨深いものがあります...!!\n著作を読んだり本屋やカルチャーセンターのイベントに参加する以外に、今は動画でこうして見れるのですね...\n個人的には、\b酒なしでもっとお二人の議論を聞きたかったです笑",
+            "createdAt": "2021-04-25T05:21:19.424Z",
+            "user": {
+              "id": "google-oauth2|109431228853603579684",
+              "name": "HiroyukiTamura",
+              "icon": "https://shirasu-storage-product.s3.amazonaws.com/public/users/google-oauth2%7C109431228853603579684/icon-1605868213782-563163654447",
+              "__typename": "User"
+            },
+            "__typename": "Review"
+          },
+          {
+            "id": "genron-genron-20201027:auth0|606b61c209c6ec0068262217",
+            "body": "本日の対話もとても興味深く聴き入ってしまいました。\n\n普段の生活では哲学とはとても遠い日常に生きていまして（ちなみにコンビニの加盟店で働いている従業員ですが）東さんの本、対談で触れられる抽象的に語られる言葉が、僕の日々の日常で起こる出来事や人間関係などにも具体的に重なることが多く、東さんの生きた哲学の言葉が僕の日々の生き方を照らしてくれています。本当にありがとうございます。TBS文化系トークラジオLIFEを昔聴いていまして（おそらく10年前くらい前）東さんが一度ゲストとしてご出演されたと思います。その時のアーカイブを今も聴くことができるので年に1回くらい毎年聴きかえすのですが、じわりじわり東さんが残す言葉が好きになっていきました。（ちなみに國分さんのこともその頃LIFEで知りました）文章を書くのが得意ではない上、この対談内容の直接のレビューにはなっていませんがとにかくゲンロンを応援しています。東さんの言葉は、地方のコンビニ店員にも届いていますよ！、ということをお伝えしたくて勇気を振り絞って書いてみました。これからも頑張ってください！",
+            "createdAt": "2021-04-19T20:16:38.316Z",
+            "user": {
+              "id": "auth0|606b61c209c6ec0068262217",
+              "name": "happanosuke",
+              "icon": "https://shirasu-storage-product.s3.amazonaws.com/public/users/auth0%7C606b61c209c6ec0068262217/icon-1618239553792-4195726948747",
+              "__typename": "User"
+            },
+            "__typename": "Review"
+          },
+          {
+            "id": "genron-genron-20201027:twitter|39870235",
+            "body": "　いわゆる神回。前半のソリッドな哲学的対話も白眉ながら、コロナ禍において「久々に外に出てお酒を飲んだ」という國分さんにいい感じでアルコールが回り、國分さんの生い立ちからとんかつへの思い入れまで、ゆるく雑談が交わされる後半の『浩紀の部屋感』も、ゲンロンならでは。\n\n　中動態をキーワードにして、アーレントのアイヒマン批判に切り込み、アウシュヴィッツやホロコーストこそ/のみが20世紀最大の悪ととらえて特権化してきたことは、西欧中心の哲学の間隙だとし“凡庸な悪”ではない“愚かな悪”の可能性を考える議論は、今の日本の政治状況を考える上でもとてもアクチュアル。\n　さらには、ナンシーとアガンベンの対立。世界の言語の分布やスポーツ選手の言論空間でのプレゼンスの上昇への懸念、ブルガリアトークなどなど、議論は多岐にわたり、最後は「気合＝puissance」を問うていくという縦横無尽ぶりで、まさに必見。",
+            "createdAt": "2021-04-07T00:08:23.066Z",
+            "user": {
+              "id": "twitter|39870235",
+              "name": "tk-yu-ki",
+              "icon": "https://pbs.twimg.com/profile_images/1248786029382787073/Wezwho3D_normal.jpg",
+              "__typename": "User"
+            },
+            "__typename": "Review"
+          }
+        ],
+        "nextToken": null,
+        "__typename": "ReviewConnection"
+      },
+      "focusedReview": null,
       "onetimePlans": [
         {
-          "id": "0ca7a91d-5bec-4694-9c5c-3d6626e01cd0",
+          "id": "a579f49d-9786-4f79-ae1f-ef0576d5381f",
           "parentPlanType": "SubscriptionPlan",
           "parentPlanId": "price_1HcpJXG1x5cV2jHOJqhaapY0",
           "productType": "Program",
-          "productId": "genron-genron-20201025",
-          "name": "スーパー完全中継チャンネル 桂大介×東浩紀「シラスの未来、配信の未来、データの未来２」@dkatsura @hazuma #ゲンロン201025 単品",
-          "amount": 500,
+          "productId": "genron-genron-20201027",
+          "name": "ゲンロン完全中継チャンネル 【生放送】國分功一郎×東浩紀「哲学にとって愚かさとはなにか――原子力と中動態をめぐって」【『ゲンロン11』刊行記念】 @lethal_notion @hazuma #ゲンロン201027 単品",
+          "amount": 800,
           "currency": "jpy",
           "isPurchasable": true,
-          "viewerPurchasedPlan": {
-            "isActive": true,
-            "__typename": "PurchasedPlan"
-          },
+          "viewerPurchasedPlan": null,
           "__typename": "OneTimePlan"
         }
       ]

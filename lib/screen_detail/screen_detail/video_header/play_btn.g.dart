@@ -12,5 +12,5 @@ class PlayBtn extends StatelessWidget {
   final void Function() onTap;
 
   @override
-  Widget build(BuildContext _context) => playBtn(onTap: onTap);
+  Widget build(BuildContext _context) => playBtn(_context, onTap: onTap);
 }

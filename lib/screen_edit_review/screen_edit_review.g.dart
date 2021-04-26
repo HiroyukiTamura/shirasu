@@ -19,13 +19,17 @@ class _Body extends HookWidget {
       _body(programId: programId, onChanged: onChanged);
 }
 
-class _Fab extends StatelessWidget {
-  const _Fab({Key key, @required this.onTap}) : super(key: key);
+class _Fab extends HookWidget {
+  const _Fab({Key key, @required this.programId, @required this.onTap})
+      : super(key: key);
+
+  final String programId;
 
   final void Function(BuildContext) onTap;
 
   @override
-  Widget build(BuildContext _context) => _fab(_context, onTap: onTap);
+  Widget build(BuildContext _context) =>
+      _fab(_context, programId: programId, onTap: onTap);
 }
 
 class _TextField extends HookWidget {

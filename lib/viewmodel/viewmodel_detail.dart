@@ -582,7 +582,7 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
                     .deleteReview(reviewId: programData.program.myReview.id)
                     .timeout(GraphQlRepository.TIMEOUT);
               }));
-      if (!mounted) return null;
+      if (!mounted) return;
       final snackMsg = result.when(
         success: (_) => const SnackMsg.reviewDeleted(),
         failure: toNetworkSnack,

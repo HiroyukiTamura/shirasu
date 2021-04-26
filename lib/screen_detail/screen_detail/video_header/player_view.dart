@@ -14,6 +14,7 @@ import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:video_player/video_player.dart';
+import 'package:dartx/dartx.dart';
 
 part 'player_view.g.dart';
 
@@ -260,5 +261,6 @@ class _PlayerViewState extends State<_PlayerView>
 }
 
 extension on VideoPlayerValue {
-  bool get isFinished => !isPlaying && duration <= position;
+  /// duration and position may be zero if error occurred
+  bool get isFinished => !isPlaying && Duration.zero < duration && duration <= position;
 }

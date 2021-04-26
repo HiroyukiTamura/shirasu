@@ -6,7 +6,6 @@ import 'package:shirasu/btm_sheet/btm_sheet_common.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_review.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_video_payment.dart';
 import 'package:shirasu/btm_sheet/common.dart';
-import 'package:shirasu/model/graphql/review.dart';
 import 'package:shirasu/model/hive/fcm_topic.dart';
 import 'package:shirasu/repository/hive_client.dart';
 import 'package:shirasu/btm_sheet/btm_sheet_sns_share.dart';

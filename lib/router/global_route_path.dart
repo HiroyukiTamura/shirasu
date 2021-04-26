@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shirasu/model/graphql/detail_program_data.dart';
 import 'package:shirasu/screen_main/page_list/page_subscribing.dart';
 
 part 'global_route_path.freezed.dart';

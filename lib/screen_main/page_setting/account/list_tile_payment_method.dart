@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:shirasu/model/graphql/base_model.dart';
 import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/resource/strings.dart';
 

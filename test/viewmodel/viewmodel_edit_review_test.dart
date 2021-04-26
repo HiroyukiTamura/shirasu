@@ -12,7 +12,6 @@ import '../mock_repository/connected_connected.dart';
 import '../mock_repository/hive_auth_empty.dart';
 import '../mock_viewmodel/viewmodel_edit_review_mockable.dart';
 import '../widget_test_util/json_client.dart';
-import '../widget_test_util/test_name_common.dart';
 import 'viewmodel_test_base.dart';
 
 /// test for [ViewModelEditReview]

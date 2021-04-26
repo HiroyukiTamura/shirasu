@@ -14,7 +14,6 @@ import 'package:shirasu/viewmodel/viewmodel_detail.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
 import 'package:video_player/video_player.dart';
-import 'package:dartx/dartx.dart';
 
 part 'player_view.g.dart';
 

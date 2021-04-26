@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
-
-import 'error_msg_common.dart';
+import 'package:shirasu/viewmodel/model/error_msg_common.dart';
 
 part 'model_edit_review.freezed.dart';
 

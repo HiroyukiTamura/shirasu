@@ -31,6 +31,7 @@ class $AssetsJsonGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
+  String get check => 'assets/lottie/check.json';
   String get fastForward => 'assets/lottie/fast_forward.json';
   String get pausePlay => 'assets/lottie/pause_play.json';
   String get rewind => 'assets/lottie/rewind.json';
@@ -68,6 +69,8 @@ class $AssetsSvgGen {
       const SvgGenImage('assets/svg/app_logo_content.svg');
   SvgGenImage get defaultChannelIcon =>
       const SvgGenImage('assets/svg/default-channel-icon.svg');
+  SvgGenImage get defaultUserIcon =>
+      const SvgGenImage('assets/svg/default_user_icon.svg');
   SvgGenImage get iconIosShare =>
       const SvgGenImage('assets/svg/icon_ios_share.svg');
   SvgGenImage get logoOfficial =>

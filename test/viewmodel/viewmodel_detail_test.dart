@@ -426,7 +426,7 @@ Future<void> main() async {
         ],
         expectedState: specState
             .copyAsInitialize(
-                'https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/free/index.m3u8',
+                'https://video.shirasu.io/private/hls/bc8fb057-b726-41f4-8061-8ee93fb2a6d7/free/index.m3u8',
                 const VideoType.archived())
             .copyWith
             .playOutState(
@@ -454,7 +454,7 @@ Future<void> main() async {
         ],
         expectedState: specState
             .copyAsInitialize(
-                'https://video.shirasu.io/private/hls/d485df5d-4d53-4544-8836-ae412fe31ece/free/index.m3u8',
+                'https://video.shirasu.io/private/hls/bc8fb057-b726-41f4-8061-8ee93fb2a6d7/free/index.m3u8',
                 const VideoType.archived())
             .copyWith
             .playOutState(
@@ -469,4 +469,6 @@ Future<void> main() async {
       ),
     );
   });
+
+  // todo test delete review
 }

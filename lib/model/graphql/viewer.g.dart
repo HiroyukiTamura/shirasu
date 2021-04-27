@@ -113,52 +113,6 @@ Map<String, dynamic> _$_$_SubscribedChannelsToJson(
       '__typename': instance.typename,
     };
 
-_$_InvoiceHistory _$_$_InvoiceHistoryFromJson(Map<String, dynamic> json) {
-  return _$_InvoiceHistory(
-    rawItems: (json['items'] as List)
-        ?.map((e) => e == null
-            ? null
-            : InvoiceHistoryItem.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    typename: json['__typename'] as String,
-  );
-}
-
-Map<String, dynamic> _$_$_InvoiceHistoryToJson(_$_InvoiceHistory instance) =>
-    <String, dynamic>{
-      'items': instance.rawItems,
-      '__typename': instance.typename,
-    };
-
-_$_InvoiceHistoryItem _$_$_InvoiceHistoryItemFromJson(
-    Map<String, dynamic> json) {
-  return _$_InvoiceHistoryItem(
-    id: json['id'] as String,
-    total: json['total'] as int,
-    currency: json['currency'] as String,
-    label: json['label'] as String,
-    createdAt: json['createdAt'] == null
-        ? null
-        : DateTime.parse(json['createdAt'] as String),
-    planType: json['planType'] as String,
-    status: json['status'] as String,
-    typename: json['__typename'] as String,
-  );
-}
-
-Map<String, dynamic> _$_$_InvoiceHistoryItemToJson(
-        _$_InvoiceHistoryItem instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'total': instance.total,
-      'currency': instance.currency,
-      'label': instance.label,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'planType': instance.planType,
-      'status': instance.status,
-      '__typename': instance.typename,
-    };
-
 _$_SubscribedChannel _$_$_SubscribedChannelFromJson(Map<String, dynamic> json) {
   return _$_SubscribedChannel(
     id: json['id'] as String,
@@ -213,7 +167,6 @@ Map<String, dynamic> _$_$_ChannelToJson(_$_Channel instance) =>
 _$_LatestInvoice _$_$_LatestInvoiceFromJson(Map<String, dynamic> json) {
   return _$_LatestInvoice(
     id: json['id'] as String,
-    description: json['description'] as String,
     createdAt: json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String),
@@ -221,6 +174,7 @@ _$_LatestInvoice _$_$_LatestInvoiceFromJson(Map<String, dynamic> json) {
     status: json['status'] as String,
     hostedInvoiceUrl: json['hostedInvoiceUrl'] as String,
     nextPaymentAttempt: json['nextPaymentAttempt'],
+    description: json['description'] as String,
     typename: json['__typename'] as String,
   );
 }
@@ -228,31 +182,31 @@ _$_LatestInvoice _$_$_LatestInvoiceFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_LatestInvoiceToJson(_$_LatestInvoice instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'description': instance.description,
       'createdAt': instance.createdAt?.toIso8601String(),
       'planType': instance.planType,
       'status': instance.status,
       'hostedInvoiceUrl': instance.hostedInvoiceUrl,
       'nextPaymentAttempt': instance.nextPaymentAttempt,
+      'description': instance.description,
       '__typename': instance.typename,
     };
 
 _$_WatchHistories _$_$_WatchHistoriesFromJson(Map<String, dynamic> json) {
   return _$_WatchHistories(
-    nextToken: json['nextToken'] as String,
     rawItems: (json['items'] as List)
         ?.map((e) => e == null
             ? null
             : WatchHistoriesItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    nextToken: json['nextToken'] as String,
     typename: json['__typename'] as String,
   );
 }
 
 Map<String, dynamic> _$_$_WatchHistoriesToJson(_$_WatchHistories instance) =>
     <String, dynamic>{
-      'nextToken': instance.nextToken,
       'items': instance.rawItems,
+      'nextToken': instance.nextToken,
       '__typename': instance.typename,
     };
 

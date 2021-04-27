@@ -152,7 +152,7 @@ fragment DashboardChannel on Channel {
   ''';
 
   static const QUERY_DETAIL_PROGRAMS = r'''
-query GetProgram($id: ID!) {
+query GetProgram($id: ID!, $focusedReviewAuthorName: String, $reviewsNextToken: String) {
     viewer {
         name
         icon
@@ -184,6 +184,18 @@ query GetProgram($id: ID!) {
             nextToken
             __typename
         }
+        reviews(limit: 10, state: open, nextToken: $reviewsNextToken) {
+            items {
+                ...UserPageReviewData
+                __typename
+            }
+            nextToken
+            __typename
+        }
+        focusedReview: review(authorName: $focusedReviewAuthorName) {
+            ...UserPageReviewData
+            __typename
+        }
         onetimePlans {
             ...UserPageOneTimePlanData
             __typename
@@ -210,8 +222,51 @@ fragment UserPageProgramData on Program {
     archivedAt
     releaseState
     shouldArchive
+    myReview {
+        ...UserPageReviewData
+        state
+        __typename
+    }
     extensions {
         ...UserPageLiveExtensionData
+        __typename
+    }
+    __typename
+}
+fragment UserPageReviewData on Review {
+    id
+    body
+    createdAt
+    user {
+        id
+        name
+        icon
+        __typename
+    }
+    __typename
+}
+fragment UserPageLiveExtensionData on LiveExtension {
+    id
+    extensionTime
+    oneTimePlanId
+    oneTimePlan {
+        ...UserPageOneTimePlanData
+        __typename
+    }
+    __typename
+}
+fragment UserPageOneTimePlanData on OneTimePlan {
+    id
+    parentPlanType
+    parentPlanId
+    productType
+    productId
+    name
+    amount
+    currency
+    isPurchasable
+    viewerPurchasedPlan {
+        isActive
         __typename
     }
     __typename
@@ -360,7 +415,7 @@ query GetViewer {
     }
     viewerUser: viewerUser {
         ...UserAccountPageUserData
-        invoiceHistory {
+        invoiceHistory(limit: 3) {
             items {
                 ...UserAccountInvoiceData
                 __typename
@@ -400,11 +455,22 @@ fragment UserAccountPageUserData on User {
 fragment UserAccountInvoiceData on Invoice {
     id
     total
+    subtotal
+    tax
+    discountAmount
     currency
     label
     createdAt
     planType
     status
+    hostedInvoiceUrl
+    discount {
+        coupon {
+            durationInMonths
+            __typename
+        }
+        __typename
+    }
     products {
         id
         ... on Channel {
@@ -536,7 +602,7 @@ mutation UpdateUserWithAttribute($input: UpdateUserWithAttributeInput) {
 }
   ''';
 
-  static const String MUTATE_HAND_OUT_URL = r'''
+  static const MUTATE_HAND_OUT_URL = r'''
 mutation GetSignedUrl(
     $operation: S3Operation!
     $key: String!
@@ -553,7 +619,7 @@ mutation GetSignedUrl(
     )
 }''';
 
-  static const String QUERY_COMMENTS = r'''
+  static const QUERY_COMMENTS = r'''
 query ListCommentsByProgram(
     $programId: ID!
     $beginTime: Int!
@@ -612,6 +678,33 @@ fragment UseProgramCommentData on Comment {
     __typename
   }
   __typename
+}
+''';
+
+  static const MUTATE_POST_REVIEW = r'''
+mutation PostReview($programId: ID!, $body: String!) {
+    reivew: postReview(input: {programId: $programId, body: $body}) {
+        ...UserPageReviewData
+        __typename
+    }
+}
+fragment UserPageReviewData on Review {
+    id
+    body
+    createdAt
+    user {
+        id
+        name
+        icon
+        __typename
+    }
+    __typename
+}
+''';
+
+  static const MUTATE_REMOVE_REVIEW = r'''
+mutation RemoveReview($reviewId: ID!) {
+    removeReview(id: $reviewId)
 }
 ''';
 }

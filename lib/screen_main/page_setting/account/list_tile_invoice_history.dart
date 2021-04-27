@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:shirasu/model/graphql/viewer.dart';
+import 'package:shirasu/model/graphql/invoice_history.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/font_size.dart';
 import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/text_styles.dart';
+import 'package:shirasu/extension.dart';
 
 class ListTileInvoiceHistory extends StatelessWidget {
   const ListTileInvoiceHistory({@required this.invoiceHistoryItem, Key key})
@@ -31,8 +31,7 @@ class ListTileInvoiceHistory extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                DateFormat('yyyy/MM/dd HH:mm')
-                    .format(invoiceHistoryItem.createdAt),
+                invoiceHistoryItem.createdAt.formatLocalYmdHm(),
                 style: const TextStyle(
                   color: Styles.COLOR_TEXT_SUB,
                   fontSize: FontSize.SMALL,

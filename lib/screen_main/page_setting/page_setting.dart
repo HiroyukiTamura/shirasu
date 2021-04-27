@@ -124,6 +124,9 @@ class PageUserInfo extends HookWidget {
 
             threshHolds.swap(data.viewerUser.invoiceHistory.items.length);
 
+            // max number of [ListTileInvoiceHistory] is 3
+            // @see [GraphqlQuery.QUERY_VIEWER]
+            // todo see more button
             if (i <= threshHolds.threshold) {
               final index = i - threshHolds.preThreshHold - 1;
               return ListTileInvoiceHistory(

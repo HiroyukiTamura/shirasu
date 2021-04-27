@@ -8,7 +8,7 @@ part 'stacked_inkwell.g.dart';
 @swidget
 Widget stackedInkWell({
   @required Widget child,
-  @required GestureTapCallback onTap,
+  GestureTapCallback onTap,
 }) => Stack(
     children: [
       child,

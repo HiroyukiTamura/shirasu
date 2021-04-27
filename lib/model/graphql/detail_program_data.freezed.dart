@@ -259,6 +259,10 @@ class _$ProgramDetailTearOff {
       @JsonKey(name: 'onetimePlans')
           List<OnetimePlan> rawOnetimePlans,
       @required
+          Reviews reviews,
+      MyReview myReview,
+      ReviewsItem focusedReview,
+      @required
       @JsonKey(name: '__typename')
           String typename}) {
     return _ProgramDetail(
@@ -285,6 +289,9 @@ class _$ProgramDetailTearOff {
       handouts: handouts,
       videos: videos,
       rawOnetimePlans: rawOnetimePlans,
+      reviews: reviews,
+      myReview: myReview,
+      focusedReview: focusedReview,
       typename: typename,
     );
   }
@@ -333,6 +340,9 @@ mixin _$ProgramDetail {
   @protected
   @JsonKey(name: 'onetimePlans')
   List<OnetimePlan> get rawOnetimePlans;
+  Reviews get reviews;
+  MyReview get myReview;
+  ReviewsItem get focusedReview;
   @JsonKey(name: '__typename')
   String get typename;
 
@@ -377,12 +387,18 @@ abstract class $ProgramDetailCopyWith<$Res> {
       @protected
       @JsonKey(name: 'onetimePlans')
           List<OnetimePlan> rawOnetimePlans,
+      Reviews reviews,
+      MyReview myReview,
+      ReviewsItem focusedReview,
       @JsonKey(name: '__typename')
           String typename});
 
   $DetailPrgChannelCopyWith<$Res> get channel;
   $HandoutsCopyWith<$Res> get handouts;
   $VideoHandoutsCopyWith<$Res> get videos;
+  $ReviewsCopyWith<$Res> get reviews;
+  $MyReviewCopyWith<$Res> get myReview;
+  $ReviewsItemCopyWith<$Res> get focusedReview;
 }
 
 /// @nodoc
@@ -419,6 +435,9 @@ class _$ProgramDetailCopyWithImpl<$Res>
     Object handouts = freezed,
     Object videos = freezed,
     Object rawOnetimePlans = freezed,
+    Object reviews = freezed,
+    Object myReview = freezed,
+    Object focusedReview = freezed,
     Object typename = freezed,
   }) {
     return _then(_value.copyWith(
@@ -468,6 +487,11 @@ class _$ProgramDetailCopyWithImpl<$Res>
       rawOnetimePlans: rawOnetimePlans == freezed
           ? _value.rawOnetimePlans
           : rawOnetimePlans as List<OnetimePlan>,
+      reviews: reviews == freezed ? _value.reviews : reviews as Reviews,
+      myReview: myReview == freezed ? _value.myReview : myReview as MyReview,
+      focusedReview: focusedReview == freezed
+          ? _value.focusedReview
+          : focusedReview as ReviewsItem,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -499,6 +523,36 @@ class _$ProgramDetailCopyWithImpl<$Res>
     }
     return $VideoHandoutsCopyWith<$Res>(_value.videos, (value) {
       return _then(_value.copyWith(videos: value));
+    });
+  }
+
+  @override
+  $ReviewsCopyWith<$Res> get reviews {
+    if (_value.reviews == null) {
+      return null;
+    }
+    return $ReviewsCopyWith<$Res>(_value.reviews, (value) {
+      return _then(_value.copyWith(reviews: value));
+    });
+  }
+
+  @override
+  $MyReviewCopyWith<$Res> get myReview {
+    if (_value.myReview == null) {
+      return null;
+    }
+    return $MyReviewCopyWith<$Res>(_value.myReview, (value) {
+      return _then(_value.copyWith(myReview: value));
+    });
+  }
+
+  @override
+  $ReviewsItemCopyWith<$Res> get focusedReview {
+    if (_value.focusedReview == null) {
+      return null;
+    }
+    return $ReviewsItemCopyWith<$Res>(_value.focusedReview, (value) {
+      return _then(_value.copyWith(focusedReview: value));
     });
   }
 }
@@ -541,6 +595,9 @@ abstract class _$ProgramDetailCopyWith<$Res>
       @protected
       @JsonKey(name: 'onetimePlans')
           List<OnetimePlan> rawOnetimePlans,
+      Reviews reviews,
+      MyReview myReview,
+      ReviewsItem focusedReview,
       @JsonKey(name: '__typename')
           String typename});
 
@@ -550,6 +607,12 @@ abstract class _$ProgramDetailCopyWith<$Res>
   $HandoutsCopyWith<$Res> get handouts;
   @override
   $VideoHandoutsCopyWith<$Res> get videos;
+  @override
+  $ReviewsCopyWith<$Res> get reviews;
+  @override
+  $MyReviewCopyWith<$Res> get myReview;
+  @override
+  $ReviewsItemCopyWith<$Res> get focusedReview;
 }
 
 /// @nodoc
@@ -588,6 +651,9 @@ class __$ProgramDetailCopyWithImpl<$Res>
     Object handouts = freezed,
     Object videos = freezed,
     Object rawOnetimePlans = freezed,
+    Object reviews = freezed,
+    Object myReview = freezed,
+    Object focusedReview = freezed,
     Object typename = freezed,
   }) {
     return _then(_ProgramDetail(
@@ -637,6 +703,11 @@ class __$ProgramDetailCopyWithImpl<$Res>
       rawOnetimePlans: rawOnetimePlans == freezed
           ? _value.rawOnetimePlans
           : rawOnetimePlans as List<OnetimePlan>,
+      reviews: reviews == freezed ? _value.reviews : reviews as Reviews,
+      myReview: myReview == freezed ? _value.myReview : myReview as MyReview,
+      focusedReview: focusedReview == freezed
+          ? _value.focusedReview
+          : focusedReview as ReviewsItem,
       typename: typename == freezed ? _value.typename : typename as String,
     ));
   }
@@ -670,6 +741,9 @@ class _$_ProgramDetail extends _ProgramDetail {
       @required this.handouts,
       @required this.videos,
       @required @protected @JsonKey(name: 'onetimePlans') this.rawOnetimePlans,
+      @required this.reviews,
+      this.myReview,
+      this.focusedReview,
       @required @JsonKey(name: '__typename') this.typename})
       : assert(id != null),
         assert(channelId != null),
@@ -689,6 +763,7 @@ class _$_ProgramDetail extends _ProgramDetail {
         assert(handouts != null),
         assert(videos != null),
         assert(rawOnetimePlans != null),
+        assert(reviews != null),
         assert(typename != null),
         assert(typename == "Program"),
         assert(0 <= totalPlayTime),
@@ -755,12 +830,18 @@ class _$_ProgramDetail extends _ProgramDetail {
   @JsonKey(name: 'onetimePlans')
   final List<OnetimePlan> rawOnetimePlans;
   @override
+  final Reviews reviews;
+  @override
+  final MyReview myReview;
+  @override
+  final ReviewsItem focusedReview;
+  @override
   @JsonKey(name: '__typename')
   final String typename;
 
   @override
   String toString() {
-    return 'ProgramDetail(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, rawTags: $rawTags, title: $title, totalPlayTime: $totalPlayTime, viewerPlanType: $viewerPlanType, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, rawExtensions: $rawExtensions, channel: $channel, handouts: $handouts, videos: $videos, rawOnetimePlans: $rawOnetimePlans, typename: $typename)';
+    return 'ProgramDetail(id: $id, channelId: $channelId, tenantId: $tenantId, adminComment: $adminComment, adminCommentDisappearAt: $adminCommentDisappearAt, broadcastAt: $broadcastAt, detail: $detail, mainTime: $mainTime, previewTime: $previewTime, release: $release, rawTags: $rawTags, title: $title, totalPlayTime: $totalPlayTime, viewerPlanType: $viewerPlanType, isExtensionChargedToSubscribers: $isExtensionChargedToSubscribers, archivedAt: $archivedAt, releaseState: $releaseState, shouldArchive: $shouldArchive, rawExtensions: $rawExtensions, channel: $channel, handouts: $handouts, videos: $videos, rawOnetimePlans: $rawOnetimePlans, reviews: $reviews, myReview: $myReview, focusedReview: $focusedReview, typename: $typename)';
   }
 
   @override
@@ -823,6 +904,9 @@ class _$_ProgramDetail extends _ProgramDetail {
             (identical(other.handouts, handouts) || const DeepCollectionEquality().equals(other.handouts, handouts)) &&
             (identical(other.videos, videos) || const DeepCollectionEquality().equals(other.videos, videos)) &&
             (identical(other.rawOnetimePlans, rawOnetimePlans) || const DeepCollectionEquality().equals(other.rawOnetimePlans, rawOnetimePlans)) &&
+            (identical(other.reviews, reviews) || const DeepCollectionEquality().equals(other.reviews, reviews)) &&
+            (identical(other.myReview, myReview) || const DeepCollectionEquality().equals(other.myReview, myReview)) &&
+            (identical(other.focusedReview, focusedReview) || const DeepCollectionEquality().equals(other.focusedReview, focusedReview)) &&
             (identical(other.typename, typename) || const DeepCollectionEquality().equals(other.typename, typename)));
   }
 
@@ -852,6 +936,9 @@ class _$_ProgramDetail extends _ProgramDetail {
       const DeepCollectionEquality().hash(handouts) ^
       const DeepCollectionEquality().hash(videos) ^
       const DeepCollectionEquality().hash(rawOnetimePlans) ^
+      const DeepCollectionEquality().hash(reviews) ^
+      const DeepCollectionEquality().hash(myReview) ^
+      const DeepCollectionEquality().hash(focusedReview) ^
       const DeepCollectionEquality().hash(typename);
 
   @JsonKey(ignore: true)
@@ -917,6 +1004,10 @@ abstract class _ProgramDetail extends ProgramDetail {
       @JsonKey(name: 'onetimePlans')
           List<OnetimePlan> rawOnetimePlans,
       @required
+          Reviews reviews,
+      MyReview myReview,
+      ReviewsItem focusedReview,
+      @required
       @JsonKey(name: '__typename')
           String typename}) = _$_ProgramDetail;
 
@@ -978,6 +1069,12 @@ abstract class _ProgramDetail extends ProgramDetail {
   @protected
   @JsonKey(name: 'onetimePlans')
   List<OnetimePlan> get rawOnetimePlans;
+  @override
+  Reviews get reviews;
+  @override
+  MyReview get myReview;
+  @override
+  ReviewsItem get focusedReview;
   @override
   @JsonKey(name: '__typename')
   String get typename;

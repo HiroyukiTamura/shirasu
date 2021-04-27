@@ -20,6 +20,34 @@ class BtmSheetSnsShare extends StatelessWidget {
       btmSheetSnsShare(shareUrl: shareUrl, snackCallback: snackCallback);
 }
 
+class BtmSheetListItem extends StatelessWidget {
+  const BtmSheetListItem(
+      {Key key,
+      @required this.icon,
+      @required this.title,
+      @required this.onTap})
+      : super(key: key);
+
+  final IconData icon;
+
+  final String title;
+
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext _context) =>
+      btmSheetListItem(icon: icon, title: title, onTap: onTap);
+}
+
+class BtmSheetListView extends StatelessWidget {
+  const BtmSheetListView({Key key, @required this.children}) : super(key: key);
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext _context) => btmSheetListView(children: children);
+}
+
 class _TileTwitter extends StatelessWidget {
   const _TileTwitter(
       {Key key, @required this.urlTwitter, @required this.onUrlInvalid})

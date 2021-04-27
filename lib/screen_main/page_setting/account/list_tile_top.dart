@@ -25,7 +25,7 @@ Widget listTileTop({
         CircleCachedNetworkImage(
           imageUrl: iconUrl,
           size: 40,
-          errorWidget: Util.defaultChannelIcon,
+          errorWidget: Util.defaultUserIcon,
         ),
         const SizedBox(width: 16),
         Text(

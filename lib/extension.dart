@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:shirasu/repository/logger_repository_impl.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
@@ -128,4 +129,10 @@ extension StringX on String {
 
 extension DurationX on Duration {
   bool get isPositive => !isNegative;
+}
+
+extension DateTimeX on DateTime {
+  String formatLocalYmdHm() => DateFormat('yyyy/MM/dd HH:mm').format(toLocal());
+
+  String formatLocalYmd() => DateFormat('yyyy/MM/dd').format(toLocal());
 }

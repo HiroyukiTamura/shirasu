@@ -260,5 +260,6 @@ class _PlayerViewState extends State<_PlayerView>
 }
 
 extension on VideoPlayerValue {
-  bool get isFinished => !isPlaying && duration <= position;
+  /// duration and position may be zero if error occurred
+  bool get isFinished => !isPlaying && Duration.zero < duration && duration <= position;
 }

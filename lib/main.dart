@@ -23,7 +23,6 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/router/app_router_delegate.dart';
 import 'package:shirasu/repository/env_repository.dart';
 
-
 /// todo splash screen
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

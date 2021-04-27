@@ -15,10 +15,12 @@ class _Heading extends HookWidget {
   Widget build(BuildContext _context) => _heading(isSelected: isSelected);
 }
 
-class TextBtmSheetContent extends StatelessWidget {
-  const TextBtmSheetContent(
-      {Key key, @required this.text, @required this.onTap})
+class BtmSheetListItemSingle extends StatelessWidget {
+  const BtmSheetListItemSingle(
+      {Key key, @required this.icon, @required this.text, @required this.onTap})
       : super(key: key);
+
+  final IconData icon;
 
   final String text;
 
@@ -26,5 +28,5 @@ class TextBtmSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext _context) =>
-      textBtmSheetContent(text: text, onTap: onTap);
+      btmSheetListItemSingle(icon: icon, text: text, onTap: onTap);
 }

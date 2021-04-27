@@ -20,60 +20,55 @@ const double _kPadV = 16;
 Widget btmSheetSnsShare({
   @required ShareUrl shareUrl,
   @required SnackCallback snackCallback,
-}) {
-  assert(shareUrl.url != null);
-  final children = [
-    if (shareUrl.urlTwitter != null)
-      _TileTwitter(
-        urlTwitter: shareUrl.urlTwitter,
-        onUrlInvalid: () => snackCallback(const SnackMsg.cantOpenUrl()),
-      ),
-    if (shareUrl.urlFaceBook != null)
-      _TileFacebook(
-        urlFaceBook: shareUrl.urlFaceBook,
-        onUrlInvalid: () => snackCallback(const SnackMsg.cantOpenUrl()),
-      ),
-    _TileUrl(
-      url: shareUrl.url,
-      snackCallback: snackCallback,
-    )
-  ];
-  return SizedBox(
-    height: _kListTileHeight * children.length + _kPadV * 2,
-    child: ListView(
-      padding: const EdgeInsets.symmetric(vertical: _kPadV),
-      children: children,
-    ),
-  );
-}
-
-class _ListTile extends StatelessWidget {
-  const _ListTile({
-    @required this.onTap,
-    @required this.title,
-    @required this.icon,
-    Key key,
-  }) : super(key: key);
-
-  final void Function() onTap;
-  final String title;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) => ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 36),
-        leading: Icon(
-          icon,
-          color: Colors.white,
+}) =>
+    BtmSheetListView(children: [
+      if (shareUrl.urlTwitter != null)
+        _TileTwitter(
+          urlTwitter: shareUrl.urlTwitter,
+          onUrlInvalid: () => snackCallback(const SnackMsg.cantOpenUrl()),
         ),
-        title: Text(
-          title,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
+      if (shareUrl.urlFaceBook != null)
+        _TileFacebook(
+          urlFaceBook: shareUrl.urlFaceBook,
+          onUrlInvalid: () => snackCallback(const SnackMsg.cantOpenUrl()),
         ),
-        onTap: onTap,
-      );
-}
+      _TileUrl(
+        url: shareUrl.url,
+        snackCallback: snackCallback,
+      )
+    ]);
+
+@swidget
+Widget btmSheetListItem({
+  @required IconData icon,
+  @required String title,
+  @required VoidCallback onTap,
+}) =>
+    ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 36),
+      leading: Icon(
+        icon,
+        color: Colors.white,
+      ),
+      title: Text(
+        title,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+      ),
+      onTap: onTap,
+    );
+
+@swidget
+Widget btmSheetListView({
+  @required List<Widget> children,
+}) =>
+    SizedBox(
+      height: _kListTileHeight * children.length + _kPadV * 2,
+      child: ListView(
+        padding: const EdgeInsets.symmetric(vertical: _kPadV),
+        children: children,
+      ),
+    );
 
 @swidget
 Widget _tileTwitter(
@@ -81,7 +76,7 @@ Widget _tileTwitter(
   @required String urlTwitter,
   @required VoidCallback onUrlInvalid,
 }) =>
-    _ListTile(
+    BtmSheetListItem(
       onTap: () async {
         Navigator.of(context).pop();
         await Util.launchUrl(context, urlTwitter, onUrlInvalid);
@@ -96,7 +91,7 @@ Widget _tileFacebook(
   @required String urlFaceBook,
   @required VoidCallback onUrlInvalid,
 }) =>
-    _ListTile(
+    BtmSheetListItem(
       onTap: () async {
         Navigator.of(context).pop();
         await Util.launchUrl(context, urlFaceBook, onUrlInvalid);
@@ -111,7 +106,7 @@ Widget _tileUrl(
   @required String url,
   @required SnackCallback snackCallback,
 }) =>
-    _ListTile(
+    BtmSheetListItem(
       onTap: () async {
         final result = await context.read(kPrvLogger).guardFuture(
             () async => Clipboard.setData(ClipboardData(text: url)));

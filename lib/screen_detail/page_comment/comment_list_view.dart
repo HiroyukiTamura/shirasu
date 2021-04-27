@@ -216,6 +216,7 @@ Widget _leading({
         child: CircleCachedNetworkImage(
           size: 24,
           imageUrl: item.user.icon,
+          errorWidget: Util.defaultChannelIcon,
         ),
       ),
     );

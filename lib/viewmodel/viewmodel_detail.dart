@@ -565,4 +565,32 @@ class ViewModelDetail extends ViewModelBase<ModelDetail> {
     if (mounted && !success) await _fcmRepository.unsubscribeProgram(id);
     if (mounted) commandSnackBar(const SnackMsg.fcmUnsubscribe());
   }
+
+  Future<void> deleteReview() async {
+    if (state.myReviewUpdatingState != const MyReviewUpdatingState.normal())
+      return;
+
+    await state.prgDataResult.whenSuccess((programData, _, __) async {
+      state = state.copyWith(
+        myReviewUpdatingState: const MyReviewUpdatingState.deleting(),
+      );
+      final result = await logger
+          .guardFuture(() async => kAuthOperationLock.synchronized(() async {
+                await connectivityRepository.ensureNotDisconnect();
+                await interceptor.refreshAuthTokenIfNeeded();
+                return graphQlRepository
+                    .deleteReview(reviewId: programData.program.myReview.id)
+                    .timeout(GraphQlRepository.TIMEOUT);
+              }));
+      if (!mounted) return;
+      final snackMsg = result.when(
+        success: (_) => const SnackMsg.reviewDeleted(),
+        failure: toNetworkSnack,
+      );
+      commandSnackBar(snackMsg);
+      state = state.copyWith(
+        myReviewUpdatingState: const MyReviewUpdatingState.deleted(),
+      );
+    });
+  }
 }

@@ -56,6 +56,9 @@ class Strings {
   static const SNACK_ERR_FCM_PERMISSION = '通知を受け取るには設定で許可を与えてください';
   static const SNACK_ACTION_FCM_PERMISSION = '設定する';
 
+  /// ref: "users.pages.Program.components.ReviewSection.notifyReviewRemoved"
+  static const SNACK_ACTION_DELETE_REVIEW = 'レビューを削除しました';
+
   //endregion
 
   //region ScreenMeta
@@ -93,6 +96,16 @@ class Strings {
   static const BTM_SHEET_COMMENT_LABEL = 'このコメントが投稿された時間に移動';
   static const COMMENT_TEXT_FILED_HINT = 'コメント入力';
   static const PLAYER_CONTROLLER_LABEL_LIVE = 'LIVE';
+
+  /// ref: "users.pages.Program.components.ReviewSection.reviewShareText"
+  static String textReviewTwitterShare(String userId, String prgTitle) =>
+      '$userIdさんがレビューを投稿しました！「$prgTitle」';
+
+  /// replace of "users.pages.Program.components.ReviewSection.rewriteReview"
+  static const String BTM_SHEET_REVIEW_EDIT = '編集';
+
+  /// replace of "users.pages.Program.components.ReviewSection.removeReview"
+  static const String BTM_SHEET_REVIEW_DELETE = '削除';
 
 //endregion
 
@@ -309,6 +322,18 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
 
 //endregion
 
+  //region PageReview
+  /// ref: "users.pages.Program.components.ReviewModal.review"
+  static const HEADER_REVIEW = 'レビュー';
+
+  /// ref: "users.pages.Program.components.ReviewSection.writeReview"
+  static const BTN_WRITE_REVIEW = 'レビューを入力...';
+
+  /// ref: "users.pages.Program.components.ReviewSection.listIsEmpty"
+  static const REVIEW_IS_EMPTY = 'まだレビューはありません';
+
+  //endregion
+
   static const ERR_NETWORK_TIMEOUT = '接続がタイムアウトしました';
   static const ERR_NETWORK_DISCONNECTED = 'ネットワークに接続していません';
   static const ERR_AUTH_EXPIRED = 'ログイン期限が切れました';
@@ -344,5 +369,32 @@ all of this app is licensed under CC BY-NC-SA 4.0 license''';
   static const SCREEN_FCM_CAPTION_CHANNEL = 'チャンネル';
   static const SCREEN_FCM_CAPTION_PRG = '番組';
 
+//endregion
+
+//region ScreenEditReview
+  static const EDIT_REVIEW_HINT = 'レビューを書きこんでください';
+
+  /// ref: "hooks.useValidator.utils.useErrorMessages.textLength"
+  static String textLengthValidation(int min, int max) =>
+      '$min文字以上$max文字以下で入力してください';
+
+  /// ref: "users.pages.Program.components.ReviewSection.stateInReview"
+  static const REVIEW_STATE_IN_REVIEW = '承認待ち';
+
+  /// ref: "users.pages.Program.components.ReviewSection.stateNg"
+  static const REVIEW_STATE_NG = '承認されませんでした';
+
+  /// ref: "users.pages.Program.components.ReviewSection.stateOpen"
+  static const REVIEW_STATE_OPEN = '公開';
+
+  /// ref: "users.pages.Program.components.ReviewSection.reviewNote"
+  static const REVIEW_NOTE_WAITING =
+      'この投稿はまだ投稿者にしか見えていません。レビューは配信者の承認を得たもののみが公開されます。内容によっては公開が承認されず差し戻されることがあります。確認をお待ちください。';
+
+  /// ref: "users.pages.Program.components.ReviewModal.writeReview"
+  static const APP_BAR_EDIT_REVIEW = 'レビュー記入';
+
+  /// ref: "users.pages.Program.components.ReviewSection.purchaseRequired"
+  static const REVIEW_NOTE_PURCHASE_REQUESTED = 'レビューを投稿するためには、購入またはチャンネル購読をする必要があります';
 //endregion
 }

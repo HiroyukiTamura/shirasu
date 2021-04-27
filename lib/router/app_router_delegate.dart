@@ -7,6 +7,7 @@ import 'package:shirasu/router/global_route_path.dart';
 import 'package:shirasu/screen_auth/screen_auth.dart';
 import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/screen_detail/screen_detail/screen_detail.dart';
+import 'package:shirasu/screen_edit_review/screen_edit_review.dart';
 import 'package:shirasu/screen_error/screen_error.dart';
 import 'package:shirasu/screen_fcm/screen_fcm.dart';
 import 'package:shirasu/screen_image_license/screen_image_license.dart';
@@ -44,6 +45,7 @@ class AppRouterDelegate extends CommonRouterDelegate<GlobalRoutePathBase> {
             imgLicense: () => const ScreenImageLicense(),
             preLogin: () => const ScreenPreLogin(),
             fcm: () => const ScreenFcm(),
+            editReview: (programId) => ScreenEditReview(programId: programId),
           );
           final location = NavigationValueKeyHandler.getValueKey(pathData);
           return Tuple2(location, screen);

@@ -78,6 +78,12 @@ class Util {
     return Assets.jpeg.defaultHandoutThumbnail.image();
   }
 
+  static Widget defaultUserIcon(
+      BuildContext context, String url, dynamic error) {
+    onImageError(context, url: url, error: error);
+    return Assets.svg.defaultUserIcon.svg();
+  }
+
   static Future<void> onImageError(BuildContext context,
           {String url, dynamic error, StackTrace stackTrace}) async =>
       context.read(kPrvLogger).e(error, stackTrace, reason: 'url: $url');

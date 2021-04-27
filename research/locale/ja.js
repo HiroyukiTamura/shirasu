@@ -1,7 +1,8 @@
-(window.webpackJsonp = window.webpackJsonp || []).push([[0], {
-    1007: function (e) {
+(window.webpackJsonp = window.webpackJsonp || []).push([[1], {
+    1091: function(e) {
         e.exports = JSON.parse('{"locale":"ja","countries":{"AF":"アフガニスタン","AL":"アルバニア","DZ":"アルジェリア","AS":"アメリカ領サモア","AD":"アンドラ","AO":"アンゴラ","AI":"アンギラ","AQ":"南極","AG":"アンティグア・バーブーダ","AR":"アルゼンチン","AM":"アルメニア","AW":"アルバ","AU":"オーストラリア","AT":"オーストリア","AZ":"アゼルバイジャン","BS":"バハマ","BH":"バーレーン","BD":"バングラデシュ","BB":"バルバドス","BY":"ベラルーシ","BE":"ベルギー","BZ":"ベリーズ","BJ":"ベナン","BM":"バミューダ","BT":"ブータン","BO":"ボリビア多民族国","BA":"ボスニア・ヘルツェゴビナ","BW":"ボツワナ","BV":"ブーベ島","BR":"ブラジル","IO":"イギリス領インド洋地域","BN":"ブルネイ・ダルサラーム","BG":"ブルガリア","BF":"ブルキナファソ","BI":"ブルンジ","KH":"カンボジア","CM":"カメルーン","CA":"カナダ","CV":"カーボベルデ","KY":"ケイマン諸島","CF":"中央アフリカ共和国","TD":"チャド","CL":"チリ","CN":"中華人民共和国","CX":"クリスマス島","CC":"ココス（キーリング）諸島","CO":"コロンビア","KM":"コモロ","CG":"コンゴ共和国","CD":"コンゴ民主共和国","CK":"クック諸島","CR":"コスタリカ","CI":"コートジボワール","HR":"クロアチア","CU":"キューバ","CY":"キプロス","CZ":"チェコ","DK":"デンマーク","DJ":"ジブチ","DM":"ドミニカ国","DO":"ドミニカ共和国","EC":"エクアドル","EG":"エジプト","SV":"エルサルバドル","GQ":"赤道ギニア","ER":"エリトリア","EE":"エストニア","ET":"エチオピア","FK":"フォークランド（マルビナス）諸島","FO":"フェロー諸島","FJ":"フィジー","FI":"フィンランド","FR":"フランス","GF":"フランス領ギアナ","PF":"フランス領ポリネシア","TF":"フランス領南方・南極地域","GA":"ガボン","GM":"ガンビア","GE":"ジョージア","DE":"ドイツ","GH":"ガーナ","GI":"ジブラルタル","GR":"ギリシャ","GL":"グリーンランド","GD":"グレナダ","GP":"グアドループ","GU":"グアム","GT":"グアテマラ","GN":"ギニア","GW":"ギニアビサウ","GY":"ガイアナ","HT":"ハイチ","HM":"ハード島とマクドナルド諸島","VA":"バチカン市国","HN":"ホンジュラス","HK":"香港","HU":"ハンガリー","IS":"アイスランド","IN":"インド","ID":"インドネシア","IR":"イラン・イスラム共和国","IQ":"イラク","IE":"アイルランド","IL":"イスラエル","IT":"イタリア","JM":"ジャマイカ","JP":"日本","JO":"ヨルダン","KZ":"カザフスタン","KE":"ケニア","KI":"キリバス","KP":"朝鮮民主主義人民共和国","KR":"大韓民国","KW":"クウェート","KG":"キルギス","LA":"ラオス人民民主共和国","LV":"ラトビア","LB":"レバノン","LS":"レソト","LR":"リベリア","LY":"リビア","LI":"リヒテンシュタイン","LT":"リトアニア","LU":"ルクセンブルク","MO":"マカオ","MG":"マダガスカル","MW":"マラウイ","MY":"マレーシア","MV":"モルディブ","ML":"マリ","MT":"マルタ","MH":"マーシャル諸島","MQ":"マルティニーク","MR":"モーリタニア","MU":"モーリシャス","YT":"マヨット","MX":"メキシコ","FM":"ミクロネシア連邦","MD":"モルドバ共和国","MC":"モナコ","MN":"モンゴル","MS":"モントセラト","MA":"モロッコ","MZ":"モザンビーク","MM":"ミャンマー","NA":"ナミビア","NR":"ナウル","NP":"ネパール","NL":"オランダ","NC":"ニューカレドニア","NZ":"ニュージーランド","NI":"ニカラグア","NE":"ニジェール","NG":"ナイジェリア","NU":"ニウエ","NF":"ノーフォーク島","MK":"北マケドニア","MP":"北マリアナ諸島","NO":"ノルウェー","OM":"オマーン","PK":"パキスタン","PW":"パラオ","PS":"パレスチナ","PA":"パナマ","PG":"パプアニューギニア","PY":"パラグアイ","PE":"ペルー","PH":"フィリピン","PN":"ピトケアン","PL":"ポーランド","PT":"ポルトガル","PR":"プエルトリコ","QA":"カタール","RE":"レユニオン","RO":"ルーマニア","RU":"ロシア連邦","RW":"ルワンダ","SH":"セントヘレナ・アセンションおよびトリスタンダクーニャ","KN":"セントクリストファー・ネイビス","LC":"セントルシア","PM":"サンピエール島・ミクロン島","VC":"セントビンセントおよびグレナディーン諸島","WS":"サモア","SM":"サンマリノ","ST":"サントメ・プリンシペ","SA":"サウジアラビア","SN":"セネガル","SC":"セーシェル","SL":"シエラレオネ","SG":"シンガポール","SK":"スロバキア","SI":"スロベニア","SB":"ソロモン諸島","SO":"ソマリア","ZA":"南アフリカ","GS":"サウスジョージア・サウスサンドウィッチ諸島","ES":"スペイン","LK":"スリランカ","SD":"スーダン","SR":"スリナム","SJ":"スヴァールバル諸島およびヤンマイエン島","SZ":"スワジランド","SE":"スウェーデン","CH":"スイス","SY":"シリア・アラブ共和国","TW":"台湾","TJ":"タジキスタン","TZ":"タンザニア","TH":"タイ","TL":"東ティモール","TG":"トーゴ","TK":"トケラウ","TO":"トンガ","TT":"トリニダード・トバゴ","TN":"チュニジア","TR":"トルコ","TM":"トルクメニスタン","TC":"タークス・カイコス諸島","TV":"ツバル","UG":"ウガンダ","UA":"ウクライナ","AE":"アラブ首長国連邦","GB":"イギリス","US":"アメリカ合衆国","UM":"合衆国領有小離島","UY":"ウルグアイ","UZ":"ウズベキスタン","VU":"バヌアツ","VE":"ベネズエラ・ボリバル共和国","VN":"ベトナム","VG":"イギリス領ヴァージン諸島","VI":"アメリカ領ヴァージン諸島","WF":"ウォリス・フツナ","EH":"西サハラ","YE":"イエメン","ZM":"ザンビア","ZW":"ジンバブエ","AX":"オーランド諸島","BQ":"ボネール、シント・ユースタティウスおよびサバ","CW":"キュラソー","GG":"ガーンジー","IM":"マン島","JE":"ジャージー","ME":"モンテネグロ","BL":"サン・バルテルミー","MF":"サン・マルタン（フランス領）","RS":"セルビア","SX":"シント・マールテン（オランダ領）","SS":"南スーダン","XK":"コソボ"}}')
-    }, 1110: function (e, n) {
+    },
+    1132: function(e, n) {
         e.exports = {
             "Auth0MailVerfication.check_email": "新しいメールアドレス宛に確認メールを送信しました。メールに記載されているリンクにアクセスしてください。",
             "Auth0MailVerfication.fail_to_send": "アドレス確認メールの送信に失敗しました。",
@@ -10,10 +11,6 @@
             "CreateLiveNote.amount": "※ 単独購入時の本体価格を入力してください。通常番組では入力する必要がありません{br}公開番組の場合、入力された金額を150円で割った数字を「時間」単位に換算したものが放送可能時間となります{br}分以下は切り捨てとなります{br}例１：300円→2時間放送できる 例２：350円→2時間20分放送できる",
             "CreateLiveNote.broadcastDate": "※ 開始日時および終了日時は、いちど決定すると変更ができません。終了日時は、公開番組の場合、価格によって決まる放送可能時間の範囲内で設定することができます",
             "CreateLiveNote.type": "※ 「通常番組」はチャンネル購読者にのみ視聴可能な番組、「公開番組」はチャンネル購読者に加えて購読者以外でも単独購入によって視聴が可能な番組です",
-            "admins.components.AdminHeader.accountSetting": "マイページ",
-            "admins.components.AdminHeader.adminTop": "シラス管理",
-            "admins.components.AdminHeader.dashboard": "トップ",
-            "admins.components.AdminHeader.tenantTop": "テナント管理",
             "admins.components.AdminHeader.title": "シラス管理",
             "admins.components.AdminNavMenu.newCoupon": "クーポン作成/読込",
             "admins.components.AdminNavMenu.programManagement": "番組管理",
@@ -39,7 +36,8 @@
             "admins.pages.AdminAttachUserRole.AdminAttachUserRole.idPlaceholder": "ユーザーIDを入力",
             "admins.pages.AdminAttachUserRole.AdminAttachUserRole.roleLabel": "役割",
             "admins.pages.AdminAttachUserRole.AdminAttachUserRole.roleSiteAdmin": "シラス管理者",
-            "admins.pages.AdminAttachUserRole.AdminAttachUserRole.roleSiteStuff": "シラス運営者",
+            "admins.pages.AdminAttachUserRole.AdminAttachUserRole.roleSiteAnalyzer": "シラス分析者",
+            "admins.pages.AdminAttachUserRole.AdminAttachUserRole.roleSiteChecker": "シラス視聴確認者",
             "admins.pages.AdminAttachUserRole.AdminAttachUserRole.title": "管理者アカウント追加",
             "admins.pages.AdminAttachUserRole.AdminAttachUserRole.userIdNoteLine1": "Auth0から割当てられているIDを入力してください",
             "admins.pages.AdminAttachUserRole.AdminAttachUserRole.userIdNoteLine2": "例：auth0|xxxxxxxxxxxxxxxxxxxxxxxx / google-oauth2|xxxxxxxxxxxxxxxxxxxxxxxx",
@@ -121,6 +119,7 @@
             "admins.pages.AdminTenantDetail.components.AdminTenantDetailTenantUsersTableRow.distributor": "チャンネル運営者",
             "admins.pages.AdminTenants.AdminTenantsPage.985206686": "名前",
             "admins.pages.AdminTenants.AdminTenantsPage.2167120283": "テナントを作成する",
+            "admins.pages.AdminTenants.AdminTenantsPage.3321162845": "管理画面",
             "admins.pages.AdminTenants.AdminTenantsPage.3689549300": "ID",
             "admins.pages.AdminTenants.AdminTenantsPage.documentTitle": "テナント一覧 | シラス",
             "admins.pages.AdminTenants.AdminTenantsPage.title": "テナント一覧",
@@ -137,6 +136,7 @@
             "admins.pages.AdminUserDetail.AdminUserDetail.jobLabel": "職業",
             "admins.pages.AdminUserDetail.AdminUserDetail.mailAddressLabel": "メールアドレス",
             "admins.pages.AdminUserDetail.AdminUserDetail.nameLabel": "アカウント名",
+            "admins.pages.AdminUserDetail.AdminUserDetail.notifyUserIdCopied": "Auth0 IDをコピーしました",
             "admins.pages.AdminUserDetail.AdminUserDetail.placeLabel": "居住地域",
             "admins.pages.AdminUserDetail.AdminUserDetail.purchaseHistoryTitle": "{name} の購入履歴",
             "admins.pages.AdminUserDetail.AdminUserDetail.subscribedChannelsTitle": "{name} の購読中のチャンネル",
@@ -154,11 +154,13 @@
             "admins.pages.AdminUsers.AdminUsersTableHeader.2203123614": "シラス管理者役割",
             "admins.pages.AdminUsers.AdminUsersTableHeader.3112757977": "ユーザー名",
             "admins.pages.AdminUsers.AdminUsersTableRow.12394096": "—",
-            "admins.pages.AdminUsers.AdminUsersTableRow.179883566": "シラス運営者",
+            "admins.pages.AdminUsers.AdminUsersTableRow.299511127": "シラス分析者",
+            "admins.pages.AdminUsers.AdminUsersTableRow.990508329": "(旧)シラス運営者",
             "admins.pages.AdminUsers.AdminUsersTableRow.994097024": "テナント管理者",
             "admins.pages.AdminUsers.AdminUsersTableRow.1181132751": "ロールが取得できません。Auth0Userが削除されている可能性があります。",
             "admins.pages.AdminUsers.AdminUsersTableRow.2206376001": "チャンネル運営者",
             "admins.pages.AdminUsers.AdminUsersTableRow.2801370069": "シラス管理者",
+            "admins.pages.AdminUsers.AdminUsersTableRow.4187651114": "シラス視聴確認者",
             "atomic.atoms.ProgramBadge.broadcasted": "放送済",
             "atomic.atoms.ProgramBadge.broadcasting": "ただいま放送中",
             "atomic.atoms.ProgramBadge.incoming": "7日以内に放送",
@@ -181,6 +183,7 @@
             "atomic.molecules.CreditCard.creditCardNumber": "クレジットカード番号",
             "atomic.molecules.CreditCard.expirationDate": "有効期限",
             "atomic.molecules.CreditCard.isExpiredNote": "カードの有効期限が切れています",
+            "atomic.molecules.CreditCard.isInvalidCardNote": "有効なカードが選択されていません",
             "atomic.molecules.CreditCard.title": "クレジットカード情報",
             "atomic.molecules.DaySelect.day": "{day}日",
             "atomic.molecules.DurationSelect.minutes": "分",
@@ -208,9 +211,13 @@
             "atomic.molecules.Suspendable.loadError": "(読み込みに失敗しました)",
             "atomic.molecules.TwitterShareButton.hashtag": "シラス",
             "atomic.molecules.YearSelect.year": "{year}年",
+            "atomic.organisms.Auth0UserMenu.Auth0UserMenu.accountSettings": "マイページ",
+            "atomic.organisms.Auth0UserMenu.Auth0UserMenu.dashboard": "トップ",
             "atomic.organisms.Auth0UserMenu.Auth0UserMenu.login": "ログイン",
             "atomic.organisms.Auth0UserMenu.Auth0UserMenu.logout": "ログアウト",
             "atomic.organisms.Auth0UserMenu.Auth0UserMenu.registration": "ユーザ登録",
+            "atomic.organisms.Auth0UserMenu.Auth0UserMenu.siteManagement": "シラス管理",
+            "atomic.organisms.Auth0UserMenu.Auth0UserMenu.tenantManagement": "テナント管理",
             "atomic.organisms.CancelButtonedModal.cancel": "キャンセル",
             "atomic.organisms.ChannelAnnouncements.noAnnouncements": "まだお知らせはありません",
             "atomic.organisms.CommentList.NoComments.no_comments": "まだコメントはありません",
@@ -229,23 +236,20 @@
             "atomic.organisms.SiteFooter.legal": "特定商取引法に基づく表記",
             "atomic.organisms.SiteFooter.privacyPolicy": "個人情報保護方針",
             "atomic.organisms.SiteFooter.termsOfUse": "シラス利用規約",
-            "atomic.organisms.SiteHeader.accountSettings": "マイページ",
-            "atomic.organisms.SiteHeader.dashboard": "トップ",
-            "atomic.organisms.SiteHeader.siteManagement": "シラス管理",
-            "atomic.organisms.SiteHeader.tenantManagement": "テナント管理",
             "atomic.organisms.TagsInput.addButton": "追加する",
             "atomic.organisms.TagsInput.note": "※登録できる番組タグは最大{max}個です",
             "atomic.organisms.ThumbnailForm.add": "追加する",
             "atomic.organisms.ThumbnailForm.addFiles": "ファイルを追加する",
             "atomic.organisms.ThumbnailForm.thumbnail": "サムネイル",
             "atomic.organisms.ThumbnailForm.update": "修正する",
-            "atomic.organisms.VideoPlayer.errorSigning": "放送の視聴許可を得られませんでした",
-            "atomic.organisms.VideoPlayer.errorliveEnded": "放送は終了しました",
-            "atomic.organisms.VideoPlayer.errornotPurchased": "放送を購入していません",
-            "atomic.organisms.VideoPlayer.playbackrate": "再生速度",
-            "atomic.organisms.VideoPlayer.quality": "画質",
-            "atomic.organisms.VideoPlayer.qualityAuto": "自動",
-            "atomic.organisms.VideoPlayer.qualityAutoWithCurrent": "自動({quality})",
+            "atomic.organisms.VideoPlayer.VideoPlayerBase.errorSigning": "放送の視聴許可を得られませんでした",
+            "atomic.organisms.VideoPlayer.VideoPlayerBase.errorliveEnded": "放送は終了しました",
+            "atomic.organisms.VideoPlayer.VideoPlayerBase.errornotPurchased": "放送を購入していません",
+            "atomic.organisms.VideoPlayer.parts.VideoPlayerControls.playbackrate": "再生速度",
+            "atomic.organisms.VideoPlayer.parts.VideoPlayerControls.quality": "画質",
+            "atomic.organisms.VideoPlayer.parts.VideoPlayerControls.qualityAuto": "自動",
+            "atomic.organisms.VideoPlayer.parts.VideoPlayerControls.qualityAutoWithCurrent": "自動({quality})",
+            "atomic.organisms.VideoPlayer.parts.VideoPlayerControls.qualityChanging": "{current}({next}に変更中)",
             "atomic.organisms.WatchingHistoryList.broadcastAt": "<span>配信日</span> {broadcastAt}",
             "atomic.organisms.WatchingHistoryList.noWatchingHistory": "視聴履歴がありません",
             "atomic.templates.ProgramsList.ProgramsListItem.broadcastAt": "<broadcastAtspan>配信日</broadcastAtspan> {date} {time}",
@@ -259,6 +263,7 @@
             "errors.Shirasu.Program.cannot_stop.already_ended": "番組はすでに終了しています",
             "errors.Shirasu.Program.cannot_stop.has_extension_onetime_plan": "有料延長があるので番組を停止できません",
             "errors.Shirasu.Program.cannot_stop.has_onetime_plan": "有料番組は停止できません",
+            "errors.Shirasu.Program.cannot_stop.insufficient_maintime": "無料視聴の2倍分の放送をする必要があります。",
             "errors.Shirasu.Program.cannot_stop.not_started": "番組はまだ始まっていないので停止できません",
             "errors.Shirasu.Program.max_air_time_exceeded": "放送可能時間を超えています",
             "errors.Shirasu.Program.max_play_time_exceeded": "24時間以上は放送できません",
@@ -278,7 +283,8 @@
             "hooks.useValidator.utils.useErrorMessages.textLength": "{min}文字以上{max}文字以下で入力してください",
             "hooks.useValidator.utils.useErrorMessages.textLengthNotEmpty": "必須です",
             "hooks.useValidator.utils.useErrorMessages.validAmount": "{min}円以上{max}円以下{step}円単位で入力してください",
-            "hooks.useValidator.utils.useErrorMessages.validBroadcastAt": "現在より30分後以降の時間を設定してください",
+            "hooks.useValidator.utils.useErrorMessages.validBroadcastAt": "現在より15分後以降の時間を設定してください",
+            "hooks.useValidator.utils.useErrorMessages.validEmailAddresses": "メールアドレスの形式が間違っています",
             "hooks.useValidator.utils.useErrorMessages.validFacebookUrl": "正しいFacebookのURLを入力してください (例 : {facebookUrl})",
             "hooks.useValidator.utils.useErrorMessages.validId": "半角英数字で入力してください",
             "hooks.useValidator.utils.useErrorMessages.validTwitterUrl": "正しいTwitterのURLを入力してください (例 : {twitterUrl})",
@@ -381,18 +387,14 @@
             "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.onetimePlanAmountLabel": "価格",
             "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.onetimePlanAmountLabelWithTax": "価格(税込)",
             "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.onetimePlanAmountLabelWithTaxAfterdiscounted": "割引後価格(税込)",
-            "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.promotionCodePlaceholder": "クーポンコードを入力してください",
+            "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.promotionCodePlaceholder": "クーポンコード",
             "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.subscriptionPlanAmountLabel": "月額",
             "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.subscriptionPlanAmountLabelWithTax": "月額(税込)",
             "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.subscriptionPlanAmountLabelWithTaxAfterdiscounted": "割引時月額(税込)",
             "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.subtotal": "小計",
             "stripe.components.PurchaseModal.PurchaseDetailsModal.PurchaseDetailsModal.tax": "税額",
             "stripe.components.PurchaseModal.PurchasedModal.headline": "ご購入完了",
-            "tenants.components.TenantHeader.TenantHeader.accountSetting": "マイページ",
-            "tenants.components.TenantHeader.TenantHeader.adminTop": "シラス管理",
             "tenants.components.TenantHeader.TenantHeader.createLive": "生放送番組を作成する",
-            "tenants.components.TenantHeader.TenantHeader.dashboard": "トップ",
-            "tenants.components.TenantHeader.TenantHeader.tenantTop": "テナント管理",
             "tenants.components.TenantHeader.TenantHeader.title": "テナント管理画面",
             "tenants.components.TenantHeader.TenantHeader.titleWithName": "{tenantName} 管理画面",
             "tenants.components.TenantNavMenu.TenantNavMenu.channelManagement": "チャンネル管理",
@@ -401,6 +403,7 @@
             "tenants.components.TenantNavMenu.TenantNavMenu.createTenantUser": "テナントユーザー追加",
             "tenants.components.TenantNavMenu.TenantNavMenu.informationManagement": "お知らせ管理",
             "tenants.components.TenantNavMenu.TenantNavMenu.liveBroadcastAndVideoManagement": "生放送・動画管理",
+            "tenants.components.TenantNavMenu.TenantNavMenu.reviewManagement": "レビュー管理",
             "tenants.components.TenantNavMenu.TenantNavMenu.salesReport": "月別売上レポート",
             "tenants.components.TenantNavMenu.TenantNavMenu.tenantUser": "テナントユーザー",
             "tenants.components.TenantNavMenu.TenantNavMenu.termsOfOperation": "テナント運営規約",
@@ -445,6 +448,19 @@
             "tenants.pages.TenantChannelPrograms.components.TenantChannelProgramsTableHeader.broadcastAt": "配信日",
             "tenants.pages.TenantChannelPrograms.components.TenantChannelProgramsTableHeader.broadcastingStatus": "放映",
             "tenants.pages.TenantChannelPrograms.components.TenantChannelProgramsTableHeader.programTitle": "動画タイトル",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.documentTitle": "レビュー管理 | {channelName} | {tenantName} | シラス",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.moreReview": "もっと読み込む",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.noReviews": "レビューはありません",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.notifyReviewRemoved": "レビューを削除しました",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.notifyReviewStateChanged": "レビューのステートを変更しました",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.removeReview": "レビューを削除する",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.stateAll": "すべて",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.stateInReview": "レビュー待ち",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.stateNg": "NG",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.stateOpen": "公開",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.title": "レビュー管理",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.toNG": "NGにする",
+            "tenants.pages.TenantChannelReviews.TenantChannelReviewsPage.toOpen": "公開する",
             "tenants.pages.TenantChannelSalesReport.TenantChannelSalesReport.documentTitle": "{year}年{month}月 番組別売上レポート | {channelName} | {tenantName} | シラス",
             "tenants.pages.TenantChannelSalesReport.TenantChannelSalesReport.nextMonthLink": "{year}年{month}月 »",
             "tenants.pages.TenantChannelSalesReport.TenantChannelSalesReport.noData": "まだデータがありません",
@@ -483,6 +499,8 @@
             "tenants.pages.TenantChannelSettings.TenantChannelSettings.nameLabel": "チャンネル名",
             "tenants.pages.TenantChannelSettings.TenantChannelSettings.ngUsersLabel": "NGにするユーザー",
             "tenants.pages.TenantChannelSettings.TenantChannelSettings.ngWordsLabel": "NGにするワード",
+            "tenants.pages.TenantChannelSettings.TenantChannelSettings.notifyEmailLabel": "通知先管理者メールアドレス",
+            "tenants.pages.TenantChannelSettings.TenantChannelSettings.notifyEmailNote": "レビューの新規投稿があった際に通知されます。",
             "tenants.pages.TenantChannelSettings.TenantChannelSettings.publicUrlLabel": "チャンネル公開URL",
             "tenants.pages.TenantChannelSettings.TenantChannelSettings.textOnScreenHelpModalCloseButton": "閉じる",
             "tenants.pages.TenantChannelSettings.TenantChannelSettings.textOnScreenHelpModalNote": "「{label}」は上画面の赤い枠に表示されます。",
@@ -583,7 +601,9 @@
             "tenants.pages.TenantLiveSetting.components.LiveSettingTabContainer.extension": "延長",
             "tenants.pages.TenantLiveSetting.components.LiveSettingTabContainer.handouts": "資料追加",
             "tenants.pages.TenantLiveSetting.components.LiveSettingTabContainer.ng": "NGワード",
+            "tenants.pages.TenantLiveSetting.components.LiveSettingTabContainer.noPermission": "このタブを閲覧するための権限がありません",
             "tenants.pages.TenantLiveSetting.components.LiveSettingTabContainer.programInformation": "番組情報",
+            "tenants.pages.TenantLiveSetting.components.LiveSettingTabContainer.review": "レビュー",
             "tenants.pages.TenantLiveSetting.components.OperatorCommentInput.displayTime15s": "15秒",
             "tenants.pages.TenantLiveSetting.components.OperatorCommentInput.displayTime180s": "3分",
             "tenants.pages.TenantLiveSetting.components.OperatorCommentInput.displayTime600s": "10分",
@@ -594,19 +614,20 @@
             "tenants.pages.TenantLiveSetting.components.Share.copyLabel": "視聴者向けURLをコピーする",
             "tenants.pages.TenantLiveSetting.components.Share.copyMessage": "視聴者向けURLをコピーしました",
             "tenants.pages.TenantLiveSetting.components.Share.title": "共有",
-            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.purchaseExt": "延長{idx}回目購入",
-            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.purchaseMain": "本編単独購入",
-            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.refetchButtonLabel": "再読み込み",
-            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.resolutionLabel1800s": "30分",
-            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.resolutionLabel2h": "2時間",
-            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.resolutionLabel300s": "5分",
-            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.resolutionLabel60s": "1分",
+            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.AnalyticsTab.purchaseExt": "延長{idx}回目購入",
+            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.AnalyticsTab.purchaseMain": "本編単独購入",
+            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.AnalyticsTab.refetchButtonLabel": "再読み込み",
+            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.AnalyticsTab.resolutionLabel1800s": "30分",
+            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.AnalyticsTab.resolutionLabel2h": "2時間",
+            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.AnalyticsTab.resolutionLabel300s": "5分",
+            "tenants.pages.TenantLiveSetting.components.tabs.AnalyticsTab.AnalyticsTab.resolutionLabel60s": "1分",
             "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.disablePreviewConfirm": "本当に冒頭無料視聴を切りますか？",
+            "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.liveIsDeadNote": "ライブ放送は終了しました",
             "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.preparingNote": "公開中の番組の開始時刻30分前に設定されます(下書きの番組には設定されません)",
             "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.previewTimeEndTime": "{previewEndAt}まで",
             "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.previewTimeLabel": "冒頭無料視聴",
-            "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.previewTimeNote": "冒頭無料視聴は60分以上、放送開始前の番組に設定できます。",
-            "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.removeProgram": "番組を削除します。この機能はシラス管理者、シラス運営者のみ行なえます。有料無料に関わらず、放送は即座に停止され、番組はユーザーから見られなくなります。返金処理は手動で行う必要があります。この操作は取り消せません。",
+            "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.previewTimeNote": "冒頭無料視聴は60分以上の番組に対して、放送開始前に設定できます。また無料時間は放送時間の長さによって決まり、最大で30分です。",
+            "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.removeProgram": "番組を削除します。この機能はシラス管理者のみ行なえます。有料無料に関わらず、放送は即座に停止され、番組はユーザーから見られなくなります。返金処理は手動で行う必要があります。この操作は取り消せません。",
             "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.removeProgramButton": "番組を削除する",
             "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.removeProgramConfirm": "番組を削除しますか? この操作は取り消せません",
             "tenants.pages.TenantLiveSetting.components.tabs.BroadcastTab.rtmpUrlCopyMessage": "RTMP URLをコピーしました",
@@ -628,6 +649,7 @@
             "tenants.pages.TenantLiveSetting.components.tabs.ExtensionTab.ExtensionTab.executeButton": "延長する",
             "tenants.pages.TenantLiveSetting.components.tabs.ExtensionTab.ExtensionTab.minutes": "{minutes}分",
             "tenants.pages.TenantLiveSetting.components.tabs.ExtensionTab.ExtensionTab.notifyExtensionAdded": "{mins}分の有料延長を{amount}円で追加しました",
+            "tenants.pages.TenantLiveSetting.components.tabs.ExtensionTab.ExtensionTab.notifyLimitedExtensionAdded": "{mins}分の限定延長を{amount}円で追加しました",
             "tenants.pages.TenantLiveSetting.components.tabs.ExtensionTab.ExtensionTab.numberOfExtensions": "{number}回",
             "tenants.pages.TenantLiveSetting.components.tabs.ExtensionTab.ExtensionTab.numberOfExtensionsLabel": "現在の延長回数",
             "tenants.pages.TenantLiveSetting.components.tabs.ExtensionTab.ExtensionTab.tableBodyAmount": "{amount}円",
@@ -686,6 +708,16 @@
             "tenants.pages.TenantLiveSetting.components.tabs.ProgramInformationTab.thumbnailImageLabel": "サムネイル",
             "tenants.pages.TenantLiveSetting.components.tabs.ProgramInformationTab.updateButton": "更新する",
             "tenants.pages.TenantLiveSetting.components.tabs.ProgramInformationTab.updateCompleted": "番組を更新しました",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.moreReview": "もっと読み込む",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.noReviews": "まだレビューはありません",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.notifyReviewRemoved": "レビューを削除しました",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.notifyReviewStateChanged": "レビューのステートを変更しました",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.removeReview": "レビューを削除する",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.stateInReview": "レビュー待ち",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.stateNG": "NG",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.stateOpen": "公開",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.toNG": "NGにする",
+            "tenants.pages.TenantLiveSetting.components.tabs.ReviewTab.ReviewTab.toOpen": "公開する",
             "tenants.pages.TenantLiveSetting.components.tabs.VideoTab.452340806": "容量",
             "tenants.pages.TenantLiveSetting.components.tabs.VideoTab.830768607": "放送日時",
             "tenants.pages.TenantLiveSetting.components.tabs.VideoTab.1797418167": "保存日時",
@@ -737,12 +769,6 @@
             "tenants.pages.TenantUsers.components.TenantUsersTableHeader.userName": "ユーザー名",
             "tenants.pages.TenantUsers.components.TenantUsersTableRow.administrator": "テナント管理者",
             "tenants.pages.TenantUsers.components.TenantUsersTableRow.distributor": "チャンネル運営者",
-            "users.components.Review.Review.moreReview": "レビューをもっと見る",
-            "users.components.Review.Review.review": "レビュー",
-            "users.components.Review.Review.writeReview": "レビューを書く",
-            "users.components.Review.ReviewModal.postReview": "レビューを投稿する",
-            "users.components.Review.ReviewModal.review": "レビュー",
-            "users.components.Review.ReviewModal.writeReview": "レビュー記入",
             "users.pages.Channel.components.ChannelPurchaseModal.amountLabel": "月額価格(税込)",
             "users.pages.Channel.components.ChannelPurchaseModal.completeButtonLabel": "チャンネルページへ",
             "users.pages.Channel.components.ChannelPurchaseModal.purchaseButtonLabel": "購入する",
@@ -773,6 +799,7 @@
             "users.pages.ChannelUnsubscribe.ChannelUnsubscribe.remaining": "残り視聴可能日数 <daysSpan>{days}日</daysSpan>",
             "users.pages.ChannelUnsubscribe.ChannelUnsubscribe.remainingNote": "※次回決済日は{expiredAt}です{br}※購読解除すると「残り視聴可能日数」が残っていても視聴はできません。",
             "users.pages.ChannelUnsubscribe.ChannelUnsubscribe.title": "チャンネルの購読解除をする",
+            "users.pages.ChannelUnsubscribe.ChannelUnsubscribe.unsubscribeConsentNotice": "注意事項を確認し、本日をもって解約します",
             "users.pages.CreateUser.CreateUser.agree": "<LinkToToS>利用規約</LinkToToS>に同意する",
             "users.pages.CreateUser.CreateUser.birthDateLabel": "生年月日",
             "users.pages.CreateUser.CreateUser.externalAuthenticationLabel": "外部サービスログイン連携",
@@ -796,15 +823,34 @@
             "users.pages.CreateUser.CreateUser.serverNameCheckError_too_long": "ユーザー名が長すぎます。",
             "users.pages.CreateUser.CreateUser.serverNameCheckError_too_short": "ユーザー名が短すぎます。",
             "users.pages.CreateUser.CreateUser.title": "ユーザー情報登録",
+            "users.pages.CreateUser.CreateUser.twitterNoEmailError": "※Twitterアカウントにメールアドレスが設定されておりません。{br}シラスのご登録にあたってメールアドレス情報が必須となりますので、Twitterアカウントにメールアドレスを設定していただくか、メールアドレスが設定されている別のTwitterアカウントに切り替えていまいちどご登録ください。{br}※Twitterにメールアドレスを設定された際、反映に時間がかかる場合がございます。{br}メールアドレス設定後にも同じエラーメッセージが表示されましたら、少し時間を置いてからシラスへご登録をお願いいたします。",
             "users.pages.Dashboard.Dashboard.broadcasting": "ただいま放送中",
             "users.pages.Dashboard.Dashboard.channel": "チャンネル",
+            "users.pages.Dashboard.Dashboard.channelNotice": "過去に放送された番組は各チャンネルのページよりお探しください。",
+            "users.pages.Dashboard.Dashboard.documentTitle": "シラス",
             "users.pages.Dashboard.Dashboard.newPrograms": "新着番組",
             "users.pages.Dashboard.Dashboard.noComingBroadcastings": "7日以内に放送予定の番組はありません",
             "users.pages.Dashboard.Dashboard.noNewPrograms": "新着番組はありません",
             "users.pages.Dashboard.Dashboard.noNowBroadcastings": "ただいま放送中の番組はありません",
-            "users.pages.Dashboard.Dashboard.noSubscrinedNewPrograms": "購読しているチャンネルの番組はありません",
-            "users.pages.Dashboard.Dashboard.programsOnSubscribedChannel": "購読しているチャンネルの番組",
+            "users.pages.Dashboard.Dashboard.noSubscrinedNewPrograms": "購入済みの最近の動画はありません",
+            "users.pages.Dashboard.Dashboard.programsOnSubscribedChannel": "購入済みの最近の動画",
+            "users.pages.Dashboard.Dashboard.schedulePage": "番組表",
             "users.pages.Dashboard.Dashboard.soonToBeBroadcasted": "7日以内に放送",
+            "users.pages.Dashboard.Dashboard.watchMore": "もっと見る",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.action": "アクション",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.amount": "{amount, number, ::currency/JPY}",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.back": "戻る",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.content": "購入内容",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.date": "日時",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.datetime": "{date}{br}{time}",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.documentTitle": "購入履歴 | シラス",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.hostedInvoice": "請求書・領収書",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.noHostedInvoice": "なし",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.noInvoiceHistory": "購入履歴がありません",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.notice": "※表記は全て「税込」となります",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.paymentAmount": "金額（税込）",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.subscriptionType": "購入種類",
+            "users.pages.InvoiceHistory.InvoiceHistoryPage.title": "購入履歴",
             "users.pages.Program.ProgramPage.documentTitle": "{programTitle} | {channelName} | シラス",
             "users.pages.Program.components.ArchivePriceTable.amount": "{amount, number}円",
             "users.pages.Program.components.ArchivePriceTable.canNotWatch": "会員のみ視聴できます",
@@ -820,7 +866,7 @@
             "users.pages.Program.components.ArchivePriceTable.purchaseMain": "本編を{br}購入する",
             "users.pages.Program.components.ArchivePriceTable.title": "番組価格",
             "users.pages.Program.components.PCCommentsContainer.hideComments": "コメントを非表示にする",
-            "users.pages.Program.components.PlayerContainer.cloesePublic": "この動画の公開は終了しました",
+            "users.pages.Program.components.PlayerContainer.closePublic": "この動画の公開は終了しました",
             "users.pages.Program.components.PlayerContainer.draft": "生放送は下書き中です",
             "users.pages.Program.components.PlayerContainer.loginRequired": "※ ログインが必要です",
             "users.pages.Program.components.PlayerContainer.or": "もしくは",
@@ -872,13 +918,58 @@
             "users.pages.Program.components.ProgramTitleAndDetail.scheduledToEnd": "終了予定",
             "users.pages.Program.components.ProgramTitleAndDetail.share": "共有",
             "users.pages.Program.components.ProgramTitleAndDetail.start": "開始",
+            "users.pages.Program.components.ReviewModal.postReview": "レビューを投稿する",
+            "users.pages.Program.components.ReviewModal.postReviewFailed": "レビューを投稿できませんでした",
+            "users.pages.Program.components.ReviewModal.postReviewSucceeded": "レビューを投稿しました",
+            "users.pages.Program.components.ReviewModal.removeReview": "レビューを削除する",
+            "users.pages.Program.components.ReviewModal.removeReviewFailed": "レビューを削除できませんでした",
+            "users.pages.Program.components.ReviewModal.removeReviewSucceeded": "レビューを削除しました",
+            "users.pages.Program.components.ReviewModal.review": "レビュー",
+            "users.pages.Program.components.ReviewModal.writeReview": "レビュー記入",
+            "users.pages.Program.components.ReviewSection.listIsEmpty": "まだレビューはありません",
+            "users.pages.Program.components.ReviewSection.moreReview": "レビューをもっと見る",
+            "users.pages.Program.components.ReviewSection.notifyReviewRemoved": "レビューを削除しました",
+            "users.pages.Program.components.ReviewSection.purchaseRequired": "レビューを投稿するためには、購入またはチャンネル購読をする必要があります。",
+            "users.pages.Program.components.ReviewSection.removeReview": "削除する",
+            "users.pages.Program.components.ReviewSection.review": "レビュー",
+            "users.pages.Program.components.ReviewSection.reviewNote": "この投稿はまだ投稿者にしか見えていません。レビューは配信者の承認を得たもののみが公開されます。内容によっては公開が承認されず差し戻されることがあります。確認をお待ちください。",
+            "users.pages.Program.components.ReviewSection.rewriteReview": "レビューを書き直す",
+            "users.pages.Program.components.ReviewSection.showAll": "すべて表示する",
+            "users.pages.Program.components.ReviewSection.stateInReview": "承認待ち",
+            "users.pages.Program.components.ReviewSection.stateNg": "承認されませんでした",
+            "users.pages.Program.components.ReviewSection.stateOpen": "公開",
+            "users.pages.Program.components.ReviewSection.writeReview": "レビューを書く",
             "users.pages.Program.components.SPCommentsContainer.comment": "コメント",
             "users.pages.Program.components.SPProgramTabHeader.comment": "コメント",
             "users.pages.Program.components.SPProgramTabHeader.detail": "概要",
             "users.pages.Program.components.SPProgramTabHeader.handouts": "関連資料",
+            "users.pages.Program.components.SPProgramTabHeader.reviews": "レビュー",
             "users.pages.Program.components.SPProgramTabHeader.share": "共有",
             "users.pages.Program.message.handouts": "関連資料",
             "users.pages.Program.message.recommend": "おすすめ",
+            "users.pages.Program.message.reviews": "レビュー",
+            "users.pages.ProgramSchedule.ProgramSchedule.anchorNextDate": "次の日付を見る »",
+            "users.pages.ProgramSchedule.ProgramSchedule.anchorPrevDate": "« 前の日付を見る",
+            "users.pages.ProgramSchedule.ProgramSchedule.broadcasting": "ただいま放送中",
+            "users.pages.ProgramSchedule.ProgramSchedule.buttonLabelAll": "すべて",
+            "users.pages.ProgramSchedule.ProgramSchedule.buttonLabelSubscribed": "購読のみ",
+            "users.pages.ProgramSchedule.ProgramSchedule.documentTitle": "番組表",
+            "users.pages.ProgramSchedule.ProgramSchedule.headChannelName": "チャンネル名",
+            "users.pages.ProgramSchedule.ProgramSchedule.headDateLabeLFormat": "MMMdo(eee)",
+            "users.pages.ProgramSchedule.ProgramSchedule.loadingFailed": "読み込みに失敗しました",
+            "users.pages.ProgramSchedule.ProgramSchedule.programsOnSubscribedChannel": "購入済みの最近の動画",
+            "users.pages.ProgramSchedule.ProgramSchedule.releasedAt": "HH:mm 〜",
+            "users.pages.ProgramSchedule.ProgramSchedule.schedulePage": "番組表",
+            "users.pages.ProgramSchedule.ProgramSchedule.soonToBeBroadcasted": "7日以内に放送",
+            "users.pages.ProgramSchedule.ProgramSchedule.subscribedLabel": "チャンネル加入済み",
+            "users.pages.ProgramSchedule.components.ProgramScheduleTable.anchorNextDate": "次の日付を見る »",
+            "users.pages.ProgramSchedule.components.ProgramScheduleTable.anchorPrevDate": "« 前の日付を見る",
+            "users.pages.ProgramSchedule.components.ProgramScheduleTable.hasError": "読み込みに失敗しました",
+            "users.pages.ProgramSchedule.components.ProgramScheduleTable.headChannelName": "チャンネル名",
+            "users.pages.ProgramSchedule.components.ProgramScheduleTable.headDateLabeLFormat": "MMMdo(eee)",
+            "users.pages.ProgramSchedule.components.ProgramScheduleTable.noChannels": "購読中の番組はありません",
+            "users.pages.ProgramSchedule.components.ProgramScheduleTable.releasedAt": "HH:mm 〜",
+            "users.pages.ProgramSchedule.components.ProgramScheduleTable.subscribedLabel": "チャンネル加入済み",
             "users.pages.Search.Search.addFilter": "フィルターを追加",
             "users.pages.Search.Search.allDurationOption": "全て",
             "users.pages.Search.Search.allTypeOption": "全て",
@@ -899,7 +990,13 @@
             "users.pages.Search.Search.uploadDate": "アップロード日",
             "users.pages.Search.Search.viewCount": "視聴回数",
             "users.pages.Search.Search.withinHour": "1時間以内",
+            "users.pages.SubscribedPrograms.SubscribedPrograms.back": "戻る",
+            "users.pages.SubscribedPrograms.SubscribedPrograms.documentTitle": "購入済みの動画 | シラス",
+            "users.pages.SubscribedPrograms.SubscribedPrograms.noSubscrinedNewPrograms": "購入済みの動画はありません",
+            "users.pages.SubscribedPrograms.SubscribedPrograms.title": "購入済みの動画",
             "users.pages.UserAccount.UserAccountPage.documentTitle": "アカウント管理 | シラス",
+            "users.pages.UserAccount.UserAccountPage.here": "こちら",
+            "users.pages.UserAccount.UserAccountPage.subscribedChannelsNotice": "チャンネルの購読期限は、購入時刻より1ヶ月後の同日の同時刻までとなります。月の日数により変動することがあります。詳しくは{helpLink}をご覧ください。{br}\n購読解除を行うと、購読期限までの残り日数に関わらずその時点で視聴ができなくなります。ご注意ください。",
             "users.pages.UserAccount.UserAccountPage.titleCreditCard": "クレジットカード情報",
             "users.pages.UserAccount.UserAccountPage.titlePurchaseHistory": "購入履歴",
             "users.pages.UserAccount.UserAccountPage.titleSubscribedChannels": "購読中のチャンネル",
@@ -910,19 +1007,27 @@
             "users.pages.UserAccount.components.CreditCardInformation.buttonAddCard": "+ カードを追加する",
             "users.pages.UserAccount.components.CreditCardInformation.creditCardNumber": "クレジットカード番号",
             "users.pages.UserAccount.components.CreditCardInformation.expirationDate": "有効期限",
-            "users.pages.UserAccount.components.InvoiceHistoryList.amount": "{amount, number, ::currency/JPY}",
-            "users.pages.UserAccount.components.InvoiceHistoryList.amountIncludingTax": "金額（税込)",
-            "users.pages.UserAccount.components.InvoiceHistoryList.content": "内容",
+            "users.pages.UserAccount.components.InvoiceHistoryList.amount": "{amount, number}円",
+            "users.pages.UserAccount.components.InvoiceHistoryList.amountLabel": "価格",
+            "users.pages.UserAccount.components.InvoiceHistoryList.coupon": "クーポン",
+            "users.pages.UserAccount.components.InvoiceHistoryList.couponExpirationDate": "{date}から{month}ヶ月",
+            "users.pages.UserAccount.components.InvoiceHistoryList.couponIndefinite": "無期限",
             "users.pages.UserAccount.components.InvoiceHistoryList.date": "日時",
-            "users.pages.UserAccount.components.InvoiceHistoryList.monthly": "月額",
+            "users.pages.UserAccount.components.InvoiceHistoryList.hostedInvoice": "請求書・領収書",
+            "users.pages.UserAccount.components.InvoiceHistoryList.monthly": "月額購読",
             "users.pages.UserAccount.components.InvoiceHistoryList.noInvoiceHistory": "購入履歴がありません",
-            "users.pages.UserAccount.components.InvoiceHistoryList.oneTime": "単独",
+            "users.pages.UserAccount.components.InvoiceHistoryList.oneTime": "番組購入",
+            "users.pages.UserAccount.components.InvoiceHistoryList.paymentAmount": "支払い金額{br}(税込み)",
             "users.pages.UserAccount.components.InvoiceHistoryList.purchaseType": "購入種類",
+            "users.pages.UserAccount.components.InvoiceHistoryList.subtotal": "小計",
+            "users.pages.UserAccount.components.InvoiceHistoryList.tax": "税額",
             "users.pages.UserAccount.components.SubscribedChannels.actionChangeCard": "カード変更",
-            "users.pages.UserAccount.components.SubscribedChannels.actionHostedInvoice": "最新の請求書",
+            "users.pages.UserAccount.components.SubscribedChannels.actionHostedInvoice": "請求書・領収書",
+            "users.pages.UserAccount.components.SubscribedChannels.actionRegisterCard": "カード登録",
             "users.pages.UserAccount.components.SubscribedChannels.actionUnsubscribe": "購読解除",
             "users.pages.UserAccount.components.SubscribedChannels.channelName": "チャンネル名",
             "users.pages.UserAccount.components.SubscribedChannels.currentPeriodEndAtLabel": "次回更新日",
+            "users.pages.UserAccount.components.SubscribedChannels.subscriptionPaymentNoCard": "有効なカードが選択されていません",
             "users.pages.UserAccount.components.SubscribedChannels.subscriptionStartDate": "購読開始日",
             "users.pages.UserAccount.components.SubscribedChannels.subscrpitionPaymentCanceled": "継続のお支払いに失敗しました。購読するにはチャンネルページから購入ください。",
             "users.pages.UserAccount.components.SubscribedChannels.subscrpitionPaymentFailed": "継続のお支払いに失敗しました。{nextPaymentAttempt, date, medium}に決済が再試行されます。",
@@ -944,43 +1049,28 @@
             "users.pages.UserAccount.components.UserAccountInformation.requestChangeEmailFailed": "メールアドレスの変更ができませんでした",
             "users.pages.UserAccount.components.UserAccountInformation.saveButton": "設定を保存する",
             "users.pages.WatchingHistory.watchingHistoryPage.back": "戻る",
+            "users.pages.WatchingHistory.watchingHistoryPage.documentTitle": "視聴履歴 | シラス",
             "users.pages.WatchingHistory.watchingHistoryPage.noWatchingHistory": "視聴履歴がありません",
             "users.pages.WatchingHistory.watchingHistoryPage.title": "視聴履歴"
         }
-    }, 1127: function (e, n, a) {
+    },
+    1134: function(e) {
+        e.exports = JSON.parse('{"sideEffects":false,"typings":"../../typings.d.ts"}')
+    },
+    254: function(e, n, a) {
         "use strict";
-        a.r(n);
-        var t = a(702);
-        n.default = t.default
-    }, 1128: function (e, n, a) {
-        "use strict";
-        Object.defineProperty(n, "__esModule", {value: !0}), n.default = void 0;
-        var t = m(a(678)), s = m(a(679)), r = m(a(680)), o = m(a(681)), i = m(a(682));
-
-        function m(e) {
-            return e && e.__esModule ? e : {default: e}
-        }
-
-        var c = {
-            code: "ja",
-            formatDistance: t.default,
-            formatLong: s.default,
-            formatRelative: r.default,
-            localize: o.default,
-            match: i.default,
-            options: {weekStartsOn: 1, firstWeekContainsDate: 1}
-        };
-        n.default = c, e.exports = n.default
-    }, 1132: function (e) {
-        e.exports = JSON.parse('{"sideEffects":false,"module":"../../esm/locale/ja/index.js","typings":"../../typings.d.ts"}')
-    }, 678: function (e, n, a) {
-        "use strict";
-        Object.defineProperty(n, "__esModule", {value: !0}), n.default = function (e, n, a) {
+        Object.defineProperty(n, "__esModule", {
+            value: !0
+        }),
+        n.default = function(e, n, a) {
             var s;
-            a = a || {}, s = "string" == typeof t[e] ? t[e] : 1 === n ? a.addSuffix && t[e].oneWithSuffix ? t[e].oneWithSuffix : t[e].one : a.addSuffix && t[e].otherWithSuffix ? t[e].otherWithSuffix.replace("{{count}}", n) : t[e].other.replace("{{count}}", n);
-            if (a.addSuffix) return a.comparison > 0 ? s + "後" : s + "前";
+            a = a || {},
+            s = "string" == typeof t[e] ? t[e] : 1 === n ? a.addSuffix && t[e].oneWithSuffix ? t[e].oneWithSuffix : t[e].one : a.addSuffix && t[e].otherWithSuffix ? t[e].otherWithSuffix.replace("{{count}}", n) : t[e].other.replace("{{count}}", n);
+            if (a.addSuffix)
+                return a.comparison > 0 ? s + "後" : s + "前";
             return s
-        };
+        }
+        ;
         var t = {
             lessThanXSeconds: {
                 one: "1秒未満",
@@ -988,7 +1078,10 @@
                 oneWithSuffix: "約1秒",
                 otherWithSuffix: "約{{count}}秒"
             },
-            xSeconds: {one: "1秒", other: "{{count}}秒"},
+            xSeconds: {
+                one: "1秒",
+                other: "{{count}}秒"
+            },
             halfAMinute: "30秒",
             lessThanXMinutes: {
                 one: "1分未満",
@@ -996,52 +1089,110 @@
                 oneWithSuffix: "約1分",
                 otherWithSuffix: "約{{count}}分"
             },
-            xMinutes: {one: "1分", other: "{{count}}分"},
-            aboutXHours: {one: "約1時間", other: "約{{count}}時間"},
-            xHours: {one: "1時間", other: "{{count}}時間"},
-            xDays: {one: "1日", other: "{{count}}日"},
-            aboutXWeeks: {one: "約1週間", other: "約{{count}}週間"},
-            xWeeks: {one: "1週間", other: "{{count}}週間"},
-            aboutXMonths: {one: "約1か月", other: "約{{count}}か月"},
-            xMonths: {one: "1か月", other: "{{count}}か月"},
-            aboutXYears: {one: "約1年", other: "約{{count}}年"},
-            xYears: {one: "1年", other: "{{count}}年"},
-            overXYears: {one: "1年以上", other: "{{count}}年以上"},
-            almostXYears: {one: "1年近く", other: "{{count}}年近く"}
+            xMinutes: {
+                one: "1分",
+                other: "{{count}}分"
+            },
+            aboutXHours: {
+                one: "約1時間",
+                other: "約{{count}}時間"
+            },
+            xHours: {
+                one: "1時間",
+                other: "{{count}}時間"
+            },
+            xDays: {
+                one: "1日",
+                other: "{{count}}日"
+            },
+            aboutXWeeks: {
+                one: "約1週間",
+                other: "約{{count}}週間"
+            },
+            xWeeks: {
+                one: "1週間",
+                other: "{{count}}週間"
+            },
+            aboutXMonths: {
+                one: "約1か月",
+                other: "約{{count}}か月"
+            },
+            xMonths: {
+                one: "1か月",
+                other: "{{count}}か月"
+            },
+            aboutXYears: {
+                one: "約1年",
+                other: "約{{count}}年"
+            },
+            xYears: {
+                one: "1年",
+                other: "{{count}}年"
+            },
+            overXYears: {
+                one: "1年以上",
+                other: "{{count}}年以上"
+            },
+            almostXYears: {
+                one: "1年近く",
+                other: "{{count}}年近く"
+            }
         };
         e.exports = n.default
-    }, 679: function (e, n, a) {
+    },
+    255: function(e, n, a) {
         "use strict";
-        Object.defineProperty(n, "__esModule", {value: !0}), n.default = void 0;
-        var t, s = (t = a(671)) && t.__esModule ? t : {default: t};
+        Object.defineProperty(n, "__esModule", {
+            value: !0
+        }),
+        n.default = void 0;
+        var t, s = (t = a(682)) && t.__esModule ? t : {
+            default: t
+        };
         var r = {
-            date: (0, s.default)({
+            date: (0,
+            s.default)({
                 formats: {
                     full: "y年M月d日EEEE",
                     long: "y年M月d日",
                     medium: "y/MM/dd",
                     short: "y/MM/dd"
-                }, defaultWidth: "full"
-            }),
-            time: (0, s.default)({
-                formats: {full: "H時mm分ss秒 zzzz", long: "H:mm:ss z", medium: "H:mm:ss", short: "H:mm"},
+                },
                 defaultWidth: "full"
             }),
-            dateTime: (0, s.default)({
+            time: (0,
+            s.default)({
+                formats: {
+                    full: "H時mm分ss秒 zzzz",
+                    long: "H:mm:ss z",
+                    medium: "H:mm:ss",
+                    short: "H:mm"
+                },
+                defaultWidth: "full"
+            }),
+            dateTime: (0,
+            s.default)({
                 formats: {
                     full: "{{date}} {{time}}",
                     long: "{{date}} {{time}}",
                     medium: "{{date}} {{time}}",
                     short: "{{date}} {{time}}"
-                }, defaultWidth: "full"
+                },
+                defaultWidth: "full"
             })
         };
-        n.default = r, e.exports = n.default
-    }, 680: function (e, n, a) {
+        n.default = r,
+        e.exports = n.default
+    },
+    256: function(e, n, a) {
         "use strict";
-        Object.defineProperty(n, "__esModule", {value: !0}), n.default = function (e, n, a, s) {
+        Object.defineProperty(n, "__esModule", {
+            value: !0
+        }),
+        n.default = function(e, n, a, s) {
             return t[e]
-        };
+        }
+        ;
         var t = {
             lastWeek: "先週のeeeeのp",
             yesterday: "昨日のp",
@@ -1051,44 +1202,64 @@
             other: "P"
         };
         e.exports = n.default
-    }, 681: function (e, n, a) {
+    },
+    257: function(e, n, a) {
         "use strict";
-        Object.defineProperty(n, "__esModule", {value: !0}), n.default = void 0;
-        var t, s = (t = a(674)) && t.__esModule ? t : {default: t};
+        Object.defineProperty(n, "__esModule", {
+            value: !0
+        }),
+        n.default = void 0;
+        var t, s = (t = a(683)) && t.__esModule ? t : {
+            default: t
+        };
         var r = {
-            ordinalNumber: function (e, n) {
-                var a = Number(e);
-                return "date" === String((n || {}).unit) ? a + "日" : a
+            ordinalNumber: function(e, n) {
+                var a = Number(e)
+                  , t = String((n || {}).unit);
+                return "date" === t ? a + "日" : "year" === t ? a + "年" : a
             },
-            era: (0, s.default)({
-                values: {narrow: ["BC", "AC"], abbreviated: ["紀元前", "西暦"], wide: ["紀元前", "西暦"]},
+            era: (0,
+            s.default)({
+                values: {
+                    narrow: ["BC", "AC"],
+                    abbreviated: ["紀元前", "西暦"],
+                    wide: ["紀元前", "西暦"]
+                },
                 defaultWidth: "wide"
             }),
-            quarter: (0, s.default)({
+            quarter: (0,
+            s.default)({
                 values: {
                     narrow: ["1", "2", "3", "4"],
                     abbreviated: ["Q1", "Q2", "Q3", "Q4"],
                     wide: ["第1四半期", "第2四半期", "第3四半期", "第4四半期"]
-                }, defaultWidth: "wide", argumentCallback: function (e) {
+                },
+                defaultWidth: "wide",
+                argumentCallback: function(e) {
                     return Number(e) - 1
                 }
             }),
-            month: (0, s.default)({
+            month: (0,
+            s.default)({
                 values: {
                     narrow: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
                     abbreviated: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
                     wide: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
-                }, defaultWidth: "wide"
+                },
+                defaultWidth: "wide"
             }),
-            day: (0, s.default)({
+            day: (0,
+            s.default)({
                 values: {
                     narrow: ["日", "月", "火", "水", "木", "金", "土"],
                     short: ["日", "月", "火", "水", "木", "金", "土"],
                     abbreviated: ["日", "月", "火", "水", "木", "金", "土"],
                     wide: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
-                }, defaultWidth: "wide"
+                },
+                defaultWidth: "wide"
             }),
-            dayPeriod: (0, s.default)({
+            dayPeriod: (0,
+            s.default)({
                 values: {
                     narrow: {
                         am: "午前",
@@ -1157,58 +1328,76 @@
                 defaultFormattingWidth: "wide"
             })
         };
-        n.default = r, e.exports = n.default
-    }, 682: function (e, n, a) {
+        n.default = r,
+        e.exports = n.default
+    },
+    258: function(e, n, a) {
         "use strict";
-        Object.defineProperty(n, "__esModule", {value: !0}), n.default = void 0;
-        var t = r(a(676)), s = r(a(677));
-
+        Object.defineProperty(n, "__esModule", {
+            value: !0
+        }),
+        n.default = void 0;
+        var t = r(a(684))
+          , s = r(a(685));
         function r(e) {
-            return e && e.__esModule ? e : {default: e}
+            return e && e.__esModule ? e : {
+                default: e
+            }
         }
-
         var o = {
-            ordinalNumber: (0, t.default)({
-                matchPattern: /^第?\d+(日)?/i,
+            ordinalNumber: (0,
+            t.default)({
+                matchPattern: /^第?\d+(日)?(年)?/i,
                 parsePattern: /\d+/i,
-                valueCallback: function (e) {
+                valueCallback: function(e) {
                     return parseInt(e, 10)
                 }
             }),
-            era: (0, s.default)({
+            era: (0,
+            s.default)({
                 matchPatterns: {
                     narrow: /^(B\.?C\.?|A\.?D\.?)/i,
                     abbreviated: /^(紀元[前後]|西暦)/i,
                     wide: /^(紀元[前後]|西暦)/i
                 },
                 defaultMatchWidth: "wide",
-                parsePatterns: {narrow: [/^B/i, /^A/i], any: [/^(紀元前)/i, /^(西暦|紀元後)/i]},
+                parsePatterns: {
+                    narrow: [/^B/i, /^A/i],
+                    any: [/^(紀元前)/i, /^(西暦|紀元後)/i]
+                },
                 defaultParseWidth: "any"
             }),
-            quarter: (0, s.default)({
+            quarter: (0,
+            s.default)({
                 matchPatterns: {
                     narrow: /^[1234]/i,
                     abbreviated: /^Q[1234]/i,
                     wide: /^第[1234一二三四１２３４]四半期/i
                 },
                 defaultMatchWidth: "wide",
-                parsePatterns: {any: [/(1|一|１)/i, /(2|二|２)/i, /(3|三|３)/i, /(4|四|４)/i]},
+                parsePatterns: {
+                    any: [/(1|一|１)/i, /(2|二|２)/i, /(3|三|３)/i, /(4|四|４)/i]
+                },
                 defaultParseWidth: "any",
-                valueCallback: function (e) {
+                valueCallback: function(e) {
                     return e + 1
                 }
             }),
-            month: (0, s.default)({
+            month: (0,
+            s.default)({
                 matchPatterns: {
                     narrow: /^([123456789]|1[012])/,
                     abbreviated: /^([123456789]|1[012])月/i,
                     wide: /^([123456789]|1[012])月/i
                 },
                 defaultMatchWidth: "wide",
-                parsePatterns: {any: [/^1\D/, /^2/, /^3/, /^4/, /^5/, /^6/, /^7/, /^8/, /^9/, /^10/, /^11/, /^12/]},
+                parsePatterns: {
+                    any: [/^1\D/, /^2/, /^3/, /^4/, /^5/, /^6/, /^7/, /^8/, /^9/, /^10/, /^11/, /^12/]
+                },
                 defaultParseWidth: "any"
             }),
-            day: (0, s.default)({
+            day: (0,
+            s.default)({
                 matchPatterns: {
                     narrow: /^[日月火水木金土]/,
                     short: /^[日月火水木金土]/,
@@ -1216,11 +1405,16 @@
                     wide: /^[日月火水木金土]曜日/
                 },
                 defaultMatchWidth: "wide",
-                parsePatterns: {any: [/^日/, /^月/, /^火/, /^水/, /^木/, /^金/, /^土/]},
+                parsePatterns: {
+                    any: [/^日/, /^月/, /^火/, /^水/, /^木/, /^金/, /^土/]
+                },
                 defaultParseWidth: "any"
             }),
-            dayPeriod: (0, s.default)({
-                matchPatterns: {any: /^(AM|PM|午前|午後|正午|深夜|真夜中|夜|朝)/i},
+            dayPeriod: (0,
+            s.default)({
+                matchPatterns: {
+                    any: /^(AM|PM|午前|午後|正午|深夜|真夜中|夜|朝)/i
+                },
                 defaultMatchWidth: "any",
                 parsePatterns: {
                     any: {
@@ -1237,242 +1431,44 @@
                 defaultParseWidth: "any"
             })
         };
-        n.default = o, e.exports = n.default
-    }, 702: function (e, n, a) {
+        n.default = o,
+        e.exports = n.default
+    },
+    284: function(e, n, a) {
+        "use strict";
+        Object.defineProperty(n, "__esModule", {
+            value: !0
+        }),
+        n.default = void 0;
+        var t = m(a(254))
+          , s = m(a(255))
+          , r = m(a(256))
+          , o = m(a(257))
+          , i = m(a(258));
+        function m(e) {
+            return e && e.__esModule ? e : {
+                default: e
+            }
+        }
+        var c = {
+            code: "ja",
+            formatDistance: t.default,
+            formatLong: s.default,
+            formatRelative: r.default,
+            localize: o.default,
+            match: i.default,
+            options: {
+                weekStartsOn: 0,
+                firstWeekContainsDate: 1
+            }
+        };
+        n.default = c,
+        e.exports = n.default
+    },
+    664: function(e, n, a) {
         "use strict";
         a.r(n);
-        var t = {
-            lessThanXSeconds: {
-                one: "1秒未満",
-                other: "{{count}}秒未満",
-                oneWithSuffix: "約1秒",
-                otherWithSuffix: "約{{count}}秒"
-            },
-            xSeconds: {one: "1秒", other: "{{count}}秒"},
-            halfAMinute: "30秒",
-            lessThanXMinutes: {
-                one: "1分未満",
-                other: "{{count}}分未満",
-                oneWithSuffix: "約1分",
-                otherWithSuffix: "約{{count}}分"
-            },
-            xMinutes: {one: "1分", other: "{{count}}分"},
-            aboutXHours: {one: "約1時間", other: "約{{count}}時間"},
-            xHours: {one: "1時間", other: "{{count}}時間"},
-            xDays: {one: "1日", other: "{{count}}日"},
-            aboutXWeeks: {one: "約1週間", other: "約{{count}}週間"},
-            xWeeks: {one: "1週間", other: "{{count}}週間"},
-            aboutXMonths: {one: "約1か月", other: "約{{count}}か月"},
-            xMonths: {one: "1か月", other: "{{count}}か月"},
-            aboutXYears: {one: "約1年", other: "約{{count}}年"},
-            xYears: {one: "1年", other: "{{count}}年"},
-            overXYears: {one: "1年以上", other: "{{count}}年以上"},
-            almostXYears: {one: "1年近く", other: "{{count}}年近く"}
-        };
-        var s = a(173), r = {
-            date: Object(s.a)({
-                formats: {full: "y年M月d日EEEE", long: "y年M月d日", medium: "y/MM/dd", short: "y/MM/dd"},
-                defaultWidth: "full"
-            }),
-            time: Object(s.a)({
-                formats: {full: "H時mm分ss秒 zzzz", long: "H:mm:ss z", medium: "H:mm:ss", short: "H:mm"},
-                defaultWidth: "full"
-            }),
-            dateTime: Object(s.a)({
-                formats: {
-                    full: "{{date}} {{time}}",
-                    long: "{{date}} {{time}}",
-                    medium: "{{date}} {{time}}",
-                    short: "{{date}} {{time}}"
-                }, defaultWidth: "full"
-            })
-        }, o = {
-            lastWeek: "先週のeeeeのp",
-            yesterday: "昨日のp",
-            today: "今日のp",
-            tomorrow: "明日のp",
-            nextWeek: "翌週のeeeeのp",
-            other: "P"
-        };
-        var i = a(116);
-        var m = {
-            ordinalNumber: function (e, n) {
-                var a = Number(e);
-                return "date" === String((n || {}).unit) ? a + "日" : a
-            },
-            era: Object(i.a)({
-                values: {narrow: ["BC", "AC"], abbreviated: ["紀元前", "西暦"], wide: ["紀元前", "西暦"]},
-                defaultWidth: "wide"
-            }),
-            quarter: Object(i.a)({
-                values: {
-                    narrow: ["1", "2", "3", "4"],
-                    abbreviated: ["Q1", "Q2", "Q3", "Q4"],
-                    wide: ["第1四半期", "第2四半期", "第3四半期", "第4四半期"]
-                }, defaultWidth: "wide", argumentCallback: function (e) {
-                    return Number(e) - 1
-                }
-            }),
-            month: Object(i.a)({
-                values: {
-                    narrow: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-                    abbreviated: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
-                    wide: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
-                }, defaultWidth: "wide"
-            }),
-            day: Object(i.a)({
-                values: {
-                    narrow: ["日", "月", "火", "水", "木", "金", "土"],
-                    short: ["日", "月", "火", "水", "木", "金", "土"],
-                    abbreviated: ["日", "月", "火", "水", "木", "金", "土"],
-                    wide: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
-                }, defaultWidth: "wide"
-            }),
-            dayPeriod: Object(i.a)({
-                values: {
-                    narrow: {
-                        am: "午前",
-                        pm: "午後",
-                        midnight: "深夜",
-                        noon: "正午",
-                        morning: "朝",
-                        afternoon: "午後",
-                        evening: "夜",
-                        night: "深夜"
-                    },
-                    abbreviated: {
-                        am: "午前",
-                        pm: "午後",
-                        midnight: "深夜",
-                        noon: "正午",
-                        morning: "朝",
-                        afternoon: "午後",
-                        evening: "夜",
-                        night: "深夜"
-                    },
-                    wide: {
-                        am: "午前",
-                        pm: "午後",
-                        midnight: "深夜",
-                        noon: "正午",
-                        morning: "朝",
-                        afternoon: "午後",
-                        evening: "夜",
-                        night: "深夜"
-                    }
-                },
-                defaultWidth: "wide",
-                formattingValues: {
-                    narrow: {
-                        am: "午前",
-                        pm: "午後",
-                        midnight: "深夜",
-                        noon: "正午",
-                        morning: "朝",
-                        afternoon: "午後",
-                        evening: "夜",
-                        night: "深夜"
-                    },
-                    abbreviated: {
-                        am: "午前",
-                        pm: "午後",
-                        midnight: "深夜",
-                        noon: "正午",
-                        morning: "朝",
-                        afternoon: "午後",
-                        evening: "夜",
-                        night: "深夜"
-                    },
-                    wide: {
-                        am: "午前",
-                        pm: "午後",
-                        midnight: "深夜",
-                        noon: "正午",
-                        morning: "朝",
-                        afternoon: "午後",
-                        evening: "夜",
-                        night: "深夜"
-                    }
-                },
-                defaultFormattingWidth: "wide"
-            })
-        }, c = a(321), l = a(117), p = {
-            code: "ja", formatDistance: function (e, n, a) {
-                var s;
-                return a = a || {}, s = "string" == typeof t[e] ? t[e] : 1 === n ? a.addSuffix && t[e].oneWithSuffix ? t[e].oneWithSuffix : t[e].one : a.addSuffix && t[e].otherWithSuffix ? t[e].otherWithSuffix.replace("{{count}}", n) : t[e].other.replace("{{count}}", n), a.addSuffix ? a.comparison > 0 ? s + "後" : s + "前" : s
-            }, formatLong: r, formatRelative: function (e, n, a, t) {
-                return o[e]
-            }, localize: m, match: {
-                ordinalNumber: Object(c.a)({
-                    matchPattern: /^第?\d+(日)?/i,
-                    parsePattern: /\d+/i,
-                    valueCallback: function (e) {
-                        return parseInt(e, 10)
-                    }
-                }),
-                era: Object(l.a)({
-                    matchPatterns: {
-                        narrow: /^(B\.?C\.?|A\.?D\.?)/i,
-                        abbreviated: /^(紀元[前後]|西暦)/i,
-                        wide: /^(紀元[前後]|西暦)/i
-                    },
-                    defaultMatchWidth: "wide",
-                    parsePatterns: {narrow: [/^B/i, /^A/i], any: [/^(紀元前)/i, /^(西暦|紀元後)/i]},
-                    defaultParseWidth: "any"
-                }),
-                quarter: Object(l.a)({
-                    matchPatterns: {
-                        narrow: /^[1234]/i,
-                        abbreviated: /^Q[1234]/i,
-                        wide: /^第[1234一二三四１２３４]四半期/i
-                    },
-                    defaultMatchWidth: "wide",
-                    parsePatterns: {any: [/(1|一|１)/i, /(2|二|２)/i, /(3|三|３)/i, /(4|四|４)/i]},
-                    defaultParseWidth: "any",
-                    valueCallback: function (e) {
-                        return e + 1
-                    }
-                }),
-                month: Object(l.a)({
-                    matchPatterns: {
-                        narrow: /^([123456789]|1[012])/,
-                        abbreviated: /^([123456789]|1[012])月/i,
-                        wide: /^([123456789]|1[012])月/i
-                    },
-                    defaultMatchWidth: "wide",
-                    parsePatterns: {any: [/^1\D/, /^2/, /^3/, /^4/, /^5/, /^6/, /^7/, /^8/, /^9/, /^10/, /^11/, /^12/]},
-                    defaultParseWidth: "any"
-                }),
-                day: Object(l.a)({
-                    matchPatterns: {
-                        narrow: /^[日月火水木金土]/,
-                        short: /^[日月火水木金土]/,
-                        abbreviated: /^[日月火水木金土]/,
-                        wide: /^[日月火水木金土]曜日/
-                    },
-                    defaultMatchWidth: "wide",
-                    parsePatterns: {any: [/^日/, /^月/, /^火/, /^水/, /^木/, /^金/, /^土/]},
-                    defaultParseWidth: "any"
-                }),
-                dayPeriod: Object(l.a)({
-                    matchPatterns: {any: /^(AM|PM|午前|午後|正午|深夜|真夜中|夜|朝)/i},
-                    defaultMatchWidth: "any",
-                    parsePatterns: {
-                        any: {
-                            am: /^(A|午前)/i,
-                            pm: /^(P|午後)/i,
-                            midnight: /^深夜|真夜中/i,
-                            noon: /^正午/i,
-                            morning: /^朝/i,
-                            afternoon: /^午後/i,
-                            evening: /^夜/i,
-                            night: /^深夜/i
-                        }
-                    },
-                    defaultParseWidth: "any"
-                })
-            }, options: {weekStartsOn: 1, firstWeekContainsDate: 1}
-        };
-        n.default = p
+        var t = a(417);
+        n.default = t.ja
     }
 }]);

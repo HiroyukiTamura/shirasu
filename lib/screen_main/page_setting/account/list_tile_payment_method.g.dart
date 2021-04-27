@@ -28,7 +28,7 @@ class ListTilePaymentMethod extends StatelessWidget {
   /// jcb: "/static/img/jcb-logo.png",
   /// mastercard: "/static/img/mastarcard-logo.png",
   /// visa: "/static/img/visa-logo.png"
-  final BasePaymentMethod paymentMethod;
+  final PaymentMethod paymentMethod;
 
   @override
   Widget build(BuildContext _context) =>

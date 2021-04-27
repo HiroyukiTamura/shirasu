@@ -62,6 +62,11 @@ class _$SnackMsgTearOff {
   _SnackMsgFcmPermissionDenied fcmPermissionDenied() {
     return const _SnackMsgFcmPermissionDenied();
   }
+
+// ignore: unused_element
+  _SnackMsgReviewDeleted reviewDeleted() {
+    return const _SnackMsgReviewDeleted();
+  }
 }
 
 /// @nodoc
@@ -82,6 +87,7 @@ mixin _$SnackMsg {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -95,6 +101,7 @@ mixin _$SnackMsg {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -109,6 +116,7 @@ mixin _$SnackMsg {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -122,6 +130,7 @@ mixin _$SnackMsg {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   });
 }
@@ -190,6 +199,7 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -201,6 +211,7 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return unknown();
   }
 
@@ -217,6 +228,7 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -239,6 +251,7 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -250,6 +263,7 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return unknown(this);
   }
 
@@ -266,6 +280,7 @@ class _$_SnackMsgUnknownErr extends _SnackMsgUnknownErr {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -330,6 +345,7 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -341,6 +357,7 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return noMoreItem();
   }
 
@@ -357,6 +374,7 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -379,6 +397,7 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -390,6 +409,7 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return noMoreItem(this);
   }
 
@@ -406,6 +426,7 @@ class _$_SnackMsgNoMoreItem extends _SnackMsgNoMoreItem {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -470,6 +491,7 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -481,6 +503,7 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return cantOpenUrl();
   }
 
@@ -497,6 +520,7 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -519,6 +543,7 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -530,6 +555,7 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return cantOpenUrl(this);
   }
 
@@ -546,6 +572,7 @@ class _$_SnackMsgCantOpenurl extends _SnackMsgCantOpenurl {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -610,6 +637,7 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -621,6 +649,7 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return urlCopied();
   }
 
@@ -637,6 +666,7 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -659,6 +689,7 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -670,6 +701,7 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return urlCopied(this);
   }
 
@@ -686,6 +718,7 @@ class _$_SnackMsgUrlCopied extends _SnackMsgUrlCopied {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -753,6 +786,7 @@ class _$_SnackMsgNetworkDisconnected extends _SnackMsgNetworkDisconnected {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -764,6 +798,7 @@ class _$_SnackMsgNetworkDisconnected extends _SnackMsgNetworkDisconnected {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return networkDisconnected();
   }
 
@@ -780,6 +815,7 @@ class _$_SnackMsgNetworkDisconnected extends _SnackMsgNetworkDisconnected {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -802,6 +838,7 @@ class _$_SnackMsgNetworkDisconnected extends _SnackMsgNetworkDisconnected {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -813,6 +850,7 @@ class _$_SnackMsgNetworkDisconnected extends _SnackMsgNetworkDisconnected {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return networkDisconnected(this);
   }
 
@@ -829,6 +867,7 @@ class _$_SnackMsgNetworkDisconnected extends _SnackMsgNetworkDisconnected {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -893,6 +932,7 @@ class _$_SnackMsgNetworkTimeout extends _SnackMsgNetworkTimeout {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -904,6 +944,7 @@ class _$_SnackMsgNetworkTimeout extends _SnackMsgNetworkTimeout {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return networkTimeout();
   }
 
@@ -920,6 +961,7 @@ class _$_SnackMsgNetworkTimeout extends _SnackMsgNetworkTimeout {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -942,6 +984,7 @@ class _$_SnackMsgNetworkTimeout extends _SnackMsgNetworkTimeout {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -953,6 +996,7 @@ class _$_SnackMsgNetworkTimeout extends _SnackMsgNetworkTimeout {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return networkTimeout(this);
   }
 
@@ -969,6 +1013,7 @@ class _$_SnackMsgNetworkTimeout extends _SnackMsgNetworkTimeout {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1033,6 +1078,7 @@ class _$_SnackMsgFcmSubscribe extends _SnackMsgFcmSubscribe {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -1044,6 +1090,7 @@ class _$_SnackMsgFcmSubscribe extends _SnackMsgFcmSubscribe {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return fcmSubscribe();
   }
 
@@ -1060,6 +1107,7 @@ class _$_SnackMsgFcmSubscribe extends _SnackMsgFcmSubscribe {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1082,6 +1130,7 @@ class _$_SnackMsgFcmSubscribe extends _SnackMsgFcmSubscribe {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -1093,6 +1142,7 @@ class _$_SnackMsgFcmSubscribe extends _SnackMsgFcmSubscribe {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return fcmSubscribe(this);
   }
 
@@ -1109,6 +1159,7 @@ class _$_SnackMsgFcmSubscribe extends _SnackMsgFcmSubscribe {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1173,6 +1224,7 @@ class _$_SnackMsgFcmUnsubscribe extends _SnackMsgFcmUnsubscribe {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -1184,6 +1236,7 @@ class _$_SnackMsgFcmUnsubscribe extends _SnackMsgFcmUnsubscribe {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return fcmUnsubscribe();
   }
 
@@ -1200,6 +1253,7 @@ class _$_SnackMsgFcmUnsubscribe extends _SnackMsgFcmUnsubscribe {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1222,6 +1276,7 @@ class _$_SnackMsgFcmUnsubscribe extends _SnackMsgFcmUnsubscribe {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -1233,6 +1288,7 @@ class _$_SnackMsgFcmUnsubscribe extends _SnackMsgFcmUnsubscribe {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return fcmUnsubscribe(this);
   }
 
@@ -1249,6 +1305,7 @@ class _$_SnackMsgFcmUnsubscribe extends _SnackMsgFcmUnsubscribe {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1314,6 +1371,7 @@ class _$_SnackMsgLoginInputInvalid extends _SnackMsgLoginInputInvalid {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -1325,6 +1383,7 @@ class _$_SnackMsgLoginInputInvalid extends _SnackMsgLoginInputInvalid {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return loginInputInvalid();
   }
 
@@ -1341,6 +1400,7 @@ class _$_SnackMsgLoginInputInvalid extends _SnackMsgLoginInputInvalid {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1363,6 +1423,7 @@ class _$_SnackMsgLoginInputInvalid extends _SnackMsgLoginInputInvalid {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -1374,6 +1435,7 @@ class _$_SnackMsgLoginInputInvalid extends _SnackMsgLoginInputInvalid {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return loginInputInvalid(this);
   }
 
@@ -1390,6 +1452,7 @@ class _$_SnackMsgLoginInputInvalid extends _SnackMsgLoginInputInvalid {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1457,6 +1520,7 @@ class _$_SnackMsgFcmPermissionDenied extends _SnackMsgFcmPermissionDenied {
     @required TResult fcmUnsubscribe(),
     @required TResult loginInputInvalid(),
     @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -1468,6 +1532,7 @@ class _$_SnackMsgFcmPermissionDenied extends _SnackMsgFcmPermissionDenied {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return fcmPermissionDenied();
   }
 
@@ -1484,6 +1549,7 @@ class _$_SnackMsgFcmPermissionDenied extends _SnackMsgFcmPermissionDenied {
     TResult fcmUnsubscribe(),
     TResult loginInputInvalid(),
     TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1506,6 +1572,7 @@ class _$_SnackMsgFcmPermissionDenied extends _SnackMsgFcmPermissionDenied {
     @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
   }) {
     assert(unknown != null);
     assert(noMoreItem != null);
@@ -1517,6 +1584,7 @@ class _$_SnackMsgFcmPermissionDenied extends _SnackMsgFcmPermissionDenied {
     assert(fcmUnsubscribe != null);
     assert(loginInputInvalid != null);
     assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
     return fcmPermissionDenied(this);
   }
 
@@ -1533,6 +1601,7 @@ class _$_SnackMsgFcmPermissionDenied extends _SnackMsgFcmPermissionDenied {
     TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
     TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
     TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1546,4 +1615,150 @@ class _$_SnackMsgFcmPermissionDenied extends _SnackMsgFcmPermissionDenied {
 abstract class _SnackMsgFcmPermissionDenied extends SnackMsg {
   const _SnackMsgFcmPermissionDenied._() : super._();
   const factory _SnackMsgFcmPermissionDenied() = _$_SnackMsgFcmPermissionDenied;
+}
+
+/// @nodoc
+abstract class _$SnackMsgReviewDeletedCopyWith<$Res> {
+  factory _$SnackMsgReviewDeletedCopyWith(_SnackMsgReviewDeleted value,
+          $Res Function(_SnackMsgReviewDeleted) then) =
+      __$SnackMsgReviewDeletedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$SnackMsgReviewDeletedCopyWithImpl<$Res>
+    extends _$SnackMsgCopyWithImpl<$Res>
+    implements _$SnackMsgReviewDeletedCopyWith<$Res> {
+  __$SnackMsgReviewDeletedCopyWithImpl(_SnackMsgReviewDeleted _value,
+      $Res Function(_SnackMsgReviewDeleted) _then)
+      : super(_value, (v) => _then(v as _SnackMsgReviewDeleted));
+
+  @override
+  _SnackMsgReviewDeleted get _value => super._value as _SnackMsgReviewDeleted;
+}
+
+/// @nodoc
+class _$_SnackMsgReviewDeleted extends _SnackMsgReviewDeleted {
+  const _$_SnackMsgReviewDeleted() : super._();
+
+  @override
+  String toString() {
+    return 'SnackMsg.reviewDeleted()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _SnackMsgReviewDeleted);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult unknown(),
+    @required TResult noMoreItem(),
+    @required TResult cantOpenUrl(),
+    @required TResult urlCopied(),
+    @required TResult networkDisconnected(),
+    @required TResult networkTimeout(),
+    @required TResult fcmSubscribe(),
+    @required TResult fcmUnsubscribe(),
+    @required TResult loginInputInvalid(),
+    @required TResult fcmPermissionDenied(),
+    @required TResult reviewDeleted(),
+  }) {
+    assert(unknown != null);
+    assert(noMoreItem != null);
+    assert(cantOpenUrl != null);
+    assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
+    assert(fcmSubscribe != null);
+    assert(fcmUnsubscribe != null);
+    assert(loginInputInvalid != null);
+    assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
+    return reviewDeleted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult unknown(),
+    TResult noMoreItem(),
+    TResult cantOpenUrl(),
+    TResult urlCopied(),
+    TResult networkDisconnected(),
+    TResult networkTimeout(),
+    TResult fcmSubscribe(),
+    TResult fcmUnsubscribe(),
+    TResult loginInputInvalid(),
+    TResult fcmPermissionDenied(),
+    TResult reviewDeleted(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (reviewDeleted != null) {
+      return reviewDeleted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult unknown(_SnackMsgUnknownErr value),
+    @required TResult noMoreItem(_SnackMsgNoMoreItem value),
+    @required TResult cantOpenUrl(_SnackMsgCantOpenurl value),
+    @required TResult urlCopied(_SnackMsgUrlCopied value),
+    @required TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    @required TResult networkTimeout(_SnackMsgNetworkTimeout value),
+    @required TResult fcmSubscribe(_SnackMsgFcmSubscribe value),
+    @required TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
+    @required TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
+    @required TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    @required TResult reviewDeleted(_SnackMsgReviewDeleted value),
+  }) {
+    assert(unknown != null);
+    assert(noMoreItem != null);
+    assert(cantOpenUrl != null);
+    assert(urlCopied != null);
+    assert(networkDisconnected != null);
+    assert(networkTimeout != null);
+    assert(fcmSubscribe != null);
+    assert(fcmUnsubscribe != null);
+    assert(loginInputInvalid != null);
+    assert(fcmPermissionDenied != null);
+    assert(reviewDeleted != null);
+    return reviewDeleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult unknown(_SnackMsgUnknownErr value),
+    TResult noMoreItem(_SnackMsgNoMoreItem value),
+    TResult cantOpenUrl(_SnackMsgCantOpenurl value),
+    TResult urlCopied(_SnackMsgUrlCopied value),
+    TResult networkDisconnected(_SnackMsgNetworkDisconnected value),
+    TResult networkTimeout(_SnackMsgNetworkTimeout value),
+    TResult fcmSubscribe(_SnackMsgFcmSubscribe value),
+    TResult fcmUnsubscribe(_SnackMsgFcmUnsubscribe value),
+    TResult loginInputInvalid(_SnackMsgLoginInputInvalid value),
+    TResult fcmPermissionDenied(_SnackMsgFcmPermissionDenied value),
+    TResult reviewDeleted(_SnackMsgReviewDeleted value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (reviewDeleted != null) {
+      return reviewDeleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SnackMsgReviewDeleted extends SnackMsg {
+  const _SnackMsgReviewDeleted._() : super._();
+  const factory _SnackMsgReviewDeleted() = _$_SnackMsgReviewDeleted;
 }

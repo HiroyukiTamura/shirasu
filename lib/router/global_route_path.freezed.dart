@@ -64,6 +64,13 @@ class _$GlobalRoutePathTearOff {
   _PathDataPreLogin preLogin() {
     return const _PathDataPreLogin();
   }
+
+// ignore: unused_element
+  _PathDataEditReview editReview(String programId) {
+    return _PathDataEditReview(
+      programId,
+    );
+  }
 }
 
 /// @nodoc
@@ -83,6 +90,7 @@ mixin _$GlobalRoutePath {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -95,6 +103,7 @@ mixin _$GlobalRoutePath {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -108,6 +117,7 @@ mixin _$GlobalRoutePath {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -120,6 +130,7 @@ mixin _$GlobalRoutePath {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   });
 }
@@ -189,6 +200,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -199,6 +211,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return intro();
   }
 
@@ -214,6 +227,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -235,6 +249,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -245,6 +260,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return intro(this);
   }
 
@@ -260,6 +276,7 @@ class _$_PathDataIntro implements _PathDataIntro {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -355,6 +372,7 @@ class _$PathDataError implements PathDataError {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -365,6 +383,7 @@ class _$PathDataError implements PathDataError {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return error(showLoginBtn, errText);
   }
 
@@ -380,6 +399,7 @@ class _$PathDataError implements PathDataError {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -401,6 +421,7 @@ class _$PathDataError implements PathDataError {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -411,6 +432,7 @@ class _$PathDataError implements PathDataError {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return error(this);
   }
 
@@ -426,6 +448,7 @@ class _$PathDataError implements PathDataError {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -517,6 +540,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -527,6 +551,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return channel(channelId);
   }
 
@@ -542,6 +567,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -563,6 +589,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -573,6 +600,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return channel(this);
   }
 
@@ -588,6 +616,7 @@ class _$_PathDataChannel implements _PathDataChannel {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -677,6 +706,7 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -687,6 +717,7 @@ class _$PathDataProgram implements PathDataProgram {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return program(programId);
   }
 
@@ -702,6 +733,7 @@ class _$PathDataProgram implements PathDataProgram {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -723,6 +755,7 @@ class _$PathDataProgram implements PathDataProgram {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -733,6 +766,7 @@ class _$PathDataProgram implements PathDataProgram {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return program(this);
   }
 
@@ -748,6 +782,7 @@ class _$PathDataProgram implements PathDataProgram {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -814,6 +849,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -824,6 +860,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return ossLicense();
   }
 
@@ -839,6 +876,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -860,6 +898,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -870,6 +909,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return ossLicense(this);
   }
 
@@ -885,6 +925,7 @@ class _$_PathDataOssLicense implements _PathDataOssLicense {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -947,6 +988,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -957,6 +999,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return imgLicense();
   }
 
@@ -972,6 +1015,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -993,6 +1037,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1003,6 +1048,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return imgLicense(this);
   }
 
@@ -1018,6 +1064,7 @@ class _$_PathDataImgLicense implements _PathDataImgLicense {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1080,6 +1127,7 @@ class _$_PathDataFcm implements _PathDataFcm {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1090,6 +1138,7 @@ class _$_PathDataFcm implements _PathDataFcm {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return fcm();
   }
 
@@ -1105,6 +1154,7 @@ class _$_PathDataFcm implements _PathDataFcm {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1126,6 +1176,7 @@ class _$_PathDataFcm implements _PathDataFcm {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1136,6 +1187,7 @@ class _$_PathDataFcm implements _PathDataFcm {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return fcm(this);
   }
 
@@ -1151,6 +1203,7 @@ class _$_PathDataFcm implements _PathDataFcm {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1213,6 +1266,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1223,6 +1277,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return auth();
   }
 
@@ -1238,6 +1293,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1259,6 +1315,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1269,6 +1326,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return auth(this);
   }
 
@@ -1284,6 +1342,7 @@ class _$_PathDataAuth implements _PathDataAuth {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1346,6 +1405,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     @required TResult fcm(),
     @required TResult auth(),
     @required TResult preLogin(),
+    @required TResult editReview(String programId),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1356,6 +1416,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return preLogin();
   }
 
@@ -1371,6 +1432,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     TResult fcm(),
     TResult auth(),
     TResult preLogin(),
+    TResult editReview(String programId),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1392,6 +1454,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     @required TResult fcm(_PathDataFcm value),
     @required TResult auth(_PathDataAuth value),
     @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
   }) {
     assert(intro != null);
     assert(error != null);
@@ -1402,6 +1465,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     assert(fcm != null);
     assert(auth != null);
     assert(preLogin != null);
+    assert(editReview != null);
     return preLogin(this);
   }
 
@@ -1417,6 +1481,7 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
     TResult fcm(_PathDataFcm value),
     TResult auth(_PathDataAuth value),
     TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1429,6 +1494,172 @@ class _$_PathDataPreLogin implements _PathDataPreLogin {
 
 abstract class _PathDataPreLogin implements GlobalRoutePath {
   const factory _PathDataPreLogin() = _$_PathDataPreLogin;
+}
+
+/// @nodoc
+abstract class _$PathDataEditReviewCopyWith<$Res> {
+  factory _$PathDataEditReviewCopyWith(
+          _PathDataEditReview value, $Res Function(_PathDataEditReview) then) =
+      __$PathDataEditReviewCopyWithImpl<$Res>;
+  $Res call({String programId});
+}
+
+/// @nodoc
+class __$PathDataEditReviewCopyWithImpl<$Res>
+    extends _$GlobalRoutePathCopyWithImpl<$Res>
+    implements _$PathDataEditReviewCopyWith<$Res> {
+  __$PathDataEditReviewCopyWithImpl(
+      _PathDataEditReview _value, $Res Function(_PathDataEditReview) _then)
+      : super(_value, (v) => _then(v as _PathDataEditReview));
+
+  @override
+  _PathDataEditReview get _value => super._value as _PathDataEditReview;
+
+  @override
+  $Res call({
+    Object programId = freezed,
+  }) {
+    return _then(_PathDataEditReview(
+      programId == freezed ? _value.programId : programId as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_PathDataEditReview implements _PathDataEditReview {
+  const _$_PathDataEditReview(this.programId) : assert(programId != null);
+
+  @override
+  final String programId;
+
+  @override
+  String toString() {
+    return 'GlobalRoutePath.editReview(programId: $programId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PathDataEditReview &&
+            (identical(other.programId, programId) ||
+                const DeepCollectionEquality()
+                    .equals(other.programId, programId)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(programId);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PathDataEditReviewCopyWith<_PathDataEditReview> get copyWith =>
+      __$PathDataEditReviewCopyWithImpl<_PathDataEditReview>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult intro(),
+    @required TResult error(bool showLoginBtn, String errText),
+    @required TResult channel(String channelId),
+    @required TResult program(String programId),
+    @required TResult ossLicense(),
+    @required TResult imgLicense(),
+    @required TResult fcm(),
+    @required TResult auth(),
+    @required TResult preLogin(),
+    @required TResult editReview(String programId),
+  }) {
+    assert(intro != null);
+    assert(error != null);
+    assert(channel != null);
+    assert(program != null);
+    assert(ossLicense != null);
+    assert(imgLicense != null);
+    assert(fcm != null);
+    assert(auth != null);
+    assert(preLogin != null);
+    assert(editReview != null);
+    return editReview(programId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult intro(),
+    TResult error(bool showLoginBtn, String errText),
+    TResult channel(String channelId),
+    TResult program(String programId),
+    TResult ossLicense(),
+    TResult imgLicense(),
+    TResult fcm(),
+    TResult auth(),
+    TResult preLogin(),
+    TResult editReview(String programId),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (editReview != null) {
+      return editReview(programId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult intro(_PathDataIntro value),
+    @required TResult error(PathDataError value),
+    @required TResult channel(_PathDataChannel value),
+    @required TResult program(PathDataProgram value),
+    @required TResult ossLicense(_PathDataOssLicense value),
+    @required TResult imgLicense(_PathDataImgLicense value),
+    @required TResult fcm(_PathDataFcm value),
+    @required TResult auth(_PathDataAuth value),
+    @required TResult preLogin(_PathDataPreLogin value),
+    @required TResult editReview(_PathDataEditReview value),
+  }) {
+    assert(intro != null);
+    assert(error != null);
+    assert(channel != null);
+    assert(program != null);
+    assert(ossLicense != null);
+    assert(imgLicense != null);
+    assert(fcm != null);
+    assert(auth != null);
+    assert(preLogin != null);
+    assert(editReview != null);
+    return editReview(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult intro(_PathDataIntro value),
+    TResult error(PathDataError value),
+    TResult channel(_PathDataChannel value),
+    TResult program(PathDataProgram value),
+    TResult ossLicense(_PathDataOssLicense value),
+    TResult imgLicense(_PathDataImgLicense value),
+    TResult fcm(_PathDataFcm value),
+    TResult auth(_PathDataAuth value),
+    TResult preLogin(_PathDataPreLogin value),
+    TResult editReview(_PathDataEditReview value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (editReview != null) {
+      return editReview(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PathDataEditReview implements GlobalRoutePath {
+  const factory _PathDataEditReview(String programId) = _$_PathDataEditReview;
+
+  String get programId;
+  @JsonKey(ignore: true)
+  _$PathDataEditReviewCopyWith<_PathDataEditReview> get copyWith;
 }
 
 /// @nodoc

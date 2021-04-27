@@ -44,6 +44,8 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
 
   const factory SnackMsg.fcmPermissionDenied() = _SnackMsgFcmPermissionDenied;
 
+  const factory SnackMsg.reviewDeleted() = _SnackMsgReviewDeleted;
+
   const SnackMsg._();
 
   @override
@@ -58,5 +60,6 @@ abstract class SnackMsg with _$SnackMsg, NotificationMsg {
         fcmSubscribe: () => Strings.SNACK_FCM_SUBSCRIBE,
         loginInputInvalid: () => Strings.SNACK_ERR_INVALID_AUTH_INPUT,
         fcmPermissionDenied: () => Strings.SNACK_ERR_FCM_PERMISSION,
+        reviewDeleted: () => Strings.SNACK_ACTION_DELETE_REVIEW,
       );
 }

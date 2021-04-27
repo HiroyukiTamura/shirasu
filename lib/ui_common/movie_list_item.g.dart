@@ -12,7 +12,7 @@ class MovieListItem extends StatelessWidget {
       @required this.id,
       @required this.title,
       @required this.broadcastAt,
-      @required this.onTap})
+      this.onTap})
       : super(key: key);
 
   final String id;
@@ -29,15 +29,10 @@ class MovieListItem extends StatelessWidget {
 }
 
 class MovieListBigItem extends StatelessWidget {
-  const MovieListBigItem(
-      {Key key, @required this.program, @required this.onTap})
-      : super(key: key);
+  const MovieListBigItem({Key key, @required this.program}) : super(key: key);
 
   final BaseProgram program;
 
-  final void Function() onTap;
-
   @override
-  Widget build(BuildContext _context) =>
-      movieListBigItem(program: program, onTap: onTap);
+  Widget build(BuildContext _context) => movieListBigItem(program: program);
 }

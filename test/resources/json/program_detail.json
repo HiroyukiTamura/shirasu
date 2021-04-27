@@ -14,7 +14,7 @@
       "broadcastAt": "2020-10-27T10:00:00.000Z",
       "detail": "ゲンロンαにイベントの無料レポート記事を掲載しています。ぜひお読みください。\n（標準語ver.）https://genron-alpha.com/article20201107_01/\n（関西弁ver.）https://genron-alpha.com/article20201107_02/\n\n無料ダイジェスト動画はこちら！\nhttps://youtu.be/obAc-Rcf4YA\n\n☆ 当番組のご購入・ご視聴は、2021年4月28日正午まで可能です。\n\n※ 生放送された番組は、放送終了後から半年間、アーカイブ動画（録画）として番組を公開しています。放送終了後も、番組の単独購入は可能です。\n\n■\n\n『ゲンロン11』好評販売中！！\n特設サイト： https://genron-tomonokai.com/genron11\nゲンロンショップ ： https://genron.co.jp/shop/products/detail/487\nAmazon： https://amzn.to/3nqK09z\n\n■\n\n東浩紀による『ゲンロン11』の巻頭論文「悪の愚かさについて２、あるいは原発事故と中動態の記憶」。\n同論考は國分功一郎氏の『中動態の世界』と『原子力時代における哲学』を重要な参照項としつつ、\n「加害の無意味さ」を記憶することの重要性を訴えている。\n\n同論考を読んだ國分氏から申し出をいただき、ふたりの対談が実現した。\n対談は約3年ぶり。\n『新対話篇』に収録された前回は、ポリティカル・コレクトネスを越えた普遍的な「正義」が話題の中心となった。\n\n『中動態の世界』で被害者の側から中動態を考え、\n『原子力時代における哲学』で原子力を乗り越える哲学をハイデガーに見出した國分氏。\n彼は東の問題提起をどう受け取ったのか。\n哲学の臨界に位置する「愚かさ」について、ふたりの哲学者が徹底的に語り合う。\n\n※ 放送のみ（会場は無観客）のイベントです。\n\n\n哲学にとって愚かさとはなにか – ゲンロンカフェ\nhttps://genron-cafe.jp/event/20201027/",
       "mainTime": 19200,
-      "previewTime": 0,
+      "previewTime": 1800,
       "release": true,
       "tags": [
         "ゲンロンカフェ（思想）",
@@ -79,7 +79,32 @@
         "__typename": "Channel"
       },
       "handouts": {
-        "items": [],
+        "items": [
+          {
+            "id": "13ad0ace-a948-4612-86be-aaaaaaaa",
+            "programId": "genron-genron-20201025",
+            "extensionId": null,
+            "name": "DUMMY.pdf",
+            "createdAt": "2020-10-25T16:09:27.795Z",
+            "__typename": "Handout"
+          },
+          {
+            "id": "13ad0ace-a948-4612-86be-dc5bf517c992",
+            "programId": "genron-genron-20201025",
+            "extensionId": "genron-genron-20201025:extension002",
+            "name": "20201019シラス開設記念.pdf",
+            "createdAt": "2020-10-25T16:09:27.795Z",
+            "__typename": "Handout"
+          },
+          {
+            "id": "b1caf637-7ffd-4df7-9ce3-e02cfb09c87d",
+            "programId": "genron-genron-20201025",
+            "extensionId": "genron-genron-20201025:extension001",
+            "name": "シラス_桂_20201025.pdf",
+            "createdAt": "2020-10-25T13:55:19.328Z",
+            "__typename": "Handout"
+          }
+        ],
         "nextToken": null,
         "__typename": "ModelHandoutConnection"
       },

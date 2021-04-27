@@ -68,13 +68,13 @@ class _TestRunner extends TestRunnerBase {
                       widget.isThreeLine &&
                       (widget.title as Text).data == 'シラス_桂_20201025.pdf'),
                   findsOneWidget);
-              expect(
-                  find.byWidgetPredicate((widget) =>
-                      widget is ListTile &&
-                      !widget.enabled &&
-                      widget.isThreeLine &&
-                      (widget.title as Text).data == '20201019シラス開設記念.pdf'),
-                  findsOneWidget);
+              // expect(
+              //     find.byWidgetPredicate((widget) =>
+              //         widget is ListTile &&
+              //         !widget.enabled &&
+              //         widget.isThreeLine &&
+              //         (widget.title as Text).data == '20201019シラス開設記念.pdf'),
+              //     findsOneWidget);
             });
       });
 }

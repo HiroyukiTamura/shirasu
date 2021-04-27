@@ -4,6 +4,7 @@ import 'package:shirasu/resource/styles.dart';
 import 'package:shirasu/resource/font_size.dart';
 
 class TextHeight {
+  static const TEXT_H_DETAIL = 1.7;
   static const TEXT_HEIGHT = 1.3;
   static const TEXT_H_SML = 1.2;
   static const double TEXT_H_SINGLE = 1;

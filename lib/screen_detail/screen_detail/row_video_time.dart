@@ -4,6 +4,7 @@ import 'package:shirasu/resource/strings.dart';
 import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/screen_detail/screen_detail/padding_row.dart';
 import 'package:dartx/dartx.dart';
+import 'package:shirasu/extension.dart';
 
 class RowVideoTime extends StatelessWidget {
   RowVideoTime({
@@ -29,8 +30,8 @@ class RowVideoTime extends StatelessWidget {
   /// todo need logic for the video has ended or not
   /// [mainTime] must be positive.
   static String _genText(DateTime broadcastAt, int mainTime) {
-    final startStr = DateFormat('yyyy/MM/dd HH:mm').format(broadcastAt);
-    final endTime = broadcastAt + mainTime.seconds;
+    final startStr = broadcastAt.formatLocalYmdHm();
+    final endTime = broadcastAt.toLocal() + mainTime.seconds;
     final endStr = DateFormat('HH:mm').format(endTime);
     var text =
         '$startStr${Strings.TIME_PREFIX_START} $endStr${Strings.TIME_PREFIX_END}';

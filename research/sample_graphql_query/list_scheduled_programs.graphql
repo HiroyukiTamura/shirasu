@@ -1,0 +1,32 @@
+query ListScheduledPrograms($dateFrom: AWSDateTime!, $days: Int!, $isSubscribedOnly: Boolean, $nextToken: String) {
+    schedule: listScheduledPrograms(
+        dateFrom: $dateFrom
+        days: $days
+        filter: {isSubscribedOnly: $isSubscribedOnly}
+        nextToken: $nextToken
+    ) {
+        items {
+            channel {
+                id
+                name
+                __typename
+            }
+            programs {
+                broadcastAt
+                channelId
+                id
+                mainTime
+                releasedAt
+                releasedAt
+                tenantId
+                title
+                totalPlayTime
+                viewerPlanType
+                __typename
+            }
+            __typename
+        }
+        nextToken
+        __typename
+    }
+}

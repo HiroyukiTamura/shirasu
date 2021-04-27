@@ -1,7 +1,6 @@
 import 'dart:collection';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/resource/dimens.dart';
 import 'package:shirasu/resource/strings.dart';
@@ -10,6 +9,7 @@ import 'package:shirasu/screen_channel/screen_channel.dart';
 import 'package:shirasu/ui_common/common_linkify.dart';
 import 'package:shirasu/ui_common/page_error.dart';
 import 'package:shirasu/viewmodel/message_notifier.dart';
+import 'package:shirasu/extension.dart';
 
 class PageNotification extends StatelessWidget {
   const PageNotification({
@@ -45,7 +45,7 @@ class PageNotification extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          DateFormat('yyyy/MM/dd HH:mm').format(item.publishedAt),
+          item.publishedAt.formatLocalYmdHm(),
           style: TextStyles.CHANNEL_TIME,
         ),
         const SizedBox(height: 4),

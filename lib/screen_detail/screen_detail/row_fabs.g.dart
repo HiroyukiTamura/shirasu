@@ -55,7 +55,8 @@ class _Fab extends StatelessWidget {
   const _Fab(
       {Key key,
       @required this.icon,
-      this.iconColor = Colors.black,
+      this.iconColor,
+      this.iconSize = 24,
       this.fabColor,
       this.onPressed})
       : super(key: key);
@@ -64,14 +65,17 @@ class _Fab extends StatelessWidget {
 
   final Color iconColor;
 
+  final double iconSize;
+
   final Color fabColor;
 
   final void Function() onPressed;
 
   @override
-  Widget build(BuildContext _context) => _fab(
+  Widget build(BuildContext _context) => _fab(_context,
       icon: icon,
       iconColor: iconColor,
+      iconSize: iconSize,
       fabColor: fabColor,
       onPressed: onPressed);
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:intl/intl.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -9,6 +8,7 @@ import 'package:shirasu/resource/text_styles.dart';
 import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
+import 'package:shirasu/extension.dart';
 
 part 'billboard_expanded.g.dart';
 
@@ -101,7 +101,7 @@ class BillboardExpanded extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           Text(
-            DateFormat('yyyy/MM/dd HH:mm').format(item.broadcastAt),
+            item.broadcastAt.formatLocalYmdHm(),
             style: TextStyles.DASHBOARD_BILLBOARD_DATETIME,
           ),
         ],

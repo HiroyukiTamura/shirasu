@@ -9,7 +9,7 @@ part of 'stacked_inkwell.dart';
 /// to overlay ripple effect to image, stack [InkWell] and its child
 class StackedInkWell extends StatelessWidget {
   /// to overlay ripple effect to image, stack [InkWell] and its child
-  const StackedInkWell({Key key, @required this.child, @required this.onTap})
+  const StackedInkWell({Key key, @required this.child, this.onTap})
       : super(key: key);
 
   /// to overlay ripple effect to image, stack [InkWell] and its child

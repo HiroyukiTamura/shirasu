@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:shirasu/model/graphql/list_subscribed_programs.dart';
+import 'package:shirasu/model/graphql/remove_review_data.dart';
 import 'package:shirasu/repository/graphql_repository.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
 import 'package:shirasu/model/graphql/detail_program_data.dart';
@@ -11,6 +12,7 @@ import 'package:shirasu/model/graphql/viewer.dart';
 import 'package:shirasu/model/graphql/watch_history_data.dart';
 import 'package:shirasu/model/update_user_with_attr_variable.dart';
 import 'package:shirasu/model/update_user_with_attribute_data.dart';
+import 'package:shirasu/model/graphql/review.dart';
 
 abstract class GraphqlAllin implements GraphQlRepository {
   const GraphqlAllin();
@@ -77,4 +79,16 @@ abstract class GraphqlAllin implements GraphQlRepository {
   @override
   Future<ListSubscribedPrograms> querySubscribedProgramsList() async =>
       process<ListSubscribedPrograms>();
+
+  @override
+  Future<ReviewData> postReview({
+    @required String programId,
+    @required String text,
+  }) async =>
+      process<ReviewData>();
+
+  @override
+  Future<RemoveReviewData> deleteReview({
+    @required String reviewId,
+  }) async => process<RemoveReviewData>();
 }

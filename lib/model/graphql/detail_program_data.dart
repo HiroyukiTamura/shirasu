@@ -9,6 +9,7 @@ import 'package:shirasu/model/graphql/mixins/video_type.dart';
 import 'package:dartx/dartx.dart';
 import 'package:shirasu/extension.dart';
 import 'package:shirasu/model/graphql/channel_data.dart';
+import 'package:shirasu/model/graphql/review.dart';
 
 part 'detail_program_data.freezed.dart';
 
@@ -48,9 +49,9 @@ abstract class ProgramDetail
     @required @JsonKey(name: 'tags') @protected List<String> rawTags,
     @required String title,
     @required int totalPlayTime,
+
     /// use [viewerPlanTypeStrict]
-    @protected
-    String viewerPlanType,
+    @protected String viewerPlanType,
     bool isExtensionChargedToSubscribers,
     DateTime archivedAt,
     @required String releaseState,
@@ -66,6 +67,9 @@ abstract class ProgramDetail
     @protected
     @JsonKey(name: 'onetimePlans')
         List<OnetimePlan> rawOnetimePlans,
+    @required Reviews reviews,
+    MyReview myReview,
+    ReviewsItem focusedReview,
     @required @JsonKey(name: '__typename') String typename,
   }) = _ProgramDetail;
 
@@ -99,9 +103,11 @@ abstract class ProgramDetail
     if (lastExtensionIndex != -1)
       return _lastArchivedExtensionPrgItem(lastExtensionIndex);
 
+    // todo is good logic??
     final isMainVideoAvailable =
         onetimePlanMain?.viewerPurchasedPlan?.isActive == true ||
-            (onetimePlanMain?.parentPlanTypeStrict == const PlanType.subscription() &&
+            (onetimePlanMain?.parentPlanTypeStrict ==
+                    const PlanType.subscription() &&
                 viewerPlanTypeStrict == const PlanType.subscription());
     return isMainVideoAvailable ? mainPrgItem : null;
   }

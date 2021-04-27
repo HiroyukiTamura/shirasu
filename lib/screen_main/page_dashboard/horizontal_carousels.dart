@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:intl/intl.dart';
 import 'package:shirasu/repository/url_util.dart';
 import 'package:shirasu/model/graphql/featured_programs_data.dart';
 import 'package:shirasu/resource/dimens.dart';
@@ -13,6 +12,7 @@ import 'package:shirasu/ui_common/custom_cached_network_image.dart';
 import 'package:shirasu/ui_common/stacked_inkwell.dart';
 import 'package:shirasu/util.dart';
 import 'package:shirasu/util/types.dart';
+import 'package:shirasu/extension.dart';
 
 part 'horizontal_carousels.g.dart';
 
@@ -166,7 +166,7 @@ Widget _horizontalCarouselDetailCaption(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            DateFormat('yyyy/MM/dd HH:mm').format(conf.broadcastAt),
+            conf.broadcastAt.formatLocalYmdHm(),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: TextStyles.s13TextHSingle(
@@ -188,6 +188,7 @@ Widget _horizontalCarouselDetailCaption(
               CircleCachedNetworkImage(
                 imageUrl: UrlUtil.getChannelLogoUrl(conf.channelId),
                 size: 20,
+                errorWidget: Util.defaultChannelIcon,
               ),
               const SizedBox(width: 8),
               Expanded(

@@ -41,7 +41,7 @@ export class FirestoreRepositoryImpl implements FirestoreRepository {
     let fcmMsgDataList: FcmQue[] = [];
     await this.db.runTransaction(async (t) => {
       const snapshot = await t.get(this.collection
-          .where("broadcastAt", "<", Date())
+          .where("broadcastAt", "<", Date.now())
           .where("status", "==", FcmQueStatus.NONE));
       for (const doc of snapshot.docs)
         await t.update(doc.ref, "status", FcmQueStatus.MESSAGING);

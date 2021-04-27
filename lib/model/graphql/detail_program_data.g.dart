@@ -68,6 +68,15 @@ _$_ProgramDetail _$_$_ProgramDetailFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : OnetimePlan.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    reviews: json['reviews'] == null
+        ? null
+        : Reviews.fromJson(json['reviews'] as Map<String, dynamic>),
+    myReview: json['myReview'] == null
+        ? null
+        : MyReview.fromJson(json['myReview'] as Map<String, dynamic>),
+    focusedReview: json['focusedReview'] == null
+        ? null
+        : ReviewsItem.fromJson(json['focusedReview'] as Map<String, dynamic>),
     typename: json['__typename'] as String,
   );
 }
@@ -99,6 +108,9 @@ Map<String, dynamic> _$_$_ProgramDetailToJson(_$_ProgramDetail instance) =>
       'handouts': instance.handouts,
       'videos': instance.videos,
       'onetimePlans': instance.rawOnetimePlans,
+      'reviews': instance.reviews,
+      'myReview': instance.myReview,
+      'focusedReview': instance.focusedReview,
       '__typename': instance.typename,
     };
 

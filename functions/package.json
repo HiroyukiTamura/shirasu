@@ -29,7 +29,7 @@
     "isomorphic-fetch": "^3.0.0",
     "joi": "^17.4.0",
     "moment": "^2.29.1",
-    "react": "^17.0.2"
+    "react": "^18.1.0"
   },
   "devDependencies": {
     "@types/algoliasearch": "^4.0.0",
@@ -39,7 +39,7 @@
     "@types/hapi__joi": "^17.1.6",
     "@types/isomorphic-fetch": "^0.0.35",
     "@types/mocha": "^8.2.2",
-    "@types/react": "^17.0.3",
+    "@types/react": "^18.0.12",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "chai": "^4.3.4",

@@ -22,7 +22,7 @@
     "encoding-japanese": "^1.0.30",
     "firebase-admin": "^11.0.1",
     "firebase-functions": "^3.11.0",
-    "fp-ts": "^2.12.1",
+    "fp-ts": "^2.12.2",
     "graphql": "^15.5.0",
     "iconv-lite": "^0.6.3",
     "io-ts": "^2.2.17",
